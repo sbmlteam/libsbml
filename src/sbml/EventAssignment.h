@@ -186,31 +186,17 @@
  * Doxygen's @copydetails command has limited functionality.  Symbols
  * beginning with "doc_" are marked as ignored in our Doxygen configuration.
  * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
- * 
- * @class doc_note_eventassignment_setting_lv
- * 
- * @note Upon the addition of a EventAssignment object to an SBMLDocument
- * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)), 
- * the SBML Level, SBML Version and XML namespace of the document @em
- * override the values used when creating the EventAssignment object via
- * this constructor.  This is necessary to ensure that an SBML document
- * is a consistent structure.  Nevertheless, the ability to supply the
- * values at the time of creation of a EventAssignment is an important
- * aid to producing valid SBML.  Knowledge of the intented SBML Level and
- * Version determine whether it is valid to assign a particular value to
- * an attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
  *
  * @class doc_eventassignment_units
  *
  * @par
-
  * The units are calculated based on the mathematical expression in the
  * EventAssignment and the model quantities referenced by
  * <code>&lt;ci&gt;</code> elements used within that expression.  The method
  * EventAssignment::getDerivedUnitDefinition() returns the calculated units,
  * to the extent that libSBML can compute them.
  *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_eventassignment_math_literals
  * 
  * @warning Note that it is possible the "math" expression in the
@@ -227,6 +213,7 @@
  * this situation holds</strong>.  Callers should take suitable action in
  * those situations.
  *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_eventassignment_units
  *
  * @par
@@ -236,6 +223,7 @@
  * EventAssignment::getDerivedUnitDefinition() returns the calculated units,
  * to the extent that libSBML can compute them.
  *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_warning_eventassignment_math_literals
  * 
  * @warning <span class="warning">Note that it is possible the "math"
@@ -294,7 +282,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_eventassignment_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   EventAssignment (unsigned int level, unsigned int version);
 
@@ -312,7 +300,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_eventassignment_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   EventAssignment (SBMLNamespaces* sbmlns);
 
@@ -417,8 +405,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    */
   int setVariable (const std::string& sid);
 
@@ -434,8 +422,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
    */
   int setMath (const ASTNode* math);
 
@@ -607,35 +595,13 @@ public:
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML.
-   *
-   * @copydetails doc_what_is_sidref
-   * 
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Renames all the @c UnitSIdRef attributes on this element.
-   *
-   * @copydetails doc_what_is_unitsidref
-   *
-   * This method works by looking at all unit identifier attribute values
-   * (including, if appropriate, inside mathematical formulas), comparing the
-   * unit identifiers to the value of @p oldid.  If any matches are found,
-   * the matching identifiers are replaced with @p newid.  The method does
-   * @em not descend into child elements.
-   * 
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renameunitsidref_common
    */
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
@@ -1100,8 +1066,8 @@ EventAssignment_isSetMath (const EventAssignment_t *ea);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "variable" attribute.
@@ -1126,8 +1092,8 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
  * @memberof EventAssignment_t
  */

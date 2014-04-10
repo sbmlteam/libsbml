@@ -203,7 +203,7 @@ public:
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
    * following values:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    */
   virtual int setDocument(const SBMLDocument* doc);
 
@@ -219,7 +219,7 @@ public:
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
    * following values:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    */
   virtual int setDocument(SBMLDocument* doc);
 
@@ -240,8 +240,8 @@ public:
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
    * following values:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @see getProperties()
    * @see matchesProperties(@if java ConversionProperties props@endif)

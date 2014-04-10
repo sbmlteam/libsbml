@@ -2,7 +2,7 @@
  * @file    Model.h
  * @brief   Definition of Model.
  * @author  Ben Bornstein
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -104,7 +104,7 @@
  * multiple mechanisms are provided by libSBML for flexibility and to
  * support different use-cases, but they also have different implications
  * for the overall model structure.
- * 
+ *
  * In general, the recommended approach is to use the <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods.  These
  * methods both create an object @em and link it to the parent in one step.
@@ -202,7 +202,7 @@ Species sp = model.createSpecies();
 sp.setId("MySpecies");
 @endverbatim
  * @endif@~
- * 
+ *
  * The <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods return a
  * pointer to the object created, but they also add the object to the
@@ -246,7 +246,7 @@ sp.setId("MySpecies");
  * SBMLDocument::checkConsistency() before writing out the final version of
  * an SBML model.
  *
- * 
+ *
  * @section model-l3-attrib Model attributes introduced in SBML Level&nbsp;3
  *
  * As mentioned above, the Model class has a number of optional attributes
@@ -268,14 +268,14 @@ sp.setId("MySpecies");
  * values then have <em>no</em> declared units for their quantities.  The
  * SBML Level&nbsp;3 Version&nbsp;1 Core specification provides more
  * details.
- * 
+ *
  * Note that when the identifier of a species appears in a model's
  * mathematical expressions, the unit of measurement associated with that
  * identifier is <em>not solely determined</em> by setting "substanceUnits"
  * on Model or Species.  Please see the discussion about units given in
  * the documentation for the Species class.
- * 
- * 
+ *
+ *
  * @subsection model-l3-timeunits The "timeUnits" attribute
  *
  * The "timeUnits" attribute on SBML Level&nbsp;3's Model object is used to
@@ -292,7 +292,7 @@ sp.setId("MySpecies");
  * however, as a matter of best practice, we strongly recommend that all
  * models specify units of measurement for time.
  *
- * 
+ *
  * @subsection model-l3-voletc The "volumeUnits", "areaUnits", and "lengthUnits" attributes
  *
  * The attributes "volumeUnits", "areaUnits" and "lengthUnits" together are
@@ -306,7 +306,7 @@ sp.setId("MySpecies");
  * value of @c "1".  The attributes are not applicable to compartments
  * whose "spatialDimensions" attribute values are @em not one of @c "1", @c
  * "2" or @c "3".
- * 
+ *
  * If a given Compartment object instance does not provide a value for its
  * "units" attribute, then the unit of measurement of that compartment's
  * size is inherited from the value specified by the Model "volumeUnits",
@@ -316,14 +316,14 @@ sp.setId("MySpecies");
  * to inherit, and all Compartment objects that do not set a value for
  * their "units" attribute then have <em>no</em> units associated with
  * their compartment sizes.
- * 
+ *
  * The use of three separate attributes is a carry-over from SBML
  * Level&nbsp;2.  Note that it is entirely possible for a model to define a
  * value for two or more of the attributes "volumeUnits", "areaUnits" and
  * "lengthUnits" simultaneously, because SBML models may contain
  * compartments with different numbers of dimensions.
  *
- * 
+ *
  * @subsection model-l3-extentunits The "extentUnits" attribute
  *
  * Reactions are processes that occur over time.  These processes involve
@@ -334,20 +334,20 @@ sp.setId("MySpecies");
  * the extent gives the instantaneous rate at which the reaction is
  * occurring.  Thus, what is colloquially referred to as the "rate of the
  * reaction" is in fact equal to the rate of change of reaction extent.
- * 
+ *
  * In SBML Level&nbsp;3, the combination of "extentUnits" and "timeUnits"
  * defines the units of kinetic laws in SBML and establishes how the
  * numerical value of each KineticLaw object's mathematical formula is
  * meant to be interpreted in a model.  The units of the kinetic laws are
  * taken to be "extentUnits" divided by "timeUnits".
- * 
+ *
  * Note that this embodies an important principle in SBML Level&nbsp;3
  * models: <em>all reactions in an SBML model must have the same units</em>
  * for the rate of change of extent.  In other words, the units of all
  * reaction rates in the model <em>must be the same</em>.  There is only
  * one global value for "extentUnits" and one global value for "timeUnits".
  *
- * 
+ *
  * @subsection model-l3-convfactor The "conversionFactor" attribute
  *
  * The attribute "conversionFactor" in SBML Level&nbsp;3's Model object
@@ -357,7 +357,7 @@ sp.setId("MySpecies");
  * defined in the model.  The Parameter object in question must be a
  * constant; ie it must have its "constant" attribute value set to @c
  * "true".
- * 
+ *
  * If a given Species object definition does not specify a conversion
  * factor via the "conversionFactor" attribute on Species, then the species
  * inherits the conversion factor specified by the Model "conversionFactor"
@@ -375,19 +375,36 @@ sp.setId("MySpecies");
  * beginning with "doc_" are marked as ignored in our Doxygen configuration.
  * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
  *
- * @class doc_note_model_setting_lv
- * 
- * @note Upon the addition of a Model object to an SBMLDocument
- * (e.g., using SBMLDocument::setModel(@if java Model m@endif)), the SBML Level, SBML Version
- * and XML namespace of the document @em override the values used
- * when creating the Model object via this constructor.  This is
- * necessary to ensure that an SBML document is a consistent structure.
- * Nevertheless, the ability to supply the values at the time of creation
- * of a Model is an important aid to producing valid SBML.  Knowledge
- * of the intented SBML Level and Version determine whether it is valid
- * to assign a particular value to an attribute, or whether it is valid
- * to add an object to an existing SBMLDocument.
+ * @class doc_how_added_last_reaction_irrelevant
  *
+ * @par
+ * The mechanism by which the last Reaction object was created and added
+ * to this Model is not significant.  It could have been created in a
+ * variety of ways, for example using createReaction().  If a Reaction
+ * does not exist for this model, a new SpeciesReference is @em not
+ * created and @c NULL is returned instead.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_how_added_last_kineticlaw_irrelevant
+ *
+ * @par
+ * The last KineticLaw object in this Model could have been created in a
+ * variety of ways.  For example, it could have been added using
+ * createKineticLaw(), or it could be the result of using
+ * Reaction::createKineticLaw() on the Reaction object created by a
+ * createReaction().  If a Reaction does not exist for this model, or the
+ * last Reaction does not contain a KineticLaw object, a new Parameter is
+ * @em not created and @c NULL is returned instead.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_how_added_last_event_irrelevant
+ *
+ * @par
+ * The mechanism by which the last Event object in this model was created
+ * is not significant.  It could have been created in a variety of ways,
+ * for example by using createEvent().  If no Event object exists in this
+ * Model object, a new EventAssignment is @em not created and @c NULL is
+ * returned instead.
  */
 
 #ifndef Model_h
@@ -454,7 +471,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_model_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   Model (unsigned int level, unsigned int version);
 
@@ -463,7 +480,7 @@ public:
    * Creates a new Model using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * @copydetails doc_what_are_sbmlnamespaces 
+   * @copydetails doc_what_are_sbmlnamespaces
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -472,7 +489,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_model_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   Model (SBMLNamespaces* sbmlns);
 
@@ -487,7 +504,7 @@ public:
    * Copy constructor; creates a (deep) copy of the given Model object.
    *
    * @param orig the object to copy.
-   * 
+   *
    * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
@@ -518,46 +535,57 @@ public:
 
   /**
    * Creates and returns a deep copy of this Model object.
-   * 
+   *
    * @return a (deep) copy of this Model.
    */
   virtual Model* clone () const;
 
 
   /**
-   * Returns the first child element found that has the given @p id in the
-   * model-wide SId namespace, or @c NULL if no such object is found.
+   * Returns the first child element found that has the given @p id.
    *
-   * @param id string representing the id of objects to find.
+   * This operation searches the model-wide <code>SId</code> identifier
+   * type namespace
    *
-   * @return pointer to the first element found with the given @p id.
+   * @param id string representing the id of the object to find.
+   *
+   * @return pointer to the first element found with the given @p id, or @c
+   * NULL if no such object is found.
    */
   virtual SBase* getElementBySId(const std::string& id);
-  
-  
+
+
   /**
-   * Returns the first child element it can find with the given @p metaid, or
+   * Returns the first child element it can find with the given @p metaid.
+   *
+   * @param metaid string representing the meta-identifier of the object to
+   * find.
+   *
+   * @return pointer to the first element found with the given @p metaid, or
    * NULL if no such object is found.
-   *
-   * @param metaid string representing the metaid of objects to find
-   *
-   * @return pointer to the first element found with the given @p metaid.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
-  
-  
+
+
   /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth
+   * Returns a List of all child objects.
+   *
+   * This returns all child objects nested to an arbitrary depth.  If an
+   * optional element filter is provided, only those objects for which the
+   * @p filter's <code>filter()</code> method returns true will be added to 
+   * the list.
+   *
+   * @param filter optional filter to apply to objects before putting them
+   * into the list to be returned.
    *
    * @return a List* of pointers to all children objects.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
-  
-  
+
+
   /**
    * Returns the value of the "id" attribute of this Model.
-   * 
+   *
    * @return the id of this Model.
    */
   virtual const std::string& getId () const;
@@ -565,7 +593,7 @@ public:
 
   /**
    * Returns the value of the "name" attribute of this Model.
-   * 
+   *
    * @return the name of this Model.
    */
   virtual const std::string& getName () const;
@@ -573,7 +601,7 @@ public:
 
   /**
    * Returns the value of the "substanceUnits" attribute of this Model.
-   * 
+   *
    * @return the substanceUnits of this Model.
    *
    * @note The "substanceUnits" attribute is available in
@@ -584,7 +612,7 @@ public:
 
   /**
    * Returns the value of the "timeUnits" attribute of this Model.
-   * 
+   *
    * @return the timeUnits of this Model.
    *
    * @note The "timeUnits" attribute is available in 
@@ -595,7 +623,7 @@ public:
 
   /**
    * Returns the value of the "volumeUnits" attribute of this Model.
-   * 
+   *
    * @return the volumeUnits of this Model.
    *
    * @note The "volumeUnits" attribute is available in 
@@ -606,7 +634,7 @@ public:
 
   /**
    * Returns the value of the "areaUnits" attribute of this Model.
-   * 
+   *
    * @return the areaUnits of this Model.
    *
    * @note The "areaUnits" attribute is available in 
@@ -617,7 +645,7 @@ public:
 
   /**
    * Returns the value of the "lengthUnits" attribute of this Model.
-   * 
+   *
    * @return the lengthUnits of this Model.
    *
    * @note The "lengthUnits" attribute is available in 
@@ -628,7 +656,7 @@ public:
 
   /**
    * Returns the value of the "extentUnits" attribute of this Model.
-   * 
+   *
    * @return the extentUnits of this Model.
    *
    * @note The "extentUnits" attribute is available in 
@@ -639,7 +667,7 @@ public:
 
   /**
    * Returns the value of the "conversionFactor" attribute of this Model.
-   * 
+   *
    * @return the conversionFactor of this Model.
    *
    * @note The "conversionFactor" attribute is available in 
@@ -771,8 +799,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    */
   virtual int setId (const std::string& sid);
 
@@ -787,8 +815,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    */
   virtual int setName (const std::string& name);
 
@@ -803,10 +831,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "substanceUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -823,10 +851,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "timeUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -843,10 +871,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "volumeUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -863,10 +891,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "areaUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -883,10 +911,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "lengthUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -903,10 +931,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "extentUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -923,10 +951,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
    * @note The "conversionFactor" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -939,8 +967,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetId ();
 
@@ -951,8 +979,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int unsetName ();
 
@@ -963,9 +991,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "substanceUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -978,9 +1006,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "timeUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -993,9 +1021,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "volumeUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -1008,10 +1036,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "areaUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -1024,10 +1052,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "lengthUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -1040,10 +1068,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "extentUnits" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -1056,10 +1084,10 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @note The "conversionFactor" attribute is available in 
    * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
@@ -1074,13 +1102,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createFunctionDefinition()
@@ -1096,13 +1124,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createUnitDefinition()
@@ -1118,13 +1146,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @note The CompartmentType object class is only available in SBML
@@ -1144,13 +1172,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @note The SpeciesType object class is only available in SBML
@@ -1170,12 +1198,12 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @copydetails doc_note_object_is_copied 
    *
@@ -1192,13 +1220,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createSpecies()
@@ -1214,13 +1242,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createParameter()
@@ -1236,13 +1264,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createInitialAssignment()
@@ -1258,13 +1286,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createAlgebraicRule()
@@ -1282,12 +1310,12 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createConstraint()
@@ -1303,13 +1331,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createReaction()
@@ -1325,13 +1353,13 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * 
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
    * @copydetails doc_note_object_is_copied 
    *
    * @see createEvent()
@@ -1556,11 +1584,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Reaction object was created and added
-   * to this Model is not significant.  It could have been created in a
-   * variety of ways, for example using createReaction().  If a Reaction
-   * does not exist for this model, a new SpeciesReference is @em not
-   * created and @c NULL is returned instead.
+   * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created
    */
@@ -1575,11 +1599,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Reaction object was created and added
-   * to this Model is not significant.  It could have been created in a
-   * variety of ways, for example using createReaction().  If a Reaction
-   * does not exist for this model, a new SpeciesReference is @em not
-   * created and @c NULL is returned instead.
+   * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created
    */
@@ -1595,11 +1615,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Reaction object was created and added
-   * to this Model is not significant.  It could have been created in a
-   * variety of ways, for example using createReaction().  If a Reaction
-   * does not exist for this model, a new ModifierSpeciesReference is @em
-   * not created and @c NULL is returned instead.
+   * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the SpeciesReference object created
    */
@@ -1614,12 +1630,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Reaction object was created and added
-   * to this Model is not significant.  It could have been created in a
-   * variety of ways, for example using createReaction().  If a Reaction
-   * does not exist for this model, or a Reaction exists but already has a
-   * KineticLaw, a new KineticLaw is @em not created and @c NULL is returned
-   * instead.
+   * @copydetails doc_how_added_last_reaction_irrelevant
    *
    * @return the KineticLaw object created
    */
@@ -1634,13 +1645,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The last KineticLaw object in this Model could have been created in a
-   * variety of ways.  For example, it could have been added using
-   * createKineticLaw(), or it could be the result of using
-   * Reaction::createKineticLaw() on the Reaction object created by a
-   * createReaction().  If a Reaction does not exist for this model, or the
-   * last Reaction does not contain a KineticLaw object, a new Parameter is
-   * @em not created and @c NULL is returned instead.
+   * @copydetails doc_how_added_last_kineticlaw_irrelevant
    *
    * @return the Parameter object created
    */
@@ -1655,13 +1660,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The last KineticLaw object in this Model could have been created in a
-   * variety of ways.  For example, it could have been added using
-   * createKineticLaw(), or it could be the result of using
-   * Reaction::createKineticLaw() on the Reaction object created by a
-   * createReaction().  If a Reaction does not exist for this model, or the
-   * last Reaction does not contain a KineticLaw object, a new Parameter is
-   * @em not created and @c NULL is returned instead.
+   * @copydetails doc_how_added_last_kineticlaw_irrelevant
    *
    * @return the Parameter object created
    */
@@ -1688,11 +1687,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Event object in this model was created
-   * is not significant.  It could have been created in a variety of ways,
-   * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new EventAssignment is @em not created and @c NULL is
-   * returned instead.
+   * @copydetails doc_how_added_last_event_irrelevant
    *
    * @return the EventAssignment object created
    */
@@ -1707,11 +1702,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Event object in this model was created
-   * is not significant.  It could have been created in a variety of ways,
-   * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new Trigger is @em not created and @c NULL is
-   * returned instead.
+   * @copydetails doc_how_added_last_event_irrelevant
    *
    * @return the Trigger object created
    */
@@ -1726,11 +1717,7 @@ public:
    * any SBML package namespaces, are used to initialize this
    * object's corresponding attributes.
    *
-   * The mechanism by which the last Event object in this model was created
-   * is not significant.  It could have been created in a variety of ways,
-   * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new Delay is @em not created and @c NULL is
-   * returned instead.
+   * @copydetails doc_how_added_last_event_irrelevant
    *
    * @return the Delay object created
    */
@@ -1754,7 +1741,7 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    *
    * @see appendAnnotation(const XMLNode* annotation)
    */
@@ -1778,8 +1765,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @see appendAnnotation(const std::string& annotation)
    */
@@ -1800,8 +1787,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @see setAnnotation(const XMLNode* annotation)
    */
@@ -1822,8 +1809,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @see setAnnotation(const std::string& annotation)
    */
@@ -1832,7 +1819,7 @@ public:
 
   /**
    * Get the ListOfFunctionDefinitions object in this Model.
-   * 
+   *
    * @return the list of FunctionDefinitions for this Model.
    */
   const ListOfFunctionDefinitions* getListOfFunctionDefinitions () const;
@@ -1840,7 +1827,7 @@ public:
 
   /**
    * Get the ListOfFunctionDefinitions object in this Model.
-   * 
+   *
    * @return the list of FunctionDefinitions for this Model.
    */
   ListOfFunctionDefinitions* getListOfFunctionDefinitions ();
@@ -1848,7 +1835,7 @@ public:
 
   /**
    * Get the ListOfUnitDefinitions object in this Model.
-   * 
+   *
    * @return the list of UnitDefinitions for this Model.
    */
   const ListOfUnitDefinitions* getListOfUnitDefinitions () const;
@@ -1856,7 +1843,7 @@ public:
 
   /**
    * Get the ListOfUnitDefinitions object in this Model.
-   * 
+   *
    * @return the list of UnitDefinitions for this Model.
    */
   ListOfUnitDefinitions* getListOfUnitDefinitions ();
@@ -1864,7 +1851,7 @@ public:
 
   /**
    * Get the ListOfCompartmentTypes object in this Model.
-   * 
+   *
    * @return the list of CompartmentTypes for this Model.
    *
    * @note The CompartmentType object class is only available in SBML
@@ -1876,7 +1863,7 @@ public:
 
   /**
    * Get the ListOfCompartmentTypes object in this Model.
-   * 
+   *
    * @return the list of CompartmentTypes for this Model.
    *
    * @note The CompartmentType object class is only available in SBML
@@ -1888,7 +1875,7 @@ public:
 
   /**
    * Get the ListOfSpeciesTypes object in this Model.
-   * 
+   *
    * @return the list of SpeciesTypes for this Model.
    *
    * @note The SpeciesType object class is only available in SBML
@@ -1900,7 +1887,7 @@ public:
 
   /**
    * Get the ListOfSpeciesTypes object in this Model.
-   * 
+   *
    * @return the list of SpeciesTypes for this Model.
    *
    * @note The SpeciesType object class is only available in SBML
@@ -1912,7 +1899,7 @@ public:
 
   /**
    * Get the ListOfCompartments object in this Model.
-   * 
+   *
    * @return the list of Compartments for this Model.
    */
   const ListOfCompartments* getListOfCompartments () const;
@@ -1920,7 +1907,7 @@ public:
 
   /**
    * Get the ListOfCompartments object in this Model.
-   * 
+   *
    * @return the list of Compartments for this Model.
    */
   ListOfCompartments* getListOfCompartments ();
@@ -1928,7 +1915,7 @@ public:
 
   /**
    * Get the ListOfSpecies object in this Model.
-   * 
+   *
    * @return the list of Species for this Model.
    */
   const ListOfSpecies* getListOfSpecies () const;
@@ -1936,7 +1923,7 @@ public:
 
   /**
    * Get the ListOfSpecies object in this Model.
-   * 
+   *
    * @return the list of Species for this Model.
    */
   ListOfSpecies* getListOfSpecies ();
@@ -1944,7 +1931,7 @@ public:
 
   /**
    * Get the ListOfParameters object in this Model.
-   * 
+   *
    * @return the list of Parameters for this Model.
    */
   const ListOfParameters* getListOfParameters () const;
@@ -1952,7 +1939,7 @@ public:
 
   /**
    * Get the ListOfParameters object in this Model.
-   * 
+   *
    * @return the list of Parameters for this Model.
    */
   ListOfParameters* getListOfParameters ();
@@ -1960,7 +1947,7 @@ public:
 
   /**
    * Get the ListOfInitialAssignments object in this Model.
-   * 
+   *
    * @return the list of InitialAssignments for this Model.
    */
   const ListOfInitialAssignments* getListOfInitialAssignments () const;
@@ -1968,7 +1955,7 @@ public:
 
   /**
    * Get the ListOfInitialAssignments object in this Model.
-   * 
+   *
    * @return the list of InitialAssignment for this Model.
    */
   ListOfInitialAssignments* getListOfInitialAssignments ();
@@ -1976,7 +1963,7 @@ public:
 
   /**
    * Get the ListOfRules object in this Model.
-   * 
+   *
    * @return the list of Rules for this Model.
    */
   const ListOfRules* getListOfRules () const;
@@ -1984,7 +1971,7 @@ public:
 
   /**
    * Get the ListOfRules object in this Model.
-   * 
+   *
    * @return the list of Rules for this Model.
    */
   ListOfRules* getListOfRules ();
@@ -1992,7 +1979,7 @@ public:
 
   /**
    * Get the ListOfConstraints object in this Model.
-   * 
+   *
    * @return the list of Constraints for this Model.
    */
   const ListOfConstraints* getListOfConstraints () const;
@@ -2000,7 +1987,7 @@ public:
 
   /**
    * Get the ListOfConstraints object in this Model.
-   * 
+   *
    * @return the list of Constraints for this Model.
    */
   ListOfConstraints* getListOfConstraints ();
@@ -2008,7 +1995,7 @@ public:
 
   /**
    * Get the ListOfReactions object in this Model.
-   * 
+   *
    * @return the list of Reactions for this Model.
    */
   const ListOfReactions* getListOfReactions () const;
@@ -2016,7 +2003,7 @@ public:
 
   /**
    * Get the ListOfReactions object in this Model.
-   * 
+   *
    * @return the list of Reactions for this Model.
    */
   ListOfReactions* getListOfReactions ();
@@ -2024,7 +2011,7 @@ public:
 
   /**
    * Get the ListOfEvents object in this Model.
-   * 
+   *
    * @return the list of Events for this Model.
    */
   const ListOfEvents* getListOfEvents () const;
@@ -2032,7 +2019,7 @@ public:
 
   /**
    * Get the ListOfEvents object in this Model.
-   * 
+   *
    * @return the list of Events for this Model.
    */
   ListOfEvents* getListOfEvents ();
@@ -2040,7 +2027,9 @@ public:
 
   /**
    * Get the nth FunctionDefinitions object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth FunctionDefinition of this Model.
    */
   const FunctionDefinition* getFunctionDefinition (unsigned int n) const;
@@ -2048,7 +2037,9 @@ public:
 
   /**
    * Get the nth FunctionDefinitions object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth FunctionDefinition of this Model.
    */
   FunctionDefinition* getFunctionDefinition (unsigned int n);
@@ -2056,7 +2047,9 @@ public:
 
   /**
    * Get a FunctionDefinition object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the FunctionDefinition in this Model with the identifier
    * @p sid or @c NULL if no such FunctionDefinition exists.
    */
@@ -2066,7 +2059,9 @@ public:
 
   /**
    * Get a FunctionDefinition object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the FunctionDefinition in this Model with the identifier
    * @p sid or @c NULL if no such FunctionDefinition exists.
    */
@@ -2075,7 +2070,9 @@ public:
 
   /**
    * Get the nth UnitDefinition object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth UnitDefinition of this Model.
    */
   const UnitDefinition* getUnitDefinition (unsigned int n) const;
@@ -2083,7 +2080,9 @@ public:
 
   /**
    * Get the nth UnitDefinition object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth UnitDefinition of this Model.
    */
   UnitDefinition* getUnitDefinition (unsigned int n);
@@ -2091,7 +2090,9 @@ public:
 
   /**
    * Get a UnitDefinition based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the UnitDefinition in this Model with the identifier @p sid or
    * @c NULL if no such UnitDefinition exists.
    */
@@ -2100,7 +2101,9 @@ public:
 
   /**
    * Get a UnitDefinition based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the UnitDefinition in this Model with the identifier @p sid or
    * @c NULL if no such UnitDefinition exists.
    */
@@ -2109,7 +2112,9 @@ public:
 
   /**
    * Get the nth CompartmentType object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth CompartmentType of this Model.
    *
    * @note The CompartmentType object class is only available in SBML
@@ -2121,7 +2126,9 @@ public:
 
   /**
    * Get the nth CompartmentType object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth CompartmentType of this Model.
    *
    * @note The CompartmentType object class is only available in SBML
@@ -2133,7 +2140,9 @@ public:
 
   /**
    * Get a CompartmentType object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the CompartmentType in this Model with the identifier @p sid
    * or @c NULL if no such CompartmentType exists.
    *
@@ -2146,7 +2155,9 @@ public:
 
   /**
    * Get a CompartmentType object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the CompartmentType in this Model with the identifier @p sid
    * or @c NULL if no such CompartmentType exists.
    *
@@ -2159,7 +2170,9 @@ public:
 
   /**
    * Get the nth SpeciesType object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth SpeciesType of this Model.
    *
    * @note The SpeciesType object class is only available in SBML
@@ -2171,7 +2184,9 @@ public:
 
   /**
    * Get the nth SpeciesType object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth SpeciesType of this Model.
    *
    * @note The SpeciesType object class is only available in SBML
@@ -2183,7 +2198,9 @@ public:
 
   /**
    * Get a SpeciesType object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the SpeciesType in this Model with the identifier @p sid or
    * @c NULL if no such SpeciesType exists.
    *
@@ -2196,7 +2213,9 @@ public:
 
   /**
    * Get a SpeciesType object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the SpeciesType in this Model with the identifier @p sid or
    * @c NULL if no such SpeciesType exists.
    *
@@ -2209,7 +2228,9 @@ public:
 
   /**
    * Get the nth Compartment object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Compartment of this Model.
    */
   const Compartment* getCompartment (unsigned int n) const;
@@ -2217,7 +2238,9 @@ public:
 
   /**
    * Get the nth Compartment object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Compartment of this Model.
    */
   Compartment* getCompartment (unsigned int n);
@@ -2225,7 +2248,9 @@ public:
 
   /**
    * Get a Compartment object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Compartment in this Model with the identifier @p sid or
    * @c NULL if no such Compartment exists.
    */
@@ -2234,7 +2259,9 @@ public:
 
   /**
    * Get a Compartment object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Compartment in this Model with the identifier @p sid or
    * @c NULL if no such Compartment exists.
    */
@@ -2243,7 +2270,9 @@ public:
 
   /**
    * Get the nth Species object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Species of this Model.
    */
   const Species* getSpecies (unsigned int n) const;
@@ -2251,7 +2280,9 @@ public:
 
   /**
    * Get the nth Species object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Species of this Model.
    */
   Species* getSpecies (unsigned int n);
@@ -2259,7 +2290,9 @@ public:
 
   /**
    * Get a Species object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Species in this Model with the identifier @p sid or @c NULL
    * if no such Species exists.
    */
@@ -2268,7 +2301,9 @@ public:
 
   /**
    * Get a Species object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Species in this Model with the identifier @p sid or @c NULL
    * if no such Species exists.
    */
@@ -2277,7 +2312,9 @@ public:
 
   /**
    * Get the nth Parameter object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Parameter of this Model.
    */
   const Parameter* getParameter (unsigned int n) const;
@@ -2285,7 +2322,9 @@ public:
 
   /**
    * Get the nth Parameter object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Parameter of this Model.
    */
   Parameter* getParameter (unsigned int n);
@@ -2293,7 +2332,9 @@ public:
 
   /**
    * Get a Parameter object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Parameter in this Model with the identifier @p sid or @c NULL
    * if no such Parameter exists.
    */
@@ -2302,7 +2343,9 @@ public:
 
   /**
    * Get a Parameter object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Parameter in this Model with the identifier @p sid or @c NULL
    * if no such Parameter exists.
    */
@@ -2311,7 +2354,9 @@ public:
 
   /**
    * Get the nth InitialAssignment object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth InitialAssignment of this Model.
    */
   const InitialAssignment* getInitialAssignment (unsigned int n) const;
@@ -2319,7 +2364,9 @@ public:
 
   /**
    * Get the nth InitialAssignment object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth InitialAssignment of this Model.
    */
   InitialAssignment* getInitialAssignment (unsigned int n);
@@ -2328,49 +2375,58 @@ public:
   /**
    * Get an InitialAssignment object based on the symbol to which it
    * assigns a value.
-   * 
+   *
+   * @param symbol the symbol to search for.
+   *
    * @return the InitialAssignment in this Model with the given "symbol"
    * attribute value or @c NULL if no such InitialAssignment exists.
    */
   const InitialAssignment*
-  getInitialAssignment (const std::string& symbol) const;
-
-
- /**
-  * Get an InitialAssignment object based on the symbol to which it
-  * assigns a value.
-  *
-  * @return the InitialAssignment in this Model with the given "symbol"
-  * attribute value or @c NULL if no such InitialAssignment exists.
-  */
-  const InitialAssignment*
-    getInitialAssignmentBySymbol(const std::string& symbol) const;
-
+      getInitialAssignment (const std::string& symbol) const;
 
 
   /**
    * Get an InitialAssignment object based on the symbol to which it
    * assigns a value.
-   * 
+   *
+   * @param symbol the symbol to search for.
+   *
+   * @return the InitialAssignment in this Model with the given "symbol"
+   * attribute value or @c NULL if no such InitialAssignment exists.
+   */
+  const InitialAssignment*
+      getInitialAssignmentBySymbol(const std::string& symbol) const;
+
+
+  /**
+   * Get an InitialAssignment object based on the symbol to which it
+   * assigns a value.
+   *
+   * @param symbol the symbol to search for.
+   *
    * @return the InitialAssignment in this Model with the given "symbol"
    * attribute value or @c NULL if no such InitialAssignment exists.
    */
   InitialAssignment* getInitialAssignment (const std::string& symbol);
 
 
-
- /**
-  * Get an InitialAssignment object based on the symbol to which it
-  * assigns a value.
-  *
-  * @return the InitialAssignment in this Model with the given "symbol"
-  * attribute value or @c NULL if no such InitialAssignment exists.
-  */
+  /**
+   * Get an InitialAssignment object based on the symbol to which it
+   * assigns a value.
+   *
+   * @param symbol the symbol to search for.
+   *
+   * @return the InitialAssignment in this Model with the given "symbol"
+   * attribute value or @c NULL if no such InitialAssignment exists.
+   */
   InitialAssignment* getInitialAssignmentBySymbol(const std::string& symbol);
+
 
   /**
    * Get the nth Rule object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Rule of this Model.
    */
   const Rule* getRule (unsigned int n) const;
@@ -2378,7 +2434,9 @@ public:
 
   /**
    * Get the nth Rule object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Rule of this Model.
    */
   Rule* getRule (unsigned int n);
@@ -2386,7 +2444,9 @@ public:
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the variable to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
@@ -2395,33 +2455,42 @@ public:
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the variable to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
   Rule* getRule (const std::string& variable);
 
+
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   const Rule* getRuleByVariable(const std::string& variable) const;
 
 
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   Rule* getRuleByVariable(const std::string& variable);
 
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the variable to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
@@ -2430,7 +2499,9 @@ public:
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the variable to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
@@ -2439,7 +2510,9 @@ public:
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the symbol to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
@@ -2448,50 +2521,63 @@ public:
 
   /**
    * Get a Rule object based on the variable to which it assigns a value.
-   * 
+   *
+   * @param variable the variable to search for.
+   *
    * @return the Rule in this Model with the given "variable" attribute
    * value or @c NULL if no such Rule exists.
    */
   RateRule* getRateRule (const std::string& variable);
 
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   const AssignmentRule* getAssignmentRuleByVariable(const std::string& variable) const;
 
 
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   AssignmentRule* getAssignmentRuleByVariable(const std::string& variable);
 
 
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   const RateRule* getRateRuleByVariable(const std::string& variable) const;
 
 
   /**
-  * Get a Rule object based on the variable to which it assigns a value.
-  *
-  * @return the Rule in this Model with the given "variable" attribute
-  * value or @c NULL if no such Rule exists.
-  */
+   * Get a Rule object based on the variable to which it assigns a value.
+   *
+   * @param variable the variable to search for.
+   *
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or @c NULL if no such Rule exists.
+   */
   RateRule* getRateRuleByVariable(const std::string& variable);
+
 
   /**
    * Get the nth Constraint object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Constraint of this Model.
    */
   const Constraint* getConstraint (unsigned int n) const;
@@ -2499,7 +2585,9 @@ public:
 
   /**
    * Get the nth Constraint object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Constraint of this Model.
    */
   Constraint* getConstraint (unsigned int n);
@@ -2507,7 +2595,9 @@ public:
 
   /**
    * Get the nth Reaction object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Reaction of this Model.
    */
   const Reaction* getReaction (unsigned int n) const;
@@ -2515,7 +2605,9 @@ public:
 
   /**
    * Get the nth Reaction object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Reaction of this Model.
    */
   Reaction* getReaction (unsigned int n);
@@ -2523,7 +2615,9 @@ public:
 
   /**
    * Get a Reaction object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Reaction in this Model with the identifier @p sid or @c NULL
    * if no such Reaction exists.
    */
@@ -2532,7 +2626,9 @@ public:
 
   /**
    * Get a Reaction object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Reaction in this Model with the identifier @p sid or @c NULL
    * if no such Reaction exists.
    */
@@ -2541,7 +2637,9 @@ public:
 
   /**
    * Get a SpeciesReference object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the SpeciesReference in this Model with the identifier @p sid or @c NULL
    * if no such SpeciesReference exists.
    */
@@ -2550,7 +2648,9 @@ public:
 
   /**
    * Get a SpeciesReference object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the SpeciesReference in this Model with the identifier @p sid or @c NULL
    * if no such SpeciesReference exists.
    */
@@ -2559,7 +2659,9 @@ public:
 
   /**
    * Get a ModifierSpeciesReference object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the ModifierSpeciesReference in this Model with the 
    * identifier @p sid or @c NULL
    * if no such ModifierSpeciesReference exists.
@@ -2570,7 +2672,9 @@ public:
 
   /**
    * Get a ModifierSpeciesReference object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the ModifierSpeciesReference in this Model with the 
    * identifier @p sid or @c NULL
    * if no such ModifierSpeciesReference exists.
@@ -2581,7 +2685,9 @@ public:
 
   /**
    * Get the nth Event object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Event of this Model.
    */
   const Event* getEvent (unsigned int n) const;
@@ -2589,7 +2695,9 @@ public:
 
   /**
    * Get the nth Event object in this Model.
-   * 
+   *
+   * @param n the index of the object to return.
+   *
    * @return the nth Event of this Model.
    */
   Event* getEvent (unsigned int n);
@@ -2597,7 +2705,9 @@ public:
 
   /**
    * Get an Event object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Event in this Model with the identifier @p sid or @c NULL if
    * no such Event exists.
    */
@@ -2606,7 +2716,9 @@ public:
 
   /**
    * Get an Event object based on its identifier.
-   * 
+   *
+   * @param sid the identifier to search for.
+   *
    * @return the Event in this Model with the identifier @p sid or @c NULL if
    * no such Event exists.
    */
@@ -2615,7 +2727,7 @@ public:
 
   /**
    * Get the number of FunctionDefinition objects in this Model.
-   * 
+   *
    * @return the number of FunctionDefinitions in this Model.
    */
   unsigned int getNumFunctionDefinitions () const;
@@ -2623,7 +2735,7 @@ public:
 
   /**
    * Get the number of UnitDefinition objects in this Model.
-   * 
+   *
    * @return the number of UnitDefinitions in this Model.
    */
   unsigned int getNumUnitDefinitions () const;
@@ -2631,7 +2743,7 @@ public:
 
   /**
    * Get the number of CompartmentType objects in this Model.
-   * 
+   *
    * @return the number of CompartmentTypes in this Model.
    *
    * @note The CompartmentType object class is only available in SBML
@@ -2643,7 +2755,7 @@ public:
 
   /**
    * Get the number of SpeciesType objects in this Model.
-   * 
+   *
    * @return the number of SpeciesTypes in this Model.
    *
    * @note The SpeciesType object class is only available in SBML
@@ -2655,7 +2767,7 @@ public:
 
   /**
    * Get the number of Compartment objects in this Model.
-   * 
+   *
    * @return the number of Compartments in this Model.
    */
   unsigned int getNumCompartments () const;
@@ -2663,7 +2775,7 @@ public:
 
   /**
    * Get the number of Specie objects in this Model.
-   * 
+   *
    * @return the number of Species in this Model.
    */
   unsigned int getNumSpecies () const;
@@ -2681,7 +2793,7 @@ public:
 
   /**
    * Get the number of Parameter objects in this Model.
-   * 
+   *
    * @return the number of Parameters in this Model.  Parameters defined in
    * KineticLaws are not included.
    */
@@ -2690,7 +2802,7 @@ public:
 
   /**
    * Get the number of InitialAssignment objects in this Model.
-   * 
+   *
    * @return the number of InitialAssignments in this Model.
    */
   unsigned int getNumInitialAssignments () const;
@@ -2698,7 +2810,7 @@ public:
 
   /**
    * Get the number of Rule objects in this Model.
-   * 
+   *
    * @return the number of Rules in this Model.
    */
   unsigned int getNumRules () const;
@@ -2706,7 +2818,7 @@ public:
 
   /**
    * Get the number of Constraint objects in this Model.
-   * 
+   *
    * @return the number of Constraints in this Model.
    */
   unsigned int getNumConstraints () const;
@@ -2714,7 +2826,7 @@ public:
 
   /**
    * Get the number of Reaction objects in this Model.
-   * 
+   *
    * @return the number of Reactions in this Model.
    */
   unsigned int getNumReactions () const;
@@ -2722,76 +2834,52 @@ public:
 
   /**
    * Get the number of Event objects in this Model.
-   * 
+   *
    * @return the number of Events in this Model.
    */
   unsigned int getNumEvents () const;
 
 
   /**
-   * Finds this Model's parent SBMLDocument and calls setModel(NULL) on it,
-   * indirectly deleting itself.  Overridden from the SBase function since
-   * the parent is not a ListOf.
+   * Remove this Model from its parent SBMLDocument object.
+   *
+   * This works by finding this Model's parent SBMLDocument and then calling
+   * <code>setModel(NULL)</code> on it, indirectly deleting itself.
+   * Overridden from the SBase function since the parent is not a ListOf.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int removeFromParentAndDelete();
 
-  /** @cond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
   virtual int renameAllIds(IdentifierTransformer* idTransformer, ElementFilter* filter=NULL);
-  
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-  
   virtual void renameIDs(List* elements, IdentifierTransformer* idTransformer);
-
   /** @endcond */
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML.
-   *
-   * @copydetails doc_what_is_sidref
-   * 
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Renames all the @c UnitSIdRef attributes on this element.
-   *
-   * @copydetails doc_what_is_unitsidref
-   *
-   * This method works by looking at all unit identifier attribute values
-   * (including, if appropriate, inside mathematical formulas), comparing the
-   * unit identifiers to the value of @p oldid.  If any matches are found,
-   * the matching identifiers are replaced with @p newid.  The method does
-   * @em not descend into child elements.
-   * 
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renameunitsidref_common
    */
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Predicate returning @c true if the
    * given ASTNode is a boolean.
@@ -2800,11 +2888,10 @@ public:
    * isBoolean() method, but if the AST is an expression that calls a
    * function defined in the Model's ListOfFunctionDefinitions, the model
    * is needed for lookup context.
-   * 
+   *
    * @return true if the given ASTNode is a boolean.
    */
   bool isBoolean (const ASTNode* node) const;
-
   /** @endcond */
 
 
@@ -3011,7 +3098,7 @@ public:
 
   /**
    * Returns the libSBML type code for this %SBML object.
-   * 
+   *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
@@ -3028,14 +3115,13 @@ public:
   /**
    * Returns the XML element name of this object, which for Model, is
    * always @c "model".
-   * 
+   *
    * @return the name of this element, i.e., @c "model".
    */
   virtual const std::string& getElementName () const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the position of this element.
    *
@@ -3043,28 +3129,29 @@ public:
    * siblings or -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-
   /** @endcond */
 
 
   /**
-   * Populates the list of FormulaDataUnits with the units derived 
-   * for the model. The list contains elements of class
-   * FormulaUnitsData. 
+   * Populates the list of FormulaDataUnits with the units derived for this
+   * Model object.
    *
-   * The first element of the list refers to the default units
-   * of 'substance per time' derived from the model and has the
-   * unitReferenceId 'subs_per_time'. This facilitates the comparison of units
-   * derived from mathematical formula with the expected units.
-   * 
+   * The list contains elements of class FormulaUnitsData.  The first element
+   * of the list refers to the default units of 'substance per time' derived
+   * from the model and has the unitReferenceId 'subs_per_time'. This
+   * facilitates the comparison of units derived from mathematical formula
+   * with the expected units.
+   *
    * The next elements of the list record the units of the 
    * compartments and species established from either explicitly
    * declared or default units.
@@ -3085,7 +3172,7 @@ public:
   /**
    * Predicate returning @c true if 
    * the list of FormulaUnitsData is populated.
-   * 
+   *
    * @return @c true if the list of FormulaUnitsData is populated, 
    * @c false otherwise.
    */
@@ -3112,7 +3199,7 @@ public:
 
   /**
    * Get the nth FormulaUnitsData object in this Model.
-   * 
+   *
    * @return the nth FormulaUnitsData of this Model.
    */
   const FormulaUnitsData* getFormulaUnitsData (unsigned int n) const;
@@ -3120,7 +3207,7 @@ public:
 
   /**
    * Get the nth FormulaUnitsData object in this Model.
-   * 
+   *
    * @return the nth FormulaUnitsData of this Model.
    */
   FormulaUnitsData* getFormulaUnitsData (unsigned int n);
@@ -3128,7 +3215,7 @@ public:
 
   /**
    * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
-   * 
+   *
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * and the typecode (int) @p typecode or @c NULL
    * if no such FormulaUnitsData exists.
@@ -3142,13 +3229,13 @@ public:
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
    * derived from the math element of the AssignmentRule.
    */
-  const FormulaUnitsData* 
+  const FormulaUnitsData*
   getFormulaUnitsData (const std::string& sid, int typecode) const;
 
 
   /**
    * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
-   * 
+   *
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * and the typecode (int) @p typecode or @c NULL
    * if no such FormulaUnitsData exists.
@@ -3162,13 +3249,13 @@ public:
    * the other with typecode 'SBML_ASSIGNMENT_RULE' referring to the units
    * derived from the math element of the AssignmentRule.
    */
-  FormulaUnitsData* 
+  FormulaUnitsData*
   getFormulaUnitsData(const std::string& sid, int);
 
 
-  /*
+  /**
    * Get a FormulaUnitsData variable object based on its unitReferenceId.
-   * 
+   *
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * that corrsponds to a variable object or @c NULL
    * if no such FormulaUnitsData exists.
@@ -3176,13 +3263,13 @@ public:
    * @note  This function restricts the search to classes that can be varied
    * Species, Compartment, Parameter, SpeciesReference.
    */
-  FormulaUnitsData* 
+  FormulaUnitsData*
   getFormulaUnitsDataForVariable(const std::string& sid);
 
 
-  /*
+  /**
    * Get a FormulaUnitsData variable object based on its unitReferenceId.
-   * 
+   *
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
    * that corrsponds to a variable object or @c NULL
    * if no such FormulaUnitsData exists.
@@ -3190,13 +3277,13 @@ public:
    * @note  This function restricts the search to classes that can be varied
    * Species, Compartment, Parameter, SpeciesReference.
    */
-  FormulaUnitsData* 
+  FormulaUnitsData*
   getFormulaUnitsDataForAssignment(const std::string& sid);
 
 
   /**
    * Get the number of FormulaUnitsData objects in this Model.
-   * 
+   *
    * @return the number of FormulaUnitsData in this Model.
    */
   unsigned int getNumFormulaUnitsData () const;
@@ -3204,7 +3291,7 @@ public:
 
   /**
    * Get the list of FormulaUnitsData object in this Model.
-   * 
+   *
    * @return the list of FormulaUnitsData for this Model.
    */
   List* getListFormulaUnitsData ();
@@ -3212,7 +3299,7 @@ public:
 
   /**
    * Get the list of FormulaUnitsData object in this Model.
-   * 
+   *
    * @return the list of FormulaUnitsData for this Model.
    */
   const List* getListFormulaUnitsData () const;
@@ -3221,13 +3308,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required elements for this Model object
-   * have been set.
-   *
-   * @note The required elements for a Model object are:
-   * listOfCompartments (L1 only); listOfSpecies (L1V1 only);
-   * listOfReactions(L1V1 only)
+   * Predicate returning @c true if all the required elements for this Model
+   * object have been set.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -3243,9 +3325,8 @@ public:
    *
    * @param n the index of the FunctionDefinition object to remove
    *
-   * @return the FunctionDefinition object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the FunctionDefinition object removed, or @c NULL if the given
+   * index is out of range.
    *
    */
   FunctionDefinition* removeFunctionDefinition (unsigned int n);
@@ -3256,14 +3337,12 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the FunctionDefinition objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the FunctionDefinition object to remove
    *
-   * @return the FunctionDefinition object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no FunctionDefinition
-   * object with the identifier exists in this Model object.
+   * @return the FunctionDefinition object removed, or @c NULL if no
+   * FunctionDefinition object with the identifier exists in this Model
+   * object.
    */
   FunctionDefinition* removeFunctionDefinition (const std::string& sid);
 
@@ -3276,9 +3355,8 @@ public:
    *
    * @param n the index of the UnitDefinition object to remove
    *
-   * @return the UnitDefinition object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the UnitDefinition object removed., or @c NULL if the given
+   * index is out of range.
    *
    */
   UnitDefinition* removeUnitDefinition (unsigned int n);
@@ -3289,14 +3367,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the UnitDefinition objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the UnitDefinition object to remove
    *
-   * @return the UnitDefinition object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no UnitDefinition
-   * object with the identifier exists in this Model object.
+   * @return the UnitDefinition object removed, or @c NULL if no
+   * UnitDefinition object with the identifier exists in this Model object.
    */
   UnitDefinition* removeUnitDefinition (const std::string& sid);
 
@@ -3309,9 +3384,8 @@ public:
    *
    * @param n the index of the CompartmentType object to remove
    *
-   * @return the ComapartmentType object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the ComapartmentType object removed, or @c NULL if the given
+   * index is out of range.
    *
    */
   CompartmentType* removeCompartmentType (unsigned int n);
@@ -3322,14 +3396,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the CompartmentType objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the object to remove
    *
-   * @return the CompartmentType object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no CompartmentType
-   * object with the identifier exists in this Model object.
+   * @return the CompartmentType object removed, or @c NULL if no
+   * CompartmentType object with the identifier exists in this Model object.
    */
   CompartmentType* removeCompartmentType (const std::string& sid);
 
@@ -3342,9 +3413,8 @@ public:
    *
    * @param n the index of the SpeciesType object to remove
    *
-   * @return the SpeciesType object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the SpeciesType object removed, or @c NULL if the given index is
+   * out of range.
    *
    */
   SpeciesType* removeSpeciesType (unsigned int n);
@@ -3355,13 +3425,10 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the SpeciesType objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the SpeciesType object to remove
    *
-   * @return the SpeciesType object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no SpeciesType
+   * @return the SpeciesType object removed, or @c NULL if no SpeciesType
    * object with the identifier exists in this Model object.
    *
    */
@@ -3376,9 +3443,8 @@ public:
    *
    * @param n the index of the Compartment object to remove
    *
-   * @return the Compartment object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Compartment object removed, or @c NULL if the given index is
+   * out of range.
    *
    */
   Compartment* removeCompartment (unsigned int n);
@@ -3389,13 +3455,10 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Compartment objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the Compartment object to remove
    *
-   * @return the Compartment object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Compartment
+   * @return the Compartment object removed, or @c NULL if no Compartment
    * object with the identifier exists in this Model object.
    */
   Compartment* removeCompartment (const std::string& sid);
@@ -3409,9 +3472,8 @@ public:
    *
    * @param n the index of the Species object to remove
    *
-   * @return the Species object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Species object removed, or @c NULL if the given index is out
+   * of range.
    *
    */
   Species* removeSpecies (unsigned int n);
@@ -3422,14 +3484,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Species objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the Species object to remove
    *
-   * @return the Species object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Species
-   * object with the identifier exists in this Model object.
+   * @return the Species object removed, or @c NULL if no Species object with
+   * the identifier exists in this Model object.
    *
    */
   Species* removeSpecies (const std::string& sid);
@@ -3443,9 +3502,8 @@ public:
    *
    * @param n the index of the Parameter object to remove
    *
-   * @return the Parameter object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Parameter object removed, or @c NULL if the given index is
+   * out of range.
    *
    */
   Parameter* removeParameter (unsigned int n);
@@ -3456,14 +3514,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Parameter objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the Parameter object to remove
    *
-   * @return the Parameter object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Parameter
-   * object with the identifier exists in this Model object.
+   * @return the Parameter object removed, or @c NULL if no Parameter object
+   * with the identifier exists in this Model object.
    */
   Parameter* removeParameter (const std::string& sid);
 
@@ -3476,9 +3531,8 @@ public:
    *
    * @param n the index of the InitialAssignment object to remove
    *
-   * @return the InitialAssignment object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the InitialAssignment object removed, or @c NULL if the given
+   * index is out of range.
    *
    */
   InitialAssignment* removeInitialAssignment (unsigned int n);
@@ -3489,14 +3543,12 @@ public:
    * from this Model object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the InitialAssignment objects in this Model object have the
-   * "symbol" attribute @p symbol, then @c NULL is returned.
    *
    * @param symbol the "symbol" attribute of the InitialAssignment object to remove
    *
-   * @return the InitialAssignment object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no InitialAssignment
-   * object with the "symbol" attribute exists in this Model object.
+   * @return the InitialAssignment object removed, or @c NULL if no
+   * InitialAssignment object with the "symbol" attribute exists in this
+   * Model object.
    */
   InitialAssignment* removeInitialAssignment (const std::string& symbol);
 
@@ -3509,9 +3561,8 @@ public:
    *
    * @param n the index of the Rule object to remove
    *
-   * @return the Rule object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Rule object removed, or @c NULL if the given index is out of
+   * range.
    *
    */
   Rule* removeRule (unsigned int n);
@@ -3522,14 +3573,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Rule objects in this Model object have the "variable" attribute
-   * @p variable, then @c NULL is returned.
    *
    * @param variable the "variable" attribute of the Rule object to remove
    *
-   * @return the Rule object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Rule
-   * object with the "variable" attribute exists in this Model object.
+   * @return the Rule object removed, or @c NULL if no Rule object with the
+   * "variable" attribute exists in this Model object.
    */
   Rule* removeRule (const std::string& variable);
 
@@ -3542,9 +3590,8 @@ public:
    *
    * @param n the index of the Constraint object to remove
    *
-   * @return the Constraint object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Constraint object removed, or @c NULL if the given index is
+   * out of range.
    *
    */
   Constraint* removeConstraint (unsigned int n);
@@ -3558,9 +3605,8 @@ public:
    *
    * @param n the index of the Reaction object to remove
    *
-   * @return the Reaction object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Reaction object removed, or @c NULL if the given index is
+   * out of range.
    *
    */
   Reaction* removeReaction (unsigned int n);
@@ -3571,14 +3617,11 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Reaction objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the Reaction object to remove
    *
-   * @return the Reaction object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Reaction
-   * object with the identifier exists in this Model object.
+   * @return the Reaction object removed, or @c NULL if no Reaction object
+   * with the identifier exists in this Model object.
    *
    */
   Reaction* removeReaction (const std::string& sid);
@@ -3592,9 +3635,8 @@ public:
    *
    * @param n the index of the Event object to remove
    *
-   * @return the Event object removed.  As mentioned above, 
-   * the caller owns the returned item. @c NULL is returned if the given index 
-   * is out of range.
+   * @return the Event object removed, or @c NULL if the given index is out
+   * of range.
    *
    */
   Event* removeEvent (unsigned int n);
@@ -3605,25 +3647,24 @@ public:
    * object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Event objects in this Model object have the identifier 
-   * @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the Event object to remove
    *
-   * @return the Event object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if no Event
-   * object with the identifier exists in this Model object.
+   * @return the Event object removed, or @c NULL if no Event object with the
+   * identifier exists in this Model object.
    *
    */
   Event* removeEvent (const std::string& sid);
 
 
   /**
-   * Takes the contents of the passed-in Model, makes copies of everything,
-   * and appends those copies to the appropriate places in this Model.
+   * Copies a given Model object's subcomponents and appends the copies to
+   * the appropriate places in this Model.
    *
    * This method also calls the <code>appendFrom</code> method on all libSBML
-   * plug-in objects.&nbsp; @copydetails doc_what_are_plugins
+   * plug-in objects.
+   *
+   * @copydetails doc_what_are_plugins
    *
    * @param model the Model to merge with this one.
    *
@@ -3840,7 +3881,7 @@ Model_createWithNS (SBMLNamespaces_t *sbmlns);
  * Creates and returns a deep copy of a given Model_t structure.
  *
  * @param m the Model_t structure to copy
- * 
+ *
  * @return a (deep) copy of this Model_t structure.
  *
  * @memberof Model_t
@@ -3867,7 +3908,7 @@ Model_free (Model_t *m);
  * structure.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return pointer to the XMLNamespaces_t structure associated with 
  * this structure
  *
@@ -3882,7 +3923,7 @@ Model_getNamespaces(Model_t *m);
  * Get the identifier of the given Model_t structure.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the id of this Model_t structure.
  *
  * @memberof Model_t
@@ -3894,9 +3935,9 @@ Model_getId (const Model_t *m);
 
 /**
  * Get the name of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the name of this Model_t structure.
  *
  * @memberof Model_t
@@ -3908,9 +3949,9 @@ Model_getName (const Model_t *m);
 
 /**
  * Get the substanceUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the substanceUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3922,9 +3963,9 @@ Model_getSubstanceUnits (const Model_t *m);
 
 /**
  * Get the timeUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the timeUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3936,9 +3977,9 @@ Model_getTimeUnits (const Model_t *m);
 
 /**
  * Get the volumeUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the volumeUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3950,9 +3991,9 @@ Model_getVolumeUnits (const Model_t *m);
 
 /**
  * Get the areaUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the areaUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3964,9 +4005,9 @@ Model_getAreaUnits (const Model_t *m);
 
 /**
  * Get the lengthUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the lengthUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3978,9 +4019,9 @@ Model_getLengthUnits (const Model_t *m);
 
 /**
  * Get the extentUnits of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the extentUnits of this Model_t structure.
  *
  * @memberof Model_t
@@ -3992,9 +4033,9 @@ Model_getExtentUnits (const Model_t *m);
 
 /**
  * Get the conversionFactor of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the conversionFactor of this Model_t structure.
  *
  * @memberof Model_t
@@ -4007,9 +4048,9 @@ Model_getConversionFactor (const Model_t *m);
 /**
  * Predicate for testing whether the identifier of a given Model_t
  * structure is assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "id" attribute of this Model_t structure is 
  * set, zero (0) otherwise.
  *
@@ -4023,9 +4064,9 @@ Model_isSetId (const Model_t *m);
 /**
  * Predicate for testing whether the name of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "name" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4039,9 +4080,9 @@ Model_isSetName (const Model_t *m);
 /**
  * Predicate for testing whether the substanceUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "substanceUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4055,9 +4096,9 @@ Model_isSetSubstanceUnits (const Model_t *m);
 /**
  * Predicate for testing whether the timeUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "timeUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4071,9 +4112,9 @@ Model_isSetTimeUnits (const Model_t *m);
 /**
  * Predicate for testing whether the volumeUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "volumeUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4087,9 +4128,9 @@ Model_isSetVolumeUnits (const Model_t *m);
 /**
  * Predicate for testing whether the areaUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "areaUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4103,9 +4144,9 @@ Model_isSetAreaUnits (const Model_t *m);
 /**
  * Predicate for testing whether the lengthUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "lengthUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4119,9 +4160,9 @@ Model_isSetLengthUnits (const Model_t *m);
 /**
  * Predicate for testing whether the extentUnits of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "extentUnits" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4135,9 +4176,9 @@ Model_isSetExtentUnits (const Model_t *m);
 /**
  * Predicate for testing whether the conversionFactor of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the "conversionFactor" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4152,7 +4193,7 @@ Model_isSetConversionFactor (const Model_t *m);
  * Set the identifier of a given Model_t structure.
  *
  * This copies the string in @p sid.
- * 
+ *
  * @param m the Model_t structure
  * @param sid the identifier string
  *
@@ -4160,8 +4201,8 @@ Model_isSetConversionFactor (const Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "id" attribute.
@@ -4175,7 +4216,7 @@ Model_setId (Model_t *m, const char *sid);
 
 /**
  * Set the identifier of the given Model_t structure.
- * 
+ *
  * This copies the string in @p name.
  *
  * @param m the Model_t structure
@@ -4185,8 +4226,8 @@ Model_setId (Model_t *m, const char *sid);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with the name set to NULL is equivalent to
  * unsetting the "name" attribute.
@@ -4202,7 +4243,7 @@ Model_setName (Model_t *m, const char *name);
  * Set the substanceUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4210,9 +4251,9 @@ Model_setName (Model_t *m, const char *name);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "substanceUnits" attribute.
@@ -4228,7 +4269,7 @@ Model_setSubstanceUnits (Model_t *m, const char *units);
  * Set the timeUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4236,9 +4277,9 @@ Model_setSubstanceUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "timeUnits" attribute.
@@ -4254,7 +4295,7 @@ Model_setTimeUnits (Model_t *m, const char *units);
  * Set the volumeUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4262,9 +4303,9 @@ Model_setTimeUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "volumeUnits" attribute.
@@ -4280,7 +4321,7 @@ Model_setVolumeUnits (Model_t *m, const char *units);
  * Set the areaUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4288,9 +4329,9 @@ Model_setVolumeUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "areaUnits" attribute.
@@ -4306,7 +4347,7 @@ Model_setAreaUnits (Model_t *m, const char *units);
  * Set the lengthUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4314,9 +4355,9 @@ Model_setAreaUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "lengthUnits" attribute.
@@ -4332,7 +4373,7 @@ Model_setLengthUnits (Model_t *m, const char *units);
  * Set the extentUnits attribute of a given Model_t structure.
  *
  * This copies the string in @p units.
- * 
+ *
  * @param m the Model_t structure
  * @param units the identifier string
  *
@@ -4340,9 +4381,9 @@ Model_setLengthUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with units NULL is equivalent to
  * unsetting the "extentUnits" attribute.
@@ -4358,7 +4399,7 @@ Model_setExtentUnits (Model_t *m, const char *units);
  * Set the conversionFactor attribute of a given Model_t structure.
  *
  * This copies the string in @p sid.
- * 
+ *
  * @param m the Model_t structure
  * @param sid the identifier string
  *
@@ -4366,9 +4407,9 @@ Model_setExtentUnits (Model_t *m, const char *units);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  *
  * @note Using this function with sid NULL is equivalent to
  * unsetting the "conversionFactor" attribute.
@@ -4389,8 +4430,8 @@ Model_setConversionFactor (Model_t *m, const char *sid);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4408,8 +4449,8 @@ Model_unsetId (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4427,9 +4468,9 @@ Model_unsetName (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4447,9 +4488,9 @@ Model_unsetSubstanceUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4467,9 +4508,9 @@ Model_unsetTimeUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4487,9 +4528,9 @@ Model_unsetVolumeUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4507,9 +4548,9 @@ Model_unsetAreaUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4527,9 +4568,9 @@ Model_unsetLengthUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4547,9 +4588,9 @@ Model_unsetExtentUnits (Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4562,22 +4603,22 @@ Model_unsetConversionFactor (Model_t *m);
  * Returns the ModelHistory_t of the given Model_t structure.
  *
  * @return the ModelHistory_t of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
  *
  * @memberof Model_t
  */
 LIBSBML_EXTERN
-ModelHistory_t * 
+ModelHistory_t *
 Model_getModelHistory(Model_t *m);
 
 
 /**
  * Predicate for testing whether the ModelHistory_t of a given Model_t structure is
  * assigned.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return nonzero if the ModelHistory_t of this Model_t structure is
  * set, zero (0) otherwise.
  *
@@ -4590,7 +4631,7 @@ Model_isSetModelHistory(Model_t *m);
 
 /**
  * Set the ModelHistory_t of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
  * @param history the ModelHistory_t structure
  *
@@ -4598,8 +4639,8 @@ Model_isSetModelHistory(Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
  * @memberof Model_t
  */
@@ -4610,15 +4651,15 @@ Model_setModelHistory(Model_t *m, ModelHistory_t *history);
 
 /**
  * Unsets the ModelHistory_t of the given Model_t structure.
- * 
+ *
  * @param m the Model_t structure
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4638,11 +4679,11 @@ Model_unsetModelHistory(Model_t *m);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4661,11 +4702,11 @@ Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4684,11 +4725,11 @@ Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4707,11 +4748,11 @@ Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4730,11 +4771,11 @@ Model_addSpeciesType (Model_t *m, const SpeciesType_t *st);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4753,11 +4794,11 @@ Model_addCompartment (Model_t *m, const Compartment_t *c);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4776,11 +4817,11 @@ Model_addSpecies (Model_t *m, const Species_t *s);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4799,11 +4840,11 @@ Model_addParameter (Model_t *m, const Parameter_t *p);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4822,11 +4863,11 @@ Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4845,10 +4886,10 @@ Model_addRule (Model_t *m, const Rule_t *r);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4867,11 +4908,11 @@ Model_addConstraint (Model_t *m, const Constraint_t *c);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -4890,11 +4931,11 @@ Model_addReaction (Model_t *m, const Reaction_t *r);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
- * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
- * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  *
  * @memberof Model_t
  */
@@ -5129,7 +5170,7 @@ Model_createReaction (Model_t *m);
  * is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the SpeciesReference_t structure created
  *
  * @memberof Model_t
@@ -5151,7 +5192,7 @@ Model_createReactant (Model_t *m);
  * is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the SpeciesReference_t structure created
  *
  * @memberof Model_t
@@ -5173,7 +5214,7 @@ Model_createProduct (Model_t *m);
  * structure is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the modifier SpeciesReference_t structure created
  *
  * @memberof Model_t
@@ -5195,7 +5236,7 @@ Model_createModifier (Model_t *m);
  * KineticLaw_t is @em not created and @c NULL is returned instead.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the KineticLaw_t structure created
  *
  * @memberof Model_t
@@ -6111,7 +6152,7 @@ Model_getNumEvents (const Model_t *m);
  * of 'substance per time' derived from the model and has the
  * unitReferenceId 'subs_per_time'. This facilitates the comparison of units
  * derived from mathematical formula with the expected units.
- * 
+ *
  * The next elements of the list record the units of the 
  * compartments and species established from either explicitly
  * declared or default units.
@@ -6140,7 +6181,7 @@ Model_populateListFormulaUnitsData(Model_t *m);
  * the list of FormulaUnitsData is populated.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return @c true if the list of FormulaUnitsData is populated, 
  * @c false otherwise.
  *
@@ -6630,25 +6671,25 @@ Model_addFormulaUnitsData (Model_t *m, FormulaUnitsData_t* fud);
  * @return the FormulaUnitsData_t structure created
 
 LIBSBML_EXTERN
-FormulaUnitsData_t* 
+FormulaUnitsData_t*
 Model_createFormulaUnitsData (Model_t *m);
 
 
  * Get the nth FormulaUnitsData_t structure in this Model_t.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the nth FormulaUnitsData_t of this Model_t.
 
 LIBSBML_EXTERN
-FormulaUnitsData_t* 
+FormulaUnitsData_t*
 Model_getFormulaUnitsData (Model_t *m, unsigned int n);
 
 
  * Get a FormulaUnitsData_t structure based on its unitReferenceId and typecode.
  *
  * @param m the Model_t structure
- * 
+ *
  * @return the FormulaUnitsData_t in this Model_t with the unitReferenceId @p sid 
  * and the typecode (int) @p typecode or @c NULL
  * if no such FormulaUnitsData exists.
@@ -6663,14 +6704,14 @@ Model_getFormulaUnitsData (Model_t *m, unsigned int n);
  * derived from the math element of the AssignmentRule_t.
 
 LIBSBML_EXTERN
-FormulaUnitsData_t* 
+FormulaUnitsData_t*
 Model_getFormulaUnitsDataById(Model_t *m, const char* sid, int);
 
 
  * Get the number of FormulaUnitsData_t structures in this Model_t.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the number of FormulaUnitsData_t in this Model_t.
 
 LIBSBML_EXTERN
@@ -6679,13 +6720,13 @@ Model_getNumFormulaUnitsData (Model_t *m);
 
 
  * Get the list of FormulaUnitsData_t structure in this Model_t.
- * 
+ *
  * @param m the Model_t structure
- * 
+ *
  * @return the list of FormulaUnitsData_t for this Model_t.
 
 LIBSBML_EXTERN
-List_t* 
+List_t*
 Model_getListFormulaUnitsData (Model_t *m);
 
 */

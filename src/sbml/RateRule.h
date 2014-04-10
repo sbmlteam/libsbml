@@ -97,29 +97,6 @@
  * @copydetails doc_rules_general_summary
  */ 
 
-/**
- * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file.  The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality.  Symbols
- * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
- *
- * @class doc_note_raterule_setting_lv
- *
- * @note Upon the addition of an RateRule object to an SBMLDocument
- * (e.g., using Model::addRule(@if java Rule r@endif)), the SBML Level, SBML
- * Version and XML namespace of the document @em override the values used
- * when creating the RateRule object via the RateRule constructors.
- * This is necessary to ensure that an SBML document has a consistent overall
- * structure.  Nevertheless, the ability to supply the values at the time of
- * creation of a RateRule is an important aid to producing valid SBML.
- * Knowledge of the intented SBML Level and Version determine whether it is
- * valid to assign a particular value to an attribute, or whether it is valid
- * to add an object to an existing SBMLDocument.
- * 
- */
-
 #ifndef RateRule_h
 #define RateRule_h
 
@@ -159,7 +136,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_raterule_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   RateRule (unsigned int level, unsigned int version);
 
@@ -177,7 +154,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_note_raterule_setting_lv
+   * @copydetails doc_note_setting_lv
    *
    */
   RateRule (SBMLNamespaces* sbmlns);
@@ -226,18 +203,7 @@ public:
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML.
-   *
-   * @copydetails doc_what_is_sidref
-   * 
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 

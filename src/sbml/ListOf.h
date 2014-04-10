@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -42,9 +42,26 @@
  * @if conly C@endif@if cpp C++; @endif@if java Java@endif@if python Python@endif@~ lists,
  * so that it can provide the methods and features associated with SBase.
  *
- * @copydetails doc_what_is_listof 
+ * @copydetails doc_what_is_listof
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_note_bare_listof
+ *
+ * @note Bare ListOf @if conly structures @else objects@endif@~ are
+ * impossible to add to SBML models.  The ListOf
+ * @if conly structure type@else class@endif@~ is simply the base
+ * of <em>other</em> @if conly structure types @else classes@endif@~ in
+ * libSBML.  Calling programs are not intended to create bare ListOf
+ * @if conly structures @else objects@endif@~ themselves.
+ */
 
 #ifndef ListOf_h
 #define ListOf_h
@@ -96,27 +113,35 @@ public:
    *
    * @param level the SBML Level; if not assigned, defaults to the
    * value of SBMLDocument::getDefaultLevel().
-   * 
+   *
    * @param version the Version within the SBML Level; if not assigned,
    * defaults to the value of SBMLDocument::getDefaultVersion().
-   * 
+   *
+   * @copydetails doc_note_bare_listof
+   *
+   * @copydetails doc_note_setting_lv
+   *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ListOf (unsigned int level   = SBML_DEFAULT_LEVEL, 
+  ListOf (unsigned int level   = SBML_DEFAULT_LEVEL,
           unsigned int version = SBML_DEFAULT_VERSION);
 
 
   /**
-   * Creates a new ListOf with SBMLNamespaces object.
+   * Creates a new ListOf with a given SBMLNamespaces object.
    *
    * @param sbmlns the set of SBML namespaces that this ListOf should
    * contain.
+   *
+   * @copydetails doc_note_bare_listof
+   *
+   * @copydetails doc_note_setting_lv
    */
   ListOf (SBMLNamespaces* sbmlns);
 
 
   /**
-   * Destroys the given ListOf and the items inside it.
+   * Destroys this ListOf and the items inside it.
    */
   virtual ~ListOf ();
 
@@ -139,7 +164,7 @@ public:
    * Accepts the given SBMLVisitor.
    *
    * @param v the SBMLVisitor instance to be used.
-   * 
+   *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether the Visitor would like to visit the next item in the
    * list.
@@ -149,7 +174,7 @@ public:
 
   /**
    * Creates and returns a deep copy of this ListOf.
-   * 
+   *
    * @return a (deep) copy of this ListOf.
    */
   virtual ListOf* clone () const;
@@ -161,9 +186,16 @@ public:
    * This method makes a clone of the @p item handed to it.  This means that
    * when the ListOf object is destroyed, the original items will not be
    * destroyed.  For a method with an alternative ownership behavior, see the
-   * ListOf::appendAndOwn(SBase* item) method.
+   * ListOf::appendAndOwn(@if java SBase* item@endif) method.
    *
    * @param item the item to be added to the list.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
    *
    * @see appendAndOwn(SBase* item)
    * @see appendFrom(const ListOf* list)
@@ -181,6 +213,13 @@ public:
    *
    * @param item the item to be added to the list.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   *
    * @see append(const SBase* item)
    * @see appendFrom(const ListOf* list)
    */
@@ -195,6 +234,13 @@ public:
    *
    * @param list a list of items to be added.
    *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   *
    * @see append(const SBase* item)
    * @see appendAndOwn(SBase* item)
    */
@@ -205,12 +251,18 @@ public:
    * Inserts an item at a given position in this ListOf's list of items.
    *
    * This variant of the method makes a clone of the @p item handed to it.
-   * This means that when the ListOf is destroyed, the original items will
-   * not be destroyed.  For an alternative method with different ownership
-   * behavior, see insertAndOwn(int location, SBase* item).
+   * This means that when the ListOf is destroyed, the original @p item will
+   * <em>not</em> be destroyed.
    *
    * @param location the location in the list where to insert the item.
    * @param item the item to be inserted to the list.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
    *
    * @see insertAndOwn(int location, SBase* item)
    */
@@ -220,12 +272,19 @@ public:
   /**
    * Inserts an item at a given position in this ListOf's list of items.
    *
-   * This variant of the method makes a clone of the @p item handet to it.
-   * This means that when the ListOf is destroyed, the original items will
-   * not be destroyed.
+   * This variant of the method makes a clone of the @p item handed to it.
+   * This means that when the ListOf is destroyed, the original @p item
+   * <em>will</em> be destroyed.
    *
    * @param location the location where to insert the item
    * @param item the item to be inserted to the list
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif@~ The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
    *
    * @see insert(int location, const SBase* item)
    */
@@ -237,7 +296,8 @@ public:
    *
    * @param n the index number of the item to get.
    *
-   * @return the nth item in this ListOf items.
+   * @return the <em>n</em>th item in this ListOf items, or a null pointer if
+   * the index number @p n refers to a nonexistent position in this list.
    *
    * @see size()
    */
@@ -249,7 +309,8 @@ public:
    *
    * @param n the index number of the item to get.
    * 
-   * @return the nth item in this ListOf items.
+   * @return the <em>n</em>th item in this ListOf items, or a null pointer if
+   * the index number @p n refers to a nonexistent position in this list.
    *
    * @see size()
    */
@@ -260,9 +321,10 @@ public:
    * Returns the first child element found that has the given identifier.
    *
    * This method searches this ListOf's list of items for SBML objects based
-   * on their "id" attribute value in the model-wide SId namespace.
+   * on their "id" attribute value in the model-wide <code>SId</code>
+   * identifier namespace.
    *
-   * @param id string representing the id of objects to find.
+   * @param id string representing the id of the object to find.
    *
    * @return the first element found with the given @p id, or @c NULL if no
    * such object is found.
@@ -271,9 +333,10 @@ public:
 
 
   /**
-   * Returns the first child element found with the given @p metaid.
+   * Returns the first child element found with the given meta-identifier.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the "metaid" attribute of the object
+   * to find.
    *
    * @return the first element found with the given @p metaid, or @c NULL if
    * no such object is found.
@@ -330,9 +393,9 @@ public:
    * If parameter @p doDelete is @c true (default), all items in this ListOf
    * object are deleted and cleared, and thus the caller doesn't have to
    * delete those items.  Otherwise, all items are cleared only from this
-   * ListOf object; the caller is still responsible for deleting all items.
-   * (In the latter case, callers are advised to store pointers to all items
-   * elsewhere before calling this function.)
+   * ListOf object; the caller is still responsible for deleting the actual
+   * items.  (In the latter case, callers are advised to store pointers to
+   * all items elsewhere before calling this function.)
    *
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.
@@ -343,24 +406,28 @@ public:
 
 
   /**
-   * Because ListOf objects typically live as object children of their parent
-   * object and not as pointer children, this function clears itself, but
-   * does not attempt to do anything else.
+   * Removes all items in this ListOf object and deletes its properties too.
    *
-   * If a particular ListOf subclass does indeed exist as a pointer only,
-   * this function will need to be overridden.
+   * This performs a call to clear() with an argument of @c true (thus removing
+   * all the child objects in the list), followed by calls to various libSBML
+   * <code>unset<em>Foo</em></code> methods to delete everything else: CVTerm
+   * objects, model history objects, etc.
+   *
+   * @if cpp Implementations of subclasses of ListOf may need to override
+   * this method if different handling of child objects is needed.@endif@~
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    */
   virtual int removeFromParentAndDelete();
 
 
   /**
-   * Removes the <em>n</em>th item from this ListOf items and returns it.
+   * Removes the <em>n</em>th item from this ListOf list of items and returns
+   * it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
@@ -417,7 +484,7 @@ public:
    * Basically, this function needs to be called in
    * constructor, copy constructor and assignment operator.
    *
-   * @if cpp 
+   * @if cpp
    * @see setSBMLDocument()
    * @see enablePackageInternal()
    * @endif
@@ -450,16 +517,16 @@ public:
 
   /**
    * Get the type code of the objects contained in this ListOf.
-   * 
+   *
    * @copydetails doc_what_are_typecodes
    *
-   * Classes that inherit from the ListOf class should 
-   * override this function to return the SBML type code for 
-   * the objects contained in this ListOf.  If they do not, 
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink is returned.
-   * 
-   * @return The ListOf class itself contains no SBML objects, and 
-   * therefore returns @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
+   * Classes that inherit from the ListOf class should override this method
+   * to return the SBML type code for the objects contained in this ListOf.
+   * If they do not, this method will return
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink
+   *
+   * @return The ListOf base class contains no SBML objects, and therefore
+   * this method returns @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
    *
    * @see getElementName()
    * @see getPackageName()
@@ -470,7 +537,7 @@ public:
   /**
    * Returns the XML element name of this object, which for ListOf, is
    * always @c "listOf".
-   * 
+   *
    * @return the XML name of this element.
    */
   virtual const std::string& getElementName () const;
@@ -497,6 +564,7 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
   /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -552,9 +620,19 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new ListOf.
+ * Creates a new instance of a ListOf_t structure.
  *
- * @return a pointer to created ListOf.
+ * @param level an unsigned int, the SBML Level to assign to this
+ * ListOf_t structure.
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ListOf_t structure.
+ *
+ * @return a pointer to the newly-created ListOf_t structure.
+ *
+ * @copydetails doc_note_bare_listof
+ *
+ * @copydetails doc_note_setting_lv
  *
  * @memberof ListOf_t
  */
@@ -564,9 +642,11 @@ ListOf_create (unsigned int level, unsigned int version);
 
 
 /**
- * Frees the given ListOf_t and its constituent items.
+ * Frees the given ListOf_t structure.
  *
  * This function assumes each item in the list is derived from SBase_t.
+ *
+ * @param lo the ListOf_t structure to be freed.
  *
  * @memberof ListOf_t
  */
@@ -576,7 +656,12 @@ ListOf_free (ListOf_t *lo);
 
 
 /**
- * @return a (deep) copy of this ListOf_t items.
+ * Creates a deep copy of the given ListOf_t structure.
+ *
+ * @param lo the ListOf_t structure to be copied.
+ *
+ * @return a (deep) copy of the given ListOf_t structure, or a null
+ * pointer if a failure occurred.
  *
  * @memberof ListOf_t
  */
@@ -586,7 +671,18 @@ ListOf_clone (const ListOf_t *lo);
 
 
 /**
- * Adds a copy of item to the end of this ListOf_t items.
+ * Adds a copy of a given item to the end of a ListOf_t list.
+ *
+ * @param lo the ListOf_t structure to which the @p item should be appended.
+ * @param item the item to append to the list.
+ *
+ * @return integer value indicating success/failure of the function. The
+ * value is drawn from the enumeration #OperationReturnValues_t. The possible
+ * values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @see ListOf_appendAndOwn()
  *
  * @memberof ListOf_t
  */
@@ -596,7 +692,21 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 
 /**
- * Adds the given item to the end of this ListOf_t items.
+ * Adds the given item to the end of a ListOf_t list.
+ *
+ * @param lo the ListOf_t structure to which the @p item should be appended.
+ * @param item the item to append to the list.
+ *
+ * Unlike ListOf_append(), this function does not copy the @p item.
+ * The given @p lo list will contain the original item.
+ *
+ * @return integer value indicating success/failure of the function. The
+ * value is drawn from the enumeration #OperationReturnValues_t. The possible
+ * values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @see ListOf_append()
  *
  * @memberof ListOf_t
  */
@@ -606,7 +716,16 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
 
 
 /**
- * Adds clones of the given items from the second list to the end of this ListOf_t items.
+ * Adds clones a list of items from one list to another.
+ *
+ * @param lo the ListOf_t list to which @p list will be appended.
+ * @param list the list of items to append to @p lo.
+ *
+ * @return integer value indicating success/failure of the function. The
+ * value is drawn from the enumeration #OperationReturnValues_t. The possible
+ * values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
  * @memberof ListOf_t
  */
@@ -616,7 +735,17 @@ ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 
 
 /**
- * inserts a copy of item to this ListOf_t items at the given position.
+ * Inserts a copy of an item into a ListOf_t list at a given position.
+ *
+ * @param lo the list into which @p item will be inserted.
+ * @param location the starting index for the @p item in the @p lo list.
+ * @param item the item to append to insert into @p lo.
+ *
+ * @return integer value indicating success/failure of the function. The
+ * value is drawn from the enumeration #OperationReturnValues_t. The possible
+ * values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
  * @memberof ListOf_t
  */
@@ -626,7 +755,20 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
 
 
 /**
- * inserts the item to this ListOf_t items at the given position.
+ * Inserts an item into a ListOf_t list at a given position.
+ *
+ * Unlike ListOf_insert(), this function does not clone @p item before
+ * inserting it into @p lo, which means that @p lo becomes the owner.
+ *
+ * @param lo the list into which @p item will be inserted.
+ * @param location the starting index for the @p item in the @p lo list.
+ * @param item the item to append to insert into @p lo.
+ *
+ * @return integer value indicating success/failure of the function. The
+ * value is drawn from the enumeration #OperationReturnValues_t. The possible
+ * values returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
  * @memberof ListOf_t
  */
@@ -636,7 +778,15 @@ ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item);
 
 
 /**
- * Returns the nth item in this ListOf_t items.
+ * Returns the <em>n</em>th item of a given list.
+ *
+ * @param lo the list from which to retrieve the item.
+ * @param n the index of the item to retrieve.
+ *
+ * @return the <em>n</em>th item in this ListOf items, or a null pointer if
+ * the index number @p n refers to a nonexistent position in @p lo.
+ *
+ * @see ListOf_size()
  *
  * @memberof ListOf_t
  */
@@ -661,11 +811,15 @@ ListOf_getById (ListOf_t *lo, const char *sid);
 /**
  * Removes all items in this ListOf_t structure.
  *
- * If doDelete is true (non-zero), all items in this ListOf_t structure are deleted
- * and cleared, and thus the caller doesn't have to delete those items.
- * Otherwise (zero), all items are just cleared from this ListOf_t structure and the 
- * caller is responsible for deleting all items (In this case, pointers to all 
- * items should be stored elsewhere before calling this function by the caller).
+ * If @p doDelete is true (non-zero), all items in this ListOf_t structure
+ * are both deleted and cleared, and thus the caller doesn't have to delete
+ * those items.  Otherwise, if @p doDelete is false (zero), all items are
+ * only cleared from this ListOf_t structure and the caller is responsible
+ * for deleting all items.  (In the latter case, callers are advised to store
+ * pointers to all items elsewhere before calling this function.)
+ *
+ * @param lo the ListOf_t structure to clear
+ * @param doDelete whether to delete the items.
  *
  * @memberof ListOf_t
  */
@@ -675,9 +829,15 @@ ListOf_clear (ListOf_t *lo, int doDelete);
 
 
 /**
- * Removes the nth item from this ListOf_t items and returns a pointer to
- * it.  The caller owns the returned item and is responsible for deleting
- * it.
+ * Removes the <em>n</em>th item from this ListOf_t list and returns it.
+ *
+ * The caller owns the returned item and is responsible for deleting it.
+ *
+ * @param lo the list from which the item should be removed.
+ * @param n the index number of the item to remove.
+ *
+ * @return the item removed, or a null pointer if no item existed at the
+ * index @p n.
  *
  * @memberof ListOf_t
  */
@@ -703,6 +863,10 @@ ListOf_removeById (ListOf_t *lo, const char *sid);
 /**
  * Returns the number of items in this ListOf_t items.
  *
+ * @param lo the ListOf_t structure to count.
+ *
+ * @return the number of items in @p lo.
+ *
  * @memberof ListOf_t
  */
 LIBSBML_EXTERN
@@ -711,8 +875,15 @@ ListOf_size (const ListOf_t *lo);
 
 
 /**
- * @return the int of SBML structures contained in this ListOf_t or
- * SBML_UNKNOWN (default).
+ * Get the type code of the objects contained in the given ListOf_t
+ * structure.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @param lo the ListOf_t whose item type codes are sought.
+ *
+ * @return the type code corresponding to the objects in @p lo,
+ * or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
  *
  * @memberof ListOf_t
  */

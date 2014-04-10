@@ -55,7 +55,7 @@
  * to five digits long, and it will be listed in one of two enumerations:
  * <a class="el" href="#SBMLErrorCode_t"> SBMLErrorCode_t</a> (described <a
  * class="el" href="#SBMLErrorCode_t"> below</a>) or @link
- * XMLError::XMLErrorCode_t XMLErrorCode_t @endlink (described in the
+ * XMLError::XMLErrorCode_t XMLErrorCode_t@endlink (described in the
  * documentation for the class XMLError).  The former enumeration contains
  * all the SBML validation rule numbers listed in the appendices of the
  * SBML specification documents, as well as some additional
@@ -176,11 +176,11 @@
  * SBMLErrorCode_t is an enumeration of all SBML-level error, warning and
  * informational diagnostic codes.  Every SBMLError object has an error
  * code value that can be either a value from this enumeration, or a value
- * from the @link XMLError::XMLErrorCode_t XMLErrorCode_t @endlink
+ * from the @link XMLError::XMLErrorCode_t XMLErrorCode_t@endlink
  * enumeration (see the documentation for XMLError).  The latter values
  * apply when the error or warning signifies a basic XML issue rather than
  * an SBML issue per se.  The values of SBMLErrorCode_t are distinguished
- * from those of @link XMLError::XMLErrorCode_t XMLErrorCode_t @endlink by
+ * from those of @link XMLError::XMLErrorCode_t XMLErrorCode_t@endlink by
  * being numbered 10000 and higher, while the XML layer's codes are 9999 and
  * lower.  The method SBMLError::getErrorId() returns the error code of a
  * given SBMLError object instance.
@@ -265,7 +265,7 @@
  * diagnostics.  The category can be retrieved from an SBMLError object
  * using the method SBMLError::getCategory().  These enumeration values are
  * distinct from (and in addition to) the @link
- * XMLError::XMLErrorCategory_t XMLErrorCategory_t @endlink codes used by
+ * XMLError::XMLErrorCategory_t XMLErrorCategory_t@endlink codes used by
  * the parent XMLError object.  User programs receiving an SBMLError object
  * can use this distinction to check whether the error represents a
  * low-level XML problem or an SBML problem.

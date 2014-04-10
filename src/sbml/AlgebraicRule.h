@@ -71,32 +71,8 @@
  * kinetic law definitions, the model is valid but incomplete; the rates of
  * reactions lacking kinetic laws are simply undefined, and not determined by
  * the algebraic rule.)
- * 
+ *
  * @copydetails doc_rules_general_summary
- */ 
-
-/**
- * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file.  The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality.  Symbols
- * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
- *
- * @class doc_algebraicrule_setting_lv
- *
- * @note Upon the addition of an AlgebraicRule
- * @if conly structure @else object@endif@~ to an SBMLDocument, the SBML
- * Level, SBML Version and XML namespace of the document @em override the
- * values used when creating the AlgebraicRule
- * @if conly structure @else object@endif@~ via the AlgebraicRule
- * constructors.  This is necessary to ensure that an SBML document has a
- * consistent overall structure.  Nevertheless, the ability to supply the
- * values at the time of creation of a AlgebraicRule is an important aid to
- * producing valid SBML.  Knowledge of the intented SBML Level and Version
- * determine whether it is valid to assign a particular value to an
- * attribute, or whether it is valid to add an object to an existing
- * SBMLDocument.
  */
 
 #ifndef AlgebraicRule_h
@@ -137,7 +113,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_algebraicrule_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   AlgebraicRule (unsigned int level, unsigned int version);
 
@@ -160,7 +136,7 @@ public:
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
    *
-   * @copydetails doc_algebraicrule_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   AlgebraicRule (SBMLNamespaces* sbmlns);
 

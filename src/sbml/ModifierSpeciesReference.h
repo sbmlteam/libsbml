@@ -57,31 +57,6 @@
  * designated as a modifier, as well as to appear in the list of reactants,
  * products and modifiers of other reactions in the model.
  *
- * 
- */
-
-/**
- * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- * The following text is used as common documentation blocks copied multiple
- * times elsewhere in this file.  The use of @class is a hack needed because
- * Doxygen's @copydetails command has limited functionality.  Symbols
- * beginning with "doc_" are marked as ignored in our Doxygen configuration.
- * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
- *
- * @class doc_note_modifierspeciesreference_setting_lv
- * 
- * @note Upon the addition of a ModifierSpeciesReference object to an
- * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
- * SBML Level, SBML Version and XML namespace of the document @em
- * override the values used when creating the ModifierSpeciesReference
- * object via this constructor.  This is necessary to ensure that an SBML
- * document is a consistent structure.  Nevertheless, the ability to
- * supply the values at the time of creation of a
- * ModifierSpeciesReference is an important aid to producing valid SBML.
- * Knowledge of the intented SBML Level and Version determine whether it
- * is valid to assign a particular value to an attribute, or whether it
- * is valid to add an object to an existing SBMLDocument.
- *
  */
 
 #ifndef ModifierSpeciesReference_h
@@ -119,7 +94,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * ModifierSpeciesReference
    *
-   * @copydetails doc_note_modifierspeciesreference_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   ModifierSpeciesReference (unsigned int level, unsigned int version);
 
@@ -130,7 +105,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @copydetails doc_note_modifierspeciesreference_setting_lv
+   * @copydetails doc_note_setting_lv
    */
   ModifierSpeciesReference (SBMLNamespaces* sbmlns);
 
