@@ -1560,8 +1560,8 @@ def parse_cmdline(direct_args = None):
     parser = argparse.ArgumentParser(epilog=__desc_end)
     parser.add_argument("-d", "--define", action='append',
                         help="define #ifdef symbol when scanning files for includes")
-    parser.add_argument("-e", "--extra", action='append',
-                        help="read given file as an additional source file")
+    # parser.add_argument("-e", "--extra", action='append',
+    #                     help="read given file as an additional source file")
     parser.add_argument("-l", "--language", required=True,
                         help="language for which to generate SWIG docstrings")
     parser.add_argument("-m", "--master", required=True,
@@ -1623,7 +1623,7 @@ def main (args):
   language              = get_language(args)
   main_swig_file        = get_master_file(args)
   output_swig_file      = get_output_file(args)
-  extra_sources         = get_extra_files_to_read(args)
+#  extra_sources         = get_extra_files_to_read(args)
   h_include_path        = os.path.join(get_top_dir(args), 'src')
   doc_include_path      = os.path.join(get_top_dir(args), 'docs', 'src')
   preprocessor_defines += get_defines(args)
