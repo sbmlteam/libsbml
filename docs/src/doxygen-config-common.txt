@@ -513,6 +513,7 @@ INPUT =                                    \
   libsbml-changes.txt                      \
   libsbml-coding.txt                       \
   libsbml-communications.txt               \
+  libsbml-converters.txt                   \
   libsbml-core-versus-packages.txt         \
   libsbml-example.txt                      \
   libsbml-example-files.txt                \
