@@ -92,11 +92,12 @@ INPUT = \
   libsbml-changes.txt                   \
   libsbml-coding.txt                    \
   libsbml-communications.txt            \
+  libsbml-converters.txt                \
   libsbml-core-versus-packages.txt      \
   libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
-  libsbml-groups.txt          \
+  libsbml-groups.txt                    \
   libsbml-howto-implement-extension.txt \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
@@ -154,9 +155,16 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 
 EXCLUDE_SYMBOLS +=                     \
   ElementFilter                        \
+  CobraToFbcConverter_init             \
+  CompFlatteningConverter_init         \
+  FbcToCobraConverter_init             \
   SBMLFunctionDefinitionConverter_init \
+  SBMLIdConverter_init                 \
+  SBMLInferUnitsConverter_init         \
   SBMLInitialAssignmentConverter_init  \
   SBMLLevelVersionConverter_init       \
+  SBMLLocalParameterConverter_init     \
+  SBMLReactionConverter_init           \
   SBMLRuleConverter_init               \
   SBMLStripPackageConverter_init       \
   SBMLUnitsConverter_init              \
