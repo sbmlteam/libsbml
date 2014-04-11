@@ -33,3 +33,4 @@ doxygen-version-specific.txt
 java-extensions-list.html
 doxygen-config.txt
 class-list.txt
+libsbml-converters.txt
