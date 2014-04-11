@@ -747,7 +747,7 @@ def translateCopydetails (match):
     text = allclassdocs[name]
   else:
     # If it's not found, just write out what we read in.
-    text = operator + name
+    text = '@copy' + operator + ' ' + name
   return text
 
 
@@ -1560,12 +1560,14 @@ def parse_cmdline(direct_args = None):
     parser = argparse.ArgumentParser(epilog=__desc_end)
     parser.add_argument("-d", "--define", action='append',
                         help="define #ifdef symbol when scanning files for includes")
+    parser.add_argument("-e", "--extra", action='append',
+                        help="read given file as an additional source file")
     parser.add_argument("-l", "--language", required=True,
                         help="language for which to generate SWIG docstrings")
     parser.add_argument("-m", "--master", required=True,
-                        help="top-level SWIG interface .i file to read")
+                        help="main SWIG interface .i file to read")
     parser.add_argument("-o", "--output", required=True,
-                        help="output file where SWIG docstrings will be written")
+                        help="output file to write SWIG docstrings")
     parser.add_argument("-t", "--top", required=True,
                         help="path to top of libSBML source directory")
     return parser.parse_args(direct_args)
@@ -1604,6 +1606,12 @@ def get_defines(direct_args = None):
 
 
 
+def get_extra_files_to_read(direct_args = None):
+  if direct_args.extra: return direct_args.extra
+  else:                 return []
+
+
+
 def main (args):
   global doc_include_path
   global header_files
@@ -1615,6 +1623,7 @@ def main (args):
   language              = get_language(args)
   main_swig_file        = get_master_file(args)
   output_swig_file      = get_output_file(args)
+  extra_sources         = get_extra_files_to_read(args)
   h_include_path        = os.path.join(get_top_dir(args), 'src')
   doc_include_path      = os.path.join(get_top_dir(args), 'docs', 'src')
   preprocessor_defines += get_defines(args)
