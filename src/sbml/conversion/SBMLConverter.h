@@ -37,21 +37,17 @@
  *
  * The SBMLConverter class is the base class for the various SBML @em
  * converters: classes of objects that transform or convert SBML documents.
- * These transformations can involve essentially anything that can be
- * written algorithmically; examples include converting the units of
- * measurement in a model, or converting from one Level+Version combination
- * of SBML to another.
+ * These transformations can involve essentially anything that can be written
+ * algorithmically; examples include converting the units of measurement in a
+ * model, or converting from one Level+Version combination of SBML to
+ * another.  Applications can also create their own converters by subclassing
+ * SBMLConverter and following the examples of the existing converters.
  *
- * LibSBML provides a number of built-in converters, and applications can
- * create their own by subclassing SBMLConverter and following the examples
- * of the existing converters.  The following are the built-in converters
- * in libSBML @htmlinclude libsbml-version.html:
- * @li SBMLFunctionDefinitionConverter
- * @li SBMLInitialAssignmentConverter
- * @li SBMLLevelVersionConverter
- * @li SBMLRuleConverter
- * @li SBMLStripPackageConverter
- * @li SBMLUnitsConverter
+ * LibSBML provides a number of built-in converters; by convention, their
+ * names end in @em Converter. The following are the built-in converters
+ * provided by libSBML @htmlinclude libsbml-version.html:
+ *
+ * @copydetails doc_list_of_libsbml_converters
  *
  * Many converters provide the ability to configure their behavior to some
  * extent.  This is realized through the use of @em properties that offer
@@ -191,11 +187,6 @@ public:
    * Sets the current SBML document to the given SBMLDocument object.
    * 
    * @param doc the document to use for this conversion.
-   *
-   * @warning Even though the @p doc is 'const', it is immediately cast 
-   * to a non-const version, which is then usually changed by the 
-   * converter upon a successful conversion.  This function is here 
-   * solely to preserve backwards compatibility.
    * 
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
@@ -204,6 +195,11 @@ public:
    * SBMLConverter being used, but the default method can return the
    * following values:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   *
+   * @warning Even though the argument @p doc is 'const', it is immediately
+   * cast to a non-const version, which is then usually changed by the
+   * converter upon a successful conversion.  This variant of the
+   * setDocument() method is here solely to preserve backwards compatibility.
    */
   virtual int setDocument(const SBMLDocument* doc);
 
@@ -226,10 +222,6 @@ public:
 
   /**
    * Sets the configuration properties to be used by this converter.
-   * 
-   * A given converter exposes one or more properties that can be adjusted
-   * in order to influence the behavior of the converter.  This method sets
-   * the current properties for this converter.
    *
    * @param props the ConversionProperties object defining the properties
    * to set.
