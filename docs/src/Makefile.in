@@ -188,6 +188,7 @@ distfiles =                                                  \
         common-text/enzymatic-reaction-equation.html         \
         common-text/libsbml-facility-only-warning.html       \
         common-text/libsbml-coding-copydetails-example.html  \
+        common-text/libsbml-coding-copydoc-example.html      \
         common-text/libsbml-coding-link-example.html         \
         common-text/libsbml-version.html.in                  \
         common-text/listof-illustration.txt                  \
