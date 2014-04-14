@@ -727,7 +727,6 @@ public:
 
 #ifndef LIBSBML_USE_LEGACY_MATH
   /**
-   * 
    * Adds the given ASTBasePlugin object to this package
    * extension.
    *

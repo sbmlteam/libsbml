@@ -362,7 +362,7 @@ ASTBinaryFunctionNode::write(XMLOutputStream& stream) const
    * and last is the value operated on
    * 
    * however if the node is read in with a logbase and then more than
-   * further children it uses teh first as the value operated on
+   * further children it uses the first as the value operated on
    */
   else if (type == AST_FUNCTION_LOG)
   {

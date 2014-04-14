@@ -303,7 +303,7 @@ L3FormulaFormatter_visitModulo ( const ASTNode_t *parent,
                                  StringBuffer_t  *sb, 
                                  const L3ParserSettings_t *settings );
 
-  /**
+/**
  * Visits the given ASTNode_t and continues the inorder traversal.
  */
 void
