@@ -4002,7 +4002,7 @@ SBase::write (XMLOutputStream& stream) const
 {
   XMLNamespaces *xmlns = getNamespaces();
 
-  if (0)
+#if 0
   {
     cout << "[DEBUG] SBase::write (element name) " << getElementName()
          << " (element ns) " << getElementNamespace();
@@ -4016,6 +4016,7 @@ SBase::write (XMLOutputStream& stream) const
     }
 
   }
+#endif
 
   stream.startElement( getElementName(), getPrefix() );
 

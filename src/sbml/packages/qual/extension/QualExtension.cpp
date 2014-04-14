@@ -394,7 +394,9 @@ QualExtension::init()
 
   if (result != LIBSBML_OPERATION_SUCCESS)
   {
+#if 0
     std::cerr << "[Error] QualExtension::init() failed." << std::endl;
+#endif
   }
 }
 /** @endcond */

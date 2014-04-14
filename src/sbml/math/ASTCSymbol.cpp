@@ -1201,7 +1201,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   if (name != "csymbol" )
   {
+#if 0
     cout << "[DEBUG} csymbol::read\nBAD THINGS ARE HAPPENING\n\n";
+#endif
   }
 
   if (name == "csymbol")

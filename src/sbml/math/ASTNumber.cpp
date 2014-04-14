@@ -2465,7 +2465,9 @@ ASTNumber::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   if (isTopLevelMathMLNumberNodeTag(name) == false)
   {
+#if 0
     cout << "[DEBUG] Number::read\nBAD THINGS ARE HAPPENING\n\n";
+#endif
   }
   
   if (name == "cn")

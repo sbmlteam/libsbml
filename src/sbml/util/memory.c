@@ -73,8 +73,8 @@ safe_malloc (size_t size)
 
   if (p == NULL)
   {
-    fprintf(stderr, MSG_OUT_OF_MEMORY);
 #ifdef EXIT_ON_ERROR
+    fprintf(stderr, MSG_OUT_OF_MEMORY);
     exit(-1);
 #endif
   }
@@ -97,8 +97,8 @@ safe_calloc (size_t nmemb, size_t size)
 
   if (p == NULL)
   {
-    fprintf(stderr, MSG_OUT_OF_MEMORY);
 #ifdef EXIT_ON_ERROR
+    fprintf(stderr, MSG_OUT_OF_MEMORY);
     exit(-1);
 #endif
   }
@@ -121,8 +121,8 @@ safe_realloc (void *ptr, size_t size)
 
   if (p == NULL)
   {
-    fprintf(stderr, MSG_OUT_OF_MEMORY);
 #ifdef EXIT_ON_ERROR
+    fprintf(stderr, MSG_OUT_OF_MEMORY);
     exit(-1);
 #endif
   }

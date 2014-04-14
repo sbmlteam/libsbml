@@ -255,7 +255,9 @@ ASTCiNumberNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   if (nameE != "ci")
   {
+#if 0
     cout << "HELP\n";
+#endif
     return read;
   }
 

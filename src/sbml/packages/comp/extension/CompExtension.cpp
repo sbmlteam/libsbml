@@ -416,7 +416,9 @@ CompExtension::init()
 
   if (result != LIBSBML_OPERATION_SUCCESS)
   {
+#if 0
     std::cerr << "[Error] CompExtension::init() failed." << std::endl;
+#endif
   }
 
 

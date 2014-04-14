@@ -205,6 +205,12 @@ LibXMLParser::reportError (const XMLErrorCode_t code,
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
   else
   {
+    // R wrapping for creating an R package objects to the use of cerr
+    // Since in most places this would never show up to a developer
+    // I am taking it out for now
+    // but we can revisit it is we feel we need to
+#if 0
+
     // We have no error log, but we shouldn't gloss over this error.  Use
     // the measure of last resort.
 
@@ -218,6 +224,7 @@ LibXMLParser::reportError (const XMLErrorCode_t code,
       cerr << libxmlError->line << ":" << libxmlError->int2;
 
     cerr << ":\n" << extraMsg << endl;
+#endif
   }
 }
 

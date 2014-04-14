@@ -358,7 +358,9 @@ ASTCSymbolDelayNode::read(XMLInputStream& stream, const std::string& reqd_prefix
 
   if (nameE != "csymbol")
   {
+#if 0
     cout << "HELP\n";
+#endif
     return read;
   }
 

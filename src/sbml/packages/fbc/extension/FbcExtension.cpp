@@ -370,7 +370,9 @@ FbcExtension::init()
 
   if (result != LIBSBML_OPERATION_SUCCESS)
   {
+#if 0
     std::cerr << "[Error] FbcExtension::init() failed." << std::endl;
+#endif
   }
   
   

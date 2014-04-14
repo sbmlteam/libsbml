@@ -244,7 +244,9 @@ ASTCnRationalNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   if (name != "cn")
   {
+#if 0
     cout << "HELP\n";
+#endif
     return read;
   }
 

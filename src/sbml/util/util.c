@@ -168,8 +168,8 @@ safe_fopen (const char *filename, const char *mode)
 
   if (fp == (FILE *) NULL)
   {
-    fprintf(stderr, format, PACKAGE_NAME, filename, modestr);
 #ifdef EXIT_ON_ERROR
+    fprintf(stderr, format, PACKAGE_NAME, filename, modestr);
     exit(-1);
 #endif
   }

@@ -160,7 +160,9 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
 
   if (!m.getSBMLNamespaces()->getNamespaces())
   {
-    cout << "XMLNS IS NULL" << endl;
+#if 0
+    cout << "[DEBUG] XMLNS IS NULL" << endl;
+#endif
   }
 
   /* delay(x, t) 
