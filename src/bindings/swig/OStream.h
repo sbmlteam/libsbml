@@ -86,6 +86,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <sbml/xml/XMLExtern.h>
+
 class LIBLAX_EXTERN OStream 
 {
   protected:
