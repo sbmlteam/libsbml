@@ -2415,7 +2415,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Returns the SBML Level of the SBMLDocument object containing this
+   * Returns the SBML Level of the SBMLDocument object containing @em this
    * object.
    * 
    * @copydetails doc_what_is_SBMLDocument
@@ -2431,7 +2431,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns the Version within the SBML Level of the SBMLDocument object
-   * containing this object.
+   * containing @em this object.
    * 
    * @copydetails doc_what_is_SBMLDocument
    * 

@@ -36,7 +36,7 @@
  * A compartment in SBML represents a bounded space in which species are
  * located.  Compartments do not necessarily have to correspond to actual
  * structures inside or outside of a biological cell.
- * 
+ *
  * It is important to note that although compartments are optional in the
  * overall definition of Model, every species in an SBML model must be
  * located in a compartment.  This in turn means that if a model defines
@@ -49,7 +49,7 @@
  * refer to it.  A compartment can also have an optional "name" attribute
  * of type @c string.  Identifiers and names must be used according to the
  * guidelines described in the SBML specifications.
- * 
+ *
  * Compartment also has an optional attribute "spatialDimensions" that is
  * used to indicate the number of spatial dimensions possessed by the
  * compartment.  Most modeling scenarios involve compartments with integer
@@ -85,7 +85,7 @@
  * set using the optional attribute "units".  The rules for setting and
  * using compartment size units differ between SBML Level&nbsp;2 and
  * Level&nbsp;3, and are discussed separately below.
- * 
+ *
  * Finally, the optional Compartment attribute named "constant" is used to
  * indicate whether the compartment's size stays constant after simulation
  * begins.  A value of @c true indicates the compartment's "size" cannot be
@@ -97,9 +97,9 @@
  * Level&nbsp;2, "constant" has a default value of @c true.  In SBML
  * Level&nbsp;3, there is no default value for the "constant" attribute.
  *
- * 
+ *
  * @section comp-l2 Additional considerations in SBML Level&nbsp;2
- * 
+ *
  * In SBML Level&nbsp;2, the default units of compartment size, and the kinds
  * of units allowed as values of the attribute "units", interact with the
  * number of spatial dimensions of the compartment.  The value of the "units"
@@ -160,7 +160,7 @@
  *  </tr>
  *  </tr>
  * </table>
- * 
+ *
  * In SBML Level&nbsp;2, the units of the compartment size, as defined by the
  * "units" attribute or (if "units" is not set) the default value listed in
  * the table above, are used in the following ways when the compartment has
@@ -169,7 +169,7 @@
  * <li> The value of the "units" attribute is used as the units of the
  * compartment identifier when the identifier appears as a numerical
  * quantity in a mathematical formula expressed in MathML.
- * 
+ *
  * <li> The @c math element of an AssignmentRule or InitialAssignment
  * referring to this compartment must have identical units.
  *
@@ -222,8 +222,8 @@
  * "compartmentType" attribute and the CompartmentType
  * @if conly structures @else class of objects@endif@~ are
  * not present in SBML Level&nbsp;3 Core nor in SBML Level&nbsp;1.
- * 
- * 
+ *
+ *
  * @section comp-l3 Additional considerations in SBML Level&nbsp;3
  *
  * One difference between SBML Level&nbsp;3 and lower Levels of SBML is
@@ -306,31 +306,31 @@
  * from Model according to the table above, is used in the following ways:
  *
  * <ul>
- * 
+ *
  * <li> When the identifier of the compartment appears as a numerical
  * quantity in a mathematical formula expressed in MathML, it represents
  * the size of the compartment, and the unit associated with the size is
  * the value of the "units" attribute.
- * 
+ *
  * <li> When a Species is to be treated in terms of concentrations or
  * density, the unit associated with the spatial size portion of the
  * concentration value (i.e., the denominator in the formula
  * <em>amount</em>/<em>size</em>) is specified by the value of the "units"
  * attribute on the compartment in which the species is located.
- * 
+ *
  * <li> The "math" elements of AssignmentRule, InitialAssignment and
  * EventAssignment @if conly structures @else objects@endif@~ setting the
  * value of the compartment size should all have the same units as the unit
  * associated with the compartment's size.
- * 
+ *
  * <li> In a RateRule @if conly structure @else object@endif@~ that defines a
  * rate of change for a compartment's size, the unit of the rule's "math"
  * element should be identical to the compartment's "units" attribute divided
  * by the model-wide unit of <em>time</em>.  (In other words, {<em>unit of
  * compartment size</em>}/{<em>unit of time</em>}.)
- * 
+ *
  * </ul>
- * 
+ *
  *
  * @section comp-other Other aspects of Compartment
  *
@@ -362,12 +362,12 @@
  * Level&nbsp;2 do not have any implied spatial relationships between each
  * other.
  *
- * 
+ *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfCompartments
  * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %ListOfCompartments
  * construct.
- * 
+ *
  * @copydetails doc_what_is_listof
  */
 
@@ -414,7 +414,7 @@
  * compartments may be other than three-dimensional, and therefore the
  * "volume" attribute is named "size" in Level&nbsp;2 and above.  LibSBML
  * provides both
- * @if conly Compartment_getSize() and Compartment_getVolume() @else Compartment::getSize() and Compartment::getVolume()@endif@~ 
+ * @if conly Compartment_getSize() and Compartment_getVolume() @else Compartment::getSize() and Compartment::getVolume()@endif@~
  * for easier support of different SBML Levels.
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -433,10 +433,10 @@
  * @class doc_note_spatial_dimensions_as_double
  *
  * @note In SBML Level&nbsp;3, the data type of the "spatialDimensions"
- * attribute is @c &quot;double&quot;, whereas in Level&nbsp;2, it is @c
- * &quot;integer&quot;.  To avoid backward compatibility issues, libSBML
- * provides two separate methods for obtaining the value as either an
- * integer or a type @c double, for models where it is relevant.
+ * attribute is @c double, whereas in Level&nbsp;2, it is @c integer.  To
+ * avoid backward compatibility issues, libSBML provides two separate methods
+ * for obtaining the value as either an integer or a type @c double, for
+ * models where it is relevant.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_note_unit_analysis_depends_on_model
@@ -477,8 +477,8 @@ class LIBSBML_EXTERN Compartment : public SBase
 {
 public:
   /**
-   * Creates a new Compartment using the given SBML @p level and @p version
-   * values.
+   * Creates a new Compartment object using the given SBML @p level and @p
+   * version values.
    *
    * @param level an unsigned int, the SBML Level to assign to this Compartment
    *
@@ -496,15 +496,15 @@ public:
 
 
   /**
-   * Creates a new Compartment using the given SBMLNamespaces object 
+   * Creates a new Compartment object using the given SBMLNamespaces object
    * @p sbmlns.
    *
-   * @copydetails doc_what_are_sbmlnamespaces 
+   * @copydetails doc_what_are_sbmlnamespaces
    *
-   * It is worth emphasizing that although this constructor does not take
-   * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
-   * (identifier) attribute of a Compartment is required to have a value.
-   * Thus, callers are cautioned to assign a value after calling this
+   * It is worth emphasizing that although this constructor does not take an
+   * identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
+   * (identifier) attribute of a Compartment object is required to have a
+   * value.  Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
    * method @if java Compartment::setId(String id)@else setId()@endif.
    *
@@ -528,7 +528,7 @@ public:
 
   /**
    * Copy constructor; creates a copy of a Compartment.
-   * 
+   *
    * @param orig the Compartment instance to copy.
    *
    * @throws @if python ValueError @else SBMLConstructorException @endif@~
@@ -555,16 +555,16 @@ public:
    * @param v the SBMLVisitor instance to be used.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether the Visitor would like to visit the next Compartment in the
-   * list of compartments within which this Compartment is embedded (i.e.,
+   * whether the Visitor would like to visit the next Compartment object in the
+   * list of compartments within which this Compartment object is embedded (i.e.,
    * the ListOfCompartments in the parent Model).
    */
   virtual bool accept (SBMLVisitor& v) const;
 
 
   /**
-   * Creates and returns a deep copy of this Compartment object.
-   * 
+   * Creates and returns a deep copy of this Compartment object object.
+   *
    * @return a (deep) copy of this Compartment.
    */
   virtual Compartment* clone () const;
@@ -589,16 +589,26 @@ public:
 
   /**
    * Returns the value of the "id" attribute of this Compartment object.
-   * 
-   * @return the id of this Compartment.
+   *
+   * @return the identifier of this Compartment object.
+   *
+   * @see getName()
+   * @see setId(@if java String id@endif)
+   * @see unsetId()
+   * @see isSetId()
    */
   virtual const std::string& getId () const;
 
 
   /**
    * Returns the value of the "name" attribute of this Compartment object.
-   * 
-   * @return the name of this Compartment.
+   *
+   * @return the name of this Compartment object.
+   *
+   * @see getId()
+   * @see isSetName()
+   * @see setName(@if java String id@endif)
+   * @see unsetName()
    */
   virtual const std::string& getName () const;
 
@@ -608,10 +618,14 @@ public:
    * object.
    *
    * @return the value of the "compartmentType" attribute of this
-   * Compartment as a string.
+   * Compartment object as a string.
    *
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
+   *
+   * @see isSetCompartmentType()
+   * @see setCompartmentType(@if java String id@endif)
+   * @see unsetCompartmentType()
    */
   const std::string& getCompartmentType () const;
 
@@ -620,11 +634,14 @@ public:
    * Get the number of spatial dimensions of this Compartment object.
    *
    * @return the value of the "spatialDimensions" attribute of this
-   * Compartment as an unsigned integer
+   * Compartment object as an unsigned integer
    *
-   * @copydetails doc_note_spatial_dimensions_as_double 
+   * @copydetails doc_note_spatial_dimensions_as_double
    *
    * @see getSpatialDimensionsAsDouble()
+   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see isSetSpatialDimensions()
+   * @see unsetSpatialDimensions()
    */
   unsigned int getSpatialDimensions () const;
 
@@ -634,129 +651,155 @@ public:
    * as a double.
    *
    * @return the value of the "spatialDimensions" attribute of this
-   * Compartment as a double, or @c NaN if this model is not in SBML
+   * Compartment object as a double, or @c NaN if this model is not in SBML
    * Level&nbsp;3 format.
    *
    * @copydetails doc_note_spatial_dimensions_as_double
    *
    * @see getSpatialDimensions()
+   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see isSetSpatialDimensions()
+   * @see unsetSpatialDimensions()
    */
   double getSpatialDimensionsAsDouble () const;
 
 
   /**
-   * Get the size of this Compartment.
+   * Get the size of this Compartment object.
    *
    * @copydetails doc_compartment_both_size_and_volume
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
-   * this Compartment as a floating-point number.
+   * this Compartment object as a floating-point number.
    *
    * @note This method is identical to
    * @if java Compartment::getVolume()@else getVolume()@endif.
    *
-   * @see isSetSize()
    * @see getVolume()
+   * @see isSetSize()
+   * @see setSize(@if java double value@endif)
+   * @see usetSize()
    */
   double getSize () const;
 
 
   /**
-   * Get the volume of this Compartment.
+   * Get the volume of this Compartment object.
    *
    * @copydetails doc_compartment_both_size_and_volume
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
-   * this Compartment, as a floating-point number.
+   * this Compartment object, as a floating-point number.
    *
    * @copydetails doc_note_compartment_volume
    *
    * @note This method is identical to
    * @if java Compartment::getSize()@else getSize()@endif.
    *
-   * @see isSetVolume()
    * @see getSize()
+   * @see isSetVolume()
+   * @see setVolume(@if java double value@endif)
+   * @see unsetVolume()
    */
   double getVolume () const;
 
 
   /**
-   * Get the units of this compartment's size.
+   * Get the units of this Compartment object's size.
    *
    * The value of an SBML compartment's "units" attribute establishes the
    * unit of measurement associated with the compartment's size.
    *
-   * @return the value of the "units" attribute of this Compartment, as a
-   * string.  An empty string indicates that no units have been assigned to
-   * the value of the size.
+   * @return the value of the "units" attribute of this Compartment object,
+   * as a string.  An empty string indicates that no units have been assigned
+   * to the value of the size.
    *
    * @copydetails doc_note_unassigned_unit_are_not_a_default
    *
    * @see isSetUnits()
-   * @see @if java Compartment::setUnits(String sid)@else setUnits()@endif@~
-   * @see getSize()
+   * @see setUnits(@if java String sid@endif)
+   * @see unsetUnits()
    */
   const std::string& getUnits () const;
 
 
   /**
-   * Get the identifier, if any, of the compartment that is designated
-   * as being outside of this one.
-   * 
-   * @return the value of the "outside" attribute of this Compartment.
+   * Get the identifier, if any, of the Compartment object that is designated
+   * as being outside of @em this one.
+   *
+   * @return the value of the "outside" attribute of this Compartment object.
    *
    * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
    * Core.
+   *
+   * @see isSetOutside()
+   * @see setOutside(@if java String sid@endif)
+   * @see unsetOutsize()
    */
   const std::string& getOutside () const;
 
 
   /**
-   * Get the value of the "constant" attribute of this Compartment.
+   * Get the value of the "constant" attribute of this Compartment object.
    *
-   * @return @c true if this Compartment's size is flagged as being
+   * @return @c true if this Compartment object's size is flagged as being
    * constant, @c false otherwise.
+   *
+   * @see isSetConstant()
+   * @see setConstant(@if java bool value@endif)
    */
   bool getConstant () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "id" attribute is set.
+   * Predicate returning @c true if this Compartment object's "id" attribute
+   * is set.
    *
-   * @return @c true if the "id" attribute of this Compartment is 
+   * @return @c true if the "id" attribute of this Compartment object is
    * set, @c false otherwise.
+   *
+   * @see getId()
+   * @see unsetId()
+   * @see setId(@if java String id@endif)
    */
   virtual bool isSetId () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "name" attribute is set.
+   * Predicate returning @c true if this Compartment object's "name"
+   * attribute is set.
    *
-   * @return @c true if the "name" attribute of this Compartment is
+   * @return @c true if the "name" attribute of this Compartment object is
    * set, @c false otherwise.
+   *
+   * @see getName()
+   * @see setName(@if java String id@endif)
+   * @see unsetName()
    */
   virtual bool isSetName () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "compartmentType" attribute is set.
+   * Predicate returning @c true if this Compartment object's
+   * "compartmentType" attribute is set.
    *
    * @return @c true if the "compartmentType" attribute of this Compartment
    * is set, @c false otherwise.
    *
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
+   *
+   * @see setCompartmentType(@if java String id@endif)
+   * @see getCompartmentType()
+   * @see unsetCompartmentType()
    */
   bool isSetCompartmentType () const;
 
 
   /**
-   * Predicate returning @c true if this Compartment's "size" attribute is
-   * set.
+   * Predicate returning @c true if this Compartment object's "size"
+   * attribute is set.
    *
    * This method is similar but not identical to
    * @if java Compartment::isSetVolume()@else isSetVolume()@endif.  The latter
@@ -767,17 +810,19 @@ public:
    * default values between SBML Levels&nbsp;1 and&nbsp;2.
    *
    * @return @c true if the "size" attribute ("volume" in Level&nbsp;2) of
-   * this Compartment is set, @c false otherwise.
+   * this Compartment object is set, @c false otherwise.
    *
    * @see isSetVolume()
-   * @see @if java Compartment::setSize(double value)@else setSize()@endif@~
+   * @see setSize(@if java double value@endif)
+   * @see getSize()
+   * @see unsetSize()
    */
   bool isSetSize () const;
 
 
   /**
-   * Predicate returning @c true if this Compartment's "volume" attribute is
-   * set.
+   * Predicate returning @c true if this Compartment object's "volume"
+   * attribute is set.
    *
    * This method is similar but not identical to
    * @if java Compartment::isSetSize()@else isSetSize()@endif.  The latter
@@ -786,70 +831,87 @@ public:
    * the difference in default values between SBML Levels&nbsp;1 and&nbsp;2.
    *
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
-   * above) of this Compartment is set, @c false otherwise.
+   * above) of this Compartment object is set, @c false otherwise.
    *
    * @copydetails doc_note_compartment_volume
    *
    * @see isSetSize()
-   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif@~
+   * @see getVolume()
+   * @see setVolume(@if java double value@endif)
+   * @see unsetVolume()
    */
   bool isSetVolume () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "units" attribute is set.
+   * Predicate returning @c true if this Compartment object's "units"
+   * attribute is set.
    *
-   * @return @c true if the "units" attribute of this Compartment is
+   * @return @c true if the "units" attribute of this Compartment object is
    * set, @c false otherwise.
    *
    * @copydetails doc_note_unassigned_unit_are_not_a_default
+   *
+   * @see setUnits(@if java String sid@endif)
+   * @see getUnits()
+   * @see unsetUnits()
    */
   bool isSetUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "outside" attribute is set.
+   * Predicate returning @c true if this Compartment object's "outside"
+   * attribute is set.
    *
-   * @return @c true if the "outside" attribute of this Compartment is
+   * @return @c true if the "outside" attribute of this Compartment object is
    * set, @c false otherwise.
    *
    * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
    * Core.
+   *
+   * @see getSetOutside()
+   * @see setOutside(@if java String sid@endif)
+   * @see unsetOutsize()
    */
   bool isSetOutside () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "spatialDimensions" attribute is set.
+   * Predicate returning @c true if this Compartment object's
+   * "spatialDimensions" attribute is set.
    *
    * @return @c true if the "spatialDimensions" attribute of this
-   * Compartment is set, @c false otherwise.
+   * Compartment object is set, @c false otherwise.
+   *
+   * @see getSpatialDimensions()
+   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see unsetSpatialDimensions()
    */
   bool isSetSpatialDimensions () const;
 
 
   /**
-   * Predicate returning @c true if this
-   * Compartment's "constant" attribute is set.
+   * Predicate returning @c true if this Compartment object's "constant"
+   * attribute is set.
    *
-   * @return @c true if the "constant" attribute of this Compartment is
+   * @return @c true if the "constant" attribute of this Compartment object is
    * set, @c false otherwise.
+   *
+   * @see getConstant()
+   * @see setConstant(@if java bool value@endif)
    */
   bool isSetConstant () const;
 
 
   /**
-   * Sets the value of the "id" attribute of this Compartment.
+   * Sets the value of the "id" attribute of this Compartment object.
    *
    * The string @p sid is copied.
    *
    * @copydetails doc_id_syntax
    *
-   * @param sid the string to use as the identifier of this Compartment. If
+   * @param sid the string to use as the identifier of this Compartment object. If
    * the string is @c NULL, this method will return
    * @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink.
    *
@@ -858,17 +920,21 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
+   * @see getId()
+   * @see unsetId()
+   * @see isSetId()
    */
   virtual int setId (const std::string& sid);
 
 
   /**
-   * Sets the value of the "name" attribute of this Compartment.
+   * Sets the value of the "name" attribute of this Compartment object.
    *
    * The string in @p name is copied.
    *
-   * @param name the new name for the Compartment. If the string is @c NULL,
-   * this method will return
+   * @param name the new name for the Compartment object. If the string is @c
+   * NULL, this method will return
    * @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink.
    *
    * @return integer value indicating success/failure of the
@@ -876,12 +942,16 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
+   * @see getName()
+   * @see isSetName()
+   * @see unsetName()
    */
   virtual int setName (const std::string& name);
 
 
   /**
-   * Sets the "compartmentType" attribute of this Compartment.
+   * Sets the "compartmentType" attribute of this Compartment object.
    *
    * @param sid the identifier of a CompartmentType object defined elsewhere
    * in this Model. If the string is @c NULL, this method will return
@@ -896,12 +966,16 @@ public:
    *
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
+   *
+   * @see isSetCompartmentType()
+   * @see getCompartmentType()
+   * @see unsetCompartmentType()
    */
   int setCompartmentType (const std::string& sid);
 
 
   /**
-   * Sets the "spatialDimensions" attribute of this Compartment.
+   * Sets the "spatialDimensions" attribute of this Compartment object.
    *
    * @param value an unsigned integer indicating the number of dimensions
    * of this compartment.
@@ -912,12 +986,16 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   *
+   * @see getSpatialDimensions()
+   * @see isSetSpatialDimensions()
+   * @see unsetSpatialDimensions()
    */
   int setSpatialDimensions (unsigned int value);
 
 
   /**
-   * Sets the "spatialDimensions" attribute of this Compartment as a double.
+   * Sets the "spatialDimensions" attribute of this Compartment object as a double.
    *
    * @param value a double indicating the number of dimensions
    * of this compartment.
@@ -928,13 +1006,17 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   *
+   * @see getSpatialDimensions()
+   * @see isSetSpatialDimensions()
+   * @see unsetSpatialDimensions()
    */
   int setSpatialDimensions (double value);
 
 
   /**
    * Sets the "size" attribute (or "volume" in SBML Level&nbsp;1) of this
-   * Compartment.
+   * Compartment object.
    *
    * @param value a @c double representing the size of this compartment
    * instance in whatever units are in effect for the compartment.
@@ -947,21 +1029,23 @@ public:
    * @note This method is identical to
    * @if java Compartment::setVolume(double value)@else setVolume()@endif.
    *
+   * @see setVolume(@if java double value@endif)
+   * @see getSize()
    * @see isSetSize()
-   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif
+   * @see unsetSize()
    */
   int setSize (double value);
 
 
   /**
    * Sets the "volume" attribute (or "size" in SBML Level&nbsp;2) of this
-   * Compartment.
+   * Compartment object.
    *
    * This method is identical to
    * @if java Compartment::setSize(double value)@else setSize()@endif@~
    * and is provided for compatibility between SBML Level&nbsp;1 and
    * higher Levels of SBML.
-   * 
+   *
    * @param value a @c double representing the volume of this compartment
    * instance in whatever units are in effect for the compartment.
    *
@@ -972,14 +1056,16 @@ public:
    *
    * @copydetails doc_note_compartment_volume
    *
+   * @see setSize(@if java double value@endif)
+   * @see getVolume()
    * @see isSetVolume()
-   * @see @if java Compartment::setSize(double value)@else setSize()@endif@~
+   * @see unsetVolume()
    */
   int setVolume (double value);
 
 
   /**
-   * Sets the "units" attribute of this Compartment.
+   * Sets the "units" attribute of this Compartment object.
    *
    * @param sid the identifier of the defined units to use.  If @p sid is @c
    * NULL, then this method will return
@@ -990,12 +1076,16 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   *
+   * @see isSetUnits()
+   * @see getUnits()
+   * @see unsetUnits()
    */
   int setUnits (const std::string& sid);
 
 
   /**
-   * Sets the "outside" attribute of this Compartment.
+   * Sets the "outside" attribute of this Compartment object.
    *
    * @param sid the identifier of a compartment that encloses this one. If @p
    * sid is @c NULL, then this method will return
@@ -1010,12 +1100,16 @@ public:
    * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
    * Core.
+   *
+   * @see isSetOutside()
+   * @see getSetOutside()
+   * @see unsetOutsize()
    */
   int setOutside (const std::string& sid);
 
 
   /**
-   * Sets the value of the "constant" attribute of this Compartment.
+   * Sets the value of the "constant" attribute of this Compartment object.
    *
    * @param value a boolean indicating whether the size/volume of this
    * compartment should be considered constant (@c true) or variable
@@ -1026,6 +1120,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   *
+   * @see isSetConstant()
+   * @see getConstant()
    */
   int setConstant (bool value);
 
@@ -1043,19 +1140,23 @@ public:
 
 
   /**
-   * Unsets the value of the "name" attribute of this Compartment.
+   * Unsets the value of the "name" attribute of this Compartment object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
+   * @see getName()
+   * @see setName(@if java String id@endif)
+   * @see isSetName()
    */
   virtual int unsetName ();
 
 
   /**
-   * Unsets the value of the "compartmentType" attribute of this Compartment.
+   * Unsets the value of the "compartmentType" attribute of this Compartment object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1063,18 +1164,19 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
-   * 
+   *
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    *
    * @see setCompartmentType(const std::string& sid)
    * @see isSetCompartmentType()
+   * @see getCompartmentType()
    */
   int unsetCompartmentType ();
 
 
   /**
-   * Unsets the value of the "size" attribute of this Compartment.
+   * Unsets the value of the "size" attribute of this Compartment object.
    *
    * In SBML Level&nbsp;1, a compartment's volume has a default value (@c
    * 1.0) and therefore <em>should always be set</em>.  Calling this method
@@ -1091,12 +1193,17 @@ public:
    *
    * @note This method is identical to
    * @if java Compartment::unsetVolume()@else unsetVolume()@endif.
+   *
+   * @see unsetVolume()
+   * @see getSize()
+   * @see isSetSize()
+   * @see setSize(@if java double value@endif)
    */
   int unsetSize ();
 
 
   /**
-   * Unsets the value of the "volume" attribute of this Compartment.
+   * Unsets the value of the "volume" attribute of this Compartment object.
    *
    * This method is identical to
    * @if java Compartment::unsetSize()@else unsetSize()@endif.  Please refer
@@ -1111,25 +1218,32 @@ public:
    * @copydetails doc_note_compartment_volume
    *
    * @see unsetSize()
+   * @see getVolume()
+   * @see setVolume(@if java double value@endif)
+   * @see isSetVolume()
    */
   int unsetVolume ();
 
 
   /**
-   * Unsets the value of the "units" attribute of this Compartment.
-   * 
+   * Unsets the value of the "units" attribute of this Compartment object.
+   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
+   * @see isSetUnits()
+   * @see setUnits(@if java String sid@endif)
+   * @see getUnits()
    */
   int unsetUnits ();
 
 
   /**
-   * Unsets the value of the "outside" attribute of this Compartment.
-   * 
+   * Unsets the value of the "outside" attribute of this Compartment object.
+   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
@@ -1139,13 +1253,17 @@ public:
    * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
    * Core.
+   *
+   * @see isSetOutside()
+   * @see getSetOutside()
+   * @see setOutside(@if java String sid@endif)
    */
   int unsetOutside ();
 
 
   /**
    * Unsets the value of the "spatialDimensions" attribute of this
-   * Compartment.
+   * Compartment object.
    *
    * In SBML Levels prior to Level&nbsp;3, compartments must always have a
    * value for the number of dimensions.  Consequently, calling this method
@@ -1160,18 +1278,22 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
    *
    * @note This function is only valid for SBML Level&nbsp;3.
+   *
+   * @see getSpatialDimensions()
+   * @see isSetSpatialDimensions()
+   * @see setSpatialDimensions(@if java unsigned int value@endif)
    */
   int unsetSpatialDimensions ();
 
 
   /**
    * Constructs and returns a UnitDefinition that corresponds to the units
-   * of this Compartment's designated size.
+   * of this Compartment object's designated size.
    *
    * @copydetails doc_compartment_units
-   * 
-   * @return a UnitDefinition that expresses the units of this 
-   * Compartment, or @c NULL if one cannot be constructed.
+   *
+   * @return a UnitDefinition that expresses the units of this
+   * Compartment object, or @c NULL if one cannot be constructed.
    *
    * @copydetails doc_note_unit_analysis_depends_on_model
    *
@@ -1183,12 +1305,12 @@ public:
 
   /**
    * Constructs and returns a UnitDefinition that corresponds to the units
-   * of this Compartment's designated size.
+   * of this Compartment object's designated size.
    *
    * @copydetails doc_compartment_units
-   * 
-   * @return a UnitDefinition that expresses the units of this 
-   * Compartment, or @c NULL if one cannot be constructed.
+   *
+   * @return a UnitDefinition that expresses the units of this
+   * Compartment object, or @c NULL if one cannot be constructed.
    *
    * @copydetails doc_note_unit_analysis_depends_on_model
    *
@@ -1200,7 +1322,7 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
+   *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
@@ -1217,7 +1339,7 @@ public:
   /**
    * Returns the XML element name of this object, which for Compartment, is
    * always @c "compartment".
-   * 
+   *
    * @return the name of this element, i.e., @c "compartment".
    */
   virtual const std::string& getElementName () const;
@@ -1272,7 +1394,7 @@ protected:
   void readL1Attributes (const XMLAttributes& attributes);
 
   void readL2Attributes (const XMLAttributes& attributes);
-  
+
   void readL3Attributes (const XMLAttributes& attributes);
 
 
@@ -1283,7 +1405,7 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  bool isExplicitlySetSpatialDimensions() const { 
+  bool isExplicitlySetSpatialDimensions() const {
     return mExplicitlySetSpatialDimensions; };
 
   bool isExplicitlySetConstant() const { return mExplicitlySetConstant; } ;
@@ -1305,7 +1427,7 @@ protected:
   bool  mExplicitlySetSpatialDimensions;
   bool  mExplicitlySetConstant;
 
-  /* the validator classes need to be friends to access the 
+  /* the validator classes need to be friends to access the
    * protected constructor that takes no arguments
    */
   friend class Validator;
@@ -1339,7 +1461,7 @@ public:
    * Level and Version combination.
    *
    * @param level the SBML Level
-   * 
+   *
    * @param version the Version within the SBML Level
    */
   ListOfCompartments (unsigned int level, unsigned int version);
@@ -1385,46 +1507,46 @@ public:
    * Returns the XML element name of this object.
    *
    * For ListOfCompartments, the XML element name is @c "listOfCompartments".
-   * 
+   *
    * @return the name of this element, i.e., @c "listOfCompartments".
    */
   virtual const std::string& getElementName () const;
 
 
   /**
-   * Get a Compartment from the ListOfCompartments.
+   * Get a Compartment object from the ListOfCompartments.
    *
-   * @param n the index number of the Compartment to get.
-   * 
-   * @return the nth Compartment in this ListOfCompartments.
+   * @param n the index number of the Compartment object to get.
    *
-   * @see size()
-   */
-  virtual Compartment * get(unsigned int n); 
-
-
-  /**
-   * Get a Compartment from the ListOfCompartments.
-   *
-   * @param n the index number of the Compartment to get.
-   * 
-   * @return the nth Compartment in this ListOfCompartments.
+   * @return the nth Compartment object in this ListOfCompartments.
    *
    * @see size()
    */
-  virtual const Compartment * get(unsigned int n) const; 
+  virtual Compartment * get(unsigned int n);
 
 
   /**
-   * Get a Compartment from the ListOfCompartments
+   * Get a Compartment object from the ListOfCompartments.
+   *
+   * @param n the index number of the Compartment object to get.
+   *
+   * @return the nth Compartment object in this ListOfCompartments.
+   *
+   * @see size()
+   */
+  virtual const Compartment * get(unsigned int n) const;
+
+
+  /**
+   * Get a Compartment object from the ListOfCompartments
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Compartment to get.
-   * 
-   * @return Compartment in this ListOfCompartments
+   * @param sid a string representing the identifier
+   * of the Compartment object to get.
+   *
+   * @return Compartment object in this ListOfCompartments
    * with the given @p sid or @c NULL if no such
-   * Compartment exists.
+   * Compartment object exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -1433,15 +1555,15 @@ public:
 
 
   /**
-   * Get a Compartment from the ListOfCompartments
+   * Get a Compartment object from the ListOfCompartments
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Compartment to get.
-   * 
-   * @return Compartment in this ListOfCompartments
+   * @param sid a string representing the identifier
+   * of the Compartment object to get.
+   *
+   * @return Compartment object in this ListOfCompartments
    * with the given @p sid or @c NULL if no such
-   * Compartment exists.
+   * Compartment object exists.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -1558,7 +1680,7 @@ Compartment_create (unsigned int level, unsigned int version);
  * Creates a new Compartment_t structure using the given SBMLNamespaces_t
  * structure, @p sbmlns.
  *
- * @copydetails doc_what_are_sbmlnamespaces 
+ * @copydetails doc_what_are_sbmlnamespaces
  *
  * It is worth emphasizing that although this constructor does not take an
  * identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
@@ -1705,7 +1827,7 @@ Compartment_getCompartmentType (const Compartment_t *c);
  * @return the value of the "spatialDimensions" attribute of the
  * Compartment_t structure @p c as an unsigned integer
  *
- * @copydetails doc_note_spatial_dimensions_as_double 
+ * @copydetails doc_note_spatial_dimensions_as_double
  *
  * @see Compartment_getSpatialDimensionsAsDouble()
  *
@@ -1725,7 +1847,7 @@ Compartment_getSpatialDimensions (const Compartment_t *c);
  * @return the value of the "spatialDimensions" attribute of the
  * Compartment_t structure @p c as a double.
  *
- * @copydetails doc_note_spatial_dimensions_as_double 
+ * @copydetails doc_note_spatial_dimensions_as_double
  *
  * @see Compartment_getSpatialDimensions()
  *
@@ -2183,7 +2305,7 @@ Compartment_setSize (Compartment_t *c, double value);
  * compatibility between SBML Level&nbsp;1 and higher Levels of SBML.
  *
  * @param c the Compartment_t structure.
- * 
+ *
  * @param value a @c double representing the volume of the given
  * Compartment_t structure in whatever units are in effect
  *
@@ -2352,7 +2474,7 @@ Compartment_unsetSize (Compartment_t *c);
 
 
 /**
- * (For SBML Level 1) Unsets the value of the "volume" attribute of the 
+ * (For SBML Level 1) Unsets the value of the "volume" attribute of the
  * given Compartment_t structure.
  *
  * This method is identical to Compartment_unsetSize().  Please refer to that

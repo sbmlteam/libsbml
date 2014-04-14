@@ -204,8 +204,7 @@
  * letter ::= 'a'..'z','A'..'Z'
  * digit  ::= '0'..'9'
  * idChar ::= letter | digit | '_'
- * SId    ::= ( letter | '_' ) idChar*
- * </pre>
+ * SId    ::= ( letter | '_' ) idChar*</pre>
  * The characters <code>(</code> and <code>)</code> are used for grouping, the
  * character <code>*</code> "zero or more times", and the character
  * <code>|</code> indicates logical "or".  The equality of SBML identifiers is
