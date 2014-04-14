@@ -36,6 +36,7 @@
 #include <sbml/util/memory.h>
 
 #include <sbml/common/extern.h>
+#include <sbml/common/libsbml-package.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
