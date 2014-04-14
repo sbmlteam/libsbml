@@ -46,6 +46,7 @@
 #include <sys/types.h>
 
 #include <sbml/common/common.h>
+#include <sbml/common/libsbml-package.h>
 
 #include <sbml/util/List.h>
 #include <sbml/util/util.h>
