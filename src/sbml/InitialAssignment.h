@@ -507,11 +507,11 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * InitialAssignment object have been set.
    *
-   * @note The required attributes for an InitialAssignment object are:
+   * The required attributes for an InitialAssignment object are:
    * @li "symbol"
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 

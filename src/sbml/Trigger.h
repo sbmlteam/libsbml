@@ -473,7 +473,7 @@ public:
    * all the required attributes for this Trigger object
    * have been set.
    *
-   * @note The required attributes for a Trigger object are:
+   * The required attributes for a Trigger object are:
    * @li "persistent" (required in SBML Level&nbsp;3)
    * @li "initialValue" (required in SBML Level&nbsp;3)
    *
@@ -814,7 +814,7 @@ Trigger_setPersistent (Trigger_t *t, int persistent);
   * all the required attributes for this Trigger_t structure
   * have been set.
   *
-  * @note The required attributes for a Trigger_t structure are:
+  * The required attributes for a Trigger_t structure are:
   * @li persistent ( L3 onwards )
   * @li initialValue ( L3 onwards )
   *

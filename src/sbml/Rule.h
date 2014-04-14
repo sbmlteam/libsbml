@@ -732,8 +732,8 @@ public:
    * ParameterRule objects), the required attribute is "variable"; for
    * AlgebraicRule objects, there is no required attribute.
    *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 

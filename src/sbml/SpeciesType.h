@@ -320,11 +320,11 @@ public:
    * all the required attributes for this SpeciesType object
    * have been set.
    *
-   * @note The required attributes for a SpeciesType object are:
+   * The required attributes for a SpeciesType object are:
    * @li "id"
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 

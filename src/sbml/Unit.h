@@ -1059,14 +1059,14 @@ public:
    * all the required attributes for this Unit object
    * have been set.
    *
-   * @note The required attributes for a Unit object are:
+   * The required attributes for a Unit object are:
    * @li "kind"
    * @li "exponent" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
    * @li "multiplier" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
    * @li "scale" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
    *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -2293,7 +2293,7 @@ Unit_setOffset (Unit_t *u, double value);
  * all the required attributes for this Unit_t structure
  * have been set.
  *
- * @note The required attributes for a Unit_t structure are:
+ * The required attributes for a Unit_t structure are:
  * @li kind
  * @li exponent (L3 on)
  * @li multiplier (L3 on)

@@ -165,8 +165,11 @@ public:
    * all the required attributes for this ModifierSpeciesReference object
    * have been set.
    *
-   * @note The required attributes for a ModifierSpeciesReference object are:
+   * The required attributes for a ModifierSpeciesReference object are:
    * species
+   *
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 

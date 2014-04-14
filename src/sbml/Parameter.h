@@ -675,12 +675,12 @@ public:
    * all the required attributes for this Parameter object
    * have been set.
    *
-   * @note The required attributes for a Parameter object are:
+   * The required attributes for a Parameter object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
    * @li "value" (required in Level&nbsp;1, optional otherwise)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -1484,11 +1484,11 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p);
  * all the required attributes for this Parameter_t structure
  * have been set.
  *
- * @param p the Parameter_t structure to check.
- *
- * @note The required attributes for a Parameter_t structure are:
+ * The required attributes for a Parameter_t structure are:
  * @li id (name in L1)
  * @li constant (in L3 only)
+ *
+ * @param p the Parameter_t structure to check.
  *
  * @return a true if all the required
  * attributes for this structure have been defined, false otherwise.

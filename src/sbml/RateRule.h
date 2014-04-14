@@ -190,7 +190,7 @@ public:
    * all the required attributes for this RateRule object
    * have been set.
    *
-   * @note In SBML Levels&nbsp;2&ndash;3, the only required attribute for a
+   * In SBML Levels&nbsp;2&ndash;3, the only required attribute for a
    * RateRule object is "variable".  For Level&nbsp;1, where the equivalent
    * attribute is known by different names ("compartment", "species", or
    * "name", depending on the type of object), there is an additional

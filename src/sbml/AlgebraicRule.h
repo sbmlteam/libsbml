@@ -149,7 +149,7 @@ public:
 
   /**
    * Creates and returns a deep copy of this Rule.
-   * 
+   *
    * @return a (deep) copy of this Rule.
    */
   virtual AlgebraicRule* clone () const;
@@ -175,7 +175,7 @@ public:
 
   void setInternalIdOnly();
   bool getInternalIdOnly() const;
-  
+
   /** @endcond */
 
 
@@ -183,10 +183,10 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * AlgebraicRule object have been set.
    *
-   * @note In SBML Levels&nbsp;2&ndash;3, there is no required attribute
+   * In SBML Levels&nbsp;2&ndash;3, there is no required attribute
    * for an AlgebraicRule object.  For Level&nbsp;1, the only required
    * attribute is "formula".
-   * 
+   *
    * @return @c true if the required attributes have been set, @c false
    * otherwise.
    */

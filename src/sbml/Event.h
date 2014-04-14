@@ -1062,8 +1062,11 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * Event object have been set.
    *
-   * @note The required attributes for an Event object are:
+   * The required attributes for an Event object are:
    * @li "useValuesfromTriggerTime" (required in SBML Level&nbsp;3)
+   *
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -1940,13 +1943,16 @@ Event_unsetTimeUnits (Event_t *e);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for the given Event_t structure
-  * have been set.
-  *
-  * @note The required attributes for an Event_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
-  *
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for the given Event_t structure
+ * have been set.
+ *
+ * The required attributes for an Event_t structure are:
+ * @li useValuesfromTriggerTime ( L3 onwards )
+ *
+ * @return @c 1 if the required attributes have been set, @c 0
+ * otherwise.
+ *
  * @memberof Event_t
  */
 LIBSBML_EXTERN

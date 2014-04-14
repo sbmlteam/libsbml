@@ -950,11 +950,11 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * KineticLaw object have been set.
    *
-   * @note The required attributes for a KineticLaw object are:
+   * The required attributes for a KineticLaw object are:
    * @li "formula" (SBML Level&nbsp;1 only)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 

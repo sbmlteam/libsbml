@@ -222,12 +222,12 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * AssignmentRule object have been set.
    *
-   * @note In SBML Levels&nbsp;2&ndash;3, the only required attribute for
+   * In SBML Levels&nbsp;2&ndash;3, the only required attribute for
    * an AssignmentRule object is "variable".  For Level&nbsp;1, where the
    * equivalent attribute is known by different names ("compartment",
    * "species", or "name", depending on the type of object), there is an
    * additional required attribute called "formula".
-   * 
+   *
    * @return @c true if the required attributes have been set, @c false
    * otherwise.
    */

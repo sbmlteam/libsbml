@@ -1174,13 +1174,13 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * Reaction object have been set.
    *
-   * @note The required attributes for a Reaction object are:
+   * The required attributes for a Reaction object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
    * @li "fast" (in Level&nbsp;3 only, where it is defined as a required attribute)
    * @li "reversible" (in Level&nbsp;3 only, where it is defined as a required attribute)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -1871,12 +1871,12 @@ Reaction_unsetFast (Reaction_t *r);
  * all the required attributes for this Reaction_t structure
  * have been set.
  *
- * @param r the Reaction_t structure to check.
- *
- * @note The required attributes for a Reaction_t structure are:
+ * The required attributes for a Reaction_t structure are:
  * @li id (name in L1)
  * @li fast (in L3 only)
  * @li reversible (in L3 only)
+ *
+ * @param r the Reaction_t structure to check.
  *
  * @return a true if all the required
  * attributes for this structure have been defined, false otherwise.

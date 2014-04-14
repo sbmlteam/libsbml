@@ -1237,12 +1237,12 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * Compartment object have been set.
    *
-   * @note The required attributes for a Compartment object are:
+   * The required attributes for a Compartment object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
    * @li "constant" (in SBML Level&nbsp;3 only)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -2473,11 +2473,11 @@ Compartment_getDerivedUnitDefinition(Compartment_t *c);
  * Predicate returning @c 1 or @c 0 depending on whether all the required
  * attributes for the given Compartment_t structure have been set.
  *
- * @param c the Compartment_t structure to check.
- *
- * @note The required attributes for a Compartment_t structure are:
+ * The required attributes for a Compartment_t structure are:
  * @li id (name in SBML Level 1 only)
  * @li constant (in SBML Level 3 only)
+ *
+ * @param c the Compartment_t structure to check.
  *
  * @return @c true (nonzero) if all the required attributes for this
  * structure have been defined, @c false (zero) otherwise.

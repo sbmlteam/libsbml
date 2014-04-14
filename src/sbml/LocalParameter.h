@@ -337,12 +337,12 @@ public:
    * Predicate returning @c true if all the required attributes for this
    * LocalParameter object have been set.
    *
-   * @note The required attributes for a LocalParameter object are:
+   * The required attributes for a LocalParameter object are:
    * @li "id"
    * @li "value"
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -1046,18 +1046,18 @@ LocalParameter_unsetUnits (LocalParameter_t *p);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required attributes for this LocalParameter object
-  * have been set.
-  *
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this LocalParameter object
+ * have been set.
+ *
  * @param p the LocalParameter_t structure to check.
  *
-  * @note The required attributes for a LocalParameter object are:
-  * @li id (name in L1)
-  *
-  * @return a true if all the required
-  * attributes for this object have been defined, false otherwise.
-  *
+ * The required attributes for a LocalParameter object are:
+ * @li id (name in L1)
+ *
+ * @return @c 1 if all the required attributes for this object have been
+ * defined, @c 0 otherwise.
+ *
  * @memberof LocalParameter_t
  */
 LIBSBML_EXTERN

@@ -1323,7 +1323,7 @@ public:
    * all the required attributes for this Species object
    * have been set.
    *
-   * @note The required attributes for a Species object are:
+   * The required attributes for a Species object are:
    * @li "id" (or "name" in SBML Level&nbsp;1)
    * @li "compartment"
    * @li "initialAmount" (required in SBML Level&nbsp;1 only; optional otherwise)
@@ -1331,8 +1331,8 @@ public:
    * @li "boundaryCondition" (required in SBML Level&nbsp;3; optional in Levels&nbsp;1 and&nbsp;2)
    * @li "constant" (required in SBML Level&nbsp;3; optional in SBML Level&nbsp;2)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -2832,15 +2832,15 @@ Species_getDerivedUnitDefinition(Species_t *s);
  * all the required attributes for this Species_t structure
  * have been set.
  *
- * @param s the Species_t structure to check.
- *
- * @note The required attributes for a Species_t structure are:
+ * The required attributes for a Species_t structure are:
  * @li id (name L1)
  * @li compartment
  * @li initialAmount (L1 only)
  * @li hasOnlySubstanceUnits (L3 on)
  * @li boundaryCondition (L3 on)
  * @li constant (L3 on)
+ *
+ * @param s the Species_t structure to check.
  *
  * @return a true if all the required
  * attributes for this structure have been defined, false otherwise.

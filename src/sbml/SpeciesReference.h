@@ -866,12 +866,12 @@ public:
    * all the required attributes for this SpeciesReference object
    * have been set.
    *
-   * @note The required attributes for a SpeciesReference object are:
+   * The required attributes for a SpeciesReference object are:
    * @li "species"
    * @li "constant" (only available SBML Level&nbsp;3)
    *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
 
@@ -1892,11 +1892,11 @@ SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
   * all the required attributes for this SpeciesReference_t structure
   * have been set.
   *
- * @param sr the SpeciesReference_t structure to check.
- *
-  * @note The required attributes for a SpeciesReference_t structure are:
+  * The required attributes for a SpeciesReference_t structure are:
   * @li species
   * @li constant (in L3 only)
+  *
+  * @param sr the SpeciesReference_t structure to check.
   *
   * @return a true if all the required
   * attributes for this object have been defined, false otherwise.
