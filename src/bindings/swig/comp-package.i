@@ -55,6 +55,7 @@
 %include sbml/packages/comp/util/SBMLResolver.h
 %include sbml/packages/comp/util/SBMLFileResolver.h
 %include sbml/packages/comp/util/SBMLResolverRegistry.h
+%include <sbml/packages/comp/util/CompFlatteningConverter.h>
 
 %include sbml/packages/comp/sbml/CompBase.h
 %include sbml/packages/comp/sbml/SBaseRef.h

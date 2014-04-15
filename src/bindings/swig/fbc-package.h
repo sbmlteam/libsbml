@@ -31,6 +31,9 @@
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 
+#include <sbml/packages/fbc/util/CobraToFbcConverter.h>
+#include <sbml/packages/fbc/util/FbcToCobraConverter.h>
+
 #include <sbml/packages/fbc/sbml/Association.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
