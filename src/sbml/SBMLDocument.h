@@ -1170,8 +1170,10 @@ public:
    * other libSBML object classes but has no effect on SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Sets this SBML object to child SBML objects (if any).
    * (Creates a child-parent relationship by the parent)
@@ -1185,6 +1187,7 @@ public:
    * @see enablePackageInternal
    */
   virtual void connectToChild ();
+  /** @endcond */
 
 
   /**
@@ -1204,6 +1207,7 @@ public:
   virtual int convert(const ConversionProperties& props);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
@@ -1213,9 +1217,8 @@ public:
    * elements are defined must override this function.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,const std::string& pkgPrefix, bool flag);
-
-
   /** @endcond */
+
 
   /**
    * Returns the libSBML type code for this %SBML object.
