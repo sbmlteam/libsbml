@@ -8228,4 +8228,76 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  *
  * @param oldid the old identifier
  * @param newid the new identifier
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_section_using_sbml_converters
+ *
+ * @section using-converters General information about the use of SBML converters
+ *
+ * The use of all the converters follows a similar approach.  First, one
+ * creates a ConversionProperties object and calls
+ * ConversionProperties::addOption() on this object with one arguments: a
+ * text string that identifies the desired converter.  (The text string is
+ * specific to each converter; consult the documentation for a given
+ * converter to find out how it should be enabled.)
+ *
+ * Next, for some converters, the caller can optionally set some
+ * converter-specific properties using additional calls to
+ * ConversionProperties::addOption().  Many converters provide the ability to
+ * configure their behavior to some extent; this is realized through the use
+ * of properties that offer different options.  The default property values
+ * for each converter can be interrogated using the method
+ * SBMLConverter::getDefaultProperties() on the converter class in question .
+ *
+ * Finally, the caller should invoke the method SBMLDocument::convert()
+ * with the ConversionProperties object as an argument.
+ *
+ * @subsection converter-example Example of invoking an SBML converter
+ *
+ * The following code fragment illustrates an example using
+ * SBMLReactionConverter, which is invoked using the option string @c
+ * "replaceReactions":
+ *
+ * @verbatim
+ConversionProperties props;
+props.addOption("replaceReactions");
+@endverbatim
+ * In the case of SBMLReactionConverter, there are no options to affect
+ * its behavior, so the next step is simply to invoke the converter on
+ * an SBMLDocument object.  This is also simple to do:
+ *
+ * @verbatim
+// Assume that the variable "document" has been set to an SBMLDocument object.
+int success = document->convert(props);
+if (success != LIBSBML_OPERATION_SUCCESS)
+{
+    cerr << "Unable to perform conversion due to the following:" << endl;
+    document->printErrors(cerr);
+}
+@endverbatim
+ * Here is an example of using a converter that offers an option. The
+ * following code invokes SBMLStripPackageConverter to remove the
+ * SBML Level&nbsp;3 "Layout" package from a model.  It sets the name
+ * of the package to be removed by adding a value for the option named
+ * @c "package" defined by that converter:
+ * @verbatim
+ConversionProperties props;
+props.addOption("stripPackage");
+props.addOption("package", "layout");
+
+int success = document->convert(props);
+if (success != LIBSBML_OPERATION_SUCCESS)
+{
+    cerr << "Unable to strip the Layout package from the model";
+    cerr << "Error returned: " << success;
+}
+@endverbatim
+ *
+ * @subsection available-converters Available SBML converters in libSBML
+ *
+ * LibSBML provides a number of built-in converters; by convention, their
+ * names end in @em Converter. The following are the built-in converters
+ * provided by libSBML @htmlinclude libsbml-version.html:
+ *
+ * @copydetails doc_list_of_libsbml_converters
  */
