@@ -46,12 +46,11 @@ h1, h2, h3, h4, h5
 h1
 {
     font-size: 15pt;
-    letter-spacing: 1px;
 }
 
 h2, h2 a
 {
-    font-size: 14pt;
+    font-size: 13pt;
     font-weight: bold;
     padding-top: 0.5em;
     color: #383838;
@@ -61,6 +60,11 @@ h2, h2 a
 h2
 {
     padding-bottom: 2px;
+}
+
+/* This is for the words "Detailed Description" in Doxygen class pages. */
+h2.groupheader {
+    font-size: 16pt;    
 }
 
 h2 a.anchor,
