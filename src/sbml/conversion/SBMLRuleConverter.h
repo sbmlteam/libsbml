@@ -1,8 +1,8 @@
 /**
  * @file    SBMLRuleConverter.h
  * @brief   Definition of SBMLRuleConverter, a converter sorting rules
- * @author  Frank Bergmann 
- * 
+ * @author  Frank Bergmann
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -33,7 +33,7 @@
  * @class SBMLRuleConverter
  * @sbmlbrief{core} SBML converter for reordering rules and assignments in a
  * model.
- * 
+ *
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * This converter reorders assignments in a model.  Specifically, it sorts
@@ -41,7 +41,7 @@
  * in the ListOfAssignmentRules within the Model object) and the initial
  * assignments (i.e., the InitialAssignment objects contained in the
  * ListOfInitialAssignments) such that, within each set, assignments that
- * depend on prior values are placed after the values are set.  For
+ * depend on @em prior values are placed @em after the values are set.  For
  * example, if there is an assignment rule stating <i>a = b + 1</i>, and
  * another rule stating <i>b = 3</i>, the list of rules is sorted and the
  * rules are arranged so that the rule for <i>b = 3</i> appears @em before
@@ -61,31 +61,23 @@
  *
  * so that the evaluation of the rules is independent of integrator
  * step sizes. (This is due to the fact that, in this case, the order in
- * which the rules are evaluated changes the result.)  This converter
+ * which the rules are evaluated changes the result.)  SBMLRuleConverter
  * can be used to reorder the SBML objects regardless of whether the
- * input file contained them in the desired order.  Here is a code
- * fragment to illustrate how to do that:
- * @verbatim
-ConversionProperties props;
-props.addOption("sortRules", true, "sort rules");
-
-SBMLConverter converter;
-converter.setProperties(&props);
-converter.setDocument(&doc);
-converter.convert(); 
-@endverbatim
- * 
+ * input file contained them in the desired order.
+ *
  * @note The two sets of assignments (list of assignment rules on the one
  * hand, and list of initial assignments on the other hand) are handled @em
  * independently.  In an SBML model, these entities are treated differently
  * and no amount of sorting can deal with inter-dependencies between
  * assignments of the two kinds.
+
+ * @section usage Configuration and use of SBMLRuleConverter
  *
- * @see SBMLFunctionDefinitionConverter
- * @see SBMLInitialAssignmentConverter
- * @see SBMLLevelVersionConverter
- * @see SBMLStripPackageConverter
- * @see SBMLUnitsConverter
+ * SBMLRuleConverter is enabled by creating a ConversionProperties object
+ * with the option @c "sortRules", and passing this properties object to
+ * SBMLDocument::convert().  This converter offers no other options.
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 
@@ -107,9 +99,9 @@ class LIBSBML_EXTERN SBMLRuleConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-  
+
   /* register with the ConversionRegistry */
-  static void init();  
+  static void init();
 
   /** @endcond */
 
@@ -132,7 +124,7 @@ public:
   /**
    * Creates and returns a deep copy of this SBMLLevelVersionConverter
    * object.
-   * 
+   *
    * @return a (deep) copy of this converter.
    */
   virtual SBMLConverter* clone() const;
@@ -155,16 +147,16 @@ public:
    * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
    * to search across all registered converters for one matching particular
    * properties.
-   * 
+   *
    * @param props the properties to match.
-   * 
+   *
    * @return @c true if this converter's properties match, @c false
    * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
-  
-  /** 
+
+  /**
    * Perform the conversion.
    *
    * This method causes the converter to do the actual conversion work,
@@ -172,7 +164,7 @@ public:
    * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
    * with the configuration options set by
    * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
-   * 
+   *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
@@ -185,7 +177,7 @@ public:
 
   /**
    * Returns the default properties of this converter.
-   * 
+   *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
    * returns the @em default property settings for this converter.  It is
@@ -209,7 +201,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
-  
+
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN

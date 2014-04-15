@@ -31,20 +31,27 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLStripPackageConverter
- * @sbmlbrief{core} SBML converter for removing packages.
+ * @sbmlbrief{core} SBML converter for removing SBML Level 3 packages.
  * 
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * This SBML converter takes an SBML document and removes (strips) a package
- * from it.  No conversion is performed; the package constructs are simply
- * removed from the SBML document.  The package to be stripped is determined
- * by the value of the option "package" on the conversion properties.
+ * This SBML converter takes an SBML document and removes (strips) an SBML
+ * Level&nbsp;3 package from it.  No conversion is performed; the package
+ * constructs are simply removed from the SBML document.  The package to be
+ * stripped is determined by the value of the option @c "package" on the
+ * conversion properties.
  *
- * @see SBMLFunctionDefinitionConverter
- * @see SBMLLevelVersionConverter
- * @see SBMLRuleConverter
- * @see SBMLLevelVersionConverter
- * @see SBMLUnitsConverter
+ * @section usage Configuration and use of SBMLStripPackageConverter
+ *
+ * SBMLStripPackageConverter is enabled by creating a ConversionProperties
+ * object with the option @c "stripPackage", and passing this properties
+ * object to SBMLDocument::convert().  This converter takes one required
+ * option:
+ *
+ * @li @c "package": the value of this option should be a text string, the
+ * nickname of the SBML Level&nbsp;3 package to be stripped from the model.
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef SBMLStripPackageConverter_h

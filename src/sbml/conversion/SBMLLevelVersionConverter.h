@@ -36,19 +36,34 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * This SBML converter takes an SBML document of one SBML Level+Version
- * combination and attempts to convert it to another Level+Version combination.
- * The target Level+Version is set using an SBMLNamespace object in the
- * ConversionProperties object that controls this converter.
+ * This SBML converter takes an SBML document having one SBML Level+Version
+ * combination, and attempts to convert it to an SBML document having a
+ * different Level+Version combination.
  *
- * This class is the basis for
+ * This class is also the basis for
  * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif).
- * 
- * @see SBMLFunctionDefinitionConverter
- * @see SBMLInitialAssignmentConverter
- * @see SBMLRuleConverter
- * @see SBMLStripPackageConverter
- * @see SBMLUnitsConverter
+ *
+ * @section usage Configuration and use of SBMLLevelVersionConverter
+ *
+ * SBMLLevelVersionConverter is enabled by creating a ConversionProperties
+ * object with the option @c "setLevelAndVersion", and passing this
+ * properties object to SBMLDocument::convert().  The target SBML Level and
+ * Version combination are determined by the value of the SBML namespace set
+ * on the ConversionProperties object (using
+ * ConversionProperties::setTargetNamespaces()).
+ *
+ * In addition, this converter offers one option:
+ *
+ * @li @c "strict": if this option has the value @c true, then the validity
+ * of the SBML document will be strictly preserved.  This means that SBML
+ * validation will be performed, and if the original model is not valid or
+ * semantics cannot be preserved in the converted model, then conversion will
+ * not be performed.  Conversely, if this option is set to @c false, model
+ * conversion will always be performed; if any errors are detected related to
+ * altered semantics, the errors will be logged in the usual way (i.e., the
+ * error log on the SBMLDocument object).
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef SBMLLevelVersionConverter_h

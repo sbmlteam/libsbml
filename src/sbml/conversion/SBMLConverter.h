@@ -2,7 +2,7 @@
  * @file    SBMLConverter.h
  * @brief   Definition of SBMLConverter, the base class for SBML conversion.
  * @author  Sarah Keating
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -43,18 +43,7 @@
  * another.  Applications can also create their own converters by subclassing
  * SBMLConverter and following the examples of the existing converters.
  *
- * LibSBML provides a number of built-in converters; by convention, their
- * names end in @em Converter. The following are the built-in converters
- * provided by libSBML @htmlinclude libsbml-version.html:
- *
- * @copydetails doc_list_of_libsbml_converters
- *
- * Many converters provide the ability to configure their behavior to some
- * extent.  This is realized through the use of @em properties that offer
- * different @em options.  Two related classes implement these features:
- * ConversionProperties and ConversionOptions.  The default property values
- * for each converter can be interrogated using the method
- * SBMLConverter::getDefaultProperties() on the converter class.
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef SBMLConverter_h
@@ -86,7 +75,7 @@ public:
    * Copy constructor; creates a copy of an SBMLConverter object.
    *
    * @param c the SBMLConverter object to copy.
-   * 
+   *
    * @throws @if python ValueError @else SBMLConstructorException @endif@~
    * Thrown if the argument @p orig is @c NULL.
    */
@@ -113,7 +102,7 @@ public:
 
   /**
    * Creates and returns a deep copy of this SBMLConverter object.
-   * 
+   *
    * @return a (deep) copy of this SBMLConverter object.
    */
   virtual SBMLConverter* clone() const;
@@ -145,7 +134,7 @@ public:
    * converter object.  The run-time properties of the converter object can
    * be adjusted by using the method
    * SBMLConverter::setProperties(const ConversionProperties *props).
-   * 
+   *
    * @return the default properties for the converter.
    *
    * @see setProperties(@if java ConversionProperties props@endif)
@@ -174,9 +163,9 @@ public:
   /**
    * Predicate returning @c true if this converter's properties matches a
    * given set of configuration properties.
-   * 
+   *
    * @param props the configuration properties to match.
-   * 
+   *
    * @return @c true if this converter's properties match, @c false
    * otherwise.
    */
@@ -185,9 +174,9 @@ public:
 
   /**
    * Sets the current SBML document to the given SBMLDocument object.
-   * 
+   *
    * @param doc the document to use for this conversion.
-   * 
+   *
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
@@ -206,9 +195,9 @@ public:
 
   /**
    * Sets the current SBML document to the given SBMLDocument object.
-   * 
+   *
    * @param doc the document to use for this conversion.
-   * 
+   *
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
@@ -225,7 +214,7 @@ public:
    *
    * @param props the ConversionProperties object defining the properties
    * to set.
-   * 
+   *
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
@@ -237,19 +226,19 @@ public:
    *
    * @see getProperties()
    * @see matchesProperties(@if java ConversionProperties props@endif)
-   */  
+   */
   virtual int setProperties(const ConversionProperties *props);
 
 
   /**
    * Returns the current properties in effect for this converter.
-   * 
+   *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
    * returns the current properties for this converter; in other words, the
    * settings in effect at this moment.  To change the property values, you
    * can use SBMLConverter::setProperties(const ConversionProperties *props).
-   * 
+   *
    * @return the currently set configuration properties.
    *
    * @see setProperties(@if java ConversionProperties props@endif)
@@ -266,7 +255,7 @@ public:
    * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
    * with the configuration options set by
    * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
-   * 
+   *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
@@ -274,7 +263,7 @@ public:
    * the documentation for the relevant class to find out what the
    * possibilities are.
    */
-  virtual int convert(); 
+  virtual int convert();
 
 
 #ifndef SWIG

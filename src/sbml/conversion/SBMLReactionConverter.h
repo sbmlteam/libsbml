@@ -31,11 +31,25 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLReactionConverter
- * @sbmlbrief{core} SBML converter for replacing reactions with rate rules.
+ * @sbmlbrief{core} SBML converter for replacing reactions with SBML rate rules.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * This is an SBML converter for replacing reactions with rate rules. 
+ * This converter will take an SBML model and replace the definitions of
+ * reactions in the model with definitions of SBML rate rules.  Equivalent
+ * RateRule objects are only created for species mentioned in reactions that
+ * have KineticLaw subobjects, since those are the only reactions that have
+ * an effect on the rates of change of species in the model; however, the
+ * converter removes all Reaction objects in the model after it is done.
+ *
+ * @section usage Configuration and use of SBMLReactionConverter
+ *
+ * SBMLReactionConverter is enabled by creating a ConversionProperties object
+ * with the option @c "replaceReactions", and passing this properties object
+ * to SBMLDocument::convert().  This converter does not offer any additional
+ * configuration options.
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef SBMLReactionConverter_h
