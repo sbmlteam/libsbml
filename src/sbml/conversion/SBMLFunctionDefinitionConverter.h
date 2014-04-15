@@ -145,8 +145,13 @@ public:
 
 
   /**
-   * Replaces invocations of each user-defined function with an in-line
-   * copy, similar to macro expansion.
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

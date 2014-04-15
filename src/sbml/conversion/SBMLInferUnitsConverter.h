@@ -146,7 +146,6 @@ public:
    * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
    * with the configuration options set by
    * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
-   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
@@ -154,6 +153,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT@endlink
    */
   virtual int convert();
 

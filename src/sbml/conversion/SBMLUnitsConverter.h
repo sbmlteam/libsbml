@@ -155,17 +155,22 @@ public:
 
 
   /**
-   * Convers the units in the model to base SI units; namely metre,
-   * kilogram, second, Ampere, Kelvin, mole and candela.
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
    * @li @link OperationReturnValues_t#LIBSBML_CONV_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_CONVERSION_NOT_AVAILABLE@endlink
    * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   virtual int convert();
 
