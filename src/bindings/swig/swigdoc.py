@@ -107,6 +107,7 @@ overriders = \
 'SBMLDocument'              : [ 'clone', 'getModel', 'getTypeCode', 'getElementName', 'getNamespaces', 'connectToChild', 'enablePackageInternal' ],
 'SBMLDocumentPlugin'        : [ 'clone' ],
 'SBMLErrorLog'              : [ 'getError' ],
+'SBMLConverter'             : [ 'convert', 'getDefaultProperties', 'matchesProperties' ],
 'Species'                   : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
 'SpeciesReference'          : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setAnnotation', 'appendAnnotation' ],
 'SpeciesType'               : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'setId', 'setName', 'unsetId', 'unsetName' ],
@@ -1377,7 +1378,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
     pre  = '%csmethodmodifiers'
     # See the comment for the definition of 'overriders' for more info.
     if classname in overriders and methodname in overriders[classname]:
-      post = ' public new'
+      post = ' public virtual'
     else:
       post = ' public'
     if isInternal:
