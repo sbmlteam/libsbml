@@ -510,7 +510,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   /**
    * @internal
    */
-  public static SBMLConverter DowncastSBMLNamespaces(long cPtr, boolean owner)
+  public static SBMLConverter DowncastSBMLConverter(long cPtr, boolean owner)
   {
     if (cPtr == 0) return null;
                 
