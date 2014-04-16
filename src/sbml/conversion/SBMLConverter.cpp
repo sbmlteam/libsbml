@@ -30,7 +30,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  */
-
+ 
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/SBMLConstructorException.h>
 
@@ -45,16 +45,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SBMLConverter::SBMLConverter () :
     mDocument (NULL)
   , mProps(NULL)
+  , mName("")
 {
 }
 
+SBMLConverter::SBMLConverter (const std::string& name)
+  : mDocument (NULL)
+  , mProps(NULL)
+  , mName(name)
+{
+}
 
 /*
  * Copy constructor.
  */
-    SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
+SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
     mDocument (NULL)
   , mProps(NULL)
+  , mName("")
 {
   if (&orig == NULL)
   {
@@ -63,6 +71,7 @@ SBMLConverter::SBMLConverter () :
   else
   {
     mDocument = orig.mDocument;
+    mName = orig.mName;
     
     if (orig.mProps != NULL) 
     {
@@ -98,6 +107,7 @@ SBMLConverter::operator=(const SBMLConverter& rhs)
   else if(&rhs!=this)
   {
     mDocument = rhs.mDocument;
+    mName = rhs.mName;
     
     if (mProps != NULL)
     {
@@ -166,6 +176,11 @@ SBMLConverter::setDocument(SBMLDocument* doc)
 }
 
 
+const std::string&
+SBMLConverter::getName() const
+{
+  return mName;
+}
 
 int
 SBMLConverter::convert()

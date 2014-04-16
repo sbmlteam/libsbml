@@ -57,8 +57,8 @@ void SBMLInferUnitsConverter::init()
 /** @endcond */
 
 
-SBMLInferUnitsConverter::SBMLInferUnitsConverter () :
-    SBMLConverter()
+SBMLInferUnitsConverter::SBMLInferUnitsConverter () 
+  : SBMLConverter("SBML Infer Units Converter")
 {
   newIdCount = 0;
 }

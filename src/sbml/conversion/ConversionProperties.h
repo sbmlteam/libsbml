@@ -177,6 +177,15 @@ public:
    */
   virtual ConversionOption* getOption(std::string key) const;
 
+  
+  /**
+   * Returns the ConversionOption object for the given index.
+   *
+   * @param index the index for the option.
+   *
+   * @return the option with the given index.
+   */
+  virtual ConversionOption* getOption(int index) const;
 
   /**
    * Adds a copy of the given option to this properties object.
@@ -386,6 +395,12 @@ public:
    */
   virtual void setIntValue(std::string key, int value);
 
+  /** 
+   * Returns the number of options in this Conversion Properties object
+   *
+   * @return the number of options in this properties object
+   */
+  virtual int getNumOptions() const;
 
 protected:
   /** @cond doxygenLibsbmlInternal */

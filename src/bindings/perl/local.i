@@ -39,7 +39,7 @@
 /**
  * Convert SBase, SimpleSpeciesReference and Rule objects into the most specific type possible.
  */
-%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*
+%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*
 {
   ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1),
                                  $owner | %newpointer_flags);

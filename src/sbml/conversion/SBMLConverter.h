@@ -49,8 +49,11 @@
 #ifndef SBMLConverter_h
 #define SBMLConverter_h
 
+#include <string>
+
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/conversion/ConversionProperties.h>
+
 #ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
 #endif
@@ -70,6 +73,12 @@ public:
    */
   SBMLConverter ();
 
+  /**
+   * Creates a new SBMLConverter object with a given name.
+   * 
+   * @param name the name for the converter to create
+   */
+  SBMLConverter (const std::string& name);
 
   /**
    * Copy constructor; creates a copy of an SBMLConverter object.
@@ -265,7 +274,13 @@ public:
    */
   virtual int convert();
 
-
+  /**  
+   * Returns the name of this converter. 
+   *
+   * @return a name for this converter
+   */
+  const std::string& getName() const;
+  
 #ifndef SWIG
 
 #endif // SWIG
@@ -276,10 +291,10 @@ protected:
 
   SBMLDocument *   mDocument;
   ConversionProperties *mProps;
+  std::string mName;  
 
   friend class SBMLDocument;
   /** @endcond */
-
 
 private:
   /** @cond doxygenLibsbmlInternal */

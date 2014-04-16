@@ -56,7 +56,8 @@ void CobraToFbcConverter::init()
 }
 /** @endcond */
 
-CobraToFbcConverter::CobraToFbcConverter() : SBMLConverter()
+CobraToFbcConverter::CobraToFbcConverter() 
+ : SBMLConverter("SBML COBRA to FBC Converter")
 {
 
 }

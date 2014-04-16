@@ -62,7 +62,8 @@ void CompFlatteningConverter::init()
 /** @endcond */
 
 
-CompFlatteningConverter::CompFlatteningConverter() : SBMLConverter()
+CompFlatteningConverter::CompFlatteningConverter() 
+  : SBMLConverter("SBML Comp Flattening Converter")
 {
   mDisabledPackages.clear();
 }

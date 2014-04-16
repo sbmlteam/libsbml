@@ -63,7 +63,8 @@ void SBMLLocalParameterConverter::init()
 /** @endcond */
 
 
-SBMLLocalParameterConverter::SBMLLocalParameterConverter() : SBMLConverter()
+SBMLLocalParameterConverter::SBMLLocalParameterConverter() 
+  : SBMLConverter("SBML Local Parameter Converter")
 {
 
 }

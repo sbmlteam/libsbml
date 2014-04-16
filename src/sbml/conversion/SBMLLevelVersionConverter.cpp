@@ -57,8 +57,8 @@ void SBMLLevelVersionConverter::init()
 /** @endcond */
 
 
-SBMLLevelVersionConverter::SBMLLevelVersionConverter () :
-    SBMLConverter()
+SBMLLevelVersionConverter::SBMLLevelVersionConverter () 
+  : SBMLConverter("SBML Level Version Converter")
 {
 }
 

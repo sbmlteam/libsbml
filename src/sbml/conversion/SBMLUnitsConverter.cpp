@@ -57,8 +57,8 @@ void SBMLUnitsConverter::init()
 /** @endcond */
 
 
-SBMLUnitsConverter::SBMLUnitsConverter () :
-    SBMLConverter()
+SBMLUnitsConverter::SBMLUnitsConverter () 
+  : SBMLConverter("SBML Units Converter")
 {
   newIdCount = 0;
 }
@@ -67,8 +67,8 @@ SBMLUnitsConverter::SBMLUnitsConverter () :
 /*
  * Copy constructor.
  */
-SBMLUnitsConverter::SBMLUnitsConverter(const SBMLUnitsConverter& orig) :
-    SBMLConverter(orig)
+SBMLUnitsConverter::SBMLUnitsConverter(const SBMLUnitsConverter& orig) 
+  : SBMLConverter(orig)
 {
   newIdCount = orig.newIdCount;
 }

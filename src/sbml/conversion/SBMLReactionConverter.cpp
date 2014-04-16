@@ -56,19 +56,20 @@ void SBMLReactionConverter::init()
 /** @endcond */
 
 
-SBMLReactionConverter::SBMLReactionConverter() : SBMLConverter()
-, mOriginalModel (NULL)
+SBMLReactionConverter::SBMLReactionConverter() 
+  : SBMLConverter("SBML Reaction Converter")
+  , mOriginalModel (NULL)
 {
   mReactionsToRemove.clear();
   mRateRulesMap.clear();
 }
 
 
-SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig) :
-  SBMLConverter(orig)
-    , mReactionsToRemove (orig.mReactionsToRemove)
-    , mRateRulesMap      (orig.mRateRulesMap)
-    , mOriginalModel     (orig.mOriginalModel)
+SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig) 
+  : SBMLConverter(orig)
+  , mReactionsToRemove (orig.mReactionsToRemove)
+  , mRateRulesMap      (orig.mRateRulesMap)
+  , mOriginalModel     (orig.mOriginalModel)
 {
 }
 

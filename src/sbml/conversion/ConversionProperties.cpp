@@ -45,8 +45,6 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-
-
 ConversionProperties::ConversionProperties(SBMLNamespaces* targetNS) : mTargetNamespaces(NULL)
 {
   if (targetNS != NULL) mTargetNamespaces = targetNS->clone();
@@ -67,7 +65,7 @@ ConversionProperties::ConversionProperties(const ConversionProperties& orig)
       mTargetNamespaces = NULL;
 
     map<string, ConversionOption*>::const_iterator it;
-    for (it = orig.mOptions.begin(); it != orig.mOptions.end(); it++)
+    for (it = orig.mOptions.begin(); it != orig.mOptions.end(); ++it)
     {
       mOptions.insert(pair<string, ConversionOption*>
         ( it->second->getKey(), it->second->clone()));
@@ -137,7 +135,7 @@ ConversionProperties::~ConversionProperties()
   }
 
   map<string, ConversionOption*>::iterator it;
-  for (it = mOptions.begin(); it != mOptions.end(); it++)
+  for (it = mOptions.begin(); it != mOptions.end(); ++it)
   {
     if (it->second != NULL) 
     { 
@@ -198,12 +196,31 @@ ConversionProperties::getOption(std::string key) const
 {
 
   map<string, ConversionOption*>::const_iterator it;
-  for (it = mOptions.begin(); it != mOptions.end(); it++)
+  for (it = mOptions.begin(); it != mOptions.end(); ++it)
   {
     if (it->second != NULL && it->second->getKey() == key)
       return it->second;
   }
   return NULL;
+}
+
+ConversionOption* 
+ConversionProperties::getOption(int index) const
+{
+  map<string, ConversionOption*>::const_iterator it;
+  int count = 0;
+  for (it = mOptions.begin(); it != mOptions.end(); ++it,++count)
+  {
+    if (count == index)
+      return it->second;
+  }
+  return NULL;
+}
+
+int 
+ConversionProperties::getNumOptions() const
+{
+  return (int)mOptions.size();
 }
 
 void 

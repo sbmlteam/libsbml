@@ -31,6 +31,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 %module(directors="1") libsbml
+
 %feature("director") SBMLValidator;  
 %feature("director") SBMLConverter;  
 %feature("director") ElementFilter;  

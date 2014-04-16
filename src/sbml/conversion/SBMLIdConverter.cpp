@@ -58,7 +58,8 @@ void SBMLIdConverter::init()
 /** @endcond */
 
 
-SBMLIdConverter::SBMLIdConverter() : SBMLConverter()
+SBMLIdConverter::SBMLIdConverter() 
+  : SBMLConverter("SBML Id Converter")
 {
 
 }

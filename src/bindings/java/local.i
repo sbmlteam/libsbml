@@ -510,6 +510,40 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   /**
    * @internal
    */
+  public static SBMLConverter DowncastSBMLNamespaces(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+                
+    SBMLConverter con = new SBMLConverter(cPtr, false);
+    String conName = con.getName();
+    
+    if (conName.equals("SBML Units Converter"))
+      return new SBMLUnitsConverter(cPtr,owner);
+    else if (conName.equals("SBML Strip Package Converter"))
+      return new SBMLStripPackageConverter(cPtr,owner);
+    else if (conName.equals("SBML Rule Converter"))
+      return new SBMLRuleConverter(cPtr,owner);
+    else if (conName.equals("SBML Reaction Converter"))
+      return new SBMLReactionConverter(cPtr,owner);
+    else if (conName.equals("SBML Local Parameter Converter"))
+      return new SBMLLocalParameterConverter(cPtr,owner);
+    else if (conName.equals("SBML Level Version Converter"))
+      return new SBMLLevelVersionConverter(cPtr,owner);
+    else if (conName.equals("SBML Initial Assignment Converter"))
+      return new SBMLInitialAssignmentConverter(cPtr,owner);
+    else if (conName.equals("SBML Infer Units Converter"))
+      return new SBMLInferUnitsConverter(cPtr,owner);
+    else if (conName.equals("SBML Id Converter"))
+      return new SBMLIdConverter(cPtr,owner);
+    else if (conName.equals("SBML Function Definition Converter"))
+      return new SBMLFunctionDefinitionConverter(cPtr,owner);
+
+    return new SBMLConverter(cPtr,owner);
+  }
+  
+  /**
+   * @internal
+   */
   public static SBMLNamespaces DowncastSBMLNamespaces(long cPtr, boolean owner)
   {
     if (cPtr == 0) return null;
@@ -774,6 +808,24 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 
 
 #endif
+
+
+/**
+ * Convert SBMLExtension objects into the most specific object possible.
+ */
+%typemap("javaout") SBMLExtension*
+{
+	return libsbml.DowncastExtension($jnicall, $owner);
+}
+
+
+/**
+ * Convert SBMLConverter objects into the most specific object possible.
+ */
+%typemap("javaout") SBMLConverter*
+{
+	return libsbml.DowncastSBMLConverter($jnicall, $owner);
+}
 
 /**
  * Convert SBMLExtension objects into the most specific object possible.

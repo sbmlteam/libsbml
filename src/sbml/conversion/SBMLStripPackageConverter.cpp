@@ -54,8 +54,8 @@ void SBMLStripPackageConverter::init()
 /** @endcond */
 
 
-SBMLStripPackageConverter::SBMLStripPackageConverter () :
-    SBMLConverter()
+SBMLStripPackageConverter::SBMLStripPackageConverter () 
+  : SBMLConverter("SBML Strip Package Converter")
 {
 }
 
@@ -63,8 +63,8 @@ SBMLStripPackageConverter::SBMLStripPackageConverter () :
 /*
  * Copy constructor.
  */
-SBMLStripPackageConverter::SBMLStripPackageConverter(const SBMLStripPackageConverter& orig) :
-    SBMLConverter(orig)
+SBMLStripPackageConverter::SBMLStripPackageConverter(const SBMLStripPackageConverter& orig) 
+  : SBMLConverter(orig)
 {
 }
 

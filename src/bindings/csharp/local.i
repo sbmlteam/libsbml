@@ -244,6 +244,38 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		
 	}
 	
+	
+	public static SBMLConverter DowncastSBMLConverter(IntPtr cPtr, bool owner)
+	{
+		if (cPtr.Equals(IntPtr.Zero)) return null;
+		
+		SBMLConverter con = new SBMLConverter(cPtr, false);
+		string conName = con.getName();
+		
+		if (conName == "SBML Units Converter")
+		  return new SBMLUnitsConverter(cPtr,owner);
+		else if (conName == "SBML Strip Package Converter")
+		  return new SBMLStripPackageConverter(cPtr,owner);
+		else if (conName == "SBML Rule Converter")
+		  return new SBMLRuleConverter(cPtr,owner);
+		else if (conName == "SBML Reaction Converter")
+		  return new SBMLReactionConverter(cPtr,owner);
+		else if (conName == "SBML Local Parameter Converter")
+		  return new SBMLLocalParameterConverter(cPtr,owner);
+		else if (conName == "SBML Level Version Converter")
+		  return new SBMLLevelVersionConverter(cPtr,owner);
+		else if (conName == "SBML Initial Assignment Converter")
+		  return new SBMLInitialAssignmentConverter(cPtr,owner);
+		else if (conName == "SBML Infer Units Converter")
+		  return new SBMLInferUnitsConverter(cPtr,owner);
+		else if (conName == "SBML Id Converter")
+		  return new SBMLIdConverter(cPtr,owner);
+		else if (conName == "SBML Function Definition Converter")
+		  return new SBMLFunctionDefinitionConverter(cPtr,owner);
+		
+		return new SBMLConverter(cPtr,owner);
+	}
+	
 	public static SBasePlugin DowncastSBasePlugin(IntPtr cPtr, bool owner)
 	{
 		if (cPtr.Equals(IntPtr.Zero)) return null;
@@ -533,6 +565,16 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 {
 	SBMLNamespaces ret
 	    = (SBMLNamespaces) libsbml.DowncastSBMLNamespaces($imcall, $owner);$excode
+	return ret;
+}
+
+/**
+ * Convert SBMLConverter objects into the most specific object possible.
+ */
+%typemap("csout", excode=SWIGEXCODE) SBMLConverter*
+{
+	SBMLConverter ret
+	    = (SBMLConverter) libsbml.DowncastSBMLConverter($imcall, $owner);$excode
 	return ret;
 }
 

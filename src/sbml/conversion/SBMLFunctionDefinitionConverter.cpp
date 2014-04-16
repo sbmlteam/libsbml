@@ -59,7 +59,8 @@ void SBMLFunctionDefinitionConverter::init()
 /** @endcond */
 
 
-SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter() : SBMLConverter()
+SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter() 
+  : SBMLConverter("SBML Function Definition Converter")
 {
 
 }

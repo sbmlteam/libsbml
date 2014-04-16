@@ -56,7 +56,8 @@ void SBMLInitialAssignmentConverter::init()
 /** @endcond */
 
 
-SBMLInitialAssignmentConverter::SBMLInitialAssignmentConverter() : SBMLConverter()
+SBMLInitialAssignmentConverter::SBMLInitialAssignmentConverter() 
+  : SBMLConverter("SBML Initial Assignment Converter")
 {
 
 }

@@ -49,6 +49,39 @@ GetDowncastSwigType (SBMLExtension* se)
 	return SWIGTYPE_p_SBMLExtension;
 }
 
+/**
+ * @return the most specific Swig type for the given SBMLConverter object.
+ */
+struct swig_type_info*
+GetDowncastSwigType (SBMLConverter* con)
+{
+	if (con == 0) return SWIGTYPE_p_SBMLConverter;
+	
+	const std::string& conName = con->getName();
+	
+     if (conName == "SBML Units Converter")
+       return SWIGTYPE_p_SBMLUnitsConverter;
+     else if (conName == "SBML Strip Package Converter")
+       return SWIGTYPE_p_SBMLStripPackageConverter;
+     else if (conName == "SBML Rule Converter")
+       return SWIGTYPE_p_SBMLRuleConverter;
+     else if (conName == "SBML Reaction Converter")
+       return SWIGTYPE_p_SBMLReactionConverter;
+     else if (conName == "SBML Local Parameter Converter")
+       return SWIGTYPE_p_SBMLLocalParameterConverter;
+     else if (conName == "SBML Level Version Converter")
+       return SWIGTYPE_p_SBMLLevelVersionConverter;
+     else if (conName == "SBML Initial Assignment Converter")
+       return SWIGTYPE_p_SBMLInitialAssignmentConverter;
+     else if (conName == "SBML Infer Units Converter")
+       return SWIGTYPE_p_SBMLInferUnitsConverter;
+     else if (conName == "SBML Id Converter")
+       return SWIGTYPE_p_SBMLIdConverter;
+     else if (conName == "SBML Function Definition Converter")
+       return SWIGTYPE_p_SBMLFunctionDefinitionConverter;
+
+	return SWIGTYPE_p_SBMLConverter;
+}
 
 /**
  * @return the most specific Swig type for the given SBMLNamespaces object.
