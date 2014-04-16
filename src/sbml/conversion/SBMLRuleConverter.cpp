@@ -64,7 +64,7 @@ void SBMLRuleConverter::init()
 /** @endcond */
 
 SBMLRuleConverter::SBMLRuleConverter() 
-  : SBMLConverter("SBML Units Converter")
+  : SBMLConverter("SBML Rule Converter")
 {
 
 }
