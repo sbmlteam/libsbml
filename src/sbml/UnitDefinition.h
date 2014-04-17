@@ -123,12 +123,14 @@
  * predefined unit names, @c meter and @c liter.  This is explained in
  * somewhat greater detail in the description of the Unit class.
  *
+ * <ul>
  * <li> In SBML Level&nbsp;2 (all Versions), there is an additional set of
  * reserved identifiers: @c substance, @c volume, @c area, @c length, and
  * @c time.  Using one of these values for the attribute "id" of a
  * UnitDefinition has the effect of redefining the model-wide default units
  * for the corresponding quantities.  The list of special unit names in
  * SBML Level&nbsp;2 is given in the table below:
+ * </ul>
  *
  *   @htmlinclude predefined-units.html
  *
@@ -143,8 +145,6 @@
  * @c time are not defined by SBML Level&nbsp;3, which uses a different
  * approach to setting model-wide inherited units.
  *
- * </ul>
- * 
  *
  * @section sbml-units-limits Further comments about SBML's unit definition system
  * 
