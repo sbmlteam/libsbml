@@ -35,12 +35,25 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * This converter translates a given identifier (i.e., SBML object "id"
- * attribute value) to another identifier.  It does this on a list of source
+ * This converter translates all instances of a given identifier (i.e., SBML object "id"
+ * attribute value) of type "SId" in a Model to another identifier.  It does this based on a list of source
  * identifiers, translating each one to its corresponding replacement value
  * in a list of replacement identifiers.  It also updates all references to
  * the identifiers so replaced.  (More technically, it replaces all values
  * known as type @c SIdRef in the SBML Level&nbsp;3 specifications.)
+ *
+ * This converter only searches the global SId namespace for the Model child of the 
+ * SBMLDocument.  It does not replace any IDs or SIdRefs for LocalParameters, nor
+ * does it replace any UnitSIds or UnitSIdRefs.  It likewise does not replace any IDs
+ * in a new namespace introduced by a package, such as the PortSId namespace
+ * from the Hierarchical %Model Composition package, nor any Model objects that are
+ * not the direct child of the SBMLDocument, such as the ModelDefinitions from 
+ * the Hierarchical %Model Composition package.
+ *
+ * If, however, a package introduces a new element with an "id" attribute
+ * of type SId, any attribute of type SIdRef, or child of type SIdRef (such as 
+ * a new Math child of a package element), those IDs will be replaced if they
+ * match a source identifier.
  *
  * @section usage Configuration and use of SBMLIdConverter
  *

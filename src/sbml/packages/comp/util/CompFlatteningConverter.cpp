@@ -97,19 +97,19 @@ CompFlatteningConverter::getDefaultProperties() const
   static ConversionProperties prop;
   prop.addOption("flatten comp", true, "flatten comp");
   prop.addOption("basePath", ".", 
-    "the base directory to find external references in");
+    "the base directory in which to search for external references");
   prop.addOption("leavePorts", false, 
     "unused ports should be listed in the flattened model");
   prop.addOption("listModelDefinitions", false, 
-    "the model definitions should be listed");
+    "all model definitions and external model definitions should remain in the SBMLDocument");
   prop.addOption("ignorePackages", true, 
-    "any packages that cannot be flattened should be stripped");
+    "any packages that cannot be flattened should be stripped (note: this option replaced by 'stripUnflattenablePackages').");
   prop.addOption("performValidation", true, 
-    "perform validation before trying to flatten");
+    "perform validation before and after trying to flatten");
   prop.addOption("abortIfUnflattenable", "requiredOnly", 
-    "specify the required status of packages that will not flatten");
+    "specify whether to abort if any unflattenable packages are encountered");
   prop.addOption("stripUnflattenablePackages", true, 
-    "any packages that cannot be flattened should be stripped");
+    "specify whether to strip any unflattenable packages ignored by 'abortIfUnflattenable'");
   return prop;
 }
 

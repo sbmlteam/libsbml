@@ -25,6 +25,122 @@
  *
  * @class CompFlatteningConverter
  * @sbmlbrief{comp} Flattening converter for the &ldquo;comp&rdquo; package.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This converter translates a hierarchical model defined with the 
+ * Hierarchical %Model Composition package to a 'flattened' version
+ * of the same model defined without use of the Hierarchical %Model
+ * Composition package.  All of the mathematics of the model will
+ * remain, but the hierarchical structure will be removed.
+ *
+ * Specifically, the following actions are carried out:
+ * @li Each Submodel is instantiated, that is, copies of the Model it points to are created.  The IDs of their elements are changed such that the ID of the Submodel is prepended to all IDs, plus a digit if needed to ensure uniqueness, plus two underscores ("__").  Typically, this results in IDs of the form "SUBMODELID__ORIGINALID".  If that instantiated Model itself has Submodel children, they too are instantiated.
+ * @li All deleted elements are removed from the Model and all instantiated Submodels.
+ * @li All replaced elements are removed from the Model and all instantiated Submodels.
+ * @li All references to replaced elements are changed to point to the replacement element.
+ * @li All remaining elements are placed in a single Model object, which is made the new child of the SBMLDocument object.  The original Model, ModelDefinition, and ExternalModelDefinition objects are all deleted.
+ *
+ * Note that this means that if this converter is successful, all old pointers
+ * to the document's Model and any of its children will be rendered 
+ * obsolete, and will no longer work.  
+ *
+ * If package information is present, the same rules apply to that package,
+ * assuming a flattening implementation exists for that package information.
+ * If not, the behavior of the converter depends on the states of the
+ * @c 'abortIfUnflattenable' and @c 'stripUnflattenablePackages' settings.  Specifically:
+ *
+ * @li If @c 'abortIfUnflattenable' is set to @c 'all', if any package information
+ *     is found for which there is no flattening algorithm available, the
+ *     converter will abort, return failure, and avoid changing the original
+ *     SBMLDocument
+ *
+ * @li If @c 'abortIfUnflattenable' is set to @c 'requiredOnly' (the default), if
+ *     any package information is found for a package set @c 'required=true'
+ *     for which there is no flattening algorithm available, the converter
+ *     will abort, return failure, and avoid changing the original
+ *     SBMLDocument.  Package information from packages set @c 'required=false'
+ *     for which there is no flattening algorithm available will be ignored,
+ *     and that information will stay or be removed according to the 
+ *     status of the @c 'stripUnflattenablePackages' setting.
+ * 
+ * @li If @c 'abortIfUnflattenable' is set to @c 'none', all unflattenable packages
+ *     are ignored, and their information will stay or be removed according to the 
+ *     status of the @c 'stripUnflattenablePackages' setting.
+ *
+ * For all cases above where the package is ignored, the @c 'stripUnflattenablePackages'
+ * option is examined:
+ *
+ * @li If @c 'stripUnflattenablePackages' is set to @c 'true', any unflattenable 
+ *     package information ignored because of the @c 'abortIfUnflattenable' option 
+ *     will be removed from the SBMLDocument entirely, including the declaration 
+ *     of the package's namespace.
+ *
+ * @li If @c 'stripUnflattenablePackages' is set to @c 'false' (the default), any
+ *     ignored unflattenable package information will remain if it was present
+ *     in the original Model object of the SBMLDocument.  Any package information
+ *     from an instantiated Submodel that was not a child of a retained element
+ *     will be lost.
+ *
+ * Other options are also available, though all have default values:
+ *
+ * @li @c 'basePath':
+ *
+ * @li @li If there are ExternalModelDefinitions that are to be instantiated in a
+ *     flattened Submodel, the @c 'basePath' option may be set to a location where
+ *     those external models may be found.  The default is the working directory
+ *     ('.').
+ *
+ * @c 'leavePorts':
+ *
+ * @li If @c 'leavePorts' is set to @c 'false' (the default), the flattened model will
+ *     have no Port elements in it.  If set to @c 'true', any Port objects not 
+ *     referenced by any Replacement or Deletion will be left in the resulting 
+ *     flattened Model.
+ *
+ * @c 'listModelDefinitions':
+ * 
+ * @li If @c 'listModelDefinitions' is set to @c 'false' (the default), no 
+ *     ModelDefinition or ExternalModelDefinition objects will be present in the
+ *     flattened SBMLDocument.  If set to @c 'true', they will remain, though they
+ *     will no longer be referenced by any Submodel in the flattened Model
+ *     child of the SBMLDocument.
+ *
+ * @note If both @c 'leavePorts' and @c 'listModelDefinitions' are set to @c 'false'
+ * (which they are by default), the Hierarchical %Model Composition namespace will
+ * be removed from the resulting SBMLDocument.
+ *
+ * @c 'performValidation':
+ *
+ * @li If @c 'performValidation' is set to @c 'true' (the default), the SBMLDocument
+ *     will first be validated before flattening is attempted.  If there are any
+ *     validation errors, those errors will be set on the SBMLDocument, which will
+ *     remain otherwise unchanged, and the conversion attempt will return failure.
+ *     Similarly, if the flattened Model is not valid, those validation errors will
+ *     be added to the SBMLDocument, which will remain otherwise unchanged, and the
+ *     conversion attempt will return failure.
+ *
+ * @li If @c 'performValidation' is set to @c 'false', the SBMLDocument will be flattened
+ *     irrespective of any validation errors that may exist.  The conversion may yet
+ *     fail if insurmountable errors are encountered in the course of trying to
+ *     flatten the model (for instance, if an element is replaced by something that
+ *     does not exist), but no separate validation steps are performed.
+ *
+ * @section usage Configuration and use of SBMLIdConverter
+ *
+ * CompFlatteningConverter is enabled by creating a ConversionProperties object with
+ * the option @c "flatten comp", and passing this properties object to
+ * SBMLDocument::convert().  The converter also accepts the following options, all of
+ * which are optional, and have default values:
+ *
+ * @li @c "abortIfUnflattenable": @c 'all', @c 'requiredOnly' (the default), or @c 'none'
+ * @li @c "stripUnflattenablePackages": @c 'true' or @c 'false' (the default).
+ * @li @c "basePath": A string representing the path where the converter should search for any ExternalModelDefinitions (default ".")
+ * @li @c "leavePorts": @c 'true' or @c 'false' (the default).
+ * @li @c "listModelDefinitions": @c 'true' or @c 'false' (the default).
+ * @li @c "performValidation": @c 'true' (the default) or @c 'false'
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef CompFlatteningConverter_h
