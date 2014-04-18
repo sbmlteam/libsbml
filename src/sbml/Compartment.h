@@ -678,7 +678,7 @@ public:
    * @see getVolume()
    * @see isSetSize()
    * @see setSize(@if java double value@endif)
-   * @see usetSize()
+   * @see unsetSize()
    */
   double getSize () const;
 
@@ -735,7 +735,7 @@ public:
    *
    * @see isSetOutside()
    * @see setOutside(@if java String sid@endif)
-   * @see unsetOutsize()
+   * @see unsetOutside()
    */
   const std::string& getOutside () const;
 
@@ -870,9 +870,9 @@ public:
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
    * Core.
    *
-   * @see getSetOutside()
+   * @see getOutside()
    * @see setOutside(@if java String sid@endif)
-   * @see unsetOutsize()
+   * @see unsetOutside()
    */
   bool isSetOutside () const;
 
@@ -1102,8 +1102,8 @@ public:
    * Core.
    *
    * @see isSetOutside()
-   * @see getSetOutside()
-   * @see unsetOutsize()
+   * @see getOutside()
+   * @see unsetOutside()
    */
   int setOutside (const std::string& sid);
 
@@ -1255,7 +1255,7 @@ public:
    * Core.
    *
    * @see isSetOutside()
-   * @see getSetOutside()
+   * @see getOutside()
    * @see setOutside(@if java String sid@endif)
    */
   int unsetOutside ();
