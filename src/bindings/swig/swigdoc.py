@@ -888,7 +888,7 @@ def sanitizeForHTML (docstring):
   # @ifnot, yet sometimes we want to say "if not C or C++".
 
   cases = 'java|python|perl|cpp|csharp|conly|clike|notcpp|notclike'
-  p = re.compile('@if\s+(' + cases + ')\s+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
+  p = re.compile('@if[\s*]+(' + cases + ')[\s*]+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
   docstring = p.sub(translateIfElse, docstring)
 
   # Replace blank lines between paragraphs with <p>.  There are two main
@@ -967,8 +967,7 @@ def sanitizeForHTML (docstring):
   # Doxygen automatically cross-references class names in text to the class
   # definition page, but Javadoc does not.  Rather than having to put in a
   # lot conditional @if/@endif's into the documentation to manually create
-  # cross-links just for the Java case, let's automate.  This needs to be
-  # done better (e.g., by not hard-wiring the class names).
+  # cross-links just for the Java case, let's automate.
 
   p = re.compile(r'([^a-zA-Z0-9_.">])(' + '|'.join(libsbml_classes) + r')\b([^:])', re.DOTALL)
   if language == 'csharp':
@@ -986,7 +985,8 @@ def sanitizeForHTML (docstring):
 
   # Clean-up step needed because some of the procedures above are imperfect.
   # The first converts " * * @foo" lines into " * @foo".
-  # The 2nd converts * <p> * <p> * sequences into one <p>.
+  # The 2nd pair converts * <p> * <p> * sequences into one <p>.
+  # The 3rd converts consecutive <p> * <p> sequences into one <p>.
 
   p = re.compile('^(\s+)\*\s+\*\s+@', re.MULTILINE)
   docstring = p.sub(r'\1* @', docstring)
@@ -995,6 +995,9 @@ def sanitizeForHTML (docstring):
   docstring = p.sub(r'\1<p>', docstring)
   p = re.compile('^(\s*)\*?\s*<p>((\s+\*)+\s+<p>)+', re.MULTILINE)
   docstring = p.sub(r'\1*', docstring)
+
+  p = re.compile('<p>([\s*]*<p>)+', re.MULTILINE)
+  docstring = p.sub(r'<p>', docstring)
 
   # Merge separated @see's, or else the first gets lost in the javadoc output.
 
