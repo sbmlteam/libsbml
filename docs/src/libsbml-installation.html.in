@@ -231,7 +231,7 @@ href="#unix-compiling"><i>Compiling and installing LibSBML</i></a>.
 <p> First, please download and unpack the libSBML source code archive
 somewhere on your file system, and in a shell (terminal), <code>cd</code>
 into the directory thereby created (e.g.,
-<code>libsbml-@PACKAGE_VERSION@</code>).
+<code>libSBML-@PACKAGE_VERSION@-Source</code>).
 
 
 <!-- ---------------------------------------------------------------------- -->

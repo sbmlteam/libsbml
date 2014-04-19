@@ -111,8 +111,9 @@ your libSBML source tree, then run "cmake-gui" from there, as follows:
 
 This will let it automatically find the source code and know where to
 put the binaries it builds.  If you run cmake-gui in some other way,
-you'll need to tell it the location of the source code (libsbml/) and
-where to build the binaries (libsbml/build/).
+you'll need to tell it the location of the source code (e.g.,
+/your/path/to/libsbml-5.10.0-Source) and where to build the binaries
+(e.g., /your/path/to/libsbml-5.10.0-Source/build/).
 
 Next, click the "Configure" button.  The first time you do this for
 libSBML, CMake will bring forth a dialog box asking you what scheme to
@@ -222,7 +223,7 @@ There are many more options to "configure".  To find out more about
 them, please see the relevant section in the libSBML documentation.
 Here is a link to the online copy:
 
-  http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html#unix-gnumake
+  http://sbml.org/Software/libSBML/latest-stable/docs/formatted/cpp-api/libsbml-installation.html
 
 Once you've successfully configured libSBML, run the following two
 commands to build and install it:
@@ -251,7 +252,7 @@ language interfaces such as Java or Python are involved.  Please
 consult the section on "Making libSBML accessible to software" in the
 libSBML documentation.  Here is a link to the online copy:
 
-  http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html
+  http://sbml.org/Software/libSBML/latest-stable/docs/formatted/cpp-api/libsbml-accessing.html
 
 
 3. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
@@ -270,7 +271,7 @@ documentation online, please visit the libSBML home page,
 and look for the links to the manuals.  The following URL is a direct
 link to the detailed build and installation instructions:
 
-  http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html
+  http://sbml.org/Software/libSBML/latest-stable/docs/formatted/cpp-api/libsbml-installation.html
 
 
 4. REPORTING BUGS AND OTHER PROBLEMS
