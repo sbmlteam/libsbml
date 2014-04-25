@@ -254,7 +254,7 @@ SBMLReactionConverter::convert()
   {
     Model * model = mDocument->getModel();
     // failed - restore original model
-    model = mOriginalModel->clone();
+    *model = *(mOriginalModel->clone());
     return LIBSBML_OPERATION_FAILED;
   }
 }
@@ -471,9 +471,9 @@ SBMLReactionConverter::isDocumentValid()
   mDocument->setApplicableValidators(AllChecksON);
   
   // set the flag to ignore flattening when validating
-  unsigned int errors = mDocument->checkConsistency();
+  mDocument->checkConsistency();
 
-  errors = mDocument->getErrorLog()
+  unsigned int errors =  mDocument->getErrorLog()
                       ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
   
   // reset validators

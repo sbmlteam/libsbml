@@ -559,7 +559,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
             if (speciesHasSize == true &&
               m.getCompartment(static_cast<Species &>(sb).getCompartment())
                                               ->getSpatialDimensions() != 0
-                                              && ud_vol->getNumUnits() > 0)
+                                              && ud_vol != NULL && ud_vol->getNumUnits() > 0)
             {
               newValue = newValue * 
                 m.getCompartment(static_cast<Species &>(sb).getCompartment())

@@ -273,7 +273,7 @@ SBMLLevelVersionConverter::convert()
     }
     delete d;
 
-    errors += mDocument->checkConsistency();
+    mDocument->checkConsistency();
     errors = mDocument->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
 
     /* if the current model is not valid dont convert 
@@ -348,7 +348,7 @@ SBMLLevelVersionConverter::convert()
            */
           conversion = false;
           /* undo any changes */
-          currentModel = origModel->clone();
+          *currentModel = *(origModel->clone());
           mDocument->updateSBMLNamespace("core", origLevel, origVersion);
           mDocument->setApplicableValidators(origValidators);
           delete origModel;

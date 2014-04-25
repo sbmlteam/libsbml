@@ -159,6 +159,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
     }
 
     delete mCreatedDate;
+    mCreatedDate = NULL;
     if (rhs.mCreatedDate != NULL) 
       setCreatedDate(rhs.mCreatedDate);
     else
@@ -214,24 +215,26 @@ ModelHistory::setCreatedDate(Date* date)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (date == NULL)
+
+  if (date == NULL)
   {
     delete mCreatedDate;
-    mCreatedDate = 0;
+    mCreatedDate = NULL;
     mHasBeenModified = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (!date->representsValidDate())
+
+  if (!date->representsValidDate())
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else
-  {
+
+  if (mCreatedDate != NULL)
     delete mCreatedDate;
-    mCreatedDate = date->clone();
-    mHasBeenModified = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mCreatedDate = date->clone();
+  mHasBeenModified = true;
+  return LIBSBML_OPERATION_SUCCESS;
+
 }
 
 

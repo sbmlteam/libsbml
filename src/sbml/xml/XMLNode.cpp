@@ -434,11 +434,13 @@ XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 {
   if (&other == NULL) return false;
 
-  bool equal=true;
+  bool equal;//=true;
   // check if the nodes have the same name,
-  equal=(getName()==other.getName());
+  equal=getName()==other.getName();
+  if (!equal) return false;
   // the same namespace uri, 
-  equal=(equal && (ignoreURI ||  getURI()==other.getURI()));
+  equal=(ignoreURI ||  getURI()==other.getURI());
+  if (!equal) return false;
 
   XMLAttributes attr1=getAttributes(); 
   XMLAttributes attr2=other.getAttributes();

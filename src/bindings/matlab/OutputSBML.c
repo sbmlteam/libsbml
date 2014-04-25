@@ -694,6 +694,8 @@ else
 	  }
 	}
 
+  
+
   /* write the SBML document to the filename specified */
 	nStatus = writeSBML(sbmlDocument, pacFilename);
 

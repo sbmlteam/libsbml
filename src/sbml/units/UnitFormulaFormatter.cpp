@@ -991,7 +991,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
     else
     {
       found = 0;
-      n = 0;
+      //n = 0;
       if (inKL)
       {
         if (model->getReaction(reactNo)->isSetKineticLaw())
@@ -1516,6 +1516,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       }
 
       delete unit;
+      unit = NULL;
     }
     else
     {
@@ -1541,6 +1542,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       subsUD->addUnit(unit);
 
       delete unit;
+      unit = NULL;
     }
     else 
     {
@@ -1566,6 +1568,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             subsUD->addUnit(unit);
 
             delete unit;
+            unit = NULL;
           }
         }
       }
@@ -1587,6 +1590,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         subsUD->addUnit(unit);
 
         delete unit;
+        unit = NULL;
       }
     }
     else if (subsUD == NULL)
@@ -1641,6 +1645,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       sizeUD->addUnit(unit);
 
       delete unit;
+      unit = NULL;
     }
     else 
     {
@@ -1666,6 +1671,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             sizeUD->addUnit(unit);
 
             delete unit;
+            unit = NULL;
           }
         }
       }
@@ -1701,7 +1707,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         unit->initDefaults();
         sizeUD->addUnit(unit);
       }
-
+      if (unit != NULL)
       delete unit;
     }
   }
@@ -2367,7 +2373,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
     if (numChildren != 2)
     {
       /* dont support this yet */
-      isolated = true;
+      //isolated = true;
       resultUD = NULL;
       break;
     }
@@ -2414,7 +2420,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
     }
     else
     {
-      isolated = true;
+      //isolated = true;
       resultUD = NULL;
       break;
     }

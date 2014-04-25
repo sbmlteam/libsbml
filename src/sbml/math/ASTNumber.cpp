@@ -2652,7 +2652,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
     {
       mConstant->setValue(rhs->getValue());
     }
-    if (rhs->isSetUnits() == true)
+    if (rhs->isSetUnits() == true && mExponential != NULL)
     {
       mExponential->setUnits(rhs->getUnits());
       mExponential->setUnitsPrefix(rhs->getUnitsPrefix());

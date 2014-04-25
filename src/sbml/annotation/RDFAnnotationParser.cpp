@@ -398,8 +398,8 @@ RDFAnnotationParser::deriveHistoryFromAnnotation(
         }
       }
     }
+    history->resetModifiedFlags();
   }
-  history->resetModifiedFlags();
 
   return history;
 }
@@ -1275,7 +1275,7 @@ RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
   }
 
   // does it have more than one child
-  if (rdf->getNumChildren() > 1)
+  if (rdf != NULL && rdf->getNumChildren() > 1)
   {
     hasAdditionalRDF = true;
   }

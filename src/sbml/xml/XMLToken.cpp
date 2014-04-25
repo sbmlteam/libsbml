@@ -1362,7 +1362,7 @@ LIBLAX_EXTERN
 int
 XMLToken_append (XMLToken_t *token, const char *text)
 {
-  if (token == NULL && text != NULL)
+  if (token != NULL && text != NULL)
   {
     return token->append(text);
   }

@@ -398,7 +398,7 @@ ASTLambdaFunctionNode::read(XMLInputStream& stream, const std::string& reqd_pref
       child = new ASTFunction();
     }
 
-    read = child->read(stream, reqd_prefix);
+    /* read = */ child->read(stream, reqd_prefix);
 
     stream.skipText();
 

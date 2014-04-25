@@ -132,6 +132,8 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
         }
       }
     }
+
+  if (node !=NULL && fdMath != NULL)
     (*node) = *fdMath;
 }
 

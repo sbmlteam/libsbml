@@ -323,7 +323,7 @@ ASTSemanticsNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
   ASTBase::checkPrefix(stream, reqd_prefix, element);
 
-  const char*      name = element.getName().c_str();
+  const char*      name;// = element.getName().c_str();
   if (stream.isGood())// && stream.peek().isEndFor(element) == false)
   {
     stream.skipText();

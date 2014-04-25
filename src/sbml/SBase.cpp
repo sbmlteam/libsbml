@@ -2282,7 +2282,7 @@ SBase::getAncestorOfType(int type, const std::string pkgName)
   if (pkgName == "core" && type == SBML_DOCUMENT)
     return getSBMLDocument();
 
-  SBase *child = this;
+  SBase *child;
   SBase *parent = getParentSBMLObject();
 
   while ( parent != NULL &&
@@ -2311,7 +2311,7 @@ SBase::getAncestorOfType(int type, const std::string pkgName) const
   if (pkgName == "core" && type == SBML_DOCUMENT)
     return getSBMLDocument();
 
-  const SBase *child = this;
+  const SBase *child;
   const SBase *parent = getParentSBMLObject();
 
   while ( parent != NULL &&
@@ -4000,9 +4000,9 @@ SBase::setElementText(const std::string &text)
 void
 SBase::write (XMLOutputStream& stream) const
 {
-  XMLNamespaces *xmlns = getNamespaces();
 
 #if 0
+  XMLNamespaces *xmlns = getNamespaces();
   {
     cout << "[DEBUG] SBase::write (element name) " << getElementName()
          << " (element ns) " << getElementNamespace();
@@ -5464,6 +5464,7 @@ SBase::reconstructRDFAnnotation()
       // test file: histCVAddRDF/histCVOnly/histCVOther
       unsigned int noChild
         = history->getChild("RDF").getChild("Description").getNumChildren();
+      if (mAnnotation != NULL)
       for (unsigned int i = noChild; i > 0; i--)
       {
         ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
@@ -5526,6 +5527,7 @@ SBase::reconstructRDFAnnotation()
       // test file: histCVAddRDF/histCVOnly/histCVOther
       unsigned int noChild
         = cvTerms->getChild("RDF").getChild("Description").getNumChildren();
+      if (mAnnotation != NULL)
       for (unsigned int i = 0; i < noChild; i++)
       {
         ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(

@@ -136,7 +136,7 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version,
     const std::string uri    = sbmlext->getURI(level, version, pkgVersion);
     const std::string prefix = (pkgPrefix.empty()) ? pkgName : pkgPrefix;
 
-    if (!uri.empty())
+    if (!uri.empty() && mNamespaces != NULL)
     {
       mNamespaces->add(uri,prefix); 
     }
@@ -363,7 +363,7 @@ SBMLNamespaces::addNamespaces(const XMLNamespaces * xmlns)
    */
   for (int i = 0; i < xmlns->getLength(); i++)
   {
-    if (!(mNamespaces->hasNS(xmlns->getURI(i), xmlns->getPrefix(i))))
+    if (mNamespaces != NULL && !(mNamespaces->hasNS(xmlns->getURI(i), xmlns->getPrefix(i))))
     {
       success = mNamespaces->add(xmlns->getURI(i), xmlns->getPrefix(i));
     }
@@ -396,7 +396,7 @@ SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkg
   {
     const std::string uri    = sbmlext->getURI(mLevel, mVersion, pkgVersion);
     const std::string prefix = (pkgPrefix.empty()) ? pkgName : pkgPrefix;
-    if (!uri.empty())
+    if (!uri.empty() && mNamespaces != NULL)
     {
       mNamespaces->add(uri,prefix);
     }
@@ -455,7 +455,7 @@ SBMLNamespaces::addPackageNamespaces (const XMLNamespaces *xmlns)
   {
     const std::string uri = xmlns->getURI(i);
 
-    if (SBMLExtensionRegistry::getInstance().isRegistered(uri))
+    if (mNamespaces != NULL && SBMLExtensionRegistry::getInstance().isRegistered(uri))
     {
       mNamespaces->add(uri, xmlns->getPrefix(i));
     }
@@ -481,7 +481,7 @@ SBMLNamespaces::addNamespace(const std::string &uri, const std::string &prefix)
     initSBMLNamespace();
   }
 
-  return mNamespaces->add(uri, prefix);
+  return mNamespaces != NULL ? mNamespaces->add(uri, prefix) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -493,7 +493,7 @@ SBMLNamespaces::removeNamespace(const std::string &uri)
     initSBMLNamespace();
   }
 
-  return mNamespaces->remove(mNamespaces->getIndex(uri));
+  return mNamespaces != NULL ? mNamespaces->remove(mNamespaces->getIndex(uri)) : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -292,7 +292,7 @@ SBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
 unsigned int 
 SBasePlugin::getLevel() const
 {
-  return mSBMLExt->getLevel(getURI());
+  return mSBMLExt != NULL ? mSBMLExt->getLevel(getURI()) : SBML_DEFAULT_LEVEL;
 }
 
 
@@ -304,7 +304,7 @@ SBasePlugin::getLevel() const
 unsigned int 
 SBasePlugin::getVersion() const
 {
-  return mSBMLExt->getVersion(getURI());
+  return mSBMLExt != NULL ? mSBMLExt->getVersion(getURI()) : SBML_DEFAULT_VERSION;
 }
 
 
@@ -352,7 +352,7 @@ SBasePlugin::getSBMLNamespaces() const
 unsigned int 
 SBasePlugin::getPackageVersion() const
 {
-  return mSBMLExt->getPackageVersion(getURI());
+  return mSBMLExt != NULL ? mSBMLExt->getPackageVersion(getURI()) : 0;
 }
 
 

@@ -351,7 +351,7 @@ ASTBasePlugin::getSBMLNamespaces() const
 unsigned int 
 ASTBasePlugin::getPackageVersion() const
 {
-  return (mSBMLExt != NULL) ? 0 : mSBMLExt->getPackageVersion(getURI());
+  return (mSBMLExt == NULL) ? 0 : mSBMLExt->getPackageVersion(getURI());
 }
 
 

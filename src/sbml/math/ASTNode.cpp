@@ -1482,12 +1482,13 @@ ASTNode::setValue(long numerator, long denominator)
     mNumber->syncMembersAndTypeFrom(copyNumber, type);
     this->ASTBase::syncMembersFrom(mNumber);
   }
-  else if (copyFunction != NULL)
+  else if (copyFunction != NULL && mNumber != NULL)
   {
     mNumber->syncMembersAndTypeFrom(copyFunction, type);
     this->ASTBase::syncMembersFrom(mNumber);
   }
 
+  if (mNumber != NULL)
   success = mNumber->setValue(numerator, denominator);
 
   if (copyNumber != NULL)
@@ -1586,12 +1587,13 @@ ASTNode::setValue(double mantissa, long exponent)
     mNumber->syncMembersAndTypeFrom(copyNumber, type);
     this->ASTBase::syncMembersFrom(mNumber);
   }
-  else if (copyFunction != NULL)
+  else if (copyFunction != NULL && mNumber!= NULL)
   {
     mNumber->syncMembersAndTypeFrom(copyFunction, type);
     this->ASTBase::syncMembersFrom(mNumber);
   }
 
+  if (mNumber != NULL)
   success = mNumber->setValue(mantissa, exponent);
 
   if (copyNumber != NULL)
@@ -3133,7 +3135,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
   {    
     // should we look for reactions or speciesreferences in the math
     bool allowReactionId = true;
-    bool allowSpeciesRef = false;
+    //bool allowSpeciesRef = false;
 
     if ( (m->getLevel() < 2) 
      || ((m->getLevel() == 2) && (m->getVersion() == 1)) )
@@ -3141,10 +3143,10 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       allowReactionId = false;
     }
 
-    if (m->getLevel() > 2)
+    /*if (m->getLevel() > 2)
     {
       allowSpeciesRef = true;
-    }
+    }*/
 
     // loop thru the list and check the unit status of each variable
     for (unsigned int v = 0; v < variables->size(); v++)

@@ -159,6 +159,7 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
         //else if (m.getEvent(id) != NULL)
         //  object = static_cast <const SBase *> (m.getEvent(id));
 
+        if (conflictObject != NULL)
         logConflict(*(kl->getParameter(p)), *conflictObject);
       }
     }

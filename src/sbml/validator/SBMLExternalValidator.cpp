@@ -298,7 +298,7 @@ void parseResultFile(std::string &mOutputFileName, std::vector<SBMLError>& error
            if (started)
            {             
              errors.push_back(SBMLError(errorId, 3, 1, message, line, column, severityId, categoryId));
-             started = false;
+             //started = false;
            }
            
            started = true;
