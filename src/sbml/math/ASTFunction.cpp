@@ -988,6 +988,74 @@ ASTFunction::swapChildren(ASTFunction* that)
   }
 }
 
+void 
+ASTFunction::setIsChildFlag(bool flag)
+{
+  ASTBase::setIsChildFlag(flag);
+
+  if (mUnaryFunction != NULL)
+  {
+    mUnaryFunction->setIsChildFlag(flag);
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    mBinaryFunction->setIsChildFlag(flag);
+  }
+  else if (mNaryFunction != NULL)
+  {
+    mNaryFunction->setIsChildFlag(flag);
+  }
+  else if (mUserFunction != NULL)
+  {
+    mUserFunction->setIsChildFlag(flag);
+  }
+  else if (mLambda != NULL)
+  {
+    mLambda->setIsChildFlag(flag);
+  }
+  else if (mPiecewise != NULL)
+  {
+    mPiecewise->setIsChildFlag(flag);
+  }
+  else if (mCSymbol != NULL)
+  {
+    mCSymbol->setIsChildFlag(flag);
+  }
+  else if (mQualifier != NULL)
+  {
+    mQualifier->setIsChildFlag(flag);
+  }
+  else if (mSemantics != NULL)
+  {
+    mSemantics->setIsChildFlag(flag);
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      const_cast<ASTBase*>(getPlugin(mPackageName)->getMath())
+                                     ->setIsChildFlag(flag);
+    }
+    else
+    {
+      unsigned int i = 0;
+      bool found = false;
+      while (found == false && i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          const_cast<ASTBase*>(getPlugin(i)->getMath())
+                                         ->setIsChildFlag(flag);
+          found = true;
+        }
+        i++;
+      }
+    }
+  }
+}
+
+
+
 int 
 ASTFunction::setClass(std::string className)
 {

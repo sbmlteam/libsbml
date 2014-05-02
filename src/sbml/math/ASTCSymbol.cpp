@@ -322,6 +322,26 @@ ASTCSymbol::getNumChildren() const
 }
 
 
+void 
+ASTCSymbol::setIsChildFlag(bool flag)
+{
+  ASTBase::setIsChildFlag(flag);
+
+  if (mTime != NULL)
+  {
+    mTime->ASTBase::setIsChildFlag(flag);
+  }
+  else if (mDelay != NULL)
+  {
+    mDelay->ASTBase::setIsChildFlag(flag);
+  }
+  else if (mAvogadro != NULL)
+  {
+    mAvogadro->ASTBase::setIsChildFlag(flag);
+  }
+}
+
+
 int 
 ASTCSymbol::setClass(std::string className)
 {

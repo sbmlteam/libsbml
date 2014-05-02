@@ -540,6 +540,42 @@ ASTNumber::setUserData(void* userData)
 }
 
 
+void 
+ASTNumber::setIsChildFlag(bool flag)
+{
+  ASTBase::setIsChildFlag(flag);
+
+  if (mExponential != NULL)
+  {
+    mExponential->setIsChildFlag(flag);
+  }
+  else if (mInteger != NULL)
+  {
+    mInteger->setIsChildFlag(flag);
+  }
+  else if (mRational != NULL)
+  {
+    mRational->setIsChildFlag(flag);
+  }
+  else if (mReal != NULL)
+  {
+    mReal->setIsChildFlag(flag);
+  }
+  else if (mCiNumber != NULL)
+  {
+    mCiNumber->setIsChildFlag(flag);
+  }
+  else if (mConstant != NULL)
+  {
+    mConstant->setIsChildFlag(flag);
+  }
+  else if (mCSymbol != NULL)
+  {
+    mCSymbol->setIsChildFlag(flag);
+  }
+}
+
+
 int 
 ASTNumber::unsetClass()
 {

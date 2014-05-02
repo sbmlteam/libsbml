@@ -1610,6 +1610,24 @@ ASTNode::setValue(double mantissa, long exponent)
 }
 
 
+void 
+ASTNode::setIsChildFlag(bool flag)
+{
+  ASTBase::setIsChildFlag(flag);
+
+  if (mNumber != NULL)
+  {
+    mNumber->setIsChildFlag(flag);
+  }
+  else if (mFunction != NULL)
+  {
+    mFunction->setIsChildFlag(flag);
+  }
+}
+
+
+
+
   /* isSet functions */
   
 bool 

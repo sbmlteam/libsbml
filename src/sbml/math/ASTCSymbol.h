@@ -177,6 +177,7 @@ public:
 
   int swapChildren(ASTFunction* that);
 
+  void setIsChildFlag(bool flag);
 
 
   /************************************* 

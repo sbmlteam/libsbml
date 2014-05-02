@@ -203,6 +203,7 @@ public:
   int unsetParentSBMLObject();
   int unsetUserData();
 
+  void setIsChildFlag(bool flag);
 
   /************************************* 
    * convenience query functions 

@@ -209,7 +209,7 @@ public:
   bool isChild() const;
 
 
-  void setIsChildFlag(bool flag);
+  virtual void setIsChildFlag(bool flag);
 
   // functions for MathML attributes
   std::string getClass() const;

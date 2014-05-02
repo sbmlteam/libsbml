@@ -1602,6 +1602,12 @@ setValue(value, 0);
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void setIsChildFlag(bool flag);
+
+  /** @endcond */
+
   /**
    * Unsets the units of this ASTNode.
    *
