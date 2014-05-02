@@ -299,10 +299,31 @@ START_TEST (test_conversion_ruleconverter_with_alg)
 END_TEST
 
 
-//START_TEST (test_conversion_ruleconverter_dontSort)
-//{
-//}
-//END_TEST
+START_TEST (test_conversion_inlineFD_bug)
+{
+  string filename = "/inline_bug_minimal.xml";
+  filename = TestDataDirectory + filename;
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+
+  ConversionProperties props;
+  props.addOption("expandFunctionDefinitions", "true");
+
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(doc->getModel()->getNumReactions() == 1);
+  fail_unless(doc->getModel()->getReaction(0)->isSetKineticLaw());
+  fail_unless(doc->getModel()->getReaction(0)->getKineticLaw()->getMath() != NULL);
+
+  // all seems good ... write it 
+  
+  string math = writeMathMLToString(doc->getModel()->getReaction(0)->getKineticLaw()->getMath());
+  ASTNode* test = readMathMLFromString(math.c_str());
+  fail_unless(test != NULL);
+
+  delete test;
+  delete doc;
+}
+END_TEST
 
 
 Suite *
@@ -316,6 +337,7 @@ create_suite_TestSBMLRuleConverter (void)
   tcase_add_test(tcase, test_conversion_ruleconverter_with_alg);
   tcase_add_test(tcase, test_conversion_ruleconverter_sortIA);
   tcase_add_test(tcase, test_conversion_ruleconverter_dontSortIA);
+  tcase_add_test(tcase, test_conversion_inlineFD_bug);
       
 
   suite_add_tcase(suite, tcase);
