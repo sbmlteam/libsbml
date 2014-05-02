@@ -34,8 +34,6 @@
   | 6. Licensing and distribution                                   |
   | 7. Acknowledgments                                              |
    `---------------------------------------------------------------'
-                  Date of last update to this file:
-        $Date$
 
 
 
