@@ -50,8 +50,6 @@ The SBML Team.
 
 # -----------------------------------------------------------------------------
 # File author: M. Hucka, S. Keating
-# Last Modified: $Date$
-# $URL$
 # -----------------------------------------------------------------------------
 # The following is for [X]Emacs users.  Please leave in place.
 # Local Variables:

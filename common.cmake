@@ -1,8 +1,5 @@
 ###############################################################################
 #
-# $URL$
-# $Id$
-# 
 # Description       : Common CMake macros for building libSBML
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology

@@ -69,9 +69,6 @@ available in ../sample-models/.  For example:
 
 -------------------------------------------
 File authors: B. Bornstein, Mike Hucka
-Last Modified: $Date$
-Last Modified By: $Author$
-$HeadURL$
 -------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.

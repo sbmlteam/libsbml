@@ -1,8 +1,5 @@
 ###############################################################################
 #
-# $URL$
-# $Id$
-#
 # Description       : CMake configuration for SBML Level 3 Layout package
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology

@@ -90,8 +90,5 @@ at the top level of the libSBML distribution.
 
 
 -----------------------------------------------------------------------------
-Last Modified: $Date$
-Last Modified By: $Author$
-$HeadURL$
 -----------------------------------------------------------------------------
 
