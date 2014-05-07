@@ -1912,7 +1912,7 @@ setValue(value, 0);
   /** @cond doxygenLibsbmlInternal */
 
   /*
-   * reads the node from teh stream
+   * reads the node from the stream
    */
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");
 
