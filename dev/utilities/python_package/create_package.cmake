@@ -169,11 +169,15 @@ file(
 ) 
 
 
+file (GLOB BIN_SWIG_FILES 
+  ${BIN_DIR}/src/bindings/python/*.cpp
+  ${BIN_DIR}/src/bindings/python/*.h
+  )
+
 # copy swigged files 
 file(
     COPY 
-	  ${BIN_DIR}/src/bindings/python/libsbml_wrap.cpp
-	  ${BIN_DIR}/src/bindings/python/libsbml_wrap.h
+	  ${BIN_SWIG_FILES}
 	  
     DESTINATION ${OUT_DIR}/base/
 ) 
