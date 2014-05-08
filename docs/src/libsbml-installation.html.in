@@ -1332,6 +1332,7 @@ x86-64).
 <h2><a class="anchor" name="problems">5. What to do if problems arise</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
+<p>
 Given the large number of variables that are involved in installing libSBML
 (e.g., operating systems versions, library versions, etc.), it is not
 impossible that issues arise when you try to get libSBML working.  We
