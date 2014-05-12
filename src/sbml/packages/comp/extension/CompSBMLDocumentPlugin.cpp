@@ -991,7 +991,7 @@ CompSBMLDocumentPlugin::checkConsistency()
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
           total_errors++;
-          lineNumMessageLogged = true;
+          //lineNumMessageLogged = true;
         }
 
         for (unsigned int n = 0; n < nerrors; n++)
@@ -1020,7 +1020,7 @@ CompSBMLDocumentPlugin::checkConsistency()
           log->logPackageError("comp", CompLineNumbersUnreliable, 
             getPackageVersion(), getLevel(), getVersion());
           total_errors++;
-          lineNumMessageLogged = true;
+          //lineNumMessageLogged = true;
         }
 
         for (unsigned int n = 0; n < nerrors; n++)

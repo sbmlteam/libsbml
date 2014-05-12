@@ -281,7 +281,7 @@ public:
    *
    * @return the key, as a string.
    */
-  virtual std::string getKey() const;
+  const std::string& getKey() const;
 
 
   /**
@@ -289,7 +289,7 @@ public:
    *
    * @param key a string representing the key to set.
    */
-  virtual void setKey(std::string key);
+  void setKey(std::string key);
 
 
   /**
@@ -297,7 +297,7 @@ public:
    *
    * @return the value of this option, as a string.
    */
-  virtual std::string getValue() const;
+  const std::string& getValue() const;
 
 
   /**
@@ -305,7 +305,7 @@ public:
    *
    * @param value the value to set, as a string.
    */
-  virtual void setValue(std::string value);
+  void setValue(std::string value);
 
 
   /**
@@ -313,7 +313,7 @@ public:
    *
    * @return the description of this option.
    */
-  virtual std::string getDescription() const;
+  const std::string& getDescription() const;
 
 
   /**
@@ -321,7 +321,7 @@ public:
    *
    * @param description the description to set for this option.
    */
-  virtual void setDescription(std::string description);
+  void setDescription(std::string description);
 
 
   /**
@@ -329,7 +329,7 @@ public:
    *
    * @return the type of this option.
    */
-  virtual ConversionOptionType_t getType() const;
+  ConversionOptionType_t getType() const;
 
 
   /**
@@ -339,7 +339,7 @@ public:
    *
    * @param type the type value to use.
    */
-  virtual void setType(ConversionOptionType_t type);
+  void setType(ConversionOptionType_t type);
 
 
   /**

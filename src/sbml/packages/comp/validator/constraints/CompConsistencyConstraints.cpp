@@ -286,13 +286,8 @@ public:
     if (sbRef.getParentSBMLObject() != NULL)
     {
       int tc = sbRef.getParentSBMLObject()->getTypeCode();
-      const SBMLDocument * doc = sbRef.getSBMLDocument();
-      CompSBMLDocumentPlugin * docPlug = NULL;
-      if (doc != NULL)
-      {
-        docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
-      }
-
+      //const SBMLDocument * doc = sbRef.getSBMLDocument();
+      
       ReferencedModel *ref;
       std::string idRef;
       std::string metaIdRef;
@@ -412,8 +407,8 @@ public:
       
       if (parentRefModel != NULL)
       {
-        doc = parentRefModel->getSBMLDocument();
-        docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
+        const SBMLDocument* doc = parentRefModel->getSBMLDocument();
+        CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)(doc->getPlugin("comp"));
         CompModelPlugin *plug1 = 
                         (CompModelPlugin*)(parentRefModel->getPlugin("comp"));
         

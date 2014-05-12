@@ -186,7 +186,8 @@ bzfilebuf::open_mode(std::ios_base::openmode mode,
   if (strlen(c_mode) == 0)
     return false;
   if (testb)
-    strcat(c_mode, "b");
+    c_mode[1] = 'b';
+    //strcat(c_mode, "b");
   return true;
 }
 

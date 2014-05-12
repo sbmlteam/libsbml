@@ -356,7 +356,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 	const unsigned int sbmlLevel   = getLevel  ();
 	const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+	unsigned int numErrs=0;
 
 	/* look to see whether an unknown attribute error was logged
 	 * during the read of the listOfCompartmentGlyphs - which will have

@@ -59,7 +59,7 @@ gzfilebuf::open(const char *name,
     return NULL;
 
   // Build mode string for gzopen and check it [27.8.1.3.2]
-  char char_mode[6] = "\0\0\0\0\0";
+  char char_mode[7] = "\0\0\0\0\0\0";
   if (!this->open_mode(mode, char_mode))
     return NULL;
 
@@ -87,7 +87,7 @@ gzfilebuf::attach(int fd,
     return NULL;
 
   // Build mode string for gzdopen and check it [27.8.1.3.2]
-  char char_mode[6] = "\0\0\0\0\0";
+  char char_mode[7] = "\0\0\0\0\0\0";
   if (!this->open_mode(mode, char_mode))
     return NULL;
 
@@ -160,7 +160,8 @@ gzfilebuf::open_mode(std::ios_base::openmode mode,
   if (strlen(c_mode) == 0)
     return false;
   if (testb)
-    strcat(c_mode, "b");
+    c_mode[1] = 'b';
+    //strcat(c_mode, "b");
   return true;
 }
 

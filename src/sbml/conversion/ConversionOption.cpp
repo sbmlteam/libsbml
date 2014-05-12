@@ -147,7 +147,7 @@ ConversionOption::clone() const
 
 ConversionOption::~ConversionOption() {}
 
-string 
+const string&
 ConversionOption::getKey() const
 {
   return mKey;
@@ -159,7 +159,7 @@ ConversionOption::setKey(string key)
   mKey = key;
 }
 
-string 
+const string&
 ConversionOption::getValue() const
 {
   return mValue;
@@ -171,7 +171,7 @@ ConversionOption::setValue(string value)
   mValue = value;
 }
 
-string 
+const string&
 ConversionOption::getDescription() const
 {
   return mDescription;

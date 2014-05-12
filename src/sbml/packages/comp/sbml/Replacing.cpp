@@ -504,7 +504,7 @@ int Replacing::convertConversionFactor(ASTNode** conversionFactor)
   int ret = LIBSBML_OPERATION_SUCCESS;
   ASTNode* newCF = NULL;
   if (mConversionFactor=="") {
-    newCF = *conversionFactor;
+    //newCF = *conversionFactor;
   }
   else {
     ASTNode factor(AST_NAME);
@@ -521,7 +521,7 @@ int Replacing::convertConversionFactor(ASTNode** conversionFactor)
     }
     else if ((*conversionFactor)->getType()==AST_TIMES) {
       (*conversionFactor)->addChild(factor.deepCopy());
-      newCF = *conversionFactor;
+      //newCF = *conversionFactor;
     }
     else {
       SBMLDocument* doc = getSBMLDocument();

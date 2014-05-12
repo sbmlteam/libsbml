@@ -1209,7 +1209,7 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
         //Rate rules are divided by the time conversion factor.
         rrule = static_cast<RateRule*>(element);
         if (rrule->isSetMath()) {
-          ast1 = rrule->getMath()->deepCopy();
+          //ast1 = rrule->getMath()->deepCopy();
           tcfdiv->insertChild(0, rrule->getMath()->deepCopy());
           rrule->setMath(tcfdiv);
           tcfdiv->removeChild(0);

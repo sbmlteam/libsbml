@@ -197,9 +197,9 @@ CompFlatteningConverter::convert()
     bool originalOverrideFlag = plugin->getOverrideCompFlattening();
     plugin->setOverrideCompFlattening(true);
     
-    unsigned int errors = mDocument->checkConsistency();
+    mDocument->checkConsistency();
 
-    errors = mDocument->getErrorLog()
+    unsigned int errors = mDocument->getErrorLog()
                         ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
     
     // take out the error about a requiredpackage

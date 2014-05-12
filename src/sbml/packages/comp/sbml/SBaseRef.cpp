@@ -971,7 +971,7 @@ int SBaseRef::collectDeletions(set<SBase*>* removed, set<SBase*>* toremove)
 int SBaseRef::performDeletion()
 {
   set<SBase*> toremove;
-  set<SBase*>* removed;
+  set<SBase*>* removed=NULL;
   CompModelPlugin* cmp = NULL;
   SBase* parent = getParentSBMLObject();
   while (parent != NULL && parent->getTypeCode() != SBML_DOCUMENT) {
@@ -984,7 +984,7 @@ int SBaseRef::performDeletion()
     }
     parent = parent->getParentSBMLObject();
   }
-  int ret = collectDeletions(removed, &toremove);
+  int ret = removed != NULL ? collectDeletions(removed, &toremove) : LIBSBML_INVALID_OBJECT ;
   if (ret != LIBSBML_OPERATION_SUCCESS) {
     return ret;
   }
