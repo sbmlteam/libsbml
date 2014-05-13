@@ -9141,7 +9141,7 @@ static const sbmlErrorTableEntry errorTable[] =
     ""
   },
 
-  //99996
+  //99995
   {   
     UnknownPackageAttribute,   
     "",
