@@ -73,8 +73,8 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getErrorId()  == OverdeterminedSystem );
   fail_unless( error->getSeverity() == LIBSBML_SEV_WARNING );
   fail_unless( error->getSeverityAsString() == "Warning" );
-  fail_unless( error->getCategory() == LIBSBML_CAT_SBML );
-  fail_unless( error->getCategoryAsString() == "General SBML conformance");
+  fail_unless( error->getCategory() == LIBSBML_CAT_OVERDETERMINED_MODEL );
+  fail_unless( error->getCategoryAsString() == "Overdetermined model");
   fail_unless( error->isValid() == true);
   delete error;
 

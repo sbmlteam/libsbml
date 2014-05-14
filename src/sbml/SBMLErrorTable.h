@@ -1595,7 +1595,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     OverdeterminedSystem,
     "The model is overdetermined",
-    LIBSBML_CAT_SBML,
+    LIBSBML_CAT_OVERDETERMINED_MODEL,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
