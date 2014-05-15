@@ -144,8 +144,8 @@ namespace LibSBMLCSTest.sbml {
       assertTrue( error.getErrorId() == libsbml.OverdeterminedSystem );
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_WARNING );
       assertTrue( error.getSeverityAsString() ==  "Warning"  );
-      assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_SBML );
-      assertTrue( error.getCategoryAsString() ==  "General SBML conformance" );
+      assertTrue(error.getCategory() == libsbml.LIBSBML_CAT_OVERDETERMINED_MODEL);
+      assertTrue(error.getCategoryAsString() == "Overdetermined model");
       error = null;
       error = new SBMLError(libsbml.OffsetNoLongerValid,2,2);
       assertTrue( error.getErrorId() == libsbml.OffsetNoLongerValid );

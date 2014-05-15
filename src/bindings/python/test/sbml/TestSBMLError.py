@@ -52,8 +52,8 @@ class TestSBMLError(unittest.TestCase):
     self.assert_( error.getErrorId() == libsbml.OverdeterminedSystem )
     self.assert_( error.getSeverity() == libsbml.LIBSBML_SEV_WARNING )
     self.assert_( error.getSeverityAsString() ==  "Warning"  )
-    self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_SBML )
-    self.assert_( error.getCategoryAsString() ==  "General SBML conformance" )
+    self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_OVERDETERMINED_MODEL )
+    self.assert_( error.getCategoryAsString() ==  "Overdetermined model" )
     error = None
     error = libsbml.SBMLError(libsbml.OffsetNoLongerValid,2,2)
     self.assert_( error.getErrorId() == libsbml.OffsetNoLongerValid )

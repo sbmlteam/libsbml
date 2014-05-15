@@ -48,8 +48,8 @@ class TestSBMLError < Test::Unit::TestCase
     assert( error.getErrorId() == LibSBML::OverdeterminedSystem )
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_WARNING )
     assert( error.getSeverityAsString() ==  "Warning"  )
-    assert( error.getCategory() == LibSBML::LIBSBML_CAT_SBML )
-    assert( error.getCategoryAsString() ==  "General SBML conformance" )
+    assert( error.getCategory() == LibSBML::LIBSBML_CAT_OVERDETERMINED_MODEL )
+    assert( error.getCategoryAsString() ==  "Overdetermined model" )
     error = nil
     error = LibSBML::SBMLError.new(LibSBML::OffsetNoLongerValid,2,2)
     assert( error.getErrorId() == LibSBML::OffsetNoLongerValid )
