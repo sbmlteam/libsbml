@@ -301,7 +301,7 @@ END_TEST
 
 START_TEST (test_conversion_inlineFD_bug)
 {
-  string filename = "/inline_bug_minimal.xml";
+  std::string filename = "/inline_bug_minimal.xml";
   filename = TestDataDirectory + filename;
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
 
@@ -316,7 +316,7 @@ START_TEST (test_conversion_inlineFD_bug)
 
   // all seems good ... write it 
   
-  string math = writeMathMLToString(doc->getModel()->getReaction(0)->getKineticLaw()->getMath());
+  std::string math = writeMathMLToString(doc->getModel()->getReaction(0)->getKineticLaw()->getMath());
   ASTNode* test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
 
