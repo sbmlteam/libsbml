@@ -9129,7 +9129,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99994
   {   
     UnknownCoreAttribute,   
-    "",
+    "Encountered an unknown attribute in the SBML Core namespace",
     LIBSBML_CAT_INTERNAL,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -9144,7 +9144,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99995
   {   
     UnknownPackageAttribute,   
-    "",
+    "Encountered an unknown attribute in an SBML Level 3 package namespace",
     LIBSBML_CAT_INTERNAL,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
