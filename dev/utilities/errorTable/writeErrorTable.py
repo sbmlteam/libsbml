@@ -87,10 +87,17 @@ sbml_levels_versions = [[1, 1], [1, 2],
                         [2, 1], [2, 2], [2, 3], [2, 4],
                         [3, 1]]
 
-# List of error codes that we ignore for purposes of documentation.
+# Set of error codes that we ignore for purposes of documentation.
 
-ignored_error_codes = [9999, 10599, 20905, 21112, 29999, 90000, 90501, 99502,
-                       99503, 99504, 99994, 99995, 99999]
+ignored_error_codes = {9999, 10599, 20905, 21112, 29999, 90000, 90501, 99502,
+                       99503, 99504, 99994, 99995, 99999}
+
+# Package error code ranges.  The numbers are the low end start values.
+
+package_codes = [['comp',   1000000],
+                 ['fbc',    2000000],
+                 ['qual',   3000000],
+                 ['layout', 6000000]]
 
 # Our approach to finding error codes starts with numbers and then rummages
 # through the list of symbols in the libSBML Python module to find the symbol
@@ -106,16 +113,19 @@ ignored_error_codes = [9999, 10599, 20905, 21112, 29999, 90000, 90501, 99502,
 # hard-code all possible libSBML error codes here (avoiding that scenario is
 # the point of this program!), we have to find some other way to distinguish
 # the cases.  The approach taken here is to only worry about the numbers
-# below 100 using a table that enumerates the symbols we care about; when we
+# below 1000 using a table that enumerates the symbols we care about; when we
 # iterate over all error numbers, we always explicitly map the numbers to the
 # following codes.
 
-low_numbered_errors = ['XMLUnknownError',         # 0
-                       'XMLOutOfMemory',          # 1
-                       'XMLFileUnreadable',       # 2
-                       'XMLFileUnwritable',       # 3
-                       'XMLFileOperationError',   # 4
-                       'XMLNetworkAccessError']   # 5
+low_numbered_errors = { 0   : 'XMLUnknownError',
+                        1   : 'XMLOutOfMemory',
+                        2   : 'XMLFileUnreadable',
+                        3   : 'XMLFileUnwritable',
+                        4   : 'XMLFileOperationError',
+                        5   : 'XMLNetworkAccessError',
+                        101 : 'InternalXMLParserError',
+                        102 : 'UnrecognizedXMLParserCode',
+                        103 : 'XMLTranscoderError' }
 
 # Fragments for the table used in the documentation for SBMLError.h.
 
@@ -162,11 +172,14 @@ table {
 }
 
 td.s-fatal {
+  font-size: 7pt;
   color: white;
   background-color: darkred;
   font-weight: bold;
   text-align: center;
   border-bottom: 1px solid white;
+  letter-spacing: -1px;
+  padding: 2px;
 }
 
 td.s-fatal:before {
@@ -174,10 +187,13 @@ td.s-fatal:before {
 }
 
 td.s-error {
+  font-size: 7pt;
   background-color: #ee8899;
   font-weight: bold;
   text-align: center;
   border-bottom: 1px solid white;
+  letter-spacing: -1px;
+  padding: 2px;
 }
 
 td.s-error:before {
@@ -185,10 +201,13 @@ td.s-error:before {
 }
 
 td.s-warning {
+  font-size: 7pt;
   background-color: gold;
   font-weight: bold;
   text-align: center;
   border-bottom: 1px solid white;
+  letter-spacing: -1px;
+  padding: 2px;
 }
 
 td.s-warning:before {
@@ -196,9 +215,11 @@ td.s-warning:before {
 }
 
 td.s-na {
+  font-size: 7pt;
   font-weight: bold;
   text-align: center;
-  border-bottom: 1px solid white;
+  letter-spacing: -1px;
+  padding: 2px;
 }
 
 td.s-na:before {
@@ -212,10 +233,11 @@ tr.headers {
 th.levels {
   text-align: center;
   width: 1%;
+  padding: 2px;
 }
 
 th.errorid {
-  width: 50px;
+  width: 40px;
   vertical-align: bottom;
 }
 
@@ -224,9 +246,11 @@ th.errorid strong {
 }
 
 td.code {
-  font-size: 10pt;
+  font-size: 8pt;
   font-family: -webkit-monospace, monospace;
   color: #000;
+  text-align: right;
+  letter-spacing: -1px;
 }
 
 th.errorname {
@@ -234,22 +258,25 @@ th.errorname {
 }
 
 td.errorname {
-  font-size: 10pt;
+  font-size: 8pt;
   font-family: -webkit-monospace, monospace;
   color: #000;
   height: 26px;   /* to equalize heights of all table rows. */
 }
 
 th.meaning {
+  font-size: 8pt;
+  font-style: italic;
   vertical-align: bottom;
+  letter-spacing: -1px;
 }
 
 th.meaning strong {
   color: #333;
 }
 
-td.meaning {
-  font-style: italic;
+td.meaning code {
+  font-size: 8pt;
 }
 
 .s-warning
@@ -268,9 +295,17 @@ td.meaning {
 
 .s-fatal
 {
-  background-color: #D23D24;
+  background-color: darkred;
   padding: .1em .5em;
   color: white;
+}
+
+.table-pkg-separator {
+  text-align: center;
+  background-color: #fdfad8;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 200%;
 }
 
 /*]]>*/
@@ -329,7 +364,7 @@ web_error_table_start_fragment = '''<center>
 <table class="borderless-table gray-border sm-padding sm-font alt-row-colors"
        width="100%" cellspacing="1" cellpadding="2" border="0">
   <tr class="headers">
-    <th class="errorid">Error number</th>
+    <th class="errorid">Error code</th>
     <th class="errorname">LibSBML name</th>
     <th class="errormeaning">Meaning</th>
     <th class="levels">L1 V1</th>
@@ -476,24 +511,38 @@ are separated from the set of diagnostics for general SBML consistency.'''
 
 def write_doc(stream, module):
   stream.write(doc_table_start_fragment)
-  for errNum in list(set(range(10000, 100000)) - set(ignored_error_codes)):
+  for errNum in sorted(get_numeric_constants(module) - ignored_error_codes):
     stream.write(make_doc_row_text(errNum, module))
   stream.write(doc_table_end_fragment)
 
 
 def make_doc_row_text(errNum, module):
-  e = SBMLError(errNum, 1, 1)
-  if not e.isValid():
-    return ''
-
   s = get_symbol(module, errNum)
   output  = '<tr>'
   output += '<td class="code">@link SBMLErrorCode_t#{} {}@endlink</td>\n'.format(s, s)
-  output += '<td class="meaning">{}</td>\n'.format(to_html(e.getShortMessage()))
-  for lv in sbml_levels_versions:
-    e = SBMLError(errNum, lv[0], lv[1])
-    severity = e.getSeverity()
-    output += '<td class="{}"></td>\n'.format(get_severity_class(severity))
+  if errNum < 99999:
+    e = SBMLError(errNum, 1, 1)
+    if not e.isValid():
+      return ''
+    output += '<td class="meaning">{}</td>\n'.format(to_html(e.getShortMessage()))
+    for lv in sbml_levels_versions:
+      e = SBMLError(errNum, lv[0], lv[1])
+      output += '<td class="{}"></td>\n'.format(get_severity_class(e.getSeverity()))
+  else:
+    for package in package_codes:
+      pkg_name  = package[0]
+      pkg_start = package[1]
+      pkg_end   = pkg_start + 1000000
+      if errNum > pkg_start and errNum < pkg_end:
+        e = SBMLError(errNum, 3, 1, '', 0, 0, 0, 0, pkg_name, 1)
+        if not e.isValid():
+          return ''
+        output += '<td class="meaning">{}</td>\n'.format(to_html(e.getShortMessage()))
+        for lv in range(0, len(sbml_levels_versions) - 1):
+          output += '<td class="{}"></td>'.format(get_severity_class(0))
+        output += '<td class="{}"></td>\n'.format(get_severity_class(e.getSeverity()))
+        break
+
   output += '</tr>\n'
   print_progress()
   return output
@@ -516,15 +565,32 @@ def write_web(stream, module):
     stream.write('<a name="{}"><h3>{}</h3></a>\n'.format(anchor, title))
     stream.write('<p>' + intro + '</p>\n')
     stream.write(web_error_table_start_fragment)
-    for errNum in list(set(range(0, 100000)) - set(ignored_error_codes)):
+    for errNum in sorted(get_numeric_constants(module, 0, 100000) - ignored_error_codes):
       e = SBMLError(errNum, 1, 1)
       if not e.isValid():
         continue
       if not e.getCategory() in categories:
         continue
       stream.write(make_web_row_text(errNum, module))
-      print_progress()
 
+    for package in package_codes:
+      pkg_name  = package[0]
+      pkg_start = package[1]
+      pkg_end   = pkg_start + 1000000
+      printed_separator = False
+      for errNum in sorted(get_numeric_constants(module, pkg_start, pkg_end)):
+        e = SBMLError(errNum, 3, 1, '', 0, 0, 0, 0, pkg_name, 1)
+        msg = e.getShortMessage()
+        if not msg:
+          continue
+        if not e.getCategory() in categories:
+          continue
+        if not printed_separator:
+          stream.write(make_web_table_pkg_separator(pkg_name))
+          printed_separator = True
+        stream.write(make_web_row_pkg_text(e, errNum, module))
+
+    print_progress("Writing '" + title + "' \n")
     stream.write(web_error_table_end_fragment)
 
 
@@ -536,6 +602,12 @@ def make_web_toc():
     output += '<a href="#{}">{}</a><br/>\n'.format(anchor, title)
   output += web_toc_end_fragment
   return output
+
+
+def make_web_table_pkg_separator(pkg_name):
+  return '<tr><td colspan="' + str(3 + len(sbml_levels_versions)) \
+    + '" class="table-pkg-separator">Codes for SBML Level 3 package "' \
+    + pkg_name + '"</td></tr>'
 
 
 def make_web_row_text(errNum, module):
@@ -555,13 +627,25 @@ def make_web_row_text(errNum, module):
   return output
 
 
+def make_web_row_pkg_text(err, errNum, module):
+  output  = '<tr>'
+  output += '<td class="code">{0:05d}</td>'.format(errNum)
+  output += '<td class="errorname">{}</td>'.format(get_symbol(module, errNum))
+  output += '<td class="meaning">{}</td>'.format(to_html(err.getShortMessage()))
+  for lv in range(0, len(sbml_levels_versions) - 1):
+    output += '<td class="{}"></td>'.format(get_severity_class(0))
+  output += '<td class="{}"></td>'.format(get_severity_class(err.getSeverity()))
+  output += '</tr>\n'
+  return output
+
+
 # -----------------------------------------------------------------------------
 # Main code for --enum.
 # -----------------------------------------------------------------------------
 
 def write_enum(stream, module):
   stream.write(enum_start_fragment)
-  for errNum in range(10000, 100000):
+  for errNum in sorted(get_numeric_constants(module, 0, 100000)):
     e = SBMLError(errNum, 1, 1)
     if e.isValid():
       if errNum == 10000:
@@ -591,6 +675,18 @@ def get_module():
   return load_module('_libsbml', None, m[1], m[2])
 
 
+def get_numeric_constants(module, low=0, high=90000000):
+  constants = set()
+  for symbol in dir(module):
+    try:                                # Some symbols don't have a value,
+      value = eval(symbol)              # so we have to guard against that.
+      if isinstance(value, int) and low <= value and value <= high:
+          constants.add(value)
+    except:
+      continue
+  return constants
+
+
 def get_symbol(module, number):
   # This is an inefficient way of getting the string corresponding to a
   # given error number, but we don't care because this application isn't
@@ -600,7 +696,7 @@ def get_symbol(module, number):
   # a number of small enumerations in libSBML, so we have to special-case
   # that.  Really, this whole thing is just awful.
   #
-  if number < 6:
+  if number in low_numbered_errors.keys():
     return low_numbered_errors[number]
 
   symbols = dir(module)
@@ -627,9 +723,9 @@ def to_html(text):
   return text
 
 
-def print_progress():
+def print_progress(marker="."):
   # Echo to terminal to show progress.
-  sys.stdout.write(".")
+  sys.stdout.write(marker)
   sys.stdout.flush()
 
 
