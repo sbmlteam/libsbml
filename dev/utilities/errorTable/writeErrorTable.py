@@ -588,7 +588,7 @@ def write_web(stream, module):
         if not printed_separator:
           stream.write(make_web_table_pkg_separator(pkg_name))
           printed_separator = True
-        stream.write(make_web_row_pkg_text(e, errNum, module))
+        stream.write(make_web_row_pkg_text(e, errNum, pkg_name, pkg_start, module))
 
     print_progress("Writing '" + title + "' \n")
     stream.write(web_error_table_end_fragment)
@@ -627,9 +627,9 @@ def make_web_row_text(errNum, module):
   return output
 
 
-def make_web_row_pkg_text(err, errNum, module):
+def make_web_row_pkg_text(err, errNum, pkg_name, pkg_start, module):
   output  = '<tr>'
-  output += '<td class="code">{0:05d}</td>'.format(errNum)
+  output += '<td class="code">{0}-{1:05d}</td>'.format(pkg_name, errNum-pkg_start)
   output += '<td class="errorname">{}</td>'.format(get_symbol(module, errNum))
   output += '<td class="meaning">{}</td>'.format(to_html(err.getShortMessage()))
   for lv in range(0, len(sbml_levels_versions) - 1):
