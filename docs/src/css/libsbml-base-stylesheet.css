@@ -491,10 +491,18 @@ td.s-fatal {
   text-align: center;
 }
 
+td.s-fatal:before {
+  content: "F";
+}
+
 td.s-error {
   background-color: #ff99aa !important;
   font-weight: bold;
   text-align: center;
+}
+
+td.s-error:before {
+  content: "E";
 }
 
 td.s-warning {
@@ -503,13 +511,21 @@ td.s-warning {
   text-align: center;
 }
 
-td.s-info {
-  background-color: #4c4 !important;
+td.s-warning:before {
+  content: "W";
+}
+
+td.s-na {
   font-weight: bold;
   text-align: center;
 }
 
-td.s-na {
+td.s-na:before {
+  content: "NA";
+}
+
+td.s-info {
+  background-color: #4c4 !important;
   font-weight: bold;
   text-align: center;
 }
