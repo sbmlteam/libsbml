@@ -25,6 +25,12 @@ STABLE RELEASE
 
 * Miscellaneous
 
+  * The short error messages for the following error codes in
+    SBMLErrorTable.h had trailing periods, which was inconsistent with
+    most of the other messages; the periods have been removed: 20109,
+    99109, 99401, 99402, 99403, 99404, 99405, 99406.
+
+
 EXPERIMENTAL RELEASE
 
 * New features

@@ -2311,7 +2311,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20109
   {
     L3PackageOnLowerSBML,
-    "An L3 package ns found on the SBML container element.",
+    "An L3 package ns found on the SBML container element",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -8051,7 +8051,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99109
   {
     PackageRequiredShouldBeFalse,
-    "This package expects required to be false.",
+    "This package expects required to be false",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8336,7 +8336,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99401
   {   
     RDFMissingAboutTag,   
-    "RDF missing the <about> tag.",
+    "RDF missing the <about> tag",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8359,7 +8359,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99402
   {   
     RDFEmptyAboutTag,   
-    "RDF empty <about> tag.",
+    "RDF empty <about> tag",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8382,7 +8382,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99403
   {   
     RDFAboutTagNotMetaid,   
-    "RDF <about> tag is not metaid.",
+    "RDF <about> tag is not metaid",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8406,7 +8406,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99404
   {   
     RDFNotCompleteModelHistory,   
-    "RDF does not contain valid ModelHistory.",
+    "RDF does not contain valid ModelHistory",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8431,7 +8431,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99405
   {   
     RDFNotModelHistory,   
-    "RDF does not result in a ModelHistory.",
+    "RDF does not result in a ModelHistory",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8456,7 +8456,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99406
   {   
     AnnotationNotElement,   
-    "Annotation must contain element.",
+    "Annotation must contain element",
     LIBSBML_CAT_SBML,   
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
