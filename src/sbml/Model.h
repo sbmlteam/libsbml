@@ -3143,38 +3143,60 @@ public:
 
 
   /**
-   * Populates the list of FormulaDataUnits with the units derived for this
-   * Model object.
+   * Populates the internal list of derived units for this Model object.
    *
-   * The list contains elements of class FormulaUnitsData.  The first element
-   * of the list refers to the default units of 'substance per time' derived
-   * from the model and has the unitReferenceId 'subs_per_time'. This
-   * facilitates the comparison of units derived from mathematical formula
-   * with the expected units.
+   * This method tells libSBML to (re)calculate all units for all components
+   * of the enclosing Model object.  The result is stored in an internal list
+   * of unit data.  Users can access the resulting data by calling the method
+   * SBase::getDerivedUnitDefinition() available on most objects.  (The name
+   * "formula units data" is drawn from the name of the internal objects
+   * libSBML uses to store the data; note that these internal objects are not
+   * exposed to callers, because callers can interact with the results using
+   * the ordinary SBML unit objects.)
    *
-   * The next elements of the list record the units of the 
-   * compartments and species established from either explicitly
-   * declared or default units.
+   * This method is used by libSBML itself in the validator concerned with
+   * unit consistency.  The unit consistency validator (like all other
+   * validators in libSBML) is invoked by using
+   * SBMLDocument::checkConsistency(), with the consistency checks for the
+   * category @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY
+   * LIBSBML_CAT_UNITS_CONSISTENCY@endlink turned on.  The method
+   * populateListFormulaUnitsData() does not need to be called prior to
+   * invoking the validator if unit consistency checking has not been turned
+   * off.  This method is only provided for cases when callers have a special
+   * need to force the unit data to be recalculated.  For instance, during
+   * construction of a model, a caller may want to interrogate libSBML's
+   * inferred units without invoking full-blown model validation; this is a
+   * scenario in which calling populateListFormulaUnitsData() may be useful.
    *
-   * The next elements record the units of any parameters.
+   * @warning Computing and inferring units is a time-consuming operation.
+   * Callers may want to call isPopulatedListFormulaUnitsData() to determine
+   * whether the units may already have been computed, to save themselves the
+   * need of invoking unit inference unnecessarily.
    *
-   * Subsequent elements of the list record the units derived for
-   * each mathematical expression encountered within the model.
-   *
-   * @note This function is utilised by the Unit Consistency Validator.
-   * The list is populated prior to running the validation and thus
-   * the consistency of units can be checked by accessing the members
-   * of the list and comparing the appropriate data.
+   * @see isPopulatedListFormulaUnitsData()
    */
   void populateListFormulaUnitsData();
 
 
   /**
-   * Predicate returning @c true if 
-   * the list of FormulaUnitsData is populated.
+   * Predicate returning @c true if libSBML has derived units for the
+   * components of this model.
    *
-   * @return @c true if the list of FormulaUnitsData is populated, 
-   * @c false otherwise.
+   * LibSBML can infer the units of measurement associated with different
+   * elements of a model.  When libSBML does that, it builds a complex
+   * internal structure during a resource-intensive operation.  This is done
+   * automatically only when callers invoke validation (via
+   * SBMLDocument::checkConsistency()) and have not turned off the unit
+   * validation option.
+   *
+   * Callers can force units to be recalculated by calling
+   * populateListFormulaUnitsData().  To avoid calling that method
+   * unnecessarily, calling programs may first want to invoke this method
+   * (isPopulatedListFormulaUnitsData()) to determine whether it is even
+   * necessary.
+   *
+   * @return @c true if the units have already been computed, @c false
+   * otherwise.
    */
   bool isPopulatedListFormulaUnitsData();
 
