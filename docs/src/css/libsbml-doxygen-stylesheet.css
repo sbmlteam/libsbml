@@ -653,8 +653,19 @@ table.directory td.desc {
 
 table.directory td.entry {
     border-bottom: 1px dotted #ccc;
-    min-width: 295px;
+    min-width: 270px;
+    padding-top: 5px;
+    height: 32px;
 }
+
+table.directory td.entry a.el {
+    margin-left: -10px;
+}
+
+table.directory .icona {
+    display: none;
+}
+
 
 /* these are for tree view when not used as main index */
 
