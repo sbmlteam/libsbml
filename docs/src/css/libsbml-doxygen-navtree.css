@@ -93,18 +93,18 @@
 }
 
 .ui-resizable-e {
-  background-color: #bbb;
-  border-right: 1px dotted #666;
+  background-color: #ddd;
+  border-left: 1px dotted #aaa;
+  border-right: 1px dotted #aaa;
   border-top: none;
   border-bottom: 1px solid #888;
-  cursor:e-resize;
-  height:100%;
+  background: linear-gradient(45deg, white 25%, #ddd 25%, #ccc 50%, white 50%, white 75%);
+  background-size: 5px 5px;
+  cursor: e-resize;
+  height: 100%;
   right: 0;
   top: 0px;
   width: 8px;
-  box-shadow: 2px 0px 3px #999;
-  -webkit-box-shadow: 2px 0px 3px #999;
-  -moz-box-shadow: rgba(0, 0, 0, 0.15) 2px 0px 3px;
 }
 
 .ui-resizable-handle {
