@@ -169,6 +169,24 @@ web_css_fragment = '''<style type='text/css'>
 /*<![CDATA[*/
 table {
   margin-bottom: 2em;
+  border: 1px solid #ccc;
+  border-spacing: 0;
+}
+
+td, th {
+  border: none;
+}
+
+th {
+  border-bottom: 1px solid #ccc;
+}
+
+td {
+  border-bottom: 1px solid white;
+}
+
+tr:last-child > td {
+  border-bottom: none;
 }
 
 td.s-fatal {
@@ -177,7 +195,6 @@ td.s-fatal {
   background-color: darkred;
   font-weight: bold;
   text-align: center;
-  border-bottom: 1px solid white;
   letter-spacing: -1px;
   padding: 2px;
 }
@@ -188,10 +205,9 @@ td.s-fatal:before {
 
 td.s-error {
   font-size: 7pt;
-  background-color: #ee8899;
+  background-color: #dc143c;
   font-weight: bold;
   text-align: center;
-  border-bottom: 1px solid white;
   letter-spacing: -1px;
   padding: 2px;
 }
@@ -205,7 +221,6 @@ td.s-warning {
   background-color: gold;
   font-weight: bold;
   text-align: center;
-  border-bottom: 1px solid white;
   letter-spacing: -1px;
   padding: 2px;
 }
@@ -234,10 +249,11 @@ th.levels {
   text-align: center;
   width: 1%;
   padding: 2px;
+  letter-spacing: -1px;
 }
 
 th.errorid {
-  width: 40px;
+  width: 12ex;
   vertical-align: bottom;
 }
 
@@ -249,7 +265,7 @@ td.code {
   font-size: 8pt;
   font-family: -webkit-monospace, monospace;
   color: #000;
-  text-align: right;
+  text-align: center;
   letter-spacing: -1px;
 }
 
@@ -302,12 +318,11 @@ td.meaning code {
 
 .table-pkg-separator {
   text-align: center;
-  background-color: #fdfad8;
+  background-color: #ffefd5;
   font-style: italic;
   font-weight: bold;
-  line-height: 200%;
+  line-height: 160%;
 }
-
 /*]]>*/
 </style>
 '''
@@ -361,7 +376,7 @@ relevant to the particularl Level and Version combination in question.</p>
 '''
 
 web_error_table_start_fragment = '''<center>
-<table class="borderless-table gray-border sm-padding sm-font alt-row-colors"
+<table class="sm-padding sm-font alt-row-colors"
        width="100%" cellspacing="1" cellpadding="2" border="0">
   <tr class="headers">
     <th class="errorid">Error code</th>
