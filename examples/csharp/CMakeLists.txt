@@ -57,6 +57,9 @@ foreach( example
 	unsetAnnotation
 	unsetNotes
 	validateSBML
+	evaluateCustomMath
+	inlineInitialAssignments
+	replaceOneFD
 	
 )
 
