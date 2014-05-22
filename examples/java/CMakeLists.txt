@@ -59,6 +59,9 @@ foreach(file
 		unsetAnnotation
 		unsetNotes
 		validateSBML
+		evaluateCustomMath
+		inlineInitialAssignments
+		replaceOneFD
 		)
 	
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)

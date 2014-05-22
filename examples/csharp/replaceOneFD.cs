@@ -1,5 +1,5 @@
 /**
- * @file    replaceOneFD.cpp
+ * @file    replaceOneFD.cs
  * @brief   replaces a given function definition in a specific part of the model
  * @author  Frank Bergmann
  *

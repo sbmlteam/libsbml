@@ -1,5 +1,5 @@
 /**
- * @file    inlineInitialAssignments.cpp
+ * @file    inlineInitialAssignments.cs
  * @brief   inlines all initial assignments directly
  * @author  Frank Bergmann
  *

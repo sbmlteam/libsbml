@@ -166,6 +166,9 @@ examples =                                                          \
   examples/csharp/validateSBML.cs                                   \
   examples/csharp/SetIdFromNames.cs                                 \
   examples/csharp/GetAllElementsWithNotes.cs                        \
+  examples/csharp/inlineInitialAssignments.cs                       \
+  examples/csharp/replaceOneFD.cs                                   \
+  examples/csharp/evaluateCustomMath.cs                             \
   examples/java/Makefile.in                                         \
   examples/java/README.txt                                          \
   examples/java/addCustomValidator.java                             \
@@ -195,6 +198,9 @@ examples =                                                          \
   examples/java/unsetAnnotation.java                                \
   examples/java/unsetNotes.java                                     \
   examples/java/validateSBML.java                                   \
+  examples/java/inlineInitialAssignments.java                       \
+  examples/java/replaceOneFD.java                                   \
+  examples/java/evaluateCustomMath.java                             \
   examples/java/layout/CMakeLists.txt                               \
   examples/java/layout/layout_example1.java                         \
   examples/java/layout/layout_example1_L3.java                      \
@@ -258,6 +264,9 @@ examples =                                                          \
   examples/python/unsetAnnotation.py                                \
   examples/python/unsetNotes.py                                     \
   examples/python/validateSBML.py                                   \
+  examples/python/inlineInitialAssignments.py                       \
+  examples/python/replaceOneFD.py                                   \
+  examples/python/evaluateCustomMath.py                             \
   examples/r/addCVTerms.R                                           \
   examples/r/addModelHistory.R                                      \
   examples/r/addingEvidenceCodes_1.R                                \

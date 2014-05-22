@@ -1,5 +1,6 @@
+
 /**
- * @file    evaluateCustomMath.cpp
+ * @file    evaluateCustomMath.cs
  * @brief   evaluates the given formula
  * @author  Frank Bergmann
  *
@@ -45,7 +46,7 @@ using System.IO;
 using System.Text;
 using libsbmlcs;
 
-internal class ReadSBML
+internal class EvaluateCustomMath
 {
   public static int Main(string[] args)
   {
@@ -75,6 +76,8 @@ internal class ReadSBML
         doc.printErrors();
         return 1;
       }
+      // the following maps a list of ids to their corresponding model values
+      // this makes it possible to evaluate expressions involving SIds. 
       SBMLTransforms.mapComponentValues(doc.getModel());
     }
     else
