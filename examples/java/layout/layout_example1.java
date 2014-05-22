@@ -192,7 +192,7 @@ public class layout_example1
     ls.setEnd(createPoint(165, 115));
 
     ReactionGlyph reactionGlyph2=layout.createReactionGlyph();
-    reactionGlyph2.setId("ReactionGlyph_1");
+    reactionGlyph2.setId("ReactionGlyph_2");
     reactionGlyph2.setReactionId(reaction2.getId());
 
     Curve reactionCurve2=reactionGlyph2.getCurve();

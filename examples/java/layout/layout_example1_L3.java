@@ -95,7 +95,7 @@ public class layout_example1_L3 {
     SBMLDocument document = new SBMLDocument (sbmlns);
                 
     // set the "required" attribute of layout package  to "true"
-    document.setPkgRequired ("layout", true);
+    document.setPkgRequired ("layout", false);
                 
     // create the Model
                 
@@ -245,7 +245,7 @@ public class layout_example1_L3 {
     ls.setEnd (p);
                 
     ReactionGlyph reactionGlyph2 = layout.createReactionGlyph ();
-    reactionGlyph2.setId ("ReactionGlyph_1");
+    reactionGlyph2.setId ("ReactionGlyph_2");
     reactionGlyph2.setReactionId (reaction2.getId ());
                 
     Curve reactionCurve2 = reactionGlyph2.getCurve ();
