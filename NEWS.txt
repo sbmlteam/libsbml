@@ -16,6 +16,17 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - There was a bug in writing out MathML that manifested itself
+    using the in-lining functionDefinition converter for a narrow 
+    set of functions.  This has been fixed.
+    
+  - Validation has been improved so as to no longer warn a user that 
+    a variable has no initial value if there exists an initialAssignment
+    or assignmentRule that would set the value.
+    
+  - The SBMLError reporting an over-determined model was being logged
+    with the incorrect category of error. This has been changed.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
@@ -24,6 +35,9 @@ STABLE RELEASE
 * Configuration/build system changes
 
 * Miscellaneous
+
+  - Continue our review of code a number of potential problems were 
+    highlighted during static analysis. These have been fixed.
 
   * The short error messages for the following error codes in
     SBMLErrorTable.h had trailing periods, which was inconsistent with
