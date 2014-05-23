@@ -87,7 +87,7 @@ public:
   Point(const Point& orig);
   
   /**
-   * Creates a new point with the given ccordinates.
+   * Creates a new point with the given cordinates.
    *
    *
    */ 
