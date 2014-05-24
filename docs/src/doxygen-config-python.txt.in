@@ -154,7 +154,6 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 # hiding more than intended).
 
 EXCLUDE_SYMBOLS +=                     \
-  ElementFilter                        \
   CobraToFbcConverter_init             \
   CompFlatteningConverter_init         \
   FbcToCobraConverter_init             \
