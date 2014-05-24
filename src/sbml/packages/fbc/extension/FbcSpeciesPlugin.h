@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcSpeciesPlugin
- * @sbmlbrief{fbc} Implementation of the 'fbc' package extention to the
- * %Species construct.
+ * @sbmlbrief{fbc} Extension of Species.
  *
  * The Flux Balance Constraints package extends the SBML Level 3 Version 1 Core Species class with the addition of two attributes: 'charge' and 'chemicalFormula'.
  */

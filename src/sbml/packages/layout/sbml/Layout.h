@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Layout
- * @sbmlbrief{layout} Each Layout object stores a set of layout information
- * for objects in the Model.
+ * @sbmlbrief{layout} The layout of a diagram of an SBML model.
  *
  * The Layout class stores layout information for some or all elements of the
  * SBML model as well as additional objects that need not be connected to the
@@ -70,8 +69,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfCompartmentGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfCompartmentGlyphs
- * construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of CompartmentGlyph objects.
  * 
  * The ListOfCompartmentGlyphs is a container for the CompartmentGlyph elements of a Layout.
  * 
@@ -232,8 +230,7 @@ protected:
 
 /**
  * @class ListOfSpeciesGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfSpeciesGlyphs construct
- * from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of SpeciesGlyph objects.
  * 
  * The ListOfSpeciesGlyphs is a container for the SpeciesGlyph elements of a Layout.
  * 
@@ -393,8 +390,7 @@ protected:
 
 /**
  * @class ListOfReactionGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfReactionGlyphs construct
- * from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of ReactionGlyph objects.
  * 
  * The ListOfReactionGlyphs is a container for the ReactionGlyph elements of a Layout.
  * 
@@ -554,8 +550,7 @@ protected:
 
 /**
  * @class ListOfTextGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfTextGlyphs construct from
- * the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of TextGlyph objects.
  * 
  * The ListOfTextGlyphs is a container for the TextGlyph elements of a Layout.
  * 
@@ -1499,8 +1494,7 @@ protected:
 
 /**
  * @class ListOfLayouts
- * @sbmlbrief{layout} Implementation of the * %ListOfLayouts construct from
- * the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of Layout objects.
  * 
  * The ListOfLayouts is a container for the Layout elements of an extended Model element.
  * 

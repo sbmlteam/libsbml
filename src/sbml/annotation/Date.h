@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Date
- * @sbmlbrief{core} Representation of MIRIAM-compliant dates used in
- * ModelHistory.
+ * @sbmlbrief{core} A MIRIAM-compliant date representation.
  *
  * @htmlinclude not-sbml-warning.html
  *

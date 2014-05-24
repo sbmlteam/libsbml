@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Port
- * @sbmlbrief{comp} Implementation of the %Port construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} An interface to be used in composition.
  *
  * The Port class was introduced by the SBML Level&nbsp;3 @ref comp
  * @if java "Hierarchical %Model Composition"@endif@~ package

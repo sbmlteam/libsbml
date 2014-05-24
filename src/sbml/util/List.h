@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class List
- * @sbmlbrief{core} Simple, plain, generic lists, and associated list
- * utilities.
+ * @sbmlbrief{core} Simple, plain, generic lists.
  *
  * @htmlinclude not-sbml-warning.html
  *
@@ -110,7 +109,7 @@ typedef void (*ListDeleteItemFunc) (void *item);
  *
  * 
  * @class ListNode
- * @sbmlbrief{core} The node element of the List class.
+ * @sbmlbrief{core} A node in a plain List.
  *
  * @htmlinclude not-sbml-warning.html
  *

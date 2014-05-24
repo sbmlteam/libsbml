@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LineSegment
- * @sbmlbrief{layout} The representation of a line in the
- * &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Representation of a line.
  *
  * The LineSegment class consists of the mandatory attribute xsi:type and two
  * child elements of type Point. One is called 'start' and represents the

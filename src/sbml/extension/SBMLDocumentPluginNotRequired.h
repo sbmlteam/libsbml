@@ -34,8 +34,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPluginNotRequired
- * @sbmlbrief{core} Template class for the %SBMLDocument Plugin class for
- * non-required packages.
+ * @sbmlbrief{core} Base class for non-required Level 3 packages plug-ins.
  *
  * The SBMLDocumentPluginNotRequired class extends the SBMLDocumentPlugin class, and
  * will add a validation error to a read-in SBML Document that has the package's 

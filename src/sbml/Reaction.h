@@ -31,15 +31,15 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Reaction
- * @sbmlbrief{core} Implementation of SBML's %Reaction construct.
+ * @sbmlbrief{core} An SBML reaction between species in an SBML model.
  *
  * A @em reaction represents any transformation, transport or binding
  * process, typically a chemical reaction, that can change the quantity of
  * one or more species.  In SBML, a reaction is defined primarily in terms
  * of the participating reactants and products (and their corresponding
  * stoichiometries), along with optional modifier species, an optional rate
- * at which the reaction takes place, and optional parameters.  
- * 
+ * at which the reaction takes place, and optional parameters.
+ *
  * As with other major objects in SBML, Reaction has a mandatory attribute,
  * "id", used to give the compartment type an identifier.  The identifier
  * must be a text string conforming to the identifer syntax permitted in
@@ -151,7 +151,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfReactions
- * @sbmlbrief{core} Implementation of SBML's %ListOfReactions construct.
+ * @sbmlbrief{core} A list of Reaction objects.
  * 
  * @copydetails doc_what_is_listof
  */

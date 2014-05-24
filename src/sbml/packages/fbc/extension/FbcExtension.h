@@ -24,11 +24,10 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcExtension
- * @sbmlbrief{fbc} The core module of the 'fbc' package extension.
+ * @sbmlbrief{fbc} Base extension class for the package.
  *
  * @class FbcPkgNamespaces
- * @sbmlbrief{fbc} Extension of SBMLNamespaces for the SBML Level&nbsp;3
- * 'fbc' package.
+ * @sbmlbrief{fbc} SBMLNamespaces extension for the package.
  */
 
 #ifndef FbcExtension_h

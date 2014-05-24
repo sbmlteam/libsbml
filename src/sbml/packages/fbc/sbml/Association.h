@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlbrief{fbc} Implementation of the 'fbc' proposed package %Association
- * construct.
+ * @sbmlbrief{fbc} Proposed way of expressing associations
  *
  * The Association class is not part of the official Flux Balance
  * specification, but is instead a proposed future development of the

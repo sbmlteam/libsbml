@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GeneralGlyph
- * @sbmlbrief{layout} The %GeneralGlyph is used by the &ldquo;layout&rdquo;
- * package to represent any SBML object.
+ * @sbmlbrief{layout} A glyph for miscellaneous items.
  *
  * The GeneralGlyph is used to facilitate the representation of elements
  * other than Compartment, Species and Reaction and thus can be used for the
@@ -62,8 +61,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfReferenceGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfReferenceGlyphs construct
- * from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of ReferenceGlyph objects.
  * 
  * The ListOfReferenceGlyphs is a container for the ReferenceGlyph elements of a GeneralGlyph.
  * 

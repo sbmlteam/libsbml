@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class BoundingBox
- * @sbmlbrief{layout} Representation of a bounding box.
+ * @sbmlbrief{layout} A bounding box for an item in a diagram.
  */
 
 #ifndef BoundingBox_H__

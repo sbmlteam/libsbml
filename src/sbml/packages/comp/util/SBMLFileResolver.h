@@ -24,7 +24,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLFileResolver
- * @sbmlbrief{comp} A resolver for documents stored on a file system.
+ * @sbmlbrief{comp} Resolves documents stored on a file system.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

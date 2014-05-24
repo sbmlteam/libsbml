@@ -32,9 +32,8 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutModelPlugin
- * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
- * %Model construct.
-  */
+ * @sbmlbrief{layout} Extension of Model.
+ */
 
 #ifndef LayoutModelPlugin_h
 #define LayoutModelPlugin_h

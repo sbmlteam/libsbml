@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocument
- * @sbmlbrief{core} Container for an SBML document and interface for global
- * operations on SBML documents.
+ * @sbmlbrief{core} Overall SBML container object.
  *
  * @if clike LibSBML uses the class SBMLDocument as a
  * top-level container for storing SBML content and data associated with it

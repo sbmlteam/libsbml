@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class AlgebraicRule
- * @sbmlbrief{core} Implementation of %SBML's %AlgebraicRule construct.
+ * @sbmlbrief{core} An SBML <em>algebraic rule</em> representing <em>0 = f(<b>W</b>)</em>.
  *
  * The rule type AlgebraicRule is derived from the parent class Rule.  It
  * is used to express equations that are neither assignments of model

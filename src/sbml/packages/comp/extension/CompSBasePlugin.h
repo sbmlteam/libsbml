@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBasePlugin
- * @sbmlbrief{comp} Implementation of the &ldquo;comp&rdquo; package
- * extention to the %SBase construct.
+ * @sbmlbrief{comp} Extension of SBase.
  *
  * The CompSBasePlugin class inherits from the SBasePlugin class, 
  * and codifies the extentions to the SBase class defined in the

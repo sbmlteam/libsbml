@@ -24,8 +24,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Submodel
- * @sbmlbrief{comp} Implementation of the %Submodel construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A model instance inside another model.
  *
  * The Submodel class was introduced by the SBML Level&nbsp;3 @ref comp
  * @if java "Hierarchical %Model Composition"@endif@~ package

@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBaseExtensionPoint
- * @sbmlbrief{core} Representation of an extension point of SBML's package
- * extension.
+ * @sbmlbrief{core} Extension of an element by an SBML Level 3 package.
  * 
  * @if notclike @internal @endif@~
  *

@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompModelPlugin
- * @sbmlbrief{comp} Implementation of the &ldquo;comp&rdquo; package
- * extention to the %Model construct.
+ * @sbmlbrief{comp} Extension of Model.
  *
  * The CompModelPlugin class inherits from the SBMLSBasePlugin class, and
  * codifies the extentions to the Model class defined in the SBML

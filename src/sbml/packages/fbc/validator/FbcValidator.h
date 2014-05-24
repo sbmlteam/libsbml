@@ -24,8 +24,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class FbcValidator
- * @sbmlbrief{fbc} Entry point for libSBML's implementation of SBML
- * validation rules for 'fbc'.
+ * @sbmlbrief{fbc} Entry point for package validation.
  * 
  * @htmlinclude not-sbml-warning.html
  *

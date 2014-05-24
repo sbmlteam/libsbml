@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfDeletions
- * @sbmlbrief{comp} Implementation of the %ListOfDeletions construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A list of Deletion objects.
  * 
  * The ListOfDeletions is a container for the &ldquo;comp&rdquo;
  * Submodel that defines elements to be removed before instantiation.

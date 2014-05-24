@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLLocalParameterConverter
- * @sbmlbrief{core} SBML converter to replace local parameters with global ones.
+ * @sbmlbrief{core} Converter to turn local parameters into global ones.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

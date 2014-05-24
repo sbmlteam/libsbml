@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompSBMLDocumentPlugin
- * @sbmlbrief{comp} Implementation of the &ldquo;comp&rdquo; package
- * extention to the %SBMLDocument construct.
+ * @sbmlbrief{comp} Extension of SBMLDocument.
  *
  * The CompSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

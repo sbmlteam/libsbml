@@ -31,8 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SyntaxChecker
- * @sbmlbrief{core} Methods for checking syntax of SBML identifiers and other
- * strings.
+ * @sbmlbrief{core} Methods for checking the validity of SBML identifiers.
  * 
  * @htmlinclude not-sbml-warning.html
  * 

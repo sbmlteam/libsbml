@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ConversionOption
- * @sbmlbrief{core} Class of object that encapsulates a conversion option.
+ * @sbmlbrief{core} A single configuration setting for an SBML converter.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

@@ -24,8 +24,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReplacedElement
- * @sbmlbrief{comp} Implementation of the %ReplacedElement construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Indicates an object replaces another.
  *
  * The ReplacedElement class was introduced by the SBML Level&nbsp;3
  * @ref comp @if java "Hierarchical %Model Composition"@endif@~  package

@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GraphicalObject
- * @sbmlbrief{layout} The basic &ldquo;layout&rdquo; package element for
- * storing layout information.
+ * @sbmlbrief{layout} Base class of objects that store layouts.
  *
  * All the more specific layout elements (CompartmentGlyph, GeneralGlyph,
  * SpeciesGlyph, ReactionGlyph, ReferenceGlyph, TextGlyph, and
@@ -429,8 +428,7 @@ protected:
 
 /**
  * @class ListOfGraphicalObjects
- * @sbmlbrief{layout} Implementation of the %ListOfAdditionalGraphicalObjects
- * construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of GraphicalObject objects.
  * 
  * The ListOfGraphicalObjects class in libSBML actually represents the
  * ListOfAdditionalGraphicalObjects class in the &ldquo;layout&rdquo;

@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReactionGlyph
- * @sbmlbrief{layout} The %ReactionGlyph is used to represent Reaction
- * elements in the layout.
+ * @sbmlbrief{layout} A glyph for an SBML reaction.
  *
  * Analogous to how a Reaction object has to at least have one reactant or
  * product, the ReactionGlyph has to at least have one SpeciesReferenceGlyph
@@ -68,8 +67,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * @class ListOfSpeciesReferenceGlyphs
- * @sbmlbrief{layout} Implementation of the %ListOfSpeciesReferenceGlyphs
- * construct from the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A list of SpeciesReferenceGlyph objects.
  * 
  * The ListOfSpeciesReferenceGlyphs is a container for the SpeciesReferenceGlyphs elements of a ReactionGlyph.
  * 

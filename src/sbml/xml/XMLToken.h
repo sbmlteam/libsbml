@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLToken
- * @sbmlbrief{core} Representation of a token in an XML stream.
+ * @sbmlbrief{core} A token in libSBML's XML stream.
  *
  * @htmlinclude not-sbml-warning.html
  *

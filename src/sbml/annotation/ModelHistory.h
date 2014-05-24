@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ModelHistory
- * @sbmlbrief{core} Representation of MIRIAM-compliant model history data.
+ * @sbmlbrief{core} MIRIAM-compliant data about a model's history.
  *
  * @htmlinclude not-sbml-warning.html
  *

@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLAttributes
- * @sbmlbrief{core} Representation of attributes on an XML node.
+ * @sbmlbrief{core} An attribute on an XML node.
  *
  * @htmlinclude not-sbml-warning.html
  */ 

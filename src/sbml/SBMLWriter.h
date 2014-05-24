@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLWriter
- * @sbmlbrief{core} Methods for writing SBML to files and text strings.
+ * @sbmlbrief{core} File and text-string SBML writer.
  *
  * @htmlinclude not-sbml-warning.html
  *

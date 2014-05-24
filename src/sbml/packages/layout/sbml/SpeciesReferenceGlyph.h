@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesReferenceGlyph
- * @sbmlbrief{layout} A %SpeciesReferenceGlyph represents a reactant or
- * product from a Reaction in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A glyph for an SBML <em>species reference</em>.
  *
  * The %SpeciesReferenceGlyph element describes the graphical connection
  * between a SpeciesGlyph and a ReactionGlyph (which would be an arrow or

@@ -31,11 +31,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualExtension
- * @sbmlbrief{qual} The core module of the 'qual' package extension.
+ * @sbmlbrief{qual} Base extension class for the package.
  *
  * @class QualPkgNamespaces
- * @sbmlbrief{qual} Extension of SBMLNamespaces for the SBML Level&nbsp;3
- * 'qual' package.
+ * @sbmlbrief{qual} SBMLNamespaces extension for the package.
  */
 
 #ifndef QualExtension_h

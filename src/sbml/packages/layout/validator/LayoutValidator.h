@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutValidator
- * @sbmlbrief{layout} Entry point for libSBML's implementation of SBML
- * validation rules for the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Entry point for package validation.
  * 
  * @htmlinclude not-sbml-warning.html
  *

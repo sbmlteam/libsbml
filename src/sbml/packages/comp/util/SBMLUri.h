@@ -24,7 +24,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLUri
- * @sbmlbrief{comp} utility class for handling URIs.
+ * @sbmlbrief{comp} Utility class for handling URIs.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

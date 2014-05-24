@@ -31,8 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class XMLLogOverride
- * @sbmlbrief{core} Utility class implementing a temporary override the
- * severity on error logs.
+ * @sbmlbrief{core} Facility for temporarily overriding error severities.
  *
  * @if notclike @internal @endif@~
  */

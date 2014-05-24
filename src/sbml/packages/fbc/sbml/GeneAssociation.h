@@ -24,11 +24,10 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneAssociation
- * @sbmlbrief{fbc} Implementation of the 'fbc' package %GeneAssociation
- * construct.
+ * @sbmlbrief{fbc} Proposed annotation for gene associations.
  *
- * Gene associations are not part of the core FBC specification, but rather are a proposed annotation.
- * <!-- leave this next break as-is to work around some doxygen bug -->
+ * Gene associations are not part of the core FBC specification, but rather
+ * are a proposed annotation.
  */ 
 
 #ifndef GeneAssociation_H__
@@ -354,8 +353,7 @@ protected:
 
 /**
  * @class ListOfGeneAssociations
- * @sbmlbrief{fbc} Implementation of the 'fbc' package suggested
- * %ListOfGeneAssociations annotation construct.
+ * @sbmlbrief{fbc} A list of GeneAssociation objects.
  * 
  * The ListOfGeneAssociations is a container for the GeneAssociation elements of the proposed Model annotation, and is not part of the official FBC specification.
  * 

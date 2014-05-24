@@ -24,12 +24,10 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompExtension
- * @sbmlbrief{comp} The core module of the &ldquo;comp&rdquo; package
- * extension.
+ * @sbmlbrief{comp} Base extension class for the package.
  *
  * @class CompPkgNamespaces
- * @sbmlbrief{comp} Extension of SBMLNamespaces for the SBML Level&nbsp;3
- * 'comp' package.
+ * @sbmlbrief{comp} SBMLNamespaces extension for the package.
  */
 
 #ifndef CompExtension_h

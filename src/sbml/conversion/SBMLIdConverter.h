@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLIdConverter
- * @sbmlbrief{core} SBML converter for replacing identifiers.
+ * @sbmlbrief{core} Converter for replacing object identifiers.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

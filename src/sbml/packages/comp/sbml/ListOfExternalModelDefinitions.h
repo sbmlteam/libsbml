@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfExternalModelDefinitions
- * @sbmlbrief{comp} Implementation of the %ListOfExternalModelDefinitions
- * construct from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A list of ExternalModelDefinition objects.
  * 
  * The ListOfExternalModelDefinitions is a container for the extended 
  * SBMLDocument that defines references to Models defined in external

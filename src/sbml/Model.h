@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Model
- * @sbmlbrief{core} Implementation of %SBML's %Model construct.
+ * @sbmlbrief{core} An SBML model.
  *
  * In an SBML model definition, a single object of class Model serves as
  * the overall container for the lists of the various model components.

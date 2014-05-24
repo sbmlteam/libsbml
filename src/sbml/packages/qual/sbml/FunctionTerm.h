@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionTerm
- * @sbmlbrief{qual} The FunctionTerm class for the Qualitative Models
- * package.
+ * @sbmlbrief{qual} A function term.
  *
  * Each FunctionTerm is associated with a result and with a Boolean function
  * inside a Math element that can be used to set the conditions under which
@@ -370,8 +369,7 @@ protected:
 /**
  *
  * @class ListOfFunctionTerms
- * @sbmlbrief{qual} Implementation of the %ListOfFunctionTerms construct from
- * the 'qual' package.
+ * @sbmlbrief{qual} A list of FunctionTerm objects.
  * 
  * The ListOfFunctionTerms is a container for the FunctionTerms of a Transition.
  * 

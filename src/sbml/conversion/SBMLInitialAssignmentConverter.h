@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInitialAssignmentConverter
- * @sbmlbrief{core} SBML converter for replacing initial assignments.
+ * @sbmlbrief{core} Converter that removes SBML <em>initial assignments</em>.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

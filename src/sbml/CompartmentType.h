@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CompartmentType
- * @sbmlbrief{core} Implementation of SBML's Level&nbsp;2's %CompartmentType
- * construct.
+ * @sbmlbrief{core} A <em>compartment type</em> in SBML Level&nbsp;2.
  *
  * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide the <em>compartment
  * type</em> as a grouping construct that can be used to establish a
@@ -74,8 +73,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfCompartmentTypes
- * @sbmlbrief{core} Implementation of SBML's %ListOfCompartmentTypes
- * construct.
+ * @sbmlbrief{core} A list of CompartmentType objects.
  * 
  * @copydetails doc_what_is_listof
  */

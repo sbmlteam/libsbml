@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Point
- * @sbmlbrief{layout} The representation of a point in the
- * &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} Representation of a point.
  *
  * A point is specified via the required attributes 'x', 'y' and an optional
  * attribute 'z', all of which are of type double. If the attribute z is not

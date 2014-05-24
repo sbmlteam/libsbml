@@ -33,8 +33,6 @@
  * @class ElementFilter
  * @sbmlbrief{core} Base class for filter functions.
  *
- * @if notclike @internal @endif@~
- *
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * Some libSBML objects provide the ability to return lists of components;
@@ -57,7 +55,7 @@
  * @par
  * The user data associated with an SBML object can be used by an application
  * developer to attach custom information to that object in the model.  In case
- * of a deep copy, this attribute will passed as it is.  The attribute will never
+ * of a deep copy, this data will passed as-is.  The data attribute will never
  * be interpreted by libSBML.
  */
 
@@ -161,13 +159,20 @@ public:
   /**
    * Returns the user data that has been previously set via setUserData().
    *
-   * @copydetails doc_what_is_user_data
+   * Callers can attach private data to ElementFilter objects using
+   * setUserData().  This user data can be used by an application to store
+   * custom information to be accessed by the ElementFilter in its work.  In
+   * case of a deep copy, the data will passed as it is.  The attribute will
+   * never be interpreted by libSBML.
    *
-   * @return the user data of this node, or @c NULL if no user data has been set.
+   * @return the user data of this node, or @c NULL if no user data has been
+   * set.
    *
-   * @if clike
-   * @see ASTNode::setUserData(void *userData)
-   * @endif@~
+   * @warning This <em>user data</em> is specific to an ElementFilter object
+   * instance, and is not the same as the user data that may be attached to
+   * an SBML object using SBase::setUserData().
+   *
+   * @see setUserData()
    */
   void* getUserData();
 
@@ -175,7 +180,11 @@ public:
   /**
    * Sets the user data of this element.
    *
-   * @copydetails doc_what_is_user_data
+   * Callers can attach private data to ElementFilter objects using this
+   * method, and retrieve them using getUserData().  Such user data can be
+   * used by an application to store information to be accessed by the
+   * ElementFilter in its work.  In case of a deep copy, this data will
+   * passed as it is.  The attribute will never be interpreted by libSBML.
    *
    * @param userData specifies the new user data.
    *
@@ -183,6 +192,12 @@ public:
    * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   *
+   * @warning This <em>user data</em> is specific to an ElementFilter object
+   * instance, and is not the same as the user data that may be attached to
+   * an SBML object using SBase::setUserData().
+   *
+   * @see getUserData()
    */
   void setUserData(void* userData);
 

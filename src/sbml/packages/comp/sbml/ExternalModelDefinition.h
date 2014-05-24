@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ExternalModelDefinition
- * @sbmlbrief{comp} Implementation of the %ExternalModelDefinition construct
- * from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A reference to an externally-defined model.
  *
  * The ExternalModelDefinition class was introduced by the SBML Level&nbsp;3
  * @ref comp @if java "Hierarchical %Model Composition"@endif@~ 

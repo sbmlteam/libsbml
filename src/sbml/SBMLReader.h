@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLReader
- * @sbmlbrief{core} Methods for reading SBML from files and text strings.
+ * @sbmlbrief{core} File and text-string SBML reader.
  *
  * @htmlinclude not-sbml-warning.html
  *

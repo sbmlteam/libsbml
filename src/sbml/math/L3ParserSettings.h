@@ -31,8 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class L3ParserSettings
- * @sbmlbrief{core} A helper class for controlling the behavior of the
- * text-string formula parser.
+ * @sbmlbrief{core} Controls the behavior of the Level 3 formula parser.
  *
  * @htmlinclude not-sbml-warning.html
  *

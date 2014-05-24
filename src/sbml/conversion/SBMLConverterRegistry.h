@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverterRegistry
- * @sbmlbrief{core} Registry of all SBML converters.
+ * @sbmlbrief{core} Registry of all libSBML SBML converters.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

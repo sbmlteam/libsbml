@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLFunctionDefinitionConverter
- * @sbmlbrief{core} SBML converter for replacing function definitions.
+ * @sbmlbrief{core} Converter to expand user-defined functions in-line.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

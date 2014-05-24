@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Dimensions
- * @sbmlbrief{layout} The %Dimensions class describes the overall 2D or 3D
- * shape of a &ldquo;layout&rdquo; package object.
+ * @sbmlbrief{layout} Spatial dimensions of a 2D or 3D shape.
  *
  * A dimension is specified via the required attributes width, height and an
  * optional attribute depth, all of which are of type double. If the

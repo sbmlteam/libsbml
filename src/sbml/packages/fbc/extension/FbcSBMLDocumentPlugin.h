@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcSBMLDocumentPlugin
- * @sbmlbrief{fbc} Implementation of the 'fbc' package extention to the
- * %SBMLDocument construct.
+ * @sbmlbrief{fbc} Extension of SBMLDocument.
  *
  * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

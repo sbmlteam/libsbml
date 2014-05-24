@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualitativeSpecies
- * @sbmlbrief{qual} The QualitativeSpecies class for the Qualitative Models
- * package.
+ * @sbmlbrief{qual} Extension of Species.
  *
  * Similarly to the Species in SBML, the components of qualitative models
  * refer to pools of entities that are considered indistinguishable and are
@@ -531,8 +530,7 @@ protected:
 
 /**
  * @class ListOfQualitativeSpecies
- * @sbmlbrief{qual} Implementation of the %ListOfQualitativeSpecies construct
- * from the 'qual' package.
+ * @sbmlbrief{qual} A list of QualitativeSpecies objects.
  * 
  * The ListOfQualitativeSpecies is a container for the QualitativeSpecies elements of a Model.
  * 

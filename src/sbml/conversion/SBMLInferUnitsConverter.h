@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInferUnitsConverter
- * @sbmlbrief{core} SBML converter for inferring the units of parameters.
+ * @sbmlbrief{core} Converter for inferring and setting parameter units.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Delay
- * @sbmlbrief{core} Implementation of %SBML's %Delay construct for %Event.
+ * @sbmlbrief{core} A delay on the time of execution of an SBML <em>event</em>.
  *
  * An Event object defines when the event can occur, the variables that
  * are affected by the event, and how the variables are affected.  The

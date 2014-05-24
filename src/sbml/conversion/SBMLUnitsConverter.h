@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLUnitsConverter
- * @sbmlbrief{core} SBML converter to convert a model's units to SI units.
+ * @sbmlbrief{core} Converts a model's existing units to SI units.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

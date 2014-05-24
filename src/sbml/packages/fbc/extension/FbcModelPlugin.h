@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcModelPlugin
- * @sbmlbrief{fbc} Implementation of the 'fbc' package extention to the
- * %Model construct.
+ * @sbmlbrief{fbc} Extension of Model.
  */
 
 #ifndef FbcModelPlugin_h

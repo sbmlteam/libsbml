@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLInternalValidator
- * @sbmlbrief{core} Implementation of basic SBML consistency checks and other
- * validations.
+ * @sbmlbrief{core} Basic SBML consistency checks and other validations.
  *
  * @htmlinclude not-sbml-warning.html
  *

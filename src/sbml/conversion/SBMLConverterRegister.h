@@ -33,8 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverterRegister
- * @sbmlbrief{core} Template class for SBML converters to register with the
- * registry.
+ * @sbmlbrief{core} Template for SBML converter registry registrations.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLNamespaces
- * @sbmlbrief{core} Class to store SBML Level, Version and namespace
- * information.
+ * @sbmlbrief{core} Set of SBML Level + Version + namespace triples.
  *
  * @htmlinclude not-sbml-warning.html
  *

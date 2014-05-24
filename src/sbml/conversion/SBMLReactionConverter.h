@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLReactionConverter
- * @sbmlbrief{core} SBML converter for replacing reactions with SBML rate rules.
+ * @sbmlbrief{core} Converter to replace reactions with SBML <em>rate rules</em>.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

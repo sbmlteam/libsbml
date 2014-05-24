@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ConversionProperties
- * @sbmlbrief{core} Class of object that encapsulates the properties of an
- * SBML converter.
+ * @sbmlbrief{core} Set of configuration option values for a converter.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

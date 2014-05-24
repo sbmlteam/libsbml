@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class QualSBMLDocumentPlugin
- * @sbmlbrief{qual} Implementation of the 'qual' package extention to the
- * %SBMLDocument construct.
+ * @sbmlbrief{qual} Extension of SBMLDocument.
  *
  * The QualSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

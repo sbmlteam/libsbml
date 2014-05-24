@@ -27,7 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class CompartmentGlyph
- * @sbmlbrief{layout} Representation of a compartment glyph.
+ * @sbmlbrief{layout} A glyph for an SBML compartment.
  */
 
 #ifndef CompartmentGlyph_H__

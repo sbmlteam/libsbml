@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Trigger
- * @sbmlbrief{core} Implementation of %SBML's %Trigger construct for %Event.
+ * @sbmlbrief{core} The trigger expression for an SBML <em>event</em>.
  *
  * An Event object defines when the event can occur, the variables that are
  * affected by the event, and how the variables are affected.  The Trigger

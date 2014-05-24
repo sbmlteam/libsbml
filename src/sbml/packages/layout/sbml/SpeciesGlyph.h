@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesGlyph
- * @sbmlbrief{layout} The %SpeciesGlyph represents a Species in the
- * &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A glyph for an SBML species.
  *
  * In addition to the attributes it inherits from GraphicalObject, the
  * SpeciesGlyph object has an optional 'species' attribute.

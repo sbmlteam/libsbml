@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLLevelVersionConverter
- * @sbmlbrief{core} SBML converter for transforming documents from one
- * Level+Version to another.
+ * @sbmlbrief{core} Whole-document SBML Level/Version converter.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

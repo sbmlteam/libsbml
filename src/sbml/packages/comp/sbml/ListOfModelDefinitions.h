@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfModelDefinitions
- * @sbmlbrief{comp} Implementation of the %ListOfModelDefinitions construct
- * from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A list of ModelDefinition objects.
  * 
  * The ListOfModelDefinitions is a container for the extended 
  * SBMLDocument that allows one to define multiple Models in a single file

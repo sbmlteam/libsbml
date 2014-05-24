@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class AssignmentRule
- * @sbmlbrief{core} Implementation of %SBML's %AssignmentRule construct.
+ * @sbmlbrief{core} An SBML <em>assignment rule</em> representing <em>x = f(<b>Y</b>)</em>.
  *
  * The rule type AssignmentRule is derived from the parent class Rule.  It
  * is used to express equations that set the values of variables.  The

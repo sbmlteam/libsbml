@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Transition
- * @sbmlbrief{qual} The Transition class for the Qualitative Models package.
+ * @sbmlbrief{qual} A transition of a QualitativeSpecies.
  *
  * A Transition element contains at most one ListOfInputs and one
  * ListOfOutputs and exactly one ListOfFunctionTerms.
@@ -950,8 +950,7 @@ protected:
 
 /**
  * @class ListOfTransitions
- * @sbmlbrief{qual} Implementation of the %ListOfTransitions construct from
- * the 'qual' package.
+ * @sbmlbrief{qual} A list of Transition objects.
  * 
  * The ListOfTransitions is a container for the Transition elements of a Model.
  * 

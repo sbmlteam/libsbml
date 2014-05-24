@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Input
- * @sbmlbrief{qual} The Input class for the Qualitative Models package.
+ * @sbmlbrief{qual} The input to a QualitativeSpecies.
  *
  * Each Input refers to a QualitativeSpecies that participates in the
  * corresponding Transition. In Petri nets, these are the input places of the
@@ -545,8 +545,7 @@ protected:
 
 /**
  * @class ListOfInputs
- * @sbmlbrief{qual} Implementation of the %ListOfInputs construct from the
- * 'qual' package.
+ * @sbmlbrief{qual} A list of Input objects.
  * 
  * The ListOfInputs is a container for the Inputs of a Transition.
  * 

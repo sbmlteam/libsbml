@@ -31,11 +31,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutExtension
- * @sbmlbrief{layout} The core module of the 'layout' package extension.
+ * @sbmlbrief{layout} Base extension class for the package.
  *
  * @class LayoutPkgNamespaces
- * @sbmlbrief{layout} Extension of SBMLNamespaces for the SBML Level&nbsp;3
- * 'layout' package.
+ * @sbmlbrief{layout} SBMLNamespaces extension for the package.
  */
 
 #ifndef LayoutExtension_h

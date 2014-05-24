@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class RateRule
- * @sbmlbrief{core} Implementation of %SBML's %RateRule construct.
+ * @sbmlbrief{core} An SBML <em>rate rule</em> representing <em>dx/dt = f(<b>Y</b>)</em>.
  *
  * The rule type RateRule is derived from the parent class Rule.  It is
  * used to express equations that determine the rates of change of

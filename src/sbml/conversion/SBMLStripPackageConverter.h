@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLStripPackageConverter
- * @sbmlbrief{core} SBML converter for removing SBML Level 3 packages.
+ * @sbmlbrief{core} Converter that removes SBML Level 3 packages.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

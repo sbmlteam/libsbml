@@ -33,8 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutSpeciesReferencePlugin
- * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
- * %SpeciesReference construct.
+ * @sbmlbrief{layout} Extension of SpeciesReference.
  */
 
 #ifndef LayoutSpeciesReferencePlugin_h

@@ -25,8 +25,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class CompBase
- * @sbmlbrief{comp} A convenience subclass of &ldquo;comp&rdquo; package
- * SBase-derived classes
+ * @sbmlbrief{comp} Convenience class for SBase-derived classes.
  *
  * The CompBase class derives from SBase, and defines a few functions
  * and features common to all SBase-derived classes in the SBML Level&nbsp;3

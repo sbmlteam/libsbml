@@ -33,8 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionNamespaces
- * @sbmlbrief{core} Class to store the Level, Version and XML namespace
- * information of an SBML extension package.
+ * @sbmlbrief{core} The Level+Version+namespace of a Level 3 package.
  *
  */
 

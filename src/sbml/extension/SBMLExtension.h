@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtension
- * @sbmlbrief{core} The core component of SBML's package extension.
+ * @sbmlbrief{core} Core class for SBML Level 3 package plug-ins.
  * 
  * @if notclike @internal @endif@~
  *

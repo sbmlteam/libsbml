@@ -32,7 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLError
- * @sbmlbrief{core} Representation of errors, warnings and other diagnostics
+ * @sbmlbrief{core} An error, warning or other diagnostic.
  *
  * @htmlinclude not-sbml-warning.html
  *

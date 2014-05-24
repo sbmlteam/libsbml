@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ReplacedBy
- * @sbmlbrief{comp} Implementation of the %ReplacedBy construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Indicates an object replaced by another.
  *
  * The ReplacedBy class was introduced by the SBML Level&nbsp;3 @ref comp
  * @if java "Hierarchical %Model Composition"@endif@~ 

@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class Parameter.
- * @sbmlbrief{core} Implementation of SBML's %Parameter construct.
+ * @sbmlbrief{core} An SBML parameter: a named symbol with a value.
  *
  * A Parameter is used in SBML to define a symbol associated with a value;
  * this symbol can then be used in mathematical formulas in a model.  By
@@ -127,7 +127,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfParameters
- * @sbmlbrief{core} Implementation of SBML's %ListOfParameters construct.
+ * @sbmlbrief{core} A list of Parameter objects.
  * 
  * @copydetails doc_what_is_listof
  */

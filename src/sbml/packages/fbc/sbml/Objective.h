@@ -24,16 +24,16 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Objective
- * @sbmlbrief{fbc} Implementation of the 'fbc' package %Objective construct.
+ * @sbmlbrief{fbc} An objective function.
  *
- * The FBC Objective class is derived from SBML SBase and inherits metaid and
- * sboTerm, as well as the subcomponents for Annotation and Notes. An
- * integral component in a complete description of a steady-state model is
- * the so-called 'objective function' which generally consists of a linear
- * combination of model variables (fluxes) and a sense (direction). In the
- * FBC package this concept is succinctly captured in the Objective class.
+ * An integral component in a complete description of a steady-state model is
+ * the so-called <em>objective function</em>, which generally consists of a
+ * linear combination of model variables (fluxes) and a sense (direction). In
+ * the SBML Level&nbsp;3 FBC package, this concept is succinctly captured in
+ * the Objective class. The FBC Objective class is derived from the normal
+ * SBML SBase class and inherits the 'metaid' and 'sboTerm' attributes, as
+ * well as the subcomponents for Annotation and Notes.
  */
-
 
 #ifndef Objective_H__
 #define Objective_H__
@@ -571,8 +571,7 @@ protected:
 
 /**
  * @class ListOfObjectives
- * @sbmlbrief{fbc} Implementation of the %ListOfObjectives construct from the
- * 'fbc' package.
+ * @sbmlbrief{fbc} A list of Objective objects.
  * 
  * The ListOfObjectives is a container for the Objective elements of Model.
  * 

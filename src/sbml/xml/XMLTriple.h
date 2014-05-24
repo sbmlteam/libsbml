@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLTriple
- * @sbmlbrief{core} Representation of a qualified XML name.
+ * @sbmlbrief{core} A qualified XML name.
  *
  * @htmlinclude not-sbml-warning.html
  *

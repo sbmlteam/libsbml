@@ -33,7 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLError
- * @sbmlbrief{core} Representation of errors, warnings and other diagnostics
+ * @sbmlbrief{core} XML-level errors, warnings and other diagnostics.
  *
  * @htmlinclude not-sbml-warning.html
  *

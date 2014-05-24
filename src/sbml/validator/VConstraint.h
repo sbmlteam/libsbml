@@ -31,8 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class VConstraint
- * @sbmlbrief{core} Helper class for implementing SBML validation and
- * consistency-checking
+ * @sbmlbrief{core} Helper class for SBML validators.
  * 
  * @htmlinclude not-sbml-warning.html
  *

@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class LayoutSBMLDocumentPlugin
- * @sbmlbrief{layout} Implementation of the 'layout' package extention to the
- * %SBMLDocument construct.
+ * @sbmlbrief{layout} Extension of SBMLDocument.
  *
  * The LayoutSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in

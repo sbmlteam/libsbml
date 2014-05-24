@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class ModelCreator
- * @sbmlbrief{core} Representation of MIRIAM-compliant model creator data
- * used in ModelHistory.
+ * @sbmlbrief{core} MIRIAM-compliant data about a model's creator.
  *
  * @htmlinclude not-sbml-warning.html
  *

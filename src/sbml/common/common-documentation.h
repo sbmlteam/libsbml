@@ -8300,4 +8300,18 @@ if (success != LIBSBML_OPERATION_SUCCESS)
  * provided by libSBML @htmlinclude libsbml-version.html:
  *
  * @copydetails doc_list_of_libsbml_converters
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_formulaunitsdata
+ *
+ * @par The first element of the list of FormulaUnitsData refers to the default
+ * units of <em>"substance per time"</em> derived from the Model object,
+ * and has a <code>unitReferenceId</code> attribute of
+ * 'subs_per_time'. This facilitates the comparison of units derived from
+ * mathematical formula with the expected units.  The next elements of the
+ * list record the units of the compartments and species established from
+ * either explicitly declared or default units.  Following those, the list
+ * contains the units of any parameters in the model.  Finally, subsequent
+ * elements of the list record the units derived for each mathematical
+ * expression encountered within the model.
  */

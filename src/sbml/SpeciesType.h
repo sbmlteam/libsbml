@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SpeciesType
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %SpeciesType
- * construct.
+ * @sbmlbrief{core} A <em>species type</em> in SBML Level 2.
  *
  * The term @em species @em type refers to reacting entities independent of
  * location.  These include simple ions (e.g., protons, calcium), simple
@@ -71,7 +70,7 @@
  * 
  * <!---------------------------------------------------------------------- -->
  * @class ListOfSpeciesTypes
- * @sbmlbrief{core} Implementation of SBML's %ListOfSpeciesTypes construct.
+ * @sbmlbrief{core} A list of SpeciesType objects.
  *
  * @copydetails doc_what_is_listof
  */

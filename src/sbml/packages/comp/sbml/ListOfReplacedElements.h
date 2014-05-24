@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfReplacedElements
- * @sbmlbrief{comp} Implementation of the %ListOfReplacedElements construct
- * from the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A list of ReplacedElement objects.
  * 
  * The ListOfReplacedElements is a container for any SBase object.  It 
  * contains ReplacedElement objects, which point to elements the parent

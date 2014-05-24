@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class ListOfPorts
- * @sbmlbrief{comp} Implementation of the %ListOfPorts construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} A list of Port objects.
  * 
  * The ListOfPorts is a container for the extended 
  * Model for Port objects for that Model.

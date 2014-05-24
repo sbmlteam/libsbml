@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBase
- * @sbmlbrief{core} Implementation of %SBase, the base class of most SBML
- * objects.
+ * @sbmlbrief{core} SBML's <em>%SBase</em>, the base class of most SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other

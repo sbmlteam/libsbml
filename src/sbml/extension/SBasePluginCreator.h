@@ -33,7 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePluginCreator
- * @sbmlpackage{core} Template class of %SBasePlugin.
+ * @sbmlbrief{core} Template for SBasePlugin creator classes.
  */
 
 #ifndef SBasePluginCreator_h

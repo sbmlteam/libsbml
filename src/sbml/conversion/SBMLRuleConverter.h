@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLRuleConverter
- * @sbmlbrief{core} SBML converter for reordering rules and assignments in a
- * model.
+ * @sbmlbrief{core} Converter that sorts SBML rules and assignments.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

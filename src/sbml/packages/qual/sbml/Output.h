@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Output
- * @sbmlbrief{qual} The Output class for the Qualitative Models package.
+ * @sbmlbrief{qual} The output from a QualitativeSpecies.
  * 
  * Each Output refers to a QualitativeSpecies that participates in (is
  * affected by) the corresponding Transition. In Petri net models these are
@@ -493,8 +493,7 @@ protected:
 
 /**
  * @class ListOfOutputs
- * @sbmlbrief{qual} Implementation of the %ListOfOutputs construct from the
- * 'qual' package.
+ * @sbmlbrief{qual} A list of Output objects.
  * 
  * The ListOfOutputs is a container for the Output elements of a Transition.
  * 

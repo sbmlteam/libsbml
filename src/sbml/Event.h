@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Event
- * @sbmlbrief{core} Implementation of SBML's %Event construct.
+ * @sbmlbrief{core} A discontinuous SBML <em>event</em>.
  * 
  * An SBML Event object defines when the event can occur, the variables
  * that are affected by it, how the variables are affected, and the event's
@@ -209,7 +209,7 @@
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfEvents
- * @sbmlbrief{core} Implementation of SBML's %ListOfEvents construct.
+ * @sbmlbrief{core} A list of Event objects.
  * 
  * @copydetails doc_what_is_listof
  */

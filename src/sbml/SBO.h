@@ -31,8 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBO
- * @sbmlbrief{core} Methods for interacting with Systems Biology Ontology
- * terms.
+ * @sbmlbrief{core} Facilities for using the Systems Biology Ontology.
  *
  * @htmlinclude not-sbml-warning.html
  *

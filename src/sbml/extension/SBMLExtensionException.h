@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionException
- * @sbmlbrief{core} Exceptions for libSBML extensions for SBML Level 3 packages.
+ * @sbmlbrief{core} Exceptions thrown by SBML Level 3 package plug-ins.
  */
 
 #ifndef SBMLExtensionException_h

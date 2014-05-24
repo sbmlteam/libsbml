@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class XMLErrorLog
- * @sbmlbrief{core} Log of errors and other events encountered while
- * processing an XML file or data stream.
+ * @sbmlbrief{core} Log of diagnostics reported during XML processing.
  *
  * @htmlinclude not-sbml-warning.html
  *

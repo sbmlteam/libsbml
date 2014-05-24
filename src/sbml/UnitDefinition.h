@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class UnitDefinition
- * @sbmlbrief{core} Implementation of SBML's %UnitDefinition construct.
+ * @sbmlbrief{core} A definition of a unit used in an SBML model.
  *
  * Units of measurement may be supplied in a number of contexts in an SBML
  * model.  The SBML unit definition facility uses two classes of objects,
@@ -234,8 +234,7 @@
  *  
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfUnitDefinitions
- * @sbmlbrief{core} Implementation of SBML's %ListOfUnitDefinitions
- * construct.
+ * @sbmlbrief{core} A list of UnitDefinition objects.
  * 
  * @copydetails doc_what_is_listof
  */

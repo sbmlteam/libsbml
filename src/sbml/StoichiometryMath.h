@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class StoichiometryMath
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;2's %StoichiometryMath
- * construct.
+ * @sbmlbrief{core} Stochiometry expressions in SBML Level 2 reactions.
  *
  * @section l2-stoichiometries Stoichiometries in SBML Level 2
  *

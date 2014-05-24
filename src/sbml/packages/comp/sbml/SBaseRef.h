@@ -24,8 +24,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBaseRef
- * @sbmlbrief{comp} Implementation of the %SBaseRef construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} Base class for references to objects.
  *
  * The SBaseRef class was introduced by the SBML Level&nbsp;3 @ref comp
  * @if java "Hierarchical %Model Composition"@endif@~ package

@@ -33,7 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ISBMLExtensionNamespaces
- * @sbmlpackage{core}
+ * @sbmlbrief{core}
  *
  */
 

@@ -32,8 +32,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionRegister
- * @sbmlbrief{core} Template class for registering an extension package to
- * the SBMLExtensionRegistry class.
+ * @sbmlbrief{core} Template class for plug-in registry registration.
  *
  */
 

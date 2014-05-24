@@ -24,8 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Deletion
- * @sbmlbrief{comp} Implementation of the %Deletion construct from the
- * &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} %Deletion of an object from a submodel.
  *
  * The Deletion class was introduced by the SBML Level&nbsp;3 @ref comp
  * @if java "Hierarchical %Model Composition"@endif@~ package

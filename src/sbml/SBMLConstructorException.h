@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBMLConstructorException
- * @sbmlbrief{core} Class of exceptions thrown by constructors of some
- * libSBML objects.
+ * @sbmlbrief{core} Exceptions thrown by some libSBML constructors.
  *
  * In some situations, constructors for SBML objects may need to indicate to
  * callers that the creation of the object failed.  The failure may be for

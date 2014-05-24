@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FunctionDefinition
- * @sbmlbrief{core} Implementation of %SBML's %FunctionDefinition construct.
+ * @sbmlbrief{core} A user-defined function in an SBML model.
  *
  * The FunctionDefinition structure associates an identifier with a
  * function definition.  This identifier can then be used as the function
@@ -99,8 +99,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfFunctionDefinitions
- * @sbmlbrief{core} Implementation of SBML's %ListOfFunctionDefinitions
- * construct.
+ * @sbmlbrief{core} A list of FunctionDefinition objects.
  *
  * @copydetails doc_what_is_listof
  */

@@ -31,7 +31,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class SBMLVisitor
- * @sbmlbrief{core} Support class for performing operations on SBML objects.
+ * @sbmlbrief{core} Support class for operations on SBML objects.
  * 
  * <em style='color: #555'>This class of objects is defined by libSBML only
  * and has no direct equivalent in terms of SBML components.</em>

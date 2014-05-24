@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class InitialAssignment
- * @sbmlbrief{core} Implementation of %SBML's %InitialAssignment construct.
+ * @sbmlbrief{core} An SBML <em>initial assignment</em>, evaluated once only.
  *
  * SBML Level 2 Versions 2&ndash;4 and SBML Level&nbsp;3 provide two ways of assigning initial
  * values to entities in a model.  The simplest and most basic is to set
@@ -172,8 +172,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfInitialAssignments
- * @sbmlbrief{core} Implementation of SBML's %ListOfInitialAssignments
- * construct.
+ * @sbmlbrief{core} A list of InitialAssignment objects.
  *
  * @copydetails doc_what_is_listof
  */

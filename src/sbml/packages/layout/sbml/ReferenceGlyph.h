@@ -27,8 +27,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ReferenceGlyph
- * @sbmlbrief{layout} The %ReferenceGlyph is used by the &ldquo;layout&rdquo;
- * package to connect a GraphicalObject and a GeneralGlyph.
+ * @sbmlbrief{layout} Connection between an object and a glyph.
  *
  * The ReferenceGlyph element describes the graphical connection between an
  * arbitrary GraphicalObject (or derived element) and a GeneralGlyph (which

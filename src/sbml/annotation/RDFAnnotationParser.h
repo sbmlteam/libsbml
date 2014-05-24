@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class RDFAnnotationParser
- * @sbmlbrief{core} Read/write/manipulate RDF annotations stored in SBML
- * annotation elements.
+ * @sbmlbrief{core} MIRIAM-compliant RDF annotation reader/writer.
  *
  * @htmlinclude not-sbml-warning.html
  *

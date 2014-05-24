@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Priority
- * @sbmlbrief{core} Implementation of %SBML Level 3's %Priority construct for
- * Event.
+ * @sbmlbrief{core} The priority of execution of an SBML <em>event</em>.
  *
  * The Priority object class (which was introduced in SBML Level&nbsp;3
  * Version&nbsp;1), like Delay, is derived from SBase and contains a MathML

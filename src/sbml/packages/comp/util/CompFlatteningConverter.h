@@ -24,7 +24,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CompFlatteningConverter
- * @sbmlbrief{comp} Flattening converter for the &ldquo;comp&rdquo; package.
+ * @sbmlbrief{comp} "Flattens" a model, removing composition.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

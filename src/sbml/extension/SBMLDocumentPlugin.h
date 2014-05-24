@@ -33,10 +33,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPlugin
- * @sbmlbrief{core} Template class for the %SBMLDocument Plugin class needed
- * by all packages.
+ * @sbmlbrief{core} Base class for SBML Level 3 package plug-ins.
  *
- * Plugin objects for the SBMLDocument element must be this class or a
+ * Plug-in objects for the SBMLDocument element must be this class or a
  * derived class of this class.  Package developers should use this class
  * as-is if only "required" attribute is added in the SBMLDocument element by
  * their packages.  Otherwise, developers must implement a derived class of

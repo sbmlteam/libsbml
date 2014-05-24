@@ -33,7 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionRegistry
- * @sbmlbrief{core} Registry class in which extension packages are registered.
+ * @sbmlbrief{core} Registry where package plug-ins are registered.
  *
  */
 

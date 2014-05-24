@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class LocalParameter
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;3's %LocalParameter
- * construct.
+ * @sbmlbrief{core} A parameter inside an SBML <em>reaction</em> definition.
  *
  * LocalParameter has been introduced in SBML Level&nbsp;3 to serve as the
  * object class for parameter definitions that are intended to be local to
@@ -98,8 +97,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfLocalParameters
- * @sbmlbrief{core} Implementation of SBML Level&nbsp;3's
- * %ListOfLocalParameters construct.
+ * @sbmlbrief{core} A list of LocalParameter objects.
  * 
  * @copydetails doc_what_is_listof
  */

@@ -27,11 +27,11 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class TextGlyph
- * @sbmlbrief{layout} The %TextGlyph class describes the position and
- * dimension of text labels in the &ldquo;layout&rdquo; package.
+ * @sbmlbrief{layout} A glyph for a text label.
  *
- * It inherits from GraphicalObject and adds the attributes graphicalObject,
- * text and originOfText.
+ * The %TextGlyph class describes the position and dimension of text labels
+ * in the &ldquo;layout&rdquo; package.  It inherits from GraphicalObject and
+ * adds the attributes graphicalObject, text and originOfText.
  */
 
 #ifndef TextGlyph_H__

@@ -31,8 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class EventAssignment
- * @sbmlbrief{core} Implementation of %SBML's %EventAssignment construct for
- * %Event.
+ * @sbmlbrief{core} An assignment to a variable by an SBML <em>event</em>.
  *
  * Event contains an optional element called "listOfEventAssignments", of
  * class ListOfEventAssignments.  In every instance of an event definition
@@ -173,8 +172,7 @@
  * 
  * <!-- ------------------------------------------------------------------- -->
  * @class ListOfEventAssignments
- * @sbmlbrief{core} Implementation of SBML's %ListOfEventAssignments
- * construct.
+ * @sbmlbrief{core} A list of EventAssignment objects.
  * 
  * @copydetails doc_what_is_listof
  */

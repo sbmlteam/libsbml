@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Constraint
- * @sbmlbrief{core} Implementation of SBML's %Constraint construct.
+ * @sbmlbrief{core} An SBML <em>constraint</em>, for stating validity assumptions.
  *
  * The Constraint object class was introduced in SBML Level&nbsp;2
  * Version&nbsp;2 as a mechanism for stating the assumptions under which a
@@ -108,7 +108,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfConstraints
- * @sbmlbrief{core} Implementation of SBML's %ListOfConstraints construct.
+ * @sbmlbrief{core} A list of Constraint objects.
  * 
  * @copydetails doc_what_is_listof
  */

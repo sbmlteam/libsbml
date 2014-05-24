@@ -33,8 +33,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePlugin
- * @sbmlbrief{core} Representation of a plug-in object of SBML's package
- * extension.
+ * @sbmlbrief{core} A libSBML plug-in object for an SBML Level 3 package.
  * 
  * Additional attributes and/or elements of a package extension which are directly 
  * contained by some pre-defined element are contained/accessed by <a href="#SBasePlugin"> 
