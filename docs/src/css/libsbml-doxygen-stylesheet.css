@@ -16,7 +16,6 @@
 
 @import url('libsbml-c-stylesheet.css');
 
-
 hr.footer {
     height: 1px;
 }
@@ -27,9 +26,9 @@ body
 }
 
 .title {
-    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-family: 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
     margin: 10px 2px;
 }
 
@@ -79,11 +78,11 @@ div.navtab {
 /* @group Link Styling */
 
 a.qindex {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 a.qindexHL {
-    font-weight: bold;
+    font-weight: 700;
     background-color: #9CAFD4;
     color: #ffffff;
     border: 1px double #869DCA;
@@ -98,8 +97,8 @@ a.qindexHL {
 }
 
 a.el {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
 }
 
@@ -108,7 +107,7 @@ a.code, a.code:visited {
 }
 
 .regular-text a.el {
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
 }
 
@@ -140,7 +139,7 @@ dl.el {
 div.line {
 	font-family: monospace, fixed;
         font-size: 13px;
-        font-weight: bold;
+        font-weight: 700;
 	min-height: 13px;
 	line-height: 1.0;
 	text-wrap: unrestricted;
@@ -173,7 +172,7 @@ div.line.glow {
 
 div.ah {
     background-color: black;
-    font-weight: bold;
+    font-weight: 700;
     color: #ffffff;
     margin-bottom: 3px;
     margin-top: 3px;
@@ -207,7 +206,7 @@ span.lineno a:hover {
 div.groupHeader {
     margin-left: 16px;
     margin-top: 12px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 div.groupText {
@@ -223,7 +222,7 @@ div.contents {
 }
 
 td.indexkey {
-    font-weight: bold;
+    font-weight: 700;
     border-bottom: 1px dotted #ccc;
     width: 30%;
     margin: 2px 0px 2px 0px;
@@ -332,7 +331,7 @@ span.vhdllogic {
 /*
   .search {
   color: #003399;
-  font-weight: bold;
+  font-weight: 700;
   }
 
 form.search {
@@ -360,7 +359,7 @@ td.tiny {
 
 th.dirtab {
     background: #EBEFF6;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 /* @group Member Descriptions */
@@ -381,21 +380,21 @@ table.memberdecls {
 
 .memItemLeft, .memItemRight, .memTemplParams {
     border-top: 1px solid #aaaaaa;
-    font-weight: bold;
+    font-weight: 700;
     color: #222;
     padding-bottom: 2px;
 }
 
 .memItemLeft, .memTemplItemLeft {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
     white-space: nowrap;
 }
 
 .memItemRight {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
     width: 100%;
     padding-bottom: 2px;
@@ -459,11 +458,11 @@ table.mlabels .mlabel {
 }
 
 .memname {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
     white-space: nowrap;
-    font-weight: bold;
+    font-weight: 700;
     margin-left: 6px;
 }
 
@@ -474,7 +473,7 @@ table.mlabels .mlabel {
 .memproto, dl.reflist dt {
     padding: 6px 0px 6px 0px;
     color: #253555;
-    font-weight: bold;
+    font-weight: 700;
     background-color: #dfdfdf;
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
@@ -541,8 +540,8 @@ dl.reflist dd {
 }
 
 .paramname {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
     color: #803030;
     white-space: nowrap;
@@ -558,7 +557,7 @@ dl.reflist dd {
 }       
 
 .params .paramname, .retval .paramname {
-    font-weight: bold;
+    font-weight: 700;
     vertical-align: top;
 }
 
@@ -568,7 +567,7 @@ dl.reflist dd {
 }       
 
 .params .paramdir {
-    font-family: "courier new",courier,monospace;
+    font-family: "Anoymous Pro", "Courier New", Courier, monospace;
     vertical-align: top;
 }
 
@@ -592,7 +591,7 @@ table.params td {
 
 .directory {
     font-size: 9pt;
-    font-weight: bold;
+    font-weight: 700;
     margin: 5px;
 }
 
@@ -653,13 +652,12 @@ table.directory td.desc {
 
 table.directory td.entry {
     border-bottom: 1px dotted #ccc;
-    min-width: 270px;
+    min-width: 235px;
     padding-top: 5px;
-    height: 32px;
 }
 
 table.directory td.entry a.el {
-    margin-left: -10px;
+    margin-left: -15px;
 }
 
 table.directory .icona {
@@ -671,7 +669,7 @@ table.directory .icona {
 
 .directory-alt {
     font-size: 100%;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .directory-alt h3 {
@@ -742,8 +740,8 @@ table.fieldtable {
 .fieldtable td.fieldtype, .fieldtable td.fieldname {
     white-space: nowrap;
     vertical-align: top;
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
     padding-left: 2em;
 }
@@ -782,7 +780,7 @@ table.fieldtable {
 }
 
 .navpath {
-    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-family: 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     font-size: 10pt;
 }
 
@@ -1009,14 +1007,14 @@ div.headertitle
 
 #projectname
 {
-    font: 280% Helvetica, Arial, Sans, sans-serif;
+    font: 280% 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     margin: 0px;
     padding: 0px;
 }
 
 #projectbrief
 {
-    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-family: 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     font-style: italic;
     font-size: 10px
     padding: 0px 0px 5px 0px;
@@ -1025,7 +1023,7 @@ div.headertitle
 
 #projectnumber
 {
-    font: 16pt Helvetica, Arial, Sans, sans-serif;
+    font: 16pt 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     position: absolute;
     right: 10px;
     top: 20px;
@@ -1075,7 +1073,7 @@ dl.citelist {
 dl.citelist dt {
     color:#334975;
     float:left;
-    font-weight:bold;
+    font-weight:700;
     margin-right:10px;
     padding:5px;
 }
@@ -1098,14 +1096,13 @@ div.toc {
 
 div.toc li {
     background: url("bdwn.png") no-repeat scroll 0 5px transparent;
-    font: 10px/1.2 Verdana,DejaVu Sans,Verdana,sans-serif;
     margin-top: 5px;
     padding-left: 10px;
     padding-top: 2px;
 }
 
 div.toc h3 {
-    font: bold 12px/1.2 Arial,FreeSans,sans-serif;
+    font: 700 12px/1.2 Arial,FreeSans,sans-serif;
     color: #4665A2;
     border-bottom: 0 none;
     margin: 0px;
@@ -1240,7 +1237,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .navpath li.footer a {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .signatureTable { 
@@ -1260,7 +1257,7 @@ td.signatureIntro {
 }
 
 td.signatureBlock { 
-  font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+  font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
   font-size: 14px;
   padding-left: 20px;
   padding-right: 20px;
@@ -1275,7 +1272,7 @@ signatureTitle {
 
 pre.signature { 
   font-size: 14px;
-  font-weight:  bold;
+  font-weight:  700;
   margin-left: 16px;
 }
 
@@ -1330,7 +1327,7 @@ body div.contents ol li {
   position: absolute;
   right: 10px;
   top: 12px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 12px;
   width: 200px;
   line-height: 110%;

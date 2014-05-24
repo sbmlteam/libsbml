@@ -115,7 +115,7 @@
 }
 
 #nav-tree-contents {
-  font-family: Helvetica, Arial, Sans, sans-serif;
+  font-family: "Noto Sans", Helvetica, Arial, Sans, sans-serif;
   margin: 0px;
   padding-right: 0;
 }
@@ -149,8 +149,8 @@
 
 }
 
-#side-nav img[src="ftv2mnode.png"] {
-
+#side-nav #selected img[src="ftv2mnode.png"] {
+    padding-left: 8px !important;
 }
 
 #side-nav .item span:not(.label):after {
@@ -169,6 +169,6 @@
 }
 
 #side-nav .label a {
-    font-family: Helvetica, Arial, Sans, sans-serif;
-    font-weight: bold;
+    font-family: "Noto Sans", Helvetica, Arial, Sans, sans-serif;
+    font-weight: 700;
 }    

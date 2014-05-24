@@ -15,7 +15,7 @@
 }
 
 .tablist {
-    font-family: Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Helvetica, Arial, Sans, sans-serif;
     margin: 0;
     padding: 0;
     display: table;
@@ -35,7 +35,7 @@
     display: block;
     padding: 0 5px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 700;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='whiteSmoke', endColorstr='#cccccc');
     background: -moz-linear-gradient(-90deg, whiteSmoke, #CCC);
     background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#CCC));

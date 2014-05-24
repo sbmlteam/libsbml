@@ -7,6 +7,9 @@
  * information about SBML, and the latest version of libSBML.
  */
 
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:400,700);
+
 body 
 {
     background-color: white;
@@ -17,10 +20,10 @@ body
 body, table, div, p, dl
 {
     color: #444;
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
     font-weight: normal;
-    line-height: 130%;
+    line-height: 140%;
 }
 
 body 
@@ -36,8 +39,8 @@ p
 
 h1, h2, h3, h4, h5
 {
-    font-family: Helvetica, Arial, Sans, sans-serif;
-    font-weight: bold;
+    font-family: 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
+    font-weight: 700;
     margin-top: 1em;
     margin-bottom: 0.5em;
     color: #383838;
@@ -51,7 +54,7 @@ h1
 h2, h2 a
 {
     font-size: 13pt;
-    font-weight: bold;
+    font-weight: 700;
     padding-top: 0.5em;
     color: #383838;
     line-height: 120%;
@@ -82,7 +85,7 @@ h3, h3 a
 {
     font-size: 12pt;
     font-style: italic;
-    font-weight: bold;
+    font-weight: 700;
     padding-bottom: 3px;
 }
 
@@ -96,7 +99,7 @@ h4, h4 a
     color: #383838;
     font-style: italic;
     font-size: 11pt;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 h4 code
@@ -111,7 +114,7 @@ em
 
 strong, b
 {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 ul
@@ -148,9 +151,11 @@ tt
 
 pre, code
 {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
-    font-size: 10pt;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
+    font-size: 13px;
+    padding-left: 2px;
+    padding-right: 2px;
     color: black;
     margin-top: 1em;
     margin-bottom: 1em;
@@ -158,22 +163,22 @@ pre, code
 
 .code
 {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold !important;;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700 !important;;
     font-size: 10pt !important;
     color: black;
 }
 
 pre a
 {
-    font-family: "Courier New", Courier, monospace, fixed;
-    font-weight: bold;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
     font-size: 10pt;
 }
 
 dt
 {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 blockquote
@@ -205,7 +210,7 @@ table
 
 table th 
 {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 body > table
@@ -372,9 +377,9 @@ object.centered
 
 pre.fragment
 {
-    font-family: "Courier New", Courier, monospace, fixed;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
     font-size: 9pt;
-    font-weight: bold;
+    font-weight: 700;
     border: 1px solid orange;
     background-color: #f0f0f0;
     color: black;
@@ -487,7 +492,7 @@ code.language-java .str
 
 td.s-fatal {
   background-color: #ff2233 !important;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -497,7 +502,7 @@ td.s-fatal:before {
 
 td.s-error {
   background-color: #ff99aa !important;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -507,7 +512,7 @@ td.s-error:before {
 
 td.s-warning {
   background-color: gold !important;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -516,7 +521,7 @@ td.s-warning:before {
 }
 
 td.s-na {
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -526,6 +531,6 @@ td.s-na:before {
 
 td.s-info {
   background-color: #4c4 !important;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }

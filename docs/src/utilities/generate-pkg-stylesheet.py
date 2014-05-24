@@ -118,7 +118,7 @@ before_template = '''{{
 after_template = '''{{
     content: "{0}";
     display: inline-block;
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: 80%;
     font-style: italic;
     font-weight: normal;

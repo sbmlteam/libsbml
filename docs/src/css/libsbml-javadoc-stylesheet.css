@@ -102,7 +102,7 @@ tr.TableRowColor a[title="class in org.sbml.libsbml"],
 tr.TableRowColor a[href$="org.sbml.libsbml"],
 tr.TableRowColor b a[href*="org/sbml/libsbml"]
 {
-    font-family: "Courier New", Courier, monospace, fixed;
+    font-family: "Anonymous Pro", "Courier New", Courier, monospace, fixed;
     font-weight: bold;
     font-size: 10pt;
     line-height: 150%;
@@ -112,7 +112,7 @@ tr.TableRowColor b a[href*="org/sbml/libsbml"]
 a[title="class in org.sbml.libsbml"],
 a[title="interface in org.sbml.libsbml"]
 {
-    font-family: "Courier New", Courier, monospace, fixed;
+    font-family: "Anonymous Pro", "Courier New", Courier, monospace, fixed;
     font-weight: bold;
     font-size: 10pt;
 }
@@ -129,7 +129,7 @@ tr.TableHeadingColor th
 {
     color: black;
     letter-spacing: 1px;
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: 18px;
     padding: 5px 2px;
     background-color: #ddd;
@@ -148,7 +148,7 @@ tr.TableHeadingColor th font[size="+2"]
 tr.TableHeadingColor th a[href*="org/sbml/libsbml"],
 tr.TableSubHeadingColor th a[href*="org/sbml/libsbml"]
 {
-    font-family: "Courier New", Courier, monospace, fixed;
+    font-family: "Anonymous Pro", "Courier New", Courier, monospace, fixed;
     font-weight: bold;
 }
 
@@ -183,7 +183,7 @@ dl dd dl dd p
 
 dl dd a[href*="org/sbml/libsbml"]
 {
-    font-family: "Courier New", Courier, monospace, fixed;
+    font-family: "Anonymous Pro", "Courier New", Courier, monospace, fixed;
     font-weight: bold;
 }
 
@@ -194,7 +194,7 @@ td, th
 
 td.footer 
 {
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: 12px;
     padding-left: 5px;
     padding-right: 5px;
@@ -214,7 +214,7 @@ center.image
 
 .footercomment 
 {
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif;
     font-size: x-small;
     font-style: italic;
     color: #555555;
@@ -266,7 +266,7 @@ body:not([onload])
 
 font.FrameItemFont a
 {
-    font-family: Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif;
     font-weight: normal;
     font-size: 9pt;
     margin-left: 10px;
