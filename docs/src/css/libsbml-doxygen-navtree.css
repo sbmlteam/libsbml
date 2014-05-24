@@ -62,6 +62,7 @@
 #nav-tree .item {
   margin:0px;
   padding:0px;
+  margin-left: -12px;
 }
 
 #nav-tree {
@@ -143,14 +144,6 @@
 #side-nav .item {
     font-size: 11px;
     line-height: 18px;
-}
-
-#side-nav div.item:not(.selected) .label {
-
-}
-
-#side-nav #selected img[src="ftv2mnode.png"] {
-    padding-left: 8px !important;
 }
 
 #side-nav .item span:not(.label):after {
