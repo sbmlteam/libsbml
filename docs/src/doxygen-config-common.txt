@@ -883,7 +883,7 @@ GENERATE_TREEVIEW      = YES
 # used to set the initial width (in pixels) of the frame in which the tree 
 # is shown.
 
-TREEVIEW_WIDTH         = 270
+TREEVIEW_WIDTH         = 260
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output
