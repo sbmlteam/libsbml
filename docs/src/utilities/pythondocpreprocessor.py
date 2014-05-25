@@ -78,7 +78,7 @@ def main (args):
     # Remove classes and functions marked @internal
 
     newContents     = ""
-    pattern         = r'^\s*(def|class) \w+\([^)]*\):\n +"""(.*?)"""'
+    pattern         = r'^\s*(def|class) \w+\([^)]*\): ?\n +"""(.*?)"""'
     inInternalClass = False
 
     for m in re.finditer(pattern, contents, flags=re.MULTILINE|re.DOTALL):
