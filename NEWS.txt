@@ -244,6 +244,10 @@ STABLE RELEASE
     documentation source directory (docs/src/); in addition, the
     directory has undergone some minor restructuring.
 
+  - The Python API documentation lacked all the class constructors,
+    due to a bug in the libSBML documentation production pipeline.
+    This is now fixed.
+
 
 EXPERIMENTAL RELEASE
 
