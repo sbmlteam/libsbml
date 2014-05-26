@@ -298,6 +298,7 @@ class CHeader:
             endparen = self.lines.rfind(')')
             args     = self.lines[searchstart + stop : endparen + 1]
             isConst  = self.lines[endparen:].rfind('const')
+            isVirtual  = self.lines[searchstart : endparen].find('virtual')
 
             if len(self.docstring) > 0:
               # Remove embedded HTML comments before we store the doc string.
@@ -309,7 +310,7 @@ class CHeader:
 
             # Swig doesn't seem to mind C++ argument lists, even though they
             # have "const", "&", etc. So I'm leaving the arg list unmodified.
-            func = Method(self.isInternal, self.docstring, name, args, (isConst > 0))
+            func = Method(self.isInternal, self.docstring, name, args, (isConst > 0), (isVirtual != -1))
 
             # Reset buffer for the next iteration, to skip the part seen.
             self.lines = self.lines[endparen + 2:]
@@ -358,10 +359,11 @@ class Method:
     - name
     - args
     - isConst
+    - isVirtual
   """
 
-  def __init__ (self, isInternal, docstring, name, args, isConst):
-    """Method(isInternal, docstring name, args, isConst) -> Method
+  def __init__ (self, isInternal, docstring, name, args, isConst, isVirtual):
+    """Method(isInternal, docstring name, args, isConst,isVirtual) -> Method
 
     Creates a new Method description with the given docstring, name and args,
     for the language, with special consideration if the method
@@ -373,6 +375,7 @@ class Method:
     self.name       = name
     self.isConst    = isConst
     self.isInternal = isInternal
+    self.isVirtual  = isVirtual
 
     if isInternal:
       if language == 'java':
@@ -1354,7 +1357,7 @@ def processClassMethods(ostream, c):
           written[argVariant.name + argVariant.args] = 1
       else:
         newdoc = rewriteDocstringForPython(m.docstring)
-      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args))
+      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args, m))
       written[m.name + m.args] = 1
   else: # Not python
     for m in c.methods:
@@ -1367,20 +1370,23 @@ def processClassMethods(ostream, c):
       elif language == 'perl':
         newdoc = rewriteDocstringForPerl(m.docstring)
       # print c.name + ": " + m.name + " " + str(m.isInternal)
-      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args))
+      ostream.write(formatMethodDocString(m.name, c.name, newdoc, m.isInternal, m.args, m))
 
   ostream.flush()
 
 
 
-def formatMethodDocString (methodname, classname, docstring, isInternal, args=None):
+def formatMethodDocString (methodname, classname, docstring, isInternal, args=None, f = None):
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
   elif language == 'csharp':
     pre  = '%csmethodmodifiers'
-    # See the comment for the definition of 'overriders' for more info.
-    if classname in overriders and methodname in overriders[classname]:
+    if f != None and f.isVirtual:
+      # this time we note right from the start, whether a function is virtual or not	  
+      post = ' public virtual'
+    elif classname in overriders and methodname in overriders[classname]:
+      # See the comment for the definition of 'overriders' for more info.
       post = ' public virtual'
     else:
       post = ' public'
@@ -1412,7 +1418,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
 
 
 
-def generateFunctionDocString (methodname, docstring, args, isInternal):
+def generateFunctionDocString (methodname, docstring, args, isInternal, f):
   if language == 'java':
     doc = rewriteDocstringForJava(docstring)
   elif language == 'csharp':
@@ -1421,7 +1427,7 @@ def generateFunctionDocString (methodname, docstring, args, isInternal):
     doc = rewriteDocstringForPython(docstring)
   elif language == 'perl':
     doc = rewriteDocstringForPerl(docstring)
-  return formatMethodDocString(methodname, None, doc, isInternal, args)
+  return formatMethodDocString(methodname, None, doc, isInternal, args, f)
 
 
 
@@ -1474,7 +1480,7 @@ def processClasses (ostream, classes):
 
 def processFunctions (ostream, functions):
   for f in functions:
-    ostream.write(generateFunctionDocString(f.name, f.docstring, f.args, f.isInternal))
+    ostream.write(generateFunctionDocString(f.name, f.docstring, f.args, f.isInternal,f))
 
 
 
