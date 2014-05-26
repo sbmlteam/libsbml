@@ -1384,10 +1384,10 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
     pre  = '%csmethodmodifiers'
     if f != None and f.isVirtual:
       # this time we note right from the start, whether a function is virtual or not	  
-      post = ' public virtual'
+      post = ' public new'
     elif classname in overriders and methodname in overriders[classname]:
       # See the comment for the definition of 'overriders' for more info.
-      post = ' public virtual'
+      post = ' public new'
     else:
       post = ' public'
     if isInternal:
