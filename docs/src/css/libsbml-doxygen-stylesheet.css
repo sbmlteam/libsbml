@@ -1233,7 +1233,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 #projectnumber:before {
-    content: "Developer's guide for libSBML version ";
+    content: "Developer's guide for version ";
 }
 
 .navpath li.footer a {
@@ -1271,16 +1271,29 @@ signatureTitle {
 }
 
 pre.signature { 
-  font-size: 14px;
+  font-size: 13px;
   font-weight:  700;
-  margin-left: 16px;
+  margin-left: 12px;
 }
 
-.signatureArrow { 
+span.signatureArrow { 
   padding: 0px;
   margin: 0px;
-  border: 0px;
-  vertical-align: baseline;
+  display: inline-block;
+  background-image: url(right-arrow.gif);
+  background-position: left center;
+  background-repeat: no-repeat;
+  vertical-align: bottom;
+  width: 20px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+  span.signatureArrow { 
+    background-image: url(right-arrow-2x.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+  }
 }
 
 div.contents hr { 

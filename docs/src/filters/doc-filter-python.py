@@ -87,7 +87,7 @@ def reformatDocString (match):
 
   # Prettify the arrow:
   newArrow = '@htmlonly ' + \
-             '<img class="signatureArrow" src="right-arrow.gif"> ' + \
+             '<span class="signatureArrow"> </span>' + \
              '@endhtmlonly'
   p = re.compile(' -> ')
   text = p.sub(r' ' + newArrow + ' ', text)
