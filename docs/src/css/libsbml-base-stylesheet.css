@@ -44,6 +44,7 @@ h1, h2, h3, h4, h5
     margin-top: 1em;
     margin-bottom: 0.5em;
     color: #383838;
+    line-height: 120%;
 }
 
 h1
@@ -273,9 +274,16 @@ a:hover
 
 .placeholder
 { 
+    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-weight: normal;
     font-style: italic;
+    font-size: 12px;
+    margin-left: -1px;
+    margin-right: -1px;
+    padding-right: 0px;
+    padding-left: 0px;
     background-color: #ffeaba;
-    border-left: 1px solid #ffeaba;
+    border-left: 3px solid #ffeaba;
     border-right: 3px solid #ffeaba;
 }
 
