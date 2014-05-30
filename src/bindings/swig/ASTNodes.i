@@ -33,6 +33,7 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
+#include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/L3Parser.h>
@@ -42,6 +43,7 @@
 
 #include <sbml/math-legacy/ASTNode.h>
 #include <sbml/math-legacy/MathML.h>
+#include <sbml/math-legacy/L3FormulaFormatter.h>
 #include <sbml/math-legacy/FormulaFormatter.h>
 #include <sbml/math-legacy/FormulaParser.h>
 #include <sbml/math-legacy/L3Parser.h>
@@ -61,6 +63,7 @@
   %include sbml/math/ASTNode.h
   %include sbml/math/MathML.h
   %include sbml/math/FormulaParser.h
+  %include sbml/math/L3FormulaFormatter.h
   %include sbml/math/FormulaFormatter.h
   %include sbml/math/L3Parser.h
   %include sbml/math/L3ParserSettings.h
@@ -72,6 +75,7 @@
   %include sbml/math-legacy/ASTNode.h
   %include sbml/math-legacy/MathML.h
   %include sbml/math-legacy/FormulaParser.h
+  %include sbml/math-legacy/L3FormulaFormatter.h
   %include sbml/math-legacy/FormulaFormatter.h
   %include sbml/math-legacy/L3Parser.h
   %include sbml/math-legacy/L3ParserSettings.h

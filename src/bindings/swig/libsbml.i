@@ -368,6 +368,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject readMathMLFromString;
 %newobject writeMathMLToString;
 %newobject SBML_formulaToString;
+%newobject SBML_formulaToL3String;
+%newobject SBML_formulaToL3StringWithSettings;
 %newobject SBML_parseFormula;
 %newobject SBML_parseL3Formula;
 %newobject SBML_parseL3FormulaWithModel;
@@ -423,6 +425,8 @@ LIBSBML_CPP_NAMESPACE_USE
  *  - libsbml.formulaToString()
  *  - libsbml.parseFormula()
  */
+%rename(formulaToL3String) SBML_formulaToL3String;
+%rename(formulaToL3StringWithSettings) SBML_formulaToL3StringWithSettings;
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 %rename(parseL3Formula)    SBML_parseL3Formula;
