@@ -826,7 +826,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
 
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
-  while (getContainsUndeclaredUnits() && mCanIgnoreUndeclaredUnits != 1
+  while (getContainsUndeclaredUnits() == true
     && i < node->getNumChildren()-1)
   {
     if (originalUndeclaredValue == true)

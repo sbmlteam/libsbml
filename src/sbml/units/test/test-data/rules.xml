@@ -46,6 +46,7 @@
       <parameter id="p3" units="second"/>
       <parameter id="p4" units="second"/>
       <parameter id="p5" units="second"/>
+      <parameter id="p6" units="second"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="x1">
@@ -146,18 +147,18 @@
       </rateRule>
       <rateRule variable="x11">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
+<!--          <apply>
             <plus/>
             <ci> k4 </ci>
-            <apply>
+-->            <apply>
               <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay">
               delay
             </csymbol>
               <ci> k1 </ci>
               <cn> 0.1 </cn>
             </apply>
-          </apply>
-        </math>
+<!--          </apply>
+-->        </math>
       </rateRule>
       <rateRule variable="x12">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -220,7 +221,16 @@
           </apply>
         </math>       
       </assignmentRule>
-    </listOfRules>
+      <assignmentRule variable="p5">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> p4</ci>
+            <ci> k4 </ci>
+            <ci> p1 </ci>
+          </apply>
+        </math>       
+      </assignmentRule>    </listOfRules>
     <listOfReactions>
       <reaction id="r" reversible="false">
         <listOfReactants>

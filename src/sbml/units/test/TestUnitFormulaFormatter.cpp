@@ -92,6 +92,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
   UnitDefinition * ud = new UnitDefinition(2, 4);
     
   ud = uff->getUnitDefinition(node);
+  
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 0);
 
@@ -110,6 +113,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_boolean)
   ud = uff->getUnitDefinition(m->getRule(0)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
@@ -129,6 +134,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
   UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(1)->getMath());
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -150,6 +157,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
   UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(2)->getMath());
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -174,6 +183,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 
   fail_unless(ud->getNumUnits() == 1);
 
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
@@ -190,6 +202,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getNumUnits() == 0);
   
   fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
 
   /* check plus with one arguments*/
@@ -206,6 +219,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
   fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   delete ud;
 
@@ -219,6 +233,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_power)
   ud = uff->getUnitDefinition(m->getRule(4)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
@@ -241,6 +258,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
 
   fail_unless(ud->getNumUnits() == 2);
 
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
@@ -256,6 +276,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
   ud = uff->getUnitDefinition(m->getRule(9)->getMath());
+
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -281,6 +304,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
   fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
 
   /* check times with one arguments*/
@@ -297,6 +321,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
   fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   delete ud;
 
@@ -310,6 +335,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_divide)
   ud = uff->getUnitDefinition(m->getRule(6)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
@@ -330,6 +358,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
 
   ud = uff->getUnitDefinition(m->getRule(7)->getMath());
 
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
+
   fail_unless(ud->getNumUnits() == 1);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
@@ -345,14 +376,22 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
   UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   ASTNode *node = new ASTNode(AST_FUNCTION_PIECEWISE);
 
+  uff->resetFlags();
   ud1 = uff->getUnitDefinition(node);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless (ud1->getNumUnits() == 0);
 
   ASTNode *c = new ASTNode(AST_UNKNOWN);
   node->addChild(c);
   
+  uff->resetFlags();
   ud1 = uff->getUnitDefinition(node);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless (ud1->getNumUnits() == 0);
 
@@ -368,6 +407,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_root)
   ud = uff->getUnitDefinition(m->getRule(8)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
@@ -388,6 +430,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
   UnitDefinition * ud = new UnitDefinition(2, 4);
 
   ud = uff->getUnitDefinition(m->getRule(10)->getMath());
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -412,6 +457,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_reaction)
   ud = uff->getUnitDefinition(m->getRule(13)->getMath());
 
   fail_unless(ud->getNumUnits() == 3);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
@@ -443,18 +491,23 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
 {
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(9)->getMath());
-  fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->canIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(11)->getMath());
-  fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->canIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   uff->resetFlags();
   uff->getUnitDefinition(m->getRule(12)->getMath());
-  fail_unless(uff->getContainsUndeclaredUnits() == 1);
-  fail_unless(uff->canIgnoreUndeclaredUnits() == 1);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == true);
+
+  uff->resetFlags();
+  uff->getUnitDefinition(m->getRule(18)->getMath());
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == true);
 
 }
 END_TEST
@@ -470,6 +523,9 @@ START_TEST (test_UnitFormulaFormatter_inferUnitDefinition_times)
   u->setExponent(2);
     
   ud = uff->inferUnitDefinition(expUD, node, "a");
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud->getNumUnits() == 1);
 
