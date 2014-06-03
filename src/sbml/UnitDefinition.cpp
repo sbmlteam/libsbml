@@ -817,6 +817,8 @@ UnitDefinition::simplify(UnitDefinition * ud)
   }
 
   /* may have cancelled units - in which case exponent will be 0 */
+  // might need to propagate a multiplier though
+  double newMultiplier = 1.0;
   unsigned int numUnits = units->size();
   for (n = numUnits; n > 0; n--)
   {
@@ -825,25 +827,40 @@ UnitDefinition::simplify(UnitDefinition * ud)
     {
       if (unit->getExponentUnitChecking() == 0)
       {
+        newMultiplier = newMultiplier * unit->getMultiplier();
         delete units->remove(n-1);
         cancelFlag = 1;
       }
     }
     else if (unit->getExponent() == 0)
     {
+      newMultiplier = newMultiplier * unit->getMultiplier();
       delete units->remove(n-1);
       cancelFlag = 1;
     }
   }
 
   /* if all units have been cancelled need to add dimensionless */
-  if (units->size() == 0 && cancelFlag == 1)
+  /* or indeed if one or more have been cancelled need to
+   * propagate any remaining multiplier */
+  if (cancelFlag == 1)
   {
-    Unit tmpunit(ud->getSBMLNamespaces());
-    tmpunit.setKind(UNIT_KIND_DIMENSIONLESS);
-    tmpunit.initDefaults();
-    ud->addUnit(&tmpunit);
+    if (units->size() == 0)
+    {
+      Unit tmpunit(ud->getSBMLNamespaces());
+      tmpunit.setKind(UNIT_KIND_DIMENSIONLESS);
+      tmpunit.initDefaults();
+      tmpunit.setMultiplier(newMultiplier);
+      ud->addUnit(&tmpunit);
+    }
+    else if (util_isEqual(newMultiplier, 1.0) == false)
+    {
+      unit = units->get(0);
+      unit->setMultiplier(unit->getMultiplier() * 
+        pow(newMultiplier, 1.0/unit->getExponentAsDouble()));
+    }
   }
+
 }
 
 /** @cond doxygenLibsbmlInternal */
@@ -956,6 +973,39 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
 }
 
 
+double
+extractMultiplier(UnitDefinition * ud)
+{
+  double multiplier = 1.0;
+
+  unsigned int i = 0;
+  while(i < ud->getNumUnits())
+  {
+    multiplier = multiplier * pow(ud->getUnit(i)->getMultiplier(), 
+                                  ud->getUnit(i)->getExponentAsDouble());
+    ud->getUnit(i)->setMultiplier(1.0);
+    i++;
+  }
+  return multiplier;
+}
+
+
+///* slightly less restrictive version that util_isEqual
+// * I had issues with this when one of the multipliers
+// * had not been calculated and was just 1.0
+// */
+//bool
+//isEqual(double a, double b)
+//{
+//  double tol;
+//  if (a < b)
+//    tol = a * 1e-10;
+//  else
+//    tol = b * 1e-10;
+//  return (fabs(a-b) < sqrt(tol)) ? true : false;
+//}
+
+
 /* 
  * Predicate returning @c true if 
  * UnitDefinition objects are identical (all units are identical).
@@ -1020,6 +1070,21 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
   {
     UnitDefinition::reorder(ud1Temp);
     UnitDefinition::reorder(ud2Temp);
+
+    if (ud1Temp->getNumUnits() > 1)
+    {
+      // different multipliers left on different units may not match
+      // but overall they 
+      // e.g (2m)(sec) is tha same unit as (m)(2sec) but unit by unit
+      // comparison will fail
+      double multiplier1 = extractMultiplier(ud1Temp);
+      double multiplier2 = extractMultiplier(ud2Temp);
+
+      if (util_isEqual(multiplier1, multiplier2) == false)
+      {
+        return identical;
+      }
+    }
     
     n = 0;
     while (n < ud1->getNumUnits())

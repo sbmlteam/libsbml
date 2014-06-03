@@ -956,6 +956,21 @@ Unit::isL1UnitKind (const std::string& name)
   return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
 
+/* slightly less restrictive version that util_isEqual
+ * I had issues with this when one of the multipliers
+ * had not been calculated and was just 1.0
+ */
+bool
+isEqual(double a, double b)
+{
+  double tol;
+  if (a < b)
+    tol = a * 1e-10;
+  else
+    tol = b * 1e-10;
+  return (fabs(a-b) < sqrt(tol)) ? true : false;
+}
+
 bool 
 Unit::areIdentical(Unit * unit1, Unit * unit2)
 {
@@ -964,7 +979,7 @@ Unit::areIdentical(Unit * unit1, Unit * unit2)
   if (!strcmp(UnitKind_toString(unit1->getKind()), 
               UnitKind_toString(unit2->getKind())))
   {
-    if ((unit1->getMultiplier() == unit2->getMultiplier())
+    if ((isEqual(unit1->getMultiplier(), unit2->getMultiplier()))
       && (unit1->getScale()     == unit2->getScale())
       && (unit1->getOffset()    == unit2->getOffset())
       && (unit1->getExponent()  == unit2->getExponent()))
@@ -1087,7 +1102,12 @@ Unit::merge(Unit * unit1, Unit * unit2)
 
   if (newExponent == 0)
   {
-    newMultiplier = 1;
+    // actually we do not want the new multiplier to be 1
+    // there may be a scaling factor in the now dimensionless unit that
+    // needs to propogate thru a units calculation
+    // newMultiplier = 1;
+    newMultiplier = pow(unit1->getMultiplier(), unit1->getExponentAsDouble())*
+      pow(unit2->getMultiplier(), unit2->getExponentAsDouble());
   }
   else
   {

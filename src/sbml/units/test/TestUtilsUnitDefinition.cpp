@@ -361,6 +361,39 @@ START_TEST(test_unitdefinition_areIdentical2)
 END_TEST
 
 
+START_TEST(test_unitdefinition_areIdentical3)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = new Unit(2, 2);
+  u->setKind(UNIT_KIND_JOULE);
+  u->setMultiplier(2.0);
+  Unit* u1 = new Unit(2, 2);
+  u1->setKind(UNIT_KIND_NEWTON);
+  
+  ud->addUnit(u);
+  ud->addUnit(u1);
+
+  u->setMultiplier(1.0);
+  u1->setMultiplier(2.0);
+
+  ud1->addUnit(u);
+  ud1->addUnit(u1);
+
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  delete u;
+  delete u1;
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+
 START_TEST(test_unitdefinition_areEquivalent)
 {
   UnitDefinition* ud  = new UnitDefinition(2, 4);
@@ -658,6 +691,298 @@ START_TEST(test_unitdefinition_divide2)
 END_TEST
 
 
+START_TEST(test_unitdefinition_divide3)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(-2);
+  u->setMultiplier(0.001);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_LITRE);
+  u2->setExponent(-2);
+
+  ud->addUnit(u);
+  ud1->addUnit(u2);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(udTemp->getUnit(0)->getMultiplier() == 1000000);
+
+
+  delete u;
+  delete ud1;
+  delete u2;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide4)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
+  u->setExponent(5);
+  u->setMultiplier(0.0630957);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_MOLE);
+  u2->setExponent(4);
+
+  ud->addUnit(u);
+  ud1->addUnit(u2);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(util_isEqual(udTemp->getUnit(0)->getMultiplier(), 9.99997e-7));
+
+
+  delete u;
+  delete ud1;
+  delete u2;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide5)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
+  u->setExponent(5);
+  u->setMultiplier(0.0630957);
+  Unit* u1  = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setExponent(-2);
+  u1->setMultiplier(0.001);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_MOLE);
+  u2->setExponent(4);
+  Unit* u3 = new Unit(2, 4);
+  u3->setKind(UNIT_KIND_LITRE);
+  u3->setExponent(-2);
+
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud1->addUnit(u2);
+  ud1->addUnit(u3);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(util_isEqual(udTemp->getUnit(0)->getMultiplier(), 0.99999727018141493));
+
+
+  delete u;
+  delete u1;
+  delete ud1;
+  delete u2;
+  delete u3;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide6)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_LITRE);
+  u->setExponent(-2);
+  u->setMultiplier(0.001);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_LITRE);
+  u2->setExponent(-2);
+  u2->setMultiplier(0.001);
+
+  ud->addUnit(u);
+  ud1->addUnit(u2);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(udTemp->getUnit(0)->getMultiplier() == 1);
+
+
+  delete u;
+  delete ud1;
+  delete u2;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide7)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
+  u->setMultiplier(2);
+  Unit* u1  = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(3);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_MOLE);
+  Unit* u3 = new Unit(2, 4);
+  u3->setKind(UNIT_KIND_LITRE);
+
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud1->addUnit(u2);
+  ud1->addUnit(u3);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(util_isEqual(udTemp->getUnit(0)->getMultiplier(), 6));
+
+
+  delete u;
+  delete u1;
+  delete ud1;
+  delete u2;
+  delete u3;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide8)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp;
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
+  u->setMultiplier(2);
+  u->setExponent(3);
+  Unit* u1  = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(3);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_MOLE);
+  Unit* u3 = new Unit(2, 4);
+  u3->setKind(UNIT_KIND_LITRE);
+
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud1->addUnit(u2);
+  ud1->addUnit(u3);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 1);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 2);
+  fail_unless(util_isEqual(udTemp->getUnit(0)->getMultiplier(), 2*pow(6, 0.5)));
+
+
+  delete u;
+  delete u1;
+  delete ud1;
+  delete u2;
+  delete u3;
+  delete ud;
+  delete udTemp;
+ }
+END_TEST
+
+
+START_TEST(test_unitdefinition_divide9)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* udTemp, * udTemp2;
+
+  Unit* u4  = new Unit(2, 4);
+  u4->setKind(UNIT_KIND_SECOND);
+  u4->setExponent(2);
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_MOLE);
+  u->setMultiplier(2);
+  u->setExponent(3);
+  Unit* u1  = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(3);
+
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_MOLE);
+  Unit* u3 = new Unit(2, 4);
+  u3->setKind(UNIT_KIND_LITRE);
+  Unit* u5 = new Unit(2, 4);
+  u5->setKind(UNIT_KIND_SECOND);
+
+  ud->addUnit(u4);
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud1->addUnit(u5);
+  ud1->addUnit(u2);
+  ud1->addUnit(u3);
+  
+  udTemp = UnitDefinition::divide(ud, ud1);
+
+  fail_unless(udTemp->getNumUnits() == 2);
+  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp->getUnit(0)->getExponent() == 1);
+  fail_unless(util_isEqual(udTemp->getUnit(0)->getMultiplier(), 3.0));
+  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+  fail_unless(util_isEqual(udTemp->getUnit(1)->getMultiplier(), sqrt(8.0)));
+
+
+  delete u;
+  delete u1;
+  delete u2;
+  delete u3;
+  delete u4;
+  delete u5;
+  delete ud;
+  delete ud1;
+  delete udTemp;
+ }
+END_TEST
+
+
 Suite *
 create_suite_UtilsUnitDefinition (void) 
 { 
@@ -674,6 +999,7 @@ create_suite_UtilsUnitDefinition (void)
   tcase_add_test( tcase, test_unitdefinition_areIdentical  );
   tcase_add_test( tcase, test_unitdefinition_areIdentical1 );
   tcase_add_test( tcase, test_unitdefinition_areIdentical2 );
+  tcase_add_test( tcase, test_unitdefinition_areIdentical3 );
   tcase_add_test( tcase, test_unitdefinition_areEquivalent );
   tcase_add_test( tcase, test_unitdefinition_combine );
   tcase_add_test( tcase, test_unitdefinition_combine1 );
@@ -681,6 +1007,13 @@ create_suite_UtilsUnitDefinition (void)
   tcase_add_test( tcase, test_unitdefinition_divide );
   tcase_add_test( tcase, test_unitdefinition_divide1 );
   tcase_add_test( tcase, test_unitdefinition_divide2 );
+  tcase_add_test( tcase, test_unitdefinition_divide3 );
+  tcase_add_test( tcase, test_unitdefinition_divide4 );
+  tcase_add_test( tcase, test_unitdefinition_divide5 );
+  tcase_add_test( tcase, test_unitdefinition_divide6 );
+  tcase_add_test( tcase, test_unitdefinition_divide7 );
+  tcase_add_test( tcase, test_unitdefinition_divide8 );
+  tcase_add_test( tcase, test_unitdefinition_divide9 );
 
   suite_add_tcase(suite, tcase);
 
