@@ -300,7 +300,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
   if (ud->getNumUnits() == 0)
   {
     mContainsUndeclaredUnits = true;
-    mCanIgnoreUndeclaredUnits = false;
+    mCanIgnoreUndeclaredUnits = 0;
   }
 
   return ud;
@@ -829,13 +829,13 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
   while (getContainsUndeclaredUnits() && mCanIgnoreUndeclaredUnits != 1
     && i < node->getNumChildren()-1)
   {
-    if (originalUndeclaredValue == 1)
+    if (originalUndeclaredValue == true)
       currentIgnore = 0;
     else
       currentIgnore = 1;
 
 
-    currentUndeclared = 1;
+    currentUndeclared = true;
 
     i++;
     delete ud;
@@ -857,7 +857,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
       tempUd = getUnitDefinition(node->getChild(n), inKL, reactNo);
       if (getContainsUndeclaredUnits())
       {
-        currentUndeclared = 1;
+        currentUndeclared = true;
         currentIgnore = 1;
       }
       delete tempUd;
@@ -1153,7 +1153,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
             else
             {
               mContainsUndeclaredUnits = true;
-              mCanIgnoreUndeclaredUnits = false;
+              mCanIgnoreUndeclaredUnits = 0;
             }
 
             std::string timeUnits = model->getTimeUnits();
@@ -1192,7 +1192,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
             else
             {
               mContainsUndeclaredUnits = true;
-              mCanIgnoreUndeclaredUnits = false;
+              mCanIgnoreUndeclaredUnits = 0;
             }
           }
         }
