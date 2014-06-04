@@ -16,6 +16,25 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - The unit consistency checking code was ignoring numerical
+    factors when checking the units of a KineticLaw matched the 
+    model wide units of extent per time (substance per time in 
+    SBML L1/L2). This has been changed.  Thanks to Daniel Palm
+    for the report that exposed this.
+    
+  - Unit checking code determines whether a math expression contains 
+    parameters or numbers with undefined units. However, depending
+    on where these occurred within the expression, libSBML was
+    not always correctly establishing this.  This has been fixed.
+    Thanks to Daniel Palm for reporting this.
+    
+  - The unit consistency checking code was losing numerical factors
+    that were left after cancelling out units.  This could affect
+    the overall definition of the remaining unit and thus impact code
+    that looked for exact identity between units.  This has been fixed.
+    Thanks to Daniel Palm for providing an example of a case where this
+    was happening.
+
   - There was a bug in writing out MathML that manifested itself
     using the in-lining functionDefinition converter for a narrow 
     set of functions.  This has been fixed.
