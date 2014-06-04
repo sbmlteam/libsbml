@@ -1409,7 +1409,7 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   msg += ".";
 
 
-  inv (UnitDefinition::areEquivalent(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
                                       variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT

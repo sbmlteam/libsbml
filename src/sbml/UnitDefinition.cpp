@@ -1065,8 +1065,10 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
   for ( n = 0; n < ud2->getNumUnits(); n++)
     ud2Temp->addUnit(ud2->getUnit(n));
 
+  UnitDefinition::simplify(ud1Temp);
+  UnitDefinition::simplify(ud2Temp);
 
-  if (ud1->getNumUnits() == ud2->getNumUnits())
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
   {
     UnitDefinition::reorder(ud1Temp);
     UnitDefinition::reorder(ud2Temp);
@@ -1087,7 +1089,7 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
     }
     
     n = 0;
-    while (n < ud1->getNumUnits())
+    while (n < ud1Temp->getNumUnits())
     {
       if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
       {
@@ -1098,7 +1100,7 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
         n++;
       }
     }
-    if (n == ud1->getNumUnits())
+    if (n == ud1Temp->getNumUnits())
     {
       identical = true;
     }

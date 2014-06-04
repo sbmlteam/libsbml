@@ -1141,9 +1141,8 @@ START_TEST (test_convert_global_time_extent)
   fail_unless(d->getModel()->getTimeUnits() == "second");
   fail_unless(d->getModel()->getExtentUnits() == "kilogram");
 
-  fail_unless (
-      util_isEqual(d->getModel()->getParameter(0)->getValue(), 
-      pow(0.0166666666666666666666666666666666667, -1)) );
+  fail_unless (util_isEqual(d->getModel()->getParameter(0)->getValue(), 
+                            pow(60.0, -1.0)));
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
