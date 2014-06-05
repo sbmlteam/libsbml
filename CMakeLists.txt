@@ -1075,6 +1075,15 @@ message(STATUS "
 ----------------------------------------------------------------------")
 
 
+## Add uninstall target
+## as available from http://www.cmake.org/Wiki/RecipeAddUninstallTarget
+CONFIGURE_FILE(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY)
+ADD_CUSTOM_TARGET(uninstall
+  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake") 
+
 ## To compile a test program simply comment out the lines below ...
 #
 #OPTION(WITH_TEST_PROGRAM " COMPILE SMALL TEST PROGRAM " ON)

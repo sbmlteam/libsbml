@@ -448,6 +448,7 @@ distfiles =                         \
   configure                         \
   configure.ac                      \
   libsbml.spec.in                   \
+  cmake_uninstall.cmake.in          \
   CMakeLists.txt                    \
   common.cmake                      \
   layout-package.cmake              \
