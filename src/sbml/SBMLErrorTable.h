@@ -8278,8 +8278,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
-    "The csymbol 'time' should not be used within a the <math> element "
-    "of a <FunctionDefinition>. (References: L2V3 Section 4.3.2; " 
+    "The csymbol 'time' should not be used within the <math> element "
+    "of a <functionDefinition>. (References: L2V3 Section 4.3.2; " 
     "L2V4 Section 4.3.2)"
   },
 
