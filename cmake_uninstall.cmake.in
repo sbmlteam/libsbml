@@ -38,10 +38,40 @@ ENDIF(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
 FILE(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 STRING(REGEX REPLACE " " ";" files "${files}")
+
+# a list of directories to delete
+SET(directories)
 FOREACH(file ${files})
   get_filename_component(fileName ${file} NAME)
-  MESSAGE(STATUS "Uninstalling \"${fileName}\"")
+  get_filename_component(filePath ${file} PATH)
+  
+  foreach(pattern 
+		".*/uninstall-libsbml-pkg.sh$"
+		".*/include/sbml$"
+		".*/lib/mono/libsbmlcsP$"
+		".*/auto/libSBML$"
+		".*/site-packages/libsbml$"
+		".*/share/libsbml$"
+		".*/bindings/csharp$"
+		".*/bindings/java$"
+		".*/bindings/python$"
+		".*/bindings/r$"
+		".*/bindings/ruby$"
+		".*/bindings/perl$"
+		".*/bindings/matlab$"
+		".*/bindings/octave$"
+		".*/examples$"
+		)
+  if("${filePath}" MATCHES ${pattern})
+     list(FIND directories ${filePath} index)
+	 if (index EQUAL "-1")
+		list(APPEND directories ${filePath})
+	 endif()
+  endif()
+  endforeach(pattern)
+  
   IF(EXISTS "$ENV{DESTDIR}${file}")
+    MESSAGE(STATUS "Uninstalling \"${fileName}\"")
     EXEC_PROGRAM(
       "@CMAKE_COMMAND@" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
       OUTPUT_VARIABLE rm_out
@@ -50,7 +80,18 @@ FOREACH(file ${files})
     IF(NOT "${rm_retval}" STREQUAL 0)
       MESSAGE(FATAL_ERROR "Problem when removing \"$ENV{DESTDIR}${file}\"")
     ENDIF(NOT "${rm_retval}" STREQUAL 0)
-  ELSE(EXISTS "$ENV{DESTDIR}${file}")
-    MESSAGE(STATUS "File "$ENV{DESTDIR}${file}" does not exist.")
   ENDIF(EXISTS "$ENV{DESTDIR}${file}")
 ENDFOREACH(file)
+
+foreach(dir ${directories})
+
+  IF(EXISTS "$ENV{DESTDIR}${dir}")
+    message(STATUS "delete dir '${dir}'")
+	EXEC_PROGRAM(
+      "@CMAKE_COMMAND@" ARGS "-E remove_directory \"$ENV{DESTDIR}${dir}\""
+      OUTPUT_VARIABLE rm_out
+      RETURN_VALUE rm_retval
+      )
+  endif()
+  
+endforeach(dir)
