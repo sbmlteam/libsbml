@@ -537,7 +537,10 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
       return new SBMLIdConverter(cPtr,owner);
     else if (conName.equals("SBML Function Definition Converter"))
       return new SBMLFunctionDefinitionConverter(cPtr,owner);
-
+%}
+%include "local-downcast-converters.i"
+%pragma(java) modulecode =
+%{		
     return new SBMLConverter(cPtr,owner);
   }
   

@@ -90,6 +90,13 @@ update_ifile(
    "${DOWNCAST_EXTENSION}"
 )
 
+# - local-downcast-converters.i
+file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-converters-*.i")
+update_ifile(
+   "local-downcast-converters.i" 
+   ${CMAKE_CURRENT_BINARY_DIR} 
+   "${DOWNCAST_EXTENSION}"
+)
 
 #
 # Remove SWIG wrappers if requested

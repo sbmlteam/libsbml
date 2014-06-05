@@ -271,8 +271,11 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		else if (conName == "SBML Id Converter")
 		  return new SBMLIdConverter(cPtr,owner);
 		else if (conName == "SBML Function Definition Converter")
-		  return new SBMLFunctionDefinitionConverter(cPtr,owner);
-		
+		  return new SBMLFunctionDefinitionConverter(cPtr,owner);	
+%}
+%include "local-downcast-converters.i"
+%pragma(csharp) modulecode =
+%{			
 		return new SBMLConverter(cPtr,owner);
 	}
 	

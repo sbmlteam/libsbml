@@ -82,6 +82,8 @@ GetDowncastSwigType (SBMLConverter* con)
      else if (conName == "SBML Function Definition Converter")
        return SWIGTYPE_p_SBMLFunctionDefinitionConverter;
 
+#include "local-downcast-converters.cpp"	
+	   
 	return SWIGTYPE_p_SBMLConverter;
 }
 
