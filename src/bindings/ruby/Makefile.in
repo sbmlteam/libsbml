@@ -62,8 +62,10 @@ extra_sources =  libsbml.i \
 				 local.i \
 				 local-downcast-extension-layout.cpp \
 				 local-downcast-extension.cpp.in \
-				 local-downcast-namespaces-layout.cpp \
 				 local-downcast-namespaces.cpp.in \
+				 local-downcast-namespaces-layout.cpp \
+				 local-downcast-converters.cpp.in \
+				 local-downcast-converters-layout.cpp \
 				 local-downcast-plugins-layout.cpp \
 				 local-downcast-plugins.cpp.in \
 				 local-downcast-packages-layout.cpp \
