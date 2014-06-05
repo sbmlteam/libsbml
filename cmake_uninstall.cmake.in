@@ -39,12 +39,14 @@ FILE(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 STRING(REGEX REPLACE " " ";" files "${files}")
 
-# a list of directories to delete
+# We also should delete a number of directories that we create with 
+# make install, but only those that could not include files from others
 SET(directories)
 FOREACH(file ${files})
   get_filename_component(fileName ${file} NAME)
   get_filename_component(filePath ${file} PATH)
   
+  # these are the files created by us
   foreach(pattern 
 		".*/uninstall-libsbml-pkg.sh$"
 		".*/include/sbml$"
@@ -83,10 +85,11 @@ FOREACH(file ${files})
   ENDIF(EXISTS "$ENV{DESTDIR}${file}")
 ENDFOREACH(file)
 
+# Remove the directories found before.
 foreach(dir ${directories})
 
   IF(EXISTS "$ENV{DESTDIR}${dir}")
-    message(STATUS "delete dir '${dir}'")
+    message(STATUS "Remove directory '${dir}'")
 	EXEC_PROGRAM(
       "@CMAKE_COMMAND@" ARGS "-E remove_directory \"$ENV{DESTDIR}${dir}\""
       OUTPUT_VARIABLE rm_out
