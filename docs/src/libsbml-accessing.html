@@ -476,12 +476,14 @@ configuration of libSBML and <em><span
 class="placeholder">version</span></em> is the version of your copy of
 Python.  If you use <i>sh</i>-based shells such as Bash, put this in your
 shell's initialization file or execute it in your shell before starting the
-Python interpreter:
+Python interpreter, making sure to substitute the appropriate values for 
+<em><span class="placeholder">DIR</span></em> and 
+<em><span class="placeholder">version</span></em>:
 
 <pre class="fragment" style="font-size: 12px">
 PYSITE=<u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 PYDIST=<u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
-export PYTHONPATH=$PYSITE:$PYSITE/libsbml:$PYDIST:$PYDIST/libsbml
+export PYTHONPATH=$PYTHONPATH:$PYSITE:$PYSITE/libsbml:$PYDIST:$PYDIST/libsbml
 </pre>
 
 The above is for <i>sh</i>-based shells such as Bash; if you use
@@ -490,7 +492,7 @@ The above is for <i>sh</i>-based shells such as Bash; if you use
 <pre class="fragment" style="font-size: 12px">
 set PYSITE = <u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 set PYDIST = <u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
-setenv PYTHONPATH ${PYSITE}:${PYSITE}/libsbml:${PYDIST}:${PYDIST}/libsbml
+setenv PYTHONPATH ${PYTHONPATH}:${PYSITE}:${PYSITE}/libsbml:${PYDIST}:${PYDIST}/libsbml
 </pre>
 
 <p> Once the <code>PYTHONPATH</code> variable has been set, you should be
