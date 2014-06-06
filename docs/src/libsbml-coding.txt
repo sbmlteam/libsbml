@@ -54,12 +54,14 @@ beginning with two asterisks (@c *) characters, as in the following example:
  */ 
 @endverbatim
 Another type of Doxygen comment, used to document enumeration members, begins
-with <code>/*!&lt;</code>.  If your code documentation does @em not appear
-inside a comment block that begins with <code>/**</code> (or the more
-rarely-needed <code>/*!&lt;</code>), then it will be ignored by
-Doxygen.  This may or may not be what you want, depending on the intention
-behind the comment.
-@li Comments that begin with one asterisk (i.e., <code>/* ...</code>, or two
+with @htmlonly <code>/*!&lt;</code> @endhtmlonly.  If your code documentation 
+does @em not appear inside a comment block that begins with
+@htmlonly <code>/**</code> @endhtmlonly (or the more
+rarely-needed @htmlonly <code>/*!&lt;</code> @endhtmlonly), then it will be
+ignored by Doxygen.  This may or may not be what you want, depending on the
+intention behind the comment.
+@li Comments that begin with one asterisk (i.e.,
+@htmlonly <code>/* ...</code> @endhtmlonly, or two
 forward slashes (i.e., <code>// ...</code>) are not processed by Doxygen and
 not entered in the formatted user guide.  You can use such comments normally
 to comment the code for other developers.
@@ -67,13 +69,13 @@ to comment the code for other developers.
 a class declaration, in front of method declarations, in front of function
 declarations, and in front of data structure definitions.
 @li Doxygen reads both <code>.h</code> and <code>.cpp</code> files.  If a
-class member (i.e., a method or data member) has <code>/**</code> comment
-blocks in both the <code>.h</code> and <code>.cpp</code> files, the text is
-@em combined in the final output for that class member.  This frequently
-leads to accidentally duplicated text in the final output, and generally is a
-maintenance headache.  To avoid this, and to simplify maintenance of
-documentation, <strong>only put documentation comments in the <code>.h</code>
-files</strong>.
+class member (i.e., a method or data member) has
+@htmlonly <code>/**</code> @endhtmlonly comment blocks in both the
+<code>.h</code> and <code>.cpp</code> files, the text is @em combined in the
+final output for that class member.  This frequently leads to accidentally
+duplicated text in the final output, and generally is a maintenance headache.
+To avoid this, and to simplify maintenance of documentation, <strong>only put
+documentation comments in the <code>.h</code> files</strong>.
 @li Please write in complete sentences, with correct English grammar and
 punctuation.  @em Do @em not treat new lines as new sentences or beginnings
 of different comments.  Here is an example of what should be @em avoided:
