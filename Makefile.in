@@ -360,7 +360,8 @@ rbindings =                                           \
   src/bindings/r/local-downcast-namespaces.cpp.in     \
   src/bindings/r/local-downcast-packages-layout.cpp   \
   src/bindings/r/local-downcast-packages.cpp.in       \
-  src/bindings/r/local-downcast-packages-layout.cpp   \
+  src/bindings/r/local-downcast-converters.cpp.in     \
+  src/bindings/r/local-downcast-converters-layout.cpp \
   src/bindings/r/local-downcast-plugins-layout.cpp    \
   src/bindings/r/local-downcast-plugins.cpp.in        \
   src/bindings/r/local-downcast.cpp.in                \
