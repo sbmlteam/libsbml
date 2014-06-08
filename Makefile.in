@@ -359,9 +359,13 @@ rbindings =                                           \
   src/bindings/r/local-downcast-namespaces-layout.cpp \
   src/bindings/r/local-downcast-namespaces.cpp.in     \
   src/bindings/r/local-downcast-packages-layout.cpp   \
+  src/bindings/r/local-downcast-packages.cpp.in       \
+  src/bindings/r/local-downcast-packages-layout.cpp   \
   src/bindings/r/local-downcast-plugins-layout.cpp    \
   src/bindings/r/local-downcast-plugins.cpp.in        \
   src/bindings/r/local-downcast.cpp.in                \
+  src/bindings/r/create-r-package.cmake               \
+  src/bindings/r/rtype.swg                            \
   src/bindings/r/local-layout.i                       \
   src/bindings/r/local-packages.i.in                  \
   src/bindings/r/local.cpp                            \

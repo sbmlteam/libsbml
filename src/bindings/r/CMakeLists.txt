@@ -379,14 +379,10 @@ add_custom_command(
 	ARGS  -E copy_if_different 
 		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
 		 ${CMAKE_CURRENT_BINARY_DIR}/libSBML/R
-    COMMAND "${R_INTERPRETER}"
-    ARGS  CMD INSTALL --build 
-	      --no-libs 
-		  --no-test-load 
-		  --no-clean-on-error 
-		  --no-multiarch 
-		  libSBML
-		  -l temp		  
+  COMMAND "${CMAKE_COMMAND}"
+	ARGS -DR_INTERPRETER=\"${R_INTERPRETER}\"
+		 -P "${CMAKE_CURRENT_SOURCE_DIR}/create-r-package.cmake"
+  
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
 	DEPENDS ${SWIG_DEPENDENCIES}
     COMMENT "Create R Package (${LIBSBML_BUILD_TYPE})") 
