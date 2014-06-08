@@ -9,4 +9,4 @@ string(REPLACE "'get''get'" "'get','get'" SOURCECODE "${SOURCECODE}" )
 string(REPLACE "'get''get'" "'get','get'" SOURCECODE "${SOURCECODE}" )
 
 file(WRITE "${FILENAME}" "${SOURCECODE}")
-message ("DONE")
+message (STATUS "Patched libSBML.R")
