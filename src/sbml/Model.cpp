@@ -4808,6 +4808,7 @@ void Model::checkSpeciesReference(SpeciesReference* sr,
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+
 /**
   * Populates the ListFormulaDataUnits with the units of each 
   * set of math encountered in the model
@@ -4815,15 +4816,7 @@ void Model::checkSpeciesReference(SpeciesReference* sr,
 void
 Model::populateListFormulaUnitsData()
 {
-  /* remove list if it already exists */
-  if (mFormulaUnitsData != NULL)
-  {  
-    unsigned int size = mFormulaUnitsData->getSize();
-    while (size--) 
-      delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
-    delete mFormulaUnitsData;
-    mFormulaUnitsData = NULL;
-  }
+  removeListFormulaUnitsData();
 
   char newId[12];
   std::string eaId;
@@ -4834,622 +4827,14 @@ Model::populateListFormulaUnitsData()
   FormulaUnitsData *fud;
   UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
 
-/* need to put in default units or global units assigned */
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("substance");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    // unless substance has been overridden
-    if (getUnitDefinition("substance") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_MOLE);
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string substanceUnits = getSubstanceUnits();
-    if (UnitKind_isValidUnitKindString(substanceUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(substanceUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(substanceUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(substanceUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(substanceUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
+  createSubstanceUnitsData();
+  createVolumeUnitsData();
+  createAreaUnitsData();
+  createLengthUnitsData();
+  createTimeUnitsData();
+  createExtentUnitsData();
+  createSubstancePerTimeUnitsData();
 
-/* volume */
-  ud = new UnitDefinition(getSBMLNamespaces());
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("volume");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    // unless volume has been overridden
-    if (getUnitDefinition("volume") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("volume")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("volume")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_LITRE);
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string volumeUnits = getVolumeUnits();
-    if (UnitKind_isValidUnitKindString(volumeUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(volumeUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(volumeUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(volumeUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(volumeUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-
-/* area */
-  ud = new UnitDefinition(getSBMLNamespaces());
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("area");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    // unless area has been overridden
-    if (getUnitDefinition("area") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("area")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("area")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_METRE);
-      u->initDefaults();
-      u->setExponent(2);
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string areaUnits = getAreaUnits();
-    if (UnitKind_isValidUnitKindString(areaUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(areaUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(areaUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(areaUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(areaUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-
-/* length */
-  ud = new UnitDefinition(getSBMLNamespaces());
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("length");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    // unless length has been overridden
-    if (getUnitDefinition("length") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("length")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("length")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_METRE);
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string lengthUnits = getLengthUnits();
-    if (UnitKind_isValidUnitKindString(lengthUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(lengthUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(lengthUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(lengthUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(lengthUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-
-/* time */
-  ud = new UnitDefinition(getSBMLNamespaces());
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("time");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    // unless time has been overridden
-    if (getUnitDefinition("time") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_SECOND);
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string timeUnits = getTimeUnits();
-    if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(timeUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(timeUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-
-/* extent */
-  ud = new UnitDefinition(getSBMLNamespaces());
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("extent");
-  fud->setComponentTypecode(SBML_MODEL);
-  if (getLevel() < 3)
-  {
-    fud->setContainsParametersWithUndeclaredUnits(true);
-    fud->setCanIgnoreUndeclaredUnits(false);
-    //// unless extent has been overridden
-    //if (getUnitDefinition("extent") != NULL)
-    //{
-    //  for (unsigned int n = 0; n < getUnitDefinition("extent")->getNumUnits(); n++)
-    //  {
-    //    // need to prevent level/version mismatches
-    //    // ud will have default level and veersion
-    //    Unit* uFromModel = getUnitDefinition("extent")->getUnit(n);
-    //    if (uFromModel  != NULL)
-    //    {
-    //      Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-    //      u->setKind(uFromModel->getKind());
-    //      u->setExponent(uFromModel->getExponent());
-    //      u->setScale(uFromModel->getScale());
-    //      u->setMultiplier(uFromModel->getMultiplier());
-    //      ud->addUnit(u);
-    //      delete u;
-    //    }
-    //  }
-    //}
-    //else
-    //{
-    //  Unit* u = new Unit(getSBMLNamespaces());
-    //  u->setKind(UNIT_KIND_LITRE);
-    //  u->initDefaults();
-    //  ud->addUnit(u);
-    //  delete u;
-    //}
-  }
-  else
-  {
-    /* in L3 the units will be possibly not declared at all !
-     */
-    std::string extentUnits = getExtentUnits();
-    if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(extentUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(extentUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-
-  /* put in the dafult units of substance per time */
-  /* but not in L3 */
-  fud = createFormulaUnitsData();
-  fud->setUnitReferenceId("subs_per_time");
-  fud->setComponentTypecode(SBML_UNKNOWN);
-  ud = new UnitDefinition(getSBMLNamespaces());
-
-  if (getLevel() < 3)
-  {
-    // unless substance has been overridden
-    if (getUnitDefinition("substance") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_MOLE);
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-
-    if (getUnitDefinition("time") != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
-      {
-        Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          u->setExponent(u->getExponent() * -1);
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UNIT_KIND_SECOND);
-      u->initDefaults();
-      u->setExponent(-1);
-      ud->addUnit(u);
-      delete u;
-    }
-  }
-  else
-  {
-    /* in L3 the units will be extent per time
-     * or possibly not declared at all !
-     */
-    std::string extentUnits = getExtentUnits();
-    if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(extentUnits.c_str()));
-      u->initDefaults();
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(extentUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent());
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-
-    std::string timeUnits = getTimeUnits();
-    if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
-                                       getLevel(), getVersion()))
-    {
-      Unit* u = new Unit(getSBMLNamespaces());
-      u->setKind(UnitKind_forName(timeUnits.c_str()));
-      u->initDefaults();
-      u->setExponent(-1);
-      ud->addUnit(u);
-      delete u;
-    }
-    else if (getUnitDefinition(timeUnits) != NULL)
-    {
-      for (unsigned int n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
-      {
-        // need to prevent level/version mismatches
-        // ud will have default level and veersion
-        Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
-        if (uFromModel  != NULL)
-        {
-          Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-          u->setKind(uFromModel->getKind());
-          u->setExponent(uFromModel->getExponent() * -1);
-          u->setScale(uFromModel->getScale());
-          u->setMultiplier(uFromModel->getMultiplier());
-          ud->addUnit(u);
-          delete u;
-        }
-      }
-    }
-    else
-    {
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-  }
-  fud->setUnitDefinition(ud);
-
-  /* get unit data from each compartment 
-   * this is necessary for validation
-   */
   for (unsigned int n = 0; n < getNumCompartments(); n++)
   {
     Compartment* c = getCompartment(n);
@@ -5767,6 +5152,734 @@ Model::populateListFormulaUnitsData()
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::removeListFormulaUnitsData()
+{
+  if (mFormulaUnitsData != NULL)
+  {  
+    unsigned int size = mFormulaUnitsData->getSize();
+    while (size--) 
+      delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+    delete mFormulaUnitsData;
+    mFormulaUnitsData = NULL;
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createSubstanceUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("substance");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    ud = getSubstanceUD();
+  }
+  else
+  {
+    ud = getL3SubstanceUD();
+
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getSubstanceUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  // units will be mole unless substance has been overridden
+  if (getUnitDefinition("substance") != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+  else
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_MOLE);
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3SubstanceUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string substanceUnits = getSubstanceUnits();
+  if (UnitKind_isValidUnitKindString(substanceUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(substanceUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(substanceUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(substanceUnits)->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition(substanceUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createTimeUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("time");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    ud = getTimeUD();
+  }
+  else
+  {
+    ud = getL3TimeUD();
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getTimeUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+  
+  // units are second unless time has been overridden
+  if (getUnitDefinition("time") != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+  else
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_SECOND);
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3TimeUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string timeUnits = getTimeUnits();
+  if (UnitKind_isValidUnitKindString(timeUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(timeUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(timeUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createVolumeUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("volume");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    ud = getVolumeUD();
+  }
+  else
+  {
+    ud = getL3VolumeUD();
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+  
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getVolumeUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  // units will be litre unless volume has been overridden
+  if (getUnitDefinition("volume") != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition("volume")->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition("volume")->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+  else
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_LITRE);
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3VolumeUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string volumeUnits = getVolumeUnits();
+  if (UnitKind_isValidUnitKindString(volumeUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(volumeUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(volumeUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(volumeUnits)->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition(volumeUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createAreaUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("area");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    ud = getAreaUD();
+  }
+  else
+  {
+    ud = getL3AreaUD();
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getAreaUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  // units will be metre squared unless area has been overridden
+  if (getUnitDefinition("area") != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition("area")->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition("area")->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+  else
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_METRE);
+    u->initDefaults();
+    u->setExponent(2);
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3AreaUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string areaUnits = getAreaUnits();
+  if (UnitKind_isValidUnitKindString(areaUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(areaUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(areaUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(areaUnits)->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition(areaUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createLengthUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("length");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    ud = getLengthUD();
+  }
+  else
+  {
+    ud = getL3LengthUD();
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getLengthUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  // units will be metre unless length has been overridden
+  if (getUnitDefinition("length") != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition("length")->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition("length")->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+  else
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UNIT_KIND_METRE);
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3LengthUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string lengthUnits = getLengthUnits();
+  if (UnitKind_isValidUnitKindString(lengthUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(lengthUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(lengthUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(lengthUnits)->getNumUnits(); n++)
+    {
+      Unit* uFromModel = getUnitDefinition(lengthUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        ud->addUnit(uFromModel->clone());
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createExtentUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("extent");
+  fud->setComponentTypecode(SBML_MODEL);
+  
+  if (getLevel() < 3)
+  {
+    // create a unitDefinition with no children
+    ud = new UnitDefinition(getSBMLNamespaces());
+    fud->setContainsParametersWithUndeclaredUnits(true);
+    fud->setCanIgnoreUndeclaredUnits(false);
+
+  }
+  else
+  {
+    ud = getL3ExtentUD();
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getExtentUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3ExtentUD()
+{
+  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
+
+  /* in L3 the units will be possibly not declared at all !
+   */
+  std::string extentUnits = getExtentUnits();
+  if (UnitKind_isValidUnitKindString(extentUnits.c_str(), 
+                                     getLevel(), getVersion()))
+  {
+    Unit* u = new Unit(getSBMLNamespaces());
+    u->setKind(UnitKind_forName(extentUnits.c_str()));
+    u->initDefaults();
+    ud->addUnit(u);
+    delete u;
+  }
+  else if (getUnitDefinition(extentUnits) != NULL)
+  {
+    for (unsigned int n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
+    {
+      // need to prevent level/version mismatches
+      // ud will have default level and veersion
+      Unit* uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
+      if (uFromModel  != NULL)
+      {
+        Unit* u = new Unit(uFromModel->getSBMLNamespaces());
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent());
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+        ud->addUnit(u);
+        delete u;
+      }
+    }
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createSubstancePerTimeUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  fud->setUnitReferenceId("subs_per_time");
+  fud->setComponentTypecode(SBML_UNKNOWN);
+  
+  if (getLevel() < 3)
+  {
+    ud = getSubstancePerTimeUD();
+  }
+  else
+  {
+    //need to pass the formulaUnitsData object
+    // as we need to log whether extent or time has undeclared
+    // one might be 
+    ud = getL3SubstancePerTimeUD(fud);
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getSubstancePerTimeUD()
+{
+  UnitDefinition *ud = getFormulaUnitsData("substance", SBML_MODEL)
+                                        ->getUnitDefinition()->clone();
+
+  UnitDefinition * temp = getFormulaUnitsData("time", SBML_MODEL)
+                                                      ->getUnitDefinition();
+
+  for (unsigned int n = 0; n < temp->getNumUnits(); n++)
+  {
+    Unit * u = temp->getUnit(n)->clone();
+    u->setExponent(u->getExponent() * -1);
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+UnitDefinition *
+Model::getL3SubstancePerTimeUD(FormulaUnitsData * fud)
+{
+  FormulaUnitsData * tempFUD = getFormulaUnitsData("extent", SBML_MODEL);
+  
+  // extent is undeclared
+  if (tempFUD->getContainsUndeclaredUnits() == true)
+  {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+  }
+
+
+  UnitDefinition *ud = tempFUD->getUnitDefinition()->clone();
+
+  tempFUD = getFormulaUnitsData("time", SBML_MODEL);
+  
+  // time is undeclared
+  if (tempFUD->getContainsUndeclaredUnits() == true)
+  {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+  }
+
+  UnitDefinition * temp = tempFUD->getUnitDefinition();
+
+  for (unsigned int n = 0; n < temp->getNumUnits(); n++)
+  {
+    Unit * u = temp->getUnit(n)->clone();
+    u->setExponent(u->getExponent() * -1);
+    ud->addUnit(u);
+    delete u;
+  }
+
+  return ud;
+}
+
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /*
