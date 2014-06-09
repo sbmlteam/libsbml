@@ -2168,7 +2168,7 @@ START_TEST (test_SBML_parseL3Formula_lambda4)
   c = ASTNode_getRightChild(r);
 
   fail_unless( ASTNode_getType(c)        == AST_REAL, NULL );
-  //fail_unless( util_isNaN(ASTNode_getReal(c)) ==  1, NULL );
+  fail_unless( util_isNaN(ASTNode_getReal(c)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(c) ==  0, NULL );
 
 

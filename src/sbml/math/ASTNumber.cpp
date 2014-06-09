@@ -1724,7 +1724,7 @@ ASTNumber::setValue(double value, long value1)
 int 
 ASTNumber::setValue(double value)
 {
-  if (mExponential == NULL && mReal == NULL)
+  if (mExponential == NULL && mReal == NULL && !(isnan(value) > 0 || util_isInf(value) != 0))
   {
     std::string units = ASTNumber::getUnits();
     reset();
@@ -1733,7 +1733,7 @@ ASTNumber::setValue(double value)
     setType(AST_REAL);
     mReal->ASTBase::syncMembersFrom(this);
   }
-  else if (isnan(value) > 0 || util_isInf(value) != 0)
+  else if ((isnan(value) > 0 || util_isInf(value) != 0) && mConstant == NULL) 
   {
     reset();
     mConstant = new ASTConstantNumberNode(AST_REAL);
@@ -2645,7 +2645,13 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
     {
       mReal->setReal(rhs->getValue());
     }
-    this->ASTBase::syncMembersFrom(mReal);
+    
+    if (rhs->isSetConstantValue())
+    {
+      setValue(rhs->getValue());
+    }
+    else
+      this->ASTBase::syncMembersFrom(mReal);
   }
   else if (mExponential != NULL)
   {
