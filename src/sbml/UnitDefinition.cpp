@@ -981,9 +981,11 @@ extractMultiplier(UnitDefinition * ud)
   unsigned int i = 0;
   while(i < ud->getNumUnits())
   {
+    Unit::removeScale(ud->getUnit(i));
     multiplier = multiplier * pow(ud->getUnit(i)->getMultiplier(), 
                                   ud->getUnit(i)->getExponentAsDouble());
     ud->getUnit(i)->setMultiplier(1.0);
+    ud->getUnit(i)->setScale(0);
     i++;
   }
   return multiplier;
