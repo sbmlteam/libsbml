@@ -937,9 +937,10 @@ END_TEST
 START_TEST (test_SBML_parseL3Formula_modulo)
 {
   ASTNode_t *r = SBML_parseL3Formula("x % y");
+  fail_unless(r != NULL);
   //Instead of trying to go through everything individually, we'll just test the round-tripping:
   fail_unless( !strcmp(SBML_formulaToString(r), "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
-ASTNode_free(r);
+  ASTNode_free(r);
 }
 END_TEST
 
@@ -2149,6 +2150,33 @@ START_TEST (test_SBML_parseL3Formula_lambda3)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_lambda4)
+{
+  ASTNode_t *r = SBML_parseL3Formula("lambda(x,NaN)");
+  ASTNode_t *c;
+
+
+  fail_unless( ASTNode_getType(r) == AST_LAMBDA , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2     , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( ASTNode_getType       (c) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( ASTNode_getType(c)        == AST_REAL, NULL );
+  fail_unless( util_isNaN(ASTNode_getReal(c)) ==  1, NULL );
+  fail_unless( ASTNode_getNumChildren(c) ==  0, NULL );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseL3Formula_lambdaerr)
 {
   ASTNode_t *r = SBML_parseL3Formula("lambda()");
@@ -2329,6 +2357,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda1);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda2);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambda3);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_lambda4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_lambdaerr);
   tcase_add_test( tcase, test_SBML_parseL3Formula_sqrterr);
   tcase_add_test( tcase, test_SBML_parseL3Formula_precedence1);
