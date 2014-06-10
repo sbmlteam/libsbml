@@ -4595,7 +4595,7 @@ Model::getElementPosition () const
 
 
 /** @cond doxygenLibsbmlInternal */
-void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
+void Model::populatePerTimeUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
 {
   if (ud != NULL)
   {
@@ -4712,9 +4712,10 @@ void Model::checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
 
 /** @cond doxygenLibsbmlInternal */
 void Model::checkSpeciesReference(SpeciesReference* sr,
-                                  UnitFormulaFormatter* unitFormatter,
-                                  FormulaUnitsData* fud, UnitDefinition* ud)
+                                  UnitFormulaFormatter* unitFormatter)
 {
+  UnitDefinition * ud;
+  FormulaUnitsData * fud;
   if (sr->isSetStoichiometryMath())
   {
     fud = createFormulaUnitsData();
@@ -4827,6 +4828,7 @@ Model::populateListFormulaUnitsData()
   FormulaUnitsData *fud;
   UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
 
+  /* create the model wide units data */
   createSubstanceUnitsData();
   createVolumeUnitsData();
   createAreaUnitsData();
@@ -4835,101 +4837,13 @@ Model::populateListFormulaUnitsData()
   createExtentUnitsData();
   createSubstancePerTimeUnitsData();
 
-  for (unsigned int n = 0; n < getNumCompartments(); n++)
-  {
-    Compartment* c = getCompartment(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(c->getId());
-    fud->setComponentTypecode(SBML_COMPARTMENT);
-    ud = unitFormatter->getUnitDefinitionFromCompartment(c);
-    fud->setUnitDefinition(ud);
-    checkUnitDefinition(ud, fud);
-
-  }
-
-  /* get unit data from each species 
-   * this is necessary for validation
-   */
-  for (unsigned int n=0; n < getNumSpecies(); n++)
-  {
-    Species* s = getSpecies(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(s->getId());
-    fud->setComponentTypecode(SBML_SPECIES);
-    /* if the species has not been given a compartment
-     * this will blow up although it is caught by another rule
-     */
-    if (getCompartment(s->getCompartment()) == NULL)
-    {
-      ud = NULL;
-    }
-    else
-    {
-      ud = unitFormatter->getUnitDefinitionFromSpecies(s);
-    }
-
-    fud->setUnitDefinition(ud);
-    checkUnitDefinition(ud, fud);
-  }
-
-  
-  /* for L3 we need additional information relating to 
-   * extent and conversion factors
-   */
+  /* create the units data for 'variables' */
+  createCompartmentUnitsData();
+  createSpeciesUnitsData();
+  createParameterUnitsData();
   if (getLevel() > 2)
   {
-    for (unsigned int n=0; n < getNumSpecies(); n++)
-    {
-      Species* s = getSpecies(n);
-      fud = createFormulaUnitsData();
-      fud->setUnitReferenceId(s->getId()+"subs");
-      fud->setComponentTypecode(SBML_SPECIES);
-      ud = unitFormatter->getSpeciesSubstanceUnitDefinition(s);
-      
-      if (ud != NULL)
-      {
-        fud->setSpeciesSubstanceUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-    }
-    for (unsigned int n=0; n < getNumSpecies(); n++)
-    {
-      Species* s = getSpecies(n);
-      fud = createFormulaUnitsData();
-      fud->setUnitReferenceId(s->getId()+"extent");
-      fud->setComponentTypecode(SBML_SPECIES);
-      ud = unitFormatter->getSpeciesExtentUnitDefinition(s);
-      
-      if (ud != NULL)
-      {
-        fud->setSpeciesExtentUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-    }
-
-  }
-  /* get unit data from each parameter    */
-  for (unsigned int n=0; n < getNumParameters(); n++)
-  {
-    Parameter* p = getParameter(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(p->getId());
-    fud->setComponentTypecode(SBML_PARAMETER);
-    unitFormatter->resetFlags();
-    ud = unitFormatter->getUnitDefinitionFromParameter(p);
-    fud->setUnitDefinition(ud);
-    fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-    fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-
-    checkUnitDefinition(ud, fud);
+    createL3SpeciesUnitsData();
   }
 
    /* get units returned by the formula given for each initial assignment
@@ -5039,13 +4953,13 @@ Model::populateListFormulaUnitsData()
     for (unsigned int j = 0; j < react->getNumReactants(); j++)
     {
       SpeciesReference* sr = react->getReactant(j);
-      checkSpeciesReference(sr, unitFormatter, fud, ud);
+      checkSpeciesReference(sr, unitFormatter);
     }
 
     for (unsigned int j = 0; j < react->getNumProducts(); j++)
     {
       SpeciesReference* sr = react->getProduct(j);
-      checkSpeciesReference(sr, unitFormatter, fud, ud);
+      checkSpeciesReference(sr, unitFormatter);
     }
   }
 
@@ -5880,6 +5794,182 @@ Model::getL3SubstancePerTimeUD(FormulaUnitsData * fud)
 }
 
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createCompartmentUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
+  
+  for (unsigned int n = 0; n < getNumCompartments(); n++)
+  {
+    Compartment* c = getCompartment(n);
+    
+    fud = createFormulaUnitsData();    
+    fud->setUnitReferenceId(c->getId());
+    fud->setComponentTypecode(SBML_COMPARTMENT);
+    
+    ud = unitFormatter->getUnitDefinitionFromCompartment(c);
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+    
+    fud->setUnitDefinition(ud);
+    populatePerTimeUnitDefinition(ud, fud);
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createSpeciesUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
+
+  for (unsigned int n=0; n < getNumSpecies(); n++)
+  {
+    Species* s = getSpecies(n);
+    
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(s->getId());
+    fud->setComponentTypecode(SBML_SPECIES);
+    
+    /* TO DO - sort out getUDFromSpecies
+     */
+    if (getCompartment(s->getCompartment()) == NULL)
+    {
+      ud = new UnitDefinition(getSBMLNamespaces());
+    }
+    else
+    {
+      ud = unitFormatter->getUnitDefinitionFromSpecies(s);
+    }
+
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+
+    fud->setUnitDefinition(ud);
+    populatePerTimeUnitDefinition(ud, fud);
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createL3SpeciesUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
+  
+  for (unsigned int n=0; n < getNumSpecies(); n++)
+  {
+    Species* s = getSpecies(n);
+
+    /* create the substance unit */
+    unitFormatter->resetFlags();
+
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(s->getId()+"subs");
+    fud->setComponentTypecode(SBML_SPECIES);
+    
+    ud = unitFormatter->getSpeciesSubstanceUnitDefinition(s);
+   
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+    else
+    {
+      fud->setContainsParametersWithUndeclaredUnits
+                              (unitFormatter->getContainsUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                (unitFormatter->canIgnoreUndeclaredUnits());
+    }
+
+    fud->setSpeciesSubstanceUnitDefinition(ud);
+
+    /* create the extent unit */
+    unitFormatter->resetFlags();
+    
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(s->getId()+"extent");
+    fud->setComponentTypecode(SBML_SPECIES);
+    
+    ud = unitFormatter->getSpeciesExtentUnitDefinition(s);
+    
+    if (ud->getNumUnits() == 0)
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+    else
+    {
+      fud->setContainsParametersWithUndeclaredUnits
+                              (unitFormatter->getContainsUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                (unitFormatter->canIgnoreUndeclaredUnits());
+    }
+      
+    fud->setSpeciesExtentUnitDefinition(ud);
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createParameterUnitsData()
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
+  
+  for (unsigned int n=0; n < getNumParameters(); n++)
+  {
+    Parameter* p = getParameter(n);
+    
+    unitFormatter->resetFlags();
+
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(p->getId());
+    fud->setComponentTypecode(SBML_PARAMETER);
+    
+    unitFormatter->resetFlags();
+    ud = unitFormatter->getUnitDefinitionFromParameter(p);
+    
+    fud->setUnitDefinition(ud);
+    fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
+    fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
+
+    populatePerTimeUnitDefinition(ud, fud);
+  }
+}
+
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 /*

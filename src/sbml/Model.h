@@ -3826,14 +3826,13 @@ protected:
   /**
    * Internal function used in populateListFormulaUnitsData
    */
-  void checkUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud);
+  void populatePerTimeUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud);
 
   /**
    * Internal function used in populateListFormulaUnitsData
    */
   void checkSpeciesReference(SpeciesReference* sr,
-                             UnitFormulaFormatter* unitFormatter,
-                             FormulaUnitsData* fud, UnitDefinition* ud);
+                             UnitFormulaFormatter* unitFormatter);
 
   /*
    * Clears the list of FormulaUnitsData object in this Model.
@@ -3909,6 +3908,20 @@ protected:
   UnitDefinition* getL3SubstancePerTimeUD(FormulaUnitsData* fud);
 
   UnitDefinition* getSubstancePerTimeUD();
+
+  /*
+   * creates the units data for 'variables'
+   */
+
+  void createCompartmentUnitsData();
+
+  void createSpeciesUnitsData();
+
+  void createL3SpeciesUnitsData();
+
+  void createParameterUnitsData();
+
+
   /** @endcond */
 
 };
