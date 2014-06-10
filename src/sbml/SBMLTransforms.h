@@ -164,6 +164,10 @@ protected:
   static bool expandInitialAssignment(Species * s, 
                                           const InitialAssignment *ia);
 
+  static void recurseReplaceFD(ASTNode * math, const FunctionDefinition * fd,
+                        const IdList* idsToExclude);
+
+
   static IdValueMap mValues;
 
 };

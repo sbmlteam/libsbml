@@ -315,9 +315,21 @@ START_TEST (test_conversion_inlineFD_bug)
   fail_unless(doc->getModel()->getReaction(0)->getKineticLaw()->getMath() != NULL);
 
   // all seems good ... write it 
-  
-  std::string math = writeMathMLToString(doc->getModel()->getReaction(0)->getKineticLaw()->getMath());
+  const ASTNode * node = doc->getModel()->getReaction(0)->getKineticLaw()->getMath();
+  fail_unless(node->ASTBase::isChild() == false);
+  std::string math = writeMathMLToString(node);
   ASTNode* test = readMathMLFromString(math.c_str());
+  fail_unless(test != NULL);
+
+  // additional test where the node being converted is the top-level
+  fail_unless(doc->getModel()->getNumRules() == 1);
+  fail_unless(doc->getModel()->getRule(0)->isSetMath());
+  fail_unless(doc->getModel()->getRule(0)->getMath() != NULL);
+
+  node = doc->getModel()->getRule(0)->getMath();
+  fail_unless(node->ASTBase::isChild() == false);
+  math = writeMathMLToString(node);
+  test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
 
   delete test;

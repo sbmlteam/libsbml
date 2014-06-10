@@ -93,6 +93,18 @@ SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd, const Id
   if ((node == NULL) || (fd == NULL))
     return;
   
+  recurseReplaceFD(node, fd, idsToExclude);
+
+  node->setIsChildFlag(false);
+}
+
+
+void
+SBMLTransforms::recurseReplaceFD(ASTNode * node, const FunctionDefinition *fd, const IdList* idsToExclude /*= NULL*/)
+{
+  if ((node == NULL) || (fd == NULL))
+    return;
+
   if (node->isFunction()
     && node->getName() != NULL
       && node->getName() == fd->getId()
@@ -101,17 +113,19 @@ SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd, const Id
    replaceBvars(node, fd);
    for (unsigned int j = 0; j < node->getNumChildren(); j++)
    {
-     replaceFD(node->getChild(j), fd, idsToExclude);
+     recurseReplaceFD(node->getChild(j), fd, idsToExclude);
    }
   }
   else
   {
     for (unsigned int i = 0; i < node->getNumChildren(); i++)
     {
-      replaceFD(node->getChild(i), fd, idsToExclude);
+      recurseReplaceFD(node->getChild(i), fd, idsToExclude);
     }
   }
 }
+
+
 void
 SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
 {
