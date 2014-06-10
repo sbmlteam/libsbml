@@ -3327,82 +3327,6 @@ public:
   const List* getListFormulaUnitsData () const;
 
   
-  /*
-   * Clears the list of FormulaUnitsData object in this Model.
-   */
-  void removeListFormulaUnitsData();
-
-  
-  /*
-   * creates the substance units data item
-   */
-  void createSubstanceUnitsData();
-
-  UnitDefinition* getL3SubstanceUD();
-
-  UnitDefinition* getSubstanceUD();
-
-  
-  /*
-   * creates the time units data item
-   */
-  void createTimeUnitsData();
-
-  UnitDefinition* getL3TimeUD();
-
-  UnitDefinition* getTimeUD();
-
-  
-  /*
-   * creates the volume units data item
-   */
-  void createVolumeUnitsData();
-
-  UnitDefinition* getL3VolumeUD();
-
-  UnitDefinition* getVolumeUD();
-
-  
-  /*
-   * creates the area units data item
-   */
-  void createAreaUnitsData();
-
-  UnitDefinition* getL3AreaUD();
-
-  UnitDefinition* getAreaUD();
-
-  
-  /*
-   * creates the length units data item
-   */
-  void createLengthUnitsData();
-
-  UnitDefinition* getL3LengthUD();
-
-  UnitDefinition* getLengthUD();
-
-  
-  /*
-   * creates the extent units data item
-   */
-  void createExtentUnitsData();
-
-  UnitDefinition* getL3ExtentUD();
-
-  UnitDefinition* getExtentUD();
-
-  
-  /*
-   * creates the substance_per_time units data item
-   */
-  void createSubstancePerTimeUnitsData();
-
-  UnitDefinition* getL3SubstancePerTimeUD(FormulaUnitsData* fud);
-
-  UnitDefinition* getSubstancePerTimeUD();
-
-  
   /** @endcond */
 
 
@@ -3911,6 +3835,80 @@ protected:
                              UnitFormulaFormatter* unitFormatter,
                              FormulaUnitsData* fud, UnitDefinition* ud);
 
+  /*
+   * Clears the list of FormulaUnitsData object in this Model.
+   */
+  void removeListFormulaUnitsData();
+
+  
+  /*
+   * creates the substance units data item
+   */
+  void createSubstanceUnitsData();
+
+  UnitDefinition* getL3SubstanceUD();
+
+  UnitDefinition* getSubstanceUD();
+
+  
+  /*
+   * creates the time units data item
+   */
+  void createTimeUnitsData();
+
+  UnitDefinition* getL3TimeUD();
+
+  UnitDefinition* getTimeUD();
+
+  
+  /*
+   * creates the volume units data item
+   */
+  void createVolumeUnitsData();
+
+  UnitDefinition* getL3VolumeUD();
+
+  UnitDefinition* getVolumeUD();
+
+  
+  /*
+   * creates the area units data item
+   */
+  void createAreaUnitsData();
+
+  UnitDefinition* getL3AreaUD();
+
+  UnitDefinition* getAreaUD();
+
+  
+  /*
+   * creates the length units data item
+   */
+  void createLengthUnitsData();
+
+  UnitDefinition* getL3LengthUD();
+
+  UnitDefinition* getLengthUD();
+
+  
+  /*
+   * creates the extent units data item
+   */
+  void createExtentUnitsData();
+
+  UnitDefinition* getL3ExtentUD();
+
+  UnitDefinition* getExtentUD();
+
+  
+  /*
+   * creates the substance_per_time units data item
+   */
+  void createSubstancePerTimeUnitsData();
+
+  UnitDefinition* getL3SubstancePerTimeUD(FormulaUnitsData* fud);
+
+  UnitDefinition* getSubstancePerTimeUD();
   /** @endcond */
 
 };
