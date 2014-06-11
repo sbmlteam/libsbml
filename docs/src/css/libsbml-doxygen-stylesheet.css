@@ -1236,7 +1236,11 @@ only screen and (min-device-pixel-ratio: 2) {
     content: "Developer's guide for version ";
 }
 
-.navpath li.footer a {
+li.footer {
+    margin-top: 0;
+}
+
+li.footer a {
     font-weight: 700;
 }
 
