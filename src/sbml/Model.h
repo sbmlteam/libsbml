@@ -3826,12 +3826,12 @@ protected:
   /**
    * Internal function used in populateListFormulaUnitsData
    */
-  void populatePerTimeUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud);
+  void populatePerTimeUnitDefinition(FormulaUnitsData *fud);
 
   /**
    * Internal function used in populateListFormulaUnitsData
    */
-  void checkSpeciesReference(SpeciesReference* sr,
+  void createSpeciesReferenceUnitsData(SpeciesReference* sr,
                              UnitFormulaFormatter* unitFormatter);
 
   /*
@@ -3897,9 +3897,7 @@ protected:
 
   UnitDefinition* getL3ExtentUD();
 
-  UnitDefinition* getExtentUD();
 
-  
   /*
    * creates the substance_per_time units data item
    */
@@ -3920,6 +3918,31 @@ protected:
   void createL3SpeciesUnitsData();
 
   void createParameterUnitsData();
+
+
+  /* create units data for objects with math */
+
+  void createUnitsDataFromMath(UnitFormulaFormatter * unitFormatter,
+                       FormulaUnitsData * fud, const ASTNode * math);
+
+  void createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter);
+
+  void createRuleUnitsData(UnitFormulaFormatter * unitFormatter);
+
+  void createReactionUnitsData(UnitFormulaFormatter * unitFormatter);
+
+  void createEventUnitsData(UnitFormulaFormatter * unitFormatter);
+
+  void createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e, 
+                            const std::string& eventId);
+
+  void createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 
+                               Priority * p, const std::string& eventId);
+
+  void createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter, 
+                            EventAssignment * ea, const std::string& eventId);
+
+
 
 
   /** @endcond */

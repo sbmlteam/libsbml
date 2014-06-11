@@ -4595,215 +4595,64 @@ Model::getElementPosition () const
 
 
 /** @cond doxygenLibsbmlInternal */
-void Model::populatePerTimeUnitDefinition(UnitDefinition* ud, FormulaUnitsData *fud)
+void Model::populatePerTimeUnitDefinition(FormulaUnitsData *fud)
 {
-  if (ud != NULL)
+  FormulaUnitsData *tempFUD = getFormulaUnitsData("time", SBML_MODEL);
+  
+  // if time is undeclared so we do not set the perTime unit
+  if (tempFUD->getContainsUndeclaredUnits() == false)
   {
-    /* in L3 this will be different */
-    if (getLevel() < 3)
+    UnitDefinition * temp = tempFUD->getUnitDefinition();
+    UnitDefinition *existingUD = fud->getUnitDefinition()->clone();
+
+    for (unsigned int n = 0; n < temp->getNumUnits(); n++)
     {
-      ud = new UnitDefinition(getSBMLNamespaces());
-      for (unsigned int j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-      // unless time has been overridden
-      if (getUnitDefinition("time") != NULL)
-      {
-        for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
-        {
-          // need to prevent level/version mismatches
-          // ud will have default level and veersion
-          Unit* uFromModel = getUnitDefinition("time")->getUnit(ii);
-          if (uFromModel  != NULL)
-          {
-            Unit* u = new Unit(uFromModel->getSBMLNamespaces());
-            u->setKind(uFromModel->getKind());
-            u->setExponent(-1 * uFromModel->getExponent());
-            u->setScale(uFromModel->getScale());
-            u->setMultiplier(uFromModel->getMultiplier());
-            ud->addUnit(u);
-            delete u;
-          }
-        }
-      }
-      else
-      {
-        Unit* u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_SECOND);
-        u->initDefaults();
-        u->setExponent(-1);
-        ud->addUnit(u);
-        delete u;
-      }
-      UnitDefinition::simplify(ud);
+      Unit * u = temp->getUnit(n)->clone();
+      u->setExponent(u->getExponent() * -1);
+      existingUD->addUnit(u);
+      delete u;
     }
-    else
-    {
-      /* in L3 there are only defined time units IF the model
-      * has the timeUnits attribute set
-      */
-      if (!isSetTimeUnits())
-      {
-        ud = new UnitDefinition(getSBMLNamespaces());
-      }
-      else
-      {
-        std::string units = getTimeUnits();
-        UnitDefinition *tempUD = new UnitDefinition(getSBMLNamespaces());
 
-        /* either unit name or unitDefinition id */
-        if (UnitKind_isValidUnitKindString(units.c_str(), 
-          getLevel(), getVersion()))
-        {
-          Unit* u = new Unit(getSBMLNamespaces());
-          u->setKind(UnitKind_forName(units.c_str()));
-          u->initDefaults();
-          u->setExponent(-1);
+    UnitDefinition::simplify(existingUD);
 
-          tempUD->addUnit(u);
-          delete u;
-        }
-        else
-        {
-          for (unsigned int j = 0; j < getNumUnitDefinitions(); j++)
-          {
-            if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
-            {           
-              for (unsigned int pp = 0; 
-                pp < getUnitDefinition(j)->getNumUnits(); pp++)
-              {
-                Unit* u = new Unit(getSBMLNamespaces());
-                u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
-                u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
-                  ->getMultiplier());
-                u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
-                u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
-                  ->getExponent()));
-
-                tempUD->addUnit(u);
-
-                delete u;
-              }
-            }
-          }
-        }
-
-
-        ud = new UnitDefinition(getSBMLNamespaces());
-
-        for (unsigned int j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
-        {
-          ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        }
-
-        for (unsigned int j = 0; j < tempUD->getNumUnits(); j++)
-        {
-          ud->addUnit(tempUD->getUnit(j));
-        }
-
-        UnitDefinition::simplify(ud);
-        delete tempUD;
-      }
-
-    }
-    fud->setPerTimeUnitDefinition(ud);
+    fud->setPerTimeUnitDefinition(existingUD);
   }
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-void Model::checkSpeciesReference(SpeciesReference* sr,
+void Model::createSpeciesReferenceUnitsData(SpeciesReference* sr,
                                   UnitFormulaFormatter* unitFormatter)
 {
-  UnitDefinition * ud;
   FormulaUnitsData * fud;
+  
   if (sr->isSetStoichiometryMath())
   {
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(sr->getSpecies());
     sr->getStoichiometryMath()->setInternalId(sr->getSpecies());
     fud->setComponentTypecode(SBML_STOICHIOMETRY_MATH);
-    unitFormatter->resetFlags();
-    ud = unitFormatter->getUnitDefinition
-      (sr->getStoichiometryMath()->getMath());
-    fud->setUnitDefinition(ud);
-    fud->setContainsParametersWithUndeclaredUnits
-      (unitFormatter->getContainsUndeclaredUnits());
-    fud->setCanIgnoreUndeclaredUnits
-      (unitFormatter->canIgnoreUndeclaredUnits());
+    
+    createUnitsDataFromMath(unitFormatter, fud, 
+                            sr->getStoichiometryMath()->getMath());
   }
-  if (sr->getLevel() > 2 && sr->isSetId())
+  else if (sr->getLevel() > 2 && sr->isSetId())
   {
     fud = createFormulaUnitsData();
     fud->setUnitReferenceId(sr->getId());
     fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+    
     /* units will be dimensionless */
-    ud = new UnitDefinition(getSBMLNamespaces());
-    Unit* u = new Unit(getSBMLNamespaces());
+    UnitDefinition * ud = new UnitDefinition(getSBMLNamespaces());
+    Unit* u = ud->createUnit();
     u->setKind(UNIT_KIND_DIMENSIONLESS);
     u->initDefaults();
-
-    ud->addUnit(u);
-    delete u;
 
     fud->setUnitDefinition(ud);
     fud->setContainsParametersWithUndeclaredUnits(false);
     fud->setCanIgnoreUndeclaredUnits(true);
 
-
-    /* in L3 there are only defined time units IF the model
-    * has the timeUnits attribute set
-    */
-    if (!isSetTimeUnits())
-    {
-      ud = new UnitDefinition(getSBMLNamespaces());
-      fud->setContainsParametersWithUndeclaredUnits(true);
-      fud->setCanIgnoreUndeclaredUnits(false);
-    }
-    else
-    {
-      std::string units = getTimeUnits();
-      ud = new UnitDefinition(getSBMLNamespaces());
-
-      /* either unit name or unitDefinition id */
-      if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), 
-        getVersion()))
-      {
-        Unit* u = new Unit(getSBMLNamespaces());
-        u->setKind(UnitKind_forName(units.c_str()));
-        u->initDefaults();
-        u->setExponent(-1);
-
-        ud->addUnit(u);
-        delete u;
-      }
-      else
-      {
-        for (unsigned int unitdef = 0; unitdef < getNumUnitDefinitions(); unitdef++)
-        {
-          if (!strcmp(units.c_str(), getUnitDefinition(unitdef)->getId().c_str()))
-          {           
-            for (unsigned int pp = 0; 
-              pp < getUnitDefinition(unitdef)->getNumUnits(); pp++)
-            {
-              Unit* u = new Unit(getSBMLNamespaces());
-              u->setKind(getUnitDefinition(unitdef)->getUnit(pp)->getKind());
-              u->setMultiplier(getUnitDefinition(unitdef)->getUnit(pp)
-                ->getMultiplier());
-              u->setScale(getUnitDefinition(unitdef)->getUnit(pp)->getScale());
-              u->setExponent(-1 * (getUnitDefinition(unitdef)->getUnit(pp)
-                ->getExponent()));
-
-              ud->addUnit(u);
-
-              delete u;
-            }
-          }
-        }
-      }
-    }
-
-
-    fud->setPerTimeUnitDefinition(ud);
+    populatePerTimeUnitDefinition(fud);
   }
 }
 /** @endcond */
@@ -4819,14 +4668,7 @@ Model::populateListFormulaUnitsData()
 {
   removeListFormulaUnitsData();
 
-  char newId[12];
-  std::string eaId;
-  std::string newID;
-  unsigned int countAlg = 0, countEvents = 0;
-  
   UnitFormulaFormatter *unitFormatter = new UnitFormulaFormatter(this);
-  FormulaUnitsData *fud;
-  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
 
   /* create the model wide units data */
   createSubstanceUnitsData();
@@ -4846,222 +4688,16 @@ Model::populateListFormulaUnitsData()
     createL3SpeciesUnitsData();
   }
 
-   /* get units returned by the formula given for each initial assignment
-   */
-  for (unsigned int n=0; n < getNumInitialAssignments(); n++)
-  {
-    InitialAssignment* ia = getInitialAssignment(n);
-    fud = createFormulaUnitsData();
-    fud->setUnitReferenceId(ia->getSymbol());
-    fud->setComponentTypecode(SBML_INITIAL_ASSIGNMENT);
-    unitFormatter->resetFlags();
-    if (ia->isSetMath())
-    {
-      ud = unitFormatter->getUnitDefinition(ia->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-    }
-    else
-    {
-      ud = NULL;
-      fud->setUnitDefinition(ud);
-    }
-  }
- /* get units returned by the formula given for each rule
-   */
-  for (unsigned int n=0; n < getNumRules(); n++)
-  {
-    Rule* r = getRule(n);
-    fud = createFormulaUnitsData();
-    if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
-    {
-      sprintf(newId, "alg_rule_%u", countAlg);
-      newID.assign(newId);
-      fud->setUnitReferenceId(newID);
-      r->setInternalId(newID);
-      static_cast <AlgebraicRule *> (r)->setInternalIdOnly();
-      countAlg++;
-    }
-    else
-    {
-      fud->setUnitReferenceId(r->getVariable());
-    }
-    fud->setComponentTypecode(r->getTypeCode());
-    unitFormatter->resetFlags();
-    if (r->isSetMath())
-    {
-      ud = unitFormatter->getUnitDefinition(r->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-    }
-    else
-    {
-      ud = NULL;
-      fud->setUnitDefinition(ud);
-    }
-  }
+  /* create the units data from math elements */
 
+  // pass the unitFormatter as this will save data
+  // for math expressions already evaluated
 
-  /**
-   * math may occur in reactions in kineticLaw or as stoichiometryMath 
-   * on reactants or products
-   */
-  for (unsigned int n=0; n < getNumReactions(); n++)
-  {
-    Reaction* react = getReaction(n);
+  createInitialAssignmentUnitsData(unitFormatter);
+  createRuleUnitsData(unitFormatter);
+  createReactionUnitsData(unitFormatter);
+  createEventUnitsData(unitFormatter);
 
-    /* get units returned by kineticLaw formula */
-    if (react->isSetKineticLaw())
-    {
-      fud = createFormulaUnitsData();
-      fud->setUnitReferenceId(react->getId());
-
-      /* set the id of the kinetic law 
-       * normally a kinetic law doesnt have an id
-       * but since it is an sbase object it can
-       * so we set it to be the reaction id so 
-       * that searching the listFormulaUnitsData can find it
-       */
-      react->getKineticLaw()->setInternalId(react->getId());
-
-      fud->setComponentTypecode(SBML_KINETIC_LAW);
-      unitFormatter->resetFlags();
-      if(react->getKineticLaw()->isSetMath())
-      {
-        ud = unitFormatter->getUnitDefinition
-                                  (react->getKineticLaw()->getMath(), true, n);
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                 (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                   (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-      else
-      {
-        ud = NULL;
-        fud->setUnitDefinition(ud);
-      }
-    }
-
-    /* get units returned by any stoichiometryMath set */
-    for (unsigned int j = 0; j < react->getNumReactants(); j++)
-    {
-      SpeciesReference* sr = react->getReactant(j);
-      checkSpeciesReference(sr, unitFormatter);
-    }
-
-    for (unsigned int j = 0; j < react->getNumProducts(); j++)
-    {
-      SpeciesReference* sr = react->getProduct(j);
-      checkSpeciesReference(sr, unitFormatter);
-    }
-  }
-
-  /**
-   * math may occur in events as the trigger, the delay or 
-   * in the eventAssignment
-   */
-  for (unsigned int n=0; n < getNumEvents(); n++)
-  {
-    Event* e = getEvent(n);
-
-    if (e->isSetId())
-    {
-      newID = e->getId();//sprintf(newId, "%s", e->getId());
-    }
-    else
-    {
-      sprintf(newId, "event_%u", countEvents);
-      newID.assign(newId);
-    }
-    countEvents++;
-    if (!e->isSetId())
-    {
-      e->setId(newID);
-      e->setInternalIdOnly();
-    }
-
-    /* dont need units returned by trigger formula - 
-     * should be boolean
-     */
-    
-    /* get units returned by dely */
-    if (e->isSetDelay())
-    {
-      Delay * d = e->getDelay();
-      fud = createFormulaUnitsData();
-        
-      fud->setUnitReferenceId(newID);
-      d->setInternalId(newID);
-
-      fud->setComponentTypecode(SBML_EVENT);
-      unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinition(e->getDelay()->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      
-      /* get event time definition */
-      unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinitionFromEventTime(e);
-      if (ud->getNumUnits() == 0)
-      {
-        fud->setContainsParametersWithUndeclaredUnits(true);
-        fud->setCanIgnoreUndeclaredUnits(false);
-      }
-      fud->setEventTimeUnitDefinition(ud);
-    }
-
-
-    /* get units returned by priority */
-    if (e->isSetPriority())
-    {
-      Priority * p = e->getPriority();
-      fud = createFormulaUnitsData();
-        
-      fud->setUnitReferenceId(newID);
-      p->setInternalId(newID);
-
-      fud->setComponentTypecode(SBML_PRIORITY);
-      unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinition(p->getMath());
-      fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits
-                                (unitFormatter->getContainsUndeclaredUnits());
-      fud->setCanIgnoreUndeclaredUnits
-                                  (unitFormatter->canIgnoreUndeclaredUnits());
-      
-    }
-
-    /* get units returned by any event assignments */
-    for (unsigned int j = 0; j < e->getNumEventAssignments(); j++)
-    {
-      EventAssignment* ea = e->getEventAssignment(j);
-
-      eaId = ea->getVariable() + newID;
-      if (ea->isSetMath())    
-      {
-        fud = createFormulaUnitsData();
-        fud->setUnitReferenceId(eaId);
-        fud->setComponentTypecode(SBML_EVENT_ASSIGNMENT);
-        unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(ea->getMath());
-        fud->setUnitDefinition(ud);
-        fud->setContainsParametersWithUndeclaredUnits
-                                 (unitFormatter->getContainsUndeclaredUnits());
-        fud->setCanIgnoreUndeclaredUnits
-                                   (unitFormatter->canIgnoreUndeclaredUnits());
-      }
-    }
-  }
   delete unitFormatter;
 }
 /** @endcond */
@@ -5640,19 +5276,6 @@ Model::createExtentUnitsData()
 /** @cond doxygenLibsbmlInternal */
 
 UnitDefinition *
-Model::getExtentUD()
-{
-  UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
-
-  return ud;
-}
-
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-
-UnitDefinition *
 Model::getL3ExtentUD()
 {
   UnitDefinition *ud = new UnitDefinition(getSBMLNamespaces());
@@ -5821,7 +5444,7 @@ Model::createCompartmentUnitsData()
     }
     
     fud->setUnitDefinition(ud);
-    populatePerTimeUnitDefinition(ud, fud);
+    populatePerTimeUnitDefinition(fud);
   }
 }
 
@@ -5863,7 +5486,7 @@ Model::createSpeciesUnitsData()
     }
 
     fud->setUnitDefinition(ud);
-    populatePerTimeUnitDefinition(ud, fud);
+    populatePerTimeUnitDefinition(fud);
   }
 }
 
@@ -5964,8 +5587,287 @@ Model::createParameterUnitsData()
     fud->setCanIgnoreUndeclaredUnits
                                   (unitFormatter->canIgnoreUndeclaredUnits());
 
-    populatePerTimeUnitDefinition(ud, fud);
+    populatePerTimeUnitDefinition(fud);
   }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createUnitsDataFromMath(UnitFormulaFormatter * unitFormatter,
+                               FormulaUnitsData *fud, const ASTNode * math)
+{
+  UnitDefinition * ud = NULL;
+  
+  if (math != NULL)
+  {
+    unitFormatter->resetFlags();
+    ud = unitFormatter->getUnitDefinition(math);
+    
+    fud->setContainsParametersWithUndeclaredUnits
+                              (unitFormatter->getContainsUndeclaredUnits());
+    fud->setCanIgnoreUndeclaredUnits
+                                (unitFormatter->canIgnoreUndeclaredUnits());
+  }
+
+  fud->setUnitDefinition(ud);
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  
+  for (unsigned int n=0; n < getNumInitialAssignments(); n++)
+  {
+    InitialAssignment* ia = getInitialAssignment(n);
+    
+    fud = createFormulaUnitsData();
+    fud->setUnitReferenceId(ia->getSymbol());
+    fud->setComponentTypecode(SBML_INITIAL_ASSIGNMENT);
+      
+    createUnitsDataFromMath(unitFormatter, fud, ia->getMath());
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createRuleUnitsData(UnitFormulaFormatter * unitFormatter)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  char newId[12];
+  std::string newID;
+  unsigned int countAlg = 0;
+  
+  for (unsigned int n=0; n < getNumRules(); n++)
+  {
+    Rule* r = getRule(n);
+    
+    fud = createFormulaUnitsData();
+    // need to create an id for an algebbraic rule
+    if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
+    {
+      sprintf(newId, "alg_rule_%u", countAlg);
+      newID.assign(newId);
+      r->setInternalId(newID);
+      static_cast <AlgebraicRule *> (r)->setInternalIdOnly();
+      countAlg++;
+
+      fud->setUnitReferenceId(newID);
+    }
+    else
+    {
+      fud->setUnitReferenceId(r->getVariable());
+    }
+    fud->setComponentTypecode(r->getTypeCode());
+    
+    createUnitsDataFromMath(unitFormatter, fud, r->getMath());
+  }
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createReactionUnitsData(UnitFormulaFormatter * unitFormatter)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = NULL;
+  
+  for (unsigned int n=0; n < getNumReactions(); n++)
+  {
+    Reaction* react = getReaction(n);
+
+    /* get units returned by kineticLaw formula */
+    if (react->isSetKineticLaw())
+    {
+      fud = createFormulaUnitsData();
+      fud->setUnitReferenceId(react->getId());
+
+      /* set the id of the kinetic law 
+       * normally a kinetic law doesnt have an id
+       * but since it is an sbase object it can
+       * so we set it to be the reaction id so 
+       * that searching the listFormulaUnitsData can find it
+       */
+      react->getKineticLaw()->setInternalId(react->getId());
+
+      fud->setComponentTypecode(SBML_KINETIC_LAW);
+
+      // have to use the old way for now as unitFormatter needs to know
+      // if we are in a reaction so it can access localParameters
+      unitFormatter->resetFlags();
+      if(react->getKineticLaw()->isSetMath())
+      {
+        ud = unitFormatter->getUnitDefinition
+                                  (react->getKineticLaw()->getMath(), true, n);
+        fud->setContainsParametersWithUndeclaredUnits
+                                 (unitFormatter->getContainsUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                   (unitFormatter->canIgnoreUndeclaredUnits());
+      }
+
+      fud->setUnitDefinition(ud);
+    }
+
+    ///* get units returned by any stoichiometryMath set */
+    for (unsigned int j = 0; j < react->getNumReactants(); j++)
+    {
+      SpeciesReference* sr = react->getReactant(j);
+      createSpeciesReferenceUnitsData(sr, unitFormatter);
+    }
+
+    for (unsigned int j = 0; j < react->getNumProducts(); j++)
+    {
+      SpeciesReference* sr = react->getProduct(j);
+      createSpeciesReferenceUnitsData(sr, unitFormatter);
+    }
+  }
+
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+void
+Model::createEventUnitsData(UnitFormulaFormatter * unitFormatter)
+{
+  char newId[12];
+  std::string newID;
+  unsigned int countEvents = 0;
+  
+  for (unsigned int n=0; n < getNumEvents(); n++)
+  {
+    Event* e = getEvent(n);
+
+    // sort out the id of this event - it may or may not be set
+    if (e->isSetId())
+    {
+      newID = e->getId();//sprintf(newId, "%s", e->getId());
+    }
+    else
+    {
+      sprintf(newId, "event_%u", countEvents);
+      newID.assign(newId);
+      countEvents++;
+    }
+    
+    if (!e->isSetId())
+    {
+      e->setId(newID);
+      e->setInternalIdOnly();
+    }
+
+    /* dont need units returned by trigger formula - 
+     * should be boolean
+     */
+    
+    /* get units returned by dely */
+    if (e->isSetDelay())
+    {
+      createDelayUnitsData(unitFormatter, e, newID);
+    }
+
+    /* get units returned by priority */
+    if (e->isSetPriority())
+    {
+      createPriorityUnitsData(unitFormatter, e->getPriority(), newID);
+    }
+
+    /* get units returned by any event assignments */
+    for (unsigned int j = 0; j < e->getNumEventAssignments(); j++)
+    {
+      createEventAssignmentUnitsData(unitFormatter, 
+                                     e->getEventAssignment(j), newID);
+    }
+  }
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void 
+Model::createDelayUnitsData(UnitFormulaFormatter* unitFormatter, Event * e, 
+                            const std::string& eventId)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+    
+  Delay * d = e->getDelay();
+
+  fud->setUnitReferenceId(eventId);
+  d->setInternalId(eventId);
+
+  fud->setComponentTypecode(SBML_EVENT);
+
+  createUnitsDataFromMath(unitFormatter, fud, d->getMath());
+  
+  /* get event time definition */
+  unitFormatter->resetFlags();
+  ud = unitFormatter->getUnitDefinitionFromEventTime(e);
+  if (ud->getNumUnits() == 0)
+  {
+    fud->setContainsParametersWithUndeclaredUnits(true);
+    fud->setCanIgnoreUndeclaredUnits(false);
+  }
+  fud->setEventTimeUnitDefinition(ud);
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void 
+Model::createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 
+                               Priority * p, const std::string& eventId)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+    
+  fud->setUnitReferenceId(eventId);
+  p->setInternalId(eventId);
+
+  fud->setComponentTypecode(SBML_PRIORITY);
+
+  createUnitsDataFromMath(unitFormatter, fud, p->getMath());
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+
+void 
+Model::createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter, 
+                            EventAssignment * ea, const std::string& eventId)
+{
+  UnitDefinition *ud = NULL;
+  FormulaUnitsData *fud = createFormulaUnitsData();
+  
+  std::string eaId = ea->getVariable() + eventId;
+
+  fud->setUnitReferenceId(eaId);
+  fud->setComponentTypecode(SBML_EVENT_ASSIGNMENT);
+
+  createUnitsDataFromMath(unitFormatter, fud, ea->getMath());
 }
 
 /** @endcond */
