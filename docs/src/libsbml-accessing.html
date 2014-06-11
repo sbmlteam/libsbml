@@ -480,14 +480,14 @@ from libsbml import *
 then libSBML must first be configured, compiled and installed as
 described in the <a href="libsbml-installation.html">installation instructions</a>.
 Once that is done, your Python interpreter will need one more thing to find
-libSBML: a properly set <code>PYTHONPATH</code> environment variable.
+libSBML: a correctly set <code>PYTHONPATH</code> environment variable.
 To cope with the fact that different Unix-like systems
 (including Mac&nbsp;OS&nbsp;X) use different conventions
 for where they install Python modules, the following is a general-purpose
 setting for <code>PYTHONPATH</code>.
 Here, <span class="placeholder">DIR</span> represents
 the value of the <nobr><code>--prefix=</code><span
-class="placeholder">DIR</span></nobr> option given during
+class="placeholder-nospace">DIR</span></nobr> option given during
 configuration of libSBML (the default value is <code>/usr/local</code>)
 and <span class="placeholder">version</span> is the version of your copy of
 Python (this might be, e.g., <code>2.7</code>).
@@ -496,8 +496,8 @@ shell's initialization file or execute it in your shell before starting the
 Python interpreter:
 
 <pre class="fragment" style="font-size: 12px">
-PYSITE=<u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/site-packages
-PYDIST=<u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/dist-packages
+PYSITE=<span class="placeholder-nospace">DIR</span>/lib/<span class="placeholder-nospace">version</span>/site-packages
+PYDIST=<span class="placeholder-nospace">DIR</span>/lib/<span class="placeholder-nospace">version</span>/dist-packages
 export PYTHONPATH=$PYTHONPATH:$PYSITE:$PYSITE/libsbml:$PYDIST:$PYDIST/libsbml
 </pre>
 
@@ -505,8 +505,8 @@ If you use <i>csh</i>-based shells instead of Bash or other
 <i>sh</i>-based shells, then the appropriate syntax is the following:
 
 <pre class="fragment" style="font-size: 12px">
-set PYSITE = <u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/site-packages
-set PYDIST = <u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/dist-packages
+set PYSITE = <span class="placeholder-nospace">DIR</span>/lib/<span class="placeholder-nospace">version</span>/site-packages
+set PYDIST = <span class="placeholder-nospace">DIR</span>/lib/<span class="placeholder-nospace">version</span>/dist-packages
 setenv PYTHONPATH ${PYTHONPATH}:${PYSITE}:${PYSITE}/libsbml:${PYDIST}:${PYDIST}/libsbml
 </pre>
 
