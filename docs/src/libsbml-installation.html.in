@@ -150,8 +150,8 @@ the following (the paths on your computer may differ):
 * DONE (libSBML) 
 </div>
 
-<p> <em><strong>If you are not using Python nor R</strong></em>, or the
-approaches above do not work, then the next step is to check the <a target="_blank"
+<p> <em><strong>If you are not using Python nor R</strong></em>, then the next step
+is to check the <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">download
 site for libSBML on SourceForge.net</a> for possible installation packages
 for your operating system.  As shown in the screenshot below, there you will
@@ -168,9 +168,12 @@ href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
 </center>
 
-<p> If an installer is not available for your system, it will be necessary to
-build libSBML from the source distribution.  The rest of this document
-explains the procedure for doing this.
+<p> Note that the plain libSBML binary distributions <strong>do not include
+the Python or R language interfaces</strong>, because these programming
+languages require special treatment.  If an installer is not available for
+your system, it will be necessary to build libSBML from the source
+distribution.  The rest of this document explains the procedure for doing
+this.
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -277,6 +280,11 @@ invoke a file/open dialog.
 <li><code>WITH_JAVA</code>, <code>WITH_PYTHON</code>, etc.: toggle whether to
 build the language bindings for programming languages supported by libSBML,
 such as C#, Java, MATLAB, Octave, Perl, Python, R, Ruby, and possibly others.
+If you need to indicate an explicit path to the interpreter (e.g., for
+Python), click the "<b>Advanced</b>" checkbox in the upper part of the 
+CMake GUI to gain access to additional configuration options.
+(For Python, they are <code style="padding-right:0">PYTHON_EXECUTABLE</code>,
+<code>PYTHON_INCLUDE_DIR</code> and <code style="padding-right:0">PYTHON_LIBRARY</code>.)
 
 <li><code>ENABLE_COMP</code>, <code>ENABLE_QUAL</code>, etc.: toggle whether
 support for various SBML Level&nbsp;3 packages is included.  The names
@@ -1376,7 +1384,7 @@ option to the <code>configure</code> program discussed above).
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/libsbml/</code></nobr><br>
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/libsbml/</code></nobr><br>
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/</code></nobr></td>
-  <td>(2)</td>
+  <td></td>
 </tr><tr>
   <td>Python<br>(Other Linuxes)</td>
   <td>
