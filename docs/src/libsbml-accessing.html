@@ -457,41 +457,56 @@ the libSBML directory.
 
 <h3><a class="anchor" name="accessing-python">Python</a></h3>
 
-<p> First, note that by default, libSBML only builds the C and C++ APIs.  To
-build the Python API as well, libSBML has to be configured appropriately, as
-described in the <a
-href="libsbml-installation.html">installation instructions</a>.
+<p> As described in the <a
+href="libsbml-installation.html#quick">installation instructions</a>, we
+provide two ways for you to get the libSBML Python language interfaces easily
+without having to configure and build libSBML manually from the source
+distribution.  You can use
+<a target="_blank" href="https://pypi.python.org/pypi">PyPI</a>,
+the Python Package Index, or alternatively (for Linux), binary
+distributions together with the standard operating system installation
+tools such as <code>yum</code> and <code>apt-get</code>.
 
-<p> Once that is done, and libSBML has been installed on your system, then
-the Python interpreter needs just one more thing to be informed where to find
-the libSBML package: it needs the environment variable named <code>PYTHONPATH</code> to
-be set.  This is regrettably complicated by the fact that different Linux and
-Unix-like systems (including Mac&nbsp;OS&nbsp;X) use different conventions
-for where they install Python modules.  The following is a general-purpose
-setting for <code>PYTHONPATH</code> that should catch all the variations.  
-In the following, <em><span class="placeholder">DIR</span></em> represents
-the value of the <nobr><code>--prefix=</code><em><span
-class="placeholder">DIR</span></em></nobr> option given during
-configuration of libSBML and <em><span
-class="placeholder">version</span></em> is the version of your copy of
-Python.  If you use <i>sh</i>-based shells such as Bash, put this in your
+<p> <strong><em>If you used one of the two approaches mentioned above</em></strong>,
+you should not need to do anything more: you should be able to accessing libSBML
+from your Python interpreter by importing it like any other Python module.
+In other words, the following should work:
+
+<pre class="fragment">
+from libsbml import *
+</pre>
+
+<p> <strong><em>If you did not use one of the approaches above</em></strong>,
+then libSBML must first be configured, compiled and installed as
+described in the <a href="libsbml-installation.html">installation instructions</a>.
+Once that is done, your Python interpreter will need one more thing to find
+libSBML: a properly set <code>PYTHONPATH</code> environment variable.
+To cope with the fact that different Unix-like systems
+(including Mac&nbsp;OS&nbsp;X) use different conventions
+for where they install Python modules, the following is a general-purpose
+setting for <code>PYTHONPATH</code>.
+Here, <span class="placeholder">DIR</span> represents
+the value of the <nobr><code>--prefix=</code><span
+class="placeholder">DIR</span></nobr> option given during
+configuration of libSBML (the default value is <code>/usr/local</code>)
+and <span class="placeholder">version</span> is the version of your copy of
+Python (this might be, e.g., <code>2.7</code>).
+If you use <i>sh</i>-based shells such as Bash, put this in your
 shell's initialization file or execute it in your shell before starting the
-Python interpreter, making sure to substitute the appropriate values for 
-<em><span class="placeholder">DIR</span></em> and 
-<em><span class="placeholder">version</span></em>:
+Python interpreter:
 
 <pre class="fragment" style="font-size: 12px">
-PYSITE=<u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
-PYDIST=<u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
+PYSITE=<u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/site-packages
+PYDIST=<u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/dist-packages
 export PYTHONPATH=$PYTHONPATH:$PYSITE:$PYSITE/libsbml:$PYDIST:$PYDIST/libsbml
 </pre>
 
-The above is for <i>sh</i>-based shells such as Bash; if you use
-<i>csh</i>-based shells, then the appropriate syntax is the following:
+If you use <i>csh</i>-based shells instead of Bash or other
+<i>sh</i>-based shells, then the appropriate syntax is the following:
 
 <pre class="fragment" style="font-size: 12px">
-set PYSITE = <u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
-set PYDIST = <u><em><span class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/dist-packages
+set PYSITE = <u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/site-packages
+set PYDIST = <u><span class="placeholder">DIR</span></u>/lib/<u><span class="placeholder">version</span></u>/dist-packages
 setenv PYTHONPATH ${PYTHONPATH}:${PYSITE}:${PYSITE}/libsbml:${PYDIST}:${PYDIST}/libsbml
 </pre>
 
@@ -505,12 +520,12 @@ from libsbml import *
 
 <p>
 If Python produces an import error or a failure in linking a new module, it
-almost certainly means that the environment variables have not been set
-correctly.  It may also mean that the read/write permissions of the
-installed library files or a directory in the hierarchy containing them are
-such that you are not allowed to access the files.  In that case, please
-consult your systems administrator or (if you have administrator
-priviledges) reset the permissions yourself.
+probably means that <code>PYTHONPATH</code> has not been set correctly.
+It may also mean that the read/write permissions of the installed library
+files or a directory in the hierarchy containing them are such that you are
+not allowed to access the files.  In that case, please consult your systems
+administrator or (if you have administrator priviledges) reset the
+permissions yourself.
 
 
 <h3><a class="anchor" name="accessing-r">R</a></h3>

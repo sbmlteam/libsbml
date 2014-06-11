@@ -3,7 +3,7 @@
 <h2>Table of contents</h2>
 
 <table class="text-table borderless centered"><tr><td>
-<a href="#quick">1. Quick start: avoid work by using ready-to-install binaries</a>
+<a href="#quick">1. Quick start: use ready-to-install binaries to avoid work</a>
 
 </td></tr>
 <tr><td>
@@ -48,15 +48,116 @@
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="quick">1. Quick start: avoid work by using ready-to-install binaries</a></h2>
+<h2><a class="anchor" name="quick">1. Quick start: use ready-to-install binaries to avoid work</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> We supply ready-to-install precompiled binaries for many systems. Please
-check the <a target="_blank"
+<p> We supply software installers for many operating systems and some
+language interfaces.  Using them, you may be able to save yourself the time
+and trouble of following the configuration and build instructions on the rest
+of this page.
+
+<p> <em><strong>If you are using Python</strong></em>, we provide two
+options: (1) a software package available from the Python Package Index
+(<a target="_blank" href="https://pypi.python.org/pypi">PyPI</a>),
+to be used with <code>pip</code>, and (2) for Linux only, binary
+installers for use with the standard operating system installation
+tools such as <code>yum</code> and <code>apt-get</code>.
+
+<ul>
+<li><em>Using <a style="margin-right: 1px"
+target="_blank" href="https://pypi.python.org/pypi">PyPI</a></em>: 
+If you have <a target="_blank"
+href="https://pip.pypa.io/en/latest/installing.html">pip</a> installed on
+your Windows, Mac&nbsp;OS&nbsp;X or Linux system, you can use it to install
+the latest releases of libSBML.  First, make sure you have installed the
+following prerequisite software packages on your operating system: 
+<code style="padding-right: 0">python-dev</code>, 
+<code style="padding-right: 0">libxml2-dev</code>, 
+<code style="padding-right: 0">libz-dev</code>, 
+and <code style="padding-right: 0">libbz2-dev</code>.  Then, to get the
+stable release of libSBML, execute the following command:
+
+<div class="fragment"><pre class="fragment">
+sudo pip install python-libsbml
+</div>
+
+<p> For the experimental release of libSBML, use the following command instead:
+
+<div class="fragment"><pre class="fragment">
+sudo pip install python-libsbml-experimental
+</div>
+
+<p> If all goes well, the command above should result in <code>pip</code> 
+printing many messages while it builds libSBML on your computer, ultimately
+ending in the following message to tell you it finished successfully:
+
+<div class="fragment"><pre class="fragment">
+<em><span style="font-weight: normal; font-family: Helvetica, Arial, Sans; color: #999">[... much text omitted ...]</span></em>
+Successfully installed python-libsbml
+Cleaning up...
+</div>
+
+<li><em>Using the operating system's software installation tools</em>: If you
+are running Linux, and you prefer to use the standard over-the-air installation
+tools provided by your operating system, such as <code>yum</code>
+and <code>apt-get</code>, you can take advantage of binary installers we
+provide using the <a target="_blank"
+href="https://build.opensuse.org">OpenSUSE Build System</a> (OBS). You can find
+the instructions for many different flavors of Linux (including CentOS, Fedora,
+OpenSUSE, Ubuntu, and others) at the following URLs:
+
+<ul>
+<li><em>For the stable release</em>: 
+<code><a target="_blank" 
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
+python-libsbml</a></code>.
+
+<li><em>For the experimental release</em>:
+<code><a target="_blank" 
+href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental">
+python-libsbml-experimental</a></code>.
+
+</ul>
+</ul>
+
+<p> After using either approach above (i.e., PyPI, or the installers
+available at the OpenSUSE Build System), you should be able to access the
+Python language interface for libSBML on you computer directly from your
+Python interpreter.
+
+<p>
+<em><strong>If you are using R</strong></em>, we provide installers for the
+libSBML R language interface, for use with the <code>R CMD INSTALL</code> command
+under Linux, Mac&nbsp;OS&nbsp;X and Windows.  You can download the installer
+archive file from the
+<a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge 
+download page</a> mentioned below.  Once you have downloaded the appropriate
+version of the libSBML R installer archive file for your operating system, run
+the following command in a terminal shell on your computer:
+
+<div class="fragment"><pre class="fragment">
+R CMD INSTALL <span class="placeholder">archive</span>
+</div>
+
+<p> where <span class="placeholder">archive</span> is the path to 
+the installation archive file that you downloaded to your computer's
+hard drive.  If all goes well, you should see R print messages such as
+the following (the paths on your computer may differ):
+<div class="fragment"><pre class="fragment">
+* installing to library ‘/Library/Frameworks/R.framework/Versions/3.1/Resources/library’
+* installing *binary* package ‘libSBML’ ...
+* DONE (libSBML) 
+</div>
+
+<p> <em><strong>If you are not using Python nor R</strong></em>, or the
+approaches above do not work, then the next step is to check the <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">download
 site for libSBML on SourceForge.net</a> for possible installation packages
-for your operating system.  You may be able to save yourself the time and
-trouble of following the remaining instructions on this page.
+for your operating system.  As shown in the screenshot below, there you will
+find two subdirectories: one for stable releases, and one for experimental
+releases.  Within each of those in turn, you will find subdirectories for
+Mac&nbsp;OX&nbsp;X, Linux and Windows.
 
 <center style="width: 500px;
 margin: 1em auto">
@@ -67,15 +168,9 @@ href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
 </center>
 
-<p> Special installers are available as a convenience for some popular
-special cases, notably the Python 2.5, 2.6, 2.7 and 3.2 language bindings on
-Windows systems.
-
-<p> For some other systems, due to the large number of possible
-combinations of operating system distributions and Python versions, we
-currently are unable to provide ready-to-run libSBML installers.  For those
-cases, it is necessary to build libSBML from the source distribution.  The
-rest of this document explains the procedure for doing this.
+<p> If an installer is not available for your system, it will be necessary to
+build libSBML from the source distribution.  The rest of this document
+explains the procedure for doing this.
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -289,18 +384,18 @@ In this case, <code>configure</code> needs to be told explicitly where to
 find the libraries.  Use the following forms:
 
 <div class="fragment"><pre class="fragment">
-./configure --with-libxml="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-libxml="<span class="placeholder-nospace">DIR</span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-./configure --with-xerces="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-xerces="<span class="placeholder-nospace">DIR</span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-./configure --with-expat="<span class="placeholder"><em>DIR</em></span>"
+./configure --with-expat="<span class="placeholder-nospace">DIR</span>"
 </pre></div>
 
-<p> where <span class="placeholder"><em>DIR</em></span> is the
+<p> where <span class="placeholder">DIR</span> is the
 parent directory of where the <code>include</code> and <code>lib</code>
 directories of Xerces, Expat or libxml2 (whichever one you are trying to
 use) is located.  For example, on Mac&nbsp;OS&nbsp;X, if you used <a
@@ -318,8 +413,8 @@ commands will copy header files to <code> /usr/local/include/sbml</code>,
 the shared and static library files to <code>/usr/local/lib</code>, and
 documentation files to
 <nobr><code>/usr/local/share/doc/libsbml-</code><span
-class="placeholder"><em>VERSION</em></span></nobr> (where <span
-class="placeholder"><em>VERSION</em></span> is the version number of
+class="placeholder-nospace">VERSION</span></nobr> (where <span
+class="placeholder">VERSION</span> is the version number of
 libSBML).  To specify a different installation location instead of the
 default, use the <nobr><code>--prefix</code></nobr> argument to the
 <code>configure</code> program.  For example,
@@ -363,8 +458,8 @@ multiple flags together as in the following example:
 </pre></div>
 
 <p>Some of the language interfaces provide additional configuration options
-besides the basic <code>--with-<em><span
-class="placeholder">language</span></em></code> option. In particular,
+besides the basic <code>--with-<span
+class="placeholder-nospace">language</span></code> option. In particular,
 for Python and C#, there are options allowing you to specify the language
 interpreter that should be used, which is important for systems that have
 multiple versions installed.  For example, to indicate that you want to use
@@ -506,7 +601,7 @@ the <nobr><code>--with-swig</code></nobr> option as in the following
 example:
 
 <div class="fragment"><pre class="fragment">
-./configure --with-swig="<em><span class="placeholder">DIR</span></em>"
+./configure --with-swig="<span class="placeholder-nospace">DIR</span>"
 </pre></div>
 
 
@@ -531,12 +626,12 @@ format).  If the libSBML configure program cannot find the libraries in the
 locations where it searches by default, you can inform the configure
 program where to look by adding the flag
 <nobr><code>--with-zlib=</code><span
-class="placeholder"><em>DIR</em></span></nobr> where <span
-class="placeholder"><em>DIR</em></span> is the parent directory of the
+class="placeholder-nospace">DIR</span></nobr> where <span
+class="placeholder">DIR</span> is the parent directory of the
 <code>lib</code> directory where the zlib library is located, and/or the
 flag <nobr><code>--with-bzip2=</code><span
-class="placeholder"><em>DIR</em></span></nobr> where <span
-class="placeholder"><em>DIR</em></span> is the parent directory of the
+class="placeholder-nospace">DIR</span></nobr> where <span
+class="placeholder">DIR</span> is the parent directory of the
 <code>lib</code> directory where the bzip2 library is located.
 
 <p> To selectively disable specific library checks and format support, add
@@ -560,9 +655,9 @@ currently reading is part of it.  Because the documentation is large and
 regenerating it requires the use of software tools that not all users may
 have, the authors of libSBML supply a separate downloadable archive
 containing only the documentation.  The documentation archive file has a
-name of the form <code>libsbml-</code><em><span
-class="placeholder">VERSION</span></em><code>-docs.zip</code>, where
-<em><span class="placeholder">VERSION</span></em> is the version of
+name of the form <code>libsbml-</code><span
+class="placeholder-nospace">VERSION</span><code>-docs.zip</code>, where
+<span class="placeholder">VERSION</span> is the version of
 libSBML.  After you download it, you can simply unzip the file in the same
 location as your libSBML source directory (or alternatively, in any other
 location that suits you).  We recommend downloading the ready-made
@@ -1222,10 +1317,9 @@ table below lists the pathnames where those files will be installed.
 <p> The next table gives the locations of the files listed in the table
 above for Linux/Unix-based operating systems.  The pathnames shown here are
 relative to the prefix directory used in configuring libSBML (meaning the
-value <em><span class="placeholder">DIR</span></em> given to the
-<nobr><code>--prefix=</code><em><span
-class="placeholder">DIR</span></em></nobr> option to the
-<code>configure</code> program discussed above).
+value <span class="placeholder">DIR</span> given to the
+<nobr><code>--prefix=</code><span class="placeholder-nospace">DIR</span></nobr>
+option to the <code>configure</code> program discussed above).
 
 <table border="0" class="text-table  bigger-row-spacing  normal-font  alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
@@ -1239,8 +1333,8 @@ class="placeholder">DIR</span></em></nobr> option to the
     <em>(unmanaged C++ DLL)</em><br>
     <em>(managed C# DLL)</em>
   </td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/mono/libsbmlcsP/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/mono/libsbmlcsP/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td>Java</td>
@@ -1248,16 +1342,16 @@ class="placeholder">DIR</span></em></nobr> option to the
     <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Java JAR file)</em></nobr>
   </td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/share/java/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/share/java/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td colspan="2">MATLAB</td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td colspan="2">Octave</td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/octave/site/oct/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/octave/site/oct/</code><span class="placeholder-nospace">platform</span><code>/</code></nobr></td>
   <td>(1)</td>
 </tr><tr>
   <td>Perl</td>
@@ -1266,9 +1360,9 @@ class="placeholder">DIR</span></em></nobr> option to the
     <nobr><em>(Perl module file)</em></nobr><br>
     <nobr><em>(Other files)</em></nobr>
   </td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/auto/libSBML/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/perl5/site_perl/</code><span class="placeholder-nospace">perl-version</span><code>/</code><span class="placeholder-nospace">platform</span><code>/auto/libSBML/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/perl5/site_perl/</code><span class="placeholder-nospace">perl-version</span><code>/</code><span class="placeholder-nospace">platform</span><code>/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/perl5/site_perl/</code><span class="placeholder-nospace">perl-version</span><code>/</code><em><span class="placeholder-nospace">platform</span><code>/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td>Python<br>(Ubuntu 11)</td>
@@ -1278,10 +1372,10 @@ class="placeholder">DIR</span></em></nobr> option to the
     <nobr><em>(Compiled module file)</em></nobr><br>
     <nobr><em>(Path configuration file)</em></nobr>
   </td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/dist-packages/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td>Python<br>(Other Linuxes)</td>
@@ -1291,27 +1385,27 @@ class="placeholder">DIR</span></em></nobr> option to the
     <nobr><em>(Compiled module file)</em></nobr><br>
     <nobr><em>(Path configuration file)</em></nobr>
   </td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td colspan="2">Ruby</td>
-  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/ruby/site_ruby/</code><em><span class="placeholder">ruby-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/ruby/site_ruby/</code><span class="placeholder-nospace">ruby-version</span><code>/</code><span class="placeholder-nospace">platform</span><code>/</code></nobr></td>
   <td></td>
 </tr>
 <caption class="bottom-caption" style="text-align: left">Legend: The
-placeholder <em><span class="placeholder">platform</span></em> stands for a
+placeholder <span class="placeholder">platform</span> stands for a
 platform-specific directory name; the exact string depends on the
 combination of your operating system, machine architecture, programming
-language, and the versions of all of these.  The placeholder <em><span
-class="placeholder">perl-version</span></em> refers to the version number
+language, and the versions of all of these.  The placeholder <span
+class="placeholder">perl-version</span> refers to the version number
 of the Perl executable against which libSBML was configured.  The
-placeholder <em><span class="placeholder">python-version</span></em> refers
+placeholder <span class="placeholder">python-version</span> refers
 to the version number of the Python executable against which libSBML was
-configured.  The placeholder <em><span
-class="placeholder">ruby-version</span></em> refers to the version number
+configured.  The placeholder <span
+class="placeholder">ruby-version</span> refers to the version number
 of the Ruby executable against which libSBML was configured.  Note that
 none of these values are actually under the control of libSBML; they are
 set by the operating system and programming language package conventions.
