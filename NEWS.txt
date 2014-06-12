@@ -249,6 +249,13 @@ STABLE RELEASE
     relevant release can be found in the documentation on SourceForge
     download pages for libSBML.
 
+  - In the API documentation, the instructions for setting PYTHONPATH
+    was not correct for the installation produced by using CMake
+    instead of GNU configure.  Further, the PYTHONPATH instructions
+    for Ubuntu were actually for other Linux/Unix variants and vice
+    versa.  This has been fixed by making the instructions use a
+    single, more general approach that should work everywhere.
+
   - The copyright statement for all example programs that we produced
     ourselves has been changed to use a less restrictive license, so
     that users can use the examples in their software without
