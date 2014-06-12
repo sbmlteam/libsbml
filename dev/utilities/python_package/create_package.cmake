@@ -201,6 +201,21 @@ file(
 ) 
 
 
+# copy files generated in the swig dir
+file (GLOB EXTENSION_FILES 
+  ${BIN_DIR}/src/sbml/extension/*.cxx
+  ${BIN_DIR}/src/sbml/extension/*.cpp
+  ${BIN_DIR}/src/sbml/extension/*.h
+  )
+
+# copy swigged files 
+file(
+    COPY ${EXTENSION_FILES}  
+    DESTINATION ${OUT_DIR}/base/sbml/extension/
+) 
+
+
+# copy files generated in the swig dir
 file (GLOB BIN_SWIG_FILES 
   ${BIN_DIR}/src/bindings/swig/*.cpp
   ${BIN_DIR}/src/bindings/swig/*.h
