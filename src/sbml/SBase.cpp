@@ -6661,7 +6661,7 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
 
 LIBSBML_EXTERN
 int
-SBase_setNotesString (SBase_t *sb, char *notes)
+SBase_setNotesString (SBase_t *sb, const char *notes)
 {
   if (sb != NULL)
   {
@@ -6681,7 +6681,7 @@ SBase_setNotesString (SBase_t *sb, char *notes)
 
 LIBSBML_EXTERN
 int
-SBase_setNotesStringAddMarkup (SBase_t *sb, char *notes)
+SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes)
 {
   if (sb != NULL)
   {
@@ -6712,7 +6712,7 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
 
 LIBSBML_EXTERN
 int
-SBase_appendNotesString (SBase_t *sb, char *notes)
+SBase_appendNotesString (SBase_t *sb, const char *notes)
 {
   if (sb != NULL)
   {
@@ -6739,7 +6739,7 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_setAnnotationString (SBase_t *sb, char *annotation)
+SBase_setAnnotationString (SBase_t *sb, const char *annotation)
 {
   if (sb != NULL)
   {
@@ -6770,7 +6770,7 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_appendAnnotationString (SBase_t *sb, char *annotation)
+SBase_appendAnnotationString (SBase_t *sb, const char *annotation)
 {
   if (sb != NULL)
   {
@@ -6785,7 +6785,7 @@ SBase_appendAnnotationString (SBase_t *sb, char *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_removeTopLevelAnnotationElement (SBase_t *sb, char *name)
+SBase_removeTopLevelAnnotationElement (SBase_t *sb, const char *name)
 {
   if (sb != NULL)
   {
@@ -6834,7 +6834,7 @@ SBase_replaceTopLevelAnnotationElement (SBase_t *sb, XMLNode_t *annotation)
 
 LIBSBML_EXTERN
 int
-SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, char *annotation)
+SBase_replaceTopLevelAnnotationElementString (SBase_t *sb, const char *annotation)
 {
   if (sb != NULL)
   {
