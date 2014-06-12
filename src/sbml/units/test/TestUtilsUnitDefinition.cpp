@@ -361,7 +361,7 @@ START_TEST(test_unitdefinition_areIdentical2)
 END_TEST
 
 
-START_TEST(test_unitdefinition_areIdentical3)
+START_TEST(test_unitdefinition_mismatch_multipliers)
 {
   UnitDefinition* ud  = new UnitDefinition(2, 2);
   UnitDefinition* ud1 = new UnitDefinition(2, 2);
@@ -382,6 +382,128 @@ START_TEST(test_unitdefinition_areIdentical3)
   ud1->addUnit(u1);
 
   int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  int equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  fail_unless(equivalent == 1);
+
+  identical = UnitDefinition::areIdenticalSIUnits(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  delete u;
+  delete u1;
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+
+START_TEST(test_unitdefinition_mismatch_multipliers1)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = new Unit(2, 2);
+  u->setKind(UNIT_KIND_METRE);
+  u->setMultiplier(2.0);
+  Unit* u1 = new Unit(2, 2);
+  u1->setKind(UNIT_KIND_DIMENSIONLESS);
+  
+  ud->addUnit(u);
+  ud->addUnit(u1);
+
+  u->setMultiplier(1.0);
+  u1->setMultiplier(2.0);
+
+  ud1->addUnit(u);
+  ud1->addUnit(u1);
+
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  int equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  fail_unless(equivalent == 1);
+
+  identical = UnitDefinition::areIdenticalSIUnits(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  delete u;
+  delete u1;
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+
+START_TEST(test_unitdefinition_mismatch_multipliers2)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = ud->createUnit();
+  u->setKind(UNIT_KIND_METRE);
+  u->setMultiplier(2.0);
+  u  = ud->createUnit();
+  u->setKind(UNIT_KIND_SECOND);
+  u->setMultiplier(3.0);
+
+
+  Unit* u1 =  ud1->createUnit();
+  u1->setKind(UNIT_KIND_METRE);
+  u1->setMultiplier(3.0);
+  u1  = ud1->createUnit();
+  u1->setKind(UNIT_KIND_SECOND);
+  u1->setMultiplier(2.0);
+
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  int equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  fail_unless(equivalent == 1);
+
+  identical = UnitDefinition::areIdenticalSIUnits(ud, ud1);
+
+  fail_unless(identical == 1);
+
+  delete ud;
+  delete ud1;
+
+}
+END_TEST
+
+
+START_TEST(test_unitdefinition_mismatch_dimensionless)
+{
+  UnitDefinition* ud  = new UnitDefinition(2, 2);
+  UnitDefinition* ud1 = new UnitDefinition(2, 2);
+
+  Unit* u  = new Unit(2, 2);
+  u->setKind(UNIT_KIND_DIMENSIONLESS);
+  u->setExponent(2);
+  Unit* u1 = new Unit(2, 2);
+  u1->setKind(UNIT_KIND_DIMENSIONLESS);
+  
+  ud->addUnit(u);
+
+  ud1->addUnit(u1);
+
+  // these are not identical 
+  int identical = UnitDefinition::areIdentical(ud, ud1);
+
+  fail_unless(identical == 0);
+
+  int equivalent = UnitDefinition::areEquivalent(ud, ud1);
+  fail_unless(equivalent == 1);
+
+  // but they match sufficiently for unit manipluation
+  identical = UnitDefinition::areIdenticalSIUnits(ud, ud1);
 
   fail_unless(identical == 1);
 
@@ -999,7 +1121,10 @@ create_suite_UtilsUnitDefinition (void)
   tcase_add_test( tcase, test_unitdefinition_areIdentical  );
   tcase_add_test( tcase, test_unitdefinition_areIdentical1 );
   tcase_add_test( tcase, test_unitdefinition_areIdentical2 );
-  tcase_add_test( tcase, test_unitdefinition_areIdentical3 );
+  tcase_add_test( tcase, test_unitdefinition_mismatch_multipliers );
+  tcase_add_test( tcase, test_unitdefinition_mismatch_multipliers1 );
+  tcase_add_test( tcase, test_unitdefinition_mismatch_multipliers2 );
+  tcase_add_test( tcase, test_unitdefinition_mismatch_dimensionless );
   tcase_add_test( tcase, test_unitdefinition_areEquivalent );
   tcase_add_test( tcase, test_unitdefinition_combine );
   tcase_add_test( tcase, test_unitdefinition_combine1 );

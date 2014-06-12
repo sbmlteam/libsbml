@@ -773,18 +773,25 @@ UnitDefinition::simplify(UnitDefinition * ud)
     kindsList.append(UnitKind_toString(ud->getUnit(n)->getKind()));
   }
   
+  double dimMultfactor = 1.0;
+  
   /* if only one unit cannot be simplified any further */
   if (units->size() > 1)
   {
     if (kindsList.contains("dimensionless"))
     {
       /* if contains a dimensionless unit and any others then 
-        dimensionless is unecessary */
+        dimensionless is unecessary 
+        unless it has a multiplier attached
+        */
       for (n = 0; n < units->size(); n++)
       {
         unit = (Unit *) units->get(n);
         if (!strcmp(UnitKind_toString(unit->getKind()), "dimensionless"))
         {
+          dimMultfactor = pow(unit->getMultiplier(), unit->getExponent());
+          if (util_isEqual(dimMultfactor, 1.0) == false)
+            cancelFlag = 1;
           delete units->remove(n);
           kindsList.removeUnitKind("dimensionless");
         }
@@ -818,7 +825,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
 
   /* may have cancelled units - in which case exponent will be 0 */
   // might need to propagate a multiplier though
-  double newMultiplier = 1.0;
+  double newMultiplier = dimMultfactor;
   unsigned int numUnits = units->size();
   for (n = numUnits; n > 0; n--)
   {
@@ -1225,16 +1232,51 @@ UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1,
     UnitDefinition::reorder(ud1Temp);
     UnitDefinition::reorder(ud2Temp);
     
+    if (ud1Temp->getNumUnits() > 1)
+    {
+      // different multipliers left on different units may not match
+      // but overall they 
+      // e.g (2m)(sec) is tha same unit as (m)(2sec) but unit by unit
+      // comparison will fail
+      double multiplier1 = extractMultiplier(ud1Temp);
+      double multiplier2 = extractMultiplier(ud2Temp);
+
+      if (util_isEqual(multiplier1, multiplier2) == false)
+      {
+        return identical;
+      }
+    }
+
     n = 0;
     while (n < ud1Temp->getNumUnits())
     {
-      if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      Unit* u1 = ud1Temp->getUnit(n);
+      Unit* u2 = ud2Temp->getUnit(n);
+      // if the unit is dimensionless it does not matter 
+      // what numerical factors it has
+      // but put this check here rather than in the unit areIdentical
+      // so that Unit::areIdentical is trully a test for identical
+      if (u1->getKind() == UNIT_KIND_DIMENSIONLESS)
       {
-        break;
+        if (u2->getKind() != UNIT_KIND_DIMENSIONLESS)
+        {
+          break;
+        }
+        else
+        {
+          n++;
+        }
       }
       else
       {
-        n++;
+        if (!Unit::areIdentical(u1, u2))
+        {
+          break;
+        }
+        else
+        {
+          n++;
+        }
       }
     }
     if (n == ud1Temp->getNumUnits())
