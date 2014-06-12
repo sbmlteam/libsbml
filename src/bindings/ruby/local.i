@@ -288,11 +288,11 @@ namespace std
   }
   catch (const SBMLConstructorException &e){
     static VALUE cpperror = rb_define_class("SBMLConstructorException", rb_eArgError);
-    rb_raise(cpperror, e.what());    
+    rb_raise(cpperror, "%s", e.what());    
   }
   catch (const SBMLExtensionException &e){
     static VALUE cpperror = rb_define_class("SBMLConstructorException", rb_eArgError);
-    rb_raise(cpperror, e.what());    
+    rb_raise(cpperror, "%s", e.what());    
   }
 }
 %enddef
@@ -371,7 +371,7 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfUnits)
   }
   catch (const XMLConstructorException &e){
     static VALUE cpperror = rb_define_class("XMLConstructorException", rb_eArgError);
-    rb_raise(cpperror, e.what());    
+    rb_raise(cpperror, "%s", e.what());    
   }
 }
 %enddef
