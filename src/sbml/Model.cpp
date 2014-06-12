@@ -5624,7 +5624,6 @@ Model::createUnitsDataFromMath(UnitFormulaFormatter * unitFormatter,
 void
 Model::createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter)
 {
-  UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = NULL;
   
   for (unsigned int n=0; n < getNumInitialAssignments(); n++)
@@ -5647,7 +5646,6 @@ Model::createInitialAssignmentUnitsData(UnitFormulaFormatter * unitFormatter)
 void
 Model::createRuleUnitsData(UnitFormulaFormatter * unitFormatter)
 {
-  UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = NULL;
   char newId[12];
   std::string newID;
@@ -5840,7 +5838,6 @@ void
 Model::createPriorityUnitsData(UnitFormulaFormatter* unitFormatter, 
                                Priority * p, const std::string& eventId)
 {
-  UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData();
     
   fud->setUnitReferenceId(eventId);
@@ -5859,7 +5856,6 @@ void
 Model::createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter, 
                             EventAssignment * ea, const std::string& eventId)
 {
-  UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = createFormulaUnitsData();
   
   std::string eaId = ea->getVariable() + eventId;
