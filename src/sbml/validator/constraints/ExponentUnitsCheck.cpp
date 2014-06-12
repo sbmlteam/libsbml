@@ -180,7 +180,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
     else if (child->isInteger())
     {
       isInteger = 1;
-      root = child->getInteger();
+      root = (int)child->getInteger();
     }
     else if (child->isReal())
     {

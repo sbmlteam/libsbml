@@ -685,7 +685,7 @@ SpeciesReference::sortMath()
     mStoichiometryMath->getMath()->isRational())
   {
     mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
-    mDenominator   = mStoichiometryMath->getMath()->getDenominator();
+    mDenominator   = (int)mStoichiometryMath->getMath()->getDenominator();
 
     delete mStoichiometryMath;
     mStoichiometryMath = NULL;

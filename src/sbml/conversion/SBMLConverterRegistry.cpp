@@ -106,8 +106,8 @@ SBMLConverterRegistry::SBMLConverterRegistry()
 
 SBMLConverterRegistry::~SBMLConverterRegistry()
 {
-  unsigned int numConverters = mConverters.size();
-  for (unsigned int i = 0; i < numConverters; ++i)
+  size_t numConverters = mConverters.size();
+  for (size_t i = 0; i < numConverters; ++i)
   {
     SBMLConverter *current = const_cast<SBMLConverter *>(mConverters.back());
     mConverters.pop_back();

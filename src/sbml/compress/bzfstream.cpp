@@ -221,7 +221,7 @@ bzfilebuf::underflow()
 
   // Attempt to fill internal buffer from bzip2 file
   // (buffer must be guaranteed to exist...)
-  int bytes_read = BZ2_bzread(file, buffer, buffer_size);
+  int bytes_read = (int)BZ2_bzread(file, buffer, (int)buffer_size);
   // Indicates error or EOF
   if (bytes_read <= 0)
   {
@@ -253,7 +253,7 @@ bzfilebuf::overflow(int_type c)
       this->pbump(1);
     }
     // Number of characters to write to file
-    int bytes_to_write = this->pptr() - this->pbase();
+    int bytes_to_write = int(this->pptr() - this->pbase());
     // Overflow doesn't fail if nothing is to be written
     if (bytes_to_write > 0)
     {

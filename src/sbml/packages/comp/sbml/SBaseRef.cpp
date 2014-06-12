@@ -958,7 +958,7 @@ int SBaseRef::collectDeletions(set<SBase*>* removed, set<SBase*>* toremove)
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
-      todplug->getReplacedElement(re)->collectDeletions(removed, toremove);
+      todplug->getReplacedElement((unsigned int)re)->collectDeletions(removed, toremove);
     }
     if (todplug->isSetReplacedBy()) {
       todplug->getReplacedBy()->collectDeletions(removed, toremove);

@@ -449,7 +449,7 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
 
   for (unsigned long el=0; el < elements->getSize(); ++el) 
   {
-    SBase* element = static_cast<SBase*>(elements->get(el));
+    SBase* element = static_cast<SBase*>(elements->get((unsigned int)el));
     string id = element->getId();
     string metaid = element->getMetaId();
     element->transformIdentifiers(idTransformer);
@@ -487,7 +487,7 @@ Model::renameIDs(List* elements, IdentifierTransformer* idTransformer)
 
   for (unsigned long el = 0; el< elements->getSize(); ++el) 
   {
-    SBase* element = static_cast<SBase*>(elements->get(el));
+    SBase* element = static_cast<SBase*>(elements->get((unsigned int)el));
 	
     for (it = renamedSIds.begin(); it != renamedSIds.end(); ++it) 
 	{

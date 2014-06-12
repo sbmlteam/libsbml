@@ -910,7 +910,7 @@ XMLAttributes::readInto (  int          index
   long  temp;
   bool  assigned = readInto(index, name, temp, log, required, line, column);
 
-  if (assigned) value = temp;
+  if (assigned) value = (int)temp;
   return assigned;
 }
 /** @endcond */
@@ -1000,7 +1000,7 @@ XMLAttributes::readInto (  int           index
   long  temp;
   bool  assigned = readInto(index, name, temp, log, required, line, column);
 
-  if (assigned && temp >= 0) value = temp;
+  if (assigned && temp >= 0) value = (int)temp;
   else assigned = false;
 
   return assigned;

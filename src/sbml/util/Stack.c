@@ -96,7 +96,7 @@ Stack_find (Stack_t *s, void *item)
 
   if (pos >= 0)
   {
-    pos = s->sp - pos;
+    pos = (int)(s->sp - pos);
   }
 
   return pos;
@@ -178,7 +178,7 @@ int
 Stack_size (Stack_t *s)
 {
   if (s == NULL) return 0;
-  return s->sp + 1;
+  return (int)(s->sp + 1);
 }
 
 
@@ -187,7 +187,7 @@ int
 Stack_capacity (Stack_t *s)
 {
   if (s == NULL) return 0;
-  return s->capacity;
+  return (int)(s->capacity);
 }
 
 LIBSBML_CPP_NAMESPACE_END

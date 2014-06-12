@@ -1705,14 +1705,14 @@ void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
         const ASTNode* ast = sr->getStoichiometryMath()->getMath();
         if (ast->isInteger())
         {
-          int num = ast->getInteger();
+          int num = (int)ast->getInteger();
           sr->setStoichiometry(num);
           sr->setDenominator(1);
         }
         else
         {
-          int num = ast->getNumerator();
-          int denom = ast->getDenominator();
+          int num = (int)ast->getNumerator();
+          int denom = (int)ast->getDenominator();
           sr->setStoichiometry(num);
           sr->setDenominator(denom);
         }
@@ -1734,14 +1734,14 @@ void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
         const ASTNode* ast = sr->getStoichiometryMath()->getMath();
         if (ast->isInteger())
         {
-          int num = ast->getInteger();
+          int num = (int)ast->getInteger();
           sr->setStoichiometry(num);
           sr->setDenominator(1);
         }
         else
         {
-          int num = ast->getNumerator();
-          int denom = ast->getDenominator();
+          int num = (int)ast->getNumerator();
+          int denom = (int)ast->getDenominator();
           sr->setStoichiometry(num);
           sr->setDenominator(denom);
         }

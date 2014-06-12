@@ -527,54 +527,54 @@ Date::parseDateStringToNumbers()
     year[2] = cdate[2];
     year[3] = cdate[3];
 
-    mYear = strtol(year, NULL, 10);
+    mYear = (int)strtol(year, NULL, 10);
 
     block[0] = cdate[5];
     block[1] = cdate[6];
     
-    mMonth = strtol(block, NULL, 10);
+    mMonth = (int)strtol(block, NULL, 10);
 
     block[0] = cdate[8];
     block[1] = cdate[9];
     
-    mDay = strtol(block, NULL, 10);
+    mDay = (int)strtol(block, NULL, 10);
 
     block[0] = cdate[11];
     block[1] = cdate[12];
     
-    mHour = strtol(block, NULL, 10);
+    mHour = (int)strtol(block, NULL, 10);
 
     block[0] = cdate[14];
     block[1] = cdate[15];
     
-    mMinute = strtol(block, NULL, 10);
+    mMinute = (int)strtol(block, NULL, 10);
 
     block[0] = cdate[17];
     block[1] = cdate[18];
     
-    mSecond = strtol(block, NULL, 10);
+    mSecond = (int)strtol(block, NULL, 10);
 
     if (cdate[19] == '+')
     {
       mSignOffset = 1;
       block[0] = cdate[20];
       block[1] = cdate[21];
-      mHoursOffset = strtol(block, NULL, 10);
+      mHoursOffset = (int)strtol(block, NULL, 10);
 
       block[0] = cdate[23];
       block[1] = cdate[24];
-      mMinutesOffset = strtol(block, NULL, 10);
+      mMinutesOffset = (int)strtol(block, NULL, 10);
     }
     else if (cdate[19] == '-')
     {
       mSignOffset = 0;
       block[0] = cdate[20];
       block[1] = cdate[21];
-      mHoursOffset = strtol(block, NULL, 10);
+      mHoursOffset = (int)strtol(block, NULL, 10);
 
       block[0] = cdate[23];
       block[1] = cdate[24];
-      mMinutesOffset = strtol(block, NULL, 10);
+      mMinutesOffset = (int)strtol(block, NULL, 10);
     }
     else
     {

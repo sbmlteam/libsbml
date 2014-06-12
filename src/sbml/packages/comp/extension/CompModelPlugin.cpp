@@ -913,8 +913,8 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
   delete allElements;
 
   //Now call saveAllReferencedElements for all instantiated submodels.
-  for (unsigned long sm=0; sm<getNumSubmodels(); sm++) {
-    Model* sub = getSubmodel(sm)->getInstantiation();
+  for (unsigned long sm=0; sm<getNumSubmodels(); ++sm) {
+    Model* sub = getSubmodel((unsigned int)sm)->getInstantiation();
     if (sub==NULL) {
       return LIBSBML_OPERATION_FAILED;
     }
@@ -1030,8 +1030,8 @@ void CompModelPlugin::findUniqueSubmodPrefixes(vector<string>& submodids, List* 
         fullprefix << suffixes[str];
       }
       fullprefix << getDivider();
-      for (unsigned long el=0; el<allElements->getSize(); el++) {
-        SBase* element = static_cast<SBase*>(allElements->get(el));
+      for (unsigned long el=0; el<allElements->getSize(); ++el) {
+        SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
         if (element==NULL) {
           assert(false);
           continue;
@@ -1091,7 +1091,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   
   for (unsigned long el=0; el < allElements->getSize(); ++el) 
   {
-    SBase* element = static_cast<SBase*>(allElements->get(el));
+    SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
     string id = element->getId();
     string metaid = element->getMetaId();
     
@@ -1128,7 +1128,7 @@ void CompModelPlugin::renameIDs(List* allElements, const string& prefix)
   }
 
   for (unsigned long el=0; el<allElements->getSize(); el++) {
-    SBase* element = static_cast<SBase*>(allElements->get(el));
+    SBase* element = static_cast<SBase*>(allElements->get((unsigned int)el));
     for (size_t id=0; id<renamedSIds.size(); id++) 
     {
       element->renameSIdRefs(renamedSIds[id].first, renamedSIds[id].second);

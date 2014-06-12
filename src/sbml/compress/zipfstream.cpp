@@ -288,7 +288,7 @@ zipfilebuf::overflow(int_type c)
       this->pbump(1);
     }
     // Number of characters to write to file
-    int bytes_to_write = this->pptr() - this->pbase();
+    int bytes_to_write = int(this->pptr() - this->pbase());
     // Overflow doesn't fail if nothing is to be written
     if (bytes_to_write > 0)
     {
@@ -644,7 +644,7 @@ uLong filetime(const char* f, tm_zip* tmzip, uLong *dt)
   if (strcmp(f,"-")!=0)
   {
     char name[MAXFILENAME+1];
-    int len = strlen(f);
+    int len = (int)strlen(f);
     if (len > MAXFILENAME)
       len = MAXFILENAME;
 

@@ -444,7 +444,7 @@ int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
       continue;
     }
     for (unsigned long p=0; p<cmp->getNumPorts();) {
-      Port* port = cmp->getPort(p);
+      Port* port = cmp->getPort((unsigned int)p);
       if (port->getReferencedElement() == todelete) {
         if (removed) {
           removed->insert(port);
@@ -499,7 +499,7 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
       base = base->getParentSBMLObject();
     }
     for (unsigned long p=0; p<cmp->getNumPorts();) {
-      Port* port = cmp->getPort(p);
+      Port* port = cmp->getPort((unsigned int)p);
       if (port->getReferencedElement() == todelete) {
         set<SBase*>* removed = basecmp->getRemovedSet();
         set<SBase*>  toremove;
