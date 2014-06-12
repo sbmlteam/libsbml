@@ -169,16 +169,14 @@ file(
 ) 
 
 
-file (GLOB BIN_SWIG_FILES 
+file (GLOB BIN_BASE_FILES 
   ${BIN_DIR}/src/bindings/python/*.cpp
   ${BIN_DIR}/src/bindings/python/*.h
   )
 
 # copy swigged files 
 file(
-    COPY 
-	  ${BIN_SWIG_FILES}
-	  
+    COPY ${BIN_BASE_FILES}	  
     DESTINATION ${OUT_DIR}/base/
 ) 
 
@@ -201,6 +199,20 @@ file(
     COPY ${SOURCE_FILES} 
     DESTINATION ${OUT_DIR}/swig/
 ) 
+
+
+file (GLOB BIN_SWIG_FILES 
+  ${BIN_DIR}/src/bindings/swig/*.cpp
+  ${BIN_DIR}/src/bindings/swig/*.h
+  )
+
+# copy swigged files 
+file(
+    COPY ${BIN_SWIG_FILES}  
+    DESTINATION ${OUT_DIR}/swig/
+) 
+
+
 
 # remove previous python scripts  
 if (EXISTS ${OUT_DIR}/libsbml)
