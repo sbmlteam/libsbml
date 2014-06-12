@@ -784,7 +784,7 @@ BEGIN_C_DECLS
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl);
+XMLOutputStream_createAsStdout (const char * encoding, int writeXMLDecl);
 
 
 /**
@@ -813,10 +813,10 @@ XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl);
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
+XMLOutputStream_createAsStdoutWithProgramInfo (const char * encoding,
                                                int writeXMLDecl,
-                                               char * programName,
-                                               char * programVersion);
+                                               const char * programName,
+                                               const char * programVersion);
 
 
 /**
@@ -826,7 +826,7 @@ XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsString (char * encoding, int writeXMLDecl);
+XMLOutputStream_createAsString (const char * encoding, int writeXMLDecl);
 
 
 /**
@@ -837,10 +837,10 @@ XMLOutputStream_createAsString (char * encoding, int writeXMLDecl);
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
+XMLOutputStream_createAsStringWithProgramInfo (const char * encoding,
                                                int writeXMLDecl,
-                                               char * programName,
-                                               char * programVersion);
+                                               const char * programName,
+                                               const char * programVersion);
 
 
 /**
@@ -850,7 +850,7 @@ XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl);
+XMLOutputStream_createFile (const char * filename, const char * encoding, int writeXMLDecl);
 
 
 /**
@@ -861,9 +861,9 @@ XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl);
  */
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFileWithProgramInfo (char * filename, char * encoding,
-                                           int writeXMLDecl, char * programName,
-                                           char * programVersion);
+XMLOutputStream_createFileWithProgramInfo (const char * filename, const char * encoding,
+                                           int writeXMLDecl, const char * programName,
+                                           const char * programVersion);
 
 
 /**

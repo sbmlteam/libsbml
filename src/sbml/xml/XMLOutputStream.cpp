@@ -1109,7 +1109,7 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl)
+XMLOutputStream_createAsStdout (const char * encoding, int writeXMLDecl)
 {
   if (encoding == NULL) return NULL;
   return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl);
@@ -1118,8 +1118,8 @@ XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl)
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
-        int writeXMLDecl, char * programName, char * programVersion)
+XMLOutputStream_createAsStdoutWithProgramInfo (const char * encoding,
+        int writeXMLDecl, const char * programName, const char * programVersion)
 {
   if (encoding == NULL) return NULL;
   return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl,
@@ -1129,7 +1129,7 @@ XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsString (char * encoding, int writeXMLDecl)
+XMLOutputStream_createAsString (const char * encoding, int writeXMLDecl)
 {
   if (encoding == NULL) return NULL;
 
@@ -1141,8 +1141,8 @@ XMLOutputStream_createAsString (char * encoding, int writeXMLDecl)
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
-        int writeXMLDecl, char * programName, char * programVersion)
+XMLOutputStream_createAsStringWithProgramInfo (const char * encoding,
+        int writeXMLDecl, const char * programName, const char * programVersion)
 {
   if (encoding == NULL) return NULL;
 
@@ -1155,7 +1155,7 @@ XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl)
+XMLOutputStream_createFile (const char * filename, const char * encoding, int writeXMLDecl)
 {
   if (filename == NULL || encoding == NULL) return NULL;
 
@@ -1166,8 +1166,8 @@ XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl)
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFileWithProgramInfo (char * filename, char * encoding, 
-        int writeXMLDecl, char * programName, char * programVersion)
+XMLOutputStream_createFileWithProgramInfo (const char * filename, const char * encoding, 
+        int writeXMLDecl, const char * programName, const char * programVersion)
 {
   if (filename == NULL || encoding == NULL) return NULL;
 

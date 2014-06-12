@@ -302,7 +302,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   SBMLDocument_createModel(d);
 
-  char * annotation = "<rdf/>\n<rdf/>";
+  const char * annotation = "<rdf/>\n<rdf/>";
 
   int i = SBase_setAnnotationString((SBase_t *) (d), annotation);
 
@@ -330,7 +330,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t * m = SBMLDocument_createModel(d);
 
-  char * annotation = "<rdf/>\n<rdf/>";
+  const char * annotation = "<rdf/>\n<rdf/>";
 
   int i = SBase_setAnnotationString((SBase_t *) (m), annotation);
 

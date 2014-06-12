@@ -552,7 +552,7 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
+ModelCreator_setFamilyName(ModelCreator_t *mc, const char * name)
 {
   if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setFamilyName(name);
@@ -561,7 +561,7 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
+ModelCreator_setGivenName(ModelCreator_t *mc, const char * name)
 {
   if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setGivenName(name);
@@ -570,7 +570,7 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setEmail(ModelCreator_t *mc, char * email)
+ModelCreator_setEmail(ModelCreator_t *mc, const char * email)
 {
   if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setEmail(email);
@@ -579,7 +579,7 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email)
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
+ModelCreator_setOrganisation(ModelCreator_t *mc, const char * org)
 {
   if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setOrganisation(org);
@@ -588,7 +588,7 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
+ModelCreator_setOrganization(ModelCreator_t *mc, const char * org)
 {
   return ModelCreator_setOrganisation(mc, org);
 }
