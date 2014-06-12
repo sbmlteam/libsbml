@@ -942,38 +942,36 @@ libSBML version ${PACKAGE_VERSION}
    To contact the developers directly, email libsbml-team@caltech.edu
 
    Configured on host '$ENV{COMPUTERNAME}' ${HOSTNAME}
-     host type                     = ${CMAKE_SYSTEM_NAME}
-     host operating system         = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
-     host CPU architecture         = ${CMAKE_SYSTEM_PROCESSOR}
+     host type                       = ${CMAKE_SYSTEM_NAME}
+     host operating system           = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
+     host CPU architecture           = ${CMAKE_SYSTEM_PROCESSOR}
 
    General build flags:
-     CC                            = ${CMAKE_C_COMPILER}
-     CXX                           = ${CMAKE_CXX_COMPILER}
-     CPPFLAGS                      = ${BUILD_DEFINITIONS}
-     CFLAGS                        = ${CMAKE_C_FLAGS}
-     CXXFLAGS                      = ${CMAKE_CXX_FLAGS}
-     LDFLAGS                       = ${CMAKE_EXE_LINKER_FLAGS}
+     CC                              = ${CMAKE_C_COMPILER}
+     CXX                             = ${CMAKE_CXX_COMPILER}
+     CPPFLAGS                        = ${BUILD_DEFINITIONS}
+     CFLAGS                          = ${CMAKE_C_FLAGS}
+     CXXFLAGS                        = ${CMAKE_CXX_FLAGS}
+     LDFLAGS                         = ${CMAKE_EXE_LINKER_FLAGS}
 
    XML parser library configuration:
-     XML library                   = ${LIBSBML_XML_LIBRARY}
-     CPPFLAGS for XML              = -I${LIBSBML_XML_LIBRARY_INCLUDE}
-     LIBS for XML                  = ${LIBSBML_XML_LIBRARY_LIBS}
+     XML library                     = ${LIBSBML_XML_LIBRARY}
+     CPPFLAGS for XML                = -I${LIBSBML_XML_LIBRARY_INCLUDE}
+     LIBS for XML                    = ${LIBSBML_XML_LIBRARY_LIBS}
 
-  Other libSBML configuration settings:
-     Installation $prefix          = ${CMAKE_INSTALL_PREFIX}")
-
-
+   Other libSBML configuration settings:
+     Installation $prefix            = ${CMAKE_INSTALL_PREFIX}")
 
 if(UNIX)
     if(APPLE)
-        message(STATUS "  Value of $DYLD_LIBRARY_PATH   = $ENV{DYLD_LIBRARY_PATH}")
+        message(STATUS "     Value of $DYLD_LIBRARY_PATH     = $ENV{DYLD_LIBRARY_PATH}")
     else()
-        message(STATUS "  Value of $LD_LIBRARY_PATH     = $ENV{LD_LIBRARY_PATH}")
+        message(STATUS "     Value of $LD_LIBRARY_PATH       = $ENV{LD_LIBRARY_PATH}")
     endif()
 endif()
 
 if(WITH_SWIG)
-    message(STATUS "  Using SWIG                       = ${SWIG_EXECUTABLE}")
+    message(STATUS "     Using SWIG                      = ${SWIG_EXECUTABLE}")
     
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
     	message(WARNING "   You are using SWIG version ${SWIG_VERSION}. We strongly recommend at least version 2.0.4.")
@@ -983,66 +981,65 @@ endif()
 
 
 if(WITH_CSHARP)
-    message(STATUS "  Using C#                      = ${CSHARP_COMPILER}")
+    message(STATUS "     Using C#                        = ${CSHARP_COMPILER}")
 endif()
 
 if(WITH_JAVA)
-    message(STATUS "  Using Java                    = ${Java_JAVA_EXECUTABLE}")
+    message(STATUS "     Using Java                      = ${Java_JAVA_EXECUTABLE}")
 endif()
 
 if(WITH_PYTHON)
-    message(STATUS "  Using Python                  = ${PYTHON_EXECUTABLE}")
+    message(STATUS "     Using Python                    = ${PYTHON_EXECUTABLE}")
 endif()
 
 if(WITH_PERL)
-    message(STATUS "  Using Perl                    = ${PERL_EXECUTABLE}")
+    message(STATUS "     Using Perl                      = ${PERL_EXECUTABLE}")
 endif()
 
 if(WITH_RUBY)
-    message(STATUS "  Using Ruby                    = ${RUBY_EXECUTABLE}")
+    message(STATUS "     Using Ruby                      = ${RUBY_EXECUTABLE}")
 endif()
 
 if(WITH_OCTAVE)
-    message(STATUS "  Using Octave                  = ${MKOCTFILE_EXECUTABLE}")
+    message(STATUS "     Using Octave                    = ${MKOCTFILE_EXECUTABLE}")
 endif()
 
 if(WITH_MATLAB)
-    message(STATUS "  Using Matlab                  = ${MATLAB_ROOT_PATH}")
+    message(STATUS "     Using Matlab                    = ${MATLAB_ROOT_PATH}")
 endif()
 
 if(WITH_CHECK)
-    message(STATUS "  Using libcheck                = ${LIBCHECK_LIBRARY}")
+    message(STATUS "     Using libcheck                  = ${LIBCHECK_LIBRARY}")
+
 endif()
-message(STATUS "
-")
 
 if(WITH_CPP_NAMESPACE)
-    message(STATUS "  Using C++ namespace for libSBML ('libsbml') = yes")
+    message(STATUS "     Using C++ namespace ('libsbml') = yes")
 else()
-    message(STATUS "  Using C++ namespace for libSBML ('libsbml') = no")
+    message(STATUS "     Using C++ namespace ('libsbml') = no")
 endif()
 
 if(APPLE)
     if(CMAKE_OSX_ARCHITECTURES STREQUAL "")
-        message(STATUS "  Building universal binaries               = no (using native arch)")
+        message(STATUS "     Building 'universal' binaries   = no (using native arch)")
     else()
         list(REMOVE_DUPLICATES CMAKE_OSX_ARCHITECTURES)
         list(REMOVE_ITEM CMAKE_OSX_ARCHITECTURES "")
         list(SORT CMAKE_OSX_ARCHITECTURES)
         list(LENGTH CMAKE_OSX_ARCHITECTURES NUM_ARCHS)
         if(NUMARCHS EQUAL 1)
-            message(STATUS "  Building 'universal' binaries             = no (using ${CMAKE_OSX_ARCHITECTURES})")
+            message(STATUS "     Building 'universal' binaries   = no (using ${CMAKE_OSX_ARCHITECTURES})")
         else()
-            message(STATUS "  Building 'universal' binaries             = yes (using ${CMAKE_OSX_ARCHITECTURES})")
+            message(STATUS "     Building 'universal' binaries   = yes (using ${CMAKE_OSX_ARCHITECTURES})")
         endif()
     endif()
 endif()
 
 if (LIBSBML_PACKAGE_SUMMARY)
 message(STATUS "")
-message(STATUS "Support for SBML Level 3 Packages: ")
+message(STATUS "   Support for SBML Level 3 Packages: ")
 foreach(summary ${LIBSBML_PACKAGE_SUMMARY})
-  message(STATUS "  ${summary}")
+  message(STATUS "     ${summary}")
 endforeach()
 
 
