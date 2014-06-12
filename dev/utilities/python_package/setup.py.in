@@ -97,8 +97,7 @@ setup(name             = "python-libsbml",
 							  +  [(current_os, None), 
                               ('USE_LIBXML', None),
                               ('USE_ZLIB', None),
-                              ('USE_BZ2', None),
-                              ('PACKAGE_NAME', package_name)
+                              ('USE_BZ2', None)
                               ] 
 							  + packages,
                             include_dirs = inc_dirs +
