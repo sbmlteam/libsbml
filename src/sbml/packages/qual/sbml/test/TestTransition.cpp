@@ -177,7 +177,8 @@ START_TEST (test_Transition_FunctionTerm)
 
   fail_unless(G->getNumFunctionTerms() == 1);
 
-  FunctionTerm *i = G->createFunctionTerm();
+  //FunctionTerm *i =
+  G->createFunctionTerm();
 
   fail_unless(G->getNumFunctionTerms() == 2);
 

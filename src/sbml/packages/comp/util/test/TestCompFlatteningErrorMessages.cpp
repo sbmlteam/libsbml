@@ -82,7 +82,7 @@ START_TEST(test_comp_flatten_invalid2)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -103,7 +103,8 @@ START_TEST(test_comp_flatten_invalid2)
   submod1->setModelRef("Mod1");
 
   // Create an incorrect external model definition.
-  ExternalModelDefinition* emd = compdoc->createExternalModelDefinition();
+  //ExternalModelDefinition* emd =
+  compdoc->createExternalModelDefinition();
 
   //Now try to flatten it
   converter->setDocument(document);
@@ -129,7 +130,7 @@ START_TEST(test_comp_flatten_invalid3)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -178,7 +179,7 @@ START_TEST(test_comp_flatten_invalid4)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -232,7 +233,7 @@ START_TEST(test_comp_flatten_invalid5)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -287,7 +288,7 @@ START_TEST(test_comp_flatten_invalid6)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -337,7 +338,7 @@ START_TEST(test_comp_flatten_invalid7)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -383,7 +384,7 @@ START_TEST(test_comp_flatten_invalid8)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -439,7 +440,7 @@ START_TEST(test_comp_flatten_invalid9)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -489,7 +490,7 @@ START_TEST(test_comp_flatten_invalid10)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -534,7 +535,7 @@ START_TEST(test_comp_flatten_invalid11)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -580,7 +581,7 @@ START_TEST(test_comp_flatten_invalid12)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -635,7 +636,7 @@ START_TEST(test_comp_flatten_invalid13)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -688,7 +689,7 @@ START_TEST(test_comp_flatten_invalid14)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -742,7 +743,7 @@ START_TEST(test_comp_flatten_invalid15)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -797,7 +798,7 @@ START_TEST(test_comp_flatten_invalid16)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -853,7 +854,7 @@ START_TEST(test_comp_flatten_invalid17)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -909,7 +910,7 @@ START_TEST(test_comp_flatten_invalid18)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -965,7 +966,7 @@ START_TEST(test_comp_flatten_invalid19)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -1021,7 +1022,7 @@ START_TEST(test_comp_flatten_invalid20)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -1076,7 +1077,7 @@ START_TEST(test_comp_flatten_invalid21)
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
   
-  int retval = 0;
+  //int retval = 0;
   int rv;
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -1211,7 +1212,8 @@ START_TEST(test_comp_flatten_invalid23)
   //Give it a replaced element
   CompSBasePlugin* pcomp = 
                    static_cast<CompSBasePlugin*>(param->getPlugin("comp"));
-  ReplacedElement* re = pcomp->createReplacedElement();
+  //ReplacedElement* re =
+  pcomp->createReplacedElement();
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1689,7 +1691,8 @@ START_TEST(test_comp_flatten_invalid31)
                    static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a port
-  Port* port = mplugin->createPort();
+  //Port* port =
+  mplugin->createPort();
 
   //Now try to flatten it
   converter->setDocument(document);
@@ -1737,7 +1740,8 @@ START_TEST(test_comp_flatten_invalid32)
   submod1->setModelRef("Mod1");
 
   // create a Deletion
-  Deletion* del = submod1->createDeletion();
+  //Deletion* del =
+  submod1->createDeletion();
 
   // Create a model definition
   ModelDefinition* md = compdoc->createModelDefinition();
@@ -1796,7 +1800,8 @@ START_TEST(test_comp_flatten_invalid33)
   re->setIdRef("submod2");
 
   //And a child SBaseRef that points to nothing.
-  SBaseRef* sbr = re->createSBaseRef();
+  //SBaseRef* sbr =
+  re->createSBaseRef();
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1868,7 +1873,8 @@ START_TEST(test_comp_flatten_invalid34)
   re->setIdRef("p2");
 
   //And a child SBaseRef that points to nothing.
-  SBaseRef* sbr = re->createSBaseRef();
+  //SBaseRef* sbr =
+  re->createSBaseRef();
   
   // create a Submodel
   Submodel* submod1 = mplugin->createSubmodel();
@@ -1954,8 +1960,8 @@ START_TEST(test_comp_flatten_invalid37)
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = 
-                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  //CompModelPlugin* mplugin =
+  //                 static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Parameter in it.
   Parameter* param = model->createParameter();
@@ -2005,8 +2011,8 @@ START_TEST(test_comp_flatten_invalid38)
   // create the Model
   Model* model=document->createModel();
   model->setId("mainmod");
-  CompModelPlugin* mplugin = 
-                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  //CompModelPlugin* mplugin =
+  //                 static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
   // create a Parameter in it.
   Parameter* param = model->createParameter();

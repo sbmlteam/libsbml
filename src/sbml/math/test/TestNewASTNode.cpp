@@ -4393,10 +4393,10 @@ START_TEST (test_ASTNode_swapChildren1)
 {
   ASTNode *node = new ASTNode();
   ASTNode *c1 = new ASTNode();
-  ASTNode *c2 = new ASTNode();
+  //ASTNode *c2 = new ASTNode();
   ASTNode *node_1 = new ASTNode();
   ASTNode *c1_1 = new ASTNode();
-  ASTNode *c2_1 = new ASTNode();
+  //ASTNode *c2_1 = new ASTNode();
   int i = 0;
 
   node->setType( AST_FUNCTION_COS);

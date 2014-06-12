@@ -64,7 +64,8 @@ START_TEST (test_comp_get_flattening_converter)
   // ensure that conversion without model does not work
   fail_unless(converter->convert() == LIBSBML_INVALID_OBJECT);
 
-  Model* model = doc.createModel("model");
+  //Model* model =
+  doc.createModel("model");
 
   // now conversion should work
   fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);

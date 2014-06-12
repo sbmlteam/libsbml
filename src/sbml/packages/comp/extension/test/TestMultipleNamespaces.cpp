@@ -74,7 +74,7 @@ START_TEST (test_modeldef_layout)
     return;
   }
 
-  CompModelPlugin *cmp = (CompModelPlugin *)model->getPlugin("comp");
+  //CompModelPlugin *cmp = (CompModelPlugin *)model->getPlugin("comp");
   ModelDefinition* md = new ModelDefinition(*model);
   csdp->addModelDefinition(md);
 

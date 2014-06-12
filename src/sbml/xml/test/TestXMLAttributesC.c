@@ -294,7 +294,7 @@ START_TEST (test_XMLAttributes_readInto_string_C)
   fail_unless( strcmp(value, "id4") == 0 );
   safe_free(value);
 
-  value="false";
+  value = safe_strdup("false");
 
   fail_unless( XMLAttributes_readIntoString(attrs, "str5", &value, log, 1) == 0 );
   fail_unless( strcmp(value, "false") == 0 );
@@ -318,7 +318,7 @@ START_TEST (test_XMLAttributes_readInto_string_C)
   fail_unless( strcmp(value, "id4") == 0 );
   safe_free(value);
 
-  value="false";
+  value=safe_strdup("false");
   XMLTriple_t* trpX  = XMLTriple_createWith("str0", "http://ns0.org/","pX");
   XMLTriple_t* empty = XMLTriple_createWith("","","");
 

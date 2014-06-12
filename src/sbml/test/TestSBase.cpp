@@ -458,8 +458,8 @@ END_TEST
 START_TEST (test_SBase_setNotesString_l3)
 {
   SBase_t *c = new(std::nothrow) Model(3, 1);
-  char * notes = "This is a test note";
-  char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
+  const char * notes = "This is a test note";
+  const char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
 
   // this should not set the notes since they are invalid xhtml
   SBase_setNotesString(c, notes);

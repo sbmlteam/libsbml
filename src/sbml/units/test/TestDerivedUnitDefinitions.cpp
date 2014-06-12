@@ -346,7 +346,7 @@ END_TEST
 
 START_TEST (test_DerivedUnitDefinition_localParameter1)
 {
-  UnitDefinition *fud = m->getReaction(0)->getKineticLaw()->getParameter(0)->getDerivedUnitDefinition();
+  //UnitDefinition *fud = m->getReaction(0)->getKineticLaw()->getParameter(0)->getDerivedUnitDefinition();
 
   //fail_unless(fud->getNumUnits() == 1);
 

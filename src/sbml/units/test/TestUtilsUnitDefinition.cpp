@@ -932,7 +932,7 @@ START_TEST(test_unitdefinition_divide9)
 {
   UnitDefinition* ud = new UnitDefinition(2, 4);
   UnitDefinition* ud1 = new UnitDefinition(2, 4);
-  UnitDefinition* udTemp, * udTemp2;
+  UnitDefinition* udTemp;//, * udTemp2;
 
   Unit* u4  = new Unit(2, 4);
   u4->setKind(UNIT_KIND_SECOND);
