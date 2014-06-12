@@ -38,10 +38,32 @@ ENDIF(NOT EXISTS "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt")
 FILE(READ "@CMAKE_CURRENT_BINARY_DIR@/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 STRING(REGEX REPLACE " " ";" files "${files}")
+STRING(REGEX REPLACE ";;" ";" files "${files}")
+
+# addition files that wouldn't be deleted (since they are symlinks)
+# and the actual file is listed before in the manifest
+set(extra_files
+  "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/libsbml.5.dylib"
+  "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/libsbml.dylib"
+  "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/libsbml.5.so"
+  "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/libsbml.so"
+)
+
+FOREACH(file ${extra_files})
+
+    EXEC_PROGRAM(
+      "@CMAKE_COMMAND@" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
+      OUTPUT_VARIABLE rm_out
+      RETURN_VALUE rm_retval
+      )
+
+ENDFOREACH(file)
 
 # We also should delete a number of directories that we create with 
 # make install, but only those that could not include files from others
-SET(directories)
+SET(directories 
+     "@CMAKE_INSTALL_PREFIX@/share/libsbml"
+)
 FOREACH(file ${files})
   get_filename_component(fileName ${file} NAME)
   get_filename_component(filePath ${file} PATH)
