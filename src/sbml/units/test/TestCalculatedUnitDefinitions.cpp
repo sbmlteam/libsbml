@@ -684,7 +684,7 @@ create_suite_CalcUnitDefinition (void)
   tcase_add_test(tcase, test_CalcUnitDefinition_global_with_local_unknown );
 
   tcase_add_test(tcase, test_CalcUnitDefinition_local );
-  //tcase_add_test(tcase, test_CalcUnitDefinition_local1 );
+  tcase_add_test(tcase, test_CalcUnitDefinition_local1 );
 
   tcase_add_test(tcase, test_CalcUnitDefinition_unknownReaction );
 
