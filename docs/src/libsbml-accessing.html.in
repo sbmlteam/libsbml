@@ -556,10 +556,10 @@ on Linux systems.
 <p> <strong>One more step is required to make your R
 installation find the libSBML interface</strong>: you must invoke a command
 in R, supplying it with the path to this archive file.  You can do this in
-one of two ways: either using the R graphical interface, or the R command
-line.
+one of two ways: either using the R graphical interface, or a shell
+command.
 <ul>
-<li><em style="padding-right: 1px">If you are using the R GUI</em>: In the R menu
+<li><em style="padding-right: 1px">Using the R GUI</em>: In the R menu
 "<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
 (depending on your operating system), select the "<strong>Package 
 Installer</strong>" item.  You will be presented with an interface that lets
@@ -567,19 +567,24 @@ you install a local binary package.  Use the interface to navigate to the
 directory where you copied the libSBML archive file, and select the archive
 file for installation.
 
-<li><em style="padding-right: 1px">If you are using the R command line</em>: 
+<li><em style="padding-right: 1px">Using a shell command</em>: 
 Suppose that the path to the libSBML R archive on your computer is
-<span class="placeholder">archive</span>.  Start R on your
-computer, and execute the following command in it:
+<span class="placeholder">archive</span>.  Execute the following command
+in a terminal/shell window (note: <em>not</em> in the R command line
+interpreter!):
 
 <pre class="fragment">
 R CMD INSTALL <span class="placeholder">archive</span>
 </pre>
 </ul>
 
-<p> From this point forward, you should be able to call on libSBML functions
-from within your copy of R.  You can test whether the installation was
-successful by trying the following command in R:
+<p> In the command above, <code>R</code> is the executable for the
+command-line version of R.  (We assume it is accessible from your shell's
+command line.  If it is not accessible by simply typing <code>R</code>, you
+may need to supply the full path to <code>R</code>.) From this point forward,
+you should be able to call on libSBML functions from within your copy of R.
+You can test whether the installation was successful by trying the following
+command in R:
 
 <pre class="fragment">
 library('libsbml')

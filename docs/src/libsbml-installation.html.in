@@ -131,28 +131,53 @@ Python interpreter.
 
 <p>
 <em><strong>If you are using R</strong></em>, we provide installers for the
-libSBML R language interface, for use with the <code>R CMD INSTALL</code> command
-under Linux, Mac&nbsp;OS&nbsp;X and Windows.  You can download the installer
-archive file from the
+libSBML R language interface for Linux, Mac&nbsp;OS&nbsp;X and Windows.  You
+can download the installer archive file from the
 <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge 
-download page</a> mentioned below.  Once you have downloaded the appropriate
-version of the libSBML R installer archive file for your operating system, run
-the following command in a terminal shell on your computer:
+download page</a> mentioned below.  This
+file will have a name of the form
+<code>libSBML_<span class="placeholder-nospace">version</span>.tgz</code> on 
+Mac&nbsp;OS&nbsp;X, 
+<code>libSBML_<span class="placeholder-nospace">version</span>.zip</code> on 
+Windows, and
+<code>libSBML_<span class="placeholder-nospace">version</span>_R_i686-pc-linux-gnu.tar.gz</code>
+or
+<code>libSBML_<span class="placeholder-nospace">version</span>_R_x86_64-pc-linux-gnu.tar.gz</code>
+on Linux systems.
 
-<div class="fragment"><pre class="fragment">
+<p> Once you have downloaded the appropriate version of the libSBML R
+installer archive file for your operating system, one more step is required
+to install the libSBML R interface.  You can do this step in one of two ways:
+either using the R graphical interface, or using a terminal/shell command.
+
+<ul>
+<li><em style="padding-right: 1px">Using the R GUI</em>: In the R menu
+"<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
+(depending on your operating system), select the "<strong>Package 
+Installer</strong>" item.  You will be presented with an interface that lets
+you install a local binary package.  Use the interface to navigate to the
+directory where you copied the libSBML archive file, and select the archive
+file for installation.
+
+<li><em style="padding-right: 1px">Using a shell command</em>: 
+Suppose that the path to the libSBML R archive on your computer is
+<span class="placeholder">archive</span>.  Execute the following command
+in a terminal/shell window (note: <em>not</em> in the R command line
+interpreter!):
+
+<pre class="fragment">
 R CMD INSTALL <span class="placeholder">archive</span>
-</div>
+</pre>
 
-<p> where <span class="placeholder">archive</span> is the path to 
-the installation archive file that you downloaded to your computer's
-hard drive.  If all goes well, you should see R print messages such as
-the following (the paths on your computer may differ):
+<p> If all goes well, you should see R print messages such as the following
+(the paths on your computer may differ):
 <div class="fragment"><pre class="fragment">
 * installing to library ‘/Library/Frameworks/R.framework/Versions/3.1/Resources/library’
 * installing *binary* package ‘libSBML’ ...
 * DONE (libSBML) 
 </div>
+</ul>
 
 <p> <em><strong>If you are not using Python nor R</strong></em>, then the next step
 is to check the <a target="_blank"
