@@ -11,17 +11,21 @@
 <ul>
 <li><a href="#unix-cmake">2.1 Configuring using CMake</a></li>
 <li><a href="#unix-gnumake">2.2 Configuring using GNU make</a></li>
-<ul style="padding-top: 0; padding-bottom: 0.5em;">      
-<li><a href="#unix-basics       ">2.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></li>
-<li><a href="#unix-bindings     ">2.2.b Enabling language interfaces for C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li>
-<li><a href="#unix-32-64        ">2.2.c Creating 32- and/or 64-bit binaries</a></li>
-<li><a href="#unix-universal    ">2.2.d Creating universal binaries on Mac OS X</a></li>
-<li><a href="#unix-swig         ">2.2.e Configuring for SWIG</a></li>
-<li><a href="#unix-compression  ">2.2.f Configuring support for compression</a></li>
-<li><a href="#unix-docs         ">2.2.g Configuring for generating documentation</a></li>
-<li><a href="#unix-unit-testing ">2.2.h Configuring for software unit testing</a></li>
+<ul style="padding-top: 0;">      
+<li><a href="#unix-basics">2.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></li>
+<li><a href="#unix-bindings">2.2.b Enabling language interfaces for C#, Java, MATLAB, Octave, Perl, Python, R and Ruby</a></li>
+<li><a href="#unix-32-64">2.2.c Creating 32- and/or 64-bit binaries</a></li>
+<li><a href="#unix-universal">2.2.d Creating universal binaries on Mac OS X</a></li>
+<li><a href="#unix-swig">2.2.e Configuring for SWIG</a></li>
+<li><a href="#unix-compression">2.2.f Configuring support for compression</a></li>
+<li><a href="#unix-docs">2.2.g Configuring for generating documentation</a></li>
+<li><a href="#unix-unit-testing">2.2.h Configuring for software unit testing</a></li>
 </ul>
 <li><a href="#unix-compiling">2.3 Compiling and installing</a></li>
+<ul>
+<li><a href="#compiling-cmake">2.3.a Using CMake</a></li>
+<li><a href="#compiling-gnumake">2.3.b Using GNU make</a></li>
+</ul>
 
 <li><a href="#unix-advanced">2.4 Advanced configuration options</a></li>
 </ul>
@@ -438,18 +442,22 @@ options.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-bindings">2.2.b Enabling language interfaces for C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></h4>
+<h4><a class="anchor" name="unix-bindings">2.2.b Enabling language interfaces 
+for C#, Java, MATLAB, Octave, Perl, Python, R and Ruby</a></h4>
 
 <p> LibSBML's core is written in C and C++, but libSBML comes with APIs for
 other languages as well.  To enable the library extensions for C#, Java,
-Perl, Python, MATLAB, Octave, and/or Ruby, you need to supply additional
+MATLAB, Octave, Perl, Python, R and/or Ruby, you need to supply additional
 options to <code>configure</code>.  These options are
 <nobr><code>--with-csharp</code></nobr>, <nobr><code>--with-java</code></nobr>,
+<nobr><code>--with-matlab</code></nobr>,
+<nobr><code>--with-octave</code></nobr>, 
 <nobr><code>--with-perl</code></nobr>,
-<nobr><code>--with-python</code></nobr>, <nobr><code>--with-matlab</code></nobr>,
-<nobr><code>--with-octave</code></nobr>, and <nobr><code>--with-ruby</code></nobr>, respectively.  As
+<nobr><code>--with-python</code></nobr>, 
+<nobr><code>--with-r</code></nobr>, 
+and <nobr><code>--with-ruby</code></nobr>, respectively.  As
 with other configure options discussed above, all of these accept an
-optional prefix argument; for example, on a Mac&nbsp;OS 10.5 Intel-based system
+optional prefix argument; for example, on a Mac&nbsp;OS&nbsp;X 10.5 Intel-based system
 with MATLAB version R2010a installed in its default location of
 <code>/Applications/MATLAB_R2010a.app</code>, the proper argument would be
 
@@ -791,42 +799,32 @@ Lists, and Related Topics" elsewhere in this manual.
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-compiling">2.3 Compiling and installing libSBML</a></h3>
 
-
 <p> After the configuration step (and if you are using CMake, the
 generation of the makefiles), the final steps are to run the compilation
 process followed by a command to install libSBML on your system.  
+
+<!-- ---------------------------------------------------------------------- -->
+<h4><a class="anchor" name="compiling-cmake">2.3.a Using CMake</a></h4>
 
 <p> If you are using CMake, then in a terminal/shell window, first
 <code>cd</code> into the "build" directory that you indicated to CMake in the
 second line of the CMake GUI during the configuration step described in
 Section 2.1, <a href="#unix-cmake"><i>Configuring using CMake</i></a> above.
-For instance, if your "build" directory is simply named <code>build</code>,
-then do
+For instance, if your "build" directory is simply named <code>build</code> and
+you placed it in a subdirectory of the libSBML source directory (let 
+<span class="placeholder">SRC</span> stand for that directory), you would simply
+do the following:
 
 <div class="fragment"><pre class="fragment">
-cd build
+cd <span class="placeholder">SRC</span>/build
 </pre></div>
 
-<p> (If you are using GNU make and <i>not</i> using CMake, simply stay in the
-top level of the libSBML source code directory.) Next, execute the following
-commands to compile and install libSBML:
+<p> Next, execute the following commands to compile and install libSBML:
 
 <div class="fragment"><pre class="fragment">
-make               # Note: use 'gmake' on FreeBSD
-make install       # Note: use 'gmake install' on FreeBSD
+make                # Note: use 'gmake' on FreeBSD
+sudo make install   # Note: use 'sudo gmake install' on FreeBSD
 </pre></div>
-
-<p> Note that you will probably have to perform the <code>make
-install</code> command as the user 'root' on your system if you used the
-default installation directory (<code>/usr/local</code>) or you set
-<nobr><code>--prefix</code></nobr> to a system directory that only root is
-permitted to write into.  (A quick way to run a command as root is to use
-the <code>sudo</code> command; i.e., run <code><nobr>sudo make
-install</nobr></code>.)
-
-<p> Please refer to the section titled <a href="#locations"><i>Files
-installed by libSBML, and their locations</i></a> for information about the
-locations where the installation step copies the various libSBML files.
 
 <p> Once the libSBML files are installed as described in the sections
 above, you may need to perform additional steps so that software can find
@@ -834,6 +832,31 @@ the libSBML library files at <em>run</em> time.  Please see the
 instructions on <a href="libsbml-accessing.html"><i>Making libSBML accessible
 to your software</i></a> provided on a separate page of this documentation.
 
+
+<!-- ---------------------------------------------------------------------- -->
+<h4><a class="anchor" name="compiling-gnumake">2.3.a Using GNU make</a></h4>
+
+<p> If you are using GNU make and <i>not</i> using CMake, in a terminal/shell
+window, <code>cd</code> to the top level of the libSBML source directory.  
+In the following example, let
+<span class="placeholder">SRC</span> stand for that directory:
+
+<div class="fragment"><pre class="fragment">
+cd <span class="placeholder">SRC</span>/build
+</pre></div>
+
+<p> Next, execute the following commands to compile and install libSBML:
+
+<div class="fragment"><pre class="fragment">
+make                # Note: use 'gmake' on FreeBSD
+sudo make install   # Note: use 'sudo gmake install' on FreeBSD
+</pre></div>
+
+<p> Once the libSBML files are installed as described in the sections
+above, you may need to perform additional steps so that software can find
+the libSBML library files at <em>run</em> time.  Please see the
+instructions on <a href="libsbml-accessing.html"><i>Making libSBML accessible
+to your software</i></a> provided on a separate page of this documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
