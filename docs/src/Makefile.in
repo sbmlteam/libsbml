@@ -123,6 +123,7 @@ extra_distclean =                           \
         doxygen-config-octave.txt           \
         doxygen-config-perl.txt             \
         doxygen-config-python.txt           \
+        libsbml-accessing.html              \
         libsbml-converters.txt              \
         libsbml-group-comp-intro.html       \
         libsbml-group-core-intro.html       \
@@ -266,7 +267,7 @@ distfiles =                                                  \
         java-substitutions/libsbmlConstants.java.in          \
         libsbml-doxygen.html                                 \
         libsbml-extending.txt                                \
-        libsbml-accessing.html                               \
+        libsbml-accessing.html.in                            \
         libsbml-accessing.txt                                \
         libsbml-authors.html                                 \
         libsbml-blurb.html                                   \
@@ -451,6 +452,7 @@ doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
 expanded-html-files =		  \
+  libsbml-accessing.html          \
   libsbml-group-comp-intro.html	  \
   libsbml-group-core-intro.html	  \
   libsbml-group-fbc-intro.html	  \
