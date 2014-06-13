@@ -530,13 +530,31 @@ permissions yourself.
 
 <h3><a class="anchor" name="accessing-r">R</a></h3>
 
-<p> First, as mentioned for some of the other languages described on this
-page, please be aware that libSBML by default only builds the C and C++ APIs.
-To build the R as well, libSBML has to be configured appropriately, as
-described in the <a
-href="libsbml-installation.html">installation instructions</a>.
+<p> As described in the <a
+href="libsbml-installation.html#quick">installation instructions</a>, we
+provide ready-built installers for the libSBML R language interface that you
+can download from our <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge 
+download page</a>.  Alternatively, you can also build the R bindings
+yourself following the
+<a href="libsbml-installation.html">compilation instructions</a>.  (In the
+latter case, make sure to configure your CMake or GNU make build with the
+option to enable the R interface.)
 
-<p> (Documentation unfinished.)
+<p> Either way, you will have in your possession an archive file containing
+the libSBML R interface.  <strong>One more step is required to make your R
+installation find the libSBML interface</strong>: you must invoke a command
+in R, supplying it with the path to this archive file.  More specifically,
+suppose that the path to the file is
+<span class="placeholder">PATH_TO_R_ARCHIVE</span>.  Start R on your
+computer, and execute the following command in it:
+
+<pre class="fragment">
+R CMD INSTALL <span class="placeholder">PATH_TO_R_ARCHIVE</span>
+</pre>
+
+<p> From this point forward, you should be able to call on libSBML functions
+from within your R installation.
 
 
 
