@@ -58,10 +58,17 @@ STABLE RELEASE
   - Continue our review of code a number of potential problems were 
     highlighted during static analysis. These have been fixed.
 
-  * The short error messages for the following error codes in
+  - The short error messages for the following error codes in
     SBMLErrorTable.h had trailing periods, which was inconsistent with
     most of the other messages; the periods have been removed: 20109,
     99109, 99401, 99402, 99403, 99404, 99405, 99406.
+
+  - In the API documentation, the instructions for setting PYTHONPATH
+    was not correct for the installation produced by using CMake
+    instead of GNU configure.  Further, the PYTHONPATH instructions
+    for Ubuntu were actually for other Linux/Unix variants and vice
+    versa.  This has been fixed by making the instructions use a
+    single, more general approach that should work everywhere.
 
 
 EXPERIMENTAL RELEASE
@@ -248,13 +255,6 @@ STABLE RELEASE
     available from the Open Build Service and via pypi. Links to the
     relevant release can be found in the documentation on SourceForge
     download pages for libSBML.
-
-  - In the API documentation, the instructions for setting PYTHONPATH
-    was not correct for the installation produced by using CMake
-    instead of GNU configure.  Further, the PYTHONPATH instructions
-    for Ubuntu were actually for other Linux/Unix variants and vice
-    versa.  This has been fixed by making the instructions use a
-    single, more general approach that should work everywhere.
 
   - The copyright statement for all example programs that we produced
     ourselves has been changed to use a less restrictive license, so
