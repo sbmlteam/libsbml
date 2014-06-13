@@ -539,23 +539,44 @@ download page</a>.  Alternatively, you can also build the R bindings
 yourself following the
 <a href="libsbml-installation.html">compilation instructions</a>.  (In the
 latter case, make sure to configure your CMake or GNU make build with the
-option to enable the R interface.)
+option to enable the R interface.) Either way, you will have in
+your possession an archive file containing the libSBML R interface.  This
+file will have a name of the form
+<code>libSBML_<span class="placeholder-nospace">version</span>.tgz</code> on 
+Mac&nbsp;OS&nbsp;X, 
+<code>libSBML_<span class="placeholder-nospace">version</span>.zip</code> on 
+Windows, and
+<code>libSBML_<span class="placeholder-nospace">version</span>_R_i686-pc-linux-gnu.tar.gz</code>
+or
+<code>libSBML_<span class="placeholder-nospace">version</span>_R_x86_64-pc-linux-gnu.tar.gz</code>
+on Linux systems.
 
-<p> Either way, you will have in your possession an archive file containing
-the libSBML R interface.  <strong>One more step is required to make your R
+<p> <strong>One more step is required to make your R
 installation find the libSBML interface</strong>: you must invoke a command
-in R, supplying it with the path to this archive file.  More specifically,
-suppose that the path to the file is
-<span class="placeholder">PATH_TO_R_ARCHIVE</span>.  Start R on your
+in R, supplying it with the path to this archive file.  You can do this in
+one of two ways: either using the R graphical interface, or the R command
+line.
+<ul>
+<li><em style="padding-right: 1px">If you are using the R GUI</em>: In the R menu
+"<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
+(depending on your operating system), select the "<strong>Package 
+Installer</strong>" item.  You will be presented with an interface that lets
+you install a local binary package.  Use the interface to navigate to the
+directory where you copied the libSBML archive file, and select the archive
+file for installation.
+
+<li><em style="padding-right: 1px">If you are using the R command line</em>: 
+Suppose that the path to the libSBML R archive on your computer is
+<span class="placeholder">ARCHIVE</span>.  Start R on your
 computer, and execute the following command in it:
 
 <pre class="fragment">
-R CMD INSTALL <span class="placeholder">PATH_TO_R_ARCHIVE</span>
+R CMD INSTALL <span class="placeholder">ARCHIVE</span>
 </pre>
+</ul>
 
 <p> From this point forward, you should be able to call on libSBML functions
-from within your R installation.
-
+from within your copy of R.
 
 
 <h3><a class="anchor" name="accessing-octave">Octave</a></h3>
