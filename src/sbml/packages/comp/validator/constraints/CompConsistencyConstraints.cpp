@@ -3863,8 +3863,6 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Port, p)
   }
   pre ( unknownPackagePresent == true);
   
-  bool fail = true;
-
   msg = "The 'idRef' of a <port>";
   msg += " is set to '";
   msg += p.getIdRef();
@@ -3872,8 +3870,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Port, p)
   msg += " However it may be an identifier of an object within an ";
   msg += "unrecognised package. ";
 
+  IdList mIds;
 
-  inv(fail == false);
+  // create the filter we want to use
+  IdFilter filter;
+
+  ReferencedModel *ref = new ReferencedModel(m, p);
+  const Model* mod = ref->getReferencedModel();
+  
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(p.getIdRef()))
 }
 END_CONSTRAINT
 
@@ -3893,8 +3909,6 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Deletion, d)
   pre ( unknownPackagePresent == true);
   pre(d.isSetIdRef());
   
-  bool fail = true;
-
   const Submodel * sub = static_cast<const Submodel*>
                         (d.getAncestorOfType(SBML_COMP_SUBMODEL, "comp"));
   pre (sub != NULL);
@@ -3908,8 +3922,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Deletion, d)
   msg += "'. However it may be an identifier of an object within an ";
   msg += "unrecognised package. ";
 
+  IdList mIds;
 
-  inv(fail == false);
+  // create the filter we want to use
+  IdFilter filter;
+
+  ReferencedModel *ref = new ReferencedModel(m, d);
+  const Model* mod = ref->getReferencedModel();
+  
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(d.getIdRef()))
 }
 END_CONSTRAINT
 
@@ -3931,8 +3963,6 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, ReplacedElement, repE)
   }
   pre ( unknownPackagePresent == true);
   
-  bool fail = true;
-
   msg = "The 'idRef' of a <replacedElement>";
   msg += " is set to '";
   msg += repE.getIdRef();
@@ -3942,8 +3972,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, ReplacedElement, repE)
   msg += "'. However it may be an identifier of an object within an ";
   msg += "unrecognised package. ";
 
+  IdList mIds;
 
-  inv(fail == false);
+  // create the filter we want to use
+  IdFilter filter;
+
+  ReferencedModel *ref = new ReferencedModel(m, repE);
+  const Model* mod = ref->getReferencedModel();
+  
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(repE.getIdRef()))
 }
 END_CONSTRAINT
 
@@ -3964,8 +4012,6 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, SBaseRef, sbRef)
   }
   pre ( unknownPackagePresent == true);
   
-  bool fail = true;
-
   pre (sbRef.getParentSBMLObject() != NULL);
 
   int tc = sbRef.getParentSBMLObject()->getTypeCode();
@@ -4013,8 +4059,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, SBaseRef, sbRef)
   msg += "However it may be an identifier of an object within an ";
   msg += "unrecognised package. ";
 
+  IdList mIds;
 
-  inv(fail == false);
+  // create the filter we want to use
+  IdFilter filter;
+
+  ReferencedModel *ref = new ReferencedModel(m, sbRef);
+  const Model* mod = ref->getReferencedModel();
+  
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(sbRef.getIdRef()))
 }
 END_CONSTRAINT
 
@@ -4036,8 +4100,6 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Port, p)
   }
   pre ( unknownPackagePresent == true);
 
-  bool fail = true;
-
   msg = "The 'metaIdRef' of a <port>";
   msg += " is set to '";
   msg += p.getMetaIdRef();
@@ -4045,7 +4107,27 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Port, p)
   msg += "However it may be the 'metaid' of an object within an ";
   msg += "unrecognised package. ";
 
-  inv(fail == false);
+  IdList mIds;
+
+  // create the filter we want to use
+  MetaIdFilter filter;
+
+  //  get a list of all elements with an id
+  ReferencedModel *ref = new ReferencedModel(m, p);
+  const Model* mod = ref->getReferencedModel();
+
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(p.getMetaIdRef()))
 }
 END_CONSTRAINT
 
@@ -4065,8 +4147,6 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Deletion, d)
   }
   pre ( unknownPackagePresent == true);
 
-  bool fail = true;
-
   const Submodel * sub = static_cast<const Submodel*>
                         (d.getAncestorOfType(SBML_COMP_SUBMODEL, "comp"));
   pre (sub != NULL);
@@ -4081,7 +4161,27 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Deletion, d)
   msg += "However it may be the 'metaid' of an object within an ";
   msg += "unrecognised package. ";
 
-  inv(fail == false);
+  IdList mIds;
+
+  // create the filter we want to use
+  MetaIdFilter filter;
+
+  //  get a list of all elements with an id
+  ReferencedModel *ref = new ReferencedModel(m, d);
+  const Model* mod = ref->getReferencedModel();
+
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(d.getMetaIdRef()))
 }
 END_CONSTRAINT
 
@@ -4102,8 +4202,6 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, ReplacedElement, repE)
   }
   pre ( unknownPackagePresent == true);
 
-  bool fail = true;
-
   msg = "The 'metaidRef' of a <replacedElement>";
   msg += " is set to '";
   msg += repE.getMetaIdRef();
@@ -4114,7 +4212,27 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, ReplacedElement, repE)
   msg += "However it may be the 'metaid' of an object within an ";
   msg += "unrecognised package. ";
 
-  inv(fail == false);
+  IdList mIds;
+
+  // create the filter we want to use
+  MetaIdFilter filter;
+
+  //  get a list of all elements with an id
+  ReferencedModel *ref = new ReferencedModel(m, repE);
+  const Model* mod = ref->getReferencedModel();
+
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(repE.getMetaIdRef()))
 }
 END_CONSTRAINT
 
@@ -4133,8 +4251,6 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
     unknownPackagePresent = true;
   }
   pre ( unknownPackagePresent == true);
-
-  bool fail = true;
 
   pre (sbRef.getParentSBMLObject() != NULL);
 
@@ -4183,7 +4299,27 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
   msg += " However it may be the 'metaid' of an object within an ";
   msg += "unrecognised package. ";
 
-  inv(fail == false);
+  IdList mIds;
+
+  // create the filter we want to use
+  MetaIdFilter filter;
+
+  //  get a list of all elements with an id
+  ReferencedModel *ref = new ReferencedModel(m, sbRef);
+  const Model* mod = ref->getReferencedModel();
+
+  pre (mod != NULL);
+  
+  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  }
+
+  delete allElements;
+
+  inv(mIds.contains(sbRef.getMetaIdRef()))
 }
 END_CONSTRAINT
 
