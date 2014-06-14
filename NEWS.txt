@@ -98,6 +98,12 @@ STABLE RELEASE
     versa.  This has been fixed by making the instructions use a
     single, more general approach that should work everywhere.
 
+  - The API documentation lacked information about using PyPI for 
+    Python.  It does now.
+
+  - The API documentation lacked information about how to install the
+    R interface.  It does now.
+
 
 EXPERIMENTAL RELEASE
 
