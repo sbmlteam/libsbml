@@ -397,3 +397,9 @@ if(WITH_CHECK AND NOT MSVC)
 	set_tests_properties(test_r_binding PROPERTIES PASS_REGULAR_EXPRESSION "TRUE" )
 
 endif()
+
+INSTALL(CODE "MESSAGE(\"
+Notice: the libSBML R interface must be installed separately.
+To install it, please execute the following shell command:
+  R CMD INSTALL \${R_ARCHIVE}
+\")")

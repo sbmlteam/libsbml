@@ -49,6 +49,6 @@ execute_process(COMMAND "${R_INTERPRETER}"
 
 # here we search for what file has been produced, and print information to the user
 file(GLOB GENERATED_FILES *.tgz *.tar.gz *.zip)
+set(R_ARCHIVE "${GENERATED_FILES}" ${PACKAGE_NAME} CACHE STRING "")
 
 message(STATUS "Created package: ${GENERATED_FILES}")
-
