@@ -9,12 +9,26 @@ STABLE RELEASE
 
 * New features
 
+  - The static functions implemented by the SBMLTransforms class
+    that are used by the converters that in-line FunctionDefinitions 
+    or expand InitialAssignments has been made available to all language 
+    bindings.  These are: replaceFD, expandInitialAssignments 
+    and evaluateASTNode.  Examples of using these functions 
+    are also provided.
+	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
 
 * Bug fixes
+
+  - There was an issue with detecting NULL elements with the 
+    R bindings.  This turns out to be a consequence of SWIG. A
+    bug report has been filed with the SWIG development team,
+    in the meantime, a revised SWIG file is included with the
+    libSBML source and is used by the libSBML build when
+    creating the R bindings. 
 
   - The unit consistency checking code was ignoring numerical
     factors when checking the units of a KineticLaw matched the 
@@ -47,16 +61,30 @@ STABLE RELEASE
     with the incorrect category of error. This has been changed.
 
   - 'comp' package-specific bug fixes:
+  
+    - When libSBML detects an SBML L3 package that it does not support
+      validation of 'comp' references can report that a reference may
+      be to an identifier within the unknown package. However, the code
+      was failing to check whether the reference could be located within
+      the xml relating to supported packages before issuing this warning.
+      This has been fixed.  Thanks to Chris Myers for reporting it.
+      
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
+  - The CMake build system will now produce an uninstall target.
+
 * Miscellaneous
 
   - Continue our review of code a number of potential problems were 
     highlighted during static analysis. These have been fixed.
+    
+  - Code review has also eliminated a number of compiler warnings
+    raised by various different compilers on various different
+    systems.
 
   - The short error messages for the following error codes in
     SBMLErrorTable.h had trailing periods, which was inconsistent with
