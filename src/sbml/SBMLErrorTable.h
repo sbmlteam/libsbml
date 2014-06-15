@@ -9126,6 +9126,35 @@ static const sbmlErrorTableEntry errorTable[] =
   //   "L3V1 Section 4.2.6"}
   //},
 
+
+/* Explanation about 99994 and 99995:
+
+If SBase::readAttributes function finds an attribute it does not know about
+in a namespace it does not recognize, it stores the attribute BUT.  If it
+*does* know about the namespace but the attribute is not recognized, then
+since this is the generic base function, it logs a generic error 99994/5.
+
+The readAttributes function for the derived class calls SBase::readAttributes
+and then looks to see if these generic errors have been logged. If so, they
+remove the error and replace it with an error that is specific to the object
+that is logging the error.
+
+For example, instead of getting a general error, you would get a specific
+error such as
+
+    "A <layout> object may have the optional SBML Level~3 Core "
+    "attributes 'metaid' and 'sboTerm'. No other attributes from "
+    "the SBML Level 3 Core namespace are permitted on a <layout> object. ",
+
+This error is actually within the layout package so this "add a generic error
+and then replace it with a specific one 'hack' " keeps the error codes for
+packages separate -- so that libsbml will work if a certain package has not
+been included in the build but if the package is in the build you get proper
+package related errors without the SBase::readAttributes function needing to
+know about them.
+
+*/
+
   //99994
   {   
     UnknownCoreAttribute,   
