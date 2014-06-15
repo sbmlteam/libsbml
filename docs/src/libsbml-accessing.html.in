@@ -27,27 +27,28 @@ information about how to do that.
 
 <p>
 Whether you downloaded a ready-built libSBML installation, or you followed
-the <a href="libsbml-installation.html">installation instructions</a>, copies
+the <a href="libsbml-installation.html">instructions for building and 
+installing libSBML manually</a>, copies
 of the libSBML files will end up in appropriate destination directories on
-your computer.  However, this does not guarantee that a given software
-application will be able to <em>find</em> the libSBML library file(s)
-when it runs.  The run-time environment must be properly configured first.
+your computer.  On Mac&nbsp;OS&nbsp;X, this should be enough; a given
+software application should be able to find the libSBML library file(s) when
+it runs.  On Linux and Windows, it <em>may</em> not be sufficient not
+guarantee that a given software application will be able to find the libSBML
+library file(s) when it runs&mdash;you may need to do additional steps to enable
+software to find libSBML.  
 
-<h3>On most Linux/Unix-based platforms:</h3
+<h3>On most Linux platforms</h3>
 
-<p><em><b>Either do the following:</b></em>
-<ul>
-<li><em>Unless</em> using Mac&nbsp;OS&nbsp;X systems, run the program
+<p>There are two common approaches to solving the problem under Linux.
+
+<ol>
+<li><em>Use <code>ldconfig</code></em>: Run the program
 <code>ldconfig</code> as user 'root'.  (Please consult the man page for
-<code>ldconfig</code> if this is unfamiliar.  On Mac&nbsp;OS&nbsp;X, there is no
-equivalent to <code>ldconfig</code>.)</li></ul>
+<code>ldconfig</code> if this is unfamiliar.)</li>
 
-<em><b>or do the following:</b></em>
-
-<ul><li>Ensure that each user sets the environment variable
-<code>LD_LIBRARY_PATH</code> in their command shells.  (On Mac&nbsp;OS&nbsp;X,
-the variable is named <code>DYLD_LIBRARY_PATH</code>.)  The value of
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> must include
+<li><em>Set environment variables</em>: Ensure that each user sets the
+environment variable <code>LD_LIBRARY_PATH</code> in their terminal shells.
+The value of <code>LD_LIBRARY_PATH</code> must include
 the directory <span class="placeholder">DIR</span> used
 during the <a href="libsbml-installation.html">libSBML
 configuration step</a> as the value of the
@@ -65,14 +66,9 @@ file):
 <pre class="fragment">
 setenv LD_LIBRARY_PATH /usr/local/lib
 </pre>
+</li>
 
-On Mac OS X, this would instead be
-
-<pre class="fragment">
-setenv DYLD_LIBRARY_PATH /usr/local/lib
-</pre>
-
-</li></ul>
+</ol>
 
 
 <h3>On Microsoft Windows platforms:</h3>
