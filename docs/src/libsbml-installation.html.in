@@ -103,12 +103,12 @@ Cleaning up...
 
 <li><em>Using the operating system's software installation tools</em>: If you
 are running Linux, and you prefer to use the standard over-the-air installation
-tools provided by your operating system, such as <code>yum</code>
-and <code>apt-get</code>, you can take advantage of binary installers we
+tools provided by your operating system (e.g., <code>yum</code>
+and <code>apt-get</code>), you can take advantage of binary installers we
 provide using the <a target="_blank"
 href="https://build.opensuse.org">OpenSUSE Build System</a> (OBS). You can find
-the instructions for many different flavors of Linux (including CentOS, Fedora,
-OpenSUSE, Ubuntu, and others) at the following URLs:
+the instructions for many different flavors of Linux including CentOS, Fedora,
+Ubuntu, and others, at the following URLs:
 
 <ul>
 <li><em>For the stable release</em>: 
@@ -124,10 +124,9 @@ python-libsbml-experimental</a></code>.
 </ul>
 </ul>
 
-<p> After using either approach above (i.e., PyPI, or the installers
-available at the OpenSUSE Build System), you should be able to access the
-Python language interface for libSBML on you computer directly from your
-Python interpreter.
+<p> After using either approach above (PyPI, or the installers available via
+OBS), you should be able to access the Python language interface for libSBML
+on you computer directly from your Python interpreter.
 
 <p>
 <em><strong>If you are using R</strong></em>, we provide installers for the
@@ -137,26 +136,26 @@ can download the installer archive file from the
 href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge 
 download page</a> mentioned below.  This
 file will have a name of the form
-<code>libSBML_<span class="placeholder-nospace">version</span>.tgz</code> on 
+<code>libSBML_@PACKAGE_VERSION.tgz</code> on 
 Mac&nbsp;OS&nbsp;X, 
-<code>libSBML_<span class="placeholder-nospace">version</span>.zip</code> on 
+<code>libSBML_@PACKAGE_VERSION@.zip</code> on 
 Windows, and
-<code>libSBML_<span class="placeholder-nospace">version</span>_R_i686-pc-linux-gnu.tar.gz</code>
+<code>libSBML_@PACKAGE_VERSION@_R_i686-pc-linux-gnu.tar.gz</code>
 or
-<code>libSBML_<span class="placeholder-nospace">version</span>_R_x86_64-pc-linux-gnu.tar.gz</code>
+<code>libSBML_@PACKAGE_VERSION@_R_x86_64-pc-linux-gnu.tar.gz</code>
 on Linux systems.
 
-<p> Once you have downloaded the appropriate version of the libSBML R
-installer archive file for your operating system, one more step is required
-to install the libSBML R interface.  You can do this step in one of two ways:
-either using the R graphical interface, or using a terminal/shell command.
+<p> Once you have downloaded the appropriate version of the installer for
+your operating system, one more step is required to install the libSBML R
+interface.  You can do this step in one of two ways: either using the R
+graphical interface, or using a terminal/shell command.
 
 <ul>
-<li><em style="padding-right: 1px">Using the R GUI</em>: In the R menu
+<li><em style="padding-right: 1px">Using the R GUI</em>: From the R menu
 "<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
 (depending on your operating system), select the "<strong>Package 
 Installer</strong>" item.  You will be presented with an interface that lets
-you install a local binary package.  Use the interface to navigate to the
+you install a local binary package.  Use that interface to navigate to the
 directory where you copied the libSBML archive file, and select the archive
 file for installation.
 
@@ -1250,25 +1249,25 @@ table below lists the pathnames where those files will be installed.
   <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
                    <em>N/A</em><br><br>
   </td>
-</tr><tr>
-  <td valign="middle" style="background: #f3f3f3">
+</tr><tr style="background: #f3f3f3">
+  <td valign="middle">
     <nobr><em>(Additional files)</em></nobr>
   </td>
-  <td valign="top" style="background: #f3f3f3">
+  <td valign="top">
                    <code>CheckAndConvert.m</code><br>
                    <code>Contents.m</code><br>
                    <code>ConvertFormulaToMathML.m</code><br>
                    <code>isSBML_Model.m</code><br>
                    <code>isoctave.m</code><br>
   </td>
-  <td valign="top" style="background: #f3f3f3">
+  <td valign="top">
                    <code>CheckAndConvert.m</code><br>
                    <code>Contents.m</code><br>
                    <code>ConvertFormulaToMathML.m</code><br>
                    <code>isSBML_Model.m</code><br>
                    <code>isoctave.m</code><br>
   </td>
-  <td valign="top" style="background: #f3f3f3">
+  <td valign="top">
                    <code>CheckAndConvert.m</code><br>
                    <code>Contents.m</code><br>
                    <code>ConvertFormulaToMathML.m</code><br>
@@ -1361,6 +1360,20 @@ table below lists the pathnames where those files will be installed.
       <code>libsbml.pyc</code><br>
       <code>libsbml.pth</code></td>
 </tr><tr>
+  <td colspan="2">R</td>
+  <td><code>libSBML.rdb</code><br>
+      <code>libSBML.rdx</code><br>
+      <code>libSBML</code></td>
+
+  <td><code>libSBML.rdb</code><br>
+      <code>libSBML.rdx</code><br>
+      <code>libSBML.so</code></td>
+
+  <td><code>libSBML.rdb</code><br>
+      <code>libSBML.rdx</code><br>
+      <code>libSBML.dll</code></td>
+</tr>
+</tr><tr style="background: #f3f3f3">
   <td colspan="2">Ruby</td>
   <td><code>libSBML.so</code></td>
   <td><code>libSBML.bundle</code></td>
@@ -1421,7 +1434,7 @@ option to the <code>configure</code> program discussed above).
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/perl5/site_perl/</code><span class="placeholder-nospace">perl-version</span><code>/</code><em><span class="placeholder-nospace">platform</span><code>/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
-  <td>Python<br>(Ubuntu 11)</td>
+  <td>Python<br>(Ubuntu)</td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
@@ -1434,7 +1447,7 @@ option to the <code>configure</code> program discussed above).
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/dist-packages/</code></nobr></td>
   <td></td>
 </tr><tr>
-  <td>Python<br>(Other Linuxes)</td>
+  <td>Python<br>(Other Linux distributions)</td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
@@ -1446,6 +1459,11 @@ option to the <code>configure</code> program discussed above).
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/libsbml/</code></nobr><br>
       <nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code><span class="placeholder-nospace">python-version</span><code>/site-packages/</code></nobr></td>
   <td>(2)</td>
+</tr><tr>
+  <td colspan="2">R</td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/R/site-library/libSBML/</code></nobr></td>
+  <td></td>
+</tr>
 </tr><tr>
   <td colspan="2">Ruby</td>
   <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/ruby/site_ruby/</code><span class="placeholder-nospace">ruby-version</span><code>/</code><span class="placeholder-nospace">platform</span><code>/</code></nobr></td>
