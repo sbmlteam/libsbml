@@ -5927,7 +5927,7 @@ SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_
   XMLErrorLog* log = getErrorLog();
 
   // set override for error messages
-  XMLErrorSeverityOverride_t old;
+  XMLErrorSeverityOverride_t old = LIBSBML_OVERRIDE_DISABLED;
   if (log != NULL )
   {
     old = log->getSeverityOverride();
