@@ -465,7 +465,7 @@ public:
    * 
    * @param orig the CVTerm instance to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   CVTerm(const CVTerm& orig);
@@ -477,7 +477,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   CVTerm& operator=(const CVTerm& rhs);

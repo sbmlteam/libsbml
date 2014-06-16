@@ -95,7 +95,7 @@ public:
    * @param uri a string, URI of the XMLTriple.
    * @param prefix a string, prefix for the URI of the XMLTriple,
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLTriple (  const std::string&  name
@@ -116,7 +116,7 @@ public:
    * @param triplet a string representing the triplet as above
    * @param sepchar a character, the sepchar used in the triplet
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
@@ -129,7 +129,7 @@ public:
    *
    * @param orig the XMLTriple object to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLTriple(const XMLTriple& orig);
@@ -141,7 +141,7 @@ public:
    * @param rhs The XMLTriple object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLTriple& operator=(const XMLTriple& rhs);

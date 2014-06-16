@@ -667,7 +667,7 @@ public:
    *
    * @p orig the XMLError object to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLError(const XMLError& orig);
@@ -679,7 +679,7 @@ public:
    * @param rhs The XMLError object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLError& operator=(const XMLError& rhs);

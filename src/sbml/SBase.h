@@ -195,7 +195,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBase& operator=(const SBase& rhs);
@@ -3147,7 +3147,7 @@ protected:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
   */
   SBase(const SBase& orig);

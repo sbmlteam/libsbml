@@ -451,7 +451,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLInternalValidator(const SBMLInternalValidator& orig);

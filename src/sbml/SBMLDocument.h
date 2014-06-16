@@ -387,7 +387,7 @@ public:
    *
    * @param version an integer for the Version within the SBML Level
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -409,7 +409,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -428,7 +428,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   SBMLDocument (const SBMLDocument& orig);
@@ -440,7 +440,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLDocument& operator=(const SBMLDocument& rhs);
@@ -1670,7 +1670,7 @@ SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version
  *
  * @param sbmlns an SBMLNamespaces_t structure.
  *
- * @throws @if python ValueError @else SBMLConstructorException @endif@~
+ * @throws SBMLConstructorException
  * Thrown if the given @p level and @p version combination, or this kind
  * of SBML structure, are either invalid or mismatched with respect to the
  * parent SBMLDocument_t structure.

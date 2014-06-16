@@ -269,7 +269,7 @@ public:
    * 
    * @param orig the XMLNode instance to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLNode(const XMLNode& orig);
@@ -281,7 +281,7 @@ public:
    * @param rhs The XMLNode object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLNode& operator=(const XMLNode& rhs);

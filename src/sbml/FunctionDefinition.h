@@ -141,7 +141,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * FunctionDefinition
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -159,7 +159,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -180,7 +180,7 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   FunctionDefinition (const FunctionDefinition& orig);
@@ -192,7 +192,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   FunctionDefinition& operator=(const FunctionDefinition& rhs);

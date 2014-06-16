@@ -164,7 +164,7 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * AssignmentRule.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -182,7 +182,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.

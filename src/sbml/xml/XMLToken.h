@@ -128,7 +128,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
@@ -149,7 +149,7 @@ public:
    *
    * @param orig the XMLToken object to copy.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
   XMLToken(const XMLToken& orig);
@@ -161,7 +161,7 @@ public:
    * @param rhs The XMLToken object whose values are used as the basis
    * of the assignment.
    *
-   * @throws @if python ValueError @else XMLConstructorException @endif@~
+   * @throws XMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   XMLToken& operator=(const XMLToken& rhs);

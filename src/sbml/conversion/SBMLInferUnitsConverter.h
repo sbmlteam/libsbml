@@ -103,7 +103,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif@~
+   * @throws SBMLConstructorException
    * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLInferUnitsConverter& operator=(const SBMLInferUnitsConverter& rhs);
