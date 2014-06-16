@@ -149,6 +149,7 @@ def filterDocStrings (contents):
   contents = re.sub(r'const std.string&',         'string',          contents)
   contents = re.sub(r'const std.string',          'string',          contents)
   contents = re.sub(r'const ',                    '',                contents)
+  contents = re.sub(r'SBMLConstructorException',  'ValueError',      contents)
 
   # We alter the names of some functions.
   contents = re.sub('SBML_parseFormula\b',        "parseFormula",    contents)
