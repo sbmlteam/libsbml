@@ -532,7 +532,7 @@ permissions yourself.
 href="libsbml-installation.html#quick">installation instructions</a>, we
 provide ready-built installers for the libSBML R language interface that you
 can download from our <a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@">SourceForge 
+href="http://sf.net/projects/sbml/files/libsbml">SourceForge 
 download page</a>.  Alternatively, you can also build the R bindings
 yourself following the
 <a href="libsbml-installation.html">compilation instructions</a>.  (In the
