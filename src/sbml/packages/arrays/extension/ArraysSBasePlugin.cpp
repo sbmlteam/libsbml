@@ -518,8 +518,14 @@ ArraysSBasePlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
 
-  mIndexs.setSBMLDocument(d);
-  mDimensions.setSBMLDocument(d);
+  if (getNumIndexs() > 0) 
+  { 
+    mIndexs.setSBMLDocument(d);
+  }
+  if (getNumDimensions() > 0) 
+  {
+    mDimensions.setSBMLDocument(d);
+  }
 }
 
 
@@ -531,8 +537,14 @@ ArraysSBasePlugin::connectToParent(SBase* sbase)
 {
   SBasePlugin::connectToParent(sbase);
 
-  mIndexs.connectToParent(sbase);
-  mDimensions.connectToParent(sbase);
+  if (getNumIndexs() > 0) 
+  { 
+    mIndexs.connectToParent(sbase);
+  }
+  if (getNumDimensions() > 0) 
+  {
+    mDimensions.connectToParent(sbase);
+  }
 }
 
 
@@ -543,8 +555,14 @@ void
 ArraysSBasePlugin::enablePackageInternal(const std::string& pkgURI,
                                    const std::string& pkgPrefix, bool flag)
 {
-  mIndexs.enablePackageInternal(pkgURI, pkgPrefix, flag);
-  mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  if (getNumIndexs() > 0) 
+  { 
+    mIndexs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  } 
+  if (getNumDimensions() > 0) 
+  {
+    mDimensions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
 
 
