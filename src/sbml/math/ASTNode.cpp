@@ -1610,6 +1610,7 @@ ASTNode::setValue(double mantissa, long exponent)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void 
 ASTNode::setIsChildFlag(bool flag)
 {
@@ -1624,8 +1625,7 @@ ASTNode::setIsChildFlag(bool flag)
     mFunction->setIsChildFlag(flag);
   }
 }
-
-
+/** @endcond */
 
 
   /* isSet functions */
