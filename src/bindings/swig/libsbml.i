@@ -314,9 +314,14 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBMLNamespaces::setLevel;
 %ignore SBMLNamespaces::setVersion;
 %ignore SBMLNamespaces::setNamespaces;
-%ignore SBMLNamespaces::evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
-%ignore SBMLNamespaces::evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m = NULL);
-%ignore SBMLNamespaces::getComponentValuesForModel(const Model * m, IdValueMap& values);
+
+/**
+ * Ignore internal implementation methods and some other methods
+ * on SBMLTransforms.
+ */
+%ignore SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m = NULL);
+%ignore SBMLTransforms::evaluateASTNode(const ASTNode * node, const std::map<std::string, double>& values, const Model * m = NULL);
+%ignore SBMLTransforms::getComponentValuesForModel(const Model * m, IdValueMap& values);
 
 /**
  * Ignore internal implementation methods in XMLToken
