@@ -435,7 +435,7 @@ START_CONSTRAINT (LayoutGGNoDuplicateReferences, GeneralGlyph, glyph)
 
   List * elements = plug->getListElementsWithId();
   unsigned int i = 0;
-  SBase * obj;
+  SBase * obj = NULL;
   while (i < elements->getSize())
   {
     obj = (SBase*)(elements->get(i));
@@ -449,7 +449,7 @@ START_CONSTRAINT (LayoutGGNoDuplicateReferences, GeneralGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
-  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
   }
@@ -528,7 +528,7 @@ START_CONSTRAINT (LayoutTGNoDuplicateReferences, TextGlyph, glyph)
 
   List * elements = plug->getListElementsWithId();
   unsigned int i = 0;
-  SBase * obj;
+  SBase * obj = NULL;
   while (i < elements->getSize())
   {
     obj = (SBase*)(elements->get(i));
@@ -542,7 +542,7 @@ START_CONSTRAINT (LayoutTGNoDuplicateReferences, TextGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
-  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
   }
@@ -661,7 +661,7 @@ START_CONSTRAINT (LayoutSRGNoDuplicateReferences, SpeciesReferenceGlyph, glyph)
 
   List * elements = plug->getListElementsWithId();
   unsigned int i = 0;
-  SBase * obj;
+  SBase * obj = NULL;
   while (i < elements->getSize())
   {
     obj = (SBase*)(elements->get(i));
@@ -675,7 +675,7 @@ START_CONSTRAINT (LayoutSRGNoDuplicateReferences, SpeciesReferenceGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
-  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
   }
@@ -790,7 +790,7 @@ START_CONSTRAINT (LayoutREFGNoDuplicateReferences, ReferenceGlyph, glyph)
 
   List * elements = plug->getListElementsWithId();
   unsigned int i = 0;
-  SBase * obj;
+  SBase * obj = NULL;
   while (i < elements->getSize())
   {
     obj = (SBase*)(elements->get(i));
@@ -804,7 +804,7 @@ START_CONSTRAINT (LayoutREFGNoDuplicateReferences, ReferenceGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
-  if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
+  if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
   }
