@@ -175,7 +175,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBMLErrorLog::add(const std::list<SBMLError>& errors);
 %ignore SBMLErrorLog::add(const std::vector<SBMLError>& errors);
 
-/** 
+/**
  * Ignore methods from SBML Validator that can't be wrapped
  */
 %ignore SBMLValidator::getFailures;
@@ -202,7 +202,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBase::getMetaId();
 
 /**
- * Ignore internal FormulaUnitsData methods on SBase
+ * Ignore internal methods on SBase
  */
 %ignore SBase::removeDuplicateAnnotations;
 %ignore SBase::setSBMLNamespaces;
@@ -211,7 +211,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBase::write;
 
 /**
- * Ignore internal FormulaUnitsData methods on Model
+ * Ignore internal methods on Model
  */
 %ignore Model::addFormulaUnitsData;
 %ignore Model::createFormulaUnitsData;
