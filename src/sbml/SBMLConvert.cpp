@@ -413,7 +413,6 @@ Model::addDefinitionsForDefaultUnits()
   IdList unitsUsed;
   unsigned int n;
   bool implicitVolume = false;
-  bool implicitArea = false;
   bool implicitLength = false;
   bool implicitSubstance = false;
 
@@ -432,7 +431,6 @@ Model::addDefinitionsForDefaultUnits()
       }
       else if (getCompartment(n)->getSpatialDimensions() == 2)
       {
-        implicitArea = true;
         getCompartment(n)->setUnits("area");
       }
       else if (getCompartment(n)->getSpatialDimensions() == 1)
