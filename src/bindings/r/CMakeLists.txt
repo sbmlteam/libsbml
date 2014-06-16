@@ -398,8 +398,11 @@ if(WITH_CHECK AND NOT MSVC)
 
 endif()
 
-INSTALL(CODE "MESSAGE(\"
-Notice: the libSBML R interface must be installed separately.
-To install it, please execute the following shell command:
-  R CMD INSTALL \${R_ARCHIVE}
-\")")
+# at configuration time, we won't know what the final filename of the produced file 
+# is, so we need to run a separate script at the end of installation to print the 
+# message
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake-r-install.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake @ONLY)
+
+INSTALL (SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake )
+

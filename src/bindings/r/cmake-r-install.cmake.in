@@ -1,0 +1,7 @@
+file(GLOB GENERATED_FILES *.tgz *.tar.gz *.zip)
+
+message("
+Notice: the libSBML R interface must be installed separately.
+To install it, please execute the following shell command:
+  R CMD INSTALL ${GENERATED_FILES}
+")
