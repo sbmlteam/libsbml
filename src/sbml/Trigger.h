@@ -57,7 +57,7 @@
  * "initialValue".  This and other additional features introduced in SBML
  * Level&nbsp;3 are discussed further below.
  *
- * @section version-diffs Version differences
+ * @section trigger-version-diffs Version differences
  *
  * SBML Level&nbsp;3 Version&nbsp;1 introduces two required attributes
  * on the Trigger object: "persistent" and "initialValue".  The rest of

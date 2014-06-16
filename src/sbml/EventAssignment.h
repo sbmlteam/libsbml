@@ -120,7 +120,7 @@
  * EventAssignment's "math" expression are the values they have at the
  * point when the event @em executed.
  *
- * @section version-diffs SBML Level/Version differences
+ * @section eventassignment-version-diffs SBML Level/Version differences
  * 
  * Between Version&nbsp;4 and previous versions of SBML Level&nbsp;2, the
  * requirements regarding the matching of units between an

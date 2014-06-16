@@ -48,7 +48,7 @@
  * consult the descriptions of Trigger, Delay, EventAssignment and Priority
  * for more information.
  *
- * @section version-diffs SBML Level/Version differences
+ * @section event-version-diffs SBML Level/Version differences
  * 
  * @subsection sbml-l3 SBML Level 3
  *

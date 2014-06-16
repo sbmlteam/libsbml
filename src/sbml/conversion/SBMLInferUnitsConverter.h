@@ -40,7 +40,7 @@
  * "units" attribute of those parameters to the units inferred (if necessary,
  * creating new UnitDefinition objects on the model in the process).
  *
- * @section usage Configuration and use of SBMLInferUnitsConverter
+ * @section SBMLInferUnitsConverter-usage Configuration and use of SBMLInferUnitsConverter
  *
  * SBMLInferUnitsConverter is enabled by creating a ConversionProperties
  * object with the option @c "inferUnits", and passing this

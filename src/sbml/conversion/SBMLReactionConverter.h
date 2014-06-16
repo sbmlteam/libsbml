@@ -42,7 +42,7 @@
  * an effect on the rates of change of species in the model; however, the
  * converter removes all Reaction objects in the model after it is done.
  *
- * @section usage Configuration and use of SBMLReactionConverter
+ * @section SBMLReactionConverter-usage Configuration and use of SBMLReactionConverter
  *
  * SBMLReactionConverter is enabled by creating a ConversionProperties object
  * with the option @c "replaceReactions", and passing this properties object

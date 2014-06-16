@@ -41,7 +41,7 @@
  * stripped is determined by the value of the option @c "package" on the
  * conversion properties.
  *
- * @section usage Configuration and use of SBMLStripPackageConverter
+ * @section SBMLStripPackageConverter-usage Configuration and use of SBMLStripPackageConverter
  *
  * SBMLStripPackageConverter is enabled by creating a ConversionProperties
  * object with the option @c "stripPackage", and passing this properties

@@ -42,7 +42,7 @@
  * This class is also the basis for
  * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif).
  *
- * @section usage Configuration and use of SBMLLevelVersionConverter
+ * @section SBMLLevelVersionConverter-usage Configuration and use of SBMLLevelVersionConverter
  *
  * SBMLLevelVersionConverter is enabled by creating a ConversionProperties
  * object with the option @c "setLevelAndVersion", and passing this

@@ -126,7 +126,7 @@
  *     flatten the model (for instance, if an element is replaced by something that
  *     does not exist), but no separate validation steps are performed.
  *
- * @section usage Configuration and use of SBMLIdConverter
+ * @section CompFlatteningConverter-usage Configuration and use of SBMLIdConverter
  *
  * CompFlatteningConverter is enabled by creating a ConversionProperties object with
  * the option @c "flatten comp", and passing this properties object to

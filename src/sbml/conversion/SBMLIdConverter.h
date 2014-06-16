@@ -55,7 +55,7 @@
  * a new Math child of a package element), those IDs will be replaced if they
  * match a source identifier.
  *
- * @section usage Configuration and use of SBMLIdConverter
+ * @section SBMLIdConverter-usage Configuration and use of SBMLIdConverter
  *
  * SBMLIdConverter is enabled by creating a ConversionProperties object with
  * the option @c "renameSIds", and passing this properties object to

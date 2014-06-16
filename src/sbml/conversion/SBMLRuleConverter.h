@@ -70,7 +70,7 @@
  * and no amount of sorting can deal with inter-dependencies between
  * assignments of the two kinds.
 
- * @section usage Configuration and use of SBMLRuleConverter
+ * @section SBMLRuleConverter-usage Configuration and use of SBMLRuleConverter
  *
  * SBMLRuleConverter is enabled by creating a ConversionProperties object
  * with the option @c "sortRules", and passing this properties object to

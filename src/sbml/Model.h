@@ -215,7 +215,7 @@ sp.setId("MySpecies");
  * methods called on the species change the species in the model (which is
  * what is expected in most situations).
  *
- * @section checking Consistency and adherence to SBML specifications
+ * @section model-checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
  * libSBML version @htmlinclude libsbml-version.html

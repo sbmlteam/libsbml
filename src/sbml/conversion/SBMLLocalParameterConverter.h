@@ -48,7 +48,7 @@
  * could check incoming models for local parameters and run those models
  * through this converter before proceeding with other steps.
  *
- * @section usage Configuration and use of SBMLLocalParameterConverter
+ * @section SBMLLocalParameterConverter-usage Configuration and use of SBMLLocalParameterConverter
  *
  * SBMLLocalParameterConverter is enabled by creating a ConversionProperties
  * object with the option @c "promoteLocalParameters", and passing this

@@ -72,7 +72,7 @@
  * </table>
  * </center>
  *
- * @section usage Configuration and use of SBMLInitialAssignmentConverter
+ * @section SBMLInitialAssignmentConverter-usage Configuration and use of SBMLInitialAssignmentConverter
  *
  * SBMLInitialAssignmentConverter is enabled by creating a
  * ConversionProperties object with the option @c "expandInitialAssignments",

@@ -41,7 +41,7 @@
  * for writing SBML all take an SBMLDocument object and a destination.  
  * They return a boolean or integer value to indicate success or failure.
  *
- * @section compression Support for writing compressed files
+ * @section sbmlwriter-compression Support for writing compressed files
  *
  * LibSBML provides support for writing (as well as reading) compressed
  * SBML files.  The process is transparent to the calling

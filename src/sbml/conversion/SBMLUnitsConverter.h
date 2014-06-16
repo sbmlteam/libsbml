@@ -47,7 +47,7 @@
  * reactions in the model, the @c extentUnits attribute on the Model object
  * must also be set.
  *
- * @section usage Configuration and use of SBMLUnitsConverter
+ * @section SBMLUnitsConverter-usage Configuration and use of SBMLUnitsConverter
  *
  * SBMLUnitsConverter is enabled by creating a ConversionProperties object
  * with the option @c "units", and passing this properties object to
