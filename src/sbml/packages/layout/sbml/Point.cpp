@@ -723,6 +723,7 @@ LIBSBML_EXTERN
 void
 Point_initDefaults (Point_t *p)
 {
+  if (p == NULL) return;
   p->initDefaults();
 }
 
@@ -731,6 +732,7 @@ LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z)
 {
+  if (p == NULL) return;
   p->setOffsets(x, y, z);
 }
 
@@ -739,6 +741,7 @@ LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x)
 {
+  if (p == NULL) return;
   p->setX(x);
 }
 
@@ -747,6 +750,7 @@ LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y)
 {
+  if (p == NULL) return;
   p->setY(y);
 }
 
@@ -755,6 +759,7 @@ LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z)
 {
+  if (p == NULL) return;
   p->setZ(z);
 }
 
@@ -763,6 +768,7 @@ LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->x();
 }
 
@@ -771,6 +777,7 @@ LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->y();
 }
 
@@ -779,6 +786,7 @@ LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->z();
 }
 
@@ -787,6 +795,7 @@ LIBSBML_EXTERN
 void
 Point_setX (Point_t *p, double x)
 {
+  if (p == NULL) return;
   p->setX(x);
 }
 
@@ -795,6 +804,7 @@ LIBSBML_EXTERN
 void
 Point_setY (Point_t *p, double y)
 {
+  if (p == NULL) return;
   p->setY(y);
 }
 
@@ -803,6 +813,7 @@ LIBSBML_EXTERN
 void
 Point_setZ (Point_t *p, double z)
 {
+  if (p == NULL) return;
   p->setZ(z);
 }
 
@@ -811,6 +822,7 @@ LIBSBML_EXTERN
 double
 Point_x (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->x();
 }
 
@@ -819,6 +831,7 @@ LIBSBML_EXTERN
 double
 Point_y (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->y();
 }
 
@@ -827,6 +840,7 @@ LIBSBML_EXTERN
 double
 Point_z (const Point_t *p)
 {
+  if (p == NULL) return numeric_limits<double>::quiet_NaN();
   return p->z();
 }
 
@@ -834,6 +848,7 @@ LIBSBML_EXTERN
 Point_t *
 Point_clone (const Point_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<Point*>( m->clone() );
 }
 

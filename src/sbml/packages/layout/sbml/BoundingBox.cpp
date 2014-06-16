@@ -853,6 +853,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_initDefaults (BoundingBox_t *bb)
 {
+  if (bb == NULL) return;
   bb->initDefaults();
 }
 
@@ -861,6 +862,7 @@ LIBSBML_EXTERN
 Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb)
 {
+  if (bb == NULL) return NULL;
   return bb->getPosition();
 }
 
@@ -869,6 +871,7 @@ LIBSBML_EXTERN
 Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb)
 {
+  if (bb == NULL) return NULL;
   return bb->getDimensions();
 }
 
@@ -877,7 +880,8 @@ LIBSBML_EXTERN
 void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p)
 {
-   bb->setPosition(p);
+  if (bb == NULL) return;
+  bb->setPosition(p);
 }
 
 
@@ -885,6 +889,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d)
 {
+  if (bb == NULL) return;
   bb->setDimensions(d);
 }
 
@@ -892,14 +897,16 @@ LIBSBML_EXTERN
 void
 BoundingBox_setX(BoundingBox_t* bb,double x)
 {
-    bb->setX(x);
+  if (bb == NULL) return;
+  bb->setX(x);
 }
 
 LIBSBML_EXTERN
 void
 BoundingBox_setY(BoundingBox_t* bb,double y)
 {
-    bb->setY(y);
+  if (bb == NULL) return;
+  bb->setY(y);
 }
 
 
@@ -907,7 +914,8 @@ LIBSBML_EXTERN
 void
 BoundingBox_setZ(BoundingBox_t* bb,double z)
 {
-    bb->setZ(z);
+  if (bb == NULL) return;
+  bb->setZ(z);
 }
 
 
@@ -915,7 +923,8 @@ LIBSBML_EXTERN
 void
 BoundingBox_setWidth(BoundingBox_t* bb,double width)
 {
-    bb->setWidth(width);
+  if (bb == NULL) return;
+  bb->setWidth(width);
 }
 
 
@@ -923,7 +932,8 @@ LIBSBML_EXTERN
 void
 BoundingBox_setHeight(BoundingBox_t* bb,double height)
 {
-    bb->setHeight(height);
+  if (bb == NULL) return;
+  bb->setHeight(height);
 }
 
 
@@ -931,55 +941,63 @@ LIBSBML_EXTERN
 void
 BoundingBox_setDepth(BoundingBox_t* bb,double depth)
 {
-    bb->setDepth(depth);
+  if (bb == NULL) return;
+  bb->setDepth(depth);
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_x(BoundingBox_t* bb)
 {
-    return bb->x();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->x();
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_y(BoundingBox_t* bb)
 {
-    return bb->y();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->y();
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_z(BoundingBox_t* bb)
 {
-    return bb->z();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->z();
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_width(BoundingBox_t* bb)
 {
-    return bb->width();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->width();
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_height(BoundingBox_t* bb)
 {
-    return bb->height();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->height();
 }
 
 LIBSBML_EXTERN
 double
 BoundingBox_depth(BoundingBox_t* bb)
 {
-    return bb->depth();
+  if (bb == NULL) return std::numeric_limits<double>::quiet_NaN();
+  return bb->depth();
 }
 
 LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_clone (const BoundingBox_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<BoundingBox*>( m->clone() );
 }
 
@@ -987,6 +1005,7 @@ LIBSBML_EXTERN
 int
 BoundingBox_isSetId (const BoundingBox_t *bb)
 {
+  if (bb == NULL) return (int)false;
   return static_cast <int> (bb->isSetId());
 }
 
@@ -994,6 +1013,7 @@ LIBSBML_EXTERN
 const char *
 BoundingBox_getId (const BoundingBox_t *bb)
 {
+  if (bb == NULL) return NULL;
   return bb->isSetId() ? bb->getId().c_str() : NULL;
 }
 
@@ -1001,6 +1021,7 @@ LIBSBML_EXTERN
 int
 BoundingBox_setId (BoundingBox_t *bb, const char *sid)
 {
+  if (bb == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   return (sid == NULL) ? bb->setId("") : bb->setId(sid);
 }
 
@@ -1008,6 +1029,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_unsetId (BoundingBox_t *bb)
 {
+  if (bb == NULL) return;
   bb->unsetId();
 }
 

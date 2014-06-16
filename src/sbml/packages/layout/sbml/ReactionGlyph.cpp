@@ -1081,7 +1081,8 @@ LIBSBML_EXTERN
 void
 ReactionGlyph_setReactionId (ReactionGlyph_t *rg,const char *id)
 {
-    static_cast<ReactionGlyph*>(rg)->setReactionId( id ? id : "" );
+  if (rg == NULL) return;
+  static_cast<ReactionGlyph*>(rg)->setReactionId( id ? id : "" );
 }
 
 
@@ -1089,7 +1090,8 @@ LIBSBML_EXTERN
 const char *
 ReactionGlyph_getReactionId (const ReactionGlyph_t *rg)
 {
-    return rg->isSetReactionId() ? rg->getReactionId().c_str() : NULL;
+  if (rg == NULL) return NULL;
+  return rg->isSetReactionId() ? rg->getReactionId().c_str() : NULL;
 }
 
 
@@ -1097,6 +1099,7 @@ LIBSBML_EXTERN
 int
 ReactionGlyph_isSetReactionId (const ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return (int)false;
   return static_cast<int>( rg->isSetReactionId() );
 }
 
@@ -1106,6 +1109,7 @@ void
 ReactionGlyph_addSpeciesReferenceGlyph (ReactionGlyph_t         *rg,
                                         SpeciesReferenceGlyph_t *srg)
 {
+  if (rg == NULL) return;
   rg->addSpeciesReferenceGlyph(srg);
 }
 
@@ -1114,6 +1118,7 @@ LIBSBML_EXTERN
 unsigned int
 ReactionGlyph_getNumSpeciesReferenceGlyphs (const ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return 0;
   return rg->getNumSpeciesReferenceGlyphs();
 }
 
@@ -1123,6 +1128,7 @@ SpeciesReferenceGlyph_t *
 ReactionGlyph_getSpeciesReferenceGlyph (ReactionGlyph_t *rg,
                                         unsigned int           index)
 {
+  if (rg == NULL) return NULL;
   return rg->getSpeciesReferenceGlyph(index);
 }
 
@@ -1131,6 +1137,7 @@ LIBSBML_EXTERN
 ListOf_t *
 ReactionGlyph_getListOfSpeciesReferenceGlyphs (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getListOfSpeciesReferenceGlyphs();
 }
 
@@ -1139,6 +1146,7 @@ LIBSBML_EXTERN
 void
 ReactionGlyph_initDefaults (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return;
   rg->initDefaults();
 }
 
@@ -1147,6 +1155,7 @@ LIBSBML_EXTERN
 void
 ReactionGlyph_setCurve (ReactionGlyph_t *rg, Curve_t *c)
 {
+  if (rg == NULL) return;
   rg->setCurve(c);
 }
 
@@ -1155,6 +1164,7 @@ LIBSBML_EXTERN
 Curve_t *
 ReactionGlyph_getCurve (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve();
 }
 
@@ -1163,6 +1173,7 @@ LIBSBML_EXTERN
 int
 ReactionGlyph_isSetCurve (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return (int)false;
   return static_cast<int>( rg->isSetCurve() );
 }
 
@@ -1171,6 +1182,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 ReactionGlyph_createSpeciesReferenceGlyph (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->createSpeciesReferenceGlyph();
 }
 
@@ -1179,6 +1191,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 ReactionGlyph_createLineSegment (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve()->createLineSegment();
 }
 
@@ -1187,6 +1200,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 ReactionGlyph_createCubicBezier (ReactionGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve()->createCubicBezier();
 }
 
@@ -1195,27 +1209,31 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index)
 {
-    return rg->removeSpeciesReferenceGlyph(index);
+  if (rg == NULL) return NULL;
+  return rg->removeSpeciesReferenceGlyph(index);
 }
 
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* id)
 {
-    return rg->removeSpeciesReferenceGlyph(id);
+  if (rg == NULL) return NULL;
+  return rg->removeSpeciesReferenceGlyph(id);
 }
 
 LIBSBML_EXTERN
 unsigned int
 ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id)
 {
-    return rg->getIndexForSpeciesReferenceGlyph(id);
+  if (rg == NULL) return 0;
+  return rg->getIndexForSpeciesReferenceGlyph(id);
 }
 
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_clone (const ReactionGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<ReactionGlyph*>( m->clone() );
 }
 

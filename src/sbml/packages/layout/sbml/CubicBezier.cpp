@@ -784,6 +784,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint1 (CubicBezier_t *cb, const Point_t *point)
 {
+  if (cb == NULL) return;
   cb->setBasePoint1(point);
 }
 
@@ -792,6 +793,7 @@ LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint1 (CubicBezier_t *cb)
 {
+  if (cb == NULL) return NULL;
   return cb->getBasePoint1();
 }
 
@@ -800,6 +802,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint2 (CubicBezier_t *cb, const Point_t *point)
 {
+  if (cb == NULL) return;
   cb->setBasePoint2(point );
 }
 
@@ -808,6 +811,7 @@ LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint2 (CubicBezier_t *cb)
 {
+  if (cb == NULL) return NULL;
   return cb->getBasePoint2();
 }
 
@@ -816,6 +820,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_initDefaults (CubicBezier_t *cb)
 {
+  if (cb == NULL) return;
   cb->initDefaults();
 }
 
@@ -823,6 +828,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 CubicBezier_clone (const CubicBezier_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<CubicBezier*>( m->clone() );
 }
 

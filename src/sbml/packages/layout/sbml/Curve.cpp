@@ -701,6 +701,7 @@ LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls)
 {
+  if (c == NULL) return;
   c->addCurveSegment(ls);
 }
 
@@ -709,6 +710,7 @@ LIBSBML_EXTERN
 unsigned int
 Curve_getNumCurveSegments (const Curve_t *c)
 {
+  if (c == NULL) return 0;
   return c->getNumCurveSegments();
 }
 
@@ -717,6 +719,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index)
 {
+  if (c == NULL) return NULL;
   return const_cast<LineSegment*>(c->getCurveSegment(index));
 }
 
@@ -725,6 +728,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Curve_getListOfCurveSegments (Curve_t *c)
 {
+  if (c == NULL) return NULL;
   return c->getListOfCurveSegments();
 }
 
@@ -733,6 +737,7 @@ LIBSBML_EXTERN
 void
 Curve_initDefaults (Curve_t *c)
 {
+  if (c == NULL) return;
   c->initDefaults();
 }
 
@@ -741,6 +746,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_createLineSegment (Curve_t *c)
 {
+  if (c == NULL)  return NULL;
   return c->createLineSegment();
 }
 
@@ -749,6 +755,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c)
 {
+  if (c == NULL) return NULL;
   return c->createCubicBezier();
 }
 
@@ -757,6 +764,7 @@ LIBSBML_EXTERN
 Curve_t *
 Curve_clone (const Curve_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<Curve*>( m->clone() );
 }
 

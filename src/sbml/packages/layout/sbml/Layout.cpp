@@ -2605,11 +2605,11 @@ Layout_t *
 Layout_createWithSize (const char *id,
                        double width, double height, double depth)
 {
-    LayoutPkgNamespaces layoutns;
-    Dimensions* d=new Dimensions(&layoutns, width,height,depth);
-    Layout_t* l=new (std::nothrow) Layout(&layoutns, id ? id : "", d);
-    delete d;
-    return l;
+  LayoutPkgNamespaces layoutns;
+  Dimensions* d=new Dimensions(&layoutns, width,height,depth);
+  Layout_t* l=new (std::nothrow) Layout(&layoutns, id ? id : "", d);
+  delete d;
+  return l;
 }
 
 
@@ -2634,7 +2634,8 @@ LIBSBML_EXTERN
 void
 Layout_setDimensions (Layout_t *l, const Dimensions_t *dimensions)
 {
-    static_cast<Layout*>(l)->setDimensions( dimensions );
+  if (l == NULL) return;
+  static_cast<Layout*>(l)->setDimensions( dimensions );
 }
 
 
@@ -2642,6 +2643,7 @@ LIBSBML_EXTERN
 void
 Layout_addCompartmentGlyph (Layout_t *l, CompartmentGlyph_t *cg)
 {
+  if (l == NULL) return;
   l->addCompartmentGlyph(cg);
 }
 
@@ -2650,6 +2652,7 @@ LIBSBML_EXTERN
 void
 Layout_addSpeciesGlyph (Layout_t *l, SpeciesGlyph_t *sg)
 {
+  if (l == NULL) return;
   l->addSpeciesGlyph(sg);
 }
 
@@ -2658,6 +2661,7 @@ LIBSBML_EXTERN
 void
 Layout_addReactionGlyph (Layout_t *l, ReactionGlyph_t *rg)
 {
+  if (l == NULL) return;
   l->addReactionGlyph(rg);
 }
 
@@ -2666,6 +2670,7 @@ LIBSBML_EXTERN
 void
 Layout_addTextGlyph (Layout_t *l, TextGlyph_t *tg)
 {
+  if (l == NULL) return;
   l->addTextGlyph(tg);
 }
 
@@ -2674,6 +2679,7 @@ LIBSBML_EXTERN
 void
 Layout_addAdditionalGraphicalObject (Layout_t *l, GraphicalObject_t *go)
 {
+  if (l == NULL) return;
   l->addAdditionalGraphicalObject(go);
 }
 
@@ -2682,6 +2688,7 @@ LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_getCompartmentGlyph (Layout_t *l, unsigned int index)
 {
+  if (l == NULL) return NULL;
   return l->getCompartmentGlyph(index);
 }
 
@@ -2690,6 +2697,7 @@ LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_getSpeciesGlyph (Layout_t *l, unsigned int index)
 {
+  if (l == NULL) return NULL;
   return l->getSpeciesGlyph(index);
 }
 
@@ -2698,6 +2706,7 @@ LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_getReactionGlyph (Layout_t *l, unsigned int index)
 {
+  if (l == NULL) return NULL;
   return l->getReactionGlyph(index);
 }
 
@@ -2706,6 +2715,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 Layout_getTextGlyph (Layout_t *l, unsigned int index)
 {
+  if (l == NULL) return NULL;
   return l->getTextGlyph(index);
 }
 
@@ -2715,6 +2725,7 @@ LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_getAdditionalGraphicalObject (Layout_t *l, unsigned int index)
 {
+  if (l == NULL) return NULL;
   return l->getAdditionalGraphicalObject(index);
 }
 
@@ -2723,6 +2734,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfCompartmentGlyphs (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getListOfCompartmentGlyphs();
 }
 
@@ -2731,6 +2743,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfSpeciesGlyphs (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getListOfSpeciesGlyphs();
 }
 
@@ -2739,6 +2752,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfReactionGlyphs (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getListOfReactionGlyphs();
 }
 
@@ -2747,6 +2761,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfTextGlyphs (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getListOfTextGlyphs();
 }
 
@@ -2755,6 +2770,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Layout_getListOfAdditionalGraphicalObjects (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getListOfAdditionalGraphicalObjects();
 }
 
@@ -2763,6 +2779,7 @@ LIBSBML_EXTERN
 Dimensions_t*
 Layout_getDimensions(Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->getDimensions();
 }
 
@@ -2771,6 +2788,7 @@ LIBSBML_EXTERN
 unsigned int
 Layout_getNumCompartmentGlyphs (const Layout_t *l)
 {
+  if (l == NULL) return 0;
   return l->getNumCompartmentGlyphs();
 }
 
@@ -2779,6 +2797,7 @@ LIBSBML_EXTERN
 unsigned int
 Layout_getNumSpeciesGlyphs (const Layout_t *l)
 {
+  if (l == NULL) return 0;
   return l->getNumSpeciesGlyphs();
 }
 
@@ -2787,6 +2806,7 @@ LIBSBML_EXTERN
 unsigned int
 Layout_getNumReactionGlyphs (const Layout_t *l)
 {
+  if (l == NULL) return 0;
   return l->getNumReactionGlyphs();
 }
 
@@ -2795,6 +2815,7 @@ LIBSBML_EXTERN
 unsigned int
 Layout_getNumTextGlyphs (const Layout_t *l)
 {
+  if (l == NULL) return 0;
   return l->getNumTextGlyphs();
 }
 
@@ -2803,6 +2824,7 @@ LIBSBML_EXTERN
 unsigned int
 Layout_getNumAdditionalGraphicalObjects (const Layout_t *l)
 {
+  if (l == NULL) return 0;
   return l->getNumAdditionalGraphicalObjects();
 }
 
@@ -2811,6 +2833,7 @@ LIBSBML_EXTERN
 void
 Layout_initDefaults (Layout_t *l)
 {
+  if (l == NULL) return;
   l->initDefaults();
 }
 
@@ -2820,6 +2843,7 @@ LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_createCompartmentGlyph (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createCompartmentGlyph();
 }
 
@@ -2828,6 +2852,7 @@ LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_createSpeciesGlyph (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createSpeciesGlyph();
 }
 
@@ -2836,6 +2861,7 @@ LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_createReactionGlyph (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createReactionGlyph();
 }
 
@@ -2844,6 +2870,7 @@ LIBSBML_EXTERN
 GeneralGlyph_t *
 Layout_createGeneralGlyph (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createGeneralGlyph();
 }
 
@@ -2852,6 +2879,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 Layout_createTextGlyph (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createTextGlyph();
 }
 
@@ -2860,6 +2888,7 @@ LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_createAdditionalGraphicalObject (Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->createAdditionalGraphicalObject();
 }
 
@@ -2867,83 +2896,95 @@ LIBSBML_EXTERN
 CompartmentGlyph_t*
 Layout_removeCompartmentGlyph(Layout_t* l, unsigned int index)
 {
-    return l->removeCompartmentGlyph(index);
+  if (l == NULL) return NULL;
+  return l->removeCompartmentGlyph(index);
 }
 
 LIBSBML_EXTERN
 SpeciesGlyph_t*
 Layout_removeSpeciesGlyph(Layout_t* l, unsigned int index)
 {
-    return l->removeSpeciesGlyph(index);
+  if (l == NULL) return NULL;
+  return l->removeSpeciesGlyph(index);
 }
 
 LIBSBML_EXTERN
 ReactionGlyph_t*
 Layout_removeReactionGlyph(Layout_t* l, unsigned int index)
 {
-    return l->removeReactionGlyph(index);
+  if (l == NULL) return NULL;
+  return l->removeReactionGlyph(index);
 }
 
 LIBSBML_EXTERN
 TextGlyph_t*
 Layout_removeTextGlyph(Layout_t* l, unsigned int index)
 {
-    return l->removeTextGlyph(index);
+  if (l == NULL) return NULL;
+  return l->removeTextGlyph(index);
 }
 
 LIBSBML_EXTERN
 GraphicalObject_t*
 Layout_removeAdditionalGraphicalObject(Layout_t* l, unsigned int index)
 {
-    return l->removeAdditionalGraphicalObject(index);
+  if (l == NULL) return NULL;
+  return l->removeAdditionalGraphicalObject(index);
 }
 
 LIBSBML_EXTERN
 CompartmentGlyph_t*
 Layout_removeCompartmentGlyphWithId(Layout_t* l, const char* id)
 {
-    return l->removeCompartmentGlyph(id);
+  if (l == NULL) return NULL;
+  return l->removeCompartmentGlyph(id);
 }
 
 LIBSBML_EXTERN
 SpeciesGlyph_t*
 Layout_removeSpeciesGlyphWithId(Layout_t* l, const char* id)
 {
-    return l->removeSpeciesGlyph(id);
+  if (l == NULL) return NULL;
+  return l->removeSpeciesGlyph(id);
 }
 
 LIBSBML_EXTERN
 ReactionGlyph_t*
 Layout_removeReactionGlyphWithId(Layout_t* l, const char* id)
 {
-    return l->removeReactionGlyph(id);
+  if (l == NULL) return NULL;
+  return l->removeReactionGlyph(id);
 }
 
 LIBSBML_EXTERN
 TextGlyph_t*
 Layout_removeTextGlyphWithId(Layout_t* l, const char* id)
 {
-    return l->removeTextGlyph(id);
+  if (l == NULL) return NULL;
+  return l->removeTextGlyph(id);
 }
 
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t*
 Layout_removeSpeciesReferenceGlyphWithId(Layout_t* l, const char* id)
 {
-    return l->removeSpeciesReferenceGlyph(id);
+  if (l == NULL) return NULL;
+  return l->removeSpeciesReferenceGlyph(id);
 }
 
 LIBSBML_EXTERN
 GraphicalObject_t*
 Layout_removeAdditionalGraphicalObjectWithId(Layout_t* l, const char* id)
 {
-    return l->removeAdditionalGraphicalObject(id);
+  if (l == NULL) return NULL;
+  return l->removeAdditionalGraphicalObject(id);
 }
 
 LIBSBML_EXTERN
 Layout_t *
 Layout_clone (const Layout_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<Layout*>( m->clone() );
 }
 
@@ -2952,6 +2993,7 @@ LIBSBML_EXTERN
 int
 Layout_isSetId (const Layout_t *l)
 {
+  if (l == NULL) return (int)false;
   return static_cast <int> (l->isSetId());
 }
 
@@ -2959,6 +3001,7 @@ LIBSBML_EXTERN
 const char *
 Layout_getId (const Layout_t *l)
 {
+  if (l == NULL) return NULL;
   return l->isSetId() ? l->getId().c_str() : NULL;
 }
 
@@ -2966,6 +3009,7 @@ LIBSBML_EXTERN
 int
 Layout_setId (Layout_t *l, const char *sid)
 {
+  if (l == NULL) return (int)false;
   return (sid == NULL) ? l->setId("") : l->setId(sid);
 }
 
@@ -2973,6 +3017,7 @@ LIBSBML_EXTERN
 void
 Layout_unsetId (Layout_t *l)
 {
+  if (l == NULL) return;
   l->unsetId();
 }
 

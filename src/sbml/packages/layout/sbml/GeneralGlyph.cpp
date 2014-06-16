@@ -1269,7 +1269,8 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_setReferenceId (GeneralGlyph_t *rg,const char *id)
 {
-    static_cast<GeneralGlyph*>(rg)->setReferenceId( id ? id : "" );
+  if (rg == NULL) return;
+  static_cast<GeneralGlyph*>(rg)->setReferenceId( id ? id : "" );
 }
 
 
@@ -1277,7 +1278,8 @@ LIBSBML_EXTERN
 const char *
 GeneralGlyph_getReferenceId (const GeneralGlyph_t *rg)
 {
-    return rg->isSetReferenceId() ? rg->getReferenceId().c_str() : NULL;
+  if (rg == NULL) return NULL;
+  return rg->isSetReferenceId() ? rg->getReferenceId().c_str() : NULL;
 }
 
 
@@ -1285,6 +1287,7 @@ LIBSBML_EXTERN
 int
 GeneralGlyph_isSetReferenceId (const GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return (int)false;
   return static_cast<int>( rg->isSetReferenceId() );
 }
 
@@ -1294,6 +1297,7 @@ void
 GeneralGlyph_addReferenceGlyph (GeneralGlyph_t         *rg,
                                         ReferenceGlyph_t *srg)
 {
+  if (rg == NULL) return;
   rg->addReferenceGlyph(srg);
 }
 
@@ -1302,6 +1306,7 @@ LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getNumReferenceGlyphs (const GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return 0;
   return rg->getNumReferenceGlyphs();
 }
 
@@ -1311,6 +1316,7 @@ ReferenceGlyph_t *
 GeneralGlyph_getReferenceGlyph (GeneralGlyph_t *rg,
                                         unsigned int           index)
 {
+  if (rg == NULL) return  NULL;
   return rg->getReferenceGlyph(index);
 }
 
@@ -1319,6 +1325,7 @@ LIBSBML_EXTERN
 ListOf_t *
 GeneralGlyph_getListOfReferenceGlyphs (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getListOfReferenceGlyphs();
 }
 
@@ -1327,6 +1334,7 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_initDefaults (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return;
   rg->initDefaults();
 }
 
@@ -1335,6 +1343,7 @@ LIBSBML_EXTERN
 void
 GeneralGlyph_setCurve (GeneralGlyph_t *rg, Curve_t *c)
 {
+  if (rg == NULL) return;
   rg->setCurve(c);
 }
 
@@ -1343,6 +1352,7 @@ LIBSBML_EXTERN
 Curve_t *
 GeneralGlyph_getCurve (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve();
 }
 
@@ -1351,6 +1361,7 @@ LIBSBML_EXTERN
 int
 GeneralGlyph_isSetCurve (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return (int)false;
   return static_cast<int>( rg->isSetCurve() );
 }
 
@@ -1359,6 +1370,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 GeneralGlyph_createReferenceGlyph (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->createReferenceGlyph();
 }
 
@@ -1367,6 +1379,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 GeneralGlyph_createLineSegment (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve()->createLineSegment();
 }
 
@@ -1375,6 +1388,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 GeneralGlyph_createCubicBezier (GeneralGlyph_t *rg)
 {
+  if (rg == NULL) return NULL;
   return rg->getCurve()->createCubicBezier();
 }
 
@@ -1383,27 +1397,31 @@ LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyph(GeneralGlyph_t* rg,unsigned int index)
 {
-    return rg->removeReferenceGlyph(index);
+  if (rg == NULL) return NULL;
+  return rg->removeReferenceGlyph(index);
 }
 
 LIBSBML_EXTERN
 ReferenceGlyph_t*
 GeneralGlyph_removeReferenceGlyphWithId(GeneralGlyph_t* rg,const char* id)
 {
-    return rg->removeReferenceGlyph(id);
+  if (rg == NULL) return NULL;
+  return rg->removeReferenceGlyph(id);
 }
 
 LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* rg,const char* id)
 {
-    return rg->getIndexForReferenceGlyph(id);
+  if (rg == NULL) return NULL;
+  return rg->getIndexForReferenceGlyph(id);
 }
 
 LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_clone (const GeneralGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<GeneralGlyph*>( m->clone() );
 }
 

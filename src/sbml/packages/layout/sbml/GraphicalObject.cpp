@@ -1265,6 +1265,7 @@ LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox(GraphicalObject_t *go, const BoundingBox_t *bb)
 {
+  if (go == NULL) return;
   go->setBoundingBox(bb);
 }
 
@@ -1272,6 +1273,7 @@ LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox(GraphicalObject_t *go)
 {
+  if (go == NULL) return NULL;
   return go->getBoundingBox();
 }
 
@@ -1279,6 +1281,7 @@ LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults(GraphicalObject_t *go)
 {
+  if (go == NULL) return;
   go->initDefaults();
 }
 
@@ -1286,6 +1289,7 @@ LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_clone(const GraphicalObject_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<GraphicalObject*>(m->clone());
 }
 
@@ -1293,6 +1297,7 @@ LIBSBML_EXTERN
 int
 GraphicalObject_isSetId(const GraphicalObject_t *go)
 {
+  if (go == NULL) return (int)false;
   return static_cast <int> (go->isSetId());
 }
 
@@ -1300,6 +1305,7 @@ LIBSBML_EXTERN
 const char *
 GraphicalObject_getId(const GraphicalObject_t *go)
 {
+  if (go == NULL) return NULL;
   return go->isSetId() ? go->getId().c_str() : NULL;
 }
 
@@ -1307,6 +1313,7 @@ LIBSBML_EXTERN
 int
 GraphicalObject_setId(GraphicalObject_t *go, const char *sid)
 {
+  if (go == NULL) return (int)false;
   return (sid == NULL) ? go->setId("") : go->setId(sid);
 }
 
@@ -1314,6 +1321,7 @@ LIBSBML_EXTERN
 void
 GraphicalObject_unsetId(GraphicalObject_t *go)
 {
+  if (go == NULL) return;
   go->unsetId();
 }
 

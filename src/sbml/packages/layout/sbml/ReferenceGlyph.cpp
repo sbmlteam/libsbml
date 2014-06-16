@@ -827,7 +827,8 @@ void
 ReferenceGlyph_setReferenceId (ReferenceGlyph_t *srg,
                                              const char *id)
 {
-    srg->setReferenceId( id ? id : "" );
+  if (srg == NULL) return;
+  srg->setReferenceId( id ? id : "" );
 }
 
 
@@ -835,7 +836,8 @@ LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getReferenceId (const ReferenceGlyph_t *srg)
 {
-    return srg->isSetReferenceId() ? srg->getReferenceId().c_str() : NULL;
+  if (srg == NULL) return NULL;
+  return srg->isSetReferenceId() ? srg->getReferenceId().c_str() : NULL;
 }
 
 
@@ -844,7 +846,8 @@ int
 ReferenceGlyph_isSetReferenceId
   (const ReferenceGlyph_t *srg)
 {
-    return (int)srg->isSetReferenceId();
+  if (srg == NULL) return (int)false;
+  return (int)srg->isSetReferenceId();
 }
 
 
@@ -853,7 +856,8 @@ void
 ReferenceGlyph_setGlyphId (ReferenceGlyph_t *srg,
                                          const char *id)
 {
-    srg->setGlyphId( id ? id : "" );
+  if (srg == NULL) return;
+  srg->setGlyphId( id ? id : "" );
 }
 
 
@@ -861,7 +865,8 @@ LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getGlyphId (const ReferenceGlyph_t *srg)
 {
-    return srg->isSetGlyphId() ? srg->getGlyphId().c_str() : NULL;
+  if (srg == NULL) return NULL;
+  return srg->isSetGlyphId() ? srg->getGlyphId().c_str() : NULL;
 }
 
 
@@ -869,6 +874,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetGlyphId (const ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetGlyphId() );
 }
 
@@ -877,6 +883,7 @@ LIBSBML_EXTERN
 void
 ReferenceGlyph_setCurve(ReferenceGlyph_t *srg, Curve_t *c)
 {
+  if (srg == NULL) return;
   srg->setCurve(c);
 }
 
@@ -885,6 +892,7 @@ LIBSBML_EXTERN
 Curve_t *
 ReferenceGlyph_getCurve (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->getCurve();
 }
 
@@ -893,6 +901,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetCurve (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetCurve() );
 }
 
@@ -902,14 +911,17 @@ void
 ReferenceGlyph_setRole (ReferenceGlyph_t *srg,
                                const char *r)
 {
+  if (srg == NULL) return;
   srg->setRole(r);
 }
 
 
 LIBSBML_EXTERN
 const char*
-ReferenceGlyph_getRole(const ReferenceGlyph_t* srg){
-    return srg->getRole().empty() ? NULL : srg->getRole().c_str();
+ReferenceGlyph_getRole(const ReferenceGlyph_t* srg)
+{
+  if (srg == NULL) return NULL;
+  return srg->getRole().empty() ? NULL : srg->getRole().c_str();
 }
 
 
@@ -917,6 +929,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetRole (const ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetRole() );
 }
 
@@ -925,6 +938,7 @@ LIBSBML_EXTERN
 void
 ReferenceGlyph_initDefaults (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return;
   srg->initDefaults();
 }
 
@@ -933,6 +947,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 ReferenceGlyph_createLineSegment (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->getCurve()->createLineSegment();
 }  
 
@@ -941,6 +956,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 ReferenceGlyph_createCubicBezier (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->getCurve()->createCubicBezier();
 }
 
@@ -949,6 +965,7 @@ LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_clone (const ReferenceGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<ReferenceGlyph*>( m->clone() );
 }
 
@@ -956,6 +973,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_isSetId (const ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast <int> (srg->isSetId());
 }
 
@@ -963,6 +981,7 @@ LIBSBML_EXTERN
 const char *
 ReferenceGlyph_getId (const ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->isSetId() ? srg->getId().c_str() : NULL;
 }
 
@@ -970,6 +989,7 @@ LIBSBML_EXTERN
 int
 ReferenceGlyph_setId (ReferenceGlyph_t *srg, const char *sid)
 {
+  if (srg == NULL) return (int)false;
   return (sid == NULL) ? srg->setId("") : srg->setId(sid);
 }
 
@@ -977,6 +997,7 @@ LIBSBML_EXTERN
 void
 ReferenceGlyph_unsetId (ReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return;
   srg->unsetId();
 }
 

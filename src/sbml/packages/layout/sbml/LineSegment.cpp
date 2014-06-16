@@ -752,6 +752,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start)
 {
+  if (ls == NULL) return;
   ls->setStart(start);
 }
 
@@ -760,6 +761,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end)
 {
+  if (ls == NULL) return;
   ls->setEnd(end);
 }
 
@@ -768,6 +770,7 @@ LIBSBML_EXTERN
 Point_t *
 LineSegment_getStart (LineSegment_t *ls)
 {
+  if (ls == NULL) return NULL;
   return ls->getStart();
 }
 
@@ -776,6 +779,7 @@ LIBSBML_EXTERN
 Point_t *
 LineSegment_getEnd (LineSegment_t *ls)
 {
+  if (ls == NULL) return NULL;
   return ls->getEnd();
 }
 
@@ -784,6 +788,7 @@ LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls)
 {
+  if (ls == NULL) return;
   ls->initDefaults();
 }
 
@@ -792,6 +797,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_clone (const LineSegment_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<LineSegment*>( m->clone() );
 }
 

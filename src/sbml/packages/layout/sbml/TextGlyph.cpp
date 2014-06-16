@@ -604,7 +604,8 @@ LIBSBML_EXTERN
 void
 TextGlyph_setText (TextGlyph_t *tg, const char *text)
 {
-    tg->setText( text ? text : "" );
+  if (tg == NULL) return;
+  tg->setText( text ? text : "" );
 }
 
 
@@ -612,7 +613,8 @@ LIBSBML_EXTERN
 void
 TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid)
 {
-    tg->setOriginOfTextId( sid ? sid : "" );
+  if (tg == NULL) return;
+  tg->setOriginOfTextId( sid ? sid : "" );
 }
 
 
@@ -620,7 +622,8 @@ LIBSBML_EXTERN
 void
 TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid)
 {
-    tg->setGraphicalObjectId( sid ? sid : "" );
+  if (tg == NULL) return;
+  tg->setGraphicalObjectId( sid ? sid : "" );
 }
 
 
@@ -628,7 +631,8 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getText (const TextGlyph_t *tg)
 {
-    return tg->isSetText() ? tg->getText().c_str() : NULL;
+  if (tg == NULL) return NULL;
+  return tg->isSetText() ? tg->getText().c_str() : NULL;
 }
 
 
@@ -636,7 +640,8 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg)
 {
-    return tg->isSetGraphicalObjectId() ? tg->getGraphicalObjectId().c_str() : NULL;
+  if (tg == NULL) return NULL;
+  return tg->isSetGraphicalObjectId() ? tg->getGraphicalObjectId().c_str() : NULL;
 }
 
 
@@ -644,7 +649,8 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getOriginOfTextId (const TextGlyph_t *tg)
 {
-    return tg->isSetOriginOfTextId() ? tg->getOriginOfTextId().c_str() : NULL;
+  if (tg == NULL) return NULL;
+  return tg->isSetOriginOfTextId() ? tg->getOriginOfTextId().c_str() : NULL;
 }
 
 
@@ -652,6 +658,7 @@ LIBSBML_EXTERN
 int
 TextGlyph_isSetText (const TextGlyph_t *tg)
 {
+  if (tg == NULL) return (int)false;
   return static_cast<int>( tg->isSetText() );
 }
 
@@ -660,6 +667,7 @@ LIBSBML_EXTERN
 int
 TextGlyph_isSetOriginOfTextId (const TextGlyph_t *tg)
 {
+  if (tg == NULL) return (int)false;
   return static_cast<int>( tg->isSetOriginOfTextId() );
 }
 
@@ -668,6 +676,7 @@ LIBSBML_EXTERN
 int
 TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg)
 {
+  if (tg == NULL) return (int)false;
   return static_cast<int>( tg->isSetGraphicalObjectId() );
 }
 
@@ -676,6 +685,7 @@ LIBSBML_EXTERN
 void
 TextGlyph_initDefaults (TextGlyph_t *tg)
 {
+  if (tg == NULL) return;
   tg->initDefaults();
 }
 
@@ -684,6 +694,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_clone (const TextGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<TextGlyph*>( m->clone() );
 }
 

@@ -614,7 +614,8 @@ LIBSBML_EXTERN
 void
 CompartmentGlyph_setCompartmentId (CompartmentGlyph_t *cg, const char* id)
 {
-    static_cast<CompartmentGlyph*>(cg)->setCompartmentId( id ? id : "" );
+  if (cg == NULL) return;
+  static_cast<CompartmentGlyph*>(cg)->setCompartmentId( id ? id : "" );
 }
 
 
@@ -622,7 +623,8 @@ LIBSBML_EXTERN
 const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg)
 {
-    return cg->isSetCompartmentId() ? cg->getCompartmentId().c_str() : NULL;
+  if (cg == NULL) return NULL;
+  return cg->isSetCompartmentId() ? cg->getCompartmentId().c_str() : NULL;
 }
 
 
@@ -630,6 +632,7 @@ LIBSBML_EXTERN
 int
 CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg)
 {
+  if (cg == NULL) return (int)false;
   return static_cast<int>( cg->isSetCompartmentId() );
 }
 
@@ -638,6 +641,7 @@ LIBSBML_EXTERN
 void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg)
 {
+  if (cg == NULL) return;
   cg->initDefaults();
 }
 
@@ -645,6 +649,7 @@ LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_clone (const CompartmentGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<CompartmentGlyph*>( m->clone() );
 }
 

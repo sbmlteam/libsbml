@@ -885,7 +885,8 @@ void
 SpeciesReferenceGlyph_setSpeciesReferenceId (SpeciesReferenceGlyph_t *srg,
                                              const char *id)
 {
-    srg->setSpeciesReferenceId( id ? id : "" );
+  if (srg == NULL) return;
+  srg->setSpeciesReferenceId( id ? id : "" );
 }
 
 
@@ -893,7 +894,8 @@ LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesReferenceId (const SpeciesReferenceGlyph_t *srg)
 {
-    return srg->isSetSpeciesReferenceId() ? srg->getSpeciesReferenceId().c_str() : NULL;
+  if (srg == NULL) return NULL;
+  return srg->isSetSpeciesReferenceId() ? srg->getSpeciesReferenceId().c_str() : NULL;
 }
 
 
@@ -902,7 +904,8 @@ int
 SpeciesReferenceGlyph_isSetSpeciesReferenceId
   (const SpeciesReferenceGlyph_t *srg)
 {
-    return (int)srg->isSetSpeciesReferenceId();
+  if (srg == NULL) return (int)false;
+  return (int)srg->isSetSpeciesReferenceId();
 }
 
 
@@ -911,7 +914,8 @@ void
 SpeciesReferenceGlyph_setSpeciesGlyphId (SpeciesReferenceGlyph_t *srg,
                                          const char *id)
 {
-    srg->setSpeciesGlyphId( id ? id : "" );
+  if (srg == NULL) return;
+  srg->setSpeciesGlyphId( id ? id : "" );
 }
 
 
@@ -919,7 +923,8 @@ LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg)
 {
-    return srg->isSetSpeciesGlyphId() ? srg->getSpeciesGlyphId().c_str() : NULL;
+  if (srg == NULL) return NULL;
+  return srg->isSetSpeciesGlyphId() ? srg->getSpeciesGlyphId().c_str() : NULL;
 }
 
 
@@ -927,6 +932,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetSpeciesGlyphId() );
 }
 
@@ -935,6 +941,7 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_setCurve(SpeciesReferenceGlyph_t *srg, Curve_t *c)
 {
+  if (srg == NULL) return;
   srg->setCurve(c);
 }
 
@@ -943,6 +950,7 @@ LIBSBML_EXTERN
 Curve_t *
 SpeciesReferenceGlyph_getCurve (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->getCurve();
 }
 
@@ -951,6 +959,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetCurve (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetCurve() );
 }
 
@@ -960,6 +969,7 @@ void
 SpeciesReferenceGlyph_setRole (SpeciesReferenceGlyph_t *srg,
                                const char *r)
 {
+  if (srg == NULL) return;
   srg->setRole(r);
 }
 
@@ -968,13 +978,16 @@ LIBSBML_EXTERN
 SpeciesReferenceRole_t
 SpeciesReferenceGlyph_getRole (const SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return SPECIES_ROLE_UNDEFINED;
   return srg->getRole();
 }
 
 LIBSBML_EXTERN
 const char*
-SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg){
-    return srg->getRoleString().empty() ? NULL : srg->getRoleString().c_str();
+SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg)
+{
+  if (srg == NULL) return NULL;
+  return srg->getRoleString().empty() ? NULL : srg->getRoleString().c_str();
 }
 
 
@@ -983,6 +996,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetRole (const SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast<int>( srg->isSetRole() );
 }
 
@@ -991,6 +1005,7 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_initDefaults (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return;
   srg->initDefaults();
 }
 
@@ -999,6 +1014,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 SpeciesReferenceGlyph_createLineSegment (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL || srg->getCurve() == NULL) return NULL;
   return srg->getCurve()->createLineSegment();
 }  
 
@@ -1007,6 +1023,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL || srg->getCurve() == NULL) return NULL;
   return srg->getCurve()->createCubicBezier();
 }
 
@@ -1015,6 +1032,7 @@ LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *m)
 {
+  if (m == NULL) return NULL;
   return static_cast<SpeciesReferenceGlyph*>( m->clone() );
 }
 
@@ -1022,6 +1040,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetId (const SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return (int)false;
   return static_cast <int> (srg->isSetId());
 }
 
@@ -1029,6 +1048,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getId (const SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return NULL;
   return srg->isSetId() ? srg->getId().c_str() : NULL;
 }
 
@@ -1036,6 +1056,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_setId (SpeciesReferenceGlyph_t *srg, const char *sid)
 {
+  if (srg == NULL) return (int)false;
   return (sid == NULL) ? srg->setId("") : srg->setId(sid);
 }
 
@@ -1043,6 +1064,7 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph_unsetId (SpeciesReferenceGlyph_t *srg)
 {
+  if (srg == NULL) return;
   srg->unsetId();
 }
 
