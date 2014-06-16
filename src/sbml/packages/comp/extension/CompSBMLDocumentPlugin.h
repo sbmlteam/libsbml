@@ -454,7 +454,7 @@ public:
    *
    * Sets the bool value of "required" attribute of corresponding package
    * in SBMLDocument element.  The only legal value is 'true' for the 
-   * Hierarchical Model Composition package.
+   * Hierarchical %Model Composition package.
    *
    * @param value the bool value of "required" attribute of corresponding 
    * package in SBMLDocument element.

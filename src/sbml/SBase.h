@@ -2680,7 +2680,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * An example of when this may be useful is during construction of model
    * components when mixing existing and new models.  Suppose your
    * application read an SBML document containing a model that used the SBML
-   * Hierarchical Model Composition (&ldquo;comp&rdquo;) package, and
+   * Hierarchical %Model Composition (&ldquo;comp&rdquo;) package, and
    * extracted parts of that model in order to construct a new model in
    * memory.  The new, in-memory model will not accept a component drawn from
    * an other SBMLDocument with different package namespace declarations.

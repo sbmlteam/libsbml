@@ -404,7 +404,7 @@ public:
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
    * @note When using this method to read an SBMLDocument that uses 
-   * the SBML L3 Hierarchical Model Composition package (comp) the
+   * the SBML L3 Hierarchical %Model Composition package (comp) the
    * document location cannot be set automatically. Thus, if the model
    * contains references to ExternalModelDefinitions, it will be necessary
    * to manually set the document URI location (setLocationURI) in order 
@@ -586,7 +586,7 @@ SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
  * @return a pointer to the SBMLDocument read.
  *
  * @note When using this method to read an SBMLDocument that uses 
- * the SBML L3 Hierarchical Model Composition package (comp) the
+ * the SBML L3 Hierarchical %Model Composition package (comp) the
  * document location cannot be set automatically. Thus, if the model
  * contains references to ExternalModelDefinitions, it will be necessary
  * to manually set the document URI location (setLocationURI) in order 
@@ -751,7 +751,7 @@ readSBMLFromFile (const char *filename);
  * @return a pointer to the SBMLDocument_t read.
  *
  * @note When using this method to read an SBMLDocument that uses 
- * the SBML L3 Hierarchical Model Composition package (comp) the
+ * the SBML L3 Hierarchical %Model Composition package (comp) the
  * document location cannot be set automatically. Thus, if the model
  * contains references to ExternalModelDefinitions, it will be necessary
  * to manually set the document URI location (setLocationURI) in order 

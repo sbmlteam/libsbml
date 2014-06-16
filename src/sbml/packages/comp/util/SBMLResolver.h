@@ -31,7 +31,7 @@
  * The SBMLResolver class is the base class for the various SBML @em
  * resolvers: facilities that take a unique identifier as input and return
  * the document associated with that identifier.  In SBML, resolvers come
- * into play with the SBML Level&nbsp;3 Hierarchical Model Composition
+ * into play with the SBML Level&nbsp;3 Hierarchical %Model Composition
  * package; this package includes features that allow a model to be composed
  * from pieces that are external to a given SBML document, which implies the
  * need to be able to identify and locate those external pieces.  The

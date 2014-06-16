@@ -29,7 +29,7 @@
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * In SBML, @em resolvers come into play with the SBML Level&nbsp;3
- * Hierarchical Model Composition package (&ldquo;comp&rdquo;); this package
+ * Hierarchical %Model Composition package (&ldquo;comp&rdquo;); this package
  * includes features that allow a model to be composed from pieces that are
  * external to a given SBML document, which implies the need to be able to
  * identify and locate those external pieces.  The identifiers used in
