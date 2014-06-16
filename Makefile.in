@@ -365,6 +365,7 @@ rbindings =                                           \
   src/bindings/r/local-downcast-plugins.cpp.in        \
   src/bindings/r/local-downcast.cpp.in                \
   src/bindings/r/create-r-package.cmake               \
+  src/bindings/r/cmake-r-install.cmake.in             \
   src/bindings/r/rtype.swg                            \
   src/bindings/r/local-layout.i                       \
   src/bindings/r/local-packages.i.in                  \
