@@ -583,7 +583,7 @@ You can test whether the installation was successful by trying the following
 command in R:
 
 <pre class="fragment">
-library('libsbml')
+library('libSBML')
 </pre>
 
 <p> If R does not report an error when you execute this command, then the
