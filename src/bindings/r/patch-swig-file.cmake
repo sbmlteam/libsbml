@@ -7,6 +7,8 @@ file(READ "${FILENAME}" SOURCECODE)
 string(REPLACE "'get''get'" "'get','get'" SOURCECODE "${SOURCECODE}" )
 string(REPLACE "'get''get'" "'get','get'" SOURCECODE "${SOURCECODE}" )
 string(REPLACE "'get''get'" "'get','get'" SOURCECODE "${SOURCECODE}" )
+string(REPLACE "if ( &&" "if (" SOURCECODE "${SOURCECODE}" )
+#string(REPLACE "if ()" "if(TRUE)" SOURCECODE "${SOURCECODE}" )
 
 file(WRITE "${FILENAME}" "${SOURCECODE}")
 message (STATUS "Patched libSBML.R")

@@ -35,6 +35,9 @@
 
 #execute R without letting it print to the command line: 
 
+set(var_std_out)
+set(var_std_err)
+
 execute_process(COMMAND "${R_INTERPRETER}"
                 ARGS  CMD INSTALL --build
                 --no-libs
@@ -43,12 +46,27 @@ execute_process(COMMAND "${R_INTERPRETER}"
                 --no-multiarch
                 libSBML
                 -l temp
-                OUTPUT_QUIET
-                ERROR_QUIET
+                OUTPUT_VARIABLE var_std_out
+                ERROR_VARIABLE var_std_err
 )
 
 # here we search for what file has been produced, and print information to the user
 file(GLOB GENERATED_FILES *.tgz *.tar.gz *.zip)
+list(LENGTH GENERATED_FILES NUM_FILES)
+
+if (NUM_FILES GREATER 0)
+
 set(R_ARCHIVE "${GENERATED_FILES}" ${PACKAGE_NAME} CACHE STRING "")
 
 message(STATUS "Created package: ${GENERATED_FILES}")
+
+else()
+
+message(STATUS "
+
+The R package could not be created, the following error occured
+${var_std_out}
+${var_std_err}
+")
+
+endif()
