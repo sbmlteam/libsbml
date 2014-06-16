@@ -1413,7 +1413,7 @@ LIBSBML_EXTERN
 unsigned int
 GeneralGlyph_getIndexForReferenceGlyph(GeneralGlyph_t* rg,const char* id)
 {
-  if (rg == NULL) return NULL;
+  if (rg == NULL) return 0;
   return rg->getIndexForReferenceGlyph(id);
 }
 
