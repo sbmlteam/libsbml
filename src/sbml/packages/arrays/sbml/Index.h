@@ -146,6 +146,14 @@ public:
 
 
   /**
+   * Returns the "math" element of this Index.
+   *
+   * @return the "math" element of this Index.
+   */
+  virtual ASTNode* getMath();
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Index's "referencedAttribute" attribute has been set.
    *
