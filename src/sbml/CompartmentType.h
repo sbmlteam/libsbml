@@ -192,7 +192,7 @@ public:
   /**
    * Creates and returns a deep copy of this CompartmentType object.
    *
-   * @return a (deep) copy of this CompartmentType.
+   * @return the (deep) copy of this CompartmentType object.
    */
   virtual CompartmentType* clone () const;
 
@@ -456,9 +456,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfCompartmentTypes instance.
+   * Creates and returns a deep copy of this ListOfCompartmentTypes object.
    *
-   * @return a (deep) copy of this ListOfCompartmentTypes.
+   * @return the (deep) copy of this ListOfCompartmentTypes object.
    */
   virtual ListOfCompartmentTypes* clone () const;
 

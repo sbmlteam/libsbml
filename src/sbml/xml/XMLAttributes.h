@@ -101,9 +101,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLAttributes set.
-   * 
-   * @return a (deep) copy of this XMLAttributes set.
+   * Creates and returns a deep copy of this XMLAttributes object.
+   *
+   * @return the (deep) copy of this XMLAttributes object.
    */
   XMLAttributes* clone () const;
 

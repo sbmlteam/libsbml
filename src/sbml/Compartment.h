@@ -562,9 +562,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Compartment object object.
+   * Creates and returns a deep copy of this Compartment object.
    *
-   * @return a (deep) copy of this Compartment.
+   * @return the (deep) copy of this Compartment object.
    */
   virtual Compartment* clone () const;
 
@@ -1480,9 +1480,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfCompartments instance.
+   * Creates and returns a deep copy of this ListOfCompartments object.
    *
-   * @return a (deep) copy of this ListOfCompartments.
+   * @return the (deep) copy of this ListOfCompartments object.
    */
   virtual ListOfCompartments* clone () const;
 

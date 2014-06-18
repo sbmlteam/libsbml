@@ -126,10 +126,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ModifierSpeciesReference
-   * instance.
+   * Creates and returns a deep copy of this ModifierSpeciesReference object.
    *
-   * @return a (deep) copy of this ModifierSpeciesReference.
+   * @return the (deep) copy of this ModifierSpeciesReference object.
    */
   virtual ModifierSpeciesReference* clone () const;
 

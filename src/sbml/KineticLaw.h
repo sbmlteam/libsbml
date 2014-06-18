@@ -260,7 +260,7 @@ public:
   /**
    * Creates and returns a deep copy of this KineticLaw object.
    *
-   * @return a (deep) copy of this KineticLaw.
+   * @return the (deep) copy of this KineticLaw object.
    */
   virtual KineticLaw* clone () const;
 

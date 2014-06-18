@@ -211,9 +211,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this FunctionDefinition.
-   * 
-   * @return a (deep) copy of this FunctionDefinition.
+   * Creates and returns a deep copy of this FunctionDefinition object.
+   *
+   * @return the (deep) copy of this FunctionDefinition object.
    */
   virtual FunctionDefinition* clone () const;
 
@@ -586,9 +586,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfFunctionDefinitions instance.
+   * Creates and returns a deep copy of this ListOfFunctionDefinitions object.
    *
-   * @return a (deep) copy of this ListOfFunctionDefinitions.
+   * @return the (deep) copy of this ListOfFunctionDefinitions object.
    */
   virtual ListOfFunctionDefinitions* clone () const;
 

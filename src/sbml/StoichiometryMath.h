@@ -287,7 +287,7 @@ public:
   /**
    * Creates and returns a deep copy of this StoichiometryMath object.
    *
-   * @return a (deep) copy of this StoichiometryMath.
+   * @return the (deep) copy of this StoichiometryMath object.
    */
   virtual StoichiometryMath* clone () const;
 

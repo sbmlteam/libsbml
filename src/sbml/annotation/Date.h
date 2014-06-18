@@ -299,9 +299,9 @@ public:
 
 
   /**
-   * Returns a copy of this Date.
+   * Creates and returns a deep copy of this Date object.
    *
-   * @return a (deep) copy of this Date.
+   * @return the (deep) copy of this Date object.
    */
   Date* clone () const;
 

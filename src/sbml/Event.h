@@ -386,9 +386,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Event.
-   * 
-   * @return a (deep) copy of this Event.
+   * Creates and returns a deep copy of this Event object.
+   *
+   * @return the (deep) copy of this Event object.
    */
   virtual Event* clone () const;
 
@@ -1195,9 +1195,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfEvents.
+   * Creates and returns a deep copy of this ListOfEvents object.
    *
-   * @return a (deep) copy of this ListOfEvents.
+   * @return the (deep) copy of this ListOfEvents object.
    */
   virtual ListOfEvents* clone () const;
 

@@ -303,8 +303,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this SBasePlugin object.
-   * 
-   * @return a (deep) copy of this SBase object
+   *
+   * @return the (deep) copy of this SBasePlugin object.
    */
   virtual SBasePlugin* clone () const = 0;
 

@@ -199,9 +199,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Rule.
-   * 
-   * @return a (deep) copy of this Rule.
+   * Creates and returns a deep copy of this AssignmentRule object.
+   *
+   * @return the (deep) copy of this Rule object.
    */
   virtual AssignmentRule* clone () const;
 

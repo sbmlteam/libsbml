@@ -146,9 +146,9 @@ public:
 
 
   /**
-   * Creates and returns a copy of this ModelCreator.
+   * Creates and returns a deep copy of this ModelCreator object.
    *
-   * @return a (deep) copy of this ModelCreator.
+   * @return the (deep) copy of this ModelCreator object.
    */
   ModelCreator* clone () const;
 

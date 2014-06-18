@@ -302,9 +302,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Unit.
-   * 
-   * @return a (deep) copy of this Unit.
+   * Creates and returns a deep copy of this Unit object.
+   *
+   * @return the (deep) copy of this Unit object.
    */
   virtual Unit* clone () const;
 
@@ -1246,9 +1246,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfUnits.
+   * Creates and returns a deep copy of this ListOfUnits object.
    *
-   * @return a (deep) copy of this ListOfUnits.
+   * @return the (deep) copy of this ListOfUnits object.
    */
   virtual ListOfUnits* clone () const;
 

@@ -318,9 +318,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this InitialAssignment.
-   * 
-   * @return a (deep) copy of this InitialAssignment.
+   * Creates and returns a deep copy of this InitialAssignment object.
+   *
+   * @return the (deep) copy of this InitialAssignment object.
    */
   virtual InitialAssignment* clone () const;
 
@@ -679,9 +679,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfInitialAssignments instance.
+   * Creates and returns a deep copy of this ListOfInitialAssignments object.
    *
-   * @return a (deep) copy of this ListOfInitialAssignments.
+   * @return the (deep) copy of this ListOfInitialAssignments object.
    */
   virtual ListOfInitialAssignments* clone () const;
 

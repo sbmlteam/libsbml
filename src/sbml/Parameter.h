@@ -272,9 +272,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Parameter.
-   * 
-   * @return a (deep) copy of this Parameter.
+   * Creates and returns a deep copy of this Parameter object.
+   *
+   * @return the (deep) copy of this Parameter object.
    */
   virtual Parameter* clone () const;
 
@@ -849,9 +849,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfParameters instance.
+   * Creates and returns a deep copy of this ListOfParameters object.
    *
-   * @return a (deep) copy of this ListOfParameters.
+   * @return the (deep) copy of this ListOfParameters object.
    */
   virtual ListOfParameters* clone () const;
 

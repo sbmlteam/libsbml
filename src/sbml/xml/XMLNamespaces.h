@@ -117,9 +117,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLNamespaces list.
-   * 
-   * @return a (deep) copy of this XMLNamespaces list.
+   * Creates and returns a deep copy of this XMLNamespaces object.
+   *
+   * @return the (deep) copy of this XMLNamespaces object.
    */
   XMLNamespaces* clone () const;
 

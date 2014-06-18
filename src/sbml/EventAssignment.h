@@ -346,9 +346,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this EventAssignment.
-   * 
-   * @return a (deep) copy of this EventAssignment.
+   * Creates and returns a deep copy of this EventAssignment object.
+   *
+   * @return the (deep) copy of this EventAssignment object.
    */
   virtual EventAssignment* clone () const;
 
@@ -725,9 +725,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfEventAssignments.
+   * Creates and returns a deep copy of this ListOfEventAssignments object.
    *
-   * @return a (deep) copy of this ListOfEventAssignments.
+   * @return the (deep) copy of this ListOfEventAssignments object.
    */
   virtual ListOfEventAssignments* clone () const;
 

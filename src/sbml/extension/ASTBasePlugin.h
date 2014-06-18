@@ -77,8 +77,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this ASTBasePlugin object.
-   * 
-   * @return a (deep) copy of this SBase object
+   *
+   * @return the (deep) copy of this ASTBasePlugin object.
    */
   virtual ASTBasePlugin* clone () const;
 

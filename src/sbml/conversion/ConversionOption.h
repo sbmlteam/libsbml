@@ -271,7 +271,7 @@ public:
   /**
    * Creates and returns a deep copy of this ConversionOption object.
    *
-   * @return a (deep) copy of this ConversionOption object.
+   * @return the (deep) copy of this ConversionOption object.
    */
   virtual ConversionOption* clone() const;
 

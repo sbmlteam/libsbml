@@ -112,7 +112,7 @@ public:
   /**
    * Creates and returns a deep copy of this SBMLConverter object.
    *
-   * @return a (deep) copy of this SBMLConverter object.
+   * @return the (deep) copy of this SBMLConverter object.
    */
   virtual SBMLConverter* clone() const;
 

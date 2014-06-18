@@ -110,7 +110,7 @@ public:
   /**
    * Creates and returns a deep copy of this ConversionProperties object.
    *
-   * @return a (deep) copy of this ConversionProperties object.
+   * @return the (deep) copy of this ConversionProperties object.
    */
   virtual ConversionProperties* clone() const;
 

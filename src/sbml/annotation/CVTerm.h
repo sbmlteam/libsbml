@@ -485,8 +485,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this CVTerm object.
-   * 
-   * @return a (deep) copy of this CVTerm.
+   *
+   * @return the (deep) copy of this CVTerm object.
    */  
   CVTerm* clone() const; 
 

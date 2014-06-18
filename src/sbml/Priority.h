@@ -279,9 +279,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Priority.
+   * Creates and returns a deep copy of this Priority object.
    *
-   * @return a (deep) copy of this Priority.
+   * @return the (deep) copy of this Priority object.
    */
   virtual Priority* clone () const;
 

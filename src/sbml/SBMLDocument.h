@@ -457,9 +457,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this SBMLDocument.
-   * 
-   * @return a (deep) copy of this SBMLDocument.
+   * Creates and returns a deep copy of this SBMLDocument object.
+   *
+   * @return the (deep) copy of this SBMLDocument object.
    */
   virtual SBMLDocument* clone () const;
 

@@ -345,9 +345,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this UnitDefinition.
-   * 
-   * @return a (deep) copy of this UnitDefinition.
+   * Creates and returns a deep copy of this UnitDefinition object.
+   *
+   * @return the (deep) copy of this UnitDefinition object.
    */
   virtual UnitDefinition* clone () const;
 
@@ -1048,9 +1048,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfUnitDefinitions instance.
+   * Creates and returns a deep copy of this ListOfUnitDefinitions object.
    *
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return the (deep) copy of this ListOfUnitDefinitions object.
    */
   virtual ListOfUnitDefinitions* clone () const;
 

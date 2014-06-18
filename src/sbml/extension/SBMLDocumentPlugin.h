@@ -93,8 +93,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this SBMLDocumentPlugin object.
-   * 
-   * @return a (deep) copy of this object
+   *
+   * @return the (deep) copy of this SBMLDocumentPlugin object.
    */
   virtual SBMLDocumentPlugin* clone () const;
 

@@ -1112,9 +1112,9 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates and returns a deep copy of this XMLError.
-   * 
-   * @return a (deep) copy of this XMLError.
+   * Creates and returns a deep copy of this XMLError object.
+   *
+   * @return the (deep) copy of this XMLError object.
    */
   virtual XMLError* clone() const;
 

@@ -288,9 +288,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLNode.
-   * 
-   * @return a (deep) copy of this XMLNode.
+   * Creates and returns a deep copy of this XMLNode object.
+   *
+   * @return the (deep) copy of this XMLNode object.
    */
   XMLNode* clone () const;
 

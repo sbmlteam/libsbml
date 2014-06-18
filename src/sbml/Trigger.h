@@ -238,9 +238,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Trigger.
+   * Creates and returns a deep copy of this Trigger object.
    *
-   * @return a (deep) copy of this Trigger.
+   * @return the (deep) copy of this Trigger object.
    */
   virtual Trigger* clone () const;
 

@@ -148,9 +148,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLTriple set.
-   * 
-   * @return a (deep) copy of this XMLTriple set.
+   * Creates and returns a deep copy of this XMLTriple object.
+   *
+   * @return the (deep) copy of this XMLTriple object.
    */
   XMLTriple* clone () const;
 

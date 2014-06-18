@@ -173,9 +173,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOf.
+   * Creates and returns a deep copy of this ListOf object.
    *
-   * @return a (deep) copy of this ListOf.
+   * @return the (deep) copy of this ListOf object.
    */
   virtual ListOf* clone () const;
 

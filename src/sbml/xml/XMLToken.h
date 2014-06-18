@@ -168,9 +168,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this XMLToken.
-   * 
-   * @return a (deep) copy of this XMLToken set.
+   * Creates and returns a deep copy of this XMLToken object.
+   *
+   * @return the (deep) copy of this XMLToken object.
    */
   XMLToken* clone () const;
 

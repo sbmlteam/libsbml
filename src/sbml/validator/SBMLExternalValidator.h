@@ -67,14 +67,15 @@ public:
    */
   SBMLExternalValidator(const SBMLExternalValidator&);
 
+
   /**
-   * Creates and returns a deep copy of this converter.
-   * 
-   * @return a (deep) copy of this converter.
+   * Creates and returns a deep copy of this SBMLValidator object.
+   *
+   * @return the (deep) copy of this SBMLValidator object.
    */
   virtual SBMLValidator* clone() const;
 
-  
+
   /**
    * Destroy this object.
    */

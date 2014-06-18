@@ -166,9 +166,9 @@ public:
   virtual ~RateRule ();
 
   /**
-   * Creates and returns a deep copy of this Rule.
-   * 
-   * @return a (deep) copy of this Rule.
+   * Creates and returns a deep copy of this RateRule object.
+   *
+   * @return the (deep) copy of this RateRule object.
    */
   virtual RateRule* clone () const;
 

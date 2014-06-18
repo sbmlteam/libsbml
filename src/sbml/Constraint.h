@@ -220,9 +220,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Constraint.
-   * 
-   * @return a (deep) copy of this Constraint.
+   * Creates and returns a deep copy of this Constraint object.
+   *
+   * @return the (deep) copy of this Constraint object.
    */
   virtual Constraint* clone () const;
 
@@ -487,9 +487,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfConstraints instance.
+   * Creates and returns a deep copy of this ListOfConstraints object.
    *
-   * @return a (deep) copy of this ListOfConstraints.
+   * @return the (deep) copy of this ListOfConstraints object.
    */
   virtual ListOfConstraints* clone () const;
 

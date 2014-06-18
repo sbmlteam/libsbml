@@ -284,9 +284,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Reaction.
-   * 
-   * @return a (deep) copy of this Reaction.
+   * Creates and returns a deep copy of this Reaction object.
+   *
+   * @return the (deep) copy of this Reaction object.
    */
   virtual Reaction* clone () const;
 
@@ -1303,9 +1303,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfReactions instance.
+   * Creates and returns a deep copy of this ListOfReactions object.
    *
-   * @return a (deep) copy of this ListOfReactions.
+   * @return the (deep) copy of this ListOfReactions object.
    */
   virtual ListOfReactions* clone () const;
 

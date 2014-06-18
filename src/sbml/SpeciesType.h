@@ -187,9 +187,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this SpeciesType.
-   * 
-   * @return a (deep) copy of this SpeciesType.
+   * Creates and returns a deep copy of this SpeciesType object.
+   *
+   * @return the (deep) copy of this SpeciesType object.
    */
   virtual SpeciesType* clone () const;
 
@@ -420,9 +420,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfSpeciesTypes instance.
+   * Creates and returns a deep copy of this ListOfSpeciesTypes object.
    *
-   * @return a (deep) copy of this ListOfSpeciesTypes.
+   * @return the (deep) copy of this ListOfSpeciesTypes object.
    */
   virtual ListOfSpeciesTypes* clone () const;
 

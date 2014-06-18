@@ -116,7 +116,7 @@ public:
    * Creates and returns a deep copy of this SBMLStripPackageConverter
    * object.
    *
-   * @return a (deep) copy of this converter.
+   * @return the (deep) copy of this converter object.
    */
   virtual SBMLStripPackageConverter* clone() const;
 

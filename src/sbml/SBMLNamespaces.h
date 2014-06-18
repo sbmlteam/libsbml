@@ -196,9 +196,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this SBMLNamespaces.
-   * 
-   * @return a (deep) copy of this SBMLNamespaces.
+   * Creates and returns a deep copy of this SBMLNamespaces object.
+   *
+   * @return the (deep) copy of this SBMLNamespaces object.
    */
   virtual SBMLNamespaces* clone () const;
 

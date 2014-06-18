@@ -143,9 +143,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Rule.
+   * Creates and returns a deep copy of this AlgebraicRule object.
    *
-   * @return a (deep) copy of this Rule.
+   * @return the (deep) copy of this Rule object.
    */
   virtual AlgebraicRule* clone () const;
 

@@ -91,8 +91,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this SBasePluginCreator object.
-   * 
-   * @return a (deep) copy of this SBase object
+   *
+   * @return the (deep) copy of this SBasePluginCreator object.
    */
   virtual SBasePluginCreator* clone () const
   {

@@ -536,7 +536,7 @@ public:
   /**
    * Creates and returns a deep copy of this Model object.
    *
-   * @return a (deep) copy of this Model.
+   * @return the (deep) copy of this Model object.
    */
   virtual Model* clone () const;
 

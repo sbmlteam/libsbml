@@ -128,9 +128,9 @@ public:
  
 
   /**
-   * Creates and returns a deep copy of this FormulaUnitsData.
-   * 
-   * @return a (deep) copy of this FormulaUnitsData.
+   * Creates and returns a deep copy of this FormulaUnitsData object.
+   *
+   * @return the (deep) copy of this FormulaUnitsData object.
    */
   virtual FormulaUnitsData* clone () const;
   

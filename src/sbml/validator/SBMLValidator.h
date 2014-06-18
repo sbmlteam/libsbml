@@ -123,9 +123,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this SBMLValidator.
-   * 
-   * @return a (deep) copy of this SBMLValidator.
+   * Creates and returns a deep copy of this SBMLValidator object.
+   *
+   * @return the (deep) copy of this SBMLValidator object.
    */
   virtual SBMLValidator* clone() const;
 

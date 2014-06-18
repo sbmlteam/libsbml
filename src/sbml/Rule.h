@@ -195,9 +195,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Rule.
-   * 
-   * @return a (deep) copy of this Rule.
+   * Creates and returns a deep copy of this Rule object.
+   *
+   * @return the (deep) copy of this Rule object.
    */
   virtual Rule* clone () const;
 
@@ -898,9 +898,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this ListOfRules instance.
+   * Creates and returns a deep copy of this ListOfRules object.
    *
-   * @return a (deep) copy of this ListOfRules.
+   * @return the (deep) copy of this ListOfRules object.
    */
   virtual ListOfRules* clone () const;
 

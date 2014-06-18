@@ -261,9 +261,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this LocalParameter.
-   * 
-   * @return a (deep) copy of this LocalParameter.
+   * Creates and returns a deep copy of this LocalParameter object.
+   *
+   * @return the (deep) copy of this LocalParameter object.
    */
   virtual LocalParameter* clone () const;
 
@@ -442,7 +442,7 @@ public:
   /**
    * Creates and returns a deep copy of this ListOfLocalParameters object.
    *
-   * @return a (deep) copy of this ListOfLocalParameters.
+   * @return the (deep) copy of this ListOfLocalParameters object.
    */
   virtual ListOfLocalParameters* clone () const;
 

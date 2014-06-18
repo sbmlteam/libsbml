@@ -292,9 +292,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Delay.
+   * Creates and returns a deep copy of this Delay object.
    *
-   * @return a (deep) copy of this Delay.
+   * @return the (deep) copy of this Delay object.
    */
   virtual Delay* clone () const;
 

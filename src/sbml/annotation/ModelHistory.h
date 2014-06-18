@@ -165,9 +165,9 @@ public:
 
 
   /**
-   * Creates and returns a copy of this ModelHistory object
+   * Creates and returns a deep copy of this ModelHistory object.
    *
-   * @return a (deep) copy of this ModelHistory object.
+   * @return the (deep) copy of this ModelHistory object.
    */
   ModelHistory* clone () const;
 

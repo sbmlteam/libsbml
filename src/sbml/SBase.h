@@ -213,8 +213,8 @@ public:
 
   /**
    * Creates and returns a deep copy of this SBase object.
-   * 
-   * @return a (deep) copy of this SBase object.
+   *
+   * @return the (deep) copy of this SBase object.
    */
   virtual SBase* clone () const = 0;
 
