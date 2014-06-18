@@ -61,8 +61,8 @@ class LIBSBML_EXTERN Index : public SBase
 protected:
 
   std::string   mReferencedAttribute;
-  unsigned int  mDim;
-  bool          mIsSetDim;
+  unsigned int  mArrayDimension;
+  bool          mIsSetArrayDimension;
   ASTNode* mMath;
 
 
@@ -130,6 +130,22 @@ public:
 
 
   /**
+   * Returns the value of the "arrayDimension" attribute of this Index.
+   *
+   * @return the value of the "arrayDimension" attribute of this Index as a unsigned integer.
+   */
+  virtual const unsigned int getArrayDimension() const;
+
+
+  /**
+   * Returns the "math" element of this Index.
+   *
+   * @return the "math" element of this Index.
+   */
+  virtual const ASTNode* getMath() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Index's "referencedAttribute" attribute has been set.
    *
@@ -137,6 +153,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetReferencedAttribute() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Index's "arrayDimension" attribute has been set.
+   *
+   * @return @c true if this Index's "arrayDimension" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetArrayDimension() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Index's "math" element has been set.
+   *
+   * @return @c true if this Index's "math" element has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetMath() const;
 
 
   /**
@@ -155,40 +191,9 @@ public:
 
 
   /**
-   * Unsets the value of the "referencedAttribute" attribute of this Index.
+   * Sets the value of the "arrayDimension" attribute of this Index.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetReferencedAttribute();
-
-
-  /**
-   * Returns the value of the "dim" attribute of this Index.
-   *
-   * @return the value of the "dim" attribute of this Index as a unsigned integer.
-   */
-  virtual const unsigned int getDim() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Index's "dim" attribute has been set.
-   *
-   * @return @c true if this Index's "dim" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetDim() const;
-
-
-  /**
-   * Sets the value of the "dim" attribute of this Index.
-   *
-   * @param dim; unsigned int value of the "dim" attribute to be set
+   * @param arrayDimension; unsigned int value of the "arrayDimension" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -197,46 +202,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setDim(unsigned int dim);
-
-
-  /**
-   * Unsets the value of the "dim" attribute of this Index.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetDim();
-
-
-  /**
-   * Returns the "math" element of this Index.
-   *
-   * @return the "math" element of this Index.
-   */
-  virtual const ASTNode* getMath() const;
-
-
-  /**
-   * Returns the "math" element of this Index.
-   *
-   * @return the "math" element of this Index.
-   */
-  virtual ASTNode* getMath();
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Index's "math" element has been set.
-   *
-   * @return @c true if this Index's "math" element has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetMath() const;
+  virtual int setArrayDimension(unsigned int arrayDimension);
 
 
   /**
@@ -252,6 +218,32 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   virtual int setMath(ASTNode* math);
+
+
+  /**
+   * Unsets the value of the "referencedAttribute" attribute of this Index.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetReferencedAttribute();
+
+
+  /**
+   * Unsets the value of the "arrayDimension" attribute of this Index.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetArrayDimension();
 
 
   /**
@@ -330,7 +322,7 @@ public:
    *
    * @note The required attributes for a Index object are:
    * @li "referencedAttribute"
-   * @li "dim"
+   * @li "arrayDimension"
    * @li "math"
    *
    * @return a boolean value indicating whether all the required
@@ -710,7 +702,7 @@ Index_getReferencedAttribute(Index_t * i);
 
 LIBSBML_EXTERN
 unsigned int
-Index_getDim(Index_t * i);
+Index_getArrayDimension(Index_t * i);
 
 
 LIBSBML_EXTERN
@@ -720,7 +712,7 @@ Index_isSetReferencedAttribute(Index_t * i);
 
 LIBSBML_EXTERN
 int
-Index_isSetDim(Index_t * i);
+Index_isSetArrayDimension(Index_t * i);
 
 
 LIBSBML_EXTERN
@@ -730,7 +722,7 @@ Index_setReferencedAttribute(Index_t * i, const char * referencedAttribute);
 
 LIBSBML_EXTERN
 int
-Index_setDim(Index_t * i, unsigned int dim);
+Index_setArrayDimension(Index_t * i, unsigned int arrayDimension);
 
 
 LIBSBML_EXTERN
@@ -740,7 +732,7 @@ Index_unsetReferencedAttribute(Index_t * i);
 
 LIBSBML_EXTERN
 int
-Index_unsetDim(Index_t * i);
+Index_unsetArrayDimension(Index_t * i);
 
 
 LIBSBML_EXTERN
