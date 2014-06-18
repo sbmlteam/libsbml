@@ -133,6 +133,7 @@ DistribSBasePlugin::createObject (XMLInputStream& stream)
       object = mUncertainty;
 
     } 
+
     delete distribns;
   } 
 
@@ -172,6 +173,18 @@ DistribSBasePlugin::hasRequiredElements () const
 // Functions for interacting with the members of the plugin
 //
 //---------------------------------------------------------------
+
+List*
+DistribSBasePlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_POINTER(ret, sublist, mUncertainty, filter);
+
+  return ret;
+}
+
 
 /*
  * Returns the Uncertainty from this DistribSBasePlugin object.
@@ -238,7 +251,9 @@ DistribSBasePlugin::createUncertainty()
   mUncertainty = new Uncertainty(distribns);
 
   mUncertainty->setSBMLDocument(this->getSBMLDocument());
+
   delete distribns;
+
   return mUncertainty;
 }
 

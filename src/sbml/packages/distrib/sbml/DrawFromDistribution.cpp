@@ -372,6 +372,20 @@ DrawFromDistribution::createDistribInput()
 }
 
 
+List*
+DrawFromDistribution::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  // ADD_FILTERED_ELEMENT(ret, sublist, mUncertML, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
  * Returns the XML element name of this object
  */
@@ -643,8 +657,8 @@ DrawFromDistribution::writeAttributes (XMLOutputStream& stream) const
   /** @endcond doxygenLibsbmlInternal */
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 DrawFromDistribution_t *
@@ -655,8 +669,8 @@ DrawFromDistribution_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 void
@@ -667,8 +681,8 @@ DrawFromDistribution_free(DrawFromDistribution_t * dfd)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 DrawFromDistribution_t *
@@ -685,8 +699,8 @@ DrawFromDistribution_clone(DrawFromDistribution_t * dfd)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int

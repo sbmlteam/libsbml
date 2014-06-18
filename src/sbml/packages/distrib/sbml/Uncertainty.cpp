@@ -325,6 +325,20 @@ Uncertainty::unsetUncertML()
 }
 
 
+List*
+Uncertainty::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  // ADD_FILTERED_ELEMENT(ret, sublist, mUncertML, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
  * Returns the XML element name of this object
  */
@@ -424,6 +438,21 @@ void
 Uncertainty::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+   * Connects to child elements.
+ */
+void
+Uncertainty::connectToChild()
+{
+  SBase::connectToChild();
 }
 
 
@@ -606,8 +635,8 @@ Uncertainty::writeAttributes (XMLOutputStream& stream) const
   /** @endcond doxygenLibsbmlInternal */
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 Uncertainty_t *
@@ -618,8 +647,8 @@ Uncertainty_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 void
@@ -630,8 +659,8 @@ Uncertainty_free(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 Uncertainty_t *
@@ -648,8 +677,8 @@ Uncertainty_clone(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -662,8 +691,8 @@ Uncertainty_getId(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -676,8 +705,8 @@ Uncertainty_getName(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -687,8 +716,8 @@ Uncertainty_isSetId(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -698,8 +727,8 @@ Uncertainty_isSetName(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -709,8 +738,8 @@ Uncertainty_setId(Uncertainty_t * u, const char * id)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -720,8 +749,8 @@ Uncertainty_setName(Uncertainty_t * u, const char * name)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -731,8 +760,8 @@ Uncertainty_unsetId(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -742,8 +771,8 @@ Uncertainty_unsetName(Uncertainty_t * u)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int

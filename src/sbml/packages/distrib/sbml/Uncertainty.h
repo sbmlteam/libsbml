@@ -130,6 +130,22 @@ public:
 
 
   /**
+   * Returns the value of the "name" attribute of this Uncertainty.
+   *
+   * @return the value of the "name" attribute of this Uncertainty as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Returns the "UncertML" element of this Uncertainty.
+   *
+   * @return the "UncertML" element of this Uncertainty.
+   */
+  virtual const UncertMLNode* getUncertML() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Uncertainty's "id" attribute has been set.
    *
@@ -137,6 +153,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Uncertainty's "name" attribute has been set.
+   *
+   * @return @c true if this Uncertainty's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Uncertainty's "UncertML" element has been set.
+   *
+   * @return @c true if this Uncertainty's "UncertML" element has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetUncertML() const;
 
 
   /**
@@ -155,37 +191,6 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this Uncertainty.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Returns the value of the "name" attribute of this Uncertainty.
-   *
-   * @return the value of the "name" attribute of this Uncertainty as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Uncertainty's "name" attribute has been set.
-   *
-   * @return @c true if this Uncertainty's "name" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
    * Sets the value of the "name" attribute of this Uncertainty.
    *
    * @param name; const std::string& value of the "name" attribute to be set
@@ -198,6 +203,34 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   virtual int setName(const std::string& name);
+
+
+  /**
+   * Sets the "UncertML" element of this Uncertainty.
+   *
+   * @param UncertML; UncertMLNode* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setUncertML(UncertMLNode* UncertML);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this Uncertainty.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
 
 
   /**
@@ -214,39 +247,6 @@ public:
 
 
   /**
-   * Returns the "UncertML" element of this Uncertainty.
-   *
-   * @return the "UncertML" element of this Uncertainty.
-   */
-  virtual const UncertMLNode* getUncertML() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Uncertainty's "UncertML" element has been set.
-   *
-   * @return @c true if this Uncertainty's "UncertML" element has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetUncertML() const;
-
-
-  /**
-   * Sets the "UncertML" element of this Uncertainty.
-   *
-   * @param UncertML; UncertMLNode* to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setUncertML(UncertMLNode* uncertML);
-
-
-  /**
    * Unsets the "UncertML" element of this Uncertainty.
    *
    * @return integer value indicating success/failure of the
@@ -257,6 +257,15 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   virtual int unsetUncertML();
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
@@ -357,6 +366,17 @@ public:
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
 
 
   /** @endcond doxygenLibsbmlInternal */

@@ -130,6 +130,22 @@ public:
 
 
   /**
+   * Returns the value of the "name" attribute of this DistribInput.
+   *
+   * @return the value of the "name" attribute of this DistribInput as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Returns the value of the "index" attribute of this DistribInput.
+   *
+   * @return the value of the "index" attribute of this DistribInput as a unsigned integer.
+   */
+  virtual const unsigned int getIndex() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * DistribInput's "id" attribute has been set.
    *
@@ -137,6 +153,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DistribInput's "name" attribute has been set.
+   *
+   * @return @c true if this DistribInput's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DistribInput's "index" attribute has been set.
+   *
+   * @return @c true if this DistribInput's "index" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetIndex() const;
 
 
   /**
@@ -155,37 +191,6 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this DistribInput.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetId();
-
-
-  /**
-   * Returns the value of the "name" attribute of this DistribInput.
-   *
-   * @return the value of the "name" attribute of this DistribInput as a string.
-   */
-  virtual const std::string& getName() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * DistribInput's "name" attribute has been set.
-   *
-   * @return @c true if this DistribInput's "name" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetName() const;
-
-
-  /**
    * Sets the value of the "name" attribute of this DistribInput.
    *
    * @param name; const std::string& value of the "name" attribute to be set
@@ -198,37 +203,6 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   virtual int setName(const std::string& name);
-
-
-  /**
-   * Unsets the value of the "name" attribute of this DistribInput.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetName();
-
-
-  /**
-   * Returns the value of the "index" attribute of this DistribInput.
-   *
-   * @return the value of the "index" attribute of this DistribInput as a unsigned integer.
-   */
-  virtual const unsigned int getIndex() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * DistribInput's "index" attribute has been set.
-   *
-   * @return @c true if this DistribInput's "index" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetIndex() const;
 
 
   /**
@@ -247,6 +221,32 @@ public:
 
 
   /**
+   * Unsets the value of the "id" attribute of this DistribInput.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this DistribInput.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetName();
+
+
+  /**
    * Unsets the value of the "index" attribute of this DistribInput.
    *
    * @return integer value indicating success/failure of the
@@ -257,6 +257,15 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   virtual int unsetIndex();
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
@@ -357,6 +366,17 @@ public:
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
 
 
   /** @endcond doxygenLibsbmlInternal */

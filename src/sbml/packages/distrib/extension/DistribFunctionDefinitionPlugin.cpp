@@ -173,6 +173,18 @@ DistribFunctionDefinitionPlugin::hasRequiredElements () const
 //
 //---------------------------------------------------------------
 
+List*
+DistribFunctionDefinitionPlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_POINTER(ret, sublist, mDrawFromDistribution, filter);
+
+  return ret;
+}
+
+
 /*
  * Returns the DrawFromDistribution from this DistribFunctionDefinitionPlugin object.
  */
@@ -240,6 +252,7 @@ DistribFunctionDefinitionPlugin::createDrawFromDistribution()
   mDrawFromDistribution->setSBMLDocument(this->getSBMLDocument());
 
   delete distribns;
+
   return mDrawFromDistribution;
 }
 

@@ -307,6 +307,15 @@ public:
 
 
   /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
    * Returns the XML element name of this object, which for DrawFromDistribution, is
    * always @c "drawFromDistribution".
    *

@@ -305,6 +305,19 @@ DistribInput::unsetIndex()
 }
 
 
+List*
+DistribInput::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
  * Returns the XML element name of this object
  */
@@ -403,6 +416,20 @@ void
 DistribInput::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+   * Connects to child elements.
+ */
+void
+DistribInput::connectToChild()
+{
 }
 
 
@@ -825,8 +852,8 @@ ListOfDistribInputs::writeXMLNS(XMLOutputStream& stream) const
   /** @endcond doxygenLibsbmlInternal */
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 DistribInput_t *
@@ -837,8 +864,8 @@ DistribInput_create(unsigned int level, unsigned int version,
 }
 
 
-/**
- * write comments
+/*
+ * 
  */
 LIBSBML_EXTERN
 void
@@ -849,8 +876,8 @@ DistribInput_free(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 DistribInput_t *
@@ -867,8 +894,8 @@ DistribInput_clone(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -881,8 +908,8 @@ DistribInput_getId(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 char *
@@ -895,8 +922,8 @@ DistribInput_getName(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 unsigned int
@@ -906,8 +933,8 @@ DistribInput_getIndex(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -917,8 +944,8 @@ DistribInput_isSetId(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -928,8 +955,8 @@ DistribInput_isSetName(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -939,8 +966,8 @@ DistribInput_isSetIndex(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -950,8 +977,8 @@ DistribInput_setId(DistribInput_t * di, const char * id)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -961,8 +988,8 @@ DistribInput_setName(DistribInput_t * di, const char * name)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -972,8 +999,8 @@ DistribInput_setIndex(DistribInput_t * di, unsigned int index)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -983,8 +1010,8 @@ DistribInput_unsetId(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -994,8 +1021,8 @@ DistribInput_unsetName(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1005,8 +1032,8 @@ DistribInput_unsetIndex(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 int
@@ -1016,8 +1043,8 @@ DistribInput_hasRequiredAttributes(DistribInput_t * di)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 DistribInput_t *
@@ -1030,8 +1057,8 @@ ListOfDistribInputs_getById(ListOf_t * lo, const char * sid)
 }
 
 
-/**
- * write comments
+/*
+ *
  */
 LIBSBML_EXTERN
 DistribInput_t *

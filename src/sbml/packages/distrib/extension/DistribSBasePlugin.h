@@ -147,6 +147,15 @@ public:
   //---------------------------------------------------------------
 
   /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
    * Returns the Uncertainty from this DistribSBasePlugin object.
    *
    * @return the Uncertainty from object in this DistribSBasePlugin object.
