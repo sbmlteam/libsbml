@@ -69,7 +69,7 @@ main (int argc, char* argv[])
   ArraysSBasePlugin * arraysPlug = 
     static_cast<ArraysSBasePlugin*>(p->getPlugin("arrays"));
   Dimension * dim = arraysPlug->createDimension();
-  dim->setDim(0);
+  dim->setArrayDimension(0);
   dim->setSize("n");
 
   // third parameter
@@ -82,7 +82,7 @@ main (int argc, char* argv[])
   arraysPlug = 
     static_cast<ArraysSBasePlugin*>(p->getPlugin("arrays"));
   dim = arraysPlug->createDimension();
-  dim->setDim(0);
+  dim->setArrayDimension(0);
   dim->setSize("n");
 
 
@@ -103,13 +103,13 @@ main (int argc, char* argv[])
   arraysPlug = 
     static_cast<ArraysSBasePlugin*>(ar->getPlugin("arrays"));
   dim = arraysPlug->createDimension();
-  dim->setDim(0);
+  dim->setArrayDimension(0);
   dim->setSize("n");
   dim->setId("i");
 
   // set the index
   Index * ind = arraysPlug->createIndex();
-  ind->setDim(0);
+  ind->setArrayDimension(0);
   ind->setReferencedAttribute("variable");
 
   ASTNode * indMath = SBML_parseL3Formula("9 - i");

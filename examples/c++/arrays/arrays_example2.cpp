@@ -69,7 +69,7 @@ main (int argc, char* argv[])
   ArraysSBasePlugin * arraysPlug = 
     static_cast<ArraysSBasePlugin*>(p->getPlugin("arrays"));
   Dimension * dim = arraysPlug->createDimension();
-  dim->setDim(0);
+  dim->setArrayDimension(0);
   dim->setSize("n");
 
   // third parameter

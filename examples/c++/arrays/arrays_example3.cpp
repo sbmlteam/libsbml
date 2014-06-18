@@ -78,12 +78,12 @@ main (int argc, char* argv[])
 
   // first dimension
   Dimension * dim = arraysPlug->createDimension();
-  dim->setDim(0);
+  dim->setArrayDimension(0);
   dim->setSize("m");
 
   // second dimension
   dim = arraysPlug->createDimension();
-  dim->setDim(1);
+  dim->setArrayDimension(1);
   dim->setSize("n");
 
   // other parameters
