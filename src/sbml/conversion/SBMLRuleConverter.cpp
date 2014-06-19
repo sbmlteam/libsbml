@@ -74,7 +74,7 @@ SBMLConverter(orig)
 {
 }
 
-SBMLConverter* 
+SBMLRuleConverter* 
 SBMLRuleConverter::clone() const
 {
   return new SBMLRuleConverter(*this);

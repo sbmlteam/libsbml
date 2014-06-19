@@ -85,7 +85,7 @@ SBMLReactionConverter::~SBMLReactionConverter ()
 }
 
 
-SBMLConverter* 
+SBMLReactionConverter* 
 SBMLReactionConverter::clone() const
 {
   return new SBMLReactionConverter(*this);

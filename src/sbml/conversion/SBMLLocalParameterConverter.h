@@ -105,7 +105,7 @@ public:
    *
    * @return a (deep) copy of this converter.
    */
-  virtual SBMLConverter* clone() const;
+  virtual SBMLLocalParameterConverter* clone() const;
 
 
   /**

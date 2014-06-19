@@ -69,7 +69,7 @@ FbcToCobraConverter::FbcToCobraConverter(const FbcToCobraConverter& orig) :
 {
 }
 
-SBMLConverter* 
+FbcToCobraConverter* 
 FbcToCobraConverter::clone() const
 {
   return new FbcToCobraConverter(*this);

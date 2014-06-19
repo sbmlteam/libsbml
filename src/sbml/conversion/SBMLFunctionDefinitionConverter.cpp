@@ -71,7 +71,7 @@ SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter(const SBMLFunct
 {
 }
 
-SBMLConverter* 
+SBMLFunctionDefinitionConverter* 
 SBMLFunctionDefinitionConverter::clone() const
 {
   return new SBMLFunctionDefinitionConverter(*this);

@@ -70,7 +70,7 @@ SBMLIdConverter::SBMLIdConverter(const SBMLIdConverter& orig) :
 {
 }
 
-SBMLConverter* 
+SBMLIdConverter* 
 SBMLIdConverter::clone() const
 {
   return new SBMLIdConverter(*this);

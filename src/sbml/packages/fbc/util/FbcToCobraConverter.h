@@ -70,7 +70,7 @@ public:
    * 
    * @return a (deep) copy of this FbcToCobraConverter.
    */
-  virtual SBMLConverter* clone() const;
+  virtual FbcToCobraConverter* clone() const;
 
 
   /**

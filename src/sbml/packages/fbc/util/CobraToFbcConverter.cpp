@@ -68,7 +68,7 @@ CobraToFbcConverter::CobraToFbcConverter(const CobraToFbcConverter& orig) :
 {
 }
 
-SBMLConverter* 
+CobraToFbcConverter* 
 CobraToFbcConverter::clone() const
 {
   return new CobraToFbcConverter(*this);

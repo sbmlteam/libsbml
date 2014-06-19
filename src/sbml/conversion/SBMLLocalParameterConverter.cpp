@@ -75,7 +75,7 @@ SBMLLocalParameterConverter::SBMLLocalParameterConverter(const SBMLLocalParamete
 {
 }
 
-SBMLConverter* 
+SBMLLocalParameterConverter* 
 SBMLLocalParameterConverter::clone() const
 {
   return new SBMLLocalParameterConverter(*this);

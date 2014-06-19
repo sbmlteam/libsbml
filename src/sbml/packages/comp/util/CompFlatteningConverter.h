@@ -187,7 +187,7 @@ public:
    * 
    * @return a (deep) copy of this CompFlatteningConverter.
    */
-  virtual SBMLConverter* clone() const;
+  virtual CompFlatteningConverter* clone() const;
 
 
   /**

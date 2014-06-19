@@ -76,7 +76,7 @@ SBMLConverter(orig)
 {
 }
 
-SBMLConverter* 
+CompFlatteningConverter* 
 CompFlatteningConverter::clone() const
 {
   return new CompFlatteningConverter(*this);

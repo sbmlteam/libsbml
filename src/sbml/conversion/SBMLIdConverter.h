@@ -117,7 +117,7 @@ public:
    *
    * @return a (deep) copy of this converter.
    */
-  virtual SBMLConverter* clone() const;
+  virtual SBMLIdConverter* clone() const;
 
 
   /**
