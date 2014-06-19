@@ -3604,6 +3604,19 @@ public:
    */
   Rule* removeRule (const std::string& variable);
 
+  /**
+   * Removes the Rule object with the given "variable" attribute from this Model 
+   * object and returns a pointer to it.
+   *
+   * The caller owns the returned object and is responsible for deleting it.
+   *
+   * @param variable the "variable" attribute of the Rule object to remove
+   *
+   * @return the Rule object removed, or @c NULL if no Rule object with the
+   * "variable" attribute exists in this Model object.
+   */
+  Rule* removeRuleByVariable (const std::string& variable);
+
 
   /**
    * Removes the nth Constraint object from this Model object and

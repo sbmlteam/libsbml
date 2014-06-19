@@ -3743,6 +3743,16 @@ Model::removeRule (const std::string& sid)
   return mRules.remove(sid);
 }
 
+/**
+ * Removes the Rule object with the given variable from this Model
+ * object and returns a pointer to it.
+ */
+Rule*
+Model::removeRuleByVariable (const std::string& variable)
+{
+  return mRules.remove(variable);
+}
+
 
 /**
  * Removes the nth Constraint object from this Model object and
