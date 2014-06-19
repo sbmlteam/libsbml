@@ -39,7 +39,9 @@
 #include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
 
+#if (0)
 #include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
+#endif
 #include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
 
 #include <sbml/packages/arrays/sbml/Dimension.h>

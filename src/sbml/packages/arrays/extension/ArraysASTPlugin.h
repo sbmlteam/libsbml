@@ -48,15 +48,18 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/ASTBasePlugin.h>
 #include <sbml/packages/arrays/math/ASTArraysVectorFunctionNode.h>
+#if (0)
 #include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
-
+#endif
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 typedef enum
 {
   AST_TYPECODE_VECTOR_CONSTRUCTOR = 50
+#if (0)
 , AST_TYPECODE_MATRIX_CONSTRUCTOR
+#endif
 } ASTArrays_Class_TypeCode_t;
 
 
@@ -194,7 +197,9 @@ public:
 
   ASTArraysVectorFunctionNode * getVector() const;
 
+#if (0)
   ASTArraysMatrixFunctionNode * getMatrix() const;
+#endif
 
   ArraysASTNodeType_t getASTType() const;
 
@@ -206,18 +211,22 @@ protected:
   bool readVector(XMLInputStream& stream, const std::string& reqd_prefix,
                         const XMLToken& currentElement);
   
-  
+ 
+#if (0) // take out matrix
   bool readMatrix(XMLInputStream& stream, const std::string& reqd_prefix,
                         const XMLToken& currentElement);
 
 
   bool readMatrixRow(XMLInputStream& stream, const std::string& reqd_prefix,
                         const XMLToken& currentElement);
+#endif
   /*-- data members --*/
 
   ASTArraysVectorFunctionNode* mVector;
-  ASTArraysMatrixFunctionNode* mMatrix;
 
+#if (0)
+  ASTArraysMatrixFunctionNode* mMatrix;
+#endif
   /** @endcond */
 };
 

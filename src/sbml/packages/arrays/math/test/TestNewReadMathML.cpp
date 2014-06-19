@@ -150,7 +150,7 @@ END_TEST
 
 
 
-
+#if (0)
 START_TEST (test_element_matrix)
 {
   const char* s = wrapMathML
@@ -222,7 +222,7 @@ START_TEST (test_element_matrix)
 
 }
 END_TEST
-
+#endif
 
 
 
@@ -373,7 +373,9 @@ create_suite_NewReadMathML ()
   tcase_add_checked_fixture( tcase, NewReadMathML_setup, NewReadMathML_teardown);
 
   tcase_add_test( tcase, test_element_vector                      );
+#if (0)
   tcase_add_test( tcase, test_element_matrix                      );
+#endif
   tcase_add_test( tcase, test_element_determinant                      );
   tcase_add_test( tcase, test_element_vectorproduct                      );
   tcase_add_test( tcase, test_element_selector                      );

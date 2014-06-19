@@ -131,7 +131,7 @@ START_TEST (test_MathMLFromAST_vector)
 }
 END_TEST
 
-
+#if (0)
 START_TEST (test_MathMLFromAST_matrix)
 {
   const char* expected = wrapMathML
@@ -191,7 +191,7 @@ START_TEST (test_MathMLFromAST_matrix)
   fail_unless( equals(expected, S) );
 }
 END_TEST
-
+#endif
 
 START_TEST (test_MathMLFromAST_transpose)
 {
@@ -296,7 +296,9 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_checked_fixture(tcase, NewWriteMathMLFromAST_setup, NewWriteMathMLFromAST_teardown);
 
   tcase_add_test( tcase, test_MathMLFromAST_vector             );
+#if (0)
   tcase_add_test( tcase, test_MathMLFromAST_matrix             );
+#endif
   tcase_add_test( tcase, test_MathMLFromAST_transpose          );
   tcase_add_test( tcase, test_MathMLFromAST_scalarproduct      );
   tcase_add_test( tcase, test_MathMLFromAST_selector           );
