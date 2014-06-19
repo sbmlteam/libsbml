@@ -46,6 +46,8 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
+using namespace std;
+
 /*
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 

@@ -45,6 +45,8 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
+using namespace std;
+
 /*
  * Creates a new point with x,y and z set  to 0.0.
  */ 
