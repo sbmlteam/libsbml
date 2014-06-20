@@ -53,14 +53,12 @@ determineNumChildren(XMLInputStream & stream, const std::string element = "")
   return n;
 }
 
-
+#if (0)
 static const char* ARRAYS_MATHML_ELEMENTS[] =
 {
     "determinant"
-#if (0)
   , "matrix"
   , "matrixrow"
-#endif
   , "outerproduct"
   , "scalarproduct"
   , "selector"
@@ -68,20 +66,62 @@ static const char* ARRAYS_MATHML_ELEMENTS[] =
   , "vector"
   , "vectorproduct"
 };
+#endif
 
+static const char* ARRAYS_MATHML_ELEMENTS[] =
+{
+    "condition"
+  , "exists"
+  , "forall"
+  , "lowlimit"
+  , "mean"
+  , "median"
+  , "mode"
+  , "moment"
+  , "momentabout"
+  , "product"
+  , "sdev"
+  , "selector"
+  , "sum"
+  , "uplimit"
+  , "variance"
+  , "vector"
+};
+
+#if (0)
 static const int ARRAYS_MATHML_TYPES[] =
 {
     AST_LINEAR_ALGEBRA_DETERMINANT
-#if (0)
   , AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR
   , AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR
-#endif
   , AST_LINEAR_ALGEBRA_OUTER_PRODUCT
   , AST_LINEAR_ALGEBRA_SCALAR_PRODUCT
   , AST_LINEAR_ALGEBRA_SELECTOR
   , AST_LINEAR_ALGEBRA_TRANSPOSE
   , AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR
   , AST_LINEAR_ALGEBRA_VECTOR_PRODUCT
+  , AST_ARRAYS_UNKNOWN
+};
+#endif
+
+static const int ARRAYS_MATHML_TYPES[] =
+{
+    AST_QUALIFIER_CONDITION
+  , AST_LOGICAL_EXISTS
+  , AST_LOGICAL_FORALL
+  , AST_QUALIFIER_LOWLIMIT
+  , AST_STATISTICS_MEAN
+  , AST_STATISTICS_MEDIAN
+  , AST_STATISTICS_MODE
+  , AST_STATISTICS_MOMENT
+  , AST_QUALIFIER_MOMENTABOUT
+  , AST_SERIES_PRODUCT
+  , AST_STATISTICS_SDEV
+  , AST_LINEAR_ALGEBRA_SELECTOR
+  , AST_SERIES_SUM
+  , AST_QUALIFIER_UPLIMIT
+  , AST_STATISTICS_VARIANCE
+  , AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR
   , AST_ARRAYS_UNKNOWN
 };
 
@@ -666,11 +706,23 @@ ArraysASTPlugin::isFunction(int type) const
   switch (type)
   {
     case AST_LINEAR_ALGEBRA_SELECTOR:
+#if (0)
     case AST_LINEAR_ALGEBRA_DETERMINANT:
     case AST_LINEAR_ALGEBRA_TRANSPOSE:
     case AST_LINEAR_ALGEBRA_VECTOR_PRODUCT:
     case AST_LINEAR_ALGEBRA_SCALAR_PRODUCT:
     case AST_LINEAR_ALGEBRA_OUTER_PRODUCT:
+#endif
+    case AST_LOGICAL_EXISTS:
+    case AST_LOGICAL_FORALL:
+    case AST_STATISTICS_MEAN:
+    case AST_STATISTICS_MEDIAN:
+    case AST_STATISTICS_MODE:
+    case AST_STATISTICS_MOMENT:
+    case AST_SERIES_PRODUCT:
+    case AST_STATISTICS_SDEV:
+    case AST_SERIES_SUM:
+    case AST_STATISTICS_VARIANCE:
       valid = true;
       break;
     default:
@@ -709,6 +761,7 @@ ArraysASTPlugin::representsUnaryFunction(int type) const
 {
   bool valid = false;
 
+#if (0)
   switch (type)
   {
     case AST_LINEAR_ALGEBRA_DETERMINANT:
@@ -719,6 +772,7 @@ ArraysASTPlugin::representsUnaryFunction(int type) const
       break;
 
   }
+#endif
   return valid;
 }
 
@@ -728,6 +782,7 @@ ArraysASTPlugin::representsBinaryFunction(int type) const
 {
   bool valid = false;
 
+#if (0)
   switch (type)
   {
     case AST_LINEAR_ALGEBRA_VECTOR_PRODUCT:
@@ -739,6 +794,7 @@ ArraysASTPlugin::representsBinaryFunction(int type) const
       break;
 
   }
+#endif
   return valid;
 }
 
@@ -751,6 +807,37 @@ ArraysASTPlugin::representsNaryFunction(int type) const
   switch (type)
   {
     case AST_LINEAR_ALGEBRA_SELECTOR:
+    case AST_LOGICAL_EXISTS:
+    case AST_LOGICAL_FORALL:
+    case AST_STATISTICS_MEAN:
+    case AST_STATISTICS_MEDIAN:
+    case AST_STATISTICS_MODE:
+    case AST_STATISTICS_MOMENT:
+    case AST_SERIES_PRODUCT:
+    case AST_STATISTICS_SDEV:
+    case AST_SERIES_SUM:
+    case AST_STATISTICS_VARIANCE:
+      valid = true;
+      break;
+    default:
+      break;
+
+  }
+  return valid;
+}
+
+
+bool 
+ArraysASTPlugin::representsQualifier(int type) const
+{
+  bool valid = false;
+
+  switch (type)
+  {
+    case AST_QUALIFIER_CONDITION:
+    case AST_QUALIFIER_LOWLIMIT:
+    case AST_QUALIFIER_MOMENTABOUT:
+    case AST_QUALIFIER_UPLIMIT:
       valid = true;
       break;
     default:
@@ -780,6 +867,10 @@ ArraysASTPlugin::isTopLevelMathMLFunctionNodeTag(const std::string& name) const
     valid = true;
   }
 #endif
+  else if (representsQualifier(getTypeFromName(name)) == true)
+  {
+    return true;
+  }
 
   return valid;
 }
@@ -809,7 +900,7 @@ ArraysASTPlugin::getNameFromType(int type) const
   std::string name = "";
 
   static const int size = sizeof(ARRAYS_MATHML_ELEMENTS) / sizeof(ARRAYS_MATHML_ELEMENTS[0]);
-  if (type >= AST_LINEAR_ALGEBRA_DETERMINANT && type < AST_ARRAYS_UNKNOWN)
+  if (type >= AST_QUALIFIER_CONDITION && type < AST_ARRAYS_UNKNOWN)
   {
     bool found = false;
     unsigned int i;
@@ -858,7 +949,7 @@ ArraysASTPlugin::getASTType() const
   }
 
 
-  if (type >= AST_LINEAR_ALGEBRA_DETERMINANT &&
+  if (type >= AST_QUALIFIER_CONDITION &&
     type < AST_ARRAYS_UNKNOWN)
   {
     return (ArraysASTNodeType_t)(type);

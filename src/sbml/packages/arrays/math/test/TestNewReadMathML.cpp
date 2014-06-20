@@ -225,7 +225,7 @@ END_TEST
 #endif
 
 
-
+#if (0)
 START_TEST (test_element_determinant)
 {
   const char* s = wrapMathML
@@ -262,10 +262,10 @@ START_TEST (test_element_determinant)
 
 }
 END_TEST
+#endif
 
 
-
-
+#if (0)
 START_TEST (test_element_vectorproduct)
 {
   const char* s = wrapMathML
@@ -311,7 +311,7 @@ START_TEST (test_element_vectorproduct)
 
 }
 END_TEST
-
+#endif
 
 
 
@@ -363,6 +363,80 @@ END_TEST
 
 
 
+START_TEST (test_element_sum)
+{
+  const char* s = wrapMathML
+  (
+    "  <apply>"
+    "    <sum/>"
+    "    <bvar><ci> x </ci></bvar>"
+    "    <lowlimit><cn type=\"integer\">0</cn></lowlimit>"
+    "    <ci> A </ci>"
+    "  </apply>"
+  );
+
+
+
+  N = readMathMLFromStringWithNamespaces(s, NS);
+
+  fail_unless( N != NULL );
+  fail_unless( N->getType() == AST_ORIGINATES_IN_PACKAGE);
+  fail_unless( N->getExtendedType() == AST_SERIES_SUM);
+  fail_unless( N->getNumChildren() == 3);
+  fail_unless( N->getPackageName() == "arrays");
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless( child != NULL );
+  fail_unless( child->getType() == AST_QUALIFIER_BVAR);
+  fail_unless( child->getExtendedType() == AST_QUALIFIER_BVAR);
+  fail_unless( child->getNumChildren() == 1);
+  fail_unless( child->getPackageName() == "core");
+
+  ASTNode * child1 = child->getChild(0);
+
+  fail_unless( child1 != NULL );
+  fail_unless( child1->getType() == AST_NAME);
+  fail_unless( child1->getExtendedType() == AST_NAME);
+  fail_unless( strcmp(child1->getName(), "x") == 0);
+  fail_unless( child1->getNumChildren() == 0);
+  fail_unless( child1->getPackageName() == "core");
+
+  child = N->getChild(1);
+
+  fail_unless( child != NULL );
+  fail_unless( child->getType() == AST_ORIGINATES_IN_PACKAGE);
+  fail_unless( child->getExtendedType() == AST_QUALIFIER_LOWLIMIT);
+  fail_unless( child->getNumChildren() == 1);
+  fail_unless( child->getPackageName() == "arrays");
+
+  child1 = child->getChild(0);
+
+  fail_unless( child1 != NULL );
+  fail_unless( child1->getType() == AST_INTEGER);
+  fail_unless( child1->getExtendedType() == AST_INTEGER);
+  fail_unless( child1->getNumChildren() == 0);
+  fail_unless( child1->getInteger() == 0);
+
+  child1 = N->getChild(2);
+
+  fail_unless( child1 != NULL );
+  fail_unless( child1->getType() == AST_NAME);
+  fail_unless( child1->getExtendedType() == AST_NAME);
+  fail_unless( strcmp(child1->getName(), "A") == 0);
+  fail_unless( child1->getNumChildren() == 0);
+  fail_unless( child1->getPackageName() == "core");
+
+  ArraysASTPlugin* plugin = static_cast<ArraysASTPlugin*>(N->getPlugin("arrays"));
+  
+  fail_unless(plugin != NULL);
+  fail_unless(plugin->getASTType() == AST_SERIES_SUM);
+
+}
+END_TEST
+
+
+
 
 Suite *
 create_suite_NewReadMathML ()
@@ -375,10 +449,11 @@ create_suite_NewReadMathML ()
   tcase_add_test( tcase, test_element_vector                      );
 #if (0)
   tcase_add_test( tcase, test_element_matrix                      );
-#endif
   tcase_add_test( tcase, test_element_determinant                      );
   tcase_add_test( tcase, test_element_vectorproduct                      );
+#endif
   tcase_add_test( tcase, test_element_selector                      );
+  tcase_add_test( tcase, test_element_sum                      );
 
   suite_add_tcase(suite, tcase);
 

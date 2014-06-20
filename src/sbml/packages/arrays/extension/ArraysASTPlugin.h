@@ -170,6 +170,7 @@ public:
   virtual bool representsUnaryFunction(int type) const;
   virtual bool representsBinaryFunction(int type) const;
   virtual bool representsNaryFunction(int type) const;
+  virtual bool representsQualifier(int type) const;
   virtual bool isFunctionNode(int type) const;
   virtual bool isTopLevelMathMLFunctionNodeTag(const std::string& name) const;
 

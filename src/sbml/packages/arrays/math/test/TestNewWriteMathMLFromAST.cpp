@@ -193,6 +193,7 @@ START_TEST (test_MathMLFromAST_matrix)
 END_TEST
 #endif
 
+#if (0)
 START_TEST (test_MathMLFromAST_transpose)
 {
   const char* expected = wrapMathML
@@ -218,8 +219,9 @@ START_TEST (test_MathMLFromAST_transpose)
   fail_unless( equals(expected, S) );
 }
 END_TEST
+#endif
 
-
+#if (0)
 START_TEST (test_MathMLFromAST_scalarproduct)
 {
   const char* expected = wrapMathML
@@ -249,7 +251,7 @@ START_TEST (test_MathMLFromAST_scalarproduct)
   fail_unless( equals(expected, S) );
 }
 END_TEST
-
+#endif
 
 START_TEST (test_MathMLFromAST_selector)
 {
@@ -287,6 +289,88 @@ START_TEST (test_MathMLFromAST_selector)
 END_TEST
 
 
+START_TEST (test_MathMLFromAST_mean)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <mean/>\n"
+    "    <ci> y </ci>\n"
+    "    <ci> z </ci>\n"
+    "    <cn type=\"integer\"> 5 </cn>\n"
+    "  </apply>\n"
+  );
+
+
+  ASTNode * y = new ASTNode(AST_NAME);
+  fail_unless(y->setName("y") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * z = new ASTNode(AST_NAME);
+  fail_unless(z->setName("z") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode *int1 = new ASTNode(AST_INTEGER);
+  fail_unless(int1->setValue((long)(5)) == LIBSBML_OPERATION_SUCCESS);
+
+  N = new ASTNode(AST_STATISTICS_MEAN);
+  fail_unless( N->getPackageName() == "arrays");
+
+  fail_unless(N->addChild(y) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->addChild(z) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->addChild(int1) == LIBSBML_OPERATION_SUCCESS);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFromAST_product)
+{
+  const char* expected = wrapMathML
+  (
+    "  <apply>\n"
+    "    <product/>\n"
+    "    <bvar>\n"
+    "      <ci> y </ci>\n"
+    "    </bvar>\n"
+    "    <uplimit>\n"
+    "      <ci> z </ci>\n"
+    "    </uplimit>\n"
+    "    <ci> A </ci>\n"
+    "  </apply>\n"
+  );
+
+
+  ASTNode * y = new ASTNode(AST_NAME);
+  fail_unless(y->setName("y") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * z = new ASTNode(AST_NAME);
+  fail_unless(z->setName("z") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * A = new ASTNode(AST_NAME);
+  fail_unless(A->setName("A") == LIBSBML_OPERATION_SUCCESS);
+
+  ASTNode * bvar = new ASTNode(AST_QUALIFIER_BVAR);
+  bvar->addChild(y);
+
+  ASTNode * up = new ASTNode(AST_QUALIFIER_UPLIMIT);
+  up->addChild(z);
+
+  N = new ASTNode(AST_SERIES_PRODUCT);
+  fail_unless( N->getPackageName() == "arrays");
+
+  fail_unless(N->addChild(bvar) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->addChild(up) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->addChild(A) == LIBSBML_OPERATION_SUCCESS);
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_NewWriteMathMLFromAST ()
 {
@@ -298,10 +382,12 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_vector             );
 #if (0)
   tcase_add_test( tcase, test_MathMLFromAST_matrix             );
-#endif
   tcase_add_test( tcase, test_MathMLFromAST_transpose          );
   tcase_add_test( tcase, test_MathMLFromAST_scalarproduct      );
+#endif
   tcase_add_test( tcase, test_MathMLFromAST_selector           );
+  tcase_add_test( tcase, test_MathMLFromAST_mean               );
+  tcase_add_test( tcase, test_MathMLFromAST_product            );
 
   suite_add_tcase(suite, tcase);
 

@@ -162,10 +162,10 @@ START_TEST (test_ASTNode_setNewTypes_1)
   fail_unless( node->getUnits() == "mole");
   fail_unless( node->getParentSBMLObject() == m);
 
-  node->setType(AST_LINEAR_ALGEBRA_DETERMINANT);
+  node->setType(AST_LOGICAL_EXISTS);
 
   fail_unless( node->getType() == AST_ORIGINATES_IN_PACKAGE );
-  fail_unless( node->getExtendedType() == AST_LINEAR_ALGEBRA_DETERMINANT );
+  fail_unless( node->getExtendedType() == AST_LOGICAL_EXISTS );
   fail_unless( node->getPackageName() == "arrays");
   fail_unless( node->getInteger() == 0);
   fail_unless( util_isEqual(node->getMantissa(), 0));
