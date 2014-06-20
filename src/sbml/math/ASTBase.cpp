@@ -881,7 +881,7 @@ ASTBase::isQualifier() const
     while(isQualifier == false && i < getNumPlugins())
     {
       const ASTBasePlugin* plugin = static_cast<const ASTBasePlugin*>(getPlugin(i)); 
-      if (plugin->representsQualifier(getType()) == true)
+      if (plugin->representsQualifier(getExtendedType()) == true)
       {
         isQualifier = true;
       }

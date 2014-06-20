@@ -289,6 +289,12 @@ protected:
   bool readSemantics(XMLInputStream& stream, const std::string& reqd_prefix,
                   const XMLToken& currentElement);
 
+  bool readFunctionNode(XMLInputStream& stream, const std::string& reqd_prefix,
+                  const XMLToken& nextElement, bool& read, int type, 
+                  unsigned int numChildren, ASTBasePlugin* plugin = NULL);
+
+  bool representsQualifierNode(int type);
+
   friend class ASTNode;
   friend class ASTSemanticsNode;
 

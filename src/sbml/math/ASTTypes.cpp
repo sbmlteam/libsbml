@@ -399,13 +399,13 @@ bool representsQualifier(int type, ASTBasePlugin* plugin)
 
   }
 
-  //if (valid == false && plugin != NULL)
-  //{
-  //  if (plugin->representsQualifier(type) == true)
-  //  {
-  //    valid = true;
-  //  }
-  //}
+  if (valid == false && plugin != NULL)
+  {
+    if (plugin->representsQualifier(type) == true)
+    {
+      valid = true;
+    }
+  }
   return valid;
 }
 

@@ -281,6 +281,7 @@ ASTNode::ASTNode (int type) :
     {
       if (found == false 
         && (representsFunction(type, ASTBase::getPlugin(i)) == true
+        || representsQualifier(type, ASTBase::getPlugin(i)) == true
         || isTopLevelMathMLFunctionNodeTag(getNameFromType(type)) == true))
       {
         mFunction = new ASTFunction (type);
