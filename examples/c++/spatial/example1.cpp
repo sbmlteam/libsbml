@@ -11,9 +11,6 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
-#include <sbml/packages/req/extension/RequiredElementsExtension.h>
-#include <sbml/packages/req/common/RequiredElementsExtensionTypes.h>
-
 using namespace std;
 
 void writeSpatialSBML();
@@ -38,8 +35,7 @@ void writeSpatialSBML() {
 
   // SBMLNamespaces of SBML Level 3 Version 1 with 'req' Version 1
   // then add 'spatial' package namespace.
-  RequiredElementsPkgNamespaces sbmlns(3,1,1);
-  sbmlns.addPkgNamespace("spatial",1);
+  SpatialPkgNamespaces sbmlns(3,1,1);
 
   // create the L3V1 document with spatial package
   SBMLDocument document(&sbmlns);	
@@ -48,8 +44,6 @@ void writeSpatialSBML() {
   // set 'required' attribute on document for 'spatial' and 'req' packages to 'T'??
   SBMLDocumentPlugin* dplugin;
   dplugin = static_cast<SBMLDocumentPlugin*>(document.getPlugin("spatial"));
-  dplugin->setRequired(true);
-  dplugin = static_cast<SBMLDocumentPlugin*>(document.getPlugin("req"));
   dplugin->setRequired(true);
 
   // create the Model 
@@ -71,11 +65,6 @@ void writeSpatialSBML() {
   species1->setBoundaryCondition(false);
   species1->setConstant(false);
   // spatial package extension to species.
-  // required elements package extention to parameter
-  RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(species1->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   SpatialSpeciesPlugin* srplugin;
   srplugin = static_cast<SpatialSpeciesPlugin*>(species1->getPlugin("spatial"));
   srplugin->setIsSpatial(true);
@@ -84,10 +73,6 @@ void writeSpatialSBML() {
   Parameter* paramSp = model->createParameter();
   paramSp->setId(species1->getId()+"_dc");
   paramSp->setValue(1.0);
-  // required elements package extention to parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   // spatial package extension to parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
@@ -98,10 +83,6 @@ void writeSpatialSBML() {
   paramSp = model->createParameter();
   paramSp->setId(species1->getId()+"_ac");
   paramSp->setValue(1.5);
-  // required elements package extention to parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   // spatial package extension to parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   AdvectionCoefficient* advCoeff = pplugin->getAdvectionCoefficient();
@@ -111,10 +92,6 @@ void writeSpatialSBML() {
   paramSp = model->createParameter();
   paramSp->setId(species1->getId()+"_bc");
   paramSp->setValue(2.0);
-  // required elements package extention to parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   // spatial package extension to parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   BoundaryCondition* boundCon = pplugin->getBoundaryCondition();
@@ -188,11 +165,6 @@ void writeSpatialSBML() {
   Parameter* paramX = model->createParameter();
   paramX->setId("x");
   paramX->setValue(8.0);
-  // required elements package extention to parameter
-  // RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramX->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   // spatial package extension to parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
@@ -205,10 +177,6 @@ void writeSpatialSBML() {
   domainType->setSpatialDimensions(3);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
-  // required elements package extention to compartment
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(compartment->getPlugin("req"));
-  reqplugin->setMathOverridden("spatial");
-  reqplugin->setCoreHasAlternateMath(true);
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   CompartmentMapping* compMapping = cplugin->getCompartmentMapping();
@@ -286,14 +254,9 @@ void readSpatialSBML() {
 	Model *model2 = document2->getModel();
 	Compartment *comp;
 	SpatialCompartmentPlugin* cplugin;
-	RequiredElementsSBasePlugin* reqplugin;
 	for (unsigned int i = 0; i < model2->getNumCompartments(); i++) {
 		comp = model2->getCompartment(i);
 		cout << "Compartment" << i << ": "  << comp->getId() << endl;
-		reqplugin = static_cast<RequiredElementsSBasePlugin*>(comp->getPlugin("req"));
-		if (!reqplugin->getMathOverridden().empty()) {
-			cout << "Comp" << i << "  req mathOverridden: "  << reqplugin->getMathOverridden() << endl;
-		}
 		cplugin = static_cast<SpatialCompartmentPlugin*>(comp->getPlugin("spatial"));
 		if (cplugin->getCompartmentMapping()->isSetSpatialId()) {
 			cout << "Comp" << i << "  CMSpId: "  << cplugin->getCompartmentMapping()->getSpatialId() << endl;
@@ -319,10 +282,6 @@ void readSpatialSBML() {
 	for (unsigned int i = 0; i < model2->getNumParameters(); i++) {
 		param = model2->getParameter(i);
 		cout << "Parameter" << i << ": "  << param->getId() << endl;
-		reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-		if (!reqplugin->getMathOverridden().empty()) {
-			cout << "Parameter" << i << "  req mathOverridden: "  << reqplugin->getMathOverridden() << endl;
-		}
 		pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
 		if (pplugin->getSpatialSymbolReference()->isSetSpatialId()) {
 			cout << "Parameter" << i << "  SpRefId: "  << pplugin->getSpatialSymbolReference()->getSpatialId() << endl;
