@@ -49,9 +49,9 @@ ChangedMath::ChangedMath (unsigned int level, unsigned int version, unsigned int
   : SBase(level, version)
    ,mId ("")
    ,mName ("")
-   ,mChangedBy (SBML_INT_MAX)
-   ,mIsSetChangedBy (false)
-   ,mViableWithoutChange ("")
+   ,mChangedBy ("")
+   ,mViableWithoutChange (false)
+   ,mIsSetViableWithoutChange (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new ReqPkgNamespaces(level, version, pkgVersion));
@@ -65,9 +65,9 @@ ChangedMath::ChangedMath (ReqPkgNamespaces* reqns)
   : SBase(reqns)
    ,mId ("")
    ,mName ("")
-   ,mChangedBy (SBML_INT_MAX)
-   ,mIsSetChangedBy (false)
-   ,mViableWithoutChange ("")
+   ,mChangedBy ("")
+   ,mViableWithoutChange (false)
+   ,mIsSetViableWithoutChange (false)
 {
   // set the element namespace of this object
   setElementNamespace(reqns->getURI());
@@ -92,8 +92,8 @@ ChangedMath::ChangedMath (const ChangedMath& orig)
     mId  = orig.mId;
     mName  = orig.mName;
     mChangedBy  = orig.mChangedBy;
-    mIsSetChangedBy  = orig.mIsSetChangedBy;
     mViableWithoutChange  = orig.mViableWithoutChange;
+    mIsSetViableWithoutChange  = orig.mIsSetViableWithoutChange;
   }
 }
 
@@ -114,8 +114,8 @@ ChangedMath::operator=(const ChangedMath& rhs)
     mId  = rhs.mId;
     mName  = rhs.mName;
     mChangedBy  = rhs.mChangedBy;
-    mIsSetChangedBy  = rhs.mIsSetChangedBy;
     mViableWithoutChange  = rhs.mViableWithoutChange;
+    mIsSetViableWithoutChange  = rhs.mIsSetViableWithoutChange;
   }
   return *this;
 }
@@ -162,7 +162,7 @@ ChangedMath::getName() const
 /*
  * Returns the value of the "changedBy" attribute of this ChangedMath.
  */
-const int
+const std::string&
 ChangedMath::getChangedBy() const
 {
   return mChangedBy;
@@ -172,7 +172,7 @@ ChangedMath::getChangedBy() const
 /*
  * Returns the value of the "viableWithoutChange" attribute of this ChangedMath.
  */
-const std::string&
+const bool
 ChangedMath::getViableWithoutChange() const
 {
   return mViableWithoutChange;
@@ -205,7 +205,7 @@ ChangedMath::isSetName() const
 bool
 ChangedMath::isSetChangedBy() const
 {
-  return mIsSetChangedBy;
+  return (mChangedBy.empty() == false);
 }
 
 
@@ -215,7 +215,7 @@ ChangedMath::isSetChangedBy() const
 bool
 ChangedMath::isSetViableWithoutChange() const
 {
-  return (mViableWithoutChange.empty() == false);
+  return mIsSetViableWithoutChange;
 }
 
 
@@ -251,11 +251,17 @@ ChangedMath::setName(const std::string& name)
  * Sets changedBy and returns value indicating success.
  */
 int
-ChangedMath::setChangedBy(int changedBy)
+ChangedMath::setChangedBy(const std::string& changedBy)
 {
-  mChangedBy = changedBy;
-  mIsSetChangedBy = true;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (&(changedBy) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mChangedBy = changedBy;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -263,17 +269,11 @@ ChangedMath::setChangedBy(int changedBy)
  * Sets viableWithoutChange and returns value indicating success.
  */
 int
-ChangedMath::setViableWithoutChange(const std::string& viableWithoutChange)
+ChangedMath::setViableWithoutChange(bool viableWithoutChange)
 {
-  if (&(viableWithoutChange) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mViableWithoutChange = viableWithoutChange;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mViableWithoutChange = viableWithoutChange;
+  mIsSetViableWithoutChange = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -321,10 +321,9 @@ ChangedMath::unsetName()
 int
 ChangedMath::unsetChangedBy()
 {
-  mChangedBy = SBML_INT_MAX;
-  mIsSetChangedBy = false;
+  mChangedBy.erase();
 
-  if (isSetChangedBy() == false)
+  if (mChangedBy.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -341,16 +340,9 @@ ChangedMath::unsetChangedBy()
 int
 ChangedMath::unsetViableWithoutChange()
 {
-  mViableWithoutChange.erase();
-
-  if (mViableWithoutChange.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  mViableWithoutChange = false;
+  mIsSetViableWithoutChange = false;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -585,12 +577,33 @@ ChangedMath::readAttributes (const XMLAttributes& attributes,
   }
 
   //
-  // changedBy int   ( use = "required" )
+  // changedBy string   ( use = "required" )
+  //
+  assigned = attributes.readInto("changedBy", mChangedBy);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mChangedBy.empty() == true)
+    {
+      logEmptyString(mChangedBy, getLevel(), getVersion(), "<ChangedMath>");
+    }
+  }
+  else
+  {
+    std::string message = "Req attribute 'changedBy' is missing.";
+    getErrorLog()->logPackageError("req", ReqUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // viableWithoutChange bool   ( use = "required" )
   //
   numErrs = getErrorLog()->getNumErrors();
-  mIsSetChangedBy = attributes.readInto("changedBy", mChangedBy);
+  mIsSetViableWithoutChange = attributes.readInto("viableWithoutChange", mViableWithoutChange);
 
-  if (mIsSetChangedBy == false)
+  if (mIsSetViableWithoutChange == false)
   {
     if (getErrorLog() != NULL)
     {
@@ -603,32 +616,11 @@ ChangedMath::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Req attribute 'changedBy' is missing.";
+        std::string message = "Req attribute 'viableWithoutChange' is missing.";
         getErrorLog()->logPackageError("req", ReqUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
     }
-  }
-
-  //
-  // viableWithoutChange string   ( use = "required" )
-  //
-  assigned = attributes.readInto("viableWithoutChange", mViableWithoutChange);
-
-  if (assigned == true)
-  {
-    // check string is not empty
-
-    if (mViableWithoutChange.empty() == true)
-    {
-      logEmptyString(mViableWithoutChange, getLevel(), getVersion(), "<ChangedMath>");
-    }
-  }
-  else
-  {
-    std::string message = "Req attribute 'viableWithoutChange' is missing.";
-    getErrorLog()->logPackageError("req", ReqUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
   }
 
 }
@@ -933,10 +925,13 @@ ChangedMath_getName(ChangedMath_t * cm)
  *
  */
 LIBSBML_EXTERN
-int
+const char *
 ChangedMath_getChangedBy(ChangedMath_t * cm)
 {
-  return (cm != NULL) ? cm->getChangedBy() : SBML_INT_MAX;
+  if (cm == NULL)
+    return NULL;
+
+  return cm->getChangedBy().empty() ? NULL : safe_strdup(cm->getChangedBy().c_str());
 }
 
 
@@ -944,13 +939,10 @@ ChangedMath_getChangedBy(ChangedMath_t * cm)
  *
  */
 LIBSBML_EXTERN
-char *
+int
 ChangedMath_getViableWithoutChange(ChangedMath_t * cm)
 {
-  if (cm == NULL)
-    return NULL;
-
-  return cm->getViableWithoutChange().empty() ? NULL : safe_strdup(cm->getViableWithoutChange().c_str());
+  return (cm != NULL) ? static_cast<int>(cm->getViableWithoutChange()) : 0;
 }
 
 
@@ -1025,7 +1017,7 @@ ChangedMath_setName(ChangedMath_t * cm, const char * name)
  */
 LIBSBML_EXTERN
 int
-ChangedMath_setChangedBy(ChangedMath_t * cm, int changedBy)
+ChangedMath_setChangedBy(ChangedMath_t * cm, const char * changedBy)
 {
   return (cm != NULL) ? cm->setChangedBy(changedBy) : LIBSBML_INVALID_OBJECT;
 }
@@ -1036,7 +1028,7 @@ ChangedMath_setChangedBy(ChangedMath_t * cm, int changedBy)
  */
 LIBSBML_EXTERN
 int
-ChangedMath_setViableWithoutChange(ChangedMath_t * cm, const char * viableWithoutChange)
+ChangedMath_setViableWithoutChange(ChangedMath_t * cm, int viableWithoutChange)
 {
   return (cm != NULL) ? cm->setViableWithoutChange(viableWithoutChange) : LIBSBML_INVALID_OBJECT;
 }

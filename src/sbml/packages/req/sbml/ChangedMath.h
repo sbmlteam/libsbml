@@ -62,9 +62,9 @@ protected:
 
   std::string   mId;
   std::string   mName;
-  int           mChangedBy;
-  bool          mIsSetChangedBy;
-  std::string   mViableWithoutChange;
+  std::string   mChangedBy;
+  bool          mViableWithoutChange;
+  bool          mIsSetViableWithoutChange;
 
 
 public:
@@ -141,17 +141,17 @@ public:
   /**
    * Returns the value of the "changedBy" attribute of this ChangedMath.
    *
-   * @return the value of the "changedBy" attribute of this ChangedMath as a integer.
+   * @return the value of the "changedBy" attribute of this ChangedMath as a string.
    */
-  virtual const int getChangedBy() const;
+  virtual const std::string& getChangedBy() const;
 
 
   /**
    * Returns the value of the "viableWithoutChange" attribute of this ChangedMath.
    *
-   * @return the value of the "viableWithoutChange" attribute of this ChangedMath as a string.
+   * @return the value of the "viableWithoutChange" attribute of this ChangedMath as a boolean.
    */
-  virtual const std::string& getViableWithoutChange() const;
+  virtual const bool getViableWithoutChange() const;
 
 
   /**
@@ -227,7 +227,7 @@ public:
   /**
    * Sets the value of the "changedBy" attribute of this ChangedMath.
    *
-   * @param changedBy; int value of the "changedBy" attribute to be set
+   * @param changedBy; const std::string& value of the "changedBy" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -236,13 +236,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setChangedBy(int changedBy);
+  virtual int setChangedBy(const std::string& changedBy);
 
 
   /**
    * Sets the value of the "viableWithoutChange" attribute of this ChangedMath.
    *
-   * @param viableWithoutChange; const std::string& value of the "viableWithoutChange" attribute to be set
+   * @param viableWithoutChange; bool value of the "viableWithoutChange" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -251,7 +251,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setViableWithoutChange(const std::string& viableWithoutChange);
+  virtual int setViableWithoutChange(bool viableWithoutChange);
 
 
   /**
@@ -711,12 +711,12 @@ ChangedMath_getName(ChangedMath_t * cm);
 
 
 LIBSBML_EXTERN
-int
+const char *
 ChangedMath_getChangedBy(ChangedMath_t * cm);
 
 
 LIBSBML_EXTERN
-char *
+int
 ChangedMath_getViableWithoutChange(ChangedMath_t * cm);
 
 
@@ -752,12 +752,12 @@ ChangedMath_setName(ChangedMath_t * cm, const char * name);
 
 LIBSBML_EXTERN
 int
-ChangedMath_setChangedBy(ChangedMath_t * cm, int changedBy);
+ChangedMath_setChangedBy(ChangedMath_t * cm, const char * changedBy);
 
 
 LIBSBML_EXTERN
 int
-ChangedMath_setViableWithoutChange(ChangedMath_t * cm, const char * viableWithoutChange);
+ChangedMath_setViableWithoutChange(ChangedMath_t * cm, int viableWithoutChange);
 
 
 LIBSBML_EXTERN
