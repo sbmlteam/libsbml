@@ -13,7 +13,6 @@
 #include <check.h>
 #include <sbml/SBMLTypes.h>
 #include <sbml/common/extern.h>
-#include <sbml/packages/req/common/RequiredElementsExtensionTypes.h>
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
@@ -73,28 +72,28 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -165,10 +164,8 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   char* sbmlDoc = writeSBMLToString(tempDoc);
 
 
-  // SBMLNamespaces of SBML Level 3 Version 1 with 'req' Version 1
-  // then add 'spatial' package namespace.
-  RequiredElementsPkgNamespaces sbmlns(3,1,1);
-  sbmlns.addPkgNamespace("spatial",1);
+  // SBMLNamespaces of SBML Level 3 Version 1 with 'spatial' Version 1
+  SpatialPkgNamespaces sbmlns(3,1,1);
 
   // create the L3V1 document with spatial package
   SBMLDocument *document = new SBMLDocument(&sbmlns);	
@@ -177,8 +174,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 
   fail_unless(document->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", true) == LIBSBML_OPERATION_SUCCESS);
   document->setPackageRequired("spatial", true);
-  document->setPackageRequired("req", true);
-  fail_unless(document->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", true) == LIBSBML_OPERATION_SUCCESS);
 
   // create the Model
   Model* model=document->createModel();
@@ -197,12 +192,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   species->setBoundaryCondition(false);
   species->setConstant(false);
   // spatial package extension to species.
-  // required elements package extention to parameter
-  RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(species->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialSpeciesPlugin* srplugin;
   srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -213,11 +202,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   paramSp->setId(species->getId()+"_dc");
   paramSp->setValue(1.0);
   paramSp->setConstant(true);
-  // required elements package extention to diffusion parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to diffusion parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
@@ -231,11 +215,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   paramSp->setId(species->getId()+"_ac");
   paramSp->setValue(1.5);
   paramSp->setConstant(true);
-  // required elements package extention to advection parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -248,11 +227,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   paramSp->setId(species->getId()+"_bc");
   paramSp->setValue(2.0);
   paramSp->setConstant(true);
-  // required elements package extention to boundary condition parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -314,12 +288,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   paramX->setId("x");
   paramX->setValue(8.0);
   paramX->setConstant(true);
-  // required elements package extention to SpatialSymbolRef parameter
-  // RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramX->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to SpatialSymbolRef parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
@@ -333,11 +301,6 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
-  // required elements package extention to compartment
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(compartment->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
@@ -444,15 +407,15 @@ END_TEST
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\"  xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" level=\"3\" version=\"1\" spatial:required=\"true\" req:required=\"true\" >\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\"  level=\"3\" version=\"1\" spatial:required=\"true\"  >\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfReactions>\n"
@@ -523,21 +486,17 @@ END_TEST
 
 
 
-  // SBMLNamespaces of SBML Level 3 Version 1 with 'req' Version 1
-  // then add 'spatial' package namespace.
+  // SBMLNamespaces of SBML Level 3 Version 1 with 'spatial' Version 1
   SpatialPkgNamespaces sbmlns(3,1,1);
-  sbmlns.addPkgNamespace("req",1);
 
   // create the L3V1 document with spatial package
   SBMLDocument *document = new SBMLDocument(&sbmlns);	
 
-  // set 'required' attribute on document for 'spatial' and 'req' packages to 'true'
+  // set 'required' attribute on document for 'spatial' packages to 'true'
 
   fail_unless(document->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", true) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(document->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", true) == LIBSBML_OPERATION_SUCCESS);
 
   document->setPackageRequired("spatial", true);
-  document->setPackageRequired("req", true);
 
   // create the Model
   Model *model = new Model(&sbmlns);
@@ -548,7 +507,7 @@ END_TEST
   compartment->setConstant(true);
   
   /*
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
   */
@@ -559,13 +518,6 @@ END_TEST
   compPlugin->getCompartmentMapping()->setCompartment("cytosol");
   compPlugin->getCompartmentMapping()->setDomainType("dtype1");
   compPlugin->getCompartmentMapping()->setUnitSize(1);
-
-  RequiredElementsSBasePlugin* compReqPlugin = (RequiredElementsSBasePlugin*)compartment->getPlugin("req");
-  fail_unless(compReqPlugin != NULL);
-
-  compReqPlugin->setMathOverridden("spatial");
-  compReqPlugin->setCoreHasAlternateMath("true");
-
 
   model->addCompartment(compartment);
 
@@ -578,12 +530,6 @@ END_TEST
   species1->setBoundaryCondition(false);
   species1->setHasOnlySubstanceUnits(false);
   // spatial package extension to species.
-  // required elements package extention to parameter
-  RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(species1->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialSpeciesPlugin* srplugin;
   srplugin = static_cast<SpatialSpeciesPlugin*>(species1->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -594,11 +540,6 @@ END_TEST
   Parameter *paramSp = new Parameter(&sbmlns);
   paramSp->setId(species1->getId()+"_dc");
   paramSp->setValue(1.0);
-  // required elements package extention to diffusion parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to diffusion parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
@@ -612,11 +553,6 @@ END_TEST
   paramSp = new Parameter(&sbmlns);
   paramSp->setId(species1->getId()+"_ac");
   paramSp->setValue(1.5);
-  // required elements package extention to advection parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -629,11 +565,6 @@ END_TEST
   paramSp = new Parameter(&sbmlns);
   paramSp->setId(species1->getId()+"_bc");
   paramSp->setValue(2.0);
-  // required elements package extention to boundary condition parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -702,12 +633,6 @@ END_TEST
   Parameter* paramX = new Parameter(&sbmlns);
   paramX->setId("x");
   paramX->setValue(8.0);
-  // required elements package extention to SpatialSymbolRef parameter
-  // RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramX->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to SpatialSymbolRef parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
@@ -723,11 +648,6 @@ END_TEST
   fail_unless(geometry->addDomainType(domainType) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
-  // required elements package extention to compartment
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(compartment->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
@@ -848,28 +768,28 @@ END_TEST
 
   const char* s1a =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -948,23 +868,16 @@ END_TEST
   //
   // enable the spatial package by invoking enablePackage function with Model object
   //
-  fail_unless(model->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", true) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(model->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", true) == LIBSBML_OPERATION_SUCCESS);
 
-  document->setPackageRequired("req", true);
   document->setPackageRequired("spatial", true);
 
-  fail_unless(document->getNumPlugins() == 2);
-  fail_unless(model->getNumPlugins()    == 2);
+  fail_unless(document->getNumPlugins() == 1);
+  fail_unless(model->getNumPlugins()    == 1);
 
   // spatial package extension to species.
   // required elements package extention to parameter
   Species* species = model->getSpecies(0);
-  RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(species->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialSpeciesPlugin* srplugin;
   srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -975,11 +888,6 @@ END_TEST
   paramSp->setId(species->getId()+"_dc");
   paramSp->setValue(1.0);
   paramSp->setConstant(true);
-  // required elements package extention to diffusion parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to diffusion parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
@@ -993,11 +901,6 @@ END_TEST
   paramSp->setId(species->getId()+"_ac");
   paramSp->setValue(1.5);
   paramSp->setConstant(true);
-  // required elements package extention to advection parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -1010,11 +913,6 @@ END_TEST
   paramSp->setId(species->getId()+"_bc");
   paramSp->setValue(2.0);
   paramSp->setConstant(true);
-  // required elements package extention to boundary condition parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -1060,12 +958,6 @@ END_TEST
   paramX->setId("x");
   paramX->setValue(8.0);
   paramX->setConstant(true);
-  // required elements package extention to SpatialSymbolRef parameter
-  // RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramX->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to SpatialSymbolRef parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
@@ -1081,10 +973,6 @@ END_TEST
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
   Compartment* compartment = model->getCompartment(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(compartment->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
@@ -1177,28 +1065,28 @@ END_TEST
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -1291,17 +1179,16 @@ END_TEST
 
   SBMLDocument *document = readSBMLFromString(s1);
 
-  fail_unless(document->getNumPlugins() == 2);
+  fail_unless(document->getNumPlugins() == 1);
 
   Model *model = document->getModel();
 
   fail_unless(model != NULL);
-  fail_unless(model->getNumPlugins() == 2);
+  fail_unless(model->getNumPlugins() == 1);
 
   //
   // disable the spatial and requiredElements packages by invoking enablePackage function with Model object
   //
-  fail_unless(model->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", false) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(model->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", false) == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless(document->getNumPlugins() == 0);
@@ -1343,28 +1230,28 @@ END_TEST
 
   const char* s1a =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -1438,27 +1325,20 @@ END_TEST
   //
   // enable the spatial and requiredElements packages by invoking enablePackage function with SBMLDocument object
   //
-  fail_unless(document->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", true) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(document->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", true) == LIBSBML_OPERATION_SUCCESS);
 
-  document->setPackageRequired("req", true);
   document->setPackageRequired("spatial", true);
 
-  fail_unless(document->getNumPlugins() == 2);
+  fail_unless(document->getNumPlugins() == 1);
 
   Model *model = document->getModel();
 
   fail_unless(model != NULL);
-  fail_unless(model->getNumPlugins() == 2);
+  fail_unless(model->getNumPlugins() == 1);
 
   // spatial package extension to species.
   // required elements package extention to parameter
   Species* species = model->getSpecies(0);
-  RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(species->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialSpeciesPlugin* srplugin;
   srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -1469,11 +1349,6 @@ END_TEST
   paramSp->setId(species->getId()+"_dc");
   paramSp->setValue(1.0);
   paramSp->setConstant(true);
-  // required elements package extention to diffusion parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to diffusion parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
@@ -1487,11 +1362,6 @@ END_TEST
   paramSp->setId(species->getId()+"_ac");
   paramSp->setValue(1.5);
   paramSp->setConstant(true);
-  // required elements package extention to advection parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -1504,11 +1374,6 @@ END_TEST
   paramSp->setId(species->getId()+"_bc");
   paramSp->setValue(2.0);
   paramSp->setConstant(true);
-  // required elements package extention to boundary condition parameter
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramSp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
@@ -1554,12 +1419,6 @@ END_TEST
   paramX->setId("x");
   paramX->setValue(8.0);
   paramX->setConstant(true);
-  // required elements package extention to SpatialSymbolRef parameter
-  // RequiredElementsSBasePlugin* reqplugin;
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(paramX->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   // spatial package extension to SpatialSymbolRef parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
@@ -1575,10 +1434,6 @@ END_TEST
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
   Compartment *compartment = model->getCompartment(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(compartment->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
@@ -1666,28 +1521,28 @@ END_TEST
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -1780,12 +1635,11 @@ END_TEST
 
   SBMLDocument *document = readSBMLFromString(s1);
 
-  fail_unless(document->getNumPlugins() == 2);
+  fail_unless(document->getNumPlugins() == 1);
 
   //
   // disable the spatial and requiredElement packages by invoking enablePackage function with sbmlDocument object
   // 
-  fail_unless(document->enablePackage(RequiredElementsExtension::getXmlnsL3V1V1(), "req", false) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(document->enablePackage(SpatialExtension::getXmlnsL3V1V1(), "spatial", false) == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless(document->getNumPlugins() == 0);

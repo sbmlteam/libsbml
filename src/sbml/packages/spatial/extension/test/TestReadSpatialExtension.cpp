@@ -13,7 +13,6 @@
 #include <check.h>
 #include <sbml/SBMLTypes.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
-#include <sbml/packages/req/common/RequiredElementsExtensionTypes.h>
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
@@ -36,28 +35,28 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"false\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "     <parameter id=\"x2\" value=\"8\" constant=\"true\" />\n"
@@ -140,12 +139,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(model->getNumCompartments() == 1);
 
   Compartment *comp = model->getCompartment(0);
-  RequiredElementsSBasePlugin* reqplugin = static_cast<RequiredElementsSBasePlugin*>(comp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  if (!reqplugin->getMathOverridden().empty()) {
-    fail_unless(reqplugin->getMathOverridden()		== "spatial");
-    fail_unless(reqplugin->getCoreHasAlternateMath() == true);
-  }
 
   // compartment : compartmentMapping
   SpatialCompartmentPlugin* cplugin = static_cast<SpatialCompartmentPlugin*>(comp->getPlugin("spatial"));
@@ -163,12 +156,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(model->getNumSpecies() == 2);
 
   Species *sp = model->getSpecies(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(sp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  if (!reqplugin->getMathOverridden().empty()) {
-    fail_unless(reqplugin->getMathOverridden()		== "spatial");
-    fail_unless(reqplugin->getCoreHasAlternateMath() == true);
-  }
 
   SpatialSpeciesPlugin* srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -196,10 +183,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // parameter 0 : diffusionCoefficient
   Parameter *param = model->getParameter(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   SpatialParameterPlugin* pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -212,10 +195,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -226,10 +205,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // parameter 2 : boundaryCondition X
   param = model->getParameter(2);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -241,10 +216,6 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // parameter 3 : SpatialSymbolReference (coordinateComponent from geometry)
   param = model->getParameter(3);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -420,28 +391,28 @@ END_TEST
   const char* s1 =
 
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
@@ -521,12 +492,6 @@ END_TEST
   fail_unless(model->getNumCompartments() == 1);
 
   Compartment *comp = model->getCompartment(0);
-  RequiredElementsSBasePlugin* reqplugin = static_cast<RequiredElementsSBasePlugin*>(comp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  if (!reqplugin->getMathOverridden().empty()) {
-    fail_unless(reqplugin->getMathOverridden()		== "spatial");
-    fail_unless(reqplugin->getCoreHasAlternateMath() == true);
-  }
 
   // compartment : compartmentMapping
   SpatialCompartmentPlugin* cplugin = static_cast<SpatialCompartmentPlugin*>(comp->getPlugin("spatial"));
@@ -544,12 +509,6 @@ END_TEST
   fail_unless(model->getNumSpecies() == 2);
 
   Species *sp = model->getSpecies(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(sp->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  if (!reqplugin->getMathOverridden().empty()) {
-    fail_unless(reqplugin->getMathOverridden()		== "spatial");
-    fail_unless(reqplugin->getCoreHasAlternateMath() == true);
-  }
 
   SpatialSpeciesPlugin* srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
@@ -568,10 +527,6 @@ END_TEST
 
   // parameter 0 : diffusionCoefficient
   Parameter *param = model->getParameter(0);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   SpatialParameterPlugin* pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -582,10 +537,6 @@ END_TEST
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -596,10 +547,6 @@ END_TEST
 
   // parameter 2 : boundaryCondition X
   param = model->getParameter(2);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   fail_unless(pplugin->isSpatialParameter() == true);
@@ -611,10 +558,6 @@ END_TEST
 
   // parameter 3 : SpatialSymbolReference (coordinateComponent from geometry)
   param = model->getParameter(3);
-  reqplugin = static_cast<RequiredElementsSBasePlugin*>(param->getPlugin("req"));
-  fail_unless(reqplugin != NULL);
-  fail_unless(reqplugin->getMathOverridden()		== "spatial");
-  fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   SpatialSymbolReference *spSymRef = pplugin->getSpatialSymbolReference();
@@ -785,28 +728,28 @@ END_TEST
 {
   const char* s1 =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:req=\"http://www.sbml.org/sbml/level3/version1/requiredElements/version1\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" req:required=\"true\" spatial:required=\"true\">\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
     "  <model>\n"
     "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
     "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
     "   </listOfCompartments>\n"
     "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\" spatial:isSpatial=\"true\"/>\n"
+    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
     "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
     "   </listOfSpecies>\n"
     "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
     "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
     "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
     "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
     "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" req:mathOverridden=\"spatial\" req:coreHasAlternateMath=\"true\">\n"
+    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
     "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
     "     </parameter>\n"
     "   </listOfParameters>\n"
