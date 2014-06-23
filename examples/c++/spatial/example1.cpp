@@ -76,8 +76,8 @@ void writeSpatialSBML() {
   reqplugin = static_cast<RequiredElementsSBasePlugin*>(species1->getPlugin("req"));
   reqplugin->setMathOverridden("spatial");
   reqplugin->setCoreHasAlternateMath(true);
-  SpatialSpeciesRxnPlugin* srplugin;
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species1->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin;
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species1->getPlugin("spatial"));
   srplugin->setIsSpatial(true);
 
   // add parameter for diff coeff of species1
@@ -129,7 +129,7 @@ void writeSpatialSBML() {
   species2->setHasOnlySubstanceUnits(false);
   species2->setBoundaryCondition(false);
   species2->setConstant(false);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species2->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species2->getPlugin("spatial"));
   srplugin->setIsSpatial(true);
 
 /*  // create a parameter
@@ -154,8 +154,8 @@ void writeSpatialSBML() {
   reaction->setReversible(false);
   reaction->setFast(false);
   reaction->setCompartment("cytosol");
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(reaction->getPlugin("spatial"));
-  srplugin->setIsLocal(true);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
+  rplugin->setIsLocal(true);
 
   //
   // Get a SpatialModelPlugin object plugged in the model object.
@@ -304,11 +304,11 @@ void readSpatialSBML() {
 	}
 
 	Species *sp;
-	SpatialSpeciesRxnPlugin* srplugin;
+	SpatialSpeciesPlugin* srplugin;
 	for (unsigned int i = 0; i < model2->getNumSpecies(); i++) {
 		sp = model2->getSpecies(i);
 		cout << "Species" << i << ": "      << sp->getId()      << endl;
-		srplugin = static_cast<SpatialSpeciesRxnPlugin*>(sp->getPlugin("spatial"));
+		srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
 		if (srplugin->getIsSpatial()) {
 			cout << "species" << i << "  isSpatial: "  << srplugin->getIsSpatial() << endl;
 		}
@@ -344,12 +344,13 @@ void readSpatialSBML() {
 	}
 
 	Reaction *rxn;
+	SpatialReactionPlugin* rplugin;
 	for (unsigned int i = 0; i < model2->getNumReactions(); i++) {
 		rxn = model2->getReaction(i);
 		cout << "Reaction" << i << ": "      << rxn->getId()      << endl;
-		srplugin = static_cast<SpatialSpeciesRxnPlugin*>(rxn->getPlugin("spatial"));
-		if (srplugin->getIsLocal()) {
-			cout << "rxn" << i << "  isLocal: "  << srplugin->getIsLocal() << endl;
+		rplugin = static_cast<SpatialReactionPlugin*>(rxn->getPlugin("spatial"));
+		if (rplugin->getIsLocal()) {
+			cout << "rxn" << i << "  isLocal: "  << rplugin->getIsLocal() << endl;
 		}
 	}
 
