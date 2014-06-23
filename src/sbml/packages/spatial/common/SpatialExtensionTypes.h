@@ -29,7 +29,8 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialParameterPlugin.h>
-#include <sbml/packages/spatial/extension/SpatialSpeciesRxnPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialSpeciesPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialReactionPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
 
 #include <sbml/packages/spatial/sbml/Geometry.h>

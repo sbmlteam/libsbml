@@ -1,11 +1,11 @@
 /**
- * @file    SpatialSpeciesRxnPlugin.h
- * @brief   Definition of SpatialSpeciesRxnPlugin, the plugin class of
+ * @file    SpatialSpeciesPlugin.h
+ * @brief   Definition of SpatialSpeciesPlugin, the plugin class of
  *          spatial package for the Species/Reaction element.
  * @author  
  *
- * $Id: SpatialSpeciesRxnPlugin.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/extension/SpatialSpeciesRxnPlugin.h $
+ * $Id: SpatialSpeciesPlugin.h 10673 2010-01-17 07:18:20Z ajouraku $
+ * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/extension/SpatialSpeciesPlugin.h $
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -21,8 +21,8 @@
  *------------------------------------------------------------------------- -->
  */
 
-#ifndef SpatialSpeciesRxnPlugin_h
-#define SpatialSpeciesRxnPlugin_h
+#ifndef SpatialSpeciesPlugin_h
+#define SpatialSpeciesPlugin_h
 
 
 #include <sbml/common/extern.h>
@@ -43,40 +43,40 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class LIBSBML_EXTERN SpatialSpeciesRxnPlugin : public SBasePlugin
+class LIBSBML_EXTERN SpatialSpeciesPlugin : public SBasePlugin
 {
 public:
 
   /**
    * Constructor
    */
-	SpatialSpeciesRxnPlugin (const std::string &uri, const std::string &prefix, SpatialPkgNamespaces *spatialns);
+	SpatialSpeciesPlugin (const std::string &uri, const std::string &prefix, SpatialPkgNamespaces *spatialns);
 
 
   /**
    * Copy constructor. Creates a copy of this SBase object.
    */
-  SpatialSpeciesRxnPlugin(const SpatialSpeciesRxnPlugin& orig);
+  SpatialSpeciesPlugin(const SpatialSpeciesPlugin& orig);
 
 
   /**
    * Destroy this object.
    */
-  virtual ~SpatialSpeciesRxnPlugin ();
+  virtual ~SpatialSpeciesPlugin ();
 
 
   /**
-   * Assignment operator for SpatialSpeciesRxnPlugin.
+   * Assignment operator for SpatialSpeciesPlugin.
    */
-  SpatialSpeciesRxnPlugin& operator=(const SpatialSpeciesRxnPlugin& orig);
+  SpatialSpeciesPlugin& operator=(const SpatialSpeciesPlugin& orig);
 
 
   /**
-   * Creates and returns a deep copy of this SpatialSpeciesRxnPlugin object.
+   * Creates and returns a deep copy of this SpatialSpeciesPlugin object.
    * 
    * @return a (deep) copy of this SBase object
    */
-  virtual SpatialSpeciesRxnPlugin* clone () const;
+  virtual SpatialSpeciesPlugin* clone () const;
 
 #ifndef SWIG
 
@@ -134,16 +134,6 @@ public:
   virtual bool isSetIsSpatial() const;
 
   virtual void unsetIsSpatial(); 
-  virtual void unsetIsLocal(); 
-
-    /**
-   *
-   * Returns a boolean indicating whether the "isLocal" attribute has been set
-   *
-   * @return a boolean indicating whether the "isLocal" attribute has been set
-   */
-  virtual bool isSetIsLocal() const;
-  
 
   /**
    *
@@ -157,29 +147,6 @@ public:
    */
   virtual int setIsSpatial(bool value);
 
-  /**
-   *
-   * Returns the bool value of "isLocal" attribute of corresponding 
-   * package in SBase element.
-   *
-   * @return the bool value of "isLocal" attribute of corresponding
-   * package in SBase element.
-   */
-  virtual bool getIsLocal() const;
-  
-
-  /**
-   *
-   * Sets the bool value of "IsLocal" attribute of corresponding package
-   * in SBase element.
-   *
-   * @param value the bool value of "IsLocal" attribute of corresponding 
-   * package in SBase element.
-   *
-   * @return 
-   */
-  virtual int setIsLocal(bool value);
-
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -191,10 +158,6 @@ protected:
   bool          mIsSpatial;	// for species
   bool          mIsSetSpatial;	// for species
 
-  //
-  //
-  bool			mIsLocal;	// for reaction
-  bool			mIsSetLocal;	// for reaction
 
   /** @endcond doxygenLibsbmlInternal */
 };
@@ -202,4 +165,4 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-#endif  /* SpatialSpeciesRxnPlugin_h */
+#endif  /* SpatialSpeciesPlugin_h */

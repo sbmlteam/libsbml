@@ -1,11 +1,11 @@
 /**
- * @file    SpatialSpeciesRxnPlugin.cpp
- * @brief   Implementation of SpatialSpeciesRxnPlugin, the plugin class of
+ * @file    SpatialReactionPlugin.cpp
+ * @brief   Implementation of SpatialReactionPlugin, the plugin class of
  *          spatial package for the SBase element.
  * @author  
  *
- * $Id: SpatialSpeciesRxnPlugin.cpp 10673 2010-01-17 07:18:20Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/extension/SpatialSpeciesRxnPlugin.cpp $
+ * $Id: SpatialReactionPlugin.cpp 10673 2010-01-17 07:18:20Z  $
+ * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/extension/SpatialReactionPlugin.cpp $
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -21,7 +21,7 @@
  *------------------------------------------------------------------------- -->
  */
 
-#include <sbml/packages/spatial/extension/SpatialSpeciesRxnPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialReactionPlugin.h>
 
 #include <iostream>
 
@@ -34,10 +34,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Constructor
  */
-SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin (const std::string &uri, const std::string &prefix, SpatialPkgNamespaces *spatialns)
+SpatialReactionPlugin::SpatialReactionPlugin (const std::string &uri, const std::string &prefix, SpatialPkgNamespaces *spatialns)
   : SBasePlugin(uri,prefix, spatialns)
-  , mIsSpatial(false)
-  , mIsSetSpatial(false)
   , mIsLocal(false)
   , mIsSetLocal(false)
 {
@@ -47,10 +45,8 @@ SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin (const std::string &uri, const 
 /*
  * Copy constructor. Creates a copy of this SBase object.
  */
-SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin(const SpatialSpeciesRxnPlugin& orig)
+SpatialReactionPlugin::SpatialReactionPlugin(const SpatialReactionPlugin& orig)
   : SBasePlugin(orig)
-  , mIsSpatial(orig.mIsSpatial)
-  , mIsSetSpatial(orig.mIsSetSpatial)
   , mIsLocal(orig.mIsLocal)
   , mIsSetLocal(orig.mIsSetLocal)
 {
@@ -60,18 +56,17 @@ SpatialSpeciesRxnPlugin::SpatialSpeciesRxnPlugin(const SpatialSpeciesRxnPlugin& 
 /*
  * Destroy this object.
  */
-SpatialSpeciesRxnPlugin::~SpatialSpeciesRxnPlugin () {}
+SpatialReactionPlugin::~SpatialReactionPlugin () {}
 
 /*
- * Assignment operator for SpatialSpeciesRxnPlugin.
+ * Assignment operator for SpatialReactionPlugin.
  */
-SpatialSpeciesRxnPlugin& 
-SpatialSpeciesRxnPlugin::operator=(const SpatialSpeciesRxnPlugin& orig)
+SpatialReactionPlugin& 
+SpatialReactionPlugin::operator=(const SpatialReactionPlugin& orig)
 {
   if(&orig!=this)
   {
     this->SBasePlugin::operator =(orig);
-    this->mIsSpatial = orig.mIsSpatial;
     this->mIsLocal = orig.mIsLocal;
   }    
   return *this;
@@ -79,14 +74,14 @@ SpatialSpeciesRxnPlugin::operator=(const SpatialSpeciesRxnPlugin& orig)
 
 
 /*
- * Creates and returns a deep copy of this SpatialSpeciesRxnPlugin object.
+ * Creates and returns a deep copy of this SpatialReactionPlugin object.
  * 
  * @return a (deep) copy of this SBase object
  */
-SpatialSpeciesRxnPlugin* 
-SpatialSpeciesRxnPlugin::clone () const
+SpatialReactionPlugin* 
+SpatialReactionPlugin::clone () const
 {
-  return new SpatialSpeciesRxnPlugin(*this);  
+  return new SpatialReactionPlugin(*this);  
 }
 
 // -----------------------------------------------
@@ -105,24 +100,20 @@ SpatialSpeciesRxnPlugin::clone () const
  * function.
  */
 void
-SpatialSpeciesRxnPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
+SpatialReactionPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   attributes.add("isLocal");
-  attributes.add("isSpatial");
 }
 
 /**
  *
  */
 void 
-SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
+SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
                                     const ExpectedAttributes& expectedAttributes)
 {
   SBasePlugin::readAttributes(attributes, expectedAttributes);
   
-  mIsSetSpatial = attributes.readInto("isSpatial", mIsSpatial, getErrorLog(), 
-    mParent != NULL && mParent->getTypeCode() == SBML_SPECIES, 
-    getLine(), getColumn());
   mIsSetLocal = attributes.readInto("isLocal", mIsLocal, getErrorLog(), 
     mParent != NULL && mParent->getTypeCode() == SBML_REACTION, 
     getLine(), getColumn());
@@ -133,13 +124,8 @@ SpatialSpeciesRxnPlugin::readAttributes (const XMLAttributes& attributes,
  *
  */
 void 
-SpatialSpeciesRxnPlugin::writeAttributes (XMLOutputStream& stream) const
+SpatialReactionPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  if ( isSetIsSpatial() ) 
-  {
-	  XMLTriple tripleIsSpatial("isSpatial", mURI, mPrefix);
-	  stream.writeAttribute(tripleIsSpatial, mIsSpatial);
-  }
   if ( isSetIsLocal() )
   {
 	  XMLTriple tripleIsLocal("isLocal", mURI, mPrefix);
@@ -156,53 +142,27 @@ SpatialSpeciesRxnPlugin::writeAttributes (XMLOutputStream& stream) const
  */  
 
   
-bool 
-SpatialSpeciesRxnPlugin::isSetIsSpatial() const
-{
-  return mIsSetSpatial;
-}
-
 void 
-SpatialSpeciesRxnPlugin::unsetIsSpatial()
-{
-  mIsSetSpatial = false;
-}
-void 
-SpatialSpeciesRxnPlugin::unsetIsLocal()
+SpatialReactionPlugin::unsetIsLocal()
 {
   mIsSetLocal = false;
 }
 
 bool 
-SpatialSpeciesRxnPlugin::isSetIsLocal() const
+SpatialReactionPlugin::isSetIsLocal() const
 {
   return mIsSetLocal;
 }
 
 
 bool
-SpatialSpeciesRxnPlugin::getIsSpatial() const
-{
-	return mIsSpatial;
-}
-  
-int 
-SpatialSpeciesRxnPlugin::setIsSpatial(bool value) 
-{
-  mIsSpatial = value;
-  mIsSetSpatial = true;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-bool
-SpatialSpeciesRxnPlugin::getIsLocal() const
+SpatialReactionPlugin::getIsLocal() const
 {
 	return mIsLocal;
 }
   
 int 
-SpatialSpeciesRxnPlugin::setIsLocal(bool value) 
+SpatialReactionPlugin::setIsLocal(bool value) 
 {
   mIsLocal = value;
   mIsSetLocal = true;

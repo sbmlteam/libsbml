@@ -28,7 +28,8 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialParameterPlugin.h>
-#include <sbml/packages/spatial/extension/SpatialSpeciesRxnPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialSpeciesPlugin.h>
+#include <sbml/packages/spatial/extension/SpatialReactionPlugin.h>
 #include <sbml/packages/spatial/extension/SpatialCompartmentPlugin.h>
 
 #ifdef __cplusplus
@@ -411,8 +412,8 @@ SpatialExtension::init()
   SBasePluginCreator<SpatialModelPlugin, SpatialExtension> modelPluginCreator(modelExtPoint,packageURIs);
   SBasePluginCreator<SpatialCompartmentPlugin, SpatialExtension> compPluginCreator(compartmentExtPoint,packageURIs);
   SBasePluginCreator<SpatialParameterPlugin, SpatialExtension> paramPluginCreator(paramExtPoint,packageURIs);
-  SBasePluginCreator<SpatialSpeciesRxnPlugin, SpatialExtension> spPluginCreator(speciesExtPoint,packageURIs);
-  SBasePluginCreator<SpatialSpeciesRxnPlugin, SpatialExtension> rxnPluginCreator(reactionExtPoint,packageURIs);
+  SBasePluginCreator<SpatialSpeciesPlugin, SpatialExtension> spPluginCreator(speciesExtPoint,packageURIs);
+  SBasePluginCreator<SpatialReactionPlugin, SpatialExtension> rxnPluginCreator(reactionExtPoint,packageURIs);
 
   //--------------------------------------------------------------------------------------
   //

@@ -203,8 +203,8 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(reqplugin != NULL);
   fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
-  SpatialSpeciesRxnPlugin* srplugin;
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin;
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
@@ -269,7 +269,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   species->setHasOnlySubstanceUnits(false);
   species->setBoundaryCondition(false);
   species->setConstant(false);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
@@ -279,9 +279,9 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   reaction->setReversible(false);
   reaction->setFast(false);
   reaction->setCompartment("cytosol");
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(reaction->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
 
   //
   // Get a SpatialModelPlugin object plugged in the model object.
@@ -584,8 +584,8 @@ END_TEST
   fail_unless(reqplugin != NULL);
   fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
-  SpatialSpeciesRxnPlugin* srplugin;
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species1->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin;
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species1->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
   model->addSpecies(species1);
@@ -650,7 +650,7 @@ END_TEST
   species2->setConstant(false);
   species2->setBoundaryCondition(false);
   species2->setHasOnlySubstanceUnits(false);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species2->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species2->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
   model->addSpecies(species2);
@@ -662,9 +662,9 @@ END_TEST
   reaction->setFast(false);
   reaction->setCompartment("cytosol");
 
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(reaction->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
 
 
   model->addReaction(reaction);
@@ -965,8 +965,8 @@ END_TEST
   fail_unless(reqplugin != NULL);
   fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
-  SpatialSpeciesRxnPlugin* srplugin;
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin;
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
@@ -1025,15 +1025,15 @@ END_TEST
 
   // add another species
   species = model->getSpecies(1);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
   // add a reaction
   Reaction* reaction = model->getReaction(0);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(reaction->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
 
   // create a geometry object 
   SpatialModelPlugin* mplugin = static_cast<SpatialModelPlugin*>(model->getPlugin("spatial"));
@@ -1459,8 +1459,8 @@ END_TEST
   fail_unless(reqplugin != NULL);
   fail_unless(reqplugin->setMathOverridden("spatial") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(reqplugin->setCoreHasAlternateMath(true) == LIBSBML_OPERATION_SUCCESS);
-  SpatialSpeciesRxnPlugin* srplugin;
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin;
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
@@ -1519,15 +1519,15 @@ END_TEST
 
   // add another species
   species = model->getSpecies(1);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(species->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(species->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
 
   // add a reaction
   Reaction* reaction = model->getReaction(0);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(reaction->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(reaction->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
 
   // create a geometry object 
   SpatialModelPlugin* mplugin = static_cast<SpatialModelPlugin*>(model->getPlugin("spatial"));

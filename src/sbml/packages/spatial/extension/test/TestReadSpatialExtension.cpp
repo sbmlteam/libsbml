@@ -170,13 +170,13 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
     fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   }
 
-  SpatialSpeciesRxnPlugin* srplugin = static_cast<SpatialSpeciesRxnPlugin*>(sp->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->getIsSpatial() == true);
 
   // model : species 2
   sp = model->getSpecies(1);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(sp->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->getIsSpatial() == true);
 
@@ -257,9 +257,9 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(model->getNumReactions() == 1);
 
   Reaction *rxn = model->getReaction(0);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(rxn->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->getIsLocal() == true);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(rxn->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->getIsLocal() == true);
 
   // get the Geometry
   SpatialModelPlugin* mplugin = static_cast<SpatialModelPlugin*>(model->getPlugin("spatial"));
@@ -551,13 +551,13 @@ END_TEST
     fail_unless(reqplugin->getCoreHasAlternateMath() == true);
   }
 
-  SpatialSpeciesRxnPlugin* srplugin = static_cast<SpatialSpeciesRxnPlugin*>(sp->getPlugin("spatial"));
+  SpatialSpeciesPlugin* srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->getIsSpatial() == true);
 
   // model : species 2
   sp = model->getSpecies(1);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(sp->getPlugin("spatial"));
+  srplugin = static_cast<SpatialSpeciesPlugin*>(sp->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->getIsSpatial() == true);
 
@@ -625,9 +625,9 @@ END_TEST
   fail_unless(model->getNumReactions() == 1);
 
   Reaction *rxn = model->getReaction(0);
-  srplugin = static_cast<SpatialSpeciesRxnPlugin*>(rxn->getPlugin("spatial"));
-  fail_unless(srplugin != NULL);
-  fail_unless(srplugin->getIsLocal() == true);
+  SpatialReactionPlugin* rplugin = static_cast<SpatialReactionPlugin*>(rxn->getPlugin("spatial"));
+  fail_unless(rplugin != NULL);
+  fail_unless(rplugin->getIsLocal() == true);
 
   // get the Geometry
   SpatialModelPlugin* mplugin = static_cast<SpatialModelPlugin*>(model->getPlugin("spatial"));
