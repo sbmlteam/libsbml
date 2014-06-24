@@ -8,17 +8,17 @@
       <!-- this sets teh value of all elements of x to 5.7 -->
       <parameter id="x" value="5.7" constant="true">
         <arrays:listOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
         </arrays:listOfDimensions>
       </parameter>
       <parameter id="y" constant="false">
         <arrays:listOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
         </arrays:listOfDimensions>
       </parameter>
       <parameter id="z" constant="false">
         <arrays:listOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="n" arrays:dim="0"/>
+          <arrays:dimension arrays:id="i" arrays:size="n" arrays:arrayDimension="0"/>
         </arrays:listOfDimensions>
       </parameter>
     </listOfParameters>
@@ -35,10 +35,10 @@
           <cn> 5.7 </cn>
         </math>
         <arrays:listOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="m" arrays:dim="0"/>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:arrayDimension="0"/>
         </arrays:listOfDimensions>
         <arrays:listOfIndices>
-          <arrays:index  arrays:dim="0" arrays:referencedAttribute="symbol">
+          <arrays:index  arrays:arrayDimension="0" arrays:referencedAttribute="symbol">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
                <ci> i </ci>
             </math>
@@ -50,10 +50,10 @@
           <cn> 3.2 </cn>
         </math>
         <arrays:listOfDimensions>
-          <arrays:dimension arrays:id="i" arrays:size="m" arrays:dim="0"/>
+          <arrays:dimension arrays:id="i" arrays:size="m" arrays:arrayDimension="0"/>
         </arrays:listOfDimensions>
         <arrays:listOfIndices>
-          <arrays:index arrays:dim="0" arrays:referencedAttribute="symbol">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="symbol">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
               <apply>
                  <plus/>
