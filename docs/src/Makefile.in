@@ -622,7 +622,7 @@ python-sources	     =	     \
 # Ignore those warnings to avoid confusing people.
 
 python-ignorable-warnings = \
-  "is not found in the argument list|The following parameters of libsbml|parameter 'args'"
+  "is not found in the argument list|The following parameters of libsbml|parameter 'args'|multiple use of section label"
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
