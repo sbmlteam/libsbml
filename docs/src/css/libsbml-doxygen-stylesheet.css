@@ -1288,7 +1288,7 @@ span.signatureArrow {
   background-position: left center;
   background-repeat: no-repeat;
   vertical-align: bottom;
-  width: 20px;
+  width: 25px;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
