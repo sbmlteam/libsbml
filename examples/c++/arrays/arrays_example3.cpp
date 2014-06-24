@@ -98,21 +98,21 @@ main (int argc, char* argv[])
   InitialAssignment *ia = model->createInitialAssignment();
   ia->setSymbol("x");
 
-  ASTNode * row1 = new ASTNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  ASTNode * row1 = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
   
   ASTNode * ci1 = new ASTNode(AST_NAME);
   ci1->setName("y");
   
   row1->addChild(ci1);
 
-  ASTNode * row2 = new ASTNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  ASTNode * row2 = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
   
   ASTNode * ci2 = new ASTNode(AST_INTEGER);
   ci2->setValue(2);
 
   row2->addChild(ci2);
 
-  ASTNode * math = new ASTNode(AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+  ASTNode * math = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR);
 
   math->addChild(row1);
   math->addChild(row2);
