@@ -1520,7 +1520,6 @@ def postProcessOutputForPython(contents):
   contents = re.sub(r'\\f\$\\geq\\f\$', '>=', contents)
   contents = re.sub(r'\\f\$\\leq\\f\$', '<=', contents)
   contents = re.sub(r'\\f\$\\times\\f\$', '*', contents)
-  contents = re.sub(r'&quot;', '\\\"', contents)
 
   # Doxygen doesn't understand <nobr>.
 
