@@ -863,7 +863,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   else if (node->getType() == AST_CONSTANT_PI)
   {
     unit = new Unit(model->getSBMLNamespaces());
-    unit->setKind(UNIT_KIND_RADIAN);
+    unit->setKind(UNIT_KIND_DIMENSIONLESS);
     unit->initDefaults();
     ud   = new UnitDefinition(model->getSBMLNamespaces());
     
