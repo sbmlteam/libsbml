@@ -154,6 +154,9 @@ public:
   virtual bool isUnknown() const;
   bool isUserFunction() const;
 
+  virtual bool representsBvar() const;
+  int setIsBvar(bool isbvar);
+
 
   
 
@@ -381,6 +384,8 @@ protected:
   void * mUserData;
 
   std::string mEmptyString;
+
+  bool mIsBvar;
 
   //char mChar;
 

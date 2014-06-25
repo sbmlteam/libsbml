@@ -1628,6 +1628,12 @@ ASTNode::setIsChildFlag(bool flag)
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+bool
+ASTNode::representsBvar() const
+{
+  return ASTBase::representsBvar();
+}
 
   /* isSet functions */
   

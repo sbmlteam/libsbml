@@ -44,6 +44,12 @@
 #include <limits.h>
 #include <check.h>
 
+#define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+#define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+#define MATHML_FOOTER "</math>"
+
+#define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
+
 #if defined(WIN32) && !defined(CYGWIN)
 #include <math.h>
 extern int isnan(double x); 
@@ -6852,6 +6858,46 @@ START_TEST (test_ASTNode_replace)
 
 }
 END_TEST
+
+
+START_TEST (test_ASTNode_representsBvar)
+{
+  const char* original = wrapMathML
+  (
+    "<lambda>"
+    "  <bvar> <ci>x</ci> </bvar>"
+    "  <ci>y</ci>"
+    "</lambda>"
+  );
+
+  ASTNode * N = readMathMLFromString(original);
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
+
+  ASTNode * newChild = new ASTNode(AST_NAME);
+  newChild->setName("newChild");
+  
+  int i = N->addChild(newChild);
+
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(N->getNumChildren() == 3);
+
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
+
+}
+END_TEST
+
+
+
+
+
+
 Suite *
 create_suite_NewASTNode (void) 
 { 
@@ -7011,6 +7057,8 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_csymbol_3   );
   tcase_add_test( tcase, test_ASTNode_csymbol_4   );
   
+  tcase_add_test( tcase, test_ASTNode_representsBvar   );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

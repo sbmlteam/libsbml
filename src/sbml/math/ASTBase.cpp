@@ -105,6 +105,7 @@ ASTBase::ASTBase (int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
    , mEmptyString ("")
+   , mIsBvar ( false )
 {
   setType(type);
 
@@ -130,6 +131,7 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
    , mParentSBMLObject ( NULL )
    , mUserData ( NULL )
    , mEmptyString ("")
+   , mIsBvar ( false )
 {
   setType(type);
 
@@ -156,6 +158,7 @@ ASTBase::ASTBase (const ASTBase& orig):
   , mParentSBMLObject    (orig.mParentSBMLObject)
   , mUserData            (orig.mUserData)
   , mEmptyString         (orig.mEmptyString)
+  , mIsBvar              (orig.mIsBvar)
 {
   mPlugins.resize( orig.mPlugins.size() );
   transform( orig.mPlugins.begin(), orig.mPlugins.end(), 
@@ -185,6 +188,7 @@ ASTBase::operator=(const ASTBase& rhs)
     mParentSBMLObject     = rhs.mParentSBMLObject;
     mUserData             = rhs.mUserData;
     mEmptyString          = rhs.mEmptyString;
+    mIsBvar               = rhs.mIsBvar;
 
     mPlugins.clear();
     mPlugins.resize( rhs.mPlugins.size() );
@@ -402,6 +406,10 @@ ASTBase::setType (ASTNodeType_t type)
   mType = type;
   mPackageName = "core";
   mTypeFromPackage = AST_UNKNOWN;
+  if (type == AST_QUALIFIER_BVAR)
+  {
+    mIsBvar = true;
+  }
   if (type == AST_UNKNOWN)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -428,6 +436,13 @@ ASTBase::setType (int type)
     mTypeFromPackage = type;
     resetPackageName();
   }
+ 
+  /* HACK for replicating old behaviour */
+  if (type == AST_QUALIFIER_BVAR)
+  {
+    mIsBvar = true;
+  }
+
   if (type == AST_UNKNOWN)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
@@ -1200,6 +1215,20 @@ ASTBase::getUnitsPrefix() const
 }
 
 
+bool
+ASTBase::representsBvar() const
+{
+  return mIsBvar;
+}
+
+
+int
+ASTBase::setIsBvar(bool isbvar)
+{
+  mIsBvar = isbvar;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 void 
 ASTBase::write(XMLOutputStream& stream) const
@@ -1693,6 +1722,7 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
   mStyle                = rhs->mStyle;
   mParentSBMLObject     = rhs->mParentSBMLObject;
   mUserData             = rhs->mUserData;
+  mIsBvar               = rhs->mIsBvar;
 
   // deal with plugins
 
@@ -1720,6 +1750,7 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
   mStyle                = rhs->mStyle;
   mParentSBMLObject     = rhs->mParentSBMLObject;
   mUserData             = rhs->mUserData;
+  mIsBvar               = rhs->mIsBvar;
 
   // deal with plugins
 
@@ -1747,6 +1778,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
   mStyle                = rhs->mStyle;
   mParentSBMLObject     = rhs->mParentSBMLObject;
   mUserData             = rhs->mUserData;
+  mIsBvar               = rhs->mIsBvar;
 
   // deal with plugins
 

@@ -1285,6 +1285,7 @@ START_TEST (test_element_lambda)
 
   fail_unless( N->getChild(0)->getType() == AST_NAME);
   fail_unless( N->getChild(0)->getNumChildren() == 0);
+  fail_unless( N->getChild(0)->representsBvar() == true);
 
 
   //F = SBML_formulaToString(N);

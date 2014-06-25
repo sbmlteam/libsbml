@@ -279,6 +279,8 @@ START_TEST (test_ChildFunctions_addToLambda_1)
 
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
 
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
@@ -287,6 +289,9 @@ START_TEST (test_ChildFunctions_addToLambda_1)
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
 
@@ -668,11 +673,13 @@ START_TEST (test_ChildFunctions_getChildFromLambda_1)
 
   fail_unless ( child->getType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "x") == 0); 
+  fail_unless( child->representsBvar() == true);
 
   child = N->getChild(1);
 
   fail_unless ( child->getType() == AST_FUNCTION_COS);
   fail_unless (child->getNumChildren() == 1);
+  fail_unless( child->representsBvar() == false);
 
   ASTNode * child1 = child->getChild(0);
 
@@ -712,9 +719,11 @@ START_TEST (test_ChildFunctions_getChildFromLambda_2)
 
   fail_unless ( child->getType() == AST_NAME);
   fail_unless( strcmp(child->getName(), "y") == 0); 
+  fail_unless( child->representsBvar() == true);
 
   child = N->getChild(1);
 
+  fail_unless( child->representsBvar() == false);
   fail_unless ( child->getType() == AST_FUNCTION_ABS);
   fail_unless (child->getNumChildren() == 1);
 
@@ -1141,6 +1150,9 @@ START_TEST (test_ChildFunctions_removeFromLambda_1)
   /* old behaviour - we should have 3 children */
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   /* check we fail nicely if we try to access more children */
   int i = N->removeChild(3);
@@ -1152,6 +1164,8 @@ START_TEST (test_ChildFunctions_removeFromLambda_1)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 1);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
   
   S = writeMathMLToString(N);
 
@@ -1191,12 +1205,17 @@ START_TEST (test_ChildFunctions_removeFromLambda_2)
   /* old behaviour - we should have 3 children */
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   int i = N->removeChild(1);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 1);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
   
   S = writeMathMLToString(N);
 
@@ -1234,12 +1253,17 @@ START_TEST (test_ChildFunctions_removeFromLambda_3)
   /* old behaviour - we should have 3 children */
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   int i = N->removeChild(2);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
   
   S = writeMathMLToString(N);
 
@@ -2157,6 +2181,8 @@ START_TEST (test_ChildFunctions_insertIntoLambda_1)
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 1);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
 
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
@@ -2173,6 +2199,9 @@ START_TEST (test_ChildFunctions_insertIntoLambda_1)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
 
@@ -2213,6 +2242,8 @@ START_TEST (test_ChildFunctions_insertIntoLambda_2)
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 1);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
 
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
@@ -2222,6 +2253,9 @@ START_TEST (test_ChildFunctions_insertIntoLambda_2)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
 
@@ -2262,6 +2296,8 @@ START_TEST (test_ChildFunctions_insertIntoLambda_3)
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
   fail_unless(N->getNumBvars() == 1);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == false);
 
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
@@ -2271,6 +2307,9 @@ START_TEST (test_ChildFunctions_insertIntoLambda_3)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
 

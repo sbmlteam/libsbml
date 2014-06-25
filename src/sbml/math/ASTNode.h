@@ -1899,6 +1899,14 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
+  
+  virtual bool representsBvar() const;
+
+  
+  /** @endcond */
+  
+  
+  /** @cond doxygenLibsbmlInternal */
 
   /*
    * writes the node to the stream 

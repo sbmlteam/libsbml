@@ -188,6 +188,7 @@ ASTLambdaFunctionNode::addChild(ASTBase* child, bool inRead)
        */
       if (getNumChildren() > getNumBvars() )
       {
+        getChild(getNumBvars())->ASTBase::setIsBvar(true);
         mNumBvars++;
       }
 

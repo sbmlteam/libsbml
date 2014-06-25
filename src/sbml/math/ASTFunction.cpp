@@ -4067,6 +4067,19 @@ ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefi
     if (numChildren > 0)
     {
       read = mQualifier->read(stream, reqd_prefix);
+
+      /* HACK for replicating old behaviour */
+      if (read == true)
+      {
+        if (mQualifier->ASTBase::representsBvar() == true)
+        {
+          for (unsigned int n = 0; n < numChildren; n++)
+          {
+            mQualifier->getChild(n)->ASTBase::setIsBvar(true);
+          }
+        }
+      }
+
     }
   }
   
