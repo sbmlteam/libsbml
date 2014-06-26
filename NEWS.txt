@@ -19,6 +19,10 @@ STABLE RELEASE
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
+  
+    - The C API has been improved and appropriate argument checking
+      has been implemented.
+      
   - 'qual' package-specific updates:
 
 * Bug fixes
@@ -59,6 +63,10 @@ STABLE RELEASE
     
   - The SBMLError reporting an over-determined model was being logged
     with the incorrect category of error. This has been changed.
+    
+  - LibSBML incorrectly reported the units of 'pi' as radians. This
+    has been corrected to report 'dimensionless'.  Thanks to Matthias
+    Koenig for reporting this.
 
   - 'comp' package-specific bug fixes:
   
@@ -116,14 +124,30 @@ EXPERIMENTAL RELEASE
 * New features
 
   - 'arrays' package-specific updates:
+  
+    - The arrays code has been updated in line with the specification
+      dated June 19 2014.
+      
   - 'distrib' package-specific updates:
   - 'groups' package-specific updates:
   - 'multi' package-specific updates:
   - 'render' package-specific updates:
   - 'req' package-specific updates:
+  
+    - The req code has been updated in line with the specification
+      Release 0.5 dated 30 May 2013.
+      
   - 'spatial' package-specific updates:
+  
+    - The SpatialSpeciesRxnPlugin has been split up into
+      SpatialSpeciesPlugin and SpatialReactionPlugin in order to be
+      consistent with the approach used throughout libSBML.
 
  * Bug fixes
+ 
+  - There was a potential stackoverflow issue with packages that
+    extend SBase directly.  This has been fixed where appropriate.
+    Thanks to Chris Myers for reporting it.
 
   - 'arrays' package-specific bug fixes:
   - 'distrib' package-specific bug fixes:
