@@ -120,9 +120,12 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
    */
   virtual int getItemTypeCode () const;
 
+
   /**
    * Returns the XML element name of
    * this SBML object.
+   *
+   * @return the string of the name of this element
    */
   virtual const std::string& getElementName () const;
 
@@ -313,11 +316,15 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */
 
+
   /**
    * Returns the XML element name of
    * this SBML object.
+   *
+   * @return the string of the name of this element
    */
   virtual const std::string& getElementName () const ;
+
 
   /**
    * Creates and returns a deep copy of this Curve.

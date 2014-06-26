@@ -1336,10 +1336,11 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for Compartment, is
-   * always @c "compartment".
+   * Returns the XML element name of this object
    *
-   * @return the name of this element, i.e., @c "compartment".
+   * For Compartment, the XML element name is always @c "compartment".
+   *
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -1505,9 +1506,10 @@ public:
   /**
    * Returns the XML element name of this object.
    *
-   * For ListOfCompartments, the XML element name is @c "listOfCompartments".
+   * For ListOfCompartments, the XML element name is always
+   * @c "listOfCompartments".
    *
-   * @return the name of this element, i.e., @c "listOfCompartments".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

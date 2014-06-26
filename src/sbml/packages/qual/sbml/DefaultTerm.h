@@ -168,10 +168,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for DefaultTerm, is
-   * always @c "defaultTerm".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "defaultTerm".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

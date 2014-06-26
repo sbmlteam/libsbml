@@ -268,7 +268,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element.
+   * @return the name of this element, as a text string.
    */
   virtual const std::string& getElementName () const ;
 
@@ -515,7 +515,7 @@ public:
    * Returns the XML element name of
    * this SBML object.
    *
-   * @return the string of the name of this element.
+   * @return the name of this element, as a text string.
    */
   virtual const std::string& getElementName () const;
 

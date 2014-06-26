@@ -419,10 +419,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for Input, is
-   * always @c "input".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "input".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -710,10 +709,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfInputs, is
-   * always @c "listOfInputs".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfInputs".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

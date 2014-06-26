@@ -403,10 +403,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for QualitativeSpecies, is
-   * always @c "qualitativeSpecies".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "qualitativeSpecies".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -661,10 +660,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfQualitativeSpecies, is
-   * always @c "listOfQualitativeSpecies".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfQualitativeSpecies".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

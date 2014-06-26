@@ -514,7 +514,7 @@ public:
    *
    * For ListOfConstraints, the XML element name is @c "listOfConstraints".
    * 
-   * @return the name of this element, i.e., @c "listOfConstraints".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

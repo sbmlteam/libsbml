@@ -366,11 +366,10 @@ public:
    virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
-	/**
-   * Returns the XML element name of this object, which for Output, is
-   * always @c "output".
+  /**
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "output".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -658,10 +657,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfOutputs, is
-   * always @c "listOfOutputs".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfOutputs".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

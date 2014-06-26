@@ -330,10 +330,11 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for
-   * CompartmentType, is always @c "compartmentType".
+   * Returns the XML element name of this object
    *
-   * @return the name of this element, i.e., @c "compartmentType".
+   * For CompartmentType, the element name is always @c "compartmentType".
+   *
+   * @return the name of this element.
    *
    * @see getTypeCode()
    * @see getPackageName()

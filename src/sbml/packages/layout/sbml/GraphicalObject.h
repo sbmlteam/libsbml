@@ -278,11 +278,15 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */
 
+
   /**
    * Returns the XML element name of
    * this SBML object.
+   *
+   * @return the string of the name of this element
    */
   virtual const std::string& getElementName () const ;
+
 
   /**
    * Creates and returns a deep copy of this GraphicalObject.
@@ -482,8 +486,11 @@ public:
   /**
    * Returns the XML element name of
    * this SBML object.
+   *
+   * @return the string of the name of this element
    */
   virtual const std::string& getElementName () const;
+
 
   /** @cond doxygenLibsbmlInternal */
   /* 

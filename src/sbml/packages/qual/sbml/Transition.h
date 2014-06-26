@@ -792,10 +792,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for Transition, is
-   * always @c "transition".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "transition".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
@@ -1081,10 +1080,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfTransitions, is
-   * always @c "listOfTransitions".
+   * Returns the XML name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfTransitions".
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 

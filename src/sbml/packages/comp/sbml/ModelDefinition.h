@@ -111,10 +111,13 @@ public:
 
 
   /**
-   * The only difference between a Model and a ModelDefinition is the
-   * element name ('modelDefinition')
+   * Returns the XML element name of this object.
    *
-   * @return the string of the name of this element ("modelDefintion").
+   * The only difference between a Model and a ModelDefinition is the
+   * element name ('modelDefinition').
+   *
+   * @return the name of this element, as a text string.
+   *
    * @see getTypeCode()
    */
   virtual const std::string& getElementName () const ;

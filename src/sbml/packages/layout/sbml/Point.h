@@ -232,22 +232,22 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */
 
-  
+
   /**
-   * Sets the element name to be returned by getElementName.
+   * Sets the element name to be returned by getElementName().
    */
   virtual void setElementName(const std::string& name);
-  
-  
+
+
   /**
    * Returns the XML element name of
    * this SBML object.
+   *
+   * @return the string of the name of this element
    */
   virtual const std::string& getElementName () const ;
 
 
-
-  
   /**
    * Creates and returns a deep copy of this Point.
    * 
