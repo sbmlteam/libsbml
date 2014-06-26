@@ -52,8 +52,6 @@
 #include <vector>
 #include <string>
 
-//using namespace std;
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTBasePlugin;

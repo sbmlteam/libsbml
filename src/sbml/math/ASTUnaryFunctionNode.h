@@ -47,8 +47,6 @@
 
 /* open doxygen comment */
 
-using namespace std;
-
 /* end doxygen comment */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
