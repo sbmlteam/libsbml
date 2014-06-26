@@ -294,11 +294,11 @@ class CHeader:
 
           # Pull out the method name & signature.
           if (stop > 0):
-            name     = self.lines[searchstart : searchstart + stop].split()[-1]
-            endparen = self.lines.rfind(')')
-            args     = self.lines[searchstart + stop : endparen + 1]
-            isConst  = self.lines[endparen:].rfind('const')
-            isVirtual  = self.lines[searchstart : endparen].find('virtual')
+            name      = self.lines[searchstart : searchstart + stop].split()[-1]
+            endparen  = self.lines.rfind(')')
+            args      = self.lines[searchstart + stop : endparen + 1]
+            isConst   = self.lines[endparen:].rfind('const')
+            isVirtual = self.lines[searchstart : endparen].find('virtual')
 
             if len(self.docstring) > 0:
               # Remove embedded HTML comments before we store the doc string.
@@ -310,7 +310,8 @@ class CHeader:
 
             # Swig doesn't seem to mind C++ argument lists, even though they
             # have "const", "&", etc. So I'm leaving the arg list unmodified.
-            func = Method(self.isInternal, self.docstring, name, args, (isConst > 0), (isVirtual != -1))
+            func = Method(self.isInternal, self.docstring, name, args,
+                          (isConst > 0), (isVirtual != -1))
 
             # Reset buffer for the next iteration, to skip the part seen.
             self.lines = self.lines[endparen + 2:]
@@ -1339,9 +1340,9 @@ def processClassMethods(ostream, c):
         if count <= 1:
           continue
 
-        newdoc = ' This method has multiple variants that differ in the' + \
-                 ' arguments\n they accept.  Each is described separately' + \
-                 ' below.\n'
+        newdoc = ' This method has multiple variants; they differ in the' + \
+                 ' arguments\n they accept.  Each variant is described' + \
+                 ' separately below.\n'
 
         for argVariant in list(c.methodVariants[m.name].values()):
           # Each entry in the methodVariants dictionary is itself a dictionary.

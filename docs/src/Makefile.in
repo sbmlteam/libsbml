@@ -225,6 +225,7 @@ distfiles =                                                  \
         css/libsbml-doxygen-stylesheet.css                   \
         css/libsbml-doxygen-tabs.css                         \
         css/libsbml-javadoc-stylesheet.css                   \
+        css/libsbml-python-stylesheet.css                    \
         css/libsbml-reset-stylesheet.css                     \
         css/search.css                                       \
         css/search.png                                       \
@@ -488,6 +489,7 @@ css-files =			     \
   css/libsbml-doxygen-tabs.css	     \
   css/libsbml-javadoc-stylesheet.css \
   css/libsbml-package-stylesheet.css \
+  css/libsbml-python-stylesheet.css  \
   css/libsbml-reset-stylesheet.css	
 
 # The file class-list.txt is used in a couple of places, and one of them is
@@ -631,6 +633,7 @@ python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	$(call preprocess_doxygen)
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual),$(python-ignorable-warnings))
 	$(call postprocess_doxygen,$(python-manual))
+	cp -f css/libsbml-python-stylesheet.css $(python-manual)
 
 endif
 

@@ -64,13 +64,13 @@ def reformatDocString (match):
   sigREfunc = '\w+\([\w()=*:"<>?,.\n ]*\)'
   sigRE     = '\A(\s*)((' + sigREfunc + '( -> [\w()=*:"<>?|, \t]+)?\s*)+)'
 
-  # This matches when the signatures are the only thing in a docstring.
+  # This matches when the signatures are the only things in a docstring.
   p = re.compile(sigRE + '\Z', re.MULTILINE)
-  text = p.sub(r'\1' + intro + r'\1' + sStart + r'\2' + sEnd, text)
+  text = p.sub(r'\1' + r'\1' + sStart + r'\2' + sEnd, text)
 
   # This matches when the signatures are followed with more text.
   p = re.compile(sigRE + '^\s*$', re.MULTILINE)
-  text = p.sub(r'\1' + intro + r'\1' + sStart + r'\2' + sEnd + r'\1<p>', text)
+  text = p.sub(r'\1' + r'\1' + sStart + r'\2' + sEnd + r'\1<p>', text)
   
   # This ditches the "self" part of the signature string.
   text = text.replace(r'(self)', '()')
@@ -91,6 +91,15 @@ def reformatDocString (match):
              '@endhtmlonly'
   p = re.compile(' -> ')
   text = p.sub(r' ' + newArrow + ' ', text)
+
+  # Now we do a final transformation: bring up the brief description, if there
+  # is one, to make it the first line of the doc string.
+
+  start = '<pre class="signature">'
+  brief = '\w[^.]+\.'
+
+  p = re.compile('(' + start + r'.*?)<p>\s*(' + brief + ')\s(.*)', re.DOTALL)
+  text = p.sub(r'\2\n\n' + r'\1' + r'\3', text)
 
   # Crucial detail: need a '!' character after the opening triple quotes or
   # else Doxygen puts the entire docstring inside a verbatim environment.

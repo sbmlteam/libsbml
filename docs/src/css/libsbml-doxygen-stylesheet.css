@@ -11,10 +11,12 @@
 @import url('libsbml-base-stylesheet.css');
 @import url('libsbml-package-stylesheet.css');
 
-/* This next one is for C only. The file will not exist for non-C docs, so
-   the import will no succeed. Grungy, but simpler than the alternatives. */
+/* This next one is for specific languages. The files will not exist for docs
+   that *aren't* the language, so the import will simply not succeed. Grungy,
+   but simpler than the alternatives. */
 
 @import url('libsbml-c-stylesheet.css');
+@import url('libsbml-python-stylesheet.css');
 
 hr.footer {
     height: 1px;
