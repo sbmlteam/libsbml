@@ -129,18 +129,19 @@ low_numbered_errors = { 0   : 'XMLUnknownError',
 
 # Fragments for the table used in the documentation for SBMLError.h.
 
-doc_table_start_fragment = '''<table class="text-table small-font alt-row-colors"
+doc_table_start_fragment = '''<table id="sbmlerror-table"
+       class="text-table small-font alt-row-colors"
        width="95%" cellspacing="1" cellpadding="2" border="0">
  <tr style="background: lightgray" class="normal-font">
      <th valign="bottom"><strong>Enumerator</strong></th>
      <th valign="bottom"><strong>Meaning</strong></th>
-     <th align="center" width="15">L 1 V 1</th>
-     <th align="center" width="15">L 1 V 2</th>
-     <th align="center" width="15">L 2 V 1</th>
-     <th align="center" width="15">L 2 V 2</th>
-     <th align="center" width="15">L 2 V 3</th>
-     <th align="center" width="15">L 2 V 4</th>
-     <th align="center" width="15">L 3 V 1</th>
+     <th align="center" width="10">L1 V1</th>
+     <th align="center" width="10">L1 V2</th>
+     <th align="center" width="10">L2 V1</th>
+     <th align="center" width="10">L2 V2</th>
+     <th align="center" width="10">L2 V3</th>
+     <th align="center" width="10">L2 V4</th>
+     <th align="center" width="10">L3 V1</th>
  </tr>
 '''
 
@@ -554,7 +555,7 @@ def make_doc_row_text(errNum, module):
           return ''
         output += '<td class="meaning">{}</td>\n'.format(to_html(e.getShortMessage()))
         for lv in range(0, len(sbml_levels_versions) - 1):
-          output += '<td class="{}"></td>'.format(get_severity_class(0))
+          output += '<td class="{}"></td>\n'.format(get_severity_class(0))
         output += '<td class="{}"></td>\n'.format(get_severity_class(e.getSeverity()))
         break
 

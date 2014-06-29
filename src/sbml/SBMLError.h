@@ -152,6 +152,17 @@
  * used by an application to evaluate how serious a given problem
  * is. 
  *
+ * SBMLError also tracks the Level&nbsp;3 package extension, if any, was
+ * responsible for a given warning or error.  Each diagnostic code logged by
+ * an libSBML extension for SBML Level&nbsp;3 packages includes a record of
+ * the package that logged it.  It can be retrieved using
+ * SBMLError::getPackage().  The information is a simple text string; the
+ * string will be the nickname of the package, such as @c "comp" for the
+ * Hierarchical %Model Composition package, @c "fbc" for the Flux Balance
+ * Constraints package, and so on.  If the value returned by
+ * SBMLError::getPackage() is an empty string or has the value @c "core",
+ * then the error came from libSBML core.
+ *
  * Finally, SBMLError records the line and column near where the problem
  * occurred in the SBML content.  The values may be retrieved using the
  * methods SBMLError::getLine() and SBMLError::getColumn().  We say "near",
@@ -229,11 +240,10 @@
  * @endif@~
  *
  * <table cellspacing="1" cellpadding="2" border="0" class="normal-font">
- * <tr><td class="s-na">N</td><td>= Not applicable</td></tr>
- * <tr><td class="s-info">I</td><td>= Informational</td></tr>
- * <tr><td class="s-warning">W</td><td>= Warning</td></tr>
- * <tr><td class="s-error">E</td><td>= Error</td></tr>
- * <tr><td class="s-fatal">F</td><td>= Fatal</td></tr>
+ * <tr><td class="s-na"></td><td>= Not applicable</td></tr>
+ * <tr><td class="s-warning"></td><td>= Warning</td></tr>
+ * <tr><td class="s-error"></td><td>= Error</td></tr>
+ * <tr><td class="s-fatal"></td><td>= Fatal</td></tr>
  * </table>
  *
  * The text shown in the "Meaning" is the text returned by the

@@ -514,9 +514,12 @@ code.language-java .str
 /* Color codes used in common-text/sbmlerror-table.html. */
 
 td.s-fatal {
-  background-color: #ff2233 !important;
+  background-color: darkred !important;
+  color: white;
   font-weight: 700;
   text-align: center;
+  letter-spacing: -1px;
+  padding: 0px;
 }
 
 td.s-fatal:before {
@@ -524,9 +527,12 @@ td.s-fatal:before {
 }
 
 td.s-error {
-  background-color: #ff99aa !important;
+  background-color: #dc143c !important;
+  color: white;
   font-weight: 700;
   text-align: center;
+  letter-spacing: -1px;
+  padding: 0px;
 }
 
 td.s-error:before {
@@ -535,8 +541,11 @@ td.s-error:before {
 
 td.s-warning {
   background-color: gold !important;
+  color: white;
   font-weight: 700;
   text-align: center;
+  letter-spacing: -1px;
+  padding: 0px;
 }
 
 td.s-warning:before {
@@ -546,6 +555,8 @@ td.s-warning:before {
 td.s-na {
   font-weight: 700;
   text-align: center;
+  letter-spacing: -1px;
+  padding: 0px;
 }
 
 td.s-na:before {
@@ -556,4 +567,37 @@ td.s-info {
   background-color: #4c4 !important;
   font-weight: 700;
   text-align: center;
+  padding: 0px;
+}
+
+td.code {
+  font-size: 8pt;
+}
+
+td.meaning {
+  font-size: 8pt;
+}
+
+td.meaning code {
+  letter-spacing: -1px;
+}
+
+
+
+#sbmlerror-table td,
+#sbmlerror-table th {
+  border: none;
+  padding: 1px;
+}
+
+#sbmlerror-table th {
+  border-bottom: 1px solid #ccc;
+}
+
+#sbmlerror-table td {
+  border-bottom: 1px solid white;
+}
+
+#sbmlerror-table tr:last-child > td {
+  border-bottom: none;
 }
