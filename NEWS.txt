@@ -107,16 +107,17 @@ STABLE RELEASE
     single, more general approach that should work everywhere.
 
   - The API documentation lacked information about using PyPI for 
-    Python.  It does now.
+    Python, and about how to install the R interface.  Fixed.
 
-  - The API documentation lacked information about how to install the
-    R interface.  It does now.
-
-  - In the table of member methods for each class in the API
+  - Various issues in the Python documentation have been fixed.  For
+    example, in the table of member methods for each class in the API
     documentation for Python, the brief descriptions were missing --
     all the short member descriptions had the same text, "Python
-    method signature(s)".  This bug in the documentation generation is
-    now fixed.
+    method signature(s)".  This was caused by a bug in our custom
+    libSBML documentation generation tools.
+
+  - The error code table in the documentation for SBMLError has been
+    updated.
 
 
 EXPERIMENTAL RELEASE
