@@ -46,23 +46,36 @@ import sys, string, os.path, re
 def reformatDocString (match):
   text = match.group(1)
 
-  # The following are the bits we construct, assigned to variables to
-  # make the following code slightly more readable
+  # First, a regexp we use more than once below.
+  # This regexp matches signatures of the following form:
+  #    foo()
+  #    foo() -> result(arg, arg, ...)
+  #    foo(arg, arg, ...) -> result(arg, arg, ...)
+
+  sigLHS  = '\w+\([\w()=*:"<>?,.\n ]*\)'
+  sigRHS  = '( -> [\w()=*:"<>?|, \t]+)?'
+  sigLine = sigLHS + sigRHS
+
+  # We start by fixing some wonkiness with the output from SWIG: it sometimes
+  # doubles up the signature strings it puts at the top of the doc string.
+  # Here we try to remove the duplicates.
+
+  p = re.compile('(?P<sig>' + sigLine + ')\s+(?P=sig)', re.MULTILINE)
+  text = p.sub(r'\1', text)
+
+  # The following are the bits we add around the signature strings, assigned
+  # to variables to make the subsequent code slightly more readable.
 
   intro  = '<span class="signatureTitle">Python method signature(s)</span>:\n'
   sStart = '<pre class="signature">%'
   sEnd   = '</pre>'
 
-  # Regexp for one or more signatures of the form
-  #    foo() -> result(arg, arg, ...)
-  #    foo(arg, arg, ...) -> result(arg, arg, ...)
-  #    bar(arg, arg ...) -> result(arg, arg, ...)
+  # The next regexp matches multiple signatures.
   # This relies on the fact that the first line(s) (up to a blank line) in
   # every method documentation string is the signature of the method.
   # The \A at the beginning of the regexp forces it that way.
 
-  sigREfunc = '\w+\([\w()=*:"<>?,.\n ]*\)'
-  sigRE     = '\A(\s*)((' + sigREfunc + '( -> [\w()=*:"<>?|, \t]+)?\s*)+)'
+  sigRE  = '\A(\s*)((' + sigLine + '\s*)+)'
 
   # This matches when the signatures are the only things in a docstring.
   p = re.compile(sigRE + '\Z', re.MULTILINE)
@@ -71,7 +84,7 @@ def reformatDocString (match):
   # This matches when the signatures are followed with more text.
   p = re.compile(sigRE + '^\s*$', re.MULTILINE)
   text = p.sub(r'\1' + r'\1' + sStart + r'\2' + sEnd + r'\1<p>', text)
-  
+
   # This ditches the "self" part of the signature string.
   text = text.replace(r'(self)', '()')
   text = text.replace(r'(self, ', '(')
@@ -79,7 +92,7 @@ def reformatDocString (match):
   # This fixes a weird translation by SWIG's doc string generator: it
   # seems to turn "char *" to "char" instead of "string".  In our code,
   # this is almost never correct.  So:
-  p = re.compile('(' + sigREfunc + ') -> char')
+  p = re.compile('(' + sigLHS + ') -> char')
   text = p.sub(r'\1 -> string', text)
 
   # Exceptions to the previous rule:
