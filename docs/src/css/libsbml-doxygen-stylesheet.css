@@ -1280,6 +1280,10 @@ pre.signature {
   font-size: 13px;
   font-weight:  700;
   margin-left: 12px;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 span.signatureArrow { 
