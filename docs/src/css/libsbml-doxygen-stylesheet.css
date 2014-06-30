@@ -901,6 +901,7 @@ div.headertitle
 #doc-content dd {
     margin-bottom: 6px;
     margin-left: 3em;
+    padding-right: 0.5em;
 }
 
 #doc-content dl.user,
