@@ -164,18 +164,20 @@ def filterDocStrings (contents):
   contents = re.sub(r'LayoutSBMLErrorCode_t\b',      'long',         contents)
   contents = re.sub(r'SBMLErrorCode_t\b',            'long',         contents)
 
-  # Other type replacements
-  contents = re.sub(r'const char* ',              'string ',         contents)
-  contents = re.sub(r'an unsigned int',           'a long integer',  contents)
-  contents = re.sub(r'unsigned int',              'long',            contents)
-  contents = re.sub(r'const std.string&',         'string',          contents)
-  contents = re.sub(r'const std.string',          'string',          contents)
-  contents = re.sub(r'const ',                    '',                contents)
-  contents = re.sub(r'SBMLConstructorException',  'ValueError',      contents)
-
   # We alter the names of some functions.
   contents = re.sub('SBML_parseFormula\b',        "parseFormula",    contents)
   contents = re.sub('SBML_formulaToString\b',     "formulaToString", contents)
+
+  # Other simple type replacements.
+  contents = contents.replace('an unsigned int',           'a long integer')
+  contents = contents.replace('unsigned int',              'long')
+  contents = contents.replace('const std.string&',         'string')
+  contents = contents.replace('const std.string',          'string')
+  contents = contents.replace('SBMLConstructorException',  'ValueError')
+  # Make sure to do the replacement for 'const' before the replacement for
+  # 'char *', because in the SWIG output, there are things like 'char const *'.
+  contents = contents.replace('const ',                    '')
+  contents = contents.replace('char *',                    'string')
 
   return contents
 
