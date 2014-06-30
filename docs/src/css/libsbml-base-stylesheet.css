@@ -108,9 +108,16 @@ h4 code
     font-size: 12px;
 }
 
+/* The margin-right adjustment is because Noto Sans doesn't seem to
+do the right thing when transitioning from italic back to regular font.
+The spacing is too tight.  This improves it, and yet doesn't look too
+wrong even when we fall back to other fonts. */
+
 em
 {
+    font-family: 'Noto Sans', Helvetica, Arial, Sans, sans-serif;
     font-style: italic;
+    margin-right: 1px;
 }
 
 strong, b
