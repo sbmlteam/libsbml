@@ -242,6 +242,280 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new RateRule_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * RateRule_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * RateRule_t structure.
+ *
+ * @returns the newly-created RateRule_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_create(unsigned int level, unsigned int version);
+
+
+/**
+ * Creates a new RateRule_t structure using the given SBMLNamespaces_t
+ * structure, @p sbmlns.
+ *
+ * @copydetails doc_what_are_sbmlnamespaces
+ *
+ * @param sbmlns an SBMLNamespaces_t structure.
+ *
+ * @returns the newly-created RateRule_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_createWithNS(SBMLNamespaces_t* sbmlns);
+
+
+/**
+ * Frees the given RateRule_t structure.
+ * 
+ * @param rr the RateRule_t structure to be freed.
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+void
+RateRule_free(RateRule_t * rr);
+
+
+/**
+ * Creates a deep copy of the given RateRule_t structure.
+ * 
+ * @param rr the RateRule_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given RateRule_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_clone(RateRule_t * rr);
+
+
+/**
+ * Returns the value of the "variable" attribute of the given RateRule_t
+ * structure.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @return the variable of this structure.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+const char *
+RateRule_getVariable(const RateRule_t * rr);
+
+
+/**
+ * Gets the mathematical expression of this RateRule_t structure as an
+ * ASTNode_t structure.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @return the math for this RateRule_t, as an ASTNode_t.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+RateRule_getMath(const RateRule_t * rr);
+
+
+/**
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
+ *
+ * @return the formula for this RateRule_t.
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+const char *
+RateRule_getFormula (const RateRule_t *r);
+
+
+/**
+ * Predicate returning @c 1 if the given RateRule_t structure's "variable"
+ * is set.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @return @c 1 if the "variable" of this RateRule_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_isSetVariable(const RateRule_t * rr);
+
+
+/**
+ * Predicate returning @c 1 if the given RateRule_t structure's "math"
+ * is set.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @return @c 1 if the "math" of this RateRule_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_isSetMath(const RateRule_t * rr);
+
+
+/**
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this RateRule_t is set, false (0) otherwise.
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_isSetFormula (const RateRule_t *r);
+
+
+/**
+ * Sets the "variable" attribute of the given RateRule_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs RateRule_unsetVariable() instead.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @param variable the string to which the structures "variable" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_setVariable(RateRule_t * rr, const char * variable);
+
+
+/**
+ * Sets the mathematical expression of the given RateRule_t structure.
+ *
+ * @param rr the RateRule_t structure.
+ *
+ * @param math an ASTNode_t structure to be assigned as the "math"
+ * subelement of this RateRule_t.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_setMath(RateRule_t * rr, const ASTNode_t* math);
+
+
+/**
+ * Sets the formula of this RateRule_t to a copy of string.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_setFormula (RateRule_t *r, const char *formula);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given RateRule_t structure have been set.
+ *
+ * @param rr the RateRule_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_hasRequiredAttributes(const RateRule_t * rr);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given RateRule_t structure have been set.
+ *
+ * @param rr the RateRule_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_hasRequiredElements(const RateRule_t * rr);
+
+
+
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

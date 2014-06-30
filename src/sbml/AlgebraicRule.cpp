@@ -151,5 +151,133 @@ AlgebraicRule::getInternalIdOnly() const
 
 /** @cond doxygenIgnored */
 
-/** @endcond */
+
+LIBSBML_EXTERN
+AlgebraicRule_t *
+AlgebraicRule_create(unsigned int level, unsigned int version)
+{
+  try
+  {
+    AlgebraicRule* obj = new AlgebraicRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+AlgebraicRule_t *
+AlgebraicRule_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    AlgebraicRule* obj = new AlgebraicRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+void
+AlgebraicRule_free(AlgebraicRule_t * ar)
+{
+  if (ar != NULL)
+    delete ar;
+}
+
+
+LIBSBML_EXTERN
+AlgebraicRule_t *
+AlgebraicRule_clone(AlgebraicRule_t * ar)
+{
+  if (ar != NULL)
+  {
+    return static_cast<AlgebraicRule_t*>(ar->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const ASTNode_t*
+AlgebraicRule_getMath(const AlgebraicRule_t * ar)
+{
+	if (ar == NULL)
+		return NULL;
+
+	return (ASTNode_t*)(ar->getMath());
+}
+
+
+LIBSBML_EXTERN
+const char *
+AlgebraicRule_getFormula (const AlgebraicRule_t *r)
+{
+  return (r != NULL && r->isSetFormula()) ? r->getFormula().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_isSetMath(const AlgebraicRule_t * ar)
+{
+  return (ar != NULL) ? static_cast<int>(ar->isSetMath()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_isSetFormula (const AlgebraicRule_t *r)
+{
+  return (r != NULL) ? static_cast<int>( r->isSetFormula() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_setMath(AlgebraicRule_t * ar, const ASTNode_t* math)
+{
+	return (ar != NULL) ? ar->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_setFormula (AlgebraicRule_t *r, const char *formula)
+{
+  if (r != NULL)
+    return (formula == NULL) ? r->setMath(NULL) : r->setFormula(formula);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_hasRequiredAttributes(const AlgebraicRule_t * ar)
+{
+  return (ar != NULL) ? static_cast<int>(ar->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AlgebraicRule_hasRequiredElements(const AlgebraicRule_t * ar)
+{
+	return (ar != NULL) ? static_cast<int>(ar->hasRequiredElements()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END

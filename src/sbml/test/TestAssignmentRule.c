@@ -49,17 +49,17 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-static Rule_t *AR;
+static AssignmentRule_t *AR;
 
 
 void
 AssignmentRuleTest_setup (void)
 {
-  AR = Rule_createAssignment(2, 4);
+  AR = AssignmentRule_create(2, 4);
 
   if (AR == NULL)
   {
-    fail("Rule_createAssignment() returned a NULL pointer.");
+    fail("AssignmentRule_create() returned a NULL pointer.");
   }
 }
 
@@ -67,7 +67,7 @@ AssignmentRuleTest_setup (void)
 void
 AssignmentRuleTest_teardown (void)
 {
-  Rule_free(AR);
+  AssignmentRule_free(AR);
 }
 
 START_TEST (test_AssignmentRule_L2_create)
@@ -77,18 +77,18 @@ START_TEST (test_AssignmentRule_L2_create)
   fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
 
-  fail_unless( Rule_getFormula((Rule_t *) AR) == NULL );
-  fail_unless( Rule_getMath   ((Rule_t *) AR) == NULL );
+  fail_unless( AssignmentRule_getFormula(AR) == NULL );
+  fail_unless( AssignmentRule_getMath   (AR) == NULL );
 
-  fail_unless( Rule_getVariable(AR) == NULL );
-  fail_unless( Rule_getType    (AR) == RULE_TYPE_SCALAR );
+  fail_unless( AssignmentRule_getVariable(AR) == NULL );
+  fail_unless( Rule_getType    ((Rule_t*)AR) == RULE_TYPE_SCALAR );
 }
 END_TEST
 
 
 START_TEST (test_AssignmentRule_free_NULL)
 {
-  Rule_free(NULL);
+  AssignmentRule_free(NULL);
 }
 END_TEST
 
@@ -98,26 +98,26 @@ START_TEST (test_AssignmentRule_setVariable)
   const char *variable = "x";
 
 
-  Rule_setVariable(AR, variable);
+  AssignmentRule_setVariable(AR, variable);
 
-  fail_unless( !strcmp(Rule_getVariable(AR), variable) );
-  fail_unless( Rule_isSetVariable(AR) );
+  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
+  fail_unless( AssignmentRule_isSetVariable(AR) );
 
-  if (Rule_getVariable(AR) == variable)
+  if (AssignmentRule_getVariable(AR) == variable)
   {
-    fail("Rule_setVariable(...) did not make a copy of string.");
+    fail("AssignmentRule_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Rule_setVariable(AR, Rule_getVariable(AR));
-  fail_unless( !strcmp(Rule_getVariable(AR), variable) );
+  AssignmentRule_setVariable(AR, AssignmentRule_getVariable(AR));
+  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
 
-  Rule_setVariable(AR, NULL);
-  fail_unless( !Rule_isSetVariable(AR) );
+  AssignmentRule_setVariable(AR, NULL);
+  fail_unless( !AssignmentRule_isSetVariable(AR) );
 
-  if (Rule_getVariable(AR) != NULL)
+  if (AssignmentRule_getVariable(AR) != NULL)
   {
-    fail("Rule_setVariable(AR, NULL) did not clear string.");
+    fail("AssignmentRule_setVariable(AR, NULL) did not clear string.");
   }
 }
 END_TEST
@@ -128,25 +128,25 @@ START_TEST (test_AssignmentRule_createWithFormula)
   const ASTNode_t *math;
   char *formula;
 
-  Rule_t *ar = Rule_createAssignment(2, 4);
-  Rule_setVariable(ar, "s");
-  Rule_setFormula(ar, "1 + 1");
+  AssignmentRule_t *ar = AssignmentRule_create(2, 4);
+  AssignmentRule_setVariable(ar, "s");
+  AssignmentRule_setFormula(ar, "1 + 1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+  fail_unless( !strcmp(AssignmentRule_getVariable(ar), "s") );
 
-  math = Rule_getMath((Rule_t *) ar);
+  math = AssignmentRule_getMath(ar);
   fail_unless(math != NULL);
 
   formula = SBML_formulaToString(math);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "1 + 1") );
 
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
+  fail_unless( !strcmp(AssignmentRule_getFormula(ar), formula) );
 
-  Rule_free(ar);
+  AssignmentRule_free(ar);
   safe_free(formula);
 }
 END_TEST
@@ -156,18 +156,18 @@ START_TEST (test_AssignmentRule_createWithMath)
 {
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
 
-  Rule_t *ar = Rule_createAssignment(2, 4);
-  Rule_setVariable(ar, "s");
-  Rule_setMath(ar, math);
+  AssignmentRule_t *ar = AssignmentRule_create(2, 4);
+  AssignmentRule_setVariable(ar, "s");
+  AssignmentRule_setMath(ar, math);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
-  fail_unless( Rule_getMath((Rule_t *) ar) != math );
+  fail_unless( !strcmp(AssignmentRule_getVariable(ar), "s") );
+  fail_unless( !strcmp(AssignmentRule_getFormula(ar), "1 + 1") );
+  fail_unless( AssignmentRule_getMath(ar) != math );
 
-  Rule_free(ar);
+  AssignmentRule_free(ar);
 }
 END_TEST
 
@@ -179,8 +179,8 @@ START_TEST (test_AssignmentRule_createWithNS )
   SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
   SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
-  Rule_t *object = 
-    Rule_createAssignmentWithNS(sbmlns);
+  AssignmentRule_t *object = 
+    AssignmentRule_createWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_ASSIGNMENT_RULE );
@@ -191,7 +191,7 @@ START_TEST (test_AssignmentRule_createWithNS )
   fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
-  fail_unless( Rule_getNamespaces     (object) != NULL );
+  fail_unless( Rule_getNamespaces     ((Rule_t*) object) != NULL );
   fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 2 );
 
   Rule_free(object);

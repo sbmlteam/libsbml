@@ -35,7 +35,7 @@
 #include <sbml/math/FormulaFormatter.h>
 
 #include <sbml/SBase.h>
-#include <sbml/Rule.h>
+#include <sbml/RateRule.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
 
@@ -50,17 +50,17 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-static Rule_t *RR;
+static RateRule_t *RR;
 
 
 void
 RateRuleTest_setup (void)
 {
-  RR = Rule_createRate(1, 2);
+  RR = RateRule_create(1, 2);
 
   if (RR == NULL)
   {
-    fail("RateRule_createRate() returned a NULL pointer.");
+    fail("RateRule_create() returned a NULL pointer.");
   }
 }
 
@@ -68,7 +68,7 @@ RateRuleTest_setup (void)
 void
 RateRuleTest_teardown (void)
 {
-  Rule_free(RR);
+  RateRule_free(RR);
 }
 
 START_TEST (test_RateRule_create)
@@ -78,17 +78,17 @@ START_TEST (test_RateRule_create)
   fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
 
-  fail_unless( Rule_getFormula     ((Rule_t *) RR) == NULL );
-  fail_unless( Rule_getMath        ((Rule_t *) RR) == NULL );
-  fail_unless( Rule_getVariable(RR) == NULL );
-  fail_unless( Rule_getType    (RR) == RULE_TYPE_RATE );
+  fail_unless( RateRule_getFormula     (RR) == NULL );
+  fail_unless( RateRule_getMath        (RR) == NULL );
+  fail_unless( RateRule_getVariable(RR) == NULL );
+  fail_unless( Rule_getType    ((Rule_t*)RR) == RULE_TYPE_RATE );
 }
 END_TEST
 
 
 START_TEST (test_RateRule_free_NULL)
 {
-  Rule_free(NULL);
+  RateRule_free(NULL);
 }
 END_TEST
 
@@ -98,26 +98,26 @@ START_TEST (test_RateRule_setVariable)
   const char *variable = "x";
 
 
-  Rule_setVariable(RR, variable);
+  RateRule_setVariable(RR, variable);
 
-  fail_unless( !strcmp(Rule_getVariable(RR), variable) );
-  fail_unless( Rule_isSetVariable(RR) );
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
+  fail_unless( RateRule_isSetVariable(RR) );
 
-  if (Rule_getVariable(RR) == variable)
+  if (RateRule_getVariable(RR) == variable)
   {
-    fail("Rule_setVariable(...) did not make a copy of string.");
+    fail("RateRule_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Rule_setVariable(RR, Rule_getVariable(RR));
-  fail_unless( !strcmp(Rule_getVariable(RR), variable) );
+  RateRule_setVariable(RR, RateRule_getVariable(RR));
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
 
-  Rule_setVariable(RR, NULL);
-  fail_unless( !Rule_isSetVariable(RR) );
+  RateRule_setVariable(RR, NULL);
+  fail_unless( !RateRule_isSetVariable(RR) );
 
-  if (Rule_getVariable(RR) != NULL)
+  if (RateRule_getVariable(RR) != NULL)
   {
-    fail("Rule_setVariable(RR, NULL) did not clear string.");
+    fail("RateRule_setVariable(RR, NULL) did not clear string.");
   }
 }
 END_TEST
@@ -175,8 +175,8 @@ START_TEST (test_RateRule_createWithNS )
   SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
   SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
-  Rule_t *object = 
-    Rule_createRateWithNS(sbmlns);
+  RateRule_t *object = 
+    RateRule_createWithNS(sbmlns);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_RATE_RULE );
@@ -187,7 +187,7 @@ START_TEST (test_RateRule_createWithNS )
   fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
-  fail_unless( Rule_getNamespaces     (object) != NULL );
+  fail_unless( Rule_getNamespaces     ((Rule_t*)object) != NULL );
   fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 2 );
 
   Rule_free(object);

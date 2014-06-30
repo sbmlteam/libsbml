@@ -206,6 +206,30 @@ typedef CLASS_OR_STRUCT StoichiometryMath          StoichiometryMath_t;
 typedef CLASS_OR_STRUCT Priority                     Priority_t;
 
 /**
+ * @var typedef class AlgebraicRule AlgebraicRule_t
+ * @copydoc AlgebraicRule
+ */
+typedef CLASS_OR_STRUCT AlgebraicRule                AlgebraicRule_t;
+
+/**
+ * @var typedef class AssignmentRule AssignmentRule_t
+ * @copydoc AssignmentRule
+ */
+typedef CLASS_OR_STRUCT AssignmentRule                AssignmentRule_t;
+
+/**
+ * @var typedef class RateRule RateRule_t
+ * @copydoc RateRule
+ */
+typedef CLASS_OR_STRUCT RateRule                RateRule_t;
+
+/**
+ * @var typedef class ModifierSpeciesReference ModifierSpeciesReference_t
+ * @copydoc ModifierSpeciesReference
+ */
+typedef CLASS_OR_STRUCT ModifierSpeciesReference                ModifierSpeciesReference_t;
+
+/**
  * @var typedef class SBMLReader SBMLReader_t
  * @copydoc SBMLReader
  */

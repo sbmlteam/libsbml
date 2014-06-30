@@ -274,6 +274,280 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+/**
+ * Creates a new AssignmentRule_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * AssignmentRule_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * AssignmentRule_t structure.
+ *
+ * @returns the newly-created AssignmentRule_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_create(unsigned int level, unsigned int version);
+
+
+/**
+ * Creates a new AssignmentRule_t structure using the given SBMLNamespaces_t
+ * structure, @p sbmlns.
+ *
+ * @copydetails doc_what_are_sbmlnamespaces
+ *
+ * @param sbmlns an SBMLNamespaces_t structure.
+ *
+ * @returns the newly-created AssignmentRule_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_createWithNS(SBMLNamespaces_t* sbmlns);
+
+
+/**
+ * Frees the given AssignmentRule_t structure.
+ * 
+ * @param ar the AssignmentRule_t structure to be freed.
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_free(AssignmentRule_t * ar);
+
+
+/**
+ * Creates a deep copy of the given AssignmentRule_t structure.
+ * 
+ * @param ar the AssignmentRule_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given AssignmentRule_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_clone(AssignmentRule_t * ar);
+
+
+/**
+ * Returns the value of the "variable" attribute of the given AssignmentRule_t
+ * structure.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @return the variable of this structure.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getVariable(const AssignmentRule_t * ar);
+
+
+/**
+ * Gets the mathematical expression of this AssignmentRule_t structure as an
+ * ASTNode_t structure.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @return the math for this AssignmentRule_t, as an ASTNode_t.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+const ASTNode_t*
+AssignmentRule_getMath(const AssignmentRule_t * ar);
+
+
+/**
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
+ *
+ * @return the formula for this AssignmentRule_t.
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getFormula (const AssignmentRule_t *r);
+
+
+/**
+ * Predicate returning @c 1 if the given AssignmentRule_t structure's "variable"
+ * is set.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @return @c 1 if the "variable" of this AssignmentRule_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetVariable(const AssignmentRule_t * ar);
+
+
+/**
+ * Predicate returning @c 1 if the given AssignmentRule_t structure's "math"
+ * is set.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @return @c 1 if the "math" of this AssignmentRule_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetMath(const AssignmentRule_t * ar);
+
+
+/**
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this AssignmentRule_t is set, false (0) otherwise.
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetFormula (const AssignmentRule_t *r);
+
+
+/**
+ * Sets the "variable" attribute of the given AssignmentRule_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs AssignmentRule_unsetVariable() instead.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @param variable the string to which the structures "variable" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_setVariable(AssignmentRule_t * ar, const char * variable);
+
+
+/**
+ * Sets the mathematical expression of the given AssignmentRule_t structure.
+ *
+ * @param ar the AssignmentRule_t structure.
+ *
+ * @param math an ASTNode_t structure to be assigned as the "math"
+ * subelement of this AssignmentRule_t.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_setMath(AssignmentRule_t * ar, const ASTNode_t* math);
+
+
+/**
+ * Sets the formula of this AssignmentRule_t to a copy of string.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.
+ *
+ * @memberof AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_setFormula (AssignmentRule_t *r, const char *formula);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given AssignmentRule_t structure have been set.
+ *
+ * @param ar the AssignmentRule_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_hasRequiredAttributes(const AssignmentRule_t * ar);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given AssignmentRule_t structure have been set.
+ *
+ * @param ar the AssignmentRule_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of AssignmentRule_t
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_hasRequiredElements(const AssignmentRule_t * ar);
+
+
+
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

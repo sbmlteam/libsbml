@@ -149,5 +149,169 @@ ModifierSpeciesReference::hasRequiredAttributes() const
 /** @cond doxygenIgnored */
 
 /** @endcond */
+
+
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+ModifierSpeciesReference_create(unsigned int level, unsigned int version)
+{
+  try
+  {
+    ModifierSpeciesReference* obj = new ModifierSpeciesReference(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+ModifierSpeciesReference_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    ModifierSpeciesReference* obj = new ModifierSpeciesReference(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+void
+ModifierSpeciesReference_free(ModifierSpeciesReference_t * msr)
+{
+  if (msr != NULL)
+    delete msr;
+}
+
+
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+ModifierSpeciesReference_clone(ModifierSpeciesReference_t * msr)
+{
+  if (msr != NULL)
+  {
+    return static_cast<ModifierSpeciesReference_t*>(msr->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+ModifierSpeciesReference_getId(const ModifierSpeciesReference_t * msr)
+{
+	return (msr != NULL && msr->isSetId()) ? msr->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+ModifierSpeciesReference_getName(const ModifierSpeciesReference_t * msr)
+{
+	return (msr != NULL && msr->isSetName()) ? msr->getName().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+ModifierSpeciesReference_getSpecies(const ModifierSpeciesReference_t * msr)
+{
+	return (msr != NULL && msr->isSetSpecies()) ? msr->getSpecies().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_isSetId(const ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? static_cast<int>(msr->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_isSetName(const ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? static_cast<int>(msr->isSetName()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_isSetSpecies(const ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? static_cast<int>(msr->isSetSpecies()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_setId(ModifierSpeciesReference_t * msr, const char * id)
+{
+  if (msr != NULL)
+    return (id == NULL) ? msr->setId("") : msr->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_setName(ModifierSpeciesReference_t * msr, const char * name)
+{
+  if (msr != NULL)
+    return (name == NULL) ? msr->setName("") : msr->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_setSpecies(ModifierSpeciesReference_t * msr, const char * species)
+{
+  if (msr != NULL)
+    return (species == NULL) ? msr->setSpecies("") : msr->setSpecies(species);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_unsetId(ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? msr->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_unsetName(ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? msr->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_hasRequiredAttributes(const ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? static_cast<int>(msr->hasRequiredAttributes()) : 0;
+}
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 

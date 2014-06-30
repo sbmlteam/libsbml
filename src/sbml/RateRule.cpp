@@ -140,4 +140,161 @@ RateRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 /** @cond doxygenIgnored */
 
 /** @endcond */
+
+
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_create(unsigned int level, unsigned int version)
+{
+  try
+  {
+    RateRule* obj = new RateRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    RateRule* obj = new RateRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+void
+RateRule_free(RateRule_t * rr)
+{
+  if (rr != NULL)
+    delete rr;
+}
+
+
+LIBSBML_EXTERN
+RateRule_t *
+RateRule_clone(RateRule_t * rr)
+{
+  if (rr != NULL)
+  {
+    return static_cast<RateRule_t*>(rr->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+RateRule_getVariable(const RateRule_t * rr)
+{
+	return (rr != NULL && rr->isSetVariable()) ? rr->getVariable().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const ASTNode_t*
+RateRule_getMath(const RateRule_t * rr)
+{
+	if (rr == NULL)
+		return NULL;
+
+	return (ASTNode_t*)(rr->getMath());
+}
+
+
+LIBSBML_EXTERN
+const char *
+RateRule_getFormula (const RateRule_t *r)
+{
+  return (r != NULL && r->isSetFormula()) ? r->getFormula().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_isSetVariable(const RateRule_t * rr)
+{
+  return (rr != NULL) ? static_cast<int>(rr->isSetVariable()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_isSetMath(const RateRule_t * rr)
+{
+  return (rr != NULL) ? static_cast<int>(rr->isSetMath()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_isSetFormula (const RateRule_t *r)
+{
+  return (r != NULL) ? static_cast<int>( r->isSetFormula() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_setVariable(RateRule_t * rr, const char * variable)
+{
+  if (rr != NULL)
+    return (variable == NULL) ? rr->setVariable("") : rr->setVariable(variable);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_setMath(RateRule_t * rr, const ASTNode_t* math)
+{
+	return (rr != NULL) ? rr->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_setFormula (RateRule_t *r, const char *formula)
+{
+  if (r != NULL)
+    return (formula == NULL) ? r->setMath(NULL) : r->setFormula(formula);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_hasRequiredAttributes(const RateRule_t * rr)
+{
+  return (rr != NULL) ? static_cast<int>(rr->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+RateRule_hasRequiredElements(const RateRule_t * rr)
+{
+	return (rr != NULL) ? static_cast<int>(rr->hasRequiredElements()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END

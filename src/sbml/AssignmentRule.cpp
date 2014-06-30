@@ -142,4 +142,157 @@ AssignmentRule::renameSIdRefs(const std::string& oldid, const std::string& newid
 /** @cond doxygenIgnored */
 
 /** @endcond */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_create(unsigned int level, unsigned int version)
+{
+  try
+  {
+    AssignmentRule* obj = new AssignmentRule(level,version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_createWithNS (SBMLNamespaces_t* sbmlns)
+{
+  try
+  {
+    AssignmentRule* obj = new AssignmentRule(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+void
+AssignmentRule_free(AssignmentRule_t * ar)
+{
+  if (ar != NULL)
+    delete ar;
+}
+
+
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_clone(AssignmentRule_t * ar)
+{
+  if (ar != NULL)
+  {
+    return static_cast<AssignmentRule_t*>(ar->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getVariable(const AssignmentRule_t * ar)
+{
+	return (ar != NULL && ar->isSetVariable()) ? ar->getVariable().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const ASTNode_t*
+AssignmentRule_getMath(const AssignmentRule_t * ar)
+{
+	if (ar == NULL)
+		return NULL;
+
+	return (ASTNode_t*)(ar->getMath());
+}
+
+
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getFormula (const AssignmentRule_t *r)
+{
+  return (r != NULL && r->isSetFormula()) ? r->getFormula().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetVariable(const AssignmentRule_t * ar)
+{
+  return (ar != NULL) ? static_cast<int>(ar->isSetVariable()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetMath(const AssignmentRule_t * ar)
+{
+  return (ar != NULL) ? static_cast<int>(ar->isSetMath()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetFormula (const AssignmentRule_t *r)
+{
+  return (r != NULL) ? static_cast<int>( r->isSetFormula() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_setVariable(AssignmentRule_t * ar, const char * variable)
+{
+  if (ar != NULL)
+    return (variable == NULL) ? ar->setVariable("") : ar->setVariable(variable);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_setMath(AssignmentRule_t * ar, const ASTNode_t* math)
+{
+	return (ar != NULL) ? ar->setMath(math) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_setFormula (AssignmentRule_t *r, const char *formula)
+{
+  if (r != NULL)
+    return (formula == NULL) ? r->setMath(NULL) : r->setFormula(formula);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_hasRequiredAttributes(const AssignmentRule_t * ar)
+{
+  return (ar != NULL) ? static_cast<int>(ar->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+AssignmentRule_hasRequiredElements(const AssignmentRule_t * ar)
+{
+	return (ar != NULL) ? static_cast<int>(ar->hasRequiredElements()) : 0;
+}
+
+
 LIBSBML_CPP_NAMESPACE_END
