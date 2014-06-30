@@ -5699,7 +5699,7 @@ START_TEST (test_ASTNode_testConvenienceIs)
   delete n;
 
   n = new ASTNode(AST_REAL);
-  n->setValue(numeric_limits<double>::infinity());
+  n->setValue(std::numeric_limits<double>::infinity());
   fail_unless(n->isAvogadro() == false);
   fail_unless(n->isBoolean() == false);
   fail_unless(n->isConstant() == false);
@@ -5896,7 +5896,7 @@ START_TEST (test_ASTNode_testConvenienceIs)
   delete n;
 
   n = new ASTNode(AST_REAL);
-  n->setValue(numeric_limits<double>::quiet_NaN());
+  n->setValue(std::numeric_limits<double>::quiet_NaN());
   fail_unless(n->isAvogadro() == false);
   fail_unless(n->isBoolean() == false);
   fail_unless(n->isConstant() == false);
@@ -5925,7 +5925,7 @@ START_TEST (test_ASTNode_testConvenienceIs)
   delete n;
 
   n = new ASTNode(AST_REAL);
-  n->setValue(-numeric_limits<double>::infinity());
+  n->setValue(-std::numeric_limits<double>::infinity());
   fail_unless(n->isAvogadro() == false);
   fail_unless(n->isBoolean() == false);
   fail_unless(n->isConstant() == false);
