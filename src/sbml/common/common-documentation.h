@@ -560,10 +560,12 @@
  * libsbml.parseL3Formula()@endif@if java <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String
  * formula)</a></code>@endif@~ are expanded versions of the formats produced
- * and read by @if clike SBML_formulaToString()@endif@if csharp
+ * and read by
+ * @if clike SBML_formulaToString()@endif@if csharp
  * SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a
  * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString(ASTNode
- * tree)</a></code>@endif@~ and @if clike SBML_parseFormula()@endif@if csharp
+ * tree)</a></code>@endif@~ and
+ * @if clike SBML_parseFormula()@endif@if csharp
  * SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java
  * <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String
@@ -574,7 +576,7 @@
  * SBML Levels&nbsp;2 and&nbsp;3, it became clear that supporting
  * Level&nbsp;2 and&nbsp;3's expanded mathematical syntax would be useful for
  * software developers.
- * To maintain backwards compatibility, the original
+ * To maintain backwards compatibility for libSBML users, the original
  * @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString(ASTNode tree)</a></code>@endif@~
  * and
  * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
@@ -588,9 +590,10 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * href="libsbml.html#formulaToL3String(org.sbml.libsbml.ASTNode)">libsbml.formulaToL3String(ASTNode
  * tree)</a></code>@endif@~.
  *
- * The following are the differences in the formula syntax supported by the
- * "L3" versions of the formula parsers and formatters, compared to what is
- * supported by @if clike SBML_parseFormula()@endif@if csharp
+ * The following lists the main differences in the formula syntax supported by
+ * the "Level&nbsp;3" or L3 versions of the formula parsers and formatters,
+ * compared to what is supported by
+ * @if clike SBML_parseFormula()@endif@if csharp
  * SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java
  * <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String
@@ -619,13 +622,15 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * used.
  *
  * @li The @em modulo operation is allowed as the symbol @c @% and will
- * produce a piecewise function in the MathML.
+ * produce a <code>&lt;piecewise&gt;</code> function in the corresponding
+ * MathML output.
  *
  * @li All inverse trigonometric functions may be defined in the infix either
  * using @c arc as a prefix or simply @c a; in other words, both @c arccsc
- * and @c acsc are interpreted as the operator @em arccosecant defined in
- * MathML.  (Many functions in the SBML Level&nbsp;1 infix-notation parser
- * implemented by @if clike SBML_parseFormula()@endif@if csharp
+ * and @c acsc are interpreted as the operator @em arccosecant as defined in
+ * MathML&nbsp;2.0.  (Many functions in the simpler SBML Level&nbsp;1 oriented
+ * parser implemented by
+ * @if clike SBML_parseFormula()@endif@if csharp
  * SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java
  * <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String
@@ -635,16 +640,17 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * as a numerical division:
  * <pre style="display: block; margin-left: 25px">
  * (<span class="code" style="background-color: #d0d0ee">integer</span>/<span class="code" style="background-color: #d0d0ee">integer</span>)</pre>
- * No spaces are allowed in this construct; in other words,
- * &quot;<code>(3 / 4)</code>&quot; will be parsed into the MathML
- * <code>&lt;divide&gt;</code> construct rather than a rational number.  The 
- * general number syntax allows you to assign units to a rational number, e.g.,
- * &quot;<code>(3/4) ml</code>&quot;.  (If the string is a division, units
- * are not interpreted in this way.)
+ * <strong>Spaces are not allowed</strong> in this construct; in other words,
+ * &quot;<code>(3 / 4)</code>&quot; (with whitespace between the numbers and
+ * the operator) will be parsed into the MathML <code>&lt;divide&gt;</code>
+ * construct rather than a rational number.  You can, however, assign units to a
+ * rational number as a whole; here is an example: &quot;<code>(3/4) ml</code>&quot;.
+ * (In the case of division rather than a rational number, units are not interpreted
+ * in this way.)
  *
- * @li Various settings may be altered by using an L3ParserSettings object in
- * conjunction with the functions @if clike
- * SBML_parseL3FormulaWithSettings()@endif@if csharp
+ * @li Various parser and formatter behaviors may be altered through the use
+ * of a L3ParserSettings object in conjunction with the functions
+ * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp
  * SBML_parseL3FormulaWithSettings()@endif@if python
  * libsbml.parseL3FormulaWithSettings()@endif@if java <code><a
  * href="libsbml.html#parseL3FormulaWithSettings(java.lang.String,
@@ -653,25 +659,31 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * SBML_formulaToL3String()@endif@if csharp SBML_formulaL3ToString()@endif@if python
  * libsbml.formulaToL3String()@endif@if java <code><a
  * href="libsbml.html#formulaToL3String(org.sbml.libsbml.ASTNode)">libsbml.formulaToL3String(ASTNode
- * tree)</a></code>@endif@~, including the following:
- * <ul>
- * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
- * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
- * as an error, as desired.
- * <li> Unary minus signs can be collapsed or preserved; that is,
- * sequential pairs of unary minuses (e.g., &quot;<code>- -3</code>&quot;)
- * can be removed from the input entirely and single unary minuses can be
- * incorporated into the number node, or all minuses can be preserved in
- * the AST node structure.
- * <li> Parsing of units embedded in the input string can be turned on and
- * off.
- * <li> The string @c avogadro can be parsed as a MathML @em csymbol or
- * as an identifier.
- * <li> A Model object may optionally be provided to the parser using the
- * variant function call
+ * tree)</a></code>@endif@~. The settings available include the following:
+ * <ul style="list-style-type: circle">
+ *
+ * <li style="margin-bottom: 0.5em"> The function @c log with a single
+ * argument (&quot;<code>log(x)</code>&quot;) can be parsed as
+ * <code>log10(x)</code>, <code>ln(x)</code>, or treated as an error, as
+ * desired.
+ *
+ * <li style="margin-bottom: 0.5em"> Unary minus signs can be collapsed or
+ * preserved; that is, sequential pairs of unary minuses (e.g., &quot;<code>-
+ * -3</code>&quot;) can be removed from the input entirely and single unary
+ * minuses can be incorporated into the number node, or all minuses can be
+ * preserved in the AST node structure.
+ *
+ * <li style="margin-bottom: 0.5em"> Parsing of units embedded in the input
+ * string can be turned on and off.
+ *
+ * <li style="margin-bottom: 0.5em"> The string @c avogadro can be parsed as
+ * a MathML @em csymbol or as an identifier.
+ *
+ * <li style="margin-bottom: 0.5em"> A Model object may optionally be
+ * provided to the parser using the variant function call
  * @if clike SBML_parseL3FormulaWithModel()@endif@if csharp
  * SBML_parseL3FormulaWithModel()@endif@if python
- * libsbml.SBML_parseL3FormulaWithModel()@endif@if java <code><a
+ * libsbml.parseL3FormulaWithModel()@endif@if java <code><a
  * href="libsbml.html#parseL3FormulaWithModel(java.lang.String,
  * org.sbml.libsbml.Model)">libsbml.parseL3FormulaWithModel(String formula,
  * Model model)</a></code>@endif@~ or stored in a L3ParserSettings object
@@ -691,16 +703,20 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * &quot;<code>pi</code>&quot;, and the formula to be parsed is
  * &quot;<code>3*pi</code>&quot;, the MathML produced will contain the
  * construct <code>&lt;ci&gt; pi &lt;/ci&gt;</code> instead of the construct
- * <code>&lt;pi/&gt;</code>.  <li> Similarly, when a Model object is
+ * <code>&lt;pi/&gt;</code>.
+ *
+ * <li style="margin-bottom: 0.5em"> Similarly, when a Model object is
  * provided, @c SId values of user-defined functions present in the model
  * will be used preferentially over pre-defined MathML functions.  For
- * example, if the passed-in Model contains a FunctionDefinition with the
- * identifier &quot;<code>sin</code>&quot;, that function will be used
+ * example, if the passed-in Model contains a FunctionDefinition object with
+ * the identifier &quot;<code>sin</code>&quot;, that function will be used
  * instead of the predefined MathML function <code>&lt;sin/&gt;</code>.
+ *
  * </ul>
- * These configuration settings cannot be changed using the basic parser and
- * formatter functions, but can be changed on a per-call basis by using the
- * alternative functions @if clike
+ *
+ * These configuration settings cannot be changed directly using the basic
+ * parser and formatter functions, but can be changed on a per-call basis
+ * by using the alternative functions @if clike
  * SBML_parseL3FormulaWithSettings()@endif@if csharp
  * SBML_parseL3FormulaWithSettings()@endif@if python
  * libsbml.parseL3FormulaWithSettings()@endif@if java <code><a
@@ -727,20 +743,20 @@ e><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula
  * error is set; information about the error can be retrieved using
  * @if clike SBML_getLastParseL3Error()@endif@if csharp SBML_getLastParseL3Error()@endif@if python libsbml.getLastParseL3Error()@endif@if java <code><a href="libsbml.html#getLastParseL3Error()">libsbml.getLastParseL3Error()</a></code>@endif@~.
  *
- * Note that this facility and the SBML Level&nbsp;1-based @if clike
+ * Note that this facility (and the SBML Level&nbsp;1-oriented @if clike
  * SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python
  * libsbml.parseFormula()@endif@if java <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String
- * formula)</a></code>@endif@~ are provided as a convenience by
- * libSBML&mdash;the MathML standard does not actually define a "string-form"
+ * formula)</a></code>@endif) are provided as a convenience by
+ * libSBML&mdash;neither SBML nor the MathML standard define a "string-form"
  * equivalent to MathML expressions, so the choice of formula syntax is
  * arbitrary.  The approach taken by libSBML is to start with the syntax
- * defined by SBML Level&nbsp;1 (which in fact used a text-string
+ * defined by SBML Level&nbsp;1 (which in fact used a custom text-string
  * representation of formulas, and not MathML), and expand it to include the
- * above functionality.  This formula syntax is based mostly on C programming
- * syntax, and may contain operators, function calls, symbols, and white
- * space characters.  The following table provides the precedence rules for
- * the different entities that may appear in formula strings.
+ * functionality described above.  This formula syntax is based mostly on C
+ * programming syntax, and may contain operators, function calls, symbols,
+ * and white space characters.  The following table provides the precedence
+ * rules for the different entities that may appear in formula strings.
  *
  * @htmlinclude math-precedence-table-l3.html
  * 

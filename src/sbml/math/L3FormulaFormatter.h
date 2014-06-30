@@ -49,9 +49,8 @@ BEGIN_C_DECLS
 
 
 /**
- * Converts an AST to a string representation of a formula using a syntax
- * derived from SBML Level&nbsp;1, but extended to include elements from
- * SBML Level&nbsp;2 and SBML Level&nbsp;3.
+ * Converts an AST formula representation to a text string using
+ * an extended syntax.
  *
  * @copydetails doc_summary_of_string_math_l3
  *

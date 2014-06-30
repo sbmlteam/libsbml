@@ -1,7 +1,8 @@
-<table border="0" class="centered text-table width80 normal-font alt-row-colors">
+<table border="0" width="95%" 
+       class="centered text-table normal-font alt-row-colors">
  <tr>
-     <th align="left" width="100">Name</th>
-     <th align="left" width="100">Argument(s)</th>
+     <th align="left" width="60">Name</th>
+     <th align="left" width="80">Argument(s)</th>
      <th align="left">Formula or meaning</th>
      <th align="left" width="110">Argument Constraints</th>
      <th align="left" width="100">Result constraints</th>
@@ -15,7 +16,7 @@
 <tr><td><code>acos</code>, <code>arccos</code></td>
     <td><em>x</em></td>
     <td>Arccosine of <em>x</em> in radians.</td>
-    <td>-1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
     <td>0 &le; <em>acos(x)</em> &le; &pi;</td>
 </tr>
 <tr><td><code>acosh</code>, <code>arccosh</code></td>
@@ -62,7 +63,7 @@
 </tr>
 <tr><td><code>asin</code>, <code>arcsin</code></td>
     <td><em>x</em></td><td>Arcsine of <em>x</em> in radians.</td>
-    <td>-1.0 &le; <em>x</em> &le; 1.0</td>
+    <td>&ndash;1.0 &le; <em>x</em> &le; 1.0</td>
     <td>0 &le; <em>asin(x)</em> &le; &pi;</td>
 </tr>
 <tr><td><code>atan</code>, <code>arctan</code></td>
@@ -127,7 +128,7 @@
 </tr>
 <tr><td><code>factorial</code></td>
     <td><em>n</em></td>
-    <td>The factorial of <em>n</em>. Factorials are defined by n! = n*(n-1)* ... * 1.</td>
+    <td>The factorial of <em>n</em>. Factorials are defined by <em>n! = n*(n&ndash;1)* ... * 1</em>.</td>
     <td><em>n</em> must be an integer.</td>
     <td></td>
 </tr>
@@ -235,79 +236,79 @@
 </tr>
 <tr><td><code>and</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean and(<em>x, y, z...</em>): returns true if all of its arguments are true.  Note that 'and' is an n-ary function, taking 0 or more arguments, and that and() returns 'true'.</td>
+    <td>Boolean <em>and(x, y, z...)</em>: returns <code>true</code> if all of its arguments are true.  Note that <code>and</code> is an n-ary function, taking 0 or more arguments, and that <code>and()</code> returns <code>true</code>.</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>not</code></td>
     <td><em>x</em></td>
-    <td>Boolean not(<em>x</em>)</td>
+    <td>Boolean <em>not(x)</em></td>
     <td><em>x</em> must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>or</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean or(<em>x, y, z...</em>): returns true if at least one of its arguments is true.  Note that 'or' is an n-ary function, taking 0 or more arguments, and that or() returns 'false'.</td>
+    <td>Boolean <em>or(x, y, z...)</em>: returns <code>true</code> if at least one of its arguments is true.  Note that <code>or</code> is an n-ary function, taking 0 or more arguments, and that <code>or()</code> returns <code>false</code>.</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>xor</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean xor(<em>x, y, z...</em>): returns true if an odd number of its arguments is true.  Note that 'xor' is an n-ary function, taking 0 or more arguments, and that xor() returns 'false'.</td>
+    <td>Boolean <em>xor(x, y, z...)</em>: returns <code>true</code> if an odd number of its arguments is true.  Note that <code>xor</code> is an n-ary function, taking 0 or more arguments, and that <code>xor()</code> returns <code>false</code>.</td>
     <td>All arguments must be boolean</td>
     <td></td>
 </tr>
 <tr><td><code>eq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean eq(<em>x, y, z...</em>): returns true if all arguments are equal.  Note that 'eq' is an n-ary function, but must take 2 or more arguments.</td>
+    <td>Boolean <em>eq(x, y, z...)</em>: returns <code>true</code> if all arguments are equal.  Note that <code>eq</code> is an n-ary function, but must take 2 or more arguments.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>geq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean geq(<em>x, y, z...</em>): returns true if each argument is greater than or equal to the argument following it.  Note that 'geq' is an n-ary function, but must take 2 or more arguments.</td>
+    <td>Boolean <em>geq(x, y, z...)</em>: returns <code>true</code> if each argument is greater than or equal to the argument following it.  Note that <code>geq</code> is an n-ary function, but must take 2 or more arguments.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>gt</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean gt(<em>x, y, z...</em>): returns true if each argument is greater than the argument following it.  Note that 'gt' is an n-ary function, but must take 2 or more arguments.</td>
+    <td>Boolean <em>gt(x, y, z...)</em>: returns <code>true</code> if each argument is greater than the argument following it.  Note that <code>gt</code> is an n-ary function, but must take 2 or more arguments.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>leq</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean leq(<em>x, y, z...</em>): returns true if each argument is less than or equal to the argument following it.  Note that 'leq' is an n-ary function, but must take 2 or more arguments.</td>
+    <td>Boolean <em>leq(x, y, z...)</em>: returns <code>true</code> if each argument is less than or equal to the argument following it.  Note that <code>leq</code> is an n-ary function, but must take 2 or more arguments.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>lt</code></td>
     <td><em>x, y, z...</em></td>
-    <td>Boolean lt(<em>x, y, z...</em>): returns true if each argument is less than the argument following it.  Note that 'lt' is an n-ary function, but must take 2 or more arguments.</td>
+    <td>Boolean <em>lt(x, y, z...)</em>: returns <code>true</code> if each argument is less than the argument following it.  Note that <code>lt</code> is an n-ary function, but must take 2 or more arguments.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>neq</code></td>
     <td><em>x, y</em></td>
-    <td>Boolean <em>x</em> != <em>y</em>: returns true unless x and y are equal.</td>
+    <td>Boolean <em>x</em> != <em>y</em>: returns <code>true</code> unless x and y are equal.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>plus</code></td>
     <td><em>x, y, z...</em></td>
-    <td><em>x</em> + <em>y</em> + <em>z</em> + <em>...</em>: The sum of the arguments of the function.  Note that 'plus' is an n-ary function taking 0 or more arguments, and that 'plus()' returns 0.</td>
+    <td><em>x</em> + <em>y</em> + <em>z</em> + <em>...</em>: The sum of the arguments of the function.  Note that <code>plus</code> is an n-ary function taking 0 or more arguments, and that <code>plus()</code> returns <code>0</code>.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>times</code></td>
     <td><em>x, y, z...</em></td>
-    <td><em>x</em> * <em>y</em> * <em>z</em> * <em>...</em>: The product of the arguments of the function.  Note that 'times' is an n-ary function taking 0 or more arguments, and that 'times()' returns 1.</td>
+    <td><em>x</em> * <em>y</em> * <em>z</em> * <em>...</em>: The product of the arguments of the function.  Note that <code>times</code> is an n-ary function taking 0 or more arguments, and that <code>times()</code> returns <code>1</code>.</td>
     <td></td>
     <td></td>
 </tr>
 <tr><td><code>minus</code></td>
     <td><em>x, y</em></td>
-    <td><em>x</em> - <em>y</em>.</td>
+    <td><em>x</em> &ndash; <em>y</em>.</td>
     <td></td>
     <td></td>
 </tr>
@@ -318,9 +319,8 @@
     <td></td>
 </tr>
 
-<caption class="top-caption">The names of mathematical functions defined
-in the text-string formula syntax understood by SBML_parseL3Formula() and
-related functions.</caption>
+<caption class="top-caption">Mathematical functions defined
+in the "Level&nbsp;3" text-string formula syntax.</caption>
 
 </table>
 
