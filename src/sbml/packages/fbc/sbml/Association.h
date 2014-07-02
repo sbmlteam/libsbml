@@ -294,25 +294,34 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-  
-  
+
+
   /**
-   * Parses a gene association in infix format. These look like this: 
-   * 
-   * (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
-   * 
+   * Parses a gene association in infix format and returns a corresponding
+   * Association object.
+   *
+   * This parses a string that has a list of gene names and conjunctions
+   * or disjunctions.  For example:
+   * @verbatim
+(b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
+@endverbatim
+   *
    * @return the parsed association, or @c NULL in case of an error.
+   *
+   * @copydetails doc_note_static_methods
    */
   static Association* parseInfixAssociation(const std::string& association);
-  
-  /** 
+
+
+  /**
    * Converts this association into an infix string.
    *
    *
    * @return the association as infix string.
    */
   std::string toInfix() const;
-  
+
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**

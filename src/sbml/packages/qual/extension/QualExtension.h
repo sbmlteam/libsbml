@@ -70,29 +70,58 @@ public:
   //---------------------------------------------------------------
 
   /**
-   * Returns the package name of this extension.
+   * Returns the nickname of the SBML Level&nbsp;3 package implemented by
+   * this libSBML extension.
+   *
+   * @return the package nickname, as a string.
+   *
+   * @copydetails doc_note_static_methods
    */
   static const std::string& getPackageName ();
 
+
   /**
-   * Returns the default SBML Level this extension.
+   * Returns the default SBML Level used by this libSBML package extension.
+   *
+   * @return the SBML Level.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultLevel();
 
+
   /**
-   * Returns the default SBML Version this extension.
+   * Returns the default SBML Version used by this libSBML package extension.
+   *
+   * @return the Version within the default SBML Level.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultVersion();
 
+
   /**
-   * Returns the default SBML version this extension.
+   * Returns the default version of the SBML Level&nbsp;3 package implemented
+   * by this libSBML extension.
+   *
+   * @return the default version number of the SBML Level&nbsp;3 package
+   * definition.
+   *
+   * @copydetails doc_note_static_methods
    */
   static unsigned int getDefaultPackageVersion();
 
+
   /**
-   * Returns URI of supported versions of this package.
+   * Returns the XML namespace URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML extension.
+   *
+   * @return the XML namespace as a string.
+   *
+   * @copydetails doc_note_static_methods
    */
   static const std::string&  getXmlnsL3V1V1();
+
 
   //
   // Other URI needed in this package (if any)
