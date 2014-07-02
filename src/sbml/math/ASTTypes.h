@@ -186,6 +186,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTBasePlugin;
 
+/**
+ * Note to developers: leave at least one comment here.  Without it, something
+ * doesn't go right when docs are generated.
+ */
 LIBSBML_EXTERN
 bool representsNumber(int type);
 
