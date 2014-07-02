@@ -151,7 +151,6 @@ AlgebraicRule::getInternalIdOnly() const
 
 /** @cond doxygenIgnored */
 
-
 LIBSBML_EXTERN
 AlgebraicRule_t *
 AlgebraicRule_create(unsigned int level, unsigned int version)
@@ -278,6 +277,6 @@ AlgebraicRule_hasRequiredElements(const AlgebraicRule_t * ar)
 }
 
 
-
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
