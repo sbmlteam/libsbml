@@ -70,8 +70,11 @@ CompBase::CompBase(CompPkgNamespaces* compns)
 
 CompBase::CompBase(const CompBase& source) 
   : SBase (source)
-  , mSBMLExt(source.mSBMLExt)
+  , mSBMLExt(NULL)
 {
+  if (source.mSBMLExt != NULL) {
+    mSBMLExt = source.mSBMLExt->clone();
+  }
   // connect child elements to this element.
   connectToChild();
 
@@ -84,7 +87,9 @@ CompBase& CompBase::operator=(const CompBase& source)
   if(&source!=this)
   {
     SBase::operator=(source);
-    mSBMLExt = source.mSBMLExt;
+    if (source.mSBMLExt != NULL) {
+      mSBMLExt = source.mSBMLExt->clone();
+    }
 
     // connect child elements to this element.
     connectToChild();
@@ -99,6 +104,7 @@ CompBase& CompBase::operator=(const CompBase& source)
 
 CompBase::~CompBase ()
 {
+  delete mSBMLExt;
 }
 
 
