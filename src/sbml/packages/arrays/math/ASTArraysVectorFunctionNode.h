@@ -97,6 +97,9 @@ public:
 
   virtual int getTypeCode () const;
 
+  virtual bool hasCorrectNumberArguments() const;
+
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */

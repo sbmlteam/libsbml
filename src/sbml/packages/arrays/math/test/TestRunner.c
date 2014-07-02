@@ -49,9 +49,12 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 #endif
 
-Suite *create_suite_NewReadMathML       (void);
-Suite *create_suite_NewWriteMathMLFromAST      (void);
-Suite *create_suite_NewASTNode          (void);
+Suite *create_suite_ArrayInfixParsing     (void);
+Suite *create_suite_ArrayInfixWriting     (void);
+Suite *create_suite_NewReadMathML         (void);
+Suite *create_suite_NewWriteMathMLFromAST (void);
+Suite *create_suite_NewASTNode            (void);
+Suite *create_suite_ArrayInfixToMathML    (void);
 
 /**
  * Global.
@@ -98,8 +101,11 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_NewASTNode() );
 
-  srunner_add_suite( runner, create_suite_NewReadMathML       () );
-  srunner_add_suite( runner, create_suite_NewWriteMathMLFromAST      () );
+  srunner_add_suite( runner, create_suite_ArrayInfixWriting     () );
+  srunner_add_suite( runner, create_suite_ArrayInfixParsing     () );
+  srunner_add_suite( runner, create_suite_NewReadMathML         () );
+  srunner_add_suite( runner, create_suite_NewWriteMathMLFromAST () );
+  srunner_add_suite( runner, create_suite_ArrayInfixToMathML    () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

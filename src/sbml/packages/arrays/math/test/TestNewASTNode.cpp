@@ -77,7 +77,9 @@ START_TEST (test_ASTNode_create)
 
   fail_unless( n->getPackageName() == "arrays");
 
-  //EventAssignment_free(ea);
+  // vector with no args is fine
+  fail_unless( n->isWellFormedASTNode() == true);
+  fail_unless( n->hasCorrectNumberArguments() == true);
 
   delete n;
 }
@@ -134,6 +136,7 @@ START_TEST (test_ASTNode_deepCopy_1)
   fail_unless( child->getNumChildren() == 0           );
 
   fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
 
   delete node;
   delete copy;
@@ -503,6 +506,157 @@ START_TEST (test_ASTNode_prependChild1)
 END_TEST
 
 
+START_TEST (test_ASTNode_isWellFormed_selector)
+{
+  ASTNode *node = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+
+  // selector must have at least one argument and no more than 3
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  ASTNode *c2 = new ASTNode(AST_NAME);
+  ASTNode *c3 = new ASTNode(AST_NAME);
+  ASTNode *c4 = new ASTNode(AST_NAME);
+
+  c1->setName("a");
+  c2->setName("b");
+  c3->setName("a");
+  c4->setName("b");
+
+
+  node->addChild(c1);
+  
+  // selector must have at least one argument and no more than 3
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  node->addChild(c2);
+  
+  // selector must have at least one argument and no more than 3
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  node->addChild(c3);
+  
+  // selector must have at least one argument and no more than 3
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  node->addChild(c4);
+  
+  // selector must have at least one argument and no more than 3
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  delete node;
+}
+END_TEST
+
+#if (0)
+START_TEST (test_ASTNode_isWellFormed_determinant)
+{
+  ASTNode *node = new ASTNode(AST_LINEAR_ALGEBRA_DETERMINANT);
+
+  // determinant should have one arg
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  ASTNode *c2 = new ASTNode(AST_NAME);
+
+  c1->setName("a");
+  c2->setName("b");
+
+
+  node->addChild(c1);
+  
+  // determinant should have one arg
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  node->addChild(c2);
+  
+  // determinant should have one arg
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  delete node;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_isWellFormed_vectorproduct)
+{
+  ASTNode *node = new ASTNode(AST_LINEAR_ALGEBRA_VECTOR_PRODUCT);
+
+  // vectorproduct should have 2 args
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  ASTNode *c2 = new ASTNode(AST_NAME);
+  ASTNode *c3 = new ASTNode(AST_NAME);
+
+  c1->setName("a");
+  c2->setName("b");
+  c3->setName("a");
+
+  node->addChild(c1);
+  
+  // vectorproduct should have 2 args
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  node->addChild(c2);
+  
+  // vectorproduct should have 2 args
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  node->addChild(c3);
+  
+  // vectorproduct should have 2 args
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == false);
+
+  delete node;
+}
+END_TEST
+
+
+START_TEST (test_ASTNode_isWellFormed_matrix)
+{
+  ASTNode *node = new ASTNode(AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+
+  // matrix can be empty
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  // matrix children must be of type matrixrow
+
+  ASTNode *c1 = new ASTNode(AST_NAME);
+  c1->setName("a");
+  node->addChild(c1);
+
+  // not a matrix row child
+  fail_unless(node->isWellFormedASTNode() == false);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+
+  ASTNode *mrow = new ASTNode(AST_LINEAR_ALGEBRA_MATRIXROW_CONSTRUCTOR);
+  node = new ASTNode(AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR);
+  node->addChild(mrow);
+  
+  // has a matrixrow child
+  fail_unless(node->isWellFormedASTNode() == true);
+  fail_unless(node->hasCorrectNumberArguments() == true);
+
+  delete node;
+}
+END_TEST
+#endif
+
 Suite *
 create_suite_NewASTNode (void) 
 { 
@@ -526,6 +680,13 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_swapChildren_1          );
   tcase_add_test( tcase, test_ASTNode_addChild1               );
   tcase_add_test( tcase, test_ASTNode_prependChild1           );
+
+  tcase_add_test( tcase, test_ASTNode_isWellFormed_selector           );
+#if (0)
+  tcase_add_test( tcase, test_ASTNode_isWellFormed_determinant        );
+  tcase_add_test( tcase, test_ASTNode_isWellFormed_vectorproduct      );
+  tcase_add_test( tcase, test_ASTNode_isWellFormed_matrix             );
+#endif
 
   
   suite_add_tcase(suite, tcase);

@@ -165,7 +165,14 @@ ASTArraysVectorFunctionNode::getTypeCode () const
 }
 
 
+// need to explicitly put these as otherwise the plugins
 
+bool 
+ASTArraysVectorFunctionNode::hasCorrectNumberArguments() const
+{
+  // can have any number of arguments
+  return true;
+}
 
 
 LIBSBML_CPP_NAMESPACE_END
