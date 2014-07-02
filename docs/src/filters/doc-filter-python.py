@@ -178,6 +178,7 @@ def filterDocStrings (contents):
   # 'char *', because in the SWIG output, there are things like 'char const *'.
   contents = contents.replace('const ',                    '')
   contents = contents.replace('char *',                    'string')
+  contents = contents.replace('string *',                  'string')
 
   return contents
 
