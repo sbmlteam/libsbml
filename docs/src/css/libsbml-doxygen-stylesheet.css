@@ -1171,7 +1171,7 @@ div.toc li.level4 {
 
 #doc-content .memdoc li {
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 0.75em;
 }
 
 #doc-content #main-page-sections li {
