@@ -255,6 +255,9 @@ int getL3Precedence(const ASTNode_t* node)
         }
         break;
 
+      case AST_ORIGINATES_IN_PACKAGE:
+        precedence = ASTNode_getL3PackageInfixPrecedence(node);
+        break;
       default:
         precedence = 8;
         break;
@@ -290,7 +293,7 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
   if (parent != NULL)
   {
     parentmodulo = isTranslatedModulo(parent);
-    if (parentmodulo || !L3FormulaFormatter_isFunction(parent, settings))
+    if (parentmodulo || !L3FormulaFormatter_hasUnambiguousGrammar(parent, child, settings))
     {
       group = 1;
       pp = getL3Precedence(parent);
@@ -609,6 +612,10 @@ L3FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     L3FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb, settings);
   }
+  else if (ASTNode_hasPackageOnlyInfixSyntax(node))
+  {
+    L3ParserSettings_visitPackageInfixSyntax(parent, node, sb, settings);
+  }
   else
   {
     L3FormulaFormatter_visitOther(parent, node, sb, settings);
@@ -827,6 +834,31 @@ L3FormulaFormatter_visitOther ( const ASTNode_t *parent,
   }
 }
 
+
+
+//This function determines if the node in question has unambiguous grammar; that
+// is, if it needs to worry about any of its components having parentheses.
+int
+L3FormulaFormatter_hasUnambiguousGrammar(const ASTNode_t *node, 
+                               const ASTNode_t *child, 
+                               const L3ParserSettings_t *settings)
+{
+  //All of the following situations have grammar that doesn't ever require the child
+  // to have parentheses added when it's a child of 'node'.
+
+  //Functions delimit their children with commas:
+  if (L3FormulaFormatter_isFunction(node, settings)) return 1;
+
+  //Packages have their own rules:
+  if (ASTNode_hasUnambiguousPackageInfixGrammar(node, child)) return 1;
+
+  //'8', the highest precedence, is only ever given to functions and other top-level 
+  // unambiguous objects.
+  if (getL3Precedence(child) == 8) return 1;
+  return 0;
+}
+
+
 //This function determines if the node in question should be
 // expressed in the form "functioname(children)" or if
 // it should be expressed as "child1 [symbol] child2 [symbol] child3"
@@ -938,7 +970,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
 
     /* this one will need work */
   case AST_ORIGINATES_IN_PACKAGE:
-    return 0;
+    return ASTNode_isPackageInfixFunction(node);
   }
   //Shouldn't ever get here
   assert(0);

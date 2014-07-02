@@ -263,6 +263,7 @@ protected:
   /* sync the member variables when changing asts */
   void syncMembersAndTypeFrom(ASTNumber* rhs, int type);
   void syncMembersAndTypeFrom(ASTFunction* rhs, int type);
+  void syncPackageMembersAndTypeFrom(ASTFunction* rhs, int type);
   
   int setNameAndChangeType(const std::string& name);
 

@@ -4002,6 +4002,49 @@ int
 ASTNode_true(const ASTNode_t *node);
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Used internally for L3FormulaFormatter to know whether to write a package function as 'functioname(arguments)' or not.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isPackageInfixFunction(const ASTNode_t *node);
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Used internally for L3FormulaFormatter to know whether writing a package function has special package-specific syntax.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_hasPackageOnlyInfixSyntax(const ASTNode_t *node);
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Used internally for L3FormulaFormatter to know what the precedence is for a package function.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_getL3PackageInfixPrecedence(const ASTNode_t *node);
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+/**
+ * Used internally for L3FormulaFormatter to know whether writing a package function has special package-specific syntax.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_hasUnambiguousPackageInfixGrammar(const ASTNode_t *node, const ASTNode_t *child);
+/** @endcond */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

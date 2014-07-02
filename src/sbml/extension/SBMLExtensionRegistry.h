@@ -326,6 +326,7 @@ private:
   friend class SBase;
   friend class ASTBasePlugin;
   friend class ASTBase;
+  friend class L3ParserSettings;
   template <class SBMLExtensionType> friend class SBMLExtensionNamespaces;
   template<class SBasePluginType, class SBMLExtensionType> friend class SBasePluginCreator;
 

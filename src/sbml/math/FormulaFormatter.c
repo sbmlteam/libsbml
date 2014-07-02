@@ -79,7 +79,8 @@ FormulaFormatter_isFunction (const ASTNode_t *node)
     ASTNode_isFunction  (node) ||
     ASTNode_isLambda    (node) ||
     ASTNode_isLogical   (node) ||
-    ASTNode_isRelational(node);
+    ASTNode_isRelational(node) ||
+    ASTNode_getType(node) == AST_ORIGINATES_IN_PACKAGE;
 }
 
 

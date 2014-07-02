@@ -88,7 +88,7 @@ public:
    */
   virtual ASTBase* deepCopy () const = 0;
 
-  void loadASTPlugins(SBMLNamespaces* sbmlns);
+  void loadASTPlugins(const SBMLNamespaces* sbmlns);
 
   /**
    * Get the type of this ASTNode.  The value returned is one of the
@@ -333,6 +333,31 @@ public:
 
   virtual bool hasCnUnits() const;
   virtual const std::string& getUnitsPrefix() const;
+  
+  /**
+   * Returns true if this is a package function which should be written as
+   * "functionname(argumentlist)", false otherwise.
+   */
+  virtual bool isPackageInfixFunction() const;
+
+  /**
+   * Returns true if this is a package function which should be written
+   * special syntax that the package knows about, false otherwise.
+   */
+  virtual bool hasPackageOnlyInfixSyntax() const;
+
+  /**
+   * Returns the precedence of the functions within the package
+   */
+  virtual int getL3PackageInfixPrecedence() const;
+
+  /**
+   * Returns true if this is a package function which needs no special
+   * consideration when writng as infix, false otherwise.
+   */
+  virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
+
+
 
 protected:
 
@@ -363,6 +388,7 @@ protected:
   virtual void syncMembersFrom(ASTBase* rhs);
   virtual void syncMembersAndResetParentsFrom(ASTBase* rhs);
   virtual void syncPluginsFrom(ASTBase* rhs);
+  virtual void syncMembersOnlyFrom(ASTBase* rhs);
 
   /* member variables */
 
@@ -399,8 +425,9 @@ protected:
 
   /* functions and friends to facilitate extensions */
 
-  virtual double getValue() const;
   virtual unsigned int getNumChildren() const;
+
+  virtual double getValue() const;
 
   friend class ASTNumber;
   friend class ASTFunction;

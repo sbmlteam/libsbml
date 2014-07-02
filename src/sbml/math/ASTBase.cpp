@@ -468,7 +468,52 @@ ASTBase::setPackageName(const std::string& name)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/* helper functions */
+bool
+ASTBase::isPackageInfixFunction() const
+{
+  if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    if (mPlugins[i]->isPackageInfixFunction()) return true;
+  }
+  return false;
+}
+
+bool
+ASTBase::hasPackageOnlyInfixSyntax() const
+{
+  if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    if (mPlugins[i]->hasPackageOnlyInfixSyntax()) return true;
+  }
+  return false;
+}
+
+int
+ASTBase::getL3PackageInfixPrecedence() const
+{
+  if (getType() != AST_ORIGINATES_IN_PACKAGE) return 8;
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    int ret = mPlugins[i]->getL3PackageInfixPrecedence();
+    if (ret != -1) return ret;
+  }
+  return 8;
+}
+
+bool 
+ASTBase::hasUnambiguousPackageInfixGrammar(const ASTNode *child) const
+{
+  if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    if (mPlugins[i]->hasUnambiguousPackageInfixGrammar(child)) return true;
+  }
+  return false;
+}
+
+  /* helper functions */
 
 bool 
 ASTBase::isAvogadro() const
@@ -1649,7 +1694,7 @@ ASTBase::getNameFromType(int type) const
 
 
 void
-ASTBase::loadASTPlugins(SBMLNamespaces * sbmlns)
+ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
 {
   if (sbmlns == NULL)
   {
@@ -1664,7 +1709,7 @@ ASTBase::loadASTPlugins(SBMLNamespaces * sbmlns)
       {
 
         //const std::string &prefix = xmlns->getPrefix(i);
-        ASTBasePlugin* astPlugin = const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+        const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
         if (astPlugin != NULL)
         {
           //// need to give the plugin infomrtaion about itself
@@ -1678,7 +1723,7 @@ ASTBase::loadASTPlugins(SBMLNamespaces * sbmlns)
   }
   else
   {
-    XMLNamespaces *xmlns = sbmlns->getNamespaces();
+    const XMLNamespaces *xmlns = sbmlns->getNamespaces();
 
     if (xmlns)
     {
@@ -1690,13 +1735,14 @@ ASTBase::loadASTPlugins(SBMLNamespaces * sbmlns)
 
         if (sbmlext && sbmlext->isEnabled())
         {
-          ASTBasePlugin* astPlugin = const_cast<ASTBasePlugin*>(sbmlext->getASTBasePlugin());
+          const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
           if (astPlugin != NULL)
           {
-            astPlugin->setSBMLExtension(sbmlext);
-            astPlugin->setPrefix(xmlns->getPrefix(i));
-            astPlugin->connectToParent(this);
-            mPlugins.push_back(astPlugin->clone());
+            ASTBasePlugin* myastPlugin = astPlugin->clone();
+            myastPlugin->setSBMLExtension(sbmlext);
+            myastPlugin->setPrefix(xmlns->getPrefix(i));
+            myastPlugin->connectToParent(this);
+            mPlugins.push_back(myastPlugin);
           }
         }
       }
@@ -1810,6 +1856,26 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
     getPlugin(i)->connectToParent(this);
   }
 }
+
+
+void
+ASTBase::syncMembersOnlyFrom(ASTBase* rhs)
+{
+  if (rhs == NULL)
+  {
+    return;
+  }
+
+  mIsChildFlag          = rhs->mIsChildFlag;
+  mId                   = rhs->mId;
+  mClass                = rhs->mClass;
+  mStyle                = rhs->mStyle;
+  mParentSBMLObject     = rhs->mParentSBMLObject;
+  mUserData             = rhs->mUserData;
+
+}
+
+
 
 
 void

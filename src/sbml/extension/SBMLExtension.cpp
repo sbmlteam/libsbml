@@ -33,6 +33,7 @@
 
 #include <sbml/extension/SBMLExtension.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #ifdef __cplusplus
 

@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 2.7.  */
+/* A Bison parser, made by GNU Bison 2.7.12-4996.  */
 
 /* Bison implementation for Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "2.7"
+#define YYBISON_VERSION "2.7.12-4996"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -60,7 +60,7 @@
 
 /* "%code top" blocks.  */
 /* Line 349 of yacc.c  */
-#line 52 "L3Parser.ypp"
+#line 57 "L3Parser.ypp"
 
 
  /** @cond doxygenLibsbmlInternal */
@@ -80,7 +80,7 @@
 
 /* Copy the first part of user declarations.  */
 /* Line 371 of yacc.c  */
-#line 57 "L3Parser.ypp"
+#line 62 "L3Parser.ypp"
 
 /**
  *
@@ -104,6 +104,7 @@
 #include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
 #include <sbml/math/L3ParserSettings.h>
+#include <sbml/util/util.h>
 
 #include <sstream>
 
@@ -150,6 +151,7 @@ public:
   bool collapseminus;
   bool parseunits;
   bool avocsymbol;
+  const L3ParserSettings* currentSettings;
 
   L3Parser();
   ~L3Parser();
@@ -171,7 +173,7 @@ public:
    * user preference is taken into consideration, 'name' must once again
    * be checked.
    */
-  ASTNodeType_t getFunctionFor(std::string name) const;
+  int getFunctionFor(std::string name) const;
   /**
    * This function creates an ASTNode that is a 'piecewise' function that
    * mimics the 'modulo' function 'x % y'.  It was modified from the
@@ -201,12 +203,6 @@ public:
    * AST_NAME_AVOGADRO or AST_NAME with the name 'avogadro'.
    */
   void setAvoCsymbol(bool avo);
-  /**
-   * Compares the two strings, and returns 'true' if they are equivalent,
-   * ignoring case.  Used in the parser and in the 'getSymbolFor' and 
-   * 'getFunctionFor' functions.
-   */
-  bool caselessStrCmp(const std::string& lhs, const std::string& rhs) const;
   /**
    * Sets the input string to be parsed, copied to the 'input' stringstream
    * member variable.
@@ -257,16 +253,35 @@ public:
   bool checkNumArguments(const ASTNode* function);
 
   /**
+   * This function checks the provided ASTNode function to see if it is a 
+   * known function with the wrong number of arguments.  If so, an error is set
+   * (using the 'setError' function) and 'true' is returned.  If the
+   * correct number of arguments is provided, 'false' is returned.  It is used
+   * for ASTNodes created from packages.
+   */
+  bool checkNumArgumentsForPackage(const ASTNode* function);
+
+  /**
    * Provides a copy of the default parser settings member variable.
    */
   L3ParserSettings getDefaultL3ParserSettings();
 
-  /*
+  /**
    * Change the default settings for this parser to the settings provided.  All subsequent
    * calls to parseL3Formula with no 'settings' argument will use these settings
    * instead of the defaults.
    */
   void setDefaultSettings(L3ParserSettings settings);
+
+  /**
+   * The generic parsing function for grammar lines that packages recognize, but not core.
+   * When a package recognizes the 'type', it will parse and return the correct ASTNode.
+   * If it does not recognize the 'type', or if the arguments are incorrect, NULL is returend.
+   */
+  virtual ASTNode* parsePackageInfix(L3ParserGrammarLineType_t type, 
+    std::vector<ASTNode*> *nodeList = NULL, std::vector<std::string*> *stringList = NULL,
+    std::vector<double> *doubleList = NULL) const;
+
 
   /**
    * If the either versions of the function @see SBML_parseL3Formula() returns NULL, an error 
@@ -290,7 +305,7 @@ LIBSBML_CPP_NAMESPACE_END
   int sbml_yylloc_last_position = 1;
 
 /* Line 371 of yacc.c  */
-#line 294 "L3Parser.cpp"
+#line 309 "L3Parser.cpp"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -343,7 +358,7 @@ extern int sbml_yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 267 "L3Parser.ypp"
+#line 287 "L3Parser.ypp"
 
   ASTNode* astnode;
   char character;
@@ -355,7 +370,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 355 "L3Parser.cpp"
+#line 370 "L3Parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -383,7 +398,7 @@ int sbml_yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 383 "L3Parser.cpp"
+#line 398 "L3Parser.cpp"
 
 #ifdef short
 # undef short
@@ -444,12 +459,21 @@ typedef short int yytype_int16;
 # endif
 #endif
 
+#ifndef __attribute__
+/* This feature is available in gcc versions 2.5 and later.  */
+# if (! defined __GNUC__ || __GNUC__ < 2 \
+      || (__GNUC__ == 2 && __GNUC_MINOR__ < 5))
+#  define __attribute__(Spec) /* empty */
+# endif
+#endif
+
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
 # define YYUSE(E) ((void) (E))
 #else
 # define YYUSE(E) /* empty */
 #endif
+
 
 /* Identity function, used to suppress warnings about constant conditions.  */
 #ifndef lint
@@ -601,18 +625,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  17
+#define YYFINAL  22
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   163
+#define YYLAST   233
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  25
+#define YYNTOKENS  30
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  35
+#define YYNRULES  42
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  63
+#define YYNSTATES  77
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -628,15 +652,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     8,     2,     2,     2,    13,     3,     2,
-      22,    23,    11,    10,    24,     9,     2,    12,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      23,    24,    11,    10,    28,     9,     2,    12,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    29,
        5,     7,     6,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    16,     2,     2,     2,     2,     2,
+       2,    17,     2,    25,    16,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     4,     2,     2,     2,     2,     2,
+       2,     2,     2,    26,     4,    27,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -650,7 +674,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,    14,    15,
-      17,    18,    19,    20,    21
+      18,    19,    20,    21,    22
 };
 
 #if YYDEBUG
@@ -661,34 +685,39 @@ static const yytype_uint8 yyprhs[] =
        0,     0,     3,     4,     6,     8,    11,    13,    15,    19,
       23,    27,    31,    35,    39,    43,    47,    51,    54,    59,
       64,    69,    74,    79,    84,    89,    94,    97,   101,   106,
-     108,   110,   112,   114,   117,   119
+     111,   115,   119,   123,   126,   128,   130,   132,   134,   137,
+     139,   143,   147
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      26,     0,    -1,    -1,    27,    -1,     1,    -1,    27,     1,
-      -1,    28,    -1,    21,    -1,    22,    27,    23,    -1,    27,
-      16,    27,    -1,    27,    11,    27,    -1,    27,    10,    27,
-      -1,    27,    12,    27,    -1,    27,     9,    27,    -1,    27,
-      13,    27,    -1,    27,     6,    27,    -1,    27,     5,    27,
-      -1,     9,    27,    -1,    27,     6,     7,    27,    -1,    27,
-       5,     7,    27,    -1,    27,     7,     7,    27,    -1,    27,
-       8,     7,    27,    -1,    27,     5,     6,    27,    -1,    27,
-       6,     5,    27,    -1,    27,     3,     3,    27,    -1,    27,
-       4,     4,    27,    -1,     8,    27,    -1,    21,    22,    23,
-      -1,    21,    22,    29,    23,    -1,    17,    -1,    19,    -1,
-      18,    -1,    20,    -1,    28,    21,    -1,    27,    -1,    29,
-      24,    27,    -1
+      31,     0,    -1,    -1,    32,    -1,     1,    -1,    32,     1,
+      -1,    33,    -1,    22,    -1,    23,    32,    24,    -1,    32,
+      16,    32,    -1,    32,    11,    32,    -1,    32,    10,    32,
+      -1,    32,    12,    32,    -1,    32,     9,    32,    -1,    32,
+      13,    32,    -1,    32,     6,    32,    -1,    32,     5,    32,
+      -1,     9,    32,    -1,    32,     6,     7,    32,    -1,    32,
+       5,     7,    32,    -1,    32,     7,     7,    32,    -1,    32,
+       8,     7,    32,    -1,    32,     5,     6,    32,    -1,    32,
+       6,     5,    32,    -1,    32,     3,     3,    32,    -1,    32,
+       4,     4,    32,    -1,     8,    32,    -1,    22,    23,    24,
+      -1,    22,    23,    34,    24,    -1,    32,    17,    34,    25,
+      -1,    32,    17,    25,    -1,    26,    34,    27,    -1,    26,
+      35,    27,    -1,    26,    27,    -1,    18,    -1,    20,    -1,
+      19,    -1,    21,    -1,    33,    22,    -1,    32,    -1,    34,
+      28,    32,    -1,    34,    29,    34,    -1,    35,    29,    34,
+      -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   298,   298,   299,   300,   301,   304,   305,   331,   332,
-     333,   344,   355,   356,   357,   358,   359,   360,   393,   394,
-     395,   396,   397,   398,   399,   410,   421,   422,   433,   489,
-     490,   491,   492,   493,   507,   508
+       0,   319,   319,   320,   321,   322,   325,   326,   352,   353,
+     354,   365,   376,   377,   378,   379,   380,   381,   414,   415,
+     416,   417,   418,   419,   420,   431,   442,   443,   454,   508,
+     519,   529,   539,   549,   559,   560,   561,   562,   563,   577,
+     578,   581,   582
 };
 #endif
 
@@ -699,9 +728,10 @@ static const char *const yytname[] =
 {
   "\"end of string\"", "error", "$undefined", "'&'", "'|'", "'<'", "'>'",
   "'='", "'!'", "'-'", "'+'", "'*'", "'/'", "'%'", "NEG", "NOT", "'^'",
-  "\"number\"", "\"integer\"", "\"number in e-notation form\"",
+  "'['", "\"number\"", "\"integer\"", "\"number in e-notation form\"",
   "\"number in rational notation\"", "\"element name\"", "'('", "')'",
-  "','", "$accept", "input", "node", "number", "nodelist", YY_NULL
+  "']'", "'{'", "'}'", "','", "';'", "$accept", "input", "node", "number",
+  "nodelist", "nodesemicolonlist", YY_NULL
 };
 #endif
 
@@ -711,18 +741,19 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,    38,   124,    60,    62,    61,    33,    45,
-      43,    42,    47,    37,   258,   259,    94,   260,   261,   262,
-     263,   264,    40,    41,    44
+      43,    42,    47,    37,   258,   259,    94,    91,   260,   261,
+     262,   263,   264,    40,    41,    93,   123,   125,    44,    59
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    25,    26,    26,    26,    26,    27,    27,    27,    27,
-      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    27,    27,    27,    27,    27,    28,
-      28,    28,    28,    28,    29,    29
+       0,    30,    31,    31,    31,    31,    32,    32,    32,    32,
+      32,    32,    32,    32,    32,    32,    32,    32,    32,    32,
+      32,    32,    32,    32,    32,    32,    32,    32,    32,    32,
+      32,    32,    32,    32,    33,    33,    33,    33,    33,    34,
+      34,    35,    35
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -730,8 +761,9 @@ static const yytype_uint8 yyr2[] =
 {
        0,     2,     0,     1,     1,     2,     1,     1,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     2,     4,     4,
-       4,     4,     4,     4,     4,     4,     2,     3,     4,     1,
-       1,     1,     1,     2,     1,     3
+       4,     4,     4,     4,     4,     4,     2,     3,     4,     4,
+       3,     3,     3,     2,     1,     1,     1,     1,     2,     1,
+       3,     3,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -739,39 +771,41 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     4,     0,     0,    29,    31,    30,    32,     7,     0,
-       0,     0,     6,    26,    17,     0,     0,     1,     5,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    33,    27,    34,     0,     8,     0,     0,     0,     0,
+       0,     4,     0,     0,    34,    36,    35,    37,     7,     0,
+       0,     0,     0,     6,    26,    17,     0,     0,    33,    39,
+       0,     0,     1,     5,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    38,    27,     0,
+       8,    31,     0,     0,    32,     0,     0,     0,     0,     0,
       16,     0,     0,    15,     0,     0,    13,    11,    10,    12,
-      14,     9,    28,     0,    24,    25,    22,    19,    23,    18,
-      20,    21,    35
+      14,     9,    30,     0,    28,    40,    41,    42,    24,    25,
+      22,    19,    23,    18,    20,    21,    29
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    10,    11,    12,    34
+      -1,    11,    19,    13,    20,    21
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -15
+#define YYPACT_NINF -24
 static const yytype_int16 yypact[] =
 {
-      44,   -15,    38,    38,   -15,   -15,   -15,   -15,   -14,    38,
-      14,    97,    -5,     5,     5,   114,    64,   -15,   -15,    19,
-      25,   108,    74,    23,    24,    38,    38,    38,    38,    38,
-      38,   -15,   -15,   135,    -6,   -15,    38,    38,    38,    38,
-      -7,    38,    38,    -7,    38,    38,    -1,    -1,     5,     5,
-       5,     5,   -15,    38,   147,   147,    -7,    -7,    -7,    -7,
-      -7,    -7,   135
+      58,   -24,   164,   164,   -24,   -24,   -24,   -24,     1,   164,
+     110,    23,   188,     6,    -5,    -5,   126,    82,   -24,   203,
+     -13,    33,   -24,   -24,    26,    39,    94,    -1,    43,    46,
+     164,   164,   164,   164,   164,   164,   145,   -24,   -24,   -23,
+     -24,   -24,   164,   164,   -24,   164,   164,   164,   164,   164,
+      28,   164,   164,    28,   164,   164,    57,    57,    -5,    -5,
+      -5,    -5,   -24,   -15,   -24,   203,    29,    29,   216,   216,
+      28,    28,    28,    28,    28,    28,   -24
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -15,   -15,    -2,   -15,   -15
+     -24,   -24,     0,   -24,    20,   -24
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -780,63 +814,78 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -4
 static const yytype_int8 yytable[] =
 {
-      13,    14,    25,    26,    27,    28,    29,    16,    15,    30,
-      27,    28,    29,    33,    17,    30,    31,    52,    53,    40,
-      43,    30,    36,    46,    47,    48,    49,    50,    51,    37,
-      44,    45,     0,     0,    54,    55,    56,    57,     0,    58,
-      59,     0,    60,    61,    -2,     1,     2,     3,     0,     0,
-       0,    62,     2,     3,     0,     4,     5,     6,     7,     8,
-       9,     4,     5,     6,     7,     8,     9,    19,    20,    21,
-      22,    23,    24,    25,    26,    27,    28,    29,     0,    41,
-      30,    42,     2,     3,     0,     0,     0,    35,     0,     0,
-       0,     4,     5,     6,     7,     8,     9,    -3,    18,     0,
-      19,    20,    21,    22,    23,    24,    25,    26,    27,    28,
-      29,     0,     0,    30,    38,    39,     2,     3,     0,     0,
-       0,     0,     2,     3,     0,     4,     5,     6,     7,     8,
-       9,     4,     5,     6,     7,     8,     9,    32,    19,    20,
-      21,    22,    23,    24,    25,    26,    27,    28,    29,     0,
-       0,    30,    21,    22,    23,    24,    25,    26,    27,    28,
-      29,     0,     0,    30
+      12,    64,    14,    15,    51,    42,    52,     2,     3,    17,
+      76,    35,    36,    42,    41,    42,    43,     4,     5,     6,
+       7,     8,     9,    22,    16,    10,    50,    53,    37,    46,
+      56,    57,    58,    59,    60,    61,    39,    30,    31,    32,
+      33,    34,    65,    47,    35,    36,    68,    69,    70,    71,
+      54,    72,    73,    55,    74,    75,    63,    42,    -2,     1,
+      44,     0,    45,    66,     0,    67,     2,     3,    32,    33,
+      34,     0,     0,    35,    36,     0,     4,     5,     6,     7,
+       8,     9,     0,     0,    10,    24,    25,    26,    27,    28,
+      29,    30,    31,    32,    33,    34,     0,     0,    35,    36,
+      48,    49,     2,     3,     0,     0,    40,     0,     0,     0,
+       0,     0,     4,     5,     6,     7,     8,     9,     2,     3,
+      10,     0,     0,     0,     0,     0,     0,     0,     4,     5,
+       6,     7,     8,     9,     2,     3,    10,    18,     0,     0,
+       0,     0,     0,     0,     4,     5,     6,     7,     8,     9,
+      38,     0,    10,     2,     3,     0,     0,     0,     0,     0,
+       0,     0,     0,     4,     5,     6,     7,     8,     9,     0,
+      62,    10,     2,     3,     0,     0,     0,     0,     0,     0,
+       0,     0,     4,     5,     6,     7,     8,     9,    -3,    23,
+      10,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      33,    34,     0,     0,    35,    36,    24,    25,    26,    27,
+      28,    29,    30,    31,    32,    33,    34,     0,     0,    35,
+      36,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+       0,     0,    35,    36
 };
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-15)))
+  (!!((Yystate) == (-24)))
 
 #define yytable_value_is_error(Yytable_value) \
   YYID (0)
 
 static const yytype_int8 yycheck[] =
 {
-       2,     3,     9,    10,    11,    12,    13,     9,    22,    16,
-      11,    12,    13,    15,     0,    16,    21,    23,    24,    21,
-      22,    16,     3,    25,    26,    27,    28,    29,    30,     4,
-       7,     7,    -1,    -1,    36,    37,    38,    39,    -1,    41,
-      42,    -1,    44,    45,     0,     1,     8,     9,    -1,    -1,
-      -1,    53,     8,     9,    -1,    17,    18,    19,    20,    21,
-      22,    17,    18,    19,    20,    21,    22,     3,     4,     5,
-       6,     7,     8,     9,    10,    11,    12,    13,    -1,     5,
-      16,     7,     8,     9,    -1,    -1,    -1,    23,    -1,    -1,
-      -1,    17,    18,    19,    20,    21,    22,     0,     1,    -1,
-       3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    -1,    -1,    16,     6,     7,     8,     9,    -1,    -1,
-      -1,    -1,     8,     9,    -1,    17,    18,    19,    20,    21,
-      22,    17,    18,    19,    20,    21,    22,    23,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    -1,
-      -1,    16,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    -1,    -1,    16
+       0,    24,     2,     3,     5,    28,     7,     8,     9,     9,
+      25,    16,    17,    28,    27,    28,    29,    18,    19,    20,
+      21,    22,    23,     0,    23,    26,    26,    27,    22,     3,
+      30,    31,    32,    33,    34,    35,    16,     9,    10,    11,
+      12,    13,    42,     4,    16,    17,    46,    47,    48,    49,
+       7,    51,    52,     7,    54,    55,    36,    28,     0,     1,
+      27,    -1,    29,    43,    -1,    45,     8,     9,    11,    12,
+      13,    -1,    -1,    16,    17,    -1,    18,    19,    20,    21,
+      22,    23,    -1,    -1,    26,     3,     4,     5,     6,     7,
+       8,     9,    10,    11,    12,    13,    -1,    -1,    16,    17,
+       6,     7,     8,     9,    -1,    -1,    24,    -1,    -1,    -1,
+      -1,    -1,    18,    19,    20,    21,    22,    23,     8,     9,
+      26,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    18,    19,
+      20,    21,    22,    23,     8,     9,    26,    27,    -1,    -1,
+      -1,    -1,    -1,    -1,    18,    19,    20,    21,    22,    23,
+      24,    -1,    26,     8,     9,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    18,    19,    20,    21,    22,    23,    -1,
+      25,    26,     8,     9,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    18,    19,    20,    21,    22,    23,     0,     1,
+      26,     3,     4,     5,     6,     7,     8,     9,    10,    11,
+      12,    13,    -1,    -1,    16,    17,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    -1,    -1,    16,
+      17,     5,     6,     7,     8,     9,    10,    11,    12,    13,
+      -1,    -1,    16,    17
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     1,     8,     9,    17,    18,    19,    20,    21,    22,
-      26,    27,    28,    27,    27,    22,    27,     0,     1,     3,
-       4,     5,     6,     7,     8,     9,    10,    11,    12,    13,
-      16,    21,    23,    27,    29,    23,     3,     4,     6,     7,
-      27,     5,     7,    27,     7,     7,    27,    27,    27,    27,
-      27,    27,    23,    24,    27,    27,    27,    27,    27,    27,
-      27,    27,    27
+       0,     1,     8,     9,    18,    19,    20,    21,    22,    23,
+      26,    31,    32,    33,    32,    32,    23,    32,    27,    32,
+      34,    35,     0,     1,     3,     4,     5,     6,     7,     8,
+       9,    10,    11,    12,    13,    16,    17,    22,    24,    34,
+      24,    27,    28,    29,    27,    29,     3,     4,     6,     7,
+      32,     5,     7,    32,     7,     7,    32,    32,    32,    32,
+      32,    32,    25,    34,    24,    32,    34,    34,    32,    32,
+      32,    32,    32,    32,    32,    32,    25
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -954,11 +1003,7 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 # else
   YYUSE (yyoutput);
 # endif
-  switch (yytype)
-    {
-      default:
-        break;
-    }
+  YYUSE (yytype);
 }
 
 
@@ -1348,12 +1393,7 @@ yydestruct (yymsg, yytype, yyvaluep)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
 
-  switch (yytype)
-    {
-
-      default:
-        break;
-    }
+  YYUSE (yytype);
 }
 
 
@@ -1637,36 +1677,36 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-/* Line 1792 of yacc.c  */
-#line 299 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 320 "L3Parser.ypp"
     {l3p->outputNode = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 4:
-/* Line 1792 of yacc.c  */
-#line 300 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 321 "L3Parser.ypp"
     {}
     break;
 
   case 5:
-/* Line 1792 of yacc.c  */
-#line 301 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 322 "L3Parser.ypp"
     {delete (yyvsp[(1) - (2)].astnode);}
     break;
 
   case 6:
-/* Line 1792 of yacc.c  */
-#line 304 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 325 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 7:
-/* Line 1792 of yacc.c  */
-#line 305 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 326 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode();
                    string name(*(yyvsp[(1) - (1)].word));
-                   (yyval.astnode)->setName(name.c_str());
+                   (yyval.astnode)->setName((yyvsp[(1) - (1)].word)->c_str());
                    if (l3p->model == NULL ||
                        (l3p->model->getSpecies(name) == NULL
                         && l3p->model->getCompartment(name) == NULL
@@ -1677,10 +1717,10 @@ yyreduce:
                      ASTNodeType_t type = l3p->getSymbolFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type==AST_REAL) {
-                       if (l3p->caselessStrCmp(name, "inf"))          (yyval.astnode)->setValue(numeric_limits<double>::infinity());
-                       if (l3p->caselessStrCmp(name, "infinity"))     (yyval.astnode)->setValue(numeric_limits<double>::infinity());
-                       if (l3p->caselessStrCmp(name, "nan"))          (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
-                       if (l3p->caselessStrCmp(name, "notanumber"))   (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
+                       if (!strcmp_insensitive(name.c_str(), "inf"))          (yyval.astnode)->setValue(numeric_limits<double>::infinity());
+                       if (!strcmp_insensitive(name.c_str(), "infinity"))     (yyval.astnode)->setValue(numeric_limits<double>::infinity());
+                       if (!strcmp_insensitive(name.c_str(), "nan"))          (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
+                       if (!strcmp_insensitive(name.c_str(), "notanumber"))   (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
                      }
                      if (!l3p->avocsymbol && type==AST_NAME_AVOGADRO) {
                        //Don't parse 'avogadro' as a csymbol.
@@ -1692,20 +1732,20 @@ yyreduce:
     break;
 
   case 8:
-/* Line 1792 of yacc.c  */
-#line 331 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 352 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (3)].astnode);}
     break;
 
   case 9:
-/* Line 1792 of yacc.c  */
-#line 332 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 353 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_POWER); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 10:
-/* Line 1792 of yacc.c  */
-#line 333 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 354 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_TIMES) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1720,8 +1760,8 @@ yyreduce:
     break;
 
   case 11:
-/* Line 1792 of yacc.c  */
-#line 344 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 365 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_PLUS) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1736,38 +1776,38 @@ yyreduce:
     break;
 
   case 12:
-/* Line 1792 of yacc.c  */
-#line 355 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 376 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_DIVIDE); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 13:
-/* Line 1792 of yacc.c  */
-#line 356 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 377 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_MINUS); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 14:
-/* Line 1792 of yacc.c  */
-#line 357 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 378 "L3Parser.ypp"
     {(yyval.astnode) = l3p->createModuloTree((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode));}
     break;
 
   case 15:
-/* Line 1792 of yacc.c  */
-#line 358 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 379 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 16:
-/* Line 1792 of yacc.c  */
-#line 359 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 380 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LT); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 17:
-/* Line 1792 of yacc.c  */
-#line 360 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 381 "L3Parser.ypp"
     {
                   if (l3p->collapseminus) {
                     if ((yyvsp[(2) - (2)].astnode)->getType()==AST_REAL) {
@@ -1804,44 +1844,44 @@ yyreduce:
     break;
 
   case 18:
-/* Line 1792 of yacc.c  */
-#line 393 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 414 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_GEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 19:
-/* Line 1792 of yacc.c  */
-#line 394 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 415 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_LEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 20:
-/* Line 1792 of yacc.c  */
-#line 395 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(AST_RELATIONAL_EQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
+/* Line 1787 of yacc.c  */
+#line 416 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(AST_RELATIONAL_EQ);  (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 21:
-/* Line 1792 of yacc.c  */
-#line 396 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 417 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 22:
-/* Line 1792 of yacc.c  */
-#line 397 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 418 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 23:
-/* Line 1792 of yacc.c  */
-#line 398 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 419 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_RELATIONAL_NEQ); (yyval.astnode)->addChild((yyvsp[(1) - (4)].astnode)); (yyval.astnode)->addChild((yyvsp[(4) - (4)].astnode));}
     break;
 
   case 24:
-/* Line 1792 of yacc.c  */
-#line 399 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 420 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_AND) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1856,8 +1896,8 @@ yyreduce:
     break;
 
   case 25:
-/* Line 1792 of yacc.c  */
-#line 410 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 431 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_OR) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1872,21 +1912,21 @@ yyreduce:
     break;
 
   case 26:
-/* Line 1792 of yacc.c  */
-#line 421 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 442 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_NOT); (yyval.astnode)->addChild((yyvsp[(2) - (2)].astnode));}
     break;
 
   case 27:
-/* Line 1792 of yacc.c  */
-#line 422 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 443 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode(AST_FUNCTION);
                    string name(*(yyvsp[(1) - (3)].word));
                    (yyval.astnode)->setName((yyvsp[(1) - (3)].word)->c_str());
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     ASTNodeType_t type = l3p->getFunctionFor(name);
+                     int type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (l3p->checkNumArguments((yyval.astnode))) YYABORT;
                    }
@@ -1894,8 +1934,8 @@ yyreduce:
     break;
 
   case 28:
-/* Line 1792 of yacc.c  */
-#line 433 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 454 "L3Parser.ypp"
     {
                    (yyval.astnode) = (yyvsp[(3) - (4)].astnode);
                    string name(*(yyvsp[(1) - (4)].word));
@@ -1903,9 +1943,9 @@ yyreduce:
                    (yyval.astnode)->setType(AST_FUNCTION);
                    if (l3p->model == NULL || l3p->model->getFunctionDefinition(name) == NULL) {
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
-                     ASTNodeType_t type = l3p->getFunctionFor(name);
+                     int type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
-                     if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
+                     if (type==AST_FUNCTION_ROOT && !strcmp_insensitive(name.c_str(), "sqrt")) {
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
                        if ((yyval.astnode)->getNumChildren() != 1) {
                          l3p->setError("The function 'sqrt' takes exactly one argument.");
@@ -1916,19 +1956,19 @@ yyreduce:
                        int2->setValue(2);
                        (yyval.astnode)->prependChild(int2);
                      }
-                     if (type==AST_FUNCTION_POWER && l3p->caselessStrCmp(name, "sqr")) {
+                     if (type==AST_FUNCTION_POWER && !strcmp_insensitive(name.c_str(), "sqr")) {
                        //Add a '2' node after the existing child.
                        ASTNode* int2 = new ASTNode(AST_INTEGER);
                        int2->setValue(2);
                        (yyval.astnode)->addChild(int2);
                      }
-                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log10")) {
+                     if (type==AST_FUNCTION_LOG && !strcmp_insensitive(name.c_str(), "log10")) {
                        //Add a '10' node before the existing child.
                        ASTNode* int10 = new ASTNode(AST_INTEGER);
                        int10->setValue(10);
                        (yyval.astnode)->prependChild(int10);
                      }
-                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log")) {
+                     if (type==AST_FUNCTION_LOG && !strcmp_insensitive(name.c_str(), "log")) {
                        //If there is exactly one argument, change it to log10, ln, or give a special error message, depending on a user setting (by default, parse to log10).
                        if ((yyval.astnode)->getNumChildren() == 1) {
                          ASTNode* int10;
@@ -1953,32 +1993,106 @@ yyreduce:
     break;
 
   case 29:
-/* Line 1792 of yacc.c  */
-#line 489 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));}
+/* Line 1787 of yacc.c  */
+#line 508 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(1) - (4)].astnode));
+                  allnodes.push_back((yyvsp[(3) - (4)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 30:
-/* Line 1792 of yacc.c  */
-#line 490 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);}
+/* Line 1787 of yacc.c  */
+#line 519 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(1) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 31:
-/* Line 1792 of yacc.c  */
-#line 491 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));}
+/* Line 1787 of yacc.c  */
+#line 529 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(2) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 32:
-/* Line 1792 of yacc.c  */
-#line 492 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);}
+/* Line 1787 of yacc.c  */
+#line 539 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(2) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES_SEMICOLON, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 33:
-/* Line 1792 of yacc.c  */
-#line 493 "L3Parser.ypp"
+/* Line 1787 of yacc.c  */
+#line 549 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret empty curly braces, so formulas of the form '{}' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
+    break;
+
+  case 34:
+/* Line 1787 of yacc.c  */
+#line 559 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));}
+    break;
+
+  case 35:
+/* Line 1787 of yacc.c  */
+#line 560 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);}
+    break;
+
+  case 36:
+/* Line 1787 of yacc.c  */
+#line 561 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));}
+    break;
+
+  case 37:
+/* Line 1787 of yacc.c  */
+#line 562 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);}
+    break;
+
+  case 38:
+/* Line 1787 of yacc.c  */
+#line 563 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -1993,21 +2107,33 @@ yyreduce:
                }
     break;
 
-  case 34:
-/* Line 1792 of yacc.c  */
-#line 507 "L3Parser.ypp"
+  case 39:
+/* Line 1787 of yacc.c  */
+#line 577 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));}
     break;
 
-  case 35:
-/* Line 1792 of yacc.c  */
-#line 508 "L3Parser.ypp"
+  case 40:
+/* Line 1787 of yacc.c  */
+#line 578 "L3Parser.ypp"
+    {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
+    break;
+
+  case 41:
+/* Line 1787 of yacc.c  */
+#line 581 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
+    break;
+
+  case 42:
+/* Line 1787 of yacc.c  */
+#line 582 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
 
-/* Line 1792 of yacc.c  */
-#line 2007 "L3Parser.cpp"
+/* Line 1787 of yacc.c  */
+#line 2133 "L3Parser.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2238,8 +2364,8 @@ yyreturn:
 }
 
 
-/* Line 2055 of yacc.c  */
-#line 511 "L3Parser.ypp"
+/* Line 2050 of yacc.c  */
+#line 585 "L3Parser.ypp"
 
 
 
@@ -2444,88 +2570,89 @@ L3Parser::~L3Parser ()
 
 ASTNodeType_t L3Parser::getSymbolFor(string name) const
 {
-  if (caselessStrCmp(name, "true"))         return AST_CONSTANT_TRUE;
-  if (caselessStrCmp(name, "false"))        return AST_CONSTANT_FALSE;
-  if (caselessStrCmp(name, "pi"))           return AST_CONSTANT_PI;
-  if (caselessStrCmp(name, "exponentiale")) return AST_CONSTANT_E;
-  if (caselessStrCmp(name, "avogadro"))     return AST_NAME_AVOGADRO;
-  if (caselessStrCmp(name, "time"))         return AST_NAME_TIME;
-  if (caselessStrCmp(name, "inf"))          return AST_REAL;
-  if (caselessStrCmp(name, "infinity"))     return AST_REAL;
-  if (caselessStrCmp(name, "nan"))          return AST_REAL;
-  if (caselessStrCmp(name, "notanumber"))   return AST_REAL;
+  if (!strcmp_insensitive(name.c_str(), "true"))         return AST_CONSTANT_TRUE;
+  if (!strcmp_insensitive(name.c_str(), "false"))        return AST_CONSTANT_FALSE;
+  if (!strcmp_insensitive(name.c_str(), "pi"))           return AST_CONSTANT_PI;
+  if (!strcmp_insensitive(name.c_str(), "exponentiale")) return AST_CONSTANT_E;
+  if (!strcmp_insensitive(name.c_str(), "avogadro"))     return AST_NAME_AVOGADRO;
+  if (!strcmp_insensitive(name.c_str(), "time"))         return AST_NAME_TIME;
+  if (!strcmp_insensitive(name.c_str(), "inf"))          return AST_REAL;
+  if (!strcmp_insensitive(name.c_str(), "infinity"))     return AST_REAL;
+  if (!strcmp_insensitive(name.c_str(), "nan"))          return AST_REAL;
+  if (!strcmp_insensitive(name.c_str(), "notanumber"))   return AST_REAL;
   return AST_UNKNOWN;
 }
 
-ASTNodeType_t L3Parser::getFunctionFor(string name) const
+int L3Parser::getFunctionFor(string name) const
 {
-  if (caselessStrCmp(name, "abs"))      return AST_FUNCTION_ABS;
-  if (caselessStrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;
-  if (caselessStrCmp(name, "arccos"))   return AST_FUNCTION_ARCCOS;
-  if (caselessStrCmp(name, "acosh"))    return AST_FUNCTION_ARCCOSH;
-  if (caselessStrCmp(name, "arccosh"))  return AST_FUNCTION_ARCCOSH;
-  if (caselessStrCmp(name, "acot"))     return AST_FUNCTION_ARCCOT;
-  if (caselessStrCmp(name, "arccot"))   return AST_FUNCTION_ARCCOT;
-  if (caselessStrCmp(name, "acoth"))    return AST_FUNCTION_ARCCOTH;
-  if (caselessStrCmp(name, "arccoth"))  return AST_FUNCTION_ARCCOTH;
-  if (caselessStrCmp(name, "acsc"))     return AST_FUNCTION_ARCCSC;
-  if (caselessStrCmp(name, "arccsc"))   return AST_FUNCTION_ARCCSC;
-  if (caselessStrCmp(name, "acsch"))    return AST_FUNCTION_ARCCSCH;
-  if (caselessStrCmp(name, "arccsch"))  return AST_FUNCTION_ARCCSCH;
-  if (caselessStrCmp(name, "asec"))     return AST_FUNCTION_ARCSEC;
-  if (caselessStrCmp(name, "arcsec"))   return AST_FUNCTION_ARCSEC;
-  if (caselessStrCmp(name, "asech"))    return AST_FUNCTION_ARCSECH;
-  if (caselessStrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
-  if (caselessStrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
-  if (caselessStrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
-  if (caselessStrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
-  if (caselessStrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
-  if (caselessStrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
-  if (caselessStrCmp(name, "arctanh"))  return AST_FUNCTION_ARCTANH;
-  if (caselessStrCmp(name, "ceil"))     return AST_FUNCTION_CEILING;
-  if (caselessStrCmp(name, "ceiling"))  return AST_FUNCTION_CEILING;
-  if (caselessStrCmp(name, "cos"))      return AST_FUNCTION_COS;
-  if (caselessStrCmp(name, "cosh"))     return AST_FUNCTION_COSH;
-  if (caselessStrCmp(name, "cot"))      return AST_FUNCTION_COT;
-  if (caselessStrCmp(name, "coth"))     return AST_FUNCTION_COTH;
-  if (caselessStrCmp(name, "csc"))      return AST_FUNCTION_CSC;
-  if (caselessStrCmp(name, "csch"))     return AST_FUNCTION_CSCH;
-  if (caselessStrCmp(name, "delay"))    return AST_FUNCTION_DELAY;
-  if (caselessStrCmp(name, "exp"))      return AST_FUNCTION_EXP;
-  if (caselessStrCmp(name, "factorial")) return AST_FUNCTION_FACTORIAL;
-  if (caselessStrCmp(name, "floor"))    return AST_FUNCTION_FLOOR;
-  if (caselessStrCmp(name, "lambda"))   return AST_LAMBDA;
-  if (caselessStrCmp(name, "log"))      return AST_FUNCTION_LOG;
-  if (caselessStrCmp(name, "ln"))       return AST_FUNCTION_LN;
-  if (caselessStrCmp(name, "log10"))    return AST_FUNCTION_LOG;
-  if (caselessStrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
-  if (caselessStrCmp(name, "power"))    return AST_POWER;
-  if (caselessStrCmp(name, "pow"))      return AST_POWER;
-  if (caselessStrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
-  if (caselessStrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
-  if (caselessStrCmp(name, "root"))     return AST_FUNCTION_ROOT;
-  if (caselessStrCmp(name, "sec"))      return AST_FUNCTION_SEC;
-  if (caselessStrCmp(name, "sech"))     return AST_FUNCTION_SECH;
-  if (caselessStrCmp(name, "sin"))      return AST_FUNCTION_SIN;
-  if (caselessStrCmp(name, "sinh"))     return AST_FUNCTION_SINH;
-  if (caselessStrCmp(name, "tan"))      return AST_FUNCTION_TAN;
-  if (caselessStrCmp(name, "tanh"))     return AST_FUNCTION_TANH;
-  if (caselessStrCmp(name, "and"))      return AST_LOGICAL_AND;
-  if (caselessStrCmp(name, "not"))      return AST_LOGICAL_NOT;
-  if (caselessStrCmp(name, "or"))       return AST_LOGICAL_OR;
-  if (caselessStrCmp(name, "xor"))      return AST_LOGICAL_XOR;
-  if (caselessStrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
-  if (caselessStrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
-  if (caselessStrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
-  if (caselessStrCmp(name, "gt"))       return AST_RELATIONAL_GT;
-  if (caselessStrCmp(name, "leq"))      return AST_RELATIONAL_LEQ;
-  if (caselessStrCmp(name, "lt"))       return AST_RELATIONAL_LT;
-  if (caselessStrCmp(name, "neq"))      return AST_RELATIONAL_NEQ;
-  if (caselessStrCmp(name, "divide"))   return AST_DIVIDE;
-  if (caselessStrCmp(name, "minus"))    return AST_MINUS;
-  if (caselessStrCmp(name, "plus"))     return AST_PLUS;
-  if (caselessStrCmp(name, "times"))    return AST_TIMES;
-  return AST_UNKNOWN;
+  if (!strcmp_insensitive(name.c_str(), "abs"))      return AST_FUNCTION_ABS;
+  if (!strcmp_insensitive(name.c_str(), "acos"))     return AST_FUNCTION_ARCCOS;
+  if (!strcmp_insensitive(name.c_str(), "arccos"))   return AST_FUNCTION_ARCCOS;
+  if (!strcmp_insensitive(name.c_str(), "acosh"))    return AST_FUNCTION_ARCCOSH;
+  if (!strcmp_insensitive(name.c_str(), "arccosh"))  return AST_FUNCTION_ARCCOSH;
+  if (!strcmp_insensitive(name.c_str(), "acot"))     return AST_FUNCTION_ARCCOT;
+  if (!strcmp_insensitive(name.c_str(), "arccot"))   return AST_FUNCTION_ARCCOT;
+  if (!strcmp_insensitive(name.c_str(), "acoth"))    return AST_FUNCTION_ARCCOTH;
+  if (!strcmp_insensitive(name.c_str(), "arccoth"))  return AST_FUNCTION_ARCCOTH;
+  if (!strcmp_insensitive(name.c_str(), "acsc"))     return AST_FUNCTION_ARCCSC;
+  if (!strcmp_insensitive(name.c_str(), "arccsc"))   return AST_FUNCTION_ARCCSC;
+  if (!strcmp_insensitive(name.c_str(), "acsch"))    return AST_FUNCTION_ARCCSCH;
+  if (!strcmp_insensitive(name.c_str(), "arccsch"))  return AST_FUNCTION_ARCCSCH;
+  if (!strcmp_insensitive(name.c_str(), "asec"))     return AST_FUNCTION_ARCSEC;
+  if (!strcmp_insensitive(name.c_str(), "arcsec"))   return AST_FUNCTION_ARCSEC;
+  if (!strcmp_insensitive(name.c_str(), "asech"))    return AST_FUNCTION_ARCSECH;
+  if (!strcmp_insensitive(name.c_str(), "arcsech"))  return AST_FUNCTION_ARCSECH;
+  if (!strcmp_insensitive(name.c_str(), "asin"))     return AST_FUNCTION_ARCSIN;
+  if (!strcmp_insensitive(name.c_str(), "arcsin"))   return AST_FUNCTION_ARCSIN;
+  if (!strcmp_insensitive(name.c_str(), "atan"))     return AST_FUNCTION_ARCTAN;
+  if (!strcmp_insensitive(name.c_str(), "arctan"))   return AST_FUNCTION_ARCTAN;
+  if (!strcmp_insensitive(name.c_str(), "atanh"))    return AST_FUNCTION_ARCTANH;
+  if (!strcmp_insensitive(name.c_str(), "arctanh"))  return AST_FUNCTION_ARCTANH;
+  if (!strcmp_insensitive(name.c_str(), "ceil"))     return AST_FUNCTION_CEILING;
+  if (!strcmp_insensitive(name.c_str(), "ceiling"))  return AST_FUNCTION_CEILING;
+  if (!strcmp_insensitive(name.c_str(), "cos"))      return AST_FUNCTION_COS;
+  if (!strcmp_insensitive(name.c_str(), "cosh"))     return AST_FUNCTION_COSH;
+  if (!strcmp_insensitive(name.c_str(), "cot"))      return AST_FUNCTION_COT;
+  if (!strcmp_insensitive(name.c_str(), "coth"))     return AST_FUNCTION_COTH;
+  if (!strcmp_insensitive(name.c_str(), "csc"))      return AST_FUNCTION_CSC;
+  if (!strcmp_insensitive(name.c_str(), "csch"))     return AST_FUNCTION_CSCH;
+  if (!strcmp_insensitive(name.c_str(), "delay"))    return AST_FUNCTION_DELAY;
+  if (!strcmp_insensitive(name.c_str(), "exp"))      return AST_FUNCTION_EXP;
+  if (!strcmp_insensitive(name.c_str(), "factorial")) return AST_FUNCTION_FACTORIAL;
+  if (!strcmp_insensitive(name.c_str(), "floor"))    return AST_FUNCTION_FLOOR;
+  if (!strcmp_insensitive(name.c_str(), "lambda"))   return AST_LAMBDA;
+  if (!strcmp_insensitive(name.c_str(), "log"))      return AST_FUNCTION_LOG;
+  if (!strcmp_insensitive(name.c_str(), "ln"))       return AST_FUNCTION_LN;
+  if (!strcmp_insensitive(name.c_str(), "log10"))    return AST_FUNCTION_LOG;
+  if (!strcmp_insensitive(name.c_str(), "piecewise")) return AST_FUNCTION_PIECEWISE;
+  if (!strcmp_insensitive(name.c_str(), "power"))    return AST_POWER;
+  if (!strcmp_insensitive(name.c_str(), "pow"))      return AST_POWER;
+  if (!strcmp_insensitive(name.c_str(), "sqr"))      return AST_FUNCTION_POWER;
+  if (!strcmp_insensitive(name.c_str(), "sqrt"))     return AST_FUNCTION_ROOT;
+  if (!strcmp_insensitive(name.c_str(), "root"))     return AST_FUNCTION_ROOT;
+  if (!strcmp_insensitive(name.c_str(), "sec"))      return AST_FUNCTION_SEC;
+  if (!strcmp_insensitive(name.c_str(), "sech"))     return AST_FUNCTION_SECH;
+  if (!strcmp_insensitive(name.c_str(), "sin"))      return AST_FUNCTION_SIN;
+  if (!strcmp_insensitive(name.c_str(), "sinh"))     return AST_FUNCTION_SINH;
+  if (!strcmp_insensitive(name.c_str(), "tan"))      return AST_FUNCTION_TAN;
+  if (!strcmp_insensitive(name.c_str(), "tanh"))     return AST_FUNCTION_TANH;
+  if (!strcmp_insensitive(name.c_str(), "and"))      return AST_LOGICAL_AND;
+  if (!strcmp_insensitive(name.c_str(), "not"))      return AST_LOGICAL_NOT;
+  if (!strcmp_insensitive(name.c_str(), "or"))       return AST_LOGICAL_OR;
+  if (!strcmp_insensitive(name.c_str(), "xor"))      return AST_LOGICAL_XOR;
+  if (!strcmp_insensitive(name.c_str(), "eq"))       return AST_RELATIONAL_EQ;
+  if (!strcmp_insensitive(name.c_str(), "equals"))   return AST_RELATIONAL_EQ;
+  if (!strcmp_insensitive(name.c_str(), "geq"))      return AST_RELATIONAL_GEQ;
+  if (!strcmp_insensitive(name.c_str(), "gt"))       return AST_RELATIONAL_GT;
+  if (!strcmp_insensitive(name.c_str(), "leq"))      return AST_RELATIONAL_LEQ;
+  if (!strcmp_insensitive(name.c_str(), "lt"))       return AST_RELATIONAL_LT;
+  if (!strcmp_insensitive(name.c_str(), "neq"))      return AST_RELATIONAL_NEQ;
+  if (!strcmp_insensitive(name.c_str(), "divide"))   return AST_DIVIDE;
+  if (!strcmp_insensitive(name.c_str(), "minus"))    return AST_MINUS;
+  if (!strcmp_insensitive(name.c_str(), "plus"))     return AST_PLUS;
+  if (!strcmp_insensitive(name.c_str(), "times"))    return AST_TIMES;
+
+  return currentSettings->getPackageFunctionFor(name);
 }
 
 ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
@@ -2617,17 +2744,6 @@ void L3Parser::setParseUnits(bool units)
 void L3Parser::setAvoCsymbol(bool avo)
 {
   avocsymbol = avo;
-}
-
-bool L3Parser::caselessStrCmp(const string& lhs, const string& rhs) const
-{
-  if (lhs.size() != rhs.size()) return false;
-
-  for (size_t i = 0; i < lhs.size(); ++i) {
-    if (toupper(lhs[i]) != toupper(rhs[i])) return false;
-  }
-  return true;
-
 }
 
 void L3Parser::setInput(const char* c)
@@ -2779,7 +2895,8 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
       return true;
     }
     return false;
-      
+  case AST_ORIGINATES_IN_PACKAGE:
+    return l3p->checkNumArgumentsForPackage(function);
   case AST_TIMES:
   case AST_PLUS:
   case AST_LOGICAL_AND:
@@ -2789,6 +2906,24 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     //n-ary 0 or more arguments
     return false;
   }
+}
+
+bool L3Parser::checkNumArgumentsForPackage(const ASTNode* function)
+{
+  stringstream error;
+  bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
+  if (ret) {
+    l3p->setError(error.str());
+  }
+  return ret;
+}
+
+ASTNode* L3Parser::parsePackageInfix(L3ParserGrammarLineType_t type, 
+    vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
+    vector<double> *doubleList) const
+{
+  if (currentSettings == NULL) return NULL;
+  return currentSettings->parsePackageInfix(type, nodeList, stringList, doubleList);
 }
 
 L3ParserSettings L3Parser::getDefaultL3ParserSettings()
@@ -2852,6 +2987,10 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   if (l3p==NULL) {
     l3p = new L3Parser();
   }
+  if (settings == NULL) {
+    L3ParserSettings l3ps = l3p->getDefaultL3ParserSettings();
+    return SBML_parseL3FormulaWithSettings(formula, &l3ps);
+  }
   l3p->clear();
   l3p->setInput(formula);
   l3p->model = settings->getModel();
@@ -2859,6 +2998,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->collapseminus = settings->getParseCollapseMinus();
   l3p->parseunits = settings->getParseUnits();
   l3p->avocsymbol = settings->getParseAvogadroCsymbol();
+  l3p->currentSettings = settings;
   sbml_yyparse();
   return l3p->outputNode;
 }

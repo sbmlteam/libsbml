@@ -4434,7 +4434,59 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       this->ASTBase::syncMembersFrom(node);
       // note this will clone plugins and therefore any children they may have
       // so do not recopy the children
-      copyChildren = false;
+      if (rhs->getNumChildren() == this->getNumChildren())
+      {
+        copyChildren = false;
+      }
+    }
+  }
+
+  if (copyChildren == true)
+  {
+    for (unsigned int i = 0; i < rhs->getNumChildren(); i++)
+    {
+      this->addChild(rhs->getChild(i)->deepCopy());
+    }
+  }
+}
+
+
+void
+ASTFunction::syncPackageMembersAndTypeFrom(ASTFunction* rhs, int type)
+{
+  bool copyChildren = true;
+  if (mIsOther == true)
+  {
+    ASTBase * node = NULL;
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      node = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath());
+    }
+    else
+    {
+      unsigned int i = 0;
+      bool found = false;
+      while (found == false && i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          node = const_cast<ASTBase*>(getPlugin(i)->getMath());
+          found = true;
+        }
+        i++;
+      }
+    }
+
+    if (node != NULL)
+    {
+      node->ASTBase::syncMembersOnlyFrom(rhs);
+      this->ASTBase::syncMembersOnlyFrom(node);
+      // note this will clone plugins and therefore any children they may have
+      // so do not recopy the children
+      if (rhs->getNumChildren() == this->getNumChildren())
+      {
+        copyChildren = false;
+      }
     }
   }
 

@@ -740,7 +740,7 @@ ASTNode::getName () const
     {
       /* HACK TO REPLICATE OLD AST */
       /* did not expect some things like AST_PLUS etc to have a name
-       * my code uses teh getnameFromType to write the MathmL so these
+       * my code uses the getNameFromType to write the MathmL so these
        * do have names
        */
       if (getType() >= AST_NAME_TIME)
@@ -1292,21 +1292,40 @@ ASTNode::setType (int type)
     bool found = false;
     for (unsigned int i = 0; i < ASTBase::getNumPlugins(); i++)
     {
-      if (found == false 
-        && representsFunction(type, ASTBase::getPlugin(i)) == true)
+      if (found == false)
       {
-        mFunction = new ASTFunction (type);
-        if (copyNumber != NULL)
+        const char * name = ASTBase::getPlugin(i)->getNameFromType(type);
+        if (representsFunction(type, ASTBase::getPlugin(i)) == true)
         {
-          mFunction->syncMembersAndTypeFrom(copyNumber, type);
-          this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          mFunction = new ASTFunction (type);
+          if (copyNumber != NULL)
+          {
+            mFunction->syncMembersAndTypeFrom(copyNumber, type);
+            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          }
+          else if (copyFunction != NULL)
+          {
+            mFunction->syncMembersAndTypeFrom(copyFunction, type);
+            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          }
+          found = true;
         }
-        else if (copyFunction != NULL)
+        else if (ASTBase::getPlugin(i)
+                          ->isTopLevelMathMLFunctionNodeTag(name) == true)
         {
-          mFunction->syncMembersAndTypeFrom(copyFunction, type);
-          this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          mFunction = new ASTFunction (type);
+          if (copyNumber != NULL)
+          {
+            mFunction->syncMembersAndTypeFrom(copyNumber, type);
+            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          }
+          else if (copyFunction != NULL)
+          {
+            mFunction->syncPackageMembersAndTypeFrom(copyFunction, type);
+            this->ASTBase::syncMembersAndResetParentsFrom(mFunction);
+          }
+          found = true;
         }
-        found = true;
       }
 
     }
@@ -4522,6 +4541,50 @@ int
 ASTNode_true(const ASTNode *node)
 {
   return 1;
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+ASTNode_isPackageInfixFunction(const ASTNode *node)
+{
+  if(node==NULL) return 0;
+  return node->isPackageInfixFunction();
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+ASTNode_hasPackageOnlyInfixSyntax(const ASTNode *node)
+{
+  if(node==NULL) return 0;
+  return node->hasPackageOnlyInfixSyntax();
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+ASTNode_getL3PackageInfixPrecedence(const ASTNode *node)
+{
+  if(node==NULL) return 8;
+  return node->getL3PackageInfixPrecedence();
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+int
+ASTNode_hasUnambiguousPackageInfixGrammar(const ASTNode *node, const ASTNode *child)
+{
+  if(node==NULL) return 0;
+  return (int)node->hasUnambiguousPackageInfixGrammar(child);
 }
 /** @endcond */
 

@@ -37,6 +37,7 @@
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -604,6 +605,11 @@ ASTNaryFunctionNode::hasCorrectNumberArguments() const
     && numChildren < 2)
   {
     correctNumArgs = false;
+  }
+  else if (type == AST_ORIGINATES_IN_PACKAGE)
+  {
+    correctNumArgs = 
+      getPlugin(getPackageName())->hasCorrectNumberArguments(getExtendedType());
   }
 
   return correctNumArgs;

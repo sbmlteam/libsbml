@@ -119,6 +119,7 @@
 #include <sbml/common/libsbml-namespace.h>
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/util/StringBuffer.h>
 
 
 /** 
@@ -190,12 +191,25 @@ typedef enum
  * @see setParseAvogadroCsymbol()
  */
 
+typedef enum
+{
+    INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
+  , INFIX_SYNTAX_CURLY_BRACES
+  , INFIX_SYNTAX_CURLY_BRACES_SEMICOLON
+} L3ParserGrammarLineType_t;
+
+
+
 #ifdef __cplusplus
 
+#include <vector>
+#include <string>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class Model;
+class ASTBasePlugin;
+class L3Parser;
 
 class LIBSBML_EXTERN L3ParserSettings
 {
@@ -205,6 +219,7 @@ private:
   bool mCollapseminus;
   bool mParseunits;
   bool mAvoCsymbol;
+  std::vector<ASTBasePlugin*> mPlugins;
 
 public:
 
@@ -251,7 +266,8 @@ public:
    * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
    */
   L3ParserSettings(Model* model, ParseLogType_t parselog,
-                   bool collapseminus, bool parseunits, bool avocsymbol);
+                   bool collapseminus, bool parseunits, bool avocsymbol,
+                   SBMLNamespaces* sbmlns = NULL);
 
 
   /**
@@ -549,6 +565,72 @@ public:
    * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
    */
   bool getParseAvogadroCsymbol() const;
+
+  /**
+   * Setup the plugins for this L3ParserSettings, based on the SBMLNamespaces object.  If NULL, load them all.
+   *
+   * When a SBMLNamespaces object is provided, the parser will only interpret infix
+   * understood by the core libsbml plus those packages named by the provided 
+   * SBMLNamespaces.
+   * ASTNodes returned by the L3Parser will
+   * contain those SBMLNamespaces, and will be used to parse certain constructs that may
+   * only be understood by packages, such as vectors for the 'arrays' package.  Note that
+   * by default, all packages that were compiled with this version of libsbml are
+   * included, so this function is most useful as a way to turn off certain namespaces, such
+   * as might be desired if your tool does not support vectors, for example.
+   *
+   * @note Because the SBMLNamespaces must always be set, NULL will be rejected and 
+   * LIBSBML_INVALID_OBJECT will be returned.
+   *
+   * @param SBMLNamespaces a SBMLNamespaces object to be used
+   *
+   */
+  void setPlugins(const SBMLNamespaces * sbmlns);
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Visits the given ASTNode_t and continues the inorder traversal for nodes whose syntax are determined by packages.
+   */
+  void visitPackageInfixSyntax ( const ASTNode_t *parent,
+                            const ASTNode_t *node,
+                            StringBuffer_t  *sb) const;
+  /** @endcond */
+
+  friend class L3Parser;
+
+private:
+  /**
+   * This function checks the provided ASTNode function to see if it is a 
+   * known function with the wrong number of arguments.  If so, the error is set
+   * and 'true' is returned.  If the
+   * correct number of arguments is provided, 'false' is returned.  It is used
+   * for ASTNodes created from packages.
+   */
+  bool checkNumArgumentsForPackage(const ASTNode* function, std::stringstream& error) const;
+
+  /**
+   * The generic parsing function for grammar lines that packages recognize, but not core.
+   * When a package recognizes the 'type', it will parse and return the correct ASTNode.
+   * If it does not recognize the 'type', or if the arguments are incorrect, NULL is returend.
+   */
+  virtual ASTNode* parsePackageInfix(L3ParserGrammarLineType_t type, 
+    std::vector<ASTNode*> *nodeList = NULL, std::vector<std::string*> *stringList = NULL,
+    std::vector<double> *doubleList = NULL) const;
+
+
+  /**
+   * The user input a string of the form "name(...)", and we want to know if
+   * 'name' is recognized by a package as being a particular function.  We already
+   * know that it is not used in the Model as a FunctionDefinition.  Should do
+   * caseless string comparison.  Return the type of the function, or AST_UNKNOWN
+   * if nothing found.
+   */
+  int getPackageFunctionFor(const std::string& name) const;
+
+  /**
+   * Delete the plugin objects.
+   */
+  void deletePlugins();
 };
 
 
@@ -769,6 +851,16 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
 LIBSBML_EXTERN
 int
 L3ParserSettings_getParseAvogadroCsymbol (const L3ParserSettings_t * settings);
+
+/**
+ * Visits the given ASTNode_t and continues the inorder traversal for nodes whose syntax are determined by packages.
+ */
+void
+L3ParserSettings_visitPackageInfixSyntax ( const ASTNode_t *parent,
+                                      const ASTNode_t *node,
+                                      StringBuffer_t  *sb, 
+                                      const L3ParserSettings_t *settings );
+
 
 
 END_C_DECLS

@@ -546,6 +546,20 @@ ASTBasePlugin::representsQualifier(int type) const
 }
 
 
+bool
+ASTBasePlugin::hasCorrectNumberArguments(int type) const
+{
+  return true;
+}
+
+
+bool
+ASTBasePlugin::isWellFormedNode(int type) const
+{
+  return true;
+}
+
+
 bool 
 ASTBasePlugin::isFunction(int type) const
 {
@@ -578,6 +592,60 @@ const char *
 ASTBasePlugin::getNameFromType(int type) const
 {
   return "AST_unknown";
+}
+
+bool
+ASTBasePlugin::isPackageInfixFunction() const
+{
+  //Should be overridden by actual plugins.
+  return false;
+}
+
+bool
+ASTBasePlugin::hasPackageOnlyInfixSyntax() const
+{
+  //Should be overridden by actual plugins.
+  return false;
+}
+
+int ASTBasePlugin::getL3PackageInfixPrecedence() const
+{
+  //Should be overridden by actual plugins.
+  return -1;
+}
+
+bool ASTBasePlugin::hasUnambiguousPackageInfixGrammar(const ASTNode *child) const
+{
+  return false;
+}
+
+void ASTBasePlugin::visitPackageInfixSyntax ( const ASTNode *parent,
+                                         const ASTNode *node,
+                                         StringBuffer_t  *sb,
+                                         const L3ParserSettings* settings) const
+{
+  //Any plugin that has its own infix syntax for anything will need to override this.
+}
+
+int ASTBasePlugin::checkNumArguments(const ASTNode* function, std::stringstream& error) const
+{
+  //Default:  nothing is known about the function.  Return '1' for the correct number of arguments, '-1' for the incorrect number of arguments (and set 'error').
+  return 0;
+}
+
+ASTNode*
+ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t type, 
+    vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
+    vector<double> *doubleList) const
+{
+  return NULL;
+}
+
+
+int 
+ASTBasePlugin::getPackageFunctionFor(const std::string& name) const
+{
+  return AST_UNKNOWN;
 }
 
 
