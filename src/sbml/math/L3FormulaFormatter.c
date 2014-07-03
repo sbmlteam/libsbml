@@ -44,6 +44,12 @@
 
 #include <sbml/util/util.h>
 
+int
+L3FormulaFormatter_hasUnambiguousGrammar(const ASTNode_t *node, 
+                               const ASTNode_t *child, 
+                               const L3ParserSettings_t *settings);
+
+
 /** @cond doxygenIgnored */
 LIBSBML_EXTERN
 char *
