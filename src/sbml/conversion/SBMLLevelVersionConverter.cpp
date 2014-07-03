@@ -110,12 +110,24 @@ ConversionProperties
 SBMLLevelVersionConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.setTargetNamespaces(new SBMLNamespaces()); // default namespaces
-  prop.addOption("strict", true,
-                 "Whether validity should be strictly preserved");
-  prop.addOption("setLevelAndVersion", true, 
-                 "Convert the model to a given Level and Version of SBML");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    SBMLNamespaces * sbmlns = new SBMLNamespaces(); // default namespaces
+    prop.setTargetNamespaces(sbmlns); // this gets cloned
+    prop.addOption("strict", true,
+                   "Whether validity should be strictly preserved");
+    prop.addOption("setLevelAndVersion", true, 
+                   "Convert the model to a given Level and Version of SBML");
+    delete sbmlns;
+    init = true;
+    return prop;
+  }
 }
 
 

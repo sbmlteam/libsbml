@@ -107,11 +107,21 @@ ConversionProperties
 SBMLStripPackageConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("stripPackage", true,
-                 "Strip SBML Level 3 package constructs from the model");
-  prop.addOption("package", "",
-                 "Name of the SBML Level 3 package to be stripped");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("stripPackage", true,
+                   "Strip SBML Level 3 package constructs from the model");
+    prop.addOption("package", "",
+                   "Name of the SBML Level 3 package to be stripped");
+    init = true;
+    return prop;
+  }
 }
 
 

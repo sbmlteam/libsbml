@@ -154,7 +154,7 @@ public:
    *
    * @return the description text of the option with the given key.
    */
-  virtual std::string getDescription(std::string key) const;
+  virtual const std::string& getDescription(const std::string& key) const;
 
 
   /**
@@ -164,7 +164,7 @@ public:
    *
    * @return the type of the option with the given key.
    */
-  virtual ConversionOptionType_t  getType(std::string key) const;
+  virtual ConversionOptionType_t  getType(const std::string& key) const;
 
 
   /**
@@ -174,7 +174,7 @@ public:
    *
    * @return the option with the given key.
    */
-  virtual ConversionOption* getOption(std::string key) const;
+  virtual ConversionOption* getOption(const std::string& key) const;
 
   
   /**
@@ -205,9 +205,9 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, std::string value="",
+  virtual void addOption(const std::string& key, const std::string& value="",
                          ConversionOptionType_t type=CNV_TYPE_STRING,
-                         std::string description="");
+                         const std::string& description="");
 
 
   /**
@@ -219,8 +219,8 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, const char* value,
-                         std::string description="");
+  virtual void addOption(const std::string& key, const char* value,
+                         const std::string& description="");
 
 
   /**
@@ -232,8 +232,8 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, bool value,
-                         std::string description="");
+  virtual void addOption(const std::string& key, bool value,
+                         const std::string& description="");
 
 
   /**
@@ -245,8 +245,8 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, double value,
-                         std::string description="");
+  virtual void addOption(const std::string& key, double value,
+                         const std::string& description="");
 
 
   /**
@@ -258,8 +258,8 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, float value,
-                         std::string description="");
+  virtual void addOption(const std::string& key, float value,
+                         const std::string& description="");
 
 
   /**
@@ -271,8 +271,8 @@ public:
    *
    * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  virtual void addOption(std::string key, int value,
-                         std::string description="");
+  virtual void addOption(const std::string& key, int value,
+                         const std::string& description="");
 
 
   /**
@@ -281,7 +281,7 @@ public:
    * @param key the key for the new option to remove
    * @return the removed option
    */
-  virtual ConversionOption* removeOption(std::string key);
+  virtual ConversionOption* removeOption(const std::string& key);
 
 
   /**
@@ -293,7 +293,7 @@ public:
    * @return @c true if an option with the given @p key exists in
    * this properties object, @c false otherwise.
    */
-  virtual bool hasOption(std::string key) const;
+  virtual bool hasOption(const std::string& key) const;
 
 
   /**
@@ -303,7 +303,7 @@ public:
    *
    * @return the string value of the option with the given key.
    */
-  virtual std::string getValue(std::string key) const;
+  virtual const std::string& getValue(const std::string& key) const;
 
 
   /**
@@ -312,7 +312,7 @@ public:
    * @param key the key for the option
    * @param value the new value
    */
-  virtual void setValue(std::string key, std::string value);
+  virtual void setValue(const std::string& key, const std::string& value);
 
 
   /**
@@ -322,7 +322,7 @@ public:
    *
    * @return the boolean value of the option with the given key.
    */
-  virtual bool getBoolValue(std::string key) const;
+  virtual bool getBoolValue(const std::string& key) const;
 
 
   /**
@@ -332,7 +332,7 @@ public:
    *
    * @param value the new Boolean value.
    */
-  virtual void setBoolValue(std::string key, bool value);
+  virtual void setBoolValue(const std::string& key, bool value);
 
 
   /**
@@ -342,7 +342,7 @@ public:
    *
    * @return the double value of the option with the given key.
    */
-  virtual double getDoubleValue(std::string key) const;
+  virtual double getDoubleValue(const std::string& key) const;
 
 
   /**
@@ -352,7 +352,7 @@ public:
    *
    * @param value the new double value.
    */
-  virtual void setDoubleValue(std::string key, double value);
+  virtual void setDoubleValue(const std::string& key, double value);
 
 
   /**
@@ -362,7 +362,7 @@ public:
    *
    * @return the float value of the option with the given key.
    */
-  virtual float getFloatValue(std::string key) const;
+  virtual float getFloatValue(const std::string& key) const;
 
 
   /**
@@ -372,7 +372,7 @@ public:
    *
    * @param value the new float value.
    */
-  virtual void setFloatValue(std::string key, float value);
+  virtual void setFloatValue(const std::string& key, float value);
 
 
   /**
@@ -382,7 +382,7 @@ public:
    *
    * @return the int value of the option with the given key.
    */
-  virtual int getIntValue(std::string key) const;
+  virtual int getIntValue(const std::string& key) const;
 
 
   /**
@@ -392,7 +392,7 @@ public:
    *
    * @param value the new integer value.
    */
-  virtual void setIntValue(std::string key, int value);
+  virtual void setIntValue(const std::string& key, int value);
 
   /** 
    * Returns the number of options in this Conversion Properties object

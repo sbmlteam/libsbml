@@ -172,17 +172,19 @@ ConversionProperties::setTargetNamespaces(SBMLNamespaces *targetNS)
   mTargetNamespaces = targetNS->clone();
 }
 
-std::string 
-ConversionProperties::getDescription(std::string key) const
+const std::string& 
+ConversionProperties::getDescription(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getDescription();
 
-  return "";
+	static std::string empty = "";
+
+	return empty;
 }
 
 ConversionOptionType_t 
-ConversionProperties::getType(std::string key) const
+ConversionProperties::getType(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getType();
@@ -192,7 +194,7 @@ ConversionProperties::getType(std::string key) const
 
 
 ConversionOption* 
-ConversionProperties::getOption(std::string key) const
+ConversionProperties::getOption(const std::string& key) const
 {
 
   map<string, ConversionOption*>::const_iterator it;
@@ -231,45 +233,45 @@ ConversionProperties::addOption(const ConversionOption &option)
 }
 
 void 
-ConversionProperties::addOption(std::string key, std::string value, 
+ConversionProperties::addOption(const std::string& key, const std::string& value, 
     ConversionOptionType_t type, 
-    std::string description)
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, type, description) ));
 }
 void 
-ConversionProperties::addOption(std::string key, const char* value, 
-    std::string description)
+ConversionProperties::addOption(const std::string& key, const char* value, 
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 void 
-ConversionProperties::addOption(std::string key, bool value, 
-    std::string description)
+ConversionProperties::addOption(const std::string& key, bool value, 
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 void 
-ConversionProperties::addOption(std::string key, double value, 
-    std::string description)
+ConversionProperties::addOption(const std::string& key, double value, 
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 void 
-ConversionProperties::addOption(std::string key, float value, 
-    std::string description)
+ConversionProperties::addOption(const std::string& key, float value, 
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 void 
-ConversionProperties::addOption(std::string key, int value, 
-    std::string description)
+ConversionProperties::addOption(const std::string& key, int value, 
+    const std::string& description)
 {
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 
 ConversionOption* 
-ConversionProperties::removeOption(std::string key)
+ConversionProperties::removeOption(const std::string& key)
 {
   ConversionOption* result = getOption(key);
   if (result != NULL)
@@ -278,21 +280,23 @@ ConversionProperties::removeOption(std::string key)
 }
 
 bool 
-ConversionProperties::hasOption(std::string key) const
+ConversionProperties::hasOption(const std::string& key) const
 {
   return (getOption(key) != NULL);
 }
 
-std::string 
-ConversionProperties::getValue(std::string key) const
+const std::string& 
+ConversionProperties::getValue(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getValue();
-  return "";
+	static std::string empty = "";
+
+	return empty;
 }
 
 void 
-ConversionProperties::setValue(std::string key, std::string value)
+ConversionProperties::setValue(const std::string& key, const std::string& value)
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) option->setValue(value);
@@ -300,7 +304,7 @@ ConversionProperties::setValue(std::string key, std::string value)
 
 
 bool 
-ConversionProperties::getBoolValue(std::string key) const
+ConversionProperties::getBoolValue(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getBoolValue();
@@ -308,14 +312,14 @@ ConversionProperties::getBoolValue(std::string key) const
 }
 
 void 
-ConversionProperties::setBoolValue(std::string key, bool value)
+ConversionProperties::setBoolValue(const std::string& key, bool value)
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) option->setBoolValue(value);
 }
 
 double 
-ConversionProperties::getDoubleValue(std::string key) const
+ConversionProperties::getDoubleValue(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getDoubleValue();
@@ -323,14 +327,14 @@ ConversionProperties::getDoubleValue(std::string key) const
 }
 
 void 
-ConversionProperties::setDoubleValue(std::string key, double value)
+ConversionProperties::setDoubleValue(const std::string& key, double value)
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) option->setDoubleValue(value);
 }
 
 float 
-ConversionProperties::getFloatValue(std::string key) const
+ConversionProperties::getFloatValue(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getFloatValue();
@@ -338,7 +342,7 @@ ConversionProperties::getFloatValue(std::string key) const
 }
 
 void 
-ConversionProperties::setFloatValue(std::string key, float value)
+ConversionProperties::setFloatValue(const std::string& key, float value)
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) option->setFloatValue(value);
@@ -346,7 +350,7 @@ ConversionProperties::setFloatValue(std::string key, float value)
 }
 
 int 
-ConversionProperties::getIntValue(std::string key) const
+ConversionProperties::getIntValue(const std::string& key) const
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) return option->getIntValue();
@@ -354,7 +358,7 @@ ConversionProperties::getIntValue(std::string key) const
 }
 
 void 
-ConversionProperties::setIntValue(std::string key, int value)
+ConversionProperties::setIntValue(const std::string& key, int value)
 {
   ConversionOption *option = getOption(key);
   if (option != NULL) option->setIntValue(value);

@@ -94,9 +94,19 @@ ConversionProperties
 SBMLLocalParameterConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("promoteLocalParameters", true,
-                 "Promotes all Local Parameters to Global ones");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("promoteLocalParameters", true,
+                   "Promotes all Local Parameters to Global ones");
+    init = true;
+    return prop;
+  }
 }
 
 

@@ -89,13 +89,23 @@ ConversionProperties
 SBMLIdConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("renameSIds", true,
-                 "Rename all SIds specified in the 'currentIds' option to the ones specified in 'newIds'");
-  prop.addOption("currentIds", "",
-                 "Comma separated list of ids to rename");
-  prop.addOption("newIds", "",
-                 "Comma separated list of the new ids");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("renameSIds", true,
+     "Rename all SIds specified in the 'currentIds' option to the ones specified in 'newIds'");
+    prop.addOption("currentIds", "",
+                   "Comma separated list of ids to rename");
+    prop.addOption("newIds", "",
+                   "Comma separated list of the new ids");
+    init = true;
+    return prop;
+  }
 }
 
 

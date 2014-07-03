@@ -96,9 +96,19 @@ ConversionProperties
 SBMLReactionConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("replaceReactions", true,
-                 "Replace reactions with rateRules");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("replaceReactions", true,
+                   "Replace reactions with rateRules");
+    init = true;
+    return prop;
+  }
 }
 
 

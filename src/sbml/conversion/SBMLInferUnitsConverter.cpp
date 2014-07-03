@@ -112,9 +112,19 @@ ConversionProperties
 SBMLInferUnitsConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("inferUnits", true, 
-                 "Infer the units of Parameters");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("inferUnits", true, 
+                   "Infer the units of Parameters");
+    init = true;
+    return prop;
+  }
 }
 
 

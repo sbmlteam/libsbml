@@ -89,11 +89,21 @@ ConversionProperties
 SBMLFunctionDefinitionConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("expandFunctionDefinitions", true,
-                 "Expand all function definitions in the model");
-  prop.addOption("skipIds", "",
-                 "Comma separated list of ids to skip during expansion");
-  return prop;
+  static bool init = false;
+
+  if (init) 
+  {
+    return prop;
+  }
+  else
+  {
+    prop.addOption("expandFunctionDefinitions", true,
+                   "Expand all function definitions in the model");
+    prop.addOption("skipIds", "",
+                   "Comma separated list of ids to skip during expansion");
+    init = true;
+    return prop;
+  }
 }
 
 bool 
