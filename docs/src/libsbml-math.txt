@@ -82,37 +82,6 @@ main (int argc, char *argv[])
 NEED A C VERSION HERE ...
 @endverbatim
 @endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@verbatim
-import libsbml
-
-expected = "1 + f(x)"
-
-xml = "<?xml version='1.0' encoding='UTF-8'?>"\
-      "<math xmlns='http://www.w3.org/1998/Math/MathML'>"\
-      "  <apply> <plus/> <cn> 1 </cn>"\
-      "                  <apply> <ci> f </ci> <ci> x </ci> </apply>"\
-      "  </apply>"\
-      "</math>"
-
-ast    = libsbml.readMathMLFromString(xml)
-result = libsbml.formulaToString(ast)
-
-if (result == text):
-    print "Got expected result"
-else:
-    print "Mismatch after readMathMLFromString()"
-
-new_mathml = libsbml.parseFormula(result)
-new_string = libsbml.writeMathMLToString(new_mathml)
-
-print "Result of writing AST to string: "
-print new_string
-@endverbatim
-@endif
 
 The text-string form of mathematical formulas produced by
 @if clike SBML_formulaToString() and read by SBML_parseFormula() and
@@ -142,24 +111,6 @@ returns an AST corresponding to the expression.
 reads a text-string containing a mathematical expression in
 an expanded syntax more compatible with SBML Levels&nbsp;2 and&nbsp;3,
 and returns an AST corresponding to the expression.
-@endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@li @link formulaToString()
-<code>libsbml.formulaToString(ASTNode)</code>@endlink
-reads an AST, converts it to a text string in SBML Level&nbsp;1 formula
-syntax, and returns a string.  The caller owns the character string
-returned and should free it after it is no longer needed.
-@li @link parseFormula() <code>libsbml.parseFormula(string)</code>@endlink
-reads a text-string containing a mathematical expression in
-SBML Level&nbsp;1 syntax, and returns an @c ASTNode object corresponding
-to the expression.
-@li @link parseL3Formula() <code>libsbml.parseL3Formula(string)</code>@endlink
-reads a text-string containing a mathematical expression in
-an expanded syntax more compatible with SBML Levels&nbsp;2 and&nbsp;3,
-and returns an ASTNode object corresponding to the expression.
 @endif
 
 
@@ -340,59 +291,6 @@ true if this AST node is the square-root operator
 @li <code>bool ASTNode_isUnknown()</code>
 returns @c 1 if this AST node's type is unknown.
 @endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@li <code>long</code> @link libsbml.ASTNode.getType() ASTNode.getType()@endlink returns the type of
-this AST node.
-@li <code>bool</code> @link libsbml.ASTNode.isConstant() ASTNode.isConstant()@endlink returns @c True if this
-AST node is a MathML constant (@c True, @c False, @c pi, @c exponentiale),
-@c False otherwise.
-@li <code>bool</code> @link libsbml.ASTNode.isBoolean() ASTNode.isBoolean()@endlink returns @c True if this
-AST node returns a boolean value (by being either a logical operator, a
-relational operator, or the constant @c True or @c False).
-@li <code>bool</code> @link libsbml.ASTNode.isFunction() ASTNode.isFunction()@endlink returns @c True if this
-AST node is a function (i.e., a MathML defined function such as @c exp or
-else a function defined by a FunctionDefinition in the Model).
-@li <code>bool</code> @link libsbml.ASTNode.isInfinity() ASTNode.isInfinity()@endlink returns @c True if this
-AST node is the special IEEE 754 value infinity.
-@li <code>bool</code> @link libsbml.ASTNode.isInteger() ASTNode.isInteger()@endlink returns @c True if this
-AST node is holding an integer value.
-@li <code>bool</code> @link libsbml.ASTNode.isNumber() ASTNode.isNumber()@endlink  returns @c True if this
-AST node is holding any number.
-@li <code>bool</code> @link libsbml.ASTNode.isLambda() ASTNode.isLambda()@endlink  returns @c True if this
-AST node is a MathML @c lambda construct.
-@li <code>bool</code> @link libsbml.ASTNode.isLog10() ASTNode.isLog10()@endlink  returns @c True if this
-AST node represents the @c log10 function, specifically, that its type is
-@c AST_FUNCTION_LOG and it has two children, the first of which is an integer
-equal to 10.
-@li <code>bool</code> @link libsbml.ASTNode.isLogical() ASTNode.isLogical()@endlink  returns @c True if this
-AST node is a logical operator (@c and, @c or, @c not, @c xor).
-@li <code>bool</code> @link libsbml.ASTNode.isName() ASTNode.isName()@endlink  returns @c True if this
-AST node is a user-defined name or (in SBML Level 2) one of the two special
-@c csymbol constructs "delay" or "time".
-@li <code>bool</code> @link libsbml.ASTNode.isNaN() ASTNode.isNaN()@endlink  returns @c True if this
-AST node has the special IEEE 754 value "not a number" (NaN).
-@li <code>bool</code> @link libsbml.ASTNode.isNegInfinity() ASTNode.isNegInfinity()@endlink  returns @c True if this
-AST node has the special IEEE 754 value of negative infinity.
-@li <code>bool</code> @link libsbml.ASTNode.isOperator() ASTNode.isOperator()@endlink  returns @c True if this
-AST node is an operator (e.g., <code>+</code>, <code>-</code>, etc.)
-@li <code>bool</code> @link libsbml.ASTNode.isPiecewise() ASTNode.isPiecewise()@endlink  returns @c True if this
-AST node is the MathML @c piecewise function.
-@li <code>bool</code> @link libsbml.ASTNode.isRational() ASTNode.isRational()@endlink  returns @c True if this
-AST node is a rational number having a numerator and a denominator.
-@li <code>bool</code> @link libsbml.ASTNode.isReal() ASTNode.isReal()@endlink  returns @c True if this
-AST node is a real number (specifically, @c AST_REAL_E or @c AST_RATIONAL).
-@li <code>bool</code> @link libsbml.ASTNode.isRelational() ASTNode.isRelational()@endlink  returns @c True if this
-AST node is a relational operator.
-@li <code>bool</code> @link libsbml.ASTNode.isSqrt() ASTNode.isSqrt()@endlink  returns @c True if this
-AST node is the square-root operator
-@li <code>bool</code> @link libsbml.ASTNode.isUMinus() ASTNode.isUMinus()@endlink  returns @c True if this
-AST node is a unary minus.
-@li <code>bool</code> @link libsbml.ASTNode.isUnknown() ASTNode.isUnknown()@endlink  returns @c True if this
-AST node's type is unknown.
-@endif
 
 
 Programs manipulating AST node structures should check the type of a given
@@ -428,19 +326,6 @@ from nodes:
 @li <code>double ASTNode_getMantissa()</code> 
 @li <code>long ASTNode_getExponent()</code> 
 @endif
-@endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@li <code>long</code> @link libsbml.ASTNode.getInteger() ASTNode.getInteger()@endlink 
-@li <code>char</code> @link libsbml.ASTNode.getCharacter() ASTNode.getCharacter()@endlink 
-@li <code>string</code> @link libsbml.ASTNode.getName() ASTNode.getName()@endlink 
-@li <code>long</code> @link libsbml.ASTNode.getNumerator() ASTNode.getNumerator()@endlink 
-@li <code>long</code> @link libsbml.ASTNode.getDenominator() ASTNode.getDenominator()@endlink 
-@li <code>float</code> @link libsbml.ASTNode.getReal() ASTNode.getReal()@endlink 
-@li <code>float</code> @link libsbml.ASTNode.getMantissa() ASTNode.getMantissa()@endlink 
-@li <code>long</code> @link libsbml.ASTNode.getExponent() ASTNode.getExponent()@endlink 
 @endif
 
 
@@ -507,34 +392,6 @@ ASTNode to the given real (double) <code>value</code> and sets the node type
 to @c AST_REAL.
 @li <code>void ASTNode_setRealWithExponent(ASTNode_t *node, double mantissa, long exponent)</code> sets
 the value of this ASTNode to a real (double) using the two parts given: the
-mantissa and the exponent.  The node type is set to @c AST_REAL_E.
-@endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@li @link libsbml.ASTNode.setCharacter() ASTNode.setCharacter(char)@endlink
-sets the value of this ASTNode to the given character.  If character is one
-of @c +, @c -, @c *, @c / or @c ^, the node type will be to the appropriate
-operator type.  For all other characters, the node type will be set to @c
-AST_UNKNOWN.
-@li @link libsbml.ASTNode.setName() ASTNode.setName(string)@endlink sets the
-value of this AST node to the given name.  The node type will be set (to @c
-AST_NAME) <em>only if</em> the AST node was previously an operator
-(<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
-0</code>).  This allows names to be set for @c AST_FUNCTIONs and the like.
-@li @link libsbml.ASTNode.setValue() ASTNode.setValue(int)@endlink sets the
-value of the node to the given integer.  Equivalent to the next method.
-@li @link libsbml.ASTNode.setValue() ASTNode.setValue(long)@endlink sets the
-value of the node to the given integer.
-@li @link libsbml.ASTNode.setValue() ASTNode.setValue(long, long)@endlink
-sets the value of this ASTNode to the given rational in two parts: the
-numerator and denominator.  The node type is set to @c AST_RATIONAL.
-@li @link libsbml.ASTNode.setValue() ASTNode.setValue(float)@endlink sets the
-value of this ASTNode to the given real (float) and sets the node type to @c
-AST_REAL.
-@li @link libsbml.ASTNode.setValue() ASTNode.setValue(float, long)@endlink
-sets the value of this ASTNode to the given real (float) in two parts: the
 mantissa and the exponent.  The node type is set to @c AST_REAL_E.
 @endif
 
@@ -608,37 +465,6 @@ of this ASTNode with the children of @c that ASTNode.
 this ASTNode to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
 enumeration value.
 @endif
-<!--
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Python version ~~~~~~~~~~~~~~~~~~~~~~~~~~
--->
-@if python
-@li <code>ASTNode</code> @link libsbml.ASTNode ASTNode.ASTNode(long)@endlink creates a new ASTNode object
-and returns a pointer to it.  The returned node will have the type
-identified by the code passed as the argument, or a type of @c AST_UNKNOWN if
-no type is explicitly given or the type code is unrecognized.
-@li <code>unsigned int</code> @link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink returns the number
-of children of this AST node or 0 is this node has no children.
-@li @link libsbml.ASTNode.addChild() ASTNode.addChild(ASTNode)@endlink adds the given node
-as a child of this AST node.  Child nodes are added in left-to-right order.
-@li @link libsbml.ASTNode.prependChild() ASTNode.prependChild(ASTNode)@endlink adds the given
-node as a child of this AST node.  This method adds child nodes in
-right-to-left order.
-@li <code>ASTNode</code> @link libsbml.ASTNode.getChild () ASTNode.getChild (unsigned int)@endlink returns the nth
-child of this AST node or @c NULL if this node has no nth child (<code>n &gt;
-(@link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink - 1)</code>).
-@li <code>ASTNode</code> @link libsbml.ASTNode.getLeftChild() ASTNode.getLeftChild()@endlink returns the left child of
-this AST node.  This is equivalent to @link libsbml.ASTNode.getChild() ASTNode.getChild()@endlink;
-@li <code>ASTNode</code> @link libsbml.ASTNode.getRightChild() ASTNode.getRightChild()@endlink
-returns the right child of this AST node or @c NULL if this node has no right
-child.
-@li @link libsbml.ASTNode.swapChildren() ASTNode.swapChildren(ASTNode)@endlink swaps the
-children of this ASTNode with the children of @c that ASTNode.
-@li @link libsbml.ASTNode.setType() ASTNode.setType(long)@endlink
-sets the type of this ASTNode to the type identified by the
-type code passed as argument, or to @c AST_UNKNOWN if the type
-is unrecognized.
-@endif
-
 
 
 @section math-reading Reading and Writing Mathematical Expressions into ASTs
