@@ -1,0 +1,63 @@
+********************************************************************
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
+********************************************************************
+
+====================================================================
+5.10.1 (Current SVN)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+	
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
