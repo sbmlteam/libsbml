@@ -535,7 +535,7 @@ def write_doc(stream, module):
 def make_doc_row_text(errNum, module):
   s = get_symbol(module, errNum)
   output  = '<tr>'
-  output += '<td class="code">@link SBMLErrorCode_t#{} {}@endlink</td>\n'.format(s, s)
+  output += '<td class="code">@sbmlconstant{' + s + ', SBMLErrorCode_t}</td>\n'
   if errNum < 99999:
     e = SBMLError(errNum, 1, 1)
     if not e.isValid():
