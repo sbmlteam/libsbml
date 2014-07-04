@@ -376,6 +376,7 @@ endif
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
 	../swig/swigdoc.py --language java --top ../../.. $(SWIGDOCDEFINES) \
+		--extra ../../../docs/src/libsbml-converters.txt \
 		--master ../swig/libsbml.i --output javadoc.i
 
 # libsbml_wrap.cpp is a stand-in for the .java files.  Its creation results
