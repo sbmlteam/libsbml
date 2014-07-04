@@ -168,6 +168,7 @@ ADD_CUSTOM_COMMAND(
 			--language java
 			--top "${LIBSBML_ROOT_SOURCE_DIR}"
 			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+		        --extra "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/libsbml-converters.txt"
 			--output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
 			${SWIG_SWIGDOCDEFINES}
     COMMAND "${SWIG_EXECUTABLE}"
