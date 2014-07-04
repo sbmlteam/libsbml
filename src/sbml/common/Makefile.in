@@ -83,6 +83,7 @@ distfiles =                     \
   extern.h                      \
   libsbml-config.h              \
   common-documentation.h        \
+  common-sbmlerror-codes.h      \
   libsbml-config-common.h       \
   libsbml-config-common.h.in    \
   libsbml-namespace.h           \
