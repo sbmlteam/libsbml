@@ -480,6 +480,430 @@
  * @sbmlconstant{AST_RATIONAL, ASTNodeType_t}, as appropriate.
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_summary_of_astnode_methods
+ * 
+ * @par
+ * There are a number of methods for interrogating the type of an ASTNode and
+ * for testing whether a node belongs to a general category of constructs.
+ * The methods on ASTNode for this purpose are the following:
+ * 
+ * @if cpp
+ * @li <code>ASTNodeType_t @link ASTNode::getType() getType()@endlink</code>
+ * returns the type of this AST node.
+ * @li <code>bool @link ASTNode::isConstant() isConstant()@endlink</code>
+ * returns @c true if this AST node is a MathML constant (@c true, @c false,
+ * @c pi, @c exponentiale), @c false otherwise.
+ * @li <code>bool @link ASTNode::isBoolean() isBoolean()@endlink</code>
+ * returns @c true if this AST node returns a boolean value (by being either a
+ * logical operator, a relational operator, or the constant @c true or @c
+ * false).
+ * @li <code>bool @link ASTNode::isFunction() isFunction()@endlink</code>
+ * returns @c true if this AST node is a function (i.e., a MathML defined
+ * function such as @c exp or else a function defined by a FunctionDefinition
+ * in the Model).
+ * @li <code>bool @link ASTNode::isInfinity() isInfinity()@endlink</code>
+ * returns @c true if this AST node is the special IEEE 754 value infinity.
+ * @li <code>bool @link ASTNode::isInteger() isInteger()@endlink</code>
+ * returns @c true if this AST node is holding an integer value.
+ * @li <code>bool @link ASTNode::isNumber() isNumber()@endlink</code> returns
+ * @c true if this AST node is holding any number.
+ * @li <code>bool @link ASTNode::isLambda() isLambda()@endlink</code> returns
+ * @c true if this AST node is a MathML @c lambda construct.
+ * @li <code>bool @link ASTNode::isLog10() isLog10()@endlink</code> returns
+ * @c true if this AST node represents the @c log10 function, specifically,
+ * that its type is @c AST_FUNCTION_LOG and it has two children, the first of
+ * which is an integer equal to 10.
+ * @li <code>bool @link ASTNode::isLogical() isLogical()@endlink</code>
+ * returns @c true if this AST node is a logical operator (@c and, @c or, @c
+ * not, @c xor).
+ * @li <code>bool @link ASTNode::isName() isName()@endlink</code> returns @c
+ * true if this AST node is a user-defined name or (in SBML Levels&nbsp;2
+ * and&nbsp;3) one of the two special @c csymbol constructs "delay" or "time".
+ * @li <code>bool @link ASTNode::isNaN() isNaN()@endlink</code> returns @c
+ * true if this AST node has the special IEEE 754 value "not a number" (NaN).
+ * @li <code>bool @link ASTNode::isNegInfinity() isNegInfinity()
+ * @endlink</code> returns @c true if this AST node has the special IEEE 754
+ * value of negative infinity.
+ * @li <code>bool @link ASTNode::isOperator() isOperator()@endlink</code>
+ * returns @c true if this AST node is an operator (e.g., @c +, @c -, etc.)
+ * @li <code>bool @link ASTNode::isPiecewise() isPiecewise()@endlink</code>
+ * returns @c true if this AST node is the MathML @c piecewise function.
+ * @li <code>bool @link ASTNode::isRational() isRational()@endlink</code>
+ * returns @c true if this AST node is a rational number having a numerator
+ * and a denominator.
+ * @li <code>bool @link ASTNode::isReal() isReal()@endlink</code> returns @c
+ * true if this AST node is a real number (specifically, @c AST_REAL_E or
+ * @c AST_RATIONAL).
+ * @li <code>bool @link ASTNode::isRelational() isRelational()@endlink</code>
+ * returns @c true if this AST node is a relational operator.
+ * @li <code>bool @link ASTNode::isSqrt() isSqrt()@endlink</code> returns @c
+ * true if this AST node is the square-root operator
+ * @li <code>bool @link ASTNode::isUMinus() isUMinus()@endlink</code> returns
+ * @c true if this AST node is a unary minus.
+ * @li <code>bool @link ASTNode::isUnknown() isUnknown()@endlink</code>
+ * returns @c true if this AST node's type is unknown.
+ * @endif
+ * @if python
+ * @li <code>long</code> @link libsbml.ASTNode.getType() ASTNode.getType()@endlink returns the type of
+ * this AST node.
+ * @li <code>bool</code> @link libsbml.ASTNode.isConstant() ASTNode.isConstant()@endlink returns @c True if this
+ * AST node is a MathML constant (@c True, @c False, @c pi, @c exponentiale),
+ * @c False otherwise.
+ * @li <code>bool</code> @link libsbml.ASTNode.isBoolean() ASTNode.isBoolean()@endlink returns @c True if this
+ * AST node returns a boolean value (by being either a logical operator, a
+ * relational operator, or the constant @c True or @c False).
+ * @li <code>bool</code> @link libsbml.ASTNode.isFunction() ASTNode.isFunction()@endlink returns @c True if this
+ * AST node is a function (i.e., a MathML defined function such as @c exp or
+ * else a function defined by a FunctionDefinition in the Model).
+ * @li <code>bool</code> @link libsbml.ASTNode.isInfinity() ASTNode.isInfinity()@endlink returns @c True if this
+ * AST node is the special IEEE 754 value infinity.
+ * @li <code>bool</code> @link libsbml.ASTNode.isInteger() ASTNode.isInteger()@endlink returns @c True if this
+ * AST node is holding an integer value.
+ * @li <code>bool</code> @link libsbml.ASTNode.isNumber() ASTNode.isNumber()@endlink  returns @c True if this
+ * AST node is holding any number.
+ * @li <code>bool</code> @link libsbml.ASTNode.isLambda() ASTNode.isLambda()@endlink  returns @c True if this
+ * AST node is a MathML @c lambda construct.
+ * @li <code>bool</code> @link libsbml.ASTNode.isLog10() ASTNode.isLog10()@endlink  returns @c True if this
+ * AST node represents the @c log10 function, specifically, that its type is
+ * @c AST_FUNCTION_LOG and it has two children, the first of which is an integer
+ * equal to 10.
+ * @li <code>bool</code> @link libsbml.ASTNode.isLogical() ASTNode.isLogical()@endlink  returns @c True if this
+ * AST node is a logical operator (@c and, @c or, @c not, @c xor).
+ * @li <code>bool</code> @link libsbml.ASTNode.isName() ASTNode.isName()@endlink  returns @c True if this
+ * AST node is a user-defined name or (in SBML Level 2) one of the two special
+ * @c csymbol constructs "delay" or "time".
+ * @li <code>bool</code> @link libsbml.ASTNode.isNaN() ASTNode.isNaN()@endlink  returns @c True if this
+ * AST node has the special IEEE 754 value "not a number" (NaN).
+ * @li <code>bool</code> @link libsbml.ASTNode.isNegInfinity() ASTNode.isNegInfinity()@endlink  returns @c True if this
+ * AST node has the special IEEE 754 value of negative infinity.
+ * @li <code>bool</code> @link libsbml.ASTNode.isOperator() ASTNode.isOperator()@endlink  returns @c True if this
+ * AST node is an operator (e.g., <code>+</code>, <code>-</code>, etc.)
+ * @li <code>bool</code> @link libsbml.ASTNode.isPiecewise() ASTNode.isPiecewise()@endlink  returns @c True if this
+ * AST node is the MathML @c piecewise function.
+ * @li <code>bool</code> @link libsbml.ASTNode.isRational() ASTNode.isRational()@endlink  returns @c True if this
+ * AST node is a rational number having a numerator and a denominator.
+ * @li <code>bool</code> @link libsbml.ASTNode.isReal() ASTNode.isReal()@endlink  returns @c True if this
+ * AST node is a real number (specifically, @c AST_REAL_E or @c AST_RATIONAL).
+ * @li <code>bool</code> @link libsbml.ASTNode.isRelational() ASTNode.isRelational()@endlink  returns @c True if this
+ * AST node is a relational operator.
+ * @li <code>bool</code> @link libsbml.ASTNode.isSqrt() ASTNode.isSqrt()@endlink  returns @c True if this
+ * AST node is the square-root operator
+ * @li <code>bool</code> @link libsbml.ASTNode.isUMinus() ASTNode.isUMinus()@endlink  returns @c True if this
+ * AST node is a unary minus.
+ * @li <code>bool</code> @link libsbml.ASTNode.isUnknown() ASTNode.isUnknown()@endlink  returns @c True if this
+ * AST node's type is unknown.
+ * @endif
+ * @if conly
+ * @li <code>ASTNodeType_t ASTNode_getType()</code>
+ * returns the type of this AST node.
+ * @li <code>bool ASTNode_isConstant()</code>
+ * returns @c 1 if this AST node is a MathML constant (@c true, @c false,
+ * @c pi, @c exponentiale), @c 0 otherwise.
+ * @li <code>bool ASTNode_isBoolean()</code>
+ * returns @c 1 if this AST node returns a boolean value (by being either a
+ * logical operator, a relational operator, or the constant @c true or @c
+ * false).
+ * @li <code>bool ASTNode_isFunction()</code>
+ * returns @c 1 if this AST node is a function (i.e., a MathML defined
+ * function such as @c exp or else a function defined by a FunctionDefinition
+ * in the Model).
+ * @li <code>bool ASTNode_isInfinity()</code>
+ * returns @c 1 if this AST node is the special IEEE 754 value infinity.
+ * @li <code>bool ASTNode_isInteger()</code>
+ * returns @c 1 if this AST node is holding an integer value.
+ * @li <code>bool ASTNode_isNumber()</code> returns
+ * @c 1 if this AST node is holding any number.
+ * @li <code>bool ASTNode_isLambda()</code> returns
+ * @c 1 if this AST node is a MathML @c lambda construct.
+ * @li <code>bool ASTNode_isLog10()</code> returns
+ * @c 1 if this AST node represents the @c log10 function, specifically,
+ * that its type is @c AST_FUNCTION_LOG and it has two children, the first of
+ * which is an integer equal to 10.
+ * @li <code>bool ASTNode_isLogical()</code>
+ * returns @c 1 if this AST node is a logical operator (@c and, @c or, @c
+ * not, @c xor).
+ * @li <code>bool ASTNode_isName()</code> returns @c
+ * true if this AST node is a user-defined name or (in SBML Levels&nbsp;2
+ * and&nbsp;3) one of the two special @c csymbol constructs "delay" or "time".
+ * @li <code>bool ASTNode_isNaN()</code> returns @c
+ * true if this AST node has the special IEEE 754 value "not a number" (NaN).
+ * @li <code>bool ASTNode_isNegInfinity()</code> returns @c 1 if this AST node has the special IEEE 754
+ * value of negative infinity.
+ * @li <code>bool ASTNode_isOperator()</code>
+ * returns @c 1 if this AST node is an operator (e.g., @c +, @c -, etc.)
+ * @li <code>bool ASTNode_isPiecewise()</code>
+ * returns @c 1 if this AST node is the MathML @c piecewise function.
+ * @li <code>bool ASTNode_isRational()</code>
+ * returns @c 1 if this AST node is a rational number having a numerator
+ * and a denominator.
+ * @li <code>bool ASTNode_isReal()</code> returns @c
+ * true if this AST node is a real number (specifically, @c AST_REAL_E or
+ * @c AST_RATIONAL).
+ * @li <code>bool ASTNode_isRelational()</code>
+ * returns @c 1 if this AST node is a relational operator.
+ * @li <code>bool ASTNode_isSqrt()</code> returns @c
+ * true if this AST node is the square-root operator
+ * @li <code>bool ASTNode_isUMinus()</code> returns
+ * @c 1 if this AST node is a unary minus.
+ * @li <code>bool ASTNode_isUnknown()</code>
+ * returns @c 1 if this AST node's type is unknown.
+ * @endif
+ * 
+ * Programs manipulating AST node structures should check the type of a given
+ * node before calling methods that return a value from the node.  The
+ * following are the ASTNode object methods available for returning values
+ * from nodes:
+ * 
+ * @if cpp
+ * @li <code>long @link ASTNode::getInteger() getInteger()@endlink</code> 
+ * @li <code>char @link ASTNode::getCharacter() getCharacter()@endlink</code> 
+ * @li <code>const char* @link ASTNode::getName() getName()@endlink</code> 
+ * @li <code>long @link ASTNode::getNumerator() getNumerator()@endlink</code> 
+ * @li <code>long @link ASTNode::getDenominator() getDenominator()@endlink</code>
+ * @li <code>double @link ASTNode::getReal() getReal()@endlink</code> 
+ * @li <code>double @link ASTNode::getMantissa() getMantissa()@endlink</code> 
+ * @li <code>long @link ASTNode::getExponent() getExponent()@endlink</code> 
+ * @endif
+ * @if python
+ * @li <code>long</code> @link libsbml.ASTNode.getInteger() ASTNode.getInteger()@endlink 
+ * @li <code>char</code> @link libsbml.ASTNode.getCharacter() ASTNode.getCharacter()@endlink 
+ * @li <code>string</code> @link libsbml.ASTNode.getName() ASTNode.getName()@endlink 
+ * @li <code>long</code> @link libsbml.ASTNode.getNumerator() ASTNode.getNumerator()@endlink 
+ * @li <code>long</code> @link libsbml.ASTNode.getDenominator() ASTNode.getDenominator()@endlink 
+ * @li <code>float</code> @link libsbml.ASTNode.getReal() ASTNode.getReal()@endlink 
+ * @li <code>float</code> @link libsbml.ASTNode.getMantissa() ASTNode.getMantissa()@endlink 
+ * @li <code>long</code> @link libsbml.ASTNode.getExponent() ASTNode.getExponent()@endlink 
+ * @endif
+ * @if conly
+ * @li <code>long ASTNode_getInteger()</code> 
+ * @li <code>char ASTNode_getCharacter()</code> 
+ * @li <code>const char* ASTNode_getName()</code> 
+ * @li <code>long ASTNode_getNumerator()</code> 
+ * @li <code>long ASTNode_getDenominator()</code>
+ * @li <code>double ASTNode_getReal()</code> 
+ * @li <code>double ASTNode_getMantissa()</code> 
+ * @li <code>long ASTNode_getExponent()</code> 
+ * @endif
+ * 
+ * Of course, all of this would be of little use if libSBML didn't also
+ * provide methods for @em setting the values of AST node objects!  And it
+ * does.  The methods are the following:
+ * 
+ * @if cpp
+ * @li <code>void @link ASTNode::setCharacter(char value) setCharacter(char
+ * value)@endlink</code> sets the value of this ASTNode to the given
+ * character <code>value</code>.  If character is one of @c +, @c -, @c *, @c
+ * / or @c ^, the node type will be to the appropriate operator type.  For all
+ * other characters, the node type will be set to @c AST_UNKNOWN.
+ * @li <code>void @link ASTNode::setName(const char *name) setName(const char
+ * *name)@endlink</code> sets the value of this AST node to the given
+ * <code>name</code>.  The node type will be set (to @c AST_NAME) <em>only
+ * if</em> the AST node was previously an operator (<code>isOperator(node) !=
+ * 0</code>) or number (<code>isNumber(node) != 0</code>).  This allows names
+ * to be set for @c AST_FUNCTIONs and the like.
+ * @li <code>void @link ASTNode::setValue(int value) setValue(int value)
+ * @endlink</code> sets the value of the node to the given integer
+ * <code>value</code>.  Equivalent to the next method.
+ * @li <code>void @link ASTNode::setValue(long value) setValue(long value)
+ * @endlink</code> sets the value of the node to the given integer
+ * <code>value</code>.  Equivalent to the previous method.  No, this is not a
+ * G&ouml;delian self-referential loop.
+ * @li <code>void @link ASTNode::setValue(long numerator, long denominator)
+ * setValue(long numerator, long denominator)@endlink</code> sets the value
+ * of this ASTNode to the given rational <code>value</code> in two parts: the
+ * numerator and denominator.  The node type is set to @c AST_RATIONAL.
+ * @li <code>void @link ASTNode::setValue(double value) setValue(double value)
+ * @endlink</code> sets the value of this ASTNode to the given real (double)
+ * <code>value</code> and sets the node type to @c AST_REAL.
+ * @li <code>void @link ASTNode::setValue(double mantissa, long exponent)
+ * setValue(double mantissa, long exponent)@endlink</code> sets the value of
+ * this ASTNode to a real (double) using the two parts given: the mantissa and
+ * the exponent.  The node type is set to @c AST_REAL_E.
+ * @endif
+ * @if python
+ * @li @link libsbml.ASTNode.setCharacter() ASTNode.setCharacter(char)@endlink sets the value of
+ * this ASTNode to the given character.  If character is one of @c +, @c -, @c
+ * *, @c / or @c ^, the node type will be to the appropriate operator type.
+ * For all other characters, the node type will be set to @c AST_UNKNOWN.
+ * @li @link libsbml.ASTNode.setName() ASTNode.setName(string)@endlink sets the value of
+ * this AST node to the given name.  The node type will be set (to @c AST_NAME)
+ * <em>only if</em> the AST node was previously an operator
+ * (<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
+ * 0</code>).  This allows names to be set for @c AST_FUNCTIONs and the like.
+ * @li @link libsbml.ASTNode.setValue() ASTNode.setValue(int)@endlink sets the value of the
+ * node to the given integer.  Equivalent to the next method.
+ * @li @link libsbml.ASTNode.setValue() ASTNode.setValue(long)@endlink sets the value of the
+ * node to the given integer.
+ * @li @link libsbml.ASTNode.setValue() ASTNode.setValue(long, long)@endlink
+ * sets the value of this ASTNode to the given rational in two parts: the
+ * numerator and denominator.  The node type is set to @c AST_RATIONAL.
+ * @li @link libsbml.ASTNode.setValue() ASTNode.setValue(float)@endlink sets the value of
+ * this ASTNode to the given real (float) and sets the node type to @c AST_REAL.
+ * @li @link libsbml.ASTNode.setValue() ASTNode.setValue(float, long)@endlink
+ * sets the value of this ASTNode to the given real (float) in two parts: the
+ * mantissa and the exponent.  The node type is set to @c AST_REAL_E.
+ * @endif
+ * @if conly
+ * @li <code>void ASTNode_setCharacter(ASTNode_t *node, char value)</code> sets the value of this
+ * ASTNode to the given character <code>value</code>.  If character is one of @c
+ * +, @c -, @c *, @c / or @c ^, the node type will be to the appropriate
+ * operator type.  For all other characters, the node type will be set to @c
+ * AST_UNKNOWN.
+ * @li <code>void ASTNode_setName(ASTNode_t *node, const char *name)</code> sets the value of
+ * this AST node to the given <code>name</code>.  The node type will be set (to
+ * @c AST_NAME) <em>only if</em> the AST node was previously an operator
+ * (<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
+ * 0</code>).  This allows names to be set for @c AST_FUNCTIONs and the like.
+ * @li <code>void ASTNode_setInteger(ASTNode_t *node, long value)</code> sets the value of the node
+ * to the given integer <code>value</code>.  
+ * @li <code>void ASTNode_setRational(ASTNode_t *node, long numerator, long denominator)</code> sets
+ * the value of this ASTNode to the given rational <code>value</code> in two
+ * parts: the numerator and denominator.  The node type is set to @c
+ * AST_RATIONAL.
+ * @li <code>void ASTNode_setReal(ASTNode_t *node, double value)</code> sets the value of this
+ * ASTNode to the given real (double) <code>value</code> and sets the node type
+ * to @c AST_REAL.
+ * @li <code>void ASTNode_setRealWithExponent(ASTNode_t *node, double mantissa, long exponent)</code> sets
+ * the value of this ASTNode to a real (double) using the two parts given: the
+ * mantissa and the exponent.  The node type is set to @c AST_REAL_E.
+ * @endif
+ * 
+ * Finally, ASTNode also defines some miscellaneous methods for manipulating
+ * ASTs:
+ * 
+ * @if cpp
+ * @li <code>ASTNode* @link ASTNode::ASTNode(ASTNodeType_t type)
+ * ASTNode(ASTNodeType_t type)@endlink</code> creates a new ASTNode object
+ * and returns a pointer to it.  The returned node will have the given
+ * <code>type</code>, or a type of @c AST_UNKNOWN if no argument
+ * <code>type</code> is explicitly given or the type code is unrecognized.
+ * @li <code>unsigned int @link ASTNode::getNumChildren() getNumChildren()
+ * @endlink</code> returns the number of children of this AST node or
+ * <code>0</code> is this node has no children.
+ * @li <code>void @link ASTNode::addChild(ASTNode* child) addChild(ASTNode*
+ * child)@endlink</code> adds the given node as a child of this AST node.
+ * Child nodes are added in left-to-right order.
+ * @li <code>void @link ASTNode::prependChild(ASTNode* child)
+ * prependChild(ASTNode* child)@endlink</code> adds the given node as a child
+ * of this AST node.  This method adds child nodes in right-to-left order.
+ * @li <code>ASTNode* @link ASTNode::getChild() getChild(unsigned int n)
+ * @endlink</code> returns the <code>n</code>th child of this
+ * AST node or @c NULL if this node has no <code>n</code>th child [i.e., if
+ * <code>n &gt; (node->getNumChildren() - 1)</code>, where <code>node</code>
+ * is a pointer to a node].
+ * @li <code>ASTNode* @link ASTNode::getLeftChild() getLeftChild()
+ * @endlink</code> returns the left child of this AST node.  This is
+ * equivalent to <code>getChild(0)</code>.
+ * @li <code>ASTNode* @link ASTNode::getRightChild() getRightChild()
+ * @endlink</code> returns the right child of this AST node or @c NULL if this
+ * node has no right child.
+ * @li <code>void @link ASTNode::swapChildren(ASTNode *that)
+ * swapChildren(ASTNode *that)@endlink</code> swaps the children of this
+ * ASTNode with the children of @c that ASTNode.
+ * @li <code>void @link ASTNode::setType(ASTNodeType_t type)
+ * setType(ASTNodeType_t type)@endlink</code> sets the type of this ASTNode
+ * to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
+ *  enumeration value.
+ * @endif
+ * @if python
+ * @li <code>ASTNode</code> @link libsbml.ASTNode ASTNode.ASTNode(long)@endlink creates a new ASTNode object
+ * and returns a pointer to it.  The returned node will have the type
+ * identified by the code passed as the argument, or a type of @c AST_UNKNOWN if
+ * no type is explicitly given or the type code is unrecognized.
+ * @li <code>unsigned int</code> @link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink returns the number
+ * of children of this AST node or 0 is this node has no children.
+ * @li @link libsbml.ASTNode.addChild() ASTNode.addChild(ASTNode)@endlink adds the given node
+ * as a child of this AST node.  Child nodes are added in left-to-right order.
+ * @li @link libsbml.ASTNode.prependChild() ASTNode.prependChild(ASTNode)@endlink adds the given
+ * node as a child of this AST node.  This method adds child nodes in
+ * right-to-left order.
+ * @li <code>ASTNode</code> @link libsbml.ASTNode.getChild () ASTNode.getChild (unsigned int)@endlink returns the nth
+ * child of this AST node or @c NULL if this node has no nth child (<code>n &gt;
+ * (@link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink - 1)</code>).
+ * @li <code>ASTNode</code> @link libsbml.ASTNode.getLeftChild() ASTNode.getLeftChild()@endlink returns the left child of
+ * this AST node.  This is equivalent to @link libsbml.ASTNode.getChild() ASTNode.getChild()@endlink;
+ * @li <code>ASTNode</code> @link libsbml.ASTNode.getRightChild() ASTNode.getRightChild()@endlink
+ * returns the right child of this AST node or @c NULL if this node has no right
+ * child.
+ * @li @link libsbml.ASTNode.swapChildren() ASTNode.swapChildren(ASTNode)@endlink swaps the
+ * children of this ASTNode with the children of @c that ASTNode.
+ * @li @link libsbml.ASTNode.setType() ASTNode.setType(long)@endlink
+ * sets the type of this ASTNode to the type identified by the
+ * type code passed as argument, or to @c AST_UNKNOWN if the type
+ * is unrecognized.
+ * @endif
+ * @if conly
+ * @li <code>ASTNode_t* ASTNode_createWithType(ASTNodeType_t type)</code> creates a new
+ * ASTNode object and returns a pointer to it.  The returned node will have the
+ * given <code>type</code>, or a type of @c AST_UNKNOWN if no argument
+ * <code>type</code> is explicitly given or the type code is unrecognized.
+ * @li <code>unsigned int ASTNode_getNumChildren(const ASTNode_t *node)</code> returns the number of
+ * children of this AST node or <code>0</code> is this node has no children.
+ * @li <code>void ASTNode_addChild(ASTNode_t *node, ASTNode_t* child)</code> adds the given node as
+ * a child of this AST node.  Child nodes are added in left-to-right order.
+ * @li <code>void ASTNode_prependChild(ASTNode_t *node, ASTNode_t* child)</code> adds the given
+ * node as a child of this AST node.  This method adds child nodes in
+ * right-to-left order.
+ * @li <code>ASTNode_t* ASTNode_getChild (const ASTNode_t *node, unsigned int n)</code> returns the
+ * <code>n</code>th child of this AST node or @c NULL if this node has no
+ * <code>n</code>th child [i.e., if <code>n &gt; (node->getNumChildren() -
+ * 1)</code>, where <code>node</code> is a pointer to a node].
+ * @li <code>ASTNode_t* ASTNode_getLeftChild(const ASTNode_t *node)</code> returns the left child of
+ * this AST node.  This is equivalent to <code>getChild(0)</code>.
+ * @li <code>ASTNode_t* ASTNode_getRightChild(const ASTNode_t *node)</code> returns the right child of
+ * this AST node or @c NULL if this node has no right child.
+ * @li <code>void ASTNode_swapChildren(ASTNode_t *node, ASTNode *that)</code> swaps the children
+ * of this ASTNode with the children of @c that ASTNode.
+ * @li <code>void ASTNode_setType(ASTNode_t *node, ASTNodeType_t type)</code> sets the type of
+ * this ASTNode to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
+ * enumeration value.
+ * @endif
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_summary_of_writing_mathml_directly
+ * 
+ * @par
+ * As mentioned above, applications often can avoid working with raw MathML by
+ * using either libSBML's text-string interface or the AST API.  However, when
+ * needed, reading MathML content directly and creating ASTs is easily done in
+ * libSBML using a method designed for this purpose:
+ * 
+ * @if cpp
+ * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String xml}</code> reads raw
+ * MathML from a text string, constructs an AST from it, then returns the root
+ * ASTNode of the resulting expression tree.
+ * @endif
+ * @if python
+ * @li <code>ASTNode</code> @link libsbml.readMathMLFromString() readMathMLFromString(string)@endlink reads raw
+ * MathML from a text string, constructs an AST from it, then returns the root
+ * ASTNode of the resulting expression tree.
+ * @endif
+ * @if conly
+ * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String xml}</code> reads raw
+ * MathML from a text string, constructs an AST from it, then returns the root
+ * ASTNode_t of the resulting expression tree.
+ * @endif
+ * 
+ * Similarly, writing out Abstract Syntax Tree structures is easily done using
+ * the following method:
+ * 
+ * @if cpp
+ * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode tree}</code> writes an
+ * AST to a string.  The caller owns the character string returned and should free
+ * it after it is no longer needed.
+ * @endif
+ * @if python
+ * @li <code>string</code> @link libsbml.writeMathMLToString() writeMathMLToString(ASTNode)@endlink writes an AST to a
+ * string.  The caller owns the character string returned and should free it
+ * after it is no longer needed.
+ * @endif
+ * @if conly
+ * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode tree}</code> writes an
+ * AST to a string.  The caller owns the character string returned and should free
+ * it after it is no longer needed.
+ * @endif
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_summary_of_string_math
  *
  * @par
