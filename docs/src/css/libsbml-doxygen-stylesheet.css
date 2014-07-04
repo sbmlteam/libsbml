@@ -899,7 +899,7 @@ div.headertitle
 }
 
 #doc-content dd {
-    margin-bottom: 6px;
+    margin-bottom: 0.5em;
     margin-left: 3em;
     padding-right: 0.5em;
 }
@@ -1087,28 +1087,34 @@ dl.citelist dd {
 }
 
 div.toc {
-    padding: 14px 25px;
+    padding: 10px 10px 5px 10px;
     background-color: #F4F6FA;
     border: 1px solid #D8DFEE;
     border-radius: 7px 7px 7px 7px;
     float: right;
     height: auto;
-    margin: 0 20px 10px 10px;
-    width: 200px;
+    margin: 0 10px 10px 10px;
+    width: 220px;
+    font-size: 11px;
+    font-style: normal;
 }
 
 div.toc li {
     background: url("bdwn.png") no-repeat scroll 0 5px transparent;
-    margin-top: 5px;
+    margin-top: 0px;
     padding-left: 10px;
-    padding-top: 2px;
+    padding-top: 0px;
+    line-height: 120%;
 }
 
 div.toc h3 {
-    font: 700 12px/1.2 Arial,FreeSans,sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    font-style: normal;
     color: #4665A2;
     border-bottom: 0 none;
     margin: 0px;
+    text-align: center;
 }
 
 div.toc ul {
@@ -1117,20 +1123,26 @@ div.toc ul {
     padding: 0px;
 }       
 
+div.toc ul li {
+    margin-bottom: 0.5em;
+}
+
 div.toc li.level1 {
     margin-left: 0px;
 }
 
 div.toc li.level2 {
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 div.toc li.level3 {
-    margin-left: 30px;
+    margin-left: 20px;
+    display: none;
 }
 
 div.toc li.level4 {
-    margin-left: 45px;
+    margin-left: 30px;
+    display: none;
 }
 
 @media print
@@ -1170,6 +1182,11 @@ div.toc li.level4 {
 }
 
 #doc-content .memdoc li {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#doc-content .memdoc > ul li {
     margin-top: 0px;
     margin-bottom: 0.75em;
 }
