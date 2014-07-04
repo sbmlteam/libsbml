@@ -142,6 +142,10 @@ overriders = \
 'XMLNode'                   : [ 'clone' ]
 }
 
+virtual_functions = \
+{
+'ElementFilter'             : [ 'filter' ]
+}
 
 #
 # Globally-scoped variables that are set automatically at run time.
@@ -1447,7 +1451,12 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
     pre  = '%csmethodmodifiers'
     if f != None and f.isVirtual:
       # this time we note right from the start, whether a function is virtual or not	  
-      post = ' public new'
+      if classname in virtual_functions and methodname in virtual_functions[classname]:
+        post = ' public virtual'
+      else:
+        post = ' public new'
+    elif classname in virtual_functions and methodname in virtual_functions[classname]:
+        post = ' public virtual'
     elif classname in overriders and methodname in overriders[classname]:
       # See the comment for the definition of 'overriders' for more info.
       post = ' public new'
