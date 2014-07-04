@@ -36,7 +36,7 @@
 
 #include <sbml/Model.h>
 
-
+#include <sbml/util/ElementFilter.h>
 
 using namespace std;
 
