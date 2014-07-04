@@ -354,7 +354,7 @@ been created as three irreversible reactions.
 This program has hard-coded versions of the reaction rate formulas
 only for the purposes of this example.  Of course, in a more practical
 real-life situation, the formulas would not be fixed in this
-way&mdash;one would have methods to read/write/translate expressions
+way---one would have methods to read/write/translate expressions
 originating from different sources (users, files, other programs etc.)
 to/from the <a href="libsbml-math.html">Abstract Syntax Trees</a>
 (ASTs) used by libSBML.

@@ -1,5 +1,7 @@
 /** @page libsbml-example Tutorial: creating a complete model
 
+\tableofcontents
+
 This section presents a complete example program in C++ demonstrating
 how to create a complete SBML Level&nbsp;2 model programmatically and
 then writing the result to a file.
@@ -237,35 +239,35 @@ Before going on, we digress to explain one libSBML API idiom
 illustrated in the code above and in the rest of the program below.
 LibSBML provides two main mechanisms for creating objects: class
 constructors (e.g., @link Unit::Unit() Unit() @endlink), and
-<code>create<span class="placeholder"><i>Object</i></span>()</code>
+<code>create<span class="placeholder-nospace"><i>Object</i></span>()</code>
 methods provided by certain object classes such as @link Model Model
-@endlink, where <span class="placeholder"><i>Object</i></span> is
+@endlink, where <span class="placeholder-nospace"><i>Object</i></span> is
 another object class such as @link UnitDefinition UnitDefinition
 @endlink.  The multiple mechanisms are provided by libSBML for
 flexibility and to support different use-cases, but they also have
 different implications for the overall model structure.
 
 In general, the recommended approach is to use the <code>create<span
-class="placeholder"><i>Object</i></span>()</code> methods, as in the
+class="placeholder-nospace"><i>Object</i></span>()</code> methods, as in the
 calls to UnitDefinition::createUnit() above.  These methods create an
 instance and immediately link it into the parent, as well as return a
 pointer to the object created.  By contrast, the other main way of
 creating an object involves first using the class constructor (e.g.,
 @link Unit::Unit() Unit() @endlink) to create an object instance, and
 then calling an <code>add<span
-class="placeholder"><i>Object</i></span>(...)</code> method to add the
+class="placeholder-nospace"><i>Object</i></span>(...)</code> method to add the
 instance to another object.  However, the <code>add<span
-class="placeholder"><i>Object</i></span>(...)</code> methods in
+class="placeholder-nospace"><i>Object</i></span>(...)</code> methods in
 libSBML @em copy the object instance given to them.  The result is
 that the caller has to be careful about making changes to the object:
 changes to the original will not affect the copy added to the model by
 the <code>add<span
-class="placeholder"><i>Object</i></span>(...)</code> method, and
+class="placeholder-nospace"><i>Object</i></span>(...)</code> method, and
 moreover, the original must be explicitly deleted at some point or
 else the program will leak memory.  In summary, unless special
 circumstances apply, most applications are best served using the
 various <code>create<span
-class="placeholder"><i>Object</i></span>()</code> methods.
+class="placeholder-nospace"><i>Object</i></span>()</code> methods.
 
 Back to the example now, we create a compartment object:
 
@@ -354,7 +356,7 @@ been created as three irreversible reactions.
 This program has hard-coded versions of the reaction rate formulas
 only for the purposes of this example.  Of course, in a more practical
 real-life situation, the formulas would not be fixed in this
-way&mdash;one would have methods to read/write/translate expressions
+way---one would have methods to read/write/translate expressions
 originating from different sources (users, files, other programs etc.)
 to/from the <a href="libsbml-math.html">Abstract Syntax Trees</a>
 (ASTs) used by libSBML.
@@ -833,10 +835,8 @@ bool writeExampleSBML(const SBMLDocument* sbmlDoc, const string& filename)
 @section source Source code
 
 An expanded version of this example is supplied with the libSBML
-distribution as the file named <code>createExampleSBML.cpp</code> in
-the directory <code>examples/c++</code>.
-
-
+distribution as the file named @ref createExampleSBML.cpp
+"createExampleSBML.cpp" in the directory <code>examples/c++</code>.
 
 
 */
