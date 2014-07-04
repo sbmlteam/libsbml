@@ -133,6 +133,7 @@ L3ParserSettings::setPlugins(const SBMLNamespaces * sbmlns)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 void L3ParserSettings::deletePlugins()
 {
   for (size_t p=0; p<mPlugins.size(); p++) {
@@ -140,11 +141,14 @@ void L3ParserSettings::deletePlugins()
   }
   mPlugins.clear();
 }
+/** @endcond */
+
 
 void L3ParserSettings::setModel(const Model* model)
 {
   mModel = model;
 }
+
 
 const Model* L3ParserSettings::getModel() const
 {
@@ -198,6 +202,7 @@ bool L3ParserSettings::getParseAvogadroCsymbol() const
   return mAvoCsymbol;
 }
 
+/** @cond doxygenLibsbmlInternal */
 bool L3ParserSettings::checkNumArgumentsForPackage(const ASTNode* function, stringstream& error) const
 {
   for (size_t p=0; p<mPlugins.size(); p++) {
@@ -220,8 +225,9 @@ bool L3ParserSettings::checkNumArgumentsForPackage(const ASTNode* function, stri
   //However, we might as well assume that it got it right...
   return false;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 ASTNode* L3ParserSettings::parsePackageInfix(L3ParserGrammarLineType_t type, 
     vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
     vector<double> *doubleList) const
@@ -233,7 +239,9 @@ ASTNode* L3ParserSettings::parsePackageInfix(L3ParserGrammarLineType_t type,
   }
   return NULL;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int L3ParserSettings::getPackageFunctionFor(const std::string& name) const
 {
   for (size_t p=0; p<mPlugins.size(); p++) {
@@ -242,7 +250,9 @@ int L3ParserSettings::getPackageFunctionFor(const std::string& name) const
   }
   return AST_UNKNOWN;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
                                           const ASTNode_t *node,
                                           StringBuffer_t  *sb) const
@@ -251,6 +261,7 @@ void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
     mPlugins[p]->visitPackageInfixSyntax(parent, node, sb, this);
   }
 }
+/** @endcond */
 
 #endif /* __cplusplus */
 
