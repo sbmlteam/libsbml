@@ -11,36 +11,41 @@
 # output used in several contexts.  The output produced by this program is
 # controlled by the first command-line argument given to it:
 #
-#  * Given --doc, it will generate a table suitable for use in the libSBML
-#    API documentation as it appears in the header of SBMLError.h.
+# * Given --doc, it will generate a table suitable for use in the libSBML
+#   API documentation as it appears in the header of SBMLError.h.  The file
+#   it produces is meant to replace src/sbml/common/common-sbmlerror-codes.h.
+#   In other words, do the following:
 #
-#  * Given --enum, it will generate the SBMLErrorCode_t enum for SBMLError.h.
+#    writeErrorTable.py --doc ../../../src/sbml/common/common-sbmlerror-codes.h
 #
-#  * Given --web, it will generate output used in the table in the web page at
-#    http://sbml.org/Facilities/Documentation/Error_Categories.
+# * Given --enum, it will generate the SBMLErrorCode_t enum for SBMLError.h.
+#   (The output needs to be manually copied and pasted into SBMLError.h.)
+#
+# * Given --web, it will generate output used in the table in the web page at
+#   http://sbml.org/Facilities/Documentation/Error_Categories.
 #
 # Here is a typical way of using this program:
 #
-#  1) Make any desired updates to the text of the diagnostic messages in
-#     src/sbml/SBMLErrorTable.h.
+# 1) Make any desired updates to the text of the diagnostic messages in
+#    src/sbml/SBMLErrorTable.h.
 #
-#  2) Rebuild and install libSBML on your computer, with the Python bindings
-#     enabled.  This is necessary because this program (writeErrorTable.py)
-#     uses the libSBML Python bindings to do its work.
+# 2) Rebuild and install libSBML on your computer, with the Python bindings
+#    enabled.  This is necessary because this program (writeErrorTable.py)
+#    uses the libSBML Python bindings to do its work.
 #
-#  3) Configure your PYTHONPATH environment variable to encompass this newly-
-#     installed copy of libSBML.  Double-check that your Python executable
-#     is in fact picking up the copy of libSBML you think it is.
+# 3) Configure your PYTHONPATH environment variable to encompass this newly-
+#    installed copy of libSBML.  Double-check that your Python executable
+#    is in fact picking up the copy of libSBML you think it is.
 #
-#  4) Run this program 3 times, as following
+# 4) Run this program 3 times, as following
 #
-#       ./writeErrorTable.py --doc  doc-fragment.txt
-#       ./writeErrorTable.py --enum enum.txt
-#       ./writeErrorTable.py --web  sbmlerror-table.html
+#      ./writeErrorTable.py --doc  doc-fragment.txt
+#      ./writeErrorTable.py --enum enum.txt
+#      ./writeErrorTable.py --web  sbmlerror-table.html
 #
-#  5) Replace sbmlerror-table.html on sbml.org, and edit SBMLError.h to
-#     insert the contents of doc-fragment.txt and enum.txt in the appropriate
-#     places.
+# 5) Replace sbmlerror-table.html on sbml.org, and edit SBMLError.h to
+#    insert the contents of doc-fragment.txt and enum.txt in the appropriate
+#    places.
 #
 #<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -129,7 +134,11 @@ low_numbered_errors = { 0   : 'XMLUnknownError',
 
 # Fragments for the table used in the documentation for SBMLError.h.
 
-doc_table_start_fragment = '''<table id="sbmlerror-table"
+doc_table_start_fragment = '''/**
+ * @class doc_sbml_error_table
+ *
+ * @par
+<table id="sbmlerror-table"
        class="text-table small-font alt-row-colors"
        width="95%" cellspacing="1" cellpadding="2" border="0">
  <tr style="background: lightgray" class="normal-font">
@@ -146,6 +155,8 @@ doc_table_start_fragment = '''<table id="sbmlerror-table"
 '''
 
 doc_table_end_fragment = '''</table>
+
+*/
 '''
 
 # Templates and fragments used for the enum.
