@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/AdjacentDomains.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,10 +47,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new AdjacentDomains with the given level, version, and package version.
  */
 AdjacentDomains::AdjacentDomains (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mDomain1 ("")
-   ,mDomain2 ("")
+  : SBase(level, version)
+  , mId ("")
+  , mDomain1 ("")
+  , mDomain2 ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -60,10 +61,10 @@ AdjacentDomains::AdjacentDomains (unsigned int level, unsigned int version, unsi
  * Creates a new AdjacentDomains with the given SpatialPkgNamespaces object.
  */
 AdjacentDomains::AdjacentDomains (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mDomain1 ("")
-   ,mDomain2 ("")
+  : SBase(spatialns)
+  , mId ("")
+  , mDomain1 ("")
+  , mDomain2 ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -77,7 +78,7 @@ AdjacentDomains::AdjacentDomains (SpatialPkgNamespaces* spatialns)
  * Copy constructor for AdjacentDomains.
  */
 AdjacentDomains::AdjacentDomains (const AdjacentDomains& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -104,7 +105,7 @@ AdjacentDomains::operator=(const AdjacentDomains& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mDomain1  = rhs.mDomain1;
     mDomain2  = rhs.mDomain2;
@@ -327,8 +328,8 @@ AdjacentDomains::renameSIdRefs(const std::string& oldid, const std::string& newi
 const std::string&
 AdjacentDomains::getElementName () const
 {
-	static const string name = "adjacentDomains";
-	return name;
+  static const string name = "adjacentDomains";
+  return name;
 }
 
 
@@ -348,7 +349,7 @@ AdjacentDomains::getTypeCode () const
 bool
 AdjacentDomains::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -371,7 +372,7 @@ AdjacentDomains::hasRequiredAttributes () const
 void
 AdjacentDomains::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -402,7 +403,7 @@ AdjacentDomains::accept (SBMLVisitor& v) const
 void
 AdjacentDomains::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -433,11 +434,11 @@ AdjacentDomains::enablePackageInternal(const std::string& pkgURI,
 void
 AdjacentDomains::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("domain1");
-	attributes.add("domain2");
+  attributes.add("id");
+  attributes.add("domain1");
+  attributes.add("domain2");
 }
 
 
@@ -488,7 +489,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -609,16 +610,16 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   void
 AdjacentDomains::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetDomain1() == true)
-		stream.writeAttribute("domain1", getPrefix(), mDomain1);
+  if (isSetDomain1() == true)
+    stream.writeAttribute("domain1", getPrefix(), mDomain1);
 
-	if (isSetDomain2() == true)
-		stream.writeAttribute("domain2", getPrefix(), mDomain2);
+  if (isSetDomain2() == true)
+    stream.writeAttribute("domain2", getPrefix(), mDomain2);
 
 }
 
@@ -829,8 +830,8 @@ ListOfAdjacentDomains::remove(const std::string& sid)
 const std::string&
 ListOfAdjacentDomains::getElementName () const
 {
-	static const string name = "listOfAdjacentDomains";
-	return name;
+  static const string name = "listOfAdjacentDomains";
+  return name;
 }
 
 

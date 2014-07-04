@@ -316,7 +316,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addCoordinateReference(const CoordinateReference* cr);
+  int addCoordinateReference(const CoordinateReference* cr);
 
 
   /**
@@ -324,18 +324,18 @@ public:
    *
    * @return the number of CoordinateReference objects in this DiffusionCoefficient
    */
-	unsigned int getNumCoordinateReferences() const;
+  unsigned int getNumCoordinateReferences() const;
 
 
-	/**
-	 * Creates a new CoordinateReference object, adds it to this DiffusionCoefficients
-	 * ListOfCoordinateReferences and returns the CoordinateReference object created. 
-	 *
-	 * @return a new CoordinateReference object instance
-	 *
-	 * @see addCoordinateReference(const CoordinateReference* cr)
-	 */
-	CoordinateReference* createCoordinateReference();
+  /**
+   * Creates a new CoordinateReference object, adds it to this DiffusionCoefficients
+   * ListOfCoordinateReferences and returns the CoordinateReference object created. 
+   *
+   * @return a new CoordinateReference object instance
+   *
+   * @see addCoordinateReference(const CoordinateReference* cr)
+   */
+  CoordinateReference* createCoordinateReference();
 
 
   /**

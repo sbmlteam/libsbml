@@ -122,54 +122,52 @@ public:
   virtual ~CSGHomogeneousTransformation();
 
 
- 	/**
-	 * Returns the "forwardTransformation" element of this CSGHomogeneousTransformation.
-	 *
-	 * @return the "forwardTransformation" element of this CSGHomogeneousTransformation.
-	 */
-	virtual const TransformationComponents* getForwardTransformation() const;
+   /**
+   * Returns the "forwardTransformation" element of this CSGHomogeneousTransformation.
+   *
+   * @return the "forwardTransformation" element of this CSGHomogeneousTransformation.
+   */
+  virtual const TransformationComponents* getForwardTransformation() const;
 
 
-	/**
-	/**
-	 * Returns the "forwardTransformation" element of this CSGHomogeneousTransformation.
-	 *
-	 * @return the "forwardTransformation" element of this CSGHomogeneousTransformation.
-	 */
-	virtual TransformationComponents* getForwardTransformation();
+  /**
+   * Returns the "forwardTransformation" element of this CSGHomogeneousTransformation.
+   *
+   * @return the "forwardTransformation" element of this CSGHomogeneousTransformation.
+   */
+  virtual TransformationComponents* getForwardTransformation();
 
 
-	/**
-	 * Creates a new "TransformationComponents" and sets it for this CSGHomogeneousTransformation.
-	 *
-	 * @return the created "TransformationComponents" element of this CSGHomogeneousTransformation.
-	 */
-	virtual TransformationComponents* createForwardTransformation();
+  /**
+   * Creates a new "TransformationComponents" and sets it for this CSGHomogeneousTransformation.
+   *
+   * @return the created "TransformationComponents" element of this CSGHomogeneousTransformation.
+   */
+  virtual TransformationComponents* createForwardTransformation();
 
 
-	/**
-	 * Returns the "reverseTransformation" element of this CSGHomogeneousTransformation.
-	 *
-	 * @return the "reverseTransformation" element of this CSGHomogeneousTransformation.
-	 */
-	virtual const TransformationComponents* getReverseTransformation() const;
+  /**
+   * Returns the "reverseTransformation" element of this CSGHomogeneousTransformation.
+   *
+   * @return the "reverseTransformation" element of this CSGHomogeneousTransformation.
+   */
+  virtual const TransformationComponents* getReverseTransformation() const;
 
 
-	/**
-	/**
-	 * Returns the "reverseTransformation" element of this CSGHomogeneousTransformation.
-	 *
-	 * @return the "reverseTransformation" element of this CSGHomogeneousTransformation.
-	 */
-	virtual TransformationComponents* getReverseTransformation();
+  /**
+   * Returns the "reverseTransformation" element of this CSGHomogeneousTransformation.
+   *
+   * @return the "reverseTransformation" element of this CSGHomogeneousTransformation.
+   */
+  virtual TransformationComponents* getReverseTransformation();
 
 
-	/**
-	 * Creates a new "TransformationComponents" and sets it for this CSGHomogeneousTransformation.
-	 *
-	 * @return the created "TransformationComponents" element of this CSGHomogeneousTransformation.
-	 */
-	virtual TransformationComponents* createReverseTransformation();
+  /**
+   * Creates a new "TransformationComponents" and sets it for this CSGHomogeneousTransformation.
+   *
+   * @return the created "TransformationComponents" element of this CSGHomogeneousTransformation.
+   */
+  virtual TransformationComponents* createReverseTransformation();
 
 
   /**

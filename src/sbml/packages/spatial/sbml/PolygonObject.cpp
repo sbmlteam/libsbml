@@ -1,122 +1,117 @@
 /**
- * @file    PolygonObject.cpp
- * @brief   Implementation of PolygonObject, the SBase derived class of spatial package.
- * @author  
+ * @file:   PolygonObject.cpp
+ * @brief:  Implementation of the PolygonObject class
+ * @author: SBMLTeam
  *
- * $Id: PolygonObject.cpp 10670 2010-01-16 12:10:06Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/PolygonObject.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <stdlib.h>
-#include <vector>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/PolygonObject.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/extension/SBMLExtensionException.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new PolygonObject with the given level, version, and package version.
  */
-PolygonObject::PolygonObject (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-	: SBase(level, version)
+PolygonObject::PolygonObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : SBase(level, version)
+  , mPointIndex (NULL)
+  , mPointIndexLength (SBML_INT_MAX)
+  , mIsSetPointIndexLength (false)
 {
-  // initilaize pointIndices array
-  mIndicesLength = 1;
-  mPointIndices = new int[1];
-  mPointIndices[0] = 0;
-
-  mIsSetPointIndices = false;
-  mParentSBMLObject = NULL;
-
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  // Taken from SBase.setSBMLNamepsacesAndOwn();
-  // setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
-  /*
-  SBMLNamespaces* sbmlns = new SpatialPkgNamespaces(level,version,pkgVersion);
-  delete mSBMLNamespaces;
-  mSBMLNamespaces = sbmlns;
-
-  if(sbmlns) 
-	mURI = sbmlns->getURI();
-  */
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
+
 
 /*
  * Creates a new PolygonObject with the given SpatialPkgNamespaces object.
  */
-PolygonObject::PolygonObject(SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
+PolygonObject::PolygonObject (SpatialPkgNamespaces* spatialns)
+  : SBase(spatialns)
+  , mPointIndex (NULL)
+  , mPointIndexLength (SBML_INT_MAX)
+  , mIsSetPointIndexLength (false)
 {
-  //
   // set the element namespace of this object
-  //
-  // taken from (SBase->setElementNamespace())
-  mURI = spatialns->getURI();
-  mSBMLNamespaces = spatialns;
-
-  // initialize pointIndices array
-  mIndicesLength = 1;
-  mPointIndices = new int[mIndicesLength];
-  mPointIndices[0] = 0;
-
-  mIsSetPointIndices = false;
-  mParentSBMLObject = NULL;
-
+  setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
-  // loadPlugins(spatialns);
+  loadPlugins(spatialns);
 }
 
-/*
- * Copy constructor.
- */
-PolygonObject::PolygonObject(const PolygonObject& source)
-  : SBase(source)
-{
-  this->mIndicesLength=source.mIndicesLength;
-  this->mPointIndices=source.mPointIndices;
-  this->mIsSetPointIndices=source.mIsSetPointIndices;
-}
 
 /*
- * Assignment operator.
+ * Copy constructor for PolygonObject.
  */
-PolygonObject& PolygonObject::operator=(const PolygonObject& source)
+PolygonObject::PolygonObject (const PolygonObject& orig)
+  : SBase(orig)
 {
-  if(&source!=this)
+  if (&orig == NULL)
   {
-	this->mPointIndices = source.mPointIndices;
-	this->mIndicesLength = source.mIndicesLength;
-	this->mIsSetPointIndices=source.mIsSetPointIndices;
-	this->mParentSBMLObject=source.mParentSBMLObject;
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  
+  else
+  {
+    mPointIndex  = NULL;
+    setPointIndex(orig.mPointIndex, orig.mPointIndexLength);
+    mPointIndexLength  = orig.mPointIndexLength;
+    mIsSetPointIndexLength  = orig.mIsSetPointIndexLength;
+  }
+}
+
+
+/*
+ * Assignment for PolygonObject.
+ */
+PolygonObject&
+PolygonObject::operator=(const PolygonObject& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mPointIndex  = NULL;
+    setPointIndex(rhs.mPointIndex, rhs.mPointIndexLength);
+    mPointIndexLength  = rhs.mPointIndexLength;
+    mIsSetPointIndexLength  = rhs.mIsSetPointIndexLength;
+  }
   return *this;
 }
 
@@ -130,83 +125,126 @@ PolygonObject::clone () const
   return new PolygonObject(*this);
 }
 
+
 /*
- * Destructor.
- */ 
+ * Destructor for PolygonObject.
+ */
 PolygonObject::~PolygonObject ()
 {
-	// destroy 'pointIndices' array here --- ???
-	delete[] mPointIndices;
-	mIndicesLength = 0;
+  if (mPointIndex != NULL)
+    delete[] mPointIndex;
+  mPointIndex = NULL;
 }
 
-  /*
-   * The "pointIndices" attribute of this PolygonObject is returned in an int array (pointer) 
-   * that is passed as argument to the method (this is needed while using SWIG to
-   * convert int[] from C++ to Java). The method itself has a return type void.
-   *
-   * @return void.
-  */
-void 
-PolygonObject::getPointIndices (int* outputPointIndices) const
-{
-   if (outputPointIndices == 0) {
-	 throw SBMLExtensionException("Cannot return null or 0-length array");
-   }
-   for (unsigned int i = 0; i < mIndicesLength; i++) {
-	   outputPointIndices[i] = mPointIndices[i];
-   }
-
-  // return mPointIndices;
-}
-
-unsigned int
-PolygonObject::getIndicesLength () const
-{
-	return mIndicesLength;
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * PolygonObject's "pointIndices" attribute has been set.
-  */
-bool 
-PolygonObject::isSetPointIndices () const
+ * The "pointIndex" attribute of this PolygonObject is returned in an int* array (pointer)
+ * that is passed as argument to the method (this is needed while using SWIG to
+ * convert int[] from C++ to Java). The method itself has a return type void.
+ *
+ * NOTE: you have to pre-allocate the array with the correct length! *
+ * @return void.
+ */
+void
+PolygonObject::getPointIndex(int* outArray) const
 {
-  return mIsSetPointIndices;
+   if (outArray == NULL) return;
+
+   memcpy(outArray , mPointIndex, sizeof(int)*mPointIndexLength);
 }
 
-/*
-  * Sets the value of the "pointIndices" attribute of this PolygonObject.
-  */
-int 
-PolygonObject::setPointIndices (int* pointIndices, int indicesLength)
-{
-  if (pointIndices == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-	  mIndicesLength = indicesLength;
-	  mPointIndices = new int[mIndicesLength];
-	  for (unsigned int i = 0; i < mIndicesLength; i++) {
-		mPointIndices[i] = pointIndices[i];
-	  }
-	  mIsSetPointIndices  = true;
-      return LIBSBML_OPERATION_SUCCESS;
-  }
-}
 
 /*
-  * Unsets the value of the "pointIndices" attribute of this PolygonObject.
-  */
-int 
-PolygonObject::unsetPointIndices ()
+ * Returns the value of the "pointIndexLength" attribute of this PolygonObject.
+ */
+int
+PolygonObject::getPointIndexLength() const
 {
-  mIsSetPointIndices = false;
-  
-  if (!isSetPointIndices())
+  return mPointIndexLength;
+}
+
+
+/*
+ * Returns true/false if pointIndex is set.
+ */
+bool
+PolygonObject::isSetPointIndex() const
+{
+  return (mPointIndex != NULL);
+}
+
+
+/*
+ * Returns true/false if pointIndexLength is set.
+ */
+bool
+PolygonObject::isSetPointIndexLength() const
+{
+  return mIsSetPointIndexLength;
+}
+
+
+/*
+ * Sets the "pointIndex" element of this PolygonObject.
+ *
+ * @param inArray; int* array to be set (it will be copied).
+ * @param arrayLength; the length of the array.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+PolygonObject::setPointIndex(int* inArray, int arrayLength)
+{
+  if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (mPointIndex != NULL) delete[] mPointIndex;
+  mPointIndex = new int[arrayLength];
+  memcpy(mPointIndex, inArray, sizeof(int)*arrayLength);
+  mIsSetPointIndexLength = true;
+  mPointIndexLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+/*
+ * Sets pointIndexLength and returns value indicating success.
+ */
+int
+PolygonObject::setPointIndexLength(int pointIndexLength)
+{
+  mPointIndexLength = pointIndexLength;
+  mIsSetPointIndexLength = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets pointIndex and returns value indicating success.
+ */
+int
+PolygonObject::unsetPointIndex()
+{
+  if (mPointIndex != NULL)
+   delete[] mPointIndex;
+  mPointIndex = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets pointIndexLength and returns value indicating success.
+ */
+int
+PolygonObject::unsetPointIndexLength()
+{
+  mPointIndexLength = SBML_INT_MAX;
+  mIsSetPointIndexLength = false;
+
+  if (isSetPointIndexLength() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -216,136 +254,60 @@ PolygonObject::unsetPointIndices ()
   }
 }
 
-/*
- * Clones an PolygonObject object
- */
-PolygonObject*
-PolygonObject::deepCopy () const
-{
-  return new PolygonObject(*this);
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 PolygonObject::getElementName () const
 {
-  static const std::string name = "polygonObject";
+  static const string name = "polygonObject";
   return name;
 }
 
+
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 PolygonObject::getTypeCode () const
 {
-	return SBML_SPATIAL_POLYGONOBJECT;
+  return SBML_SPATIAL_POLYGONOBJECT;
 }
 
-/**
- * Reads the PolygonObject 'pointIndices' from the given XMLInputStream, 
- */
-PolygonObject* PolygonObject::readPolygonObject (XMLInputStream& stream)
- {
-	PolygonObject* id = NULL;
-	const string& name = stream.peek().getName();
-	if (name == "polygonObject") 
-	{
-		XMLToken nextToken = stream.next();
-		while (!nextToken.isText()) {
-			nextToken = stream.next();
-		}
-		const string& nextTokenChars = nextToken.getCharacters();
-
-		// The PolygonObject element content is obtained as a string. Now parse 
-		// the string to get individual ints as strings
-		stringstream strStream(nextTokenChars); // Insert the string into a stream
-		string buffer;
-		vector<int> intValuesVector;
-		while (strStream >> buffer) 
-		{
-			// convert each string token (buf) to int & store in a vector<int>
-			int val = atoi(buffer.c_str());
-			intValuesVector.push_back(val);
-		}
-
-		// convert the vector<int> to an array of ints
-		unsigned int indicesSize = (unsigned int)intValuesVector.size();
-		int* pointIndices = new int[indicesSize];
-		for (unsigned int i = 0; i < indicesSize; i++) 
-		{
-			pointIndices[i] = intValuesVector.at(i);
-		}
-		
-		// create an PolygonObject object and set the pointIndices on it.
-		id = new PolygonObject; //(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-		id->setPointIndices(pointIndices, indicesSize);
-	}
-	return id;
- }
 
 /*
- * Writes PolygonObject 'pointIndices' to given XMLOutputStream
+ * check if all the required attributes are set
  */
-void PolygonObject::writePolygonObject (PolygonObject* PolygonObject, XMLOutputStream& stream)
+bool
+PolygonObject::hasRequiredAttributes () const
 {
-  unsigned int length = PolygonObject->getIndicesLength();
-  int* indicesArray = new int[length];
-  PolygonObject->getPointIndices(indicesArray);
-  string uri = PolygonObject->getURI();
+  bool allPresent = true;
 
-  // Write out the values in 'indicesArray' as content of PolygonObject element.
-  if (length > 0) {
-	  string prefix = "";
-	  XMLNamespaces* xmlNamespaces = PolygonObject->getSBMLNamespaces()->getNamespaces();
-	  if (xmlNamespaces->hasURI(uri)) 
-	  {		
-		prefix = xmlNamespaces->getPrefix(uri);
-	  }
-	  // write out the PolygonObject element with prefix, if present.
-	  stream.startElement("PolygonObject", prefix);
-	  for (unsigned int i = 0; i < length; i++) {
-		stream << (long)indicesArray[i] << " ";
-	  }
-	  stream.endElement("PolygonObject", prefix);
-  }
+  if (isSetPointIndex() == false)
+    allPresent = false;
 
+  return allPresent;
 }
 
-/** @cond doxygenLibsbmlInternal */
-void PolygonObject::setParentSBMLObject(SBase * sb)
-{
-  mParentSBMLObject = sb;
-}
-/** @endcond doxygenLibsbmlInternal */
 
+  /** @cond doxygenLibsbmlInternal */
 
-SBase * PolygonObject::getParentSBMLObject() const
+/*
+ * write contained elements
+ */
+void
+PolygonObject::writeElements (XMLOutputStream& stream) const
 {
-  return mParentSBMLObject;
-}
-
-/* gets the SBMLnamespaces - internal use only*/
-SBMLNamespaces *
-PolygonObject::getSBMLNamespaces() const
-{
-  if (mSBMLNamespaces != 0)
-    return mSBMLNamespaces;
-  else
-    return new SBMLNamespaces();
+  SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
 }
 
-std::string
-PolygonObject::getURI() const
-{
-	return mURI;
-}
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -357,6 +319,280 @@ PolygonObject::accept (SBMLVisitor& v) const
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+PolygonObject::setSBMLDocument (SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+PolygonObject::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+PolygonObject::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBase::addExpectedAttributes(attributes);
+
+  attributes.add("pointIndexLength");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+PolygonObject::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // pointIndexLength int   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetPointIndexLength = attributes.readInto("pointIndexLength", mPointIndexLength);
+
+  if (mIsSetPointIndexLength == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+PolygonObject::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+
+  if (isSetPointIndexLength() == true)
+    stream.writeAttribute("pointIndexLength", getPrefix(), mPointIndexLength);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+void
+PolygonObject::write(XMLOutputStream& stream) const
+{
+  stream.startElement(getElementName());
+  writeAttributes(stream);
+  if(isSetPointIndex())
+  {
+    for (int i = 0; i < mPointIndexLength; ++i)
+    {
+      stream << (long)mPointIndex[i] << " ";
+    }
+  }
+  stream.endElement(getElementName());
+}
+
+
+void
+PolygonObject::setElementText(const std::string &text)
+{
+  stringstream strStream(text); // Insert the string into a stream
+  int val;
+  vector<int> valuesVector;
+  while (strStream >> val)
+  {
+    valuesVector.push_back(val);
+  }
+
+  // convert the vector to an array
+  unsigned int length = (unsigned int)valuesVector.size();
+  if (length > 0)
+  {
+
+    int* data = new int[length];
+    for (unsigned int i = 0; i < length; ++i)
+    {
+      data[i] = valuesVector.at(i);
+    }
+
+    setPointIndex(data, length);
+  }
+}
+LIBSBML_EXTERN
+PolygonObject_t *
+PolygonObject_create(unsigned int level, unsigned int version,
+                     unsigned int pkgVersion)
+{
+  return new PolygonObject(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+PolygonObject_free(PolygonObject_t * po)
+{
+  if (po != NULL)
+    delete po;
+}
+
+
+LIBSBML_EXTERN
+PolygonObject_t *
+PolygonObject_clone(PolygonObject_t * po)
+{
+  if (po != NULL)
+  {
+    return static_cast<PolygonObject_t*>(po->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_getPointIndexLength(const PolygonObject_t * po)
+{
+	return (po != NULL) ? po->getPointIndexLength() : SBML_INT_MAX;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_isSetPointIndex(const PolygonObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->isSetPointIndex()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_isSetPointIndexLength(const PolygonObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->isSetPointIndexLength()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_setPointIndexLength(PolygonObject_t * po, int pointIndexLength)
+{
+  if (po != NULL)
+    return (pointIndexLength == NULL) ? po->unsetPointIndexLength() : po->setPointIndexLength(pointIndexLength);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_unsetPointIndex(PolygonObject_t * po)
+{
+  return (po != NULL) ? po->unsetPointIndex() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_unsetPointIndexLength(PolygonObject_t * po)
+{
+  return (po != NULL) ? po->unsetPointIndexLength() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+PolygonObject_hasRequiredAttributes(const PolygonObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->hasRequiredAttributes()) : 0;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+

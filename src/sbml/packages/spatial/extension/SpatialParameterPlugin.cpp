@@ -34,6 +34,8 @@
 
 #include <sbml/packages/spatial/extension/SpatialParameterPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 
 using namespace std;
@@ -216,7 +218,7 @@ SpatialParameterPlugin::hasRequiredElements () const
 void
 SpatialParameterPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBasePlugin::addExpectedAttributes(attributes);
+  SBasePlugin::addExpectedAttributes(attributes);
 
 }
 
@@ -238,7 +240,7 @@ SpatialParameterPlugin::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBasePlugin::readAttributes(attributes, expectedAttributes);
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -281,7 +283,7 @@ SpatialParameterPlugin::readAttributes (const XMLAttributes& attributes,
   void
 SpatialParameterPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-	SBasePlugin::writeAttributes(stream);
+  SBasePlugin::writeAttributes(stream);
 
 }
 
@@ -620,47 +622,6 @@ SpatialParameterPlugin::setDiffusionCoefficient(const DiffusionCoefficient* diff
   }
 }
 
-/** 
- * @return true, if either the spatial symbol reference, diffusion coefficient, 
- *   advection coefficient or boundary is set. Otherwise the return value is false.
- */ 
-bool 
-SpatialParameterPlugin::isSpatialParameter() const
-{
-  return getType() != -1;
-}
-
-/** 
- * Determines the type of the spatial parameter, that is one of: 
- * 
- * SBML_SPATIAL_SPATIALSYMBOLREFERENCE
- * SBML_SPATIAL_DIFFUSIONCOEFFICIENT
- * SBML_SPATIAL_ADVECTIONCOEFFICIENT
- * SBML_SPATIAL_BOUNDARYCONDITION
- * 
- * or -1 in case no other is defined.
- */
-int 
-SpatialParameterPlugin::getType() const
-{
-  if (isSetSpatialSymbolReference())
-  {
-    return SBML_SPATIAL_SPATIALSYMBOLREFERENCE;
-  }
-  if (isSetDiffusionCoefficient())
-  {
-    return SBML_SPATIAL_DIFFUSIONCOEFFICIENT;
-  }    
-  if (isSetAdvectionCoefficient())
-  {
-    return SBML_SPATIAL_ADVECTIONCOEFFICIENT;
-  }    
-  if (isSetBoundaryCondition())
-  {
-    return SBML_SPATIAL_BOUNDARYCONDITION;
-  }    
-  return -1;
-}
 
 /*
  * Creates a new DiffusionCoefficient object and adds it to the SpatialParameterPlugin object.
@@ -785,3 +746,44 @@ LIBSBML_CPP_NAMESPACE_END
 #endif /* __cplusplus */
 
 
+/* 
+ * @return true, if either the spatial symbol reference, diffusion coefficient, 
+ *   advection coefficient or boundary is set. Otherwise the return value is false.
+ */ 
+bool 
+SpatialParameterPlugin::isSpatialParameter() const
+{
+  return getType() != -1;
+}
+
+/* 
+ * Determines the type of the spatial parameter, that is one of: 
+ * 
+ * SBML_SPATIAL_SPATIALSYMBOLREFERENCE
+ * SBML_SPATIAL_DIFFUSIONCOEFFICIENT
+ * SBML_SPATIAL_ADVECTIONCOEFFICIENT
+ * SBML_SPATIAL_BOUNDARYCONDITION
+ * 
+ * or -1 in case no other is defined.
+ */
+int 
+SpatialParameterPlugin::getType() const
+{
+  if (isSetSpatialSymbolReference())
+  {
+    return SBML_SPATIAL_SPATIALSYMBOLREFERENCE;
+  }
+  if (isSetDiffusionCoefficient())
+  {
+    return SBML_SPATIAL_DIFFUSIONCOEFFICIENT;
+  }    
+  if (isSetAdvectionCoefficient())
+  {
+    return SBML_SPATIAL_ADVECTIONCOEFFICIENT;
+  }    
+  if (isSetBoundaryCondition())
+  {
+    return SBML_SPATIAL_BOUNDARYCONDITION;
+  }    
+  return -1;
+}

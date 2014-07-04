@@ -1,204 +1,132 @@
 /**
- * @file    ImageData.cpp
- * @brief   Implementation of ImageData, the SBase derived class of spatial package.
- * @author  
+ * @file:   ImageData.cpp
+ * @brief:  Implementation of the ImageData class
+ * @author: SBMLTeam
  *
- * $Id: ImageData.cpp 10670 2010-01-16 12:10:06Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/ImageData.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <stdlib.h>
-#include <vector>
-#include <limits>
-#include <cstring>
-
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/SBase.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-#include <sbml/compress/CompressCommon.h>
-
-#ifdef USE_ZLIB
-#include <zlib.h>
-#endif
 
 #include <sbml/packages/spatial/sbml/ImageData.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
-#include <sbml/extension/SBMLExtensionException.h>
+#include <sbml/util/ElementFilter.h>
+
 
 using namespace std;
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-  /**
-  * Accepts the given SBMLVisitor for this SBase object.
-  *
-  * @param v the SBMLVisitor instance to be used
-  *
-  * @return the result of calling <code>v.visit()</code>.
-  */
-
-bool 
-ImageData::accept (SBMLVisitor& v) const
-{ 
-  return false; 
-} 
-
 /*
- * Creates a new ImageData with the given level, version, and package version.
- */
-ImageData::ImageData (unsigned int level, unsigned int version, unsigned int pkgVersion) 
- : SBase(level, version)
- , mDataType("")
- , mSamples(NULL)
- , mSamplesLength(0)
- , mIsSetSamplesLength (false)
- , mUncompressedSamples(NULL)
- , mUncompressedLength(0)
- , mURI("")
- , mParentSBMLObject(NULL)
- , mSBMLNamespaces(NULL)
- , mIsSetSamples(false)
-{
-  // initialize 'dataType'
-  mDataType = "";
-  // initilaize samples array
-  mSamplesLength = 1;
-  mSamples = new int[1];
-  mSamples[0] = 0;
-
-  mIsSetSamples = false;
-  mParentSBMLObject = NULL;
-
-  
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  // Taken from SBase.setSBMLNamepsacesAndOwn();
-  // setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
-  /*
-  SBMLNamespaces* sbmlns = new SpatialPkgNamespaces(level,version,pkgVersion);
-  delete mSBMLNamespaces;
-  mSBMLNamespaces = sbmlns;
-
-  if(sbmlns) 
-	mURI = sbmlns->getURI();
-  */
-}
-
-/*
- * Creates a new ImageData with the given SpatialPkgNamespaces object.
- */
-ImageData::ImageData(SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
- , mDataType("")
- , mSamples(NULL)
- , mSamplesLength(0)
- , mIsSetSamplesLength (false)
- , mUncompressedSamples(NULL)
- , mUncompressedLength(0)
- , mURI("")
- , mParentSBMLObject(NULL)
- , mSBMLNamespaces(NULL)
- , mIsSetSamples(false)
-{
-  //
-  // set the element namespace of this object
-  //
-  mURI = spatialns->getURI();
-  mSBMLNamespaces = spatialns;
-  setElementNamespace(spatialns->getURI());
-  
-  // initialize 'dataType'
-  mDataType = "";
-  // initilaize samples array
-  mSamplesLength = 1;
-  mSamples = new int[mSamplesLength];
-  mSamples[0] = 0;
-
-  mIsSetSamples = false;
-  mParentSBMLObject = NULL;
-
-
-  // load package extensions bound with this object (if any) 
-  // loadPlugins(spatialns);
-}
-
-/*
- * Copy constructor.
- */
-ImageData::ImageData(const ImageData& source)
- : SBase(source)
- , mDataType(source.mDataType)
- , mSamples(NULL)
- , mSamplesLength(source.mSamplesLength)
- , mIsSetSamplesLength (source.mIsSetSamplesLength)
- , mUncompressedSamples(NULL)
- , mUncompressedLength(0)
- , mURI(source.mURI)
- , mParentSBMLObject(NULL)
- , mSBMLNamespaces(NULL)
- , mIsSetSamples(source.mIsSetSamples)
+* Creates a new ImageData with the given level, version, and package version.
+*/
+ImageData::ImageData(unsigned int level, unsigned int version, unsigned int pkgVersion)
+: SBase(level, version)
+, mSamples(NULL)
+, mSamplesLength(SBML_INT_MAX)
+, mIsSetSamplesLength(false)
+, mDataType("")
+, mUncompressedSamples(NULL)
+, mUncompressedLength(0)
 {
   // set an SBMLNamespaces derived object of this package
-  if (source.mSamples != NULL)
-  {
-  this->mSamples = new int[mSamplesLength];
-  memcpy(mSamples , source.mSamples, sizeof(int)*mSamplesLength);     
-  }
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
+
 /*
- * Assignment operator.
- */
-ImageData& ImageData::operator=(const ImageData& source)
+* Creates a new ImageData with the given SpatialPkgNamespaces object.
+*/
+ImageData::ImageData(SpatialPkgNamespaces* spatialns)
+  : SBase(spatialns)
+  , mSamples(NULL)
+  , mSamplesLength(SBML_INT_MAX)
+  , mIsSetSamplesLength(false)
+  , mDataType("")
+  , mUncompressedSamples(NULL)
+  , mUncompressedLength(0)
 {
-  if(&source!=this)
+  // set the element namespace of this object
+  setElementNamespace(spatialns->getURI());
+
+  // load package extensions bound with this object (if any) 
+  loadPlugins(spatialns);
+}
+
+
+/*
+* Copy constructor for ImageData.
+*/
+ImageData::ImageData(const ImageData& orig)
+  : SBase(orig)
+{
+  if (&orig == NULL)
   {
-	this->mDataType = source.mDataType;
-	this->mSamplesLength = source.mSamplesLength;
-    mIsSetSamplesLength  = source.mIsSetSamplesLength;
-  mUncompressedSamples = NULL;
-  mUncompressedLength = 0;
-  if (source.mSamples != NULL)
-  {
-  this->mSamples = new int[mSamplesLength];
-  memcpy(mSamples , source.mSamples, sizeof(int)*mSamplesLength);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
   else
   {
-    this->mSamples = NULL;
+    mSamples = NULL;
+    setSamples(orig.mSamples, orig.mSamplesLength);
+    mSamplesLength = orig.mSamplesLength;
+    mIsSetSamplesLength = orig.mIsSetSamplesLength;
+    mDataType = orig.mDataType;
+    mUncompressedSamples = NULL;
+    mUncompressedLength = 0;
   }
+}
 
-	this->mIsSetSamples=source.mIsSetSamples;
-	this->mParentSBMLObject=source.mParentSBMLObject;
-  this->mURI=source.mURI;
-  this->mSBMLNamespaces=source.mSBMLNamespaces;
+
+/*
+* Assignment for ImageData.
+*/
+ImageData&
+ImageData::operator=(const ImageData& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mSamples = NULL;
+    setSamples(rhs.mSamples, rhs.mSamplesLength);
+    mSamplesLength = rhs.mSamplesLength;
+    mIsSetSamplesLength = rhs.mIsSetSamplesLength;
+    mDataType = rhs.mDataType;
+    mUncompressedSamples = NULL;
+    mUncompressedLength = 0;
+  }
   return *this;
 }
+
 
 
 /*
@@ -210,57 +138,69 @@ ImageData::clone () const
   return new ImageData(*this);
 }
 
-/*
- * Destructor.
- */ 
-ImageData::~ImageData ()
-{
-	// destroy 'samples' array here --- ???
-	delete[] mSamples;
-	mSamplesLength = 0;
-  freeUncompressed();
-}
 
 /*
-  * Returns the value of the "dataType" attribute of this ImageData.
-  */
-const std::string& 
-ImageData::getDataType () const
+ * Destructor for ImageData.
+ */
+ImageData::~ImageData ()
+{
+  if (mSamples != NULL)
+    delete[] mSamples;
+  mSamples = NULL;
+
+  if (mUncompressedSamples != NULL)
+    delete[] mUncompressedSamples;
+  mUncompressedSamples = NULL;
+
+}
+
+
+/*
+ * The "samples" attribute of this ImageData is returned in an int* array (pointer)
+ * that is passed as argument to the method (this is needed while using SWIG to
+ * convert int[] from C++ to Java). The method itself has a return type void.
+ *
+ * NOTE: you have to pre-allocate the array with the correct length! *
+ * @return void.
+ */
+void
+ImageData::getSamples(int* outArray) const
+{
+   if (outArray == NULL) return;
+
+   memcpy(outArray , mSamples, sizeof(int)*mSamplesLength);
+}
+
+
+/*
+ * Returns the value of the "samplesLength" attribute of this ImageData.
+ */
+int
+ImageData::getSamplesLength() const
+{
+  return mSamplesLength;
+}
+
+
+/*
+ * Returns the value of the "dataType" attribute of this ImageData.
+ */
+const std::string&
+ImageData::getDataType() const
 {
   return mDataType;
 }
 
-  /*
-   * The "samples" attribute of this ImageData is returned in an int array (pointer) 
-   * that is passed as argument to the method (this is needed while using SWIG to
-   * convert int[] from C++ to Java). The method itself has a return type void.
-   *
-   * @return void.
-  */
-void 
-ImageData::getSamples (int* outputSamples) const
-{
-   if (outputSamples == NULL) return;
-
-   memcpy(outputSamples , mSamples, sizeof(int)*mSamplesLength);
-   
-}
-
-unsigned int
-ImageData::getSamplesLength () const
-{
-	return mSamplesLength;
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * ImageData's "dataType" attribute has been set.
-  */
-bool 
-ImageData::isSetDataType () const
+ * Returns true/false if samples is set.
+ */
+bool
+ImageData::isSetSamples() const
 {
-  return (mDataType.empty() == false);
+  return (mSamples != NULL);
 }
+
 
 /*
  * Returns true/false if samplesLength is set.
@@ -272,17 +212,42 @@ ImageData::isSetSamplesLength() const
 }
 
 
-
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * ImageData's "samples" attribute has been set.
-  */
-bool 
-ImageData::isSetSamples () const
+ * Returns true/false if dataType is set.
+ */
+bool
+ImageData::isSetDataType() const
 {
-  return mIsSetSamples;
+  return (mDataType.empty() == false);
 }
 
+
+/*
+ * Sets the "samples" element of this ImageData.
+ *
+ * @param inArray; int* array to be set (it will be copied).
+ * @param arrayLength; the length of the array.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ImageData::setSamples(int* inArray, int arrayLength)
+{
+  if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (mSamples != NULL) delete[] mSamples;
+  mSamples = new int[arrayLength];
+  memcpy(mSamples, inArray, sizeof(int)*arrayLength);
+  mIsSetSamplesLength = true;
+  mSamplesLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
 /*
  * Sets samplesLength and returns value indicating success.
  */
@@ -293,6 +258,38 @@ ImageData::setSamplesLength(int samplesLength)
   mIsSetSamplesLength = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+/*
+ * Sets dataType and returns value indicating success.
+ */
+int
+ImageData::setDataType(const std::string& dataType)
+{
+  if (&(dataType) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDataType = dataType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets samples and returns value indicating success.
+ */
+int
+ImageData::unsetSamples()
+{
+  if (mSamples != NULL)
+   delete[] mSamples;
+  mSamples = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 /*
  * Unsets samplesLength and returns value indicating success.
@@ -315,47 +312,14 @@ ImageData::unsetSamplesLength()
 
 
 /*
-  * Sets the value of the "dataType" attribute of this ImageData.
-  */
-int 
-ImageData::setDataType (const std::string& dataType)
-{
-  // return SyntaxChecker::checkAndSetSId(dataType ,mDataType);
-  mDataType     = dataType;
-  return LIBSBML_OPERATION_SUCCESS;
-
-}
-
-/*
-  * Sets the value of the "samples" attribute of this ImageData.
-  */
-int 
-ImageData::setSamples (int* samples, int samplesLength)
-{
-  if (samples == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-      mIsSetSamplesLength = true;
-	  mSamplesLength = samplesLength;
-	  mSamples = new int[mSamplesLength];
-    memcpy(mSamples, samples, sizeof(int)*samplesLength);
-	  mIsSetSamples  = true;
-    freeUncompressed();
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-/*
-  * Unsets the value of the "dataType" attribute of this ImageData.
-  */
-int 
-ImageData::unsetDataType ()
+ * Unsets dataType and returns value indicating success.
+ */
+int
+ImageData::unsetDataType()
 {
   mDataType.erase();
-  if (mDataType.empty())
+
+  if (mDataType.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -365,256 +329,293 @@ ImageData::unsetDataType ()
   }
 }
 
-/*
-  * Unsets the value of the "samples" attribute of this ImageData.
-  */
-int 
-ImageData::unsetSamples ()
-{
-  mIsSetSamples = false;
-  
-  if (!isSetSamples())
-  {
-    freeUncompressed();
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
 /*
- * Clones an imageData object
- */
-ImageData*
-ImageData::deepCopy () const
-{
-  return new ImageData(*this);
-}
-
-/*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 ImageData::getElementName () const
 {
-  static const std::string name = "imageData";
+  static const string name = "imageData";
   return name;
 }
 
+
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 ImageData::getTypeCode () const
 {
-	return SBML_SPATIAL_IMAGEDATA;
+  return SBML_SPATIAL_IMAGEDATA;
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
-* Writes (serializes) this SBML object by writing it to XMLOutputStream.
-*/
+ * check if all the required attributes are set
+ */
+bool
+ImageData::hasRequiredAttributes () const
+{
+  bool allPresent = true;
+
+  if (isSetSamples() == false)
+    allPresent = false;
+
+  if (isSetSamplesLength() == false)
+    allPresent = false;
+
+  if (isSetDataType() == false)
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+ImageData::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor.
+ */
+bool
+ImageData::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+ImageData::setSBMLDocument (SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+ImageData::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+ImageData::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBase::addExpectedAttributes(attributes);
+
+  attributes.add("samplesLength");
+  attributes.add("dataType");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+ImageData::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // samplesLength int   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetSamplesLength = attributes.readInto("samplesLength", mSamplesLength);
+
+  if (mIsSetSamplesLength == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'samplesLength' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
+
+  //
+  // dataType string   ( use = "required" )
+  //
+  assigned = attributes.readInto("dataType", mDataType);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mDataType.empty() == true)
+    {
+      logEmptyString(mDataType, getLevel(), getVersion(), "<ImageData>");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'dataType' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+ImageData::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+
+  if (isSetSamplesLength() == true)
+    stream.writeAttribute("samplesLength", getPrefix(), mSamplesLength);
+
+  if (isSetDataType() == true)
+    stream.writeAttribute("dataType", getPrefix(), mDataType);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
 void
 ImageData::write(XMLOutputStream& stream) const
 {
-
   stream.startElement(getElementName());
-
   writeAttributes(stream);
-  // in addition to attributes we need to write the characters
-  
-  unsigned int length = getSamplesLength();
-  int* samplesArray = new int[length];
-  getSamples(samplesArray);
-
-  for (unsigned int i = 0; i < length; i++) {
-    stream << (long)samplesArray[i] << " ";
+  if(isSetSamples())
+  {
+    for (int i = 0; i < mSamplesLength; ++i)
+    {
+      stream << (long)mSamples[i] << " ";
+    }
   }
-
-  delete[] samplesArray;
-
   stream.endElement(getElementName());
 }
-/** @endcond */
+
 
 void
 ImageData::setElementText(const std::string &text)
 {
-
-  // The imageData element content is obtained as a string. Now parse 
-  // the string to get individual ints as strings
   stringstream strStream(text); // Insert the string into a stream
-  string buffer;
-  vector<int> intValuesVector;
-  while (strStream >> buffer)
+  int val;
+  vector<int> valuesVector;
+  while (strStream >> val)
   {
-    // convert each string token (buf) to int & store in a vector<int>
-    int val = atoi(buffer.c_str());
-    intValuesVector.push_back(val);
+    valuesVector.push_back(val);
   }
 
-  // convert the vector<int> to an array of ints
-  unsigned int samplesSize = (unsigned int)intValuesVector.size();
-  if (samplesSize > 0)
+  // convert the vector to an array
+  unsigned int length = (unsigned int)valuesVector.size();
+  if (length > 0)
   {
 
-    int* samples = new int[samplesSize];
-    for (unsigned int i = 0; i < samplesSize; i++)
+    int* data = new int[length];
+    for (unsigned int i = 0; i < length; ++i)
     {
-      samples[i] = intValuesVector.at(i);
+      data[i] = valuesVector.at(i);
     }
 
-    // set the samples on imageData.
-    setSamples(samples, samplesSize);
+    setSamples(data, length);
   }
 }
+#include <sbml/compress/CompressCommon.h>
 
-/**
- * Reads the imageData 'samples' from the given XMLInputStream, 
- */
-ImageData* ImageData::readImageData (XMLInputStream& stream)
- {
-	ImageData* id = NULL;
-	const string& name = stream.peek().getName();
-	if (name != "imageData") 
-    return id;
-	
-		XMLToken nextToken = stream.next();
-
-		// create an ImageData object
-    SPATIAL_CREATE_NS(spatialns, stream.getSBMLNamespaces());
-		id = new ImageData(spatialns);
-		delete spatialns;
-
-		XMLAttributes attributes = nextToken.getAttributes();
-
-		for (int i = 0; i < attributes.getLength(); i++)
-	    {
-		  std::string nameAtt   = attributes.getName(i);
-		  std::string uriAtt    = attributes.getURI(i);
-		  std::string prefixAtt = attributes.getPrefix(i);
-		  std::string valueAtt    = attributes.getValue(i);
-
-		  if (nameAtt == "dataType") {
-			  id->setDataType(valueAtt);
-			 //std::cout << "ImageData dataType: " << id->getDataType() << std::endl;
-		  }
-		}
-
-		while (!nextToken.isText()) {
-			nextToken = stream.next();
-		}
-		const string& nextTokenChars = nextToken.getCharacters();
-
-		// The imageData element content is obtained as a string. Now parse 
-		// the string to get individual ints as strings
-		stringstream strStream(nextTokenChars); // Insert the string into a stream
-		string buffer;
-		vector<int> intValuesVector;
-		while (strStream >> buffer) 
-		{
-			// convert each string token (buf) to int & store in a vector<int>
-			int val = atoi(buffer.c_str());
-			intValuesVector.push_back(val);
-		}
-
-		// convert the vector<int> to an array of ints
-		unsigned int samplesSize = (unsigned int)intValuesVector.size();
-		int* samples = new int[samplesSize];
-		for (unsigned int i = 0; i < samplesSize; i++) 
-		{
-			samples[i] = intValuesVector.at(i);
-		}
-		
-		// set the samples on imageData.
-		id->setSamples(samples, samplesSize);
-	
-	return id;
- }
-
-/*
- * Writes imageData 'samples' to given XMLOutputStream
- */
-void ImageData::writeImageData (ImageData* imageData, XMLOutputStream& stream)
-{
-  unsigned int length = imageData->getSamplesLength();
-  int* samplesArray = new int[length];
-  imageData->getSamples(samplesArray);
-  string uri = imageData->getURI();
-  string dataType = imageData->getDataType();
-
-  // Write out the values in 'samplesArray' as content of ImageData element.
-  if (length == 0) 
-    return ; 
-  
-	  string prefix = "";
-    if (imageData->getSBMLNamespaces() != NULL)
-    {
-	  XMLNamespaces* xmlNamespaces = imageData->getSBMLNamespaces()->getNamespaces();
-	  if (xmlNamespaces->hasURI(uri)) 
-	  {		
-		prefix = xmlNamespaces->getPrefix(uri);
-	  }
-    }
-	  // write out the imageData element with prefix, if present.
-	  stream.startElement("imageData", prefix);
-	  stream.writeAttribute("dataType", prefix, dataType);
-	  for (unsigned int i = 0; i < length; i++) {
-		stream << (long)samplesArray[i] << " ";
-	  }
-	  stream.endElement("imageData", prefix);
-  
-
-}
-
-/** @cond doxygenLibsbmlInternal */
-void ImageData::setParentSBMLObject(SBase * sb)
-{
-  mParentSBMLObject = sb;
-  connectToParent(sb);
-}
-/** @endcond doxygenLibsbmlInternal */
-
-
-SBase * ImageData::getParentSBMLObject() const
-{
-  return mParentSBMLObject;
-}
-
-/* gets the SBMLnamespaces - internal use only*/
-SBMLNamespaces *
-ImageData::getSBMLNamespaces() const
-{
-  if (mParentSBMLObject != NULL)
-    return mParentSBMLObject->getSBMLNamespaces();
-
-  if (mSBMLNamespaces != NULL)
-    return mSBMLNamespaces;
-  else
-    return new SBMLNamespaces();
-}
-
-std::string
-ImageData::getURI() const
-{
-	return mURI;
-}
-
-void 
-ImageData::copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength)
-{
-    targetLength = sourceLength;
-    target = (int*)malloc(sizeof(int)*sourceLength);
-    memset(target, 0, sizeof(int)*sourceLength);
-    memcpy(target, source, sizeof(int)*sourceLength);
-}
+#ifdef USE_ZLIB
+#include <zlib.h>
+#endif
 
 /**  
  *  Returns the data of this image as uncompressed array of integers
@@ -625,7 +626,7 @@ ImageData::copySampleArrays(int* &target, int& targetLength, int* source, int so
  *
  */
 void 
-  ImageData::getUncompressedData(int* &data, int& length) 
+ImageData::getUncompressedData(int* &data, int& length) 
 {
   if (mUncompressedSamples == NULL)
   {
@@ -754,140 +755,144 @@ ImageData::uncompress_data(void *data, size_t length, int*& result, int& outLeng
 #endif
 }
 
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Get the list of expected attributes for this element.
- */
-void
-ImageData::addExpectedAttributes(ExpectedAttributes& attributes)
+void 
+ImageData::copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength)
 {
-	SBase::addExpectedAttributes(attributes);
+    targetLength = sourceLength;
+    target = (int*)malloc(sizeof(int)*sourceLength);
+    memset(target, 0, sizeof(int)*sourceLength);
+    memcpy(target, source, sizeof(int)*sourceLength);
+}
 
-	attributes.add("samples");
-	attributes.add("samplesLength");
-	attributes.add("dataType");
+LIBSBML_EXTERN
+ImageData_t *
+ImageData_create(unsigned int level, unsigned int version,
+                 unsigned int pkgVersion)
+{
+  return new ImageData(level, version, pkgVersion);
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Read values from the given XMLAttributes set into their specific fields.
- */
+LIBSBML_EXTERN
 void
-ImageData::readAttributes (const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+ImageData_free(ImageData_t * id)
 {
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+  if (id != NULL)
+    delete id;
+}
 
-  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
-
-  // look to see whether an unknown attribute error was logged
-  if (getErrorLog() != NULL)
+LIBSBML_EXTERN
+ImageData_t *
+ImageData_clone(ImageData_t * id)
+{
+  if (id != NULL)
   {
-    numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
-        getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
-      }
-    }
-  }
-
-  bool assigned = false;
-
-  //
-  // samplesLength int   ( use = "required" )
-  //
-  numErrs = getErrorLog()->getNumErrors();
-  mIsSetSamplesLength = attributes.readInto("samplesLength", mSamplesLength);
-
-  if (mIsSetSamplesLength == false)
-  {
-    if (getErrorLog() != NULL)
-    {
-      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-              getErrorLog()->contains(XMLAttributeTypeMismatch))
-      {
-        getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'samplesLength' is missing.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
-      }
-    }
-  }
-
-  //
-  // dataType string   ( use = "required" )
-  //
-  assigned = attributes.readInto("dataType", mDataType);
-
-  if (assigned == true)
-  {
-    // check string is not empty
-
-    if (mDataType.empty() == true)
-    {
-      logEmptyString(mDataType, getLevel(), getVersion(), "<ImageData>");
-    }
+    return static_cast<ImageData_t*>(id->clone());
   }
   else
   {
-    std::string message = "Spatial attribute 'dataType' is missing.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+    return NULL;
   }
-
 }
 
 
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Write values of XMLAttributes to the output stream.
- */
-  void
-ImageData::writeAttributes (XMLOutputStream& stream) const
+LIBSBML_EXTERN
+int
+ImageData_getSamplesLength(const ImageData_t * id)
 {
-	SBase::writeAttributes(stream);
-
-	if (isSetSamplesLength() == true)
-		stream.writeAttribute("samplesLength", getPrefix(), mSamplesLength);
-
-	if (isSetDataType() == true)
-		stream.writeAttribute("dataType", getPrefix(), mDataType);
-
+	return (id != NULL) ? id->getSamplesLength() : SBML_INT_MAX;
 }
+
+
+LIBSBML_EXTERN
+const char *
+ImageData_getDataType(const ImageData_t * id)
+{
+	return (id != NULL && id->isSetDataType()) ? id->getDataType().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_isSetSamples(const ImageData_t * id)
+{
+  return (id != NULL) ? static_cast<int>(id->isSetSamples()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_isSetSamplesLength(const ImageData_t * id)
+{
+  return (id != NULL) ? static_cast<int>(id->isSetSamplesLength()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_isSetDataType(const ImageData_t * id)
+{
+  return (id != NULL) ? static_cast<int>(id->isSetDataType()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_setSamplesLength(ImageData_t * id, int samplesLength)
+{
+  if (id != NULL)
+    return (samplesLength == NULL) ? id->unsetSamplesLength() : id->setSamplesLength(samplesLength);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_setDataType(ImageData_t * id, const char * dataType)
+{
+  if (id != NULL)
+    return (dataType == NULL) ? id->setDataType("") : id->setDataType(dataType);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_unsetSamples(ImageData_t * id)
+{
+  return (id != NULL) ? id->unsetSamples() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_unsetSamplesLength(ImageData_t * id)
+{
+  return (id != NULL) ? id->unsetSamplesLength() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_unsetDataType(ImageData_t * id)
+{
+  return (id != NULL) ? id->unsetDataType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ImageData_hasRequiredAttributes(const ImageData_t * id)
+{
+  return (id != NULL) ? static_cast<int>(id->hasRequiredAttributes()) : 0;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+

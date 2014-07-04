@@ -122,29 +122,28 @@ public:
   virtual ~ParametricGeometry();
 
 
- 	/**
-	 * Returns the "parametricObject" element of this ParametricGeometry.
-	 *
-	 * @return the "parametricObject" element of this ParametricGeometry.
-	 */
-	virtual const ParametricObject* getParametricObject() const;
+   /**
+   * Returns the "parametricObject" element of this ParametricGeometry.
+   *
+   * @return the "parametricObject" element of this ParametricGeometry.
+   */
+  virtual const ParametricObject* getParametricObject() const;
 
 
-	/**
-	/**
-	 * Returns the "parametricObject" element of this ParametricGeometry.
-	 *
-	 * @return the "parametricObject" element of this ParametricGeometry.
-	 */
-	virtual ParametricObject* getParametricObject();
+  /**
+   * Returns the "parametricObject" element of this ParametricGeometry.
+   *
+   * @return the "parametricObject" element of this ParametricGeometry.
+   */
+  virtual ParametricObject* getParametricObject();
 
 
-	/**
-	 * Creates a new "ParametricObject" and sets it for this ParametricGeometry.
-	 *
-	 * @return the created "ParametricObject" element of this ParametricGeometry.
-	 */
-	virtual ParametricObject* createParametricObject();
+  /**
+   * Creates a new "ParametricObject" and sets it for this ParametricGeometry.
+   *
+   * @return the created "ParametricObject" element of this ParametricGeometry.
+   */
+  virtual ParametricObject* createParametricObject();
 
 
   /**
@@ -273,7 +272,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addSpatialPoint(const SpatialPoint* sp);
+  int addSpatialPoint(const SpatialPoint* sp);
 
 
   /**
@@ -281,18 +280,18 @@ public:
    *
    * @return the number of SpatialPoint objects in this ParametricGeometry
    */
-	unsigned int getNumSpatialPoints() const;
+  unsigned int getNumSpatialPoints() const;
 
 
-	/**
-	 * Creates a new SpatialPoint object, adds it to this ParametricGeometrys
-	 * ListOfSpatialPoints and returns the SpatialPoint object created. 
-	 *
-	 * @return a new SpatialPoint object instance
-	 *
-	 * @see addSpatialPoint(const SpatialPoint* sp)
-	 */
-	SpatialPoint* createSpatialPoint();
+  /**
+   * Creates a new SpatialPoint object, adds it to this ParametricGeometrys
+   * ListOfSpatialPoints and returns the SpatialPoint object created. 
+   *
+   * @return a new SpatialPoint object instance
+   *
+   * @see addSpatialPoint(const SpatialPoint* sp)
+   */
+  SpatialPoint* createSpatialPoint();
 
 
   /**

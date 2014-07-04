@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CSGTranslation.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,13 +47,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGTranslation with the given level, version, and package version.
  */
 CSGTranslation::CSGTranslation (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: CSGTransformation(level, version)
-   ,mTranslateX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateX (false)
-   ,mTranslateY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateY (false)
-   ,mTranslateZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateZ (false)
+  : CSGTransformation(level, version)
+  , mTranslateX (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateX (false)
+  , mTranslateY (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateY (false)
+  , mTranslateZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateZ (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -63,13 +64,13 @@ CSGTranslation::CSGTranslation (unsigned int level, unsigned int version, unsign
  * Creates a new CSGTranslation with the given SpatialPkgNamespaces object.
  */
 CSGTranslation::CSGTranslation (SpatialPkgNamespaces* spatialns)
-	: CSGTransformation(spatialns)
-   ,mTranslateX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateX (false)
-   ,mTranslateY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateY (false)
-   ,mTranslateZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetTranslateZ (false)
+  : CSGTransformation(spatialns)
+  , mTranslateX (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateX (false)
+  , mTranslateY (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateY (false)
+  , mTranslateZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetTranslateZ (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -83,7 +84,7 @@ CSGTranslation::CSGTranslation (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGTranslation.
  */
 CSGTranslation::CSGTranslation (const CSGTranslation& orig)
-	: CSGTransformation(orig)
+  : CSGTransformation(orig)
 {
   if (&orig == NULL)
   {
@@ -113,7 +114,7 @@ CSGTranslation::operator=(const CSGTranslation& rhs)
   }
   else if (&rhs != this)
   {
-		CSGTransformation::operator=(rhs);
+    CSGTransformation::operator=(rhs);
     mTranslateX  = rhs.mTranslateX;
     mIsSetTranslateX  = rhs.mIsSetTranslateX;
     mTranslateY  = rhs.mTranslateY;
@@ -305,8 +306,8 @@ CSGTranslation::unsetTranslateZ()
 const std::string&
 CSGTranslation::getElementName () const
 {
-	static const string name = "cSGTranslation";
-	return name;
+  static const string name = "csgTranslation";
+  return name;
 }
 
 
@@ -326,7 +327,7 @@ CSGTranslation::getTypeCode () const
 bool
 CSGTranslation::hasRequiredAttributes () const
 {
-	bool allPresent = CSGTransformation::hasRequiredAttributes();
+  bool allPresent = CSGTransformation::hasRequiredAttributes();
 
   if (isSetTranslateX() == false)
     allPresent = false;
@@ -343,7 +344,7 @@ CSGTranslation::hasRequiredAttributes () const
 void
 CSGTranslation::writeElements (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeElements(stream);
+  CSGTransformation::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -374,7 +375,7 @@ CSGTranslation::accept (SBMLVisitor& v) const
 void
 CSGTranslation::setSBMLDocument (SBMLDocument* d)
 {
-	CSGTransformation::setSBMLDocument(d);
+  CSGTransformation::setSBMLDocument(d);
 }
 
 
@@ -405,7 +406,7 @@ CSGTranslation::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGTranslation::createObject(XMLInputStream& stream)
 {
-	SBase* object = CSGTransformation::createObject(stream);
+  SBase* object = CSGTransformation::createObject(stream);
 
   connectToChild();
 
@@ -425,11 +426,11 @@ CSGTranslation::createObject(XMLInputStream& stream)
 void
 CSGTranslation::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	CSGTransformation::addExpectedAttributes(attributes);
+  CSGTransformation::addExpectedAttributes(attributes);
 
-	attributes.add("translateX");
-	attributes.add("translateY");
-	attributes.add("translateZ");
+  attributes.add("translateX");
+  attributes.add("translateY");
+  attributes.add("translateZ");
 }
 
 
@@ -450,7 +451,7 @@ CSGTranslation::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	CSGTransformation::readAttributes(attributes, expectedAttributes);
+  CSGTransformation::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -559,16 +560,16 @@ CSGTranslation::readAttributes (const XMLAttributes& attributes,
   void
 CSGTranslation::writeAttributes (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeAttributes(stream);
+  CSGTransformation::writeAttributes(stream);
 
-	if (isSetTranslateX() == true)
-		stream.writeAttribute("translateX", getPrefix(), mTranslateX);
+  if (isSetTranslateX() == true)
+    stream.writeAttribute("translateX", getPrefix(), mTranslateX);
 
-	if (isSetTranslateY() == true)
-		stream.writeAttribute("translateY", getPrefix(), mTranslateY);
+  if (isSetTranslateY() == true)
+    stream.writeAttribute("translateY", getPrefix(), mTranslateY);
 
-	if (isSetTranslateZ() == true)
-		stream.writeAttribute("translateZ", getPrefix(), mTranslateZ);
+  if (isSetTranslateZ() == true)
+    stream.writeAttribute("translateZ", getPrefix(), mTranslateZ);
 
 }
 

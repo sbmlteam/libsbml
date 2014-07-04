@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/SampledField.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,18 +47,18 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SampledField with the given level, version, and package version.
  */
 SampledField::SampledField (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mDataType ("")
-   ,mNumSamples1 (SBML_INT_MAX)
-   ,mIsSetNumSamples1 (false)
-   ,mNumSamples2 (SBML_INT_MAX)
-   ,mIsSetNumSamples2 (false)
-   ,mNumSamples3 (SBML_INT_MAX)
-   ,mIsSetNumSamples3 (false)
-   ,mInterpolationType ("")
-   ,mEncoding ("")
-   ,mImageData (NULL)
+  : SBase(level, version)
+  , mId ("")
+  , mDataType ("")
+  , mNumSamples1 (SBML_INT_MAX)
+  , mIsSetNumSamples1 (false)
+  , mNumSamples2 (SBML_INT_MAX)
+  , mIsSetNumSamples2 (false)
+  , mNumSamples3 (SBML_INT_MAX)
+  , mIsSetNumSamples3 (false)
+  , mInterpolationType ("")
+  , mEncoding ("")
+  , mImageData (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -71,18 +72,18 @@ SampledField::SampledField (unsigned int level, unsigned int version, unsigned i
  * Creates a new SampledField with the given SpatialPkgNamespaces object.
  */
 SampledField::SampledField (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mDataType ("")
-   ,mNumSamples1 (SBML_INT_MAX)
-   ,mIsSetNumSamples1 (false)
-   ,mNumSamples2 (SBML_INT_MAX)
-   ,mIsSetNumSamples2 (false)
-   ,mNumSamples3 (SBML_INT_MAX)
-   ,mIsSetNumSamples3 (false)
-   ,mInterpolationType ("")
-   ,mEncoding ("")
-   ,mImageData (NULL)
+  : SBase(spatialns)
+  , mId ("")
+  , mDataType ("")
+  , mNumSamples1 (SBML_INT_MAX)
+  , mIsSetNumSamples1 (false)
+  , mNumSamples2 (SBML_INT_MAX)
+  , mIsSetNumSamples2 (false)
+  , mNumSamples3 (SBML_INT_MAX)
+  , mIsSetNumSamples3 (false)
+  , mInterpolationType ("")
+  , mEncoding ("")
+  , mImageData (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -99,7 +100,7 @@ SampledField::SampledField (SpatialPkgNamespaces* spatialns)
  * Copy constructor for SampledField.
  */
 SampledField::SampledField (const SampledField& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -144,7 +145,7 @@ SampledField::operator=(const SampledField& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mDataType  = rhs.mDataType;
     mNumSamples1  = rhs.mNumSamples1;
@@ -287,11 +288,12 @@ SampledField::getImageData()
 ImageData*
 SampledField::createImageData()
 {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-	mImageData = new ImageData();
-	delete spatialns;
-	connectToChild();
-	return mImageData;
+  if (mImageData != NULL) delete mImageData;
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mImageData = new ImageData(spatialns);
+  delete spatialns;
+  connectToChild();
+  return mImageData;
 }
 
 
@@ -673,8 +675,8 @@ SampledField::getAllElements(ElementFilter* filter)
 const std::string&
 SampledField::getElementName () const
 {
-	static const string name = "sampledField";
-	return name;
+  static const string name = "sampledField";
+  return name;
 }
 
 
@@ -694,7 +696,7 @@ SampledField::getTypeCode () const
 bool
 SampledField::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -715,7 +717,7 @@ SampledField::hasRequiredAttributes () const
 bool
 SampledField::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetImageData() == false)
     allPresent = false;
@@ -732,12 +734,11 @@ SampledField::hasRequiredElements () const
 void
 SampledField::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (isSetImageData() == true)
-	{
-    //ImageData::writeImageData(mImageData, stream);
-		mImageData->write(stream);
-	}
+  SBase::writeElements(stream);
+  if (isSetImageData() == true)
+  {
+    mImageData->write(stream);
+  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -774,9 +775,9 @@ SampledField::accept (SBMLVisitor& v) const
 void
 SampledField::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	if ( mImageData != NULL)
-	  mImageData->setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  if ( mImageData != NULL)
+    mImageData->setSBMLDocument(d);
 }
 
 
@@ -791,10 +792,10 @@ SampledField::setSBMLDocument (SBMLDocument* d)
 void
 SampledField::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	if (mImageData != NULL)
-	  mImageData->connectToParent(this);
+  if (mImageData != NULL)
+    mImageData->connectToParent(this);
 }
 
 
@@ -825,7 +826,7 @@ SampledField::enablePackageInternal(const std::string& pkgURI,
 SBase*
 SampledField::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -857,15 +858,15 @@ SampledField::createObject(XMLInputStream& stream)
 void
 SampledField::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("dataType");
-	attributes.add("numSamples1");
-	attributes.add("numSamples2");
-	attributes.add("numSamples3");
-	attributes.add("interpolationType");
-	attributes.add("encoding");
+  attributes.add("id");
+  attributes.add("dataType");
+  attributes.add("numSamples1");
+  attributes.add("numSamples2");
+  attributes.add("numSamples3");
+  attributes.add("interpolationType");
+  attributes.add("encoding");
 }
 
 
@@ -886,7 +887,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -1072,28 +1073,28 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   void
 SampledField::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetDataType() == true)
-		stream.writeAttribute("dataType", getPrefix(), mDataType);
+  if (isSetDataType() == true)
+    stream.writeAttribute("dataType", getPrefix(), mDataType);
 
-	if (isSetNumSamples1() == true)
-		stream.writeAttribute("numSamples1", getPrefix(), mNumSamples1);
+  if (isSetNumSamples1() == true)
+    stream.writeAttribute("numSamples1", getPrefix(), mNumSamples1);
 
-	if (isSetNumSamples2() == true)
-		stream.writeAttribute("numSamples2", getPrefix(), mNumSamples2);
+  if (isSetNumSamples2() == true)
+    stream.writeAttribute("numSamples2", getPrefix(), mNumSamples2);
 
-	if (isSetNumSamples3() == true)
-		stream.writeAttribute("numSamples3", getPrefix(), mNumSamples3);
+  if (isSetNumSamples3() == true)
+    stream.writeAttribute("numSamples3", getPrefix(), mNumSamples3);
 
-	if (isSetInterpolationType() == true)
-		stream.writeAttribute("interpolationType", getPrefix(), mInterpolationType);
+  if (isSetInterpolationType() == true)
+    stream.writeAttribute("interpolationType", getPrefix(), mInterpolationType);
 
-	if (isSetEncoding() == true)
-		stream.writeAttribute("encoding", getPrefix(), mEncoding);
+  if (isSetEncoding() == true)
+    stream.writeAttribute("encoding", getPrefix(), mEncoding);
 
 }
 

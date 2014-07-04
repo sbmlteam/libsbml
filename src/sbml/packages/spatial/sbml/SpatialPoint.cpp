@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/SpatialPoint.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,15 +47,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SpatialPoint with the given level, version, and package version.
  */
 SpatialPoint::SpatialPoint (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mCoord1 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord1 (false)
-   ,mCoord2 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord2 (false)
-   ,mCoord3 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord3 (false)
-   ,mDomain ("")
+  : SBase(level, version)
+  , mId ("")
+  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord1 (false)
+  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord2 (false)
+  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord3 (false)
+  , mDomain ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -65,15 +66,15 @@ SpatialPoint::SpatialPoint (unsigned int level, unsigned int version, unsigned i
  * Creates a new SpatialPoint with the given SpatialPkgNamespaces object.
  */
 SpatialPoint::SpatialPoint (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mCoord1 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord1 (false)
-   ,mCoord2 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord2 (false)
-   ,mCoord3 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord3 (false)
-   ,mDomain ("")
+  : SBase(spatialns)
+  , mId ("")
+  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord1 (false)
+  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord2 (false)
+  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord3 (false)
+  , mDomain ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -87,7 +88,7 @@ SpatialPoint::SpatialPoint (SpatialPkgNamespaces* spatialns)
  * Copy constructor for SpatialPoint.
  */
 SpatialPoint::SpatialPoint (const SpatialPoint& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -119,7 +120,7 @@ SpatialPoint::operator=(const SpatialPoint& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mCoord1  = rhs.mCoord1;
     mIsSetCoord1  = rhs.mIsSetCoord1;
@@ -437,8 +438,8 @@ SpatialPoint::renameSIdRefs(const std::string& oldid, const std::string& newid)
 const std::string&
 SpatialPoint::getElementName () const
 {
-	static const string name = "spatialPoint";
-	return name;
+  static const string name = "spatialPoint";
+  return name;
 }
 
 
@@ -458,7 +459,7 @@ SpatialPoint::getTypeCode () const
 bool
 SpatialPoint::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -481,7 +482,7 @@ SpatialPoint::hasRequiredAttributes () const
 void
 SpatialPoint::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -512,7 +513,7 @@ SpatialPoint::accept (SBMLVisitor& v) const
 void
 SpatialPoint::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -543,13 +544,13 @@ SpatialPoint::enablePackageInternal(const std::string& pkgURI,
 void
 SpatialPoint::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("coord1");
-	attributes.add("coord2");
-	attributes.add("coord3");
-	attributes.add("domain");
+  attributes.add("id");
+  attributes.add("coord1");
+  attributes.add("coord2");
+  attributes.add("coord3");
+  attributes.add("domain");
 }
 
 
@@ -600,7 +601,7 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -761,22 +762,22 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
   void
 SpatialPoint::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetCoord1() == true)
-		stream.writeAttribute("coord1", getPrefix(), mCoord1);
+  if (isSetCoord1() == true)
+    stream.writeAttribute("coord1", getPrefix(), mCoord1);
 
-	if (isSetCoord2() == true)
-		stream.writeAttribute("coord2", getPrefix(), mCoord2);
+  if (isSetCoord2() == true)
+    stream.writeAttribute("coord2", getPrefix(), mCoord2);
 
-	if (isSetCoord3() == true)
-		stream.writeAttribute("coord3", getPrefix(), mCoord3);
+  if (isSetCoord3() == true)
+    stream.writeAttribute("coord3", getPrefix(), mCoord3);
 
-	if (isSetDomain() == true)
-		stream.writeAttribute("domain", getPrefix(), mDomain);
+  if (isSetDomain() == true)
+    stream.writeAttribute("domain", getPrefix(), mDomain);
 
 }
 
@@ -987,8 +988,8 @@ ListOfSpatialPoints::remove(const std::string& sid)
 const std::string&
 ListOfSpatialPoints::getElementName () const
 {
-	static const string name = "listOfSpatialPoints";
-	return name;
+  static const string name = "listOfSpatialPoints";
+  return name;
 }
 
 

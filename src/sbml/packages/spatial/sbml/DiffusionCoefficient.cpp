@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/DiffusionCoefficient.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,10 +47,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new DiffusionCoefficient with the given level, version, and package version.
  */
 DiffusionCoefficient::DiffusionCoefficient (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mVariable ("")
-   ,mType (DIFFUSIONKIND_UNKNOWN)
-   ,mCoordinateReferences (level, version, pkgVersion)
+  : SBase(level, version)
+  , mVariable ("")
+  , mType (DIFFUSIONKIND_UNKNOWN)
+  , mCoordinateReferences (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -63,10 +64,10 @@ DiffusionCoefficient::DiffusionCoefficient (unsigned int level, unsigned int ver
  * Creates a new DiffusionCoefficient with the given SpatialPkgNamespaces object.
  */
 DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mVariable ("")
-   ,mType (DIFFUSIONKIND_UNKNOWN)
-   ,mCoordinateReferences (spatialns)
+  : SBase(spatialns)
+  , mVariable ("")
+  , mType (DIFFUSIONKIND_UNKNOWN)
+  , mCoordinateReferences (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -83,7 +84,7 @@ DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
  * Copy constructor for DiffusionCoefficient.
  */
 DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -113,7 +114,7 @@ DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
     mType  = rhs.mType;
     mCoordinateReferences  = rhs.mCoordinateReferences;
@@ -265,7 +266,7 @@ DiffusionCoefficient::unsetType()
 const ListOfCoordinateReferences*
 DiffusionCoefficient::getListOfCoordinateReferences() const
 {
-	return &mCoordinateReferences;
+  return &mCoordinateReferences;
 }
 
 
@@ -376,7 +377,7 @@ DiffusionCoefficient::addCoordinateReference(const CoordinateReference* cr)
   }
   else
   {
-	mCoordinateReferences.append(cr);
+    mCoordinateReferences.append(cr);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -390,7 +391,7 @@ DiffusionCoefficient::addCoordinateReference(const CoordinateReference* cr)
 unsigned int
 DiffusionCoefficient::getNumCoordinateReferences() const
 {
-	return mCoordinateReferences.size();
+  return mCoordinateReferences.size();
 }
 
 
@@ -464,8 +465,8 @@ DiffusionCoefficient::getAllElements(ElementFilter* filter)
 const std::string&
 DiffusionCoefficient::getElementName () const
 {
-	static const string name = "diffusionCoefficient";
-	return name;
+  static const string name = "diffusionCoefficient";
+  return name;
 }
 
 
@@ -485,7 +486,7 @@ DiffusionCoefficient::getTypeCode () const
 bool
 DiffusionCoefficient::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetVariable() == false)
     allPresent = false;
@@ -503,7 +504,7 @@ DiffusionCoefficient::hasRequiredAttributes () const
 bool
 DiffusionCoefficient::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   return allPresent;
 }
@@ -517,8 +518,8 @@ DiffusionCoefficient::hasRequiredElements () const
 void
 DiffusionCoefficient::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (getNumCoordinateReferences() > 0)
+  SBase::writeElements(stream);
+  if (getNumCoordinateReferences() > 0)
   {
     mCoordinateReferences.write(stream);
   }
@@ -559,8 +560,8 @@ DiffusionCoefficient::accept (SBMLVisitor& v) const
 void
 DiffusionCoefficient::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	mCoordinateReferences.setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  mCoordinateReferences.setSBMLDocument(d);
 }
 
 
@@ -575,9 +576,9 @@ DiffusionCoefficient::setSBMLDocument (SBMLDocument* d)
 void
 DiffusionCoefficient::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	mCoordinateReferences.connectToParent(this);
+  mCoordinateReferences.connectToParent(this);
 }
 
 
@@ -609,7 +610,7 @@ DiffusionCoefficient::enablePackageInternal(const std::string& pkgURI,
 SBase*
 DiffusionCoefficient::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -635,10 +636,10 @@ DiffusionCoefficient::createObject(XMLInputStream& stream)
 void
 DiffusionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("variable");
-	attributes.add("type");
+  attributes.add("variable");
+  attributes.add("type");
 }
 
 
@@ -659,7 +660,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -750,13 +751,13 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   void
 DiffusionCoefficient::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetVariable() == true)
-		stream.writeAttribute("variable", getPrefix(), mVariable);
+  if (isSetVariable() == true)
+    stream.writeAttribute("variable", getPrefix(), mVariable);
 
-	if (isSetType() == true)
-		stream.writeAttribute("type", getPrefix(), DiffusionKind_toString(mType));
+  if (isSetType() == true)
+    stream.writeAttribute("type", getPrefix(), DiffusionKind_toString(mType));
 
 }
 

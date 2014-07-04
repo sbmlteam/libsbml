@@ -34,6 +34,8 @@
 
 #include <sbml/packages/spatial/extension/SpatialReactionPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 
 using namespace std;
@@ -52,8 +54,8 @@ SpatialReactionPlugin::SpatialReactionPlugin(const std::string& uri,
                                  const std::string& prefix, 
                                SpatialPkgNamespaces* spatialns) :
     SBasePlugin(uri, prefix, spatialns)
-   ,mIsLocal (false)
-   ,mIsSetIsLocal (false)
+  , mIsLocal (false)
+  , mIsSetIsLocal (false)
 {
 }
 
@@ -166,9 +168,9 @@ SpatialReactionPlugin::hasRequiredElements () const
 void
 SpatialReactionPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBasePlugin::addExpectedAttributes(attributes);
+  SBasePlugin::addExpectedAttributes(attributes);
 
-	attributes.add("isLocal");
+  attributes.add("isLocal");
 }
 
 
@@ -189,7 +191,7 @@ SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBasePlugin::readAttributes(attributes, expectedAttributes);
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -258,10 +260,10 @@ SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
   void
 SpatialReactionPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-	SBasePlugin::writeAttributes(stream);
+  SBasePlugin::writeAttributes(stream);
 
-	if (isSetIsLocal() == true)
-		stream.writeAttribute("isLocal", getPrefix(), mIsLocal);
+  if (isSetIsLocal() == true)
+    stream.writeAttribute("isLocal", getPrefix(), mIsLocal);
 
 }
 

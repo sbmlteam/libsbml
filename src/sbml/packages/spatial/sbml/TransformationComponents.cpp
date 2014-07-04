@@ -1,203 +1,254 @@
 /**
- * @file    TransformationComponents.cpp
- * @brief   Implementation of TransformationComponents, the SBase derived class of spatial package.
- * @author  
+ * @file:   TransformationComponents.cpp
+ * @brief:  Implementation of the TransformationComponents class
+ * @author: SBMLTeam
  *
- * $Id: TransformationComponents.cpp 10670 2010-01-16 12:10:06Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/TransformationComponents.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <stdlib.h>
-#include <vector>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/TransformationComponents.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
-#include <sbml/extension/SBMLExtensionException.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new TransformationComponents with the given level, version, and package version.
  */
-TransformationComponents::TransformationComponents (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  :SBase(level, version)
+TransformationComponents::TransformationComponents (unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : SBase(level, version)
+  , mComponents (NULL)
+  , mComponentsLength (SBML_INT_MAX)
+  , mIsSetComponentsLength (false)
+  , mElementName("transformationComponents")
 {
-  // initilaize components array
-  mComponentsLength = 1;
-  mComponents = new double[1];
-  mComponents[0] = 0;
-
-  mIsSetComponents = false;
-  mParentSBMLObject = NULL;
-
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  // Taken from SBase.setSBMLNamepsacesAndOwn();
-  // setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
-  /*
-  SBMLNamespaces* sbmlns = new SpatialPkgNamespaces(level,version,pkgVersion);
-  delete mSBMLNamespaces;
-  mSBMLNamespaces = sbmlns;
-
-  if(sbmlns) 
-	mURI = sbmlns->getURI();
-  */
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
+
 
 /*
  * Creates a new TransformationComponents with the given SpatialPkgNamespaces object.
  */
-TransformationComponents::TransformationComponents(SpatialPkgNamespaces* spatialns)
-  :SBase(spatialns)
+TransformationComponents::TransformationComponents (SpatialPkgNamespaces* spatialns)
+  : SBase(spatialns)
+  , mComponents (NULL)
+  , mComponentsLength (SBML_INT_MAX)
+  , mIsSetComponentsLength (false)
+  , mElementName("transformationComponents")
 {
-  //
   // set the element namespace of this object
-  //
-  // taken from (SBase->setElementNamespace())
-  mURI = spatialns->getURI();
-  mSBMLNamespaces = spatialns;
-
-  // initilaize components array
-  mComponentsLength = 1;
-  mComponents = new double[mComponentsLength];
-  mComponents[0] = 0;
-
-  mIsSetComponents = false;
-  mParentSBMLObject = NULL;
-
+  setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
-  // loadPlugins(spatialns);
+  loadPlugins(spatialns);
 }
 
+
 /*
- * Copy constructor.
+ * Copy constructor for TransformationComponents.
  */
-TransformationComponents::TransformationComponents(const TransformationComponents& source)
-  :SBase(source)
+TransformationComponents::TransformationComponents (const TransformationComponents& orig)
+  : SBase(orig)
 {
-  this->mComponentsLength=source.mComponentsLength;
-  this->mComponents=source.mComponents;
-  this->mIsSetComponents=source.mIsSetComponents;
-  this->mParentSBMLObject=source.mParentSBMLObject;
-  this->mURI=source.mURI;
-}
-
-/*
- * Assignment operator.
- */
-TransformationComponents& TransformationComponents::operator=(const TransformationComponents& source)
-{
-  if(&source!=this)
+  if (&orig == NULL)
   {
-	this->mComponents = source.mComponents;
-	this->mComponentsLength = source.mComponentsLength;
-	this->mIsSetComponents=source.mIsSetComponents;
-	this->mParentSBMLObject=source.mParentSBMLObject;
-  }
-  
-  return *this;
-}
-
-/*
- * Destructor.
- */ 
-TransformationComponents::~TransformationComponents ()
-{
-	// destroy 'components' array here --- ???
-	delete[] mComponents;
-	mComponentsLength = 0;
-}
-
-  /*
-   * The "components" attribute of this TransformationComponents is returned in an int array (pointer) 
-   * that is passed as argument to the method (this is needed while using SWIG to
-   * convert int[] from C++ to Java). The method itself has a return type void.
-   *
-   * @return void.
-  */
-void 
-TransformationComponents::getComponents (double* outputComponents) const
-{
-   if (outputComponents == 0) {
-	 throw SBMLExtensionException("Cannot return null or 0-length array");
-   }
-   for (unsigned int i = 0; i < mComponentsLength; i++) {
-	   outputComponents[i] = mComponents[i];
-   }
-
-}
-
-unsigned int
-TransformationComponents::getComponentsLength () const
-{
-	return mComponentsLength;
-}
-
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * TransformationComponents's "components" attribute has been set.
-  */
-bool 
-TransformationComponents::isSetComponents () const
-{
-  return mIsSetComponents;
-}
-
-/*
-  * Sets the value of the "components" attribute of this TransformationComponents.
-  */
-int 
-TransformationComponents::setComponents (double* components, int componentsLength)
-{
-  if (components == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
   else
   {
-	  mComponentsLength = componentsLength;
-	  mComponents = new double[mComponentsLength];
-	  for (unsigned int i = 0; i < mComponentsLength; i++) {
-		mComponents[i] = components[i];
-	  }
-	  mIsSetComponents  = true;
-      return LIBSBML_OPERATION_SUCCESS;
+    mComponents  = NULL;
+    setComponents(orig.mComponents, orig.mComponentsLength);
+    mComponentsLength  = orig.mComponentsLength;
+    mIsSetComponentsLength  = orig.mIsSetComponentsLength;
+    mElementName = orig.mElementName;
   }
 }
 
+
 /*
-  * Unsets the value of the "components" attribute of this TransformationComponents.
-  */
-int 
-TransformationComponents::unsetComponents ()
+ * Assignment for TransformationComponents.
+ */
+TransformationComponents&
+TransformationComponents::operator=(const TransformationComponents& rhs)
 {
-  mIsSetComponents = false;
-  
-  if (!isSetComponents())
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mComponents  = NULL;
+    setComponents(rhs.mComponents, rhs.mComponentsLength);
+    mComponentsLength  = rhs.mComponentsLength;
+    mIsSetComponentsLength  = rhs.mIsSetComponentsLength;
+    mElementName = rhs.mElementName;
+  }
+  return *this;
+}
+
+
+/*
+ * Clone for TransformationComponents.
+ */
+TransformationComponents*
+TransformationComponents::clone () const
+{
+  return new TransformationComponents(*this);
+}
+
+
+/*
+ * Destructor for TransformationComponents.
+ */
+TransformationComponents::~TransformationComponents ()
+{
+  if (mComponents != NULL)
+    delete[] mComponents;
+  mComponents = NULL;
+}
+
+
+/*
+ * The "components" attribute of this TransformationComponents is returned in an double* array (pointer)
+ * that is passed as argument to the method (this is needed while using SWIG to
+ * convert int[] from C++ to Java). The method itself has a return type void.
+ *
+ * NOTE: you have to pre-allocate the array with the correct length! *
+ * @return void.
+ */
+void
+TransformationComponents::getComponents(double* outArray) const
+{
+   if (outArray == NULL) return;
+
+   memcpy(outArray , mComponents, sizeof(double)*mComponentsLength);
+}
+
+
+/*
+ * Returns the value of the "componentsLength" attribute of this TransformationComponents.
+ */
+int
+TransformationComponents::getComponentsLength() const
+{
+  return mComponentsLength;
+}
+
+
+/*
+ * Returns true/false if components is set.
+ */
+bool
+TransformationComponents::isSetComponents() const
+{
+  return (mComponents != NULL);
+}
+
+
+/*
+ * Returns true/false if componentsLength is set.
+ */
+bool
+TransformationComponents::isSetComponentsLength() const
+{
+  return mIsSetComponentsLength;
+}
+
+
+/*
+ * Sets the "components" element of this TransformationComponents.
+ *
+ * @param inArray; double* array to be set (it will be copied).
+ * @param arrayLength; the length of the array.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+TransformationComponents::setComponents(double* inArray, int arrayLength)
+{
+  if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (mComponents != NULL) delete[] mComponents;
+  mComponents = new double[arrayLength];
+  memcpy(mComponents, inArray, sizeof(double)*arrayLength);
+  mIsSetComponentsLength = true;
+  mComponentsLength = arrayLength;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+/*
+ * Sets componentsLength and returns value indicating success.
+ */
+int
+TransformationComponents::setComponentsLength(int componentsLength)
+{
+  mComponentsLength = componentsLength;
+  mIsSetComponentsLength = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets components and returns value indicating success.
+ */
+int
+TransformationComponents::unsetComponents()
+{
+  if (mComponents != NULL)
+   delete[] mComponents;
+  mComponents = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets componentsLength and returns value indicating success.
+ */
+int
+TransformationComponents::unsetComponentsLength()
+{
+  mComponentsLength = SBML_INT_MAX;
+  mIsSetComponentsLength = false;
+
+  if (isSetComponentsLength() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -207,159 +258,363 @@ TransformationComponents::unsetComponents ()
   }
 }
 
-/*
- * Clones an transformationComponents object
- */
-TransformationComponents*
-TransformationComponents::deepCopy () const
-{
-  return new TransformationComponents(*this);
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 TransformationComponents::getElementName () const
 {
-  static const std::string name = "transformationComponents";
-  return name;
+  return mElementName;
 }
 
+
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Sets the element name for this object
+ */
+void
+TransformationComponents::setElementName(const std::string& name)
+{
+  mElementName = name;
+}
+
+
+/*
+ * Returns the libSBML type code for this SBML object.
  */
 int
 TransformationComponents::getTypeCode () const
 {
-	return SBML_SPATIAL_TRANSFORMATIONCOMPONENTS;
+  return SBML_SPATIAL_TRANSFORMATIONCOMPONENTS;
 }
 
-
-TransformationComponents* TransformationComponents::clone() const
-{
-  return new TransformationComponents(*this);
-}
-
-
-/**
-* Accepts the given SBMLVisitor for this SBase object.
-*
-* @param v the SBMLVisitor instance to be used
-*
-* @return the result of calling <code>v.visit()</code>.
-*/
-
-bool
-TransformationComponents::accept(SBMLVisitor& v) const
-{
-  return false;
-}
-
-
-/**
- * Reads the transformationComponents 'components' from the given XMLInputStream, 
- */
-TransformationComponents* 
-TransformationComponents::readTransformationComponents (XMLInputStream& stream)
- {
-	TransformationComponents* tc = NULL;
-	const string& name = stream.peek().getName();
-	if (name == "transformationComponents") 
-	{
-		XMLToken nextToken = stream.next();
-		while (!nextToken.isText()) {
-			nextToken = stream.next();
-		}
-		const string& nextTokenChars = nextToken.getCharacters();
-
-		// The transformationComponents element content is obtained as a string. Now parse 
-		// the string to get individual doubles as strings
-		stringstream strStream(nextTokenChars); // Insert the string into a stream
-		string buffer;
-		vector<double> doubleValuesVector;
-		while (strStream >> buffer) 
-		{
-			// convert each string token (buf) to int & store in a vector<int>
-			int val = atoi(buffer.c_str());
-			doubleValuesVector.push_back(val);
-		}
-
-		// convert the vector<int> to an array of ints
-		unsigned int componentsSize = (unsigned int)doubleValuesVector.size();
-		double* components = new double[componentsSize];
-		for (unsigned int i = 0; i < componentsSize; i++) 
-		{
-			components[i] = doubleValuesVector.at(i);
-		}
-		
-		// create an TransformationComponents object and set the components on it.
-		tc = new TransformationComponents; //(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-		tc->setComponents(components, componentsSize);
-	}
-	return tc;
- }
 
 /*
- * Writes transformationComponents 'components' to given XMLOutputStream
+ * check if all the required attributes are set
  */
-void TransformationComponents::writeTransformationComponents (TransformationComponents* transformationComponents, XMLOutputStream& stream)
+bool
+TransformationComponents::hasRequiredAttributes () const
 {
-  unsigned int length = transformationComponents->getComponentsLength();
-  double* componentsArray = new double[length];
-  transformationComponents->getComponents(componentsArray);
-  string uri = transformationComponents->getURI();
+  bool allPresent = true;
 
-  // Write out the values in 'componentsArray' as content of TransformationComponents element.
-  if (length > 0) {
-	  string prefix = "";
-	  XMLNamespaces* xmlNamespaces = transformationComponents->getSBMLNamespaces()->getNamespaces();
-	  if (xmlNamespaces->hasURI(uri)) 
-	  {		
-		prefix = xmlNamespaces->getPrefix(uri);
-	  }
-	  // write out the transformationComponents element with prefix, if present.
-	  stream.startElement("transformationComponents", prefix);
-	  for (unsigned int i = 0; i < length; i++) {
-		stream << (double)componentsArray[i] << " ";
-	  }
-	  stream.endElement("transformationComponents", prefix);
+  if (isSetComponents() == false)
+    allPresent = false;
+
+  if (isSetComponentsLength() == false)
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+TransformationComponents::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor.
+ */
+bool
+TransformationComponents::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+TransformationComponents::setSBMLDocument (SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+TransformationComponents::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+TransformationComponents::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBase::addExpectedAttributes(attributes);
+
+  attributes.add("componentsLength");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+TransformationComponents::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // componentsLength int   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetComponentsLength = attributes.readInto("componentsLength", mComponentsLength);
+
+  if (mIsSetComponentsLength == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'componentsLength' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
   }
 
 }
 
-/** @cond doxygenLibsbmlInternal */
-void TransformationComponents::setParentSBMLObject(SBase * sb)
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+TransformationComponents::writeAttributes (XMLOutputStream& stream) const
 {
-  mParentSBMLObject = sb;
+  SBase::writeAttributes(stream);
+
+  if (isSetComponentsLength() == true)
+    stream.writeAttribute("componentsLength", getPrefix(), mComponentsLength);
+
 }
-/** @endcond doxygenLibsbmlInternal */
 
 
-SBase * TransformationComponents::getParentSBMLObject() const
+  /** @endcond doxygenLibsbmlInternal */
+
+
+void
+TransformationComponents::write(XMLOutputStream& stream) const
 {
-  return mParentSBMLObject;
+  stream.startElement(getElementName());
+  writeAttributes(stream);
+  if(isSetComponents())
+  {
+    for (int i = 0; i < mComponentsLength; ++i)
+    {
+      stream << (double)mComponents[i] << " ";
+    }
+  }
+  stream.endElement(getElementName());
 }
 
-/* gets the SBMLnamespaces - internal use only*/
-SBMLNamespaces *
-TransformationComponents::getSBMLNamespaces() const
+
+void
+TransformationComponents::setElementText(const std::string &text)
 {
-  if (mSBMLNamespaces != 0)
-    return mSBMLNamespaces;
+  stringstream strStream(text); // Insert the string into a stream
+  double val;
+  vector<double> valuesVector;
+  while (strStream >> val)
+  {
+    valuesVector.push_back(val);
+  }
+
+  // convert the vector to an array
+  unsigned int length = (unsigned int)valuesVector.size();
+  if (length > 0)
+  {
+
+    double* data = new double[length];
+    for (unsigned int i = 0; i < length; ++i)
+    {
+      data[i] = valuesVector.at(i);
+    }
+
+    setComponents(data, length);
+  }
+}
+LIBSBML_EXTERN
+TransformationComponents_t *
+TransformationComponents_create(unsigned int level, unsigned int version,
+                                unsigned int pkgVersion)
+{
+  return new TransformationComponents(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+TransformationComponents_free(TransformationComponents_t * tc)
+{
+  if (tc != NULL)
+    delete tc;
+}
+
+
+LIBSBML_EXTERN
+TransformationComponents_t *
+TransformationComponents_clone(TransformationComponents_t * tc)
+{
+  if (tc != NULL)
+  {
+    return static_cast<TransformationComponents_t*>(tc->clone());
+  }
   else
-    return new SBMLNamespaces();
+  {
+    return NULL;
+  }
 }
 
-std::string
-TransformationComponents::getURI() const
+
+LIBSBML_EXTERN
+int
+TransformationComponents_getComponentsLength(const TransformationComponents_t * tc)
 {
-	return mURI;
+	return (tc != NULL) ? tc->getComponentsLength() : SBML_INT_MAX;
 }
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_isSetComponents(const TransformationComponents_t * tc)
+{
+  return (tc != NULL) ? static_cast<int>(tc->isSetComponents()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_isSetComponentsLength(const TransformationComponents_t * tc)
+{
+  return (tc != NULL) ? static_cast<int>(tc->isSetComponentsLength()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_setComponentsLength(TransformationComponents_t * tc, int componentsLength)
+{
+  if (tc != NULL)
+    return (componentsLength == NULL) ? tc->unsetComponentsLength() : tc->setComponentsLength(componentsLength);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_unsetComponents(TransformationComponents_t * tc)
+{
+  return (tc != NULL) ? tc->unsetComponents() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_unsetComponentsLength(TransformationComponents_t * tc)
+{
+  return (tc != NULL) ? tc->unsetComponentsLength() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+TransformationComponents_hasRequiredAttributes(const TransformationComponents_t * tc)
+{
+  return (tc != NULL) ? static_cast<int>(tc->hasRequiredAttributes()) : 0;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+

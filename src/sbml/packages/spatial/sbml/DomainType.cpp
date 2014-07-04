@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/DomainType.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,10 +47,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new DomainType with the given level, version, and package version.
  */
 DomainType::DomainType (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mSpatialDimension (SBML_INT_MAX)
-   ,mIsSetSpatialDimension (false)
+  : SBase(level, version)
+  , mId ("")
+  , mSpatialDimension (SBML_INT_MAX)
+  , mIsSetSpatialDimension (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -60,10 +61,10 @@ DomainType::DomainType (unsigned int level, unsigned int version, unsigned int p
  * Creates a new DomainType with the given SpatialPkgNamespaces object.
  */
 DomainType::DomainType (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mSpatialDimension (SBML_INT_MAX)
-   ,mIsSetSpatialDimension (false)
+  : SBase(spatialns)
+  , mId ("")
+  , mSpatialDimension (SBML_INT_MAX)
+  , mIsSetSpatialDimension (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -77,7 +78,7 @@ DomainType::DomainType (SpatialPkgNamespaces* spatialns)
  * Copy constructor for DomainType.
  */
 DomainType::DomainType (const DomainType& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -104,7 +105,7 @@ DomainType::operator=(const DomainType& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mSpatialDimension  = rhs.mSpatialDimension;
     mIsSetSpatialDimension  = rhs.mIsSetSpatialDimension;
@@ -238,8 +239,8 @@ DomainType::unsetSpatialDimension()
 const std::string&
 DomainType::getElementName () const
 {
-	static const string name = "domainType";
-	return name;
+  static const string name = "domainType";
+  return name;
 }
 
 
@@ -259,7 +260,7 @@ DomainType::getTypeCode () const
 bool
 DomainType::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -279,7 +280,7 @@ DomainType::hasRequiredAttributes () const
 void
 DomainType::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -310,7 +311,7 @@ DomainType::accept (SBMLVisitor& v) const
 void
 DomainType::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -341,10 +342,10 @@ DomainType::enablePackageInternal(const std::string& pkgURI,
 void
 DomainType::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("spatialDimension");
+  attributes.add("id");
+  attributes.add("spatialDimension");
 }
 
 
@@ -395,7 +396,7 @@ DomainType::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -490,13 +491,13 @@ DomainType::readAttributes (const XMLAttributes& attributes,
   void
 DomainType::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetSpatialDimension() == true)
-		stream.writeAttribute("spatialDimension", getPrefix(), mSpatialDimension);
+  if (isSetSpatialDimension() == true)
+    stream.writeAttribute("spatialDimension", getPrefix(), mSpatialDimension);
 
 }
 
@@ -707,8 +708,8 @@ ListOfDomainTypes::remove(const std::string& sid)
 const std::string&
 ListOfDomainTypes::getElementName () const
 {
-	static const string name = "listOfDomainTypes";
-	return name;
+  static const string name = "listOfDomainTypes";
+  return name;
 }
 
 

@@ -122,29 +122,28 @@ public:
   virtual ~SampledFieldGeometry();
 
 
- 	/**
-	 * Returns the "sampledField" element of this SampledFieldGeometry.
-	 *
-	 * @return the "sampledField" element of this SampledFieldGeometry.
-	 */
-	virtual const SampledField* getSampledField() const;
+   /**
+   * Returns the "sampledField" element of this SampledFieldGeometry.
+   *
+   * @return the "sampledField" element of this SampledFieldGeometry.
+   */
+  virtual const SampledField* getSampledField() const;
 
 
-	/**
-	/**
-	 * Returns the "sampledField" element of this SampledFieldGeometry.
-	 *
-	 * @return the "sampledField" element of this SampledFieldGeometry.
-	 */
-	virtual SampledField* getSampledField();
+  /**
+   * Returns the "sampledField" element of this SampledFieldGeometry.
+   *
+   * @return the "sampledField" element of this SampledFieldGeometry.
+   */
+  virtual SampledField* getSampledField();
 
 
-	/**
-	 * Creates a new "SampledField" and sets it for this SampledFieldGeometry.
-	 *
-	 * @return the created "SampledField" element of this SampledFieldGeometry.
-	 */
-	virtual SampledField* createSampledField();
+  /**
+   * Creates a new "SampledField" and sets it for this SampledFieldGeometry.
+   *
+   * @return the created "SampledField" element of this SampledFieldGeometry.
+   */
+  virtual SampledField* createSampledField();
 
 
   /**
@@ -273,7 +272,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addSampledVolume(const SampledVolume* sv);
+  int addSampledVolume(const SampledVolume* sv);
 
 
   /**
@@ -281,18 +280,18 @@ public:
    *
    * @return the number of SampledVolume objects in this SampledFieldGeometry
    */
-	unsigned int getNumSampledVolumes() const;
+  unsigned int getNumSampledVolumes() const;
 
 
-	/**
-	 * Creates a new SampledVolume object, adds it to this SampledFieldGeometrys
-	 * ListOfSampledVolumes and returns the SampledVolume object created. 
-	 *
-	 * @return a new SampledVolume object instance
-	 *
-	 * @see addSampledVolume(const SampledVolume* sv)
-	 */
-	SampledVolume* createSampledVolume();
+  /**
+   * Creates a new SampledVolume object, adds it to this SampledFieldGeometrys
+   * ListOfSampledVolumes and returns the SampledVolume object created. 
+   *
+   * @return a new SampledVolume object instance
+   *
+   * @see addSampledVolume(const SampledVolume* sv)
+   */
+  SampledVolume* createSampledVolume();
 
 
   /**

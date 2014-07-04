@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/BoundaryCondition.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,11 +47,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new BoundaryCondition with the given level, version, and package version.
  */
 BoundaryCondition::BoundaryCondition (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mVariable ("")
-   ,mType (BOUNDARYCONDITIONKIND_UNKNOWN)
-   ,mCoordinateBoundary ("")
-   ,mBoundaryDomainType ("")
+  : SBase(level, version)
+  , mVariable ("")
+  , mType (BOUNDARYCONDITIONKIND_UNKNOWN)
+  , mCoordinateBoundary ("")
+  , mBoundaryDomainType ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -61,11 +62,11 @@ BoundaryCondition::BoundaryCondition (unsigned int level, unsigned int version, 
  * Creates a new BoundaryCondition with the given SpatialPkgNamespaces object.
  */
 BoundaryCondition::BoundaryCondition (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mVariable ("")
-   ,mType (BOUNDARYCONDITIONKIND_UNKNOWN)
-   ,mCoordinateBoundary ("")
-   ,mBoundaryDomainType ("")
+  : SBase(spatialns)
+  , mVariable ("")
+  , mType (BOUNDARYCONDITIONKIND_UNKNOWN)
+  , mCoordinateBoundary ("")
+  , mBoundaryDomainType ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ BoundaryCondition::BoundaryCondition (SpatialPkgNamespaces* spatialns)
  * Copy constructor for BoundaryCondition.
  */
 BoundaryCondition::BoundaryCondition (const BoundaryCondition& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -107,7 +108,7 @@ BoundaryCondition::operator=(const BoundaryCondition& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
     mType  = rhs.mType;
     mCoordinateBoundary  = rhs.mCoordinateBoundary;
@@ -403,8 +404,8 @@ BoundaryCondition::renameSIdRefs(const std::string& oldid, const std::string& ne
 const std::string&
 BoundaryCondition::getElementName () const
 {
-	static const string name = "boundaryCondition";
-	return name;
+  static const string name = "boundaryCondition";
+  return name;
 }
 
 
@@ -424,7 +425,7 @@ BoundaryCondition::getTypeCode () const
 bool
 BoundaryCondition::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetVariable() == false)
     allPresent = false;
@@ -444,7 +445,7 @@ BoundaryCondition::hasRequiredAttributes () const
 void
 BoundaryCondition::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -475,7 +476,7 @@ BoundaryCondition::accept (SBMLVisitor& v) const
 void
 BoundaryCondition::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -506,12 +507,12 @@ BoundaryCondition::enablePackageInternal(const std::string& pkgURI,
 void
 BoundaryCondition::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("variable");
-	attributes.add("type");
-	attributes.add("coordinateBoundary");
-	attributes.add("boundaryDomainType");
+  attributes.add("variable");
+  attributes.add("type");
+  attributes.add("coordinateBoundary");
+  attributes.add("boundaryDomainType");
 }
 
 
@@ -532,7 +533,7 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -663,19 +664,19 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
   void
 BoundaryCondition::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetVariable() == true)
-		stream.writeAttribute("variable", getPrefix(), mVariable);
+  if (isSetVariable() == true)
+    stream.writeAttribute("variable", getPrefix(), mVariable);
 
-	if (isSetType() == true)
-		stream.writeAttribute("type", getPrefix(), BoundaryConditionKind_toString(mType));
+  if (isSetType() == true)
+    stream.writeAttribute("type", getPrefix(), BoundaryConditionKind_toString(mType));
 
-	if (isSetCoordinateBoundary() == true)
-		stream.writeAttribute("coordinateBoundary", getPrefix(), mCoordinateBoundary);
+  if (isSetCoordinateBoundary() == true)
+    stream.writeAttribute("coordinateBoundary", getPrefix(), mCoordinateBoundary);
 
-	if (isSetBoundaryDomainType() == true)
-		stream.writeAttribute("boundaryDomainType", getPrefix(), mBoundaryDomainType);
+  if (isSetBoundaryDomainType() == true)
+    stream.writeAttribute("boundaryDomainType", getPrefix(), mBoundaryDomainType);
 
 }
 

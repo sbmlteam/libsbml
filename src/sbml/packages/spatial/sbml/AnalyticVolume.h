@@ -155,12 +155,12 @@ public:
   virtual const std::string& getDomainType() const;
 
 
-	/**
-	 * Returns the "math" element of this AnalyticVolume.
-	 *
-	 * @return the "math" element of this AnalyticVolume.
-	 */
-	virtual const ASTNode* getMath() const;
+  /**
+   * Returns the "math" element of this AnalyticVolume.
+   *
+   * @return the "math" element of this AnalyticVolume.
+   */
+  virtual const ASTNode* getMath() const;
 
 
   /**

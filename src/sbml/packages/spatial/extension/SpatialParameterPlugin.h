@@ -191,24 +191,6 @@ public:
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
 
-   /** 
-   * @return true, if either the spatial symbol reference, diffusion coefficient, 
-   *   advection coefficient or boundary is set. Otherwise the return value is false.
-   */ 
-  bool isSpatialParameter() const;
-
-  /** 
-   * Determines the type of the spatial parameter, that is one of: 
-   * 
-   * SBML_SPATIAL_SPATIALSYMBOLREFERENCE
-   * SBML_SPATIAL_DIFFUSIONCOEFFICIENT
-   * SBML_SPATIAL_ADVECTIONCOEFFICIENT
-   * SBML_SPATIAL_BOUNDARYCONDITION
-   * 
-   * or -1 in case no other is defined.
-   */
-  int getType() const;
-
 
   /**
    * Returns the SpatialSymbolReference from this SpatialParameterPlugin object.
@@ -449,7 +431,24 @@ protected:
   /** @endcond doxygenLibsbmlInternal */
 
 
-};
+public:
+   /** 
+   * @return true, if either the spatial symbol reference, diffusion coefficient, 
+   *   advection coefficient or boundary is set. Otherwise the return value is false.
+   */ 
+  bool isSpatialParameter() const;
+
+  /** 
+   * Determines the type of the spatial parameter, that is one of: 
+   * 
+   * SBML_SPATIAL_SPATIALSYMBOLREFERENCE
+   * SBML_SPATIAL_DIFFUSIONCOEFFICIENT
+   * SBML_SPATIAL_ADVECTIONCOEFFICIENT
+   * SBML_SPATIAL_BOUNDARYCONDITION
+   * 
+   * or -1 in case no other is defined.
+   */
+  int getType() const;};
 
 
 

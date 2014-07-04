@@ -34,9 +34,13 @@
 
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
-#include <sbml/packages/spatial/sbml/CSGTransformation.h>
+#include <sbml/packages/spatial/sbml/CSGTranslation.h>
+#include <sbml/packages/spatial/sbml/CSGRotation.h>
+#include <sbml/packages/spatial/sbml/CSGScale.h>
+#include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
 #include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
@@ -52,10 +56,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGSetOperator with the given level, version, and package version.
  */
 CSGSetOperator::CSGSetOperator (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: CSGNode(level, version)
-   ,mId ("")
-   ,mOperationType (SETOPERATION_UNKNOWN)
-   ,mCsgNodes (level, version, pkgVersion)
+  : CSGNode(level, version)
+  , mOperationType (SETOPERATION_UNKNOWN)
+  , mCsgNodes (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -69,10 +72,9 @@ CSGSetOperator::CSGSetOperator (unsigned int level, unsigned int version, unsign
  * Creates a new CSGSetOperator with the given SpatialPkgNamespaces object.
  */
 CSGSetOperator::CSGSetOperator (SpatialPkgNamespaces* spatialns)
-	: CSGNode(spatialns)
-   ,mId ("")
-   ,mOperationType (SETOPERATION_UNKNOWN)
-   ,mCsgNodes (spatialns)
+  : CSGNode(spatialns)
+  , mOperationType (SETOPERATION_UNKNOWN)
+  , mCsgNodes (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -89,7 +91,7 @@ CSGSetOperator::CSGSetOperator (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGSetOperator.
  */
 CSGSetOperator::CSGSetOperator (const CSGSetOperator& orig)
-	: CSGNode(orig)
+  : CSGNode(orig)
 {
   if (&orig == NULL)
   {
@@ -97,7 +99,6 @@ CSGSetOperator::CSGSetOperator (const CSGSetOperator& orig)
   }
   else
   {
-    mId  = orig.mId;
     mOperationType  = orig.mOperationType;
     mCsgNodes  = orig.mCsgNodes;
 
@@ -119,8 +120,7 @@ CSGSetOperator::operator=(const CSGSetOperator& rhs)
   }
   else if (&rhs != this)
   {
-		CSGNode::operator=(rhs);
-    mId  = rhs.mId;
+    CSGNode::operator=(rhs);
     mOperationType  = rhs.mOperationType;
     mCsgNodes  = rhs.mCsgNodes;
 
@@ -150,16 +150,6 @@ CSGSetOperator::~CSGSetOperator ()
 
 
 /*
- * Returns the value of the "id" attribute of this CSGSetOperator.
- */
-const std::string&
-CSGSetOperator::getId() const
-{
-  return mId;
-}
-
-
-/*
  * Returns the value of the "operationType" attribute of this CSGSetOperator.
  */
 SetOperation_t
@@ -170,32 +160,12 @@ CSGSetOperator::getOperationType() const
 
 
 /*
- * Returns true/false if id is set.
- */
-bool
-CSGSetOperator::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
  * Returns true/false if operationType is set.
  */
 bool
 CSGSetOperator::isSetOperationType() const
 {
   return mOperationType != SETOPERATION_UNKNOWN;
-}
-
-
-/*
- * Sets id and returns value indicating success.
- */
-int
-CSGSetOperator::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -224,25 +194,6 @@ CSGSetOperator::setOperationType(const std::string& operationType)
 
 
 /*
- * Unsets id and returns value indicating success.
- */
-int
-CSGSetOperator::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
  * Unsets operationType and returns value indicating success.
  */
 int
@@ -259,7 +210,7 @@ CSGSetOperator::unsetOperationType()
 const ListOfCSGNodes*
 CSGSetOperator::getListOfCsgNodes() const
 {
-	return &mCsgNodes;
+  return &mCsgNodes;
 }
 
 
@@ -274,7 +225,7 @@ CSGSetOperator::getListOfCsgNodes()
 
 
 /*
- * Removes the nth CsgNode from the ListOfCsgNodes.
+ * Removes the nth CsgNode from the ListOfCSGNodes.
  */
 CSGNode*
 CSGSetOperator::removeCsgNode(unsigned int n)
@@ -284,7 +235,7 @@ CSGSetOperator::removeCsgNode(unsigned int n)
 
 
 /*
- * Removes the a CsgNode with given id from the ListOfCsgNodes.
+ * Removes the a CsgNode with given id from the ListOfCSGNodes.
  */
 CSGNode*
 CSGSetOperator::removeCsgNode(const std::string& sid)
@@ -294,7 +245,7 @@ CSGSetOperator::removeCsgNode(const std::string& sid)
 
 
 /*
- * Return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+ * Return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
  */
 CSGNode*
 CSGSetOperator::getCsgNode(unsigned int n)
@@ -304,7 +255,7 @@ CSGSetOperator::getCsgNode(unsigned int n)
 
 
 /*
- * Return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+ * Return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
  */
 const CSGNode*
 CSGSetOperator::getCsgNode(unsigned int n) const
@@ -314,7 +265,7 @@ CSGSetOperator::getCsgNode(unsigned int n) const
 
 
 /*
- * Return a CsgNode from the ListOfCsgNodes by id.
+ * Return a CsgNode from the ListOfCSGNodes by id.
  */
 CSGNode*
 CSGSetOperator::getCsgNode(const std::string& sid)
@@ -324,7 +275,7 @@ CSGSetOperator::getCsgNode(const std::string& sid)
 
 
 /*
- * Return a CsgNode from the ListOfCsgNodes by id.
+ * Return a CsgNode from the ListOfCSGNodes by id.
  */
 const CSGNode*
 CSGSetOperator::getCsgNode(const std::string& sid) const
@@ -370,7 +321,7 @@ CSGSetOperator::addCsgNode(const CSGNode* csgn)
   }
   else
   {
-	mCsgNodes.append(csgn);
+    mCsgNodes.append(csgn);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -384,7 +335,7 @@ CSGSetOperator::addCsgNode(const CSGNode* csgn)
 unsigned int
 CSGSetOperator::getNumCsgNodes() const
 {
-	return mCsgNodes.size();
+  return mCsgNodes.size();
 }
 
 
@@ -426,22 +377,22 @@ CSGSetOperator::createCsgPrimitive()
 
 
 /**
- * Creates a new CSGTransformation object, adds it to this CSGSetOperators
- * ListOfCSGNodes and returns the CSGTransformation object created. 
+ * Creates a new CSGTranslation object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGTranslation object created. 
  *
- * @return a new CSGTransformation object instance
+ * @return a new CSGTranslation object instance
  *
  * @see addCSGNode(const CSGNode*)
  */
-CSGTransformation* 
-CSGSetOperator::createCsgTrasnformation()
+CSGTranslation* 
+CSGSetOperator::createCsgTranslation()
 {
-  CSGTransformation* csgt = NULL;
+  CSGTranslation* csgt = NULL;
 
   try
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csgt = new CSGTransformation(spatialns);
+    csgt = new CSGTranslation(spatialns);
     delete spatialns;
   }
   catch (...)
@@ -459,6 +410,117 @@ CSGSetOperator::createCsgTrasnformation()
   }
 
   return csgt;
+}
+
+
+/**
+ * Creates a new CSGRotation object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGRotation object created. 
+ *
+ * @return a new CSGRotation object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGRotation* 
+CSGSetOperator::createCsgRotation()
+{
+  CSGRotation* csgr = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgr = new CSGRotation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgr != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgr);
+  }
+
+  return csgr;
+}
+
+
+/**
+ * Creates a new CSGScale object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGScale object created. 
+ *
+ * @return a new CSGScale object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGScale* 
+CSGSetOperator::createCsgScale()
+{
+  CSGScale* csgs = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgs = new CSGScale(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgs != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgs);
+  }
+
+  return csgs;
+}
+
+
+/**
+ * Creates a new CSGHomogeneousTransformation object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGHomogeneousTransformation object created. 
+ *
+ * @return a new CSGHomogeneousTransformation object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGHomogeneousTransformation* 
+CSGSetOperator::createCsgHomogeneousTransformation()
+{
+  CSGHomogeneousTransformation* csght = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csght = new CSGHomogeneousTransformation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csght != NULL)
+  {
+    mCsgNodes.appendAndOwn(csght);
+  }
+
+  return csght;
 }
 
 
@@ -555,8 +617,8 @@ CSGSetOperator::getAllElements(ElementFilter* filter)
 const std::string&
 CSGSetOperator::getElementName () const
 {
-	static const string name = "cSGSetOperator";
-	return name;
+  static const string name = "csgSetOperator";
+  return name;
 }
 
 
@@ -576,10 +638,7 @@ CSGSetOperator::getTypeCode () const
 bool
 CSGSetOperator::hasRequiredAttributes () const
 {
-	bool allPresent = CSGNode::hasRequiredAttributes();
-
-  if (isSetId() == false)
-    allPresent = false;
+  bool allPresent = CSGNode::hasRequiredAttributes();
 
   if (isSetOperationType() == false)
     allPresent = false;
@@ -594,7 +653,7 @@ CSGSetOperator::hasRequiredAttributes () const
 bool
 CSGSetOperator::hasRequiredElements () const
 {
-	bool allPresent = CSGNode::hasRequiredElements();
+  bool allPresent = CSGNode::hasRequiredElements();
 
   return allPresent;
 }
@@ -608,8 +667,8 @@ CSGSetOperator::hasRequiredElements () const
 void
 CSGSetOperator::writeElements (XMLOutputStream& stream) const
 {
-	CSGNode::writeElements(stream);
-	if (getNumCsgNodes() > 0)
+  CSGNode::writeElements(stream);
+  if (getNumCsgNodes() > 0)
   {
     mCsgNodes.write(stream);
   }
@@ -650,8 +709,8 @@ CSGSetOperator::accept (SBMLVisitor& v) const
 void
 CSGSetOperator::setSBMLDocument (SBMLDocument* d)
 {
-	CSGNode::setSBMLDocument(d);
-	mCsgNodes.setSBMLDocument(d);
+  CSGNode::setSBMLDocument(d);
+  mCsgNodes.setSBMLDocument(d);
 }
 
 
@@ -666,9 +725,9 @@ CSGSetOperator::setSBMLDocument (SBMLDocument* d)
 void
 CSGSetOperator::connectToChild()
 {
-	CSGNode::connectToChild();
+  CSGNode::connectToChild();
 
-	mCsgNodes.connectToParent(this);
+  mCsgNodes.connectToParent(this);
 }
 
 
@@ -700,7 +759,7 @@ CSGSetOperator::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGSetOperator::createObject(XMLInputStream& stream)
 {
-	SBase* object = CSGNode::createObject(stream);
+  SBase* object = CSGNode::createObject(stream);
 
   const string& name = stream.peek().getName();
 
@@ -726,10 +785,9 @@ CSGSetOperator::createObject(XMLInputStream& stream)
 void
 CSGSetOperator::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	CSGNode::addExpectedAttributes(attributes);
+  CSGNode::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("operationType");
+  attributes.add("operationType");
 }
 
 
@@ -750,7 +808,7 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	CSGNode::readAttributes(attributes, expectedAttributes);
+  CSGNode::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -778,32 +836,6 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
   }
 
   bool assigned = false;
-
-  //
-  // id SId  ( use = "required" )
-  //
-  assigned = attributes.readInto("id", mId);
-
-   if (assigned == true)
-  {
-    // check string is not empty and correct syntax
-
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, getLevel(), getVersion(), "<CSGSetOperator>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
-    {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
-    }
-  }
-  else
-  {
-    std::string message = "Spatial attribute 'id' is missing.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
-  }
 
   //
   // operationType enum  ( use = "required" )
@@ -841,13 +873,10 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
   void
 CSGSetOperator::writeAttributes (XMLOutputStream& stream) const
 {
-	CSGNode::writeAttributes(stream);
+  CSGNode::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
-
-	if (isSetOperationType() == true)
-		stream.writeAttribute("operationType", getPrefix(), SetOperation_toString(mOperationType));
+  if (isSetOperationType() == true)
+    stream.writeAttribute("operationType", getPrefix(), SetOperation_toString(mOperationType));
 
 }
 
@@ -889,26 +918,10 @@ CSGSetOperator_clone(CSGSetOperator_t * csgso)
 
 
 LIBSBML_EXTERN
-const char *
-CSGSetOperator_getId(const CSGSetOperator_t * csgso)
-{
-	return (csgso != NULL && csgso->isSetId()) ? csgso->getId().c_str() : NULL;
-}
-
-
-LIBSBML_EXTERN
 SetOperation_t
 CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso)
 {
 	return (csgso != NULL) ? csgso->getOperationType() : SETOPERATION_UNKNOWN;
-}
-
-
-LIBSBML_EXTERN
-int
-CSGSetOperator_isSetId(const CSGSetOperator_t * csgso)
-{
-  return (csgso != NULL) ? static_cast<int>(csgso->isSetId()) : 0;
 }
 
 
@@ -922,31 +935,12 @@ CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso)
 
 LIBSBML_EXTERN
 int
-CSGSetOperator_setId(CSGSetOperator_t * csgso, const char * id)
-{
-  if (csgso != NULL)
-    return (id == NULL) ? csgso->setId("") : csgso->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
 CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operationType)
 {
   if (csgso != NULL)
     return (operationType == NULL) ? csgso->unsetOperationType() : csgso->setOperationType(operationType);
   else
     return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-CSGSetOperator_unsetId(CSGSetOperator_t * csgso)
-{
-  return (csgso != NULL) ? csgso->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -973,10 +967,31 @@ CSGSetOperator_createCsgPrimitive(CSGSetOperator_t * csgso)
 }
 
 LIBSBML_EXTERN
-CSGTransformation_t *
-CSGSetOperator_createCsgTrasnformation(CSGSetOperator_t * csgso)
+CSGTranslation_t *
+CSGSetOperator_createCsgTranslation(CSGSetOperator_t * csgso)
 {
-	return  (csgso != NULL) ? csgso->createCsgTrasnformation() : NULL;
+	return  (csgso != NULL) ? csgso->createCsgTranslation() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGRotation_t *
+CSGSetOperator_createCsgRotation(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgRotation() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGSetOperator_createCsgScale(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgScale() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGSetOperator_createCsgHomogeneousTransformation(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgHomogeneousTransformation() : NULL;
 }
 
 LIBSBML_EXTERN

@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/InteriorPoint.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,13 +47,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new InteriorPoint with the given level, version, and package version.
  */
 InteriorPoint::InteriorPoint (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mCoord1 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord1 (false)
-   ,mCoord2 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord2 (false)
-   ,mCoord3 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord3 (false)
+  : SBase(level, version)
+  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord1 (false)
+  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord2 (false)
+  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord3 (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -63,13 +64,13 @@ InteriorPoint::InteriorPoint (unsigned int level, unsigned int version, unsigned
  * Creates a new InteriorPoint with the given SpatialPkgNamespaces object.
  */
 InteriorPoint::InteriorPoint (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mCoord1 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord1 (false)
-   ,mCoord2 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord2 (false)
-   ,mCoord3 (numeric_limits<double>::quiet_NaN())
-   ,mIsSetCoord3 (false)
+  : SBase(spatialns)
+  , mCoord1 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord1 (false)
+  , mCoord2 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord2 (false)
+  , mCoord3 (numeric_limits<double>::quiet_NaN())
+  , mIsSetCoord3 (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -83,7 +84,7 @@ InteriorPoint::InteriorPoint (SpatialPkgNamespaces* spatialns)
  * Copy constructor for InteriorPoint.
  */
 InteriorPoint::InteriorPoint (const InteriorPoint& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -113,7 +114,7 @@ InteriorPoint::operator=(const InteriorPoint& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mCoord1  = rhs.mCoord1;
     mIsSetCoord1  = rhs.mIsSetCoord1;
     mCoord2  = rhs.mCoord2;
@@ -305,8 +306,8 @@ InteriorPoint::unsetCoord3()
 const std::string&
 InteriorPoint::getElementName () const
 {
-	static const string name = "interiorPoint";
-	return name;
+  static const string name = "interiorPoint";
+  return name;
 }
 
 
@@ -326,7 +327,7 @@ InteriorPoint::getTypeCode () const
 bool
 InteriorPoint::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetCoord1() == false)
     allPresent = false;
@@ -343,7 +344,7 @@ InteriorPoint::hasRequiredAttributes () const
 void
 InteriorPoint::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -374,7 +375,7 @@ InteriorPoint::accept (SBMLVisitor& v) const
 void
 InteriorPoint::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -405,11 +406,11 @@ InteriorPoint::enablePackageInternal(const std::string& pkgURI,
 void
 InteriorPoint::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("coord1");
-	attributes.add("coord2");
-	attributes.add("coord3");
+  attributes.add("coord1");
+  attributes.add("coord2");
+  attributes.add("coord3");
 }
 
 
@@ -460,7 +461,7 @@ InteriorPoint::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -569,16 +570,16 @@ InteriorPoint::readAttributes (const XMLAttributes& attributes,
   void
 InteriorPoint::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetCoord1() == true)
-		stream.writeAttribute("coord1", getPrefix(), mCoord1);
+  if (isSetCoord1() == true)
+    stream.writeAttribute("coord1", getPrefix(), mCoord1);
 
-	if (isSetCoord2() == true)
-		stream.writeAttribute("coord2", getPrefix(), mCoord2);
+  if (isSetCoord2() == true)
+    stream.writeAttribute("coord2", getPrefix(), mCoord2);
 
-	if (isSetCoord3() == true)
-		stream.writeAttribute("coord3", getPrefix(), mCoord3);
+  if (isSetCoord3() == true)
+    stream.writeAttribute("coord3", getPrefix(), mCoord3);
 
 }
 
@@ -789,8 +790,8 @@ ListOfInteriorPoints::remove(const std::string& sid)
 const std::string&
 ListOfInteriorPoints::getElementName () const
 {
-	static const string name = "listOfInteriorPoints";
-	return name;
+  static const string name = "listOfInteriorPoints";
+  return name;
 }
 
 

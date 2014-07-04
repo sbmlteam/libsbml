@@ -34,6 +34,8 @@
 
 #include <sbml/packages/spatial/extension/SpatialModelPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 
 using namespace std;
@@ -174,7 +176,7 @@ SpatialModelPlugin::hasRequiredElements () const
 void
 SpatialModelPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBasePlugin::addExpectedAttributes(attributes);
+  SBasePlugin::addExpectedAttributes(attributes);
 
 }
 
@@ -196,7 +198,7 @@ SpatialModelPlugin::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBasePlugin::readAttributes(attributes, expectedAttributes);
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -239,7 +241,7 @@ SpatialModelPlugin::readAttributes (const XMLAttributes& attributes,
   void
 SpatialModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-	SBasePlugin::writeAttributes(stream);
+  SBasePlugin::writeAttributes(stream);
 
 }
 

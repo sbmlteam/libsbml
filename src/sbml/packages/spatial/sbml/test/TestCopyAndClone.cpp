@@ -55,18 +55,18 @@ START_TEST ( test_PolygonObject_copyConstructor )
 {
   PolygonObject* o1=new PolygonObject(GNS);
   int points [] = {1,2,3};
-  o1->setPointIndices(points, 3);
+  o1->setPointIndex(points, 3);
   
-  fail_unless(o1->getIndicesLength() == 3);
+  fail_unless(o1->getPointIndexLength() == 3);
 
   PolygonObject* o2=new PolygonObject(*o1);
 
-  fail_unless(o2->getIndicesLength() == 3);
+  fail_unless(o2->getPointIndexLength() == 3);
 
-  //fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
-  //delete o2;
-  //delete o1;
+  delete o2;
+  delete o1;
 }
 END_TEST
 
@@ -75,19 +75,19 @@ START_TEST ( test_PolygonObject_assignmentOperator )
 {
   PolygonObject* o1=new PolygonObject(GNS);
   int points [] = {1,2,3};
-  o1->setPointIndices(points, 3);
+  o1->setPointIndex(points, 3);
   
-  fail_unless(o1->getIndicesLength() == 3);
+  fail_unless(o1->getPointIndexLength() == 3);
   
   PolygonObject* o2 = new PolygonObject(GNS);;
   (*o2)=*o1;
 
-  fail_unless(o2->getIndicesLength() == 3);
+  fail_unless(o2->getPointIndexLength() == 3);
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
-  //delete o2;
-  //delete o1;
+  delete o2;
+  delete o1;
 }
 END_TEST
 
@@ -96,18 +96,18 @@ START_TEST ( test_PolygonObject_clone )
 {
   PolygonObject* o1=new PolygonObject(GNS);
   int points [] = {1,2,3};
-  o1->setPointIndices(points, 3);
+  o1->setPointIndex(points, 3);
   
-  fail_unless(o1->getIndicesLength() == 3);
+  fail_unless(o1->getPointIndexLength() == 3);
 
   PolygonObject* o2=o1->clone();
  
-  fail_unless(o2->getIndicesLength() == 3);
+  fail_unless(o2->getPointIndexLength() == 3);
 
-  //fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
-  //delete o2;
-  //delete o1;
+  delete o2;
+  delete o1;
 }
 END_TEST
 
@@ -119,17 +119,17 @@ START_TEST ( test_ParametricObject_copyConstructor )
   
   fail_unless(o1->getId() == "s");
 
-  //PolygonObject* obj=new PolygonObject(GNS);
-  //o1->setPolygonObject(obj);
+  PolygonObject* obj=new PolygonObject(GNS);
+  o1->setPolygonObject(obj);
 
-  //fail_unless(o1->isSetPolygonObject() == true);
+  fail_unless(o1->isSetPolygonObject() == true);
 
   ParametricObject* o2=new ParametricObject(*o1);
 
   fail_unless(o2->getId() == "s");
-  //fail_unless(o2->isSetPolygonObject() == true);
+  fail_unless(o2->isSetPolygonObject() == true);
 
-  //fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
+  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -146,18 +146,18 @@ START_TEST ( test_ParametricObject_assignmentOperator )
   
   fail_unless(o1->getId() == "s");
  
-  //PolygonObject* obj=new PolygonObject(GNS);
-  //o1->setPolygonObject(obj);
+  PolygonObject* obj=new PolygonObject(GNS);
+  o1->setPolygonObject(obj);
 
-  //fail_unless(o1->isSetPolygonObject() == true);
+  fail_unless(o1->isSetPolygonObject() == true);
 
   ParametricObject* o2 = new ParametricObject(GNS);;
   (*o2)=*o1;
 
   fail_unless(o2->getId() == "s");
-  //fail_unless(o2->isSetPolygonObject() == true);
+  fail_unless(o2->isSetPolygonObject() == true);
 
-  //fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
+  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -174,17 +174,17 @@ START_TEST ( test_ParametricObject_clone )
   
   fail_unless(o1->getId() == "s");
 
-  //PolygonObject* obj=new PolygonObject(GNS);
-  //o1->setPolygonObject(obj);
+  PolygonObject* obj=new PolygonObject(GNS);
+  o1->setPolygonObject(obj);
 
-  //fail_unless(o1->isSetPolygonObject() == true);
+  fail_unless(o1->isSetPolygonObject() == true);
 
   ParametricObject* o2=o1->clone();
  
   fail_unless(o2->getId() == "s");
-  //fail_unless(o2->isSetPolygonObject() == true);
+  fail_unless(o2->isSetPolygonObject() == true);
 
-  //fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
+  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 

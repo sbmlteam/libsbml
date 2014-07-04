@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/SampledVolume.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,15 +47,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SampledVolume with the given level, version, and package version.
  */
 SampledVolume::SampledVolume (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mSampledValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetSampledValue (false)
-   ,mMinValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetMinValue (false)
-   ,mMaxValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetMaxValue (false)
+  : SBase(level, version)
+  , mId ("")
+  , mDomainType ("")
+  , mSampledValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetSampledValue (false)
+  , mMinValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetMinValue (false)
+  , mMaxValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetMaxValue (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -65,15 +66,15 @@ SampledVolume::SampledVolume (unsigned int level, unsigned int version, unsigned
  * Creates a new SampledVolume with the given SpatialPkgNamespaces object.
  */
 SampledVolume::SampledVolume (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mSampledValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetSampledValue (false)
-   ,mMinValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetMinValue (false)
-   ,mMaxValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetMaxValue (false)
+  : SBase(spatialns)
+  , mId ("")
+  , mDomainType ("")
+  , mSampledValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetSampledValue (false)
+  , mMinValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetMinValue (false)
+  , mMaxValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetMaxValue (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -87,7 +88,7 @@ SampledVolume::SampledVolume (SpatialPkgNamespaces* spatialns)
  * Copy constructor for SampledVolume.
  */
 SampledVolume::SampledVolume (const SampledVolume& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -119,7 +120,7 @@ SampledVolume::operator=(const SampledVolume& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mDomainType  = rhs.mDomainType;
     mSampledValue  = rhs.mSampledValue;
@@ -437,8 +438,8 @@ SampledVolume::renameSIdRefs(const std::string& oldid, const std::string& newid)
 const std::string&
 SampledVolume::getElementName () const
 {
-	static const string name = "sampledVolume";
-	return name;
+  static const string name = "sampledVolume";
+  return name;
 }
 
 
@@ -458,7 +459,7 @@ SampledVolume::getTypeCode () const
 bool
 SampledVolume::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -481,7 +482,7 @@ SampledVolume::hasRequiredAttributes () const
 void
 SampledVolume::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -512,7 +513,7 @@ SampledVolume::accept (SBMLVisitor& v) const
 void
 SampledVolume::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -543,13 +544,13 @@ SampledVolume::enablePackageInternal(const std::string& pkgURI,
 void
 SampledVolume::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("domainType");
-	attributes.add("sampledValue");
-	attributes.add("minValue");
-	attributes.add("maxValue");
+  attributes.add("id");
+  attributes.add("domainType");
+  attributes.add("sampledValue");
+  attributes.add("minValue");
+  attributes.add("maxValue");
 }
 
 
@@ -600,7 +601,7 @@ SampledVolume::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -761,22 +762,22 @@ SampledVolume::readAttributes (const XMLAttributes& attributes,
   void
 SampledVolume::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetDomainType() == true)
-		stream.writeAttribute("domainType", getPrefix(), mDomainType);
+  if (isSetDomainType() == true)
+    stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
-	if (isSetSampledValue() == true)
-		stream.writeAttribute("sampledValue", getPrefix(), mSampledValue);
+  if (isSetSampledValue() == true)
+    stream.writeAttribute("sampledValue", getPrefix(), mSampledValue);
 
-	if (isSetMinValue() == true)
-		stream.writeAttribute("minValue", getPrefix(), mMinValue);
+  if (isSetMinValue() == true)
+    stream.writeAttribute("minValue", getPrefix(), mMinValue);
 
-	if (isSetMaxValue() == true)
-		stream.writeAttribute("maxValue", getPrefix(), mMaxValue);
+  if (isSetMaxValue() == true)
+    stream.writeAttribute("maxValue", getPrefix(), mMaxValue);
 
 }
 
@@ -987,8 +988,8 @@ ListOfSampledVolumes::remove(const std::string& sid)
 const std::string&
 ListOfSampledVolumes::getElementName () const
 {
-	static const string name = "listOfSampledVolumes";
-	return name;
+  static const string name = "listOfSampledVolumes";
+  return name;
 }
 
 

@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,11 +47,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ParametricObject with the given level, version, and package version.
  */
 ParametricObject::ParametricObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mPolygonType ("")
-   ,mDomain ("")
-   ,mPolygonObject (NULL)
+  : SBase(level, version)
+  , mId ("")
+  , mPolygonType ("")
+  , mDomain ("")
+  , mPolygonObject (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -64,11 +65,11 @@ ParametricObject::ParametricObject (unsigned int level, unsigned int version, un
  * Creates a new ParametricObject with the given SpatialPkgNamespaces object.
  */
 ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mPolygonType ("")
-   ,mDomain ("")
-   ,mPolygonObject (NULL)
+  : SBase(spatialns)
+  , mId ("")
+  , mPolygonType ("")
+  , mDomain ("")
+  , mPolygonObject (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -85,7 +86,7 @@ ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
  * Copy constructor for ParametricObject.
  */
 ParametricObject::ParametricObject (const ParametricObject& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -123,7 +124,7 @@ ParametricObject::operator=(const ParametricObject& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mPolygonType  = rhs.mPolygonType;
     mDomain  = rhs.mDomain;
@@ -219,8 +220,12 @@ ParametricObject::getPolygonObject()
 PolygonObject*
 ParametricObject::createPolygonObject()
 {
-	mPolygonObject = new PolygonObject();
-	return mPolygonObject;
+  if (mPolygonObject != NULL) delete mPolygonObject;
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mPolygonObject = new PolygonObject(spatialns);
+  delete spatialns;
+  connectToChild();
+  return mPolygonObject;
 }
 
 
@@ -447,8 +452,8 @@ ParametricObject::getAllElements(ElementFilter* filter)
 const std::string&
 ParametricObject::getElementName () const
 {
-	static const string name = "parametricObject";
-	return name;
+  static const string name = "parametricObject";
+  return name;
 }
 
 
@@ -468,7 +473,7 @@ ParametricObject::getTypeCode () const
 bool
 ParametricObject::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -489,7 +494,7 @@ ParametricObject::hasRequiredAttributes () const
 bool
 ParametricObject::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetPolygonObject() == false)
     allPresent = false;
@@ -506,11 +511,11 @@ ParametricObject::hasRequiredElements () const
 void
 ParametricObject::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (isSetPolygonObject() == true)
-	{
-		mPolygonObject->write(stream);
-	}
+  SBase::writeElements(stream);
+  if (isSetPolygonObject() == true)
+  {
+    mPolygonObject->write(stream);
+  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -547,9 +552,9 @@ ParametricObject::accept (SBMLVisitor& v) const
 void
 ParametricObject::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	if ( mPolygonObject != NULL)
-	  mPolygonObject->setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  if ( mPolygonObject != NULL)
+    mPolygonObject->setSBMLDocument(d);
 }
 
 
@@ -564,10 +569,10 @@ ParametricObject::setSBMLDocument (SBMLDocument* d)
 void
 ParametricObject::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	if (mPolygonObject != NULL)
-	  mPolygonObject->connectToParent(this);
+  if (mPolygonObject != NULL)
+    mPolygonObject->connectToParent(this);
 }
 
 
@@ -598,7 +603,7 @@ ParametricObject::enablePackageInternal(const std::string& pkgURI,
 SBase*
 ParametricObject::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -630,11 +635,11 @@ ParametricObject::createObject(XMLInputStream& stream)
 void
 ParametricObject::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("polygonType");
-	attributes.add("domain");
+  attributes.add("id");
+  attributes.add("polygonType");
+  attributes.add("domain");
 }
 
 
@@ -655,7 +660,7 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -771,16 +776,16 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
   void
 ParametricObject::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetPolygonType() == true)
-		stream.writeAttribute("polygonType", getPrefix(), mPolygonType);
+  if (isSetPolygonType() == true)
+    stream.writeAttribute("polygonType", getPrefix(), mPolygonType);
 
-	if (isSetDomain() == true)
-		stream.writeAttribute("domain", getPrefix(), mDomain);
+  if (isSetDomain() == true)
+    stream.writeAttribute("domain", getPrefix(), mDomain);
 
 }
 

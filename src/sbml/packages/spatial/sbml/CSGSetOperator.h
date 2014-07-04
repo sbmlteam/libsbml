@@ -62,7 +62,6 @@ class LIBSBML_EXTERN CSGSetOperator : public CSGNode
 
 protected:
 
-  std::string   mId;
   SetOperation_t   mOperationType;
   ListOfCSGNodes   mCsgNodes;
 
@@ -123,29 +122,11 @@ public:
 
 
    /**
-   * Returns the value of the "id" attribute of this CSGSetOperator.
-   *
-   * @return the value of the "id" attribute of this CSGSetOperator as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
    * Returns the value of the "operationType" attribute of this CSGSetOperator.
    *
    * @return the value of the "operationType" attribute of this CSGSetOperator as a SetOperation_t.
    */
   virtual SetOperation_t getOperationType() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGSetOperator's "id" attribute has been set.
-   *
-   * @return @c true if this CSGSetOperator's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
 
 
   /**
@@ -156,21 +137,6 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetOperationType() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this CSGSetOperator.
-   *
-   * @param id; const std::string& value of the "id" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setId(const std::string& id);
 
 
   /**
@@ -204,19 +170,6 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this CSGSetOperator.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetId();
-
-
-  /**
    * Unsets the value of the "operationType" attribute of this CSGSetOperator.
    *
    * @return integer value indicating success/failure of the
@@ -246,11 +199,11 @@ public:
 
 
   /**
-   * Get a CsgNode from the ListOfCsgNodes.
+   * Get a CsgNode from the ListOfCSGNodes.
    *
    * @param n the index number of the CsgNode to get.
    *
-   * @return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+   * @return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
    *
    * @see getNumCsgNodes()
    */
@@ -258,11 +211,11 @@ public:
 
 
   /**
-   * Get a CsgNode from the ListOfCsgNodes.
+   * Get a CsgNode from the ListOfCSGNodes.
    *
    * @param n the index number of the CsgNode to get.
    *
-   * @return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+   * @return the nth CsgNode in the ListOfCSGNodes within this CSGSetOperator.
    *
    * @see getNumCsgNodes()
    */
@@ -270,13 +223,13 @@ public:
 
 
   /**
-   * Get a CsgNode from the ListOfCsgNodes
+   * Get a CsgNode from the ListOfCSGNodes
    * based on its identifier.
    *
    * @param sid a string representing the identifier
    * of the CsgNode to get.
    *
-   * @return the CsgNode in the ListOfCsgNodes
+   * @return the CsgNode in the ListOfCSGNodes
    * with the given id or NULL if no such
    * CsgNode exists.
    *
@@ -288,13 +241,13 @@ public:
 
 
   /**
-   * Get a CsgNode from the ListOfCsgNodes
+   * Get a CsgNode from the ListOfCSGNodes
    * based on its identifier.
    *
    * @param sid a string representing the identifier
    * of the CsgNode to get.
    *
-   * @return the CsgNode in the ListOfCsgNodes
+   * @return the CsgNode in the ListOfCSGNodes
    * with the given id or NULL if no such
    * CsgNode exists.
    *
@@ -317,7 +270,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addCsgNode(const CSGNode* csgn);
+  int addCsgNode(const CSGNode* csgn);
 
 
   /**
@@ -325,55 +278,88 @@ public:
    *
    * @return the number of CSGNode objects in this CSGSetOperator
    */
-	unsigned int getNumCsgNodes() const;
-
-
-	/**
-	 * Creates a new CSGPrimitive object, adds it to this CSGSetOperators
-	 * ListOfCSGNodes and returns the CSGPrimitive object created. 
-	 *
-	 * @return a new CSGPrimitive object instance
-	 *
-	 * @see addCSGNode(const CSGNode* csgn)
-	 */
-	CSGPrimitive* createCsgPrimitive();
-
-
-	/**
-	 * Creates a new CSGTransformation object, adds it to this CSGSetOperators
-	 * ListOfCSGNodes and returns the CSGTransformation object created. 
-	 *
-	 * @return a new CSGTransformation object instance
-	 *
-	 * @see addCSGNode(const CSGNode* csgn)
-	 */
-	CSGTransformation* createCsgTrasnformation();
-
-
-	/**
-	 * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperators
-	 * ListOfCSGNodes and returns the CSGPseudoPrimitive object created. 
-	 *
-	 * @return a new CSGPseudoPrimitive object instance
-	 *
-	 * @see addCSGNode(const CSGNode* csgn)
-	 */
-	CSGPseudoPrimitive* createCsgPseudoPrimitive();
-
-
-	/**
-	 * Creates a new CSGSetOperator object, adds it to this CSGSetOperators
-	 * ListOfCSGNodes and returns the CSGSetOperator object created. 
-	 *
-	 * @return a new CSGSetOperator object instance
-	 *
-	 * @see addCSGNode(const CSGNode* csgn)
-	 */
-	CSGSetOperator* createCsgSetOperator();
+  unsigned int getNumCsgNodes() const;
 
 
   /**
-   * Removes the nth CsgNode from the ListOfCsgNodes within this CSGSetOperator.
+   * Creates a new CSGPrimitive object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGPrimitive object created. 
+   *
+   * @return a new CSGPrimitive object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGPrimitive* createCsgPrimitive();
+
+
+  /**
+   * Creates a new CSGTranslation object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGTranslation object created. 
+   *
+   * @return a new CSGTranslation object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGTranslation* createCsgTranslation();
+
+
+  /**
+   * Creates a new CSGRotation object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGRotation object created. 
+   *
+   * @return a new CSGRotation object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGRotation* createCsgRotation();
+
+
+  /**
+   * Creates a new CSGScale object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGScale object created. 
+   *
+   * @return a new CSGScale object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGScale* createCsgScale();
+
+
+  /**
+   * Creates a new CSGHomogeneousTransformation object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGHomogeneousTransformation object created. 
+   *
+   * @return a new CSGHomogeneousTransformation object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGHomogeneousTransformation* createCsgHomogeneousTransformation();
+
+
+  /**
+   * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGPseudoPrimitive object created. 
+   *
+   * @return a new CSGPseudoPrimitive object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGPseudoPrimitive* createCsgPseudoPrimitive();
+
+
+  /**
+   * Creates a new CSGSetOperator object, adds it to this CSGSetOperators
+   * ListOfCSGNodes and returns the CSGSetOperator object created. 
+   *
+   * @return a new CSGSetOperator object instance
+   *
+   * @see addCSGNode(const CSGNode* csgn)
+   */
+  CSGSetOperator* createCsgSetOperator();
+
+
+  /**
+   * Removes the nth CsgNode from the ListOfCSGNodes within this CSGSetOperator.
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
@@ -386,7 +372,7 @@ public:
 
 
   /**
-   * Removes the CsgNode with the given identifier from the ListOfCsgNodes within this CSGSetOperator
+   * Removes the CsgNode with the given identifier from the ListOfCSGNodes within this CSGSetOperator
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
@@ -457,7 +443,6 @@ public:
    * for this CSGSetOperator object have been set.
    *
    * @note The required attributes for a CSGSetOperator object are:
-   * @li "id"
    * @li "operationType"
    *
    * @return a boolean value indicating whether all the required
@@ -648,21 +633,6 @@ CSGSetOperator_clone(CSGSetOperator_t * csgso);
 
 
 /**
- * Returns the value of the "id" attribute of the given CSGSetOperator_t
- * structure.
- *
- * @param csgso the CSGSetOperator_t structure.
- *
- * @return the id of this structure.
- *
- * @member of CSGSetOperator_t
- */
-LIBSBML_EXTERN
-const char *
-CSGSetOperator_getId(const CSGSetOperator_t * csgso);
-
-
-/**
  * Returns the value of the "operationType" attribute of the given CSGSetOperator_t
  * structure.
  *
@@ -675,22 +645,6 @@ CSGSetOperator_getId(const CSGSetOperator_t * csgso);
 LIBSBML_EXTERN
 SetOperation_t
 CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
-
-
-/**
- * Predicate returning @c 1 if the given CSGSetOperator_t structure's "id"
- * is set.
- *
- * @param csgso the CSGSetOperator_t structure.
- *
- * @return @c 1 if the "id" of this CSGSetOperator_t structure is
- * set, @c 0 otherwise.
- *
- * @member of CSGSetOperator_t
- */
-LIBSBML_EXTERN
-int
-CSGSetOperator_isSetId(const CSGSetOperator_t * csgso);
 
 
 /**
@@ -707,35 +661,6 @@ CSGSetOperator_isSetId(const CSGSetOperator_t * csgso);
 LIBSBML_EXTERN
 int
 CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso);
-
-
-/**
- * Sets the "id" attribute of the given CSGSetOperator_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs CSGSetOperator_unsetId() instead.
- *
- * @param csgso the CSGSetOperator_t structure.
- *
- * @param id the string to which the structures "id" attribute should be
- * set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of CSGSetOperator_t
- */
-LIBSBML_EXTERN
-int
-CSGSetOperator_setId(CSGSetOperator_t * csgso, const char * id);
 
 
 /**
@@ -759,27 +684,6 @@ CSGSetOperator_setId(CSGSetOperator_t * csgso, const char * id);
 LIBSBML_EXTERN
 int
 CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operationType);
-
-
-/**
- * Unsets the value of the "id" attribute of the given 
- *CSGSetOperator_t structure.
- *
- * @param csgso the CSGSetOperator_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @member of CSGSetOperator_t
- */
-LIBSBML_EXTERN
-int
-CSGSetOperator_unsetId(CSGSetOperator_t * csgso);
 
 
 /**
@@ -814,8 +718,23 @@ CSGSetOperator_createCsgPrimitive(CSGSetOperator_t * csgso);
 
 
 LIBSBML_EXTERN
-CSGTransformation_t *
-CSGSetOperator_createCsgTrasnformation(CSGSetOperator_t * csgso);
+CSGTranslation_t *
+CSGSetOperator_createCsgTranslation(CSGSetOperator_t * csgso);
+
+
+LIBSBML_EXTERN
+CSGRotation_t *
+CSGSetOperator_createCsgRotation(CSGSetOperator_t * csgso);
+
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGSetOperator_createCsgScale(CSGSetOperator_t * csgso);
+
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGSetOperator_createCsgHomogeneousTransformation(CSGSetOperator_t * csgso);
 
 
 LIBSBML_EXTERN

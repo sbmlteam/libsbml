@@ -147,29 +147,62 @@ public:
   virtual int getOrdinal() const;
 
 
-	/**
-	 * Returns the "csgNode" element of this CSGObject.
-	 *
-	 * @return the "csgNode" element of this CSGObject.
-	 */
-	virtual const CSGNode* getCsgNode() const;
+  /**
+   * Returns the "csgNode" element of this CSGObject.
+   *
+   * @return the "csgNode" element of this CSGObject.
+   */
+  virtual const CSGNode* getCsgNode() const;
 
 
-	/**
-	/**
-	 * Returns the "csgNode" element of this CSGObject.
-	 *
-	 * @return the "csgNode" element of this CSGObject.
-	 */
-	virtual CSGNode* getCsgNode();
+  /**
+   * Returns the "csgNode" element of this CSGObject.
+   *
+   * @return the "csgNode" element of this CSGObject.
+   */
+  virtual CSGNode* getCsgNode();
 
 
-	/**
-	 * Creates a new "CSGNode" and sets it for this CSGObject.
-	 *
-	 * @return the created "CSGNode" element of this CSGObject.
-	 */
-	virtual CSGNode* createCsgNode();
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGPrimitive* createCsgPrimitive();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGTranslation* createCsgTranslation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGRotation* createCsgRotation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGScale* createCsgScale();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGHomogeneousTransformation* createCsgHomogeneousTransformation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGPseudoPrimitive* createCsgPseudoPrimitive();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGObject.
+   */
+  virtual CSGSetOperator* createCsgSetOperator();
 
 
   /**
@@ -562,11 +595,11 @@ public:
 
 
    /**
-   * Get a CSGObject from the ListOfCSGObjects.
+   * Get a CsgObject from the ListOfCSGObjects.
    *
-   * @param n the index number of the CSGObject to get.
+   * @param n the index number of the CsgObject to get.
    *
-   * @return the nth CSGObject in this ListOfCSGObjects.
+   * @return the nth CsgObject in this ListOfCSGObjects.
    *
    * @see size()
    */
@@ -574,11 +607,11 @@ public:
 
 
   /**
-   * Get a CSGObject from the ListOfCSGObjects.
+   * Get a CsgObject from the ListOfCSGObjects.
    *
-   * @param n the index number of the CSGObject to get.
+   * @param n the index number of the CsgObject to get.
    *
-   * @return the nth CSGObject in this ListOfCSGObjects.
+   * @return the nth CsgObject in this ListOfCSGObjects.
    *
    * @see size()
    */
@@ -586,15 +619,15 @@ public:
 
 
   /**
-   * Get a CSGObject from the ListOfCSGObjects
+   * Get a CsgObject from the ListOfCSGObjects
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the CSGObject to get.
+   * of the CsgObject to get.
    *
-   * @return CSGObject in this ListOfCSGObjects
+   * @return CsgObject in this ListOfCSGObjects
    * with the given id or NULL if no such
-   * CSGObject exists.
+   * CsgObject exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -603,15 +636,15 @@ public:
 
 
   /**
-   * Get a CSGObject from the ListOfCSGObjects
+   * Get a CsgObject from the ListOfCSGObjects
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the CSGObject to get.
+   * of the CsgObject to get.
    *
-   * @return CSGObject in this ListOfCSGObjects
+   * @return CsgObject in this ListOfCSGObjects
    * with the given id or NULL if no such
-   * CSGObject exists.
+   * CsgObject exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -620,9 +653,9 @@ public:
 
 
 	/**
-	 * Adds a copy the given "CSGObject" to this ListOfCSGObjects.
+	 * Adds a copy the given "CsgObject" to this ListOfCSGObjects.
 	 *
-	 * @param csgo; the CSGObject object to add
+	 * @param co; the CsgObject object to add
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -631,35 +664,35 @@ public:
 	 * @li LIBSEDML_OPERATION_SUCCESS
 	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
 	 */
-	int addCSGObject(const CSGObject* csgo);
+	int addCsgObject(const CSGObject* co);
 
 
 	/**
-	 * Get the number of CSGObject objects in this ListOfCSGObjects.
+	 * Get the number of CsgObject objects in this ListOfCSGObjects.
 	 *
-	 * @return the number of CSGObject objects in this ListOfCSGObjects
+	 * @return the number of CsgObject objects in this ListOfCSGObjects
 	 */
-	unsigned int getNumCSGObjects() const;
+	unsigned int getNumCsgObjects() const;
 
 
 	/**
-	 * Creates a new CSGObject object, adds it to the
-	 * ListOfCSGObjects and returns the CSGObject object created. 
+	 * Creates a new CsgObject object, adds it to the
+	 * ListOfCSGObjects and returns the CsgObject object created. 
 	 *
-	 * @return a new CSGObject object instance
+	 * @return a new CsgObject object instance
 	 *
-	 * @see addCSGObject(const CSGObject* csgo)
+	 * @see addCsgObject(const CSGObject* co)
 	 */
-	CSGObject* createCSGObject();
+	CSGObject* createCsgObject();
 
 
   /**
-   * Removes the nth CSGObject from this ListOfCSGObjects
+   * Removes the nth CsgObject from this ListOfCSGObjects
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the CSGObject to remove.
+   * @param n the index of the CsgObject to remove.
    *
    * @see size()
    */
@@ -667,16 +700,16 @@ public:
 
 
   /**
-   * Removes the CSGObject from this ListOfCSGObjects with the given identifier
+   * Removes the CsgObject from this ListOfCSGObjects with the given identifier
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @param sid the identifier of the CSGObject to remove.
+   * @param sid the identifier of the CsgObject to remove.
    *
-   * @return the CSGObject removed. As mentioned above, the caller owns the
+   * @return the CsgObject removed. As mentioned above, the caller owns the
    * returned item.
    */
 	virtual CSGObject* remove(const std::string& sid);
@@ -763,7 +796,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new CSGObject in this ListOfCSGObjects
+   * Creates a new CsgObject in this ListOfCsgObjects
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
@@ -897,8 +930,38 @@ CSGObject_getCsgNode(CSGObject_t * csgo);
 
 
 LIBSBML_EXTERN
-CSGNode_t*
-CSGObject_createCsgNode(CSGObject_t * csgo);
+CSGPrimitive_t *
+CSGObject_createCsgPrimitive(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGTranslation_t *
+CSGObject_createCsgTranslation(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGRotation_t *
+CSGObject_createCsgRotation(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGObject_createCsgScale(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGObject_createCsgHomogeneousTransformation(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t *
+CSGObject_createCsgPseudoPrimitive(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGSetOperator_t *
+CSGObject_createCsgSetOperator(CSGObject_t * csgo);
 
 
 /**
@@ -1148,12 +1211,12 @@ CSGObject_hasRequiredElements(const CSGObject_t * csgo);
 
 LIBSBML_EXTERN
 CSGObject_t *
-ListOfCSGObjects_getById(ListOf_t * lo, const char * sid);
+ListOfCsgObjects_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
 CSGObject_t *
-ListOfCSGObjects_removeById(ListOf_t * lo, const char * sid);
+ListOfCsgObjects_removeById(ListOf_t * lo, const char * sid);
 
 
 

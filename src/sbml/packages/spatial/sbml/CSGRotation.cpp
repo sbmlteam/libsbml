@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CSGRotation.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,15 +47,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGRotation with the given level, version, and package version.
  */
 CSGRotation::CSGRotation (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: CSGTransformation(level, version)
-   ,mRotateAxisX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisX (false)
-   ,mRotateAxisY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisY (false)
-   ,mRotateAxisZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisZ (false)
-   ,mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAngleInRadians (false)
+  : CSGTransformation(level, version)
+  , mRotateAxisX (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisX (false)
+  , mRotateAxisY (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisY (false)
+  , mRotateAxisZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisZ (false)
+  , mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAngleInRadians (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -65,15 +66,15 @@ CSGRotation::CSGRotation (unsigned int level, unsigned int version, unsigned int
  * Creates a new CSGRotation with the given SpatialPkgNamespaces object.
  */
 CSGRotation::CSGRotation (SpatialPkgNamespaces* spatialns)
-	: CSGTransformation(spatialns)
-   ,mRotateAxisX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisX (false)
-   ,mRotateAxisY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisY (false)
-   ,mRotateAxisZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAxisZ (false)
-   ,mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
-   ,mIsSetRotateAngleInRadians (false)
+  : CSGTransformation(spatialns)
+  , mRotateAxisX (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisX (false)
+  , mRotateAxisY (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisY (false)
+  , mRotateAxisZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAxisZ (false)
+  , mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateAngleInRadians (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -87,7 +88,7 @@ CSGRotation::CSGRotation (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGRotation.
  */
 CSGRotation::CSGRotation (const CSGRotation& orig)
-	: CSGTransformation(orig)
+  : CSGTransformation(orig)
 {
   if (&orig == NULL)
   {
@@ -119,7 +120,7 @@ CSGRotation::operator=(const CSGRotation& rhs)
   }
   else if (&rhs != this)
   {
-		CSGTransformation::operator=(rhs);
+    CSGTransformation::operator=(rhs);
     mRotateAxisX  = rhs.mRotateAxisX;
     mIsSetRotateAxisX  = rhs.mIsSetRotateAxisX;
     mRotateAxisY  = rhs.mRotateAxisY;
@@ -365,8 +366,8 @@ CSGRotation::unsetRotateAngleInRadians()
 const std::string&
 CSGRotation::getElementName () const
 {
-	static const string name = "cSGRotation";
-	return name;
+  static const string name = "csgRotation";
+  return name;
 }
 
 
@@ -386,7 +387,7 @@ CSGRotation::getTypeCode () const
 bool
 CSGRotation::hasRequiredAttributes () const
 {
-	bool allPresent = CSGTransformation::hasRequiredAttributes();
+  bool allPresent = CSGTransformation::hasRequiredAttributes();
 
   if (isSetRotateAxisX() == false)
     allPresent = false;
@@ -406,7 +407,7 @@ CSGRotation::hasRequiredAttributes () const
 void
 CSGRotation::writeElements (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeElements(stream);
+  CSGTransformation::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -437,7 +438,7 @@ CSGRotation::accept (SBMLVisitor& v) const
 void
 CSGRotation::setSBMLDocument (SBMLDocument* d)
 {
-	CSGTransformation::setSBMLDocument(d);
+  CSGTransformation::setSBMLDocument(d);
 }
 
 
@@ -468,7 +469,7 @@ CSGRotation::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGRotation::createObject(XMLInputStream& stream)
 {
-	SBase* object = CSGTransformation::createObject(stream);
+  SBase* object = CSGTransformation::createObject(stream);
 
   connectToChild();
 
@@ -488,12 +489,12 @@ CSGRotation::createObject(XMLInputStream& stream)
 void
 CSGRotation::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	CSGTransformation::addExpectedAttributes(attributes);
+  CSGTransformation::addExpectedAttributes(attributes);
 
-	attributes.add("rotateAxisX");
-	attributes.add("rotateAxisY");
-	attributes.add("rotateAxisZ");
-	attributes.add("rotateAngleInRadians");
+  attributes.add("rotateAxisX");
+  attributes.add("rotateAxisY");
+  attributes.add("rotateAxisZ");
+  attributes.add("rotateAngleInRadians");
 }
 
 
@@ -514,7 +515,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	CSGTransformation::readAttributes(attributes, expectedAttributes);
+  CSGTransformation::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -649,19 +650,19 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
   void
 CSGRotation::writeAttributes (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeAttributes(stream);
+  CSGTransformation::writeAttributes(stream);
 
-	if (isSetRotateAxisX() == true)
-		stream.writeAttribute("rotateAxisX", getPrefix(), mRotateAxisX);
+  if (isSetRotateAxisX() == true)
+    stream.writeAttribute("rotateAxisX", getPrefix(), mRotateAxisX);
 
-	if (isSetRotateAxisY() == true)
-		stream.writeAttribute("rotateAxisY", getPrefix(), mRotateAxisY);
+  if (isSetRotateAxisY() == true)
+    stream.writeAttribute("rotateAxisY", getPrefix(), mRotateAxisY);
 
-	if (isSetRotateAxisZ() == true)
-		stream.writeAttribute("rotateAxisZ", getPrefix(), mRotateAxisZ);
+  if (isSetRotateAxisZ() == true)
+    stream.writeAttribute("rotateAxisZ", getPrefix(), mRotateAxisZ);
 
-	if (isSetRotateAngleInRadians() == true)
-		stream.writeAttribute("rotateAngleInRadians", getPrefix(), mRotateAngleInRadians);
+  if (isSetRotateAngleInRadians() == true)
+    stream.writeAttribute("rotateAngleInRadians", getPrefix(), mRotateAngleInRadians);
 
 }
 

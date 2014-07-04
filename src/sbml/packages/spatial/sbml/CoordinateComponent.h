@@ -148,54 +148,52 @@ public:
   virtual const std::string& getUnit() const;
 
 
-	/**
-	 * Returns the "boundaryMin" element of this CoordinateComponent.
-	 *
-	 * @return the "boundaryMin" element of this CoordinateComponent.
-	 */
-	virtual const Boundary* getBoundaryMin() const;
+  /**
+   * Returns the "boundaryMin" element of this CoordinateComponent.
+   *
+   * @return the "boundaryMin" element of this CoordinateComponent.
+   */
+  virtual const Boundary* getBoundaryMin() const;
 
 
-	/**
-	/**
-	 * Returns the "boundaryMin" element of this CoordinateComponent.
-	 *
-	 * @return the "boundaryMin" element of this CoordinateComponent.
-	 */
-	virtual Boundary* getBoundaryMin();
+  /**
+   * Returns the "boundaryMin" element of this CoordinateComponent.
+   *
+   * @return the "boundaryMin" element of this CoordinateComponent.
+   */
+  virtual Boundary* getBoundaryMin();
 
 
-	/**
-	 * Creates a new "Boundary" and sets it for this CoordinateComponent.
-	 *
-	 * @return the created "Boundary" element of this CoordinateComponent.
-	 */
-	virtual Boundary* createBoundaryMin();
+  /**
+   * Creates a new "Boundary" and sets it for this CoordinateComponent.
+   *
+   * @return the created "Boundary" element of this CoordinateComponent.
+   */
+  virtual Boundary* createBoundaryMin();
 
 
-	/**
-	 * Returns the "boundaryMax" element of this CoordinateComponent.
-	 *
-	 * @return the "boundaryMax" element of this CoordinateComponent.
-	 */
-	virtual const Boundary* getBoundaryMax() const;
+  /**
+   * Returns the "boundaryMax" element of this CoordinateComponent.
+   *
+   * @return the "boundaryMax" element of this CoordinateComponent.
+   */
+  virtual const Boundary* getBoundaryMax() const;
 
 
-	/**
-	/**
-	 * Returns the "boundaryMax" element of this CoordinateComponent.
-	 *
-	 * @return the "boundaryMax" element of this CoordinateComponent.
-	 */
-	virtual Boundary* getBoundaryMax();
+  /**
+   * Returns the "boundaryMax" element of this CoordinateComponent.
+   *
+   * @return the "boundaryMax" element of this CoordinateComponent.
+   */
+  virtual Boundary* getBoundaryMax();
 
 
-	/**
-	 * Creates a new "Boundary" and sets it for this CoordinateComponent.
-	 *
-	 * @return the created "Boundary" element of this CoordinateComponent.
-	 */
-	virtual Boundary* createBoundaryMax();
+  /**
+   * Creates a new "Boundary" and sets it for this CoordinateComponent.
+   *
+   * @return the created "Boundary" element of this CoordinateComponent.
+   */
+  virtual Boundary* createBoundaryMax();
 
 
   /**

@@ -34,6 +34,8 @@
 
 #include <sbml/packages/spatial/extension/SpatialSpeciesPlugin.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 
 using namespace std;
@@ -52,8 +54,8 @@ SpatialSpeciesPlugin::SpatialSpeciesPlugin(const std::string& uri,
                                  const std::string& prefix, 
                                SpatialPkgNamespaces* spatialns) :
     SBasePlugin(uri, prefix, spatialns)
-   ,mIsSpatial (false)
-   ,mIsSetIsSpatial (false)
+  , mIsSpatial (false)
+  , mIsSetIsSpatial (false)
 {
 }
 
@@ -166,9 +168,9 @@ SpatialSpeciesPlugin::hasRequiredElements () const
 void
 SpatialSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBasePlugin::addExpectedAttributes(attributes);
+  SBasePlugin::addExpectedAttributes(attributes);
 
-	attributes.add("isSpatial");
+  attributes.add("isSpatial");
 }
 
 
@@ -189,7 +191,7 @@ SpatialSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBasePlugin::readAttributes(attributes, expectedAttributes);
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -252,10 +254,10 @@ SpatialSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
   void
 SpatialSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-	SBasePlugin::writeAttributes(stream);
+  SBasePlugin::writeAttributes(stream);
 
-	if (isSetIsSpatial() == true)
-		stream.writeAttribute("isSpatial", getPrefix(), mIsSpatial);
+  if (isSetIsSpatial() == true)
+    stream.writeAttribute("isSpatial", getPrefix(), mIsSpatial);
 
 }
 

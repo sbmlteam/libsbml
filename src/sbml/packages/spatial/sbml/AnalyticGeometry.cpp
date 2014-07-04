@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,8 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new AnalyticGeometry with the given level, version, and package version.
  */
 AnalyticGeometry::AnalyticGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: GeometryDefinition(level, version)
-   ,mAnalyticVolumes (level, version, pkgVersion)
+  : GeometryDefinition(level, version)
+  , mAnalyticVolumes (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -61,8 +62,8 @@ AnalyticGeometry::AnalyticGeometry (unsigned int level, unsigned int version, un
  * Creates a new AnalyticGeometry with the given SpatialPkgNamespaces object.
  */
 AnalyticGeometry::AnalyticGeometry (SpatialPkgNamespaces* spatialns)
-	: GeometryDefinition(spatialns)
-   ,mAnalyticVolumes (spatialns)
+  : GeometryDefinition(spatialns)
+  , mAnalyticVolumes (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ AnalyticGeometry::AnalyticGeometry (SpatialPkgNamespaces* spatialns)
  * Copy constructor for AnalyticGeometry.
  */
 AnalyticGeometry::AnalyticGeometry (const AnalyticGeometry& orig)
-	: GeometryDefinition(orig)
+  : GeometryDefinition(orig)
 {
   if (&orig == NULL)
   {
@@ -107,7 +108,7 @@ AnalyticGeometry::operator=(const AnalyticGeometry& rhs)
   }
   else if (&rhs != this)
   {
-		GeometryDefinition::operator=(rhs);
+    GeometryDefinition::operator=(rhs);
     mAnalyticVolumes  = rhs.mAnalyticVolumes;
 
     // connect to child objects
@@ -141,7 +142,7 @@ AnalyticGeometry::~AnalyticGeometry ()
 const ListOfAnalyticVolumes*
 AnalyticGeometry::getListOfAnalyticVolumes() const
 {
-	return &mAnalyticVolumes;
+  return &mAnalyticVolumes;
 }
 
 
@@ -252,7 +253,7 @@ AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
   }
   else
   {
-	mAnalyticVolumes.append(av);
+    mAnalyticVolumes.append(av);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -266,7 +267,7 @@ AnalyticGeometry::addAnalyticVolume(const AnalyticVolume* av)
 unsigned int
 AnalyticGeometry::getNumAnalyticVolumes() const
 {
-	return mAnalyticVolumes.size();
+  return mAnalyticVolumes.size();
 }
 
 
@@ -326,8 +327,8 @@ AnalyticGeometry::getAllElements(ElementFilter* filter)
 const std::string&
 AnalyticGeometry::getElementName () const
 {
-	static const string name = "analyticGeometry";
-	return name;
+  static const string name = "analyticGeometry";
+  return name;
 }
 
 
@@ -347,7 +348,7 @@ AnalyticGeometry::getTypeCode () const
 bool
 AnalyticGeometry::hasRequiredAttributes () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredAttributes();
+  bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -359,7 +360,7 @@ AnalyticGeometry::hasRequiredAttributes () const
 bool
 AnalyticGeometry::hasRequiredElements () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredElements();
+  bool allPresent = GeometryDefinition::hasRequiredElements();
 
   return allPresent;
 }
@@ -373,8 +374,8 @@ AnalyticGeometry::hasRequiredElements () const
 void
 AnalyticGeometry::writeElements (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeElements(stream);
-	if (getNumAnalyticVolumes() > 0)
+  GeometryDefinition::writeElements(stream);
+  if (getNumAnalyticVolumes() > 0)
   {
     mAnalyticVolumes.write(stream);
   }
@@ -415,8 +416,8 @@ AnalyticGeometry::accept (SBMLVisitor& v) const
 void
 AnalyticGeometry::setSBMLDocument (SBMLDocument* d)
 {
-	GeometryDefinition::setSBMLDocument(d);
-	mAnalyticVolumes.setSBMLDocument(d);
+  GeometryDefinition::setSBMLDocument(d);
+  mAnalyticVolumes.setSBMLDocument(d);
 }
 
 
@@ -431,9 +432,9 @@ AnalyticGeometry::setSBMLDocument (SBMLDocument* d)
 void
 AnalyticGeometry::connectToChild()
 {
-	GeometryDefinition::connectToChild();
+  GeometryDefinition::connectToChild();
 
-	mAnalyticVolumes.connectToParent(this);
+  mAnalyticVolumes.connectToParent(this);
 }
 
 
@@ -465,7 +466,7 @@ AnalyticGeometry::enablePackageInternal(const std::string& pkgURI,
 SBase*
 AnalyticGeometry::createObject(XMLInputStream& stream)
 {
-	SBase* object = GeometryDefinition::createObject(stream);
+  SBase* object = GeometryDefinition::createObject(stream);
 
   const string& name = stream.peek().getName();
 
@@ -491,7 +492,7 @@ AnalyticGeometry::createObject(XMLInputStream& stream)
 void
 AnalyticGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	GeometryDefinition::addExpectedAttributes(attributes);
+  GeometryDefinition::addExpectedAttributes(attributes);
 
 }
 
@@ -513,7 +514,7 @@ AnalyticGeometry::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  GeometryDefinition::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -556,7 +557,7 @@ AnalyticGeometry::readAttributes (const XMLAttributes& attributes,
   void
 AnalyticGeometry::writeAttributes (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeAttributes(stream);
+  GeometryDefinition::writeAttributes(stream);
 
 }
 

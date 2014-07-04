@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CoordinateComponent.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,12 +47,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CoordinateComponent with the given level, version, and package version.
  */
 CoordinateComponent::CoordinateComponent (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mType (COORDINATEKIND_UNKNOWN)
-   ,mUnit ("")
-   ,mBoundaryMin (NULL)
-   ,mBoundaryMax (NULL)
+  : SBase(level, version)
+  , mId ("")
+  , mType (COORDINATEKIND_UNKNOWN)
+  , mUnit ("")
+  , mBoundaryMin (NULL)
+  , mBoundaryMax (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -65,12 +66,12 @@ CoordinateComponent::CoordinateComponent (unsigned int level, unsigned int versi
  * Creates a new CoordinateComponent with the given SpatialPkgNamespaces object.
  */
 CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mType (COORDINATEKIND_UNKNOWN)
-   ,mUnit ("")
-   ,mBoundaryMin (NULL)
-   ,mBoundaryMax (NULL)
+  : SBase(spatialns)
+  , mId ("")
+  , mType (COORDINATEKIND_UNKNOWN)
+  , mUnit ("")
+  , mBoundaryMin (NULL)
+  , mBoundaryMax (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -87,7 +88,7 @@ CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CoordinateComponent.
  */
 CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -133,7 +134,7 @@ CoordinateComponent::operator=(const CoordinateComponent& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mType  = rhs.mType;
     mUnit  = rhs.mUnit;
@@ -239,12 +240,13 @@ CoordinateComponent::getBoundaryMin()
 Boundary*
 CoordinateComponent::createBoundaryMin()
 {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-	mBoundaryMin = new Boundary(spatialns);	
-    mBoundaryMin->setElementName("boundaryMin"); 
-	delete spatialns;
-    connectToChild();
-	return mBoundaryMin;
+  if (mBoundaryMin != NULL) delete mBoundaryMin;
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mBoundaryMin = new Boundary(spatialns);
+  mBoundaryMin->setElementName("boundaryMin");
+  delete spatialns;
+  connectToChild();
+  return mBoundaryMin;
 }
 
 
@@ -274,9 +276,10 @@ CoordinateComponent::getBoundaryMax()
 Boundary*
 CoordinateComponent::createBoundaryMax()
 {
+  if (mBoundaryMax != NULL) delete mBoundaryMax;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mBoundaryMax = new Boundary(spatialns);
-  mBoundaryMax->setElementName("boundaryMax"); 
+  mBoundaryMax->setElementName("boundaryMax");
   delete spatialns;
   connectToChild();
   return mBoundaryMax;
@@ -559,8 +562,8 @@ CoordinateComponent::getAllElements(ElementFilter* filter)
 const std::string&
 CoordinateComponent::getElementName () const
 {
-	static const string name = "coordinateComponent";
-	return name;
+  static const string name = "coordinateComponent";
+  return name;
 }
 
 
@@ -580,7 +583,7 @@ CoordinateComponent::getTypeCode () const
 bool
 CoordinateComponent::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -601,7 +604,7 @@ CoordinateComponent::hasRequiredAttributes () const
 bool
 CoordinateComponent::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetBoundaryMin() == false)
     allPresent = false;
@@ -621,15 +624,15 @@ CoordinateComponent::hasRequiredElements () const
 void
 CoordinateComponent::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (isSetBoundaryMin() == true)
-	{
-		mBoundaryMin->write(stream);
-	}
-	if (isSetBoundaryMax() == true)
-	{
-		mBoundaryMax->write(stream);
-	}
+  SBase::writeElements(stream);
+  if (isSetBoundaryMin() == true)
+  {
+    mBoundaryMin->write(stream);
+  }
+  if (isSetBoundaryMax() == true)
+  {
+    mBoundaryMax->write(stream);
+  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -666,11 +669,11 @@ CoordinateComponent::accept (SBMLVisitor& v) const
 void
 CoordinateComponent::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	if ( mBoundaryMin != NULL)
-	  mBoundaryMin->setSBMLDocument(d);
-	if ( mBoundaryMax != NULL)
-	  mBoundaryMax->setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  if ( mBoundaryMin != NULL)
+    mBoundaryMin->setSBMLDocument(d);
+  if ( mBoundaryMax != NULL)
+    mBoundaryMax->setSBMLDocument(d);
 }
 
 
@@ -685,12 +688,12 @@ CoordinateComponent::setSBMLDocument (SBMLDocument* d)
 void
 CoordinateComponent::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	if (mBoundaryMin != NULL)
-	  mBoundaryMin->connectToParent(this);
-	if (mBoundaryMax != NULL)
-	  mBoundaryMax->connectToParent(this);
+  if (mBoundaryMin != NULL)
+    mBoundaryMin->connectToParent(this);
+  if (mBoundaryMax != NULL)
+    mBoundaryMax->connectToParent(this);
 }
 
 
@@ -721,7 +724,7 @@ CoordinateComponent::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CoordinateComponent::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -760,11 +763,11 @@ CoordinateComponent::createObject(XMLInputStream& stream)
 void
 CoordinateComponent::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("type");
-	attributes.add("unit");
+  attributes.add("id");
+  attributes.add("type");
+  attributes.add("unit");
 }
 
 
@@ -815,7 +818,7 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -932,16 +935,16 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
   void
 CoordinateComponent::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetType() == true)
-		stream.writeAttribute("type", getPrefix(), CoordinateKind_toString(mType));
+  if (isSetType() == true)
+    stream.writeAttribute("type", getPrefix(), CoordinateKind_toString(mType));
 
-	if (isSetUnit() == true)
-		stream.writeAttribute("unit", getPrefix(), mUnit);
+  if (isSetUnit() == true)
+    stream.writeAttribute("unit", getPrefix(), mUnit);
 
 }
 
@@ -1152,8 +1155,8 @@ ListOfCoordinateComponents::remove(const std::string& sid)
 const std::string&
 ListOfCoordinateComponents::getElementName () const
 {
-	static const string name = "listOfCoordinateComponents";
-	return name;
+  static const string name = "listOfCoordinateComponents";
+  return name;
 }
 
 

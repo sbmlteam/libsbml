@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/ParametricGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,9 +47,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ParametricGeometry with the given level, version, and package version.
  */
 ParametricGeometry::ParametricGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: GeometryDefinition(level, version)
-   ,mSpatialPoints (level, version, pkgVersion)
-   ,mParametricObject (NULL)
+  : GeometryDefinition(level, version)
+  , mSpatialPoints (level, version, pkgVersion)
+  , mParametricObject (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -62,9 +63,9 @@ ParametricGeometry::ParametricGeometry (unsigned int level, unsigned int version
  * Creates a new ParametricGeometry with the given SpatialPkgNamespaces object.
  */
 ParametricGeometry::ParametricGeometry (SpatialPkgNamespaces* spatialns)
-	: GeometryDefinition(spatialns)
-   ,mSpatialPoints (spatialns)
-   ,mParametricObject (NULL)
+  : GeometryDefinition(spatialns)
+  , mSpatialPoints (spatialns)
+  , mParametricObject (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -81,7 +82,7 @@ ParametricGeometry::ParametricGeometry (SpatialPkgNamespaces* spatialns)
  * Copy constructor for ParametricGeometry.
  */
 ParametricGeometry::ParametricGeometry (const ParametricGeometry& orig)
-	: GeometryDefinition(orig)
+  : GeometryDefinition(orig)
 {
   if (&orig == NULL)
   {
@@ -117,7 +118,7 @@ ParametricGeometry::operator=(const ParametricGeometry& rhs)
   }
   else if (&rhs != this)
   {
-		GeometryDefinition::operator=(rhs);
+    GeometryDefinition::operator=(rhs);
     mSpatialPoints  = rhs.mSpatialPoints;
     if (rhs.mParametricObject != NULL)
     {
@@ -181,8 +182,12 @@ ParametricGeometry::getParametricObject()
 ParametricObject*
 ParametricGeometry::createParametricObject()
 {
-	mParametricObject = new ParametricObject();
-	return mParametricObject;
+  if (mParametricObject != NULL) delete mParametricObject;
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+  mParametricObject = new ParametricObject(spatialns);
+  delete spatialns;
+  connectToChild();
+  return mParametricObject;
 }
 
 
@@ -244,7 +249,7 @@ ParametricGeometry::unsetParametricObject()
 const ListOfSpatialPoints*
 ParametricGeometry::getListOfSpatialPoints() const
 {
-	return &mSpatialPoints;
+  return &mSpatialPoints;
 }
 
 
@@ -355,7 +360,7 @@ ParametricGeometry::addSpatialPoint(const SpatialPoint* sp)
   }
   else
   {
-	mSpatialPoints.append(sp);
+    mSpatialPoints.append(sp);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -369,7 +374,7 @@ ParametricGeometry::addSpatialPoint(const SpatialPoint* sp)
 unsigned int
 ParametricGeometry::getNumSpatialPoints() const
 {
-	return mSpatialPoints.size();
+  return mSpatialPoints.size();
 }
 
 
@@ -430,8 +435,8 @@ ParametricGeometry::getAllElements(ElementFilter* filter)
 const std::string&
 ParametricGeometry::getElementName () const
 {
-	static const string name = "parametricGeometry";
-	return name;
+  static const string name = "parametricGeometry";
+  return name;
 }
 
 
@@ -451,7 +456,7 @@ ParametricGeometry::getTypeCode () const
 bool
 ParametricGeometry::hasRequiredAttributes () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredAttributes();
+  bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -463,7 +468,7 @@ ParametricGeometry::hasRequiredAttributes () const
 bool
 ParametricGeometry::hasRequiredElements () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredElements();
+  bool allPresent = GeometryDefinition::hasRequiredElements();
 
   return allPresent;
 }
@@ -477,16 +482,16 @@ ParametricGeometry::hasRequiredElements () const
 void
 ParametricGeometry::writeElements (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeElements(stream);
-	if (getNumSpatialPoints() > 0)
+  GeometryDefinition::writeElements(stream);
+  if (getNumSpatialPoints() > 0)
   {
     mSpatialPoints.write(stream);
   }
 
-	if (isSetParametricObject() == true)
-	{
-		mParametricObject->write(stream);
-	}
+  if (isSetParametricObject() == true)
+  {
+    mParametricObject->write(stream);
+  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -523,10 +528,10 @@ ParametricGeometry::accept (SBMLVisitor& v) const
 void
 ParametricGeometry::setSBMLDocument (SBMLDocument* d)
 {
-	GeometryDefinition::setSBMLDocument(d);
-	mSpatialPoints.setSBMLDocument(d);
-	if (mParametricObject != NULL)
-		mParametricObject->setSBMLDocument(d);
+  GeometryDefinition::setSBMLDocument(d);
+  mSpatialPoints.setSBMLDocument(d);
+  if (mParametricObject != NULL)
+    mParametricObject->setSBMLDocument(d);
 }
 
 
@@ -541,11 +546,11 @@ ParametricGeometry::setSBMLDocument (SBMLDocument* d)
 void
 ParametricGeometry::connectToChild()
 {
-	GeometryDefinition::connectToChild();
+  GeometryDefinition::connectToChild();
 
-	mSpatialPoints.connectToParent(this);
-	if (mParametricObject != NULL)
-		mParametricObject->connectToParent(this);
+  mSpatialPoints.connectToParent(this);
+  if (mParametricObject != NULL)
+    mParametricObject->connectToParent(this);
 }
 
 
@@ -577,7 +582,7 @@ ParametricGeometry::enablePackageInternal(const std::string& pkgURI,
 SBase*
 ParametricGeometry::createObject(XMLInputStream& stream)
 {
-	SBase* object = GeometryDefinition::createObject(stream);
+  SBase* object = GeometryDefinition::createObject(stream);
 
   const string& name = stream.peek().getName();
 
@@ -613,7 +618,7 @@ ParametricGeometry::createObject(XMLInputStream& stream)
 void
 ParametricGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	GeometryDefinition::addExpectedAttributes(attributes);
+  GeometryDefinition::addExpectedAttributes(attributes);
 
 }
 
@@ -635,7 +640,7 @@ ParametricGeometry::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  GeometryDefinition::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -678,7 +683,7 @@ ParametricGeometry::readAttributes (const XMLAttributes& attributes,
   void
 ParametricGeometry::writeAttributes (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeAttributes(stream);
+  GeometryDefinition::writeAttributes(stream);
 
 }
 

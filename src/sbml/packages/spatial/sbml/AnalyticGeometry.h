@@ -208,7 +208,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addAnalyticVolume(const AnalyticVolume* av);
+  int addAnalyticVolume(const AnalyticVolume* av);
 
 
   /**
@@ -216,18 +216,18 @@ public:
    *
    * @return the number of AnalyticVolume objects in this AnalyticGeometry
    */
-	unsigned int getNumAnalyticVolumes() const;
+  unsigned int getNumAnalyticVolumes() const;
 
 
-	/**
-	 * Creates a new AnalyticVolume object, adds it to this AnalyticGeometrys
-	 * ListOfAnalyticVolumes and returns the AnalyticVolume object created. 
-	 *
-	 * @return a new AnalyticVolume object instance
-	 *
-	 * @see addAnalyticVolume(const AnalyticVolume* av)
-	 */
-	AnalyticVolume* createAnalyticVolume();
+  /**
+   * Creates a new AnalyticVolume object, adds it to this AnalyticGeometrys
+   * ListOfAnalyticVolumes and returns the AnalyticVolume object created. 
+   *
+   * @return a new AnalyticVolume object instance
+   *
+   * @see addAnalyticVolume(const AnalyticVolume* av)
+   */
+  AnalyticVolume* createAnalyticVolume();
 
 
   /**

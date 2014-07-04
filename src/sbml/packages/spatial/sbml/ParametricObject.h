@@ -146,29 +146,28 @@ public:
   virtual const std::string& getDomain() const;
 
 
-	/**
-	 * Returns the "polygonObject" element of this ParametricObject.
-	 *
-	 * @return the "polygonObject" element of this ParametricObject.
-	 */
-	virtual const PolygonObject* getPolygonObject() const;
+  /**
+   * Returns the "polygonObject" element of this ParametricObject.
+   *
+   * @return the "polygonObject" element of this ParametricObject.
+   */
+  virtual const PolygonObject* getPolygonObject() const;
 
 
-	/**
-	/**
-	 * Returns the "polygonObject" element of this ParametricObject.
-	 *
-	 * @return the "polygonObject" element of this ParametricObject.
-	 */
-	virtual PolygonObject* getPolygonObject();
+  /**
+   * Returns the "polygonObject" element of this ParametricObject.
+   *
+   * @return the "polygonObject" element of this ParametricObject.
+   */
+  virtual PolygonObject* getPolygonObject();
 
 
-	/**
-	 * Creates a new "PolygonObject" and sets it for this ParametricObject.
-	 *
-	 * @return the created "PolygonObject" element of this ParametricObject.
-	 */
-	virtual PolygonObject* createPolygonObject();
+  /**
+   * Creates a new "PolygonObject" and sets it for this ParametricObject.
+   *
+   * @return the created "PolygonObject" element of this ParametricObject.
+   */
+  virtual PolygonObject* createPolygonObject();
 
 
   /**

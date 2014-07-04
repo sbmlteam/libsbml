@@ -63,8 +63,9 @@ protected:
   std::string   mId;
   double        mValue;
   bool          mIsSetValue;
-  std::string   mElementName;
 
+
+  std::string   mElementName;
 
 public:
 
@@ -221,8 +222,6 @@ public:
    */
   virtual const std::string& getElementName () const;
 
-  virtual void setElementName(const std::string& name);
-
 
   /**
    * Returns the libSBML type code for this SBML object.
@@ -316,6 +315,9 @@ public:
 
 
   /** @endcond doxygenLibsbmlInternal */
+
+
+  virtual void setElementName(const std::string& name);
 
 
 protected:

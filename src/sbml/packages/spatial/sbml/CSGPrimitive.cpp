@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,9 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGPrimitive with the given level, version, and package version.
  */
 CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: CSGNode(level, version)
-   ,mId ("")
-   ,mPrimitiveType ("")
+  : CSGNode(level, version)
+  , mPrimitiveType ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -59,9 +59,8 @@ CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned i
  * Creates a new CSGPrimitive with the given SpatialPkgNamespaces object.
  */
 CSGPrimitive::CSGPrimitive (SpatialPkgNamespaces* spatialns)
-	: CSGNode(spatialns)
-   ,mId ("")
-   ,mPrimitiveType ("")
+  : CSGNode(spatialns)
+  , mPrimitiveType ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -75,7 +74,7 @@ CSGPrimitive::CSGPrimitive (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGPrimitive.
  */
 CSGPrimitive::CSGPrimitive (const CSGPrimitive& orig)
-	: CSGNode(orig)
+  : CSGNode(orig)
 {
   if (&orig == NULL)
   {
@@ -83,7 +82,6 @@ CSGPrimitive::CSGPrimitive (const CSGPrimitive& orig)
   }
   else
   {
-    mId  = orig.mId;
     mPrimitiveType  = orig.mPrimitiveType;
   }
 }
@@ -101,8 +99,7 @@ CSGPrimitive::operator=(const CSGPrimitive& rhs)
   }
   else if (&rhs != this)
   {
-		CSGNode::operator=(rhs);
-    mId  = rhs.mId;
+    CSGNode::operator=(rhs);
     mPrimitiveType  = rhs.mPrimitiveType;
   }
   return *this;
@@ -128,16 +125,6 @@ CSGPrimitive::~CSGPrimitive ()
 
 
 /*
- * Returns the value of the "id" attribute of this CSGPrimitive.
- */
-const std::string&
-CSGPrimitive::getId() const
-{
-  return mId;
-}
-
-
-/*
  * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
  */
 const std::string&
@@ -148,32 +135,12 @@ CSGPrimitive::getPrimitiveType() const
 
 
 /*
- * Returns true/false if id is set.
- */
-bool
-CSGPrimitive::isSetId() const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
  * Returns true/false if primitiveType is set.
  */
 bool
 CSGPrimitive::isSetPrimitiveType() const
 {
   return (mPrimitiveType.empty() == false);
-}
-
-
-/*
- * Sets id and returns value indicating success.
- */
-int
-CSGPrimitive::setId(const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
 
@@ -191,25 +158,6 @@ CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
   {
     mPrimitiveType = primitiveType;
     return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets id and returns value indicating success.
- */
-int
-CSGPrimitive::unsetId()
-{
-  mId.erase();
-
-  if (mId.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
   }
 }
 
@@ -239,8 +187,8 @@ CSGPrimitive::unsetPrimitiveType()
 const std::string&
 CSGPrimitive::getElementName () const
 {
-	static const string name = "cSGPrimitive";
-	return name;
+  static const string name = "csgPrimitive";
+  return name;
 }
 
 
@@ -260,10 +208,7 @@ CSGPrimitive::getTypeCode () const
 bool
 CSGPrimitive::hasRequiredAttributes () const
 {
-	bool allPresent = CSGNode::hasRequiredAttributes();
-
-  if (isSetId() == false)
-    allPresent = false;
+  bool allPresent = CSGNode::hasRequiredAttributes();
 
   if (isSetPrimitiveType() == false)
     allPresent = false;
@@ -280,7 +225,7 @@ CSGPrimitive::hasRequiredAttributes () const
 void
 CSGPrimitive::writeElements (XMLOutputStream& stream) const
 {
-	CSGNode::writeElements(stream);
+  CSGNode::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -311,7 +256,7 @@ CSGPrimitive::accept (SBMLVisitor& v) const
 void
 CSGPrimitive::setSBMLDocument (SBMLDocument* d)
 {
-	CSGNode::setSBMLDocument(d);
+  CSGNode::setSBMLDocument(d);
 }
 
 
@@ -342,7 +287,7 @@ CSGPrimitive::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGPrimitive::createObject(XMLInputStream& stream)
 {
-	SBase* object = CSGNode::createObject(stream);
+  SBase* object = CSGNode::createObject(stream);
 
   connectToChild();
 
@@ -362,10 +307,9 @@ CSGPrimitive::createObject(XMLInputStream& stream)
 void
 CSGPrimitive::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	CSGNode::addExpectedAttributes(attributes);
+  CSGNode::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("primitiveType");
+  attributes.add("primitiveType");
 }
 
 
@@ -386,7 +330,7 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	CSGNode::readAttributes(attributes, expectedAttributes);
+  CSGNode::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -414,32 +358,6 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
   }
 
   bool assigned = false;
-
-  //
-  // id SId  ( use = "required" )
-  //
-  assigned = attributes.readInto("id", mId);
-
-   if (assigned == true)
-  {
-    // check string is not empty and correct syntax
-
-    if (mId.empty() == true)
-    {
-      logEmptyString(mId, getLevel(), getVersion(), "<CSGPrimitive>");
-    }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
-    {
-      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
-    }
-  }
-  else
-  {
-    std::string message = "Spatial attribute 'id' is missing.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
-  }
 
   //
   // primitiveType string   ( use = "required" )
@@ -476,13 +394,10 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
   void
 CSGPrimitive::writeAttributes (XMLOutputStream& stream) const
 {
-	CSGNode::writeAttributes(stream);
+  CSGNode::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
-
-	if (isSetPrimitiveType() == true)
-		stream.writeAttribute("primitiveType", getPrefix(), mPrimitiveType);
+  if (isSetPrimitiveType() == true)
+    stream.writeAttribute("primitiveType", getPrefix(), mPrimitiveType);
 
 }
 
@@ -525,25 +440,9 @@ CSGPrimitive_clone(CSGPrimitive_t * csgp)
 
 LIBSBML_EXTERN
 const char *
-CSGPrimitive_getId(const CSGPrimitive_t * csgp)
-{
-	return (csgp != NULL && csgp->isSetId()) ? csgp->getId().c_str() : NULL;
-}
-
-
-LIBSBML_EXTERN
-const char *
 CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp)
 {
 	return (csgp != NULL && csgp->isSetPrimitiveType()) ? csgp->getPrimitiveType().c_str() : NULL;
-}
-
-
-LIBSBML_EXTERN
-int
-CSGPrimitive_isSetId(const CSGPrimitive_t * csgp)
-{
-  return (csgp != NULL) ? static_cast<int>(csgp->isSetId()) : 0;
 }
 
 
@@ -557,31 +456,12 @@ CSGPrimitive_isSetPrimitiveType(const CSGPrimitive_t * csgp)
 
 LIBSBML_EXTERN
 int
-CSGPrimitive_setId(CSGPrimitive_t * csgp, const char * id)
-{
-  if (csgp != NULL)
-    return (id == NULL) ? csgp->setId("") : csgp->setId(id);
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
 CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, const char * primitiveType)
 {
   if (csgp != NULL)
     return (primitiveType == NULL) ? csgp->setPrimitiveType("") : csgp->setPrimitiveType(primitiveType);
   else
     return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-CSGPrimitive_unsetId(CSGPrimitive_t * csgp)
-{
-  return (csgp != NULL) ? csgp->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 

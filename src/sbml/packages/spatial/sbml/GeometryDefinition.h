@@ -506,12 +506,6 @@ public:
 	ParametricGeometry* createParametricGeometry();
 
 
-	virtual bool isValidTypeForList(SBase * item) {
-		int code = item->getTypeCode();
-		return code == getItemTypeCode() || code == SBML_SPATIAL_ANALYTICGEOMETRY || code == SBML_SPATIAL_SAMPLEDFIELDGEOMETRY || code == SBML_SPATIAL_CSGEOMETRY || code == SBML_SPATIAL_PARAMETRICGEOMETRY ;
-	}
-
-
   /**
    * Removes the nth GeometryDefinition from this ListOfGeometryDefinitions
    * and returns a pointer to it.
@@ -639,6 +633,12 @@ protected:
 
 
   /** @endcond doxygenLibsbmlInternal */
+
+
+	virtual bool isValidTypeForList(SBase * item) {
+		int code = item->getTypeCode();
+		return code == getItemTypeCode() || code == SBML_SPATIAL_ANALYTICGEOMETRY || code == SBML_SPATIAL_SAMPLEDFIELDGEOMETRY || code == SBML_SPATIAL_CSGEOMETRY || code == SBML_SPATIAL_PARAMETRICGEOMETRY ;
+	}
 
 
 

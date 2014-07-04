@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CoordinateReference.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,8 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CoordinateReference with the given level, version, and package version.
  */
 CoordinateReference::CoordinateReference (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mCoordinate (COORDINATEKIND_UNKNOWN)
+  : SBase(level, version)
+  , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -58,8 +59,8 @@ CoordinateReference::CoordinateReference (unsigned int level, unsigned int versi
  * Creates a new CoordinateReference with the given SpatialPkgNamespaces object.
  */
 CoordinateReference::CoordinateReference (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mCoordinate (COORDINATEKIND_UNKNOWN)
+  : SBase(spatialns)
+  , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -73,7 +74,7 @@ CoordinateReference::CoordinateReference (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CoordinateReference.
  */
 CoordinateReference::CoordinateReference (const CoordinateReference& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -98,7 +99,7 @@ CoordinateReference::operator=(const CoordinateReference& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mCoordinate  = rhs.mCoordinate;
   }
   return *this;
@@ -184,8 +185,8 @@ CoordinateReference::unsetCoordinate()
 const std::string&
 CoordinateReference::getElementName () const
 {
-	static const string name = "coordinateReference";
-	return name;
+  static const string name = "coordinateReference";
+  return name;
 }
 
 
@@ -205,7 +206,7 @@ CoordinateReference::getTypeCode () const
 bool
 CoordinateReference::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetCoordinate() == false)
     allPresent = false;
@@ -222,7 +223,7 @@ CoordinateReference::hasRequiredAttributes () const
 void
 CoordinateReference::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -253,7 +254,7 @@ CoordinateReference::accept (SBMLVisitor& v) const
 void
 CoordinateReference::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -284,9 +285,9 @@ CoordinateReference::enablePackageInternal(const std::string& pkgURI,
 void
 CoordinateReference::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("coordinate");
+  attributes.add("coordinate");
 }
 
 
@@ -337,7 +338,7 @@ CoordinateReference::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -402,10 +403,10 @@ CoordinateReference::readAttributes (const XMLAttributes& attributes,
   void
 CoordinateReference::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetCoordinate() == true)
-		stream.writeAttribute("coordinate", getPrefix(), CoordinateKind_toString(mCoordinate));
+  if (isSetCoordinate() == true)
+    stream.writeAttribute("coordinate", getPrefix(), CoordinateKind_toString(mCoordinate));
 
 }
 
@@ -616,8 +617,8 @@ ListOfCoordinateReferences::remove(const std::string& sid)
 const std::string&
 ListOfCoordinateReferences::getElementName () const
 {
-	static const string name = "listOfCoordinateReferences";
-	return name;
+  static const string name = "listOfCoordinateReferences";
+  return name;
 }
 
 

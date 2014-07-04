@@ -52,7 +52,10 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
 class CSGPrimitive;
-class CSGTransformation;
+class CSGTranslation;
+class CSGRotation;
+class CSGScale;
+class CSGHomogeneousTransformation;
 class CSGPseudoPrimitive;
 class CSGSetOperator;
 
@@ -179,12 +182,39 @@ public:
 
 
   /**
-   * Returns @c true, if this abstract "CSGNode" is of type CSGTransformation.
+   * Returns @c true, if this abstract "CSGNode" is of type CSGTranslation.
    *
-   * @return @c true, if this abstract "CSGNode" is of type CSGTransformation.
+   * @return @c true, if this abstract "CSGNode" is of type CSGTranslation.
    *
    */
-  virtual bool isCSGTransformation() const;
+  virtual bool isCSGTranslation() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGRotation.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGRotation.
+   *
+   */
+  virtual bool isCSGRotation() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGScale.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGScale.
+   *
+   */
+  virtual bool isCSGScale() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGHomogeneousTransformation.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGHomogeneousTransformation.
+   *
+   */
+  virtual bool isCSGHomogeneousTransformation() const;
 
 
   /**
@@ -382,11 +412,11 @@ public:
 
 
    /**
-   * Get a CSGNode from the ListOfCSGNodes.
+   * Get a CsgNode from the ListOfCSGNodes.
    *
-   * @param n the index number of the CSGNode to get.
+   * @param n the index number of the CsgNode to get.
    *
-   * @return the nth CSGNode in this ListOfCSGNodes.
+   * @return the nth CsgNode in this ListOfCSGNodes.
    *
    * @see size()
    */
@@ -394,11 +424,11 @@ public:
 
 
   /**
-   * Get a CSGNode from the ListOfCSGNodes.
+   * Get a CsgNode from the ListOfCSGNodes.
    *
-   * @param n the index number of the CSGNode to get.
+   * @param n the index number of the CsgNode to get.
    *
-   * @return the nth CSGNode in this ListOfCSGNodes.
+   * @return the nth CsgNode in this ListOfCSGNodes.
    *
    * @see size()
    */
@@ -406,15 +436,15 @@ public:
 
 
   /**
-   * Get a CSGNode from the ListOfCSGNodes
+   * Get a CsgNode from the ListOfCSGNodes
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the CSGNode to get.
+   * of the CsgNode to get.
    *
-   * @return CSGNode in this ListOfCSGNodes
+   * @return CsgNode in this ListOfCSGNodes
    * with the given id or NULL if no such
-   * CSGNode exists.
+   * CsgNode exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -423,15 +453,15 @@ public:
 
 
   /**
-   * Get a CSGNode from the ListOfCSGNodes
+   * Get a CsgNode from the ListOfCSGNodes
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the CSGNode to get.
+   * of the CsgNode to get.
    *
-   * @return CSGNode in this ListOfCSGNodes
+   * @return CsgNode in this ListOfCSGNodes
    * with the given id or NULL if no such
-   * CSGNode exists.
+   * CsgNode exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -440,9 +470,9 @@ public:
 
 
 	/**
-	 * Adds a copy the given "CSGNode" to this ListOfCSGNodes.
+	 * Adds a copy the given "CsgNode" to this ListOfCSGNodes.
 	 *
-	 * @param csgn; the CSGNode object to add
+	 * @param cn; the CsgNode object to add
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -451,74 +481,101 @@ public:
 	 * @li LIBSEDML_OPERATION_SUCCESS
 	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
 	 */
-	int addCSGNode(const CSGNode* csgn);
+	int addCsgNode(const CSGNode* cn);
 
 
 	/**
-	 * Get the number of CSGNode objects in this ListOfCSGNodes.
+	 * Get the number of CsgNode objects in this ListOfCSGNodes.
 	 *
-	 * @return the number of CSGNode objects in this ListOfCSGNodes
+	 * @return the number of CsgNode objects in this ListOfCSGNodes
 	 */
-	unsigned int getNumCSGNodes() const;
+	unsigned int getNumCsgNodes() const;
 
 
 	/**
-	 * Creates a new CSGNode object, adds it to the
-	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
 	 *
-	 * @return a new CSGNode object instance
+	 * @return a new CsgNode object instance
 	 *
-	 * @see addCSGNode(const CSGNode* csgn)
+	 * @see addCsgNode(const CSGNode* cn)
 	 */
 	CSGPrimitive* createCsgPrimitive();
 
 
 	/**
-	 * Creates a new CSGNode object, adds it to the
-	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
 	 *
-	 * @return a new CSGNode object instance
+	 * @return a new CsgNode object instance
 	 *
-	 * @see addCSGNode(const CSGNode* csgn)
+	 * @see addCsgNode(const CSGNode* cn)
 	 */
-	CSGTransformation* createCsgTrasnformation();
+	CSGTranslation* createCsgTranslation();
 
 
 	/**
-	 * Creates a new CSGNode object, adds it to the
-	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
 	 *
-	 * @return a new CSGNode object instance
+	 * @return a new CsgNode object instance
 	 *
-	 * @see addCSGNode(const CSGNode* csgn)
+	 * @see addCsgNode(const CSGNode* cn)
+	 */
+	CSGRotation* createCsgRotation();
+
+
+	/**
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
+	 *
+	 * @return a new CsgNode object instance
+	 *
+	 * @see addCsgNode(const CSGNode* cn)
+	 */
+	CSGScale* createCsgScale();
+
+
+	/**
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
+	 *
+	 * @return a new CsgNode object instance
+	 *
+	 * @see addCsgNode(const CSGNode* cn)
+	 */
+	CSGHomogeneousTransformation* createCsgHomogeneousTransformation();
+
+
+	/**
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
+	 *
+	 * @return a new CsgNode object instance
+	 *
+	 * @see addCsgNode(const CSGNode* cn)
 	 */
 	CSGPseudoPrimitive* createCsgPseudoPrimitive();
 
 
 	/**
-	 * Creates a new CSGNode object, adds it to the
-	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 * Creates a new CsgNode object, adds it to the
+	 * ListOfCSGNodes and returns the CsgNode object created. 
 	 *
-	 * @return a new CSGNode object instance
+	 * @return a new CsgNode object instance
 	 *
-	 * @see addCSGNode(const CSGNode* csgn)
+	 * @see addCsgNode(const CSGNode* cn)
 	 */
 	CSGSetOperator* createCsgSetOperator();
 
 
-	virtual bool isValidTypeForList(SBase * item) {
-		int code = item->getTypeCode();
-		return code == getItemTypeCode() || code == SBML_SPATIAL_CSGPRIMITIVE || code == SBML_SPATIAL_CSGTRANSFORMATION || code == SBML_SPATIAL_CSGPSEUDOPRIMITIVE || code == SBML_SPATIAL_CSGSETOPERATOR ;
-	}
-
-
   /**
-   * Removes the nth CSGNode from this ListOfCSGNodes
+   * Removes the nth CsgNode from this ListOfCSGNodes
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the CSGNode to remove.
+   * @param n the index of the CsgNode to remove.
    *
    * @see size()
    */
@@ -526,16 +583,16 @@ public:
 
 
   /**
-   * Removes the CSGNode from this ListOfCSGNodes with the given identifier
+   * Removes the CsgNode from this ListOfCSGNodes with the given identifier
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @param sid the identifier of the CSGNode to remove.
+   * @param sid the identifier of the CsgNode to remove.
    *
-   * @return the CSGNode removed. As mentioned above, the caller owns the
+   * @return the CsgNode removed. As mentioned above, the caller owns the
    * returned item.
    */
 	virtual CSGNode* remove(const std::string& sid);
@@ -622,7 +679,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new CSGNode in this ListOfCSGNodes
+   * Creates a new CsgNode in this ListOfCsgNodes
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
@@ -639,6 +696,12 @@ protected:
 
 
   /** @endcond doxygenLibsbmlInternal */
+
+
+	virtual bool isValidTypeForList(SBase * item) {
+		int code = item->getTypeCode();
+		return code == getItemTypeCode() || code == SBML_SPATIAL_CSGPRIMITIVE || code == SBML_SPATIAL_CSGTRANSLATION || code == SBML_SPATIAL_CSGROTATION || code == SBML_SPATIAL_CSGSCALE || code == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION || code == SBML_SPATIAL_CSGPSEUDOPRIMITIVE || code == SBML_SPATIAL_CSGSETOPERATOR ;
+	}
 
 
 
@@ -804,12 +867,12 @@ CSGNode_hasRequiredAttributes(const CSGNode_t * csgn);
 
 LIBSBML_EXTERN
 CSGNode_t *
-ListOfCSGNodes_getById(ListOf_t * lo, const char * sid);
+ListOfCsgNodes_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
 CSGNode_t *
-ListOfCSGNodes_removeById(ListOf_t * lo, const char * sid);
+ListOfCsgNodes_removeById(ListOf_t * lo, const char * sid);
 
 
 

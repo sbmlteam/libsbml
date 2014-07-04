@@ -34,9 +34,13 @@
 
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
-#include <sbml/packages/spatial/sbml/CSGTransformation.h>
+#include <sbml/packages/spatial/sbml/CSGTranslation.h>
+#include <sbml/packages/spatial/sbml/CSGRotation.h>
+#include <sbml/packages/spatial/sbml/CSGScale.h>
+#include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
 #include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
 
@@ -52,8 +56,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGNode with the given level, version, and package version.
  */
 CSGNode::CSGNode (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
+  : SBase(level, version)
+  , mId ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -64,8 +68,8 @@ CSGNode::CSGNode (unsigned int level, unsigned int version, unsigned int pkgVers
  * Creates a new CSGNode with the given SpatialPkgNamespaces object.
  */
 CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
+  : SBase(spatialns)
+  , mId ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +83,7 @@ CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGNode.
  */
 CSGNode::CSGNode (const CSGNode& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -104,7 +108,7 @@ CSGNode::operator=(const CSGNode& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
   }
   return *this;
@@ -189,12 +193,42 @@ CSGNode::isCSGPrimitive() const
 
 
 /*
- * Return @c true if of type CSGTransformation.
+ * Return @c true if of type CSGTranslation.
  */
 bool
-CSGNode::isCSGTransformation() const
+CSGNode::isCSGTranslation() const
 {
-  return dynamic_cast<const CSGTransformation*>(this) != NULL;
+  return dynamic_cast<const CSGTranslation*>(this) != NULL;
+}
+
+
+/*
+ * Return @c true if of type CSGRotation.
+ */
+bool
+CSGNode::isCSGRotation() const
+{
+  return dynamic_cast<const CSGRotation*>(this) != NULL;
+}
+
+
+/*
+ * Return @c true if of type CSGScale.
+ */
+bool
+CSGNode::isCSGScale() const
+{
+  return dynamic_cast<const CSGScale*>(this) != NULL;
+}
+
+
+/*
+ * Return @c true if of type CSGHomogeneousTransformation.
+ */
+bool
+CSGNode::isCSGHomogeneousTransformation() const
+{
+  return dynamic_cast<const CSGHomogeneousTransformation*>(this) != NULL;
 }
 
 
@@ -224,8 +258,8 @@ CSGNode::isCSGSetOperator() const
 const std::string&
 CSGNode::getElementName () const
 {
-	static const string name = "cSGNode";
-	return name;
+  static const string name = "csgNode";
+  return name;
 }
 
 
@@ -245,7 +279,7 @@ CSGNode::getTypeCode () const
 bool
 CSGNode::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -262,7 +296,7 @@ CSGNode::hasRequiredAttributes () const
 void
 CSGNode::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -293,7 +327,7 @@ CSGNode::accept (SBMLVisitor& v) const
 void
 CSGNode::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -324,9 +358,9 @@ CSGNode::enablePackageInternal(const std::string& pkgURI,
 void
 CSGNode::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
+  attributes.add("id");
 }
 
 
@@ -377,7 +411,7 @@ CSGNode::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -446,10 +480,10 @@ CSGNode::readAttributes (const XMLAttributes& attributes,
   void
 CSGNode::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
 }
 
@@ -490,7 +524,7 @@ ListOfCSGNodes::clone () const
 
 
 /*
- * Get a CSGNode from the ListOfCSGNodes by index.
+ * Get a CsgNode from the ListOfCSGNodes by index.
 */
 CSGNode*
 ListOfCSGNodes::get(unsigned int n)
@@ -500,7 +534,7 @@ ListOfCSGNodes::get(unsigned int n)
 
 
 /*
- * Get a CSGNode from the ListOfCSGNodes by index.
+ * Get a CsgNode from the ListOfCSGNodes by index.
  */
 const CSGNode*
 ListOfCSGNodes::get(unsigned int n) const
@@ -510,7 +544,7 @@ ListOfCSGNodes::get(unsigned int n) const
 
 
 /*
- * Get a CSGNode from the ListOfCSGNodes by id.
+ * Get a CsgNode from the ListOfCSGNodes by id.
  */
 CSGNode*
 ListOfCSGNodes::get(const std::string& sid)
@@ -521,7 +555,7 @@ ListOfCSGNodes::get(const std::string& sid)
 
 
 /*
- * Get a CSGNode from the ListOfCSGNodes by id.
+ * Get a CsgNode from the ListOfCSGNodes by id.
  */
 const CSGNode*
 ListOfCSGNodes::get(const std::string& sid) const
@@ -546,7 +580,7 @@ ListOfCSGNodes::get(const std::string& sid) const
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-ListOfCSGNodes::addCSGNode(const CSGNode* csgn)
+ListOfCSGNodes::addCsgNode(const CSGNode* csgn)
 {
   if (csgn == NULL)
   {
@@ -582,7 +616,7 @@ ListOfCSGNodes::addCSGNode(const CSGNode* csgn)
  * @return the number of CSGNode objects in this ListOfCSGNodes
  */
 unsigned int 
-ListOfCSGNodes::getNumCSGNodes() const
+ListOfCSGNodes::getNumCsgNodes() const
 {
 	return size();
 }
@@ -624,22 +658,22 @@ ListOfCSGNodes::createCsgPrimitive()
 }
 
 /**
- * Creates a new CSGTransformation object, adds it to this ListOfCSGNodes
- * csgTrasnformation and returns the CSGTransformation object created. 
+ * Creates a new CSGTranslation object, adds it to this ListOfCSGNodes
+ * csgTranslation and returns the CSGTranslation object created. 
  *
- * @return a new CSGTransformation object instance
+ * @return a new CSGTranslation object instance
  *
- * @see addCsgTrasnformation(const CSGNode* csgn)
+ * @see addCsgTranslation(const CSGNode* csgn)
  */
-CSGTransformation* 
-ListOfCSGNodes::createCsgTrasnformation()
+CSGTranslation* 
+ListOfCSGNodes::createCsgTranslation()
 {
-  CSGTransformation* csgt = NULL;
+  CSGTranslation* csgt = NULL;
 
   try
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    csgt = new CSGTransformation(spatialns);
+    csgt = new CSGTranslation(spatialns);
     delete spatialns;
   }
   catch (...)
@@ -657,6 +691,114 @@ ListOfCSGNodes::createCsgTrasnformation()
   }
 
   return csgt;
+}
+
+/**
+ * Creates a new CSGRotation object, adds it to this ListOfCSGNodes
+ * csgRotation and returns the CSGRotation object created. 
+ *
+ * @return a new CSGRotation object instance
+ *
+ * @see addCsgRotation(const CSGNode* csgn)
+ */
+CSGRotation* 
+ListOfCSGNodes::createCsgRotation()
+{
+  CSGRotation* csgr = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgr = new CSGRotation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgr != NULL)
+  {
+    appendAndOwn(csgr);
+  }
+
+  return csgr;
+}
+
+/**
+ * Creates a new CSGScale object, adds it to this ListOfCSGNodes
+ * csgScale and returns the CSGScale object created. 
+ *
+ * @return a new CSGScale object instance
+ *
+ * @see addCsgScale(const CSGNode* csgn)
+ */
+CSGScale* 
+ListOfCSGNodes::createCsgScale()
+{
+  CSGScale* csgs = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgs = new CSGScale(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgs != NULL)
+  {
+    appendAndOwn(csgs);
+  }
+
+  return csgs;
+}
+
+/**
+ * Creates a new CSGHomogeneousTransformation object, adds it to this ListOfCSGNodes
+ * csgHomogeneousTransformation and returns the CSGHomogeneousTransformation object created. 
+ *
+ * @return a new CSGHomogeneousTransformation object instance
+ *
+ * @see addCsgHomogeneousTransformation(const CSGNode* csgn)
+ */
+CSGHomogeneousTransformation* 
+ListOfCSGNodes::createCsgHomogeneousTransformation()
+{
+  CSGHomogeneousTransformation* csght = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csght = new CSGHomogeneousTransformation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csght != NULL)
+  {
+    appendAndOwn(csght);
+  }
+
+  return csght;
 }
 
 /**
@@ -732,7 +874,7 @@ ListOfCSGNodes::createCsgSetOperator()
 }
 
 /*
- * Removes the nth CSGNode from this ListOfCSGNodes
+ * Removes the nth CsgNode from this ListOfCSGNodes
  */
 CSGNode*
 ListOfCSGNodes::remove(unsigned int n)
@@ -742,7 +884,7 @@ ListOfCSGNodes::remove(unsigned int n)
 
 
 /*
- * Removes the CSGNode from this ListOfCSGNodes with the given identifier
+ * Removes the CsgNode from this ListOfCSGNodes with the given identifier
  */
 CSGNode*
 ListOfCSGNodes::remove(const std::string& sid)
@@ -768,8 +910,8 @@ ListOfCSGNodes::remove(const std::string& sid)
 const std::string&
 ListOfCSGNodes::getElementName () const
 {
-	static const string name = "listOfCSGNodes";
-	return name;
+  static const string name = "listOfCsgNodes";
+  return name;
 }
 
 
@@ -804,7 +946,7 @@ ListOfCSGNodes::createObject(XMLInputStream& stream)
   const std::string& name   = stream.peek().getName();
   SBase* object = NULL;
 
-  if (name == "cSGNode")
+  if (name == "csgNode")
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
     object = new CSGNode(spatialns);
@@ -820,10 +962,34 @@ ListOfCSGNodes::createObject(XMLInputStream& stream)
     delete spatialns;
   }
 
-  if (name == "csgTrasnformation")
+  if (name == "csgTranslation")
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new CSGTransformation(spatialns);
+    object = new CSGTranslation(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgRotation")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGRotation(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgScale")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGScale(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgHomogeneousTransformation")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGHomogeneousTransformation(spatialns);
     appendAndOwn(object);
     delete spatialns;
   }

@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CSGScale.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,13 +47,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGScale with the given level, version, and package version.
  */
 CSGScale::CSGScale (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: CSGTransformation(level, version)
-   ,mScaleX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleX (false)
-   ,mScaleY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleY (false)
-   ,mScaleZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleZ (false)
+  : CSGTransformation(level, version)
+  , mScaleX (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleX (false)
+  , mScaleY (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleY (false)
+  , mScaleZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleZ (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -63,13 +64,13 @@ CSGScale::CSGScale (unsigned int level, unsigned int version, unsigned int pkgVe
  * Creates a new CSGScale with the given SpatialPkgNamespaces object.
  */
 CSGScale::CSGScale (SpatialPkgNamespaces* spatialns)
-	: CSGTransformation(spatialns)
-   ,mScaleX (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleX (false)
-   ,mScaleY (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleY (false)
-   ,mScaleZ (numeric_limits<double>::quiet_NaN())
-   ,mIsSetScaleZ (false)
+  : CSGTransformation(spatialns)
+  , mScaleX (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleX (false)
+  , mScaleY (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleY (false)
+  , mScaleZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetScaleZ (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -83,7 +84,7 @@ CSGScale::CSGScale (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGScale.
  */
 CSGScale::CSGScale (const CSGScale& orig)
-	: CSGTransformation(orig)
+  : CSGTransformation(orig)
 {
   if (&orig == NULL)
   {
@@ -113,7 +114,7 @@ CSGScale::operator=(const CSGScale& rhs)
   }
   else if (&rhs != this)
   {
-		CSGTransformation::operator=(rhs);
+    CSGTransformation::operator=(rhs);
     mScaleX  = rhs.mScaleX;
     mIsSetScaleX  = rhs.mIsSetScaleX;
     mScaleY  = rhs.mScaleY;
@@ -305,8 +306,8 @@ CSGScale::unsetScaleZ()
 const std::string&
 CSGScale::getElementName () const
 {
-	static const string name = "cSGScale";
-	return name;
+  static const string name = "csgScale";
+  return name;
 }
 
 
@@ -326,7 +327,7 @@ CSGScale::getTypeCode () const
 bool
 CSGScale::hasRequiredAttributes () const
 {
-	bool allPresent = CSGTransformation::hasRequiredAttributes();
+  bool allPresent = CSGTransformation::hasRequiredAttributes();
 
   if (isSetScaleX() == false)
     allPresent = false;
@@ -343,7 +344,7 @@ CSGScale::hasRequiredAttributes () const
 void
 CSGScale::writeElements (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeElements(stream);
+  CSGTransformation::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -374,7 +375,7 @@ CSGScale::accept (SBMLVisitor& v) const
 void
 CSGScale::setSBMLDocument (SBMLDocument* d)
 {
-	CSGTransformation::setSBMLDocument(d);
+  CSGTransformation::setSBMLDocument(d);
 }
 
 
@@ -405,7 +406,7 @@ CSGScale::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGScale::createObject(XMLInputStream& stream)
 {
-	SBase* object = CSGTransformation::createObject(stream);
+  SBase* object = CSGTransformation::createObject(stream);
 
   connectToChild();
 
@@ -425,11 +426,11 @@ CSGScale::createObject(XMLInputStream& stream)
 void
 CSGScale::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	CSGTransformation::addExpectedAttributes(attributes);
+  CSGTransformation::addExpectedAttributes(attributes);
 
-	attributes.add("scaleX");
-	attributes.add("scaleY");
-	attributes.add("scaleZ");
+  attributes.add("scaleX");
+  attributes.add("scaleY");
+  attributes.add("scaleZ");
 }
 
 
@@ -450,7 +451,7 @@ CSGScale::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	CSGTransformation::readAttributes(attributes, expectedAttributes);
+  CSGTransformation::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -559,16 +560,16 @@ CSGScale::readAttributes (const XMLAttributes& attributes,
   void
 CSGScale::writeAttributes (XMLOutputStream& stream) const
 {
-	CSGTransformation::writeAttributes(stream);
+  CSGTransformation::writeAttributes(stream);
 
-	if (isSetScaleX() == true)
-		stream.writeAttribute("scaleX", getPrefix(), mScaleX);
+  if (isSetScaleX() == true)
+    stream.writeAttribute("scaleX", getPrefix(), mScaleX);
 
-	if (isSetScaleY() == true)
-		stream.writeAttribute("scaleY", getPrefix(), mScaleY);
+  if (isSetScaleY() == true)
+    stream.writeAttribute("scaleY", getPrefix(), mScaleY);
 
-	if (isSetScaleZ() == true)
-		stream.writeAttribute("scaleZ", getPrefix(), mScaleZ);
+  if (isSetScaleZ() == true)
+    stream.writeAttribute("scaleZ", getPrefix(), mScaleZ);
 
 }
 

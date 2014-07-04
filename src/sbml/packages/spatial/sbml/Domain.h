@@ -301,7 +301,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addInteriorPoint(const InteriorPoint* ip);
+  int addInteriorPoint(const InteriorPoint* ip);
 
 
   /**
@@ -309,18 +309,18 @@ public:
    *
    * @return the number of InteriorPoint objects in this Domain
    */
-	unsigned int getNumInteriorPoints() const;
+  unsigned int getNumInteriorPoints() const;
 
 
-	/**
-	 * Creates a new InteriorPoint object, adds it to this Domains
-	 * ListOfInteriorPoints and returns the InteriorPoint object created. 
-	 *
-	 * @return a new InteriorPoint object instance
-	 *
-	 * @see addInteriorPoint(const InteriorPoint* ip)
-	 */
-	InteriorPoint* createInteriorPoint();
+  /**
+   * Creates a new InteriorPoint object, adds it to this Domains
+   * ListOfInteriorPoints and returns the InteriorPoint object created. 
+   *
+   * @return a new InteriorPoint object instance
+   *
+   * @see addInteriorPoint(const InteriorPoint* ip)
+   */
+  InteriorPoint* createInteriorPoint();
 
 
   /**

@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/GeometryDefinition.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
@@ -52,8 +53,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new GeometryDefinition with the given level, version, and package version.
  */
 GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
+  : SBase(level, version)
+  , mId ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -64,8 +65,8 @@ GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version
  * Creates a new GeometryDefinition with the given SpatialPkgNamespaces object.
  */
 GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
+  : SBase(spatialns)
+  , mId ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
  * Copy constructor for GeometryDefinition.
  */
 GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -104,7 +105,7 @@ GeometryDefinition::operator=(const GeometryDefinition& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
   }
   return *this;
@@ -224,8 +225,8 @@ GeometryDefinition::isParametricGeometry() const
 const std::string&
 GeometryDefinition::getElementName () const
 {
-	static const string name = "geometryDefinition";
-	return name;
+  static const string name = "geometryDefinition";
+  return name;
 }
 
 
@@ -245,7 +246,7 @@ GeometryDefinition::getTypeCode () const
 bool
 GeometryDefinition::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -262,7 +263,7 @@ GeometryDefinition::hasRequiredAttributes () const
 void
 GeometryDefinition::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -293,7 +294,7 @@ GeometryDefinition::accept (SBMLVisitor& v) const
 void
 GeometryDefinition::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -324,9 +325,9 @@ GeometryDefinition::enablePackageInternal(const std::string& pkgURI,
 void
 GeometryDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
+  attributes.add("id");
 }
 
 
@@ -377,7 +378,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -446,10 +447,10 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
   void
 GeometryDefinition::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
 }
 
@@ -768,8 +769,8 @@ ListOfGeometryDefinitions::remove(const std::string& sid)
 const std::string&
 ListOfGeometryDefinitions::getElementName () const
 {
-	static const string name = "listOfGeometryDefinitions";
-	return name;
+  static const string name = "listOfGeometryDefinitions";
+  return name;
 }
 
 

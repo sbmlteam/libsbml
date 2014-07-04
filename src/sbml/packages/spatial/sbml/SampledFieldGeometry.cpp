@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,9 +47,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SampledFieldGeometry with the given level, version, and package version.
  */
 SampledFieldGeometry::SampledFieldGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: GeometryDefinition(level, version)
-   ,mSampledVolumes (level, version, pkgVersion)
-   ,mSampledField (NULL)
+  : GeometryDefinition(level, version)
+  , mSampledVolumes (level, version, pkgVersion)
+  , mSampledField (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -62,9 +63,9 @@ SampledFieldGeometry::SampledFieldGeometry (unsigned int level, unsigned int ver
  * Creates a new SampledFieldGeometry with the given SpatialPkgNamespaces object.
  */
 SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
-	: GeometryDefinition(spatialns)
-   ,mSampledVolumes (spatialns)
-   ,mSampledField (NULL)
+  : GeometryDefinition(spatialns)
+  , mSampledVolumes (spatialns)
+  , mSampledField (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -81,7 +82,7 @@ SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
  * Copy constructor for SampledFieldGeometry.
  */
 SampledFieldGeometry::SampledFieldGeometry (const SampledFieldGeometry& orig)
-	: GeometryDefinition(orig)
+  : GeometryDefinition(orig)
 {
   if (&orig == NULL)
   {
@@ -117,7 +118,7 @@ SampledFieldGeometry::operator=(const SampledFieldGeometry& rhs)
   }
   else if (&rhs != this)
   {
-		GeometryDefinition::operator=(rhs);
+    GeometryDefinition::operator=(rhs);
     mSampledVolumes  = rhs.mSampledVolumes;
     if (rhs.mSampledField != NULL)
     {
@@ -181,11 +182,12 @@ SampledFieldGeometry::getSampledField()
 SampledField*
 SampledFieldGeometry::createSampledField()
 {
+  if (mSampledField != NULL) delete mSampledField;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-	mSampledField = new SampledField(spatialns);
-  connectToChild();
+  mSampledField = new SampledField(spatialns);
   delete spatialns;
-	return mSampledField;
+  connectToChild();
+  return mSampledField;
 }
 
 
@@ -247,7 +249,7 @@ SampledFieldGeometry::unsetSampledField()
 const ListOfSampledVolumes*
 SampledFieldGeometry::getListOfSampledVolumes() const
 {
-	return &mSampledVolumes;
+  return &mSampledVolumes;
 }
 
 
@@ -358,7 +360,7 @@ SampledFieldGeometry::addSampledVolume(const SampledVolume* sv)
   }
   else
   {
-	mSampledVolumes.append(sv);
+    mSampledVolumes.append(sv);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -372,7 +374,7 @@ SampledFieldGeometry::addSampledVolume(const SampledVolume* sv)
 unsigned int
 SampledFieldGeometry::getNumSampledVolumes() const
 {
-	return mSampledVolumes.size();
+  return mSampledVolumes.size();
 }
 
 
@@ -433,8 +435,8 @@ SampledFieldGeometry::getAllElements(ElementFilter* filter)
 const std::string&
 SampledFieldGeometry::getElementName () const
 {
-	static const string name = "sampledFieldGeometry";
-	return name;
+  static const string name = "sampledFieldGeometry";
+  return name;
 }
 
 
@@ -454,7 +456,7 @@ SampledFieldGeometry::getTypeCode () const
 bool
 SampledFieldGeometry::hasRequiredAttributes () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredAttributes();
+  bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -466,7 +468,7 @@ SampledFieldGeometry::hasRequiredAttributes () const
 bool
 SampledFieldGeometry::hasRequiredElements () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredElements();
+  bool allPresent = GeometryDefinition::hasRequiredElements();
 
   return allPresent;
 }
@@ -480,16 +482,16 @@ SampledFieldGeometry::hasRequiredElements () const
 void
 SampledFieldGeometry::writeElements (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeElements(stream);
-	if (getNumSampledVolumes() > 0)
+  GeometryDefinition::writeElements(stream);
+  if (getNumSampledVolumes() > 0)
   {
     mSampledVolumes.write(stream);
   }
 
-	if (isSetSampledField() == true)
-	{
-		mSampledField->write(stream);
-	}
+  if (isSetSampledField() == true)
+  {
+    mSampledField->write(stream);
+  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -526,10 +528,10 @@ SampledFieldGeometry::accept (SBMLVisitor& v) const
 void
 SampledFieldGeometry::setSBMLDocument (SBMLDocument* d)
 {
-	GeometryDefinition::setSBMLDocument(d);
-	mSampledVolumes.setSBMLDocument(d);
-	if (mSampledField != NULL)
-		mSampledField->setSBMLDocument(d);
+  GeometryDefinition::setSBMLDocument(d);
+  mSampledVolumes.setSBMLDocument(d);
+  if (mSampledField != NULL)
+    mSampledField->setSBMLDocument(d);
 }
 
 
@@ -544,11 +546,11 @@ SampledFieldGeometry::setSBMLDocument (SBMLDocument* d)
 void
 SampledFieldGeometry::connectToChild()
 {
-	GeometryDefinition::connectToChild();
+  GeometryDefinition::connectToChild();
 
-	mSampledVolumes.connectToParent(this);
-	if (mSampledField != NULL)
-		mSampledField->connectToParent(this);
+  mSampledVolumes.connectToParent(this);
+  if (mSampledField != NULL)
+    mSampledField->connectToParent(this);
 }
 
 
@@ -580,7 +582,7 @@ SampledFieldGeometry::enablePackageInternal(const std::string& pkgURI,
 SBase*
 SampledFieldGeometry::createObject(XMLInputStream& stream)
 {
-	SBase* object = GeometryDefinition::createObject(stream);
+  SBase* object = GeometryDefinition::createObject(stream);
 
   const string& name = stream.peek().getName();
 
@@ -616,7 +618,7 @@ SampledFieldGeometry::createObject(XMLInputStream& stream)
 void
 SampledFieldGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	GeometryDefinition::addExpectedAttributes(attributes);
+  GeometryDefinition::addExpectedAttributes(attributes);
 
 }
 
@@ -638,7 +640,7 @@ SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  GeometryDefinition::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -681,7 +683,7 @@ SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
   void
 SampledFieldGeometry::writeAttributes (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeAttributes(stream);
+  GeometryDefinition::writeAttributes(stream);
 
 }
 

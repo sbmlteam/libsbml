@@ -61,7 +61,6 @@ class LIBSBML_EXTERN CSGPseudoPrimitive : public CSGNode
 
 protected:
 
-  std::string   mId;
   std::string   mCsgObjectRef;
 
 
@@ -121,29 +120,11 @@ public:
 
 
    /**
-   * Returns the value of the "id" attribute of this CSGPseudoPrimitive.
-   *
-   * @return the value of the "id" attribute of this CSGPseudoPrimitive as a string.
-   */
-  virtual const std::string& getId() const;
-
-
-  /**
    * Returns the value of the "csgObjectRef" attribute of this CSGPseudoPrimitive.
    *
    * @return the value of the "csgObjectRef" attribute of this CSGPseudoPrimitive as a string.
    */
   virtual const std::string& getCsgObjectRef() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGPseudoPrimitive's "id" attribute has been set.
-   *
-   * @return @c true if this CSGPseudoPrimitive's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId() const;
 
 
   /**
@@ -154,21 +135,6 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetCsgObjectRef() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this CSGPseudoPrimitive.
-   *
-   * @param id; const std::string& value of the "id" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setId(const std::string& id);
 
 
   /**
@@ -184,19 +150,6 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   virtual int setCsgObjectRef(const std::string& csgObjectRef);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this CSGPseudoPrimitive.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetId();
 
 
   /**
@@ -274,7 +227,6 @@ public:
    * for this CSGPseudoPrimitive object have been set.
    *
    * @note The required attributes for a CSGPseudoPrimitive object are:
-   * @li "id"
    * @li "csgObjectRef"
    *
    * @return a boolean value indicating whether all the required
@@ -442,21 +394,6 @@ CSGPseudoPrimitive_clone(CSGPseudoPrimitive_t * csgpp);
 
 
 /**
- * Returns the value of the "id" attribute of the given CSGPseudoPrimitive_t
- * structure.
- *
- * @param csgpp the CSGPseudoPrimitive_t structure.
- *
- * @return the id of this structure.
- *
- * @member of CSGPseudoPrimitive_t
- */
-LIBSBML_EXTERN
-const char *
-CSGPseudoPrimitive_getId(const CSGPseudoPrimitive_t * csgpp);
-
-
-/**
  * Returns the value of the "csgObjectRef" attribute of the given CSGPseudoPrimitive_t
  * structure.
  *
@@ -469,22 +406,6 @@ CSGPseudoPrimitive_getId(const CSGPseudoPrimitive_t * csgpp);
 LIBSBML_EXTERN
 const char *
 CSGPseudoPrimitive_getCsgObjectRef(const CSGPseudoPrimitive_t * csgpp);
-
-
-/**
- * Predicate returning @c 1 if the given CSGPseudoPrimitive_t structure's "id"
- * is set.
- *
- * @param csgpp the CSGPseudoPrimitive_t structure.
- *
- * @return @c 1 if the "id" of this CSGPseudoPrimitive_t structure is
- * set, @c 0 otherwise.
- *
- * @member of CSGPseudoPrimitive_t
- */
-LIBSBML_EXTERN
-int
-CSGPseudoPrimitive_isSetId(const CSGPseudoPrimitive_t * csgpp);
 
 
 /**
@@ -501,35 +422,6 @@ CSGPseudoPrimitive_isSetId(const CSGPseudoPrimitive_t * csgpp);
 LIBSBML_EXTERN
 int
 CSGPseudoPrimitive_isSetCsgObjectRef(const CSGPseudoPrimitive_t * csgpp);
-
-
-/**
- * Sets the "id" attribute of the given CSGPseudoPrimitive_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs CSGPseudoPrimitive_unsetId() instead.
- *
- * @param csgpp the CSGPseudoPrimitive_t structure.
- *
- * @param id the string to which the structures "id" attribute should be
- * set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of CSGPseudoPrimitive_t
- */
-LIBSBML_EXTERN
-int
-CSGPseudoPrimitive_setId(CSGPseudoPrimitive_t * csgpp, const char * id);
 
 
 /**
@@ -559,27 +451,6 @@ CSGPseudoPrimitive_setId(CSGPseudoPrimitive_t * csgpp, const char * id);
 LIBSBML_EXTERN
 int
 CSGPseudoPrimitive_setCsgObjectRef(CSGPseudoPrimitive_t * csgpp, const char * csgObjectRef);
-
-
-/**
- * Unsets the value of the "id" attribute of the given 
- *CSGPseudoPrimitive_t structure.
- *
- * @param csgpp the CSGPseudoPrimitive_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @member of CSGPseudoPrimitive_t
- */
-LIBSBML_EXTERN
-int
-CSGPseudoPrimitive_unsetId(CSGPseudoPrimitive_t * csgpp);
 
 
 /**

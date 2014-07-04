@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/Geometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
@@ -52,14 +53,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Geometry with the given level, version, and package version.
  */
 Geometry::Geometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
-   ,mCoordinateComponents (level, version, pkgVersion)
-   ,mDomainTypes (level, version, pkgVersion)
-   ,mDomains (level, version, pkgVersion)
-   ,mAdjacentDomains (level, version, pkgVersion)
-   ,mGeometryDefinitions (level, version, pkgVersion)
+  : SBase(level, version)
+  , mId ("")
+  , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
+  , mCoordinateComponents (level, version, pkgVersion)
+  , mDomainTypes (level, version, pkgVersion)
+  , mDomains (level, version, pkgVersion)
+  , mAdjacentDomains (level, version, pkgVersion)
+  , mGeometryDefinitions (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -73,14 +74,14 @@ Geometry::Geometry (unsigned int level, unsigned int version, unsigned int pkgVe
  * Creates a new Geometry with the given SpatialPkgNamespaces object.
  */
 Geometry::Geometry (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
-   ,mCoordinateComponents (spatialns)
-   ,mDomainTypes (spatialns)
-   ,mDomains (spatialns)
-   ,mAdjacentDomains (spatialns)
-   ,mGeometryDefinitions (spatialns)
+  : SBase(spatialns)
+  , mId ("")
+  , mCoordinateSystem (GEOMETRYKIND_UNKNOWN)
+  , mCoordinateComponents (spatialns)
+  , mDomainTypes (spatialns)
+  , mDomains (spatialns)
+  , mAdjacentDomains (spatialns)
+  , mGeometryDefinitions (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -97,7 +98,7 @@ Geometry::Geometry (SpatialPkgNamespaces* spatialns)
  * Copy constructor for Geometry.
  */
 Geometry::Geometry (const Geometry& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -131,7 +132,7 @@ Geometry::operator=(const Geometry& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mCoordinateSystem  = rhs.mCoordinateSystem;
     mCoordinateComponents  = rhs.mCoordinateComponents;
@@ -275,7 +276,7 @@ Geometry::unsetCoordinateSystem()
 const ListOfCoordinateComponents*
 Geometry::getListOfCoordinateComponents() const
 {
-	return &mCoordinateComponents;
+  return &mCoordinateComponents;
 }
 
 
@@ -386,7 +387,7 @@ Geometry::addCoordinateComponent(const CoordinateComponent* cc)
   }
   else
   {
-	mCoordinateComponents.append(cc);
+    mCoordinateComponents.append(cc);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -400,7 +401,7 @@ Geometry::addCoordinateComponent(const CoordinateComponent* cc)
 unsigned int
 Geometry::getNumCoordinateComponents() const
 {
-	return mCoordinateComponents.size();
+  return mCoordinateComponents.size();
 }
 
 
@@ -447,7 +448,7 @@ Geometry::createCoordinateComponent()
 const ListOfDomainTypes*
 Geometry::getListOfDomainTypes() const
 {
-	return &mDomainTypes;
+  return &mDomainTypes;
 }
 
 
@@ -558,7 +559,7 @@ Geometry::addDomainType(const DomainType* dt)
   }
   else
   {
-	mDomainTypes.append(dt);
+    mDomainTypes.append(dt);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -572,7 +573,7 @@ Geometry::addDomainType(const DomainType* dt)
 unsigned int
 Geometry::getNumDomainTypes() const
 {
-	return mDomainTypes.size();
+  return mDomainTypes.size();
 }
 
 
@@ -619,7 +620,7 @@ Geometry::createDomainType()
 const ListOfDomains*
 Geometry::getListOfDomains() const
 {
-	return &mDomains;
+  return &mDomains;
 }
 
 
@@ -730,7 +731,7 @@ Geometry::addDomain(const Domain* d)
   }
   else
   {
-	mDomains.append(d);
+    mDomains.append(d);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -744,7 +745,7 @@ Geometry::addDomain(const Domain* d)
 unsigned int
 Geometry::getNumDomains() const
 {
-	return mDomains.size();
+  return mDomains.size();
 }
 
 
@@ -791,7 +792,7 @@ Geometry::createDomain()
 const ListOfAdjacentDomains*
 Geometry::getListOfAdjacentDomains() const
 {
-	return &mAdjacentDomains;
+  return &mAdjacentDomains;
 }
 
 
@@ -902,7 +903,7 @@ Geometry::addAdjacentDomains(const AdjacentDomains* ad)
   }
   else
   {
-	mAdjacentDomains.append(ad);
+    mAdjacentDomains.append(ad);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -916,7 +917,7 @@ Geometry::addAdjacentDomains(const AdjacentDomains* ad)
 unsigned int
 Geometry::getNumAdjacentDomains() const
 {
-	return mAdjacentDomains.size();
+  return mAdjacentDomains.size();
 }
 
 
@@ -963,7 +964,7 @@ Geometry::createAdjacentDomains()
 const ListOfGeometryDefinitions*
 Geometry::getListOfGeometryDefinitions() const
 {
-	return &mGeometryDefinitions;
+  return &mGeometryDefinitions;
 }
 
 
@@ -1074,7 +1075,7 @@ Geometry::addGeometryDefinition(const GeometryDefinition* gd)
   }
   else
   {
-	mGeometryDefinitions.append(gd);
+    mGeometryDefinitions.append(gd);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1088,7 +1089,7 @@ Geometry::addGeometryDefinition(const GeometryDefinition* gd)
 unsigned int
 Geometry::getNumGeometryDefinitions() const
 {
-	return mGeometryDefinitions.size();
+  return mGeometryDefinitions.size();
 }
 
 
@@ -1259,8 +1260,8 @@ Geometry::getAllElements(ElementFilter* filter)
 const std::string&
 Geometry::getElementName () const
 {
-	static const string name = "geometry";
-	return name;
+  static const string name = "geometry";
+  return name;
 }
 
 
@@ -1280,7 +1281,7 @@ Geometry::getTypeCode () const
 bool
 Geometry::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -1298,7 +1299,7 @@ Geometry::hasRequiredAttributes () const
 bool
 Geometry::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   return allPresent;
 }
@@ -1312,28 +1313,28 @@ Geometry::hasRequiredElements () const
 void
 Geometry::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (getNumCoordinateComponents() > 0)
+  SBase::writeElements(stream);
+  if (getNumCoordinateComponents() > 0)
   {
     mCoordinateComponents.write(stream);
   }
 
-	if (getNumDomainTypes() > 0)
+  if (getNumDomainTypes() > 0)
   {
     mDomainTypes.write(stream);
   }
 
-	if (getNumDomains() > 0)
+  if (getNumDomains() > 0)
   {
     mDomains.write(stream);
   }
 
-	if (getNumAdjacentDomains() > 0)
+  if (getNumAdjacentDomains() > 0)
   {
     mAdjacentDomains.write(stream);
   }
 
-	if (getNumGeometryDefinitions() > 0)
+  if (getNumGeometryDefinitions() > 0)
   {
     mGeometryDefinitions.write(stream);
   }
@@ -1374,12 +1375,12 @@ Geometry::accept (SBMLVisitor& v) const
 void
 Geometry::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	mCoordinateComponents.setSBMLDocument(d);
-	mDomainTypes.setSBMLDocument(d);
-	mDomains.setSBMLDocument(d);
-	mAdjacentDomains.setSBMLDocument(d);
-	mGeometryDefinitions.setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  mCoordinateComponents.setSBMLDocument(d);
+  mDomainTypes.setSBMLDocument(d);
+  mDomains.setSBMLDocument(d);
+  mAdjacentDomains.setSBMLDocument(d);
+  mGeometryDefinitions.setSBMLDocument(d);
 }
 
 
@@ -1394,13 +1395,13 @@ Geometry::setSBMLDocument (SBMLDocument* d)
 void
 Geometry::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	mCoordinateComponents.connectToParent(this);
-	mDomainTypes.connectToParent(this);
-	mDomains.connectToParent(this);
-	mAdjacentDomains.connectToParent(this);
-	mGeometryDefinitions.connectToParent(this);
+  mCoordinateComponents.connectToParent(this);
+  mDomainTypes.connectToParent(this);
+  mDomains.connectToParent(this);
+  mAdjacentDomains.connectToParent(this);
+  mGeometryDefinitions.connectToParent(this);
 }
 
 
@@ -1436,7 +1437,7 @@ Geometry::enablePackageInternal(const std::string& pkgURI,
 SBase*
 Geometry::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -1478,10 +1479,10 @@ Geometry::createObject(XMLInputStream& stream)
 void
 Geometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("coordinateSystem");
+  attributes.add("id");
+  attributes.add("coordinateSystem");
 }
 
 
@@ -1502,7 +1503,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -1593,13 +1594,13 @@ Geometry::readAttributes (const XMLAttributes& attributes,
   void
 Geometry::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetCoordinateSystem() == true)
-		stream.writeAttribute("coordinateSystem", getPrefix(), GeometryKind_toString(mCoordinateSystem));
+  if (isSetCoordinateSystem() == true)
+    stream.writeAttribute("coordinateSystem", getPrefix(), GeometryKind_toString(mCoordinateSystem));
 
 }
 

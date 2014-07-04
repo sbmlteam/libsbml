@@ -185,29 +185,28 @@ public:
   virtual const std::string& getEncoding() const;
 
 
-	/**
-	 * Returns the "imageData" element of this SampledField.
-	 *
-	 * @return the "imageData" element of this SampledField.
-	 */
-	virtual const ImageData* getImageData() const;
+  /**
+   * Returns the "imageData" element of this SampledField.
+   *
+   * @return the "imageData" element of this SampledField.
+   */
+  virtual const ImageData* getImageData() const;
 
 
-	/**
-	/**
-	 * Returns the "imageData" element of this SampledField.
-	 *
-	 * @return the "imageData" element of this SampledField.
-	 */
-	virtual ImageData* getImageData();
+  /**
+   * Returns the "imageData" element of this SampledField.
+   *
+   * @return the "imageData" element of this SampledField.
+   */
+  virtual ImageData* getImageData();
 
 
-	/**
-	 * Creates a new "ImageData" and sets it for this SampledField.
-	 *
-	 * @return the created "ImageData" element of this SampledField.
-	 */
-	virtual ImageData* createImageData();
+  /**
+   * Creates a new "ImageData" and sets it for this SampledField.
+   *
+   * @return the created "ImageData" element of this SampledField.
+   */
+  virtual ImageData* createImageData();
 
 
   /**

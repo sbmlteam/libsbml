@@ -76,7 +76,7 @@ PolygonObjectTest_teardown (void)
 
 START_TEST (test_PolygonObject_create)
 {
-  fail_unless(G->isSetPointIndices() == false);
+  fail_unless(G->isSetPointIndex() == false);
 
 }
 END_TEST
@@ -84,16 +84,15 @@ END_TEST
 
 START_TEST (test_PolygonObject_pointIndices)
 {
-  fail_unless(G->isSetPointIndices() == false);
+  fail_unless(G->isSetPointIndex() == false);
 
   int points [] = {1,2,3};
-  G->setPointIndices(points, 3);
+  G->setPointIndex(points, 3);
 
-  fail_unless(G->isSetPointIndices() == true);
+  fail_unless(G->isSetPointIndex() == true);
 
-  fail_unless(G->getIndicesLength() == 3);
+  fail_unless(G->getPointIndexLength() == 3);
 
-//  fail_unless(G->getPointIndices() == points);
 
 }
 END_TEST

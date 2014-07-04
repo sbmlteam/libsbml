@@ -67,7 +67,6 @@ class LIBSBML_EXTERN CSGTransformation : public CSGNode
 
 protected:
 
-  std::string   mId;
   CSGNode*      mCsgNode;
 
 
@@ -127,46 +126,61 @@ public:
 
 
    /**
-   * Returns the value of the "id" attribute of this CSGTransformation.
+   * Returns the "csgNode" element of this CSGTransformation.
    *
-   * @return the value of the "id" attribute of this CSGTransformation as a string.
+   * @return the "csgNode" element of this CSGTransformation.
    */
-  virtual const std::string& getId() const;
-
-
-	/**
-	 * Returns the "csgNode" element of this CSGTransformation.
-	 *
-	 * @return the "csgNode" element of this CSGTransformation.
-	 */
-	virtual const CSGNode* getCsgNode() const;
-
-
-	/**
-	/**
-	 * Returns the "csgNode" element of this CSGTransformation.
-	 *
-	 * @return the "csgNode" element of this CSGTransformation.
-	 */
-	virtual CSGNode* getCsgNode();
-
-
-	/**
-	 * Creates a new "CSGNode" and sets it for this CSGTransformation.
-	 *
-	 * @return the created "CSGNode" element of this CSGTransformation.
-	 */
-	virtual CSGNode* createCsgNode();
+  virtual const CSGNode* getCsgNode() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation's "id" attribute has been set.
+   * Returns the "csgNode" element of this CSGTransformation.
    *
-   * @return @c true if this CSGTransformation's "id" attribute has been set,
-   * otherwise @c false is returned.
+   * @return the "csgNode" element of this CSGTransformation.
    */
-  virtual bool isSetId() const;
+  virtual CSGNode* getCsgNode();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGPrimitive* createCsgPrimitive();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGTranslation* createCsgTranslation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGRotation* createCsgRotation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGScale* createCsgScale();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGHomogeneousTransformation* createCsgHomogeneousTransformation();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGPseudoPrimitive* createCsgPseudoPrimitive();
+
+
+  /**
+   * Creates a new "csgNode" and sets it for this CSGTransformation.
+   */
+  virtual CSGSetOperator* createCsgSetOperator();
 
 
   /**
@@ -177,21 +191,6 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetCsgNode() const;
-
-
-  /**
-   * Sets the value of the "id" attribute of this CSGTransformation.
-   *
-   * @param id; const std::string& value of the "id" attribute to be set
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setId(const std::string& id);
 
 
   /**
@@ -207,19 +206,6 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   virtual int setCsgNode(CSGNode* csgNode);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this CSGTransformation.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetId();
 
 
   /**
@@ -327,7 +313,6 @@ public:
    * for this CSGTransformation object have been set.
    *
    * @note The required attributes for a CSGTransformation object are:
-   * @li "id"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -516,45 +501,44 @@ CSGTransformation_t *
 CSGTransformation_clone(CSGTransformation_t * csgt);
 
 
-/**
- * Returns the value of the "id" attribute of the given CSGTransformation_t
- * structure.
- *
- * @param csgt the CSGTransformation_t structure.
- *
- * @return the id of this structure.
- *
- * @member of CSGTransformation_t
- */
-LIBSBML_EXTERN
-const char *
-CSGTransformation_getId(const CSGTransformation_t * csgt);
-
-
 LIBSBML_EXTERN
 CSGNode_t*
 CSGTransformation_getCsgNode(CSGTransformation_t * csgt);
 
 
 LIBSBML_EXTERN
-CSGNode_t*
-CSGTransformation_createCsgNode(CSGTransformation_t * csgt);
+CSGPrimitive_t *
+CSGTransformation_createCsgPrimitive(CSGTransformation_t * csgt);
 
 
-/**
- * Predicate returning @c 1 if the given CSGTransformation_t structure's "id"
- * is set.
- *
- * @param csgt the CSGTransformation_t structure.
- *
- * @return @c 1 if the "id" of this CSGTransformation_t structure is
- * set, @c 0 otherwise.
- *
- * @member of CSGTransformation_t
- */
 LIBSBML_EXTERN
-int
-CSGTransformation_isSetId(const CSGTransformation_t * csgt);
+CSGTranslation_t *
+CSGTransformation_createCsgTranslation(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGRotation_t *
+CSGTransformation_createCsgRotation(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGTransformation_createCsgScale(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGTransformation_createCsgHomogeneousTransformation(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t *
+CSGTransformation_createCsgPseudoPrimitive(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGSetOperator_t *
+CSGTransformation_createCsgSetOperator(CSGTransformation_t * csgt);
 
 
 /**
@@ -573,59 +557,9 @@ int
 CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt);
 
 
-/**
- * Sets the "id" attribute of the given CSGTransformation_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs CSGTransformation_unsetId() instead.
- *
- * @param csgt the CSGTransformation_t structure.
- *
- * @param id the string to which the structures "id" attribute should be
- * set.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of CSGTransformation_t
- */
-LIBSBML_EXTERN
-int
-CSGTransformation_setId(CSGTransformation_t * csgt, const char * id);
-
-
 LIBSBML_EXTERN
 int
 CSGTransformation_setCsgNode(CSGTransformation_t * csgt, CSGNode_t* csgNode);
-
-
-/**
- * Unsets the value of the "id" attribute of the given 
- *CSGTransformation_t structure.
- *
- * @param csgt the CSGTransformation_t structure.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- *
- * @member of CSGTransformation_t
- */
-LIBSBML_EXTERN
-int
-CSGTransformation_unsetId(CSGTransformation_t * csgt);
 
 
 /**

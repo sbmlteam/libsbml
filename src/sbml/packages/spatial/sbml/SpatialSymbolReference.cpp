@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/SpatialSymbolReference.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,8 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SpatialSymbolReference with the given level, version, and package version.
  */
 SpatialSymbolReference::SpatialSymbolReference (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mSpatialRef ("")
+  : SBase(level, version)
+  , mSpatialRef ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -58,8 +59,8 @@ SpatialSymbolReference::SpatialSymbolReference (unsigned int level, unsigned int
  * Creates a new SpatialSymbolReference with the given SpatialPkgNamespaces object.
  */
 SpatialSymbolReference::SpatialSymbolReference (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mSpatialRef ("")
+  : SBase(spatialns)
+  , mSpatialRef ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -73,7 +74,7 @@ SpatialSymbolReference::SpatialSymbolReference (SpatialPkgNamespaces* spatialns)
  * Copy constructor for SpatialSymbolReference.
  */
 SpatialSymbolReference::SpatialSymbolReference (const SpatialSymbolReference& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -98,7 +99,7 @@ SpatialSymbolReference::operator=(const SpatialSymbolReference& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mSpatialRef  = rhs.mSpatialRef;
   }
   return *this;
@@ -204,8 +205,8 @@ SpatialSymbolReference::renameSIdRefs(const std::string& oldid, const std::strin
 const std::string&
 SpatialSymbolReference::getElementName () const
 {
-	static const string name = "spatialSymbolReference";
-	return name;
+  static const string name = "spatialSymbolReference";
+  return name;
 }
 
 
@@ -225,7 +226,7 @@ SpatialSymbolReference::getTypeCode () const
 bool
 SpatialSymbolReference::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetSpatialRef() == false)
     allPresent = false;
@@ -242,7 +243,7 @@ SpatialSymbolReference::hasRequiredAttributes () const
 void
 SpatialSymbolReference::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -273,7 +274,7 @@ SpatialSymbolReference::accept (SBMLVisitor& v) const
 void
 SpatialSymbolReference::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -304,9 +305,9 @@ SpatialSymbolReference::enablePackageInternal(const std::string& pkgURI,
 void
 SpatialSymbolReference::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("spatialRef");
+  attributes.add("spatialRef");
 }
 
 
@@ -327,7 +328,7 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -396,10 +397,10 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
   void
 SpatialSymbolReference::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetSpatialRef() == true)
-		stream.writeAttribute("spatialRef", getPrefix(), mSpatialRef);
+  if (isSetSpatialRef() == true)
+    stream.writeAttribute("spatialRef", getPrefix(), mSpatialRef);
 
 }
 

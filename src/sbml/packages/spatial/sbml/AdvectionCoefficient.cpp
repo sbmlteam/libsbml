@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/AdvectionCoefficient.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,9 +47,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new AdvectionCoefficient with the given level, version, and package version.
  */
 AdvectionCoefficient::AdvectionCoefficient (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mVariable ("")
-   ,mCoordinate (COORDINATEKIND_UNKNOWN)
+  : SBase(level, version)
+  , mVariable ("")
+  , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -59,9 +60,9 @@ AdvectionCoefficient::AdvectionCoefficient (unsigned int level, unsigned int ver
  * Creates a new AdvectionCoefficient with the given SpatialPkgNamespaces object.
  */
 AdvectionCoefficient::AdvectionCoefficient (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mVariable ("")
-   ,mCoordinate (COORDINATEKIND_UNKNOWN)
+  : SBase(spatialns)
+  , mVariable ("")
+  , mCoordinate (COORDINATEKIND_UNKNOWN)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -75,7 +76,7 @@ AdvectionCoefficient::AdvectionCoefficient (SpatialPkgNamespaces* spatialns)
  * Copy constructor for AdvectionCoefficient.
  */
 AdvectionCoefficient::AdvectionCoefficient (const AdvectionCoefficient& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -101,7 +102,7 @@ AdvectionCoefficient::operator=(const AdvectionCoefficient& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
     mCoordinate  = rhs.mCoordinate;
   }
@@ -263,8 +264,8 @@ AdvectionCoefficient::renameSIdRefs(const std::string& oldid, const std::string&
 const std::string&
 AdvectionCoefficient::getElementName () const
 {
-	static const string name = "advectionCoefficient";
-	return name;
+  static const string name = "advectionCoefficient";
+  return name;
 }
 
 
@@ -284,7 +285,7 @@ AdvectionCoefficient::getTypeCode () const
 bool
 AdvectionCoefficient::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetVariable() == false)
     allPresent = false;
@@ -304,7 +305,7 @@ AdvectionCoefficient::hasRequiredAttributes () const
 void
 AdvectionCoefficient::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -335,7 +336,7 @@ AdvectionCoefficient::accept (SBMLVisitor& v) const
 void
 AdvectionCoefficient::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -366,10 +367,10 @@ AdvectionCoefficient::enablePackageInternal(const std::string& pkgURI,
 void
 AdvectionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("variable");
-	attributes.add("coordinate");
+  attributes.add("variable");
+  attributes.add("coordinate");
 }
 
 
@@ -390,7 +391,7 @@ AdvectionCoefficient::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -481,13 +482,13 @@ AdvectionCoefficient::readAttributes (const XMLAttributes& attributes,
   void
 AdvectionCoefficient::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetVariable() == true)
-		stream.writeAttribute("variable", getPrefix(), mVariable);
+  if (isSetVariable() == true)
+    stream.writeAttribute("variable", getPrefix(), mVariable);
 
-	if (isSetCoordinate() == true)
-		stream.writeAttribute("coordinate", getPrefix(), CoordinateKind_toString(mCoordinate));
+  if (isSetCoordinate() == true)
+    stream.writeAttribute("coordinate", getPrefix(), CoordinateKind_toString(mCoordinate));
 
 }
 

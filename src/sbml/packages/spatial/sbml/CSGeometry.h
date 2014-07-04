@@ -137,11 +137,11 @@ public:
 
 
   /**
-   * Get a CsgObject from the ListOfCsgObjects.
+   * Get a CsgObject from the ListOfCSGObjects.
    *
    * @param n the index number of the CsgObject to get.
    *
-   * @return the nth CsgObject in the ListOfCsgObjects within this CSGeometry.
+   * @return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
    *
    * @see getNumCsgObjects()
    */
@@ -149,11 +149,11 @@ public:
 
 
   /**
-   * Get a CsgObject from the ListOfCsgObjects.
+   * Get a CsgObject from the ListOfCSGObjects.
    *
    * @param n the index number of the CsgObject to get.
    *
-   * @return the nth CsgObject in the ListOfCsgObjects within this CSGeometry.
+   * @return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
    *
    * @see getNumCsgObjects()
    */
@@ -161,13 +161,13 @@ public:
 
 
   /**
-   * Get a CsgObject from the ListOfCsgObjects
+   * Get a CsgObject from the ListOfCSGObjects
    * based on its identifier.
    *
    * @param sid a string representing the identifier
    * of the CsgObject to get.
    *
-   * @return the CsgObject in the ListOfCsgObjects
+   * @return the CsgObject in the ListOfCSGObjects
    * with the given id or NULL if no such
    * CsgObject exists.
    *
@@ -179,13 +179,13 @@ public:
 
 
   /**
-   * Get a CsgObject from the ListOfCsgObjects
+   * Get a CsgObject from the ListOfCSGObjects
    * based on its identifier.
    *
    * @param sid a string representing the identifier
    * of the CsgObject to get.
    *
-   * @return the CsgObject in the ListOfCsgObjects
+   * @return the CsgObject in the ListOfCSGObjects
    * with the given id or NULL if no such
    * CsgObject exists.
    *
@@ -208,7 +208,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addCsgObject(const CSGObject* csgo);
+  int addCsgObject(const CSGObject* csgo);
 
 
   /**
@@ -216,22 +216,22 @@ public:
    *
    * @return the number of CSGObject objects in this CSGeometry
    */
-	unsigned int getNumCsgObjects() const;
-
-
-	/**
-	 * Creates a new CSGObject object, adds it to this CSGeometrys
-	 * ListOfCSGObjects and returns the CSGObject object created. 
-	 *
-	 * @return a new CSGObject object instance
-	 *
-	 * @see addCsgObject(const CSGObject* csgo)
-	 */
-	CSGObject* createCsgObject();
+  unsigned int getNumCsgObjects() const;
 
 
   /**
-   * Removes the nth CsgObject from the ListOfCsgObjects within this CSGeometry.
+   * Creates a new CSGObject object, adds it to this CSGeometrys
+   * ListOfCSGObjects and returns the CSGObject object created. 
+   *
+   * @return a new CSGObject object instance
+   *
+   * @see addCsgObject(const CSGObject* csgo)
+   */
+  CSGObject* createCsgObject();
+
+
+  /**
+   * Removes the nth CsgObject from the ListOfCSGObjects within this CSGeometry.
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
@@ -244,7 +244,7 @@ public:
 
 
   /**
-   * Removes the CsgObject with the given identifier from the ListOfCsgObjects within this CSGeometry
+   * Removes the CsgObject with the given identifier from the ListOfCSGObjects within this CSGeometry
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.

@@ -48,6 +48,8 @@
 #include <sbml/SBMLError.h>
 #include <sbml/validator/Validator.h>
 
+#include <sbml/SBMLReader.h>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class VConstraint;

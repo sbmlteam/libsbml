@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/AnalyticVolume.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 #include <sbml/math/MathML.h>
 
 
@@ -47,13 +48,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new AnalyticVolume with the given level, version, and package version.
  */
 AnalyticVolume::AnalyticVolume (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mFunctionType (FUNCTIONKIND_UNKNOWN)
-   ,mOrdinal (SBML_INT_MAX)
-   ,mIsSetOrdinal (false)
-   ,mDomainType ("")
-   ,mMath (NULL)
+  : SBase(level, version)
+  , mId ("")
+  , mFunctionType (FUNCTIONKIND_UNKNOWN)
+  , mOrdinal (SBML_INT_MAX)
+  , mIsSetOrdinal (false)
+  , mDomainType ("")
+  , mMath (NULL)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -67,13 +68,13 @@ AnalyticVolume::AnalyticVolume (unsigned int level, unsigned int version, unsign
  * Creates a new AnalyticVolume with the given SpatialPkgNamespaces object.
  */
 AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mFunctionType (FUNCTIONKIND_UNKNOWN)
-   ,mOrdinal (SBML_INT_MAX)
-   ,mIsSetOrdinal (false)
-   ,mDomainType ("")
-   ,mMath (NULL)
+  : SBase(spatialns)
+  , mId ("")
+  , mFunctionType (FUNCTIONKIND_UNKNOWN)
+  , mOrdinal (SBML_INT_MAX)
+  , mIsSetOrdinal (false)
+  , mDomainType ("")
+  , mMath (NULL)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -87,7 +88,7 @@ AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
  * Copy constructor for AnalyticVolume.
  */
 AnalyticVolume::AnalyticVolume (const AnalyticVolume& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -124,7 +125,7 @@ AnalyticVolume::operator=(const AnalyticVolume& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mFunctionType  = rhs.mFunctionType;
     mOrdinal  = rhs.mOrdinal;
@@ -159,6 +160,7 @@ AnalyticVolume::clone () const
 AnalyticVolume::~AnalyticVolume ()
 {
   delete mMath;
+  mMath = NULL;
 }
 
 
@@ -470,8 +472,8 @@ AnalyticVolume::renameSIdRefs(const std::string& oldid, const std::string& newid
 const std::string&
 AnalyticVolume::getElementName () const
 {
-	static const string name = "analyticVolume";
-	return name;
+  static const string name = "analyticVolume";
+  return name;
 }
 
 
@@ -491,7 +493,7 @@ AnalyticVolume::getTypeCode () const
 bool
 AnalyticVolume::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -512,7 +514,7 @@ AnalyticVolume::hasRequiredAttributes () const
 bool
 AnalyticVolume::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   return allPresent;
 }
@@ -526,8 +528,8 @@ AnalyticVolume::hasRequiredElements () const
 void
 AnalyticVolume::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (isSetMath() == true)
+  SBase::writeElements(stream);
+  if (isSetMath() == true)
   {
     writeMathML(getMath(), stream, getSBMLNamespaces());
   }
@@ -562,7 +564,7 @@ AnalyticVolume::accept (SBMLVisitor& v) const
 void
 AnalyticVolume::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -593,12 +595,12 @@ AnalyticVolume::enablePackageInternal(const std::string& pkgURI,
 void
 AnalyticVolume::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("functionType");
-	attributes.add("ordinal");
-	attributes.add("domainType");
+  attributes.add("id");
+  attributes.add("functionType");
+  attributes.add("ordinal");
+  attributes.add("domainType");
 }
 
 
@@ -649,7 +651,7 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -786,20 +788,20 @@ AnalyticVolume::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
-	if (name == "math")
-	{
-		const XMLToken elem = stream.peek();
-		const std::string prefix = checkMathMLNamespace(elem);
+  if (name == "math")
+  {
+    const XMLToken elem = stream.peek();
+    const std::string prefix = checkMathMLNamespace(elem);
 
-		if (stream.getSBMLNamespaces() == NULL)
-		{
-			stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
-		}
+    if (stream.getSBMLNamespaces() == NULL)
+    {
+      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+    }
 
-		delete mMath;
-		mMath = readMathML(stream, prefix);
-		read = true;
-	}
+    delete mMath;
+    mMath = readMathML(stream, prefix);
+    read = true;
+  }
 
   if (SBase::readOtherXML(stream))
   {
@@ -820,19 +822,19 @@ AnalyticVolume::readOtherXML (XMLInputStream& stream)
   void
 AnalyticVolume::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetFunctionType() == true)
-		stream.writeAttribute("functionType", getPrefix(), FunctionKind_toString(mFunctionType));
+  if (isSetFunctionType() == true)
+    stream.writeAttribute("functionType", getPrefix(), FunctionKind_toString(mFunctionType));
 
-	if (isSetOrdinal() == true)
-		stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
+  if (isSetOrdinal() == true)
+    stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
 
-	if (isSetDomainType() == true)
-		stream.writeAttribute("domainType", getPrefix(), mDomainType);
+  if (isSetDomainType() == true)
+    stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
 }
 
@@ -1043,8 +1045,8 @@ ListOfAnalyticVolumes::remove(const std::string& sid)
 const std::string&
 ListOfAnalyticVolumes::getElementName () const
 {
-	static const string name = "listOfAnalyticVolumes";
-	return name;
+  static const string name = "listOfAnalyticVolumes";
+  return name;
 }
 
 

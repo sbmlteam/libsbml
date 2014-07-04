@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CSGeometry.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,8 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CSGeometry with the given level, version, and package version.
  */
 CSGeometry::CSGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: GeometryDefinition(level, version)
-   ,mCsgObjects (level, version, pkgVersion)
+  : GeometryDefinition(level, version)
+  , mCsgObjects (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -61,8 +62,8 @@ CSGeometry::CSGeometry (unsigned int level, unsigned int version, unsigned int p
  * Creates a new CSGeometry with the given SpatialPkgNamespaces object.
  */
 CSGeometry::CSGeometry (SpatialPkgNamespaces* spatialns)
-	: GeometryDefinition(spatialns)
-   ,mCsgObjects (spatialns)
+  : GeometryDefinition(spatialns)
+  , mCsgObjects (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ CSGeometry::CSGeometry (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CSGeometry.
  */
 CSGeometry::CSGeometry (const CSGeometry& orig)
-	: GeometryDefinition(orig)
+  : GeometryDefinition(orig)
 {
   if (&orig == NULL)
   {
@@ -107,7 +108,7 @@ CSGeometry::operator=(const CSGeometry& rhs)
   }
   else if (&rhs != this)
   {
-		GeometryDefinition::operator=(rhs);
+    GeometryDefinition::operator=(rhs);
     mCsgObjects  = rhs.mCsgObjects;
 
     // connect to child objects
@@ -141,7 +142,7 @@ CSGeometry::~CSGeometry ()
 const ListOfCSGObjects*
 CSGeometry::getListOfCsgObjects() const
 {
-	return &mCsgObjects;
+  return &mCsgObjects;
 }
 
 
@@ -156,7 +157,7 @@ CSGeometry::getListOfCsgObjects()
 
 
 /*
- * Removes the nth CsgObject from the ListOfCsgObjects.
+ * Removes the nth CsgObject from the ListOfCSGObjects.
  */
 CSGObject*
 CSGeometry::removeCsgObject(unsigned int n)
@@ -166,7 +167,7 @@ CSGeometry::removeCsgObject(unsigned int n)
 
 
 /*
- * Removes the a CsgObject with given id from the ListOfCsgObjects.
+ * Removes the a CsgObject with given id from the ListOfCSGObjects.
  */
 CSGObject*
 CSGeometry::removeCsgObject(const std::string& sid)
@@ -176,7 +177,7 @@ CSGeometry::removeCsgObject(const std::string& sid)
 
 
 /*
- * Return the nth CsgObject in the ListOfCsgObjects within this CSGeometry.
+ * Return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
  */
 CSGObject*
 CSGeometry::getCsgObject(unsigned int n)
@@ -186,7 +187,7 @@ CSGeometry::getCsgObject(unsigned int n)
 
 
 /*
- * Return the nth CsgObject in the ListOfCsgObjects within this CSGeometry.
+ * Return the nth CsgObject in the ListOfCSGObjects within this CSGeometry.
  */
 const CSGObject*
 CSGeometry::getCsgObject(unsigned int n) const
@@ -196,7 +197,7 @@ CSGeometry::getCsgObject(unsigned int n) const
 
 
 /*
- * Return a CsgObject from the ListOfCsgObjects by id.
+ * Return a CsgObject from the ListOfCSGObjects by id.
  */
 CSGObject*
 CSGeometry::getCsgObject(const std::string& sid)
@@ -206,7 +207,7 @@ CSGeometry::getCsgObject(const std::string& sid)
 
 
 /*
- * Return a CsgObject from the ListOfCsgObjects by id.
+ * Return a CsgObject from the ListOfCSGObjects by id.
  */
 const CSGObject*
 CSGeometry::getCsgObject(const std::string& sid) const
@@ -252,7 +253,7 @@ CSGeometry::addCsgObject(const CSGObject* csgo)
   }
   else
   {
-	mCsgObjects.append(csgo);
+    mCsgObjects.append(csgo);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -266,7 +267,7 @@ CSGeometry::addCsgObject(const CSGObject* csgo)
 unsigned int
 CSGeometry::getNumCsgObjects() const
 {
-	return mCsgObjects.size();
+  return mCsgObjects.size();
 }
 
 
@@ -326,8 +327,8 @@ CSGeometry::getAllElements(ElementFilter* filter)
 const std::string&
 CSGeometry::getElementName () const
 {
-	static const string name = "cSGeometry";
-	return name;
+  static const string name = "csGeometry";
+  return name;
 }
 
 
@@ -347,7 +348,7 @@ CSGeometry::getTypeCode () const
 bool
 CSGeometry::hasRequiredAttributes () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredAttributes();
+  bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -359,7 +360,7 @@ CSGeometry::hasRequiredAttributes () const
 bool
 CSGeometry::hasRequiredElements () const
 {
-	bool allPresent = GeometryDefinition::hasRequiredElements();
+  bool allPresent = GeometryDefinition::hasRequiredElements();
 
   return allPresent;
 }
@@ -373,8 +374,8 @@ CSGeometry::hasRequiredElements () const
 void
 CSGeometry::writeElements (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeElements(stream);
-	if (getNumCsgObjects() > 0)
+  GeometryDefinition::writeElements(stream);
+  if (getNumCsgObjects() > 0)
   {
     mCsgObjects.write(stream);
   }
@@ -415,8 +416,8 @@ CSGeometry::accept (SBMLVisitor& v) const
 void
 CSGeometry::setSBMLDocument (SBMLDocument* d)
 {
-	GeometryDefinition::setSBMLDocument(d);
-	mCsgObjects.setSBMLDocument(d);
+  GeometryDefinition::setSBMLDocument(d);
+  mCsgObjects.setSBMLDocument(d);
 }
 
 
@@ -431,9 +432,9 @@ CSGeometry::setSBMLDocument (SBMLDocument* d)
 void
 CSGeometry::connectToChild()
 {
-	GeometryDefinition::connectToChild();
+  GeometryDefinition::connectToChild();
 
-	mCsgObjects.connectToParent(this);
+  mCsgObjects.connectToParent(this);
 }
 
 
@@ -465,7 +466,7 @@ CSGeometry::enablePackageInternal(const std::string& pkgURI,
 SBase*
 CSGeometry::createObject(XMLInputStream& stream)
 {
-	SBase* object = GeometryDefinition::createObject(stream);
+  SBase* object = GeometryDefinition::createObject(stream);
 
   const string& name = stream.peek().getName();
 
@@ -491,7 +492,7 @@ CSGeometry::createObject(XMLInputStream& stream)
 void
 CSGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	GeometryDefinition::addExpectedAttributes(attributes);
+  GeometryDefinition::addExpectedAttributes(attributes);
 
 }
 
@@ -513,7 +514,7 @@ CSGeometry::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	GeometryDefinition::readAttributes(attributes, expectedAttributes);
+  GeometryDefinition::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -556,7 +557,7 @@ CSGeometry::readAttributes (const XMLAttributes& attributes,
   void
 CSGeometry::writeAttributes (XMLOutputStream& stream) const
 {
-	GeometryDefinition::writeAttributes(stream);
+  GeometryDefinition::writeAttributes(stream);
 
 }
 

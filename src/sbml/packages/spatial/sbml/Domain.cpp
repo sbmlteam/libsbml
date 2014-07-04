@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/Domain.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,10 +47,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Domain with the given level, version, and package version.
  */
 Domain::Domain (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mInteriorPoints (level, version, pkgVersion)
+  : SBase(level, version)
+  , mId ("")
+  , mDomainType ("")
+  , mInteriorPoints (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -63,10 +64,10 @@ Domain::Domain (unsigned int level, unsigned int version, unsigned int pkgVersio
  * Creates a new Domain with the given SpatialPkgNamespaces object.
  */
 Domain::Domain (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mInteriorPoints (spatialns)
+  : SBase(spatialns)
+  , mId ("")
+  , mDomainType ("")
+  , mInteriorPoints (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -83,7 +84,7 @@ Domain::Domain (SpatialPkgNamespaces* spatialns)
  * Copy constructor for Domain.
  */
 Domain::Domain (const Domain& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -113,7 +114,7 @@ Domain::operator=(const Domain& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mDomainType  = rhs.mDomainType;
     mInteriorPoints  = rhs.mInteriorPoints;
@@ -259,7 +260,7 @@ Domain::unsetDomainType()
 const ListOfInteriorPoints*
 Domain::getListOfInteriorPoints() const
 {
-	return &mInteriorPoints;
+  return &mInteriorPoints;
 }
 
 
@@ -370,7 +371,7 @@ Domain::addInteriorPoint(const InteriorPoint* ip)
   }
   else
   {
-	mInteriorPoints.append(ip);
+    mInteriorPoints.append(ip);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -384,7 +385,7 @@ Domain::addInteriorPoint(const InteriorPoint* ip)
 unsigned int
 Domain::getNumInteriorPoints() const
 {
-	return mInteriorPoints.size();
+  return mInteriorPoints.size();
 }
 
 
@@ -458,8 +459,8 @@ Domain::getAllElements(ElementFilter* filter)
 const std::string&
 Domain::getElementName () const
 {
-	static const string name = "domain";
-	return name;
+  static const string name = "domain";
+  return name;
 }
 
 
@@ -479,7 +480,7 @@ Domain::getTypeCode () const
 bool
 Domain::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -497,7 +498,7 @@ Domain::hasRequiredAttributes () const
 bool
 Domain::hasRequiredElements () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   return allPresent;
 }
@@ -511,8 +512,8 @@ Domain::hasRequiredElements () const
 void
 Domain::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
-	if (getNumInteriorPoints() > 0)
+  SBase::writeElements(stream);
+  if (getNumInteriorPoints() > 0)
   {
     mInteriorPoints.write(stream);
   }
@@ -553,8 +554,8 @@ Domain::accept (SBMLVisitor& v) const
 void
 Domain::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
-	mInteriorPoints.setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
+  mInteriorPoints.setSBMLDocument(d);
 }
 
 
@@ -569,9 +570,9 @@ Domain::setSBMLDocument (SBMLDocument* d)
 void
 Domain::connectToChild()
 {
-	SBase::connectToChild();
+  SBase::connectToChild();
 
-	mInteriorPoints.connectToParent(this);
+  mInteriorPoints.connectToParent(this);
 }
 
 
@@ -603,7 +604,7 @@ Domain::enablePackageInternal(const std::string& pkgURI,
 SBase*
 Domain::createObject(XMLInputStream& stream)
 {
-	SBase* object = NULL;
+  SBase* object = NULL;
 
   const string& name = stream.peek().getName();
 
@@ -629,10 +630,10 @@ Domain::createObject(XMLInputStream& stream)
 void
 Domain::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("domainType");
+  attributes.add("id");
+  attributes.add("domainType");
 }
 
 
@@ -683,7 +684,7 @@ Domain::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -778,13 +779,13 @@ Domain::readAttributes (const XMLAttributes& attributes,
   void
 Domain::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetDomainType() == true)
-		stream.writeAttribute("domainType", getPrefix(), mDomainType);
+  if (isSetDomainType() == true)
+    stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
 }
 
@@ -995,8 +996,8 @@ ListOfDomains::remove(const std::string& sid)
 const std::string&
 ListOfDomains::getElementName () const
 {
-	static const string name = "listOfDomains";
-	return name;
+  static const string name = "listOfDomains";
+  return name;
 }
 
 

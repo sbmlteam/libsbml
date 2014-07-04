@@ -1114,6 +1114,51 @@ END_TEST
 END_TEST
 
 
+START_TEST(test_write_csg)
+{
+  SpatialPkgNamespaces ns;
+  SBMLDocument doc(&ns);
+  Model* mod = doc.createModel();
+  SpatialModelPlugin* mplug = dynamic_cast<SpatialModelPlugin*>(mod->getPlugin("spatial"));
+  fail_unless(mplug != NULL);
+  Geometry* geom = mplug->createGeometry();
+  CSGeometry* csGeometry = geom->createCsGeometry();
+  fail_unless(csGeometry->setId("cs1") == LIBSBML_OPERATION_SUCCESS);
+  CSGObject* csObj = csGeometry->createCsgObject();
+  fail_unless(csObj->setId("csObj1") == LIBSBML_OPERATION_SUCCESS);
+  CSGPrimitive* csgPrim = csObj->createCsgPrimitive();
+  fail_unless(csgPrim->setId("circle1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(csgPrim->setPrimitiveType("circle") == LIBSBML_OPERATION_SUCCESS);
+
+  CSGObject* csObj2 = csGeometry->createCsgObject();
+  fail_unless(csObj->setId("csObj2") == LIBSBML_OPERATION_SUCCESS);
+  CSGHomogeneousTransformation* trans = csObj2->createCsgHomogeneousTransformation();
+  CSGPseudoPrimitive* pseudo = trans->createCsgPseudoPrimitive();
+  pseudo->setId("pseudo1");
+  pseudo->setCsgObjectRef("csObj1");
+  TransformationComponents* forward = trans->createForwardTransformation();
+  double test1[] = { 0.1, 0.0, 1.0, 2.0, 3.0 };
+  double test2[] = { 3.0, 2.0, 1.0, 0.0, 0.1 };
+  fail_unless(forward->setComponents(test1, 5) == LIBSBML_OPERATION_SUCCESS);
+  TransformationComponents* back = trans->createReverseTransformation();
+  fail_unless(back->setComponents(test2, 5) == LIBSBML_OPERATION_SUCCESS);
+  std::string test = writeSBMLToString(&doc);
+
+  // now read it back
+  SBMLDocument* doc2 = readSBMLFromString(test.c_str());
+  fail_unless(doc2->getModel() != NULL);
+
+  mplug = dynamic_cast<SpatialModelPlugin*>(doc2->getModel()->getPlugin("spatial"));
+  fail_unless(mplug != NULL);
+
+  geom = mplug->getGeometry();
+  fail_unless(geom != NULL);
+
+  std::string test3 = writeSBMLToString(doc2);
+  fail_unless(test == test3);
+}
+END_TEST
+
 
   Suite *
   create_suite_WriteSpatialExtension (void)
@@ -1127,6 +1172,7 @@ END_TEST
   tcase_add_test( tcase, test_SpatialExtension_read_disable_via_model_and_write_L3V1V1);
   tcase_add_test( tcase, test_SpatialExtension_read_enable_via_sbmldocument_and_write_L3V1V1);
   tcase_add_test( tcase, test_SpatialExtension_read_disable_via_sbmldocument_and_write_L3V1V1);
+  tcase_add_test(tcase, test_write_csg);
   suite_add_tcase(suite, tcase);
 
   return suite;

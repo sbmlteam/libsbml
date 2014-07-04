@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/Boundary.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,11 +47,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Boundary with the given level, version, and package version.
  */
 Boundary::Boundary (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetValue (false)
-   , mElementName("boundary")
+  : SBase(level, version)
+  , mId ("")
+  , mValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetValue (false)
+  , mElementName("boundary")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -61,11 +62,11 @@ Boundary::Boundary (unsigned int level, unsigned int version, unsigned int pkgVe
  * Creates a new Boundary with the given SpatialPkgNamespaces object.
  */
 Boundary::Boundary (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mValue (numeric_limits<double>::quiet_NaN())
-   ,mIsSetValue (false)
-   ,mElementName("boundary")
+  : SBase(spatialns)
+  , mId ("")
+  , mValue (numeric_limits<double>::quiet_NaN())
+  , mIsSetValue (false)
+  , mElementName("boundary")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ Boundary::Boundary (SpatialPkgNamespaces* spatialns)
  * Copy constructor for Boundary.
  */
 Boundary::Boundary (const Boundary& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -107,7 +108,7 @@ Boundary::operator=(const Boundary& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mValue  = rhs.mValue;
     mIsSetValue  = rhs.mIsSetValue;
@@ -242,10 +243,15 @@ Boundary::unsetValue()
 const std::string&
 Boundary::getElementName () const
 {
-	return mElementName;
+  return mElementName;
 }
 
-void Boundary::setElementName(const std::string& name)
+
+/*
+ * Sets the element name for this object
+ */
+void
+Boundary::setElementName(const std::string& name)
 {
   mElementName = name;
 }
@@ -267,7 +273,7 @@ Boundary::getTypeCode () const
 bool
 Boundary::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -287,7 +293,7 @@ Boundary::hasRequiredAttributes () const
 void
 Boundary::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -318,7 +324,7 @@ Boundary::accept (SBMLVisitor& v) const
 void
 Boundary::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -349,10 +355,10 @@ Boundary::enablePackageInternal(const std::string& pkgURI,
 void
 Boundary::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("value");
+  attributes.add("id");
+  attributes.add("value");
 }
 
 
@@ -373,7 +379,7 @@ Boundary::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -468,13 +474,13 @@ Boundary::readAttributes (const XMLAttributes& attributes,
   void
 Boundary::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetValue() == true)
-		stream.writeAttribute("value", getPrefix(), mValue);
+  if (isSetValue() == true)
+    stream.writeAttribute("value", getPrefix(), mValue);
 
 }
 

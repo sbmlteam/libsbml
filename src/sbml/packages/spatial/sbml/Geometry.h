@@ -324,7 +324,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addCoordinateComponent(const CoordinateComponent* cc);
+  int addCoordinateComponent(const CoordinateComponent* cc);
 
 
   /**
@@ -332,18 +332,18 @@ public:
    *
    * @return the number of CoordinateComponent objects in this Geometry
    */
-	unsigned int getNumCoordinateComponents() const;
+  unsigned int getNumCoordinateComponents() const;
 
 
-	/**
-	 * Creates a new CoordinateComponent object, adds it to this Geometrys
-	 * ListOfCoordinateComponents and returns the CoordinateComponent object created. 
-	 *
-	 * @return a new CoordinateComponent object instance
-	 *
-	 * @see addCoordinateComponent(const CoordinateComponent* cc)
-	 */
-	CoordinateComponent* createCoordinateComponent();
+  /**
+   * Creates a new CoordinateComponent object, adds it to this Geometrys
+   * ListOfCoordinateComponents and returns the CoordinateComponent object created. 
+   *
+   * @return a new CoordinateComponent object instance
+   *
+   * @see addCoordinateComponent(const CoordinateComponent* cc)
+   */
+  CoordinateComponent* createCoordinateComponent();
 
 
   /**
@@ -463,7 +463,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addDomainType(const DomainType* dt);
+  int addDomainType(const DomainType* dt);
 
 
   /**
@@ -471,18 +471,18 @@ public:
    *
    * @return the number of DomainType objects in this Geometry
    */
-	unsigned int getNumDomainTypes() const;
+  unsigned int getNumDomainTypes() const;
 
 
-	/**
-	 * Creates a new DomainType object, adds it to this Geometrys
-	 * ListOfDomainTypes and returns the DomainType object created. 
-	 *
-	 * @return a new DomainType object instance
-	 *
-	 * @see addDomainType(const DomainType* dt)
-	 */
-	DomainType* createDomainType();
+  /**
+   * Creates a new DomainType object, adds it to this Geometrys
+   * ListOfDomainTypes and returns the DomainType object created. 
+   *
+   * @return a new DomainType object instance
+   *
+   * @see addDomainType(const DomainType* dt)
+   */
+  DomainType* createDomainType();
 
 
   /**
@@ -602,7 +602,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addDomain(const Domain* d);
+  int addDomain(const Domain* d);
 
 
   /**
@@ -610,18 +610,18 @@ public:
    *
    * @return the number of Domain objects in this Geometry
    */
-	unsigned int getNumDomains() const;
+  unsigned int getNumDomains() const;
 
 
-	/**
-	 * Creates a new Domain object, adds it to this Geometrys
-	 * ListOfDomains and returns the Domain object created. 
-	 *
-	 * @return a new Domain object instance
-	 *
-	 * @see addDomain(const Domain* d)
-	 */
-	Domain* createDomain();
+  /**
+   * Creates a new Domain object, adds it to this Geometrys
+   * ListOfDomains and returns the Domain object created. 
+   *
+   * @return a new Domain object instance
+   *
+   * @see addDomain(const Domain* d)
+   */
+  Domain* createDomain();
 
 
   /**
@@ -741,7 +741,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addAdjacentDomains(const AdjacentDomains* ad);
+  int addAdjacentDomains(const AdjacentDomains* ad);
 
 
   /**
@@ -749,18 +749,18 @@ public:
    *
    * @return the number of AdjacentDomains objects in this Geometry
    */
-	unsigned int getNumAdjacentDomains() const;
+  unsigned int getNumAdjacentDomains() const;
 
 
-	/**
-	 * Creates a new AdjacentDomains object, adds it to this Geometrys
-	 * ListOfAdjacentDomains and returns the AdjacentDomains object created. 
-	 *
-	 * @return a new AdjacentDomains object instance
-	 *
-	 * @see addAdjacentDomains(const AdjacentDomains* ad)
-	 */
-	AdjacentDomains* createAdjacentDomains();
+  /**
+   * Creates a new AdjacentDomains object, adds it to this Geometrys
+   * ListOfAdjacentDomains and returns the AdjacentDomains object created. 
+   *
+   * @return a new AdjacentDomains object instance
+   *
+   * @see addAdjacentDomains(const AdjacentDomains* ad)
+   */
+  AdjacentDomains* createAdjacentDomains();
 
 
   /**
@@ -880,7 +880,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-	int addGeometryDefinition(const GeometryDefinition* gd);
+  int addGeometryDefinition(const GeometryDefinition* gd);
 
 
   /**
@@ -888,51 +888,51 @@ public:
    *
    * @return the number of GeometryDefinition objects in this Geometry
    */
-	unsigned int getNumGeometryDefinitions() const;
+  unsigned int getNumGeometryDefinitions() const;
 
 
-	/**
-	 * Creates a new AnalyticGeometry object, adds it to this Geometrys
-	 * ListOfGeometryDefinitions and returns the AnalyticGeometry object created. 
-	 *
-	 * @return a new AnalyticGeometry object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	AnalyticGeometry* createAnalyticGeometry();
+  /**
+   * Creates a new AnalyticGeometry object, adds it to this Geometrys
+   * ListOfGeometryDefinitions and returns the AnalyticGeometry object created. 
+   *
+   * @return a new AnalyticGeometry object instance
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   */
+  AnalyticGeometry* createAnalyticGeometry();
 
 
-	/**
-	 * Creates a new SampledFieldGeometry object, adds it to this Geometrys
-	 * ListOfGeometryDefinitions and returns the SampledFieldGeometry object created. 
-	 *
-	 * @return a new SampledFieldGeometry object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	SampledFieldGeometry* createSampledFieldGeometry();
+  /**
+   * Creates a new SampledFieldGeometry object, adds it to this Geometrys
+   * ListOfGeometryDefinitions and returns the SampledFieldGeometry object created. 
+   *
+   * @return a new SampledFieldGeometry object instance
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   */
+  SampledFieldGeometry* createSampledFieldGeometry();
 
 
-	/**
-	 * Creates a new CSGeometry object, adds it to this Geometrys
-	 * ListOfGeometryDefinitions and returns the CSGeometry object created. 
-	 *
-	 * @return a new CSGeometry object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	CSGeometry* createCsGeometry();
+  /**
+   * Creates a new CSGeometry object, adds it to this Geometrys
+   * ListOfGeometryDefinitions and returns the CSGeometry object created. 
+   *
+   * @return a new CSGeometry object instance
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   */
+  CSGeometry* createCsGeometry();
 
 
-	/**
-	 * Creates a new ParametricGeometry object, adds it to this Geometrys
-	 * ListOfGeometryDefinitions and returns the ParametricGeometry object created. 
-	 *
-	 * @return a new ParametricGeometry object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	ParametricGeometry* createParametricGeometry();
+  /**
+   * Creates a new ParametricGeometry object, adds it to this Geometrys
+   * ListOfGeometryDefinitions and returns the ParametricGeometry object created. 
+   *
+   * @return a new ParametricGeometry object instance
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   */
+  ParametricGeometry* createParametricGeometry();
 
 
   /**

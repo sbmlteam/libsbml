@@ -34,6 +34,7 @@
 
 #include <sbml/packages/spatial/sbml/CompartmentMapping.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+#include <sbml/util/ElementFilter.h>
 
 
 using namespace std;
@@ -46,11 +47,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new CompartmentMapping with the given level, version, and package version.
  */
 CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version, unsigned int pkgVersion)
-	: SBase(level, version)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mUnitSize (numeric_limits<double>::quiet_NaN())
-   ,mIsSetUnitSize (false)
+  : SBase(level, version)
+  , mId ("")
+  , mDomainType ("")
+  , mUnitSize (numeric_limits<double>::quiet_NaN())
+  , mIsSetUnitSize (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -61,11 +62,11 @@ CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version
  * Creates a new CompartmentMapping with the given SpatialPkgNamespaces object.
  */
 CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
-	: SBase(spatialns)
-   ,mId ("")
-   ,mDomainType ("")
-   ,mUnitSize (numeric_limits<double>::quiet_NaN())
-   ,mIsSetUnitSize (false)
+  : SBase(spatialns)
+  , mId ("")
+  , mDomainType ("")
+  , mUnitSize (numeric_limits<double>::quiet_NaN())
+  , mIsSetUnitSize (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -79,7 +80,7 @@ CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
  * Copy constructor for CompartmentMapping.
  */
 CompartmentMapping::CompartmentMapping (const CompartmentMapping& orig)
-	: SBase(orig)
+  : SBase(orig)
 {
   if (&orig == NULL)
   {
@@ -107,7 +108,7 @@ CompartmentMapping::operator=(const CompartmentMapping& rhs)
   }
   else if (&rhs != this)
   {
-		SBase::operator=(rhs);
+    SBase::operator=(rhs);
     mId  = rhs.mId;
     mDomainType  = rhs.mDomainType;
     mUnitSize  = rhs.mUnitSize;
@@ -317,8 +318,8 @@ CompartmentMapping::renameSIdRefs(const std::string& oldid, const std::string& n
 const std::string&
 CompartmentMapping::getElementName () const
 {
-	static const string name = "compartmentMapping";
-	return name;
+  static const string name = "compartmentMapping";
+  return name;
 }
 
 
@@ -338,7 +339,7 @@ CompartmentMapping::getTypeCode () const
 bool
 CompartmentMapping::hasRequiredAttributes () const
 {
-	bool allPresent = true;
+  bool allPresent = true;
 
   if (isSetId() == false)
     allPresent = false;
@@ -361,7 +362,7 @@ CompartmentMapping::hasRequiredAttributes () const
 void
 CompartmentMapping::writeElements (XMLOutputStream& stream) const
 {
-	SBase::writeElements(stream);
+  SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
@@ -392,7 +393,7 @@ CompartmentMapping::accept (SBMLVisitor& v) const
 void
 CompartmentMapping::setSBMLDocument (SBMLDocument* d)
 {
-	SBase::setSBMLDocument(d);
+  SBase::setSBMLDocument(d);
 }
 
 
@@ -423,11 +424,11 @@ CompartmentMapping::enablePackageInternal(const std::string& pkgURI,
 void
 CompartmentMapping::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-	SBase::addExpectedAttributes(attributes);
+  SBase::addExpectedAttributes(attributes);
 
-	attributes.add("id");
-	attributes.add("domainType");
-	attributes.add("unitSize");
+  attributes.add("id");
+  attributes.add("domainType");
+  attributes.add("unitSize");
 }
 
 
@@ -448,7 +449,7 @@ CompartmentMapping::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
   if (getErrorLog() != NULL)
@@ -569,16 +570,16 @@ CompartmentMapping::readAttributes (const XMLAttributes& attributes,
   void
 CompartmentMapping::writeAttributes (XMLOutputStream& stream) const
 {
-	SBase::writeAttributes(stream);
+  SBase::writeAttributes(stream);
 
-	if (isSetId() == true)
-		stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
 
-	if (isSetDomainType() == true)
-		stream.writeAttribute("domainType", getPrefix(), mDomainType);
+  if (isSetDomainType() == true)
+    stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
-	if (isSetUnitSize() == true)
-		stream.writeAttribute("unitSize", getPrefix(), mUnitSize);
+  if (isSetUnitSize() == true)
+    stream.writeAttribute("unitSize", getPrefix(), mUnitSize);
 
 }
 
