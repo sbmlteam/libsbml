@@ -2,7 +2,7 @@
  * @file    FormulaParser.h
  * @brief   Parses an SBML formula string into an AST.
  * @author  Ben Bornstein
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -45,46 +45,27 @@ BEGIN_C_DECLS
 
 
 /**
- * Parses the given SBML formula and returns a representation of it as an
- * Abstract Syntax Tree (AST).
+ * Parses a text string as a mathematical formula and returns an AST
+ * representation of it.
  *
- * @copydetails doc_summary_of_string_math 
+ * @copydetails doc_summary_of_string_math
  *
- * @copydetails doc_warning_L1_math_string_syntax
- * 
  * @param formula the text-string formula expression to be parsed
  *
  * @return the root node of the AST corresponding to the @p formula, or @c
  * NULL if an error occurred in parsing the formula
  *
- * @if clike @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if csharp @see SBML_formulaToString()
- * @see SBML_parseL3FormulaWithSettings()
- * @see SBML_parseL3Formula()
- * @see SBML_parseL3FormulaWithModel()
- * @see SBML_getLastParseL3Error()
- * @see SBML_getDefaultL3ParserSettings()
- * @endif@~
- * @if python @see libsbml.formulaToString()
- * @see libsbml.parseL3FormulaWithSettings()
- * @see libsbml.parseL3Formula()
- * @see libsbml.parseL3FormulaWithModel()
- * @see libsbml.getLastParseL3Error()
- * @see libsbml.getDefaultL3ParserSettings()
- * @endif@~
- * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode tree)">libsbml.formulaToString(ASTNode tree)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>
- * @see <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>
- * @see <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">parseL3FormulaWithModel(String formula, Model model)</a></code>
- * @see <code><a href="libsbml.html#getLastParseL3Error()">getLastParseL3Error()</a></code>
- * @see <code><a href="libsbml.html#getDefaultL3ParserSettings()">getDefaultL3ParserSettings()</a></code>
- * @endif@~
+ * @see @sbmlfunction{parseL3Formula, String formula}
+ * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{formulaToL3String, ASTNode tree}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
+ * @see L3ParserSettings
+ *
+ * @copydetails doc_note_l3_parser_encouraged
+ *
+ * @copydetails doc_note_math_string_syntax
  *
  * @if conly
  * @memberof ASTNode_t
