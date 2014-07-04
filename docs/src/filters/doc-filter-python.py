@@ -86,8 +86,8 @@ def reformatDocString (match):
   text = p.sub(r'\1' + r'\1' + sStart + r'\2' + sEnd + r'\1<p>', text)
 
   # This ditches the "self" part of the signature string.
-  text = text.replace(r'(self)', '()')
-  text = text.replace(r'(self, ', '(')
+  text = re.sub(r'\(\w* ?self\)',  '()', text)
+  text = re.sub(r'\(\w* ?self, ',  '(',  text)
 
   # This fixes a weird translation by SWIG's doc string generator: it
   # seems to turn "char *" to "char" instead of "string".  In our code,
