@@ -128,9 +128,10 @@
  *
  * @section CompFlatteningConverter-usage Configuration and use of SBMLIdConverter
  *
- * CompFlatteningConverter is enabled by creating a ConversionProperties object with
- * the option @c "flatten comp", and passing this properties object to
- * SBMLDocument::convert().  The converter also accepts the following options, all of
+ * CompFlatteningConverter is enabled by creating a ConversionProperties
+ * object with the option @c "flatten comp", and passing this properties
+ * object to SBMLDocument::convert(@if java ConversionProperties props@endif).
+ * The converter also accepts the following options, all of
  * which are optional, and have default values:
  *
  * @li @c "abortIfUnflattenable": @c 'all', @c 'requiredOnly' (the default), or @c 'none'

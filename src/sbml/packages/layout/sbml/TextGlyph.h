@@ -233,7 +233,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_TEXTGLYPH SBML_LAYOUT_TEXTGLYPH@endlink
+   * @sbmlconstant{SBML_LAYOUT_TEXTGLYPH, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

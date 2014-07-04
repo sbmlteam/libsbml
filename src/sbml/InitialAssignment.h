@@ -141,7 +141,7 @@
  * rules for the same entity.  That is, there cannot be <em>both</em> an
  * InitialAssignment and an AssignmentRule for the same symbol in a model,
  * because both kinds of constructs apply prior to and at the start of
- * simulated time&mdash;allowing both to exist for a given symbol would
+ * simulated time---allowing both to exist for a given symbol would
  * result in indeterminism).
  * 
  * The ordering of InitialAssignment objects is not significant.  The
@@ -372,8 +372,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int setSymbol (const std::string& sid);
 
@@ -389,8 +389,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   int setMath (const ASTNode* math);
 
@@ -473,7 +473,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLTypeCode_t#SBML_INITIAL_ASSIGNMENT SBML_INITIAL_ASSIGNMENT@endlink (default).
+   * @sbmlconstant{SBML_INITIAL_ASSIGNMENT, SBMLTypeCode_t} (default).
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -693,7 +693,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for the objects contained in this ListOf:
-   * @link SBMLTypeCode_t#SBML_INITIAL_ASSIGNMENT SBML_INITIAL_ASSIGNMENT@endlink (default).
+   * @sbmlconstant{SBML_INITIAL_ASSIGNMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1024,8 +1024,8 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "symbol" attribute.
@@ -1051,8 +1051,8 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof InitialAssignment_t
  */

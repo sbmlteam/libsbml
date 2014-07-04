@@ -215,8 +215,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int setParser (const XMLParser* p);
   /** @endcond */
@@ -254,7 +254,7 @@ public:
    * @param stream the ostream or ostringstream object indicating where
    * the output should be printed.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
@@ -296,9 +296,9 @@ public:
    *
    * @return a severity override code.  The possible values are @if clike drawn
    * from the enumeration #XMLErrorSeverityOverride_t@endif:
-   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
-   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink
-   * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink
+   * @li @sbmlconstant{LIBSBML_OVERRIDE_DISABLED, XMLErrorSeverityOverride_t}
+   * @li @sbmlconstant{LIBSBML_OVERRIDE_DONT_LOG, XMLErrorSeverityOverride_t}
+   * @li @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t}
    *
    * @see isSeverityOverridden()
    * @see setSeverityOverride(@if java int severity@endif)
@@ -314,12 +314,12 @@ public:
    * @copydetails doc_what_are_severity_overrides
    *
    * @param severity an override code indicating what to do.  If the value is
-   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+   * @sbmlconstant{LIBSBML_OVERRIDE_DISABLED, XMLErrorSeverityOverride_t}
    * (the default setting) all errors logged will be given the severity
    * specified in their usual definition.   If the value is
-   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink,
+   * @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t},
    * then all errors will be logged as warnings.  If the value is 
-   * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink,
+   * @sbmlconstant{LIBSBML_OVERRIDE_DONT_LOG, XMLErrorSeverityOverride_t},
    * no error will be logged, regardless of their severity.
    *
    * @see isSeverityOverridden()
@@ -352,7 +352,7 @@ public:
    * errors from just that package.  If no value is provided, @c "all" is the
    * default.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see isSeverityOverridden()
    * @see getSeverityOverride()
@@ -503,9 +503,9 @@ XMLErrorLog_unsetSeverityOverride (XMLErrorLog_t *log);
  *
  * @return a severity override code.  The possible values are drawn
  * from the enumeration #XMLErrorSeverityOverride_t:
- * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
- * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink
- * @li @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink
+ * @li @sbmlconstant{LIBSBML_OVERRIDE_DISABLED, XMLErrorSeverityOverride_t}
+ * @li @sbmlconstant{LIBSBML_OVERRIDE_DONT_LOG, XMLErrorSeverityOverride_t}
+ * @li @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t}
  * 
  * @param log XMLErrorLog_t structure to be queried.
  *
@@ -522,12 +522,12 @@ XMLErrorLog_getSeverityOverride (XMLErrorLog_t *log);
  * 
  * @param log XMLErrorLog_t structure to be queried.
  * @param overridden an override code indicating what to do.  If the value is
- * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DISABLED LIBSBML_OVERRIDE_DISABLED@endlink
+ * @sbmlconstant{LIBSBML_OVERRIDE_DISABLED, XMLErrorSeverityOverride_t}
  * (the default setting) all errors logged will be given the severity
  * specified in their usual definition.   If the value is
- * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_WARNING LIBSBML_OVERRIDE_WARNING@endlink,
+ * @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t},
  * then all errors will be logged as warnings.  If the value is 
- * @link XMLErrorSeverityOverride_t#LIBSBML_OVERRIDE_DONT_LOG LIBSBML_OVERRIDE_DONT_LOG@endlink,
+ * @sbmlconstant{LIBSBML_OVERRIDE_DONT_LOG, XMLErrorSeverityOverride_t},
  * no error will be logged, regardless of their severity.
  *
  * @see XMLErrorLog_getSeverityOverride()

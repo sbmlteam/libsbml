@@ -245,7 +245,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_DIMENSIONS SBML_LAYOUT_DIMENSIONS@endlink
+   * @sbmlconstant{SBML_LAYOUT_DIMENSIONS, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

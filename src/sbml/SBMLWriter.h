@@ -45,7 +45,7 @@
  *
  * LibSBML provides support for writing (as well as reading) compressed
  * SBML files.  The process is transparent to the calling
- * application&mdash;the application does not need to do anything
+ * application---the application does not need to do anything
  * deliberate to invoke the functionality.  If a given SBML filename ends
  * with an extension for the @em gzip, @em zip or @em bzip2 compression
  * formats (respectively, <code>&quot;.gz&quot;</code>,
@@ -143,7 +143,7 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * 
    * @see setProgramVersion(const std::string& version)
    */
@@ -172,7 +172,7 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setProgramName(const std::string& name)
    */
@@ -366,7 +366,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
  */
@@ -387,7 +387,7 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
  */

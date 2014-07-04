@@ -33,7 +33,7 @@
  * @class XMLLogOverride
  * @sbmlbrief{core} Facility for temporarily overriding error severities.
  *
- * @if notclike @internal @endif@~
+ * @ifnot clike @internal @endif@~
  */
 
  

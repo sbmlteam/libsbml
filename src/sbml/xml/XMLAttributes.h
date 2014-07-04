@@ -120,12 +120,12 @@ public:
    * @return an integer code indicating the success or failure of the
    * function.  The possible values returned by this
    * function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @note if local name with the same namespace URI already exists in this 
    * attribute set, its value and prefix will be replaced.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int add (  const std::string& name
 	    , const std::string& value
@@ -145,7 +145,7 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
    int add ( const XMLTriple& triple, const std::string& value);
 
@@ -168,7 +168,7 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addResource (const std::string& name, const std::string& value);
 
@@ -182,8 +182,8 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    */
   int removeResource (int n);
 
@@ -197,8 +197,8 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    */
   int remove (int n);
 
@@ -213,8 +213,8 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    */
   int remove (const std::string& name, const std::string& uri = "");
 
@@ -227,8 +227,8 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    */
   int remove (const XMLTriple& triple); 
 
@@ -239,7 +239,7 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int clear();
 
@@ -504,7 +504,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , bool&               value
@@ -536,7 +536,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , bool&        value
@@ -574,7 +574,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , double&             value
@@ -606,7 +606,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple&  triple
                  , double&           value
@@ -643,7 +643,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , long&               value
@@ -675,7 +675,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , long&            value
@@ -712,7 +712,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , int&                value
@@ -744,7 +744,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , int&             value
@@ -781,7 +781,7 @@ public:
    * ...) const should be used to read a value for an attribute name with a
    * prefix and namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , unsigned int&       value
@@ -813,7 +813,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , unsigned int&    value
@@ -844,7 +844,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const std::string&  name
                  , std::string&        value
@@ -870,7 +870,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   bool readInto (  const XMLTriple& triple
                  , std::string&     value
@@ -902,7 +902,7 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setErrorLog (XMLErrorLog* log);
   /** @endcond */
@@ -1228,8 +1228,8 @@ XMLAttributes_clone (const XMLAttributes_t* att);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if local name already exists in this attribute set, its value 
  * will be replaced.
@@ -1255,8 +1255,8 @@ XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if local name with the same namespace URI already exists in this 
  * attribute set, its value will be replaced.
@@ -1282,8 +1282,8 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */
@@ -1302,9 +1302,9 @@ XMLAttributes_addWithTriple (XMLAttributes_t *xa, const XMLTriple_t* triple, con
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */
@@ -1323,9 +1323,9 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */
@@ -1344,9 +1344,9 @@ XMLAttributes_remove (XMLAttributes_t *xa, int n);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note A prefix and namespace URI bound to the local name are set to empty 
  * in this function.
@@ -1372,9 +1372,9 @@ XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */
@@ -1394,9 +1394,9 @@ XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */
@@ -1414,8 +1414,8 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof XMLAttributes_t
  */

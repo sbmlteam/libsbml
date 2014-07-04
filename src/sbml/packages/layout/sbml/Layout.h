@@ -110,7 +110,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_COMPARTMENTGLYPH SBML_LAYOUT_COMPARTMENTGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_COMPARTMENTGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -274,7 +274,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_SPECIESGLYPH SBML_LAYOUT_SPECIESGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_SPECIESGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -437,7 +437,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_REACTIONGLYPH SBML_LAYOUT_REACTIONGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_REACTIONGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -600,7 +600,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_TEXTGLYPH SBML_LAYOUT_TEXTGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_TEXTGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1388,7 +1388,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_LAYOUT SBML_LAYOUT_LAYOUT@endlink
+   * @sbmlconstant{SBML_LAYOUT_LAYOUT, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -1550,7 +1550,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_LAYOUT SBML_LAYOUT_LAYOUT@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_LAYOUT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()

@@ -79,7 +79,7 @@ public:
    *
    * @param targetNS the target namespace to convert to
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionProperties(SBMLNamespaces* targetNS=NULL);
 
@@ -203,7 +203,7 @@ public:
    * for ConversionOption for more information about the types)
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, const std::string& value="",
                          ConversionOptionType_t type=CNV_TYPE_STRING,
@@ -217,7 +217,7 @@ public:
    * @param value the string value of that option
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, const char* value,
                          const std::string& description="");
@@ -230,7 +230,7 @@ public:
    * @param value the boolean value of that option
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, bool value,
                          const std::string& description="");
@@ -243,7 +243,7 @@ public:
    * @param value the double value of that option
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, double value,
                          const std::string& description="");
@@ -256,7 +256,7 @@ public:
    * @param value the float value of that option
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, float value,
                          const std::string& description="");
@@ -269,7 +269,7 @@ public:
    * @param value the integer value of that option
    * @param description (optional) the description for the option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   virtual void addOption(const std::string& key, int value,
                          const std::string& description="");

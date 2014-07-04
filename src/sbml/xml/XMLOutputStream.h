@@ -161,7 +161,7 @@ public:
    * @param programVersion an optional version identification string to write
    * as a comment in the output stream.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStream (  std::ostream&       stream
                    , const std::string&  encoding       = "UTF-8"
@@ -185,7 +185,7 @@ public:
    * @p element name.  (The result has the form
    * <code><em>prefix</em>:<em>name</em></code>.)
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void endElement (const std::string& name, const std::string& prefix = "");
 
@@ -215,7 +215,7 @@ public:
    * @p element name.  (The result has the form
    * <code><em>prefix</em>:<em>name</em></code>.)
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void startElement (const std::string& name, const std::string& prefix = "");
 
@@ -238,7 +238,7 @@ public:
    * @p element name.  (The result has the form
    * <code><em>prefix</em>:<em>name</em></code>.)
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void startEndElement (const std::string& name, const std::string& prefix = "");
 
@@ -633,7 +633,7 @@ protected:
   /**
    * Outputs indentation whitespace.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void writeIndent (bool isEnd = false);
 
@@ -725,7 +725,7 @@ public:
   /**
    * Creates a new XMLOutputStream that wraps stream.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputStringStream (  std::ostringstream& stream
                          , const std::string&  encoding     = "UTF-8"
@@ -752,7 +752,7 @@ public:
   /**
    * Creates a new XMLOutputStream that wraps stream.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLOutputFileStream (  std::ofstream&      stream
                        , const std::string&  encoding     = "UTF-8"

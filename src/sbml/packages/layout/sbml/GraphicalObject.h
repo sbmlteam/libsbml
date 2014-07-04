@@ -302,7 +302,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_GRAPHICALOBJECT SBML_LAYOUT_GRAPHICALOBJECT@endlink
+   * @sbmlconstant{SBML_LAYOUT_GRAPHICALOBJECT, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -476,7 +476,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_GRAPHICALOBJECT SBML_LAYOUT_GRAPHICALOBJECT@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_GRAPHICALOBJECT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()

@@ -35,7 +35,7 @@
  * @class XMLTokenizer
  * @sbmlbrief{core} Class implementing methods for turning XML into tokens.
  *
- * @if notclike @internal @endif@~
+ * @ifnot clike @internal @endif@~
  */
 
 #ifndef XMLTokenizer_h

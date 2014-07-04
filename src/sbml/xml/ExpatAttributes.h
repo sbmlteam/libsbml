@@ -53,7 +53,7 @@ public:
    * The Expat attribute names are assumed to be in namespace triplet form
    * separated by sepchar.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ExpatAttributes (const XML_Char** attrs,
 		   const XML_Char* elementName,

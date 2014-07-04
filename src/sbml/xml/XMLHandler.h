@@ -35,7 +35,7 @@
  * @class XMLHandler
  * @sbmlbrief{core} Unified interface to different XML parsers.
  *
- * @if notclike @internal @endif@~
+ * @ifnot clike @internal @endif@~
  */
 
 #ifndef XMLHandler_h

@@ -50,10 +50,8 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 #   csharp:    only C#
 #   conly:     only C
 #   clike:     C, C++
-#   notcpp:    not C++
-#   notclike:  not C or C++
 
-ENABLED_SECTIONS       = clike conly notcpp doxygenCOnly doxygenCLikeOnly
+ENABLED_SECTIONS       = clike conly doxygenCOnly doxygenCLikeOnly
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum
 # is documented as struct, union, or enum with the name of the typedef. So

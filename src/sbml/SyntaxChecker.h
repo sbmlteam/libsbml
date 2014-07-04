@@ -254,7 +254,7 @@ public:
    *
    * @copydetails doc_note_static_methods
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   static bool hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
                                      SBMLNamespaces * sbmlns = NULL); 

@@ -60,7 +60,7 @@
  *
  * LibSBML provides support for reading (as well as writing) compressed
  * SBML files.  The process is transparent to the calling
- * application&mdash;the application does not need to do anything
+ * application---the application does not need to do anything
  * deliberate to invoke the functionality.  If a given SBML filename ends
  * with an extension for the @em gzip, @em zip or @em bzip2 compression
  * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
@@ -449,7 +449,7 @@ protected:
   /**
    * Used by readSBML() and readSBMLFromString().
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 

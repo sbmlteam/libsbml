@@ -33,7 +33,7 @@
  * @class SBaseExtensionPoint
  * @sbmlbrief{core} Extension of an element by an SBML Level 3 package.
  * 
- * @if notclike @internal @endif@~
+ * @ifnot clike @internal @endif@~
  *
  * SBaseExtensionPoint represents an element to be extended (extension point) and the
  * extension point is identified by a combination of a package name and a typecode of the 
@@ -183,8 +183,8 @@ SBaseExtensionPoint_create(const char* pkgName, int typeCode);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof SBaseExtensionPoint_t
  */

@@ -106,7 +106,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_SPECIESREFERENCEGLYPH SBML_LAYOUT_SPECIESREFERENCEGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_SPECIESREFERENCEGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -449,7 +449,7 @@ public:
   /**
    * Returns the index of the species reference glyph with the given @p id.
    * If the reaction glyph does not contain a species reference glyph with this
-   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * id, @if cpp numeric_limits<unsigned int>::max() @else the
    * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
@@ -495,7 +495,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_REACTIONGLYPH SBML_LAYOUT_REACTIONGLYPH@endlink
+   * @sbmlconstant{SBML_LAYOUT_REACTIONGLYPH, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

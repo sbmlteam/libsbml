@@ -182,7 +182,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_COMP_SUBMODEL SBML_COMP_SUBMODEL@endlink (default).
+   * @sbmlconstant{SBML_COMP_SUBMODEL, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()

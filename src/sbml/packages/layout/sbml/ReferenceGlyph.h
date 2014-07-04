@@ -276,7 +276,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_REFERENCEGLYPH SBML_LAYOUT_REFERENCEGLYPH@endlink
+   * @sbmlconstant{SBML_LAYOUT_REFERENCEGLYPH, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

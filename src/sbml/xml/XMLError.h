@@ -82,8 +82,8 @@
  * @if clike the enumeration <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a>@else a
  * set of constants whose names begin with the characters @c LIBSBML_SEV_@endif,
  * described below. Severity levels range from informational
- * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink) to
- * fatal errors (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink).
+ * (@sbmlconstant{LIBSBML_SEV_INFO, XMLErrorSeverity_t}) to
+ * fatal errors (@sbmlconstant{LIBSBML_SEV_FATAL, XMLErrorSeverity_t}).
  *
  * Finally, XMLError objects record the line and column near where the
  * problem occurred in the XML content.  The values can be retrieved using
@@ -130,7 +130,8 @@
  * constants defined in the interface class @link libsbmlcs.libsbml@endlink.@endif@~
  *
  * <center>
- * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
+ * <table cellspacing="1" cellpadding="1" border="0" width="95%"
+          class="text-table normal-font alt-row-colors">
  * <caption>Possible XMLError error codes.  Depending on the programming
  * language in use, the <em>Enumerator</em> values will be defined either
  * as a value from the enumeration XMLErrorCode_t or as integer constants.
@@ -141,55 +142,55 @@
  * shown in the two right-hand columns.
  * </caption>
  *  <tr style="background: lightgray" class="normal-font">
- *      <th>Enumerator</th>
+ *      <th style="text-align: left">Enumerator</th>
  *      <th>Meaning</th>
- *      <th width="90">Category</th>
- *      <th width="90">Severity</th>
+ *      <th width="90" style="text-align: left">Category</th>
+ *      <th width="90" style="text-align: left">Severity</th>
  *  </tr>
- * <tr><td>@link XMLErrorCode_t#XMLUnknownError XMLUnknownError@endlink</td><td>Unrecognized error encountered internally</td><td>INTERNAL</td><td>FATAL</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLOutOfMemory XMLOutOfMemory@endlink</td> <td>Out of memory</td><td>SYSTEM</td><td>FATAL</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLFileUnreadable XMLFileUnreadable@endlink</td> <td>File unreadable</td><td>SYSTEM</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLFileUnwritable XMLFileUnwritable@endlink</td> <td>File unwritable</td><td>SYSTEM</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLFileOperationError XMLFileOperationError@endlink</td><td>Error encountered while attempting file operation</td><td>SYSTEM</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLNetworkAccessError XMLNetworkAccessError@endlink</td><td>Network access error</td><td>SYSTEM</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#InternalXMLParserError InternalXMLParserError@endlink</td><td>Internal XML parser state error</td><td>INTERNAL</td><td>FATAL</td></tr>
- * <tr><td>@link XMLErrorCode_t#UnrecognizedXMLParserCode UnrecognizedXMLParserCode@endlink</td><td>XML parser returned an unrecognized error code</td><td>INTERNAL</td><td>FATAL</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLTranscoderError XMLTranscoderError@endlink</td><td>Character transcoder error</td><td>INTERNAL</td><td>FATAL</td></tr>
- * <tr><td>@link XMLErrorCode_t#MissingXMLDecl MissingXMLDecl@endlink</td><td>Missing XML declaration at beginning of XML input</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#MissingXMLEncoding MissingXMLEncoding@endlink</td><td>Missing encoding attribute in XML declaration</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLDecl BadXMLDecl@endlink</td><td>Invalid or unrecognized XML declaration or XML encoding</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLDOCTYPE BadXMLDOCTYPE@endlink</td><td>Invalid, malformed or unrecognized XML DOCTYPE declaration</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#InvalidCharInXML InvalidCharInXML@endlink</td><td>Invalid character in XML content</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadlyFormedXML BadlyFormedXML@endlink</td><td>XML content is not well-formed</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#UnclosedXMLToken UnclosedXMLToken@endlink</td><td>Unclosed XML token</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#InvalidXMLConstruct InvalidXMLConstruct@endlink</td><td>XML construct is invalid or not permitted</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLTagMismatch XMLTagMismatch@endlink</td><td>Element tag mismatch or missing tag</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#DuplicateXMLAttribute DuplicateXMLAttribute@endlink</td><td>Duplicate XML attribute</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#UndefinedXMLEntity UndefinedXMLEntity@endlink</td><td>Undefined XML entity</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadProcessingInstruction BadProcessingInstruction@endlink</td><td>Invalid, malformed or unrecognized XML processing instruction</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLPrefix BadXMLPrefix@endlink</td><td>Invalid or undefined XML namespace prefix</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLPrefixValue BadXMLPrefixValue@endlink</td><td>Invalid XML namespace prefix value</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#MissingXMLRequiredAttribute MissingXMLRequiredAttribute@endlink</td><td>Missing a required XML attribute</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLAttributeTypeMismatch XMLAttributeTypeMismatch@endlink</td><td>Data type mismatch for the value of an attribute</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLBadUTF8Content XMLBadUTF8Content@endlink</td><td>Invalid UTF8 content</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#MissingXMLAttributeValue MissingXMLAttributeValue@endlink</td><td>Missing or improperly formed attribute value</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLAttributeValue BadXMLAttributeValue@endlink</td><td>Invalid or unrecognizable attribute value</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLAttribute BadXMLAttribute@endlink</td><td>Invalid, unrecognized or malformed attribute</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#UnrecognizedXMLElement UnrecognizedXMLElement@endlink</td><td>Element either not recognized or not permitted</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLComment BadXMLComment@endlink</td><td>Badly formed XML comment</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLDeclLocation BadXMLDeclLocation@endlink</td><td>XML declaration not permitted in this location</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLUnexpectedEOF XMLUnexpectedEOF@endlink</td><td>Reached end of input unexpectedly</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLIDValue BadXMLIDValue@endlink</td><td>Value is invalid for XML ID, or has already been used</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLIDRef BadXMLIDRef@endlink</td><td>XML ID value was never declared</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#UninterpretableXMLContent UninterpretableXMLContent@endlink</td><td>Unable to interpret content</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#BadXMLDocumentStructure BadXMLDocumentStructure@endlink</td><td>Bad XML document structure</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#InvalidAfterXMLContent InvalidAfterXMLContent@endlink</td><td>Encountered invalid content after expected content</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLExpectedQuotedString XMLExpectedQuotedString@endlink</td><td>Expected to find a quoted string</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLEmptyValueNotPermitted XMLEmptyValueNotPermitted@endlink</td><td>An empty value is not permitted in this context</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLBadNumber XMLBadNumber@endlink</td><td>Invalid or unrecognized number</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLBadColon XMLBadColon@endlink</td><td>Colon characters are invalid in this context</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#MissingXMLElements MissingXMLElements@endlink</td><td>One or more expected elements are missing</td><td>XML</td><td>ERROR</td></tr>
- * <tr><td>@link XMLErrorCode_t#XMLContentEmpty XMLContentEmpty@endlink</td><td>Main XML content is empty</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLUnknownError, XMLErrorCode_t}</td><td>Unrecognized error encountered internally</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td>@sbmlconstant{XMLOutOfMemory, XMLErrorCode_t}</td> <td>Out of memory</td><td>SYSTEM</td><td>FATAL</td></tr>
+ * <tr><td>@sbmlconstant{XMLFileUnreadable, XMLErrorCode_t}</td> <td>File unreadable</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLFileUnwritable, XMLErrorCode_t}</td> <td>File unwritable</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLFileOperationError, XMLErrorCode_t}</td><td>Error encountered while attempting file operation</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLNetworkAccessError, XMLErrorCode_t}</td><td>Network access error</td><td>SYSTEM</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{InternalXMLParserError, XMLErrorCode_t}</td><td>Internal XML parser state error</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td>@sbmlconstant{UnrecognizedXMLParserCode, XMLErrorCode_t}</td><td>XML parser returned an unrecognized error code</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td>@sbmlconstant{XMLTranscoderError, XMLErrorCode_t}</td><td>Character transcoder error</td><td>INTERNAL</td><td>FATAL</td></tr>
+ * <tr><td>@sbmlconstant{MissingXMLDecl, XMLErrorCode_t}</td><td>Missing XML declaration at beginning of XML input</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{MissingXMLEncoding, XMLErrorCode_t}</td><td>Missing encoding attribute in XML declaration</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLDecl, XMLErrorCode_t}</td><td>Invalid or unrecognized XML declaration or XML encoding</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLDOCTYPE, XMLErrorCode_t}</td><td>Invalid, malformed or unrecognized XML DOCTYPE declaration</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{InvalidCharInXML, XMLErrorCode_t}</td><td>Invalid character in XML content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadlyFormedXML, XMLErrorCode_t}</td><td>XML content is not well-formed</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{UnclosedXMLToken, XMLErrorCode_t}</td><td>Unclosed XML token</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{InvalidXMLConstruct, XMLErrorCode_t}</td><td>XML construct is invalid or not permitted</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLTagMismatch, XMLErrorCode_t}</td><td>Element tag mismatch or missing tag</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{DuplicateXMLAttribute, XMLErrorCode_t}</td><td>Duplicate XML attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{UndefinedXMLEntity, XMLErrorCode_t}</td><td>Undefined XML entity</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadProcessingInstruction, XMLErrorCode_t}</td><td>Invalid, malformed or unrecognized XML processing instruction</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLPrefix, XMLErrorCode_t}</td><td>Invalid or undefined XML namespace prefix</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLPrefixValue, XMLErrorCode_t}</td><td>Invalid XML namespace prefix value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{MissingXMLRequiredAttribute, XMLErrorCode_t}</td><td>Missing a required XML attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLAttributeTypeMismatch, XMLErrorCode_t}</td><td>Data type mismatch for the value of an attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLBadUTF8Content, XMLErrorCode_t}</td><td>Invalid UTF8 content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{MissingXMLAttributeValue, XMLErrorCode_t}</td><td>Missing or improperly formed attribute value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLAttributeValue, XMLErrorCode_t}</td><td>Invalid or unrecognizable attribute value</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLAttribute, XMLErrorCode_t}</td><td>Invalid, unrecognized or malformed attribute</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{UnrecognizedXMLElement, XMLErrorCode_t}</td><td>Element either not recognized or not permitted</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLComment, XMLErrorCode_t}</td><td>Badly formed XML comment</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLDeclLocation, XMLErrorCode_t}</td><td>XML declaration not permitted in this location</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLUnexpectedEOF, XMLErrorCode_t}</td><td>Reached end of input unexpectedly</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLIDValue, XMLErrorCode_t}</td><td>Value is invalid for XML ID, or has already been used</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLIDRef, XMLErrorCode_t}</td><td>XML ID value was never declared</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{UninterpretableXMLContent, XMLErrorCode_t}</td><td>Unable to interpret content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{BadXMLDocumentStructure, XMLErrorCode_t}</td><td>Bad XML document structure</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{InvalidAfterXMLContent, XMLErrorCode_t}</td><td>Encountered invalid content after expected content</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLExpectedQuotedString, XMLErrorCode_t}</td><td>Expected to find a quoted string</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLEmptyValueNotPermitted, XMLErrorCode_t}</td><td>An empty value is not permitted in this context</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLBadNumber, XMLErrorCode_t}</td><td>Invalid or unrecognized number</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLBadColon, XMLErrorCode_t}</td><td>Colon characters are invalid in this context</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{MissingXMLElements, XMLErrorCode_t}</td><td>One or more expected elements are missing</td><td>XML</td><td>ERROR</td></tr>
+ * <tr><td>@sbmlconstant{XMLContentEmpty, XMLErrorCode_t}</td><td>Main XML content is empty</td><td>XML</td><td>ERROR</td></tr>
  * </table>
  * </center>
  *
@@ -233,22 +234,23 @@
  * class @link libsbmlcs.libsbml@endlink. @endif@~
  *
  * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
+ * <table width="95%" cellspacing="1" cellpadding="1" border="0"
+ *        class="text-table normal-font alt-row-colors">
  *  <tr style="background: lightgray" class="normal-font">
- *      <th>Enumerator</th>
+ *      <th style="text-align: left">Enumerator</th>
  *      <th>Meaning</th>
  *  </tr>
- * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_INTERNAL LIBSBML_CAT_INTERNAL@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_CAT_INTERNAL, XMLErrorCategory_t}</td>
  * <td>A problem involving the libSBML
  * software itself or the underlying XML parser.  This almost certainly
  * indicates a software defect (i.e., bug) in libSBML.  Please report
  * instances of this to the libSBML developers.</td></tr>
- * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_SYSTEM LIBSBML_CAT_SYSTEM@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_CAT_SYSTEM, XMLErrorCategory_t}</td>
  * <td>A problem reported by the operating
  * system, such as an inability to read or write a file.  This indicates
  * something that is not a program error but is outside of the control of
  * libSBML.</td></tr>
- * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_XML LIBSBML_CAT_XML@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_CAT_XML, XMLErrorCategory_t}</td>
  * <td>A problem in the XML content itself.  This
  * usually arises from malformed XML or the use of
  * constructs not permitted in SBML.</td></tr>
@@ -299,24 +301,25 @@
  * @link libsbmlcs.libsbml@endlink.@endif@~
  *
  * <center>
- * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
+ * <table width="95%" cellspacing="1" cellpadding="1" border="0"
+ *        class="text-table normal-font alt-row-colors">
  *  <tr style="background: lightgray" class="normal-font">
- *      <th>Enumerator</th>
+ *      <th style="text-align: left">Enumerator</th>
  *      <th>Meaning</th>
  *  </tr>
- * <tr><td>@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_SEV_INFO, XMLErrorSeverity_t}</td>
  * <td>The error is actually informational and
  * not necessarily a serious problem.</td></tr>
- * <tr><td>@link XMLErrorSeverity_t#LIBSBML_SEV_WARNING LIBSBML_SEV_WARNING@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_SEV_WARNING, XMLErrorSeverity_t}</td>
  * <td>The error object represents a problem
  * that is not serious enough to necessarily stop the problem, but
  * applications should take note of the problem and evaluate what its
  * implications may be.</td></tr>
- * <tr><td>@link XMLErrorSeverity_t#LIBSBML_SEV_ERROR LIBSBML_SEV_ERROR@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_SEV_ERROR, XMLErrorSeverity_t}</td>
  * <td>The error object represents a serious
  * error.  The application may continue running but it is unlikely to be
  * able to continue processing the same XML file or data stream.</td></tr>
- * <tr><td>@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink</td>
+ * <tr><td>@sbmlconstant{LIBSBML_SEV_FATAL, XMLErrorSeverity_t}</td>
  * <td>A serious error occurred, such as an
  * out-of-memory condition, and the software should terminate
  * immediately.</td></tr>
@@ -649,7 +652,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLError
   (
@@ -874,7 +877,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
-   * value @link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink from the
+   * value @sbmlconstant{LIBSBML_SEV_INFO, XMLErrorSeverity_t} from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif@~
    *
@@ -894,7 +897,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
-   * value @link XMLErrorSeverity_t#LIBSBML_SEV_WARNING LIBSBML_SEV_WARNING@endlink from the
+   * value @sbmlconstant{LIBSBML_SEV_WARNING, XMLErrorSeverity_t} from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif@~
    *
@@ -913,7 +916,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
-   * value @link XMLErrorSeverity_t#LIBSBML_SEV_ERROR LIBSBML_SEV_ERROR@endlink from the
+   * value @sbmlconstant{LIBSBML_SEV_ERROR, XMLErrorSeverity_t} from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif@~
    *
@@ -932,7 +935,7 @@ public:
    *
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
-   * value @link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink from the
+   * value @sbmlconstant{LIBSBML_SEV_FATAL, XMLErrorSeverity_t} from the
    * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined severity codes.@endif@~
    *
    * @return @c true if this error is a fatal error, @c false otherwise.
@@ -950,7 +953,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
-   * the value @link XMLErrorCategory_t#LIBSBML_CAT_INTERNAL LIBSBML_CAT_INTERNAL@endlink from the
+   * the value @sbmlconstant{LIBSBML_CAT_INTERNAL, XMLErrorCategory_t} from the
    * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
@@ -967,7 +970,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
-   * the value @link XMLErrorCategory_t#LIBSBML_CAT_SYSTEM LIBSBML_CAT_SYSTEM@endlink from the
+   * the value @sbmlconstant{LIBSBML_CAT_SYSTEM, XMLErrorCategory_t} from the
    * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
@@ -985,7 +988,7 @@ public:
    *
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
-   * the value @link XMLErrorCategory_t#LIBSBML_CAT_XML LIBSBML_CAT_XML@endlink from the
+   * the value @sbmlconstant{LIBSBML_CAT_XML, XMLErrorCategory_t} from the
    * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif@~
    *
    * @return @c true or @c false
@@ -1019,7 +1022,7 @@ public:
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setColumn(unsigned int column)
    */
@@ -1034,7 +1037,7 @@ public:
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setLine(unsigned int line)
    */
@@ -1077,7 +1080,7 @@ public:
    *
    * In the SBML Level&nbsp;3 package specifications, package validation
    * rules are identified by 5-digit numbers prefixed with the nickname of
-   * the package itself&mdash;e.g., &ldquo;comp-10101&rdquo;,
+   * the package itself---e.g., &ldquo;comp-10101&rdquo;,
    * &ldquo;fbc-20301&rdquo;, etc.  Historically, libSBML reported error
    * codes as pure integers, and some application software systems make
    * decisions based on the numerical values of the error codes.  To permit

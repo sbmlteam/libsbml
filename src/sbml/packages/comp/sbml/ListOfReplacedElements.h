@@ -137,7 +137,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_COMP_REPLACEDELEMENT SBML_COMP_REPLACEDELEMENT@endlink (default).
+   * @sbmlconstant{SBML_COMP_REPLACEDELEMENT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()

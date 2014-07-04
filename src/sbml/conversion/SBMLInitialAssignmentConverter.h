@@ -76,8 +76,8 @@
  *
  * SBMLInitialAssignmentConverter is enabled by creating a
  * ConversionProperties object with the option @c "expandInitialAssignments",
- * and passing this properties object to SBMLDocument::convert().  The
- * converter offers no other options.
+ * and passing this properties object to SBMLDocument::convert(@if java
+ * ConversionProperties props@endif).  The converter offers no other options.
  *
  * @copydetails doc_section_using_sbml_converters
  */
@@ -170,9 +170,9 @@ public:
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int convert();
 

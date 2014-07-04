@@ -129,7 +129,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLCompTypeCode_t#SBML_COMP_MODELDEFINITION SBML_COMP_MODELDEFINITION@endlink
+   * @sbmlconstant{SBML_COMP_MODELDEFINITION, SBMLCompTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
@@ -148,8 +148,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int removeFromParentAndDelete();
 

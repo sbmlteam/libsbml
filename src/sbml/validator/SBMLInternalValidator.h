@@ -103,54 +103,49 @@ public:
    * The following are the possible choices:
    * @endif@~
    * <ul>
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
-   * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
-   * of specific SBML language constructs.  Performing this set of checks
-   * is highly recommended.  With respect to the SBML specification, these
-   * concern failures in applying the validation rules numbered 2xxxx in
-   * the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1
-   * specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY
-   * LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and
-   * consistency of identifiers used for model entities.  An example of
-   * inconsistency would be using a species identifier in a reaction rate
-   * formula without first having declared the species.  With respect to
+   * <li> @sbmlconstant{LIBSBML_CAT_GENERAL_CONSISTENCY, SBMLErrorCategory_t}: 
+   * Correctness and consistency of specific SBML language constructs.
+   * Performing this set of checks is highly recommended.  With respect to
    * the SBML specification, these concern failures in applying the
-   * validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
-   * and Level&nbsp;3 Version&nbsp;1 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY
-   * LIBSBML_CAT_UNITS_CONSISTENCY@endlink: Consistency of measurement
-   * units associated with quantities in a model.  With respect to the SBML
-   * specification, these concern failures in applying the validation rules
-   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
-   * Version&nbsp;1 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY
-   * LIBSBML_CAT_MATHML_CONSISTENCY@endlink: Syntax of MathML constructs.
-   * With respect to the SBML specification, these concern failures in
-   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * validation rules numbered 2xxxx in the Level&nbsp;2
    * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY
-   * LIBSBML_CAT_SBO_CONSISTENCY@endlink: Consistency and validity of %SBO
-   * identifiers (if any) used in the model.  With respect to the SBML
-   * specification, these concern failures in applying the validation rules
-   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * <li> @sbmlconstant{LIBSBML_CAT_IDENTIFIER_CONSISTENCY, SBMLErrorCategory_t}:
+   * Correctness and consistency of identifiers used for model entities.  An
+   * example of inconsistency would be using a species identifier in a
+   * reaction rate formula without first having declared the species.  With
+   * respect to the SBML specification, these concern failures in applying
+   * the validation rules numbered 103xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_UNITS_CONSISTENCY, SBMLErrorCategory_t}:
+   * Consistency of measurement units associated with quantities in a model.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 105xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_MATHML_CONSISTENCY, SBMLErrorCategory_t}:
+   * Syntax of MathML constructs.  With respect to the SBML specification,
+   * these concern failures in applying the validation rules numbered 102xx
+   * in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
    * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL
-   * LIBSBML_CAT_OVERDETERMINED_MODEL@endlink: Static analysis of whether
-   * the system of equations implied by a model is mathematically
-   * overdetermined.  With respect to the SBML specification, this is
-   * validation rule #10601 in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and
-   * Level&nbsp;3 Version&nbsp;1 specifications.
+   * <li> @sbmlconstant{LIBSBML_CAT_SBO_CONSISTENCY, SBMLErrorCategory_t}:
+   * Consistency and validity of %SBO identifiers (if any) used in the model.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 107xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE
-   * LIBSBML_CAT_MODELING_PRACTICE@endlink: Additional checks for
-   * recommended good modeling practice. (These are tests performed by
-   * libSBML and do not have equivalent SBML validation rules.)
+   * <li> @sbmlconstant{LIBSBML_CAT_OVERDETERMINED_MODEL, SBMLErrorCategory_t}:
+   * Static analysis of whether the system of equations implied by a model is
+   * mathematically overdetermined.  With respect to the SBML specification,
+   * this is validation rule #10601 in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_MODELING_PRACTICE, SBMLErrorCategory_t}:
+   * Additional checks for recommended good modeling practice. (These are
+   * tests performed by libSBML and do not have equivalent SBML validation
+   * rules.)
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
@@ -211,54 +206,49 @@ public:
    * The following are the possible choices:
    * @endif@~
    * <ul>
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
-   * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
-   * of specific SBML language constructs.  Performing this set of checks
-   * is highly recommended.  With respect to the SBML specification, these
-   * concern failures in applying the validation rules numbered 2xxxx in
-   * the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1
-   * specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY
-   * LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and
-   * consistency of identifiers used for model entities.  An example of
-   * inconsistency would be using a species identifier in a reaction rate
-   * formula without first having declared the species.  With respect to
+   * <li> @sbmlconstant{LIBSBML_CAT_GENERAL_CONSISTENCY, SBMLErrorCategory_t}: 
+   * Correctness and consistency of specific SBML language constructs.
+   * Performing this set of checks is highly recommended.  With respect to
    * the SBML specification, these concern failures in applying the
-   * validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
-   * and Level&nbsp;3 Version&nbsp;1 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY
-   * LIBSBML_CAT_UNITS_CONSISTENCY@endlink: Consistency of measurement
-   * units associated with quantities in a model.  With respect to the SBML
-   * specification, these concern failures in applying the validation rules
-   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
-   * Version&nbsp;1 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY
-   * LIBSBML_CAT_MATHML_CONSISTENCY@endlink: Syntax of MathML constructs.
-   * With respect to the SBML specification, these concern failures in
-   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * validation rules numbered 2xxxx in the Level&nbsp;2
    * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY
-   * LIBSBML_CAT_SBO_CONSISTENCY@endlink: Consistency and validity of %SBO
-   * identifiers (if any) used in the model.  With respect to the SBML
-   * specification, these concern failures in applying the validation rules
-   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * <li> @sbmlconstant{LIBSBML_CAT_IDENTIFIER_CONSISTENCY, SBMLErrorCategory_t}:
+   * Correctness and consistency of identifiers used for model entities.  An
+   * example of inconsistency would be using a species identifier in a
+   * reaction rate formula without first having declared the species.  With
+   * respect to the SBML specification, these concern failures in applying
+   * the validation rules numbered 103xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_UNITS_CONSISTENCY, SBMLErrorCategory_t}:
+   * Consistency of measurement units associated with quantities in a model.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 105xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_MATHML_CONSISTENCY, SBMLErrorCategory_t}:
+   * Syntax of MathML constructs.  With respect to the SBML specification,
+   * these concern failures in applying the validation rules numbered 102xx
+   * in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
    * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL
-   * LIBSBML_CAT_OVERDETERMINED_MODEL@endlink: Static analysis of whether
-   * the system of equations implied by a model is mathematically
-   * overdetermined.  With respect to the SBML specification, this is
-   * validation rule #10601 in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and
-   * Level&nbsp;3 Version&nbsp;1 specifications.
+   * <li> @sbmlconstant{LIBSBML_CAT_SBO_CONSISTENCY, SBMLErrorCategory_t}: 
+   * Consistency and validity of %SBO identifiers (if any) used in the model.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 107xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE
-   * LIBSBML_CAT_MODELING_PRACTICE@endlink: Additional checks for
-   * recommended good modeling practice. (These are tests performed by
-   * libSBML and do not have equivalent SBML validation rules.)
+   * <li> @sbmlconstant{LIBSBML_CAT_OVERDETERMINED_MODEL, SBMLErrorCategory_t}:
+   * Static analysis of whether the system of equations implied by a model is
+   * mathematically overdetermined.  With respect to the SBML specification,
+   * this is validation rule #10601 in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @sbmlconstant{LIBSBML_CAT_MODELING_PRACTICE, SBMLErrorCategory_t}:
+   * Additional checks for recommended good modeling practice. (These are
+   * tests performed by libSBML and do not have equivalent SBML validation
+   * rules.)
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in

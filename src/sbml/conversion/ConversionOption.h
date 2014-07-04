@@ -74,23 +74,23 @@
  *      <td><strong>Meaning</strong></td>
  *  </tr>
  * <tr>
- * <td><code>@link ConversionOptionType_t#CNV_TYPE_BOOL CNV_TYPE_BOOL@endlink</code></td>
+ * <td><code>@sbmlconstant{CNV_TYPE_BOOL, ConversionOptionType_t}</code></td>
  * <td>Indicates the value type is a Boolean.</td>
  * </tr>
  * <tr>
- * <td><code>@link ConversionOptionType_t#CNV_TYPE_DOUBLE CNV_TYPE_DOUBLE@endlink</code></td>
+ * <td><code>@sbmlconstant{CNV_TYPE_DOUBLE, ConversionOptionType_t}</code></td>
  * <td>Indicates the value type is a double-sized float.</td>
  * </tr>
  * <tr>
- * <td><code>@link ConversionOptionType_t#CNV_TYPE_INT CNV_TYPE_INT@endlink</code></td>
+ * <td><code>@sbmlconstant{CNV_TYPE_INT, ConversionOptionType_t}</code></td>
  * <td>Indicates the value type is an integer.</td>
  * </tr>
  * <tr>
- * <td><code>@link ConversionOptionType_t#CNV_TYPE_SINGLE CNV_TYPE_SINGLE@endlink</code></td>
+ * <td><code>@sbmlconstant{CNV_TYPE_SINGLE, ConversionOptionType_t}</code></td>
  * <td>Indicates the value type is a float.</td>
  * </tr>
  * <tr>
- * <td><code>@link ConversionOptionType_t#CNV_TYPE_STRING CNV_TYPE_STRING@endlink</code></td>
+  * <td><code>@sbmlconstant{CNV_TYPE_STRING, ConversionOptionType_t}</code></td>
  * <td>Indicates the value type is a string.</td>
  * </tr>
  * </table>
@@ -167,7 +167,7 @@ public:
    * @param type the type of this option
    * @param description the description for this option
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, std::string value="",
                    ConversionOptionType_t type=CNV_TYPE_STRING,
@@ -181,7 +181,7 @@ public:
    * @param value the value for this option
    * @param description an optional description
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, const char* value,
                    std::string description="");
@@ -194,7 +194,7 @@ public:
    * @param value the value for this option
    * @param description an optional description
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, bool value,
                    std::string description="");
@@ -207,7 +207,7 @@ public:
    * @param value the value for this option
    * @param description an optional description
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, double value,
                    std::string description="");
@@ -220,7 +220,7 @@ public:
    * @param value the value for this option
    * @param description an optional description
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, float value,
                    std::string description="");
@@ -233,7 +233,7 @@ public:
    * @param value the value for this option
    * @param description an optional description
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ConversionOption(std::string key, int value,
                    std::string description="");
@@ -354,7 +354,7 @@ public:
    * Set the value of this option to a given Boolean value.
    *
    * Invoking this method will also set the type of the option to
-   * @link ConversionOptionType_t#CNV_TYPE_BOOL CNV_TYPE_BOOL@endlink.
+   * @sbmlconstant{CNV_TYPE_BOOL, ConversionOptionType_t}.
    *
    * @param value the Boolean value to set
    */
@@ -373,7 +373,7 @@ public:
    * Set the value of this option to a given @c double value.
    *
    * Invoking this method will also set the type of the option to
-   * @link ConversionOptionType_t#CNV_TYPE_DOUBLE CNV_TYPE_DOUBLE@endlink.
+   * @sbmlconstant{CNV_TYPE_DOUBLE, ConversionOptionType_t}.
    *
    * @param value the value to set
    */
@@ -392,7 +392,7 @@ public:
    * Set the value of this option to a given @c float value.
    *
    * Invoking this method will also set the type of the option to
-   * @link ConversionOptionType_t#CNV_TYPE_SINGLE CNV_TYPE_SINGLE@endlink.
+   * @sbmlconstant{CNV_TYPE_SINGLE, ConversionOptionType_t}.
    *
    * @param value the value to set
    */
@@ -411,7 +411,7 @@ public:
    * Set the value of this option to a given @c int value.
    *
    * Invoking this method will also set the type of the option to
-   * @link ConversionOptionType_t#CNV_TYPE_INT CNV_TYPE_INT@endlink.
+   * @sbmlconstant{CNV_TYPE_INT, ConversionOptionType_t}.
    *
    * @param value the value to set
    */

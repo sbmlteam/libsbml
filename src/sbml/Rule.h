@@ -340,8 +340,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
    * higher Levels of SBML, it has been replaced with a subelement named
@@ -363,8 +363,8 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @note The subelement "math" is present in SBML Levels&nbsp;2
    * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
@@ -388,9 +388,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    */
   int setVariable (const std::string& sid);
 
@@ -403,9 +403,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
    * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
    * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
@@ -419,9 +419,9 @@ public:
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
    * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
    * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
@@ -499,26 +499,12 @@ public:
 
   /**
    * Returns a code representing the type of rule this is.
-   * 
+   *
    * @return the rule type, which will be one of the following three possible
    * values:
-   * @if clike
-   * @li @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * @li @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
-   * @li @link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
-   * @endif@if python
-   * @li @link libsbml.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * @li @link libsbml.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
-   * @li @link libsbml.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
-   * @endif@if java
-   * @li @link libsbmlConstants#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * @li @link libsbmlConstants#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
-   * @li @link libsbmlConstants#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
-   * @endif@if csharp
-   * @li @link libsbmlcs.libsbml.RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * @li @link libsbmlcs.libsbml.RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink
-   * @li @link libsbmlcs.libsbml.RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink
-   * @endif@~
+   * @li @sbmlconstant{RULE_TYPE_RATE, RuleType_t}
+   * @li @sbmlconstant{RULE_TYPE_SCALAR, RuleType_t}
+   * @li @sbmlconstant{RULE_TYPE_INVALID, RuleType_t}
    *
    * @note The attribute "type" on Rule objects is present only in SBML
    * Level&nbsp;1.  In SBML Level&nbsp;2 and later, the type has been
@@ -619,9 +605,9 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object, either
-   * @link SBMLTypeCode_t#SBML_ASSIGNMENT_RULE SBML_ASSIGNMENT_RULE@endlink,
-   * @link SBMLTypeCode_t#SBML_RATE_RULE SBML_RATE_RULE@endlink, or
-   * @link SBMLTypeCode_t#SBML_ALGEBRAIC_RULE SBML_ALGEBRAIC_RULE@endlink 
+   * @sbmlconstant{SBML_ASSIGNMENT_RULE, SBMLTypeCode_t},
+   * @sbmlconstant{SBML_RATE_RULE, SBMLTypeCode_t}, or
+   * @sbmlconstant{SBML_ALGEBRAIC_RULE, SBMLTypeCode_t} 
    * for %SBML Core.
    *
    * @copydetails doc_warning_typecodes_not_unique
@@ -635,23 +621,21 @@ public:
   /**
    * Returns the SBML Level&nbsp;1 type code for this Rule object.
    *
-   * This method only applies to SBML Level&nbsp;1 model objects.  If this
-   * is not an SBML Level&nbsp;1 rule object, this method will return @link
-   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
-   * 
-   * @return the SBML Level&nbsp;1 type code for this Rule (namely, @link
-   * SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
-   * SBML_COMPARTMENT_VOLUME_RULE@endlink, @link
-   * SBMLTypeCode_t#SBML_PARAMETER_RULE SBML_PARAMETER_RULE@endlink, @link
-   * SBMLTypeCode_t#SBML_SPECIES_CONCENTRATION_RULE
-   * SBML_SPECIES_CONCENTRATION_RULE@endlink, or @link
-   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink).
+   * This method only applies to SBML Level&nbsp;1 model objects.  If this is
+   * not an SBML Level&nbsp;1 rule object, this method will return
+   * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}.
+   *
+   * @return the SBML Level&nbsp;1 type code for this Rule (namely,
+   * @sbmlconstant{SBML_COMPARTMENT_VOLUME_RULE, SBMLTypeCode_t},
+   * @sbmlconstant{SBML_PARAMETER_RULE, SBMLTypeCode_t},
+   * @sbmlconstant{SBML_SPECIES_CONCENTRATION_RULE, SBMLTypeCode_t}, or
+   * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}).
    */
   int getL1TypeCode () const;
 
 
   /**
-   * Returns the XML element name of this object
+   * Returns the XML element name of this object.
    *
    * The returned value can be any of a number of different strings,
    * depending on the SBML Level in use and the kind of Rule object this
@@ -689,17 +673,15 @@ public:
   /**
    * Sets the SBML Level&nbsp;1 type code for this Rule.
    *
-   * @param type the SBML Level&nbsp;1 type code for this Rule. The
-   * allowable values are @link SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
-   * SBML_COMPARTMENT_VOLUME_RULE@endlink, @link
-   * SBMLTypeCode_t#SBML_PARAMETER_RULE SBML_PARAMETER_RULE@endlink, and
-   * @link SBMLTypeCode_t#SBML_SPECIES_CONCENTRATION_RULE
-   * SBML_SPECIES_CONCENTRATION_RULE@endlink.
+   * @param type the SBML Level&nbsp;1 type code for this Rule. The allowable
+   * values are @sbmlconstant{SBML_COMPARTMENT_VOLUME_RULE, SBMLTypeCode_t},
+   * @sbmlconstant{SBML_PARAMETER_RULE, SBMLTypeCode_t}, and
+   * @sbmlconstant{SBML_SPECIES_CONCENTRATION_RULE, SBMLTypeCode_t}.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    * if given @p type value is not one of the above.
    */
   int setL1TypeCode (int type);
@@ -912,7 +894,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_RULE SBML_RULE@endlink (default).
+   * @sbmlconstant{SBML_RULE, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -1368,8 +1350,8 @@ Rule_isSetUnits (const Rule_t *r);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
@@ -1395,8 +1377,8 @@ Rule_setFormula (Rule_t *r, const char *formula);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof Rule_t
  */
@@ -1412,9 +1394,9 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "variable" attribute.
@@ -1434,9 +1416,9 @@ Rule_setVariable (Rule_t *r, const char *sid);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
  * @note Using this function with an id of NULL is equivalent to
  * unsetting the "units" attribute.
@@ -1455,8 +1437,8 @@ Rule_setUnits (Rule_t *r, const char *sname);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof Rule_t
  */
@@ -1585,8 +1567,8 @@ Rule_getL1TypeCode (const Rule_t *r);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  *
  * @memberof Rule_t

@@ -96,10 +96,8 @@ PREDEFINED             = __cplusplus  \
 #   csharp:   only C#
 #   conly:    only C
 #   clike:    C, C++
-#   notcpp:   not C++
-#   notclike: not C or C++
 
-ENABLED_SECTIONS       = perl notclike notcpp doxygenPerlOnly 
+ENABLED_SECTIONS       = perl doxygenPerlOnly 
 
 BRIEF_MEMBER_DESC      = YES
 

@@ -46,9 +46,10 @@
  *
  * SBMLLevelVersionConverter is enabled by creating a ConversionProperties
  * object with the option @c "setLevelAndVersion", and passing this
- * properties object to SBMLDocument::convert().  The target SBML Level and
- * Version combination are determined by the value of the SBML namespace set
- * on the ConversionProperties object (using
+ * properties object to SBMLDocument::convert(@if java ConversionProperties
+ * props@endif).  The target SBML Level and Version combination are
+ * determined by the value of the SBML namespace set on the
+ * ConversionProperties object (using
  * ConversionProperties::setTargetNamespaces()).
  *
  * In addition, this converter offers one option:
@@ -180,11 +181,11 @@ public:
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_TARGET_NAMESPACE LIBSBML_CONV_INVALID_TARGET_NAMESPACE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_CONV_INVALID_TARGET_NAMESPACE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_CONV_INVALID_SRC_DOCUMENT, OperationReturnValues_t}
    */
   virtual int convert();
 

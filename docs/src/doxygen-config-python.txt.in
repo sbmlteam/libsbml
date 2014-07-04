@@ -68,10 +68,8 @@ PREDEFINED             = __cplusplus  \
 #   csharp:   only C#
 #   conly:    only C
 #   clike:    C, C++
-#   notcpp:   not C++
-#   notclike: not C or C++
 
-ENABLED_SECTIONS       = python notclike notcpp doxygenPythonOnly
+ENABLED_SECTIONS       = python doxygenPythonOnly hasDefaultArgs
 
 # Because of how we construct the Python documentation, the first sentence in
 # method descriptions will unfortunately always be "Python method signature",

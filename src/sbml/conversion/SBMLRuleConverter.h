@@ -49,7 +49,7 @@
  * assignments are sorted as well.
  *
  * Beginning with SBML Level 2, assignment rules have no ordering
- * required&mdash;the order in which the rules appear in an SBML file has
+ * required---the order in which the rules appear in an SBML file has
  * no significance.  Software tools, however, may need to reorder
  * assignments for purposes of evaluating them.  For example, for
  * simulators that use time integration methods, it would be a good idea to
@@ -74,7 +74,8 @@
  *
  * SBMLRuleConverter is enabled by creating a ConversionProperties object
  * with the option @c "sortRules", and passing this properties object to
- * SBMLDocument::convert().  This converter offers no other options.
+ * SBMLDocument::convert(@if java ConversionProperties props@endif).  This
+ * converter offers no other options.
  *
  * @copydetails doc_section_using_sbml_converters
  */
@@ -167,9 +168,9 @@ public:
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_CONV_INVALID_SRC_DOCUMENT, OperationReturnValues_t}
    */
   virtual int convert();
 

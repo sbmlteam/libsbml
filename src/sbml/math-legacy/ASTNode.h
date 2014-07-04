@@ -285,18 +285,17 @@ public:
   /**
    * Creates and returns a new ASTNode.
    *
-   * Unless the argument @p type is given, the returned node will by
-   * default have a type of @link ASTNodeType_t#AST_UNKNOWN
-   * AST_UNKNOWN@endlink.  If the type isn't supplied when caling this
-   * constructor, the caller should set the node type to something else as
-   * soon as possible using
-   * @if clike setType()@else ASTNode::setType(int)@endif.
+   * Unless the argument @p type is given, the returned node will by default
+   * have a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  If the type
+   * isn't supplied when caling this constructor, the caller should set the
+   * node type to something else as soon as possible using @if clike
+   * setType()@else ASTNode::setType(int)@endif.
    *
    * @param type an optional
    * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif@~
    * code indicating the type of node to create.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
@@ -339,14 +338,13 @@ public:
    * Frees the name of this ASTNode and sets it to @c NULL.
    * 
    * This operation is only applicable to ASTNode objects corresponding to
-   * operators, numbers, or @link ASTNodeType_t#AST_UNKNOWN
-   * AST_UNKNOWN@endlink.  This method has no effect on other types of
+   * operators, numbers, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  This method has no effect on other types of
    * nodes.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int freeName ();
@@ -359,13 +357,12 @@ public:
    * The rules determining the canonical form conversion are as follows:
    * <ul>
    *
-   * <li> If the node type is @link ASTNodeType_t#AST_NAME AST_NAME@endlink
+   * <li> If the node type is @sbmlconstant{AST_NAME, ASTNodeType_t}
    * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
    * "False" the node type is converted to the corresponding 
    * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
    *
-   * <li> If the node type is an @link ASTNodeType_t#AST_FUNCTION
-   * AST_FUNCTION@endlink and the node name matches an SBML (MathML) function name, logical operator name, or
+   * <li> If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and the node name matches an SBML (MathML) function name, logical operator name, or
    * relational operator name, the node is converted to the corresponding
    * <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or
    * <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.
@@ -373,18 +370,16 @@ public:
    * </ul>
    *
    * SBML Level&nbsp;1 function names are searched first; thus, for
-   * example, canonicalizing @c log will result in a node type of @link
-   * ASTNodeType_t#AST_FUNCTION_LN AST_FUNCTION_LN@endlink.  (See the SBML
+   * example, canonicalizing @c log will result in a node type of @sbmlconstant{AST_FUNCTION_LN, ASTNodeType_t}.  (See the SBML
    * Level&nbsp;1 Version&nbsp;2 Specification, Appendix C.)
    *
    * Sometimes, canonicalization of a node results in a structural
    * conversion of the node as a result of adding a child.  For example, a
    * node with the SBML Level&nbsp;1 function name @c sqr and a single
    * child node (the argument) will be transformed to a node of type
-   * @link ASTNodeType_t#AST_FUNCTION_POWER AST_FUNCTION_POWER@endlink with
+   * @sbmlconstant{AST_FUNCTION_POWER, ASTNodeType_t} with
    * two children.  The first child will remain unchanged, but the second
-   * child will be an ASTNode of type @link ASTNodeType_t#AST_INTEGER
-   * AST_INTEGER@endlink and a value of 2.  The function names that result
+   * child will be an ASTNode of type @sbmlconstant{AST_INTEGER, ASTNodeType_t} and a value of 2.  The function names that result
    * in structural changes are: @c log10, @c sqr, and @c sqrt.
    */
   LIBSBML_EXTERN
@@ -400,8 +395,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @copydetails doc_warning_modifying_structure
    *
@@ -423,8 +418,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @copydetails doc_warning_modifying_structure
    *
@@ -444,8 +439,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function. The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    *
    * @copydetails doc_warning_modifying_structure
    *
@@ -466,9 +461,9 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @copydetails doc_warning_modifying_structure
    *
@@ -490,9 +485,9 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @copydetails doc_warning_modifying_structure
    *
@@ -586,8 +581,8 @@ getChild( getNumChildren() - 1 );
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @note Although SBML permits the semantic annotation construct in
    * MathML expressions, the truth is that this construct has so far (at
@@ -642,7 +637,7 @@ getChild( getNumChildren() - 1 );
    *
    * For portability between different programming languages, the predicate
    * is passed in as a pointer to a function.  @if clike The function
-   * definition must have the type @link ASTNode.h::ASTNodePredicate
+   * definition must have the type @sbmlconstant{AST_PLUS, ASTNode.h::ASTNodePredicate
    * ASTNodePredicate@endlink, which is defined as
    * @verbatim
 int (*ASTNodePredicate) (const ASTNode *node);
@@ -699,11 +694,11 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * This function should be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~ returns
-   * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
-   * @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink,
-   * @link ASTNodeType_t#AST_TIMES AST_TIMES@endlink,
-   * @link ASTNodeType_t#AST_DIVIDE AST_DIVIDE@endlink or
-   * @link ASTNodeType_t#AST_POWER AST_POWER@endlink.
+   * @sbmlconstant{AST_PLUS, ASTNodeType_t},
+   * @sbmlconstant{AST_MINUS, ASTNodeType_t},
+   * @sbmlconstant{AST_TIMES, ASTNodeType_t},
+   * @sbmlconstant{AST_DIVIDE, ASTNodeType_t} or
+   * @sbmlconstant{AST_POWER, ASTNodeType_t}.
    *
    * @return the value of this ASTNode as a single character
    */
@@ -742,8 +737,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Gets the value of this node as an integer.
    *
    * This function should be called only when @if clike getType()@else
-   * ASTNode::getType()@endif@~ <code>== @link ASTNodeType_t#AST_INTEGER
-   * AST_INTEGER@endlink</code>.
+   * ASTNode::getType()@endif@~ <code>== @sbmlconstant{AST_INTEGER, ASTNodeType_t}</code>.
    *
    * @return the value of this ASTNode as a (<code>long</code>) integer.
    */
@@ -782,7 +776,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Gets the value of the numerator of this node.  This function should be
    * called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
-   * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
+   * <code>== @sbmlconstant{AST_RATIONAL, ASTNodeType_t}</code>.
    * 
    * @return the value of the numerator of this ASTNode.  
    */
@@ -794,7 +788,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Gets the value of the denominator of this node.  This function should
    * be called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
-   * <code>== @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink</code>.
+   * <code>== @sbmlconstant{AST_RATIONAL, ASTNodeType_t}</code>.
    * 
    * @return the value of the denominator of this ASTNode.
    */
@@ -809,9 +803,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * <code>== true</code>.
    *
    * This function performs the necessary arithmetic if the node type is
-   * @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink (<em>mantissa *
-   * 10<sup> exponent</sup></em>) or @link ASTNodeType_t#AST_RATIONAL
-   * AST_RATIONAL@endlink (<em>numerator / denominator</em>).
+   * @sbmlconstant{AST_REAL_E, ASTNodeType_t} (<em>mantissa *
+   * 10<sup> exponent</sup></em>) or @sbmlconstant{AST_RATIONAL, ASTNodeType_t} (<em>numerator / denominator</em>).
    * 
    * @return the value of this ASTNode as a real (double).
    */
@@ -822,10 +815,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Gets the mantissa value of this node.  This function should be called
    * only when @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
-   * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
+   * returns @sbmlconstant{AST_REAL_E, ASTNodeType_t}
+   * or @sbmlconstant{AST_REAL, ASTNodeType_t}.
    * If @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL AST_REAL@endlink,
+   * returns @sbmlconstant{AST_REAL, ASTNodeType_t},
    * this method is identical to
    * @if clike getReal()@else ASTNode::getReal()@endif.
    * 
@@ -839,8 +832,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Gets the exponent value of this ASTNode.  This function should be
    * called only when
    * @if clike getType()@else ASTNode::getType()@endif@~
-   * returns @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink
-   * or @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
+   * returns @sbmlconstant{AST_REAL_E, ASTNodeType_t}
+   * or @sbmlconstant{AST_REAL, ASTNodeType_t}.
    * 
    * @return the value of the exponent of this ASTNode.
    */
@@ -862,8 +855,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Gets the type of this ASTNode.  The value returned is one of the
-   * enumeration values such as @link ASTNodeType_t#AST_LAMBDA
-   * AST_LAMBDA@endlink, @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
+   * enumeration values such as @sbmlconstant{AST_LAMBDA, ASTNodeType_t}, @sbmlconstant{AST_PLUS, ASTNodeType_t},
    * etc.
    * 
    * @return the type of this ASTNode.
@@ -943,8 +935,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * 
    * @return @c true if this ASTNode is a MathML constant, @c false otherwise.
    * 
-   * @note this function will also return @c true for @link
-   * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink in SBML Level&nbsp;3.
+   * @note this function will also return @c true for @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} in SBML Level&nbsp;3.
    */
   LIBSBML_EXTERN
   bool isConstant () const;
@@ -976,8 +967,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node contains an
    * integer value, @c false (zero) otherwise.
    *
-   * @return @c true if this ASTNode is of type @link
-   * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink, @c false otherwise.
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_INTEGER, ASTNodeType_t}, @c false otherwise.
    */
   LIBSBML_EXTERN
   bool isInteger () const;
@@ -987,8 +977,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node is a MathML
    * <code>&lt;lambda&gt;</code>, @c false (zero) otherwise.
    * 
-   * @return @c true if this ASTNode is of type @link ASTNodeType_t#AST_LAMBDA
-   * AST_LAMBDA@endlink, @c false otherwise.
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_LAMBDA, ASTNodeType_t}, @c false otherwise.
    */
   LIBSBML_EXTERN
   bool isLambda () const;
@@ -997,10 +986,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true (non-zero) if this node represents a 
    * @c log10 function, @c false (zero) otherwise.  More precisely, this
-   * predicate returns @c true if the node type is @link
-   * ASTNodeType_t#AST_FUNCTION_LOG AST_FUNCTION_LOG@endlink with two
-   * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
-   * AST_INTEGER@endlink equal to 10.
+   * predicate returns @c true if the node type is @sbmlconstant{AST_FUNCTION_LOG, ASTNodeType_t} with two
+   * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to 10.
    * 
    * @return @c true if the given ASTNode represents a log10() function, @c
    * false otherwise.
@@ -1097,8 +1084,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node represents a rational
    * number, @c false (zero) otherwise.
    * 
-   * @return @c true if this ASTNode is of type @link
-   * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
    */
   LIBSBML_EXTERN
   bool isRational () const;
@@ -1108,10 +1094,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node can represent a
    * real number, @c false (zero) otherwise.
    *
-   * More precisely, this node must be of one of the following types: @link
-   * ASTNodeType_t#AST_REAL AST_REAL@endlink, @link ASTNodeType_t#AST_REAL_E
-   * AST_REAL_E@endlink or @link ASTNodeType_t#AST_RATIONAL
-   * AST_RATIONAL@endlink.
+   * More precisely, this node must be of one of the following types: @sbmlconstant{AST_REAL, ASTNodeType_t}, @sbmlconstant{AST_REAL_E, ASTNodeType_t} or @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
    *
    * @return @c true if the value of this ASTNode can represented as a real
    * number, @c false otherwise.
@@ -1136,10 +1119,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node represents a
    * square root function, @c false (zero) otherwise.
    *
-   * More precisely, the node type must be @link
-   * ASTNodeType_t#AST_FUNCTION_ROOT AST_FUNCTION_ROOT@endlink with two
-   * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
-   * AST_INTEGER@endlink node having value equal to 2.
+   * More precisely, the node type must be @sbmlconstant{AST_FUNCTION_ROOT, ASTNodeType_t} with two
+   * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} node having value equal to 2.
    * 
    * @return @c true if the given ASTNode represents a sqrt() function,
    * @c false otherwise.
@@ -1152,8 +1133,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true (non-zero) if this node is a unary minus
    * operator, @c false (zero) otherwise.
    *
-   * A node is defined as a unary minus node if it is of type @link
-   * ASTNodeType_t#AST_MINUS AST_MINUS@endlink and has exactly one child.
+   * A node is defined as a unary minus node if it is of type @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
    *
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, 
@@ -1162,7 +1142,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
    * has a configuration option that allows this behavior to be turned
    * on or off.  However, unary minus nodes for symbols
-   * (@link ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot
+   * (@sbmlconstant{AST_NAME, ASTNodeType_t}) cannot
    * be "collapsed", so this predicate function is necessary.
    * 
    * @return @c true if this ASTNode is a unary minus, @c false otherwise.
@@ -1179,8 +1159,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true (non-zero) if this node is a unary plus
    * operator, @c false (zero) otherwise.  A node is defined as a unary
-   * minus node if it is of type @link ASTNodeType_t#AST_MINUS
-   * AST_MINUS@endlink and has exactly one child.
+   * minus node if it is of type @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
    *
    * @return @c true if this ASTNode is a unary plus, @c false otherwise.
    */
@@ -1204,17 +1183,14 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true (non-zero) if this node has an unknown type.
    *
-   * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
-   * AST_UNKNOWN@endlink.  Nodes with unknown types will not appear in an
+   * "Unknown" nodes have the type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  Nodes with unknown types will not appear in an
    * ASTNode tree returned by libSBML based upon valid SBML input; the only
-   * situation in which a node with type @link ASTNodeType_t#AST_UNKNOWN
-   * AST_UNKNOWN@endlink may appear is immediately after having create a
+   * situation in which a node with type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} may appear is immediately after having create a
    * new, untyped node using the ASTNode constructor.  Callers creating
    * nodes should endeavor to set the type to a valid node type as soon as
    * possible after creating new nodes.
    * 
-   * @return @c true if this ASTNode is of type @link
-   * ASTNodeType_t#AST_UNKNOWN AST_UNKNOWN@endlink, @c false otherwise.
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}, @c false otherwise.
    */
   LIBSBML_EXTERN
   bool isUnknown () const;
@@ -1285,14 +1261,14 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Sets the value of this ASTNode to the given character.  If character
    * is one of @c +, @c -, <code>*</code>, <code>/</code> or @c ^, the node
    * type will be set accordingly.  For all other characters, the node type
-   * will be set to @link ASTNodeType_t#AST_UNKNOWN AST_UNKNOWN@endlink.
+   * will be set to @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.
    *
    * @param value the character value to which the node's value should be
    * set.
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setCharacter (char value);
@@ -1305,7 +1281,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setId (std::string id);
@@ -1318,7 +1294,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setClass (std::string className);
@@ -1331,7 +1307,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setStyle (std::string style);
@@ -1341,21 +1317,20 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Sets the value of this ASTNode to the given name.
    *
    * As a side-effect, this ASTNode object's type will be reset to
-   * @link ASTNodeType_t#AST_NAME AST_NAME@endlink if (and <em>only
+   * @sbmlconstant{AST_NAME, ASTNodeType_t} if (and <em>only
    * if</em>) the ASTNode was previously an operator (
    * @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * <code>== true</code>), number (
    * @if clike isNumber()@else ASTNode::isNumber()@endif@~
    * <code>== true</code>), or unknown.
-   * This allows names to be set for @link ASTNodeType_t#AST_FUNCTION
-   * AST_FUNCTION@endlink nodes and the like.
+   * This allows names to be set for @sbmlconstant{AST_FUNCTION, ASTNodeType_t} nodes and the like.
    *
    * @param name the string containing the name to which this node's value
    * should be set
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setName (const char *name);
@@ -1363,13 +1338,13 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Sets the value of this ASTNode to the given integer and sets the node
-   * type to @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   * type to @sbmlconstant{AST_INTEGER, ASTNodeType_t}.
    *
    * @param value the integer to which this node's value should be set
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setValue (int value);
@@ -1377,13 +1352,13 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Sets the value of this ASTNode to the given (@c long) integer and sets
-   * the node type to @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+   * the node type to @sbmlconstant{AST_INTEGER, ASTNodeType_t}.
    *
    * @param value the integer to which this node's value should be set
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setValue (long value);
@@ -1391,15 +1366,14 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Sets the value of this ASTNode to the given rational in two parts: the
-   * numerator and denominator.  The node type is set to @link
-   * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * numerator and denominator.  The node type is set to @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
    *
    * @param numerator the numerator value of the rational
    * @param denominator the denominator value of the rational
    *
    * @return integer value indicating success/failure of the function.  The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setValue (long numerator, long denominator);
@@ -1407,7 +1381,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Sets the value of this ASTNode to the given real (@c double) and sets
-   * the node type to @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
+   * the node type to @sbmlconstant{AST_REAL, ASTNodeType_t}.
    *
    * This is functionally equivalent to:
    * @verbatim
@@ -1418,9 +1392,7 @@ setValue(value, 0);
    * should be set
    *
    * @return integer value indicating success/failure of the function.  The
-   * possible values returned by this function are: @li @link
-   * OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS
-   * LIBSBML_OPERATION_SUCCESS@endlink
+   * possible values returned by this function are: @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setValue (double value);
@@ -1429,14 +1401,14 @@ setValue(value, 0);
   /**
    * Sets the value of this ASTNode to the given real (@c double) in two
    * parts: the mantissa and the exponent.  The node type is set to
-   * @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink.
+   * @sbmlconstant{AST_REAL_E, ASTNodeType_t}.
    *
    * @param mantissa the mantissa of this node's real-numbered value
    * @param exponent the exponent of this node's real-numbered value
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setValue (double mantissa, long exponent);
@@ -1449,8 +1421,8 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note A side-effect of doing this is that any numerical values previously
    * stored in this node are reset to zero.
@@ -1474,9 +1446,9 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
@@ -1494,8 +1466,8 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int swapChildren (ASTNode *that);
@@ -1541,9 +1513,9 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int unsetUnits ();
@@ -1553,8 +1525,8 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int unsetId ();
@@ -1565,8 +1537,8 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int unsetClass ();
@@ -1577,8 +1549,8 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int unsetStyle ();
@@ -1593,7 +1565,7 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setSemanticsFlag();
@@ -1606,7 +1578,7 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int unsetSemanticsFlag();
@@ -1628,7 +1600,7 @@ setValue(value, 0);
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   LIBSBML_EXTERN
   int setDefinitionURL(XMLAttributes url);
@@ -1706,8 +1678,8 @@ setValue(value, 0);
   *
   * @return integer value indicating success/failure of the
   * function.  The possible values returned by this function are:
-  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
   */
   LIBSBML_EXTERN
   int setUserData(void *userData);
@@ -1746,8 +1718,7 @@ setValue(value, 0);
   * Returns @c true or @c false depending on whether this
   * ASTNode has the correct number of children for its type.
   *
-  * For example, an ASTNode with type @link ASTNodeType_t#AST_PLUS
-  * AST_PLUS@endlink expects 2 child nodes.
+  * For example, an ASTNode with type @sbmlconstant{AST_PLUS, ASTNodeType_t} expects 2 child nodes.
   *
   * @note This function performs a check on the top-level node only.  Child
   * nodes are not checked.
@@ -1933,17 +1904,16 @@ ASTNode_free (ASTNode_t *node);
  * Frees the name field of a given node and sets it to null.
  *
  * This operation is only applicable to ASTNode_t structures corresponding to
- * operators, numbers, or @link ASTNodeType_t#AST_UNKNOWN
- * AST_UNKNOWN@endlink.  This method will have no effect on other types of
+ * operators, numbers, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  This method will have no effect on other types of
  * nodes.
  *
  * @param node the node whose name field should be freed.
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -1958,29 +1928,26 @@ ASTNode_freeName (ASTNode_t *node);
  *
  * The rules determining the canonical form conversion are as follows:
  *
- * @li If the node type is @link ASTNodeType_t#AST_NAME AST_NAME@endlink
+ * @li If the node type is @sbmlconstant{AST_NAME, ASTNodeType_t}
  * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
  * "False" the node type is converted to the corresponding 
  * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
- * @li If the node type is an @link ASTNodeType_t#AST_FUNCTION
- * AST_FUNCTION@endlink and the node name matches an SBML (MathML) function name, logical operator name, or
+ * @li If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and the node name matches an SBML (MathML) function name, logical operator name, or
  * relational operator name, the node is converted to the corresponding
  * <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or
  * <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.
  *
  * SBML Level&nbsp;1 function names are searched first; thus, for
- * example, canonicalizing @c log will result in a node type of @link
- * ASTNodeType_t#AST_FUNCTION_LN AST_FUNCTION_LN@endlink.  (See the SBML
+ * example, canonicalizing @c log will result in a node type of @sbmlconstant{AST_FUNCTION_LN, ASTNodeType_t}.  (See the SBML
  * Level&nbsp;1 Version&nbsp;2 Specification, Appendix C.)
  *
  * Sometimes, canonicalization of a node results in a structural
  * conversion of the node as a result of adding a child.  For example, a
  * node with the SBML Level&nbsp;1 function name @c sqr and a single
  * child node (the argument) will be transformed to a node of type
- * @link ASTNodeType_t#AST_FUNCTION_POWER AST_FUNCTION_POWER@endlink with
+ * @sbmlconstant{AST_FUNCTION_POWER, ASTNodeType_t} with
  * two children.  The first child will remain unchanged, but the second
- * child will be an ASTNode of type @link ASTNodeType_t#AST_INTEGER
- * AST_INTEGER@endlink and a value of 2.  The function names that result
+ * child will be an ASTNode of type @sbmlconstant{AST_INTEGER, ASTNodeType_t} and a value of 2.  The function names that result
  * in structural changes are: @c log10, @c sqr, and @c sqrt.
  *
  * @param node the node to be converted.
@@ -2004,9 +1971,9 @@ ASTNode_canonicalize (ASTNode_t *node);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @copydetails doc_warning_modifying_structure
  *
@@ -2033,9 +2000,9 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @copydetails doc_warning_modifying_structure
  *
@@ -2059,9 +2026,9 @@ ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child);
  *
  * @return integer value indicating success/failure of the
  * function. The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @copydetails doc_warning_modifying_structure
  *
@@ -2086,9 +2053,9 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @copydetails doc_warning_modifying_structure
  *
@@ -2115,9 +2082,9 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @copydetails doc_warning_modifying_structure
  *
@@ -2237,19 +2204,19 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  * non-zero).
  *
  * The predicate is passed in as a pointer to a function.  The function
- * definition must have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
- *@endlink, which is defined as
+ * definition must have the type @link ASTNode.h::ASTNodePredicate
+ * ASTNodePredicate@endlink, which is defined as
  * @verbatim
  int (*ASTNodePredicate) (const ASTNode_t *node);
  @endverbatim
- * where a return value of non-zero represents true and zero
+ * where a return value of nonzero represents true and zero
  * represents false.
  *
  * @param node the node at which the search is to be started
  * @param predicate the predicate to use
  *
  * @return the list of nodes for which the predicate returned true (i.e.,
- * non-zero).  The List_t structure returned is owned by the caller and
+ * nonzero).  The List_t structure returned is owned by the caller and
  * should be deleted after the caller is done using it.  The ASTNode_t
  * structures in the list, however, are @em not owned by the caller (as they
  * still belong to the tree itself), and therefore should @em not be deleted.
@@ -2271,7 +2238,7 @@ ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
  * of creating a new List_t structure, it uses the one passed in as argument
  * @p lst.  This function performs a depth-first search of the tree rooted at
  * the given ASTNode_t structure, and adds to @p lst the nodes for which the
- * given function <code>predicate(node)</code> returns true (i.e., non-zero).
+ * given function <code>predicate(node)</code> returns true (i.e., nonzero).
  *
  * The predicate is passed in as a pointer to a function.  The function
  * definition must have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
@@ -2301,11 +2268,11 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
  * Gets the value of a node as a single character.
  *
  * This function should be called only when ASTNode_getType() returns
- * @link ASTNodeType_t#AST_PLUS AST_PLUS@endlink,
- * @link ASTNodeType_t#AST_MINUS AST_MINUS@endlink,
- * @link ASTNodeType_t#AST_TIMES AST_TIMES@endlink,
- * @link ASTNodeType_t#AST_DIVIDE AST_DIVIDE@endlink or
- * @link ASTNodeType_t#AST_POWER AST_POWER@endlink for the given
+ * @sbmlconstant{AST_PLUS, ASTNodeType_t},
+ * @sbmlconstant{AST_MINUS, ASTNodeType_t},
+ * @sbmlconstant{AST_TIMES, ASTNodeType_t},
+ * @sbmlconstant{AST_DIVIDE, ASTNodeType_t} or
+ * @sbmlconstant{AST_POWER, ASTNodeType_t} for the given
  * @p node.
  *
  * @param node the node whose value is to be returned.
@@ -2323,8 +2290,7 @@ ASTNode_getCharacter (const ASTNode_t *node);
 /**
  * Gets the value of a node as an integer.
  *
- * This function should be called only when ASTNode_getType() returns @link
- * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink for the given @p node.
+ * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_INTEGER, ASTNodeType_t} for the given @p node.
  *
  * @param node the node whose value is to be returned.
  *
@@ -2359,8 +2325,7 @@ ASTNode_getName (const ASTNode_t *node);
 /**
  * Gets the numerator value of a node representing a rational number.
  *
- * This function should be called only when ASTNode_getType() returns @link
- * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink for the given @p node.
+ * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_RATIONAL, ASTNodeType_t} for the given @p node.
  *
  * @param node the node whose value is to be returned.
 
@@ -2379,8 +2344,7 @@ ASTNode_getNumerator (const ASTNode_t *node);
 /**
  * Gets the numerator value of a node representing a rational number.
  *
- * This function should be called only when ASTNode_getType() returns @link
- * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink for the given @p node.
+ * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_RATIONAL, ASTNodeType_t} for the given @p node.
  *
  * @param node the node whose value is to be returned.
  *
@@ -2401,9 +2365,8 @@ ASTNode_getDenominator (const ASTNode_t *node);
  *
  * This function should be called only when ASTNode_isReal() returns non-zero
  * for @p node. This function performs the necessary arithmetic if the node
- * type is @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink (<em>mantissa *
- * 10<sup> exponent</sup></em>) or @link ASTNodeType_t#AST_RATIONAL
- * AST_RATIONAL@endlink (<em>numerator / denominator</em>).
+ * type is @sbmlconstant{AST_REAL_E, ASTNodeType_t} (<em>mantissa *
+ * 10<sup> exponent</sup></em>) or @sbmlconstant{AST_RATIONAL, ASTNodeType_t} (<em>numerator / denominator</em>).
  *
  * @param node the node whose value is to be returned.
  *
@@ -2420,10 +2383,8 @@ ASTNode_getReal (const ASTNode_t *node);
 /**
  * Get the mantissa value of a node.
  *
- * This function should be called only when ASTNode_getType() returns @link
- * ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink or @link
- * ASTNodeType_t#AST_REAL AST_REAL@endlink for the given @p node.  If
- * ASTNode_getType() returns @link ASTNodeType_t#AST_REAL AST_REAL@endlink
+ * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_REAL_E, ASTNodeType_t} or @sbmlconstant{AST_REAL, ASTNodeType_t} for the given @p node.  If
+ * ASTNode_getType() returns @sbmlconstant{AST_REAL, ASTNodeType_t}
  * for @p node, this method behaves identically to ASTNode_getReal().
  *
  * @param node the node whose value is to be returned.
@@ -2440,9 +2401,7 @@ ASTNode_getMantissa (const ASTNode_t *node);
 /**
  * Get the exponent value of a node.
  *
- * This function should be called only when ASTNode_getType() returns @link
- * ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink or @link
- * ASTNodeType_t#AST_REAL AST_REAL@endlink for the given @p node.
+ * This function should be called only when ASTNode_getType() returns @sbmlconstant{AST_REAL_E, ASTNodeType_t} or @sbmlconstant{AST_REAL, ASTNodeType_t} for the given @p node.
  *
  * @param node the node whose value is to be returned.
  *
@@ -2693,8 +2652,7 @@ ASTNode_isInfinity (const ASTNode_t *node);
  *
  * @param node the node to query
  *
- * @return @c 1 if @p node is of type @link ASTNodeType_t#AST_INTEGER
- * AST_INTEGER@endlink, @c 0 otherwise.
+ * @return @c 1 if @p node is of type @sbmlconstant{AST_INTEGER, ASTNodeType_t}, @c 0 otherwise.
  *
  * @memberof ASTNode_t
  */
@@ -2708,8 +2666,7 @@ ASTNode_isInteger (const ASTNode_t *node);
  *
  * @param node the node to query
  *
- * @return @c 1 if @p node is of type @link ASTNodeType_t#AST_LAMBDA
- * AST_LAMBDA@endlink, @c 0 otherwise.
+ * @return @c 1 if @p node is of type @sbmlconstant{AST_LAMBDA, ASTNodeType_t}, @c 0 otherwise.
  *
  * @memberof ASTNode_t
  */
@@ -2721,10 +2678,8 @@ ASTNode_isLambda (const ASTNode_t *node);
 /**
  * Returns true if the given node represents the log base-10 function.
  *
- * More precisely, this function tests if the given @p node's type is @link
- * ASTNodeType_t#AST_FUNCTION_LOG AST_FUNCTION_LOG@endlink with two
- * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
- * AST_INTEGER@endlink equal to @c 10.
+ * More precisely, this function tests if the given @p node's type is @sbmlconstant{AST_FUNCTION_LOG, ASTNodeType_t} with two
+ * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to @c 10.
  *
  * @return @c 1 if @p node represents a log10() function, @c 0
  * otherwise.
@@ -2858,8 +2813,7 @@ ASTNode_isPiecewise (const ASTNode_t *node);
  *
  * @param node the node to query
  *
- * @return @c 1 if @p node is of type @link
- * ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink, @c 0 otherwise.
+ * @return @c 1 if @p node is of type @sbmlconstant{AST_RATIONAL, ASTNodeType_t}, @c 0 otherwise.
  *
  * @memberof ASTNode_t
  */
@@ -2871,10 +2825,7 @@ ASTNode_isRational (const ASTNode_t *node);
 /**
  * Returns true if the given node represents a real number.
  *
- * More precisely, this node must be of one of the following types: @link
- * ASTNodeType_t#AST_REAL AST_REAL@endlink, @link ASTNodeType_t#AST_REAL_E
- * AST_REAL_E@endlink or @link ASTNodeType_t#AST_RATIONAL
- * AST_RATIONAL@endlink.
+ * More precisely, this node must be of one of the following types: @sbmlconstant{AST_REAL, ASTNodeType_t}, @sbmlconstant{AST_REAL_E, ASTNodeType_t} or @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
  *
  * @param node the node to query
  *
@@ -2907,10 +2858,8 @@ ASTNode_isRelational (const ASTNode_t *node);
 /**
  * Returns true if the given node is the MathML square-root operator.
  *
- * More precisely, the node type must be @link
- * ASTNodeType_t#AST_FUNCTION_ROOT AST_FUNCTION_ROOT@endlink with two
- * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
- * AST_INTEGER@endlink node having value equal to 2.
+ * More precisely, the node type must be @sbmlconstant{AST_FUNCTION_ROOT, ASTNodeType_t} with two
+ * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} node having value equal to 2.
  *
  * @param node the node to query
  *
@@ -2926,14 +2875,12 @@ ASTNode_isSqrt (const ASTNode_t *node);
 /**
  * Returns true if the given node represents a unary minus.
  *
- * A node is defined as a unary minus node if it is of type @link
- * ASTNodeType_t#AST_MINUS AST_MINUS@endlink and has exactly one child.
+ * A node is defined as a unary minus node if it is of type @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
  *
  * For numbers, unary minus nodes can be "collapsed" by negating the number.
  * In fact, SBML_parseFormula() does this during its parsing process, and
  * SBML_parseL3Formula() has a configuration option that allows this behavior
- * to be turned on or off.  However, unary minus nodes for symbols (@link
- * ASTNodeType_t#AST_NAME AST_NAME@endlink) cannot be "collapsed", so this
+ * to be turned on or off.  However, unary minus nodes for symbols (@sbmlconstant{AST_NAME, ASTNodeType_t}) cannot be "collapsed", so this
  * predicate function is still necessary.
  *
  * @param node the node to query
@@ -2952,8 +2899,7 @@ ASTNode_isUMinus (const ASTNode_t *node);
 /**
  * Returns true if the given node is a unary plus.
  *
- * A node is defined as a unary minus node if it is of type @link
- * ASTNodeType_t#AST_MINUS AST_MINUS@endlink and has exactly one child.
+ * A node is defined as a unary minus node if it is of type @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
  *
  * @param node the node to query
  *
@@ -2991,11 +2937,9 @@ ASTNode_hasTypeAndNumChildren(const ASTNode_t *node, ASTNodeType_t type, unsigne
 /**
  * Returns true if the type of the node is unknown.
  *
- * "Unknown" nodes have the type @link ASTNodeType_t#AST_UNKNOWN
- * AST_UNKNOWN@endlink.  Nodes with unknown types will not appear in an
+ * "Unknown" nodes have the type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  Nodes with unknown types will not appear in an
  * ASTNode tree returned by libSBML based upon valid SBML input; the only
- * situation in which a node with type @link ASTNodeType_t#AST_UNKNOWN
- * AST_UNKNOWN@endlink may appear is immediately after having create a new,
+ * situation in which a node with type @sbmlconstant{AST_UNKNOWN, ASTNodeType_t} may appear is immediately after having create a new,
  * untyped node using the ASTNode_t constructor.  Callers creating nodes
  * should endeavor to set the type to a valid node type as soon as possible
  * after creating new nodes.
@@ -3099,15 +3043,15 @@ ASTNode_hasUnits (const ASTNode_t *node);
  *
  * If character is one of @c +, @c -, <code>*</code>, <code>/</code> or @c ^,
  * the node type will be set accordingly.  For all other characters, the node
- * type will be set to @link ASTNodeType_t#AST_UNKNOWN AST_UNKNOWN@endlink.
+ * type will be set to @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.
  *
  * @param node the node to set
  * @param value the character value for the node.
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3119,11 +3063,10 @@ ASTNode_setCharacter (ASTNode_t *node, char value);
 /**
  * Sets the node to represent a named entity.
  *
- * As a side-effect, this ASTNode object's type will be reset to @link
- * ASTNodeType_t#AST_NAME AST_NAME@endlink if (and <em>only if</em>) the @p
+ * As a side-effect, this ASTNode object's type will be reset to @sbmlconstant{AST_NAME, ASTNodeType_t} if (and <em>only if</em>) the @p
  * node was previously an operator (i.e., ASTNode_isOperator() returns true),
  * number (i.e., ASTNode_isNumber() returns true), or unknown.  This allows
- * names to be set for @link ASTNodeType_t#AST_FUNCTION AST_FUNCTION@endlink
+ * names to be set for @sbmlconstant{AST_FUNCTION, ASTNodeType_t}
  * nodes and the like.
  *
  * @param node the node to set
@@ -3131,8 +3074,8 @@ ASTNode_setCharacter (ASTNode_t *node, char value);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3143,15 +3086,15 @@ ASTNode_setName (ASTNode_t *node, const char *name);
 
 /**
  * Sets the given node to a integer and sets it type
- * to @link ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink.
+ * to @sbmlconstant{AST_INTEGER, ASTNodeType_t}.
  *
  * @param node the node to set
  * @param value the value to set it to
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3162,7 +3105,7 @@ ASTNode_setInteger (ASTNode_t *node, long value);
 
 /**
  * Sets the value of a given node to a rational number and sets its type to
- * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+ * @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
  *
  * @param node the node to set
  * @param numerator the numerator value to use
@@ -3170,8 +3113,8 @@ ASTNode_setInteger (ASTNode_t *node, long value);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3182,7 +3125,7 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator);
 
 /**
  * Sets the value of a given node to a real (@c double) and sets its type to
- * @link ASTNodeType_t#AST_REAL AST_REAL@endlink.
+ * @sbmlconstant{AST_REAL, ASTNodeType_t}.
  *
  * This is functionally equivalent to:
  * @verbatim
@@ -3194,8 +3137,8 @@ ASTNode_setRealWithExponent(node, value, 0);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3208,8 +3151,7 @@ ASTNode_setReal (ASTNode_t *node, double value);
  * Sets the value of a given node to a real (@c double) in two parts, a
  * mantissa and an exponent.
  *
- * As a side-effect, the @p node's type will be set to @link
- * ASTNodeType_t#AST_REAL AST_REAL@endlink.
+ * As a side-effect, the @p node's type will be set to @sbmlconstant{AST_REAL, ASTNodeType_t}.
  *
  * @param node the node to set
  * @param mantissa the mantissa of this node's real-numbered value
@@ -3217,8 +3159,8 @@ ASTNode_setReal (ASTNode_t *node, double value);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3235,8 +3177,8 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @note A side-effect of doing this is that any numerical values previously
  * stored in this node are reset to zero.
@@ -3256,8 +3198,8 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3274,8 +3216,8 @@ ASTNode_setId (ASTNode_t *node, const char *id);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3292,8 +3234,8 @@ ASTNode_setClass (ASTNode_t *node, const char *className);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3318,8 +3260,8 @@ ASTNode_setStyle (ASTNode_t *node, const char *style);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @note The <code>sbml:units</code> attribute is only available in SBML
  * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
@@ -3341,8 +3283,8 @@ ASTNode_setUnits (ASTNode_t *node, const char *units);
  *
  * @return integer value indicating success/failure of the function.  The
  * possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3358,9 +3300,9 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3376,9 +3318,9 @@ ASTNode_unsetId (ASTNode_t *node);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3394,9 +3336,9 @@ ASTNode_unsetClass (ASTNode_t *node);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3412,9 +3354,9 @@ ASTNode_unsetStyle (ASTNode_t *node);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3495,9 +3437,9 @@ ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @note Although SBML permits the semantic annotation construct in
  * MathML expressions, the truth is that this construct has so far (at
@@ -3568,9 +3510,9 @@ ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @see ASTNode_getUserData()
  *
@@ -3602,8 +3544,7 @@ ASTNode_getUserData(ASTNode_t* node);
  * Returns true if the given node has the correct number of children for its
  * type.
  *
- * For example, an ASTNode_t structure with type @link ASTNodeType_t#AST_PLUS
- * AST_PLUS@endlink expects 2 child nodes.
+ * For example, an ASTNode_t structure with type @sbmlconstant{AST_PLUS, ASTNodeType_t} expects 2 child nodes.
  *
  * @param node the node to query
  *
@@ -3685,8 +3626,8 @@ ASTNode_getDefinitionURLString(ASTNode_t* node);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */
@@ -3703,8 +3644,8 @@ ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t * defnURL);
  *
  * @return integer value indicating success/failure of the
  * function.  The possible values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof ASTNode_t
  */

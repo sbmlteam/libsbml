@@ -83,7 +83,7 @@
  * this is simply impossible to do: not only do humans often disagree on
  * the names themselves, but it would not allow for correction of errors or
  * updates to the list of predefined names except by issuing new releases
- * of the SBML specification&mdash;to say nothing of many other limitations
+ * of the SBML specification---to say nothing of many other limitations
  * with this approach.  Moreover, the parameters and variables that appear
  * in rate expressions also need to be identified in a way that software
  * tools can interpret mechanically, implying that the names of these

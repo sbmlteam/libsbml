@@ -119,11 +119,11 @@ public:
    * @throws XMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
 
-  
+
   /**
    * Copy constructor; creates a copy of this XMLTriple set.
    *

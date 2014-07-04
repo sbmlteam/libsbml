@@ -121,7 +121,7 @@ public:
    *
    * @copydetails doc_note_setting_lv
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   ListOf (unsigned int level   = SBML_DEFAULT_LEVEL,
           unsigned int version = SBML_DEFAULT_VERSION);
@@ -194,8 +194,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see appendAndOwn(SBase* item)
    * @see appendFrom(const ListOf* list)
@@ -217,8 +217,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see append(const SBase* item)
    * @see appendFrom(const ListOf* list)
@@ -238,8 +238,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see append(const SBase* item)
    * @see appendAndOwn(SBase* item)
@@ -261,8 +261,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see insertAndOwn(int location, SBase* item)
    */
@@ -283,8 +283,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see insert(int location, const SBase* item)
    */
@@ -400,7 +400,7 @@ public:
    * @param doDelete if @c true (default), all items are deleted and cleared.
    * Otherwise, all items are just cleared and not deleted.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   void clear (bool doDelete = true);
 
@@ -420,7 +420,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int removeFromParentAndDelete();
 
@@ -495,12 +495,12 @@ public:
 
   /**
    * Returns the libSBML type code for this object, namely,
-   * @link SBMLTypeCode_t#SBML_LIST_OF SBML_LIST_OF@endlink.
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t}.
    * 
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLTypeCode_t#SBML_LIST_OF SBML_LIST_OF@endlink (default).
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t} (default).
    *
    * @note The various ListOf classes mostly differ from each other in what they
    * contain.  Hence, one must call getItemTypeCode() to fully determine the
@@ -523,10 +523,10 @@ public:
    * Classes that inherit from the ListOf class should override this method
    * to return the SBML type code for the objects contained in this ListOf.
    * If they do not, this method will return
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink
+   * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}
    *
    * @return The ListOf base class contains no SBML objects, and therefore
-   * this method returns @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
+   * this method returns @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}.
    *
    * @see getElementName()
    * @see getPackageName()
@@ -679,8 +679,8 @@ ListOf_clone (const ListOf_t *lo);
  * @return integer value indicating success/failure of the function. The
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @see ListOf_appendAndOwn()
  *
@@ -703,8 +703,8 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
  * @return integer value indicating success/failure of the function. The
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @see ListOf_append()
  *
@@ -724,8 +724,8 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
  * @return integer value indicating success/failure of the function. The
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ListOf_t
  */
@@ -744,8 +744,8 @@ ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
  * @return integer value indicating success/failure of the function. The
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ListOf_t
  */
@@ -767,8 +767,8 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
  * @return integer value indicating success/failure of the function. The
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof ListOf_t
  */
@@ -883,7 +883,7 @@ ListOf_size (const ListOf_t *lo);
  * @param lo the ListOf_t whose item type codes are sought.
  *
  * @return the type code corresponding to the objects in @p lo,
- * or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
+ * or @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}.
  *
  * @memberof ListOf_t
  */

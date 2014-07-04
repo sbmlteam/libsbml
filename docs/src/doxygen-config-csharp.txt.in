@@ -105,10 +105,8 @@ RECURSIVE              = NO
 #   csharp:   only C#
 #   conly:    only C
 #   clike:    C, C++
-#   notcpp:   not C++
-#   notclike: not C or C++
 
-ENABLED_SECTIONS       = csharp notclike notcpp doxygenCsharpOnly
+ENABLED_SECTIONS       = csharp doxygenCsharpOnly
 
 # Ignore some symbols from the output
 #

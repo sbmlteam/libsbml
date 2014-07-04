@@ -45,8 +45,8 @@
  *
  * SBMLStripPackageConverter is enabled by creating a ConversionProperties
  * object with the option @c "stripPackage", and passing this properties
- * object to SBMLDocument::convert().  This converter takes one required
- * option:
+ * object to SBMLDocument::convert(@if java ConversionProperties
+ * props@endif).  This converter takes one required option:
  *
  * @li @c "package": the value of this option should be a text string, the
  * nickname of the SBML Level&nbsp;3 package to be stripped from the model.
@@ -153,10 +153,10 @@ public:
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
    * #OperationReturnValues_t. @endif@~ The possible values are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN, OperationReturnValues_t}
    */
   virtual int convert();
 

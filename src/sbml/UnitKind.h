@@ -100,8 +100,8 @@ typedef enum
  * This function behaves exactly like C's <code>==</code> operator, except
  * for the following two cases:
  * <ul>
- * <li>@link UnitKind_t#UNIT_KIND_LITER UNIT_KIND_LITER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_LITRE UNIT_KIND_LITRE@endlink
- * <li>@link UnitKind_t#UNIT_KIND_METER UNIT_KIND_METER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_METRE UNIT_KIND_METRE@endlink
+  * <li>@sbmlconstant{UNIT_KIND_LITER, UnitKind_t} <code>==</code> @sbmlconstant{UNIT_KIND_LITRE, UnitKind_t}
+ * <li>@sbmlconstant{UNIT_KIND_METER, UnitKind_t} <code>==</code> @sbmlconstant{UNIT_KIND_METRE, UnitKind_t}
  * </ul>
  *
  * In the two cases above, C equality comparison would yield @c false

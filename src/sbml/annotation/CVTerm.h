@@ -409,12 +409,9 @@ public:
    * @copydetails doc_what_are_cvterms 
    *
    * This method creates an empty CVTerm object.  The possible qualifier
-   * types usable as values of @p type are @link
-   * QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink and @link
-   * QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink.  If
+   * types usable as values of @p type are @sbmlconstant{MODEL_QUALIFIER, QualifierType_t} and @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t}.  If
    * an explicit value for @p type is not given, this method defaults to
-   * using @link QualifierType_t#UNKNOWN_QUALIFIER
-   * UNKNOWN_QUALIFIER@endlink.  The @if clike #QualifierType_t value@else qualifier type@endif@~ 
+   * using @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}.  The @if clike #QualifierType_t value@else qualifier type@endif@~ 
    * can be set later using the
    * CVTerm::setQualifierType(@if java int type@endif) method.
    *
@@ -426,7 +423,7 @@ public:
    *
    * @param type a @if clike #QualifierType_t value@else qualifier type@endif@~
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 
@@ -507,9 +504,9 @@ public:
    * the CVTerm class is concerned).  Consequently, this method will return
    * one of the following values:
    * 
-   * @li @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink
-   * @li @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink
-   * @li @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
+   * @li @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}
+   * @li @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t}
+   * @li @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}
    *
    * The specific relationship of this CVTerm to the enclosing SBML object
    * can be determined using the CVTerm methods such as
@@ -519,7 +516,7 @@ public:
    * relationship.
    *
    * @return the @if clike #QualifierType_t value@else qualifier type@endif@~
-   * of this object or @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
+   * of this object or @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}
    * (the default).
    *
    * @see getResources()
@@ -555,16 +552,16 @@ public:
    * <br> The set of known model qualifiers is, at the time of this libSBML
    * release, the following:
    *
-   * @li @link ModelQualifierType_t#BQM_IS BQM_IS@endlink
-   * @li @link ModelQualifierType_t#BQM_IS_DESCRIBED_BY BQM_IS_DESCRIBED_BY@endlink
-   * @li @link ModelQualifierType_t#BQM_IS_DERIVED_FROM BQM_IS_DERIVED_FROM@endlink
+   * @li @sbmlconstant{BQM_IS, ModelQualifierType_t}
+   * @li @sbmlconstant{BQM_IS_DESCRIBED_BY, ModelQualifierType_t}
+   * @li @sbmlconstant{BQM_IS_DERIVED_FROM, ModelQualifierType_t}
    *
    * Any other BioModels.net qualifier found in the model is considered
    * unknown by libSBML and reported as
-   * @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
+   * @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}.
    *
    * @return the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
-   * of this object or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink
+   * of this object or @sbmlconstant{BQM_UNKNOWN, ModelQualifierType_t}
    * (the default).
    */
   ModelQualifierType_t getModelQualifierType();
@@ -596,25 +593,25 @@ public:
    * <br> The set of known biological qualifiers is, at the time of this
    * libSBML release, the following:
    *
-   * @li @link BiolQualifierType_t#BQB_IS BQB_IS@endlink
-   * @li @link BiolQualifierType_t#BQB_HAS_PART BQB_HAS_PART@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_PART_OF BQB_IS_PART_OF@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_VERSION_OF BQB_IS_VERSION_OF@endlink
-   * @li @link BiolQualifierType_t#BQB_HAS_VERSION BQB_HAS_VERSION@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_HOMOLOG_TO BQB_IS_HOMOLOG_TO@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_DESCRIBED_BY BQB_IS_DESCRIBED_BY@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_ENCODED_BY BQB_IS_ENCODED_BY@endlink
-   * @li @link BiolQualifierType_t#BQB_ENCODES BQB_ENCODES@endlink
-   * @li @link BiolQualifierType_t#BQB_OCCURS_IN BQB_OCCURS_IN@endlink
-   * @li @link BiolQualifierType_t#BQB_HAS_PROPERTY BQB_HAS_PROPERTY@endlink
-   * @li @link BiolQualifierType_t#BQB_IS_PROPERTY_OF BQB_IS_PROPERTY_OF@endlink
+   * @li @sbmlconstant{BQB_IS, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_HAS_PART, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_PART_OF, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_VERSION_OF, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_HAS_VERSION, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_HOMOLOG_TO, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_DESCRIBED_BY, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_ENCODED_BY, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_ENCODES, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_OCCURS_IN, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_HAS_PROPERTY, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_IS_PROPERTY_OF, BiolQualifierType_t}
    *
    * Any other BioModels.net qualifier found in the model is considered
    * unknown by libSBML and reported as
-   * @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
+   * @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @return the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~
-   * of this object or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink
+   * of this object or @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}
    * (the default).
    */
   BiolQualifierType_t getBiologicalQualifierType();
@@ -723,7 +720,7 @@ public:
    *
    * @param type the @if clike #QualifierType_t value@else qualifier type@endif.
    * The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see getQualifierType()
    */
@@ -738,13 +735,13 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function. The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note If the Qualifier Type of this object is not
-   * @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink, 
+   * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, 
    * then the ModelQualifierType_t value will default to
-   * @link QualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
+   * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int type@endif)
@@ -760,13 +757,13 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function. The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note If the Qualifier Type of this object is not
-   * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
+   * @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t},
    * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~ will default
-   * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
+   * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int type@endif)
@@ -782,13 +779,13 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note If the Qualifier Type of this object is not
-   * @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink, 
+   * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, 
    * then the ModelQualifierType_t value will default to
-   * @link QualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
+   * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int type@endif)
@@ -805,13 +802,13 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note If the Qualifier Type of this object is not
-   * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
+   * @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t},
    * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif@~ value will default
-   * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
+   * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int type@endif)
@@ -880,8 +877,8 @@ public:
    *
    * @return integer value indicating success/failure of the call. The
    * possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getResources()
    * @see removeResource(std::string resource)
@@ -902,8 +899,8 @@ public:
    * @return integer value indicating success/failure of the
    * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @see addResource(const std::string& resource)
    */
@@ -1124,8 +1121,8 @@ CVTerm_getResourceURI(CVTerm_t * term, unsigned int n);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CVTerm_t
  */
@@ -1144,9 +1141,9 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
  * then the ModelQualifierType_t will default to BQM_UNKNOWN.
@@ -1168,9 +1165,9 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
@@ -1192,9 +1189,9 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if the QualifierType_t for this structure is not MODEL_QUALIFIER
  * then the ModelQualifierType_t will default to BQM_UNKNOWN.
@@ -1216,9 +1213,9 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note if the QualifierType_t for this structure is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
@@ -1240,8 +1237,8 @@ CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @note this method adds the name "rdf:resource" to the attribute prior
  * to adding it to the resources in this CVTerm_t.
@@ -1264,9 +1261,9 @@ CVTerm_addResource(CVTerm_t * term, const char * resource);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @memberof CVTerm_t
  */

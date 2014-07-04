@@ -35,9 +35,8 @@
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *
- * Some libSBML objects provide the ability to return lists of components;
- * for example, Model::getAllElements() returns all child objects of a Model
- * object.  To provide callers with greater control over exactly what is
+ * Some libSBML objects provide the ability to return lists of components.
+ * To provide callers with greater control over exactly what is
  * returned, these methods take optional arguments in the form of filters.
  * The ElementFilter class is the parent class for these filters.
  */
@@ -190,8 +189,8 @@ public:
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @warning This <em>user data</em> is specific to an ElementFilter object
    * instance, and is not the same as the user data that may be attached to

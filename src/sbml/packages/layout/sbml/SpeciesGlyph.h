@@ -184,7 +184,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_SPECIESGLYPH SBML_LAYOUT_SPECIESGLYPH@endlink
+   * @sbmlconstant{SBML_LAYOUT_SPECIESGLYPH, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *

@@ -142,7 +142,7 @@ public:
    *
    * @param errorLog the XMLErrorLog object to use.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLInputStream (  const char*        content
                   , bool               isFile   = true
@@ -267,8 +267,8 @@ public:
    * operation.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif@~ The possible values
    * returned by this method are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int setErrorLog (XMLErrorLog* log);
 
@@ -324,7 +324,7 @@ public:
    * @note This method assumes the stream has been read up to and including
    * the element @p elementName.
    *
-   * @if notcpp @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   unsigned int determineNumberChildren(const std::string& elementName = "");
 
@@ -604,8 +604,8 @@ XMLInputStream_skipText (XMLInputStream_t *stream);
  * value is drawn from the enumeration #OperationReturnValues_t. The possible
  * values returned by this method are:
  *
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof XMLInputStream_t
  */

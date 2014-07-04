@@ -2,7 +2,7 @@
  * @file    L3ParserSettings.h
  * @brief   Definition of the level 3 infix-to-mathml parser settings.
  * @author  Lucian Smith
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -31,14 +31,13 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class L3ParserSettings
- * @sbmlbrief{core} A helper class for controlling the behavior of the
- * text-string formula parser.
+ * @sbmlbrief{core} Controls the behavior of the Level 3 formula parser.
  *
  * @htmlinclude not-sbml-warning.html
  *
  * The function
  * @if clike SBML_parseL3FormulaWithSettings()@endif@if csharp SBML_parseL3FormulaWithSettings()@endif@if python libsbml.parseL3FormulaWithSettings()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithSettings(java.lang.String, org.sbml.libsbml.L3ParserSettings)">libsbml.parseL3FormulaWithSettings(String formula, L3ParserSettings settings)</a></code>@endif@~,
- * along with its variants 
+ * along with its variants
  * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(java.lang.String formula)</a></code>@endif@~
  * and
  * @if clike SBML_parseL3FormulaWithModel()@endif@if csharp SBML_parseL3FormulaWithModel()@endif@if python libsbml.parseL3FormulaWithModel()@endif@if java <code><a href="libsbml.html#parseL3FormulaWithModel(java.lang.String, org.sbml.libsbml.Model)">libsbml.parseL3FormulaWithModel(String formula, Model model)</a></code>@endif@~,
@@ -55,7 +54,7 @@
  *
  * The following aspects of the parser are configurable:
  * <ul>
- * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;) 
+ * <li> The function @c log with a single argument (&quot;<code>log(x)</code>&quot;)
  * can be parsed as <code>log10(x)</code>, <code>ln(x)</code>, or treated
  * as an error, as desired.
  * <li> Unary minus signs can be collapsed or preserved; that is,
@@ -122,7 +121,7 @@
 #include <sbml/common/sbmlfwd.h>
 
 
-/** 
+/**
  * @enum ParseLogType_t
  * @brief Configuration values for handling @c log in formulas.
  *
@@ -145,7 +144,7 @@ typedef enum
     /*!< Parse <code>log(x)</code> as the natural logarithm of @c x. */
 
     L3P_PARSE_LOG_AS_ERROR = 2
-    /*!< Refuse to parse <code>log(x)</code> at all, and set an error message 
+    /*!< Refuse to parse <code>log(x)</code> at all, and set an error message
       telling the user to use <code>log10(x)</code>, <code>ln(x)</code>,
       or <code>log(base, x)</code> instead. */
 
@@ -173,7 +172,7 @@ typedef enum
  */
 #define L3P_NO_UNITS false
 /*!<
- * Do not recognize units in text-string formulas&mdash;treat them as errors.
+ * Do not recognize units in text-string formulas---treat them as errors.
  * @see setParseCollapseMinus()
  * @see getParseCollapseMinus()
  */
@@ -186,7 +185,7 @@ typedef enum
  */
 #define L3P_AVOGADRO_IS_NAME    false
 /*!<
- * Do not treat 'avogadro' specially&mdash;consider it a plain symbol name.
+ * Do not treat 'avogadro' specially---consider it a plain symbol name.
  * @see getParseAvogadroCsymbol()
  * @see setParseAvogadroCsymbol()
  */
@@ -211,7 +210,7 @@ public:
 
   /**
    * Creates a new L3ParserSettings object with default values.
-   * 
+   *
    * This is the default constructor for the L3ParserSettings object.  It
    * sets the Model to @c NULL and other settings to @c
    * L3P_PARSE_LOG_AS_LOG10, @c L3P_EXPAND_UNARY_MINUS, @c L3P_PARSE_UNITS,
@@ -225,7 +224,7 @@ public:
    * possible settings.
    *
    * @param model a Model object to be used for disambiguating identifiers
-   * 
+   *
    * @param parselog a flag that controls how the parser will handle
    * the symbol @c log in formulas
    *
@@ -363,7 +362,7 @@ public:
    * turned into a node of type @link ASTNodeType_t#AST_MINUS
    * AST_MINUS@endlink having a child node of type @link
    * ASTNodeType_t#AST_REAL AST_REAL@endlink.  This method lets you tell
-   * the parser which behavior to use&mdash;either collapse minuses or
+   * the parser which behavior to use---either collapse minuses or
    * always preserve them.  The two possibilities are represented using the
    * following constants:
    *
@@ -402,7 +401,7 @@ public:
    * turned into a node of type @link ASTNodeType_t#AST_MINUS
    * AST_MINUS@endlink having a child node of type @link
    * ASTNodeType_t#AST_REAL AST_REAL@endlink.  This method lets you tell
-   * the parser which behavior to use&mdash;either collapse minuses or
+   * the parser which behavior to use---either collapse minuses or
    * always preserve them.  The two possibilities are represented using the
    * following constants:
    *
@@ -566,8 +565,8 @@ BEGIN_C_DECLS
 /**
  * Creates a new L3ParserSettings_t object and returns a pointer to it
  *
- * @note This functions sets the Model* to NULL, and other settings to 
- * L3P_PARSE_LOG_AS_LOG10, L3P_EXPAND_UNARY_MINUS, L3P_PARSE_UNITS, 
+ * @note This functions sets the Model* to NULL, and other settings to
+ * L3P_PARSE_LOG_AS_LOG10, L3P_EXPAND_UNARY_MINUS, L3P_PARSE_UNITS,
  * and L3P_AVOGADRO_IS_CSYMBOL.
  *
  * @return a pointer to the newly created L3ParserSettings_t structure.
@@ -584,9 +583,9 @@ L3ParserSettings_free (L3ParserSettings_t * settings);
 
 /**
  * Sets the model associated with this L3ParserSettings_t object
- * to the provided pointer.  
+ * to the provided pointer.
  *
- * @note A copy of the Model is not made, so modifications to the Model itself 
+ * @note A copy of the Model is not made, so modifications to the Model itself
  * may affect future parsing.
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model.
@@ -598,7 +597,7 @@ L3ParserSettings_setModel (L3ParserSettings_t * settings, const Model_t * model)
 
 
 /**
- * Retrieves the model associated with this L3ParserSettings_t object.  
+ * Retrieves the model associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure from which to get the Model.
  *
@@ -620,7 +619,7 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
 
 
 /**
- * Sets the log parsing option associated with this L3ParserSettings_t object.  
+ * Sets the log parsing option associated with this L3ParserSettings_t object.
  *
  * This option allows the user to specify how the infix expression 'log(x)'
  * is parsed in a MathML ASTNode. The options are:
@@ -629,7 +628,7 @@ L3ParserSettings_unsetModel (L3ParserSettings_t * settings);
  * @li L3P_PARSE_LOG_AS_ERROR (2)
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
- * @param type ParseLogType_t log parsing option to associate with this 
+ * @param type ParseLogType_t log parsing option to associate with this
  * L3ParserSettings_t object.
  */
 LIBSBML_EXTERN
@@ -638,7 +637,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
 
 
 /**
- * Retrieves the log parsing option associated with this L3ParserSettings_t object.  
+ * Retrieves the log parsing option associated with this L3ParserSettings_t object.
  *
  * This option allows the user to specify how the infix expression 'log(x)'
  * is parsed in a MathML ASTNode. The options are:
@@ -648,7 +647,7 @@ L3ParserSettings_setParseLog (L3ParserSettings_t * settings, ParseLogType_t type
  *
  * @param settings the L3ParserSettings_t structure on which to set the Model.
  *
- * @return ParseLogType_t log parsing option to associate with this 
+ * @return ParseLogType_t log parsing option to associate with this
  * L3ParserSettings_t object.  Returns L3P_PARSE_LOG_AS_LOG10 (0) if @param settings
  * is NULL.
  */
@@ -658,13 +657,13 @@ L3ParserSettings_getParseLog (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the collapse minus option associated with this L3ParserSettings_t object.  
+ * Sets the collapse minus option associated with this L3ParserSettings_t object.
  *
  * This option allows the user to specify how the infix expression '-4'
- * is parsed in a MathML ASTNode. 
- * 
+ * is parsed in a MathML ASTNode.
+ *
  * @param settings the L3ParserSettings_t structure on which to set the option.
- * @param flag an integer indicating whether unary minus should be collapsed 
+ * @param flag an integer indicating whether unary minus should be collapsed
  * (non-zero) or not (zero).
  */
 LIBSBML_EXTERN
@@ -673,14 +672,14 @@ L3ParserSettings_setParseCollapseMinus (L3ParserSettings_t * settings, int flag)
 
 
 /**
- * Retrieves the collapse minus option associated with this L3ParserSettings_t object.  
+ * Retrieves the collapse minus option associated with this L3ParserSettings_t object.
  *
  * This option allows the user to specify how the infix expression '-4'
- * is parsed in a MathML ASTNode. 
- * 
+ * is parsed in a MathML ASTNode.
+ *
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
- * @return an integer indicating whether unary minus should be collapsed 
+ * @return an integer indicating whether unary minus should be collapsed
  * (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
  */
@@ -690,10 +689,10 @@ L3ParserSettings_getParseCollapseMinus (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the units option associated with this L3ParserSettings_t object.  
+ * Sets the units option associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
- * @param flag an integer indicating whether numbers should be considered as 
+ * @param flag an integer indicating whether numbers should be considered as
  * a having units (non-zero) or not (zero).
  */
 LIBSBML_EXTERN
@@ -702,11 +701,11 @@ L3ParserSettings_setParseUnits (L3ParserSettings_t * settings, int flag);
 
 
 /**
- * Retrieves the units option associated with this L3ParserSettings_t object.  
+ * Retrieves the units option associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
- * @return an integer indicating whether numbers should be considered as 
+ * @return an integer indicating whether numbers should be considered as
  * a having units (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
  */
@@ -716,10 +715,10 @@ L3ParserSettings_getParseUnits (const L3ParserSettings_t * settings);
 
 
 /**
- * Sets the avogadro csymbol option associated with this L3ParserSettings_t object.  
+ * Sets the avogadro csymbol option associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure on which to set the option.
- * @param flag an integer indicating whether avogadro should be considered as 
+ * @param flag an integer indicating whether avogadro should be considered as
  * a csymbol (non-zero) or not (zero).
  */
 LIBSBML_EXTERN
@@ -728,11 +727,11 @@ L3ParserSettings_setParseAvogadroCsymbol (L3ParserSettings_t * settings, int fla
 
 
 /**
- * Retrieves the avogadro csymbol option associated with this L3ParserSettings_t object.  
+ * Retrieves the avogadro csymbol option associated with this L3ParserSettings_t object.
  *
  * @param settings the L3ParserSettings_t structure from which to get the option.
  *
- * @return an integer indicating whether avogadro should be considered as 
+ * @return an integer indicating whether avogadro should be considered as
  * a csymbol (non-zero) or not (zero).  Returns zero (0) if @param settings
  * is NULL.
  */

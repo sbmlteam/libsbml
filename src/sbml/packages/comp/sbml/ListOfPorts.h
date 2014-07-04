@@ -180,7 +180,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_COMP_PORT SBML_COMP_PORT@endlink (default).
+   * @sbmlconstant{SBML_COMP_PORT, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()

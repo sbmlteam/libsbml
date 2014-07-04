@@ -100,7 +100,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
-   * @link SBMLTypeCode_t#SBML_LAYOUT_REFERENCEGLYPH SBML_LAYOUT_REFERENCEGLYPH@endlink (default).
+   * @sbmlconstant{SBML_LAYOUT_REFERENCEGLYPH, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
    * @see getPackageName()
@@ -500,7 +500,7 @@ public:
   /**
    * Returns the index of the reference glyph with the given @p id.
    * If the glyph does not contain a reference glyph with this
-   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * id, @if cpp numeric_limits<unsigned int>::max() @else cpp the
    * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
@@ -510,7 +510,7 @@ public:
   /**
    * Returns the index of the subglyph with the given @p id.
    * If the glyph does not contain a subglyph with this
-   * id, @if cpp numeric_limits<unsigned int>::max() @endif@if notcpp the
+   * id, @if cpp numeric_limits<unsigned int>::max() @else cpp the
    * value of the maximum long integer@endif@~ is returned as an indicator.
    */
   
@@ -556,7 +556,7 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   * @link SBMLLayoutTypeCode_t#SBML_LAYOUT_GENERALGLYPH SBML_LAYOUT_GENERALGLYPH@endlink
+   * @sbmlconstant{SBML_LAYOUT_GENERALGLYPH, SBMLLayoutTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
