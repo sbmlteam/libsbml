@@ -66,7 +66,8 @@ def classes_in_dir(dir, swig_too):
         for tail in found_files:
             files.append(os.path.join(root, tail))
             files = [f for f in files
-                     if (f.endswith('.h') or (swig_too and f.endswith('.i')))]
+                     if (f.endswith('.h') or f.endswith('.txt') \
+                         or (swig_too and f.endswith('.i')))]
             files = filter(lambda x: not x.endswith('fwd.h'), files)
             files = filter(lambda x: not x.endswith('ExtensionTypes.h'), files)
     return [c for file in files for c in classes_in_file(file)]
@@ -75,7 +76,7 @@ def classes_in_dir(dir, swig_too):
 def classes_in_file(filename):
     stream = open(filename)
     classes = []
-    if filename.endswith('.h'):
+    if filename.endswith('.h') or filename.endswith('.txt'):
         classes = classes_in_header_file(stream)
     elif filename.endswith('.i'):
         classes = classes_in_swig_file(stream)
