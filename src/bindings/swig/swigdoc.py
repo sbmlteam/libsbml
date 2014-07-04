@@ -784,6 +784,14 @@ def translatePythonSeeRef (match):
 
 
 
+def translateAllowingBreaks (translations, docstring):
+  for pair in translations:
+    new_pattern = re.sub(' ', r'\s+\*\s*', pair[0])
+    replacement = pair[1]
+    docstring   = re.sub(new_pattern, replacement, docstring)
+  return docstring
+
+
 def rewriteClassRefAddingSpace (match):
   return match.group(1) + match.group(2) + match.group(3)
 
@@ -1132,16 +1140,19 @@ def rewriteDocstringForJava (docstring):
   # Java types.  (Note: this rewriting affects only the documentation
   # comments inside classes & methods, not the method signatures.)
 
-  docstring = docstring.replace(r'const char *', 'String ')
-  docstring = docstring.replace(r'const char* ', 'String ')
-  docstring = docstring.replace(r'an unsigned int', 'a long integer')
-  docstring = docstring.replace(r'unsigned int', 'long')
-  docstring = docstring.replace(r'const std::string&', 'String')
-  docstring = docstring.replace(r'const std::string &', 'String ')
-  docstring = docstring.replace(r'const std::string ', 'String ')
-  docstring = docstring.replace(r'std::string', 'String')
-  docstring = docstring.replace(r'NULL', 'null')
-  docstring = re.sub(r'\bbool\b', 'boolean', docstring)
+  docstring = re.sub(r'const\s+char\s+\*',      'String ', docstring)
+  docstring = re.sub(r'const\s+char\* ',        'String ', docstring)
+  docstring = re.sub(r'const\s+std::string&',   'String',  docstring)
+  docstring = re.sub(r'const\s+std::string\+&', 'String ', docstring)
+  docstring = re.sub(r'const\s+std::string ',   'String ', docstring)
+  docstring = re.sub(r'std::string',            'String',  docstring)
+  docstring = re.sub(r'NULL',                   'null',    docstring)
+  docstring = re.sub(r'\bbool\b',               'boolean', docstring)
+
+  breakable_translations = [[r'an unsigned int', 'a long integer'],
+                            [r'unsigned int',    'long']]
+
+  docstring = translateAllowingBreaks(breakable_translations, docstring)
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
@@ -1294,14 +1305,18 @@ def rewriteDocstringForPython (docstring):
 
   docstring = re.sub(r'const\s+char\s+\*',    'string ',        docstring)
   docstring = re.sub(r'const\s+char\* ',      'string ',        docstring)
-  docstring = re.sub(r'an\s+unsigned\s+int',  'a long integer', docstring)
-  docstring = re.sub(r'unsigned\s+int',       'long',           docstring)
   docstring = re.sub(r'const\s+std::string&', 'string',         docstring)
   docstring = re.sub(r'const\s+std::string',  'string',         docstring)
   docstring = re.sub(r'std::string',          'string',         docstring)
   docstring = re.sub(r'NULL',                 'None',           docstring)
-  docstring = re.sub(r'@c\s+(|")?true(|")?',   r'@c \1True\2',  docstring)
-  docstring = re.sub(r'@c\s+(|")?false(|")?',  r'@c \1False\2', docstring)
+
+  breakable_translations = [[r'an unsigned int',     'a long integer'],
+                            [r'unsigned int',        'long'],
+                            [r'@c (|")?true(|")?',   r'@c \1True\2'],
+                            [r'@c (|")?false(|")?',  r'@c \1False\2'],
+                            [r'@c double',           r'@c float']]
+
+  docstring = translateAllowingBreaks(breakable_translations, docstring)
 
   # Also use Python syntax instead of "const XMLNode*" etc.
 
