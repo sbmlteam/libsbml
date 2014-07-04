@@ -595,6 +595,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/common/libsbml-version.h
 %include sbml/common/operationReturnValues.h
 %include sbml/common/common-documentation.h
+%include sbml/common/common-sbmlerror-codes.h
 
 %include <sbml/util/IdList.h>
 %include <sbml/util/IdentifierTransformer.h>
