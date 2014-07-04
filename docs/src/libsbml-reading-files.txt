@@ -1,11 +1,19 @@
 /** @page libsbml-reading-files Reading and writing SBML content
 
+@tableofcontents
+
 This section summarizes how to read and write SBML content using the
-facilities provided by libSBML.
+facilities provided by libSBML.  This is only a basic orientation to these
+essential facilities of libSBML, and is far from exhaustive in its coverage.
+Readers are directed to the rest of this manual for more details about using
+libSBML's many features and facilities.  Please use the navigation bar near
+the top of the page and the table of contents in the left-hand column for
+navigating to other parts of this manual.
+
 
 @section rf-started Getting started: the 1-minute introduction
 
-LibSBML uses the class SBMLDocument as a top-level container for storing
+LibSBML provides the class SBMLDocument as a top-level container for storing
 SBML content and data associated with it (such as warnings and error
 messages).  Here is a simple example to start this discussion:
 @verbatim
@@ -62,8 +70,9 @@ programming sense) for reading SBML:
 function takes a file name, attempts to read an SBML document from the
 file, and returns a pointer to an SBMLDocument object if successful.
 @li <code>SBMLDocument* readSBMLFromString(const char* xml)</code>.  This
-function takes a string, attempts to read an SBML document from the string,
-and returns a pointer to an SBMLDocument object if successful.
+function takes a string containing XML content, attempts to read an SBML
+document from the string, and returns a pointer to an SBMLDocument object if
+successful.
 
 The model may be in any SBML Level and Version combination.
 LibSBML implements an unified object model for SBML that encompasses 
