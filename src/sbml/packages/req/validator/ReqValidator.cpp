@@ -35,6 +35,8 @@
 #include <sbml/packages/req/common/ReqExtensionTypes.h>
 #include <sbml/packages/req/validator/ReqValidator.h>
 
+#include <sbml/SBMLReader.h>
+
   /** @cond doxygenLibsbmlInternal */
 
 using namespace std;

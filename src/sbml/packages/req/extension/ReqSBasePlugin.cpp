@@ -33,6 +33,8 @@
 
 
 #include <sbml/packages/req/extension/ReqSBasePlugin.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
 
 
 using namespace std;
