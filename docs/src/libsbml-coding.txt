@@ -1,21 +1,6 @@
 /** @page libsbml-coding Documentation conventions for libSBML
 
-@section coding-toc Table of contents
-
-@htmlinclude doxygen-regular-text-start.html
-<table border="0" class="centered">
-<tr><td style="font-size: small;">
-@ref coding-intro @n
-@ref coding-basic @n
-@ref coding-docs @n
-@ref coding-other-situations @n
-@ref coding-doxygen-summary @n
-@ref coding-doc-process @n
-@ref coding-misc-doxygen @n
-</td></tr>
-</table>
-@htmlinclude doxygen-regular-text-end.html
-
+@tableofcontents
 
 @section coding-intro 1. Introduction
 
@@ -34,7 +19,7 @@ home-grown scripts and programs to massage the output of SWIG to produce
 something that can be fed to the Doxygen and Javadoc-based processs.  
 
 
-@section coding-basic 2. Basic guidelines for writing libSBML documentation
+@section coding-basic 2. Basic guidelines for libSBML
 
 The guidelines presented in this section are oriented towards explaining how
 to organize code comments such that Doxygen and Javadoc can produce good
@@ -376,19 +361,140 @@ form of C++ comments) about the code so that in the future, you and others
 would read the file can better understand what the code is doing.
 
 
-@section coding-other-situations 4. How to handle important common situations
+@section coding-other-situations 4. Some important common situations
 
 The descriptions above cover the basics of using Doxygen and Javadoc for
 libSBML documentation.  What follows is a discussion of other, more involved
 topics.
 
-@subsection coding-reusing-text 4.1 Reusing common text
+
+@subsection coding-refs 4.1 Pure functions and constants
+
+This section discusses the special needs of libSBML functions defined outside
+of any classes, and symbolic constants (both enumerations and
+<code>@#define</code> constants).
+
+
+@subsubsection coding-constant-refs 4.1.1 Referring to libSBML constants
+
+It's often important to refer to constants such as enumeration values and
+<code>@#define</code>'d symbolic constants.  It's very useful to have the
+names of the constants in the formatted documentation be linked to their
+definitions, rather than being merely set in a typewriter-style font.
+However, not only does Doxygen fail to do this automatically, but the link
+targets need to be different for the different programming languages such as
+Python, C# and Java.  Handling this using plain Doxygen commands leads to a
+complex and unmaintainable combination of repeated <code>@@if clike
+... @@endif @@if java ... @@endif @@if python ... @@endif</code>.
+
+To make it easier to name and link constants consistently, we developed a
+simple-to-use Doxygen macro that is recognized and treated specially by
+<code>src/bindings/swig/swigdoc.py</code>.  This macro is named
+<code>@@sbmlconstant</code> and takes two required arguments:
+
+<pre class="fragment">
+@@sbmlconstant{<span class="placeholder-nospace">symbol</span>,<span class="placeholder">type</span>}
+</pre>
+
+The <span class="placeholder">type</span> is the name of the enumeration (if
+any) where the symbolic value is defined, and <span
+class="placeholder">symbol</span> is the name of the value.  Note that the
+symbol appears @em first in the macro.  Here follows an example:
+
+<pre class="fragment">
+@@sbmlconstant{AST_MINUS, ASTNodeType_t}
+</pre>
+
+If the value is a <code>@#define</code> constant and not located inside an
+enumeration, then omit the <span class="placeholder">type</span> argument
+value; however, <strong>leave the comma</strong> regardless.  For example:
+
+<pre class="fragment">
+@@sbmlconstant{L3P_COLLAPSE_UNARY_MINUS,}
+</pre>
+
+(The need for the comma is because Doxygen does not support optional
+arguments in alias/macro definitions.  Rather than define two separate forms,
+it seems simpler to have only one---i.e., <code>@@sbmlconstant</code>---and
+simply remember to leave the second argument empty if necessary.)
+
+
+@subsubsection coding-function-refs 4.1.2 Referring to libSBML pure functions
+
+Some functions in libSBML are defined outside of any class.  This poses a
+special challenge for creating hyperlinks, because the names of the functions
+and their references are different for Python and Java from the basic C, C++
+and C# versions.  To stop the unreadable and unmaintainable insanity of
+repeated <code>@@if clike ... @@endif @@if java ... @@endif @@if python
+... @@endif</code> (especially because the Java case required explicit HTML
+@c a elements and full argument lists, with fully qualified data types), we
+developed another custom Doxygen macro that is recognized and treated
+specially by <code>src/bindings/swig/swigdoc.py</code>.
+
+The macro is named @c @@sbmlfunction; it takes the name of the libSBML
+function, followed by a comma, followed by a list of arguments to the
+function.  The list of arguments is @em mandatory; if the libSBML function in
+question takes no arguments, then simply leave the list empty, but keep the
+comma.  In addition, when writing the function name, <strong>omit the leading
+<code>SBML_</code> part</strong> that appears in the function's C/C++
+definition; the prefix it will be added automatically for C++ and C# and
+omitted from the other languages, where libSBML function names are written
+without the <code>SBML_</code> part.
+
+The following illustrates the syntax for the case of a function that takes no
+arguments:
+
+<pre class="fragment">
+@@sbmlfunction{<span class="placeholder-nospace">name</span>,}
+</pre>
+
+where <span class="placeholder">name</span> is the name of a libSBML function
+that takes no arguments.  If the function does take arguments, <strong>use
+the arguments as they appear in the Java API</strong>.  The following is an
+example of a function that takes a single argument:
+
+<pre class="fragment">
+@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type&nbsp;&nbsp;&nbsp;arg1name</span>}
+</pre>
+
+If the function takes more than one argument, <strong>use commas quoted with
+a backslash</strong> to separate multiple arguments from each other.  In
+other words, functions that take multiple arguments should be written like
+this:
+
+<pre class="fragment">
+@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type&nbsp;&nbsp;&nbsp;arg1name</span>\, <span class="placeholder">arg2type&nbsp;&nbsp;&nbsp;arg2name</span>\, ...}
+</pre>
+
+Again, use the argument data types that appear in the Java version of the
+API.  (I.e., use @c String instead of <code>char *</code>, etc.)  Here are
+two real examples:
+
+<pre class="fragment">
+@@sbmlfunction{parseL3Formula, String formula}
+@@sbmlfunction{parseL3FormulaWithSettings, String formula\, %L3ParserSettings settings}
+</pre>
+
+The data types do not have to be fully qualified.  Line breaks may be used to
+split long lines.
+
+The reason the Java types are used is because the argument list is only used
+for producing the Java API documentation---in order for the correct
+hyperlinks to be made, the documentation toolchain (specifically, Javadoc)
+needs the argument list.  (It is not required for the other language API
+documentation, and is actually ignored when producing non-Java manuals.)
+
+This macro is currently @em only usable for pure functions in libSBML.  It is
+not designed nor tested for use with methods on classes or other situations.
+
+
+@subsection coding-reusing-text 4.2 Reusing common text
 
 One often encounters the need to repeat the same text in different places in
 the documentation, such as to add a detail to each method where the detail
 may be relevant.  In software documentation, unlike in non-technical prose or
-creative writing, it is often @em better to repeat text&mdash;or refer to a
-common section&mdash;everywhere that it might be relevant, because a reader
+creative writing, it is often @em better to repeat text---or refer to a
+common section---everywhere that it might be relevant, because a reader
 does not normally read class and method documentation linearly: they jump to
 a method description from elsewhere.  This means that the descriptions need
 to be reasonably self-contained.  However, repeating information by
@@ -415,7 +521,7 @@ libSBML, but do so with conventions to work around the behaviors of the
 latter set of commands.
 
 
-@subsubsection coding-copydetails 4.1.1 Using "copydetails"
+@subsubsection coding-copydetails 4.2.1 Using "copydetails"
 
 Experienced Doxygen users may be initially confused by our use of
 <code>@@copydetails</code>, because strictly speaking, we are not using it
@@ -445,7 +551,7 @@ is an example:
 @endverbatim
 We configure Doxygen to ignore symbols that begin with the string
 <code>doc_</code>, so these class definitions will never really be defined in
-the formatted output&mdash;they are fake class declarations used simply so
+the formatted output---they are fake class declarations used simply so
 that we can employ <code>@@copydetails</code> elsewhere.
 @li Note the use of <code>@@par</code> in the example above. This is a hack
 to force Doxygen to treat the rest of the text as the "detail" portion of a
@@ -496,7 +602,7 @@ the entire method documentation for methods that are repeated on every class;
 for this, you can use <code>@@copydoc</code>, described next.
 
 
-@subsubsection coding-copydoc 4.1.1 Using "copydoc"
+@subsubsection coding-copydoc 4.2.2 Using "copydoc"
 
 As mentioned above, the Doxygen <code>@@copydetails</code> command is
 actually intended for reusing the "details" portion of a method or other
@@ -538,7 +644,7 @@ exactly, right down to the use of the same parameter names
 values, the purpose of the method, and so on.
 
 
-@subsubsection coding-htmlinclude 4.1.2 Using "htmlinclude"
+@subsubsection coding-htmlinclude 4.2.3 Using "htmlinclude"
 
 The <code>@@copydetails</code> and <code>@@copydoc</code> methods described
 above works well for most situations, except when you need to use significant
@@ -568,7 +674,7 @@ be ignored, etc.  For most cases, it is preferable to use the
 <code>@@copydetails</code> approach described in the previous section.
 
 
-@subsection coding-links 4.2 Links
+@subsection coding-links 4.3 Links
 
 Most of the time, you can rely on Doxygen's ability to connect a written
 reference to a class or method to the definition of that class or method.  In
@@ -604,7 +710,7 @@ class or package <code>libsbml</code>.  Here is an example:
 @endverbatim
 
 
-@subsection coding-conditionals 4.3 Conditional text
+@subsection coding-conditionals 4.4 Conditional text
 
 Speaking of non-C++ languages, it very often happens that one needs to adapt
 the documentation for something based on the programming language.  We have
@@ -620,7 +726,7 @@ table lists the symbols defined for different languages:
  </tr>
 <tr>
   <td>C</td>
-  <td><code>conly</code>, <code>clike</code>, <code>notcpp</code>, <code>doxygenCOnly</code>, <code>doxygenCLikeOnly</code></td>
+  <td><code>conly</code>, <code>clike</code>, <code>doxygenCOnly</code>, <code>doxygenCLikeOnly</code></td>
 </tr>
 <tr>
   <td>C++</td>
@@ -628,19 +734,19 @@ table lists the symbols defined for different languages:
 </tr>
 <tr>
   <td>C#</td>
-  <td><code>csharp</code>, <code>notclike</code>, <code>notcpp</code>, <code>doxygenCsharpOnly</code></td>
+  <td><code>csharp</code>, <code>notclike</code>, <code>doxygenCsharpOnly</code></td>
 </tr>
 <tr>
   <td>Java</td>
-  <td><code>java</code>, <code>notclike</code>, <code>notcpp</code></td>
+  <td><code>java</code>, <code>notclike</code></td>
 </tr>
 <tr>
   <td>Perl</td>
-  <td><code>perl</code>, <code>notclike</code>, <code>notcpp</code>, <code>doxygenPerlOnly</code> </td>
+  <td><code>perl</code>, <code>notclike</code>, <code>doxygenPerlOnly</code> </td>
 </tr>
 <tr>
   <td>Python</td>
-  <td><code>python</code>, <code>notclike</code>, <code>notcpp</code>, <code>doxygenPythonOnly</code></td>
+  <td><code>python</code>, <code>notclike</code>, <code>doxygenPythonOnly</code></td>
 </tr>
 </table>
 
@@ -655,7 +761,7 @@ sequence <code>@@~</code> after the @c @@endif.  In other words, write
 <code>@@endif@@~</code> in the input, rather than a bare @c @@endif.
 
 
-@subsection coding-common-text 4.4 Notes and warnings
+@subsection coding-common-text 4.5 Notes and warnings
 
 We use two Doxygen commands to produce text that is highlighted in the output
 in certain ways, to call attention to special issues.  These commands do not
@@ -694,7 +800,7 @@ class or method, but in most cases, the sequence should be: @c @@note, @c
 @@warning, and @c @@see.
 
 
-@subsection coding-figures 4.5 Figures
+@subsection coding-figures 4.6 Figures
 
 Including images and other figures is a relatively simple matter.  Copy the file 
 to the directory <code>docs/src/common-graphics/</code>, and then refer to it
@@ -712,9 +818,9 @@ commands when you use it: once with @c html and once with @c latex.
 
 
 
-@section coding-doxygen-summary 5. Summary of commonly-used Doxygen commands in libSBML
+@section coding-doxygen-summary 5. Commonly-used commands
 
-The following is a summary of the doxygen commands we have found useful so
+The following is a summary of the Doxygen commands we have found useful so
 far in documenting libSBML.  This is only intended as a quick orientation;
 they are illustrated in the other sections above, and the complete details
 of their definitions and use can be found online at the <a
@@ -762,7 +868,7 @@ see Section @ref coding-copydetails for more information.
 </td></tr>
 <tr><td>@c @@copydoc</td>
 <td>
-Copies the entire documentation of the given symbol&mdash;both the one-sentence
+Copies the entire documentation of the given symbol---both the one-sentence
 brief lead-in explanation and the detailed body.  Please see Section
 @ref coding-copydoc for more information.
 </td></tr>
@@ -838,6 +944,16 @@ Declares the return value from a method or function.
 Special command defined for libSBML; see Section @ref coding-doc-h for 
 more information.
 </td></tr>
+<tr><td>@c @@sbmlconstant</td>
+<td>
+Special command defined for libSBML; see Section @ref coding-constant-refs for 
+more information.
+</td></tr>
+<tr><td>@c @@sbmlfunction</td>
+<td>
+Special command defined for libSBML; see Section @ref coding-function-refs for 
+more information.
+</td></tr>
 <tr><td>@c @@see</td>
 <td>
 Formats a reference to another entity in the documentation.  Commonly used
@@ -864,7 +980,7 @@ href="http://sbml.org"&gt;home page&lt;/a&gt;</code>.  Unfortunately, many
 to resort to using @c @@htmlinclude'ed raw HTML files.
 
 
-@section coding-doc-process 6. The libSBML documentation-generation process
+@section coding-doc-process 6. LibSBML's documentation-generation process
 
 The sequence of events in generating the finished, formatted user
 documentation is complex.  However, it can be useful to have a general sense
@@ -872,7 +988,7 @@ for how it works, to help find problems when the output produced is not
 what's expected.  This section summarizes the sequences of events for the
 different types of documentation.
 
-@subsection doc-process-c 6.1 The sequence for generating C++ and C documentation
+@subsection doc-process-c 6.1 Generating C++ and C docs
 
 The steps below are executed by the Makefile located in the directory
 <code>docs/src/</code>.  They are invoked by the command <code>make
@@ -922,7 +1038,7 @@ process described above.
 
 
 
-@subsection doc-process-python 6.2 The sequence for generating Python documentation
+@subsection doc-process-python 6.2 Generating Python docs
 
 The process for generating the Python API documentation is more involved than
 the one for C++ and C documentation described above, though some parts are
@@ -931,8 +1047,8 @@ python-manual</code> in the <code>docs/src/</code> directory: it begins with
 the process involving the execution of SWIG.  For completeness, the sequence
 below encompasses this.
 
--# Before the documentation can be produced&mdash;that is, before the
-   remaining steps below can be executed&mdash;the Python language interface
+-# Before the documentation can be produced---that is, before the
+   remaining steps below can be executed---the Python language interface
    code for libSBML must be generated.  This process is triggered by a
    regular <code>make</code> or <code>cmake</code> at the top level of the
    libSBML source code directory.  Unlike the other language bindings,
@@ -1034,7 +1150,7 @@ below encompasses this.
    so on.
 
 
-@subsection doc-process-java 6.3 The process for generating Java documentation
+@subsection doc-process-java 6.3 Generating Java docs
 
 The process for the Java API documentation is different from all the others
 because it does not use Doxygen; instead, it uses Javadoc, the common Java
@@ -1049,8 +1165,8 @@ before you run <code>make java-manual</code> in the <code>docs/src/</code>
 directory: it begins with the process involving the execution of SWIG.  For
 completeness, the sequence below encompasses this.
 
--# Before the documentation can be produced&mdash;that is, before the
-   remaining steps below can be executed&mdash;the Java bindings files for
+-# Before the documentation can be produced---that is, before the
+   remaining steps below can be executed---the Java bindings files for
    libSBML must be generated.  This process is triggered by a regular
    <code>make</code> or <code>cmake</code> at the top level of the libSBML
    source code directory.  It will invoke SWIG at some point, but before it
