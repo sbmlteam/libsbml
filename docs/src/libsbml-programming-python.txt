@@ -8,7 +8,7 @@ the relevant pages.
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-features
 - @subpage libsbml-python-reading-files
-- @subpage libsbml-python-math
+- @subpage libsbml-math
 - @subpage libsbml-python-creating-model
 @htmlinclude doxygen-regular-text-end.html
 
