@@ -12,15 +12,11 @@ mathematical formulas regardless of their original format (i.e., C-like infix
 text strings or the XML-based <a target="_blank"
 href="http://www.w3.org/TR/MathML2/">MathML&nbsp;2.0</a> format).  LibSBML
 provides an extensive API for working with ASTs; it also provides facilities
-for translating between ASTs and mathematical formulas writting in a
+for translating between ASTs and mathematical formulas writing in a
 text-string notation, as well as translating between ASTs and MathML.
 
 
 @section math-overview Basic concepts
-
-In libSBML, an <a target="_blank"
-href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a> is a
-collection of one or more objects of class ASTNode.
 
 @copydetails doc_what_is_astnode
 
