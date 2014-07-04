@@ -645,7 +645,10 @@ public:
                             StringBuffer_t  *sb) const;
   /** @endcond */
 
+
+  /** @cond doxygenLibsbmlInternal */
   friend class L3Parser;
+  /** @endcond */
 
 
 private:

@@ -35,16 +35,12 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
- * libSBML for storing mathematical expressions.  The ASTNode is the
- * cornerstone of libSBML's AST representation.  An AST "node" represents the
- * most basic, indivisible part of a mathematical formula and comes in many
- * types.  For instance, there are node types to represent numbers (with
- * subtypes to distinguish integer, real, and rational numbers), names
- * (e.g., constants or variables), simple mathematical operators, logical
- * or relational operators and functions. LibSBML ASTs provide a canonical,
- * in-memory representation for all mathematical formulas regardless of
- * their original format (which might be MathML or might be text strings).
+ * <a target="_blank"
+ * href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
+ * Trees</a> (ASTs) are a simple kind of data structure used in libSBML for
+ * storing mathematical expressions.  LibSBML ASTs provide a canonical,
+ * in-memory representation for all mathematical formulas regardless of their
+ * original format (which might be MathML or might be text strings).
  *
  * @copydetails doc_what_is_astnode
  *
@@ -54,37 +50,42 @@
  *
  * @copydetails doc_astnode_types
  *
- * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
+ * <h3><a class="anchor" name="math-convert">Converting between ASTs and text
+ * strings</a></h3>
  *
- * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp SBML_formulaToString()@endif@if python libsbml.formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~ and
- * read by @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
- * and
- * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
- * are in a simple C-inspired infix notation.  A
- * formula in one of these two text-string formats can be handed to a program
- * that understands SBML mathematical expressions, or used as part of a
- * translation system.  The libSBML distribution comes with example
- * programs in the @c "examples" subdirectory that demonstrate such things
- * as translating infix formulas into MathML and vice-versa.
+ * The text-string form of mathematical formulas produced by
+ * @sbmlfunction{formulaToString, String formula} and
+ * @sbmlfunction{formulaToL3String, String formula}, and read by
+ * @sbmlfunction{parseFormula, ASTNode tree} and
+ * @sbmlfunction{parseL3Formula, ASTNode tree}, are in a simple C-inspired
+ * infix notation.  A formula in one of these two text-string formats can be
+ * handed to a program that understands SBML mathematical expressions, or
+ * used as part of a translation system.  The libSBML distribution comes with
+ * example programs in the @c "examples" subdirectory that demonstrate such
+ * things as translating infix formulas into MathML and vice-versa.
  *
- * Please see the documentation for the functions
- * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
- * and
- * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
- * for detailed explanations of the infix syntax they accept.
+ * Please see the documentation for the functions @sbmlfunction{parseFormula,
+ * ASTNode tree} and @sbmlfunction{parseL3Formula, ASTNode tree} for detailed
+ * explanations of the infix syntax they accept.
  *
- * @if clike @see SBML_parseL3Formula()@endif@~
- * @if csharp @see SBML_parseL3Formula()@endif@~
- * @if python @see libsbml.parseL3Formula()@endif@~
- * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
- * @if clike @see SBML_parseFormula()@endif@~
- * @if csharp @see SBML_parseFormula()@endif@~
- * @if python @see libsbml.parseFormula()@endif@~
- * @if java @see <code><a href="libsbml.html#parseFormula(String formula)">libsbml.parseFormula(String formula)</a></code>@endif@~
- * @if clike @see SBML_formulaToString()@endif@~
- * @if csharp @see SBML_formulaToString()@endif@~
- * @if python @see libsbml.formulaToString()@endif@~
- * @if java @see <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif@~
+ * <h3><a class="anchor" name="math-history">Historical notes</a></h3>
+ *
+ * Readers may wonder why this part of libSBML uses a seemingly less
+ * object-oriented design than other parts.  Originally, much of libSBML was
+ * written in&nbsp;C.  All subsequent development was done in C++, but the
+ * complexity of some of the functionality for converting between infix, AST
+ * and MathML, coupled with the desire to maintain stability and backward
+ * compatibility, means that some of the underlying code is still written
+ * in&nbsp;C.  This has lead to the exposed API being more C-like.
+
+ * @see @sbmlfunction{parseL3Formula, String formula}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
+ * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
+ * @see @sbmlfunction{formulaToL3String, ASTNode tree}
+ * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{getDefaultL3ParserSettings,}
  */
 
 /**
@@ -276,7 +277,7 @@ public:
    * "False" the node type is converted to the corresponding
    * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
    * @li If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and
-   * the node name matches an SBML (MathML) function name, logical operator name, 
+   * the node name matches an SBML (MathML) function name, logical operator name,
    * or relational operator name, the node is converted to the corresponding
    * <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or
    * <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.
@@ -670,7 +671,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns the value of this node as a string.
    *
    * This function may be called on nodes that (1) are not operators, i.e.,
-   * nodes for which @if clike isOperator()@else ASTNode::isOperator()@endif@~ 
+   * nodes for which @if clike isOperator()@else ASTNode::isOperator()@endif@~
    * returns @c false, and (2) are not numbers, i.e.,
    * @if clike isNumber()@else ASTNode::isNumber()@endif@~ returns @c false.
    *
@@ -843,16 +844,13 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns the units of this ASTNode.
    *
    * @htmlinclude about-sbml-units-attrib.html
-   * 
+   *
    * @return the units of this ASTNode.
    *
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
-   * 
-   * @if clike @see SBML_parseL3Formula()@endif@~
-   * @if csharp @see SBML_parseL3Formula()@endif@~
-   * @if python @see libsbml.parseL3Formula()@endif@~
-   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+   *
+   * @see @sbmlfunction{parseL3Formula, String formula}
    */
   std::string getUnits () const;
 
@@ -869,10 +867,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @return @c true if this ASTNode is the special symbol avogadro,
    * @c false otherwise.
    *
-   * @if clike @see SBML_parseL3Formula()@endif@~
-   * @if csharp @see SBML_parseL3Formula()@endif@~
-   * @if python @see libsbml.parseL3Formula()@endif@~
-   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+   * @see @sbmlfunction{parseL3Formula, String formula}
    */
   virtual bool isAvogadro () const;
 
@@ -919,7 +914,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @return @c true if this ASTNode is a MathML constant, @c false
    * otherwise.
    *
-   * @note This function will also return @c true for nodes of type @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} in SBML Level&nbsp;3.
+   * @note This function will also return @c true for nodes of type
+   * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} in SBML Level&nbsp;3.
    */
   virtual bool isConstant () const;
 
@@ -950,7 +946,8 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node contains an integer value.
    *
-   * @return @c true if this ASTNode is of type @sbmlconstant{AST_INTEGER, ASTNodeType_t}, @c false otherwise.
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_INTEGER,
+   * ASTNodeType_t}, @c false otherwise.
    */
   virtual bool isInteger () const;
 
@@ -958,8 +955,9 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node is a MathML
    * <code>&lt;lambda&gt;</code>.
-   * 
-   * @return @c true if this ASTNode is of type @sbmlconstant{AST_LAMBDA, ASTNodeType_t}, @c false otherwise.
+   *
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_LAMBDA,
+   * ASTNodeType_t}, @c false otherwise.
    */
   virtual bool isLambda () const;
 
@@ -967,16 +965,15 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node represents a @c log10 function.
    *
-   * More precisely, this predicate returns @c true if the node type is @sbmlconstant{AST_FUNCTION_LOG, ASTNodeType_t} with two
-   * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to 10.
-   * 
+   * More precisely, this predicate returns @c true if the node type is
+   * @sbmlconstant{AST_FUNCTION_LOG, ASTNodeType_t} with two children, the
+   * first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} equal to
+   * 10.
+   *
    * @return @c true if the given ASTNode represents a @c log10() function, @c
    * false otherwise.
    *
-   * @if clike @see SBML_parseL3Formula()@endif@~
-   * @if csharp @see SBML_parseL3Formula()@endif@~
-   * @if python @see libsbml.parseL3Formula()@endif@~
-   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+   * @see @sbmlfunction{parseL3Formula, String formula}
    */
   virtual bool isLog10 () const;
 
@@ -986,7 +983,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * The possible MathML logical operators are @c and, @c or, @c not, and @c
    * xor.
-   * 
+   *
    * @return @c true if this ASTNode is a MathML logical operator, @c false
    * otherwise.
    */
@@ -1011,7 +1008,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node represents the special IEEE 754
    * value "not a number" (NaN).
-   * 
+   *
    * @return @c true if this ASTNode is the special IEEE 754 NaN, @c false
    * otherwise.
    */
@@ -1052,7 +1049,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node is the MathML
    * <code>&lt;piecewise&gt;</code> construct.
-   * 
+   *
    * @return @c true if this ASTNode is a MathML @c piecewise function,
    * @c false otherwise.
    */
@@ -1065,7 +1062,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * The MathML qualifier node types are @c bvar, @c degree, @c base, @c
    * piece, and @c otherwise.
-   * 
+   *
    * @return @c true if this ASTNode is a MathML qualifier, @c false
    * otherwise.
    */
@@ -1074,9 +1071,9 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
   /**
    * Returns @c true if this node represents a rational number.
-   * 
-   * @return @c true if this ASTNode is of type @sbmlconstant{AST_RATIONAL, ASTNodeType_t}, @c
-   * false otherwise.
+   *
+   * @return @c true if this ASTNode is of type @sbmlconstant{AST_RATIONAL,
+   * ASTNodeType_t}, @c false otherwise.
    */
   virtual bool isRational () const;
 
@@ -1084,7 +1081,9 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
   /**
    * Returns @c true if this node can represent a real number.
    *
-   * More precisely, this node must be of one of the following types: @sbmlconstant{AST_REAL, ASTNodeType_t}, @sbmlconstant{AST_REAL_E, ASTNodeType_t} or @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
+   * More precisely, this node must be of one of the following types:
+   * @sbmlconstant{AST_REAL, ASTNodeType_t}, @sbmlconstant{AST_REAL_E,
+   * ASTNodeType_t} or @sbmlconstant{AST_RATIONAL, ASTNodeType_t}.
    *
    * @return @c true if the value of this ASTNode can represented as a real
    * number, @c false otherwise.
@@ -1119,9 +1118,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns @c true if this node represents a square root
    * function.
    *
-   * More precisely, the node type must be @sbmlconstant{AST_FUNCTION_ROOT, ASTNodeType_t} with two
-   * children, the first of which is an @sbmlconstant{AST_INTEGER, ASTNodeType_t} node having value equal to 2.
-   * 
+   * More precisely, the node type must be @sbmlconstant{AST_FUNCTION_ROOT,
+   * ASTNodeType_t} with two children, the first of which is an
+   * @sbmlconstant{AST_INTEGER, ASTNodeType_t} node having value equal to 2.
+   *
    * @return @c true if the given ASTNode represents a <code>sqrt()</code>
    * function, @c false otherwise.
    */
@@ -1135,22 +1135,17 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
    *
    * For numbers, unary minus nodes can be "collapsed" by negating the
-   * number.  In fact, 
-   * @if clike SBML_parseFormula()@endif@if csharp SBML_parseFormula()@endif@if python libsbml.parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula(String formula)</a></code>@endif@~
-   * does this during its parsing process, and 
-   * @if clike SBML_parseL3Formula()@endif@if csharp SBML_parseL3Formula()@endif@if python libsbml.parseL3Formula()@endif@if java <code><a href="libsbml.html#parseL3Formula(java.lang.String)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
-   * has a configuration option that allows this behavior to be turned
-   * on or off.  However, unary minus nodes for symbols
-   * (@sbmlconstant{AST_NAME, ASTNodeType_t}) cannot
-   * be "collapsed", so this predicate function is necessary.
-   * 
+   * number.  In fact, @sbmlfunction{parseFormula, String formula} does this
+   * during its parsing process, and @sbmlfunction{parseL3Formula, String
+   * formula} has a configuration option that allows this behavior to be
+   * turned on or off.  However, unary minus nodes for symbols
+   * (@sbmlconstant{AST_NAME, ASTNodeType_t}) cannot be "collapsed", so this
+   * predicate function is necessary.
+   *
    * @return @c true if this ASTNode is a unary minus, @c false
    * otherwise.
    *
-   * @if clike @see SBML_parseL3Formula()@endif@~
-   * @if csharp @see SBML_parseL3Formula()@endif@~
-   * @if python @see libsbml.parseL3Formula()@endif@~
-   * @if java @see <code><a href="libsbml.html#parseL3Formula(String formula)">libsbml.parseL3Formula(String formula)</a></code>@endif@~
+   * @see @sbmlfunction{parseL3Formula, String formula}
    */
   bool isUMinus () const;
 
@@ -1355,13 +1350,12 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Sets the value of this ASTNode to the given name.
    *
    * As a side effect, this ASTNode object's type will be reset to
-   * @sbmlconstant{AST_NAME, ASTNodeType_t} if (and <em>only
-   * if</em>) the ASTNode was previously an operator (i.e.,
-   * @if clike isOperator()@else ASTNode::isOperator()@endif@~
-   * returns @c true), number
-   * (i.e., @if clike isNumber()@else ASTNode::isNumber()@endif@~
-   * returns @c true), or unknown.
-   * This allows names to be set for @sbmlconstant{AST_FUNCTION, ASTNodeType_t} nodes and the like.
+   * @sbmlconstant{AST_NAME, ASTNodeType_t} if (and <em>only if</em>) the
+   * ASTNode was previously an operator (i.e., @if clike isOperator()@else
+   * ASTNode::isOperator()@endif@~ returns @c true), number (i.e., @if clike
+   * isNumber()@else ASTNode::isNumber()@endif@~ returns @c true), or
+   * unknown.  This allows names to be set for @sbmlconstant{AST_FUNCTION,
+   * ASTNodeType_t} nodes and the like.
    *
    * @param name the string containing the name to which this node's value
    * should be set.
@@ -1469,7 +1463,7 @@ setValue(value, 0);
    * @note A side-effect of doing this is that any numerical values
    * previously stored in this node are reset to zero.
    *
-   * @see getType() 
+   * @see getType()
    * @see setType(int Type)
    */
   int setType (ASTNodeType_t type);
@@ -1492,7 +1486,7 @@ setValue(value, 0);
    * @note A side-effect of doing this is that any numerical values
    * previously stored in this node are reset to zero.
    *
-   * @see getType() 
+   * @see getType()
    * @see setType(ASTNodeType_t type)
    */
   int setType (int type);
@@ -1562,26 +1556,26 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-  
+
   /**
    * Replace any nodes of type AST_NAME with the name 'id' from the child
    * 'math' object with the provided ASTNode.
    *
    */
   virtual void replaceIDWithFunction(const std::string& id, const ASTNode* function);
-  
+
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-  
+
   /**
    * Replaces any 'AST_NAME_TIME' nodes with a node that multiplies time by
    * the given function.
    *
    */
   //virtual void multiplyTimeBy(const ASTNode* function);
-  
+
   /** @endcond */
 
 
@@ -1611,7 +1605,7 @@ setValue(value, 0);
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   int unsetId();
-  
+
 
   /**
    * Unsets the MathML @c class attribute of this ASTNode.
@@ -1754,7 +1748,7 @@ setValue(value, 0);
   /**
    * Reduces this ASTNode to a binary tree.
    *
-   * Example: if this ASTNode is <code>and(x, y, z)</code>, then the 
+   * Example: if this ASTNode is <code>and(x, y, z)</code>, then the
    * formula of the reduced node is <code>and(and(x, y), z)</code>.  The
    * operation replaces the formula stored in the current ASTNode object.
    */
@@ -1775,7 +1769,7 @@ setValue(value, 0);
   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
   *
-  * @if clike 
+  * @if clike
   * @see ASTNode::isSetUserData()
   * @see ASTNode::getUserData()
   * @see ASTNode::unsetUserData()
@@ -1854,7 +1848,8 @@ setValue(value, 0);
   * Returns @c true if this ASTNode has the correct number of children for
   * its type.
   *
-  * For example, an ASTNode with type @sbmlconstant{AST_PLUS, ASTNodeType_t} expects 2 child nodes.
+  * For example, an ASTNode with type @sbmlconstant{AST_PLUS, ASTNodeType_t}
+  * expects 2 child nodes.
   *
   * @return @c true if this ASTNode has the appropriate number of children
   * for its type, @c false otherwise.
@@ -1868,7 +1863,7 @@ setValue(value, 0);
 
 
   /* additional to original AST */
-  
+
   /**
    * Returns the MathML @c definitionURL attribute value as a string.
    *
@@ -1882,23 +1877,23 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-  
+
   virtual bool representsBvar() const;
 
-  
+
   /** @endcond */
-  
-  
+
+
   /** @cond doxygenLibsbmlInternal */
 
   /*
-   * writes the node to the stream 
+   * writes the node to the stream
    */
   virtual void write(XMLOutputStream& stream) const;
 
   /** @endcond */
 
-  
+
   /** @cond doxygenLibsbmlInternal */
 
   /*
@@ -1908,16 +1903,16 @@ setValue(value, 0);
 
   /** @endcond */
 
-  
+
   /** @cond doxygenLibsbmlInternal */
 
-  virtual void writeNodeOfType(XMLOutputStream& stream, int type, 
+  virtual void writeNodeOfType(XMLOutputStream& stream, int type,
     bool inChildNode = false) const;
 
   /** @endcond */
-  
+
   /** @cond doxygenLibsbmlInternal */
-  
+
   unsigned int getNumBvars() const;
 
   /** @endcond */
@@ -2039,7 +2034,7 @@ ASTNode_create (void);
  * @returns a pointer to the fresh ASTNode_t structure.
  *
  * @see ASTNode_create()
- * 
+ *
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
@@ -2071,7 +2066,7 @@ ASTNode_createFromToken (Token_t *token);
  * Frees the given ASTNode_t structure, including any child nodes.
  *
  * @param node the node to be freed.
- * 
+ *
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
@@ -2083,8 +2078,8 @@ ASTNode_free (ASTNode_t *node);
  * Frees the name field of a given node and sets it to null.
  *
  * This operation is only applicable to ASTNode_t structures corresponding to
- * operators, numbers, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  This method will have no effect on other types of
- * nodes.
+ * operators, numbers, or @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  This
+ * method will have no effect on other types of nodes.
  *
  * @param node the node whose name field should be freed.
  *
@@ -2109,7 +2104,7 @@ ASTNode_freeName (ASTNode_t *node);
  *
  * @li If the node type is @sbmlconstant{AST_NAME, ASTNodeType_t}
  * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
- * "False" the node type is converted to the corresponding 
+ * "False" the node type is converted to the corresponding
  * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
  * @li If the node type is an @sbmlconstant{AST_FUNCTION, ASTNodeType_t} and
  * the node name matches an SBML (MathML) function name, logical operator
@@ -2551,8 +2546,9 @@ ASTNode_getDenominator (const ASTNode_t *node);
  *
  * This function should be called only when ASTNode_isReal() returns nonzero
  * for @p node. This function performs the necessary arithmetic if the node
- * type is @sbmlconstant{AST_REAL_E, ASTNodeType_t} (<em>mantissa *
- * 10<sup> exponent</sup></em>) or @sbmlconstant{AST_RATIONAL, ASTNodeType_t} (<em>numerator / denominator</em>).
+ * type is @sbmlconstant{AST_REAL_E, ASTNodeType_t} (<em>mantissa * 10<sup>
+ * exponent</sup></em>) or @sbmlconstant{AST_RATIONAL, ASTNodeType_t}
+ * (<em>numerator / denominator</em>).
  *
  * @param node the node whose value is to be returned.
  *
@@ -3004,7 +3000,7 @@ ASTNode_isPiecewise (const ASTNode_t *node);
 
 /**
  * Returns true if the given node represents a MathML
- * qualifier (i.e., @c bvar, @c degree, @c base, @c piece, @c otherwise), 
+ * qualifier (i.e., @c bvar, @c degree, @c base, @c piece, @c otherwise),
  * @c false (zero) otherwise.
  *
  * More precisely, this node must be of one of the following types:
@@ -3911,7 +3907,7 @@ ASTNode_isWellFormedASTNode(ASTNode_t* node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-XMLAttributes_t * 
+XMLAttributes_t *
 ASTNode_getDefinitionURL(ASTNode_t* node);
 
 
@@ -3948,7 +3944,7 @@ ASTNode_getDefinitionURLString(ASTNode_t* node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-int 
+int
 ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t * defnURL);
 
 
@@ -3966,13 +3962,13 @@ ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t * defnURL);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-int 
+int
 ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL);
 
 
 /** @cond doxygenLibsbmlInternal */
 /**
- * 
+ *
  *
  * @memberof ASTNode_t
  */
@@ -4034,4 +4030,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* ASTNode_h */
-
