@@ -52,11 +52,17 @@ def main(args):
     classes = filter(lambda x: x != 'SBMLConverter', classes)
 
     print('/**')
-    print('@class doc_list_of_libsbml_converters')
-    print('')
-    print('@par')
-    print('@li ' + '\n@li '.join(classes))
-    print('*/')
+    print(' * @class doc_list_of_libsbml_converters')
+    print(' * ')
+    print(' * @par')
+    print(' * @li ' + '\n * @li '.join(classes))
+    # Make sure to close the list with the following 3 items.  The way that
+    # swigdoc.py processes class definitions chops off the /** and */, which
+    # leaves nothing for swigdoc.py's @li-matching regexp to terminate its
+    # match.  The extra <p> followed by a blank line does it.
+    print(' * <p>')
+    print(' *')
+    print(' */')
 
 
 if __name__ == '__main__':
