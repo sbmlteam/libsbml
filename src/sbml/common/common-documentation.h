@@ -363,15 +363,17 @@
  * @class doc_what_is_astnode
  *
  * @par
- * An AST @em node in libSBML is a recursive structure containing a pointer
- * to the node's value (which might be, for example, a number or a symbol)
- * and a list of children nodes.  Each ASTNode node may have none, one,
- * two, or more children depending on its type.  The following diagram
- * illustrates an example of how the mathematical expression <code>"1 +
- * 2"</code> is represented as an AST with one @em plus node having two @em
- * integer children nodes for the numbers <code>1</code> and
- * <code>2</code>.  The figure also shows the corresponding MathML
- * representation:
+ * An AST @em node in libSBML is a recursive tree structure; each node has a
+ * type, a pointer to a value, and a list of children nodes.  Each ASTNode
+ * node may have none, one, two, or more children depending on its type.
+ * There are node types to represent numbers (with subtypes to distinguish
+ * integer, real, and rational numbers), names (e.g., constants or
+ * variables), simple mathematical operators, logical or relational operators
+ * and functions.  The following diagram illustrates an example of how the
+ * mathematical expression <code>"1 + 2"</code> is represented as an AST with
+ * one @em plus node having two @em integer children nodes for the numbers
+ * <code>1</code> and <code>2</code>.  The figure also shows the
+ * corresponding MathML representation:
  *
  * @htmlinclude astnode-illustration.html
  *
@@ -379,12 +381,11 @@
  * in libSBML:
 
  * @li A numerical value represented in MathML as a real number with an
- * exponent is preserved as such in the AST node representation, even if
- * the number could be stored in a
- * @if python @c float@endif@if clike @c double @endif data type.  This is
- * done so that when an SBML model is read in and then written out again, the
- * amount of change introduced by libSBML to the SBML during the round-trip
- * activity is minimized.
+ * exponent is preserved as such in the AST node representation, even if the
+ * number could be stored in a @c double data type.  This is done so that
+ * when an SBML model is read in and then written out again, the amount of
+ * change introduced by libSBML to the SBML during the round-trip activity is
+ * minimized.
  *
  * @li Rational numbers are represented in an AST node using separate
  * numerator and denominator values.  These can be retrieved using the
@@ -402,11 +403,6 @@
  * @sbmlfunction{parseL3Formula, String formula}.  If you find the complexity
  * of using the AST representation of expressions too high for your purposes,
  * perhaps the string-based functions will be more suitable.
- *
- * Finally, it is worth noting that the AST and MathML handling code in
- * libSBML remains written in C, not C++.  (All of libSBML was originally
- * written in C.)  Readers may occasionally wonder why some aspects are more
- * C-like and less object oriented, and that's one of the reasons.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_astnode_types
