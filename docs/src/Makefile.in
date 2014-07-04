@@ -281,7 +281,6 @@ distfiles =                                                  \
         libsbml-core-versus-packages.txt                     \
         libsbml-csharp-example-files.txt                     \
         libsbml-csharp-mainpage.txt                          \
-        libsbml-python-math.txt                              \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
         libsbml-doxygen.html                                 \
