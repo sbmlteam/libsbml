@@ -1,174 +1,179 @@
 /**
- * @file    SpatialSymbolReference.cpp
- * @brief   Implementation of SpatialSymbolReference, the SBase derived class of spatial package.
- * @author  
+ * @file:   SpatialSymbolReference.cpp
+ * @brief:  Implementation of the SpatialSymbolReference class
+ * @author: SBMLTeam
  *
- * $Id: SpatialSymbolReference.cpp 10670 2010-01-16 12:10:06Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/SpatialSymbolReference.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/SpatialSymbolReference.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new SpatialSymbolReference with the given level, version, and package version.
  */
-SpatialSymbolReference::SpatialSymbolReference (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : SBase (level,version)
-   , mSpatialId("")
-   , mType("")
+SpatialSymbolReference::SpatialSymbolReference (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: SBase(level, version)
+   ,mSpatialRef ("")
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new SpatialSymbolReference with the given SpatialPkgNamespaces object.
  */
-SpatialSymbolReference::SpatialSymbolReference(SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
-  , mSpatialId("")
-  , mType("")
+SpatialSymbolReference::SpatialSymbolReference (SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
+   ,mSpatialRef ("")
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
-
-  // if level 3 values have no defaults
- // -------  mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
-
 }
 
 
 /*
- * Copy constructor.
+ * Copy constructor for SpatialSymbolReference.
  */
-SpatialSymbolReference::SpatialSymbolReference(const SpatialSymbolReference& source) : SBase(source)
+SpatialSymbolReference::SpatialSymbolReference (const SpatialSymbolReference& orig)
+	: SBase(orig)
 {
-  this->mSpatialId=source.mSpatialId;
-  this->mType=source.mType;
-}
-
-/*
- * Assignment operator.
- */
-SpatialSymbolReference& SpatialSymbolReference::operator=(const SpatialSymbolReference& source)
-{
-  if(&source!=this)
+  if (&orig == NULL)
   {
-    this->SBase::operator=(source);
-    this->mSpatialId = source.mSpatialId;
-	this->mType=source.mType;
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  
+  else
+  {
+    mSpatialRef  = orig.mSpatialRef;
+  }
+}
+
+
+/*
+ * Assignment for SpatialSymbolReference.
+ */
+SpatialSymbolReference&
+SpatialSymbolReference::operator=(const SpatialSymbolReference& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+		SBase::operator=(rhs);
+    mSpatialRef  = rhs.mSpatialRef;
+  }
   return *this;
 }
 
 
 /*
- * Destructor.
- */ 
+ * Clone for SpatialSymbolReference.
+ */
+SpatialSymbolReference*
+SpatialSymbolReference::clone () const
+{
+  return new SpatialSymbolReference(*this);
+}
+
+
+/*
+ * Destructor for SpatialSymbolReference.
+ */
 SpatialSymbolReference::~SpatialSymbolReference ()
 {
 }
 
 
 /*
-  * Returns the value of the "spatialId" attribute of this SpatialSymbolReference.
-  */
-const std::string& 
-SpatialSymbolReference::getSpatialId () const
+ * Returns the value of the "spatialRef" attribute of this SpatialSymbolReference.
+ */
+const std::string&
+SpatialSymbolReference::getSpatialRef() const
 {
-  return mSpatialId;
+  return mSpatialRef;
 }
 
-/*
-  * Returns the value of the "type" attribute of this SpatialSymbolReference.
-  */
-const std::string& 
-SpatialSymbolReference::getType () const
-{
-  return mType;
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * SpatialSymbolReference's "spatialId" attribute has been set.
-  */
-bool 
-SpatialSymbolReference::isSetSpatialId () const
+ * Returns true/false if spatialRef is set.
+ */
+bool
+SpatialSymbolReference::isSetSpatialRef() const
 {
-  return (mSpatialId.empty() == false);
+  return (mSpatialRef.empty() == false);
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * SpatialSymbolReference's "type" attribute has been set.
-  */
-bool 
-SpatialSymbolReference::isSetType () const
-{
-  return (mType.empty() == false);
-}
 
 /*
-  * Sets the value of the "spatialId" attribute of this SpatialSymbolReference.
-  */
-int 
-SpatialSymbolReference::setSpatialId (const std::string& spatialId)
+ * Sets spatialRef and returns value indicating success.
+ */
+int
+SpatialSymbolReference::setSpatialRef(const std::string& spatialRef)
 {
-  return SyntaxChecker::checkAndSetSId(spatialId ,mSpatialId);
+  if (&(spatialRef) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(spatialRef)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpatialRef = spatialRef;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
-/*
-  * Sets the value of the "type" attribute of this SpatialSymbolReference.
-  */
-int 
-SpatialSymbolReference::setType (const std::string& type)
-{
-  return SyntaxChecker::checkAndSetSId(type ,mType);
-}
 
 /*
-  * Unsets the value of the "spatialId" attribute of this SpatialSymbolReference.
-  */
-int 
-SpatialSymbolReference::unsetSpatialId ()
+ * Unsets spatialRef and returns value indicating success.
+ */
+int
+SpatialSymbolReference::unsetSpatialRef()
 {
-  mSpatialId.erase();
-  if (mSpatialId.empty())
+  mSpatialRef.erase();
+
+  if (mSpatialRef.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -178,126 +183,34 @@ SpatialSymbolReference::unsetSpatialId ()
   }
 }
 
-/*
-  * Unsets the value of the "type" attribute of this SpatialSymbolReference.
-  */
-int 
-SpatialSymbolReference::unsetType ()
-{
-  mType.erase();
-  if (mType.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+SpatialSymbolReference::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetSpatialRef() == true && mSpatialRef == oldid)
+  {
+    setSpatialRef(newid);
+  }
+
+}
+
+
+/*
+ * Returns the XML element name of this object
  */
 const std::string&
 SpatialSymbolReference::getElementName () const
 {
-  static const std::string name = "spatialSymbolReference";
-  return name;
+	static const string name = "spatialSymbolReference";
+	return name;
 }
 
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-SpatialSymbolReference::createObject (XMLInputStream& stream)
-{
-  // return 0;
-  SBase*        object = 0;
-
-  object=SBase::createObject(stream);
-  
-  return object;
-
-}
-
-/*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
-void
-SpatialSymbolReference::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-
-  attributes.add("spatialId");
-  attributes.add("type");
-}
-
-
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes,expectedAttributes);
-
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("spatialId", mSpatialId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mSpatialId.empty())
-  {
-    logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
-
-  assigned = attributes.readInto("type", mType, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mType.empty())
-  {
-    logEmptyString(mType, sbmlLevel, sbmlVersion, "<SpatialSymbolReference>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute type='" + mType + "' does not conform.");
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-SpatialSymbolReference::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-
-  if (isSetSpatialId())
-  stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
-  if (isSetType())
-  stream.writeAttribute("type",   getPrefix(), mType);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
-}
-
-/*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 SpatialSymbolReference::getTypeCode () const
@@ -305,12 +218,39 @@ SpatialSymbolReference::getTypeCode () const
   return SBML_SPATIAL_SPATIALSYMBOLREFERENCE;
 }
 
-SpatialSymbolReference*
-SpatialSymbolReference::clone() const
+
+/*
+ * check if all the required attributes are set
+ */
+bool
+SpatialSymbolReference::hasRequiredAttributes () const
 {
-    return new SpatialSymbolReference(*this);
+	bool allPresent = true;
+
+  if (isSetSpatialRef() == false)
+    allPresent = false;
+
+  return allPresent;
 }
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+SpatialSymbolReference::writeElements (XMLOutputStream& stream) const
+{
+	SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -318,9 +258,233 @@ SpatialSymbolReference::clone() const
 bool
 SpatialSymbolReference::accept (SBMLVisitor& v) const
 {
-  // return false;
   return v.visit(*this);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+SpatialSymbolReference::setSBMLDocument (SBMLDocument* d)
+{
+	SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+SpatialSymbolReference::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+SpatialSymbolReference::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	SBase::addExpectedAttributes(attributes);
+
+	attributes.add("spatialRef");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // spatialRef SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("spatialRef", mSpatialRef);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mSpatialRef.empty() == true)
+    {
+      logEmptyString(mSpatialRef, getLevel(), getVersion(), "<SpatialSymbolReference>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mSpatialRef) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute spatialRef='" + mSpatialRef + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'spatialRef' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+SpatialSymbolReference::writeAttributes (XMLOutputStream& stream) const
+{
+	SBase::writeAttributes(stream);
+
+	if (isSetSpatialRef() == true)
+		stream.writeAttribute("spatialRef", getPrefix(), mSpatialRef);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+SpatialSymbolReference_t *
+SpatialSymbolReference_create(unsigned int level, unsigned int version,
+                              unsigned int pkgVersion)
+{
+  return new SpatialSymbolReference(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+SpatialSymbolReference_free(SpatialSymbolReference_t * ssr)
+{
+  if (ssr != NULL)
+    delete ssr;
+}
+
+
+LIBSBML_EXTERN
+SpatialSymbolReference_t *
+SpatialSymbolReference_clone(SpatialSymbolReference_t * ssr)
+{
+  if (ssr != NULL)
+  {
+    return static_cast<SpatialSymbolReference_t*>(ssr->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+SpatialSymbolReference_getSpatialRef(const SpatialSymbolReference_t * ssr)
+{
+	return (ssr != NULL && ssr->isSetSpatialRef()) ? ssr->getSpatialRef().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialSymbolReference_isSetSpatialRef(const SpatialSymbolReference_t * ssr)
+{
+  return (ssr != NULL) ? static_cast<int>(ssr->isSetSpatialRef()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialSymbolReference_setSpatialRef(SpatialSymbolReference_t * ssr, const char * spatialRef)
+{
+  if (ssr != NULL)
+    return (spatialRef == NULL) ? ssr->setSpatialRef("") : ssr->setSpatialRef(spatialRef);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialSymbolReference_unsetSpatialRef(SpatialSymbolReference_t * ssr)
+{
+  return (ssr != NULL) ? ssr->unsetSpatialRef() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialSymbolReference_hasRequiredAttributes(const SpatialSymbolReference_t * ssr)
+{
+  return (ssr != NULL) ? static_cast<int>(ssr->hasRequiredAttributes()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+

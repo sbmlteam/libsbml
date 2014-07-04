@@ -26,6 +26,18 @@ LIBSBML_CPP_NAMESPACE_USE
   /** @endcond doxygenIgnored */
 
 
+std::string dataToString(int* field, int numSamples1, int length)
+{
+  stringstream builder;
+  for (int i = 0; i < length; ++i)
+  {
+    builder << field[i] << " ";
+    if ((i + 1) % numSamples1 == 0) builder << "\n";
+  }
+  return builder.str();
+}
+
+
   CK_CPPSTART
 
 
@@ -33,98 +45,10 @@ LIBSBML_CPP_NAMESPACE_USE
 
 START_TEST (test_SpatialExtension_read_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x2\" value=\"8\" constant=\"true\" />\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
+  string file = TestDataDirectory;
+  file += "/read_l3v1v1.xml";
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
   char *sbmlDoc = writeSBMLToString(document);
   fail_unless(document->getPackageName() == "core");
 
@@ -145,9 +69,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(cplugin != NULL);
 
   CompartmentMapping *cMapping = cplugin->getCompartmentMapping();
-  if (cMapping->isSetSpatialId()) {
-    fail_unless(cMapping->getSpatialId()		 == "compMap1");
-    fail_unless(cMapping->getCompartment()	 == "cytosol");
+  if (cMapping->isSetId()) {
+    fail_unless(cMapping->getId()		 == "compMap1");
     fail_unless(cMapping->getDomainType()	 == "dtype1");
     fail_unless(cMapping->getUnitSize()		 == 1);
   }
@@ -191,7 +114,9 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(diffCoeff != NULL);
 
   fail_unless(diffCoeff->getVariable()		== "ATPc");
-  fail_unless(diffCoeff->getCoordinateIndex() == 0);
+  fail_unless(diffCoeff->getNumCoordinateReferences() > 0);
+  if (diffCoeff->getNumCoordinateReferences() > 0)
+  fail_unless(diffCoeff->getCoordinateReference(0)->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
@@ -200,8 +125,9 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(pplugin->isSpatialParameter() == true);
   fail_unless(pplugin->getType() == SBML_SPATIAL_ADVECTIONCOEFFICIENT);
   AdvectionCoefficient *advCoeff = pplugin->getAdvectionCoefficient();
+  fail_unless(advCoeff != NULL);
   fail_unless(advCoeff->getVariable()		== "ATPc");
-  fail_unless(advCoeff->getCoordinateIndex() == 0);
+  fail_unless(advCoeff->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 2 : boundaryCondition X
   param = model->getParameter(2);
@@ -212,7 +138,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   BoundaryCondition *bc = pplugin->getBoundaryCondition();
   fail_unless(bc->getVariable()		   == "ATPc");
   fail_unless(bc->getCoordinateBoundary() == "Xmin");
-  fail_unless(bc->getType() == "value");
+  fail_unless(bc->getType() == SPATIAL_BOUNDARYKIND_DIRICHLET);
 
   // parameter 3 : SpatialSymbolReference (coordinateComponent from geometry)
   param = model->getParameter(3);
@@ -221,8 +147,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(pplugin->isSpatialParameter() == true);
   fail_unless(pplugin->getType() == SBML_SPATIAL_SPATIALSYMBOLREFERENCE);
   SpatialSymbolReference *spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->getSpatialId() == "coordComp1");
-  fail_unless(spSymRef->getType()		== "coordinateComponent");
+  fail_unless(spSymRef->getSpatialRef() == "coordComp1");
 
   // model : reaction	
   fail_unless(model->getNumReactions() == 1);
@@ -239,27 +164,26 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   Geometry *geometry = mplugin->getGeometry();
   fail_unless(geometry != NULL);
   fail_unless(geometry->getPackageName()		== "spatial");
-  fail_unless(geometry->getCoordinateSystem()	== "XYZ");
+  fail_unless(geometry->getCoordinateSystem()	== SPATIAL_GEOMETRYKIND_CARTESIAN);
 
   // geometry coordinateComponent
   fail_unless(geometry->getNumCoordinateComponents() == 1);
   fail_unless(geometry->getListOfCoordinateComponents()->getPackageName() == "spatial");
 
   CoordinateComponent* coordComp = geometry->getCoordinateComponent(0);
-  fail_unless(coordComp->getSpatialId()        == "coordComp1");
-  fail_unless(coordComp->getComponentType()	== "cartesian");
-  fail_unless(coordComp->getSbmlUnit()			== "umeter");
-  fail_unless(coordComp->getIndex()			== 1);
+  fail_unless(coordComp->getId()        == "coordComp1");
+  fail_unless(coordComp->getType()	==  SPATIAL_COORDINATEKIND_CARTESIAN_X );
+  fail_unless(coordComp->getUnit()			== "umeter");
   fail_unless(coordComp->getPackageName()		== "spatial");
 
   // boundaryMin and boundayMax within coordinateComponent
-  BoundaryMin *minX = coordComp->getBoundaryMin();
-  fail_unless(minX->getSpatialId()	  == "Xmin");
+  Boundary *minX = coordComp->getBoundaryMin();
+  fail_unless(minX->getId()	  == "Xmin");
   fail_unless(minX->getValue()		  == 0);
   fail_unless(minX->getPackageName() == "spatial");
 
-  BoundaryMax *maxX = coordComp->getBoundaryMax();
-  fail_unless(maxX->getSpatialId()   == "Xmax");
+  Boundary *maxX = coordComp->getBoundaryMax();
+  fail_unless(maxX->getId()   == "Xmax");
   fail_unless(maxX->getValue()		  == 10);
   fail_unless(maxX->getPackageName() == "spatial");
 
@@ -268,8 +192,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(geometry->getListOfDomainTypes()->getPackageName() == "spatial");
 
   DomainType *domainType = geometry->getDomainType(0);
-  fail_unless(domainType->getSpatialId()         == "dtype1");
-  fail_unless(domainType->getSpatialDimensions() == 3);
+  fail_unless(domainType->getId()         == "dtype1");
+  fail_unless(domainType->getSpatialDimension() == 3);
   fail_unless(domainType->getPackageName()		  == "spatial");
 
   // geometry domains
@@ -277,7 +201,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(geometry->getListOfDomains()->getPackageName() == "spatial");
 
   Domain* domain = geometry->getDomain(0);
-  fail_unless(domain->getSpatialId()   == "domain1");
+  fail_unless(domain->getId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
   //fail_unless(domain->getImplicit()    == false);
   //fail_unless(domain->getShapeId()     == "circle");
@@ -293,7 +217,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // second domain in geometry
   domain = geometry->getDomain(1);
-  fail_unless(domain->getSpatialId()   == "domain2");
+  fail_unless(domain->getId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
   //fail_unless(domain->getImplicit()    == false);
   //fail_unless(domain->getShapeId()     == "square");
@@ -312,7 +236,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(geometry->getListOfAdjacentDomains()->getPackageName() == "spatial");
 
   AdjacentDomains* adjDomain = geometry->getAdjacentDomains(0);
-  fail_unless(adjDomain->getSpatialId()   == "adjDomain1");
+  fail_unless(adjDomain->getId()   == "adjDomain1");
   fail_unless(adjDomain->getDomain1()     == "domain1");
   fail_unless(adjDomain->getDomain2()     == "domain2");
   fail_unless(adjDomain->getPackageName() == "spatial");
@@ -323,7 +247,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   GeometryDefinition *gd = geometry->getGeometryDefinition(0);
   AnalyticGeometry *analyticGeom = static_cast<AnalyticGeometry*>(gd);
-  fail_unless(analyticGeom->getSpatialId()   == "analyticGeom1");
+  fail_unless(analyticGeom != NULL);
+  fail_unless(analyticGeom->getId()   == "analyticGeom1");
   fail_unless(analyticGeom->getPackageName() == "spatial");
 
   // AnalyticGeometry : analyticVolumes
@@ -331,9 +256,9 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(analyticGeom->getListOfAnalyticVolumes()->getPackageName() == "spatial");
 
   AnalyticVolume* av = analyticGeom->getAnalyticVolume(0);
-  fail_unless(av->getSpatialId()    == "analyticVol1");
+  fail_unless(av->getId()    == "analyticVol1");
   fail_unless(av->getDomainType()   == "dtype1");
-  fail_unless(av->getFunctionType() == "squareFn");
+  fail_unless(av->getFunctionType() == SPATIAL_FUNCTIONKIND_LAYERED);
   fail_unless(av->getOrdinal()      == 1);
   fail_unless(av->getPackageName()  == "spatial");
   // ??????Math????
@@ -341,7 +266,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   // geometry : sampledFieldGeometry
   gd = geometry->getGeometryDefinition(1);
   SampledFieldGeometry* sfGeom = static_cast<SampledFieldGeometry*>(gd);
-  fail_unless(sfGeom->getSpatialId()   == "sampledFieldGeom1");
+  fail_unless(sfGeom->getId()   == "sampledFieldGeom1");
   fail_unless(sfGeom->getPackageName() == "spatial");
 
   // sampledFieldGeometry : SampledVolumes
@@ -349,7 +274,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(sfGeom->getListOfSampledVolumes()->getPackageName() == "spatial");
 
   SampledVolume* sv = sfGeom->getSampledVolume(0);
-  fail_unless(sv->getSpatialId()    == "sv_1");
+  fail_unless(sv->getId()    == "sv_1");
   fail_unless(sv->getDomainType()   == "dtype1");
   fail_unless(sv->getSampledValue() == 128);
   fail_unless(sv->getMinValue()     == 0);
@@ -358,7 +283,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   // sampledFieldGeometry : SampledField
   SampledField* sf = sfGeom->getSampledField();
-  fail_unless(sf->getSpatialId()		  == "sampledField1");
+  fail_unless(sf->getId()		  == "sampledField1");
   fail_unless(sf->getDataType()		  == "double");
   fail_unless(sf->getInterpolationType() == "linear");
   fail_unless(sf->getEncoding()          == "encoding1");
@@ -388,98 +313,10 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_L3V1V1_defaultNS)
 {
-  const char* s1 =
+  string file = TestDataDirectory;
+  file += "/read_L3V1V1_defaultNS.xml";
 
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <geometry xmlns=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" coordinateSystem=\"XYZ\">\n"
-    "     <listOfCoordinateComponents>\n"
-    "       <coordinateComponent spatialId=\"coordComp1\" componentType=\"cartesian\" sbmlUnit=\"umeter\" index=\"1\">\n"
-    "         <boundaryMin spatialId=\"Xmin\" value=\"0\"/>\n"
-    "         <boundaryMax spatialId=\"Xmax\" value=\"10\"/>\n"
-    "       </coordinateComponent>\n"
-    "     </listOfCoordinateComponents>\n"
-    "     <listOfDomainTypes>\n"
-    "       <domainType spatialId=\"dtype1\" spatialDimensions=\"3\"/>\n"
-    "     </listOfDomainTypes>\n"
-    "     <listOfDomains>\n"
-    "       <domain spatialId=\"domain1\" domainType=\"dtype1\" shapeId=\"circle\" implicit=\"false\">\n"
-    "         <listOfInteriorPoints>\n"
-    "           <interiorPoint coord1=\"1\" coord2=\"0\" coord3=\"0\"/>\n"
-    "         </listOfInteriorPoints>\n"
-    "       </domain>\n"
-    "       <domain spatialId=\"domain2\" domainType=\"dtype1\" shapeId=\"square\" implicit=\"false\">\n"
-    "         <listOfInteriorPoints>\n"
-    "           <interiorPoint coord1=\"5\" coord2=\"0\" coord3=\"0\"/>\n"
-    "         </listOfInteriorPoints>\n"
-    "       </domain>\n"
-    "     </listOfDomains>\n"
-    "     <listOfAdjacentDomains>\n"
-    "       <adjacentDomains spatialId=\"adjDomain1\" domain1=\"domain1\" domain2=\"domain2\"/>\n"
-    "     </listOfAdjacentDomains>\n"
-    "     <listOfGeometryDefinitions>\n"
-    "       <analyticGeometry spatialId=\"analyticGeom1\">\n"
-    "         <listOfAnalyticVolumes>\n"
-    "           <analyticVolume spatialId=\"analyticVol1\" domainType=\"dtype1\" functionType=\"squareFn\" ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </analyticVolume>\n"
-    "         </listOfAnalyticVolumes>\n"
-    "       </analyticGeometry>\n"
-    "       <sampledFieldGeometry spatialId=\"sampledFieldGeom1\">\n"
-    "         <listOfSampledVolumes>\n"
-    "           <sampledVolume spatialId=\"sv_1\" domainType=\"dtype1\" sampledValue=\"128\" minValue=\"0\" maxValue=\"255\"/>\n"
-    "         </listOfSampledVolumes>\n"
-    "         <sampledField spatialId=\"sampledField1\" dataType=\"double\" interpolationType=\"linear\" encoding=\"encoding1\" numSamples1=\"4\" numSamples2=\"4\" numSamples3=\"2\">\n"
-    "           <imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </imageData>\n"
-    "         </sampledField>\n"
-    "       </sampledFieldGeometry>\n"
-    "     </listOfGeometryDefinitions>\n"
-    "   </geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
-
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
   char* sbmlDoc = writeSBMLToString(document);
   Model *model = document->getModel();
 
@@ -498,9 +335,8 @@ END_TEST
   fail_unless(cplugin != NULL);
 
   CompartmentMapping *cMapping = cplugin->getCompartmentMapping();
-  if (cMapping->isSetSpatialId()) {
-    fail_unless(cMapping->getSpatialId()		 == "compMap1");
-    fail_unless(cMapping->getCompartment()	 == "cytosol");
+  if (cMapping->isSetId()) {
+    fail_unless(cMapping->getId()		 == "compMap1");
     fail_unless(cMapping->getDomainType()	 == "dtype1");
     fail_unless(cMapping->getUnitSize()		 == 1);
   }
@@ -533,7 +369,9 @@ END_TEST
   fail_unless(pplugin->getType() == SBML_SPATIAL_DIFFUSIONCOEFFICIENT);
   DiffusionCoefficient *diffCoeff = pplugin->getDiffusionCoefficient();
   fail_unless(diffCoeff->getVariable()		== "ATPc");
-  fail_unless(diffCoeff->getCoordinateIndex() == 0);
+  fail_unless(diffCoeff->getNumCoordinateReferences() > 0);
+  if (diffCoeff->getNumCoordinateReferences() > 0)
+  fail_unless(diffCoeff->getCoordinateReference(0)->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
@@ -543,7 +381,7 @@ END_TEST
   fail_unless(pplugin->getType() == SBML_SPATIAL_ADVECTIONCOEFFICIENT);
   AdvectionCoefficient *advCoeff = pplugin->getAdvectionCoefficient();
   fail_unless(advCoeff->getVariable()		== "ATPc");
-  fail_unless(advCoeff->getCoordinateIndex() == 0);
+  fail_unless(advCoeff->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 2 : boundaryCondition X
   param = model->getParameter(2);
@@ -554,15 +392,14 @@ END_TEST
   BoundaryCondition *bc = pplugin->getBoundaryCondition();
   fail_unless(bc->getVariable()		   == "ATPc");
   fail_unless(bc->getCoordinateBoundary() == "Xmin");
-  fail_unless(bc->getType() == "value");
+  fail_unless(bc->getType() == SPATIAL_BOUNDARYKIND_DIRICHLET);
 
   // parameter 3 : SpatialSymbolReference (coordinateComponent from geometry)
   param = model->getParameter(3);
   pplugin = static_cast<SpatialParameterPlugin*>(param->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
   SpatialSymbolReference *spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->getSpatialId() == "coordComp1");
-  fail_unless(spSymRef->getType()		== "coordinateComponent");
+  fail_unless(spSymRef->getSpatialRef() == "coordComp1");
 
   // model : reaction	
   fail_unless(model->getNumReactions() == 1);
@@ -579,27 +416,26 @@ END_TEST
   Geometry *geometry = mplugin->getGeometry();
   fail_unless(geometry != NULL);
   fail_unless(geometry->getPackageName()		== "spatial");
-  fail_unless(geometry->getCoordinateSystem()	== "XYZ");
+  fail_unless(geometry->getCoordinateSystem()	== SPATIAL_GEOMETRYKIND_CARTESIAN);
 
   // geometry coordinateComponent
   fail_unless(geometry->getNumCoordinateComponents() == 1);
   fail_unless(geometry->getListOfCoordinateComponents()->getPackageName() == "spatial");
 
   CoordinateComponent* coordComp = geometry->getCoordinateComponent(0);
-  fail_unless(coordComp->getSpatialId()        == "coordComp1");
-  fail_unless(coordComp->getComponentType()	== "cartesian");
-  fail_unless(coordComp->getSbmlUnit()			== "umeter");
-  fail_unless(coordComp->getIndex()			== 1);
+  fail_unless(coordComp->getId()        == "coordComp1");
+  fail_unless(coordComp->getType()	== SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  fail_unless(coordComp->getUnit()			== "umeter");
   fail_unless(coordComp->getPackageName()		== "spatial");
 
   // boundaryMin and boundayMax within coordinateComponent
-  BoundaryMin *minX = coordComp->getBoundaryMin();
-  fail_unless(minX->getSpatialId()	  == "Xmin");
+  Boundary *minX = coordComp->getBoundaryMin();
+  fail_unless(minX->getId()	  == "Xmin");
   fail_unless(minX->getValue()		  == 0);
   fail_unless(minX->getPackageName() == "spatial");
 
-  BoundaryMax *maxX = coordComp->getBoundaryMax();
-  fail_unless(maxX->getSpatialId()   == "Xmax");
+  Boundary *maxX = coordComp->getBoundaryMax();
+  fail_unless(maxX->getId()   == "Xmax");
   fail_unless(maxX->getValue()		  == 10);
   fail_unless(maxX->getPackageName() == "spatial");
 
@@ -608,8 +444,8 @@ END_TEST
   fail_unless(geometry->getListOfDomainTypes()->getPackageName() == "spatial");
 
   DomainType *domainType = geometry->getDomainType(0);
-  fail_unless(domainType->getSpatialId()         == "dtype1");
-  fail_unless(domainType->getSpatialDimensions() == 3);
+  fail_unless(domainType->getId()         == "dtype1");
+  fail_unless(domainType->getSpatialDimension() == 3);
   fail_unless(domainType->getPackageName()		  == "spatial");
 
   // geometry domains
@@ -617,7 +453,7 @@ END_TEST
   fail_unless(geometry->getListOfDomains()->getPackageName() == "spatial");
 
   Domain* domain = geometry->getDomain(0);
-  fail_unless(domain->getSpatialId()   == "domain1");
+  fail_unless(domain->getId()   == "domain1");
   fail_unless(domain->getDomainType() == "dtype1");
   //fail_unless(domain->getImplicit()    == false);
   //fail_unless(domain->getShapeId()     == "circle");
@@ -633,7 +469,7 @@ END_TEST
 
   // second domain in geometry
   domain = geometry->getDomain(1);
-  fail_unless(domain->getSpatialId()   == "domain2");
+  fail_unless(domain->getId()   == "domain2");
   fail_unless(domain->getDomainType() == "dtype1");
   //fail_unless(domain->getImplicit()    == false);
   //fail_unless(domain->getShapeId()     == "square");
@@ -652,7 +488,7 @@ END_TEST
   fail_unless(geometry->getListOfAdjacentDomains()->getPackageName() == "spatial");
 
   AdjacentDomains* adjDomain = geometry->getAdjacentDomains(0);
-  fail_unless(adjDomain->getSpatialId()   == "adjDomain1");
+  fail_unless(adjDomain->getId()   == "adjDomain1");
   fail_unless(adjDomain->getDomain1()     == "domain1");
   fail_unless(adjDomain->getDomain2()     == "domain2");
   fail_unless(adjDomain->getPackageName() == "spatial");
@@ -663,7 +499,7 @@ END_TEST
 
   GeometryDefinition *gd = geometry->getGeometryDefinition(0);
   AnalyticGeometry *analyticGeom = static_cast<AnalyticGeometry*>(gd);
-  fail_unless(analyticGeom->getSpatialId()   == "analyticGeom1");
+  fail_unless(analyticGeom->getId()   == "analyticGeom1");
   fail_unless(analyticGeom->getPackageName() == "spatial");
 
   // AnalyticGeometry : analyticVolumes
@@ -671,9 +507,9 @@ END_TEST
   fail_unless(analyticGeom->getListOfAnalyticVolumes()->getPackageName() == "spatial");
 
   AnalyticVolume* av = analyticGeom->getAnalyticVolume(0);
-  fail_unless(av->getSpatialId()    == "analyticVol1");
+  fail_unless(av->getId()    == "analyticVol1");
   fail_unless(av->getDomainType()   == "dtype1");
-  fail_unless(av->getFunctionType() == "squareFn");
+  fail_unless(av->getFunctionType() == SPATIAL_FUNCTIONKIND_LAYERED);
   fail_unless(av->getOrdinal()      == 1);
   fail_unless(av->getPackageName()  == "spatial");
   // ??????Math????
@@ -681,7 +517,7 @@ END_TEST
   // geometry : sampledFieldGeometry
   gd = geometry->getGeometryDefinition(1);
   SampledFieldGeometry* sfGeom = static_cast<SampledFieldGeometry*>(gd);
-  fail_unless(sfGeom->getSpatialId()   == "sampledFieldGeom1");
+  fail_unless(sfGeom->getId()   == "sampledFieldGeom1");
   fail_unless(sfGeom->getPackageName() == "spatial");
 
   // sampledFieldGeometry : SampledVolumes
@@ -689,7 +525,7 @@ END_TEST
   fail_unless(sfGeom->getListOfSampledVolumes()->getPackageName() == "spatial");
 
   SampledVolume* sv = sfGeom->getSampledVolume(0);
-  fail_unless(sv->getSpatialId()    == "sv_1");
+  fail_unless(sv->getId()    == "sv_1");
   fail_unless(sv->getDomainType()   == "dtype1");
   fail_unless(sv->getSampledValue() == 128);
   fail_unless(sv->getMinValue()     == 0);
@@ -698,7 +534,7 @@ END_TEST
 
   // sampledFieldGeometry : SampledField
   SampledField* sf = sfGeom->getSampledField();
-  fail_unless(sf->getSpatialId()		  == "sampledField1");
+  fail_unless(sf->getId()		  == "sampledField1");
   fail_unless(sf->getDataType()		  == "double");
   fail_unless(sf->getInterpolationType() == "linear");
   fail_unless(sf->getEncoding()          == "encoding1");
@@ -726,99 +562,11 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_L3V1V1_unknown_elements)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\" spatial:unknown=\"unknown\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\" spatial:unknown=\"unknown\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:unknown>\n"
-    "     </spatial:unknown>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  string file = TestDataDirectory;
+  file += "/read_L3V1V1_unknown_elements.xml";
+
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
   Model *model = document->getModel();
 
   //   document->printErrors();
@@ -829,17 +577,6 @@ END_TEST
   delete document;
 }
 END_TEST
-
-std::string dataToString(int* field, int numSamples1, int length)
-{
-  stringstream builder;
-  for (int i =0 ; i < length; ++i)
-  {
-    builder<< field[i] << " ";
-    if ((i+1)%numSamples1 == 0) builder << "\n";
-  }
-  return builder.str();
-}
 
 #ifdef USE_ZLIB
   START_TEST (test_SpatialExtension_read_compressed)
@@ -933,7 +670,7 @@ std::string dataToString(int* field, int numSamples1, int length)
   int* array1 = new int[length1]; 
   fail_unless(length1 == 3591);
   data->getUncompressed(array1);
-  std:string test1 = dataToString(array1, field->getNumSamples1(), length1);
+  string test1 = dataToString(array1, field->getNumSamples1(), length1);
   fail_unless(test1 == expected);
 
   int* result; int resultLength;
@@ -1048,7 +785,7 @@ END_TEST
   int* array1 = new int[length1]; 
   fail_unless(length1 == 3591);
   data->getUncompressed(array1);
-  std:string test1 = dataToString(array1, field->getNumSamples1(), length1);
+  string test1 = dataToString(array1, field->getNumSamples1(), length1);
   fail_unless(test1 == expected);
 
   int* result; int resultLength;

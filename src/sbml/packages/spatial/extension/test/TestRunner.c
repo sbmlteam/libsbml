@@ -68,8 +68,8 @@ main (int argc, char* argv[])
   
 
   SRunner *runner = srunner_create(create_suite_SpatialExtension());
-  srunner_add_suite(runner, create_suite_ReadSpatialExtension());
   srunner_add_suite(runner, create_suite_WriteSpatialExtension());
+  srunner_add_suite(runner, create_suite_ReadSpatialExtension());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

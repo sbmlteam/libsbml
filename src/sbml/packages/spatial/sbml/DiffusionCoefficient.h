@@ -1,137 +1,166 @@
-/*
- * @file    DiffusionCoefficient.h
- * @brief   Definition of DiffusionCoefficient, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   DiffusionCoefficient.h
+ * @brief:  Implementation of the DiffusionCoefficient class
+ * @author: SBMLTeam
  *
- * $Id: DiffusionCoefficient.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/DiffusionCoefficient.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef DiffusionCoefficient_H__
 #define DiffusionCoefficient_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
+
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
+
+#include <sbml/packages/spatial/sbml/CoordinateReference.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN DiffusionCoefficient : public SBase
 {
+
 protected:
 
-  std::string mVariable;
-  unsigned int mCoordinateIndex;
+  std::string   mVariable;
+  DiffusionKind_t   mType;
+  ListOfCoordinateReferences   mCoordinateReferences;
 
-  bool  mIsSetCoordinateIndex;
 
 public:
 
   /**
    * Creates a new DiffusionCoefficient with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this DiffusionCoefficient
+   *
+   * @param version an unsigned int, the SBML Version to assign to this DiffusionCoefficient
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this DiffusionCoefficient
    */
-   DiffusionCoefficient(unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  DiffusionCoefficient(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                       unsigned int version    = SpatialExtension::getDefaultVersion(),
+                       unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new DiffusionCoefficient with the given SpatialPkgNamespaces object.
-   */
-   DiffusionCoefficient(SpatialPkgNamespaces* spatialns);
-
-
-  /**
-   * Copy constructor.
-   */
-   DiffusionCoefficient(const DiffusionCoefficient& source);
-
-
-  /**
-   * Assignment operator.
-   */
-   DiffusionCoefficient& operator=(const DiffusionCoefficient& source);
-
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~DiffusionCoefficient ();
-
-
-  /**
-   * Returns the string of the "variable" attribute of this DiffusionCoefficient.
    *
-   * @return the string of the "variable" attribute of this DiffusionCoefficient.
+   * @param spatialns the SpatialPkgNamespaces object
    */
-  virtual const std::string& getVariable () const;
+  DiffusionCoefficient(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for DiffusionCoefficient.
+   *
+   * @param orig; the DiffusionCoefficient instance to copy.
+   */
+  DiffusionCoefficient(const DiffusionCoefficient& orig);
+
+
+   /**
+   * Assignment operator for DiffusionCoefficient.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  DiffusionCoefficient& operator=(const DiffusionCoefficient& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this DiffusionCoefficient object.
+   *
+   * @return a (deep) copy of this DiffusionCoefficient object.
+   */
+  virtual DiffusionCoefficient* clone () const;
+
+
+   /**
+   * Destructor for DiffusionCoefficient.
+   */
+  virtual ~DiffusionCoefficient();
+
+
+   /**
+   * Returns the value of the "variable" attribute of this DiffusionCoefficient.
+   *
+   * @return the value of the "variable" attribute of this DiffusionCoefficient as a string.
+   */
+  virtual const std::string& getVariable() const;
+
 
   /**
-   * Returns the int of the "coordinateIndex" attribute of this DiffusionCoefficient.
+   * Returns the value of the "type" attribute of this DiffusionCoefficient.
    *
-   * @return the int of the "coordinateIndex" attribute of this DiffusionCoefficient.
+   * @return the value of the "type" attribute of this DiffusionCoefficient as a DiffusionKind_t.
    */
-  unsigned int getCoordinateIndex () const;
+  virtual DiffusionKind_t getType() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * DiffusionCoefficient's "variable" attribute has been set.
    *
-   * @return @c true if this DiffusionCoefficient's "variable" attribute has been set, 
+   * @return @c true if this DiffusionCoefficient's "variable" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetVariable () const;
+  virtual bool isSetVariable() const;
 
- /**
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
-   * DiffusionCoefficient's "coordinateIndex" attribute has been set.
+   * DiffusionCoefficient's "type" attribute has been set.
    *
-   * @return @c true if this DiffusionCoefficient's "coordinateIndex" attribute has been set, 
+   * @return @c true if this DiffusionCoefficient's "type" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetCoordinateIndex () const;
-  
-  /**
-   * Sets the SIdRef string of the "variable" attribute of this DiffusionCoefficient.
-   *
-   * @param variable a SIdRef string to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setVariable (const std::string& variable);
+  virtual bool isSetType() const;
+
 
   /**
-   * Sets the SIdRef string of the "coordinateIndex" attribute of this DiffusionCoefficient.
+   * Sets the value of the "variable" attribute of this DiffusionCoefficient.
    *
-   * @param variable a SIdRef string to be set.
+   * @param variable; const std::string& value of the "variable" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -140,7 +169,37 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setCoordinateIndex (unsigned int coordinateIndex);
+  virtual int setVariable(const std::string& variable);
+
+
+  /**
+   * Sets the value of the "type" attribute of this DiffusionCoefficient.
+   *
+   * @param type; DiffusionKind_t value of the "type" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setType(DiffusionKind_t type);
+
+
+  /**
+   * Sets the value of the "type" attribute of this DiffusionCoefficient.
+   *
+   * @param type; string value of the "type" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setType(const std::string& type);
 
 
   /**
@@ -153,10 +212,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetVariable ();
+  virtual int unsetVariable();
+
 
   /**
-   * Unsets the value of the "coordinateIndex" attribute of this DiffusionCoefficient.
+   * Unsets the value of the "type" attribute of this DiffusionCoefficient.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -165,170 +225,643 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetCoordinateIndex ();
+  virtual int unsetType();
 
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
    *
-   * @return the string of the name of this element.
+   * @return the "ListOfCoordinateReferences" attribute of this DiffusionCoefficient.
    */
-  virtual const std::string& getElementName () const ;
+  const ListOfCoordinateReferences* getListOfCoordinateReferences() const;
 
 
   /**
-   * @return a (deep) copy of this DiffusionCoefficient.
+   * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
+   *
+   * @return the "ListOfCoordinateReferences" attribute of this DiffusionCoefficient.
    */
-  virtual DiffusionCoefficient* clone () const;
+  ListOfCoordinateReferences* getListOfCoordinateReferences();
 
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Get a CoordinateReference from the ListOfCoordinateReferences.
+   *
+   * @param n the index number of the CoordinateReference to get.
+   *
+   * @return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
+   *
+   * @see getNumCoordinateReferences()
+   */
+	CoordinateReference* getCoordinateReference(unsigned int n);
+
+
+  /**
+   * Get a CoordinateReference from the ListOfCoordinateReferences.
+   *
+   * @param n the index number of the CoordinateReference to get.
+   *
+   * @return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
+   *
+   * @see getNumCoordinateReferences()
+   */
+	const CoordinateReference* getCoordinateReference(unsigned int n) const;
+
+
+  /**
+   * Get a CoordinateReference from the ListOfCoordinateReferences
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CoordinateReference to get.
+   *
+   * @return the CoordinateReference in the ListOfCoordinateReferences
+   * with the given id or NULL if no such
+   * CoordinateReference exists.
+   *
+   * @see getCoordinateReference(unsigned int n)
+   *
+   * @see getNumCoordinateReferences()
+   */
+	CoordinateReference* getCoordinateReference(const std::string& sid);
+
+
+  /**
+   * Get a CoordinateReference from the ListOfCoordinateReferences
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CoordinateReference to get.
+   *
+   * @return the CoordinateReference in the ListOfCoordinateReferences
+   * with the given id or NULL if no such
+   * CoordinateReference exists.
+   *
+   * @see getCoordinateReference(unsigned int n)
+   *
+   * @see getNumCoordinateReferences()
+   */
+	const CoordinateReference* getCoordinateReference(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "CoordinateReference" to this DiffusionCoefficient.
+   *
+   * @param cr; the CoordinateReference object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+	int addCoordinateReference(const CoordinateReference* cr);
+
+
+  /**
+   * Get the number of CoordinateReference objects in this DiffusionCoefficient.
+   *
+   * @return the number of CoordinateReference objects in this DiffusionCoefficient
+   */
+	unsigned int getNumCoordinateReferences() const;
+
+
+	/**
+	 * Creates a new CoordinateReference object, adds it to this DiffusionCoefficients
+	 * ListOfCoordinateReferences and returns the CoordinateReference object created. 
+	 *
+	 * @return a new CoordinateReference object instance
+	 *
+	 * @see addCoordinateReference(const CoordinateReference* cr)
+	 */
+	CoordinateReference* createCoordinateReference();
+
+
+  /**
+   * Removes the nth CoordinateReference from the ListOfCoordinateReferences within this DiffusionCoefficient.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the CoordinateReference to remove.
+   *
+   * @see getNumCoordinateReferences()
+   */
+	CoordinateReference* removeCoordinateReference(unsigned int n);
+
+
+  /**
+   * Removes the CoordinateReference with the given identifier from the ListOfCoordinateReferences within this DiffusionCoefficient
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the CoordinateReference to remove.
+   *
+   * @return the CoordinateReference removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	CoordinateReference* removeCoordinateReference(const std::string& sid);
+
+
+  /**
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
+   */
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
+   * Returns the XML element name of this object, which for DiffusionCoefficient, is
+   * always @c "diffusionCoefficient".
+   *
+   * @return the name of this element, i.e. @c "diffusionCoefficient".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
 
+
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this DiffusionCoefficient object have been set.
+   *
+   * @note The required attributes for a DiffusionCoefficient object are:
+   * @li "variable"
+   * @li "type"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this DiffusionCoefficient object have been set.
+   *
+   * @note The required elements for a DiffusionCoefficient object are:
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+
   /** @endcond doxygenLibsbmlInternal */
-    
-protected:
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Sets the parent SBMLDocument.
    */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
+  virtual void setSBMLDocument (SBMLDocument* d);
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * return the SBML object corresponding to next XMLToken.
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Read values from the given XMLAttributes set into their specific fields.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
+  /** @endcond doxygenLibsbmlInternal */
 
- /** @endcond doxygenLibsbmlInternal */
+
 
 };
 
 
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
-
+/**
+ * Creates a new DiffusionCoefficient_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * DiffusionCoefficient_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * DiffusionCoefficient_t structure.
+ *
+ * @returns the newly-created DiffusionCoefficient_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof DiffusionCoefficient_t
+ */
 LIBSBML_EXTERN
 DiffusionCoefficient_t *
-DiffusionCoefficient_clone (const DiffusionCoefficient_t* c);
+DiffusionCoefficient_create(unsigned int level, unsigned int version,
+                            unsigned int pkgVersion);
+
+
+/**
+ * Frees the given DiffusionCoefficient_t structure.
+ * 
+ * @param dc the DiffusionCoefficient_t structure to be freed.
+ *
+ * @memberof DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+void
+DiffusionCoefficient_free(DiffusionCoefficient_t * dc);
+
+
+/**
+ * Creates a deep copy of the given DiffusionCoefficient_t structure.
+ * 
+ * @param dc the DiffusionCoefficient_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given DiffusionCoefficient_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+DiffusionCoefficient_t *
+DiffusionCoefficient_clone(DiffusionCoefficient_t * dc);
+
+
+/**
+ * Returns the value of the "variable" attribute of the given DiffusionCoefficient_t
+ * structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return the variable of this structure.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+const char *
+DiffusionCoefficient_getVariable(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Returns the value of the "type" attribute of the given DiffusionCoefficient_t
+ * structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return the type of this structure.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+DiffusionKind_t
+DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Predicate returning @c 1 if the given DiffusionCoefficient_t structure's "variable"
+ * is set.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return @c 1 if the "variable" of this DiffusionCoefficient_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Predicate returning @c 1 if the given DiffusionCoefficient_t structure's "type"
+ * is set.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return @c 1 if the "type" of this DiffusionCoefficient_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Sets the "variable" attribute of the given DiffusionCoefficient_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs DiffusionCoefficient_unsetVariable() instead.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @param variable the string to which the structures "variable" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setVariable(DiffusionCoefficient_t * dc, const char * variable);
+
+
+/**
+ * Sets the "type" attribute of the given DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @param type the string to which the structures "type" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setType(DiffusionCoefficient_t * dc, DiffusionKind_t type);
+
+
+/**
+ * Unsets the value of the "variable" attribute of the given 
+ *DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc);
+
+
+/**
+ * Unsets the value of the "type" attribute of the given 
+ *DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc);
 
 
 LIBSBML_EXTERN
-const char *
-DiffusionCoefficient_getVariable (const DiffusionCoefficient_t *c);
+int
+DiffusionCoefficient_addCoordinateReference(DiffusionCoefficient_t * dc, CoordinateReference_t * cr);
+
+
+LIBSBML_EXTERN
+CoordinateReference_t *
+DiffusionCoefficient_createCoordinateReference(DiffusionCoefficient_t * dc);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+DiffusionCoefficient_getListOfCoordinateReferences(DiffusionCoefficient_t * dc) ;
+
+
+LIBSBML_EXTERN
+CoordinateReference_t *
+DiffusionCoefficient_getCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n);
+
+
+LIBSBML_EXTERN
+CoordinateReference_t *
+DiffusionCoefficient_getCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid);
 
 
 LIBSBML_EXTERN
 unsigned int
-DiffusionCoefficient_getCoordinateIndex (const DiffusionCoefficient_t *c);
+DiffusionCoefficient_getNumCoordinateReferences(DiffusionCoefficient_t * dc);
 
 
 LIBSBML_EXTERN
-int
-DiffusionCoefficient_isSetVariable (const DiffusionCoefficient_t *c);
+CoordinateReference_t *
+DiffusionCoefficient_removeCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n);
 
 
 LIBSBML_EXTERN
-int
-DiffusionCoefficient_isSetCoordinateIndex (const DiffusionCoefficient_t *c);
+CoordinateReference_t *
+DiffusionCoefficient_removeCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given DiffusionCoefficient_t structure have been set.
+ *
+ * @param dc the DiffusionCoefficient_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setVariable (DiffusionCoefficient_t *c, const char *sid);
+DiffusionCoefficient_hasRequiredAttributes(const DiffusionCoefficient_t * dc);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given DiffusionCoefficient_t structure have been set.
+ *
+ * @param dc the DiffusionCoefficient_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_setCoordinateIndex (DiffusionCoefficient_t *c, unsigned int coordinateIndex);
+DiffusionCoefficient_hasRequiredElements(const DiffusionCoefficient_t * dc);
 
 
-LIBSBML_EXTERN
-int
-DiffusionCoefficient_unsetVariable (DiffusionCoefficient_t *c);
-
-
-LIBSBML_EXTERN
-int
-DiffusionCoefficient_unsetCoordinateIndex (DiffusionCoefficient_t *c);
 
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* DiffusionCoefficient_H__ */
+#endif /*  DiffusionCoefficient_H__  */
+

@@ -1,79 +1,81 @@
 /**
- * @file    SpatialPoint.cpp
- * @brief   Implementation of SpatialPoint, the SBase derived class of spatial package.
- * @author  
+ * @file:   SpatialPoint.cpp
+ * @brief:  Implementation of the SpatialPoint class
+ * @author: SBMLTeam
  *
- * $Id: SpatialPoint.cpp 10670 2010-01-16 12:10:06Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/SpatialPoint.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/SpatialPoint.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new SpatialPoint with the given level, version, and package version.
  */
-SpatialPoint::SpatialPoint (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : SBase (level,version)
-   , mSpatialId("")
-   , mDomain("")
-   , mCoord1(0.0)
-   , mCoord2 (0.0)
-   , mCoord3 (0.0)
-   , mIsSetCoord1 (false)
-   , mIsSetCoord2 (false)
-   , mIsSetCoord3 (false)
-
+SpatialPoint::SpatialPoint (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: SBase(level, version)
+   ,mId ("")
+   ,mCoord1 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord1 (false)
+   ,mCoord2 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord2 (false)
+   ,mCoord3 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord3 (false)
+   ,mDomain ("")
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new SpatialPoint with the given SpatialPkgNamespaces object.
  */
-SpatialPoint::SpatialPoint(SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
-  , mSpatialId("")
-  , mDomain("")
-  , mCoord1(0.0)
-  , mCoord2 (0.0)
-  , mCoord3 (0.0)
-  , mIsSetCoord1 (false)
-  , mIsSetCoord2 (false)
-  , mIsSetCoord3 (false)
+SpatialPoint::SpatialPoint (SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
+   ,mId ("")
+   ,mCoord1 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord1 (false)
+   ,mCoord2 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord2 (false)
+   ,mCoord3 (numeric_limits<double>::quiet_NaN())
+   ,mIsSetCoord3 (false)
+   ,mDomain ("")
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
@@ -82,209 +84,250 @@ SpatialPoint::SpatialPoint(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for SpatialPoint.
  */
-SpatialPoint::SpatialPoint(const SpatialPoint& source) : SBase(source)
+SpatialPoint::SpatialPoint (const SpatialPoint& orig)
+	: SBase(orig)
 {
-  this->mSpatialId=source.mSpatialId;
-  this->mDomain=source.mDomain;
-  this->mCoord1=source.mCoord1;
-  this->mCoord2=source.mCoord2;
-  this->mCoord3=source.mCoord3;
-  this->mIsSetCoord1=source.mIsSetCoord1;
-  this->mIsSetCoord2=source.mIsSetCoord2;
-  this->mIsSetCoord3=source.mIsSetCoord3;
-}
-
-/*
- * Assignment operator.
- */
-SpatialPoint& SpatialPoint::operator=(const SpatialPoint& source)
-{
-  if(&source!=this)
+  if (&orig == NULL)
   {
-    this->SBase::operator=(source);
-    this->mSpatialId = source.mSpatialId;
-	this->mDomain = source.mDomain;
-	this->mCoord1 = source.mCoord1;
-	this->mCoord2 = source.mCoord2;
-	this->mCoord3 = source.mCoord3;
-	this->mIsSetCoord1 = source.mIsSetCoord1;
-	this->mIsSetCoord2 = source.mIsSetCoord2;
-	this->mIsSetCoord3 = source.mIsSetCoord3;
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-
-    return *this;
+  else
+  {
+    mId  = orig.mId;
+    mCoord1  = orig.mCoord1;
+    mIsSetCoord1  = orig.mIsSetCoord1;
+    mCoord2  = orig.mCoord2;
+    mIsSetCoord2  = orig.mIsSetCoord2;
+    mCoord3  = orig.mCoord3;
+    mIsSetCoord3  = orig.mIsSetCoord3;
+    mDomain  = orig.mDomain;
+  }
 }
 
+
 /*
- * Destructor.
- */ 
+ * Assignment for SpatialPoint.
+ */
+SpatialPoint&
+SpatialPoint::operator=(const SpatialPoint& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+		SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mCoord1  = rhs.mCoord1;
+    mIsSetCoord1  = rhs.mIsSetCoord1;
+    mCoord2  = rhs.mCoord2;
+    mIsSetCoord2  = rhs.mIsSetCoord2;
+    mCoord3  = rhs.mCoord3;
+    mIsSetCoord3  = rhs.mIsSetCoord3;
+    mDomain  = rhs.mDomain;
+  }
+  return *this;
+}
+
+
+/*
+ * Clone for SpatialPoint.
+ */
+SpatialPoint*
+SpatialPoint::clone () const
+{
+  return new SpatialPoint(*this);
+}
+
+
+/*
+ * Destructor for SpatialPoint.
+ */
 SpatialPoint::~SpatialPoint ()
 {
 }
 
 
 /*
-  * Returns the value of the "spatialId" attribute of this SpatialPoint.
-  */
-const std::string& 
-SpatialPoint::getSpatialId () const
+ * Returns the value of the "id" attribute of this SpatialPoint.
+ */
+const std::string&
+SpatialPoint::getId() const
 {
-  return mSpatialId;
+  return mId;
 }
 
-/*
-  * Returns the value of the "domain" attribute of this SpatialPoint.
-  */
-const std::string& 
-SpatialPoint::getDomain () const
-{
-  return mDomain;
-}
 
 /*
-  * Returns the value of the "coord1" attribute of this SpatialPoint.
-  */
-double 
-SpatialPoint::getCoord1 () const
+ * Returns the value of the "coord1" attribute of this SpatialPoint.
+ */
+double
+SpatialPoint::getCoord1() const
 {
   return mCoord1;
 }
 
+
 /*
- * @return value of "coord2" attribute of this SpatialPoint
+ * Returns the value of the "coord2" attribute of this SpatialPoint.
  */
 double
-SpatialPoint::getCoord2 () const
+SpatialPoint::getCoord2() const
 {
   return mCoord2;
 }
+
+
 /*
- * @return value of "coord3" attribute of this SpatialPoint
+ * Returns the value of the "coord3" attribute of this SpatialPoint.
  */
 double
-SpatialPoint::getCoord3 () const
+SpatialPoint::getCoord3() const
 {
   return mCoord3;
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * SpatialPoint's "spatialId" attribute has been set.
-  */
-bool 
-SpatialPoint::isSetSpatialId () const
-{
-  return (mSpatialId.empty() == false);
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * SpatialPoint's "domain" attribute has been set.
-  */
-bool 
-SpatialPoint::isSetDomain () const
+ * Returns the value of the "domain" attribute of this SpatialPoint.
+ */
+const std::string&
+SpatialPoint::getDomain() const
 {
-  return (mDomain.empty() == false);
+  return mDomain;
 }
 
+
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * SpatialPoint's "coord1" attribute has been set.
-  */
-bool 
-SpatialPoint::isSetCoord1 () const
+ * Returns true/false if id is set.
+ */
+bool
+SpatialPoint::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if coord1 is set.
+ */
+bool
+SpatialPoint::isSetCoord1() const
 {
   return mIsSetCoord1;
 }
 
+
 /*
- * @return true if the "coord2" of this SpatialPoint has been set, false
- * otherwise.
+ * Returns true/false if coord2 is set.
  */
 bool
-SpatialPoint::isSetCoord2 () const
+SpatialPoint::isSetCoord2() const
 {
   return mIsSetCoord2;
 }
 
+
 /*
- * @return true if the "mCoord3" of this SpatialPoint has been set, false
- * otherwise.
+ * Returns true/false if coord3 is set.
  */
 bool
-SpatialPoint::isSetCoord3 () const
+SpatialPoint::isSetCoord3() const
 {
   return mIsSetCoord3;
 }
 
-/*
-  * Sets the value of the "spatialId" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::setSpatialId (const std::string& spatialId)
-{
-  return SyntaxChecker::checkAndSetSId(spatialId ,mSpatialId);
-}
 
 /*
-  * Sets the value of the "domain" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::setDomain (const std::string& domain)
+ * Returns true/false if domain is set.
+ */
+bool
+SpatialPoint::isSetDomain() const
 {
-  return SyntaxChecker::checkAndSetSId(domain ,mDomain);
+  return (mDomain.empty() == false);
 }
 
+
 /*
-  * Sets the value of the "coord1" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::setCoord1 (double coord1)
+ * Sets id and returns value indicating success.
+ */
+int
+SpatialPoint::setId(const std::string& id)
 {
-  if (coord1 < 0)
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets coord1 and returns value indicating success.
+ */
+int
+SpatialPoint::setCoord1(double coord1)
+{
+  mCoord1 = coord1;
+  mIsSetCoord1 = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets coord2 and returns value indicating success.
+ */
+int
+SpatialPoint::setCoord2(double coord2)
+{
+  mCoord2 = coord2;
+  mIsSetCoord2 = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets coord3 and returns value indicating success.
+ */
+int
+SpatialPoint::setCoord3(double coord3)
+{
+  mCoord3 = coord3;
+  mIsSetCoord3 = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets domain and returns value indicating success.
+ */
+int
+SpatialPoint::setDomain(const std::string& domain)
+{
+  if (&(domain) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(domain)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    mCoord1 = coord1;
-    mIsSetCoord1  = true;
+    mDomain = domain;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
-/*
- * Sets the "coord2" field of this SpatialPoint to value.
- */
-int
-SpatialPoint::setCoord2 (double value)
-{
-  mCoord2      = value;
-  mIsSetCoord2 = true;
-  return LIBSBML_OPERATION_SUCCESS;
-}
 
 /*
- * Sets the "coord3" field of this SpatialPoint to value.
+ * Unsets id and returns value indicating success.
  */
 int
-SpatialPoint::setCoord3 (double value)
+SpatialPoint::unsetId()
 {
-  mCoord3      = value;
-  mIsSetCoord3 = true;
-  return LIBSBML_OPERATION_SUCCESS;
-}
+  mId.erase();
 
-/*
-  * Unsets the value of the "spatialId" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::unsetSpatialId ()
-{
-  mSpatialId.erase();
-  if (mSpatialId.empty())
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -294,14 +337,76 @@ SpatialPoint::unsetSpatialId ()
   }
 }
 
+
 /*
-  * Unsets the value of the "domain" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::unsetDomain ()
+ * Unsets coord1 and returns value indicating success.
+ */
+int
+SpatialPoint::unsetCoord1()
+{
+  mCoord1 = numeric_limits<double>::quiet_NaN();
+  mIsSetCoord1 = false;
+
+  if (isSetCoord1() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets coord2 and returns value indicating success.
+ */
+int
+SpatialPoint::unsetCoord2()
+{
+  mCoord2 = numeric_limits<double>::quiet_NaN();
+  mIsSetCoord2 = false;
+
+  if (isSetCoord2() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets coord3 and returns value indicating success.
+ */
+int
+SpatialPoint::unsetCoord3()
+{
+  mCoord3 = numeric_limits<double>::quiet_NaN();
+  mIsSetCoord3 = false;
+
+  if (isSetCoord3() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets domain and returns value indicating success.
+ */
+int
+SpatialPoint::unsetDomain()
 {
   mDomain.erase();
-  if (mDomain.empty())
+
+  if (mDomain.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -311,210 +416,80 @@ SpatialPoint::unsetDomain ()
   }
 }
 
-/*
-  * Unsets the value of the "coord1" attribute of this SpatialPoint.
-  */
-int 
-SpatialPoint::unsetCoord1 ()
-{
-  mCoord1      = numeric_limits<double>::quiet_NaN();
-  mIsSetCoord1 = false;
-  
-  if (!isSetCoord1())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
 /*
- * Unsets the "coord2" of this SpatialPoint.
+ * rename attributes that are SIdRefs or instances in math
  */
-int
-SpatialPoint::unsetCoord2 ()
+void
+SpatialPoint::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  mCoord2      = numeric_limits<double>::quiet_NaN();
-  mIsSetCoord2 = false;
-  
-  if (!isSetCoord2())
+  if (isSetDomain() == true && mDomain == oldid)
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    setDomain(newid);
   }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+
 }
 
-/*
- * Unsets the "coord3" of this SpatialPoint.
- */
-int
-SpatialPoint::unsetCoord3 ()
-{
-  mCoord3      = numeric_limits<double>::quiet_NaN();
-  mIsSetCoord3 = false;
-  
-  if (!isSetCoord3())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 SpatialPoint::getElementName () const
 {
-  static const std::string name = "spatialPoint";
-  return name;
+	static const string name = "spatialPoint";
+	return name;
 }
 
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-SpatialPoint::createObject (XMLInputStream& stream)
-{
-  // return 0;
-  SBase*        object = 0;
-
-  object=SBase::createObject(stream);
-  
-  return object;
-
-}
-
-/*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
-void
-SpatialPoint::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-
-  attributes.add("spatialId");
-  attributes.add("domain");
-  attributes.add("coord1");
-  attributes.add("coord2");
-  attributes.add("coord3");
-}
-
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-SpatialPoint::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes,expectedAttributes);
-
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("spatialId", mSpatialId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mSpatialId.empty())
-  {
-    logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<SpatialPoint>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-        logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
-
-  assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mDomain.empty())
-  {
-    logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<SpatialPoint>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute domain='" + mDomain + "' does not conform.");
-
-  mIsSetCoord1 = attributes.readInto("coord1", mCoord1, getErrorLog(), true, getLine(), getColumn());
-  mIsSetCoord2 = attributes.readInto("coord2", mCoord2, getErrorLog(), true, getLine(), getColumn());
-  mIsSetCoord3 = attributes.readInto("coord3", mCoord3, getErrorLog(), true, getLine(), getColumn());
-
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-SpatialPoint::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-
-  if (isSetSpatialId())
-  stream.writeAttribute("spatialId", getPrefix(), mSpatialId);
-  if (isSetDomain())
-  stream.writeAttribute("domain", getPrefix(), mDomain);  
-  if (isSetCoord1())
-  stream.writeAttribute("coord1", getPrefix(), mCoord1);
-  if (isSetCoord2())
-  stream.writeAttribute("coord2", getPrefix(), mCoord2);
-  if (isSetCoord3())
-  stream.writeAttribute("coord3", getPrefix(), mCoord3);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
-}
-
-
-/*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-SpatialPoint::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionElements(stream);
-}
-
-
-/*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 SpatialPoint::getTypeCode () const
 {
-	return SBML_SPATIAL_SPATIALPOINT;
+  return SBML_SPATIAL_SPATIALPOINT;
 }
 
-SpatialPoint*
-SpatialPoint::clone() const
+
+/*
+ * check if all the required attributes are set
+ */
+bool
+SpatialPoint::hasRequiredAttributes () const
 {
-    return new SpatialPoint(*this);
+	bool allPresent = true;
+
+  if (isSetId() == false)
+    allPresent = false;
+
+  if (isSetCoord1() == false)
+    allPresent = false;
+
+  if (isSetDomain() == false)
+    allPresent = false;
+
+  return allPresent;
 }
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+SpatialPoint::writeElements (XMLOutputStream& stream) const
+{
+	SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -522,119 +497,479 @@ SpatialPoint::clone() const
 bool
 SpatialPoint::accept (SBMLVisitor& v) const
 {
-  // return false;
   return v.visit(*this);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Ctor.
+ * Sets the parent SBMLDocument.
+ */
+void
+SpatialPoint::setSBMLDocument (SBMLDocument* d)
+{
+	SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+SpatialPoint::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+SpatialPoint::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	SBase::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("coord1");
+	attributes.add("coord2");
+	attributes.add("coord3");
+	attributes.add("domain");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+SpatialPoint::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfSpatialPoints - which will have
+   * happened immediately prior to this read
+  */
+
+  if (getErrorLog() != NULL &&
+      static_cast<ListOfSpatialPoints*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+              getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                   getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+	SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<SpatialPoint>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // coord1 double   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetCoord1 = attributes.readInto("coord1", mCoord1);
+
+  if (mIsSetCoord1 == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'coord1' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
+
+  //
+  // coord2 double   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetCoord2 = attributes.readInto("coord2", mCoord2);
+
+  if (mIsSetCoord2 == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
+
+  //
+  // coord3 double   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetCoord3 = attributes.readInto("coord3", mCoord3);
+
+  if (mIsSetCoord3 == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
+
+  //
+  // domain SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("domain", mDomain);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mDomain.empty() == true)
+    {
+      logEmptyString(mDomain, getLevel(), getVersion(), "<SpatialPoint>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mDomain) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute domain='" + mDomain + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'domain' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+SpatialPoint::writeAttributes (XMLOutputStream& stream) const
+{
+	SBase::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetCoord1() == true)
+		stream.writeAttribute("coord1", getPrefix(), mCoord1);
+
+	if (isSetCoord2() == true)
+		stream.writeAttribute("coord2", getPrefix(), mCoord2);
+
+	if (isSetCoord3() == true)
+		stream.writeAttribute("coord3", getPrefix(), mCoord3);
+
+	if (isSetDomain() == true)
+		stream.writeAttribute("domain", getPrefix(), mDomain);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+/*
+ * Constructor 
+ */
+ListOfSpatialPoints::ListOfSpatialPoints(unsigned int level, 
+                      unsigned int version, 
+                      unsigned int pkgVersion)
+ : ListOf(level, version)
+{
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
+}
+
+
+/*
+ * Constructor 
  */
 ListOfSpatialPoints::ListOfSpatialPoints(SpatialPkgNamespaces* spatialns)
- : ListOf(spatialns)
+  : ListOf(spatialns)
 {
-  //
-  // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 }
 
 
 /*
- * Ctor.
+ * Returns a deep copy of this ListOfSpatialPoints 
  */
-ListOfSpatialPoints::ListOfSpatialPoints(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));
-};
-
-
-/*
- * @return a (deep) copy of this ListOfUnitDefinitions.
- */
-ListOfSpatialPoints*
+ListOfSpatialPoints* 
 ListOfSpatialPoints::clone () const
-{
+ {
   return new ListOfSpatialPoints(*this);
 }
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-ListOfSpatialPoints::createObject (XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  SBase*        object = 0;
 
-
-  if (name == "spatialPoint")
-  {
-      SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
-	  object = new SpatialPoint(spatialns);
-	  appendAndOwn(object);
-	  delete spatialns;
-      //mItems.push_back(object);
-  }
-
-  return object;
-}
-
-
-/* return nth item in list */
-SpatialPoint *
+/*
+ * Get a SpatialPoint from the ListOfSpatialPoints by index.
+*/
+SpatialPoint*
 ListOfSpatialPoints::get(unsigned int n)
 {
   return static_cast<SpatialPoint*>(ListOf::get(n));
 }
 
 
-/* return nth item in list */
-const SpatialPoint *
+/*
+ * Get a SpatialPoint from the ListOfSpatialPoints by index.
+ */
+const SpatialPoint*
 ListOfSpatialPoints::get(unsigned int n) const
 {
   return static_cast<const SpatialPoint*>(ListOf::get(n));
 }
 
 
-/* return item by spatialId */
+/*
+ * Get a SpatialPoint from the ListOfSpatialPoints by id.
+ */
 SpatialPoint*
-ListOfSpatialPoints::get (const std::string& spatialId)
+ListOfSpatialPoints::get(const std::string& sid)
 {
-  return const_cast<SpatialPoint*>( 
-    static_cast<const ListOfSpatialPoints&>(*this).get(spatialId) );
+	return const_cast<SpatialPoint*>(
+    static_cast<const ListOfSpatialPoints&>(*this).get(sid));
 }
 
 
-/* return item by spatialId */
+/*
+ * Get a SpatialPoint from the ListOfSpatialPoints by id.
+ */
 const SpatialPoint*
-ListOfSpatialPoints::get (const std::string& spatialId) const
+ListOfSpatialPoints::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<SpatialPoint>(spatialId) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<SpatialPoint>(sid) );
   return (result == mItems.end()) ? 0 : static_cast <SpatialPoint*> (*result);
 }
 
 
-/* Removes the nth item from this list */
-SpatialPoint*
-ListOfSpatialPoints::remove (unsigned int n)
+/**
+ * Adds a copy the given "SpatialPoint" to this ListOfSpatialPoints.
+ *
+ * @param sp; the SpatialPoint object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ListOfSpatialPoints::addSpatialPoint(const SpatialPoint* sp)
 {
-   return static_cast<SpatialPoint*>(ListOf::remove(n));
+  if (sp == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (sp->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != sp->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != sp->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sp)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+	append(sp);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
-/* Removes item in this list by spatialId */
-SpatialPoint*
-ListOfSpatialPoints::remove (const std::string& spatialId)
+/**
+ * Get the number of SpatialPoint objects in this ListOfSpatialPoints.
+ *
+ * @return the number of SpatialPoint objects in this ListOfSpatialPoints
+ */
+unsigned int 
+ListOfSpatialPoints::getNumSpatialPoints() const
 {
-  SBase* item = 0;
+	return size();
+}
+
+/**
+ * Creates a new SpatialPoint object, adds it to this ListOfSpatialPoints
+ * SpatialPoint and returns the SpatialPoint object created. 
+ *
+ * @return a new SpatialPoint object instance
+ *
+ * @see addSpatialPoint(const SpatialPoint* sp)
+ */
+SpatialPoint* 
+ListOfSpatialPoints::createSpatialPoint()
+{
+  SpatialPoint* sp = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    sp = new SpatialPoint(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(sp != NULL)
+  {
+    appendAndOwn(sp);
+  }
+
+  return sp;
+}
+
+/*
+ * Removes the nth SpatialPoint from this ListOfSpatialPoints
+ */
+SpatialPoint*
+ListOfSpatialPoints::remove(unsigned int n)
+{
+  return static_cast<SpatialPoint*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the SpatialPoint from this ListOfSpatialPoints with the given identifier
+ */
+SpatialPoint*
+ListOfSpatialPoints::remove(const std::string& sid)
+{
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<SpatialPoint>(spatialId) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<SpatialPoint>(sid) );
 
   if (result != mItems.end())
   {
@@ -642,32 +977,341 @@ ListOfSpatialPoints::remove (const std::string& spatialId)
     mItems.erase(result);
   }
 
-  return static_cast <SpatialPoint*> (item);
+	return static_cast <SpatialPoint*> (item);
 }
 
 
 /*
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * SBML_UNKNOWN (default).
- */
-int
-ListOfSpatialPoints::getItemTypeCode () const
-{
-	return SBML_SPATIAL_SPATIALPOINT;
-}
-
-
-/*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 ListOfSpatialPoints::getElementName () const
 {
-  static const std::string name = "listOfSpatialPoints";
-  return name;
+	static const string name = "listOfSpatialPoints";
+	return name;
 }
 
 
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+ListOfSpatialPoints::getTypeCode () const
+{
+  return SBML_LIST_OF;
+}
+
+
+/*
+ * Returns the libSBML type code for the objects in this LIST_OF.
+ */
+int
+ListOfSpatialPoints::getItemTypeCode () const
+{
+  return SBML_SPATIAL_SPATIALPOINT;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new SpatialPoint in this ListOfSpatialPoints
+ */
+SBase*
+ListOfSpatialPoints::createObject(XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
+
+  if (name == "spatialPoint")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new SpatialPoint(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write the namespace for the Spatial package.
+ */
+void
+ListOfSpatialPoints::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
+
+  stream << xmlns;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+SpatialPoint_t *
+SpatialPoint_create(unsigned int level, unsigned int version,
+                    unsigned int pkgVersion)
+{
+  return new SpatialPoint(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+SpatialPoint_free(SpatialPoint_t * sp)
+{
+  if (sp != NULL)
+    delete sp;
+}
+
+
+LIBSBML_EXTERN
+SpatialPoint_t *
+SpatialPoint_clone(SpatialPoint_t * sp)
+{
+  if (sp != NULL)
+  {
+    return static_cast<SpatialPoint_t*>(sp->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+SpatialPoint_getId(const SpatialPoint_t * sp)
+{
+	return (sp != NULL && sp->isSetId()) ? sp->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+double
+SpatialPoint_getCoord1(const SpatialPoint_t * sp)
+{
+	return (sp != NULL) ? sp->getCoord1() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+double
+SpatialPoint_getCoord2(const SpatialPoint_t * sp)
+{
+	return (sp != NULL) ? sp->getCoord2() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+double
+SpatialPoint_getCoord3(const SpatialPoint_t * sp)
+{
+	return (sp != NULL) ? sp->getCoord3() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+const char *
+SpatialPoint_getDomain(const SpatialPoint_t * sp)
+{
+	return (sp != NULL && sp->isSetDomain()) ? sp->getDomain().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_isSetId(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_isSetCoord1(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetCoord1()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_isSetCoord2(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetCoord2()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_isSetCoord3(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetCoord3()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_isSetDomain(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->isSetDomain()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_setId(SpatialPoint_t * sp, const char * id)
+{
+  if (sp != NULL)
+    return (id == NULL) ? sp->setId("") : sp->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_setCoord1(SpatialPoint_t * sp, double coord1)
+{
+  if (sp != NULL)
+    return (coord1 == NULL) ? sp->unsetCoord1() : sp->setCoord1(coord1);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_setCoord2(SpatialPoint_t * sp, double coord2)
+{
+  if (sp != NULL)
+    return (coord2 == NULL) ? sp->unsetCoord2() : sp->setCoord2(coord2);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_setCoord3(SpatialPoint_t * sp, double coord3)
+{
+  if (sp != NULL)
+    return (coord3 == NULL) ? sp->unsetCoord3() : sp->setCoord3(coord3);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_setDomain(SpatialPoint_t * sp, const char * domain)
+{
+  if (sp != NULL)
+    return (domain == NULL) ? sp->setDomain("") : sp->setDomain(domain);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_unsetId(SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? sp->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_unsetCoord1(SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? sp->unsetCoord1() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_unsetCoord2(SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? sp->unsetCoord2() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_unsetCoord3(SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? sp->unsetCoord3() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_unsetDomain(SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? sp->unsetDomain() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialPoint_hasRequiredAttributes(const SpatialPoint_t * sp)
+{
+  return (sp != NULL) ? static_cast<int>(sp->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+SpatialPoint_t *
+ListOfSpatialPoints_getById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfSpatialPoints *>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+SpatialPoint_t *
+ListOfSpatialPoints_removeById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfSpatialPoints *>(lo)->remove(sid) : NULL;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
 

@@ -1,28 +1,40 @@
-/*
- * @file    CSGObject.h
- * @brief   Definition of CSGObject, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   CSGObject.h
+ * @brief:  Implementation of the CSGObject class
+ * @author: SBMLTeam
  *
- * $Id: CSGObject.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGObject.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef CSGObject_H__
 #define CSGObject_H__
+
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
@@ -31,148 +43,179 @@
 
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
-#include <sbml/packages/spatial/sbml/CSGNode.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+#include <sbml/packages/spatial/sbml/CSGNode.h>
 
-class CSGPrimitive;
-class CSGPseudoPrimitive;
-class CSGSetOperator;
-class CSGTranslation;
-class CSGRotation;
-class CSGScale;
-class CSGHomogeneousTransformation;
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN CSGObject : public SBase
 {
+
 protected:
 
-  std::string mSpatialId;
-  std::string mDomainType;
-  unsigned int mOrdinal;
-  CSGNode* mCSGNodeRoot;
+  std::string   mId;
+  std::string   mDomainType;
+  int           mOrdinal;
+  bool          mIsSetOrdinal;
+  CSGNode*      mCsgNode;
 
-  bool  mIsSetOrdinal;
 
 public:
 
   /**
    * Creates a new CSGObject with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this CSGObject
+   *
+   * @param version an unsigned int, the SBML Version to assign to this CSGObject
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGObject
    */
-
-  CSGObject(unsigned int level   = SpatialExtension::getDefaultLevel(),
+  CSGObject(unsigned int level      = SpatialExtension::getDefaultLevel(),
             unsigned int version    = SpatialExtension::getDefaultVersion(),
             unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
+
   /**
    * Creates a new CSGObject with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
    */
-
   CSGObject(SpatialPkgNamespaces* spatialns);
 
 
-  /**
-   * Copy constructor.
-   */
-  CSGObject(const CSGObject& source);
-
-  /**
-   * Assignment operator.
-   */
-   CSGObject& operator=(const CSGObject& source);
-
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~CSGObject ();
-
-  /**
-   * Returns the string of the "spatialId" attribute of this CSGObject.
+   /**
+   * Copy constructor for CSGObject.
    *
-   * @return the string of the "spatialId" attribute of this CSGObject.
+   * @param orig; the CSGObject instance to copy.
    */
-  virtual const std::string& getSpatialId () const;
+  CSGObject(const CSGObject& orig);
+
+
+   /**
+   * Assignment operator for CSGObject.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  CSGObject& operator=(const CSGObject& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this CSGObject object.
+   *
+   * @return a (deep) copy of this CSGObject object.
+   */
+  virtual CSGObject* clone () const;
+
+
+   /**
+   * Destructor for CSGObject.
+   */
+  virtual ~CSGObject();
+
+
+   /**
+   * Returns the value of the "id" attribute of this CSGObject.
+   *
+   * @return the value of the "id" attribute of this CSGObject as a string.
+   */
+  virtual const std::string& getId() const;
+
 
   /**
-   * Returns the string of the "domain" attribute of this CSGObject.
+   * Returns the value of the "domainType" attribute of this CSGObject.
    *
-   * @return the string of the "domain" attribute of this CSGObject.
+   * @return the value of the "domainType" attribute of this CSGObject as a string.
    */
-  virtual const std::string& getDomainType () const;
+  virtual const std::string& getDomainType() const;
+
 
   /**
-   * Returns the string of the "ordinal" attribute of this CSGObject.
+   * Returns the value of the "ordinal" attribute of this CSGObject.
    *
-   * @return the string of the "ordinal" attribute of this CSGObject.
+   * @return the value of the "ordinal" attribute of this CSGObject as a integer.
    */
-  virtual unsigned int getOrdinal () const;
+  virtual int getOrdinal() const;
 
- /**
+
+	/**
+	 * Returns the "csgNode" element of this CSGObject.
+	 *
+	 * @return the "csgNode" element of this CSGObject.
+	 */
+	virtual const CSGNode* getCsgNode() const;
+
+
+	/**
+	/**
+	 * Returns the "csgNode" element of this CSGObject.
+	 *
+	 * @return the "csgNode" element of this CSGObject.
+	 */
+	virtual CSGNode* getCsgNode();
+
+
+	/**
+	 * Creates a new "CSGNode" and sets it for this CSGObject.
+	 *
+	 * @return the created "CSGNode" element of this CSGObject.
+	 */
+	virtual CSGNode* createCsgNode();
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGObject's "spatialId" attribute has been set.
+   * CSGObject's "id" attribute has been set.
    *
-   * @return @c true if this CSGObject's "spatialId" attribute has been set, 
+   * @return @c true if this CSGObject's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSpatialId () const;
-  
+  virtual bool isSetId() const;
+
+
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGObject's "domain" attribute has been set.
+   * CSGObject's "domainType" attribute has been set.
    *
-   * @return @c true if this CSGObject's "domain" attribute has been set, 
+   * @return @c true if this CSGObject's "domainType" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetDomainType () const;
+  virtual bool isSetDomainType() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * CSGObject's "ordinal" attribute has been set.
    *
-   * @return @c true if this CSGObject's "ordinal" attribute has been set, 
+   * @return @c true if this CSGObject's "ordinal" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetOrdinal () const;
+  virtual bool isSetOrdinal() const;
 
- /**
-   * Sets the SIdRef string of the "spatialId" attribute of this CSGObject.
-   *
-   * @param spatialId a SIdRef string to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setSpatialId (const std::string& spatialId);
 
   /**
-   * Sets the SIdRef string of the "domain" attribute of this CSGObject.
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGObject's "csgNode" element has been set.
    *
-   * @param domain a SIdRef string to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @return @c true if this CSGObject's "csgNode" element has been set,
+   * otherwise @c false is returned.
    */
-  virtual int setDomainType (const std::string& domain);
+  virtual bool isSetCsgNode() const;
+
 
   /**
-   * Sets the int of the "ordinal" attribute of this CSGObject.
+   * Sets the value of the "id" attribute of this CSGObject.
    *
-   * @param ordinal an int to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -181,7 +224,53 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setOrdinal (unsigned int ordinal);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "domainType" attribute of this CSGObject.
+   *
+   * @param domainType; const std::string& value of the "domainType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDomainType(const std::string& domainType);
+
+
+  /**
+   * Sets the value of the "ordinal" attribute of this CSGObject.
+   *
+   * @param ordinal; int value of the "ordinal" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setOrdinal(int ordinal);
+
+
+  /**
+   * Sets the "csgNode" element of this CSGObject.
+   *
+   * @param csgNode; CSGNode* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCsgNode(CSGNode* csgNode);
+
 
   /**
    * Unsets the value of the "id" attribute of this CSGObject.
@@ -193,10 +282,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetSpatialId ();
+  virtual int unsetId();
 
- /**
-   * Unsets the value of the "domain" attribute of this CSGObject.
+
+  /**
+   * Unsets the value of the "domainType" attribute of this CSGObject.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -205,7 +295,8 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetDomainType ();
+  virtual int unsetDomainType();
+
 
   /**
    * Unsets the value of the "ordinal" attribute of this CSGObject.
@@ -217,43 +308,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetOrdinal ();
+  virtual int unsetOrdinal();
+
 
   /**
-   * Returns the "mCSGNodeRoot" object of this CSGNodeGeometry.
-   *
-   * @return the "mCSGNodeRoot" object of this CSGNodeGeometry.
-   */
-  const CSGNode* getCSGNodeRoot () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGNodeGeometry's "mCSGNodeRoot" object has been set.
-   *
-   * @return @c true if this CSGNodeGeometry's "mCSGNodeRoot" object has been set, 
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetCSGNodeRoot () const;
-  
-  /**
-   * Sets the "mCSGNode" subelement of this CSGNodeGeometry to a copy of the 
-   * given CSGNode object.
-   *
-   * @param sampledField an object to use.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  int setCSGNodeRoot (const CSGNode* csgn);
-
- /**
-   * Unsets the "mCSGNode" subelement of this CSGNodeGeometry.
-   *
-   * @htmlinclude comment-set-methods.html
+   * Unsets the "csgNode" element of this CSGObject.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -262,479 +321,847 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  int unsetCSGNodeRoot ();
+  virtual int unsetCsgNode();
+
 
   /**
-   * Creates a new CSGPrimitive object inside this CSGObject and returns it.
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
    *
-   * @return the CSGPrimitive object created
-   */
-  CSGPrimitive* createCSGPrimitive ();
-
-  /**
-   * Creates a new CSGPseudoPrimitive object inside this CSGObject and returns it.
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
    *
-   * @return the CSGPseudoPrimitive object created
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
-  CSGPseudoPrimitive* createCSGPseudoPrimitive ();
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
 
   /**
-   * Creates a new CSGSetOperator object inside this CSGObject and returns it.
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
    *
-   * @return the CSGSetOperator object created
+   * @return a List* of pointers to all child objects.
    */
-  CSGSetOperator* createCSGSetOperator ();
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
 
   /**
-   * Creates a new CSGTranslation object inside this CSGObject and returns it.
+   * Returns the XML element name of this object, which for CSGObject, is
+   * always @c "cSGObject".
    *
-   * @return the CSGTranslation object created
+   * @return the name of this element, i.e. @c "cSGObject".
    */
-  CSGTranslation* createCSGTranslation ();
+  virtual const std::string& getElementName () const;
+
 
   /**
-   * Creates a new CSGRotation object inside this CSGObject and returns it.
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * @return the CSGRotation object created
-   */
-  CSGRotation* createCSGRotation ();
-
-  /**
-   * Creates a new CSGScale object inside this CSGObject and returns it.
-   *
-   * @return the CSGScale object created
-   */
-  CSGScale* createCSGScale ();
-
-  /**
-   * Creates a new CSGHomogeneousTransformation object inside this CSGObject and returns it.
-   *
-   * @return the CSGHomogeneousTransformation object created
-   */
-  CSGHomogeneousTransformation* createCSGHomogeneousTransformation ();
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   *
-   * @return the string of the name of this element.
-   */
-  virtual const std::string& getElementName () const ;
-
-
-  /**
-   * @return a (deep) copy of this CSGObject.
-   */
-  virtual CSGObject* clone () const;
-
-
-  /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
   virtual int getTypeCode () const;
 
 
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this CSGObject object have been set.
+   *
+   * @note The required attributes for a CSGObject object are:
+   * @li "id"
+   * @li "domainType"
+   * @li "csgNode"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this CSGObject object have been set.
+   *
+   * @note The required elements for a CSGObject object are:
+   * @li "csgNode"
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
-   */
-  virtual bool accept (SBMLVisitor& v) const;
+
   /** @endcond doxygenLibsbmlInternal */
 
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
+               const std::string& pkgPrefix, bool flag);
+
+
   /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * return the SBML object corresponding to next XMLToken.
    */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
+  virtual SBase* createObject(XMLInputStream& stream);
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Read values from the given XMLAttributes set into their specific fields.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
- /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
-   *
-   * @return true if the subclass read from the stream, false otherwise.
-   */
-  virtual bool readOtherXML (XMLInputStream& stream) {
-	  return false;
-  };
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
 
- /** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+
 
 
 };
 
 class LIBSBML_EXTERN ListOfCSGObjects : public ListOf
 {
+
 public:
 
   /**
-   * @return a (deep) copy of this ListOfCSGObjects.
+   * Creates a new ListOfCSGObjects with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfCSGObjects
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfCSGObjects
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfCSGObjects
+   */
+  ListOfCSGObjects(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                   unsigned int version    = SpatialExtension::getDefaultVersion(),
+                   unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new ListOfCSGObjects with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  ListOfCSGObjects(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Creates and returns a deep copy of this ListOfCSGObjects object.
+   *
+   * @return a (deep) copy of this ListOfCSGObjects object.
    */
   virtual ListOfCSGObjects* clone () const;
 
 
-  /**
-   * Creates a new ListOfCSGObjects with the given level, version, and package version.
+   /**
+   * Get a CSGObject from the ListOfCSGObjects.
+   *
+   * @param n the index number of the CSGObject to get.
+   *
+   * @return the nth CSGObject in this ListOfCSGObjects.
+   *
+   * @see size()
    */
-   ListOfCSGObjects(unsigned int level  = SpatialExtension::getDefaultLevel(),
-          unsigned int version			= SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion		= SpatialExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new ListOfCSGObjects with the given spatialPkgNamespaces object.
-   */
-   ListOfCSGObjects(SpatialPkgNamespaces* spatialsns);
+	virtual CSGObject* get(unsigned int n);
 
 
   /**
    * Get a CSGObject from the ListOfCSGObjects.
    *
    * @param n the index number of the CSGObject to get.
-   * 
+   *
    * @return the nth CSGObject in this ListOfCSGObjects.
    *
    * @see size()
    */
-  virtual CSGObject * get(unsigned int n); 
-
-
-  /**
-   * Get a CSGObject from the ListOfCSGObjects.
-   *
-   * @param n the index number of the CSGObject to get.
-   * 
-   * @return the nth CSGObject in this ListOfCSGObjects.
-   *
-   * @see size()
-   */
-  virtual const CSGObject * get(unsigned int n) const; 
-
-  /**
-   * Get a CSGObject from the ListOfCSGObjects
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier 
-   * of the CSGObject to get.
-   * 
-   * @return CSGObject in this ListOfCSGObjects
-   * with the given id or NULL if no such
-   * CSGObject exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
-   */
-  virtual CSGObject* get (const std::string& sid);
+	virtual const CSGObject* get(unsigned int n) const;
 
 
   /**
    * Get a CSGObject from the ListOfCSGObjects
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the CSGObject to get.
-   * 
+   *
    * @return CSGObject in this ListOfCSGObjects
    * with the given id or NULL if no such
    * CSGObject exists.
    *
-   * @see get(unsigned int n)
+   * @see get(unsigned int n)   *
    * @see size()
    */
-  virtual const CSGObject* get (const std::string& sid) const;
+	virtual CSGObject* get(const std::string& sid);
 
 
   /**
-   * Removes the nth item from this ListOfCSGObjects items and returns a pointer to
-   * it.
+   * Get a CSGObject from the ListOfCSGObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CSGObject to get.
+   *
+   * @return CSGObject in this ListOfCSGObjects
+   * with the given id or NULL if no such
+   * CSGObject exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const CSGObject* get(const std::string& sid) const;
+
+
+	/**
+	 * Adds a copy the given "CSGObject" to this ListOfCSGObjects.
+	 *
+	 * @param csgo; the CSGObject object to add
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSEDML_OPERATION_SUCCESS
+	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+	 */
+	int addCSGObject(const CSGObject* csgo);
+
+
+	/**
+	 * Get the number of CSGObject objects in this ListOfCSGObjects.
+	 *
+	 * @return the number of CSGObject objects in this ListOfCSGObjects
+	 */
+	unsigned int getNumCSGObjects() const;
+
+
+	/**
+	 * Creates a new CSGObject object, adds it to the
+	 * ListOfCSGObjects and returns the CSGObject object created. 
+	 *
+	 * @return a new CSGObject object instance
+	 *
+	 * @see addCSGObject(const CSGObject* csgo)
+	 */
+	CSGObject* createCSGObject();
+
+
+  /**
+   * Removes the nth CSGObject from this ListOfCSGObjects
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
+   * @param n the index of the CSGObject to remove.
    *
    * @see size()
    */
-  virtual CSGObject* remove (unsigned int n);
+	virtual CSGObject* remove(unsigned int n);
 
 
   /**
-   * Removes item in this ListOfCSGObjects items with the given identifier.
+   * Removes the CSGObject from this ListOfCSGObjects with the given identifier
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the CSGObject to remove.
    *
-   * @return the item removed.  As mentioned above, the caller owns the
+   * @return the CSGObject removed. As mentioned above, the caller owns the
    * returned item.
    */
-  virtual CSGObject* remove (const std::string& sid);
+	virtual CSGObject* remove(const std::string& sid);
 
 
   /**
-   * @return the typecode (int) of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
-   */
-  virtual int getItemTypeCode () const;
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object, which for ListOfCSGObjects, is
+   * always @c "listOfCSGObjects".
    *
-   * @return the string of the name of this element.
+   * @return the name of this element, i.e. @c "listOfCSGObjects".
    */
   virtual const std::string& getElementName () const;
 
 
-protected:
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
 
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
    */
-  virtual SBase* createObject (XMLInputStream& stream);
+  virtual int getItemTypeCode () const;
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates a new CSGObject in this ListOfCSGObjects
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Spatial package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
 
 };
 
-/** @cond doxygenLibsbmlInternal */
-/**
- * Used by ListOfCSGObjects::get() to lookup an SBase based by its 
- * componentType
- */
-#ifndef SWIG
-template<>
-struct IdEq<CSGObject> : public std::unary_function<SBase*, bool>
-{
-  const std::string& id;
 
-  IdEq (const std::string& id) : id(id) { }
-  bool operator() (SBase* sb) 
-       { return static_cast <CSGObject*> (sb)->getSpatialId() == id; }
-};
-#endif
-/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+/**
+ * Creates a new CSGObject_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * CSGObject_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * CSGObject_t structure.
+ *
+ * @returns the newly-created CSGObject_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof CSGObject_t
+ */
+LIBSBML_EXTERN
+CSGObject_t *
+CSGObject_create(unsigned int level, unsigned int version,
+                 unsigned int pkgVersion);
 
 
+/**
+ * Frees the given CSGObject_t structure.
+ * 
+ * @param csgo the CSGObject_t structure to be freed.
+ *
+ * @memberof CSGObject_t
+ */
+LIBSBML_EXTERN
+void
+CSGObject_free(CSGObject_t * csgo);
+
+
+/**
+ * Creates a deep copy of the given CSGObject_t structure.
+ * 
+ * @param csgo the CSGObject_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given CSGObject_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof CSGObject_t
+ */
+LIBSBML_EXTERN
+CSGObject_t *
+CSGObject_clone(CSGObject_t * csgo);
+
+
+/**
+ * Returns the value of the "id" attribute of the given CSGObject_t
+ * structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 const char *
-CSGObject_getSpatialId (const CSGObject_t *csgo);
+CSGObject_getId(const CSGObject_t * csgo);
 
 
+/**
+ * Returns the value of the "domainType" attribute of the given CSGObject_t
+ * structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return the domainType of this structure.
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 const char *
-CSGObject_getDomainType (const CSGObject_t *csgo);
+CSGObject_getDomainType(const CSGObject_t * csgo);
+
+
+/**
+ * Returns the value of the "ordinal" attribute of the given CSGObject_t
+ * structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return the ordinal of this structure.
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_getOrdinal(const CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGNode_t*
+CSGObject_getCsgNode(CSGObject_t * csgo);
+
+
+LIBSBML_EXTERN
+CSGNode_t*
+CSGObject_createCsgNode(CSGObject_t * csgo);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGObject_t structure's "id"
+ * is set.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return @c 1 if the "id" of this CSGObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetId(const CSGObject_t * csgo);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGObject_t structure's "domainType"
+ * is set.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return @c 1 if the "domainType" of this CSGObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetDomainType(const CSGObject_t * csgo);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGObject_t structure's "ordinal"
+ * is set.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return @c 1 if the "ordinal" of this CSGObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetOrdinal(const CSGObject_t * csgo);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGObject_t structure's "csgNode"
+ * is set.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return @c 1 if the "csgNode" of this CSGObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_isSetCsgNode(const CSGObject_t * csgo);
+
+
+/**
+ * Sets the "id" attribute of the given CSGObject_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGObject_unsetId() instead.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_setId(CSGObject_t * csgo, const char * id);
+
+
+/**
+ * Sets the "domainType" attribute of the given CSGObject_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGObject_unsetDomainType() instead.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @param domainType the string to which the structures "domainType" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_setDomainType(CSGObject_t * csgo, const char * domainType);
+
+
+/**
+ * Sets the "ordinal" attribute of the given CSGObject_t structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @param ordinal the string to which the structures "ordinal" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGObject_t
+ */
+LIBSBML_EXTERN
+int
+CSGObject_setOrdinal(CSGObject_t * csgo, int ordinal);
 
 
 LIBSBML_EXTERN
 int
-CSGObject_getOrdinal (const CSGObject_t *av);
+CSGObject_setCsgNode(CSGObject_t * csgo, CSGNode_t* csgNode);
 
 
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *CSGObject_t structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 int
-CSGObject_isSetSpatialId (const CSGObject_t *c);
+CSGObject_unsetId(CSGObject_t * csgo);
 
 
+/**
+ * Unsets the value of the "domainType" attribute of the given 
+ *CSGObject_t structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 int
-CSGObject_isSetDomainType (const CSGObject_t *sv);
+CSGObject_unsetDomainType(CSGObject_t * csgo);
 
 
+/**
+ * Unsets the value of the "ordinal" attribute of the given 
+ *CSGObject_t structure.
+ *
+ * @param csgo the CSGObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 int
-CSGObject_isSetOrdinal (const CSGObject_t *av);
+CSGObject_unsetOrdinal(CSGObject_t * csgo);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given CSGObject_t structure have been set.
+ *
+ * @param csgo the CSGObject_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 int
-CSGObject_setSpatialId (CSGObject_t *c, const char *sid);
+CSGObject_hasRequiredAttributes(const CSGObject_t * csgo);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given CSGObject_t structure have been set.
+ *
+ * @param csgo the CSGObject_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGObject_t
+ */
 LIBSBML_EXTERN
 int
-CSGObject_setDomainType (CSGObject_t *sv, const char *dt);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_setOrdinal (CSGObject_t *av, int ord);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_unsetSpatialId (CSGObject_t *csgo);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_unsetDomainType (CSGObject_t *csgo);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_unsetOrdinal (CSGObject_t *av);
-
-
-LIBSBML_EXTERN
-CSGNode_t *
-CSGObject_getCSGNodeRoot (const CSGObject_t *csgpp);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_isSetCSGNodeRoot (const CSGObject_t *csgpp);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_setCSGNodeRoot (CSGObject_t *csgpp, CSGNode_t *csgn);
-
-
-LIBSBML_EXTERN
-int
-CSGObject_unsetCSGNodeRoot (CSGObject_t *csgpp);
+CSGObject_hasRequiredElements(const CSGObject_t * csgo);
 
 
 LIBSBML_EXTERN
 CSGObject_t *
-CSGObject_clone (const CSGObject_t* c);
+ListOfCSGObjects_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
 CSGObject_t *
-ListOfCSGObjects_getById (ListOf_t *lo, const char *sid);
+ListOfCSGObjects_removeById(ListOf_t * lo, const char * sid);
 
 
-LIBSBML_EXTERN
-CSGObject_t *
-ListOfCSGObjects_removeById (ListOf_t *lo, const char *sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* CSGObject_H__ */
+#endif /*  CSGObject_H__  */
+

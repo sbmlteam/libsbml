@@ -1,126 +1,173 @@
 /**
- * @file    CSGNode.cpp
- * @brief   Implementation of CSGNode, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGNode.cpp
+ * @brief:  Implementation of the CSGNode class
+ * @author: SBMLTeam
  *
- * $Id: CSGNode.cpp $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGNode.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
 
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/packages/spatial/sbml/CSGNode.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
+#include <sbml/packages/spatial/sbml/CSGTransformation.h>
 #include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
-#include <sbml/packages/spatial/sbml/CSGTranslation.h>
-#include <sbml/packages/spatial/sbml/CSGRotation.h>
-#include <sbml/packages/spatial/sbml/CSGScale.h>
-#include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
-#include <sbml/packages/spatial/sbml/CSGNode.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
 /*
- * Only subclasses may create CSGNodes.
+ * Creates a new CSGNode with the given level, version, and package version.
  */
-CSGNode::CSGNode (SBMLSpatialTypeCode_t type, unsigned int level, unsigned int version) 
-  : SBase (level,version)
-   , mSpatialId("")
-   , mType (type)
+CSGNode::CSGNode (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: SBase(level, version)
+   ,mId ("")
 {
-}
-
-
-CSGNode::CSGNode(SBMLSpatialTypeCode_t type,SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
-  , mSpatialId("")
-  , mType (type)
-{
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
- * Assignment operator.
+ * Creates a new CSGNode with the given SpatialPkgNamespaces object.
  */
-CSGNode& CSGNode::operator=(const CSGNode& source)
+CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
+   ,mId ("")
 {
-  if(&source!=this)
+  // set the element namespace of this object
+  setElementNamespace(spatialns->getURI());
+
+  // load package extensions bound with this object (if any) 
+  loadPlugins(spatialns);
+}
+
+
+/*
+ * Copy constructor for CSGNode.
+ */
+CSGNode::CSGNode (const CSGNode& orig)
+	: SBase(orig)
+{
+  if (&orig == NULL)
   {
-    this->SBase::operator=(source);
-	this->mSpatialId = source.mSpatialId;
-	this->mType = source.mType;
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  
+  else
+  {
+    mId  = orig.mId;
+  }
+}
+
+
+/*
+ * Assignment for CSGNode.
+ */
+CSGNode&
+CSGNode::operator=(const CSGNode& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+		SBase::operator=(rhs);
+    mId  = rhs.mId;
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CSGNode.
+ */
+CSGNode*
+CSGNode::clone () const
+{
+  return new CSGNode(*this);
+}
+
+
+/*
+ * Destructor for CSGNode.
+ */
 CSGNode::~CSGNode ()
 {
 }
 
-/*
-  * Returns the value of the "spatialId" attribute of this CSGNode.
-  */
-const std::string& 
-CSGNode::getSpatialId () const
-{
-  return mSpatialId;
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGNode's "spatialId" attribute has been set.
-  */
-bool 
-CSGNode::isSetSpatialId () const
-{
-  return (mSpatialId.empty() == false);
-}
-
-/*
-  * Sets the value of the "spatialId" attribute of this CSGNode.
-  */
-int 
-CSGNode::setSpatialId (const std::string& spatialId)
-{
-  return SyntaxChecker::checkAndSetSId(spatialId ,mSpatialId);
-}
-
-/*
- * Unsets the value of the "spatialId" attribute of this CSGNode.
+ * Returns the value of the "id" attribute of this CSGNode.
  */
-int 
-CSGNode::unsetSpatialId ()
+const std::string&
+CSGNode::getId() const
 {
-  mSpatialId.erase();
-  if (mSpatialId.empty())
+  return mId;
+}
+
+
+/*
+ * Returns true/false if id is set.
+ */
+bool
+CSGNode::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Sets id and returns value indicating success.
+ */
+int
+CSGNode::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+CSGNode::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -130,245 +177,100 @@ CSGNode::unsetSpatialId ()
   }
 }
 
-/*
- * Creates a new CSGPrimitive for this CSGNode and returns it.  
- */
-CSGPrimitive*
-CSGNode::create_CSGPrimitive ()
-{
-  CSGPrimitive* n = new CSGPrimitive(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
-}
 
 /*
- * Creates a new CSGPseudoPrimitive for this CSGNode and returns it.  
+ * Return @c true if of type CSGPrimitive.
  */
-CSGPseudoPrimitive*
-CSGNode::create_CSGPseudoPrimitive ()
+bool
+CSGNode::isCSGPrimitive() const
 {
-  CSGPseudoPrimitive* n = new CSGPseudoPrimitive(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
+  return dynamic_cast<const CSGPrimitive*>(this) != NULL;
 }
 
-/*
- * Creates a new CSGSetOperator for this CSGNode and returns it.  
- */
-CSGSetOperator*
-	CSGNode::create_CSGSetOperator ()
-{
-  CSGSetOperator* n = new CSGSetOperator(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
-}
 
 /*
- * Creates a new CSGTranslation for this CSGNode and returns it.  
+ * Return @c true if of type CSGTransformation.
  */
-CSGTranslation*
-CSGNode::create_CSGTranslation ()
+bool
+CSGNode::isCSGTransformation() const
 {
-  CSGTranslation* n = new CSGTranslation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
+  return dynamic_cast<const CSGTransformation*>(this) != NULL;
 }
 
-/*
- * Creates a new CSGRotation for this CSGNode and returns it.  
- */
-CSGRotation*
-CSGNode::create_CSGRotation ()
-{
-  CSGRotation* n = new CSGRotation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
-}
 
 /*
- * Creates a new CSGScale for this CSGNode and returns it.  
+ * Return @c true if of type CSGPseudoPrimitive.
  */
-CSGScale*
-CSGNode::create_CSGScale ()
+bool
+CSGNode::isCSGPseudoPrimitive() const
 {
-  CSGScale* n = new CSGScale(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
+  return dynamic_cast<const CSGPseudoPrimitive*>(this) != NULL;
 }
 
-/*
- * Creates a new CSGHomogeneousTransformation for this CSGNode and returns it.  
- */
-CSGHomogeneousTransformation*
-CSGNode::create_CSGHomogeneousTransformation ()
-{
-  CSGHomogeneousTransformation* n = new CSGHomogeneousTransformation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  return n;
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Return @c true if of type CSGSetOperator.
+ */
+bool
+CSGNode::isCSGSetOperator() const
+{
+  return dynamic_cast<const CSGSetOperator*>(this) != NULL;
+}
+
+
+/*
+ * Returns the XML element name of this object
  */
 const std::string&
 CSGNode::getElementName () const
 {
-  static const string csgTransformation     = "csgTransformation";
-  static const string csgPrimitive			= "csgPrimitive";
-  static const string csgPseudoPrimitive	= "csgPseudoPrimitive";
-  static const string csgSetOperator		= "csgSetOperator";
-  static const string invalid				= "invalid";
-
-  if ( isCSGTransformation() )
-  {
-    return csgTransformation;
-  } 
-  else if ( isCSGPrimitive() )
-  {
-	  return csgPrimitive;
-  }
-    else if ( isCSGPseudoPrimitive() )
-  {
-	  return csgPseudoPrimitive;
-  }
-  else if ( isCSGSetOperator() )
-  {
-	  return csgSetOperator;
-  }
-
-  return invalid;
+	static const string name = "cSGNode";
+	return name;
 }
 
 
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
-void
-CSGNode::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-  
-  attributes.add("spatialId");
-}
-
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-CSGNode::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes,expectedAttributes);
-
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("spatialId", mSpatialId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mSpatialId.empty())
-  {
-    logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<CSGNode>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
-
-
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CSGNode::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-
-  stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
-}
-
-
-/*
- * @return the type of this CSGNode, CSGOBJ_TYPE_GEOMETRICPRIMITIVE or CSGOBJ_TYPE_CSGOPERATOR
- * or CSGOBJ_TYPE_AFFINETRANSFORMATION
- */
-CSGNodeType_t 
-CSGNode::getType () const
-{
-  if (mType == SBML_SPATIAL_CSGTRANSFORMATION) return CSGNODE_TYPE_CSGTRANSFORMATION;
-  if (mType == SBML_SPATIAL_CSGPRIMITIVE) return CSGNODE_TYPE_CSGPRIMITIVE;
-  if (mType == SBML_SPATIAL_CSGPSEUDOPRIMITIVE) return CSGNODE_TYPE_CSGPSEUDOPRIMITIVE;
-  if (mType == SBML_SPATIAL_CSGSETOPERATOR) return CSGNODE_TYPE_CSGSETOPERATOR;
-  return CSGNODE_TYPE_INVALID;
-}
-
-/*
- * @return true if this CSGNode is a CSGTransformation, false otherwise.
- */
-bool
-CSGNode::isCSGTransformation () const
-{
-	return ((mType == SBML_SPATIAL_CSGTRANSFORMATION));
-	/*
-	return ((mType == SBML_SPATIAL_CSGTRANSLATION) ||
-		(mType == SBML_SPATIAL_CSGROTATION) ||
-		(mType == SBML_SPATIAL_CSGSCALE) ||
-		(mType == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION)) ;
-		*/
-}
-
-
-/*
- * @return true if this CSGNode is a CSGPrimitive, false otherwise.
- */
-bool
-CSGNode::isCSGPrimitive () const
-{
-	return (mType == SBML_SPATIAL_CSGPRIMITIVE);
-}
-
-/*
- * @return true if this CSGNode is a CSGPseudoPrimitive, false otherwise.
- */
-bool
-CSGNode::isCSGPseudoPrimitive () const
-{
-	return (mType == SBML_SPATIAL_CSGPSEUDOPRIMITIVE);
-}
-
-/*
- * @return true if this CSGNode is an CSGNode, false otherwise.
- */
-bool
-CSGNode::isCSGSetOperator () const
-{
-	return (mType == SBML_SPATIAL_CSGSETOPERATOR);
-}
-
-
-/*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 CSGNode::getTypeCode () const
 {
-	return mType;
+  return SBML_SPATIAL_CSGNODE;
 }
 
-CSGNode*
-CSGNode::clone() const
+
+/*
+ * check if all the required attributes are set
+ */
+bool
+CSGNode::hasRequiredAttributes () const
 {
-    return new CSGNode(*this);
+	bool allPresent = true;
+
+  if (isSetId() == false)
+    allPresent = false;
+
+  return allPresent;
 }
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+CSGNode::writeElements (XMLOutputStream& stream) const
+{
+	SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -376,189 +278,479 @@ CSGNode::clone() const
 bool
 CSGNode::accept (SBMLVisitor& v) const
 {
-    return v.visit(*this);
+  return v.visit(*this);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGNode::setSBMLDocument (SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+	SBase::setSBMLDocument(d);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Enables/Disables the given package with this element.
  */
 void
 CSGNode::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGNode::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	SBase::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGNode::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfCSGNodes - which will have
+   * happened immediately prior to this read
+  */
+
+  if (getErrorLog() != NULL &&
+      static_cast<ListOfCSGNodes*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+              getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                   getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+	SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<CSGNode>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
 
 }
 
 
-/** @cond doxygenCOnly */
+  /** @endcond doxygenLibsbmlInternal */
 
-/**
- * Creates and returns a deep copy of a given CSGNode_t structure.
- *
- * @param g the CSGNode_t structure to copy
- * 
- * @return a (deep) copy of this CSGNode_t structure.
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
  */
-LIBSBML_EXTERN
-CSGNode_t *
-CSGNode_clone (const CSGNode_t *csg)
+  void
+CSGNode::writeAttributes (XMLOutputStream& stream) const
 {
-  return static_cast<CSGNode*>( csg->clone() );
+	SBase::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+/*
+ * Constructor 
+ */
+ListOfCSGNodes::ListOfCSGNodes(unsigned int level, 
+                 unsigned int version, 
+                 unsigned int pkgVersion)
+ : ListOf(level, version)
+{
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
 }
 
 
 /*
- * Ctor.
+ * Constructor 
  */
 ListOfCSGNodes::ListOfCSGNodes(SpatialPkgNamespaces* spatialns)
- : ListOf(spatialns)
+  : ListOf(spatialns)
 {
-  //
-  // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 }
 
 
 /*
- * Ctor.
+ * Returns a deep copy of this ListOfCSGNodes 
  */
-ListOfCSGNodes::ListOfCSGNodes(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));
-};
-
-
-/*
- * @return a (deep) copy of this ListOfCSGNodes.
- */
-ListOfCSGNodes*
+ListOfCSGNodes* 
 ListOfCSGNodes::clone () const
-{
+ {
   return new ListOfCSGNodes(*this);
 }
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-ListOfCSGNodes::createObject (XMLInputStream& stream)
-{
-  const std::string& name   = stream.peek().getName();
-  CSGNode*        object = 0;
 
-
-  SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
-  if (name == "csgTranslation")
-  {
-    object = new CSGTranslation(spatialns);	
-  } 
-
-  if (name == "csgRotation")
-  {
-    object = new CSGRotation(spatialns);	
-  } 
-
-  if (name == "csgScale")
-  {
-	object = new CSGScale(spatialns);
-  } 
-
-  if (name == "csgHomogeneousTransformation")
-  {
-    object = new CSGHomogeneousTransformation(spatialns);
-  } 
-
-  if (name == "csgPrimitive")
-  {
-	object = new CSGPrimitive(spatialns);
-  }
-
-  if (name == "csgPseudoPrimitive")
-  {
-	object = new CSGPseudoPrimitive(spatialns);
-  }
-
-  if (name == "csgSetOperator") 
-  {
-	object = new CSGSetOperator(spatialns);
-  }
-
-  delete spatialns;
-  appendAndOwn(object);
-
-  return object;
-}
-
-
-/* return nth item in list */
-CSGNode *
+/*
+ * Get a CSGNode from the ListOfCSGNodes by index.
+*/
+CSGNode*
 ListOfCSGNodes::get(unsigned int n)
 {
   return static_cast<CSGNode*>(ListOf::get(n));
 }
 
 
-/* return nth item in list */
-const CSGNode *
+/*
+ * Get a CSGNode from the ListOfCSGNodes by index.
+ */
+const CSGNode*
 ListOfCSGNodes::get(unsigned int n) const
 {
   return static_cast<const CSGNode*>(ListOf::get(n));
 }
 
 
-/* return item by spatialId */
+/*
+ * Get a CSGNode from the ListOfCSGNodes by id.
+ */
 CSGNode*
-ListOfCSGNodes::get (const std::string& spatialId)
+ListOfCSGNodes::get(const std::string& sid)
 {
-  return const_cast<CSGNode*>( 
-    static_cast<const ListOfCSGNodes&>(*this).get(spatialId) );
+	return const_cast<CSGNode*>(
+    static_cast<const ListOfCSGNodes&>(*this).get(sid));
 }
 
 
-/* return item by spatialId */
+/*
+ * Get a CSGNode from the ListOfCSGNodes by id.
+ */
 const CSGNode*
-ListOfCSGNodes::get (const std::string& spatialId) const
+ListOfCSGNodes::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGNode>(spatialId) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGNode>(sid) );
   return (result == mItems.end()) ? 0 : static_cast <CSGNode*> (*result);
 }
 
 
-/* Removes the nth item from this list */
-CSGNode*
-ListOfCSGNodes::remove (unsigned int n)
+/**
+ * Adds a copy the given "CSGNode" to this ListOfCSGNodes.
+ *
+ * @param csgn; the CSGNode object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ListOfCSGNodes::addCSGNode(const CSGNode* csgn)
 {
-   return static_cast<CSGNode*>(ListOf::remove(n));
+  if (csgn == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (csgn->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != csgn->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != csgn->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(csgn)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+	append(csgn);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
-/* Removes item in this list by spatialId */
-CSGNode*
-ListOfCSGNodes::remove (const std::string& spatialId)
+/**
+ * Get the number of CSGNode objects in this ListOfCSGNodes.
+ *
+ * @return the number of CSGNode objects in this ListOfCSGNodes
+ */
+unsigned int 
+ListOfCSGNodes::getNumCSGNodes() const
 {
-  SBase* item = 0;
+	return size();
+}
+
+/**
+ * Creates a new CSGPrimitive object, adds it to this ListOfCSGNodes
+ * csgPrimitive and returns the CSGPrimitive object created. 
+ *
+ * @return a new CSGPrimitive object instance
+ *
+ * @see addCsgPrimitive(const CSGNode* csgn)
+ */
+CSGPrimitive* 
+ListOfCSGNodes::createCsgPrimitive()
+{
+  CSGPrimitive* csgp = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgp = new CSGPrimitive(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgp != NULL)
+  {
+    appendAndOwn(csgp);
+  }
+
+  return csgp;
+}
+
+/**
+ * Creates a new CSGTransformation object, adds it to this ListOfCSGNodes
+ * csgTrasnformation and returns the CSGTransformation object created. 
+ *
+ * @return a new CSGTransformation object instance
+ *
+ * @see addCsgTrasnformation(const CSGNode* csgn)
+ */
+CSGTransformation* 
+ListOfCSGNodes::createCsgTrasnformation()
+{
+  CSGTransformation* csgt = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgt = new CSGTransformation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgt != NULL)
+  {
+    appendAndOwn(csgt);
+  }
+
+  return csgt;
+}
+
+/**
+ * Creates a new CSGPseudoPrimitive object, adds it to this ListOfCSGNodes
+ * csgPseudoPrimitive and returns the CSGPseudoPrimitive object created. 
+ *
+ * @return a new CSGPseudoPrimitive object instance
+ *
+ * @see addCsgPseudoPrimitive(const CSGNode* csgn)
+ */
+CSGPseudoPrimitive* 
+ListOfCSGNodes::createCsgPseudoPrimitive()
+{
+  CSGPseudoPrimitive* csgpp = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgpp = new CSGPseudoPrimitive(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgpp != NULL)
+  {
+    appendAndOwn(csgpp);
+  }
+
+  return csgpp;
+}
+
+/**
+ * Creates a new CSGSetOperator object, adds it to this ListOfCSGNodes
+ * csgSetOperator and returns the CSGSetOperator object created. 
+ *
+ * @return a new CSGSetOperator object instance
+ *
+ * @see addCsgSetOperator(const CSGNode* csgn)
+ */
+CSGSetOperator* 
+ListOfCSGNodes::createCsgSetOperator()
+{
+  CSGSetOperator* csgso = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgso = new CSGSetOperator(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgso != NULL)
+  {
+    appendAndOwn(csgso);
+  }
+
+  return csgso;
+}
+
+/*
+ * Removes the nth CSGNode from this ListOfCSGNodes
+ */
+CSGNode*
+ListOfCSGNodes::remove(unsigned int n)
+{
+  return static_cast<CSGNode*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the CSGNode from this ListOfCSGNodes with the given identifier
+ */
+CSGNode*
+ListOfCSGNodes::remove(const std::string& sid)
+{
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGNode>(spatialId) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<CSGNode>(sid) );
 
   if (result != mItems.end())
   {
@@ -566,45 +758,233 @@ ListOfCSGNodes::remove (const std::string& spatialId)
     mItems.erase(result);
   }
 
-  return static_cast <CSGNode*> (item);
+	return static_cast <CSGNode*> (item);
 }
 
 
 /*
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * SBML_UNKNOWN (default).
- */
-int
-ListOfCSGNodes::getItemTypeCode () const
-{
-	return SBML_SPATIAL_CSGNODE;
-}
-
-/*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 ListOfCSGNodes::getElementName () const
 {
-  static const std::string name = "listOfCSGNodes";
-  return name;
+	static const string name = "listOfCSGNodes";
+	return name;
 }
 
 
-bool 
-ListOfCSGNodes::isValidTypeForList(SBase * item)
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+ListOfCSGNodes::getTypeCode () const
 {
-  int tc = item->getTypeCode();
-  return ((tc == SBML_SPATIAL_CSGTRANSLATION )
-	  ||    (tc == SBML_SPATIAL_CSGROTATION )
-	  ||    (tc == SBML_SPATIAL_CSGSCALE )
-	  ||    (tc == SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION )
-	  ||    (tc == SBML_SPATIAL_CSGPRIMITIVE )
-	  ||    (tc == SBML_SPATIAL_CSGPSEUDOPRIMITIVE )
-      ||    (tc == SBML_SPATIAL_CSGSETOPERATOR ));
+  return SBML_LIST_OF;
 }
+
+
+/*
+ * Returns the libSBML type code for the objects in this LIST_OF.
+ */
+int
+ListOfCSGNodes::getItemTypeCode () const
+{
+  return SBML_SPATIAL_CSGNODE;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new CSGNode in this ListOfCSGNodes
+ */
+SBase*
+ListOfCSGNodes::createObject(XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
+
+  if (name == "cSGNode")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGNode(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgPrimitive")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGPrimitive(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgTrasnformation")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGTransformation(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgPseudoPrimitive")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGPseudoPrimitive(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  if (name == "csgSetOperator")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new CSGSetOperator(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write the namespace for the Spatial package.
+ */
+void
+ListOfCSGNodes::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
+
+  stream << xmlns;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGNode_create(unsigned int level, unsigned int version,
+               unsigned int pkgVersion)
+{
+  return new CSGNode(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGNode_free(CSGNode_t * csgn)
+{
+  if (csgn != NULL)
+    delete csgn;
+}
+
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGNode_clone(CSGNode_t * csgn)
+{
+  if (csgn != NULL)
+  {
+    return static_cast<CSGNode_t*>(csgn->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGNode_getId(const CSGNode_t * csgn)
+{
+	return (csgn != NULL && csgn->isSetId()) ? csgn->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGNode_isSetId(const CSGNode_t * csgn)
+{
+  return (csgn != NULL) ? static_cast<int>(csgn->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGNode_setId(CSGNode_t * csgn, const char * id)
+{
+  if (csgn != NULL)
+    return (id == NULL) ? csgn->setId("") : csgn->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGNode_unsetId(CSGNode_t * csgn)
+{
+  return (csgn != NULL) ? csgn->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGNode_hasRequiredAttributes(const CSGNode_t * csgn)
+{
+  return (csgn != NULL) ? static_cast<int>(csgn->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+CSGNode_t *
+ListOfCSGNodes_getById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfCSGNodes *>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+CSGNode_t *
+ListOfCSGNodes_removeById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfCSGNodes *>(lo)->remove(sid) : NULL;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
 

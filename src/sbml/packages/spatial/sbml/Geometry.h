@@ -1,40 +1,56 @@
-/*
- * @file    Geometry.h
- * @brief   Definition of Geometry, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   Geometry.h
+ * @brief:  Implementation of the Geometry class
+ * @author: SBMLTeam
  *
- * $Id: Geometry.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/Geometry.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef Geometry_H__
 #define Geometry_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
+
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
+
 #include <sbml/packages/spatial/sbml/CoordinateComponent.h>
 #include <sbml/packages/spatial/sbml/DomainType.h>
 #include <sbml/packages/spatial/sbml/Domain.h>
@@ -46,66 +62,113 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN Geometry : public SBase
 {
+
 protected:
 
-  std::string mCoordinateSystem;
+  std::string   mId;
+  GeometryKind_t   mCoordinateSystem;
+  ListOfCoordinateComponents   mCoordinateComponents;
+  ListOfDomainTypes   mDomainTypes;
+  ListOfDomains   mDomains;
+  ListOfAdjacentDomains   mAdjacentDomains;
+  ListOfGeometryDefinitions   mGeometryDefinitions;
 
-  ListOfCoordinateComponents	mCoordinateComponents;
-  ListOfDomainTypes				mDomainTypes;
-  ListOfDomains					mDomains;
-  ListOfAdjacentDomains			mAdjacentDomains;
-  ListOfGeometryDefinitions		mGeometryDefinitions;
 
 public:
 
   /**
    * Creates a new Geometry with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this Geometry
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Geometry
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this Geometry
    */
-   Geometry(unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  Geometry(unsigned int level      = SpatialExtension::getDefaultLevel(),
+           unsigned int version    = SpatialExtension::getDefaultVersion(),
+           unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new Geometry with the given SpatialPkgNamespaces object.
-   */
-   Geometry(SpatialPkgNamespaces* spatialns);
-
-  /**
-   * Copy constructor.
-   */
-   Geometry(const Geometry& source);
-
-  /**
-   * Assignment operator.
-   */
-   Geometry& operator=(const Geometry& source);
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~Geometry ();
-
-  /**
-   * Returns the string of the "coordinateSystem" attribute of this Geometry.
    *
-   * @return the string of the "coordinateSystem" attribute of this Geometry.
+   * @param spatialns the SpatialPkgNamespaces object
    */
-  virtual const std::string& getCoordinateSystem () const;
+  Geometry(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for Geometry.
+   *
+   * @param orig; the Geometry instance to copy.
+   */
+  Geometry(const Geometry& orig);
+
+
+   /**
+   * Assignment operator for Geometry.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  Geometry& operator=(const Geometry& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this Geometry object.
+   *
+   * @return a (deep) copy of this Geometry object.
+   */
+  virtual Geometry* clone () const;
+
+
+   /**
+   * Destructor for Geometry.
+   */
+  virtual ~Geometry();
+
+
+   /**
+   * Returns the value of the "id" attribute of this Geometry.
+   *
+   * @return the value of the "id" attribute of this Geometry as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "coordinateSystem" attribute of this Geometry.
+   *
+   * @return the value of the "coordinateSystem" attribute of this Geometry as a GeometryKind_t.
+   */
+  virtual GeometryKind_t getCoordinateSystem() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Geometry's "id" attribute has been set.
+   *
+   * @return @c true if this Geometry's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * Geometry's "coordinateSystem" attribute has been set.
    *
-   * @return @c true if this Geometry's "coordinateSystem" attribute has been set, 
+   * @return @c true if this Geometry's "coordinateSystem" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetCoordinateSystem () const;
+  virtual bool isSetCoordinateSystem() const;
+
 
   /**
-   * Sets the SIdRef string of the "coordinateSystem" attribute of this Geometry.
+   * Sets the value of the "id" attribute of this Geometry.
    *
-   * @param CoordinateSystem a SIdRef string to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -114,7 +177,38 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setCoordinateSystem (const std::string& coordinateSystem);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "coordinateSystem" attribute of this Geometry.
+   *
+   * @param coordinateSystem; GeometryKind_t value of the "coordinateSystem" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateSystem(GeometryKind_t coordinateSystem);
+
+
+  /**
+   * Sets the value of the "coordinateSystem" attribute of this Geometry.
+   *
+   * @param coordinateSystem; string value of the "coordinateSystem" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateSystem(const std::string& coordinateSystem);
+
 
   /**
    * Unsets the value of the "id" attribute of this Geometry.
@@ -126,1075 +220,1405 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetCoordinateSystem ();
+  virtual int unsetId();
 
-/**
-   * Adds a copy of the given CoordinateComponent object to this Geometry.
-   *
-   * @param cc the CoordinateComponent to add
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
-   * @li LIBSBML_OPERATION_FAILED
-   * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Geometry.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Geometry</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Geometry::createCoordinateComponent()
-   * for a method that does not lead to these issues.
-   *
-   * @see createCoordinateComponent()
-   */
-  int addCoordinateComponent (const CoordinateComponent* cc);
 
   /**
-   * Adds a copy of the given DomainType object to this Geometry.
-   *
-   * @param dt the DomainType to add
+   * Unsets the value of the "coordinateSystem" attribute of this Geometry.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
    * @li LIBSBML_OPERATION_FAILED
-   * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Geometry.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Geometry</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Geometry::createDomainType()
-   * for a method that does not lead to these issues.
-   *
-   * @see createDomainType()
    */
-  int addDomainType (const DomainType* dt);
+  virtual int unsetCoordinateSystem();
 
-/**
-   * Adds a copy of the given Domain object to this Geometry.
+
+  /**
+   * Returns the  "ListOfCoordinateComponents" in this Geometry object.
    *
-   * @param d the Domain to add
+   * @return the "ListOfCoordinateComponents" attribute of this Geometry.
+   */
+  const ListOfCoordinateComponents* getListOfCoordinateComponents() const;
+
+
+  /**
+   * Returns the  "ListOfCoordinateComponents" in this Geometry object.
+   *
+   * @return the "ListOfCoordinateComponents" attribute of this Geometry.
+   */
+  ListOfCoordinateComponents* getListOfCoordinateComponents();
+
+
+  /**
+   * Get a CoordinateComponent from the ListOfCoordinateComponents.
+   *
+   * @param n the index number of the CoordinateComponent to get.
+   *
+   * @return the nth CoordinateComponent in the ListOfCoordinateComponents within this Geometry.
+   *
+   * @see getNumCoordinateComponents()
+   */
+	CoordinateComponent* getCoordinateComponent(unsigned int n);
+
+
+  /**
+   * Get a CoordinateComponent from the ListOfCoordinateComponents.
+   *
+   * @param n the index number of the CoordinateComponent to get.
+   *
+   * @return the nth CoordinateComponent in the ListOfCoordinateComponents within this Geometry.
+   *
+   * @see getNumCoordinateComponents()
+   */
+	const CoordinateComponent* getCoordinateComponent(unsigned int n) const;
+
+
+  /**
+   * Get a CoordinateComponent from the ListOfCoordinateComponents
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CoordinateComponent to get.
+   *
+   * @return the CoordinateComponent in the ListOfCoordinateComponents
+   * with the given id or NULL if no such
+   * CoordinateComponent exists.
+   *
+   * @see getCoordinateComponent(unsigned int n)
+   *
+   * @see getNumCoordinateComponents()
+   */
+	CoordinateComponent* getCoordinateComponent(const std::string& sid);
+
+
+  /**
+   * Get a CoordinateComponent from the ListOfCoordinateComponents
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CoordinateComponent to get.
+   *
+   * @return the CoordinateComponent in the ListOfCoordinateComponents
+   * with the given id or NULL if no such
+   * CoordinateComponent exists.
+   *
+   * @see getCoordinateComponent(unsigned int n)
+   *
+   * @see getNumCoordinateComponents()
+   */
+	const CoordinateComponent* getCoordinateComponent(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "CoordinateComponent" to this Geometry.
+   *
+   * @param cc; the CoordinateComponent object to add
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
-   * @li LIBSBML_OPERATION_FAILED
-   * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Geometry.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Geometry</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Geometry::createDomain()
-   * for a method that does not lead to these issues.
-   *
-   * @see createDomain()
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  int addDomain (const Domain* d);
-
-  /**
-   * Adds a copy of the given AdjacentDomains object to this Geometry.
-   *
-   * @param d the AdjacentDomains to add
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
-   * @li LIBSBML_OPERATION_FAILED
-   * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Geometry.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Geometry</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Geometry::createAdjacentDomains()
-   * for a method that does not lead to these issues.
-   *
-   * @see createAdjacentDomains()
-   */
-  int addAdjacentDomains (const AdjacentDomains* ad);
-
-  /**
-   * Adds a copy of the given GeometryDefintion object to this Geometry.
-   *
-   * @param d the GeometryDefintion to add
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
-   * @li LIBSBML_OPERATION_FAILED
-   * 
-   * @note This method should be used with some caution.  The fact that
-   * this method @em copies the object passed to it means that the caller
-   * will be left holding a physically different object instance than the
-   * one contained in this Geometry.  Changes made to the original object
-   * instance (such as resetting attribute values) will <em>not affect the
-   * instance in the Geometry</em>.  In addition, the caller should make sure
-   * to free the original object if it is no longer being used, or else a
-   * memory leak will result.  Please see Geometry::createGeometryDefintion()
-   * for a method that does not lead to these issues.
-   *
-   * @see createGeometryDefintion()
-   */
-  int addGeometryDefinition (const GeometryDefinition* gd);
-
-  /**
-   * Creates a new CoordinateComponent inside this Geometry and returns it.
-   *
-   * @return the CoordinateComponent object created
-   *
-   * @see addCoordinateComponent(const CoordinateComponent* cc)
-   */
-  CoordinateComponent* createCoordinateComponent ();
-
-  /**
-   * Creates a new DomainType inside this Geometry and returns it.
-   *
-   * @return the DomainType object created
-   *
-   * @see addDomainType(const DomainType* dt)
-   */
-  DomainType* createDomainType ();
-
- /**
-   * Creates a new Domain inside this Geometry and returns it.
-   *
-   * @return the Domain object created
-   *
-   * @see addDomain(const Domain* d)
-   */
-  Domain* createDomain ();
-
-  /**
-   * Creates a new AdjacentDomains object inside this Geometry and returns it.
-   *
-   * @return the AdjacentDomains object created
-   *
-   * @see addAdjacentDomains(const AdjacentDomains* d)
-   */
-  AdjacentDomains* createAdjacentDomains ();
-
-  /**
-   * Creates a new AnalyticGeometry object inside this Geometry and returns it.
-   *
-   * @return the AnalyticGeometry object created
-   *
-   * @see addGeometryDefinition(const GeometryDefinition* ag)
-   */
-  AnalyticGeometry* createAnalyticGeometry ();
-
- /**
-   * Creates a new SampledFieldGeometry object inside this Geometry and returns it.
-   *
-   * @return the SampledFieldGeometry object created
-   *
-   * @see addGeometryDefinition(const GeometryDefinition* sfg)
-   */
-  SampledFieldGeometry* createSampledFieldGeometry ();
-
- /**
-   * Creates a new ParametricGeometry object inside this Geometry and returns it.
-   *
-   * @return the ParametricGeometry object created
-   *
-   * @see addGeometryDefinition(const GeometryDefinition* pg)
-   */
-  ParametricGeometry* createParametricGeometry ();
-
- /**
-   * Creates a new CSGeometry object inside this Geometry and returns it.
-   *
-   * @return the CSGeometry object created
-   *
-   * @see addGeometryDefinition(const GeometryDefinition* csg)
-   */
-   
-  CSGeometry* createCSGeometry ();
-
-
-  /**
-   * Get the ListOfCoordinateComponents object in this Geometry.
-   * 
-   * @return the list of CoordinateComponents for this Geometry.
-   */
-  const ListOfCoordinateComponents* getListOfCoordinateComponents () const;
-
-
-  /**
-   * Get the ListOfCoordinateComponents object in this Geometry.
-   * 
-   * @return the list of CoordinateComponents for this Geometry.
-   */
-  ListOfCoordinateComponents* getListOfCoordinateComponents ();
-
- 
- /**
-   * Get the ListOfDomainTypes object in this Geometry.
-   * 
-   * @return the list of DomainTypes for this Geometry.
-   */
-  const ListOfDomainTypes* getListOfDomainTypes () const;
-
-
-  /**
-   * Get the ListOfDomainTypes object in this Geometry.
-   * 
-   * @return the list of DomainTypes for this Geometry.
-   */
-  ListOfDomainTypes* getListOfDomainTypes ();
-
-  /**
-   * Get the ListOfDomains object in this Geometry.
-   * 
-   * @return the list of Domains for this Geometry.
-   */
-  const ListOfDomains* getListOfDomains () const;
-
-
-  /**
-   * Get the ListOfDomains object in this Geometry.
-   * 
-   * @return the list of Domains for this Geometry.
-   */
-  ListOfDomains* getListOfDomains ();
-
-  /**
-   * Get the ListOfAdjacentDomains object in this Geometry.
-   * 
-   * @return the list of AdjacentDomains for this Geometry.
-   */
-  const ListOfAdjacentDomains* getListOfAdjacentDomains () const;
-
-
-  /**
-   * Get the ListOfAdjacentDomains object in this Geometry.
-   * 
-   * @return the list of AdjacentDomains for this Geometry.
-   */
-  ListOfAdjacentDomains* getListOfAdjacentDomains ();
-
-  /**
-   * Get the ListOfGeometryDefintions object in this Geometry.
-   * 
-   * @return the list of GeometryDefintion for this Geometry.
-   */
-  const ListOfGeometryDefinitions* getListOfGeometryDefinitions () const;
-
-
-  /**
-   * Get the ListOfGeometryDefinitions object in this Geometry.
-   * 
-   * @return the list of GeometryDefinitions for this Geometry.
-   */
-  ListOfGeometryDefinitions* getListOfGeometryDefinitions ();
-
- /**
-   * Get the nth CoordinateComponent object in this Geometry.
-   * 
-   * @return the nth CoordinateComponent of this Geometry.
-   */
-  const CoordinateComponent* getCoordinateComponent (unsigned int n) const;
-
-
-  /**
-   * Get the nth CoordinateComponents object in this Geometry.
-   * 
-   * @return the nth CoordinateComponent of this Geometry.
-   */
-  CoordinateComponent* getCoordinateComponent (unsigned int n);
-
- /**
-   * Get a CoordinateComponent object based on its identifier.
-   * 
-   * @return the CoordinateComponent in this Geometry with the identifier
-   * @p sid or NULL if no such CoordinateComponent exists.
-   */
-  const CoordinateComponent* getCoordinateComponent (const std::string& sid) const;
-
-
-  /**
-   * Get a CoordinateComponent object based on its identifier.
-   * 
-   * @return the CoordinateComponent in this Geometry with the identifier
-   * @p sid or NULL if no such CoordinateComponent exists.
-   */
-  CoordinateComponent* getCoordinateComponent (const std::string& sid);
-
-   /**
-   * Get the nth DomainType object in this Geometry.
-   * 
-   * @return the nth DomainType of this Geometry.
-   */
-  const DomainType* getDomainType (unsigned int n) const;
-
-  /**
-   * Get the nth DomainType object in this Geometry.
-   * 
-   * @return the nth DomainType of this Geometry.
-   */
-  DomainType* getDomainType (unsigned int n);
-
-
-  /**
-   * Get a DomainType object based on its identifier.
-   * 
-   * @return the DomainType in this Geometry with the identifier
-   * @p sid or NULL if no such DomainType exists.
-   */
-  const DomainType* getDomainType (const std::string& sid) const;
-
-
-  /**
-   * Get a DomainType object based on its identifier.
-   * 
-   * @return the DomainType in this Geometry with the identifier
-   * @p sid or NULL if no such DomainType exists.
-   */
-  DomainType* getDomainType (const std::string& sid);
-
-  /**
-   * Get the nth Domain object in this Geometry.
-   * 
-   * @return the nth Domain of this Geometry.
-   */
-  const Domain* getDomain (unsigned int n) const;
-
-
-  /**
-   * Get the nth Domain object in this Geometry.
-   * 
-   * @return the nth Domain of this Geometry.
-   */
-  Domain* getDomain (unsigned int n);
-
-  /**
-   * Get a Domain object based on its identifier.
-   * 
-   * @return the Domain in this Geometry with the identifier
-   * @p sid or NULL if no such Domain exists.
-   */
-  const Domain* getDomain (const std::string& sid) const;
-
-  /**
-   * Get a Domain object based on its identifier.
-   * 
-   * @return the Domain in this Geometry with the identifier
-   * @p sid or NULL if no such Domain exists.
-   */
-  Domain* getDomain (const std::string& sid);
-
-  /**
-   * Get the nth AdjacentDomains object in this Geometry.
-   * 
-   * @return the nth AdjacentDomains of this Geometry.
-   */
-  const AdjacentDomains* getAdjacentDomains (unsigned int n) const;
-
-
-  /**
-   * Get the nth AdjacentDomains object in this Geometry.
-   * 
-   * @return the nth AdjacentDomains of this Geometry.
-   */
-  AdjacentDomains* getAdjacentDomains (unsigned int n);
-
-
-  /**
-   * Get a AdjacentDomains object based on its identifier.
-   * 
-   * @return the AdjacentDomains in this Geometry with the identifier
-   * @p sid or NULL if no such AdjacentDomains exists.
-   */
-  const AdjacentDomains* getAdjacentDomains (const std::string& sid) const;
-
-
-  /**
-   * Get a AdjacentDomains object based on its identifier.
-   * 
-   * @return the AdjacentDomains in this Geometry with the identifier
-   * @p sid or NULL if no such AdjacentDomains exists.
-   */
-  AdjacentDomains* getAdjacentDomains (const std::string& sid);
-
-  /**
-   * Get the nth GeometryDefinition object in this Geometry.
-   * 
-   * @return the nth GeometryDefinition of this Geometry.
-   */
-  const GeometryDefinition* getGeometryDefinition (unsigned int n) const;
-
-
-  /**
-   * Get the nth GeometryDefinition object in this Geometry.
-   * 
-   * @return the nth GeometryDefinition of this Geometry.
-   */
-  GeometryDefinition* getGeometryDefinition (unsigned int n);
-
-
-  /**
-   * Get a GeometryDefinition object based on its identifier.
-   * 
-   * @return the GeometryDefinition in this Geometry with the identifier
-   * @p sid or NULL if no such GeometryDefinition exists.
-   */
-  const GeometryDefinition* getGeometryDefinition (const std::string& sid) const;
-
-
-  /**
-   * Get a GeometryDefinition object based on its identifier.
-   * 
-   * @return the GeometryDefinition in this Geometry with the identifier
-   * @p sid or NULL if no such GeometryDefinition exists.
-   */
-  GeometryDefinition* getGeometryDefinition (const std::string& sid);
-
+	int addCoordinateComponent(const CoordinateComponent* cc);
 
 
   /**
    * Get the number of CoordinateComponent objects in this Geometry.
-   * 
-   * @return the number of CoordinateComponents in this Geometry.
+   *
+   * @return the number of CoordinateComponent objects in this Geometry
    */
-  unsigned int getNumCoordinateComponents () const;
+	unsigned int getNumCoordinateComponents() const;
+
+
+	/**
+	 * Creates a new CoordinateComponent object, adds it to this Geometrys
+	 * ListOfCoordinateComponents and returns the CoordinateComponent object created. 
+	 *
+	 * @return a new CoordinateComponent object instance
+	 *
+	 * @see addCoordinateComponent(const CoordinateComponent* cc)
+	 */
+	CoordinateComponent* createCoordinateComponent();
+
+
+  /**
+   * Removes the nth CoordinateComponent from the ListOfCoordinateComponents within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the CoordinateComponent to remove.
+   *
+   * @see getNumCoordinateComponents()
+   */
+	CoordinateComponent* removeCoordinateComponent(unsigned int n);
+
+
+  /**
+   * Removes the CoordinateComponent with the given identifier from the ListOfCoordinateComponents within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the CoordinateComponent to remove.
+   *
+   * @return the CoordinateComponent removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	CoordinateComponent* removeCoordinateComponent(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfDomainTypes" in this Geometry object.
+   *
+   * @return the "ListOfDomainTypes" attribute of this Geometry.
+   */
+  const ListOfDomainTypes* getListOfDomainTypes() const;
+
+
+  /**
+   * Returns the  "ListOfDomainTypes" in this Geometry object.
+   *
+   * @return the "ListOfDomainTypes" attribute of this Geometry.
+   */
+  ListOfDomainTypes* getListOfDomainTypes();
+
+
+  /**
+   * Get a DomainType from the ListOfDomainTypes.
+   *
+   * @param n the index number of the DomainType to get.
+   *
+   * @return the nth DomainType in the ListOfDomainTypes within this Geometry.
+   *
+   * @see getNumDomainTypes()
+   */
+	DomainType* getDomainType(unsigned int n);
+
+
+  /**
+   * Get a DomainType from the ListOfDomainTypes.
+   *
+   * @param n the index number of the DomainType to get.
+   *
+   * @return the nth DomainType in the ListOfDomainTypes within this Geometry.
+   *
+   * @see getNumDomainTypes()
+   */
+	const DomainType* getDomainType(unsigned int n) const;
+
+
+  /**
+   * Get a DomainType from the ListOfDomainTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the DomainType to get.
+   *
+   * @return the DomainType in the ListOfDomainTypes
+   * with the given id or NULL if no such
+   * DomainType exists.
+   *
+   * @see getDomainType(unsigned int n)
+   *
+   * @see getNumDomainTypes()
+   */
+	DomainType* getDomainType(const std::string& sid);
+
+
+  /**
+   * Get a DomainType from the ListOfDomainTypes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the DomainType to get.
+   *
+   * @return the DomainType in the ListOfDomainTypes
+   * with the given id or NULL if no such
+   * DomainType exists.
+   *
+   * @see getDomainType(unsigned int n)
+   *
+   * @see getNumDomainTypes()
+   */
+	const DomainType* getDomainType(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "DomainType" to this Geometry.
+   *
+   * @param dt; the DomainType object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+	int addDomainType(const DomainType* dt);
+
 
   /**
    * Get the number of DomainType objects in this Geometry.
-   * 
-   * @return the number of DomainTypes in this Geometry.
+   *
+   * @return the number of DomainType objects in this Geometry
    */
-  unsigned int getNumDomainTypes () const;
+	unsigned int getNumDomainTypes() const;
+
+
+	/**
+	 * Creates a new DomainType object, adds it to this Geometrys
+	 * ListOfDomainTypes and returns the DomainType object created. 
+	 *
+	 * @return a new DomainType object instance
+	 *
+	 * @see addDomainType(const DomainType* dt)
+	 */
+	DomainType* createDomainType();
+
+
+  /**
+   * Removes the nth DomainType from the ListOfDomainTypes within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the DomainType to remove.
+   *
+   * @see getNumDomainTypes()
+   */
+	DomainType* removeDomainType(unsigned int n);
+
+
+  /**
+   * Removes the DomainType with the given identifier from the ListOfDomainTypes within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the DomainType to remove.
+   *
+   * @return the DomainType removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	DomainType* removeDomainType(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfDomains" in this Geometry object.
+   *
+   * @return the "ListOfDomains" attribute of this Geometry.
+   */
+  const ListOfDomains* getListOfDomains() const;
+
+
+  /**
+   * Returns the  "ListOfDomains" in this Geometry object.
+   *
+   * @return the "ListOfDomains" attribute of this Geometry.
+   */
+  ListOfDomains* getListOfDomains();
+
+
+  /**
+   * Get a Domain from the ListOfDomains.
+   *
+   * @param n the index number of the Domain to get.
+   *
+   * @return the nth Domain in the ListOfDomains within this Geometry.
+   *
+   * @see getNumDomains()
+   */
+	Domain* getDomain(unsigned int n);
+
+
+  /**
+   * Get a Domain from the ListOfDomains.
+   *
+   * @param n the index number of the Domain to get.
+   *
+   * @return the nth Domain in the ListOfDomains within this Geometry.
+   *
+   * @see getNumDomains()
+   */
+	const Domain* getDomain(unsigned int n) const;
+
+
+  /**
+   * Get a Domain from the ListOfDomains
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Domain to get.
+   *
+   * @return the Domain in the ListOfDomains
+   * with the given id or NULL if no such
+   * Domain exists.
+   *
+   * @see getDomain(unsigned int n)
+   *
+   * @see getNumDomains()
+   */
+	Domain* getDomain(const std::string& sid);
+
+
+  /**
+   * Get a Domain from the ListOfDomains
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Domain to get.
+   *
+   * @return the Domain in the ListOfDomains
+   * with the given id or NULL if no such
+   * Domain exists.
+   *
+   * @see getDomain(unsigned int n)
+   *
+   * @see getNumDomains()
+   */
+	const Domain* getDomain(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "Domain" to this Geometry.
+   *
+   * @param d; the Domain object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+	int addDomain(const Domain* d);
+
 
   /**
    * Get the number of Domain objects in this Geometry.
-   * 
-   * @return the number of Domains in this Geometry.
+   *
+   * @return the number of Domain objects in this Geometry
    */
-  unsigned int getNumDomains () const;
+	unsigned int getNumDomains() const;
+
+
+	/**
+	 * Creates a new Domain object, adds it to this Geometrys
+	 * ListOfDomains and returns the Domain object created. 
+	 *
+	 * @return a new Domain object instance
+	 *
+	 * @see addDomain(const Domain* d)
+	 */
+	Domain* createDomain();
+
+
+  /**
+   * Removes the nth Domain from the ListOfDomains within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Domain to remove.
+   *
+   * @see getNumDomains()
+   */
+	Domain* removeDomain(unsigned int n);
+
+
+  /**
+   * Removes the Domain with the given identifier from the ListOfDomains within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Domain to remove.
+   *
+   * @return the Domain removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	Domain* removeDomain(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfAdjacentDomains" in this Geometry object.
+   *
+   * @return the "ListOfAdjacentDomains" attribute of this Geometry.
+   */
+  const ListOfAdjacentDomains* getListOfAdjacentDomains() const;
+
+
+  /**
+   * Returns the  "ListOfAdjacentDomains" in this Geometry object.
+   *
+   * @return the "ListOfAdjacentDomains" attribute of this Geometry.
+   */
+  ListOfAdjacentDomains* getListOfAdjacentDomains();
+
+
+  /**
+   * Get a AdjacentDomains from the ListOfAdjacentDomains.
+   *
+   * @param n the index number of the AdjacentDomains to get.
+   *
+   * @return the nth AdjacentDomains in the ListOfAdjacentDomains within this Geometry.
+   *
+   * @see getNumAdjacentDomainss()
+   */
+	AdjacentDomains* getAdjacentDomains(unsigned int n);
+
+
+  /**
+   * Get a AdjacentDomains from the ListOfAdjacentDomains.
+   *
+   * @param n the index number of the AdjacentDomains to get.
+   *
+   * @return the nth AdjacentDomains in the ListOfAdjacentDomains within this Geometry.
+   *
+   * @see getNumAdjacentDomainss()
+   */
+	const AdjacentDomains* getAdjacentDomains(unsigned int n) const;
+
+
+  /**
+   * Get a AdjacentDomains from the ListOfAdjacentDomains
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the AdjacentDomains to get.
+   *
+   * @return the AdjacentDomains in the ListOfAdjacentDomains
+   * with the given id or NULL if no such
+   * AdjacentDomains exists.
+   *
+   * @see getAdjacentDomains(unsigned int n)
+   *
+   * @see getNumAdjacentDomainss()
+   */
+	AdjacentDomains* getAdjacentDomains(const std::string& sid);
+
+
+  /**
+   * Get a AdjacentDomains from the ListOfAdjacentDomains
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the AdjacentDomains to get.
+   *
+   * @return the AdjacentDomains in the ListOfAdjacentDomains
+   * with the given id or NULL if no such
+   * AdjacentDomains exists.
+   *
+   * @see getAdjacentDomains(unsigned int n)
+   *
+   * @see getNumAdjacentDomainss()
+   */
+	const AdjacentDomains* getAdjacentDomains(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "AdjacentDomains" to this Geometry.
+   *
+   * @param ad; the AdjacentDomains object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+	int addAdjacentDomains(const AdjacentDomains* ad);
+
 
   /**
    * Get the number of AdjacentDomains objects in this Geometry.
+   *
+   * @return the number of AdjacentDomains objects in this Geometry
+   */
+	unsigned int getNumAdjacentDomains() const;
+
+
+	/**
+	 * Creates a new AdjacentDomains object, adds it to this Geometrys
+	 * ListOfAdjacentDomains and returns the AdjacentDomains object created. 
+	 *
+	 * @return a new AdjacentDomains object instance
+	 *
+	 * @see addAdjacentDomains(const AdjacentDomains* ad)
+	 */
+	AdjacentDomains* createAdjacentDomains();
+
+
+  /**
+   * Removes the nth AdjacentDomains from the ListOfAdjacentDomains within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the AdjacentDomains to remove.
+   *
+   * @see getNumAdjacentDomainss()
+   */
+	AdjacentDomains* removeAdjacentDomains(unsigned int n);
+
+
+  /**
+   * Removes the AdjacentDomains with the given identifier from the ListOfAdjacentDomains within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the AdjacentDomains to remove.
+   *
+   * @return the AdjacentDomains removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	AdjacentDomains* removeAdjacentDomains(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfGeometryDefinitions" in this Geometry object.
+   *
+   * @return the "ListOfGeometryDefinitions" attribute of this Geometry.
+   */
+  const ListOfGeometryDefinitions* getListOfGeometryDefinitions() const;
+
+
+  /**
+   * Returns the  "ListOfGeometryDefinitions" in this Geometry object.
+   *
+   * @return the "ListOfGeometryDefinitions" attribute of this Geometry.
+   */
+  ListOfGeometryDefinitions* getListOfGeometryDefinitions();
+
+
+  /**
+   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
+   *
+   * @param n the index number of the GeometryDefinition to get.
+   *
+   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within this Geometry.
+   *
+   * @see getNumGeometryDefinitions()
+   */
+	GeometryDefinition* getGeometryDefinition(unsigned int n);
+
+
+  /**
+   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
+   *
+   * @param n the index number of the GeometryDefinition to get.
+   *
+   * @return the nth GeometryDefinition in the ListOfGeometryDefinitions within this Geometry.
+   *
+   * @see getNumGeometryDefinitions()
+   */
+	const GeometryDefinition* getGeometryDefinition(unsigned int n) const;
+
+
+  /**
+   * Get a GeometryDefinition from the ListOfGeometryDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the GeometryDefinition to get.
+   *
+   * @return the GeometryDefinition in the ListOfGeometryDefinitions
+   * with the given id or NULL if no such
+   * GeometryDefinition exists.
+   *
+   * @see getGeometryDefinition(unsigned int n)
+   *
+   * @see getNumGeometryDefinitions()
+   */
+	GeometryDefinition* getGeometryDefinition(const std::string& sid);
+
+
+  /**
+   * Get a GeometryDefinition from the ListOfGeometryDefinitions
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the GeometryDefinition to get.
+   *
+   * @return the GeometryDefinition in the ListOfGeometryDefinitions
+   * with the given id or NULL if no such
+   * GeometryDefinition exists.
+   *
+   * @see getGeometryDefinition(unsigned int n)
+   *
+   * @see getNumGeometryDefinitions()
+   */
+	const GeometryDefinition* getGeometryDefinition(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "GeometryDefinition" to this Geometry.
+   *
+   * @param gd; the GeometryDefinition object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+	int addGeometryDefinition(const GeometryDefinition* gd);
+
+
+  /**
+   * Get the number of GeometryDefinition objects in this Geometry.
+   *
+   * @return the number of GeometryDefinition objects in this Geometry
+   */
+	unsigned int getNumGeometryDefinitions() const;
+
+
+	/**
+	 * Creates a new AnalyticGeometry object, adds it to this Geometrys
+	 * ListOfGeometryDefinitions and returns the AnalyticGeometry object created. 
+	 *
+	 * @return a new AnalyticGeometry object instance
+	 *
+	 * @see addGeometryDefinition(const GeometryDefinition* gd)
+	 */
+	AnalyticGeometry* createAnalyticGeometry();
+
+
+	/**
+	 * Creates a new SampledFieldGeometry object, adds it to this Geometrys
+	 * ListOfGeometryDefinitions and returns the SampledFieldGeometry object created. 
+	 *
+	 * @return a new SampledFieldGeometry object instance
+	 *
+	 * @see addGeometryDefinition(const GeometryDefinition* gd)
+	 */
+	SampledFieldGeometry* createSampledFieldGeometry();
+
+
+	/**
+	 * Creates a new CSGeometry object, adds it to this Geometrys
+	 * ListOfGeometryDefinitions and returns the CSGeometry object created. 
+	 *
+	 * @return a new CSGeometry object instance
+	 *
+	 * @see addGeometryDefinition(const GeometryDefinition* gd)
+	 */
+	CSGeometry* createCsGeometry();
+
+
+	/**
+	 * Creates a new ParametricGeometry object, adds it to this Geometrys
+	 * ListOfGeometryDefinitions and returns the ParametricGeometry object created. 
+	 *
+	 * @return a new ParametricGeometry object instance
+	 *
+	 * @see addGeometryDefinition(const GeometryDefinition* gd)
+	 */
+	ParametricGeometry* createParametricGeometry();
+
+
+  /**
+   * Removes the nth GeometryDefinition from the ListOfGeometryDefinitions within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the GeometryDefinition to remove.
+   *
+   * @see getNumGeometryDefinitions()
+   */
+	GeometryDefinition* removeGeometryDefinition(unsigned int n);
+
+
+  /**
+   * Removes the GeometryDefinition with the given identifier from the ListOfGeometryDefinitions within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the GeometryDefinition to remove.
+   *
+   * @return the GeometryDefinition removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	GeometryDefinition* removeGeometryDefinition(const std::string& sid);
+
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
+   * Returns the XML element name of this object, which for Geometry, is
+   * always @c "geometry".
+   *
+   * @return the name of this element, i.e. @c "geometry".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
    * 
-   * @return the number of AdjacentDomains in this Geometry.
-   */
-  unsigned int getNumAdjacentDomains () const;
-
-  /**
-   * Get the number of GeometryDefinitions objects in this Geometry.
-   * 
-   * @return the number of GeometryDefinitions in this Geometry.
-   */
-  unsigned int getNumGeometryDefinitions () const;
-
-
-  /**
-   * Removes the nth CoordinateComponent object from this Geometry object and 
-   * returns a pointer to it.
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * The caller owns the returned object and is responsible for deleting it.
-   *
-   * @param n the index of the CoordinateComponent object to remove
-   *
-   * @return the CoordinateComponent object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
-   * is out of range.
-   *
-   */
-  CoordinateComponent* removeCoordinateComponent (unsigned int n);
-
-
-  /**
-   * Removes the CoordinateComponent object with the given identifier from this Geometry 
-   * object and returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   * If none of the CoordinateComponent objects in this Geometry object have the identifier 
-   * @p sid, then @c NULL is returned.
-   *
-   * @param sid the identifier of the CoordinateComponent object to remove
-   *
-   * @return the CoordinateComponent object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no CoordinateComponent
-   * object with the identifier exists in this Geometry object.
-   */
-  CoordinateComponent* removeCoordinateComponent (const std::string& sid);
-
-
-  /**
-   * Removes the nth DomainType object from this Geometry object and 
-   * returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   *
-   * @param n the index of the DomainType object to remove
-   *
-   * @return the DomainType object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
-   * is out of range.
-   *
-   */
-  DomainType* removeDomainType (unsigned int n);
-
-
-  /**
-   * Removes the DomainType object with the given identifier from this Geometry 
-   * object and returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   * If none of the DomainType objects in this Geometry object have the identifier 
-   * @p sid, then @c NULL is returned.
-   *
-   * @param sid the identifier of the DomainType object to remove
-   *
-   * @return the DomainType object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no DomainType
-   * object with the identifier exists in this Geometry object.
-   */
-  DomainType* removeDomainType (const std::string& sid);
-
-  /**
-   * Removes the nth Domain object from this Geometry object and 
-   * returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   *
-   * @param n the index of the Domain object to remove
-   *
-   * @return the Domain object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
-   * is out of range.
-   *
-   */
-  Domain* removeDomain (unsigned int n);
-
-  /**
-   * Removes the Domain object with the given identifier from this Geometry 
-   * object and returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   * If none of the Domain objects in this Geometry object have the identifier 
-   * @p sid, then @c NULL is returned.
-   *
-   * @param sid the identifier of the Domain object to remove
-   *
-   * @return the Domain object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Domain
-   * object with the identifier exists in this Geometry object.
-   */
-  Domain* removeDomain (const std::string& sid);
-
- /**
-   * Removes the nth AdjacentDomains object from this Geometry object and 
-   * returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   *
-   * @param n the index of the AdjacentDomains object to remove
-   *
-   * @return the AdjacentDomains object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
-   * is out of range.
-   *
-   */
-  AdjacentDomains* removeAdjacentDomains (unsigned int n);
-
-
-  /**
-   * Removes the AdjacentDomains object with the given identifier from this Geometry 
-   * object and returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   * If none of the AdjacentDomains objects in this Geometry object have the identifier 
-   * @p sid, then @c NULL is returned.
-   *
-   * @param sid the identifier of the AdjacentDomains object to remove
-   *
-   * @return the AdjacentDomains object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no AdjacentDomains
-   * object with the identifier exists in this Geometry object.
-   */
-  AdjacentDomains* removeAdjacentDomains (const std::string& sid);
-
- /**
-   * Removes the nth GeometryDefinition object from this Geometry object and 
-   * returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   *
-   * @param n the index of the GeometryDefinition object to remove
-   *
-   * @return the GeometryDefinition object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
-   * is out of range.
-   *
-   */
-  GeometryDefinition* removeGeometryDefinition (unsigned int n);
-
-
-  /**
-   * Removes the GeometryDefinition object with the given identifier from this Geometry 
-   * object and returns a pointer to it.
-   *
-   * The caller owns the returned object and is responsible for deleting it.
-   * If none of the GeometryDefinition objects in this Geometry object have the identifier 
-   * @p sid, then @c NULL is returned.
-   *
-   * @param sid the identifier of the GeometryDefinition object to remove
-   *
-   * @return the GeometryDefinition object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no GeometryDefinition
-   * object with the identifier exists in this Geometry object.
-   */
-  GeometryDefinition* removeGeometryDefinition (const std::string& sid);
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   *
-   * @return the string of the name of this element.
-   */
-  virtual const std::string& getElementName () const ;
-
-  /**
-   * @return a (deep) copy of this Geometry.
-   */
-  virtual Geometry* clone () const;
-
-  /**
-   * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
-   */
-  virtual int getElementPosition () const;
-
-
-  /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
-  int getTypeCode () const;
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this Geometry object have been set.
+   *
+   * @note The required attributes for a Geometry object are:
+   * @li "id"
+   * @li "coordinateSystem"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this Geometry object have been set.
+   *
+   * @note The required elements for a Geometry object are:
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
- 
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygenLibsbmlInternal */
-    
 
-   /** @cond doxygenLibsbmlInternal */
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
+   * Connects to child elements.
    */
   virtual void connectToChild ();
 
 
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
   /** @endcond doxygenLibsbmlInternal */
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
 
 protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * return the SBML object corresponding to next XMLToken.
    */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
+  virtual SBase* createObject(XMLInputStream& stream);
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Read values from the given XMLAttributes set into their specific fields.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
-
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
 
   /** @endcond doxygenLibsbmlInternal */
 
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+
 };
 
-#ifndef SWIG
-/*template<>
-struct IdEq<Geometry> : public std::unary_function<SBase*, bool>
-{
-  const std::string& coordSystem;
 
-  IdEq (const std::string& coordSystem) : id(coordSystem) { }
-  bool operator() (SBase* sb) 
-       { return static_cast <Geometry*> (sb)->getCoordinateSystem() == coordSystem; }
-};
-*/
-#endif
-/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
-
-
-LIBSBML_EXTERN
-const char *
-Geometry_getCoordinateSystem (const Geometry_t *g);
-
-
-LIBSBML_EXTERN
-int
-Geometry_isSetCoordinateSystem (const Geometry_t *g);
-
-
-LIBSBML_EXTERN
-int
-Geometry_setCoordinateSystem (Geometry_t *g, const char *coordSys);
-
-
-LIBSBML_EXTERN
-int
-Geometry_unsetCoordinateSystem (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-int
-Geometry_addCoordinateComponent (Geometry_t *g, const CoordinateComponent_t *cc);
-
-
-LIBSBML_EXTERN
-int
-Geometry_addDomainType (Geometry_t *g, const DomainType_t *dt);
-
-
-LIBSBML_EXTERN
-int
-Geometry_addDomain (Geometry_t *g, const Domain_t *d);
-
-
-LIBSBML_EXTERN
-int
-Geometry_addAdjacentDomains (Geometry_t *g, const AdjacentDomains_t *ad);
-
-
-LIBSBML_EXTERN
-int
-Geometry_addGeometryDefinition (Geometry_t *g, const GeometryDefinition_t *gd);
-
-
-LIBSBML_EXTERN
-CoordinateComponent_t *
-Geometry_createCoordinateComponent (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-DomainType_t *
-Geometry_createDomainType (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-Domain_t *
-Geometry_createDomain (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-AdjacentDomains_t *
-Geometry_createAdjacentDomains (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t *
-Geometry_createGeometryDefinition (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-Geometry_getListOfCoordinateComponents (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-Geometry_getListOfDomainTypes (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-Geometry_getListOfDomains (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-Geometry_getListOfAdjacentDomains (Geometry_t *g);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-Geometry_getListOfGeometryDefinitions (Geometry_t *g);
-
-
+/**
+ * Creates a new Geometry_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * Geometry_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * Geometry_t structure.
+ *
+ * @returns the newly-created Geometry_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof Geometry_t
+ */
 LIBSBML_EXTERN
 Geometry_t *
-Geometry_clone (const Geometry_t *g);
+Geometry_create(unsigned int level, unsigned int version,
+                unsigned int pkgVersion);
+
+
+/**
+ * Frees the given Geometry_t structure.
+ * 
+ * @param g the Geometry_t structure to be freed.
+ *
+ * @memberof Geometry_t
+ */
+LIBSBML_EXTERN
+void
+Geometry_free(Geometry_t * g);
+
+
+/**
+ * Creates a deep copy of the given Geometry_t structure.
+ * 
+ * @param g the Geometry_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given Geometry_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof Geometry_t
+ */
+LIBSBML_EXTERN
+Geometry_t *
+Geometry_clone(Geometry_t * g);
+
+
+/**
+ * Returns the value of the "id" attribute of the given Geometry_t
+ * structure.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+const char *
+Geometry_getId(const Geometry_t * g);
+
+
+/**
+ * Returns the value of the "coordinateSystem" attribute of the given Geometry_t
+ * structure.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return the coordinateSystem of this structure.
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+GeometryKind_t
+Geometry_getCoordinateSystem(const Geometry_t * g);
+
+
+/**
+ * Predicate returning @c 1 if the given Geometry_t structure's "id"
+ * is set.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return @c 1 if the "id" of this Geometry_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_isSetId(const Geometry_t * g);
+
+
+/**
+ * Predicate returning @c 1 if the given Geometry_t structure's "coordinateSystem"
+ * is set.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return @c 1 if the "coordinateSystem" of this Geometry_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_isSetCoordinateSystem(const Geometry_t * g);
+
+
+/**
+ * Sets the "id" attribute of the given Geometry_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs Geometry_unsetId() instead.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_setId(Geometry_t * g, const char * id);
+
+
+/**
+ * Sets the "coordinateSystem" attribute of the given Geometry_t structure.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @param coordinateSystem the string to which the structures "coordinateSystem" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_setCoordinateSystem(Geometry_t * g, GeometryKind_t coordinateSystem);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *Geometry_t structure.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_unsetId(Geometry_t * g);
+
+
+/**
+ * Unsets the value of the "coordinateSystem" attribute of the given 
+ *Geometry_t structure.
+ *
+ * @param g the Geometry_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Geometry_t
+ */
+LIBSBML_EXTERN
+int
+Geometry_unsetCoordinateSystem(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addCoordinateComponent(Geometry_t * g, CoordinateComponent_t * cc);
 
 
 LIBSBML_EXTERN
 CoordinateComponent_t *
-Geometry_getCoordinateComponent (Geometry_t *g, unsigned int n);
+Geometry_createCoordinateComponent(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfCoordinateComponents(Geometry_t * g) ;
 
 
 LIBSBML_EXTERN
 CoordinateComponent_t *
-Geometry_getCoordinateComponentById (Geometry_t *g, const char *sid);
+Geometry_getCoordinateComponent(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+CoordinateComponent_t *
+Geometry_getCoordinateComponentById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumCoordinateComponents(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+CoordinateComponent_t *
+Geometry_removeCoordinateComponent(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+CoordinateComponent_t *
+Geometry_removeCoordinateComponentById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addDomainType(Geometry_t * g, DomainType_t * dt);
 
 
 LIBSBML_EXTERN
 DomainType_t *
-Geometry_getDomainType (Geometry_t *g, unsigned int n);
+Geometry_createDomainType(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfDomainTypes(Geometry_t * g) ;
 
 
 LIBSBML_EXTERN
 DomainType_t *
-Geometry_getDomainTypeById (Geometry_t *g, const char *sid);
+Geometry_getDomainType(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+DomainType_t *
+Geometry_getDomainTypeById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumDomainTypes(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+DomainType_t *
+Geometry_removeDomainType(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+DomainType_t *
+Geometry_removeDomainTypeById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addDomain(Geometry_t * g, Domain_t * d);
 
 
 LIBSBML_EXTERN
 Domain_t *
-Geometry_getDomain (Geometry_t *g, unsigned int n);
+Geometry_createDomain(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfDomains(Geometry_t * g) ;
 
 
 LIBSBML_EXTERN
 Domain_t *
-Geometry_getDomainById (Geometry_t *g, const char *sid);
+Geometry_getDomain(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+Domain_t *
+Geometry_getDomainById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumDomains(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+Domain_t *
+Geometry_removeDomain(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+Domain_t *
+Geometry_removeDomainById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addAdjacentDomains(Geometry_t * g, AdjacentDomains_t * ad);
 
 
 LIBSBML_EXTERN
 AdjacentDomains_t *
-Geometry_getAdjacentDomains (Geometry_t *g, unsigned int n);
+Geometry_createAdjacentDomains(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfAdjacentDomains(Geometry_t * g) ;
 
 
 LIBSBML_EXTERN
 AdjacentDomains_t *
-Geometry_getAdjacentDomainsById (Geometry_t *g, const char *sid);
+Geometry_getAdjacentDomains(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+AdjacentDomains_t *
+Geometry_getAdjacentDomainsById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumAdjacentDomains(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+AdjacentDomains_t *
+Geometry_removeAdjacentDomains(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+AdjacentDomains_t *
+Geometry_removeAdjacentDomainsById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addGeometryDefinition(Geometry_t * g, GeometryDefinition_t * gd);
+
+
+LIBSBML_EXTERN
+AnalyticGeometry_t *
+Geometry_createAnalyticGeometry(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+SampledFieldGeometry_t *
+Geometry_createSampledFieldGeometry(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+CSGeometry_t *
+Geometry_createCsGeometry(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ParametricGeometry_t *
+Geometry_createParametricGeometry(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfGeometryDefinitions(Geometry_t * g) ;
 
 
 LIBSBML_EXTERN
 GeometryDefinition_t *
-Geometry_getGeometryDefinition (Geometry_t *g, unsigned int n);
+Geometry_getGeometryDefinition(Geometry_t * g, unsigned int n);
 
 
 LIBSBML_EXTERN
 GeometryDefinition_t *
-Geometry_getGeometryDefinitionById (Geometry_t *g, const char *sid);
+Geometry_getGeometryDefinitionById(Geometry_t * g, const char * sid);
 
 
 LIBSBML_EXTERN
 unsigned int
-Geometry_getNumCoordinateComponents (const Geometry_t *g);
+Geometry_getNumGeometryDefinitions(Geometry_t * g);
 
 
 LIBSBML_EXTERN
-unsigned int
-Geometry_getNumDomainTypes (const Geometry_t *g);
+GeometryDefinition_t *
+Geometry_removeGeometryDefinition(Geometry_t * g, unsigned int n);
 
 
 LIBSBML_EXTERN
-unsigned int
-Geometry_getNumDomains (const Geometry_t *g);
+GeometryDefinition_t *
+Geometry_removeGeometryDefinitionById(Geometry_t * g, const char * sid);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given Geometry_t structure have been set.
+ *
+ * @param g the Geometry_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of Geometry_t
+ */
 LIBSBML_EXTERN
-unsigned int
-Geometry_getNumAdjacentDomains (const Geometry_t *g);
+int
+Geometry_hasRequiredAttributes(const Geometry_t * g);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given Geometry_t structure have been set.
+ *
+ * @param g the Geometry_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of Geometry_t
+ */
 LIBSBML_EXTERN
-unsigned int
-Geometry_getNumGeometryDefinitions (const Geometry_t *g);
+int
+Geometry_hasRequiredElements(const Geometry_t * g);
 
 
-LIBSBML_EXTERN
-CoordinateComponent_t*
-Geometry_removeCoordinateComponent (Geometry_t *g, unsigned int n);
-
-
-LIBSBML_EXTERN
-CoordinateComponent_t*
-Geometry_removeCoordinateComponentById (Geometry_t *g, const char* sid);
-
-
-LIBSBML_EXTERN
-DomainType_t*
-Geometry_removeDomainType (Geometry_t *g, unsigned int n);
-
-
-LIBSBML_EXTERN
-DomainType_t*
-Geometry_removeDomainTypeById (Geometry_t *g, const char* sid);
-
-
-LIBSBML_EXTERN
-Domain_t*
-Geometry_removeDomain (Geometry_t *g, unsigned int n);
-
-
-LIBSBML_EXTERN
-Domain_t*
-Geometry_removeDomainById (Geometry_t *g, const char* sid);
-
-
-LIBSBML_EXTERN
-AdjacentDomains_t*
-Geometry_removeAdjacentDomains (Geometry_t *g, unsigned int n);
-
-
-LIBSBML_EXTERN
-AdjacentDomains_t*
-Geometry_removeAdjacentDomainsById (Geometry_t *g, const char* sid);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t*
-Geometry_removeGeometryDefinition (Geometry_t *g, unsigned int n);
-
-
-LIBSBML_EXTERN
-GeometryDefinition_t*
-Geometry_removeGeometryDefinitionById (Geometry_t *g, const char* sid);
 
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* Geometry_H__ */
+#endif /*  Geometry_H__  */
+

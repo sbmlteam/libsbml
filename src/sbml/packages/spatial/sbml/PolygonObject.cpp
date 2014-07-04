@@ -44,6 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new PolygonObject with the given level, version, and package version.
  */
 PolygonObject::PolygonObject (unsigned int level, unsigned int version, unsigned int pkgVersion) 
+	: SBase(level, version)
 {
   // initilaize pointIndices array
   mIndicesLength = 1;
@@ -70,6 +71,7 @@ PolygonObject::PolygonObject (unsigned int level, unsigned int version, unsigned
  * Creates a new PolygonObject with the given SpatialPkgNamespaces object.
  */
 PolygonObject::PolygonObject(SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
 {
   //
   // set the element namespace of this object
@@ -78,7 +80,7 @@ PolygonObject::PolygonObject(SpatialPkgNamespaces* spatialns)
   mURI = spatialns->getURI();
   mSBMLNamespaces = spatialns;
 
-  // initilaize pointIndices array
+  // initialize pointIndices array
   mIndicesLength = 1;
   mPointIndices = new int[mIndicesLength];
   mPointIndices[0] = 0;
@@ -95,12 +97,11 @@ PolygonObject::PolygonObject(SpatialPkgNamespaces* spatialns)
  * Copy constructor.
  */
 PolygonObject::PolygonObject(const PolygonObject& source)
+  : SBase(source)
 {
   this->mIndicesLength=source.mIndicesLength;
   this->mPointIndices=source.mPointIndices;
   this->mIsSetPointIndices=source.mIsSetPointIndices;
-  this->mParentSBMLObject=source.mParentSBMLObject;
-  this->mURI=source.mURI;
 }
 
 /*
@@ -117,6 +118,16 @@ PolygonObject& PolygonObject::operator=(const PolygonObject& source)
   }
   
   return *this;
+}
+
+
+/*
+ * Clone for PolygonObject.
+ */
+PolygonObject*
+PolygonObject::clone () const
+{
+  return new PolygonObject(*this);
 }
 
 /*
@@ -221,7 +232,7 @@ PolygonObject::deepCopy () const
 const std::string&
 PolygonObject::getElementName () const
 {
-  static const std::string name = "PolygonObject";
+  static const std::string name = "polygonObject";
   return name;
 }
 
@@ -244,7 +255,7 @@ PolygonObject* PolygonObject::readPolygonObject (XMLInputStream& stream)
  {
 	PolygonObject* id = NULL;
 	const string& name = stream.peek().getName();
-	if (name == "PolygonObject") 
+	if (name == "polygonObject") 
 	{
 		XMLToken nextToken = stream.next();
 		while (!nextToken.isText()) {
@@ -335,6 +346,17 @@ PolygonObject::getURI() const
 {
 	return mURI;
 }
+
+/*
+ * Accepts the given SBMLVisitor.
+ */
+bool
+PolygonObject::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END

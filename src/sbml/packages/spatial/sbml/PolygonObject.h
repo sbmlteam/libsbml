@@ -38,18 +38,20 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN PolygonObject
+class LIBSBML_EXTERN PolygonObject : public SBase
 {
 protected:
 
   int* mPointIndices;
   unsigned int mIndicesLength;
-  
+
+  bool  mIsSetPointIndices;
+
   std::string mURI;
   SBase* mParentSBMLObject;
   SBMLNamespaces* mSBMLNamespaces;
 
-  bool  mIsSetPointIndices;
+  bool  mIsSetSamples;
 
 public:
 
@@ -77,7 +79,14 @@ public:
    */
    PolygonObject& operator=(const PolygonObject& source);
 
+   /**
+   * Creates and returns a deep copy of this PolygonObject object.
+   *
+   * @return a (deep) copy of this PolygonObject object.
+   */
+  virtual PolygonObject* clone () const;
 
+   
   /**
    * Destructor.
    */ 
@@ -139,7 +148,7 @@ public:
    * Creates a copy of this PolygonObject and all its children.
    * 
    * @return a copy of this PolygonObject and all its children.  The caller owns
-   * the returned PolygonObject and is reponsible for deleting it.
+   * the returned PolygonObject and is responsible for deleting it.
    */
   PolygonObject* deepCopy () const;
 
@@ -175,30 +184,36 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 #endif
+  
   /**
-   * Sets the parent SBML object.
-   * 
-   * @param sb the parent SBML object of this ASTNode.
+   * Accepts the given SBMLVisitor.
    */
+  virtual bool accept (SBMLVisitor& v) const;
+  
+  /**
+  * Sets the parent SBML object.
+  *
+  * @param sb the parent SBML object of this ASTNode.
+  */
   void setParentSBMLObject(SBase * sb);
 
   /** @endcond doxygenLibsbmlInternal */
 
   /**
-   * Returns the parent SBML object.
-   * 
-   * @return the parent SBML object of this ASTNode.
-   */
+  * Returns the parent SBML object.
+  *
+  * @return the parent SBML object of this ASTNode.
+  */
   SBase * getParentSBMLObject() const;
 
-  protected:
-  
+protected:
+
   /* gets the SBMLnamespaces - internal use only*/
   SBMLNamespaces * getSBMLNamespaces() const;
 
   /* gets the URI - internal use only*/
-  std::string getURI () const;
-    
+  std::string getURI() const;
+
 };
 
 

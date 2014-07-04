@@ -19,30 +19,55 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <string>
 
+#include <fstream>
+
 /** @cond doxygenIgnored */
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-  /** @endcond doxygenIgnored */
+/** @endcond doxygenIgnored */
+
+#define COMPARE_DOCUMENTS(document1,document2)\
+{\
+  char* tempStringXXXX1 = writeSBMLToString(document1);\
+  char* tempStringXXXX2 = writeSBMLToString(document2);\
+  int result = strcmp(tempStringXXXX1,tempStringXXXX2);\
+  free (tempStringXXXX1);\
+  free (tempStringXXXX2);\
+  fail_unless(result == 0);\
+}
+
+#define COMPARE_DOCUMENT_WITH_STRING(document1,string2)\
+{\
+  SBMLDocument *tempSBMLdoc2 = readSBMLFromString(string2);\
+  COMPARE_DOCUMENTS(document1,tempSBMLdoc2);\
+  delete tempSBMLdoc2;\
+}
+
+#define COMPARE_DOCUMENT_WITH_FILE(document1,file)\
+{\
+  SBMLDocument *tempSBMLdoc2 = readSBMLFromFile(file);\
+  COMPARE_DOCUMENTS(document1,tempSBMLdoc2);\
+  delete tempSBMLdoc2;\
+}
 
 #define COMPARE_DOCUMENT_STRING(string1,string2)\
 {\
-  SBMLDocument *tempSBMLdoc = readSBMLFromString(string1);\
-  char* tempStringXXXX = writeSBMLToString(tempSBMLdoc);\
-  fail_unless(strcmp(tempStringXXXX,s2) == 0); \
-  free (tempStringXXXX);\
-  delete tempSBMLdoc;\
+  SBMLDocument *tempSBMLdoc1 = readSBMLFromString(string1);\
+  SBMLDocument *tempSBMLdoc2 = readSBMLFromString(string2);\
+  COMPARE_DOCUMENTS(tempSBMLdoc1,tempSBMLdoc2);\
+  delete tempSBMLdoc1;\
+  delete tempSBMLdoc2;\
 }
-
-
 
 
   CK_CPPSTART
 
-  static string SPATIAL_XMLNS_L3V1V1;
+static string SPATIAL_XMLNS_L3V1V1;
 static SpatialExtension* S; 
 static SpatialPkgNamespaces* SNS;
+extern char *TestDataDirectory;
 
 void
   WriteSpatialExtensionTest_setup (void)
@@ -70,98 +95,6 @@ void
 
 START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\" spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
-
-  SBMLDocument* tempDoc = readSBMLFromString(s1);
-  char* sbmlDoc = writeSBMLToString(tempDoc);
 
 
   // SBMLNamespaces of SBML Level 3 Version 1 with 'spatial' Version 1
@@ -206,9 +139,10 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  DiffusionCoefficient* diffCoeff = pplugin->getDiffusionCoefficient();
+  DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setType(SPATIAL_DIFFUSIONKIND_ANISOTROPIC) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -218,9 +152,9 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  AdvectionCoefficient* advCoeff = pplugin->getAdvectionCoefficient();
+  AdvectionCoefficient* advCoeff = pplugin->createAdvectionCoefficient();
   fail_unless(advCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(advCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(advCoeff->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for boundary condition of species
   paramSp = model->createParameter();
@@ -230,9 +164,9 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  BoundaryCondition* boundCon = pplugin->getBoundaryCondition();
+  BoundaryCondition* boundCon = pplugin->createBoundaryCondition();
   fail_unless(boundCon->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(boundCon->setType("value") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(boundCon->setType(SPATIAL_BOUNDARYKIND_DIRICHLET) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(boundCon->setCoordinateBoundary("Xmin") == LIBSBML_OPERATION_SUCCESS);
 
   // add another species
@@ -269,19 +203,18 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(mplugin != NULL);
 
   // create the Geometry
-  Geometry* geometry = mplugin->getGeometry();
-  fail_unless(geometry->setCoordinateSystem("XYZ") == LIBSBML_OPERATION_SUCCESS);
+  Geometry* geometry = mplugin->createGeometry();
+  fail_unless(geometry->setCoordinateSystem(SPATIAL_GEOMETRYKIND_CARTESIAN) == LIBSBML_OPERATION_SUCCESS);
 
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
-  fail_unless(coordX->setSpatialId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setComponentType("cartesian") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setSbmlUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setIndex(1) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMin* minX = coordX->createBoundaryMin();
-  fail_unless(minX->setSpatialId("Xmin") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* minX = coordX->createBoundaryMin();
+  fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMax* maxX = coordX->createBoundaryMax();
-  fail_unless(maxX->setSpatialId("Xmax") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* maxX = coordX->createBoundaryMax();
+  fail_unless(maxX->setId("Xmax") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(maxX->setValue(10.0) == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* paramX = model->createParameter();
@@ -292,26 +225,24 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  SpatialSymbolReference* spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->setSpatialId(coordX->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(spSymRef->setType(coordX->getElementName()) == LIBSBML_OPERATION_SUCCESS);
+  SpatialSymbolReference* spSymRef = pplugin->createSpatialSymbolReference();
+  fail_unless(spSymRef->setSpatialRef(coordX->getId()) == LIBSBML_OPERATION_SUCCESS);
 
   DomainType* domainType = geometry->createDomainType();
-  fail_unless(domainType->setSpatialId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
-  CompartmentMapping* compMapping = cplugin->getCompartmentMapping();
-  fail_unless(compMapping->setSpatialId("compMap1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setCompartment(compartment->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  CompartmentMapping* compMapping = cplugin->createCompartmentMapping();
+  fail_unless(compMapping->setId("compMap1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(compMapping->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setUnitSize(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   Domain* domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
@@ -319,7 +250,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
@@ -327,25 +258,25 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 
   AdjacentDomains* adjDomain = geometry->createAdjacentDomains();
-  fail_unless(adjDomain->setSpatialId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(adjDomain->setId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain1("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain2("domain2") == LIBSBML_OPERATION_SUCCESS);
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
-  fail_unless(analyticGeom->setSpatialId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
-  fail_unless(analyticVol->setSpatialId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setFunctionType("squareFn") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setFunctionType(SPATIAL_FUNCTIONKIND_LAYERED) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setOrdinal(1) == LIBSBML_OPERATION_SUCCESS);
   const char* mathMLStr = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply xmlns=\"\"><plus /><apply><times /><ci>x</ci><ci>x</ci></apply><apply><minus /><cn>1.0</cn></apply></apply></math>";
   ASTNode* mathNode = readMathMLFromString(mathMLStr);
   fail_unless(analyticVol->setMath(mathNode) == LIBSBML_OPERATION_SUCCESS);
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
-  fail_unless(sfg->setSpatialId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = sfg->createSampledField();
-  fail_unless(sampledField->setSpatialId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
@@ -368,16 +299,20 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   ImageData* id = sampledField->createImageData();
   fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
-  fail_unless(sampledVol->setSpatialId("sv_1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setSampledValue(128.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMinValue(0.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMaxValue(255.0) == LIBSBML_OPERATION_SUCCESS);
 
   char *s2 = writeSBMLToString(document);
 
-  fail_unless(strcmp(sbmlDoc,s2) == 0); 
-  free(s2);
+  string file = TestDataDirectory;
+  file += "/create_and_write_L3V1V1.xml";
+
+  SBMLDocument *tempDoc = readSBMLFromFile(file.c_str());
+  char* sbmlDoc = writeSBMLToString(tempDoc);
+  COMPARE_DOCUMENT_STRING(sbmlDoc, s2);
 
   // check clone()
 
@@ -393,7 +328,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   document2->setModel(&m);
   s2 = writeSBMLToString(document2);
 
-  fail_unless(strcmp(sbmlDoc,s2) == 0); 
+  COMPARE_DOCUMENT_STRING(sbmlDoc, s2);
   free(sbmlDoc);
   free(s2);
   delete document2;
@@ -403,88 +338,8 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 END_TEST
 
 
-  START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
+START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\"  level=\"3\" version=\"1\" spatial:required=\"true\"  >\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
-
-  SBMLDocument *tempDoc = readSBMLFromString(s1);
-  char* sbmlDoc = writeSBMLToString(tempDoc);
-
-
 
   // SBMLNamespaces of SBML Level 3 Version 1 with 'spatial' Version 1
   SpatialPkgNamespaces sbmlns(3,1,1);
@@ -508,18 +363,17 @@ END_TEST
   
   /*
     "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
+    "       <spatial:compartmentMapping spatial:id=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
     "     </compartment>\n"
   */
   SpatialCompartmentPlugin* compPlugin =  (SpatialCompartmentPlugin*)compartment->getPlugin("spatial");
   fail_unless(compPlugin != NULL);
 
-  compPlugin->getCompartmentMapping()->setSpatialId("compMap1");
-  compPlugin->getCompartmentMapping()->setCompartment("cytosol");
+  compPlugin->createCompartmentMapping()->setId("compMap1");
   compPlugin->getCompartmentMapping()->setDomainType("dtype1");
   compPlugin->getCompartmentMapping()->setUnitSize(1);
 
-  model->addCompartment(compartment);
+  fail_unless(model->addCompartment(compartment) == LIBSBML_OPERATION_SUCCESS);
 
   // create the Species
   Species *species1 = new Species(&sbmlns);
@@ -534,45 +388,49 @@ END_TEST
   srplugin = static_cast<SpatialSpeciesPlugin*>(species1->getPlugin("spatial"));
   fail_unless(srplugin != NULL);
   fail_unless(srplugin->setIsSpatial(true) == LIBSBML_OPERATION_SUCCESS);
-  model->addSpecies(species1);
+  fail_unless(model->addSpecies(species1) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for diff coeff of species
   Parameter *paramSp = new Parameter(&sbmlns);
+  paramSp->initDefaults();
   paramSp->setId(species1->getId()+"_dc");
   paramSp->setValue(1.0);
   // spatial package extension to diffusion parameter.
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  DiffusionCoefficient* diffCoeff = pplugin->getDiffusionCoefficient();
+  DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
+  fail_unless(diffCoeff->setType(SPATIAL_DIFFUSIONKIND_ANISOTROPIC) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(diffCoeff->setVariable(species1->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
-  model->addParameter(paramSp);
+  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model->addParameter(paramSp) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = new Parameter(&sbmlns);
+  paramSp->initDefaults();
   paramSp->setId(species1->getId()+"_ac");
   paramSp->setValue(1.5);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  AdvectionCoefficient* advCoeff = pplugin->getAdvectionCoefficient();
+  AdvectionCoefficient* advCoeff = pplugin->createAdvectionCoefficient();
   fail_unless(advCoeff->setVariable(species1->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(advCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
-  model->addParameter(paramSp);
+  fail_unless(advCoeff->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model->addParameter(paramSp) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for boundary condition of species
   paramSp = new Parameter(&sbmlns);
+  paramSp->initDefaults();
   paramSp->setId(species1->getId()+"_bc");
   paramSp->setValue(2.0);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  BoundaryCondition* boundCon = pplugin->getBoundaryCondition();
+  BoundaryCondition* boundCon = pplugin->createBoundaryCondition();
   fail_unless(boundCon->setVariable(species1->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(boundCon->setType("value") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(boundCon->setType(SPATIAL_BOUNDARYKIND_DIRICHLET) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(boundCon->setCoordinateBoundary("Xmin") == LIBSBML_OPERATION_SUCCESS);
-  model->addParameter(paramSp);
+  fail_unless(model->addParameter(paramSp) == LIBSBML_OPERATION_SUCCESS);
 
   Species *species2 = new Species(&sbmlns);
   species2->setId("ATPm");
@@ -598,7 +456,7 @@ END_TEST
   fail_unless(rplugin->setIsLocal(true) == LIBSBML_OPERATION_SUCCESS);
 
 
-  model->addReaction(reaction);
+  fail_unless(model->addReaction(reaction) == LIBSBML_OPERATION_SUCCESS);
 
   //
   // Get a SpatialModelPlugin object plugged in the model object.
@@ -612,53 +470,51 @@ END_TEST
   fail_unless(mplugin != NULL);
 
   // create the Geometry
-  Geometry* geometry = mplugin->getGeometry();
-  fail_unless(geometry->setCoordinateSystem("XYZ") == LIBSBML_OPERATION_SUCCESS);
+  Geometry* geometry = mplugin->createGeometry();
+  fail_unless(geometry->setCoordinateSystem(SPATIAL_GEOMETRYKIND_CARTESIAN) == LIBSBML_OPERATION_SUCCESS);
 
   CoordinateComponent* coordX = new CoordinateComponent(&sbmlns);
-  fail_unless(coordX->setSpatialId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setComponentType("cartesian") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setSbmlUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setIndex(1) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMin* minX = new BoundaryMin(&sbmlns);
-  fail_unless(minX->setSpatialId("Xmin") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* minX = new Boundary(&sbmlns);
+  fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX->setBoundaryMin(minX) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMax* maxX = new BoundaryMax(&sbmlns);
-  fail_unless(maxX->setSpatialId("Xmax") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* maxX = new Boundary(&sbmlns);
+  fail_unless(maxX->setId("Xmax") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(maxX->setValue(10.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(coordX->setBoundaryMax(maxX) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(geometry->addCoordinateComponent(coordX) == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* paramX = new Parameter(&sbmlns);
+  paramX->initDefaults();
   paramX->setId("x");
   paramX->setValue(8.0);
   // spatial package extension to SpatialSymbolRef parameter.
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  SpatialSymbolReference* spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->setSpatialId(coordX->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(spSymRef->setType(coordX->getElementName()) == LIBSBML_OPERATION_SUCCESS);
-  model->addParameter(paramX);
+  SpatialSymbolReference* spSymRef = pplugin->createSpatialSymbolReference();
+  fail_unless(spSymRef->setSpatialRef(coordX->getId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model->addParameter(paramX) == LIBSBML_OPERATION_SUCCESS);
 
   DomainType* domainType = new DomainType(&sbmlns);
-  fail_unless(domainType->setSpatialId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(geometry->addDomainType(domainType) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
-  CompartmentMapping* compMapping = cplugin->getCompartmentMapping();
-  fail_unless(compMapping->setSpatialId("compMap1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setCompartment(compartment->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  CompartmentMapping* compMapping = cplugin->createCompartmentMapping();
+  fail_unless(compMapping->setId("compMap1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(compMapping->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setUnitSize(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   Domain* domain1 = new Domain(&sbmlns);
-  fail_unless(domain1->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain1->setId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain1->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain1->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain1->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
@@ -668,7 +524,7 @@ END_TEST
   fail_unless(geometry->addDomain(domain1) == LIBSBML_OPERATION_SUCCESS);
 
   Domain* domain2 = new Domain(&sbmlns);
-  fail_unless(domain2->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain2->setId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain2->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain2->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain2->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
@@ -678,17 +534,17 @@ END_TEST
   fail_unless(geometry->addDomain(domain2) == LIBSBML_OPERATION_SUCCESS);
 
   AdjacentDomains* adjDomain = new AdjacentDomains(&sbmlns);
-  fail_unless(adjDomain->setSpatialId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(adjDomain->setId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain1("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain2("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(geometry->addAdjacentDomains(adjDomain) == LIBSBML_OPERATION_SUCCESS);
 
   AnalyticGeometry* analyticGeom = new AnalyticGeometry(&sbmlns);
-  fail_unless(analyticGeom->setSpatialId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = new AnalyticVolume(&sbmlns);
-  fail_unless(analyticVol->setSpatialId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setFunctionType("squareFn") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setFunctionType(SPATIAL_FUNCTIONKIND_LAYERED) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setOrdinal(1) == LIBSBML_OPERATION_SUCCESS);
   const char* mathMLStr = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply xmlns=\"\"><plus /><apply><times /><ci>x</ci><ci>x</ci></apply><apply><minus /><cn>1.0</cn></apply></apply></math>";
   ASTNode* mathNode = readMathMLFromString(mathMLStr);
@@ -697,9 +553,9 @@ END_TEST
   fail_unless(geometry->addGeometryDefinition(analyticGeom) == LIBSBML_OPERATION_SUCCESS);
 
   SampledFieldGeometry* sfg = new SampledFieldGeometry(&sbmlns);
-  fail_unless(sfg->setSpatialId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = new SampledField(&sbmlns);
-  fail_unless(sampledField->setSpatialId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
@@ -725,8 +581,8 @@ END_TEST
   fail_unless(sfg->setSampledField(sampledField)  == LIBSBML_OPERATION_SUCCESS);
 
   SampledVolume* sampledVol = new SampledVolume(&sbmlns);
-  fail_unless(sampledVol->setSpatialId("sv_1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setSampledValue(128.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMinValue(0.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMaxValue(255.0) == LIBSBML_OPERATION_SUCCESS);
@@ -739,7 +595,13 @@ END_TEST
 
   char *s2 = writeSBMLToString(document);
 
-  fail_unless(strcmp(sbmlDoc ,s2) == 0); 
+  string file = TestDataDirectory;
+  file += "/create_add_and_write_L3V1V1.xml";
+  SBMLDocument *tempDoc = readSBMLFromFile(file.c_str());
+
+  char* sbmlDoc = writeSBMLToString(tempDoc);
+
+  COMPARE_DOCUMENT_STRING(sbmlDoc, s2);
   free(sbmlDoc);
   free(s2);
 }
@@ -748,115 +610,11 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_enable_via_model_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"/>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\"/>\n"
-    "   </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
 
-  const char* s1a =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
+  string file = TestDataDirectory;
+  file += "/read_enable_via_model_and_write_L3V1V1_1.xml";
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
 
   fail_unless(document->getNumPlugins()             == 0);
 
@@ -885,6 +643,7 @@ END_TEST
 
   // add parameter for diff coeff of species
   Parameter* paramSp = model->createParameter();
+  paramSp->initDefaults();
   paramSp->setId(species->getId()+"_dc");
   paramSp->setValue(1.0);
   paramSp->setConstant(true);
@@ -892,33 +651,35 @@ END_TEST
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  DiffusionCoefficient* diffCoeff = pplugin->getDiffusionCoefficient();
+  DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
+  paramSp->initDefaults();
   paramSp->setId(species->getId()+"_ac");
   paramSp->setValue(1.5);
   paramSp->setConstant(true);
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  AdvectionCoefficient* advCoeff = pplugin->getAdvectionCoefficient();
+  AdvectionCoefficient* advCoeff = pplugin->createAdvectionCoefficient();
   fail_unless(advCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(advCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(advCoeff->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for boundary condition of species
   paramSp = model->createParameter();
+  paramSp->initDefaults();
   paramSp->setId(species->getId()+"_bc");
   paramSp->setValue(2.0);
   paramSp->setConstant(true);
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  BoundaryCondition* boundCon = pplugin->getBoundaryCondition();
+  BoundaryCondition* boundCon = pplugin->createBoundaryCondition();
   fail_unless(boundCon->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(boundCon->setType("value") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(boundCon->setType(SPATIAL_BOUNDARYKIND_DIRICHLET) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(boundCon->setCoordinateBoundary("Xmin") == LIBSBML_OPERATION_SUCCESS);
 
   // add another species
@@ -939,22 +700,22 @@ END_TEST
   fail_unless(mplugin != NULL);
 
   // create the Geometry
-  Geometry* geometry = mplugin->getGeometry();
-  fail_unless(geometry->setCoordinateSystem("XYZ") == LIBSBML_OPERATION_SUCCESS);
+  Geometry* geometry = mplugin->createGeometry();
+  fail_unless(geometry->setCoordinateSystem(SPATIAL_GEOMETRYKIND_CARTESIAN) == LIBSBML_OPERATION_SUCCESS);
 
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
-  fail_unless(coordX->setSpatialId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setComponentType("cartesian") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setSbmlUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setIndex(1) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMin* minX = coordX->createBoundaryMin();
-  fail_unless(minX->setSpatialId("Xmin") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* minX = coordX->createBoundaryMin();
+  fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMax* maxX = coordX->createBoundaryMax();
-  fail_unless(maxX->setSpatialId("Xmax") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* maxX = coordX->createBoundaryMax();
+  fail_unless(maxX->setId("Xmax") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(maxX->setValue(10.0) == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* paramX = model->createParameter();
+  paramX->initDefaults();
   paramX->setId("x");
   paramX->setValue(8.0);
   paramX->setConstant(true);
@@ -962,13 +723,12 @@ END_TEST
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  SpatialSymbolReference* spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->setSpatialId(coordX->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(spSymRef->setType(coordX->getElementName()) == LIBSBML_OPERATION_SUCCESS);
+  SpatialSymbolReference* spSymRef = pplugin->createSpatialSymbolReference();
+  fail_unless(spSymRef->setSpatialRef(coordX->getId()) == LIBSBML_OPERATION_SUCCESS);
 
   DomainType* domainType = geometry->createDomainType();
-  fail_unless(domainType->setSpatialId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
@@ -976,14 +736,13 @@ END_TEST
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
-  CompartmentMapping* compMapping = cplugin->getCompartmentMapping();
-  fail_unless(compMapping->setSpatialId("compMap1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setCompartment(compartment->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  CompartmentMapping* compMapping = cplugin->createCompartmentMapping();
+  fail_unless(compMapping->setId("compMap1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(compMapping->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setUnitSize(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   Domain* domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
@@ -991,7 +750,7 @@ END_TEST
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
@@ -999,25 +758,25 @@ END_TEST
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 
   AdjacentDomains* adjDomain = geometry->createAdjacentDomains();
-  fail_unless(adjDomain->setSpatialId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(adjDomain->setId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain1("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain2("domain2") == LIBSBML_OPERATION_SUCCESS);
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
-  fail_unless(analyticGeom->setSpatialId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
-  fail_unless(analyticVol->setSpatialId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setFunctionType("squareFn") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setFunctionType(SPATIAL_FUNCTIONKIND_LAYERED) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setOrdinal(1) == LIBSBML_OPERATION_SUCCESS);
   const char* mathMLStr = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply xmlns=\"\"><plus /><apply><times /><ci>x</ci><ci>x</ci></apply><apply><minus /><cn>1.0</cn></apply></apply></math>";
   ASTNode* mathNode = readMathMLFromString(mathMLStr);
   fail_unless(analyticVol->setMath(mathNode) == LIBSBML_OPERATION_SUCCESS);
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
-  fail_unless(sfg->setSpatialId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = sfg->createSampledField();
-  fail_unless(sampledField->setSpatialId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
@@ -1040,18 +799,21 @@ END_TEST
   ImageData* id = sampledField->createImageData();
   fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
-  fail_unless(sampledVol->setSpatialId("sv_1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setSampledValue(128.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMinValue(0.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMaxValue(255.0) == LIBSBML_OPERATION_SUCCESS);
 
   char *s2 = writeSBMLToString(document);
 
-  SBMLDocument *tempDoc = readSBMLFromString(s1a);
-  char* tempString = writeSBMLToString(tempDoc);
+  file = TestDataDirectory;
+  file += "/read_enable_via_model_and_write_L3V1V1_2.xml";
 
-  fail_unless(strcmp(tempString ,s2) == 0); 
+  SBMLDocument *tempDoc = readSBMLFromFile(file.c_str());
+  char* tempString = writeSBMLToString(tempDoc);
+  
+  COMPARE_DOCUMENT_STRING(tempString, s2);
 
   free(s2);
   free(tempString);
@@ -1063,121 +825,12 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_disable_via_model_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
 
-  const char* s1d =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"/>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" />\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" />\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" />\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" />\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\"/>\n"
-    "   </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
+  string file = TestDataDirectory;
+  file += "/read_disable_via_model_and_write_L3V1V1_1.xml";
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
+  
 
   fail_unless(document->getNumPlugins() == 1);
 
@@ -1196,10 +849,13 @@ END_TEST
 
   char *s2 = writeSBMLToString(document);
 
-  SBMLDocument *tempDoc = readSBMLFromString(s1d);
+  file = TestDataDirectory;
+  file += "/read_disable_via_model_and_write_L3V1V1_2.xml";
+
+  SBMLDocument *tempDoc = readSBMLFromFile(file.c_str());
   char* tempSBML = writeSBMLToString(tempDoc);
 
-  fail_unless(strcmp(tempSBML ,s2) == 0); 
+  COMPARE_DOCUMENT_STRING(tempSBML, s2);
   free(tempSBML);
   free(s2);
   delete tempDoc;  
@@ -1210,115 +866,11 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_enable_via_sbmldocument_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"/>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\"/>\n"
-    "   </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
 
-  const char* s1a =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
+  string file = TestDataDirectory;
+  file += "/read_enable_via_sbmldocument_and_write_L3V1V1_1.xml";
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
 
   fail_unless(document->getNumPlugins()             == 0);
 
@@ -1353,9 +905,9 @@ END_TEST
   SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  DiffusionCoefficient* diffCoeff = pplugin->getDiffusionCoefficient();
+  DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -1365,9 +917,9 @@ END_TEST
   // spatial package extension to advection parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  AdvectionCoefficient* advCoeff = pplugin->getAdvectionCoefficient();
+  AdvectionCoefficient* advCoeff = pplugin->createAdvectionCoefficient();
   fail_unless(advCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(advCoeff->setCoordinateIndex(0) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(advCoeff->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for boundary condition of species
   paramSp = model->createParameter();
@@ -1377,9 +929,9 @@ END_TEST
   // spatial package extension to boundary condition parameter.
   pplugin = static_cast<SpatialParameterPlugin*>(paramSp->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  BoundaryCondition* boundCon = pplugin->getBoundaryCondition();
+  BoundaryCondition* boundCon = pplugin->createBoundaryCondition();
   fail_unless(boundCon->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(boundCon->setType("value") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(boundCon->setType(SPATIAL_BOUNDARYKIND_DIRICHLET) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(boundCon->setCoordinateBoundary("Xmin") == LIBSBML_OPERATION_SUCCESS);
 
   // add another species
@@ -1400,19 +952,18 @@ END_TEST
   fail_unless(mplugin != NULL);
 
   // create the Geometry
-  Geometry* geometry = mplugin->getGeometry();
-  fail_unless(geometry->setCoordinateSystem("XYZ") == LIBSBML_OPERATION_SUCCESS);
+  Geometry* geometry = mplugin->createGeometry();
+  fail_unless(geometry->setCoordinateSystem(SPATIAL_GEOMETRYKIND_CARTESIAN) == LIBSBML_OPERATION_SUCCESS);
 
   CoordinateComponent* coordX = geometry->createCoordinateComponent();
-  fail_unless(coordX->setSpatialId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setComponentType("cartesian") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setSbmlUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(coordX->setIndex(1) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMin* minX = coordX->createBoundaryMin();
-  fail_unless(minX->setSpatialId("Xmin") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setId("coordComp1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setType(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(coordX->setUnit("umeter") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* minX = coordX->createBoundaryMin();
+  fail_unless(minX->setId("Xmin") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(minX->setValue(0.0) == LIBSBML_OPERATION_SUCCESS);
-  BoundaryMax* maxX = coordX->createBoundaryMax();
-  fail_unless(maxX->setSpatialId("Xmax") == LIBSBML_OPERATION_SUCCESS);
+  Boundary* maxX = coordX->createBoundaryMax();
+  fail_unless(maxX->setId("Xmax") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(maxX->setValue(10.0) == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* paramX = model->createParameter();
@@ -1423,13 +974,12 @@ END_TEST
   // SpatialParameterPlugin* pplugin;
   pplugin = static_cast<SpatialParameterPlugin*>(paramX->getPlugin("spatial"));
   fail_unless(pplugin != NULL);
-  SpatialSymbolReference* spSymRef = pplugin->getSpatialSymbolReference();
-  fail_unless(spSymRef->setSpatialId(coordX->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(spSymRef->setType(coordX->getElementName()) == LIBSBML_OPERATION_SUCCESS);
+  SpatialSymbolReference* spSymRef = pplugin->createSpatialSymbolReference();
+  fail_unless(spSymRef->setSpatialRef(coordX->getId()) == LIBSBML_OPERATION_SUCCESS);
 
   DomainType* domainType = geometry->createDomainType();
-  fail_unless(domainType->setSpatialId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
@@ -1437,14 +987,13 @@ END_TEST
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment->getPlugin("spatial"));
   fail_unless(cplugin != NULL);
-  CompartmentMapping* compMapping = cplugin->getCompartmentMapping();
-  fail_unless(compMapping->setSpatialId("compMap1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setCompartment(compartment->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(compMapping->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  CompartmentMapping* compMapping = cplugin->createCompartmentMapping();
+  fail_unless(compMapping->setId("compMap1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(compMapping->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setUnitSize(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   Domain* domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("circle") == LIBSBML_OPERATION_SUCCESS);
@@ -1452,7 +1001,7 @@ END_TEST
   fail_unless(internalPt1->setCoord1(1.0) == LIBSBML_OPERATION_SUCCESS);
 
   domain = geometry->createDomain();
-  fail_unless(domain->setSpatialId("domain2") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domain->setId("domain2") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(domain->setDomainType("dtype1") == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setImplicit(false) == LIBSBML_OPERATION_SUCCESS);
   //fail_unless(domain->setShapeId("square") == LIBSBML_OPERATION_SUCCESS);
@@ -1460,25 +1009,25 @@ END_TEST
   fail_unless(internalPt2->setCoord1(5.0) == LIBSBML_OPERATION_SUCCESS);
 
   AdjacentDomains* adjDomain = geometry->createAdjacentDomains();
-  fail_unless(adjDomain->setSpatialId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(adjDomain->setId("adjDomain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain1("domain1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(adjDomain->setDomain2("domain2") == LIBSBML_OPERATION_SUCCESS);
 
   AnalyticGeometry* analyticGeom = geometry->createAnalyticGeometry();
-  fail_unless(analyticGeom->setSpatialId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = analyticGeom->createAnalyticVolume();
-  fail_unless(analyticVol->setSpatialId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(analyticVol->setFunctionType("squareFn") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(analyticVol->setFunctionType(SPATIAL_FUNCTIONKIND_LAYERED) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(analyticVol->setOrdinal(1) == LIBSBML_OPERATION_SUCCESS);
   const char* mathMLStr = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply xmlns=\"\"><plus /><apply><times /><ci>x</ci><ci>x</ci></apply><apply><minus /><cn>1.0</cn></apply></apply></math>";
   ASTNode* mathNode = readMathMLFromString(mathMLStr);
   fail_unless(analyticVol->setMath(mathNode) == LIBSBML_OPERATION_SUCCESS);
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
-  fail_unless(sfg->setSpatialId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = sfg->createSampledField();
-  fail_unless(sampledField->setSpatialId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
@@ -1501,13 +1050,20 @@ END_TEST
   ImageData* id = sampledField->createImageData();
   fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
-  fail_unless(sampledVol->setSpatialId("sv_1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledVol->setDomainType(domainType->getSpatialId()) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setSampledValue(128.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMinValue(0.0) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setMaxValue(255.0) == LIBSBML_OPERATION_SUCCESS);
 
   char *s2 = writeSBMLToString(document);
+  
+  file = TestDataDirectory;
+  file += "/read_enable_via_sbmldocument_and_write_L3V1V1_2.xml";
+  delete document; 
+  document = readSBMLFromFile(file.c_str());
+  char *s1a = writeSBMLToString(document);
+
 
   COMPARE_DOCUMENT_STRING(s1a, s2);
 
@@ -1519,121 +1075,11 @@ END_TEST
 
   START_TEST (test_SpatialExtension_read_disable_via_sbmldocument_and_write_L3V1V1)
 {
-  const char* s1 =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:spatial=\"http://www.sbml.org/sbml/level3/version1/spatial/version1\" level=\"3\" version=\"1\"  spatial:required=\"true\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"  >\n"
-    "       <spatial:compartmentMapping spatial:spatialId=\"compMap1\" spatial:compartment=\"cytosol\" spatial:domainType=\"dtype1\" spatial:unitSize=\"1\"/>\n"
-    "     </compartment>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"   spatial:isSpatial=\"true\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" spatial:isSpatial=\"true\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\"  >\n"
-    "       <spatial:diffusionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\"  >\n"
-    "       <spatial:advectionCoefficient spatial:variable=\"ATPc\" spatial:coordinateIndex=\"0\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\"  >\n"
-    "       <spatial:boundaryCondition spatial:variable=\"ATPc\" spatial:coordinateBoundary=\"Xmin\" spatial:type=\"value\"/>\n"
-    "     </parameter>\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\"  >\n"
-    "       <spatial:spatialSymbolReference spatial:spatialId=\"coordComp1\" spatial:type=\"coordinateComponent\"/>\n"
-    "     </parameter>\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\" spatial:isLocal=\"true\"/>\n"
-    "   </listOfReactions>\n"
-    "   <spatial:geometry spatial:coordinateSystem=\"XYZ\">\n"
-    "     <spatial:listOfCoordinateComponents>\n"
-    "       <spatial:coordinateComponent spatial:spatialId=\"coordComp1\" spatial:componentType=\"cartesian\" spatial:sbmlUnit=\"umeter\" spatial:index=\"1\">\n"
-    "         <spatial:boundaryMin spatial:spatialId=\"Xmin\" spatial:value=\"0\"/>\n"
-    "         <spatial:boundaryMax spatial:spatialId=\"Xmax\" spatial:value=\"10\"/>\n"
-    "       </spatial:coordinateComponent>\n"
-    "     </spatial:listOfCoordinateComponents>\n"
-    "     <spatial:listOfDomainTypes>\n"
-    "       <spatial:domainType spatial:spatialId=\"dtype1\" spatial:spatialDimensions=\"3\"/>\n"
-    "     </spatial:listOfDomainTypes>\n"
-    "     <spatial:listOfDomains>\n"
-    "       <spatial:domain spatial:spatialId=\"domain1\" spatial:domainType=\"dtype1\" spatial:shapeId=\"circle\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"1\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "       <spatial:domain spatial:spatialId=\"domain2\" spatial:domainType=\"dtype1\" spatial:shapeId=\"square\" spatial:implicit=\"false\">\n"
-    "         <spatial:listOfInteriorPoints>\n"
-    "           <spatial:interiorPoint spatial:coord1=\"5\" spatial:coord2=\"0\" spatial:coord3=\"0\"/>\n"
-    "         </spatial:listOfInteriorPoints>\n"
-    "       </spatial:domain>\n"
-    "     </spatial:listOfDomains>\n"
-    "     <spatial:listOfAdjacentDomains>\n"
-    "       <spatial:adjacentDomains spatial:spatialId=\"adjDomain1\" spatial:domain1=\"domain1\" spatial:domain2=\"domain2\"/>\n"
-    "     </spatial:listOfAdjacentDomains>\n"
-    "     <spatial:listOfGeometryDefinitions>\n"
-    "       <spatial:analyticGeometry spatial:spatialId=\"analyticGeom1\">\n"
-    "         <spatial:listOfAnalyticVolumes>\n"
-    "           <spatial:analyticVolume spatial:spatialId=\"analyticVol1\" spatial:domainType=\"dtype1\" spatial:functionType=\"squareFn\" spatial:ordinal=\"1\">\n"
-    "             <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "               <apply>\n"
-    "                 <plus/>\n"
-    "                   <apply>\n"
-    "                     <times/>\n"
-    "                       <ci> x </ci>\n"
-    "                       <ci> x </ci>\n"
-    "                   </apply>\n"
-    "                   <apply>\n"
-    "                     <minus/>\n"
-    "                       <cn> 1 </cn>\n"
-    "                   </apply>\n"
-    "               </apply>\n"
-    "             </math>\n"
-    "           </spatial:analyticVolume>\n"
-    "         </spatial:listOfAnalyticVolumes>\n"
-    "       </spatial:analyticGeometry>\n"
-    "       <spatial:sampledFieldGeometry spatial:spatialId=\"sampledFieldGeom1\">\n"
-    "         <spatial:listOfSampledVolumes>\n"
-    "           <spatial:sampledVolume spatial:spatialId=\"sv_1\" spatial:domainType=\"dtype1\" spatial:sampledValue=\"128\" spatial:minValue=\"0\" spatial:maxValue=\"255\"/>\n"
-    "         </spatial:listOfSampledVolumes>\n"
-    "         <spatial:sampledField spatial:spatialId=\"sampledField1\" spatial:dataType=\"double\" spatial:interpolationType=\"linear\" spatial:encoding=\"encoding1\" spatial:numSamples1=\"4\" spatial:numSamples2=\"4\" spatial:numSamples3=\"2\">\n"
-    "           <spatial:imageData>0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:imageData>\n"
-    "         </spatial:sampledField>\n"
-    "       </spatial:sampledFieldGeometry>\n"
-    "     </spatial:listOfGeometryDefinitions>\n"
-    "   </spatial:geometry>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
 
-  const char* s1d =
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\">\n"
-    "  <model>\n"
-    "   <listOfCompartments>\n"
-    "     <compartment id=\"cytosol\" constant=\"true\"/>\n"
-    "   </listOfCompartments>\n"
-    "   <listOfSpecies>\n"
-    "     <species id=\"ATPc\" compartment=\"cytosol\" initialConcentration=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "     <species id=\"ATPm\" compartment=\"cytosol\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
-    "   </listOfSpecies>\n"
-    "   <listOfParameters>\n"
-    "     <parameter id=\"ATPc_dc\" value=\"1\" constant=\"true\" />\n"
-    "     <parameter id=\"ATPc_ac\" value=\"1.5\" constant=\"true\" />\n"
-    "     <parameter id=\"ATPc_bc\" value=\"2\" constant=\"true\" />\n"
-    "     <parameter id=\"x\" value=\"8\" constant=\"true\" />\n"
-    "   </listOfParameters>\n"
-    "   <listOfReactions>\n"
-    "     <reaction id=\"rxn1\" reversible=\"false\" fast=\"false\" compartment=\"cytosol\"/>\n"
-    "   </listOfReactions>\n"
-    "  </model>\n"
-    "</sbml>\n"
-    ;
+  string file = TestDataDirectory;
+  file += "/read_disable_via_sbmldocument_and_write_L3V1V1_1.xml";
 
-  SBMLDocument *document = readSBMLFromString(s1);
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
 
   fail_unless(document->getNumPlugins() == 1);
 
@@ -1651,8 +1097,17 @@ END_TEST
 
   char *s2 = writeSBMLToString(document);
 
+  delete document;
+
+  file = TestDataDirectory;
+  file += "/read_disable_via_sbmldocument_and_write_L3V1V1_2.xml";
+
+  document = readSBMLFromFile(file.c_str());
+  char *s1d = writeSBMLToString(document);
+
   COMPARE_DOCUMENT_STRING(s1d,s2);
   
+  free(s1d);
   free(s2);
   delete document;  
 }

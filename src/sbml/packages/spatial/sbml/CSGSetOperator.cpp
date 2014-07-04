@@ -1,66 +1,66 @@
 /**
- * @file    CSGSetOperator.cpp
- * @brief   Implementation of CSGSetOperator, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGSetOperator.cpp
+ * @brief:  Implementation of the CSGSetOperator class
+ * @author: SBMLTeam
  *
- * $Id: CSGSetOperator.cpp  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGSetOperator.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
+#include <sbml/packages/spatial/sbml/CSGTransformation.h>
 #include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
 #include <sbml/packages/spatial/sbml/CSGSetOperator.h>
-#include <sbml/packages/spatial/sbml/CSGTranslation.h>
-#include <sbml/packages/spatial/sbml/CSGRotation.h>
-#include <sbml/packages/spatial/sbml/CSGScale.h>
-#include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
 
 
-#include <sbml/SBase.h>
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CSGSetOperator with the given level, version, and package version.
  */
-CSGSetOperator::CSGSetOperator (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : CSGNode (SBML_SPATIAL_CSGSETOPERATOR, level,version)
-   , mOperationType("")
-   , mCSGNodeChildren (level,version, pkgVersion)
+CSGSetOperator::CSGSetOperator (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: CSGNode(level, version)
+   ,mId ("")
+   ,mOperationType (SETOPERATION_UNKNOWN)
+   ,mCsgNodes (level, version, pkgVersion)
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion)); 
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 
-  if (!hasValidLevelVersionNamespaceCombination())
-	throw SBMLConstructorException();
-
+  // connect to child objects
   connectToChild();
 }
 
@@ -68,30 +68,16 @@ CSGSetOperator::CSGSetOperator (unsigned int level, unsigned int version, unsign
 /*
  * Creates a new CSGSetOperator with the given SpatialPkgNamespaces object.
  */
-CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces* spatialns)
- : CSGNode (SBML_SPATIAL_CSGSETOPERATOR, spatialns)
-  , mOperationType("")
-  , mCSGNodeChildren (spatialns)
+CSGSetOperator::CSGSetOperator (SpatialPkgNamespaces* spatialns)
+	: CSGNode(spatialns)
+   ,mId ("")
+   ,mOperationType (SETOPERATION_UNKNOWN)
+   ,mCsgNodes (spatialns)
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 
-  if (!hasValidLevelVersionNamespaceCombination())
-  {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = spatialns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
-  }
-
+  // connect to child objects
   connectToChild();
 
   // load package extensions bound with this object (if any) 
@@ -100,76 +86,152 @@ CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CSGSetOperator.
  */
-CSGSetOperator::CSGSetOperator(const CSGSetOperator& source) : CSGNode(source)
+CSGSetOperator::CSGSetOperator (const CSGSetOperator& orig)
+	: CSGNode(orig)
 {
-  this->mOperationType=source.mOperationType;
-  this->mCSGNodeChildren = source.mCSGNodeChildren;
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mOperationType  = orig.mOperationType;
+    mCsgNodes  = orig.mCsgNodes;
 
-  connectToChild();
+    // connect to child objects
+    connectToChild();
+  }
 }
 
-/*
- * Assignment operator.
- */
-CSGSetOperator& CSGSetOperator::operator=(const CSGSetOperator& source)
-{
-  if(&source!=this)
-  {
-    this->CSGNode::operator=(source);
-	this->mOperationType = source.mOperationType;
-	this->mCSGNodeChildren = source.mCSGNodeChildren;
-  }
 
-  connectToChild();
-  
+/*
+ * Assignment for CSGSetOperator.
+ */
+CSGSetOperator&
+CSGSetOperator::operator=(const CSGSetOperator& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+		CSGNode::operator=(rhs);
+    mId  = rhs.mId;
+    mOperationType  = rhs.mOperationType;
+    mCsgNodes  = rhs.mCsgNodes;
+
+    // connect to child objects
+    connectToChild();
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CSGSetOperator.
+ */
+CSGSetOperator*
+CSGSetOperator::clone () const
+{
+  return new CSGSetOperator(*this);
+}
+
+
+/*
+ * Destructor for CSGSetOperator.
+ */
 CSGSetOperator::~CSGSetOperator ()
 {
 }
 
+
 /*
-  * Returns the value of the "operationType" attribute of this CSGSetOperator.
-  */
-const std::string& 
-CSGSetOperator::getOperationType () const
+ * Returns the value of the "id" attribute of this CSGSetOperator.
+ */
+const std::string&
+CSGSetOperator::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "operationType" attribute of this CSGSetOperator.
+ */
+SetOperation_t
+CSGSetOperator::getOperationType() const
 {
   return mOperationType;
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGSetOperator's "operationType" attribute has been set.
-  */
-bool 
-CSGSetOperator::isSetOperationType () const
-{
-  return (mOperationType.empty() == false);
-}
 
 /*
-  * Sets the value of the "operationType" attribute of this CSGSetOperator.
-  */
-int 
-CSGSetOperator::setOperationType (const std::string& operationType)
+ * Returns true/false if id is set.
+ */
+bool
+CSGSetOperator::isSetId() const
 {
-  return SyntaxChecker::checkAndSetSId(operationType ,mOperationType);
+  return (mId.empty() == false);
 }
 
- /*
-  * Unsets the value of the "operationType" attribute of this CSGSetOperator.
-  */
-int 
-CSGSetOperator::unsetOperationType ()
+
+/*
+ * Returns true/false if operationType is set.
+ */
+bool
+CSGSetOperator::isSetOperationType() const
 {
-  mOperationType.erase();
-  if (mOperationType.empty())
+  return mOperationType != SETOPERATION_UNKNOWN;
+}
+
+
+/*
+ * Sets id and returns value indicating success.
+ */
+int
+CSGSetOperator::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets operationType and returns value indicating success.
+ */
+int
+CSGSetOperator::setOperationType(SetOperation_t operationType)
+{
+  mOperationType = operationType;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets operationType and returns value indicating success.
+ */
+int
+CSGSetOperator::setOperationType(const std::string& operationType)
+{
+  SetOperation_t parsed = SetOperation_parse(operationType.c_str());
+  if (parsed == SETOPERATION_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  mOperationType = parsed;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+CSGSetOperator::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -179,333 +241,387 @@ CSGSetOperator::unsetOperationType ()
   }
 }
 
+
 /*
- * Adds a copy of the given CSGNode to this CSGSetOperator.
+ * Unsets operationType and returns value indicating success.
  */
 int
-CSGSetOperator::addCSGNodeChild (const CSGNode* n)
+CSGSetOperator::unsetOperationType()
 {
-  if (n == NULL)
+  mOperationType = SETOPERATION_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Returns the  "ListOfCSGNodes" in this CSGSetOperator object.
+ */
+const ListOfCSGNodes*
+CSGSetOperator::getListOfCsgNodes() const
+{
+	return &mCsgNodes;
+}
+
+
+/*
+ * Returns the  "ListOfCSGNodes" in this CSGSetOperator object.
+ */
+ListOfCSGNodes*
+CSGSetOperator::getListOfCsgNodes()
+{
+  return &mCsgNodes;
+}
+
+
+/*
+ * Removes the nth CsgNode from the ListOfCsgNodes.
+ */
+CSGNode*
+CSGSetOperator::removeCsgNode(unsigned int n)
+{
+	return mCsgNodes.remove(n);
+}
+
+
+/*
+ * Removes the a CsgNode with given id from the ListOfCsgNodes.
+ */
+CSGNode*
+CSGSetOperator::removeCsgNode(const std::string& sid)
+{
+	return mCsgNodes.remove(sid);
+}
+
+
+/*
+ * Return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+ */
+CSGNode*
+CSGSetOperator::getCsgNode(unsigned int n)
+{
+	return mCsgNodes.get(n);
+}
+
+
+/*
+ * Return the nth CsgNode in the ListOfCsgNodes within this CSGSetOperator.
+ */
+const CSGNode*
+CSGSetOperator::getCsgNode(unsigned int n) const
+{
+	return mCsgNodes.get(n);
+}
+
+
+/*
+ * Return a CsgNode from the ListOfCsgNodes by id.
+ */
+CSGNode*
+CSGSetOperator::getCsgNode(const std::string& sid)
+{
+	return mCsgNodes.get(sid);
+}
+
+
+/*
+ * Return a CsgNode from the ListOfCsgNodes by id.
+ */
+const CSGNode*
+CSGSetOperator::getCsgNode(const std::string& sid) const
+{
+	return mCsgNodes.get(sid);
+}
+
+
+/*
+ * Adds a copy the given "CSGNode" to this CSGSetOperator.
+ *
+ * @param csgn; the CSGNode object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+CSGSetOperator::addCsgNode(const CSGNode* csgn)
+{
+  if (csgn == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (!(n->hasRequiredAttributes()) || !(n->hasRequiredElements()))
+  else if (csgn->hasRequiredAttributes() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getCSGNodeChild(n->getId()) != NULL)
+  else if (getLevel() != csgn->getLevel())
   {
-    // an object with this id already exists
-    return LIBSBML_DUPLICATE_OBJECT_ID;
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != csgn->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(csgn)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-    mCSGNodeChildren.append(n); 
+	mCsgNodes.append(csgn);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
-/*
- * Creates a new CSGPrimitive for this CSGSetOperator and returns it.  
- */
-CSGPrimitive*
-CSGSetOperator::createCSGPrimitive ()
-{
-  //new CSGPrimitive(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGPrimitive* n = CSGNode::create_CSGPrimitive();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
 
 /*
- * Creates a new CSGPseudoPrimitive for this CSGSetOperator and returns it.  
- */
-CSGPseudoPrimitive*
-CSGSetOperator::createCSGPseudoPrimitive ()
-{
-  //CSGPseudoPrimitive* n = new CSGPseudoPrimitive(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGPseudoPrimitive* n = CSGNode::create_CSGPseudoPrimitive();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * Creates a new CSGSetOperator for this CSGSetOperator and returns it.  
- */
-CSGSetOperator*
-CSGSetOperator::createCSGSetOperator ()
-{
-  //* n = new CSGSetOperator(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGSetOperator* n = CSGNode::create_CSGSetOperator();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * Creates a new CSGTranslation for this CSGSetOperator and returns it.  
- */
-CSGTranslation*
-CSGSetOperator::createCSGTranslation ()
-{
-  //* n = new CSGTranslation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGTranslation* n = CSGNode::create_CSGTranslation();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * Creates a new CSGRotation for this CSGSetOperator and returns it.  
- */
-CSGRotation*
-CSGSetOperator::createCSGRotation ()
-{
-  //* n = new CSGRotation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGRotation* n = CSGNode::create_CSGRotation();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * Creates a new CSGScale for this CSGSetOperator and returns it.  
- */
-CSGScale*
-CSGSetOperator::createCSGScale ()
-{
-  //* n = new CSGScale(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGScale* n = CSGNode::create_CSGScale();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * Creates a new CSGHomogeneousTransformation for this CSGSetOperator and returns it.  
- */
-CSGHomogeneousTransformation*
-CSGSetOperator::createCSGHomogeneousTransformation ()
-{
-  //* n = new CSGHomogeneousTransformation(static_cast<SpatialPkgNamespaces*>(mSBMLNamespaces));
-  CSGHomogeneousTransformation* n = CSGNode::create_CSGHomogeneousTransformation();
-  this->mCSGNodeChildren.appendAndOwn(n);
-  return n;
-}
-
-/*
- * @return the list of CSGNodes for this CSGSetOperator.
- */
-const ListOfCSGNodes*
-CSGSetOperator::getListOfCSGNodeChildren () const
-{
-	return &this->mCSGNodeChildren;
-}
-
-/*
- * @return the list of CSGNodes for this CSGSetOperator.
- */
-ListOfCSGNodes*
-CSGSetOperator::getListOfCSGNodeChildren ()
-{
-	return &this->mCSGNodeChildren;
-}
-
-/*
- * @return the nth CSGNode object of this CSGSetOperator.
- */
-const CSGNode*
-CSGSetOperator::getCSGNodeChild (unsigned int n) const
-{
-  return mCSGNodeChildren.get(n);
-}
-
-
-/*
- * @return the nth CSGNode of this CSGSetOperator.
- */
-CSGNode*
-CSGSetOperator::getCSGNodeChild (unsigned int n)
-{
-  return mCSGNodeChildren.get(n);
-}
-
-/*
- * @return the CSGNode object in this CSGSetOperator with the given id or NULL
- * if no such CSGNode exists.
- */
-const CSGNode*
-CSGSetOperator::getCSGNodeChild (const std::string& sid) const
-{
-  return mCSGNodeChildren.get(sid);
-}
-
-/*
- * @return the CSGNode object in this CSGSetOperator with the given id or NULL
- * if no such CSGNode exists.
- */
-CSGNode*
-CSGSetOperator::getCSGNodeChild (const std::string& sid)
-{
-  return mCSGNodeChildren.get(sid);
-}
-
-/*
- * @return the number of CSGNode in this CSGSetOperator.
+ * Get the number of CSGNode objects in this CSGSetOperator.
+ *
+ * @return the number of CSGNode objects in this CSGSetOperator
  */
 unsigned int
-CSGSetOperator::getNumCSGNodeChildren () const
+CSGSetOperator::getNumCsgNodes() const
 {
-  return this->mCSGNodeChildren.size();
-}
-
-/*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
-  */
-void
-CSGSetOperator::connectToChild()
-{
-  CSGNode::connectToChild();
-	mCSGNodeChildren.connectToParent(this);
-}
-
-/**
- * Removes the nth CSGNode object from this CSGSetOperator object and
- * returns a pointer to it.
- */
-CSGNode* 
-CSGSetOperator::removeCSGNodeChild (unsigned int n)
-{
-  return mCSGNodeChildren.remove(n);
+	return mCsgNodes.size();
 }
 
 
 /**
- * Removes the CSGNode object with the given identifier from this CSGSetOperator
- * object and returns a pointer to it.
+ * Creates a new CSGPrimitive object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGPrimitive object created. 
+ *
+ * @return a new CSGPrimitive object instance
+ *
+ * @see addCSGNode(const CSGNode*)
  */
-CSGNode* 
-CSGSetOperator::removeCSGNodeChild (const std::string& sid)
+CSGPrimitive* 
+CSGSetOperator::createCsgPrimitive()
 {
-  return mCSGNodeChildren.remove(sid);
+  CSGPrimitive* csgp = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgp = new CSGPrimitive(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgp != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgp);
+  }
+
+  return csgp;
 }
 
+
+/**
+ * Creates a new CSGTransformation object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGTransformation object created. 
+ *
+ * @return a new CSGTransformation object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGTransformation* 
+CSGSetOperator::createCsgTrasnformation()
+{
+  CSGTransformation* csgt = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgt = new CSGTransformation(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgt != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgt);
+  }
+
+  return csgt;
+}
+
+
+/**
+ * Creates a new CSGPseudoPrimitive object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGPseudoPrimitive object created. 
+ *
+ * @return a new CSGPseudoPrimitive object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGPseudoPrimitive* 
+CSGSetOperator::createCsgPseudoPrimitive()
+{
+  CSGPseudoPrimitive* csgpp = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgpp = new CSGPseudoPrimitive(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgpp != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgpp);
+  }
+
+  return csgpp;
+}
+
+
+/**
+ * Creates a new CSGSetOperator object, adds it to this CSGSetOperators
+ * ListOfCSGNodes and returns the CSGSetOperator object created. 
+ *
+ * @return a new CSGSetOperator object instance
+ *
+ * @see addCSGNode(const CSGNode*)
+ */
+CSGSetOperator* 
+CSGSetOperator::createCsgSetOperator()
+{
+  CSGSetOperator* csgso = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    csgso = new CSGSetOperator(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(csgso != NULL)
+  {
+    mCsgNodes.appendAndOwn(csgso);
+  }
+
+  return csgso;
+}
+
+
+List*
+CSGSetOperator::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
- 
+ * Returns the XML element name of this object
+ */
 const std::string&
 CSGSetOperator::getElementName () const
 {
-  static const std::string name = "csgOperator";
-  return name;
+	static const string name = "cSGSetOperator";
+	return name;
 }
-*/
+
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Returns the libSBML type code for this SBML object.
  */
-SBase*
-CSGSetOperator::createObject (XMLInputStream& stream)
+int
+CSGSetOperator::getTypeCode () const
 {
-  // return 0;
-  
-  const string& name   = stream.peek().getName();
-  SBase*        object = 0;
-
-  if (name == "listOfCSGNodes")
-  {
-    if (mCSGNodeChildren.size() != 0)
-    {
-      logError(NotSchemaConformant);
-    }
-    object = &mCSGNodeChildren;
-  }
-  
-  return object;
-
+  return SBML_SPATIAL_CSGSETOPERATOR;
 }
 
+
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * check if all the required attributes are set
  */
-void
-CSGSetOperator::addExpectedAttributes(ExpectedAttributes& attributes)
+bool
+CSGSetOperator::hasRequiredAttributes () const
 {
-  CSGNode::addExpectedAttributes(attributes);
-  
-  attributes.add("operationType");
+	bool allPresent = CSGNode::hasRequiredAttributes();
+
+  if (isSetId() == false)
+    allPresent = false;
+
+  if (isSetOperationType() == false)
+    allPresent = false;
+
+  return allPresent;
 }
 
+
 /*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * check if all the required elements are set
  */
-void
-CSGSetOperator::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
+bool
+CSGSetOperator::hasRequiredElements () const
 {
-  CSGNode::readAttributes(attributes,expectedAttributes);
+	bool allPresent = CSGNode::hasRequiredElements();
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("operationType", mOperationType, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mOperationType.empty())
-  {
-    logEmptyString(mOperationType, sbmlLevel, sbmlVersion, "<CSGSetOperator>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mOperationType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute operationType='" + mOperationType + "' does not conform.");
-
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CSGSetOperator::writeAttributes (XMLOutputStream& stream) const
-{
-  CSGNode::writeAttributes(stream);
-
-  stream.writeAttribute("operationType",   getPrefix(), mOperationType);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
+  return allPresent;
 }
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 CSGSetOperator::writeElements (XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
+	CSGNode::writeElements(stream);
+	if (getNumCsgNodes() > 0)
+  {
+    mCsgNodes.write(stream);
+  }
 
-  if ( getNumCSGNodeChildren() > 0 ) mCSGNodeChildren.write(stream);
-  //
-  // (EXTENSION)
-  //
   SBase::writeExtensionElements(stream);
 }
 
 
-CSGSetOperator*
-CSGSetOperator::clone() const
-{
-    return new CSGSetOperator(*this);
-}
+  /** @endcond doxygenLibsbmlInternal */
 
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -513,37 +629,430 @@ CSGSetOperator::clone() const
 bool
 CSGSetOperator::accept (SBMLVisitor& v) const
 {
-  // return false;
-  return v.visit(*this);
-  
+  v.visit(*this);
+
+/* VISIT CHILDREN */
+
+  v.leave(*this);
+
+  return true;
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGSetOperator::setSBMLDocument (SBMLDocument* d)
 {
-  CSGNode::setSBMLDocument(d);
-  
-  mCSGNodeChildren.setSBMLDocument(d);
-
+	CSGNode::setSBMLDocument(d);
+	mCsgNodes.setSBMLDocument(d);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+   * Connects to child elements.
+ */
+void
+CSGSetOperator::connectToChild()
+{
+	CSGNode::connectToChild();
+
+	mCsgNodes.connectToParent(this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
  */
 void
 CSGSetOperator::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  CSGNode::enablePackageInternal(pkgURI,pkgPrefix,flag);
-
-  mCSGNodeChildren.enablePackageInternal(pkgURI,pkgPrefix,flag);
+  CSGNode::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  mCsgNodes.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
- 
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+CSGSetOperator::createObject(XMLInputStream& stream)
+{
+	SBase* object = CSGNode::createObject(stream);
+
+  const string& name = stream.peek().getName();
+
+  if (name == "listOfCsgNodes")
+  {
+    object = &mCsgNodes;
+  }
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGSetOperator::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	CSGNode::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("operationType");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGSetOperator::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	CSGNode::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<CSGSetOperator>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // operationType enum  ( use = "required" )
+  //
+  mOperationType = SETOPERATION_UNKNOWN;
+  {
+    std::string stringValue;
+    assigned = attributes.readInto("operationType", stringValue);
+
+    if (assigned == true)
+    {
+      // parse enum
+
+      mOperationType = SetOperation_parse(stringValue.c_str());
+    }
+  }
+  if(mOperationType == SETOPERATION_UNKNOWN)
+  {
+    std::string message = "Spatial attribute 'operationType' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+CSGSetOperator::writeAttributes (XMLOutputStream& stream) const
+{
+	CSGNode::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetOperationType() == true)
+		stream.writeAttribute("operationType", getPrefix(), SetOperation_toString(mOperationType));
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGSetOperator_t *
+CSGSetOperator_create(unsigned int level, unsigned int version,
+                      unsigned int pkgVersion)
+{
+  return new CSGSetOperator(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGSetOperator_free(CSGSetOperator_t * csgso)
+{
+  if (csgso != NULL)
+    delete csgso;
+}
+
+
+LIBSBML_EXTERN
+CSGSetOperator_t *
+CSGSetOperator_clone(CSGSetOperator_t * csgso)
+{
+  if (csgso != NULL)
+  {
+    return static_cast<CSGSetOperator_t*>(csgso->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGSetOperator_getId(const CSGSetOperator_t * csgso)
+{
+	return (csgso != NULL && csgso->isSetId()) ? csgso->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+SetOperation_t
+CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso)
+{
+	return (csgso != NULL) ? csgso->getOperationType() : SETOPERATION_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetId(const CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? static_cast<int>(csgso->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? static_cast<int>(csgso->isSetOperationType()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_setId(CSGSetOperator_t * csgso, const char * id)
+{
+  if (csgso != NULL)
+    return (id == NULL) ? csgso->setId("") : csgso->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operationType)
+{
+  if (csgso != NULL)
+    return (operationType == NULL) ? csgso->unsetOperationType() : csgso->setOperationType(operationType);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetId(CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? csgso->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? csgso->unsetOperationType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_addCsgNode(CSGSetOperator_t * csgso, CSGNode_t * csgn)
+{
+	return  (csgso != NULL) ? csgso->addCsgNode(csgn) : LIBSBML_INVALID_OBJECT;
+}
+
+LIBSBML_EXTERN
+CSGPrimitive_t *
+CSGSetOperator_createCsgPrimitive(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgPrimitive() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGTransformation_t *
+CSGSetOperator_createCsgTrasnformation(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgTrasnformation() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t *
+CSGSetOperator_createCsgPseudoPrimitive(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgPseudoPrimitive() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGSetOperator_t *
+CSGSetOperator_createCsgSetOperator(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->createCsgSetOperator() : NULL;
+}
+
+LIBSBML_EXTERN
+ListOf_t *
+CSGSetOperator_getListOfCSGNodes(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? (ListOf_t *)csgso->getListOfCsgNodes() : NULL;
+}
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGSetOperator_getCsgNode(CSGSetOperator_t * csgso, unsigned int n)
+{
+	return  (csgso != NULL) ? csgso->getCsgNode(n) : NULL;
+}
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGSetOperator_getCsgNodeById(CSGSetOperator_t * csgso, const char * sid)
+{
+	return  (csgso != NULL) ? csgso->getCsgNode(sid) : NULL;
+}
+
+LIBSBML_EXTERN
+unsigned int
+CSGSetOperator_getNumCsgNodes(CSGSetOperator_t * csgso)
+{
+	return  (csgso != NULL) ? csgso->getNumCsgNodes() : SBML_INT_MAX;
+}
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGSetOperator_removeCsgNode(CSGSetOperator_t * csgso, unsigned int n)
+{
+	return  (csgso != NULL) ? csgso->removeCsgNode(n) : NULL;
+}
+
+LIBSBML_EXTERN
+CSGNode_t *
+CSGSetOperator_removeCsgNodeById(CSGSetOperator_t * csgso, const char * sid)
+{
+	return  (csgso != NULL) ? csgso->removeCsgNode(sid) : NULL;
+}
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_hasRequiredAttributes(const CSGSetOperator_t * csgso)
+{
+  return (csgso != NULL) ? static_cast<int>(csgso->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGSetOperator_hasRequiredElements(const CSGSetOperator_t * csgso)
+{
+	return (csgso != NULL) ? static_cast<int>(csgso->hasRequiredElements()) : 0;
+}
+
+
+
 
 LIBSBML_CPP_NAMESPACE_END
+
 

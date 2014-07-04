@@ -45,6 +45,7 @@ protected:
   std::string mDataType;
   int* mSamples;
   unsigned int mSamplesLength;
+  bool          mIsSetSamplesLength;
   int* mUncompressedSamples;
   int mUncompressedLength;
   
@@ -82,6 +83,12 @@ public:
    */
    ImageData& operator=(const ImageData& source);
 
+   /**
+   * Creates and returns a deep copy of this ImageData object.
+   *
+   * @return a (deep) copy of this ImageData object.
+   */
+  virtual ImageData* clone () const;
 
   /**
    * Destructor.
@@ -157,6 +164,16 @@ public:
   virtual bool isSetSamples () const;
   
   /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ImageData's "samplesLength" attribute has been set.
+   *
+   * @return @c true if this ImageData's "samplesLength" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetSamplesLength() const;
+
+  
+  /**
    * Sets the SIdRef string of the "dataType" attribute of this ImageData.
    *
    * @param dataType a SIdRef string to be set.
@@ -185,6 +202,22 @@ public:
    */
   virtual int setSamples (int* samples, int samplesLength);
 
+
+  /**
+   * Sets the value of the "samplesLength" attribute of this ImageData.
+   *
+   * @param samplesLength; int value of the "samplesLength" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setSamplesLength(int samplesLength);
+
+  
  /**
    * Unsets the value of the "dataType" attribute of this ImageData.
    *
@@ -208,6 +241,19 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   virtual int unsetSamples ();
+  
+
+  /**
+   * Unsets the value of the "samplesLength" attribute of this ImageData.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetSamplesLength();
 
   /**
    * Creates a copy of this imageData and all its children.
@@ -226,13 +272,6 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
-
-  /**
-   * Creates and returns a deep copy of this SBase object.
-   * 
-   * @return a (deep) copy of this SBase object.
-   */
-  virtual SBase* clone () const;
 
   /**
    * Subclasses should override this method to return XML element name of
@@ -291,9 +330,60 @@ public:
    */
   void getUncompressedData(int* &data, int& length);
 
-  protected:
 
-    static void uncompress_data(void *data, size_t length, int*& result, int& outLength);
+  /** @cond doxygenLibsbmlInternal */
+  /*
+  * Writes (serializes) this SBML object by writing it to XMLOutputStream.
+  */
+  void write(XMLOutputStream& stream) const;
+  /** @endcond */
+
+
+protected:
+
+  static void uncompress_data(void *data, size_t length, int*& result, int& outLength);
+
+   /**
+    * When overridden allows SBase elements to use the text included in between
+    * the elements tags. The default implementation does nothing.
+    *
+    * @param text the text string found between the element tags.
+    */
+   virtual void setElementText(const std::string &text);
+  
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
   

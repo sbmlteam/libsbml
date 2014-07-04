@@ -1,32 +1,47 @@
 /**
- * @file    SpatialExtension.h
- * @brief   Definition of SpatialExtension, the core module of spatial package. 
- * @author  
+ * @file:   SpatialExtension.h
+ * @brief:  Implementation of the SpatialExtension class
+ * @author: SBMLTeam
  *
- * $Id: SpatialExtension.h 10667 2010-01-16 10:20:44Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/groups/extension/SpatialExtension.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#ifndef SpatialExtension_h
-#define SpatialExtension_h
+
+#ifndef SpatialExtension_H__
+#define SpatialExtension_H__
+
 
 #include <sbml/common/extern.h>
 #include <sbml/SBMLTypeCodes.h>
 
+
 #ifdef __cplusplus
+
 
 #include <sbml/extension/SBMLExtension.h>
 #include <sbml/extension/SBMLExtensionNamespaces.h>
@@ -34,13 +49,16 @@
 
 
 #ifndef SPATIAL_CREATE_NS
-#define SPATIAL_CREATE_NS(variable,sbmlns)\
-  EXTENSION_CREATE_NS(SpatialPkgNamespaces,variable,sbmlns);
+  #define SPATIAL_CREATE_NS(variable, sbmlns)\
+    EXTENSION_CREATE_NS(SpatialPkgNamespaces, variable, sbmlns);
 #endif
+
 
 #include <vector>
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 class LIBSBML_EXTERN SpatialExtension : public SBMLExtension
 {
@@ -48,80 +66,86 @@ public:
 
   //---------------------------------------------------------------
   //
-  // Required class variables
+  // Required class methods
   //
   //---------------------------------------------------------------
-
-//---------------------------------------------------------------
 
   /**
    * Returns the package name of this extension.
    */
   static const std::string& getPackageName ();
 
+
   /**
    * Returns the default SBML Level this extension.
    */
   static unsigned int getDefaultLevel();
+
 
   /**
    * Returns the default SBML Version this extension.
    */
   static unsigned int getDefaultVersion();
 
+
   /**
    * Returns the default SBML version this extension.
    */
   static unsigned int getDefaultPackageVersion();
+
 
   /**
    * Returns URI of supported versions of this package.
    */
   static const std::string&  getXmlnsL3V1V1();
 
+
   //
   // Other URI needed in this package (if any)
   //
-
   //---------------------------------------------------------------
 
 
   /**
-   * Constructor
-   */
-  SpatialExtension ();
+   * Creates a new SpatialExtension   */
+  SpatialExtension();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor for SpatialExtension.
+   *
+   * @param orig; the SpatialExtension instance to copy.
    */
-  SpatialExtension(const SpatialExtension&);
+  SpatialExtension(const SpatialExtension& orig);
 
 
-  /**
-   * Destroy this object.
-   */
-  virtual ~SpatialExtension ();
-
-
-  /**
+   /**
    * Assignment operator for SpatialExtension.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-  SpatialExtension& operator=(const SpatialExtension&);
+  SpatialExtension& operator=(const SpatialExtension& rhs);
 
 
-  /**
+   /**
    * Creates and returns a deep copy of this SpatialExtension object.
-   * 
-   * @return a (deep) copy of this SBase object
+   *
+   * @return a (deep) copy of this SpatialExtension object.
    */
   virtual SpatialExtension* clone () const;
 
 
-  /**
+   /**
+   * Destructor for SpatialExtension.
+   */
+  virtual ~SpatialExtension();
+
+
+   /**
    * Returns the name of this package ("spatial")
    *
-   * @pram the name of this package ("spatial")
+   * @return a string representing the name of this package ("spatial")
    */
   virtual const std::string& getName() const;
 
@@ -137,7 +161,8 @@ public:
    *
    * @return a string of the package URI
    */
-  virtual const std::string& getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, 
+  virtual const std::string& getURI(unsigned int sbmlLevel,
+                                    unsigned int sbmlVersion,
                                     unsigned int pkgVersion) const;
 
 
@@ -160,6 +185,7 @@ public:
    *
    * @return the SBML version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
+   *
    */
   virtual unsigned int getVersion(const std::string &uri) const;
 
@@ -171,6 +197,7 @@ public:
    *
    * @return the package version with the given URI of this package. 0 will be returned
    * if the given URI is invalid.
+   *
    */
   virtual unsigned int getPackageVersion(const std::string &uri) const;
 
@@ -189,13 +216,14 @@ public:
 
 
   /**
-   * This method takes a type code of spatial package and returns a string representing 
+   * This method takes a type code from the Spatial package and returns a string representing 
    * the code.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Initializes spatial extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -207,76 +235,234 @@ public:
    *        static SBMLExtensionRegister<SpatialExtension> spatialExtensionRegistry;
    *
    */
-
   static void init();
 
+
   /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Return the entry in the error table at this index. 
+   *
+   * @param index an unsigned intgere representing the index of the error in the SpatialSBMLErrorTable
+   *
+   * @return packageErrorTableEntry object in the SpatialSBMLErrorTable corresponding to the index given.
+   */
+  virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Return the index in the error table with the given errorId. 
+   *
+   * @param errorId an unsigned intgere representing the errorId of the error in the SpatialSBMLErrorTable
+   *
+   * @return unsigned integer representing the index in the SpatialSBMLErrorTable corresponding to the errorId given.
+   */
+  virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Return the offset for the errorId range for the spatial L3 package. 
+   *
+   * @return unsigned intege representing the  offset for errors SpatialSBMLErrorTable.
+   */
+  virtual unsigned int getErrorIdOffset() const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
 
 };
 
 
 // --------------------------------------------------------------------
 //
-// Required typedef definitions 
+// Required typedef definitions
 //
 // SpatialPkgNamespaces is derived from the SBMLNamespaces class and
 // used when creating an object of SBase derived classes defined in
 // spatial package.
 //
 // --------------------------------------------------------------------
-
 //
-// (NOTE) 
+// (NOTE)
 //
 // SBMLExtensionNamespaces<SpatialExtension> must be instantiated
 // in SpatialExtension.cpp for DLL.
 //
-typedef SBMLExtensionNamespaces<SpatialExtension> SpatialPkgNamespaces; 
+typedef SBMLExtensionNamespaces<SpatialExtension> SpatialPkgNamespaces;
 
 typedef enum
 {
-    SBML_SPATIAL_DOMAINTYPE				      = 300
-  , SBML_SPATIAL_DOMAIN					      = 301
-  , SBML_SPATIAL_INTERIORPOINT			      = 302
-  , SBML_SPATIAL_COORDINATECOMPONENT	      = 303
-  , SBML_SPATIAL_BOUNDARY				      = 304
-  , SBML_SPATIAL_BOUNDARYMIN			      = 305
-  , SBML_SPATIAL_BOUNDARYMAX			      = 306
-  , SBML_SPATIAL_COMPARTMENTMAPPING		      = 307
-  , SBML_SPATIAL_ADJACENTDOMAINS		      = 308
-  , SBML_SPATIAL_GEOMETRYDEFINITION		      = 309
-  , SBML_SPATIAL_SAMPLEDFIELDGEOMETRY	      = 310
-  , SBML_SPATIAL_SAMPLEDFIELD			      = 311
-  , SBML_SPATIAL_IMAGEDATA				      = 312
-  , SBML_SPATIAL_SAMPLEDVOLUME			      = 313
-  , SBML_SPATIAL_ANALYTICGEOMETRY		      = 314
-  , SBML_SPATIAL_ANALYTICVOLUME			      = 315
-  , SBML_SPATIAL_PARAMETRICGEOMETRY	          = 316
-  , SBML_SPATIAL_PARAMETRICOBJECT   	      = 317
-  , SBML_SPATIAL_POLYGONOBJECT			      = 318
-  , SBML_SPATIAL_SPATIALPOINT			      = 319
-  , SBML_SPATIAL_CSGGEOMETRY			      = 320
-  , SBML_SPATIAL_CSGOBJECT				      = 321
-  , SBML_SPATIAL_CSGNODE				      = 322
-  , SBML_SPATIAL_CSGTRANSFORMATION		      = 323
-  , SBML_SPATIAL_CSGTRANSLATION 		      = 324
-  , SBML_SPATIAL_CSGROTATION			      = 325
-  , SBML_SPATIAL_CSGSCALE					  = 326
-  , SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION = 327
-  , SBML_SPATIAL_TRANSFORMATIONCOMPONENTS     = 328
-  , SBML_SPATIAL_CSGPRIMITIVE			      = 329
-  , SBML_SPATIAL_CSGPSEUDOPRIMITIVE		      = 330
-  , SBML_SPATIAL_CSGSETOPERATOR			      = 331
-  , SBML_SPATIAL_SPATIALSYMBOLREFERENCE	      = 332
-  , SBML_SPATIAL_DIFFUSIONCOEFFICIENT	      = 333
-  , SBML_SPATIAL_ADVECTIONCOEFFICIENT	      = 334
-  , SBML_SPATIAL_BOUNDARYCONDITION		      = 335
-  , SBML_SPATIAL_GEOMETRY				      = 336
-
+    SBML_SPATIAL_DOMAINTYPE  = 300
+  , SBML_SPATIAL_DOMAIN            = 301
+  , SBML_SPATIAL_INTERIORPOINT     = 302
+  , SBML_SPATIAL_BOUNDARY          = 303
+  , SBML_SPATIAL_ADJACENTDOMAINS   = 304
+  , SBML_SPATIAL_GEOMETRYDEFINITION = 305
+  , SBML_SPATIAL_COMPARTMENTMAPPING = 306
+  , SBML_SPATIAL_COORDINATECOMPONENT = 307
+  , SBML_SPATIAL_SAMPLEDFIELDGEOMETRY = 308
+  , SBML_SPATIAL_SAMPLEDFIELD      = 309
+  , SBML_SPATIAL_IMAGEDATA         = 310
+  , SBML_SPATIAL_SAMPLEDVOLUME     = 311
+  , SBML_SPATIAL_ANALYTICGEOMETRY  = 312
+  , SBML_SPATIAL_ANALYTICVOLUME    = 313
+  , SBML_SPATIAL_PARAMETRICGEOMETRY = 314
+  , SBML_SPATIAL_PARAMETRICOBJECT  = 315
+  , SBML_SPATIAL_POLYGONOBJECT     = 316
+  , SBML_SPATIAL_SPATIALPOINT      = 317
+  , SBML_SPATIAL_CSGEOMETRY        = 318
+  , SBML_SPATIAL_CSGOBJECT         = 319
+  , SBML_SPATIAL_CSGNODE           = 320
+  , SBML_SPATIAL_CSGTRANSFORMATION = 321
+  , SBML_SPATIAL_CSGTRANSLATION    = 322
+  , SBML_SPATIAL_CSGROTATION       = 323
+  , SBML_SPATIAL_CSGSCALE          = 324
+  , SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION = 325
+  , SBML_SPATIAL_TRANSFORMATIONCOMPONENTS = 326
+  , SBML_SPATIAL_CSGPRIMITIVE      = 327
+  , SBML_SPATIAL_CSGPSEUDOPRIMITIVE = 328
+  , SBML_SPATIAL_CSGSETOPERATOR    = 329
+  , SBML_SPATIAL_SPATIALSYMBOLREFERENCE = 330
+  , SBML_SPATIAL_DIFFUSIONCOEFFICIENT = 331
+  , SBML_SPATIAL_ADVECTIONCOEFFICIENT = 332
+  , SBML_SPATIAL_BOUNDARYCONDITION = 333
+  , SBML_SPATIAL_GEOMETRY          = 334
+  , SBML_SPATIAL_COORDINATEREFERENCE = 335
 } SBMLSpatialTypeCode_t;
+
+
+typedef enum
+{
+    BOUNDARYCONDITIONKIND_UNKNOWN  /*!< Unknown BoundaryConditionKind */
+  , SPATIAL_BOUNDARYKIND_ROBIN_VALUE_COEFFICIENT /*!< Robin_valueCoefficient */
+  , SPATIAL_BOUNDARYKIND_ROBIN_INWARD_NORMAL_GRADIENT_COEFFICIENT /*!< Robin_inwardNormalGradientCoefficient */
+  , SPATIAL_BOUNDARYKIND_ROBIN_SUM /*!< Robin_sum */
+  , SPATIAL_BOUNDARYKIND_NEUMANN /*!< Neumann */
+  , SPATIAL_BOUNDARYKIND_DIRICHLET /*!< Dirichlet */
+} BoundaryConditionKind_t;
+
+
+LIBSBML_EXTERN
+const char *
+BoundaryConditionKind_toString(BoundaryConditionKind_t code);
+
+
+LIBSBML_EXTERN
+BoundaryConditionKind_t
+BoundaryConditionKind_parse(const char* code);
+
+
+typedef enum
+{
+    COORDINATEKIND_UNKNOWN  /*!< Unknown CoordinateKind */
+  , SPATIAL_COORDINATEKIND_CARTESIAN_X /*!< cartesianX */
+  , SPATIAL_COORDINATEKIND_CARTESIAN_Y /*!< cartesianY */
+  , SPATIAL_COORDINATEKIND_CARTESIAN_Z /*!< cartesianZ */
+} CoordinateKind_t;
+
+
+LIBSBML_EXTERN
+const char *
+CoordinateKind_toString(CoordinateKind_t code);
+
+
+LIBSBML_EXTERN
+CoordinateKind_t
+CoordinateKind_parse(const char* code);
+
+
+typedef enum
+{
+    DIFFUSIONKIND_UNKNOWN  /*!< Unknown DiffusionKind */
+  , SPATIAL_DIFFUSIONKIND_ISOTROPIC /*!< isotropic */
+  , SPATIAL_DIFFUSIONKIND_ANISOTROPIC /*!< anisotropic */
+  , SPATIAL_DIFFUSIONKIND_TENSOR /*!< tensor */
+} DiffusionKind_t;
+
+
+LIBSBML_EXTERN
+const char *
+DiffusionKind_toString(DiffusionKind_t code);
+
+
+LIBSBML_EXTERN
+DiffusionKind_t
+DiffusionKind_parse(const char* code);
+
+
+typedef enum
+{
+    FUNCTIONKIND_UNKNOWN  /*!< Unknown FunctionKind */
+  , SPATIAL_FUNCTIONKIND_LAYERED /*!< layered */
+} FunctionKind_t;
+
+
+LIBSBML_EXTERN
+const char *
+FunctionKind_toString(FunctionKind_t code);
+
+
+LIBSBML_EXTERN
+FunctionKind_t
+FunctionKind_parse(const char* code);
+
+
+typedef enum
+{
+    GEOMETRYKIND_UNKNOWN  /*!< Unknown GeometryKind */
+  , SPATIAL_GEOMETRYKIND_CARTESIAN /*!< cartesian */
+} GeometryKind_t;
+
+
+LIBSBML_EXTERN
+const char *
+GeometryKind_toString(GeometryKind_t code);
+
+
+LIBSBML_EXTERN
+GeometryKind_t
+GeometryKind_parse(const char* code);
+
+
+typedef enum
+{
+    SETOPERATION_UNKNOWN  /*!< Unknown SetOperation */
+  , SPATIAL_SETOPERATION_UNION /*!< union */
+  , SPATIAL_SETOPERATION_INTERSECTION /*!< intersection */
+  , SPATIAL_SETOPERATION_DIFFERENCE /*!< difference */
+} SetOperation_t;
+
+
+LIBSBML_EXTERN
+const char *
+SetOperation_toString(SetOperation_t code);
+
+
+LIBSBML_EXTERN
+SetOperation_t
+SetOperation_parse(const char* code);
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
-#endif  /* SpatialExtension_h */
+
+#endif /* __cplusplus */
+#endif /* SpatialExtension_H__ */
+
+

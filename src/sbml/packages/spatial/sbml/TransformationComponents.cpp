@@ -44,6 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new TransformationComponents with the given level, version, and package version.
  */
 TransformationComponents::TransformationComponents (unsigned int level, unsigned int version, unsigned int pkgVersion) 
+  :SBase(level, version)
 {
   // initilaize components array
   mComponentsLength = 1;
@@ -70,6 +71,7 @@ TransformationComponents::TransformationComponents (unsigned int level, unsigned
  * Creates a new TransformationComponents with the given SpatialPkgNamespaces object.
  */
 TransformationComponents::TransformationComponents(SpatialPkgNamespaces* spatialns)
+  :SBase(spatialns)
 {
   //
   // set the element namespace of this object
@@ -95,6 +97,7 @@ TransformationComponents::TransformationComponents(SpatialPkgNamespaces* spatial
  * Copy constructor.
  */
 TransformationComponents::TransformationComponents(const TransformationComponents& source)
+  :SBase(source)
 {
   this->mComponentsLength=source.mComponentsLength;
   this->mComponents=source.mComponents;
@@ -235,6 +238,28 @@ TransformationComponents::getTypeCode () const
 {
 	return SBML_SPATIAL_TRANSFORMATIONCOMPONENTS;
 }
+
+
+TransformationComponents* TransformationComponents::clone() const
+{
+  return new TransformationComponents(*this);
+}
+
+
+/**
+* Accepts the given SBMLVisitor for this SBase object.
+*
+* @param v the SBMLVisitor instance to be used
+*
+* @return the result of calling <code>v.visit()</code>.
+*/
+
+bool
+TransformationComponents::accept(SBMLVisitor& v) const
+{
+  return false;
+}
+
 
 /**
  * Reads the transformationComponents 'components' from the given XMLInputStream, 

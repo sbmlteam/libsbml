@@ -1,119 +1,188 @@
-/*
- * @file    CSGTransformation.h
- * @brief   Definition of CSGTransformation, of spatial package.
- * @author  
+/**
+ * @file:   CSGTransformation.h
+ * @brief:  Implementation of the CSGTransformation class
+ * @author: SBMLTeam
  *
- * $Id: CSGTransformation.h  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGTransformation.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef CSGTransformation_H__
 #define CSGTransformation_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
 
-BEGIN_C_DECLS
-
-typedef enum
-{
-    CSGTRANSFORMATION_TYPE_CSGTRANSLATION
-  , CSGTRANSFORMATION_TYPE_CSGROTATION
-  , CSGTRANSFORMATION_TYPE_CSGSCALE
-  , CSGTRANSFORMATION_TYPE_CSGHOMOGENEOUSTRANSFORMATION
-  , CSGTRANSFORMATION_TYPE_INVALID
-} CSGTransformationType_t;
-
-END_C_DECLS
-
-
 #ifdef __cplusplus
+
 
 #include <string>
 
+
 #include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 
-
-LIBSBML_CPP_NAMESPACE_BEGIN
-
-class CSGPrimitive;
-class CSGPseudoPrimitive;
-class CSGSetOperator;
 class CSGTranslation;
 class CSGRotation;
 class CSGScale;
 class CSGHomogeneousTransformation;
 
+#include <sbml/packages/spatial/sbml/CSGNode.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 class LIBSBML_EXTERN CSGTransformation : public CSGNode
 {
+
 protected:
 
-  CSGNode*	mChild;
-  SBMLSpatialTypeCode_t mType;
-  
+  std::string   mId;
+  CSGNode*      mCsgNode;
+
+
 public:
 
-  //
-  //  Only subclasses may create CSGTransformation.
-  // 
-   CSGTransformation(SBMLSpatialTypeCode_t	type
-		  , unsigned int level      = SpatialExtension::getDefaultLevel()
-          , unsigned int version    = SpatialExtension::getDefaultVersion());
-
-
-   CSGTransformation( SBMLSpatialTypeCode_t	type
-					, SpatialPkgNamespaces* spatialns);
-
   /**
-   * Assignment operator.
-   */
-   CSGTransformation& operator=(const CSGTransformation& source);
-
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~CSGTransformation ();
-
- /**
-   * Returns the "child" attribute of this CSGTransformation.
+   * Creates a new CSGTransformation with the given level, version, and package version.
    *
-   * @return the "child" attribute of this CSGTransformation.
+   * @param level an unsigned int, the SBML Level to assign to this CSGTransformation
+   *
+   * @param version an unsigned int, the SBML Version to assign to this CSGTransformation
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGTransformation
    */
-  virtual const CSGNode* getChild() const;
+  CSGTransformation(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                    unsigned int version    = SpatialExtension::getDefaultVersion(),
+                    unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new CSGTransformation with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  CSGTransformation(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for CSGTransformation.
+   *
+   * @param orig; the CSGTransformation instance to copy.
+   */
+  CSGTransformation(const CSGTransformation& orig);
+
+
+   /**
+   * Assignment operator for CSGTransformation.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  CSGTransformation& operator=(const CSGTransformation& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this CSGTransformation object.
+   *
+   * @return a (deep) copy of this CSGTransformation object.
+   */
+  virtual CSGTransformation* clone () const;
+
+
+   /**
+   * Destructor for CSGTransformation.
+   */
+  virtual ~CSGTransformation();
+
+
+   /**
+   * Returns the value of the "id" attribute of this CSGTransformation.
+   *
+   * @return the value of the "id" attribute of this CSGTransformation as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+	/**
+	 * Returns the "csgNode" element of this CSGTransformation.
+	 *
+	 * @return the "csgNode" element of this CSGTransformation.
+	 */
+	virtual const CSGNode* getCsgNode() const;
+
+
+	/**
+	/**
+	 * Returns the "csgNode" element of this CSGTransformation.
+	 *
+	 * @return the "csgNode" element of this CSGTransformation.
+	 */
+	virtual CSGNode* getCsgNode();
+
+
+	/**
+	 * Creates a new "CSGNode" and sets it for this CSGTransformation.
+	 *
+	 * @return the created "CSGNode" element of this CSGTransformation.
+	 */
+	virtual CSGNode* createCsgNode();
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation's "child" attribute has been set.
+   * CSGTransformation's "id" attribute has been set.
    *
-   * @return @c true if this CSGTransformation's "child" attribute has been set, 
+   * @return @c true if this CSGTransformation's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetChild () const;
-  
+  virtual bool isSetId() const;
+
+
   /**
-   * Sets the SIdRef string of the "child" attribute of this CSGTransformation.
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGTransformation's "csgNode" element has been set.
    *
-   * @param child 
+   * @return @c true if this CSGTransformation's "csgNode" element has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetCsgNode() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this CSGTransformation.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -122,12 +191,26 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setChild (const CSGNode* csgNodeChild);
+  virtual int setId(const std::string& id);
 
- /**
-   * Unsets the "child" subelement of this CSGTransformation.
+
+  /**
+   * Sets the "csgNode" element of this CSGTransformation.
    *
-   * @htmlinclude comment-set-methods.html
+   * @param csgNode; CSGNode* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCsgNode(CSGNode* csgNode);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this CSGTransformation.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -136,339 +219,453 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  int unsetChild ();
+  virtual int unsetId();
+
 
   /**
-   * Creates a new CSGPrimitive object inside this CSGTransformation and returns it.
+   * Unsets the "csgNode" element of this CSGTransformation.
    *
-   * @return the CSGPrimitive object created
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  CSGPrimitive* createCSGPrimitive ();
+  virtual int unsetCsgNode();
+
 
   /**
-   * Creates a new CSGPseudoPrimitive object inside this CSGTransformation and returns it.
+   * Returns @c true, if this abstract "CSGTransformation" is of type CSGTranslation.
    *
-   * @return the CSGPseudoPrimitive object created
+   * @return @c true, if this abstract "CSGTransformation" is of type CSGTranslation.
+   *
    */
-  CSGPseudoPrimitive* createCSGPseudoPrimitive ();
+  virtual bool isCSGTranslation() const;
+
 
   /**
-   * Creates a new CSGSetOperator object inside this CSGTransformation and returns it.
+   * Returns @c true, if this abstract "CSGTransformation" is of type CSGRotation.
    *
-   * @return the CSGSetOperator object created
+   * @return @c true, if this abstract "CSGTransformation" is of type CSGRotation.
+   *
    */
-  CSGSetOperator* createCSGSetOperator ();
+  virtual bool isCSGRotation() const;
+
 
   /**
-   * Creates a new CSGTranslation object inside this CSGTransformation and returns it.
+   * Returns @c true, if this abstract "CSGTransformation" is of type CSGScale.
    *
-   * @return the CSGTranslation object created
+   * @return @c true, if this abstract "CSGTransformation" is of type CSGScale.
+   *
    */
-  CSGTranslation* createCSGTranslation ();
+  virtual bool isCSGScale() const;
+
 
   /**
-   * Creates a new CSGRotation object inside this CSGTransformation and returns it.
+   * Returns @c true, if this abstract "CSGTransformation" is of type CSGHomogeneousTransformation.
    *
-   * @return the CSGRotation object created
+   * @return @c true, if this abstract "CSGTransformation" is of type CSGHomogeneousTransformation.
+   *
    */
-  CSGRotation* createCSGRotation ();
+  virtual bool isCSGHomogeneousTransformation() const;
+
 
   /**
-   * Creates a new CSGScale object inside this CSGTransformation and returns it.
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
    *
-   * @return the CSGScale object created
+   * @return a List* of pointers to all child objects.
    */
-  CSGScale* createCSGScale ();
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
 
   /**
-   * Creates a new CSGHomogeneousTransformation object inside this CSGTransformation and returns it.
+   * Returns the XML element name of this object, which for CSGTransformation, is
+   * always @c "cSGTransformation".
    *
-   * @return the CSGHomogeneousTransformation object created
+   * @return the name of this element, i.e. @c "cSGTransformation".
    */
-  CSGHomogeneousTransformation* createCSGHomogeneousTransformation ();
+  virtual const std::string& getElementName () const;
 
- /**
-   * (SBML Level&nbsp;1) Get the type of CSGTransformation this is.
+
+  /**
+   * Returns the libSBML type code for this SBML object.
    * 
-   * @return the CSGtransformation type (a value drawn from the enumeration <a
-   * class="el" href="#CSGTransformation_t">CSGTransformation_t</a>) of this CSGtTransformation.
-   * The value will be either @c CSGTRANSFORMATION_TYPE_CSGTRANSLATION
-   * , CSGTRANSFORMATION_TYPE_CSGROTATION
-   * , CSGTRANSFORMATION_TYPE_CSGSCALE
-   * , CSGTRANSFORMATION_TYPE_CSGHOMOGENEOUSTRANSFORMATION
-   * , CSGNODE_TYPE_INVALID.
-   */
-  CSGTransformationType_t getType () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation is an CSGTranslation.
-   * 
-   * @return @c true if this CSGTransformation is an CSGTranslation, @c false otherwise.
-   */
-  bool isCSGTranslation () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation is an CSGRotation.
-   * 
-   * @return @c true if this CSGTransformation is an CSGRotation, @c false otherwise.
-   */
-  bool isCSGRotation () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation is an CSGScale.
-   * 
-   * @return @c true if this CSGTransformation is an CSGScale, @c false otherwise.
-   */
-  bool isCSGScale () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGTransformation is an CSGHomogeneousTransformation.
-   * 
-   * @return @c true if this CSGTransformation is an CSGHomogeneousTransformation, @c false otherwise.
-   */
-  bool isCSGHomogeneousTransformation () const;
-
-
-  /**
-   * @return a (deep) copy of this CSGTransformation.
-   */
-  virtual CSGTransformation* clone () const;
-
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * @return the string of the name of this element.
-   */ 
-  virtual const std::string& getElementName () const ;
-  
-
-  /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
   virtual int getTypeCode () const;
-   
 
-  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
+   * Predicate returning @c true if all the required attributes
+   * for this CSGTransformation object have been set.
    *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * @note The required attributes for a CSGTransformation object are:
+   * @li "id"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
    */
-  virtual void writeElements (XMLOutputStream& stream) const;
+  virtual bool hasRequiredAttributes() const;
 
- /**
-   * Predicate returning @c true or @c false depending on whether
-   * all the required elements for this CSGTransformation object
-   * have been set.
-   * 
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this CSGTransformation object have been set.
+   *
+   * @note The required elements for a CSGTransformation object are:
+   *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
    */
-  virtual bool hasRequiredElements() const {
-	  return true;
-  };
-
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygenLibsbmlInternal */
- 
-
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  void connectToChild ();
+  virtual bool hasRequiredElements() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
 
   /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
    */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
   /** @endcond doxygenLibsbmlInternal */
 
 
-  protected:
-  
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */ 
-  virtual SBase*
-  createObject (XMLInputStream& stream);
-  
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * return the SBML object corresponding to next XMLToken.
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, 
-                               const ExpectedAttributes& expectedAttributes);
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
 
- /** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+
+
 
 };
 
 
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
-
-
-LIBSBML_EXTERN
-const char *
-CSGTransformation_getTransformationType (const CSGTransformation_t *csgt);
-
-
-
-LIBSBML_EXTERN
-int
-CSGTransformation_isSetTransformationType (const CSGTransformation_t *c);
-
-
-
-LIBSBML_EXTERN
-int
-CSGTransformation_setTransformationType (CSGTransformation_t *c, const char *sid);
-
-
-
-LIBSBML_EXTERN
-int
-CSGTransformation_unsetTransformationType (CSGTransformation_t *csgt);
-
-
-
-LIBSBML_EXTERN
-CSGTransformationType_t
-CSGTransformation_getType (const CSGTransformation_t *csgt);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGTranslate (const CSGTransformation_t *csgt);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGScale (const CSGTransformation_t *csgt);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGRotate (const CSGTransformation_t *csgt);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGHomogeneousTransformation (const CSGTransformation_t *csgt);
-
-
+/**
+ * Creates a new CSGTransformation_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * CSGTransformation_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * CSGTransformation_t structure.
+ *
+ * @returns the newly-created CSGTransformation_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof CSGTransformation_t
+ */
 LIBSBML_EXTERN
 CSGTransformation_t *
-CSGTransformation_clone (const CSGTransformation_t* csgt);
+CSGTransformation_create(unsigned int level, unsigned int version,
+                         unsigned int pkgVersion);
+
+
+/**
+ * Frees the given CSGTransformation_t structure.
+ * 
+ * @param csgt the CSGTransformation_t structure to be freed.
+ *
+ * @memberof CSGTransformation_t
+ */
+LIBSBML_EXTERN
+void
+CSGTransformation_free(CSGTransformation_t * csgt);
+
+
+/**
+ * Creates a deep copy of the given CSGTransformation_t structure.
+ * 
+ * @param csgt the CSGTransformation_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given CSGTransformation_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof CSGTransformation_t
+ */
+LIBSBML_EXTERN
+CSGTransformation_t *
+CSGTransformation_clone(CSGTransformation_t * csgt);
+
+
+/**
+ * Returns the value of the "id" attribute of the given CSGTransformation_t
+ * structure.
+ *
+ * @param csgt the CSGTransformation_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+const char *
+CSGTransformation_getId(const CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGNode_t*
+CSGTransformation_getCsgNode(CSGTransformation_t * csgt);
+
+
+LIBSBML_EXTERN
+CSGNode_t*
+CSGTransformation_createCsgNode(CSGTransformation_t * csgt);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGTransformation_t structure's "id"
+ * is set.
+ *
+ * @param csgt the CSGTransformation_t structure.
+ *
+ * @return @c 1 if the "id" of this CSGTransformation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_isSetId(const CSGTransformation_t * csgt);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGTransformation_t structure's "csgNode"
+ * is set.
+ *
+ * @param csgt the CSGTransformation_t structure.
+ *
+ * @return @c 1 if the "csgNode" of this CSGTransformation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_isSetCsgNode(const CSGTransformation_t * csgt);
+
+
+/**
+ * Sets the "id" attribute of the given CSGTransformation_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGTransformation_unsetId() instead.
+ *
+ * @param csgt the CSGTransformation_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_setId(CSGTransformation_t * csgt, const char * id);
+
+
+LIBSBML_EXTERN
+int
+CSGTransformation_setCsgNode(CSGTransformation_t * csgt, CSGNode_t* csgNode);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *CSGTransformation_t structure.
+ *
+ * @param csgt the CSGTransformation_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_unsetId(CSGTransformation_t * csgt);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given CSGTransformation_t structure have been set.
+ *
+ * @param csgt the CSGTransformation_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_hasRequiredAttributes(const CSGTransformation_t * csgt);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given CSGTransformation_t structure have been set.
+ *
+ * @param csgt the CSGTransformation_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGTransformation_t
+ */
+LIBSBML_EXTERN
+int
+CSGTransformation_hasRequiredElements(const CSGTransformation_t * csgt);
+
+
 
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* CSGTransformation_H__ */
+#endif /*  CSGTransformation_H__  */
+

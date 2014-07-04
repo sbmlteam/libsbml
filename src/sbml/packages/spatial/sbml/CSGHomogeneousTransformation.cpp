@@ -1,73 +1,76 @@
 /**
- * @file    CSGHomogeneousTransformation.cpp
- * @brief   Implementation of CSGHomogeneousTransformation, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGHomogeneousTransformation.cpp
+ * @brief:  Implementation of the CSGHomogeneousTransformation class
+ * @author: SBMLTeam
  *
- * $Id: CSGHomogeneousTransformation.cpp 10670 2010-01-16 12:10:06Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGHomogeneousTransformation.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
 
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
-
-#include <sbml/SBase.h>
 #include <sbml/packages/spatial/sbml/CSGHomogeneousTransformation.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CSGHomogeneousTransformation with the given level, version, and package version.
  */
-CSGHomogeneousTransformation::CSGHomogeneousTransformation (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : CSGTransformation (SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION, level,version)
-  , mForwardTransform(0)
-  , mInverseTransform(0)
+CSGHomogeneousTransformation::CSGHomogeneousTransformation (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: CSGTransformation(level, version)
+   ,mForwardTransformation (NULL)
+   ,mReverseTransformation (NULL)
 {
-  mType = SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION;
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion)); 
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 
+  // connect to child objects
+  connectToChild();
 }
 
 
 /*
  * Creates a new CSGHomogeneousTransformation with the given SpatialPkgNamespaces object.
  */
-CSGHomogeneousTransformation::CSGHomogeneousTransformation(SpatialPkgNamespaces* spatialns)
-   : CSGTransformation (SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION, spatialns)
-   , mForwardTransform(0)
-   , mInverseTransform(0)
-
+CSGHomogeneousTransformation::CSGHomogeneousTransformation (SpatialPkgNamespaces* spatialns)
+	: CSGTransformation(spatialns)
+   ,mForwardTransformation (NULL)
+   ,mReverseTransformation (NULL)
 {
-  mType = SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION;
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
+
+  // connect to child objects
+  connectToChild();
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
@@ -75,379 +78,356 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation(SpatialPkgNamespaces*
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CSGHomogeneousTransformation.
  */
-CSGHomogeneousTransformation::CSGHomogeneousTransformation(const CSGHomogeneousTransformation& source) : CSGTransformation(source)
+CSGHomogeneousTransformation::CSGHomogeneousTransformation (const CSGHomogeneousTransformation& orig)
+	: CSGTransformation(orig)
 {
-  if (source.mChild)
+  if (&orig == NULL)
   {
-	  mChild = static_cast<CSGNode*>( source.mChild->clone() );
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  if (source.mForwardTransform) 
+  else
   {
-    mForwardTransform = source.mForwardTransform->deepCopy();
-    mForwardTransform->setParentSBMLObject(this);
-  }
-  if (source.mInverseTransform) 
-  {
-    mInverseTransform = source.mInverseTransform->deepCopy();
-    mInverseTransform->setParentSBMLObject(this);
-  }
+    if (orig.mForwardTransformation != NULL)
+    {
+      mForwardTransformation = orig.mForwardTransformation->clone();
+    }
+    else
+    {
+      mForwardTransformation = NULL;
+    }
+    if (orig.mReverseTransformation != NULL)
+    {
+      mReverseTransformation = orig.mReverseTransformation->clone();
+    }
+    else
+    {
+      mReverseTransformation = NULL;
+    }
 
-  connectToChild();
-
+    // connect to child objects
+    connectToChild();
+  }
 }
 
 
 /*
- * Assignment operator.
+ * Assignment for CSGHomogeneousTransformation.
  */
-CSGHomogeneousTransformation& CSGHomogeneousTransformation::operator=(const CSGHomogeneousTransformation& source)
+CSGHomogeneousTransformation&
+CSGHomogeneousTransformation::operator=(const CSGHomogeneousTransformation& rhs)
 {
-  if(&source!=this)
+  if (&rhs == NULL)
   {
-    this->CSGTransformation::operator=(source);
-
-  	delete mForwardTransform;
-    if (source.mForwardTransform) 
-    {
-      mForwardTransform = source.mForwardTransform->deepCopy();
-      mForwardTransform->setParentSBMLObject(this);
-    }
-    else
-    {
-      mForwardTransform = 0;
-    }
-
-	delete mInverseTransform;
-    if (source.mInverseTransform) 
-    {
-      mInverseTransform = source.mInverseTransform->deepCopy();
-      mInverseTransform->setParentSBMLObject(this);
-    }
-    else
-    {
-      mInverseTransform = 0;
-    }
-
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+		CSGTransformation::operator=(rhs);
+    if (rhs.mForwardTransformation != NULL)
+    {
+      mForwardTransformation = rhs.mForwardTransformation->clone();
+    }
+    else
+    {
+      mForwardTransformation = NULL;
+    }
+    if (rhs.mReverseTransformation != NULL)
+    {
+      mReverseTransformation = rhs.mReverseTransformation->clone();
+    }
+    else
+    {
+      mReverseTransformation = NULL;
+    }
+
+    // connect to child objects
+    connectToChild();
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CSGHomogeneousTransformation.
+ */
+CSGHomogeneousTransformation*
+CSGHomogeneousTransformation::clone () const
+{
+  return new CSGHomogeneousTransformation(*this);
+}
+
+
+/*
+ * Destructor for CSGHomogeneousTransformation.
+ */
 CSGHomogeneousTransformation::~CSGHomogeneousTransformation ()
 {
-	// destroy 'mChild'
-	if (mChild) delete mChild;
-	// destroy 'forwardTransform'
-	if (mForwardTransform) delete mForwardTransform;
-	// destroy 'inverseTransform'
-	if (mInverseTransform) delete mInverseTransform;
+  delete mForwardTransformation;
+  mForwardTransformation = NULL;
+  delete mReverseTransformation;
+  mReverseTransformation = NULL;
 }
 
 
- /*
-  * Returns the "forwardTransform" of this CSGHomogeneousTransformation.
-  */
-const TransformationComponents* 
-CSGHomogeneousTransformation::getForwardTransform () const
+/*
+ * Returns the value of the "forwardTransformation" attribute of this CSGHomogeneousTransformation.
+ */
+const TransformationComponents*
+CSGHomogeneousTransformation::getForwardTransformation() const
 {
-  return mForwardTransform;
+  return mForwardTransformation;
 }
 
 
- /*
-  * Returns the "inverseTransform" of this CSGHomogeneousTransformation.
-  */
-const TransformationComponents* 
-CSGHomogeneousTransformation::getInverseTransform () const
+/*
+ * Returns the value of the "forwardTransformation" attribute of this CSGHomogeneousTransformation.
+ */
+TransformationComponents*
+CSGHomogeneousTransformation::getForwardTransformation()
 {
-  return mInverseTransform;
-}
-
- /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGHomogeneousTransformation's "forwardTransform" has been set.
-  */
-bool 
-CSGHomogeneousTransformation::isSetForwardTransform () const
-{
-  return (mForwardTransform != 0);
-}
-
- /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGHomogeneousTransformation's "inverseTransform" has been set.
-  */
-bool 
-CSGHomogeneousTransformation::isSetInverseTransform () const
-{
-  return (mInverseTransform != 0);
+  return mForwardTransformation;
 }
 
 
-
- /*
-  * Sets the value of the "forwardTransform" attribute of this CSGHomogeneousTransformation.
-  */
-int 
-CSGHomogeneousTransformation::setForwardTransform (const TransformationComponents* ftc)
+/*
+ * Creates a new "forwardTransformation" element of this CSGHomogeneousTransformation and returns it.
+ */
+TransformationComponents*
+CSGHomogeneousTransformation::createForwardTransformation()
 {
-  if (mForwardTransform == ftc)
+	mForwardTransformation = new TransformationComponents();
+	return mForwardTransformation;
+}
+
+
+/*
+ * Returns the value of the "reverseTransformation" attribute of this CSGHomogeneousTransformation.
+ */
+const TransformationComponents*
+CSGHomogeneousTransformation::getReverseTransformation() const
+{
+  return mReverseTransformation;
+}
+
+
+/*
+ * Returns the value of the "reverseTransformation" attribute of this CSGHomogeneousTransformation.
+ */
+TransformationComponents*
+CSGHomogeneousTransformation::getReverseTransformation()
+{
+  return mReverseTransformation;
+}
+
+
+/*
+ * Creates a new "reverseTransformation" element of this CSGHomogeneousTransformation and returns it.
+ */
+TransformationComponents*
+CSGHomogeneousTransformation::createReverseTransformation()
+{
+	mReverseTransformation = new TransformationComponents();
+	return mReverseTransformation;
+}
+
+
+/*
+ * Returns true/false if forwardTransformation is set.
+ */
+bool
+CSGHomogeneousTransformation::isSetForwardTransformation() const
+{
+  return (mForwardTransformation != NULL);
+}
+
+
+/*
+ * Returns true/false if reverseTransformation is set.
+ */
+bool
+CSGHomogeneousTransformation::isSetReverseTransformation() const
+{
+  return (mReverseTransformation != NULL);
+}
+
+
+/*
+ * Sets forwardTransformation and returns value indicating success.
+ */
+int
+CSGHomogeneousTransformation::setForwardTransformation(TransformationComponents* forwardTransformation)
+{
+  if (mForwardTransformation == forwardTransformation)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (ftc == NULL)
+  else if (forwardTransformation == NULL)
   {
-	  delete mForwardTransform;
-	  mForwardTransform = 0;
-      return LIBSBML_OPERATION_SUCCESS;
+    delete mForwardTransformation;
+    mForwardTransformation = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
-    delete mForwardTransform;
-    mForwardTransform = (ftc != 0) ? ftc->deepCopy() : 0;
-    if (mForwardTransform) mForwardTransform->setParentSBMLObject(this);
+    delete mForwardTransformation;
+    mForwardTransformation = (forwardTransformation != NULL) ?
+      static_cast<TransformationComponents*>(forwardTransformation->clone()) : NULL;
+    if (mForwardTransformation != NULL)
+    {
+      mForwardTransformation->connectToParent(this);
+    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
- /*
-  * Sets the value of the "inverseTransform" attribute of this CSGHomogeneousTransformation.
-  */
-int 
-CSGHomogeneousTransformation::setInverseTransform (const TransformationComponents* itc)
+
+/*
+ * Sets reverseTransformation and returns value indicating success.
+ */
+int
+CSGHomogeneousTransformation::setReverseTransformation(TransformationComponents* reverseTransformation)
 {
-  if (mInverseTransform == itc)
+  if (mReverseTransformation == reverseTransformation)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (itc == NULL)
+  else if (reverseTransformation == NULL)
   {
-	  delete mInverseTransform;
-	  mInverseTransform = 0;
-      return LIBSBML_OPERATION_SUCCESS;
+    delete mReverseTransformation;
+    mReverseTransformation = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
-    delete mInverseTransform;
-    mInverseTransform = (itc != 0) ? itc->deepCopy() : 0;
-    if (mInverseTransform) mInverseTransform->setParentSBMLObject(this);
+    delete mReverseTransformation;
+    mReverseTransformation = (reverseTransformation != NULL) ?
+      static_cast<TransformationComponents*>(reverseTransformation->clone()) : NULL;
+    if (mReverseTransformation != NULL)
+    {
+      mReverseTransformation->connectToParent(this);
+    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
+
 /*
- * Creates a new forwardTransform for this CSGHomogeneousTransformation and returns it.  If this
- * CSGHomogeneousTransformation had a previous forwardTransform, it will be destroyed.
+ * Unsets forwardTransformation and returns value indicating success.
  */
-TransformationComponents*
-CSGHomogeneousTransformation::createForwardTransform ()
+int
+CSGHomogeneousTransformation::unsetForwardTransformation()
 {
-  delete mForwardTransform;
-  mForwardTransform = 0;
-
-  try
-  {
-    //const unsigned int sbmlLevel   = getLevel  ();
-    //const unsigned int sbmlVersion = getVersion();
-    SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
-    mForwardTransform = new TransformationComponents(spatialNs);
-    delete spatialNs;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object 
-     *
-     * so do nothing
-     */
-  }
-
-  if (mForwardTransform)
-  {
-    mForwardTransform->setParentSBMLObject(this);
-  }
-
-  return mForwardTransform;
+  delete mForwardTransformation;
+  mForwardTransformation = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Creates a new inverseTransform for this CSGHomogeneousTransformation and returns it.  If this
- * CSGHomogeneousTransformation had a previous inverseTransform, it will be destroyed.
+ * Unsets reverseTransformation and returns value indicating success.
  */
-TransformationComponents*
-CSGHomogeneousTransformation::createInverseTransform ()
+int
+CSGHomogeneousTransformation::unsetReverseTransformation()
 {
-  delete mInverseTransform;
-  mInverseTransform = 0;
+  delete mReverseTransformation;
+  mReverseTransformation = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
-  try
-  {
-    SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
-    mInverseTransform = new TransformationComponents(spatialNs);
-    delete spatialNs;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object 
-     *
-     * so do nothing
-     */
-  }
 
-  if (mInverseTransform)
-  {
-    mInverseTransform->setParentSBMLObject(this);
-  }
+List*
+CSGHomogeneousTransformation::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
 
-  return mInverseTransform;
+  ADD_FILTERED_POINTER(ret, sublist, mForwardTransformation, filter);
+  ADD_FILTERED_POINTER(ret, sublist, mReverseTransformation, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
 }
 
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- 
-SBase*
-CSGHomogeneousTransformation::createObject (XMLInputStream& stream)
-{
-  // return 0;
-  
-  SBase*        object = 0;
-
-  object=SBase::createObject(stream);
-  
-  return object;
-
-}
-*/
-/*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * Returns the XML element name of this object
  */
-void
-CSGHomogeneousTransformation::addExpectedAttributes(ExpectedAttributes& attributes)
+const std::string&
+CSGHomogeneousTransformation::getElementName () const
 {
-  CSGTransformation::addExpectedAttributes(attributes);
+	static const string name = "cSGHomogeneousTransformation";
+	return name;
 }
 
 
-bool 
-CSGHomogeneousTransformation::hasRequiredElements() const
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+CSGHomogeneousTransformation::getTypeCode () const
 {
-  bool allPresent = true;
+  return SBML_SPATIAL_CSGHOMOGENEOUSTRANSFORMATION;
+}
 
-  /* required element for CSGHomogeneousTransformation: forwardTransform, inverseTransform */
 
-  if (!isSetForwardTransform() || !isSetInverseTransform())
-    allPresent = false;
+/*
+ * check if all the required attributes are set
+ */
+bool
+CSGHomogeneousTransformation::hasRequiredAttributes () const
+{
+	bool allPresent = CSGTransformation::hasRequiredAttributes();
 
   return allPresent;
 }
 
 
 /*
- * Subclasses should override this method to read (and store) XHTML,
- * MathML, TransformationComponents. directly from the XMLInputStream.
- *
- * @return true if the subclass read from the stream, false otherwise.
+ * check if all the required elements are set
  */
 bool
-CSGHomogeneousTransformation::readOtherXML (XMLInputStream& stream)
+CSGHomogeneousTransformation::hasRequiredElements () const
 {
-  bool          read = false;
-  const string& name = stream.peek().getName();
+	bool allPresent = CSGTransformation::hasRequiredElements();
 
-  if (name == "forwardTransform")
-  {
-    delete mForwardTransform;
-	mForwardTransform = TransformationComponents::readTransformationComponents(stream);
-    if (mForwardTransform) mForwardTransform->setParentSBMLObject(this);
-    read  = true;
-  }
+  if (isSetForwardTransformation() == false)
+    allPresent = false;
 
-  if (name == "inverseTransform")
-  {
-    delete mInverseTransform;
-	mInverseTransform = TransformationComponents::readTransformationComponents(stream);
-    if (mInverseTransform) mInverseTransform->setParentSBMLObject(this);
-    read  = true;
-  }
+  if (isSetReverseTransformation() == false)
+    allPresent = false;
 
-  /* ------------------------------
-   *
-   *   (EXTENSION)
-   *
-   *------------------------------- */
-  if ( SBase::readOtherXML(stream) )
-    read = true;
-
-  return read;
-}
-
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-CSGHomogeneousTransformation::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  CSGTransformation::readAttributes(attributes,expectedAttributes);
-
+  return allPresent;
 }
 
 
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CSGHomogeneousTransformation::writeAttributes (XMLOutputStream& stream) const
-{
-  CSGTransformation::writeAttributes(stream);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
-}
-
+  /** @cond doxygenLibsbmlInternal */
 
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 CSGHomogeneousTransformation::writeElements (XMLOutputStream& stream) const
 {
-  CSGTransformation::writeElements(stream);
-
-  if (mForwardTransform) TransformationComponents::writeTransformationComponents(mForwardTransform, stream);
-  if (mInverseTransform) TransformationComponents::writeTransformationComponents(mInverseTransform, stream);
-
-  //
-  // (EXTENSION)
-  //
+	CSGTransformation::writeElements(stream);
+	if (isSetForwardTransformation() == true)
+	{
+		mForwardTransformation->write(stream);
+	}
+	if (isSetReverseTransformation() == true)
+	{
+		mReverseTransformation->write(stream);
+	}
   SBase::writeExtensionElements(stream);
 }
 
 
-CSGHomogeneousTransformation*
-CSGHomogeneousTransformation::clone() const
-{
-    return new CSGHomogeneousTransformation(*this);
-}
+  /** @endcond doxygenLibsbmlInternal */
 
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -455,30 +435,319 @@ CSGHomogeneousTransformation::clone() const
 bool
 CSGHomogeneousTransformation::accept (SBMLVisitor& v) const
 {
-  // return false;
-  return v.visit(*this);
-  
+  v.visit(*this);
+
+/* VISIT CHILDREN */
+
+  v.leave(*this);
+
+  return true;
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGHomogeneousTransformation::setSBMLDocument (SBMLDocument* d)
 {
-  CSGTransformation::setSBMLDocument(d);
+	CSGTransformation::setSBMLDocument(d);
+	if ( mForwardTransformation != NULL)
+	  mForwardTransformation->setSBMLDocument(d);
+	if ( mReverseTransformation != NULL)
+	  mReverseTransformation->setSBMLDocument(d);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+   * Connects to child elements.
+ */
+void
+CSGHomogeneousTransformation::connectToChild()
+{
+	CSGTransformation::connectToChild();
+
+	if (mForwardTransformation != NULL)
+	  mForwardTransformation->connectToParent(this);
+	if (mReverseTransformation != NULL)
+	  mReverseTransformation->connectToParent(this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
  */
 void
 CSGHomogeneousTransformation::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  CSGTransformation::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  CSGTransformation::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+CSGHomogeneousTransformation::createObject(XMLInputStream& stream)
+{
+	SBase* object = CSGTransformation::createObject(stream);
+
+  const string& name = stream.peek().getName();
+
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+
+  if (name == "forwardTransformation")
+  {
+    mForwardTransformation = new TransformationComponents(spatialns);
+    object = mForwardTransformation;
+  }
+  else if (name == "reverseTransformation")
+  {
+    mReverseTransformation = new TransformationComponents(spatialns);
+    object = mReverseTransformation;
+  }
+
+  delete spatialns;
+
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGHomogeneousTransformation::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	CSGTransformation::addExpectedAttributes(attributes);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGHomogeneousTransformation::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	CSGTransformation::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+CSGHomogeneousTransformation::writeAttributes (XMLOutputStream& stream) const
+{
+	CSGTransformation::writeAttributes(stream);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGHomogeneousTransformation_create(unsigned int level, unsigned int version,
+                                    unsigned int pkgVersion)
+{
+  return new CSGHomogeneousTransformation(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGHomogeneousTransformation_free(CSGHomogeneousTransformation_t * csght)
+{
+  if (csght != NULL)
+    delete csght;
+}
+
+
+LIBSBML_EXTERN
+CSGHomogeneousTransformation_t *
+CSGHomogeneousTransformation_clone(CSGHomogeneousTransformation_t * csght)
+{
+  if (csght != NULL)
+  {
+    return static_cast<CSGHomogeneousTransformation_t*>(csght->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+TransformationComponents_t*
+CSGHomogeneousTransformation_getForwardTransformation(CSGHomogeneousTransformation_t * csght)
+{
+	if (csght == NULL)
+		return NULL;
+
+	return (TransformationComponents_t*)csght->getForwardTransformation();
+}
+
+
+LIBSBML_EXTERN
+TransformationComponents_t*
+CSGHomogeneousTransformation_createForwardTransformation(CSGHomogeneousTransformation_t * csght)
+{
+	if (csght == NULL)
+		return NULL;
+
+	return (TransformationComponents_t*)csght->createForwardTransformation();
+}
+
+
+LIBSBML_EXTERN
+TransformationComponents_t*
+CSGHomogeneousTransformation_getReverseTransformation(CSGHomogeneousTransformation_t * csght)
+{
+	if (csght == NULL)
+		return NULL;
+
+	return (TransformationComponents_t*)csght->getReverseTransformation();
+}
+
+
+LIBSBML_EXTERN
+TransformationComponents_t*
+CSGHomogeneousTransformation_createReverseTransformation(CSGHomogeneousTransformation_t * csght)
+{
+	if (csght == NULL)
+		return NULL;
+
+	return (TransformationComponents_t*)csght->createReverseTransformation();
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_isSetForwardTransformation(const CSGHomogeneousTransformation_t * csght)
+{
+  return (csght != NULL) ? static_cast<int>(csght->isSetForwardTransformation()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_isSetReverseTransformation(const CSGHomogeneousTransformation_t * csght)
+{
+  return (csght != NULL) ? static_cast<int>(csght->isSetReverseTransformation()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_setForwardTransformation(CSGHomogeneousTransformation_t * csght, TransformationComponents_t* forwardTransformation)
+{
+	return (csght != NULL) ? csght->setForwardTransformation(forwardTransformation) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_setReverseTransformation(CSGHomogeneousTransformation_t * csght, TransformationComponents_t* reverseTransformation)
+{
+	return (csght != NULL) ? csght->setReverseTransformation(reverseTransformation) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_hasRequiredAttributes(const CSGHomogeneousTransformation_t * csght)
+{
+  return (csght != NULL) ? static_cast<int>(csght->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGHomogeneousTransformation_hasRequiredElements(const CSGHomogeneousTransformation_t * csght)
+{
+	return (csght != NULL) ? static_cast<int>(csght->hasRequiredElements()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+

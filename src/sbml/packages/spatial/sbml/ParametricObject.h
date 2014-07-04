@@ -1,183 +1,220 @@
-/*
- * @file    ParametricObject.h
- * @brief   Definition of ParametricObject, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   ParametricObject.h
+ * @brief:  Implementation of the ParametricObject class
+ * @author: SBMLTeam
  *
- * $Id: ParametricObject.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/ParametricObject.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef ParametricObject_H__
 #define ParametricObject_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
+
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
+
+#include <sbml/packages/spatial/sbml/PolygonObject.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN ParametricObject : public SBase
 {
+
 protected:
 
-  std::string mSpatialId;
-  std::string mDomain;
-  std::string mPolygonType;
+  std::string   mId;
+  std::string   mPolygonType;
+  std::string   mDomain;
+  PolygonObject*      mPolygonObject;
 
-  PolygonObject* mPolygonObject;
 
 public:
 
   /**
    * Creates a new ParametricObject with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ParametricObject
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ParametricObject
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ParametricObject
    */
-   ParametricObject(unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  ParametricObject(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                   unsigned int version    = SpatialExtension::getDefaultVersion(),
+                   unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new ParametricObject with the given SpatialPkgNamespaces object.
-   */
-   ParametricObject(SpatialPkgNamespaces* spatialns);
-
-
-  /**
-   * Copy constructor.
-   */
-   ParametricObject(const ParametricObject& source);
-
-
-  /**
-   * Assignment operator.
-   */
-   ParametricObject& operator=(const ParametricObject& source);
-
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~ParametricObject ();
-
-  /**
-   * Returns the string of the "spatialId" attribute of this ParametricObject.
    *
-   * @return the string of the "spatialId" attribute of this ParametricObject.
+   * @param spatialns the SpatialPkgNamespaces object
    */
-  virtual const std::string& getSpatialId () const;
+  ParametricObject(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for ParametricObject.
+   *
+   * @param orig; the ParametricObject instance to copy.
+   */
+  ParametricObject(const ParametricObject& orig);
+
+
+   /**
+   * Assignment operator for ParametricObject.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  ParametricObject& operator=(const ParametricObject& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this ParametricObject object.
+   *
+   * @return a (deep) copy of this ParametricObject object.
+   */
+  virtual ParametricObject* clone () const;
+
+
+   /**
+   * Destructor for ParametricObject.
+   */
+  virtual ~ParametricObject();
+
+
+   /**
+   * Returns the value of the "id" attribute of this ParametricObject.
+   *
+   * @return the value of the "id" attribute of this ParametricObject as a string.
+   */
+  virtual const std::string& getId() const;
+
 
   /**
-   * Returns the string of the "domain" attribute of this ParametricObject.
+   * Returns the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @return the string of the "domain" attribute of this ParametricObject.
+   * @return the value of the "polygonType" attribute of this ParametricObject as a string.
    */
-  virtual const std::string& getDomain () const;
+  virtual const std::string& getPolygonType() const;
+
 
   /**
-   * Returns the string of the "polygonType" attribute of this ParametricObject.
+   * Returns the value of the "domain" attribute of this ParametricObject.
    *
-   * @return the string of the "polygonType" attribute of this ParametricObject.
+   * @return the value of the "domain" attribute of this ParametricObject as a string.
    */
-  virtual const std::string& getPolygonType () const;
+  virtual const std::string& getDomain() const;
 
- /**
-   * Returns the "polyObject" attribute of this ParametricObject.
-   *
-   * @return the "polyObject" attribute of this ParametricObject.
-   */
-  const PolygonObject* getPolygonObject() const;
+
+	/**
+	 * Returns the "polygonObject" element of this ParametricObject.
+	 *
+	 * @return the "polygonObject" element of this ParametricObject.
+	 */
+	virtual const PolygonObject* getPolygonObject() const;
+
+
+	/**
+	/**
+	 * Returns the "polygonObject" element of this ParametricObject.
+	 *
+	 * @return the "polygonObject" element of this ParametricObject.
+	 */
+	virtual PolygonObject* getPolygonObject();
+
+
+	/**
+	 * Creates a new "PolygonObject" and sets it for this ParametricObject.
+	 *
+	 * @return the created "PolygonObject" element of this ParametricObject.
+	 */
+	virtual PolygonObject* createPolygonObject();
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ParametricObject's "spatialId" attribute has been set.
+   * ParametricObject's "id" attribute has been set.
    *
-   * @return @c true if this ParametricObject's "spatialId" attribute has been set, 
+   * @return @c true if this ParametricObject's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSpatialId () const;
-  
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * ParametricObject's "domain" attribute has been set.
-   *
-   * @return @c true if this ParametricObject's "domain" attribute has been set, 
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetDomain () const;
+  virtual bool isSetId() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
    * ParametricObject's "polygonType" attribute has been set.
    *
-   * @return @c true if this ParametricObject's "polygonType" attribute has been set, 
+   * @return @c true if this ParametricObject's "polygonType" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetPolygonType () const;
+  virtual bool isSetPolygonType() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ParametricObject's "polyObject" attribute has been set.
+   * ParametricObject's "domain" attribute has been set.
    *
-   * @return @c true if this ParametricObject's "polyObject" attribute has been set, 
+   * @return @c true if this ParametricObject's "domain" attribute has been set,
    * otherwise @c false is returned.
    */
-  bool isSetPolygonObject () const;
-  
-  /**
-   * Sets the SIdRef string of the "spatialId" attribute of this ParametricObject.
-   *
-   * @param spatialId a SIdRef string to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setSpatialId (const std::string& spatialId);
+  virtual bool isSetDomain() const;
+
 
   /**
-   * Sets the SIdRef string of the "domain" attribute of this ParametricObject.
+   * Predicate returning @c true or @c false depending on whether this
+   * ParametricObject's "polygonObject" element has been set.
    *
-   * @param domain a SIdRef string to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @return @c true if this ParametricObject's "polygonObject" element has been set,
+   * otherwise @c false is returned.
    */
-  virtual int setDomain (const std::string& domain);
+  virtual bool isSetPolygonObject() const;
+
 
   /**
-   * Sets the SIdRef string of the "polygonType" attribute of this ParametricObject.
+   * Sets the value of the "id" attribute of this ParametricObject.
    *
-   * @param domain a SIdRef string to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -186,12 +223,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setPolygonType (const std::string& polygonType);
+  virtual int setId(const std::string& id);
+
 
   /**
-   * Sets the SIdRef string of the "polyObject" attribute of this ParametricObject.
+   * Sets the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @param polyObject 
+   * @param polygonType; const std::string& value of the "polygonType" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -200,7 +238,38 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  int setPolygonObject (const PolygonObject* polyObject);
+  virtual int setPolygonType(const std::string& polygonType);
+
+
+  /**
+   * Sets the value of the "domain" attribute of this ParametricObject.
+   *
+   * @param domain; const std::string& value of the "domain" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDomain(const std::string& domain);
+
+
+  /**
+   * Sets the "polygonObject" element of this ParametricObject.
+   *
+   * @param polygonObject; PolygonObject* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setPolygonObject(PolygonObject* polygonObject);
+
 
   /**
    * Unsets the value of the "id" attribute of this ParametricObject.
@@ -212,21 +281,10 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetSpatialId ();
+  virtual int unsetId();
 
- /**
-   * Unsets the value of the "domain" attribute of this ParametricObject.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetDomain ();
 
- /**
+  /**
    * Unsets the value of the "polygonType" attribute of this ParametricObject.
    *
    * @return integer value indicating success/failure of the
@@ -236,389 +294,611 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetPolygonType ();
-
-  /**
-   * Creates a new PolygonObject object, installs it as this ParametricObject's 
-   * "polyObject" subelement, and returns it.
-   *
-   * If this ParametricObject had a previous PolygonObject, it will be destroyed.
-   *
-   * @return the new PolygonObject object
-   */
-  PolygonObject* createPolygonObject ();
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   *
-   * @return the string of the name of this element.
-   */
-  virtual const std::string& getElementName () const ;
+  virtual int unsetPolygonType();
 
 
   /**
-   * @return a (deep) copy of this ParametricObject.
+   * Unsets the value of the "domain" attribute of this ParametricObject.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  virtual ParametricObject* clone () const;
+  virtual int unsetDomain();
 
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Unsets the "polygonObject" element of this ParametricObject.
    *
-   * @see getElementName()
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  int getTypeCode () const;
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-
- /**
-   * Predicate returning @c true or @c false depending on whether
-   * all the required elements for this ParametricObject object
-   * have been set.
-   *
-   * @note The required elements for a ParametricObject object are:
-   * imageData
-   *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
-   */
-  virtual bool hasRequiredElements() const ;
-
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygenLibsbmlInternal */
-    
-protected:
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
+  virtual int unsetPolygonObject();
 
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, 
-                               const ExpectedAttributes& expectedAttributes);
-
- /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return a List* of pointers to all child objects.
    */
-  virtual bool readOtherXML (XMLInputStream& stream);
-
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
-
- /** @endcond doxygenLibsbmlInternal */
-
-
-};
-
-class LIBSBML_EXTERN ListOfParametricObjects : public ListOf
-{
-public:
-
-  /**
-   * @return a (deep) copy of this ListOfParametricObjects.
-   */
-  virtual ListOfParametricObjects* clone () const;
+   virtual List* getAllElements(ElementFilter * filter = NULL);
 
 
   /**
-   * Creates a new ListOfParametricObjects with the given level, version, and package version.
-   */
-   ListOfParametricObjects(unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new ListOfParametricObjects with the given spatialPkgNamespaces object.
-   */
-   ListOfParametricObjects(SpatialPkgNamespaces* spatialsns);
-
-
-  /**
-   * Get a ParametricObject from the ListOfParametricObjects.
+   * Returns the XML element name of this object, which for ParametricObject, is
+   * always @c "parametricObject".
    *
-   * @param n the index number of the ParametricObject to get.
-   * 
-   * @return the nth ParametricObject in this ListOfParametricObjects.
-   *
-   * @see size()
-   */
-  virtual ParametricObject * get(unsigned int n); 
-
-
-  /**
-   * Get a ParametricObject from the ListOfParametricObjects.
-   *
-   * @param n the index number of the ParametricObject to get.
-   * 
-   * @return the nth ParametricObject in this ListOfParametricObjects.
-   *
-   * @see size()
-   */
-  virtual const ParametricObject * get(unsigned int n) const; 
-
-  /**
-   * Get a ParametricObject from the ListOfParametricObjects
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier 
-   * of the ParametricObject to get.
-   * 
-   * @return ParametricObject in this ListOfParametricObjects
-   * with the given id or NULL if no such
-   * ParametricObject exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
-   */
-  virtual ParametricObject* get (const std::string& sid);
-
-
-  /**
-   * Get a ParametricObject from the ListOfParametricObjects
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier 
-   * of the ParametricObject to get.
-   * 
-   * @return ParametricObject in this ListOfParametricObjects
-   * with the given id or NULL if no such
-   * ParametricObject exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
-   */
-  virtual const ParametricObject* get (const std::string& sid) const;
-
-
-  /**
-   * Removes the nth item from this ListOfParametricObjects items and returns a pointer to
-   * it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
-   * @param n the index of the item to remove
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
-   *
-   * @see size()
-   */
-  virtual ParametricObject* remove (unsigned int n);
-
-
-  /**
-   * Removes item in this ListOfParametricObjects items with the given identifier.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
-   *
-   * @param sid the identifier of the item to remove
-   *
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
-   */
-  virtual ParametricObject* remove (const std::string& sid);
-
-
-  /**
-   * @return the typecode (int) of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
-   */
-  virtual int getItemTypeCode () const;
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   *
-   * @return the string of the name of this element.
+   * @return the name of this element, i.e. @c "parametricObject".
    */
   virtual const std::string& getElementName () const;
 
 
-protected:
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
 
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Predicate returning @c true if all the required attributes
+   * for this ParametricObject object have been set.
+   *
+   * @note The required attributes for a ParametricObject object are:
+   * @li "id"
+   * @li "polygonType"
+   * @li "domain"
+   * @li "polygonObject"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
    */
-  virtual SBase* createObject (XMLInputStream& stream);
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this ParametricObject object have been set.
+   *
+   * @note The required elements for a ParametricObject object are:
+   * @li "polygonObject"
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * return the SBML object corresponding to next XMLToken.
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+
 };
 
-/** @cond doxygenLibsbmlInternal */
-/**
- * Used by ListOfParametricObjects::get() to lookup an SBase based by its 
- * componentType
- */
-#ifndef SWIG
-template<>
-struct IdEq<ParametricObject> : public std::unary_function<SBase*, bool>
-{
-  const std::string& id;
 
-  IdEq (const std::string& id) : id(id) { }
-  bool operator() (SBase* sb) 
-       { return static_cast <ParametricObject*> (sb)->getSpatialId() == id; }
-};
-#endif
-/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+/**
+ * Creates a new ParametricObject_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * ParametricObject_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * ParametricObject_t structure.
+ *
+ * @returns the newly-created ParametricObject_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricObject_create(unsigned int level, unsigned int version,
+                        unsigned int pkgVersion);
 
 
+/**
+ * Frees the given ParametricObject_t structure.
+ * 
+ * @param po the ParametricObject_t structure to be freed.
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+void
+ParametricObject_free(ParametricObject_t * po);
+
+
+/**
+ * Creates a deep copy of the given ParametricObject_t structure.
+ * 
+ * @param po the ParametricObject_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given ParametricObject_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof ParametricObject_t
+ */
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricObject_clone(ParametricObject_t * po);
+
+
+/**
+ * Returns the value of the "id" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 const char *
-ParametricObject_getSpatialId (const ParametricObject_t *po);
+ParametricObject_getId(const ParametricObject_t * po);
 
 
+/**
+ * Returns the value of the "polygonType" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the polygonType of this structure.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 const char *
-ParametricObject_getDomain (const ParametricObject_t *sv);
+ParametricObject_getPolygonType(const ParametricObject_t * po);
+
+
+/**
+ * Returns the value of the "domain" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the domain of this structure.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+const char *
+ParametricObject_getDomain(const ParametricObject_t * po);
 
 
 LIBSBML_EXTERN
-const PolygonObject_t *
-ParametricObject_getPolygonObject (const ParametricObject_t *sf);
+PolygonObject_t*
+ParametricObject_getPolygonObject(ParametricObject_t * po);
 
 
 LIBSBML_EXTERN
-ParametricObject_t *
-ParametricObject_clone (const ParametricObject_t* c);
+PolygonObject_t*
+ParametricObject_createPolygonObject(ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "id"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "id" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetId(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "polygonType"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "polygonType" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetPolygonType(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "domain"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "domain" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetDomain(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "polygonObject"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "polygonObject" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetPolygonObject(const ParametricObject_t * po);
+
+
+/**
+ * Sets the "id" attribute of the given ParametricObject_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs ParametricObject_unsetId() instead.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setId(ParametricObject_t * po, const char * id);
+
+
+/**
+ * Sets the "polygonType" attribute of the given ParametricObject_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs ParametricObject_unsetPolygonType() instead.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param polygonType the string to which the structures "polygonType" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonType);
+
+
+/**
+ * Sets the "domain" attribute of the given ParametricObject_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs ParametricObject_unsetDomain() instead.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param domain the string to which the structures "domain" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setDomain(ParametricObject_t * po, const char * domain);
 
 
 LIBSBML_EXTERN
 int
-ParametricObject_isSetSpatialId (const ParametricObject_t *c);
+ParametricObject_setPolygonObject(ParametricObject_t * po, PolygonObject_t* polygonObject);
 
 
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_isSetDomain (const ParametricObject_t *sv);
+ParametricObject_unsetId(ParametricObject_t * po);
 
 
+/**
+ * Unsets the value of the "polygonType" attribute of the given 
+ *ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_isSetPolygonObject (const ParametricObject_t *sf);
+ParametricObject_unsetPolygonType(ParametricObject_t * po);
 
 
+/**
+ * Unsets the value of the "domain" attribute of the given 
+ *ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_setSpatialId (ParametricObject_t *c, const char *sid);
+ParametricObject_unsetDomain(ParametricObject_t * po);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given ParametricObject_t structure have been set.
+ *
+ * @param po the ParametricObject_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_setDomain (ParametricObject_t *sv, const char *dt);
+ParametricObject_hasRequiredAttributes(const ParametricObject_t * po);
 
 
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given ParametricObject_t structure have been set.
+ *
+ * @param po the ParametricObject_t structure to check.
+ *
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_setPolygonObject (ParametricObject_t *sf, const PolygonObject_t *polyObject);
+ParametricObject_hasRequiredElements(const ParametricObject_t * po);
 
 
-LIBSBML_EXTERN
-int
-ParametricObject_unsetSpatialId (ParametricObject_t *c);
 
-
-LIBSBML_EXTERN
-int
-ParametricObject_unsetDomain (ParametricObject_t *sv);
-
-
-LIBSBML_EXTERN
-ParametricObject_t *
-ListOfParametricObjects_getById (ListOf_t *lo, const char *sid);
-
-
-LIBSBML_EXTERN
-ParametricObject_t *
-ListOfParametricObjects_removeById (ListOf_t *lo, const char *sid);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* ParametricObject_H__ */
+#endif /*  ParametricObject_H__  */
+

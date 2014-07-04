@@ -1,73 +1,80 @@
 /**
- * @file    ParametricObject.cpp
- * @brief   Implementation of ParametricObject, the SBase derived class of spatial package.
- * @author  
+ * @file:   ParametricObject.cpp
+ * @brief:  Implementation of the ParametricObject class
+ * @author: SBMLTeam
  *
- * $Id: ParametricObject.cpp 10670 2010-01-16 12:10:06Z  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/ParametricObject.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-#include <sbml/packages/spatial/sbml/PolygonObject.h>
 
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new ParametricObject with the given level, version, and package version.
  */
-ParametricObject::ParametricObject (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : SBase (level,version)
-   , mSpatialId("")
-   , mDomain("")
-   , mPolygonType("")
-   , mPolygonObject(0)
+ParametricObject::ParametricObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: SBase(level, version)
+   ,mId ("")
+   ,mPolygonType ("")
+   ,mDomain ("")
+   ,mPolygonObject (NULL)
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
+
+  // connect to child objects
+  connectToChild();
 }
 
 
 /*
  * Creates a new ParametricObject with the given SpatialPkgNamespaces object.
  */
-ParametricObject::ParametricObject(SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
-  , mSpatialId("")
-  , mDomain("")
-  , mPolygonType("")
-  , mPolygonObject(0)
+ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
+   ,mId ("")
+   ,mPolygonType ("")
+   ,mDomain ("")
+   ,mPolygonObject (NULL)
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
+
+  // connect to child objects
+  connectToChild();
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
@@ -75,194 +82,277 @@ ParametricObject::ParametricObject(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for ParametricObject.
  */
-ParametricObject::ParametricObject(const ParametricObject& source) : SBase(source)
+ParametricObject::ParametricObject (const ParametricObject& orig)
+	: SBase(orig)
 {
-  this->mSpatialId=source.mSpatialId;
-  this->mDomain=source.mDomain;
-  this->mPolygonType=source.mPolygonType;
-
-  if (source.mPolygonObject) 
+  if (&orig == NULL)
   {
-    mPolygonObject = source.mPolygonObject->deepCopy();
-    mPolygonObject->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-
-}
-
-/*
- * Assignment operator.
- */
-ParametricObject& ParametricObject::operator=(const ParametricObject& source)
-{
-  if(&source!=this)
+  else
   {
-    this->SBase::operator=(source);
-	this->mSpatialId = source.mSpatialId;
-	this->mDomain = source.mDomain;
-	this->mPolygonType = source.mPolygonType;
-
-  	delete mPolygonObject;
-    if (source.mPolygonObject) 
+    mId  = orig.mId;
+    mPolygonType  = orig.mPolygonType;
+    mDomain  = orig.mDomain;
+    if (orig.mPolygonObject != NULL)
     {
-      mPolygonObject = source.mPolygonObject->deepCopy();
-      mPolygonObject->setParentSBMLObject(this);
+      mPolygonObject = orig.mPolygonObject->clone();
     }
     else
     {
-      mPolygonObject = 0;
+      mPolygonObject = NULL;
     }
+
+    // connect to child objects
+    connectToChild();
   }
-  
+}
+
+
+/*
+ * Assignment for ParametricObject.
+ */
+ParametricObject&
+ParametricObject::operator=(const ParametricObject& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+		SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mPolygonType  = rhs.mPolygonType;
+    mDomain  = rhs.mDomain;
+    if (rhs.mPolygonObject != NULL)
+    {
+      mPolygonObject = rhs.mPolygonObject->clone();
+    }
+    else
+    {
+      mPolygonObject = NULL;
+    }
+
+    // connect to child objects
+    connectToChild();
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for ParametricObject.
+ */
+ParametricObject*
+ParametricObject::clone () const
+{
+  return new ParametricObject(*this);
+}
+
+
+/*
+ * Destructor for ParametricObject.
+ */
 ParametricObject::~ParametricObject ()
 {
-	// destroy 'PolygonObject'
-	if (mPolygonObject) delete mPolygonObject;
+  delete mPolygonObject;
+  mPolygonObject = NULL;
 }
 
+
 /*
-  * Returns the value of the "spatialId" attribute of this ParametricObject.
-  */
-const std::string& 
-ParametricObject::getSpatialId () const
+ * Returns the value of the "id" attribute of this ParametricObject.
+ */
+const std::string&
+ParametricObject::getId() const
 {
-  return mSpatialId;
+  return mId;
 }
 
-/*
-  * Returns the value of the "domain" attribute of this ParametricObject.
-  */
-const std::string& 
-ParametricObject::getDomain () const
-{
-  return mDomain;
-}
 
 /*
-  * Returns the value of the "polygonType" attribute of this ParametricObject.
-  */
-const std::string& 
-ParametricObject::getPolygonType () const
+ * Returns the value of the "polygonType" attribute of this ParametricObject.
+ */
+const std::string&
+ParametricObject::getPolygonType() const
 {
   return mPolygonType;
 }
 
+
 /*
-  * Returns the "PolygonObject" of this ParametricObject.
-  */
-const PolygonObject* 
-ParametricObject::getPolygonObject () const
+ * Returns the value of the "domain" attribute of this ParametricObject.
+ */
+const std::string&
+ParametricObject::getDomain() const
+{
+  return mDomain;
+}
+
+
+/*
+ * Returns the value of the "polygonObject" attribute of this ParametricObject.
+ */
+const PolygonObject*
+ParametricObject::getPolygonObject() const
 {
   return mPolygonObject;
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * ParametricObject's "spatialId" attribute has been set.
-  */
-bool 
-ParametricObject::isSetSpatialId () const
-{
-  return (mSpatialId.empty() == false);
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * ParametricObject's "domain" attribute has been set.
-  */
-bool 
-ParametricObject::isSetDomain () const
+ * Returns the value of the "polygonObject" attribute of this ParametricObject.
+ */
+PolygonObject*
+ParametricObject::getPolygonObject()
 {
-  return (mDomain.empty() == false);
+  return mPolygonObject;
 }
 
+
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * ParametricObject's "polygonType" attribute has been set.
-  */
-bool 
-ParametricObject::isSetPolygonType () const
+ * Creates a new "polygonObject" element of this ParametricObject and returns it.
+ */
+PolygonObject*
+ParametricObject::createPolygonObject()
+{
+	mPolygonObject = new PolygonObject();
+	return mPolygonObject;
+}
+
+
+/*
+ * Returns true/false if id is set.
+ */
+bool
+ParametricObject::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if polygonType is set.
+ */
+bool
+ParametricObject::isSetPolygonType() const
 {
   return (mPolygonType.empty() == false);
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * ParametricObject's "PolygonObject" has been set.
-  */
-bool 
-ParametricObject::isSetPolygonObject () const
-{
-  return (mPolygonObject != 0);
-}
 
 /*
-  * Sets the value of the "spatialId" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::setSpatialId (const std::string& spatialId)
+ * Returns true/false if domain is set.
+ */
+bool
+ParametricObject::isSetDomain() const
 {
-  return SyntaxChecker::checkAndSetSId(spatialId ,mSpatialId);
+  return (mDomain.empty() == false);
 }
 
-/*
-  * Sets the value of the "domain" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::setDomain (const std::string& domain)
-{
-  return SyntaxChecker::checkAndSetSId(domain ,mDomain);
-}
 
 /*
-  * Sets the value of the "polygonType" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::setPolygonType (const std::string& polygonType)
+ * Returns true/false if polygonObject is set.
+ */
+bool
+ParametricObject::isSetPolygonObject() const
 {
-  return SyntaxChecker::checkAndSetSId(polygonType ,mPolygonType);
+  return (mPolygonObject != NULL);
 }
 
+
 /*
-  * Sets the value of the "samples" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::setPolygonObject (const PolygonObject* PolygonObject)
+ * Sets id and returns value indicating success.
+ */
+int
+ParametricObject::setId(const std::string& id)
 {
-  if (mPolygonObject == PolygonObject)
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets polygonType and returns value indicating success.
+ */
+int
+ParametricObject::setPolygonType(const std::string& polygonType)
+{
+  if (&(polygonType) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mPolygonType = polygonType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets domain and returns value indicating success.
+ */
+int
+ParametricObject::setDomain(const std::string& domain)
+{
+  if (&(domain) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(domain)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDomain = domain;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets polygonObject and returns value indicating success.
+ */
+int
+ParametricObject::setPolygonObject(PolygonObject* polygonObject)
+{
+  if (mPolygonObject == polygonObject)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (PolygonObject == NULL)
+  else if (polygonObject == NULL)
   {
-	  delete mPolygonObject;
-	  mPolygonObject = 0;
-      return LIBSBML_OPERATION_SUCCESS;
+    delete mPolygonObject;
+    mPolygonObject = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   else
   {
     delete mPolygonObject;
-    mPolygonObject = (PolygonObject != 0) ? PolygonObject->deepCopy() : 0;
-    if (mPolygonObject) mPolygonObject->setParentSBMLObject(this);
+    mPolygonObject = (polygonObject != NULL) ?
+      static_cast<PolygonObject*>(polygonObject->clone()) : NULL;
+    if (mPolygonObject != NULL)
+    {
+      mPolygonObject->connectToParent(this);
+    }
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
- /*
-  * Unsets the value of the "spatialId" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::unsetSpatialId ()
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+ParametricObject::unsetId()
 {
-  mSpatialId.erase();
-  if (mSpatialId.empty())
+  mId.erase();
+
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -272,31 +362,16 @@ ParametricObject::unsetSpatialId ()
   }
 }
 
- /*
-  * Unsets the value of the "domain" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::unsetDomain ()
-{
-  mDomain.erase();
-  if (mDomain.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
- /*
-  * Unsets the value of the "polygonType" attribute of this ParametricObject.
-  */
-int 
-ParametricObject::unsetPolygonType ()
+/*
+ * Unsets polygonType and returns value indicating success.
+ */
+int
+ParametricObject::unsetPolygonType()
 {
   mPolygonType.erase();
-  if (mPolygonType.empty())
+
+  if (mPolygonType.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -306,228 +381,144 @@ ParametricObject::unsetPolygonType ()
   }
 }
 
+
 /*
- * Creates a new PolygonObject for this ParametricObject and returns it.  If this
- * ParametricObject had a previous PolygonObject, it will be destroyed.
+ * Unsets domain and returns value indicating success.
  */
-PolygonObject*
-ParametricObject::createPolygonObject ()
+int
+ParametricObject::unsetDomain()
 {
-  delete mPolygonObject;
-  mPolygonObject = 0;
+  mDomain.erase();
 
-  try
+  if (mDomain.empty() == true)
   {
-    SPATIAL_CREATE_NS(spatialNs, mSBMLNamespaces)
-    mPolygonObject = new PolygonObject(spatialNs);
-    delete spatialNs;
+    return LIBSBML_OPERATION_SUCCESS;
   }
-  catch (...)
+  else
   {
-    /* here we do not create a default object 
-     *
-     * so do nothing
-     */
+    return LIBSBML_OPERATION_FAILED;
   }
-
-  if (mPolygonObject)
-  {
-    mPolygonObject->setParentSBMLObject(this);
-  }
-
-  return mPolygonObject;
 }
 
+
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Unsets polygonObject and returns value indicating success.
+ */
+int
+ParametricObject::unsetPolygonObject()
+{
+  delete mPolygonObject;
+  mPolygonObject = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+ParametricObject::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetDomain() == true && mDomain == oldid)
+  {
+    setDomain(newid);
+  }
+
+}
+
+
+List*
+ParametricObject::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_POINTER(ret, sublist, mPolygonObject, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
+/*
+ * Returns the XML element name of this object
  */
 const std::string&
 ParametricObject::getElementName () const
 {
-  static const std::string name = "parametricObject";
-  return name;
+	static const string name = "parametricObject";
+	return name;
 }
 
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Returns the libSBML type code for this SBML object.
  */
-SBase*
-ParametricObject::createObject (XMLInputStream& stream)
+int
+ParametricObject::getTypeCode () const
 {
-  // return 0;
-  SBase*        object = 0;
-
-  object=SBase::createObject(stream);
-  
-  return object;
-
+  return SBML_SPATIAL_PARAMETRICOBJECT;
 }
+
 
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * check if all the required attributes are set
  */
-void
-ParametricObject::addExpectedAttributes(ExpectedAttributes& attributes)
+bool
+ParametricObject::hasRequiredAttributes () const
 {
-  SBase::addExpectedAttributes(attributes);
-  
-  attributes.add("spatialId");
-  attributes.add("domain");
-  attributes.add("polygonType");
-}
+	bool allPresent = true;
 
-bool 
-ParametricObject::hasRequiredElements() const
-{
-  bool allPresent = true;
+  if (isSetId() == false)
+    allPresent = false;
 
-  /* required attributes for parametricObject: PolygonObject */
+  if (isSetPolygonType() == false)
+    allPresent = false;
 
-  if (!isSetPolygonObject())
+  if (isSetDomain() == false)
     allPresent = false;
 
   return allPresent;
 }
 
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-ParametricObject::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes,expectedAttributes);
-
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("spatialId", mSpatialId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mSpatialId.empty())
-  {
-    logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<ParametricObject>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute spatialId='" + mSpatialId + "' does not conform.");
-
-  assigned = attributes.readInto("domain", mDomain, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mDomain.empty())
-  {
-    logEmptyString(mDomain, sbmlLevel, sbmlVersion, "<ParametricObject>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mDomain)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute domain='" + mDomain + "' does not conform.");
-
-  assigned = attributes.readInto("polygonType", mPolygonType, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mPolygonType.empty())
-  {
-    logEmptyString(mPolygonType, sbmlLevel, sbmlVersion, "<ParametricObject>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mPolygonType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute polygonType='" + mPolygonType + "' does not conform.");
-
-}
 
 /*
- * Subclasses should override this method to read (and store) XHTML,
- * MathML, PolygonObject. directly from the XMLInputStream.
- *
- * @return true if the subclass read from the stream, false otherwise.
+ * check if all the required elements are set
  */
 bool
-ParametricObject::readOtherXML (XMLInputStream& stream)
+ParametricObject::hasRequiredElements () const
 {
-  bool          read = false;
-  const string& name = stream.peek().getName();
+	bool allPresent = true;
 
-  if (name == "PolygonObject")
-  {
- 
-    delete mPolygonObject;
-	mPolygonObject = PolygonObject::readPolygonObject(stream);
-    if (mPolygonObject) mPolygonObject->setParentSBMLObject(this);
-    read  = true;
-  }
+  if (isSetPolygonObject() == false)
+    allPresent = false;
 
-  /* ------------------------------
-   *
-   *   (EXTENSION)
-   *
-   *------------------------------- */
-  if ( SBase::readOtherXML(stream) )
-    read = true;
-
-  return read;
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-ParametricObject::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-
-  stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
-  stream.writeAttribute("domain",   getPrefix(), mDomain);
-  stream.writeAttribute("polygonType",   getPrefix(), mPolygonType);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
+  return allPresent;
 }
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 ParametricObject::writeElements (XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
-
-  if (mPolygonObject) PolygonObject::writePolygonObject(mPolygonObject, stream);
-
-  //
-  // (EXTENSION)
-  //
+	SBase::writeElements(stream);
+	if (isSetPolygonObject() == true)
+	{
+		mPolygonObject->write(stream);
+	}
   SBase::writeExtensionElements(stream);
 }
 
 
-/*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
- */
-int
-ParametricObject::getTypeCode () const
-{
-	return SBML_SPATIAL_PARAMETRICOBJECT;
-}
+  /** @endcond doxygenLibsbmlInternal */
 
-ParametricObject*
-ParametricObject::clone() const
-{
-    return new ParametricObject(*this);
-}
 
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -535,151 +526,462 @@ ParametricObject::clone() const
 bool
 ParametricObject::accept (SBMLVisitor& v) const
 {
-  // return false;
-  return v.visit(*this);
+  v.visit(*this);
+
+/* VISIT CHILDREN */
+
+  v.leave(*this);
+
+  return true;
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Ctor.
+ * Sets the parent SBMLDocument.
  */
-ListOfParametricObjects::ListOfParametricObjects(SpatialPkgNamespaces* spatialns)
- : ListOf(spatialns)
+void
+ParametricObject::setSBMLDocument (SBMLDocument* d)
 {
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(spatialns->getURI());
+	SBase::setSBMLDocument(d);
+	if ( mPolygonObject != NULL)
+	  mPolygonObject->setSBMLDocument(d);
 }
 
 
-/*
- * Ctor.
- */
-ListOfParametricObjects::ListOfParametricObjects(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));
-};
+  /** @endcond doxygenLibsbmlInternal */
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * @return a (deep) copy of this ListOfParametricObjects.
+   * Connects to child elements.
  */
-ListOfParametricObjects*
-ListOfParametricObjects::clone () const
+void
+ParametricObject::connectToChild()
 {
-  return new ListOfParametricObjects(*this);
+	SBase::connectToChild();
+
+	if (mPolygonObject != NULL)
+	  mPolygonObject->connectToParent(this);
 }
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+ParametricObject::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
  */
 SBase*
-ListOfParametricObjects::createObject (XMLInputStream& stream)
+ParametricObject::createObject(XMLInputStream& stream)
 {
-  const std::string& name   = stream.peek().getName();
-  SBase*        object = 0;
+	SBase* object = NULL;
 
+  const string& name = stream.peek().getName();
 
-  if (name == "parametricObject")
+  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+
+  if (name == "polygonObject")
   {
-      SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
-	  object = new ParametricObject(spatialns);
-	  appendAndOwn(object);
-	  delete spatialns;
-      //mItems.push_back(object);
+    mPolygonObject = new PolygonObject(spatialns);
+    object = mPolygonObject;
   }
+
+  delete spatialns;
+
+  connectToChild();
+
 
   return object;
 }
 
 
-/* return nth item in list */
-ParametricObject *
-ListOfParametricObjects::get(unsigned int n)
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+ParametricObject::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  return static_cast<ParametricObject*>(ListOf::get(n));
+	SBase::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("polygonType");
+	attributes.add("domain");
 }
 
 
-/* return nth item in list */
-const ParametricObject *
-ListOfParametricObjects::get(unsigned int n) const
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+ParametricObject::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
 {
-  return static_cast<const ParametricObject*>(ListOf::get(n));
-}
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
+  unsigned int numErrs;
 
-/* return item by spatialId */
-ParametricObject*
-ListOfParametricObjects::get (const std::string& spatialId)
-{
-  return const_cast<ParametricObject*>( 
-    static_cast<const ListOfParametricObjects&>(*this).get(spatialId) );
-}
+	SBase::readAttributes(attributes, expectedAttributes);
 
-
-/* return item by spatialId */
-const ParametricObject*
-ListOfParametricObjects::get (const std::string& spatialId) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<ParametricObject>(spatialId) );
-  return (result == mItems.end()) ? 0 : static_cast <ParametricObject*> (*result);
-}
-
-
-/* Removes the nth item from this list */
-ParametricObject*
-ListOfParametricObjects::remove (unsigned int n)
-{
-   return static_cast<ParametricObject*>(ListOf::remove(n));
-}
-
-
-/* Removes item in this list by spatialId */
-ParametricObject*
-ListOfParametricObjects::remove (const std::string& spatialId)
-{
-  SBase* item = 0;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<ParametricObject>(spatialId) );
-
-  if (result != mItems.end())
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
   {
-    item = *result;
-    mItems.erase(result);
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
   }
 
-  return static_cast <ParametricObject*> (item);
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<ParametricObject>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // polygonType string   ( use = "required" )
+  //
+  assigned = attributes.readInto("polygonType", mPolygonType);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mPolygonType.empty() == true)
+    {
+      logEmptyString(mPolygonType, getLevel(), getVersion(), "<ParametricObject>");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'polygonType' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // domain SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("domain", mDomain);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mDomain.empty() == true)
+    {
+      logEmptyString(mDomain, getLevel(), getVersion(), "<ParametricObject>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mDomain) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute domain='" + mDomain + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'domain' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * SBML_UNKNOWN (default).
+ * Write values of XMLAttributes to the output stream.
  */
+  void
+ParametricObject::writeAttributes (XMLOutputStream& stream) const
+{
+	SBase::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetPolygonType() == true)
+		stream.writeAttribute("polygonType", getPrefix(), mPolygonType);
+
+	if (isSetDomain() == true)
+		stream.writeAttribute("domain", getPrefix(), mDomain);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricObject_create(unsigned int level, unsigned int version,
+                        unsigned int pkgVersion)
+{
+  return new ParametricObject(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+ParametricObject_free(ParametricObject_t * po)
+{
+  if (po != NULL)
+    delete po;
+}
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricObject_clone(ParametricObject_t * po)
+{
+  if (po != NULL)
+  {
+    return static_cast<ParametricObject_t*>(po->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+ParametricObject_getId(const ParametricObject_t * po)
+{
+	return (po != NULL && po->isSetId()) ? po->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+ParametricObject_getPolygonType(const ParametricObject_t * po)
+{
+	return (po != NULL && po->isSetPolygonType()) ? po->getPolygonType().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+ParametricObject_getDomain(const ParametricObject_t * po)
+{
+	return (po != NULL && po->isSetDomain()) ? po->getDomain().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+PolygonObject_t*
+ParametricObject_getPolygonObject(ParametricObject_t * po)
+{
+	if (po == NULL)
+		return NULL;
+
+	return (PolygonObject_t*)po->getPolygonObject();
+}
+
+
+LIBSBML_EXTERN
+PolygonObject_t*
+ParametricObject_createPolygonObject(ParametricObject_t * po)
+{
+	if (po == NULL)
+		return NULL;
+
+	return (PolygonObject_t*)po->createPolygonObject();
+}
+
+
+LIBSBML_EXTERN
 int
-ListOfParametricObjects::getItemTypeCode () const
+ParametricObject_isSetId(const ParametricObject_t * po)
 {
-	return SBML_SPATIAL_PARAMETRICOBJECT;
+  return (po != NULL) ? static_cast<int>(po->isSetId()) : 0;
 }
 
-/*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
- */
-const std::string&
-ListOfParametricObjects::getElementName () const
+
+LIBSBML_EXTERN
+int
+ParametricObject_isSetPolygonType(const ParametricObject_t * po)
 {
-  static const std::string name = "listOfParametricObjects";
-  return name;
+  return (po != NULL) ? static_cast<int>(po->isSetPolygonType()) : 0;
 }
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_isSetDomain(const ParametricObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->isSetDomain()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_isSetPolygonObject(const ParametricObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->isSetPolygonObject()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_setId(ParametricObject_t * po, const char * id)
+{
+  if (po != NULL)
+    return (id == NULL) ? po->setId("") : po->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonType)
+{
+  if (po != NULL)
+    return (polygonType == NULL) ? po->setPolygonType("") : po->setPolygonType(polygonType);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_setDomain(ParametricObject_t * po, const char * domain)
+{
+  if (po != NULL)
+    return (domain == NULL) ? po->setDomain("") : po->setDomain(domain);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_setPolygonObject(ParametricObject_t * po, PolygonObject_t* polygonObject)
+{
+	return (po != NULL) ? po->setPolygonObject(polygonObject) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_unsetId(ParametricObject_t * po)
+{
+  return (po != NULL) ? po->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_unsetPolygonType(ParametricObject_t * po)
+{
+  return (po != NULL) ? po->unsetPolygonType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_unsetDomain(ParametricObject_t * po)
+{
+  return (po != NULL) ? po->unsetDomain() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_hasRequiredAttributes(const ParametricObject_t * po)
+{
+  return (po != NULL) ? static_cast<int>(po->hasRequiredAttributes()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+ParametricObject_hasRequiredElements(const ParametricObject_t * po)
+{
+	return (po != NULL) ? static_cast<int>(po->hasRequiredElements()) : 0;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
 

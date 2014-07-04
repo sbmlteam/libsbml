@@ -1,119 +1,150 @@
-/*
- * @file    CSGNode.h
- * @brief   Definition of CSGNode, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   CSGNode.h
+ * @brief:  Implementation of the CSGNode class
+ * @author: SBMLTeam
  *
- * $Id: CSGNode.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGNode.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef CSGNode_H__
 #define CSGNode_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
 
-BEGIN_C_DECLS
-
-typedef enum
-{
-    CSGNODE_TYPE_CSGPRIMITIVE
-  , CSGNODE_TYPE_CSGPSEUDOPRIMITIVE
-  , CSGNODE_TYPE_CSGSETOPERATOR
-  , CSGNODE_TYPE_CSGTRANSFORMATION
-  , CSGNODE_TYPE_INVALID
-} CSGNodeType_t;
-
-END_C_DECLS
-
-
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
+class CSGPrimitive;
+class CSGTransformation;
+class CSGPseudoPrimitive;
+class CSGSetOperator;
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class CSGPrimitive;
-class CSGPseudoPrimitive;
-class CSGSetOperator;
-class CSGTranslation;
-class CSGRotation;
-class CSGScale;
-class CSGHomogeneousTransformation;
-
 class LIBSBML_EXTERN CSGNode : public SBase
 {
+
 protected:
 
-  std::string mSpatialId;
-  SBMLSpatialTypeCode_t mType;
+  std::string   mId;
+
 
 public:
 
-  //
-  //  Only subclasses may create CSGNodes.
-  // 
-  CSGNode(SBMLSpatialTypeCode_t	type,
-	      unsigned int level   = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion());
-
-  CSGNode(SBMLSpatialTypeCode_t	type, SpatialPkgNamespaces* spatialns);
-
-
   /**
-   * Assignment operator.
-   */
-   CSGNode& operator=(const CSGNode& source);
-
-
-  /**
-   * Destructor.
-   */ 
-  virtual ~CSGNode ();
-
-  /**
-   * Returns the string of the "spatialId" attribute of this CSGObject.
+   * Creates a new CSGNode with the given level, version, and package version.
    *
-   * @return the string of the "spatialId" attribute of this CSGObject.
+   * @param level an unsigned int, the SBML Level to assign to this CSGNode
+   *
+   * @param version an unsigned int, the SBML Version to assign to this CSGNode
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGNode
    */
-  virtual const std::string& getSpatialId () const;
+  CSGNode(unsigned int level      = SpatialExtension::getDefaultLevel(),
+          unsigned int version    = SpatialExtension::getDefaultVersion(),
+          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
- /**
+  /**
+   * Creates a new CSGNode with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  CSGNode(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for CSGNode.
+   *
+   * @param orig; the CSGNode instance to copy.
+   */
+  CSGNode(const CSGNode& orig);
+
+
+   /**
+   * Assignment operator for CSGNode.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  CSGNode& operator=(const CSGNode& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this CSGNode object.
+   *
+   * @return a (deep) copy of this CSGNode object.
+   */
+  virtual CSGNode* clone () const;
+
+
+   /**
+   * Destructor for CSGNode.
+   */
+  virtual ~CSGNode();
+
+
+   /**
+   * Returns the value of the "id" attribute of this CSGNode.
+   *
+   * @return the value of the "id" attribute of this CSGNode as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGObject's "spatialId" attribute has been set.
+   * CSGNode's "id" attribute has been set.
    *
-   * @return @c true if this CSGObject's "spatialId" attribute has been set, 
+   * @return @c true if this CSGNode's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSpatialId () const;
-  
- /**
-   * Sets the SIdRef string of the "spatialId" attribute of this CSGObject.
+  virtual bool isSetId() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this CSGNode.
    *
-   * @param spatialId a SIdRef string to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -122,10 +153,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSpatialId (const std::string& spatialId);
+  virtual int setId(const std::string& id);
+
 
   /**
-   * Unsets the value of the "id" attribute of this CSGObject.
+   * Unsets the value of the "id" attribute of this CSGNode.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -134,490 +166,658 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetSpatialId ();
+  virtual int unsetId();
 
- /**
-   * (SBML Level&nbsp;1) Get the type of CSGNode.
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGPrimitive.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGPrimitive.
+   *
+   */
+  virtual bool isCSGPrimitive() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGTransformation.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGTransformation.
+   *
+   */
+  virtual bool isCSGTransformation() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGPseudoPrimitive.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGPseudoPrimitive.
+   *
+   */
+  virtual bool isCSGPseudoPrimitive() const;
+
+
+  /**
+   * Returns @c true, if this abstract "CSGNode" is of type CSGSetOperator.
+   *
+   * @return @c true, if this abstract "CSGNode" is of type CSGSetOperator.
+   *
+   */
+  virtual bool isCSGSetOperator() const;
+
+
+  /**
+   * Returns the XML element name of this object, which for CSGNode, is
+   * always @c "cSGNode".
+   *
+   * @return the name of this element, i.e. @c "cSGNode".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
    * 
-   * @return the CSGNode type (a value drawn from the enumeration <a
-   * class="el" href="#CSGNode">CSGNode</a>) of this CSGNode.
-   * The value will be either @c GEOMETRICPRIMITIVE, @c CSGNODE_TYPE_CSGOPERATOR,
-   * @c CSGNODE_TYPE_AFFINETRANSFORMATIONs
-   */
-  CSGNodeType_t getType () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGNode's "csgPrimitive" attribute has been set.
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * @return @c true if this CSGNode's "csgPrimitive" attribute has been set, 
-   * otherwise @c false is returned.
-   */
-  bool isCSGPrimitive () const;
-  
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGNode's "csgPseudoPrimitive" attribute has been set.
-   *
-   * @return @c true if this CSGNode's "csgPseudoPrimitive" attribute has been set, 
-   * otherwise @c false is returned.
-   */
-  bool isCSGPseudoPrimitive () const;
-  
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGNode's "csgSetOperator" attribute has been set.
-   *
-   * @return @c true if this CSGNode's "csgSetOperator" attribute has been set, 
-   * otherwise @c false is returned.
-   */
-  bool isCSGSetOperator () const;
-  
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGNode's "csgTransformation" attribute has been set.
-   *
-   * @return @c true if this CSGNode's "csgTransformation" attribute has been set, 
-   * otherwise @c false is returned.
-   */
-  bool isCSGTransformation () const;
-  
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   *
-   * @return the string of the name of this element.
-   */
-  virtual const std::string& getElementName () const ;
-
-
-  /**
-   * @return a (deep) copy of this CSGNode.
-   */
-  virtual CSGNode* clone () const;
-
-
-  /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
   virtual int getTypeCode () const;
 
 
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this CSGNode object have been set.
+   *
+   * @note The required attributes for a CSGNode object are:
+   * @li "id"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream) const {
-  };
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+
   /** @endcond doxygenLibsbmlInternal */
 
-   /** @cond doxygenLibsbmlInternal */
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild (){ 
-  };
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
+   * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
+               const std::string& pkgPrefix, bool flag);
+
+
   /** @endcond doxygenLibsbmlInternal */
 
 
 protected:
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase*
-  createObject (XMLInputStream& stream) {
-	  return NULL;
-  };
 
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Read values from the given XMLAttributes set into their specific fields.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
- /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
-   *
-   * @return true if the subclass read from the stream, false otherwise.
-   */
-  virtual bool readOtherXML (XMLInputStream& stream) {
-	  return false;
-  };
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-    /**
-   * Creates a new CSGPrimitive object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGPrimitive object created
-   */
-  CSGPrimitive* create_CSGPrimitive ();
 
-  /**
-   * Creates a new CSGPseudoPrimitive object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGPseudoPrimitive object created
-   */
-  CSGPseudoPrimitive* create_CSGPseudoPrimitive ();
+  /** @endcond doxygenLibsbmlInternal */
 
-  /**
-   * Creates a new CSGNodeperator object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGNodeperator object created
-   */
-  CSGSetOperator* create_CSGSetOperator ();
-
-  /**
-   * Creates a new CSGTranslation object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGTranslation object created
-   */
-  CSGTranslation* create_CSGTranslation ();
-
-  /**
-   * Creates a new CSGRotation object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGRotation object created
-   */
-  CSGRotation* create_CSGRotation ();
-
-  /**
-   * Creates a new CSGScale object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGScale object created
-   */
-  CSGScale* create_CSGScale ();
-
-  /**
-   * Creates a new CSGHomogeneousTransformation object inside this CSGNodeperator and returns it.
-   *
-   * @return the CSGHomogeneousTransformation object created
-   */
-  CSGHomogeneousTransformation* create_CSGHomogeneousTransformation ();
-
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
-
- /** @endcond doxygenLibsbmlInternal */
 
 
 };
 
 class LIBSBML_EXTERN ListOfCSGNodes : public ListOf
 {
+
 public:
 
   /**
-   * @return a (deep) copy of this ListOfCSGNodes.
+   * Creates a new ListOfCSGNodes with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfCSGNodes
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfCSGNodes
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfCSGNodes
+   */
+  ListOfCSGNodes(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                 unsigned int version    = SpatialExtension::getDefaultVersion(),
+                 unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new ListOfCSGNodes with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  ListOfCSGNodes(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Creates and returns a deep copy of this ListOfCSGNodes object.
+   *
+   * @return a (deep) copy of this ListOfCSGNodes object.
    */
   virtual ListOfCSGNodes* clone () const;
 
 
-  /**
-   * Creates a new ListOfCSGNodes with the given level, version, and package version.
+   /**
+   * Get a CSGNode from the ListOfCSGNodes.
+   *
+   * @param n the index number of the CSGNode to get.
+   *
+   * @return the nth CSGNode in this ListOfCSGNodes.
+   *
+   * @see size()
    */
-   ListOfCSGNodes(unsigned int level  = SpatialExtension::getDefaultLevel(),
-          unsigned int version			= SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion		= SpatialExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new ListOfCSGNodes with the given spatialPkgNamespaces object.
-   */
-   ListOfCSGNodes(SpatialPkgNamespaces* spatialsns);
+	virtual CSGNode* get(unsigned int n);
 
 
   /**
    * Get a CSGNode from the ListOfCSGNodes.
    *
    * @param n the index number of the CSGNode to get.
-   * 
+   *
    * @return the nth CSGNode in this ListOfCSGNodes.
    *
    * @see size()
    */
-  virtual CSGNode * get(unsigned int n); 
-
-
-  /**
-   * Get a CSGNode from the ListOfCSGNodes.
-   *
-   * @param n the index number of the CSGNode to get.
-   * 
-   * @return the nth CSGNode in this ListOfCSGNodes.
-   *
-   * @see size()
-   */
-  virtual const CSGNode * get(unsigned int n) const; 
-
-  /**
-   * Get a CSGNode from the ListOfCSGNodes
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier 
-   * of the CSGNode to get.
-   * 
-   * @return CSGNode in this ListOfCSGNodes
-   * with the given id or NULL if no such
-   * CSGNode exists.
-   *
-   * @see get(unsigned int n)
-   * @see size()
-   */
-  virtual CSGNode* get (const std::string& sid);
+	virtual const CSGNode* get(unsigned int n) const;
 
 
   /**
    * Get a CSGNode from the ListOfCSGNodes
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the CSGNode to get.
-   * 
+   *
    * @return CSGNode in this ListOfCSGNodes
    * with the given id or NULL if no such
    * CSGNode exists.
    *
-   * @see get(unsigned int n)
+   * @see get(unsigned int n)   *
    * @see size()
    */
-  virtual const CSGNode* get (const std::string& sid) const;
+	virtual CSGNode* get(const std::string& sid);
 
 
   /**
-   * Removes the nth item from this ListOfCSGNodes items and returns a pointer to
-   * it.
+   * Get a CSGNode from the ListOfCSGNodes
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the CSGNode to get.
+   *
+   * @return CSGNode in this ListOfCSGNodes
+   * with the given id or NULL if no such
+   * CSGNode exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const CSGNode* get(const std::string& sid) const;
+
+
+	/**
+	 * Adds a copy the given "CSGNode" to this ListOfCSGNodes.
+	 *
+	 * @param csgn; the CSGNode object to add
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSEDML_OPERATION_SUCCESS
+	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+	 */
+	int addCSGNode(const CSGNode* csgn);
+
+
+	/**
+	 * Get the number of CSGNode objects in this ListOfCSGNodes.
+	 *
+	 * @return the number of CSGNode objects in this ListOfCSGNodes
+	 */
+	unsigned int getNumCSGNodes() const;
+
+
+	/**
+	 * Creates a new CSGNode object, adds it to the
+	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 *
+	 * @return a new CSGNode object instance
+	 *
+	 * @see addCSGNode(const CSGNode* csgn)
+	 */
+	CSGPrimitive* createCsgPrimitive();
+
+
+	/**
+	 * Creates a new CSGNode object, adds it to the
+	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 *
+	 * @return a new CSGNode object instance
+	 *
+	 * @see addCSGNode(const CSGNode* csgn)
+	 */
+	CSGTransformation* createCsgTrasnformation();
+
+
+	/**
+	 * Creates a new CSGNode object, adds it to the
+	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 *
+	 * @return a new CSGNode object instance
+	 *
+	 * @see addCSGNode(const CSGNode* csgn)
+	 */
+	CSGPseudoPrimitive* createCsgPseudoPrimitive();
+
+
+	/**
+	 * Creates a new CSGNode object, adds it to the
+	 * ListOfCSGNodes and returns the CSGNode object created. 
+	 *
+	 * @return a new CSGNode object instance
+	 *
+	 * @see addCSGNode(const CSGNode* csgn)
+	 */
+	CSGSetOperator* createCsgSetOperator();
+
+
+	virtual bool isValidTypeForList(SBase * item) {
+		int code = item->getTypeCode();
+		return code == getItemTypeCode() || code == SBML_SPATIAL_CSGPRIMITIVE || code == SBML_SPATIAL_CSGTRANSFORMATION || code == SBML_SPATIAL_CSGPSEUDOPRIMITIVE || code == SBML_SPATIAL_CSGSETOPERATOR ;
+	}
+
+
+  /**
+   * Removes the nth CSGNode from this ListOfCSGNodes
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
+   * @param n the index of the CSGNode to remove.
    *
    * @see size()
    */
-  virtual CSGNode* remove (unsigned int n);
+	virtual CSGNode* remove(unsigned int n);
 
 
   /**
-   * Removes item in this ListOfCSGNodes items with the given identifier.
+   * Removes the CSGNode from this ListOfCSGNodes with the given identifier
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the CSGNode to remove.
    *
-   * @return the item removed.  As mentioned above, the caller owns the
+   * @return the CSGNode removed. As mentioned above, the caller owns the
    * returned item.
    */
-  virtual CSGNode* remove (const std::string& sid);
+	virtual CSGNode* remove(const std::string& sid);
 
 
   /**
-   * @return the typecode (int) of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
-   */
-  virtual int getItemTypeCode () const;
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object, which for ListOfCSGNodes, is
+   * always @c "listOfCSGNodes".
    *
-   * @return the string of the name of this element.
+   * @return the name of this element, i.e. @c "listOfCSGNodes".
    */
   virtual const std::string& getElementName () const;
 
 
-protected:
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
 
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
    */
-  virtual SBase* createObject (XMLInputStream& stream);
+  virtual int getItemTypeCode () const;
 
-  virtual bool isValidTypeForList(SBase * item);
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates a new CSGNode in this ListOfCSGNodes
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Spatial package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+
 };
 
-/** @cond doxygenLibsbmlInternal */
-/**
- * Used by ListOfCSGNodes::get() to lookup an SBase based by its 
- * componentType
- */
-#ifndef SWIG
-template<>
-struct IdEq<CSGNode> : public std::unary_function<SBase*, bool>
-{
-  const std::string& id;
 
-  IdEq (const std::string& id) : id(id) { }
-  bool operator() (SBase* sb) 
-       { return static_cast <CSGNode*> (sb)->getSpatialId() == id; }
-};
-#endif
-/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
+/**
+ * Creates a new CSGNode_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * CSGNode_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * CSGNode_t structure.
+ *
+ * @returns the newly-created CSGNode_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof CSGNode_t
+ */
+LIBSBML_EXTERN
+CSGNode_t *
+CSGNode_create(unsigned int level, unsigned int version,
+               unsigned int pkgVersion);
 
 
+/**
+ * Frees the given CSGNode_t structure.
+ * 
+ * @param csgn the CSGNode_t structure to be freed.
+ *
+ * @memberof CSGNode_t
+ */
+LIBSBML_EXTERN
+void
+CSGNode_free(CSGNode_t * csgn);
+
+
+/**
+ * Creates a deep copy of the given CSGNode_t structure.
+ * 
+ * @param csgn the CSGNode_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given CSGNode_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof CSGNode_t
+ */
+LIBSBML_EXTERN
+CSGNode_t *
+CSGNode_clone(CSGNode_t * csgn);
+
+
+/**
+ * Returns the value of the "id" attribute of the given CSGNode_t
+ * structure.
+ *
+ * @param csgn the CSGNode_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of CSGNode_t
+ */
 LIBSBML_EXTERN
 const char *
-CSGNode_getSpatialId (const CSGNode_t *csgo);
+CSGNode_getId(const CSGNode_t * csgn);
 
 
+/**
+ * Predicate returning @c 1 if the given CSGNode_t structure's "id"
+ * is set.
+ *
+ * @param csgn the CSGNode_t structure.
+ *
+ * @return @c 1 if the "id" of this CSGNode_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGNode_t
+ */
 LIBSBML_EXTERN
 int
-CSGNode_isSetSpatialId (const CSGNode_t *c);
+CSGNode_isSetId(const CSGNode_t * csgn);
 
 
+/**
+ * Sets the "id" attribute of the given CSGNode_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGNode_unsetId() instead.
+ *
+ * @param csgn the CSGNode_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGNode_t
+ */
 LIBSBML_EXTERN
 int
-CSGNode_setSpatialId (CSGNode_t *c, const char *sid);
+CSGNode_setId(CSGNode_t * csgn, const char * id);
 
 
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *CSGNode_t structure.
+ *
+ * @param csgn the CSGNode_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGNode_t
+ */
 LIBSBML_EXTERN
 int
-CSGNode_unsetSpatialId (CSGNode_t *csgo);
+CSGNode_unsetId(CSGNode_t * csgn);
 
 
-LIBSBML_EXTERN
-CSGNodeType_t
-CSGNode_getType (const CSGNode_t *csgo);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGPrimitive (const CSGNode_t *csgo);
-
-
-LIBSBML_EXTERN
-int
-CSGNode_isCSGSetOperator (const CSGNode_t *csgo);
-
-
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given CSGNode_t structure have been set.
+ *
+ * @param csgn the CSGNode_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGNode_t
+ */
 LIBSBML_EXTERN
 int
-CSGNode_isCSGTransformation (const CSGNode_t *csgo);
+CSGNode_hasRequiredAttributes(const CSGNode_t * csgn);
 
 
 LIBSBML_EXTERN
 CSGNode_t *
-CSGNode_clone (const CSGNode_t* c);
+ListOfCSGNodes_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
 CSGNode_t *
-ListOfCSGNodes_getById (ListOf_t *lo, const char *sid);
+ListOfCSGNodes_removeById(ListOf_t * lo, const char * sid);
 
 
-LIBSBML_EXTERN
-CSGNode_t *
-ListOfCSGNodes_removeById (ListOf_t *lo, const char *sid);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* CSGNode_H__ */
+#endif /*  CSGNode_H__  */
+

@@ -1,78 +1,77 @@
 /**
- * @file    CSGScale.cpp
- * @brief   Implementation of CSGScale, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGScale.cpp
+ * @brief:  Implementation of the CSGScale class
+ * @author: SBMLTeam
  *
- * $Id: CSGScale.cpp   $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGScale.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
 
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
-
-#include <sbml/SBase.h>
 #include <sbml/packages/spatial/sbml/CSGScale.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CSGScale with the given level, version, and package version.
  */
-CSGScale::CSGScale (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-		: CSGTransformation (SBML_SPATIAL_CSGSCALE, level,version)
-		, mScaleX(0.0)
-		, mScaleY(0.0)
-		, mScaleZ(0.0)
-		, mIsSetScaleX (false)
-		, mIsSetScaleY (false)
-		, mIsSetScaleZ (false)
+CSGScale::CSGScale (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: CSGTransformation(level, version)
+   ,mScaleX (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleX (false)
+   ,mScaleY (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleY (false)
+   ,mScaleZ (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleZ (false)
 {
-  mType = SBML_SPATIAL_CSGSCALE;
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion)); 
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new CSGScale with the given SpatialPkgNamespaces object.
  */
-CSGScale::CSGScale(SpatialPkgNamespaces* spatialns)
-	: CSGTransformation (SBML_SPATIAL_CSGSCALE, spatialns)
-		, mScaleX(0.0)
-		, mScaleY(0.0)
-		, mScaleZ(0.0)
-		, mIsSetScaleX (false)
-		, mIsSetScaleY (false)
-		, mIsSetScaleZ (false)
+CSGScale::CSGScale (SpatialPkgNamespaces* spatialns)
+	: CSGTransformation(spatialns)
+   ,mScaleX (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleX (false)
+   ,mScaleY (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleY (false)
+   ,mScaleZ (numeric_limits<double>::quiet_NaN())
+   ,mIsSetScaleZ (false)
 {
-  mType = SBML_SPATIAL_CSGSCALE;
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
@@ -81,181 +80,175 @@ CSGScale::CSGScale(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CSGScale.
  */
-CSGScale::CSGScale(const CSGScale& source) : CSGTransformation(source)
+CSGScale::CSGScale (const CSGScale& orig)
+	: CSGTransformation(orig)
 {
-  if (source.mChild)
+  if (&orig == NULL)
   {
-	  mChild = static_cast<CSGNode*>( source.mChild->clone() );
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  this->mScaleX=source.mScaleX;
-  this->mScaleY=source.mScaleY;
-  this->mScaleZ=source.mScaleZ;
-  this->mIsSetScaleX=source.mIsSetScaleX;
-  this->mIsSetScaleY=source.mIsSetScaleY;
-  this->mIsSetScaleZ=source.mIsSetScaleZ;
-
-  connectToChild();
-
+  else
+  {
+    mScaleX  = orig.mScaleX;
+    mIsSetScaleX  = orig.mIsSetScaleX;
+    mScaleY  = orig.mScaleY;
+    mIsSetScaleY  = orig.mIsSetScaleY;
+    mScaleZ  = orig.mScaleZ;
+    mIsSetScaleZ  = orig.mIsSetScaleZ;
+  }
 }
 
 
 /*
- * Assignment operator.
+ * Assignment for CSGScale.
  */
-CSGScale& CSGScale::operator=(const CSGScale& source)
+CSGScale&
+CSGScale::operator=(const CSGScale& rhs)
 {
-  if(&source!=this)
+  if (&rhs == NULL)
   {
-	this->CSGTransformation::operator=(source);
-    this->mScaleX=source.mScaleX;
-    this->mScaleY=source.mScaleY;
-    this->mScaleZ=source.mScaleZ;
-    this->mIsSetScaleX=source.mIsSetScaleX;
-    this->mIsSetScaleY=source.mIsSetScaleY;
-    this->mIsSetScaleZ=source.mIsSetScaleZ;
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+		CSGTransformation::operator=(rhs);
+    mScaleX  = rhs.mScaleX;
+    mIsSetScaleX  = rhs.mIsSetScaleX;
+    mScaleY  = rhs.mScaleY;
+    mIsSetScaleY  = rhs.mIsSetScaleY;
+    mScaleZ  = rhs.mScaleZ;
+    mIsSetScaleZ  = rhs.mIsSetScaleZ;
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
-CSGScale::~CSGScale ()
+ * Clone for CSGScale.
+ */
+CSGScale*
+CSGScale::clone () const
 {
-	// destroy 'mChild'
-	if (mChild) delete mChild;
+  return new CSGScale(*this);
 }
 
 
- /*
-  * Returns the value of the "scaleX" attribute of this CSGScale.
-  */
-double 
-CSGScale::getScaleX () const
+/*
+ * Destructor for CSGScale.
+ */
+CSGScale::~CSGScale ()
+{
+}
+
+
+/*
+ * Returns the value of the "scaleX" attribute of this CSGScale.
+ */
+double
+CSGScale::getScaleX() const
 {
   return mScaleX;
 }
 
- /*
-  * Returns the value of the "scaleY" attribute of this CSGScale.
-  */
-double 
-CSGScale::getScaleY () const
+
+/*
+ * Returns the value of the "scaleY" attribute of this CSGScale.
+ */
+double
+CSGScale::getScaleY() const
 {
   return mScaleY;
 }
 
- /*
-  * Returns the value of the "scaleZ" attribute of this CSGScale.
-  */
-double 
-CSGScale::getScaleZ () const
+
+/*
+ * Returns the value of the "scaleZ" attribute of this CSGScale.
+ */
+double
+CSGScale::getScaleZ() const
 {
   return mScaleZ;
 }
 
 
-
- /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGScale's "scaleX" attribute has been set.
-  */
-bool 
-CSGScale::isSetScaleX () const
+/*
+ * Returns true/false if scaleX is set.
+ */
+bool
+CSGScale::isSetScaleX() const
 {
   return mIsSetScaleX;
 }
 
+
 /*
- * @return true if the "scaleY" of this CSGScale has been set, false
- * otherwise.
+ * Returns true/false if scaleY is set.
  */
 bool
-CSGScale::isSetScaleY () const
+CSGScale::isSetScaleY() const
 {
   return mIsSetScaleY;
 }
 
+
 /*
- * @return true if the "scaleZ" of this CSGScale has been set, false
- * otherwise.
+ * Returns true/false if scaleZ is set.
  */
 bool
-CSGScale::isSetScaleZ () const
+CSGScale::isSetScaleZ() const
 {
   return mIsSetScaleZ;
 }
 
- /*
-  * Sets the value of the "scaleX" attribute of this CSGScale.
-  */
-int 
-CSGScale::setScaleX (double val)
+
+/*
+ * Sets scaleX and returns value indicating success.
+ */
+int
+CSGScale::setScaleX(double scaleX)
 {
-  if (val < 0)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mScaleX = val;
-    mIsSetScaleX  = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
- /*
-  * Sets the value of the "scaleY" attribute of this CSGScale.
-  */
-int 
-CSGScale::setScaleY (double val)
-{
-  if (val < 0)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mScaleY = val;
-    mIsSetScaleY  = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
- /*
-  * Sets the value of the "scaleX" attribute of this CSGScale.
-  */
-int 
-CSGScale::setScaleZ (double val)
-{
-  if (val < 0)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mScaleZ = val;
-    mIsSetScaleZ  = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mScaleX = scaleX;
+  mIsSetScaleX = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
-  * Unsets the value of the "scaleX" attribute of this CSGScale.
-  */
-int 
-CSGScale::unsetScaleX ()
+ * Sets scaleY and returns value indicating success.
+ */
+int
+CSGScale::setScaleY(double scaleY)
 {
-  mScaleX      = numeric_limits<double>::quiet_NaN();
+  mScaleY = scaleY;
+  mIsSetScaleY = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets scaleZ and returns value indicating success.
+ */
+int
+CSGScale::setScaleZ(double scaleZ)
+{
+  mScaleZ = scaleZ;
+  mIsSetScaleZ = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets scaleX and returns value indicating success.
+ */
+int
+CSGScale::unsetScaleX()
+{
+  mScaleX = numeric_limits<double>::quiet_NaN();
   mIsSetScaleX = false;
-  
-  if (!isSetScaleX())
+
+  if (isSetScaleX() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -265,16 +258,17 @@ CSGScale::unsetScaleX ()
   }
 }
 
+
 /*
-  * Unsets the value of the "scaleY" attribute of this CSGScale.
-  */
-int 
-CSGScale::unsetScaleY ()
+ * Unsets scaleY and returns value indicating success.
+ */
+int
+CSGScale::unsetScaleY()
 {
-  mScaleY      = numeric_limits<double>::quiet_NaN();
+  mScaleY = numeric_limits<double>::quiet_NaN();
   mIsSetScaleY = false;
-  
-  if (!isSetScaleY())
+
+  if (isSetScaleY() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -284,16 +278,17 @@ CSGScale::unsetScaleY ()
   }
 }
 
+
 /*
-  * Unsets the value of the "scaleZ" attribute of this CSGScale.
-  */
-int 
-CSGScale::unsetScaleZ ()
+ * Unsets scaleZ and returns value indicating success.
+ */
+int
+CSGScale::unsetScaleZ()
 {
-  mScaleZ      = numeric_limits<double>::quiet_NaN();
+  mScaleZ = numeric_limits<double>::quiet_NaN();
   mIsSetScaleZ = false;
-  
-  if (!isSetScaleZ())
+
+  if (isSetScaleZ() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -303,103 +298,60 @@ CSGScale::unsetScaleZ ()
   }
 }
 
-/*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- 
-SBase*
-CSGScale::createObject (XMLInputStream& stream)
-{
-  // return 0;
-  
-  SBase*        object = 0;
-
-  object=CSGTransformation::createObject(stream);
-  
-  return object;
-
-}
-*/
 
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * Returns the XML element name of this object
  */
-void
-CSGScale::addExpectedAttributes(ExpectedAttributes& attributes)
+const std::string&
+CSGScale::getElementName () const
 {
-  CSGTransformation::addExpectedAttributes(attributes);
-  
-  attributes.add("scaleX");
-  attributes.add("scaleY");
-  attributes.add("scaleZ");
+	static const string name = "cSGScale";
+	return name;
 }
 
 
 /*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
+ * Returns the libSBML type code for this SBML object.
  */
-void
-CSGScale::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
+int
+CSGScale::getTypeCode () const
 {
-  CSGTransformation::readAttributes(attributes,expectedAttributes);
-
-  mIsSetScaleX = attributes.readInto("scaleX", mScaleX, getErrorLog(), true, getLine(), getColumn());
-  mIsSetScaleY = attributes.readInto("scaleY", mScaleY, getErrorLog(), true, getLine(), getColumn());
-  mIsSetScaleZ = attributes.readInto("scaleZ", mScaleZ, getErrorLog(), true, getLine(), getColumn());
-
+  return SBML_SPATIAL_CSGSCALE;
 }
 
 
 /*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
+ * check if all the required attributes are set
  */
-void
-CSGScale::writeAttributes (XMLOutputStream& stream) const
+bool
+CSGScale::hasRequiredAttributes () const
 {
-  CSGTransformation::writeAttributes(stream);
+	bool allPresent = CSGTransformation::hasRequiredAttributes();
 
-  stream.writeAttribute("scaleX", getPrefix(), mScaleX);
-  stream.writeAttribute("scaleY", getPrefix(), mScaleY);
-  stream.writeAttribute("scaleZ", getPrefix(), mScaleZ);
+  if (isSetScaleX() == false)
+    allPresent = false;
 
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
+  return allPresent;
 }
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 CSGScale::writeElements (XMLOutputStream& stream) const
 {
-  CSGTransformation::writeElements(stream);
-
-  //
-  // (EXTENSION)
-  //
+	CSGTransformation::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
 
-CSGScale*
-CSGScale::clone() const
-{
-    return new CSGScale(*this);
-}
+  /** @endcond doxygenLibsbmlInternal */
 
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -407,30 +359,371 @@ CSGScale::clone() const
 bool
 CSGScale::accept (SBMLVisitor& v) const
 {
-  // return false;
   return v.visit(*this);
-  
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGScale::setSBMLDocument (SBMLDocument* d)
 {
-  CSGTransformation::setSBMLDocument(d);
+	CSGTransformation::setSBMLDocument(d);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Enables/Disables the given package with this element.
  */
 void
 CSGScale::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  CSGTransformation::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  CSGTransformation::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+CSGScale::createObject(XMLInputStream& stream)
+{
+	SBase* object = CSGTransformation::createObject(stream);
+
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGScale::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	CSGTransformation::addExpectedAttributes(attributes);
+
+	attributes.add("scaleX");
+	attributes.add("scaleY");
+	attributes.add("scaleZ");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGScale::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	CSGTransformation::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // scaleX double   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetScaleX = attributes.readInto("scaleX", mScaleX);
+
+  if (mIsSetScaleX == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'scaleX' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
+
+  //
+  // scaleY double   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetScaleY = attributes.readInto("scaleY", mScaleY);
+
+  if (mIsSetScaleY == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
+
+  //
+  // scaleZ double   ( use = "optional" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetScaleZ = attributes.readInto("scaleZ", mScaleZ);
+
+  if (mIsSetScaleZ == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+    }
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+CSGScale::writeAttributes (XMLOutputStream& stream) const
+{
+	CSGTransformation::writeAttributes(stream);
+
+	if (isSetScaleX() == true)
+		stream.writeAttribute("scaleX", getPrefix(), mScaleX);
+
+	if (isSetScaleY() == true)
+		stream.writeAttribute("scaleY", getPrefix(), mScaleY);
+
+	if (isSetScaleZ() == true)
+		stream.writeAttribute("scaleZ", getPrefix(), mScaleZ);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGScale_create(unsigned int level, unsigned int version,
+                unsigned int pkgVersion)
+{
+  return new CSGScale(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGScale_free(CSGScale_t * csgs)
+{
+  if (csgs != NULL)
+    delete csgs;
+}
+
+
+LIBSBML_EXTERN
+CSGScale_t *
+CSGScale_clone(CSGScale_t * csgs)
+{
+  if (csgs != NULL)
+  {
+    return static_cast<CSGScale_t*>(csgs->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+double
+CSGScale_getScaleX(const CSGScale_t * csgs)
+{
+	return (csgs != NULL) ? csgs->getScaleX() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+double
+CSGScale_getScaleY(const CSGScale_t * csgs)
+{
+	return (csgs != NULL) ? csgs->getScaleY() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+double
+CSGScale_getScaleZ(const CSGScale_t * csgs)
+{
+	return (csgs != NULL) ? csgs->getScaleZ() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_isSetScaleX(const CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? static_cast<int>(csgs->isSetScaleX()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_isSetScaleY(const CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? static_cast<int>(csgs->isSetScaleY()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_isSetScaleZ(const CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? static_cast<int>(csgs->isSetScaleZ()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_setScaleX(CSGScale_t * csgs, double scaleX)
+{
+  if (csgs != NULL)
+    return (scaleX == NULL) ? csgs->unsetScaleX() : csgs->setScaleX(scaleX);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_setScaleY(CSGScale_t * csgs, double scaleY)
+{
+  if (csgs != NULL)
+    return (scaleY == NULL) ? csgs->unsetScaleY() : csgs->setScaleY(scaleY);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_setScaleZ(CSGScale_t * csgs, double scaleZ)
+{
+  if (csgs != NULL)
+    return (scaleZ == NULL) ? csgs->unsetScaleZ() : csgs->setScaleZ(scaleZ);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_unsetScaleX(CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? csgs->unsetScaleX() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_unsetScaleY(CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? csgs->unsetScaleY() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_unsetScaleZ(CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? csgs->unsetScaleZ() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGScale_hasRequiredAttributes(const CSGScale_t * csgs)
+{
+  return (csgs != NULL) ? static_cast<int>(csgs->hasRequiredAttributes()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+

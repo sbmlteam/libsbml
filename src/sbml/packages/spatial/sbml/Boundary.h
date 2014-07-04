@@ -1,129 +1,166 @@
-/*
- * @file    Boundary.h
- * @brief   Definition of Boundary, the SBase derived class of spatial package.
- * @author  
+/**
+ * @file:   Boundary.h
+ * @brief:  Implementation of the Boundary class
+ * @author: SBMLTeam
  *
- * $Id: Boundary.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/Boundary.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef Boundary_H__
 #define Boundary_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
-BEGIN_C_DECLS
-
-typedef enum
-{
-    BOUNDARY_TYPE_MIN
-  , BOUNDARY_TYPE_MAX
-  , BOUNDARY_TYPE_INVALID
-} BoundaryType_t;
-
-END_C_DECLS
-
 
 #ifdef __cplusplus
 
+
 #include <string>
 
+
 #include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN Boundary : public SBase
 {
+
 protected:
 
-  std::string mSpatialId;
-  SBMLSpatialTypeCode_t mType;
-  double mValue;
-  bool  mIsSetValue;
+  std::string   mId;
+  double        mValue;
+  bool          mIsSetValue;
+  std::string   mElementName;
 
 
 public:
 
   /**
-   * Destructor.
-   */ 
-  virtual ~Boundary ();
-
-  /**
-   * Copy constructor.
-   */
-   Boundary(const Boundary& source);
-
-
-  /**
-   * Assignment operator.
-   */
-   Boundary& operator=(const Boundary& source);
-
-
-  /**
-   * Returns the string of the "spatialId" attribute of this Boundary.
+   * Creates a new Boundary with the given level, version, and package version.
    *
-   * @return the string of the "spatialId" attribute of this Boundary.
+   * @param level an unsigned int, the SBML Level to assign to this Boundary
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Boundary
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this Boundary
    */
-  virtual const std::string& getSpatialId () const;
+  Boundary(unsigned int level      = SpatialExtension::getDefaultLevel(),
+           unsigned int version    = SpatialExtension::getDefaultVersion(),
+           unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
 
   /**
-   * Get the value of the "value" attribute.
-   * 
-   * @return the 'value' of this Boundary, as a float-point number.
+   * Creates a new Boundary with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
    */
-  double getValue () const;
+  Boundary(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Copy constructor for Boundary.
+   *
+   * @param orig; the Boundary instance to copy.
+   */
+  Boundary(const Boundary& orig);
+
+
+   /**
+   * Assignment operator for Boundary.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  Boundary& operator=(const Boundary& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this Boundary object.
+   *
+   * @return a (deep) copy of this Boundary object.
+   */
+  virtual Boundary* clone () const;
+
+
+   /**
+   * Destructor for Boundary.
+   */
+  virtual ~Boundary();
+
+
+   /**
+   * Returns the value of the "id" attribute of this Boundary.
+   *
+   * @return the value of the "id" attribute of this Boundary as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "value" attribute of this Boundary.
+   *
+   * @return the value of the "value" attribute of this Boundary as a double.
+   */
+  virtual double getValue() const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * Boundary's "spatialId" attribute has been set.
+   * Boundary's "id" attribute has been set.
    *
-   * @return @c true if this Boundary's "spatialId" attribute has been set, 
+   * @return @c true if this Boundary's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSpatialId () const;
+  virtual bool isSetId() const;
 
- /**
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * Boundary's "value" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
-   * @return @c true if the "value" attribute of this Boundary has
-   * been set, @c false otherwise.
-   *
-   * @note In SBML Level&nbsp;1, Boundary' "value" is required and
-   * therefore <em>should always be set</em>.  (However, in Level&nbsp;1, the
-   * attribute has no default value either, so this method will not return
-   * @c true until a value has been assigned.)  In SBML Level&nbsp;2,
-   * "value" is optional and as such may or may not be set.
+   * @return @c true if this Boundary's "value" attribute has been set,
+   * otherwise @c false is returned.
    */
-  bool isSetValue () const;
+  virtual bool isSetValue() const;
 
 
   /**
-   * Sets the SIdRef string of the "spatialId" attribute of this Boundary.
+   * Sets the value of the "id" attribute of this Boundary.
    *
-   * @param spatialId a SIdRef string to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -132,24 +169,22 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSpatialId (const std::string& spatialId);
+  virtual int setId(const std::string& id);
 
-   /**
-   * Sets the "value" attribute of this Boundary and marks the field
-   * as set.
+
+  /**
+   * Sets the value of the "value" attribute of this Boundary.
    *
-   * @htmlinclude comment-set-methods.html
-   *
-   * @param value the value to which the "value" attribute should
-   * be set.
+   * @param value; double value of the "value" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  int setValue (double value);
+  virtual int setValue(double value);
 
 
   /**
@@ -162,443 +197,405 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetSpatialId ();
+  virtual int unsetId();
+
 
   /**
-   * Unsets the "value" attribute value of this Boundary.
-   *
-   * @htmlinclude comment-set-methods.html
+   * Unsets the value of the "value" attribute of this Boundary.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  int unsetValue ();
-
- /**
-   * (SBML Level&nbsp;1) Get the type of Boundary this is (min or max).
-   * 
-   * @return the Boundary type (a value drawn from the enumeration <a
-   * class="el" href="#Boundary_t">Boundary_t</a>) of this Boundary.
-   * The value will be either @c BOUNDARY_TYPE_MIN or 
-   * @c BOUNDARY_TYPE_MAX.
-   */
-  BoundaryType_t getType () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Boundary is min.
-   * 
-   * @return @c true if this Boundary is min, @c false otherwise.
-   */
-  bool isBoundaryMin () const;
+  virtual int unsetValue();
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Boundary is max.
-   * 
-   * @return @c true if this Boundary is max, @c false otherwise.
-   */
-  bool isBoundaryMax () const;
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object, which for Boundary, is
+   * always @c "boundary".
    *
-   * @return the string of the name of this element.
+   * @return the name of this element, i.e. @c "boundary".
    */
-  virtual const std::string& getElementName () const ;
+  virtual const std::string& getElementName () const;
+
+  virtual void setElementName(const std::string& name);
+
 
   /**
-   * @return the typecode (int) of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
   virtual int getTypeCode () const;
 
+
   /**
-   * Predicate returning @c true or @c false depending on whether all the
-   * required attributes for this Boundary object have been set.
+   * Predicate returning @c true if all the required attributes
+   * for this Boundary object have been set.
    *
-   * @note The required attributes for a Boundary object are: spatialId, value
+   * @note The required attributes for a Boundary object are:
+   * @li "id"
+   * @li "value"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
    */
-  virtual bool hasRequiredAttributes() const ;
+  virtual bool hasRequiredAttributes() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * @return a (deep) copy of this Boundary.
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
    */
-  virtual Boundary* clone () const;
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
    * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+
   /** @endcond doxygenLibsbmlInternal */
-    
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
 protected:
 
-  /**
-   * Only subclasses may create Boundary.
-   */
-   Boundary( SBMLSpatialTypeCode_t	type
-		     , unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
-
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new Boundary with the given SpatialPkgNamespaces object.
-   */
-   Boundary(  SBMLSpatialTypeCode_t	type
-			, SpatialPkgNamespaces* spatialns);
-
-
-  /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
+   * Read values from the given XMLAttributes set into their specific fields.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
-
- /** @endcond doxygenLibsbmlInternal */
-
-};
-
-class LIBSBML_EXTERN BoundaryMin : public Boundary
-{
-public:
-
-  /**
-   * Creates a new BoundaryMin using the given SBML @p level and @p version
-   * and @p packageVersion values.
-   *
-   * @param level an unsigned int, the SBML Level to assign to this BoundaryMin
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * BoundaryMin
-   * 
-   * @param pkgVersion an unsigned int, the SBML Package Version to assign to this
-   * BoundaryMin
-
-   * @note Once a BoundaryMin has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the BoundaryMin.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   */
-  BoundaryMin (unsigned int level, unsigned int version, unsigned int pkgVersion);
-
-
-  /**
-   * Creates a new BoundaryMin using the given SpatialPkgNamespaces object
-   * @p sbmlns.
-   *
-   * The SpatialPkgNamespaces object encapsulates SBML Level/Version/PkgVersion/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
-   *
-   * @param sbmlns an SpatialPkgNamespaces object.
-   *
-   * @note Once a BoundaryMin has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the BoundaryMin.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   */
-  BoundaryMin (SpatialPkgNamespaces* sbmlns);
-
-  /**
-   * Destroys this BoundaryMin.
-   */
-  virtual ~BoundaryMin ();
-
-  /**
-   * Creates and returns a deep copy of this Boundary.
-   * 
-   * @return a (deep) copy of this Boundary.
-   */
-  virtual BoundaryMin* clone () const;
-
-
-  /**
-   * Accepts the given SBMLVisitor for this instance of BoundaryMin.
-   *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether
-   * all the required attributes for this BoundaryMin object
-   * have been set.
-   *
-   * @note The required attributes for a BoundaryMin object are:
-   * spatialId, value
-   */
-  virtual bool hasRequiredAttributes() const ;
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
 
   /** @endcond doxygenLibsbmlInternal */
 
+
+
 };
 
-class LIBSBML_EXTERN BoundaryMax : public Boundary
-{
-public:
-
-  /**
-   * Creates a new BoundaryMax using the given SBML @p level and @p version
-   * and @p packageVersion values.
-   *
-   * @param level an unsigned int, the SBML Level to assign to this BoundaryMax
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * BoundaryMax
-   * 
-   * @param pkgVersion an unsigned int, the SBML Package Version to assign to this
-   * BoundaryMax
-
-   * @note Once a BoundaryMax has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the BoundaryMax.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   */
-  BoundaryMax (unsigned int level, unsigned int version, unsigned int pkgVersion);
-
-
-  /**
-   * Creates a new BoundaryMax using the given SpatialPkgNamespaces object
-   * @p sbmlns.
-   *
-   * The SpatialPkgNamespaces object encapsulates SBML Level/Version/PkgVersion/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
-   *
-   * @param sbmlns an SpatialPkgNamespaces object.
-   *
-   * @note Once a BoundaryMax has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the BoundaryMin.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   */
-  BoundaryMax (SpatialPkgNamespaces* sbmlns);
-
-  /**
-   * Destroys this BoundaryMax.
-   */
-  virtual ~BoundaryMax ();
-
-  /**
-   * Creates and returns a deep copy of this BoundaryMax.
-   * 
-   * @return a (deep) copy of this BoundaryMax.
-   */
-  virtual BoundaryMax* clone () const;
-
-
-  /**
-   * Accepts the given SBMLVisitor for this instance of BoundaryMax.
-   *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether
-   * all the required attributes for this BoundaryMax object
-   * have been set.
-   *
-   * @note The required attributes for a BoundaryMax object are:
-   * spatialId, value
-   */
-  virtual bool hasRequiredAttributes() const ;
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
-
-  /** @endcond doxygenLibsbmlInternal */
-
-};
 
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
-
-
-/*LIBSBML_EXTERN
-Boundary_t *
-Boundary_createBoundaryMin (unsigned int level, unsigned int version,  unsigned int pkgVersion);
-
-
+/**
+ * Creates a new Boundary_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * Boundary_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * Boundary_t structure.
+ *
+ * @returns the newly-created Boundary_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof Boundary_t
+ */
 LIBSBML_EXTERN
 Boundary_t *
-Boundary_createBoundaryMinWithNS (SpatialPkgNamespaces_t *sbmlns);
+Boundary_create(unsigned int level, unsigned int version,
+                unsigned int pkgVersion);
 
 
+/**
+ * Frees the given Boundary_t structure.
+ * 
+ * @param b the Boundary_t structure to be freed.
+ *
+ * @memberof Boundary_t
+ */
+LIBSBML_EXTERN
+void
+Boundary_free(Boundary_t * b);
+
+
+/**
+ * Creates a deep copy of the given Boundary_t structure.
+ * 
+ * @param b the Boundary_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given Boundary_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof Boundary_t
+ */
 LIBSBML_EXTERN
 Boundary_t *
-Boundary_createBoundaryMax (unsigned int level, unsigned int version,  unsigned int pkgVersion);
+Boundary_clone(Boundary_t * b);
 
 
-LIBSBML_EXTERN
-Boundary_t *
-Boundary_createBoundaryMaxWithNS (SpatialPkgNamespaces_t *sbmlns);
-*/
-
+/**
+ * Returns the value of the "id" attribute of the given Boundary_t
+ * structure.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 const char *
-Boundary_getSpatialId (const Boundary_t *c);
+Boundary_getId(const Boundary_t * b);
 
 
+/**
+ * Returns the value of the "value" attribute of the given Boundary_t
+ * structure.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return the value of this structure.
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 double
-Boundary_getValue (const Boundary_t *c);
+Boundary_getValue(const Boundary_t * b);
 
 
-LIBSBML_EXTERN
-Boundary_t *
-Boundary_clone (const Boundary_t* c);
-
-
-LIBSBML_EXTERN
-int
-Boundary_isSetSpatialId (const Boundary_t *c);
-
-
-LIBSBML_EXTERN
-int
-Boundary_isSetValue(const Boundary_t *c);
-
-
+/**
+ * Predicate returning @c 1 if the given Boundary_t structure's "id"
+ * is set.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return @c 1 if the "id" of this Boundary_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_setSpatialId (Boundary_t *c, const char *sid);
+Boundary_isSetId(const Boundary_t * b);
 
 
+/**
+ * Predicate returning @c 1 if the given Boundary_t structure's "value"
+ * is set.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return @c 1 if the "value" of this Boundary_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_setValue (Boundary_t *c, double value);
+Boundary_isSetValue(const Boundary_t * b);
 
 
+/**
+ * Sets the "id" attribute of the given Boundary_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs Boundary_unsetId() instead.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_unsetSpatialId (Boundary_t *c);
+Boundary_setId(Boundary_t * b, const char * id);
 
 
+/**
+ * Sets the "value" attribute of the given Boundary_t structure.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @param value the string to which the structures "value" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_unsetValue (Boundary_t *c);
+Boundary_setValue(Boundary_t * b, double value);
 
 
-LIBSBML_EXTERN
-BoundaryType_t
-Boundary_getType (const Boundary_t *g);
-
-
+/**
+ * Unsets the value of the "id" attribute of the given 
+ *Boundary_t structure.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_isBoundaryMin (const Boundary_t *g);
+Boundary_unsetId(Boundary_t * b);
 
 
+/**
+ * Unsets the value of the "value" attribute of the given 
+ *Boundary_t structure.
+ *
+ * @param b the Boundary_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Boundary_t
+ */
 LIBSBML_EXTERN
 int
-Boundary_isBoundaryMax (const Boundary_t *g);
+Boundary_unsetValue(Boundary_t * b);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given Boundary_t structure have been set.
+ *
+ * @param b the Boundary_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of Boundary_t
+ */
+LIBSBML_EXTERN
+int
+Boundary_hasRequiredAttributes(const Boundary_t * b);
+
+
 
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* Boundary_H__ */
+#endif /*  Boundary_H__  */
+

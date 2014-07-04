@@ -1,38 +1,54 @@
-/*
- * @file    CSGRotation.h
- * @brief   Definition of CSGRotation, of spatial package.
- * @author  
+/**
+ * @file:   CSGRotation.h
+ * @brief:  Implementation of the CSGRotation class
+ * @author: SBMLTeam
  *
- * $Id: CSGRotation.h  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGRotation.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
 
 #ifndef CSGRotation_H__
 #define CSGRotation_H__
 
+
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/packages/spatial/common/spatialfwd.h>
 
+
 #ifdef __cplusplus
+
 
 #include <string>
 
+
 #include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/CSGTransformation.h>
 
@@ -42,496 +58,794 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN CSGRotation : public CSGTransformation
 {
+
 protected:
 
-  double mRotationAxisX;
-  double mRotationAxisY;
-  double mRotationAxisZ;
-  double mRotationAngleInRadians;
+  double        mRotateAxisX;
+  bool          mIsSetRotateAxisX;
+  double        mRotateAxisY;
+  bool          mIsSetRotateAxisY;
+  double        mRotateAxisZ;
+  bool          mIsSetRotateAxisZ;
+  double        mRotateAngleInRadians;
+  bool          mIsSetRotateAngleInRadians;
 
-  bool  mIsSetRotationAxisX;
-  bool  mIsSetRotationAxisY;
-  bool  mIsSetRotationAxisZ;
-  bool  mIsSetRotationAngleInRadians;
-  
+
 public:
 
   /**
    * Creates a new CSGRotation with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this CSGRotation
+   *
+   * @param version an unsigned int, the SBML Version to assign to this CSGRotation
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this CSGRotation
    */
-   CSGRotation(unsigned int level      = SpatialExtension::getDefaultLevel(),
-          unsigned int version    = SpatialExtension::getDefaultVersion(),
-          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  CSGRotation(unsigned int level      = SpatialExtension::getDefaultLevel(),
+              unsigned int version    = SpatialExtension::getDefaultVersion(),
+              unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new CSGRotation with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
    */
-   CSGRotation(SpatialPkgNamespaces* spatialns);
+  CSGRotation(SpatialPkgNamespaces* spatialns);
 
-  /**
-   * Copy constructor.
+
+   /**
+   * Copy constructor for CSGRotation.
+   *
+   * @param orig; the CSGRotation instance to copy.
    */
-   CSGRotation(const CSGRotation& source);
+  CSGRotation(const CSGRotation& orig);
 
 
-  /**
-   * Assignment operator.
+   /**
+   * Assignment operator for CSGRotation.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-   CSGRotation& operator=(const CSGRotation& source);
+  CSGRotation& operator=(const CSGRotation& rhs);
 
 
-  /**
-   * Destructor.
-   */ 
-  virtual ~CSGRotation ();
-
-  /**
-   * Get the rotationAxisX of this CSGRotation object.
-   * 
-   * @return the value of the "rotationAxisX" attribute of this
-   * CSGRotation as an unsigned integer
-   */
-  double getRotationAxisX () const;
-
-
-  /**
-   * Get the rotation axis of this CSGRotation object.
-   * 
-   * @return the value of the "rotationAxisY" attribute of this
-   * CSGRotation as an unsigned integer
-   */
-  double getRotationAxisY () const;
-
-
-  /**
-   * Get the rotation axis of this CSGRotation object.
-   * 
-   * @return the value of the "rotationAxisZ" attribute of this
-   * CSGRotation as an unsigned integer
-   */
-  double getRotationAxisZ () const;
-
-
-  /**
-   * Get the rotation angle (in radians) of this CSGRotation object.
-   * 
-   * @return the value of the "rotationAxisZ" attribute of this
-   * CSGRotation as an unsigned integer
-   */
-  double getRotationAngleInRadians () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotationAxisX" attribute has been set.
-   * 
-   * @htmlinclude comment-set-methods.html
+   /**
+   * Creates and returns a deep copy of this CSGRotation object.
    *
-   * @note This function only applies to SBML L3 where there are no
-   * default values.
-   *
-   * @return @c true if the "rotationAxisX" attribute of this CSGRotation has
-   * been set, @c false otherwise.
-   */
-  bool isSetRotationAxisX () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotationAxisY" attribute has been set.
-   * 
-   * @htmlinclude comment-set-methods.html
-   *
-   * @note This function only applies to SBML L3 where there are no
-   * default values.
-   *
-   * @return @c true if the "rotationAxisY" attribute of this CSGRotation has
-   * been set, @c false otherwise.
-   */
-  bool isSetRotationAxisY () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotationAxisZ" attribute has been set.
-   * 
-   * @htmlinclude comment-set-methods.html
-   *
-   * @note This function only applies to SBML L3 where there are no
-   * default values.
-   *
-   * @return @c true if the "rotationAxisZ" attribute of this CSGRotation has
-   * been set, @c false otherwise.
-   */
-  bool isSetRotationAxisZ () const;
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotationAngleInRadians" attribute has been set.
-   * 
-   * @htmlinclude comment-set-methods.html
-   *
-   * @note This function only applies to SBML L3 where there are no
-   * default values.
-   *
-   * @return @c true if the "rotationAngleInRadians" attribute of this CSGRotation has
-   * been set, @c false otherwise.
-   */
-  bool isSetRotationAngleInRadians () const;
-
-  /**
-   * Sets the "rotationAxisX" attribute of this CSGRotation.
-   *
-   * 
-   * @param value an double indicating the number of dimensions
-   * of this compartment.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   */
-  int setRotationAxisX (double value);
-
-  /**
-   * Sets the "rotationAxisY" attribute of this CSGRotation.
-   *
-   * 
-   * @param value an double indicating the number of dimensions
-   * of this compartment.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   */
-  int setRotationAxisY (double value);
-
-  /**
-   * Sets the "rotationAxisZ" attribute of this CSGRotation.
-   *
-   * @param value an double indicating the number of dimensions
-   * of this compartment.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   */
-  int setRotationAxisZ (double value);
-
-  /**
-   * Sets the "rotationAngleInRadians" attribute of this CSGRotation.
-   *
-   * @param value an double indicating the number of dimensions
-   * of this compartment.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   */
-  int setRotationAngleInRadians (double value);
-
-  /**
-   * Unsets the value of the "rotationAxisX" attribute of this CSGRotation.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   *
-   * @note This function is only valid for SBML L3
-   */
-  int unsetRotationAxisX ();
-
-
-  /**
-   * Unsets the value of the "rotationAxisY" attribute of this CSGRotation.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   *
-   * @note This function is only valid for SBML L3
-   */
-  int unsetRotationAxisY ();
-
-
-  /**
-   * Unsets the value of the "rotationAxisZ" attribute of this CSGRotation.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   *
-   * @note This function is only valid for SBML L3
-   */
-  int unsetRotationAxisZ ();
-
-  /**
-   * Unsets the value of the "rotationAngleInRadians" attribute of this CSGRotation.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   *
-   * @note This function is only valid for SBML L3
-   */
-  int unsetRotationAngleInRadians ();
-
-
-  /**
-   * @return a (deep) copy of this CSGRotation.
+   * @return a (deep) copy of this CSGRotation object.
    */
   virtual CSGRotation* clone () const;
 
 
+   /**
+   * Destructor for CSGRotation.
+   */
+  virtual ~CSGRotation();
+
+
+   /**
+   * Returns the value of the "rotateAxisX" attribute of this CSGRotation.
+   *
+   * @return the value of the "rotateAxisX" attribute of this CSGRotation as a double.
+   */
+  virtual double getRotateAxisX() const;
+
+
+  /**
+   * Returns the value of the "rotateAxisY" attribute of this CSGRotation.
+   *
+   * @return the value of the "rotateAxisY" attribute of this CSGRotation as a double.
+   */
+  virtual double getRotateAxisY() const;
+
+
+  /**
+   * Returns the value of the "rotateAxisZ" attribute of this CSGRotation.
+   *
+   * @return the value of the "rotateAxisZ" attribute of this CSGRotation as a double.
+   */
+  virtual double getRotateAxisZ() const;
+
+
+  /**
+   * Returns the value of the "rotateAngleInRadians" attribute of this CSGRotation.
+   *
+   * @return the value of the "rotateAngleInRadians" attribute of this CSGRotation as a double.
+   */
+  virtual double getRotateAngleInRadians() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGRotation's "rotateAxisX" attribute has been set.
+   *
+   * @return @c true if this CSGRotation's "rotateAxisX" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetRotateAxisX() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGRotation's "rotateAxisY" attribute has been set.
+   *
+   * @return @c true if this CSGRotation's "rotateAxisY" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetRotateAxisY() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGRotation's "rotateAxisZ" attribute has been set.
+   *
+   * @return @c true if this CSGRotation's "rotateAxisZ" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetRotateAxisZ() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGRotation's "rotateAngleInRadians" attribute has been set.
+   *
+   * @return @c true if this CSGRotation's "rotateAngleInRadians" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetRotateAngleInRadians() const;
+
+
+  /**
+   * Sets the value of the "rotateAxisX" attribute of this CSGRotation.
+   *
+   * @param rotateAxisX; double value of the "rotateAxisX" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setRotateAxisX(double rotateAxisX);
+
+
+  /**
+   * Sets the value of the "rotateAxisY" attribute of this CSGRotation.
+   *
+   * @param rotateAxisY; double value of the "rotateAxisY" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setRotateAxisY(double rotateAxisY);
+
+
+  /**
+   * Sets the value of the "rotateAxisZ" attribute of this CSGRotation.
+   *
+   * @param rotateAxisZ; double value of the "rotateAxisZ" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setRotateAxisZ(double rotateAxisZ);
+
+
+  /**
+   * Sets the value of the "rotateAngleInRadians" attribute of this CSGRotation.
+   *
+   * @param rotateAngleInRadians; double value of the "rotateAngleInRadians" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setRotateAngleInRadians(double rotateAngleInRadians);
+
+
+  /**
+   * Unsets the value of the "rotateAxisX" attribute of this CSGRotation.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetRotateAxisX();
+
+
+  /**
+   * Unsets the value of the "rotateAxisY" attribute of this CSGRotation.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetRotateAxisY();
+
+
+  /**
+   * Unsets the value of the "rotateAxisZ" attribute of this CSGRotation.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetRotateAxisZ();
+
+
+  /**
+   * Unsets the value of the "rotateAngleInRadians" attribute of this CSGRotation.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetRotateAngleInRadians();
+
+
+  /**
+   * Returns the XML element name of this object, which for CSGRotation, is
+   * always @c "cSGRotation".
+   *
+   * @return the name of this element, i.e. @c "cSGRotation".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this CSGRotation object have been set.
+   *
+   * @note The required attributes for a CSGRotation object are:
+   * @li "rotateAxisX"
+   * @li "rotateAngleInRadians"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactans.write(stream);
-   *   mProducts.write(stream);
-   *   ...
+   * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+
+
   /** @endcond doxygenLibsbmlInternal */
- 
+
+
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
+
   /** @endcond doxygenLibsbmlInternal */
 
 
-  protected:
-  
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   
-  virtual SBase*
-  createObject (XMLInputStream& stream);
-  */
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * return the SBML object corresponding to next XMLToken.
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
 
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes, 
-                               const ExpectedAttributes& expectedAttributes);
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-/*  
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-*/
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
 
- /** @endcond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+
+
 
 };
 
 
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-//
-// C API will be added here.
-//
-
-
-LIBSBML_EXTERN
-double
-CSGRotation_getRotationAxisX (const CSGRotation_t *csgo);
-
-
-LIBSBML_EXTERN
-double
-CSGRotation_getRotationAxisY (const CSGRotation_t *csgo);
-
-
-LIBSBML_EXTERN
-double
-CSGRotation_getRotationAxisZ (const CSGRotation_t *csgo);
-
-
-LIBSBML_EXTERN
-double
-CSGRotation_getRotationAngleInRadians (const CSGRotation_t *csgo);
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_isSetRotationAxisX (const CSGRotation_t *c);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_isSetRotationAxisY (const CSGRotation_t *c);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_isSetRotationAxisZ (const CSGRotation_t *c);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_isSetRotationAngleInRadians (const CSGRotation_t *c);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_setRotationAxisX (CSGRotation_t *c, double val);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_setRotationAxisY (CSGRotation_t *c, double val);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_setRotationAxisZ (CSGRotation_t *c, double val);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_setRotationAngleInRadians (CSGRotation_t *c, double val);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_unsetRotationAxisX (CSGRotation_t *csgo);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_unsetRotationAxisY (CSGRotation_t *csgo);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_unsetRotationAxisZ (CSGRotation_t *csgo);
-
-
-
-LIBSBML_EXTERN
-int
-CSGRotation_unsetRotationAngleInRadians (CSGRotation_t *csgo);
-
-
-
+/**
+ * Creates a new CSGRotation_t structure using the given SBML @p level and
+ * @p version values.
+ *
+ * @param level an unsigned int, the SBML level to assign to this
+ * CSGRotation_t structure.
+ *
+ * @param version an unsigned int, the SBML version to assign to this
+ * CSGRotation_t structure.
+ *
+ * @returns the newly-created CSGRotation_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
+ *
+ * @memberof CSGRotation_t
+ */
 LIBSBML_EXTERN
 CSGRotation_t *
-CSGRotation_clone (const CSGRotation_t* c);
+CSGRotation_create(unsigned int level, unsigned int version,
+                   unsigned int pkgVersion);
+
+
+/**
+ * Frees the given CSGRotation_t structure.
+ * 
+ * @param csgr the CSGRotation_t structure to be freed.
+ *
+ * @memberof CSGRotation_t
+ */
+LIBSBML_EXTERN
+void
+CSGRotation_free(CSGRotation_t * csgr);
+
+
+/**
+ * Creates a deep copy of the given CSGRotation_t structure.
+ * 
+ * @param csgr the CSGRotation_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given CSGRotation_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof CSGRotation_t
+ */
+LIBSBML_EXTERN
+CSGRotation_t *
+CSGRotation_clone(CSGRotation_t * csgr);
+
+
+/**
+ * Returns the value of the "rotateAxisX" attribute of the given CSGRotation_t
+ * structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return the rotateAxisX of this structure.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+double
+CSGRotation_getRotateAxisX(const CSGRotation_t * csgr);
+
+
+/**
+ * Returns the value of the "rotateAxisY" attribute of the given CSGRotation_t
+ * structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return the rotateAxisY of this structure.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+double
+CSGRotation_getRotateAxisY(const CSGRotation_t * csgr);
+
+
+/**
+ * Returns the value of the "rotateAxisZ" attribute of the given CSGRotation_t
+ * structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return the rotateAxisZ of this structure.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+double
+CSGRotation_getRotateAxisZ(const CSGRotation_t * csgr);
+
+
+/**
+ * Returns the value of the "rotateAngleInRadians" attribute of the given CSGRotation_t
+ * structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return the rotateAngleInRadians of this structure.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+double
+CSGRotation_getRotateAngleInRadians(const CSGRotation_t * csgr);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisX"
+ * is set.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return @c 1 if the "rotateAxisX" of this CSGRotation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_isSetRotateAxisX(const CSGRotation_t * csgr);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisY"
+ * is set.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return @c 1 if the "rotateAxisY" of this CSGRotation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_isSetRotateAxisY(const CSGRotation_t * csgr);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisZ"
+ * is set.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return @c 1 if the "rotateAxisZ" of this CSGRotation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_isSetRotateAxisZ(const CSGRotation_t * csgr);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAngleInRadians"
+ * is set.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return @c 1 if the "rotateAngleInRadians" of this CSGRotation_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_isSetRotateAngleInRadians(const CSGRotation_t * csgr);
+
+
+/**
+ * Sets the "rotateAxisX" attribute of the given CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @param rotateAxisX the string to which the structures "rotateAxisX" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX);
+
+
+/**
+ * Sets the "rotateAxisY" attribute of the given CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @param rotateAxisY the string to which the structures "rotateAxisY" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY);
+
+
+/**
+ * Sets the "rotateAxisZ" attribute of the given CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @param rotateAxisZ the string to which the structures "rotateAxisZ" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_setRotateAxisZ(CSGRotation_t * csgr, double rotateAxisZ);
+
+
+/**
+ * Sets the "rotateAngleInRadians" attribute of the given CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @param rotateAngleInRadians the string to which the structures "rotateAngleInRadians" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRadians);
+
+
+/**
+ * Unsets the value of the "rotateAxisX" attribute of the given 
+ *CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_unsetRotateAxisX(CSGRotation_t * csgr);
+
+
+/**
+ * Unsets the value of the "rotateAxisY" attribute of the given 
+ *CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_unsetRotateAxisY(CSGRotation_t * csgr);
+
+
+/**
+ * Unsets the value of the "rotateAxisZ" attribute of the given 
+ *CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_unsetRotateAxisZ(CSGRotation_t * csgr);
+
+
+/**
+ * Unsets the value of the "rotateAngleInRadians" attribute of the given 
+ *CSGRotation_t structure.
+ *
+ * @param csgr the CSGRotation_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_unsetRotateAngleInRadians(CSGRotation_t * csgr);
+
+
+/**
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given CSGRotation_t structure have been set.
+ *
+ * @param csgr the CSGRotation_t structure to check.
+ *
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
+ *
+ * @member of CSGRotation_t
+ */
+LIBSBML_EXTERN
+int
+CSGRotation_hasRequiredAttributes(const CSGRotation_t * csgr);
+
+
 
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* CSGRotation_H__ */
+#endif /*  CSGRotation_H__  */
+

@@ -1,72 +1,73 @@
 /**
- * @file    CompartmentMapping.cpp
- * @brief   Implementation of CompartmentMapping, the SBase derived class of spatial package.
- * @author  
+ * @file:   CompartmentMapping.cpp
+ * @brief:  Implementation of the CompartmentMapping class
+ * @author: SBMLTeam
  *
- * $Id: CompartmentMapping.cpp 10670 2010-01-16 12:10:06Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CompartmentMapping.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/CompartmentMapping.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CompartmentMapping with the given level, version, and package version.
  */
-CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : SBase (level,version)
-   , mSpatialId("")
-   , mCompartment("")
-   , mDomainType("")
-   , mUnitSize (0.0)
-   , mIsSetUnitSize (false)
+CompartmentMapping::CompartmentMapping (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: SBase(level, version)
+   ,mId ("")
+   ,mDomainType ("")
+   ,mUnitSize (numeric_limits<double>::quiet_NaN())
+   ,mIsSetUnitSize (false)
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));  
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new CompartmentMapping with the given SpatialPkgNamespaces object.
  */
-CompartmentMapping::CompartmentMapping(SpatialPkgNamespaces* spatialns)
- : SBase(spatialns)
-  , mSpatialId("")
-  , mCompartment("")
-  , mDomainType("")
-  , mUnitSize (0.0)
-  , mIsSetUnitSize (false)
+CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
+	: SBase(spatialns)
+   ,mId ("")
+   ,mDomainType ("")
+   ,mUnitSize (numeric_limits<double>::quiet_NaN())
+   ,mIsSetUnitSize (false)
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
 
   // load package extensions bound with this object (if any) 
@@ -75,217 +76,178 @@ CompartmentMapping::CompartmentMapping(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CompartmentMapping.
  */
-CompartmentMapping::CompartmentMapping(const CompartmentMapping& source) : SBase(source)
+CompartmentMapping::CompartmentMapping (const CompartmentMapping& orig)
+	: SBase(orig)
 {
-  this->mSpatialId=source.mSpatialId;
-  this->mDomainType=source.mDomainType;
-  this->mCompartment=source.mCompartment;
-  this->mUnitSize=source.mUnitSize;
-  this->mIsSetUnitSize=source.mIsSetUnitSize;
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mDomainType  = orig.mDomainType;
+    mUnitSize  = orig.mUnitSize;
+    mIsSetUnitSize  = orig.mIsSetUnitSize;
+  }
 }
 
+
 /*
- * Assignment operator.
+ * Assignment for CompartmentMapping.
  */
-CompartmentMapping& CompartmentMapping::operator=(const CompartmentMapping& source)
+CompartmentMapping&
+CompartmentMapping::operator=(const CompartmentMapping& rhs)
 {
-  if(&source!=this)
+  if (&rhs == NULL)
   {
-    this->SBase::operator=(source);
-    this->mSpatialId = source.mSpatialId;
-	this->mDomainType = source.mDomainType;
-	this->mCompartment = source.mCompartment;
-	this->mUnitSize=source.mUnitSize;
-    this->mIsSetUnitSize=source.mIsSetUnitSize;
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+		SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mDomainType  = rhs.mDomainType;
+    mUnitSize  = rhs.mUnitSize;
+    mIsSetUnitSize  = rhs.mIsSetUnitSize;
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CompartmentMapping.
+ */
+CompartmentMapping*
+CompartmentMapping::clone () const
+{
+  return new CompartmentMapping(*this);
+}
+
+
+/*
+ * Destructor for CompartmentMapping.
+ */
 CompartmentMapping::~CompartmentMapping ()
 {
 }
 
-/*
-  * Returns the value of the "spatialId" attribute of this CompartmentMapping.
-  */
-const std::string& 
-CompartmentMapping::getSpatialId () const
-{
-  return mSpatialId;
-}
 
 /*
-  * Returns the value of the "domainType" attribute of this CompartmentMapping.
-  */
-const std::string& 
-CompartmentMapping::getDomainType () const
+ * Returns the value of the "id" attribute of this CompartmentMapping.
+ */
+const std::string&
+CompartmentMapping::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "domainType" attribute of this CompartmentMapping.
+ */
+const std::string&
+CompartmentMapping::getDomainType() const
 {
   return mDomainType;
 }
 
-/*
-  * Returns the value of the "compartment" attribute of this CompartmentMapping.
-  */
-const std::string& 
-CompartmentMapping::getCompartment () const
-{
-  return mCompartment;
-}
 
 /*
- * @return value of "unitSize" attribute of this CompartmentMapping
+ * Returns the value of the "unitSize" attribute of this CompartmentMapping.
  */
 double
-CompartmentMapping::getUnitSize () const
+CompartmentMapping::getUnitSize() const
 {
   return mUnitSize;
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * CompartmentMapping's "spatialId" attribute has been set.
-  */
-bool 
-CompartmentMapping::isSetSpatialId () const
-{
-  return (mSpatialId.empty() == false);
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CompartmentMapping's "domainType" attribute has been set.
-  */
-bool 
-CompartmentMapping::isSetDomainType () const
+ * Returns true/false if id is set.
+ */
+bool
+CompartmentMapping::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if domainType is set.
+ */
+bool
+CompartmentMapping::isSetDomainType() const
 {
   return (mDomainType.empty() == false);
 }
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * CompartmentMapping's "compartment" attribute has been set.
-  */
-bool 
-CompartmentMapping::isSetCompartment () const
-{
-  return (mCompartment.empty() == false);
-}
 
 /*
- * @return true if the "unitSize" of this CompartmentMapping has been set, false
- * otherwise.
+ * Returns true/false if unitSize is set.
  */
 bool
-CompartmentMapping::isSetUnitSize () const
+CompartmentMapping::isSetUnitSize() const
 {
   return mIsSetUnitSize;
 }
 
-/*
-  * Sets the value of the "spatialId" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::setSpatialId (const std::string& spatialId)
-{
-  return SyntaxChecker::checkAndSetSId(spatialId ,mSpatialId);
-}
 
 /*
-  * Sets the value of the "domainType" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::setDomainType (const std::string& domainType)
-{
-  return SyntaxChecker::checkAndSetSId(domainType ,mDomainType);
-}
-
-/*
-  * Sets the value of the "compartment" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::setCompartment (const std::string& compartment)
-{
-  return SyntaxChecker::checkAndSetSId(compartment ,mCompartment);
-}
-
-/*
- * Sets the "unitSize" field of this CompartmentMapping to value.
+ * Sets id and returns value indicating success.
  */
 int
-CompartmentMapping::setUnitSize (double value)
+CompartmentMapping::setId(const std::string& id)
 {
-  mUnitSize      = value;
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets domainType and returns value indicating success.
+ */
+int
+CompartmentMapping::setDomainType(const std::string& domainType)
+{
+  if (&(domainType) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mDomainType = domainType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets unitSize and returns value indicating success.
+ */
+int
+CompartmentMapping::setUnitSize(double unitSize)
+{
+  mUnitSize = unitSize;
   mIsSetUnitSize = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-/*
-  * Unsets the value of the "spatialId" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::unsetSpatialId ()
-{
-  mSpatialId.erase();
-  if (mSpatialId.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
 
 /*
-  * Unsets the value of the "domainType" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::unsetDomainType ()
-{
-  mDomainType.erase();
-  if (mDomainType.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-/*
-  * Unsets the value of the "compartment" attribute of this CompartmentMapping.
-  */
-int 
-CompartmentMapping::unsetCompartment ()
-{
-  mCompartment.erase();
-  if (mCompartment.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-/*
- * Unsets the "unitSize" of this CompartmentMapping.
+ * Unsets id and returns value indicating success.
  */
 int
-CompartmentMapping::unsetUnitSize ()
+CompartmentMapping::unsetId()
 {
-  mUnitSize      = numeric_limits<double>::quiet_NaN();
-  mIsSetUnitSize = false;
-  
-  if (!isSetUnitSize())
+  mId.erase();
+
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -295,153 +257,119 @@ CompartmentMapping::unsetUnitSize ()
   }
 }
 
+
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * Unsets domainType and returns value indicating success.
+ */
+int
+CompartmentMapping::unsetDomainType()
+{
+  mDomainType.erase();
+
+  if (mDomainType.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets unitSize and returns value indicating success.
+ */
+int
+CompartmentMapping::unsetUnitSize()
+{
+  mUnitSize = numeric_limits<double>::quiet_NaN();
+  mIsSetUnitSize = false;
+
+  if (isSetUnitSize() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+CompartmentMapping::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetDomainType() == true && mDomainType == oldid)
+  {
+    setDomainType(newid);
+  }
+
+}
+
+
+/*
+ * Returns the XML element name of this object
  */
 const std::string&
 CompartmentMapping::getElementName () const
 {
-  static const std::string name = "compartmentMapping";
-  return name;
+	static const string name = "compartmentMapping";
+	return name;
 }
 
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-CompartmentMapping::createObject (XMLInputStream& stream)
-{
-  // return 0;
-  SBase*        object = 0;
-
-  object=SBase::createObject(stream);
-  
-  return object;
-
-}
-
-/*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
- */
-void
-CompartmentMapping::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-
-  attributes.add("spatialId");
-  attributes.add("compartment");
-  attributes.add("domainType");
-  attributes.add("unitSize");
-}
-
-
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-CompartmentMapping::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes,expectedAttributes);
-
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
-
-  bool assigned = attributes.readInto("spatialId", mSpatialId, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mSpatialId.empty())
-  {
-    logEmptyString(mSpatialId, sbmlLevel, sbmlVersion, "<CompartmentMapping>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mSpatialId)) logError(InvalidIdSyntax);
-
-  assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mCompartment.empty())
-  {
-    logEmptyString(mCompartment, sbmlLevel, sbmlVersion, "<CompartmentMapping>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
-
-  assigned = attributes.readInto("domainType", mDomainType, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mDomainType.empty())
-  {
-    logEmptyString(mDomainType, sbmlLevel, sbmlVersion, "<CompartmentMapping>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mDomainType)) logError(InvalidIdSyntax);
-  
-  mIsSetUnitSize = attributes.readInto("unitSize", mUnitSize, getErrorLog(), true, getLine(), getColumn());
-}
-
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CompartmentMapping::writeAttributes (XMLOutputStream& stream) const
-{
-  SBase::writeAttributes(stream);
-
-  if (isSetSpatialId())
-  stream.writeAttribute("spatialId",   getPrefix(), mSpatialId);
-  if (isSetCompartment())
-  stream.writeAttribute("compartment",   getPrefix(), mCompartment);
-  if (isSetDomainType())
-  stream.writeAttribute("domainType",   getPrefix(), mDomainType);  
-  if (isSetUnitSize())
-  stream.writeAttribute("unitSize", getPrefix(), mUnitSize);
-
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
-}
-
-
-/*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-CompartmentMapping::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionElements(stream);
-}
-
-
-/*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Returns the libSBML type code for this SBML object.
  */
 int
 CompartmentMapping::getTypeCode () const
 {
-	return SBML_SPATIAL_COMPARTMENTMAPPING;
+  return SBML_SPATIAL_COMPARTMENTMAPPING;
 }
 
-CompartmentMapping*
-CompartmentMapping::clone() const
+
+/*
+ * check if all the required attributes are set
+ */
+bool
+CompartmentMapping::hasRequiredAttributes () const
 {
-    return new CompartmentMapping(*this);
+	bool allPresent = true;
+
+  if (isSetId() == false)
+    allPresent = false;
+
+  if (isSetDomainType() == false)
+    allPresent = false;
+
+  if (isSetUnitSize() == false)
+    allPresent = false;
+
+  return allPresent;
 }
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+CompartmentMapping::writeElements (XMLOutputStream& stream) const
+{
+	SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -449,152 +377,363 @@ CompartmentMapping::clone() const
 bool
 CompartmentMapping::accept (SBMLVisitor& v) const
 {
-  // return false;
   return v.visit(*this);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Ctor.
+ * Sets the parent SBMLDocument.
  */
-ListOfCompartmentMappings::ListOfCompartmentMappings(SpatialPkgNamespaces* spatialns)
- : ListOf(spatialns)
+void
+CompartmentMapping::setSBMLDocument (SBMLDocument* d)
 {
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(spatialns->getURI());
+	SBase::setSBMLDocument(d);
 }
 
 
-/*
- * Ctor.
- */
-ListOfCompartmentMappings::ListOfCompartmentMappings(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
-{
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion));
-};
+  /** @endcond doxygenLibsbmlInternal */
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * @return a (deep) copy of this ListOfCompartmentMappings.
+ * Enables/Disables the given package with this element.
  */
-ListOfCompartmentMappings*
-ListOfCompartmentMappings::clone () const
+void
+CompartmentMapping::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
 {
-  return new ListOfCompartmentMappings(*this);
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
-/**
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
  */
-SBase*
-ListOfCompartmentMappings::createObject (XMLInputStream& stream)
+void
+CompartmentMapping::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  const std::string& name   = stream.peek().getName();
-  SBase*        object = 0;
+	SBase::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("domainType");
+	attributes.add("unitSize");
+}
 
 
-  if (name == "compartmentMapping")
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CompartmentMapping::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
   {
-      SPATIAL_CREATE_NS(spatialns, this->getSBMLNamespaces());
-	  object = new CompartmentMapping(spatialns);
-	  appendAndOwn(object);
-	  delete spatialns;
-      //mItems.push_back(object);
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
   }
 
-  return object;
-}
+  bool assigned = false;
 
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
 
-/* return nth item in list */
-CompartmentMapping *
-ListOfCompartmentMappings::get(unsigned int n)
-{
-  return static_cast<CompartmentMapping*>(ListOf::get(n));
-}
-
-
-/* return nth item in list */
-const CompartmentMapping *
-ListOfCompartmentMappings::get(unsigned int n) const
-{
-  return static_cast<const CompartmentMapping*>(ListOf::get(n));
-}
-
-
-/* return item by spatialId */
-CompartmentMapping*
-ListOfCompartmentMappings::get (const std::string& spatialId)
-{
-  return const_cast<CompartmentMapping*>( 
-    static_cast<const ListOfCompartmentMappings&>(*this).get(spatialId) );
-}
-
-
-/* return item by spatialId */
-const CompartmentMapping*
-ListOfCompartmentMappings::get (const std::string& spatialId) const
-{
-  vector<SBase*>::const_iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CompartmentMapping>(spatialId) );
-  return (result == mItems.end()) ? 0 : static_cast <CompartmentMapping*> (*result);
-}
-
-
-/* Removes the nth item from this list */
-CompartmentMapping*
-ListOfCompartmentMappings::remove (unsigned int n)
-{
-   return static_cast<CompartmentMapping*>(ListOf::remove(n));
-}
-
-
-/* Removes item in this list by spatialId */
-CompartmentMapping*
-ListOfCompartmentMappings::remove (const std::string& spatialId)
-{
-  SBase* item = 0;
-  vector<SBase*>::iterator result;
-
-  result = find_if( mItems.begin(), mItems.end(), IdEq<CompartmentMapping>(spatialId) );
-
-  if (result != mItems.end())
+   if (assigned == true)
   {
-    item = *result;
-    mItems.erase(result);
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<CompartmentMapping>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
   }
 
-  return static_cast <CompartmentMapping*> (item);
+  //
+  // domainType SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("domainType", mDomainType);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mDomainType.empty() == true)
+    {
+      logEmptyString(mDomainType, getLevel(), getVersion(), "<CompartmentMapping>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'domainType' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // unitSize double   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetUnitSize = attributes.readInto("unitSize", mUnitSize);
+
+  if (mIsSetUnitSize == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion);
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'unitSize' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+      }
+    }
+  }
+
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * SBML_UNKNOWN (default).
+ * Write values of XMLAttributes to the output stream.
  */
+  void
+CompartmentMapping::writeAttributes (XMLOutputStream& stream) const
+{
+	SBase::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetDomainType() == true)
+		stream.writeAttribute("domainType", getPrefix(), mDomainType);
+
+	if (isSetUnitSize() == true)
+		stream.writeAttribute("unitSize", getPrefix(), mUnitSize);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CompartmentMapping_t *
+CompartmentMapping_create(unsigned int level, unsigned int version,
+                          unsigned int pkgVersion)
+{
+  return new CompartmentMapping(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CompartmentMapping_free(CompartmentMapping_t * cm)
+{
+  if (cm != NULL)
+    delete cm;
+}
+
+
+LIBSBML_EXTERN
+CompartmentMapping_t *
+CompartmentMapping_clone(CompartmentMapping_t * cm)
+{
+  if (cm != NULL)
+  {
+    return static_cast<CompartmentMapping_t*>(cm->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+CompartmentMapping_getId(const CompartmentMapping_t * cm)
+{
+	return (cm != NULL && cm->isSetId()) ? cm->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+CompartmentMapping_getDomainType(const CompartmentMapping_t * cm)
+{
+	return (cm != NULL && cm->isSetDomainType()) ? cm->getDomainType().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+double
+CompartmentMapping_getUnitSize(const CompartmentMapping_t * cm)
+{
+	return (cm != NULL) ? cm->getUnitSize() : numeric_limits<double>::quiet_NaN();
+}
+
+
+LIBSBML_EXTERN
 int
-ListOfCompartmentMappings::getItemTypeCode () const
+CompartmentMapping_isSetId(const CompartmentMapping_t * cm)
 {
-	return SBML_SPATIAL_COMPARTMENTMAPPING;
+  return (cm != NULL) ? static_cast<int>(cm->isSetId()) : 0;
 }
 
 
-/*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
- */
-const std::string&
-ListOfCompartmentMappings::getElementName () const
+LIBSBML_EXTERN
+int
+CompartmentMapping_isSetDomainType(const CompartmentMapping_t * cm)
 {
-  static const std::string name = "listOfCompartmentMappings";
-  return name;
+  return (cm != NULL) ? static_cast<int>(cm->isSetDomainType()) : 0;
 }
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_isSetUnitSize(const CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? static_cast<int>(cm->isSetUnitSize()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_setId(CompartmentMapping_t * cm, const char * id)
+{
+  if (cm != NULL)
+    return (id == NULL) ? cm->setId("") : cm->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_setDomainType(CompartmentMapping_t * cm, const char * domainType)
+{
+  if (cm != NULL)
+    return (domainType == NULL) ? cm->setDomainType("") : cm->setDomainType(domainType);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_setUnitSize(CompartmentMapping_t * cm, double unitSize)
+{
+  if (cm != NULL)
+    return (unitSize == NULL) ? cm->unsetUnitSize() : cm->setUnitSize(unitSize);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_unsetId(CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? cm->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_unsetDomainType(CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? cm->unsetDomainType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_unsetUnitSize(CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? cm->unsetUnitSize() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CompartmentMapping_hasRequiredAttributes(const CompartmentMapping_t * cm)
+{
+  return (cm != NULL) ? static_cast<int>(cm->hasRequiredAttributes()) : 0;
+}
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
+
 

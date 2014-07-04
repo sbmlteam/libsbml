@@ -38,7 +38,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class LIBSBML_EXTERN TransformationComponents
+class LIBSBML_EXTERN TransformationComponents : public SBase
 {
 protected:
 
@@ -76,6 +76,13 @@ public:
    * Assignment operator.
    */
    TransformationComponents& operator=(const TransformationComponents& source);
+
+   /**
+   * Creates and returns a deep copy of this TransformationComponents object.
+   *
+   * @return a (deep) copy of this TransformationComponents object.
+   */
+   virtual TransformationComponents* clone() const;
 
 
   /**
@@ -159,6 +166,15 @@ public:
    */
   int getTypeCode () const;
   
+  /**
+  * Accepts the given SBMLVisitor for this SBase object.
+  *
+  * @param v the SBMLVisitor instance to be used
+  *
+  * @return the result of calling <code>v.visit()</code>.
+  */
+  virtual bool accept(SBMLVisitor& v) const;
+
 #ifndef SWIG
 /**
  * Reads the TransformationComponents from the given XMLInputStream, 

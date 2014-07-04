@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+   <listOfCompartments>
+     <compartment id="cytosol" constant="true"/>
+   </listOfCompartments>
+   <listOfSpecies>
+     <species id="ATPc" compartment="cytosol" initialConcentration="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+     <species id="ATPm" compartment="cytosol" initialConcentration="2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+   </listOfSpecies>
+   <listOfReactions>
+     <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol"/>
+   </listOfReactions>
+  </model>
+</sbml>

@@ -1,83 +1,70 @@
 /**
- * @file    CSGPrimitive.cpp
- * @brief   Implementation of CSGPrimitive, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGPrimitive.cpp
+ * @brief:  Implementation of the CSGPrimitive class
+ * @author: SBMLTeam
  *
- * $Id: CSGPrimitive.cpp  $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGPrimitive.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/CSGPrimitive.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CSGPrimitive with the given level, version, and package version.
  */
-CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-: CSGNode (SBML_SPATIAL_CSGPRIMITIVE, level,version)
-   , mPrimitiveType("")
+CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: CSGNode(level, version)
+   ,mId ("")
+   ,mPrimitiveType ("")
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion)); 
-
-  if (!hasValidLevelVersionNamespaceCombination())
-	throw SBMLConstructorException();
-
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new CSGPrimitive with the given SpatialPkgNamespaces object.
  */
-CSGPrimitive::CSGPrimitive(SpatialPkgNamespaces* spatialns)
- : CSGNode (SBML_SPATIAL_CSGPRIMITIVE, spatialns)
-  , mPrimitiveType("")
+CSGPrimitive::CSGPrimitive (SpatialPkgNamespaces* spatialns)
+	: CSGNode(spatialns)
+   ,mId ("")
+   ,mPrimitiveType ("")
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
-
-  if (!hasValidLevelVersionNamespaceCombination())
-  {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = spatialns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
-  }
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
@@ -85,70 +72,138 @@ CSGPrimitive::CSGPrimitive(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CSGPrimitive.
  */
-CSGPrimitive::CSGPrimitive(const CSGPrimitive& source) : CSGNode(source)
+CSGPrimitive::CSGPrimitive (const CSGPrimitive& orig)
+	: CSGNode(orig)
 {
-  this->mPrimitiveType=source.mPrimitiveType;
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mPrimitiveType  = orig.mPrimitiveType;
+  }
 }
 
+
 /*
- * Assignment operator.
+ * Assignment for CSGPrimitive.
  */
-CSGPrimitive& CSGPrimitive::operator=(const CSGPrimitive& source)
+CSGPrimitive&
+CSGPrimitive::operator=(const CSGPrimitive& rhs)
 {
-  if(&source!=this)
+  if (&rhs == NULL)
   {
-    this->CSGNode::operator=(source);
-	this->mPrimitiveType = source.mPrimitiveType;
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+		CSGNode::operator=(rhs);
+    mId  = rhs.mId;
+    mPrimitiveType  = rhs.mPrimitiveType;
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CSGPrimitive.
+ */
+CSGPrimitive*
+CSGPrimitive::clone () const
+{
+  return new CSGPrimitive(*this);
+}
+
+
+/*
+ * Destructor for CSGPrimitive.
+ */
 CSGPrimitive::~CSGPrimitive ()
 {
 }
 
+
 /*
-  * Returns the value of the "PrimitiveType" attribute of this CSGPrimitive.
-  */
-const std::string& 
-CSGPrimitive::getPrimitiveType () const
+ * Returns the value of the "id" attribute of this CSGPrimitive.
+ */
+const std::string&
+CSGPrimitive::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
+ */
+const std::string&
+CSGPrimitive::getPrimitiveType() const
 {
   return mPrimitiveType;
 }
 
+
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGPrimitive's "PrimitiveType" attribute has been set.
-  */
-bool 
-CSGPrimitive::isSetPrimitiveType () const
+ * Returns true/false if id is set.
+ */
+bool
+CSGPrimitive::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if primitiveType is set.
+ */
+bool
+CSGPrimitive::isSetPrimitiveType() const
 {
   return (mPrimitiveType.empty() == false);
 }
 
+
 /*
-  * Sets the value of the "PrimitiveType" attribute of this CSGPrimitive.
-  */
-int 
-CSGPrimitive::setPrimitiveType (const std::string& primitiveType)
+ * Sets id and returns value indicating success.
+ */
+int
+CSGPrimitive::setId(const std::string& id)
 {
-  return SyntaxChecker::checkAndSetSId(primitiveType ,mPrimitiveType);
+  return SyntaxChecker::checkAndSetSId(id, mId);
 }
 
- /*
-  * Unsets the value of the "PrimitiveType" attribute of this CSGPrimitive.
-  */
-int 
-CSGPrimitive::unsetPrimitiveType ()
+
+/*
+ * Sets primitiveType and returns value indicating success.
+ */
+int
+CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
 {
-  mPrimitiveType.erase();
-  if (mPrimitiveType.empty())
+  if (&(primitiveType) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mPrimitiveType = primitiveType;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+CSGPrimitive::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -158,113 +213,82 @@ CSGPrimitive::unsetPrimitiveType ()
   }
 }
 
+
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
- 
+ * Unsets primitiveType and returns value indicating success.
+ */
+int
+CSGPrimitive::unsetPrimitiveType()
+{
+  mPrimitiveType.erase();
+
+  if (mPrimitiveType.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Returns the XML element name of this object
+ */
 const std::string&
 CSGPrimitive::getElementName () const
 {
-  static const std::string name = "geometricPrimitive";
-  return name;
+	static const string name = "cSGPrimitive";
+	return name;
 }
-*/
+
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Returns the libSBML type code for this SBML object.
  */
-SBase*
-CSGPrimitive::createObject (XMLInputStream& stream)
+int
+CSGPrimitive::getTypeCode () const
 {
-    SBase*        object = 0;
-    object=SBase::createObject(stream);
-
-    return object;
+  return SBML_SPATIAL_CSGPRIMITIVE;
 }
 
 
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * check if all the required attributes are set
  */
-void
-CSGPrimitive::addExpectedAttributes(ExpectedAttributes& attributes)
+bool
+CSGPrimitive::hasRequiredAttributes () const
 {
-  CSGNode::addExpectedAttributes(attributes);
-  
-  attributes.add("primitiveType");
-}
+	bool allPresent = CSGNode::hasRequiredAttributes();
 
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-CSGPrimitive::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  CSGNode::readAttributes(attributes,expectedAttributes);
+  if (isSetId() == false)
+    allPresent = false;
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+  if (isSetPrimitiveType() == false)
+    allPresent = false;
 
-  bool assigned = attributes.readInto("primitiveType", mPrimitiveType, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mPrimitiveType.empty())
-  {
-    logEmptyString(mPrimitiveType, sbmlLevel, sbmlVersion, "<CSGPrimitive>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mPrimitiveType)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute primitiveType='" + mPrimitiveType + "' does not conform.");
-
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CSGPrimitive::writeAttributes (XMLOutputStream& stream) const
-{
-  CSGNode::writeAttributes(stream);
-
-  stream.writeAttribute("primitiveType",   getPrefix(), mPrimitiveType);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
+  return allPresent;
 }
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 CSGPrimitive::writeElements (XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
-
-  //
-  // (EXTENSION)
-  //
+	CSGNode::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
 
-CSGPrimitive*
-CSGPrimitive::clone() const
-{
-    return new CSGPrimitive(*this);
-}
+  /** @endcond doxygenLibsbmlInternal */
 
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -272,32 +296,313 @@ CSGPrimitive::clone() const
 bool
 CSGPrimitive::accept (SBMLVisitor& v) const
 {
-  // return false;
   return v.visit(*this);
-  
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGPrimitive::setSBMLDocument (SBMLDocument* d)
 {
-  CSGNode::setSBMLDocument(d);
+	CSGNode::setSBMLDocument(d);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Enables/Disables the given package with this element.
  */
 void
 CSGPrimitive::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  CSGNode::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  CSGNode::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+CSGPrimitive::createObject(XMLInputStream& stream)
+{
+	SBase* object = CSGNode::createObject(stream);
+
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGPrimitive::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	CSGNode::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("primitiveType");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGPrimitive::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	CSGNode::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<CSGPrimitive>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // primitiveType string   ( use = "required" )
+  //
+  assigned = attributes.readInto("primitiveType", mPrimitiveType);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mPrimitiveType.empty() == true)
+    {
+      logEmptyString(mPrimitiveType, getLevel(), getVersion(), "<CSGPrimitive>");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'primitiveType' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+CSGPrimitive::writeAttributes (XMLOutputStream& stream) const
+{
+	CSGNode::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetPrimitiveType() == true)
+		stream.writeAttribute("primitiveType", getPrefix(), mPrimitiveType);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGPrimitive_t *
+CSGPrimitive_create(unsigned int level, unsigned int version,
+                    unsigned int pkgVersion)
+{
+  return new CSGPrimitive(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGPrimitive_free(CSGPrimitive_t * csgp)
+{
+  if (csgp != NULL)
+    delete csgp;
+}
+
+
+LIBSBML_EXTERN
+CSGPrimitive_t *
+CSGPrimitive_clone(CSGPrimitive_t * csgp)
+{
+  if (csgp != NULL)
+  {
+    return static_cast<CSGPrimitive_t*>(csgp->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGPrimitive_getId(const CSGPrimitive_t * csgp)
+{
+	return (csgp != NULL && csgp->isSetId()) ? csgp->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp)
+{
+	return (csgp != NULL && csgp->isSetPrimitiveType()) ? csgp->getPrimitiveType().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_isSetId(const CSGPrimitive_t * csgp)
+{
+  return (csgp != NULL) ? static_cast<int>(csgp->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_isSetPrimitiveType(const CSGPrimitive_t * csgp)
+{
+  return (csgp != NULL) ? static_cast<int>(csgp->isSetPrimitiveType()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_setId(CSGPrimitive_t * csgp, const char * id)
+{
+  if (csgp != NULL)
+    return (id == NULL) ? csgp->setId("") : csgp->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, const char * primitiveType)
+{
+  if (csgp != NULL)
+    return (primitiveType == NULL) ? csgp->setPrimitiveType("") : csgp->setPrimitiveType(primitiveType);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_unsetId(CSGPrimitive_t * csgp)
+{
+  return (csgp != NULL) ? csgp->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_unsetPrimitiveType(CSGPrimitive_t * csgp)
+{
+  return (csgp != NULL) ? csgp->unsetPrimitiveType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPrimitive_hasRequiredAttributes(const CSGPrimitive_t * csgp)
+{
+  return (csgp != NULL) ? static_cast<int>(csgp->hasRequiredAttributes()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
 

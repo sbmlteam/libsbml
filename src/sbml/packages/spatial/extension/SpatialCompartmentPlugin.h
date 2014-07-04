@@ -1,89 +1,101 @@
 /**
- * @file    SpatialCompartmentPlugin.h
- * @brief   Definition of SpatialCompartmentPlugin, the plugin class of
- *          spatial package for the Parameter element.
- * @author  
+ * @file:   SpatialCompartmentPlugin.h
+ * @brief:  Implementation of the SpatialCompartmentPlugin class
+ * @author: SBMLTeam
  *
- * $Id: SpatialCompartmentPlugin.h 10673 2010-01-17 07:18:20Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/extension/SpatialCompartmentPlugin.h $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#ifndef SpatialCompartmentPlugin_h
-#define SpatialCompartmentPlugin_h
+
+#ifndef SpatialCompartmentPlugin_H__
+#define SpatialCompartmentPlugin_H__
 
 
 #include <sbml/common/extern.h>
-#include <sbml/common/sbmlfwd.h>
-#include <sbml/packages/spatial/common/spatialfwd.h>
-#include <sbml/SBMLTypeCodes.h>
+
 
 #ifdef __cplusplus
 
-#include <sbml/SBMLErrorLog.h>
-#include <sbml/Parameter.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
+
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/packages/spatial/sbml/CompartmentMapping.h>
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 class LIBSBML_EXTERN SpatialCompartmentPlugin : public SBasePlugin
 {
 public:
 
   /**
-   * Constructor
+   * Creates a new SpatialCompartmentPlugin
    */
-  SpatialCompartmentPlugin (const std::string &uri, const std::string &prefix,
-                    SpatialPkgNamespaces *spatialns);
+  SpatialCompartmentPlugin(const std::string& uri, const std::string& prefix, 
+                                 SpatialPkgNamespaces* spatialns);
 
 
   /**
-   * Copy constructor. Creates a copy of this SBase object.
+   * Copy constructor for SpatialCompartmentPlugin.
+   *
+   * @param orig; the SpatialCompartmentPlugin instance to copy.
    */
   SpatialCompartmentPlugin(const SpatialCompartmentPlugin& orig);
 
 
-  /**
-   * Destroy this object.
-   */
-  virtual ~SpatialCompartmentPlugin ();
-
-
-  /**
+   /**
    * Assignment operator for SpatialCompartmentPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-  SpatialCompartmentPlugin& operator=(const SpatialCompartmentPlugin& orig);
+  SpatialCompartmentPlugin& operator=(const SpatialCompartmentPlugin& rhs);
 
 
-  /**
+   /**
    * Creates and returns a deep copy of this SpatialCompartmentPlugin object.
-   * 
-   * @return a (deep) copy of this SBase object
+   *
+   * @return a (deep) copy of this SpatialCompartmentPlugin object.
    */
   virtual SpatialCompartmentPlugin* clone () const;
 
 
-  // --------------------------------------------------------
+   /**
+   * Destructor for SpatialCompartmentPlugin.
+   */
+  virtual ~SpatialCompartmentPlugin();
+
+
+   //---------------------------------------------------------------
   //
-  // overridden virtual functions for reading/writing/checking 
-  // elements
+  // overridden virtual functions for read/write/check
   //
-  // --------------------------------------------------------
+  //---------------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -97,12 +109,12 @@ public:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
- /**
-   * Parses Spatial Extension of SBML Level 3
-   */
- virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
 
- 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
@@ -110,109 +122,174 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
   /**
    * Checks if this plugin object has all the required elements.
    *
-   * Subclasses should override this function if they have their specific
-   * elements.
+   * Subclasses must override this method 
+   * if they have their specific elements.
    *
-   * @return true if this pugin object has all the required elements,
+   * @return true if this plugin object has all the required elements
    * otherwise false will be returned.
    */
-  virtual bool hasRequiredElements() const ;
+  virtual bool hasRequiredElements () const;
 
 
-  /** ------------------------------------------------------------------
-   *
-   *  Additional public functions
-   *
-   * ------------------------------------------------------------------
+  //---------------------------------------------------------------
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
    */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
-   /**
-   * Returns the CompartmentMapping object in this plugin object.
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  //---------------------------------------------------------------
+  //
+  // Functions for interacting with the members of the plugin
+  //
+  //---------------------------------------------------------------
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
    *
-   * @return CompartmentMapping object in this plugin object.
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
+   * Returns the CompartmentMapping from this SpatialCompartmentPlugin object.
+   *
+   * @return the CompartmentMapping from object in this SpatialCompartmentPlugin object.
    */
   const CompartmentMapping* getCompartmentMapping () const;
 
 
   /**
-   * Returns the CompartmentMapping in this plugin object.
+   * Returns the CompartmentMapping from this SpatialCompartmentPlugin object.
    *
-   * @return CompartmentMapping object in this plugin object.
+   * @return the CompartmentMapping from object in this SpatialCompartmentPlugin object.
    */
   CompartmentMapping* getCompartmentMapping ();
- 
-  // ---------------------------------------------------------
-  //
-  // virtual functions (internal implementation) which should
-  // be overridden by subclasses.
-  //
-  // ---------------------------------------------------------
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether the
+    "CompartmentMapping" element has been set.
+   *
+   * @return @c true if the "CompartmentMapping" element has been set,
+   * otherwise @c false is returned.
+   */
+  bool isSetCompartmentMapping() const;
+
+
+  /**
+   * Sets the CompartmentMapping element in this SpatialCompartmentPlugin object.
+   *
+   * @param compartmentMapping the compartmentMapping* to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
+  int setCompartmentMapping (const CompartmentMapping* compartmentMapping);
+
+
+  /**
+   * Creates a new CompartmentMapping object and adds it to the SpatialCompartmentPlugin object.
+   *
+   * @return the newly created CompartmentMapping object.
+   */
+  CompartmentMapping* createCompartmentMapping ();
+
 
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Sets the parent SBMLDocument of this plugin object.
-   *
-   * Subclasses which contain one or more SBase derived elements must
-   * override this function.
-   *
-   * @param d the SBMLDocument object to use
-   *
-   * @see connectToParent
-   * @see enablePackageInternal
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
-  /**
-   * Sets the parent SBML object of this plugin object to
-   * this object and child elements (if any).
-   * (Creates a child-parent relationship by this plugin object)
-   *
-   * This function is called when this object is created by
-   * the parent element.
-   * Subclasses must override this this function if they have one
-   * or more child elements.Also, SBasePlugin::connectToParent()
-   * must be called in the overridden function.
-   *
-   * @param sbase the SBase object to use
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToParent (SBase *sbase);
-
-
-  /**
-   * Enables/Disables the given package with child elements in this plugin
-   * object (if any).
-   * (This is an internal implementation invoked from
-   *  SBase::enablePakcageInternal() function)
-   *
-   * @note Subclasses in which one or more SBase derived elements are
-   * defined must override this function.
-   *
-   * @see setSBMLDocument
-   * @see connectToParent
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
   /** @endcond doxygenLibsbmlInternal */
 
-protected:
+
   /** @cond doxygenLibsbmlInternal */
 
-  /*-- data members --*/
+  virtual void connectToParent (SBase* sbase);
 
-  CompartmentMapping mCompartmentMapping;
 
   /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual void enablePackageInternal(const std::string& pkgURI,
+                                     const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  CompartmentMapping* mCompartmentMapping;
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
 };
+
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
-#endif  /* SpatialCompartmentPlugin_h */
+
+#endif /* __cplusplus */
+#endif /* SpatialCompartmentPlugin_H__ */
+
+

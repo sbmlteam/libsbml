@@ -234,8 +234,6 @@ END_TEST
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_INTERIORPOINT)          , "InteriorPoint") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_COORDINATECOMPONENT)    , "CoordinateComponent") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_BOUNDARY)               , "Boundary") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_BOUNDARYMIN)            , "BoundaryMin") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_BOUNDARYMAX)            , "BoundaryMax") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_COMPARTMENTMAPPING)     , "CompartmentMapping") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_ADJACENTDOMAINS)        , "AdjacentDomains") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_GEOMETRYDEFINITION)     , "GeometryDefinition") == 0);
@@ -251,16 +249,15 @@ END_TEST
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_ADVECTIONCOEFFICIENT)   , "AdvectionCoefficient") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_BOUNDARYCONDITION)      , "BoundaryCondition") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_GEOMETRY)               , "Geometry") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_COORDINATEREFERENCE), "CoordinateReference") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_DOMAINTYPE-1)           , "(Unknown SBML Spatial Type)") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_GEOMETRY+1)             , "(Unknown SBML Spatial Type)") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_SPATIAL_COORDINATEREFERENCE + 1), "(Unknown SBML Spatial Type)") == 0);
 
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE,   "spatial")            , "DomainType") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAIN,  "spatial")                 , "Domain") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_INTERIORPOINT,   "spatial")         , "InteriorPoint") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATECOMPONENT,  "spatial")    , "CoordinateComponent") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARY,   "spatial")              , "Boundary") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYMIN,  "spatial")            , "BoundaryMin") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYMAX,   "spatial")           , "BoundaryMax") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COMPARTMENTMAPPING,  "spatial")     , "CompartmentMapping") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADJACENTDOMAINS,   "spatial")       , "AdjacentDomains") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRYDEFINITION,  "spatial")     , "GeometryDefinition") == 0);
@@ -276,8 +273,9 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADVECTIONCOEFFICIENT,  "spatial")   , "AdvectionCoefficient") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYCONDITION,   "spatial")     , "BoundaryCondition") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY,  "spatial")               , "Geometry") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE, "spatial"), "CoordinateReference") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE-1, "spatial")            , "(Unknown SBML Spatial Type)") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY+1,"spatial")               , "(Unknown SBML Spatial Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE + 1, "spatial"), "(Unknown SBML Spatial Type)") == 0);
 }
 END_TEST
 
@@ -288,8 +286,6 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_INTERIORPOINT          ,"spatial"), "InteriorPoint")               == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATECOMPONENT    ,"spatial"), "CoordinateComponent")         == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARY               ,"spatial"), "Boundary")                    == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYMIN            ,"spatial"), "BoundaryMin")                 == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYMAX            ,"spatial"), "BoundaryMax")                 == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COMPARTMENTMAPPING     ,"spatial"), "CompartmentMapping")          == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADJACENTDOMAINS        ,"spatial"), "AdjacentDomains")             == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRYDEFINITION     ,"spatial"), "GeometryDefinition")          == 0);
@@ -305,8 +301,9 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ADVECTIONCOEFFICIENT   ,"spatial"), "AdvectionCoefficient")        == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_BOUNDARYCONDITION      ,"spatial"), "BoundaryCondition")           == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY               ,"spatial"), "Geometry")                    == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE, "spatial"), "CoordinateReference") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE - 1         ,"spatial"), "(Unknown SBML Spatial Type)") == 0);
-  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_GEOMETRY + 1           ,"spatial"), "(Unknown SBML Spatial Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE + 1, "spatial"), "(Unknown SBML Spatial Type)") == 0);
 
 }
 END_TEST

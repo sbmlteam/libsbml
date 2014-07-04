@@ -1,86 +1,70 @@
 /**
- * @file    CSGPseudoPrimitive.cpp
- * @brief   Implementation of CSGPseudoPrimitive, the SBase derived class of spatial package.
- * @author  
+ * @file:   CSGPseudoPrimitive.cpp
+ * @brief:  Implementation of the CSGPseudoPrimitive class
+ * @author: SBMLTeam
  *
- * $Id: CSGPseudoPrimitive.cpp 
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/packages/spatial/sbml/CSGPseudoPrimitive.cpp $
- *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2009 California Institute of Technology.
- * 
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  */
 
-#include <iostream>
-#include <limits>
-
-#include <sbml/SBMLVisitor.h>
-#include <sbml/xml/XMLNode.h>
-#include <sbml/xml/XMLToken.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
 
 #include <sbml/packages/spatial/sbml/CSGPseudoPrimitive.h>
-#include <sbml/packages/spatial/extension/SpatialExtension.h>
+#include <sbml/packages/spatial/validator/SpatialSBMLError.h>
+
 
 using namespace std;
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 /*
  * Creates a new CSGPseudoPrimitive with the given level, version, and package version.
  */
-CSGPseudoPrimitive::CSGPseudoPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-: CSGNode (SBML_SPATIAL_CSGPSEUDOPRIMITIVE, level,version)
-  , mcsgObjectRef("")
+CSGPseudoPrimitive::CSGPseudoPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion)
+	: CSGNode(level, version)
+   ,mId ("")
+   ,mCsgObjectRef ("")
 {
-  // set an SBMLNamespaces derived object (SpatialPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level,version,pkgVersion)); 
-
-  if (!hasValidLevelVersionNamespaceCombination())
-	throw SBMLConstructorException();
-
-  connectToChild();
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
 }
 
 
 /*
  * Creates a new CSGPseudoPrimitive with the given SpatialPkgNamespaces object.
  */
-CSGPseudoPrimitive::CSGPseudoPrimitive(SpatialPkgNamespaces* spatialns)
- : CSGNode (SBML_SPATIAL_CSGPSEUDOPRIMITIVE, spatialns)
-  , mcsgObjectRef("")
+CSGPseudoPrimitive::CSGPseudoPrimitive (SpatialPkgNamespaces* spatialns)
+	: CSGNode(spatialns)
+   ,mId ("")
+   ,mCsgObjectRef ("")
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(spatialns->getURI());
-
-  if (!hasValidLevelVersionNamespaceCombination())
-  {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = spatialns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
-  }
-
-  connectToChild();
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
@@ -88,186 +72,241 @@ CSGPseudoPrimitive::CSGPseudoPrimitive(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor.
+ * Copy constructor for CSGPseudoPrimitive.
  */
-CSGPseudoPrimitive::CSGPseudoPrimitive(const CSGPseudoPrimitive& source) : CSGNode(source)
+CSGPseudoPrimitive::CSGPseudoPrimitive (const CSGPseudoPrimitive& orig)
+	: CSGNode(orig)
 {
-	this->mcsgObjectRef=source.mcsgObjectRef;
-
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId  = orig.mId;
+    mCsgObjectRef  = orig.mCsgObjectRef;
+  }
 }
 
+
 /*
- * Assignment operator.
+ * Assignment for CSGPseudoPrimitive.
  */
-CSGPseudoPrimitive& CSGPseudoPrimitive::operator=(const CSGPseudoPrimitive& source)
+CSGPseudoPrimitive&
+CSGPseudoPrimitive::operator=(const CSGPseudoPrimitive& rhs)
 {
-  if(&source!=this)
+  if (&rhs == NULL)
   {
-    this->CSGNode::operator=(source);
-	this->mcsgObjectRef = source.mcsgObjectRef;
+    throw SBMLConstructorException("Null argument to assignment");
   }
-  
+  else if (&rhs != this)
+  {
+		CSGNode::operator=(rhs);
+    mId  = rhs.mId;
+    mCsgObjectRef  = rhs.mCsgObjectRef;
+  }
   return *this;
 }
 
+
 /*
- * Destructor.
- */ 
+ * Clone for CSGPseudoPrimitive.
+ */
+CSGPseudoPrimitive*
+CSGPseudoPrimitive::clone () const
+{
+  return new CSGPseudoPrimitive(*this);
+}
+
+
+/*
+ * Destructor for CSGPseudoPrimitive.
+ */
 CSGPseudoPrimitive::~CSGPseudoPrimitive ()
 {
 }
 
-/*
-  * Returns the value of the "CSGObjectRef" attribute of this CSGPseudoPrimitive.
-  */
-const std::string& 
-CSGPseudoPrimitive::getCSGObjectRef () const
-{
-	return mcsgObjectRef;
-}
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * CSGPseudoPrimitive's "CSGObjectRef" attribute has been set.
-  */
-bool 
-CSGPseudoPrimitive::isSetCSGObjectRef () const
+ * Returns the value of the "id" attribute of this CSGPseudoPrimitive.
+ */
+const std::string&
+CSGPseudoPrimitive::getId() const
 {
-	return (mcsgObjectRef.empty() == false);
+  return mId;
 }
+
 
 /*
-  * Sets the value of the "CSGObjectRef" attribute of this CSGPseudoPrimitive.
-  */
-int 
-CSGPseudoPrimitive::setCSGObjectRef (const std::string& primitiveType)
+ * Returns the value of the "csgObjectRef" attribute of this CSGPseudoPrimitive.
+ */
+const std::string&
+CSGPseudoPrimitive::getCsgObjectRef() const
 {
-	return SyntaxChecker::checkAndSetSId(primitiveType , mcsgObjectRef);
+  return mCsgObjectRef;
 }
 
- /*
-  * Unsets the value of the "CSGObjectRef" attribute of this CSGPseudoPrimitive.
-  */
-int 
-CSGPseudoPrimitive::unsetCSGObjectRef ()
-{
-	mcsgObjectRef.erase();
-	if (mcsgObjectRef.empty())
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
-}
 
 /*
- * Subclasses should override this method to return XML element name of
- * this SBML object.
- 
+ * Returns true/false if id is set.
+ */
+bool
+CSGPseudoPrimitive::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if csgObjectRef is set.
+ */
+bool
+CSGPseudoPrimitive::isSetCsgObjectRef() const
+{
+  return (mCsgObjectRef.empty() == false);
+}
+
+
+/*
+ * Sets id and returns value indicating success.
+ */
+int
+CSGPseudoPrimitive::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets csgObjectRef and returns value indicating success.
+ */
+int
+CSGPseudoPrimitive::setCsgObjectRef(const std::string& csgObjectRef)
+{
+  if (&(csgObjectRef) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(csgObjectRef)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCsgObjectRef = csgObjectRef;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+CSGPseudoPrimitive::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets csgObjectRef and returns value indicating success.
+ */
+int
+CSGPseudoPrimitive::unsetCsgObjectRef()
+{
+  mCsgObjectRef.erase();
+
+  if (mCsgObjectRef.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+CSGPseudoPrimitive::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetCsgObjectRef() == true && mCsgObjectRef == oldid)
+  {
+    setCsgObjectRef(newid);
+  }
+
+}
+
+
+/*
+ * Returns the XML element name of this object
+ */
 const std::string&
 CSGPseudoPrimitive::getElementName () const
 {
-  static const std::string name = "geometricPrimitive";
-  return name;
+	static const string name = "cSGPseudoPrimitive";
+	return name;
 }
-*/
+
 
 /*
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
+ * Returns the libSBML type code for this SBML object.
  */
-SBase*
-CSGPseudoPrimitive::createObject (XMLInputStream& stream)
+int
+CSGPseudoPrimitive::getTypeCode () const
 {
-    SBase*        object = 0;
-    object=SBase::createObject(stream);
-
-    return object;
+  return SBML_SPATIAL_CSGPSEUDOPRIMITIVE;
 }
 
+
 /*
- * Subclasses should override this method to get the list of
- * expected attributes.
- * This function is invoked from corresponding readAttributes()
- * function.
+ * check if all the required attributes are set
  */
-void
-CSGPseudoPrimitive::addExpectedAttributes(ExpectedAttributes& attributes)
+bool
+CSGPseudoPrimitive::hasRequiredAttributes () const
 {
-  CSGNode::addExpectedAttributes(attributes);
-  
-  attributes.add("csgObjectRef");
-}
+	bool allPresent = CSGNode::hasRequiredAttributes();
 
-/*
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-CSGPseudoPrimitive::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
-{
-  CSGNode::readAttributes(attributes,expectedAttributes);
+  if (isSetId() == false)
+    allPresent = false;
 
-  const unsigned int sbmlLevel   = getLevel  ();
-  const unsigned int sbmlVersion = getVersion();
+  if (isSetCsgObjectRef() == false)
+    allPresent = false;
 
-  bool assigned = attributes.readInto("csgObjectRef", mcsgObjectRef, getErrorLog(), true, getLine(), getColumn());
-  if (assigned && mcsgObjectRef.empty())
-  {
-    logEmptyString(mcsgObjectRef, sbmlLevel, sbmlVersion, "<CSGPseudoPrimitive>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mcsgObjectRef)) 
-    logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute csgObjectRef='" + mcsgObjectRef + "' does not conform.");
-
-}
-
-/*
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-CSGPseudoPrimitive::writeAttributes (XMLOutputStream& stream) const
-{
-  CSGNode::writeAttributes(stream);
-
-  stream.writeAttribute("csgObjectRef",   getPrefix(), mcsgObjectRef);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
+  return allPresent;
 }
 
 
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
+ * write contained elements
  */
 void
 CSGPseudoPrimitive::writeElements (XMLOutputStream& stream) const
 {
-  SBase::writeElements(stream);
-
-  //
-  // (EXTENSION)
-  //
+	CSGNode::writeElements(stream);
   SBase::writeExtensionElements(stream);
 }
 
 
-CSGPseudoPrimitive*
-CSGPseudoPrimitive::clone() const
-{
-    return new CSGPseudoPrimitive(*this);
-}
+  /** @endcond doxygenLibsbmlInternal */
 
+
+  /** @cond doxygenLibsbmlInternal */
 
 /*
  * Accepts the given SBMLVisitor.
@@ -275,36 +314,318 @@ CSGPseudoPrimitive::clone() const
 bool
 CSGPseudoPrimitive::accept (SBMLVisitor& v) const
 {
-  // return false;
-  // return v.visit(*this);
-
-  bool result = v.visit(*this);
-
-  return result;
- 
+  return v.visit(*this);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument.
  */
 void
 CSGPseudoPrimitive::setSBMLDocument (SBMLDocument* d)
 {
-  CSGNode::setSBMLDocument(d);
+	CSGNode::setSBMLDocument(d);
 }
 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
 /*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * Enables/Disables the given package with this element.
  */
 void
 CSGPseudoPrimitive::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
+             const std::string& pkgPrefix, bool flag)
 {
-  CSGNode::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  CSGNode::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+CSGPseudoPrimitive::createObject(XMLInputStream& stream)
+{
+	SBase* object = CSGNode::createObject(stream);
+
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+CSGPseudoPrimitive::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+	CSGNode::addExpectedAttributes(attributes);
+
+	attributes.add("id");
+	attributes.add("csgObjectRef");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+CSGPseudoPrimitive::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+	CSGNode::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<CSGPseudoPrimitive>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'id' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+  //
+  // csgObjectRef SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("csgObjectRef", mCsgObjectRef);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mCsgObjectRef.empty() == true)
+    {
+      logEmptyString(mCsgObjectRef, getLevel(), getVersion(), "<CSGPseudoPrimitive>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mCsgObjectRef) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute csgObjectRef='" + mCsgObjectRef + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'csgObjectRef' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+CSGPseudoPrimitive::writeAttributes (XMLOutputStream& stream) const
+{
+	CSGNode::writeAttributes(stream);
+
+	if (isSetId() == true)
+		stream.writeAttribute("id", getPrefix(), mId);
+
+	if (isSetCsgObjectRef() == true)
+		stream.writeAttribute("csgObjectRef", getPrefix(), mCsgObjectRef);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t *
+CSGPseudoPrimitive_create(unsigned int level, unsigned int version,
+                          unsigned int pkgVersion)
+{
+  return new CSGPseudoPrimitive(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+CSGPseudoPrimitive_free(CSGPseudoPrimitive_t * csgpp)
+{
+  if (csgpp != NULL)
+    delete csgpp;
+}
+
+
+LIBSBML_EXTERN
+CSGPseudoPrimitive_t *
+CSGPseudoPrimitive_clone(CSGPseudoPrimitive_t * csgpp)
+{
+  if (csgpp != NULL)
+  {
+    return static_cast<CSGPseudoPrimitive_t*>(csgpp->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGPseudoPrimitive_getId(const CSGPseudoPrimitive_t * csgpp)
+{
+	return (csgpp != NULL && csgpp->isSetId()) ? csgpp->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+CSGPseudoPrimitive_getCsgObjectRef(const CSGPseudoPrimitive_t * csgpp)
+{
+	return (csgpp != NULL && csgpp->isSetCsgObjectRef()) ? csgpp->getCsgObjectRef().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_isSetId(const CSGPseudoPrimitive_t * csgpp)
+{
+  return (csgpp != NULL) ? static_cast<int>(csgpp->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_isSetCsgObjectRef(const CSGPseudoPrimitive_t * csgpp)
+{
+  return (csgpp != NULL) ? static_cast<int>(csgpp->isSetCsgObjectRef()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_setId(CSGPseudoPrimitive_t * csgpp, const char * id)
+{
+  if (csgpp != NULL)
+    return (id == NULL) ? csgpp->setId("") : csgpp->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_setCsgObjectRef(CSGPseudoPrimitive_t * csgpp, const char * csgObjectRef)
+{
+  if (csgpp != NULL)
+    return (csgObjectRef == NULL) ? csgpp->setCsgObjectRef("") : csgpp->setCsgObjectRef(csgObjectRef);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_unsetId(CSGPseudoPrimitive_t * csgpp)
+{
+  return (csgpp != NULL) ? csgpp->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_unsetCsgObjectRef(CSGPseudoPrimitive_t * csgpp)
+{
+  return (csgpp != NULL) ? csgpp->unsetCsgObjectRef() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+CSGPseudoPrimitive_hasRequiredAttributes(const CSGPseudoPrimitive_t * csgpp)
+{
+  return (csgpp != NULL) ? static_cast<int>(csgpp->hasRequiredAttributes()) : 0;
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
+
 
