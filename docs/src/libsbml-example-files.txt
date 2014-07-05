@@ -1,6 +1,6 @@
 /** @page libsbml-example-files Additional complete example programs
 
-\tableofcontents
+@tableofcontents
 
 The libSBML distribution comes with the following selection of
 complete example programs in the top-level file directory 
