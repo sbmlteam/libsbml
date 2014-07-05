@@ -786,10 +786,17 @@ def translatePythonSeeRef (match):
 
 def translateAllowingBreaks (translations, docstring):
   for pair in translations:
-    new_pattern = re.sub(' ', r'\s+\*\s*', pair[0])
+    new_pattern = re.sub(' ', r'\s+\*?\s*', pair[0])
     replacement = pair[1]
     docstring   = re.sub(new_pattern, replacement, docstring)
   return docstring
+
+
+def translateJavaSeeArgs (match):
+  front = match.group(1)
+  args  = match.groups()
+  reconstructed = front + '(' + ', '.join(filter(None, args[1::2])) + ')'
+  return match.group(0)
 
 
 def rewriteClassRefAddingSpace (match):
@@ -1140,19 +1147,20 @@ def rewriteDocstringForJava (docstring):
   # Java types.  (Note: this rewriting affects only the documentation
   # comments inside classes & methods, not the method signatures.)
 
-  docstring = re.sub(r'const\s+char\s+\*',      'String ', docstring)
-  docstring = re.sub(r'const\s+char\* ',        'String ', docstring)
-  docstring = re.sub(r'const\s+std::string&',   'String',  docstring)
-  docstring = re.sub(r'const\s+std::string\+&', 'String ', docstring)
-  docstring = re.sub(r'const\s+std::string ',   'String ', docstring)
+  breakable_translations = [[r'an unsigned int',     'a long integer'],
+                            [r'unsigned int',        'long'],
+                            [r'const char\*',        'String'],
+                            [r'const char \*',       'String '],
+                            [r'const std::string&',  'String'],
+                            [r'const std::string &', 'String '],
+                            [r'const std::string',   'String']]
+
+  docstring = translateAllowingBreaks(breakable_translations, docstring)
+
   docstring = re.sub(r'std::string',            'String',  docstring)
   docstring = re.sub(r'NULL',                   'null',    docstring)
   docstring = re.sub(r'\bbool\b',               'boolean', docstring)
-
-  breakable_translations = [[r'an unsigned int', 'a long integer'],
-                            [r'unsigned int',    'long']]
-
-  docstring = translateAllowingBreaks(breakable_translations, docstring)
+  docstring = re.sub(r'const ',                 '',        docstring)
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
@@ -1185,6 +1193,14 @@ def rewriteDocstringForJava (docstring):
   # @see foo(), bar(), etc., but I don't have time right now to do it.
 
   docstring = re.sub('(@see\s+)([\w:.]+)\(', r'\1#\2(', docstring)
+
+  # Remove the parameter names from argument lists, if any, inside @see's.
+  # (The Java convention is that the parameter names are not included in the
+  # text of the reference.)  At this point, we expect to see only single
+  # types like "long" and not "unsigned int", because we translated them above.
+
+  p = re.compile(r'(@see\s+#?\w+)\((\w+)+\s+\w+(\s*,\s*(\w+)\s+\w+)?\)')
+  docstring = p.sub(translateJavaSeeArgs, docstring)
 
   # The syntax for @link is vastly different.
 
