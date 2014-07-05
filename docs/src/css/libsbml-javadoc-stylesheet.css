@@ -181,6 +181,15 @@ dl dd dl dd p
     margin: 0px;
 }
 
+/* The next one is to tighten vertical spacing in Java parameter
+lists in method descriptions */
+
+dl dd dl dd p 
+{
+    padding: 2px 2px 0.5em 2px;
+    margin: 0px;
+}
+
 dl dd a[href*="org/sbml/libsbml"]
 {
     font-family: "Anonymous Pro", "Courier New", Courier, monospace, fixed;
