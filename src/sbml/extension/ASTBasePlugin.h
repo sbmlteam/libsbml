@@ -52,7 +52,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/util/StringBuffer.h>
 
-
+#include <sbml/math/L3ParserSettings.h>
 
 #ifdef __cplusplus
 
