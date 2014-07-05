@@ -25,11 +25,7 @@ this manual helpful:
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
-@if python
-- @subpage libsbml-programming-python
-@else
 - @subpage libsbml-programming
-@endif
 - @subpage libsbml-issues
 - @subpage libsbml-communications
 @htmlinclude doxygen-regular-text-end.html

@@ -329,7 +329,6 @@ distfiles =                                                  \
         libsbml-papers.html                                  \
         libsbml-programming.txt                              \
         libsbml-programming-csharp.txt                       \
-        libsbml-programming-python.txt                       \
         libsbml-python-creating-model.txt                    \
         libsbml-python-example-files.txt                     \
         libsbml-python-reading-files.txt                     \

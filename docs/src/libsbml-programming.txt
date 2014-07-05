@@ -6,13 +6,23 @@ use the navigation bar or the table of contents to visit the relevant pages.
 
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-features
+@if cpp
 - @subpage libsbml-reading-files
 - @subpage libsbml-math
 - @subpage libsbml-example
-@if conly
-- @subpage libsbml-example-files-c
-@else
 - @subpage libsbml-example-files
+@endif
+@if python
+- @subpage libsbml-python-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-python-creating-model
+- @subpage libsbml-python-example-files
+@endif
+@if conly
+- @subpage libsbml-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-example
+- @subpage libsbml-example-files-c
 @endif
 - @subpage libsbml-core-versus-packages
 @htmlinclude doxygen-regular-text-end.html
