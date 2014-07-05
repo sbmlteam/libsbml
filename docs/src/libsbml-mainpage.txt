@@ -3,10 +3,21 @@
 @htmlinclude libsbml-authors.html
 
 <p>
-This manual describes the C++ application programming interface (API) of
-libSBML, an open-source (LGPL) library for writing and manipulating the
-Systems Biology Markup Language (SBML).
-@htmlinclude libsbml-blurb.html
+This manual describes the @if python Python @endif@if cpp C++ @endif
+application programming interface (API) of libSBML, an open-source (LGPL)
+library for writing and manipulating the Systems Biology Markup Language
+(SBML).  @htmlinclude libsbml-blurb.html
+
+@ifnot cpp
+@htmlinclude libsbml-conversion-warnings.html
+@endif
+
+@if python
+The libSBML Python library makes much of this API documentation accessible
+using the Python interactive help system.  As an example, try typing
+<code>help(SBMLDocument)</code> to a Python interpreter (after having
+imported the libsbml library).
+@endif
 
 To get started with libSBML, you may find the following sections of
 this manual helpful:
@@ -14,7 +25,11 @@ this manual helpful:
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
+@if python
+- @subpage libsbml-programming-python
+@else
 - @subpage libsbml-programming
+@endif
 - @subpage libsbml-issues
 - @subpage libsbml-communications
 @htmlinclude doxygen-regular-text-end.html

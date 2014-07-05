@@ -332,7 +332,6 @@ distfiles =                                                  \
         libsbml-programming-python.txt                       \
         libsbml-python-creating-model.txt                    \
         libsbml-python-example-files.txt                     \
-        libsbml-python-mainpage.txt                          \
         libsbml-python-reading-files.txt                     \
         libsbml-reading-files.txt                            \
         libsbml-release-info.txt                             \

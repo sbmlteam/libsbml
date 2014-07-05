@@ -95,6 +95,7 @@ INPUT = \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
   libsbml-license.txt                   \
+  libsbml-mainpage.txt                  \
   libsbml-math.txt                      \
   libsbml-news.txt                      \
   libsbml-old-news.txt                  \
@@ -102,7 +103,6 @@ INPUT = \
   libsbml-programming-python.txt        \
   libsbml-python-creating-model.txt     \
   libsbml-python-example-files.txt      \
-  libsbml-python-mainpage.txt           \
   libsbml-python-reading-files.txt      \
   libsbml-release-info.txt              \
   libsbml.py
