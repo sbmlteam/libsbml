@@ -2893,7 +2893,7 @@ newModel.addSpecies(s1);
   /**
    * Writes (serializes) this SBML object by writing it to XMLOutputStream.
    */
-  void write (XMLOutputStream& stream) const;
+  virtual void write (XMLOutputStream& stream) const;
   /** @endcond */
 
 
