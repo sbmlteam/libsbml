@@ -115,9 +115,14 @@ import com.sun.javadoc.*;
 
 
 /**
- * A wrapper for Javadoc.  Accepts an additional option called "-excludefile",
- * which specifies which classes and packages should be excluded from the output.
- * 
+ * A wrapper for Javadoc.  Accepts additional options:
+ *
+ * * "-excludefile": specifies which classes and packages should be excluded
+ *   from the output.
+ *
+ * * "-listskipped": print things that get skipped because they are SWIG
+ *   things we don't want in the documentation.
+ *
  * @author Jamie Ho
  * @author Michael Hucka
  */
@@ -125,6 +130,7 @@ public class SBMLDoclet extends Doclet
 {
     private static List m_args = new ArrayList();
     private static Set m_excludeSet = new HashSet();
+    static boolean m_list_skipped = false;
 
     /**
      * First executes the doclet that exclude files.
@@ -178,9 +184,11 @@ public class SBMLDoclet extends Doclet
         }
 
         /**
-         * Let every option be valid.  The real validation happens in the standard
-         * doclet, not here.  Remove the "-excludefile" and "-subpackages" options
-         * because they are not needed by the standard doclet.
+         * Let every option be valid.  The real validation happens in the
+         * standard doclet, not here.  Remove the "-excludefile" and
+         * "-subpackages" options because they are not needed by the standard
+         * doclet.  Similarly, process SBMLDoclet's -listexcludes flag here
+         * and also remove it.
          * 
          * @param options   the options from the command line
          * @param reporter  the error reporter
@@ -193,15 +201,19 @@ public class SBMLDoclet extends Doclet
                     try {
                         readExcludeFile(options[i][1]);
                     } catch (Exception e) {
-                        e.printStackTrace();   
+                        e.printStackTrace();
                     }
                     continue;
                 }
                 if (options[i][0].equals("-subpackages")) {
-                    continue;   
+                    continue;
+                }
+                if (options[i][0].equals("-listskipped")) {
+                    m_list_skipped = true;
+                    continue;
                 }
                 for (int j = 0; j < options[i].length; j++) {
-                    m_args.add(options[i][j]);   
+                    m_args.add(options[i][j]);
                 }
             }
             return true;
@@ -415,7 +427,11 @@ public class SBMLDoclet extends Doclet
 
                         if (isSWIGWrapper(item) || isJNIclass(item))
                         {
-                            the_root.printNotice("SBMLDoclet: skipping " + item);
+                            if (m_list_skipped)
+                            {
+                                the_root.printNotice("SBMLDoclet: skipping "
+                                                     + item);
+                            }
                             continue;
                         }
 
