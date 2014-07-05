@@ -818,7 +818,7 @@ java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class
 	cp -rp $(java-subst-dir)/* $(java-local-dir)/$(java-class-path)
 	$(JAVA) -cp $(JAVADOC_JAR):. SBMLDoclet \
 	    -use -public -version -author -sourcetab 4 -keywords -nohelp \
-	    -link http://java.sun.com/j2se/1.5.0/docs/api \
+	    -link http://docs.oracle.com/javase/1.6.0/docs/api \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
