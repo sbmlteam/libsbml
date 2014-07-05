@@ -33,8 +33,7 @@
 #include <sbml/common/common.h>
 
 #include <sbml/SBase.h>
-#include <sbml/packages/spatial/sbml/PolygonObject.h>
-#include <sbml/packages/spatial/sbml/ParametricObject.h>
+#include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
 
 #include <check.h>
@@ -63,6 +62,13 @@ START_TEST ( test_PolygonObject_copyConstructor )
 
   fail_unless(o2->getPointIndexLength() == 3);
 
+  int pointsRet [] = {0, 0, 0};
+  o2->getPointIndex(pointsRet);
+  
+  fail_unless(pointsRet[0] == 1);
+  fail_unless(pointsRet[1] == 2);
+  fail_unless(pointsRet[2] == 3);
+
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
   delete o2;
@@ -84,6 +90,13 @@ START_TEST ( test_PolygonObject_assignmentOperator )
 
   fail_unless(o2->getPointIndexLength() == 3);
 
+  int pointsRet [] = {0, 0, 0};
+  o2->getPointIndex(pointsRet);
+  
+  fail_unless(pointsRet[0] == 1);
+  fail_unless(pointsRet[1] == 2);
+  fail_unless(pointsRet[2] == 3);
+
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
   delete o2;
@@ -103,6 +116,13 @@ START_TEST ( test_PolygonObject_clone )
   PolygonObject* o2=o1->clone();
  
   fail_unless(o2->getPointIndexLength() == 3);
+
+  int pointsRet [] = {0, 0, 0};
+  o2->getPointIndex(pointsRet);
+  
+  fail_unless(pointsRet[0] == 1);
+  fail_unless(pointsRet[1] == 2);
+  fail_unless(pointsRet[2] == 3);
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -194,6 +214,170 @@ START_TEST ( test_ParametricObject_clone )
 END_TEST
 
 
+START_TEST ( test_ImageData_copyConstructor )
+{
+  ImageData* o1=new ImageData(GNS);
+  int points [] = {1,2,3};
+  o1->setSamples(points, 3);
+  
+  fail_unless(o1->getSamplesLength() == 3);
+
+  ImageData* o2=new ImageData(*o1);
+
+  fail_unless(o2->getSamplesLength() == 3);
+
+  int samplesRet [] = {0, 0, 0};
+  o2->getSamples(samplesRet);
+  
+  fail_unless(samplesRet[0] == 1);
+  fail_unless(samplesRet[1] == 2);
+  fail_unless(samplesRet[2] == 3);
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_ImageData_assignmentOperator )
+{
+  ImageData* o1=new ImageData(GNS);
+  int points [] = {1,2,3};
+  o1->setSamples(points, 3);
+  
+  fail_unless(o1->getSamplesLength() == 3);
+  
+  ImageData* o2 = new ImageData(GNS);;
+  (*o2)=*o1;
+
+  fail_unless(o2->getSamplesLength() == 3);
+
+  int samplesRet [] = {0, 0, 0};
+  o2->getSamples(samplesRet);
+  
+  fail_unless(samplesRet[0] == 1);
+  fail_unless(samplesRet[1] == 2);
+  fail_unless(samplesRet[2] == 3);
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_ImageData_clone )
+{
+  ImageData* o1=new ImageData(GNS);
+  int points [] = {1,2,3};
+  o1->setSamples(points, 3);
+  
+  fail_unless(o1->getSamplesLength() == 3);
+
+  ImageData* o2=o1->clone();
+ 
+  fail_unless(o2->getSamplesLength() == 3);
+
+  int samplesRet [] = {0, 0, 0};
+  o2->getSamples(samplesRet);
+  
+  fail_unless(samplesRet[0] == 1);
+  fail_unless(samplesRet[1] == 2);
+  fail_unless(samplesRet[2] == 3);
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_TransformationComponents_copyConstructor )
+{
+  TransformationComponents* o1=new TransformationComponents(GNS);
+  double points [] = {1,2,3};
+  o1->setComponents(points, 3);
+  
+  fail_unless(o1->getComponentsLength() == 3);
+
+  TransformationComponents* o2=new TransformationComponents(*o1);
+
+  fail_unless(o2->getComponentsLength() == 3);
+  
+  double componentsRet [] = {0, 0, 0};
+  o2->getComponents(componentsRet);
+  
+  fail_unless(util_isEqual(componentsRet[0], 1));
+  fail_unless(util_isEqual(componentsRet[1], 2));
+  fail_unless(util_isEqual(componentsRet[2], 3));
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_TransformationComponents_assignmentOperator )
+{
+  TransformationComponents* o1=new TransformationComponents(GNS);
+  double points [] = {1,2,3};
+  o1->setComponents(points, 3);
+  
+  fail_unless(o1->getComponentsLength() == 3);
+  
+  TransformationComponents* o2 = new TransformationComponents(GNS);;
+  (*o2)=*o1;
+
+  fail_unless(o2->getComponentsLength() == 3);
+
+  double componentsRet [] = {0, 0, 0};
+  o2->getComponents(componentsRet);
+  
+  fail_unless(util_isEqual(componentsRet[0], 1));
+  fail_unless(util_isEqual(componentsRet[1], 2));
+  fail_unless(util_isEqual(componentsRet[2], 3));
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_TransformationComponents_clone )
+{
+  TransformationComponents* o1=new TransformationComponents(GNS);
+  double points [] = {1,2,3};
+  o1->setComponents(points, 3);
+  
+  fail_unless(o1->getComponentsLength() == 3);
+
+  TransformationComponents* o2=o1->clone();
+ 
+  fail_unless(o2->getComponentsLength() == 3);
+
+  double componentsRet [] = {0, 0, 0};
+  o2->getComponents(componentsRet);
+  
+  fail_unless(util_isEqual(componentsRet[0], 1));
+  fail_unless(util_isEqual(componentsRet[1], 2));
+  fail_unless(util_isEqual(componentsRet[2], 3));
+
+  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+  delete o2;
+  delete o1;
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -206,6 +390,12 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_ParametricObject_copyConstructor );
   tcase_add_test( tcase, test_ParametricObject_assignmentOperator );
   tcase_add_test( tcase, test_ParametricObject_clone );
+  tcase_add_test( tcase, test_ImageData_copyConstructor );
+  tcase_add_test( tcase, test_ImageData_assignmentOperator );
+  tcase_add_test( tcase, test_ImageData_clone );
+  tcase_add_test( tcase, test_TransformationComponents_copyConstructor );
+  tcase_add_test( tcase, test_TransformationComponents_assignmentOperator );
+  tcase_add_test( tcase, test_TransformationComponents_clone );
 
   suite_add_tcase(suite, tcase);
 
