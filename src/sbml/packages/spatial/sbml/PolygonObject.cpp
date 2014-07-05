@@ -231,7 +231,7 @@ PolygonObject::unsetPointIndex()
   if (mPointIndex != NULL)
    delete[] mPointIndex;
   mPointIndex = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
+  return unsetPointIndexLength();
 }
 
 

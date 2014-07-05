@@ -235,7 +235,7 @@ TransformationComponents::unsetComponents()
   if (mComponents != NULL)
    delete[] mComponents;
   mComponents = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
+  return unsetComponentsLength();
 }
 
 

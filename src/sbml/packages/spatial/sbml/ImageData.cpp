@@ -287,7 +287,7 @@ ImageData::unsetSamples()
   if (mSamples != NULL)
    delete[] mSamples;
   mSamples = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
+  return unsetSamplesLength();
 }
 
 
