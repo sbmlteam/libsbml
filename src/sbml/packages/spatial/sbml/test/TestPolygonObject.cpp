@@ -47,17 +47,31 @@ LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygenIgnored */
 
+static bool
+equals (const char* expected, const char* actual)
+{
+  if ( !strcmp(expected, actual) ) return true;
+
+  printf( "\nStrings are not equal:\n"  );
+  printf( "Expected:\n[%s]\n", expected );
+  printf( "Actual:\n[%s]\n"  , actual   );
+
+  return false;
+}
+
 
 CK_CPPSTART
 
 static PolygonObject* G; 
 static SpatialPkgNamespaces* GNS;
+static char*    S;
 
 void
 PolygonObjectTest_setup (void)
 {
   GNS = new SpatialPkgNamespaces();
   G = new PolygonObject(GNS);
+  S = NULL;
   
   if (G == NULL)
   {
@@ -71,6 +85,7 @@ PolygonObjectTest_teardown (void)
 {
   delete G;
   delete GNS;
+  free (S);
 }
 
 
@@ -98,6 +113,20 @@ START_TEST (test_PolygonObject_pointIndices)
 END_TEST
 
 
+START_TEST (test_PolygonObject_output)
+{
+  const char *expected = "<polygonObject pointIndexLength=\"3\">1 2 3 </polygonObject>";
+
+  int points [] = {1,2,3};
+  G->setPointIndex(points, 3);
+
+  S = G->toSBML();
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_PolygonObject (void)
 {
@@ -108,7 +137,8 @@ create_suite_PolygonObject (void)
  
   tcase_add_test( tcase, test_PolygonObject_create         );
 
-  tcase_add_test( tcase, test_PolygonObject_pointIndices                 );
+  tcase_add_test( tcase, test_PolygonObject_pointIndices   );
+  tcase_add_test( tcase, test_PolygonObject_output         );
 
   suite_add_tcase(suite, tcase);
 

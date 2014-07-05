@@ -48,6 +48,7 @@ BEGIN_C_DECLS
 
 Suite *create_suite_PolygonObject (void);
 Suite *create_suite_ParametricObject (void);
+Suite *create_suite_ImageData (void);
 Suite *create_suite_CopyAndClone (void);
 
 END_C_DECLS
@@ -90,6 +91,7 @@ main (int argc, char* argv[])
 
   SRunner *runner = srunner_create(create_suite_PolygonObject());
   srunner_add_suite(runner, create_suite_ParametricObject());
+  srunner_add_suite(runner, create_suite_ImageData());
   srunner_add_suite(runner, create_suite_CopyAndClone());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))

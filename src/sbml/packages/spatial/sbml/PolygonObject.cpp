@@ -148,7 +148,7 @@ PolygonObject::~PolygonObject ()
 void
 PolygonObject::getPointIndex(int* outArray) const
 {
-   if (outArray == NULL) return;
+   if (outArray == NULL || mPointIndex == NULL) return;
 
    memcpy(outArray , mPointIndex, sizeof(int)*mPointIndexLength);
 }

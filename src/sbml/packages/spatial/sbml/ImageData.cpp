@@ -166,7 +166,7 @@ ImageData::~ImageData ()
 void
 ImageData::getSamples(int* outArray) const
 {
-   if (outArray == NULL) return;
+   if (outArray == NULL || mSamples == NULL) return;
 
    memcpy(outArray , mSamples, sizeof(int)*mSamplesLength);
 }

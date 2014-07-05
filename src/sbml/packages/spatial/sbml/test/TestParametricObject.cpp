@@ -47,17 +47,31 @@ LIBSBML_CPP_NAMESPACE_USE
 
 /** @endcond doxygenIgnored */
 
+static bool
+equals (const char* expected, const char* actual)
+{
+  if ( !strcmp(expected, actual) ) return true;
+
+  printf( "\nStrings are not equal:\n"  );
+  printf( "Expected:\n[%s]\n", expected );
+  printf( "Actual:\n[%s]\n"  , actual   );
+
+  return false;
+}
+
 
 CK_CPPSTART
 
 static ParametricObject* G; 
 static SpatialPkgNamespaces* GNS;
+static char*    S;
 
 void
 ParametricObjectTest_setup (void)
 {
   GNS = new SpatialPkgNamespaces();
   G = new ParametricObject(GNS);
+  S = NULL;
   
   if (G == NULL)
   {
@@ -71,6 +85,7 @@ ParametricObjectTest_teardown (void)
 {
   delete G;
   delete GNS;
+  free (S);
 }
 
 
@@ -144,6 +159,29 @@ START_TEST (test_ParametricObject_polygonObject)
 END_TEST
 
 
+START_TEST (test_ParametricObject_output)
+{
+  const char *expected = 
+    "<parametricObject id=\"i\" polygonType=\"pp\" domain=\"p\">\n"
+    "  <polygonObject pointIndexLength=\"3\">1 2 3 </polygonObject>\n"
+    "</parametricObject>";
+
+  PolygonObject *obj = new PolygonObject(GNS);
+  int points [] = {1,2,3};
+  obj->setPointIndex(points, 3);
+
+  G->setId("i");
+  G->setPolygonType("pp");
+  G->setDomain("p");
+  G->setPolygonObject(obj);
+
+  S = G->toSBML();
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_ParametricObject (void)
 {
@@ -158,6 +196,7 @@ create_suite_ParametricObject (void)
   tcase_add_test( tcase, test_ParametricObject_polygonType        );
   tcase_add_test( tcase, test_ParametricObject_domain             );
   tcase_add_test( tcase, test_ParametricObject_polygonObject      );
+  tcase_add_test( tcase, test_ParametricObject_output      );
 
   suite_add_tcase(suite, tcase);
 

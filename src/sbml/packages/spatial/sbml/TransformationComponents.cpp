@@ -152,7 +152,7 @@ TransformationComponents::~TransformationComponents ()
 void
 TransformationComponents::getComponents(double* outArray) const
 {
-   if (outArray == NULL) return;
+   if (outArray == NULL || mComponents == NULL) return;
 
    memcpy(outArray , mComponents, sizeof(double)*mComponentsLength);
 }
