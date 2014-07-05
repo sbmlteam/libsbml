@@ -1,5 +1,7 @@
 /** @page libsbml-python-example-files Additional complete example programs
 
+@tableofcontents
+
 The libSBML distribution comes with the following selection of
 complete example programs in the top-level file directory 
 named <code>examples/python</code>. 
