@@ -454,7 +454,7 @@ the arguments as they appear in the Java API</strong>.  The following is an
 example of a function that takes a single argument:
 
 <pre class="fragment">
-@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type&nbsp;&nbsp;&nbsp;arg1name</span>}
+@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type</span>}
 </pre>
 
 If the function takes more than one argument, <strong>use commas quoted with
@@ -463,7 +463,7 @@ other words, functions that take multiple arguments should be written like
 this:
 
 <pre class="fragment">
-@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type&nbsp;&nbsp;&nbsp;arg1name</span>\, <span class="placeholder">arg2type&nbsp;&nbsp;&nbsp;arg2name</span>\, ...}
+@@sbmlfunction{<span class="placeholder-nospace">name</span>, <span class="placeholder">arg1type</span>\, <span class="placeholder">arg2type</span>\, ...}
 </pre>
 
 Again, use the argument data types that appear in the Java version of the
@@ -471,8 +471,8 @@ API.  (I.e., use @c String instead of <code>char *</code>, etc.)  Here are
 two real examples:
 
 <pre class="fragment">
-@@sbmlfunction{parseL3Formula, String formula}
-@@sbmlfunction{parseL3FormulaWithSettings, String formula\, %L3ParserSettings settings}
+@@sbmlfunction{parseL3Formula, String}
+@@sbmlfunction{parseL3FormulaWithSettings, String\, %L3ParserSettings}
 </pre>
 
 The data types do not have to be fully qualified.  Line breaks may be used to
