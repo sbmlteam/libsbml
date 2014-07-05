@@ -806,7 +806,7 @@
  *  enumeration value.
  * @endif
  * @if python
- * @li <code>ASTNode</code> @link libsbml.ASTNode ASTNode.ASTNode(long)@endlink creates a new ASTNode object
+ * @li <code>ASTNode</code> @link libsbml.ASTNode(long) ASTNode(long)@endlink creates a new ASTNode object
  * and returns a pointer to it.  The returned node will have the type
  * identified by the code passed as the argument, or a type of @c AST_UNKNOWN if
  * no type is explicitly given or the type code is unrecognized.
@@ -817,7 +817,7 @@
  * @li @link libsbml.ASTNode.prependChild() ASTNode.prependChild(ASTNode)@endlink adds the given
  * node as a child of this AST node.  This method adds child nodes in
  * right-to-left order.
- * @li <code>ASTNode</code> @link libsbml.ASTNode.getChild () ASTNode.getChild (unsigned int)@endlink returns the nth
+ * @li <code>ASTNode</code> @link libsbml.ASTNode.getChild() ASTNode.getChild(unsigned int)@endlink returns the nth
  * child of this AST node or @c NULL if this node has no nth child (<code>n &gt;
  * (@link libsbml.ASTNode.getNumChildren() ASTNode.getNumChildren()@endlink - 1)</code>).
  * @li <code>ASTNode</code> @link libsbml.ASTNode.getLeftChild() ASTNode.getLeftChild()@endlink returns the left child of
