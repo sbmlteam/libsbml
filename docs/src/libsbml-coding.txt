@@ -799,6 +799,13 @@ situations were it's better to put warnings higher in the documentation of a
 class or method, but in most cases, the sequence should be: @c @@note, @c
 @@warning, and @c @@see.
 
+Note that <strong>it is essential to put @c @@see last</strong> elements
+because of some unresolved quirks in Javadoc's behavior with respect to the
+rest of our documentation processing pipeline.  If you do not put it last,
+the tail end of a method or class documentation block is likely to be
+formatted with broken links, or else the last @c @@see entry will go
+missing.
+
 
 @subsection coding-figures 4.6 Figures
 
@@ -957,9 +964,10 @@ more information.
 <tr><td>@c @@see</td>
 <td>
 Formats a reference to another entity in the documentation.  Commonly used
-to refer to related classes or methods.  As a convention, please put @c @@see
-blocks at the very end of a documentation block, for uniformity in the
-API documentation.
+to refer to related classes or methods.  <strong>Always put @c @@see blocks
+at the very end of a documentation block</strong>, both for uniformity in the
+API documentation and to avoid a bug in our Javadoc-based document production
+pipeline.
 </td></tr>
 <tr><td>@c @@warning</td>
 <td>
