@@ -62,9 +62,9 @@ error output stream.
 @section rf-reading Reading SBML
 
 SBML may be read from a file or an in-memory character string into an
-SBMLDocument.  LibSBML defines two basic, convenient, global functions (not
-methods on a specific object class, but global functions in the classic C
-programming sense) for reading SBML:
+SBMLDocument object.  LibSBML defines two basic, convenient, global functions
+(not methods on a specific object class, but global functions in the classic
+C programming sense) for reading SBML:
 
 @li <code>SBMLDocument* readSBMLFromFile(const char* filename)</code>.  This
 function takes a file name, attempts to read an SBML document from the
