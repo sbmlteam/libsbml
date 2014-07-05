@@ -51,8 +51,8 @@
  * formats (respectively, <code>&quot;.gz&quot;</code>,
  * <code>&quot;.zip&quot;</code>, or <code>&quot;.bz2&quot;</code>),
  * then the methods
- * SBMLWriter::writeSBML(@if java SBMLDocument d, String filename@endif)
- * and SBMLReader::readSBML(@if java String filename@endif)
+ * SBMLWriter::writeSBML(@if java SBMLDocument, String@endif)
+ * and SBMLReader::readSBML(@if java String@endif)
  * will automatically compress and decompress the file while writing and
  * reading it.  If the filename has no such extension, it
  * will be written and read uncompressed as normal.
@@ -126,7 +126,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program name and version are set (see
-   * SBMLWriter::setProgramVersion(@if java String version@endif)), the
+   * SBMLWriter::setProgramVersion(@if java String@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the XML document:
    * @verbatim
@@ -155,7 +155,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program version and name are set (see
-   * SBMLWriter::setProgramName(@if java String name@endif)), the
+   * SBMLWriter::setProgramName(@if java String@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
    * @verbatim

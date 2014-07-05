@@ -158,13 +158,13 @@
  * MIRIAM to indicate the nature of the relationship between the object
  * being annotated and the resource.  In CVTerm, the qualifiers can be
  * manipulated using the methods CVTerm::getQualifierType(),
- * CVTerm::setQualifierType(@if java int type@endif), and related methods.
+ * CVTerm::setQualifierType(@if java int@endif), and related methods.
  * 
  * <li>The @em resource, represented by a URI (which, we must remind
  * developers, is not the same as a URL).  In the CVTerm class, the
  * resource component can be manipulated using the methods
- * CVTerm::addResource(@if java String resource@endif) and
- * CVTerm::removeResource(@if java String resource@endif).
+ * CVTerm::addResource(@if java String@endif) and
+ * CVTerm::removeResource(@if java String@endif).
  *
  * </ul>
  *
@@ -413,7 +413,7 @@ public:
    * an explicit value for @p type is not given, this method defaults to
    * using @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}.  The @if clike #QualifierType_t value@else qualifier type@endif@~ 
    * can be set later using the
-   * CVTerm::setQualifierType(@if java int type@endif) method.
+   * CVTerm::setQualifierType(@if java int@endif) method.
    *
    * Different BioModels.net qualifier elements encode different types of
    * relationships.  Please refer to the SBML specification or the <a
@@ -744,7 +744,7 @@ public:
    * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
-   * @see setQualifierType(@if java int type@endif)
+   * @see setQualifierType(@if java int@endif)
    */
   int setModelQualifierType(ModelQualifierType_t type);
 
@@ -766,7 +766,7 @@ public:
    * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
-   * @see setQualifierType(@if java int type@endif)
+   * @see setQualifierType(@if java int@endif)
    */
   int setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -788,7 +788,7 @@ public:
    * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
-   * @see setQualifierType(@if java int type@endif)
+   * @see setQualifierType(@if java int@endif)
    */
   int setModelQualifierType(const std::string& qualifier);
 
@@ -811,7 +811,7 @@ public:
    * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
-   * @see setQualifierType(@if java int type@endif)
+   * @see setQualifierType(@if java int@endif)
    */
   int setBiologicalQualifierType(const std::string& qualifier);
 

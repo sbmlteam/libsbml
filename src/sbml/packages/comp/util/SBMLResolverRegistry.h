@@ -36,8 +36,8 @@
  * methods for discovering them.  It is implemented as a singleton object of
  * class SBMLResolverRegistry.  Callers can use the method
  * SBMLResolverRegistry::getNumResolvers() to find out how many resolvers are
- * registered, then use SBMLResolverRegistry::getResolverByIndex(@if java int
- * index@endif) to iterate over each one;
+ * registered, then use SBMLResolverRegistry::getResolverByIndex(@if java
+ * int@endif) to iterate over each one;
  *
  * @see SBMLFileResolver
  */
@@ -125,7 +125,7 @@ public:
    *
    * @return the number of registered resolvers.
    *
-   * @see getResolverByIndex(@if java int index@endif)
+   * @see getResolverByIndex(@if java int@endif)
    */
   int getNumResolvers() const;
 

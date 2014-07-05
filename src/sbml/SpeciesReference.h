@@ -775,7 +775,7 @@ public:
    * subelement of this object.
    *
    * The content in @p annotation is copied.  Unlike
-   * SpeciesReference::setAnnotation(@if java String annotation@endif),
+   * SpeciesReference::setAnnotation(@if java String@endif),
    * this method allows other annotations to be preserved when an application
    * adds its own data.
    *
@@ -799,7 +799,7 @@ public:
    * subelement of this object.
    *
    * The content in @p annotation is copied.  Unlike
-   * SpeciesReference::setAnnotation(@if java String annotation@endif), this
+   * SpeciesReference::setAnnotation(@if java String@endif), this
    * method allows other annotations to be preserved when an application
    * adds its own data.
    *

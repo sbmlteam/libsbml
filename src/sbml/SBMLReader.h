@@ -48,12 +48,12 @@
  *
  * For convenience as well as easy access from other languages besides C++,
  * this file also defines two global functions,
- * libsbml::readSBML(@if java String filename@endif)
- * and libsbml::readSBMLFromString(@if java String xml@endif).
+ * libsbml::readSBML(@if java String@endif)
+ * and libsbml::readSBMLFromString(@if java String@endif).
  * They are equivalent to creating an SBMLReader
  * object and then calling the
- * SBMLReader::readSBML(@if java String filename@endif) or
- * SBMLReader::readSBMLFromString(@if java String xml@endif)
+ * SBMLReader::readSBML(@if java String@endif) or
+ * SBMLReader::readSBMLFromString(@if java String@endif)
  * methods, respectively.
  *
  * @section compression Support for reading compressed files
@@ -64,8 +64,8 @@
  * deliberate to invoke the functionality.  If a given SBML filename ends
  * with an extension for the @em gzip, @em zip or @em bzip2 compression
  * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
- * SBMLReader::readSBML(@if java String filename@endif) and
- * SBMLWriter::writeSBML(@if java SBMLDocument d, String filename@endif)
+ * SBMLReader::readSBML(@if java String@endif) and
+ * SBMLWriter::writeSBML(@if java SBMLDocument, String@endif)
  * will automatically decompress and compress the file while writing and
  * reading it.  If the filename has no such extension, it
  * will be read and written uncompressed as normal.
@@ -168,14 +168,14 @@ public:
   /**
    * Reads an SBML document from a file.
    *
-   * This method is identical to SBMLReader::readSBMLFromFile(@if java String filename@endif).
+   * This method is identical to SBMLReader::readSBMLFromFile(@if java String@endif).
    *
    * If the file named @p filename does not exist or its content is not
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
    * SBMLDocument such as SBMLDocument::getNumErrors() and
-   * SBMLDocument::getError(@if java long n@endif) to get the errors.  The object returned by
-   * SBMLDocument::getError(@if java long n@endif) is an SBMLError object, and it has methods to
+   * SBMLDocument::getError(@if java long@endif) to get the errors.  The object returned by
+   * SBMLDocument::getError(@if java long@endif) is an SBMLError object, and it has methods to
    * get the error code, category, and severity level of the problem, as
    * well as a textual description of the problem.  The possible severity
    * levels range from informational messages to fatal errors; see the
@@ -289,14 +289,14 @@ public:
   /**
    * Reads an SBML document from a file.
    *
-   * This method is identical to SBMLReader::readSBML(@if java String filename@endif).
+   * This method is identical to SBMLReader::readSBML(@if java String@endif).
    *
    * If the file named @p filename does not exist or its content is not
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
    * SBMLDocument such as SBMLDocument::getNumErrors() and
-   * SBMLDocument::getError(@if java long n@endif) to get the errors.  The object returned by
-   * SBMLDocument::getError(@if java long n@endif) is an SBMLError object, and it has methods to
+   * SBMLDocument::getError(@if java long@endif) to get the errors.  The object returned by
+   * SBMLDocument::getError(@if java long@endif) is an SBMLError object, and it has methods to
    * get the error code, category, and severity level of the problem, as
    * well as a textual description of the problem.  The possible severity
    * levels range from informational messages to fatal errors; see the
@@ -396,7 +396,7 @@ public:
    *
    * This method will log a fatal error if the content given in the
    * parameter @p xml is not SBML.  See the method documentation for
-   * SBMLReader::readSBML(@if java String filename@endif)
+   * SBMLReader::readSBML(@if java String@endif)
    * for an example of code for testing the returned error code.
    *
    * @param xml a string containing a full SBML model
@@ -410,7 +410,7 @@ public:
    * to manually set the document URI location (setLocationURI) in order 
    * to facilitate resolving these models.
    *
-   * @see SBMLReader::readSBML(@if java String filename@endif)
+   * @see SBMLReader::readSBML(@if java String@endif)
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 

@@ -374,13 +374,13 @@ public:
    * object has no associated XML attributes, including (but not limited
    * to) an XML namespace declaration.  The XML namespace declaration is
    * not added until the model is written out, <em>or</em> the method
-   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif)
    * is called.  This may be important to keep in mind
    * if an application needs to add additional XML namespace declarations
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
    * either provide values for @p level and @p version on the call to this
    * constructor, or else call
-   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif)
    * shortly after creating the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
@@ -394,7 +394,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    *
-   * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * @see SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif)
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    */
@@ -470,7 +470,7 @@ public:
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
-   * or SBMLDocument::setModel(@if java Model m@endif).
+   * or SBMLDocument::setModel(@if java Model@endif).
    * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -486,7 +486,7 @@ public:
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
-   * or SBMLDocument::setModel(@if java Model m@endif).
+   * or SBMLDocument::setModel(@if java Model@endif).
    * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -615,7 +615,7 @@ public:
    * Strict conversion applies the additional criteria that both the
    * source and the target model must be consistent SBML.  Users can
    * control the consistency checks that are applied using the
-   * SBMLDocument::setConsistencyChecksForConversion(@if java int categ, boolean onoff@endif) method.  If either
+   * SBMLDocument::setConsistencyChecksForConversion(@if java int, boolean@endif) method.  If either
    * the source or the potential target model have validation errors, the
    * conversion is not performed.  When a strict conversion is successful,
    * the underlying SBML object model is altered to reflect the new level
@@ -705,7 +705,7 @@ public:
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    *
    * @see getModel()
-   * @see SBMLDocument::setModel(@if java Model m@endif)
+   * @see SBMLDocument::setModel(@if java Model@endif)
    */
   Model* createModel (const std::string& sid = "");
 
@@ -842,7 +842,7 @@ public:
 
   /**
    * Controls the consistency checks that are performed when
-   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif) is called.
+   * SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif) is called.
    *
    * This method works by adding or subtracting consistency checks from the
    * set of all possible checks that may be performed to avoid conversion
@@ -918,17 +918,17 @@ public:
    *
    * <em>By default, all validation checks are applied</em> to the model in
    * an SBMLDocument object @em unless
-   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * SBMLDocument::setConsistencyChecks(@if java int, boolean@endif)
    * is called to indicate that only a subset should be applied.  Further,
    * this default (i.e., performing all checks) applies separately to
    * <em>each new SBMLDocument object</em> created.  In other words, each
-   * time a model is read using SBMLReader::readSBML(@if java String filename@endif),
-   * SBMLReader::readSBMLFromString(@if java String xml@endif),
+   * time a model is read using SBMLReader::readSBML(@if java String@endif),
+   * SBMLReader::readSBMLFromString(@if java String@endif),
    * or the global functions readSBML() and readSBMLFromString(), a new
    * SBMLDocument is created and for that document, a call to
    * SBMLDocument::checkConsistency() will default to applying all possible checks.
    * Calling programs must invoke
-   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * SBMLDocument::setConsistencyChecks(@if java int, boolean@endif)
    * for each such new model if they wish to change the consistency checks
    * applied.
    * 
@@ -939,7 +939,7 @@ public:
    * @param apply a boolean indicating whether the checks indicated by
    * @p category should be applied or not.
    *
-   * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * @see SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif)
    */
   void setConsistencyChecksForConversion(SBMLErrorCategory_t category, 
                                          bool apply);
@@ -952,7 +952,7 @@ public:
    * consistency checks have failed for SBML document), the failures may be
    * due to warnings @em or errors.  Callers should inspect the severity
    * flag in the individual SBMLError objects returned by
-   * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
+   * SBMLDocument::getError(@if java long@endif) to determine the nature of the failures.
    *
    * @return the number of failed checks (errors) encountered.
    *
@@ -968,7 +968,7 @@ public:
    * consistency checks have failed for SBML document), the failures may be
    * due to warnings @em or errors.  Callers should inspect the severity
    * flag in the individual SBMLError objects returned by
-   * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
+   * SBMLDocument::getError(@if java long@endif) to determine the nature of the failures.
    *
    * @note unlike checkConsistency this method will write the document
    *       in order to determine all errors for the document. This will 
@@ -986,7 +986,7 @@ public:
    * an SBML Model.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    *
@@ -1009,7 +1009,7 @@ public:
    * to Level&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1022,7 +1022,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1035,7 +1035,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;2.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1048,7 +1048,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;3.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1061,7 +1061,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;4.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1074,7 +1074,7 @@ public:
    * be converted to Level&nbsp;3 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * SBMLDocument::getError(@if java long n@endif).
+   * SBMLDocument::getError(@if java long@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -1402,7 +1402,7 @@ public:
    * @li @sbmlconstant{LIBSBML_PKG_UNKNOWN_VERSION, OperationReturnValues_t}
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * setPackageRequired(@if java String package, boolean flag@endif)
+   * setPackageRequired(@if java String, boolean@endif)
    */
   int setPkgRequired(const std::string& package, bool flag);
 
@@ -1420,7 +1420,7 @@ public:
    * being required in this SBML document.
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * getPackageRequired(@if java String package flag@endif)
+   * getPackageRequired(@if java String@endif)
    */
   bool getPkgRequired(const std::string& package);
 
@@ -1437,7 +1437,7 @@ public:
    * @return a Boolean value.
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isSetPackageRequired(@if java String package flag@endif)
+   * isSetPackageRequired(@if java String@endif)
    */
   bool isSetPkgRequired(const std::string& package);
 
@@ -1454,7 +1454,7 @@ public:
    * @return a boolean
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isIgnoredPackage(@if java String pkgURI flag@endif)
+   * isIgnoredPackage(@if java String@endif)
    */
   bool isIgnoredPkg(const std::string& pkgURI);
 

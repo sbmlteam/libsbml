@@ -62,11 +62,11 @@ BEGIN_C_DECLS
  * is no longer needed.  If @p tree is a null pointer, then a null pointer is
  * returned.
  *
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToString, ASTNode}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
  * @see L3ParserSettings
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  * @see @sbmlfunction{getLastParseL3Error,}
@@ -85,7 +85,7 @@ SBML_formulaToL3String (const ASTNode_t *tree);
  * specific formatter settings.
  *
  * This function behaves identically to @sbmlfunction{formulaToL3String,
- * ASTNode tree} but its behavior is controlled by two fields in the @p
+ * ASTNode} but its behavior is controlled by two fields in the @p
  * settings object, namely:
  *
  * @li <em>parseunits</em> ("parse units"): If this field in the @p settings
@@ -126,11 +126,11 @@ SBML_formulaToL3String (const ASTNode_t *tree);
  * is no longer needed.  If @p tree is a null pointer, then a null pointer is
  * returned.
  *
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToString, ASTNode}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
  * @see L3ParserSettings
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  * @see @sbmlfunction{getLastParseL3Error,}

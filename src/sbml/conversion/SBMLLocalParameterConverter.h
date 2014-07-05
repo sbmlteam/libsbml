@@ -52,8 +52,8 @@
  *
  * SBMLLocalParameterConverter is enabled by creating a ConversionProperties
  * object with the option @c "promoteLocalParameters", and passing this
- * properties object to SBMLDocument::convert(@if java ConversionProperties
- * props@endif).  The converter offers no other options.
+ * properties object to SBMLDocument::convert(@if java
+ * ConversionProperties@endif).  The converter offers no other options.
  *
  * @copydetails doc_section_using_sbml_converters
  */
@@ -122,7 +122,7 @@ public:
    * object, setting the options desired, and then calling this method on
    * an SBMLLocalParameterConverter object to find out if the object's
    * property values match the given ones.  This method is also used by
-   * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+   * SBMLConverterRegistry::getConverterFor(@if java ConversionProperties@endif)
    * to search across all registered converters for one matching particular
    * properties.
    *
@@ -139,9 +139,9 @@ public:
    *
    * This method causes the converter to do the actual conversion work,
    * that is, to convert the SBMLDocument object set by
-   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
    * with the configuration options set by
-   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
+   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

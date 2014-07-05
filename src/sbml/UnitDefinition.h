@@ -588,7 +588,7 @@ public:
    * createUnit() method does not assign a valid kind to the constructed
    * unit (instead, it sets the "kind" to @sbmlconstant{UNIT_KIND_INVALID, UnitKind_t}).
    * Callers are cautioned to set the newly-constructed Unit's kind using
-   * Unit::setKind(@if java int kind@endif) soon after calling this method.
+   * Unit::setKind(@if java int@endif) soon after calling this method.
    *
    * @see addUnit(const Unit* u)
    */
@@ -784,7 +784,7 @@ public:
    * objects are considered identical when they contain identical lists of
    * Unit objects.  Pairs of Unit objects in the lists are in turn
    * considered identical if they satisfy the predicate
-   * Unit::areIdentical(@if java Unit u1, %Unit u2@endif).
+   * Unit::areIdentical(@if java Unit, %Unit@endif).
    * The predicate compares every attribute of the
    * Unit objects.
    *
@@ -811,7 +811,7 @@ public:
    * objects are considered equivalent when they contain @em equivalent
    * list of Unit objects.  Unit objects are in turn considered equivalent
    * if they satisfy the predicate
-   * Unit::areEquivalent(@if java Unit u1, %Unit u2@endif).
+   * Unit::areEquivalent(@if java Unit, %Unit@endif).
    * The predicate tests a subset of the objects's attributes.
    *
    * @param ud1 the first UnitDefinition object to compare
@@ -877,7 +877,7 @@ public:
    * Expresses the given definition in a plain-text form.
    *
    * For example,
-   * UnitDefinition::printUnits(@if java UnitDefinition u@endif)
+   * UnitDefinition::printUnits(@if java UnitDefinition@endif)
    * applied to
    * @verbatim
  <unitDefinition>
@@ -1792,7 +1792,7 @@ UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2);
  * structures are considered equivalent when they contain @em equivalent
  * list of Unit_t structures.  Unit_t structures are in turn considered equivalent
  * if they satisfy the predicate
- * Unit::areEquivalent(@if java Unit u1, %Unit u2@endif).
+ * Unit::areEquivalent(@if java Unit, %Unit@endif).
  * The predicate tests a subset of the_t structures's attributes.
  *
  * @param ud1 the first UnitDefinition_t structure to compare

@@ -41,7 +41,7 @@
  *
  * An XMLNode can contain any number of children.  Each child is another
  * XMLNode, thereby forming a tree.  The methods XMLNode::getNumChildren()
- * and XMLNode::getChild(@if java long n@endif) can be used to access the tree
+ * and XMLNode::getChild(@if java long@endif) can be used to access the tree
  * structure starting from a given node.
  *
  * Each XMLNode is subclassed from XMLToken, and thus has the same methods
@@ -57,16 +57,16 @@
  * <ul>
  * <li> XMLNode::toXMLString() returns a string representation of the XMLNode object. 
  *
- * <li> XMLNode::convertXMLNodeToString(@if java XMLNode node@endif)
+ * <li> XMLNode::convertXMLNodeToString(@if java XMLNode@endif)
  * (static function) returns a string representation 
  * of the given XMLNode object.
  *
- * <li> XMLNode::convertStringToXMLNode(@if java String xml@endif)
+ * <li> XMLNode::convertStringToXMLNode(@if java String@endif)
  * (static function) returns an XMLNode object converted 
  * from the given XML string.
  * </ul>
  *
- * The returned XMLNode object by XMLNode::convertStringToXMLNode(@if java String xml@endif)
+ * The returned XMLNode object by XMLNode::convertStringToXMLNode(@if java String@endif)
  * is a dummy root (container) XMLNode if the given XML string has two or
  * more top-level elements (e.g.,
  * &quot;<code>&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;</code>&quot;). In the

@@ -525,7 +525,7 @@ public:
    * This function is called when this object is created by
    * the parent element.
    * Subclasses must override this this function if they have one
-   * or more child elements. Also, SBasePlugin::connectToParent(@if java SBase *sbase@endif)
+   * or more child elements. Also, SBasePlugin::connectToParent(@if java SBase@endif)
    * must be called in the overridden function.
    *
    * @param sbase the SBase object to use

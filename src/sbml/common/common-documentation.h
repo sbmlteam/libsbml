@@ -309,7 +309,7 @@
  * href="http://sbml.org/Documents/Specifications">SBML specifications</a>
  * for specific SBML Levels.  To help verify the formatting of "notes"
  * content, libSBML provides the static utility method
- * SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); this
+ * SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); this
  * method implements a verification process that lets callers check whether
  * the content of a given XMLNode object conforms to the SBML requirements
  * for "notes" and "message" structure.  Developers are urged to consult the
@@ -399,8 +399,8 @@
  *
  * For many applications, the details of ASTs are irrelevant because libSBML
  * provides text-string based translation functions such as
- * @sbmlfunction{formulaToL3String, ASTNode tree} and
- * @sbmlfunction{parseL3Formula, String formula}.  If you find the complexity
+ * @sbmlfunction{formulaToL3String, ASTNode} and
+ * @sbmlfunction{parseL3Formula, String}.  If you find the complexity
  * of using the AST representation of expressions too high for your purposes,
  * perhaps the string-based functions will be more suitable.
  *
@@ -869,7 +869,7 @@
  * libSBML using a method designed for this purpose:
  * 
  * @if cpp
- * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String xml}</code> reads raw
+ * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String}</code> reads raw
  * MathML from a text string, constructs an AST from it, then returns the root
  * ASTNode of the resulting expression tree.
  * @endif
@@ -879,7 +879,7 @@
  * ASTNode of the resulting expression tree.
  * @endif
  * @if conly
- * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String xml}</code> reads raw
+ * @li <code>ASTNode_t* @sbmlfunction{readMathMLFromString, String}</code> reads raw
  * MathML from a text string, constructs an AST from it, then returns the root
  * ASTNode_t of the resulting expression tree.
  * @endif
@@ -888,7 +888,7 @@
  * the following method:
  * 
  * @if cpp
- * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode tree}</code> writes an
+ * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode}</code> writes an
  * AST to a string.  The caller owns the character string returned and should free
  * it after it is no longer needed.
  * @endif
@@ -898,7 +898,7 @@
  * after it is no longer needed.
  * @endif
  * @if conly
- * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode tree}</code> writes an
+ * @li <code>char* @sbmlfunction{writeMathMLToString, ASTNode}</code> writes an
  * AST to a string.  The caller owns the character string returned and should free
  * it after it is no longer needed.
  * @endif
@@ -908,8 +908,8 @@
  *
  * @par
  * The text-string form of mathematical formulas produced by
- * @sbmlfunction{formulaToString, ASTNode tree} and read by
- * @sbmlfunction{parseFormula, String formula} use a simple C-inspired infix
+ * @sbmlfunction{formulaToString, ASTNode} and read by
+ * @sbmlfunction{parseFormula, String} use a simple C-inspired infix
  * notation taken from SBML Level&nbsp;1.  A formula in this text-string form
  * therefore can be handed to a program that understands SBML Level&nbsp;1
  * mathematical expressions, or used as part of a formula translation system.
@@ -973,27 +973,27 @@
  *
  * @par
  * The text-string form of mathematical formulas read by the function
- * @sbmlfunction{parseL3Formula, String formula} and written by the function
- * @sbmlfunction{formulaToL3String, ASTNode tree} uses an expanded version of
- * the syntax read and written by @sbmlfunction{parseFormula, String formula}
- * and @sbmlfunction{formulaToString, ASTNode tree}, respectively.  The
+ * @sbmlfunction{parseL3Formula, String} and written by the function
+ * @sbmlfunction{formulaToL3String, ASTNode} uses an expanded version of
+ * the syntax read and written by @sbmlfunction{parseFormula, String}
+ * and @sbmlfunction{formulaToString, ASTNode}, respectively.  The
  * latter two libSBML functions were originally developed to support
  * conversion between SBML Levels&nbsp;1 and&nbsp;2, and were focused on the
  * syntax of mathematical formulas used in SBML Level&nbsp;1.  With time, and
  * the use of MathML in SBML Levels&nbsp;2 and&nbsp;3, it became clear that
  * supporting Level&nbsp;2 and&nbsp;3's expanded mathematical syntax would be
  * useful for software developers.  To maintain backwards compatibility for
- * libSBML users, the original @sbmlfunction{formulaToString, ASTNode tree}
- * and @sbmlfunction{parseFormula, String formula} have been left untouched,
+ * libSBML users, the original @sbmlfunction{formulaToString, ASTNode}
+ * and @sbmlfunction{parseFormula, String} have been left untouched,
  * and instead, the new functionality is provided in the form of
- * @sbmlfunction{parseL3Formula, String formula} and
- * @sbmlfunction{formulaToL3String, ASTNode tree}.
+ * @sbmlfunction{parseL3Formula, String} and
+ * @sbmlfunction{formulaToL3String, ASTNode}.
  *
  * The following lists the main differences in the formula syntax supported by
  * the "Level 3" or L3 versions of the formula parsers and formatters,
  * compared to what is supported by the Level&nbsp;1-oriented
- * @sbmlfunction{parseFormula, String formula} and
- * @sbmlfunction{formulaToString, ASTNode node}:
+ * @sbmlfunction{parseFormula, String} and
+ * @sbmlfunction{formulaToString, ASTNode}:
  *
  * @li Units may be asociated with bare numbers, using the following syntax:
  * <div style="margin: 10px auto 10px 25px; display: block">
@@ -1021,7 +1021,7 @@
  * using @c arc as a prefix or simply @c a; in other words, both @c arccsc
  * and @c acsc are interpreted as the operator @em arccosecant as defined in
  * MathML&nbsp;2.0.  (Many functions in the simpler SBML Level&nbsp;1
- * oriented parser implemented by @sbmlfunction{parseFormula, String formula}
+ * oriented parser implemented by @sbmlfunction{parseFormula, String}
  * are defined this way as well, but not all.)
  *
  * @li The following expression is parsed as a rational number instead of
@@ -1038,10 +1038,8 @@
  *
  * @li Various parser and formatter behaviors may be altered through the use
  * of a L3ParserSettings object in conjunction with the functions
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings} and
- * @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\,
- * L3ParserSettings settings}
+ * @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings} and
+ * @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
  * The settings available include the following:
  * <ul style="list-style-type: circle">
  *
@@ -1064,10 +1062,10 @@
  *
  * <li style="margin-bottom: 0.5em"> A Model object may optionally be
  * provided to the parser using the variant function call
- * @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model} or
+ * @sbmlfunction{parseL3FormulaWithModel, String\, Model} or
  * stored in a L3ParserSettings object passed to the variant function
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings}.  When a Model object is provided, identifiers
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}.  When a Model object is provided, identifiers
  * (values of type @c SId) from that model are used in preference to
  * pre-defined MathML definitions for both symbols and functions.
  * More precisely:
@@ -1103,9 +1101,9 @@
  * These configuration settings cannot be changed directly using the basic
  * parser and formatter functions, but @em can be changed on a per-call basis
  * by using the alternative functions @sbmlfunction{parseL3FormulaWithSettings,
- * String formula\, L3ParserSettings settings} and
- * @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\,
- * L3ParserSettings settings}.
+ * String\, L3ParserSettings} and
+ * @sbmlfunction{formulaToL3StringWithSettings, ASTNode\,
+ * L3ParserSettings}.
  *
  * Neither SBML nor the MathML standard define a "string-form" equivalent to
  * MathML expressions.  The approach taken by libSBML is to start with the
@@ -1151,9 +1149,9 @@
  * <code>Cos</code> and <code>COS</code> are all parsed as the MathML cosine
  * operator, <code>&lt;cos&gt;</code>.  However, <em>when a Model object is
  * used</em> in conjunction with either
- * @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model} or
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings}, any identifiers found in that model will be
+ * @sbmlfunction{parseL3FormulaWithModel, String\, Model} or
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}, any identifiers found in that model will be
  * parsed in a case-<em>sensitive</em> way.  For example, if a model contains
  * a Species having the identifier <code>Pi</code>, the parser will parse
  * &quot;<code>Pi</code>&quot; in the input as &quot;<code>&lt;ci&gt; Pi
@@ -1164,17 +1162,17 @@
  * As mentioned above, the manner in which the "L3" versions of the formula
  * parser and formatter interpret the function &quot;<code>log</code>&quot;
  * can be changed.  To do so, callers should use the function
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings} and pass it an appropriate L3ParserSettings
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings} and pass it an appropriate L3ParserSettings
  * object.  By default, unlike the SBML Level&nbsp;1 parser implemented by
- * @sbmlfunction{parseFormula, String formula}, the string
+ * @sbmlfunction{parseFormula, String}, the string
  * &quot;<code>log</code>&quot; is interpreted as the base&nbsp;10 logarithm,
  * and @em not as the natural logarithm.  However, you can change the
  * interpretation to be base-10 log, natural log, or as an error; since the
  * name "log" by itself is ambiguous, you require that the parser uses @c
  * log10 or @c ln instead, which are more clear.  Please refer to
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings}.
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}.
  *
  * In addition, the following symbols will be translated to their MathML
  * equivalents, if no symbol with the same @c SId identifier string exists
@@ -1187,7 +1185,7 @@
  * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} or
  * @sbmlconstant{AST_NAME, ASTNodeType_t} is configurable; use the version of
  * the parser function called @sbmlfunction{parseL3FormulaWithSettings,
- * String formula\, L3ParserSettings settings}.  This Avogadro-related
+ * String\, L3ParserSettings}.  This Avogadro-related
  * functionality is provided because SBML Level&nbsp;2 models may not use
  * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} AST nodes.
  *
@@ -1244,10 +1242,10 @@
  * Callers using SBML Level&nbsp;3 are encouraged to use the facilities
  * provided by libSBML's newer and more powerful Level&nbsp;3-oriented
  * formula parser and formatter.  The entry points to this second system are
- * @sbmlfunction{parseL3Formula, String formula} and
- * @sbmlfunction{formulaToL3String, ASTNode tree}.  The Level&nbsp;1-oriented
- * system (i.e., what is provided by @sbmlfunction{formulaToString, String
- * formula} and @sbmlfunction{parseFormula, ASTNode tree}) is provided
+ * @sbmlfunction{parseL3Formula, String} and
+ * @sbmlfunction{formulaToL3String, ASTNode}.  The Level&nbsp;1-oriented
+ * system (i.e., what is provided by @sbmlfunction{formulaToString, String}
+ * and @sbmlfunction{parseFormula, ASTNode}) is provided 
  * untouched for backwards compatibility.
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -1649,14 +1647,14 @@
  *
  * The use of all the converters follows a similar approach.  First, one
  * creates a ConversionProperties object and calls
- * ConversionProperties::addOption(@if java ConversionOption option@endif)
+ * ConversionProperties::addOption(@if java ConversionOption@endif)
  * on this object with one arguments: a text string that identifies the desired
  * converter.  (The text string is specific to each converter; consult the
  * documentation for a given converter to find out how it should be enabled.)
  *
  * Next, for some converters, the caller can optionally set some
  * converter-specific properties using additional calls to
- * ConversionProperties::addOption(@if java ConversionOption option@endif).
+ * ConversionProperties::addOption(@if java ConversionOption@endif).
  * Many converters provide the ability to
  * configure their behavior to some extent; this is realized through the use
  * of properties that offer different options.  The default property values
@@ -1664,7 +1662,7 @@
  * SBMLConverter::getDefaultProperties() on the converter class in question .
  *
  * Finally, the caller should invoke the method
- * SBMLDocument::convert(@if java ConversionProperties props@endif)
+ * SBMLDocument::convert(@if java ConversionProperties@endif)
  * with the ConversionProperties object as an argument.
  *
  * @subsection converter-example Example of invoking an SBML converter

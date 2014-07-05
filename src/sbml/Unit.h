@@ -966,7 +966,7 @@ public:
    * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
    * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
    * attribute values are equal. (Contrast this to the method
-   * areIdentical(@if java Unit u1, %Unit u2@endif), which compares Unit objects with respect to all
+   * areIdentical(@if java Unit, %Unit@endif), which compares Unit objects with respect to all
    * attributes, not just the "kind" and "exponent".)
    *
    * @param unit1 the first Unit object to compare

@@ -55,11 +55,11 @@ BEGIN_C_DECLS
  * formula oriented towards SBML Level&nbsp;1.  The caller owns the returned
  * string and is responsible for freeing it when it is no longer needed.
  *
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
  *
  * @copydetails doc_note_l3_parser_encouraged
  *

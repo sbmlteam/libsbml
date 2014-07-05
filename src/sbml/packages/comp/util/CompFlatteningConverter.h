@@ -130,7 +130,7 @@
  *
  * CompFlatteningConverter is enabled by creating a ConversionProperties
  * object with the option @c "flatten comp", and passing this properties
- * object to SBMLDocument::convert(@if java ConversionProperties props@endif).
+ * object to SBMLDocument::convert(@if java ConversionProperties@endif).
  * The converter also accepts the following options, all of
  * which are optional, and have default values:
  *

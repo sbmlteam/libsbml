@@ -130,7 +130,7 @@ public:
    * (identifier) attribute of a SpeciesType object is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method SBase::setId(@if java String id@endif).
+   * method SBase::setId(@if java String@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *

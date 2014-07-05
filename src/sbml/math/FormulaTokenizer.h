@@ -85,8 +85,8 @@ BEGIN_C_DECLS
  * the MathML-based representation used in SBML Levels&nbsp;2 and&nbsp;3.
  * LibSBML implements a parser and converter to translate formulas between
  * this text-string representation and MathML.  The principal entry points to
- * the translation system are @sbmlfunction{formulaToString, String formula}
- * and @sbmlfunction{parseFormula, ASTNode tree}.
+ * the translation system are @sbmlfunction{formulaToString, String}
+ * and @sbmlfunction{parseFormula, ASTNode}.
  *
  * LibSBML also provides a lower-level interface to the formula parser.
  * This takes the form of the C functions
@@ -101,8 +101,8 @@ BEGIN_C_DECLS
  * themselves; instances of FormulaTokenizer_t are only meant to be
  * passed around between the functions of the formula tokenizer system.
  *
- * @see @sbmlfunction{parseFormula, String formula}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{parseFormula, String}
+ * @see @sbmlfunction{formulaToString, ASTNode}
  *
  * @copydetails doc_note_l3_parser_encouraged
  */

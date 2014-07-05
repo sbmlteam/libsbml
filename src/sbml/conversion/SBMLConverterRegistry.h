@@ -47,9 +47,9 @@
  * methods for discovering them.  Callers can use the method
  * SBMLConverterRegistry::getNumConverters() to find out how many
  * converters are registered, then use
- * SBMLConverterRegistry::getConverterByIndex(@if java int index@endif) to
+ * SBMLConverterRegistry::getConverterByIndex(@if java int@endif) to
  * iterate over each one; alternatively, callers can use
- * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+ * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties@endif)
  * to search for a converter having specific properties.
  */
 
@@ -131,7 +131,7 @@ public:
    * @return the converter matching the properties, or @c NULL if no
    * suitable converter is found.
    *
-   * @see getConverterByIndex(@if java int index@endif)
+   * @see getConverterByIndex(@if java int@endif)
    */
   SBMLConverter* getConverterFor(const ConversionProperties& props) const;
 
@@ -141,7 +141,7 @@ public:
    * 
    * @return the number of registered converters.
    *
-   * @see getConverterByIndex(@if java int index@endif)
+   * @see getConverterByIndex(@if java int@endif)
    */
   int getNumConverters() const;
   

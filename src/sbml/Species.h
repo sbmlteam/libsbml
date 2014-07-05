@@ -441,7 +441,7 @@ public:
    * (identifier) attribute of a Species is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method Species::setId(@if java String id@endif).
+   * method Species::setId(@if java String@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *

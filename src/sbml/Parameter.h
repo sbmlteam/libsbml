@@ -292,7 +292,7 @@ public:
    *
    * @see getConstant()
    * @see isSetConstant()
-   * @see setConstant(@if java boolean flag@endif)
+   * @see setConstant(@if java boolean@endif)
    */
   void initDefaults ();
 
@@ -347,7 +347,7 @@ public:
    * @copydetails doc_note_unassigned_unit_are_not_a_default
    * 
    * @see isSetUnits()
-   * @see setUnits(@if java String units@endif)
+   * @see setUnits(@if java String@endif)
    * @see getValue()
    */
   const std::string& getUnits () const;
@@ -362,7 +362,7 @@ public:
    * @copydetails doc_note_parameter_about_constant
    * 
    * @see isSetConstant()
-   * @see setConstant(@if java boolean flag@endif)
+   * @see setConstant(@if java boolean@endif)
    */
   virtual bool getConstant () const;
 
@@ -436,7 +436,7 @@ public:
    * @copydetails doc_note_parameter_about_constant
    *
    * @see getConstant()
-   * @see setConstant(@if java boolean flag@endif)
+   * @see setConstant(@if java boolean@endif)
    */
   virtual bool isSetConstant () const;
 

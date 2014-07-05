@@ -36,19 +36,19 @@
  * @htmlinclude not-sbml-warning.html
  *
  * The function
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings},
- * along with its variants @sbmlfunction{parseL3Formula, String formula} and
- * @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model},
+ * @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings},
+ * along with its variants @sbmlfunction{parseL3Formula, String} and
+ * @sbmlfunction{parseL3FormulaWithModel, String\, Model},
  * are the interfaces to a parser for mathematical formulas written as
  * text strings.  The inverse function is @sbmlfunction{formulaToL3String,
- * ASTNode tree} and its variants such as
- * @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}.
+ * ASTNode} and its variants such as
+ * @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}.
  * The parsers and the formula writers convert between a text-string
  * representation of mathematical formulas and Abstract Syntax Trees (ASTs),
  * represented in libSBML using ASTNode objects.
  * Compared to the parser and writer implemented by the functions
- * @sbmlfunction{parseFormula, String formula} and
- * @sbmlfunction{formulaToString, ASTNode tree},
+ * @sbmlfunction{parseFormula, String} and
+ * @sbmlfunction{formulaToString, ASTNode},
  * which were designed primarily for converting the mathematical formula
  * strings in SBML Level&nbsp;1, the SBML Level&nbsp;3 or "L3" variants of
  * the parser and writer use an extended formula syntax.  They also have a
@@ -58,8 +58,8 @@
  * The following aspects of the parser are configurable using
  * L3ParserSettings objects.  (For the formula writer, only a subset of these
  * settings is relevant; please see the documentation for
- * @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\,
- * L3ParserSettings settings} for more information about which ones).
+ * @sbmlfunction{formulaToL3StringWithSettings, ASTNode\,
+ * L3ParserSettings} for more information about which ones).
  *
  * @copydetails doc_l3_parser_configuration_options
  *
@@ -69,13 +69,13 @@
  * characteristics using the methods provided, and pass that object to
  * @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}.
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToString, ASTNode}
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  */
 
@@ -201,8 +201,8 @@
  * enumeration.
  *
  * @see L3ParserSettings
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
  */
 typedef enum
 {
@@ -328,7 +328,7 @@ public:
    * indicates that no syntax extensions due to SBML Level&nbsp;3 packages
    * will be assumed---the formula parser will only understand the
    * core syntax described in the documentation for
-   * @sbmlfunction{parseL3Formula, String string}).
+   * @sbmlfunction{parseL3Formula, String}).
    */
   L3ParserSettings();
 
@@ -338,8 +338,8 @@ public:
    * possible settings.
    *
    * @param model a Model object to be used for disambiguating identifiers
-   * encountered by @sbmlfunction{parseL3FormulaWithSettings, String
-   * formula\, L3ParserSettings settings} in mathematical formulas.
+   * encountered by @sbmlfunction{parseL3FormulaWithSettings, String\,
+   * L3ParserSettings} in mathematical formulas.
    *
    * @param parselog ("parse log") a flag that controls how the parser will
    * handle the symbol @c log in mathematical formulas. The function @c log
@@ -381,16 +381,16 @@ public:
    * Level&nbsp;3 @em Arrays package.
    *
    * @see getModel()
-   * @see setModel(@if java Model model@endif)
+   * @see setModel(@if java Model@endif)
    * @see unsetModel()
    * @see getParseLog()
-   * @see setParseLog(@if java int type@endif)
+   * @see setParseLog(@if java int@endif)
    * @see getParseUnits()
-   * @see setParseUnits(@if java boolean units@endif)
+   * @see setParseUnits(@if java boolean@endif)
    * @see getParseCollapseMinus()
-   * @see setParseCollapseMinus(@if java boolean collapseminus@endif)
+   * @see setParseCollapseMinus(@if java boolean@endif)
    * @see getParseAvogadroCsymbol()
-   * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
+   * @see setParseAvogadroCsymbol(@if java boolean@endif)
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -428,7 +428,7 @@ public:
    *
    * @copydetails doc_use_of_model
    *
-   * @see setModel(@if java Model model@endif)
+   * @see setModel(@if java Model@endif)
    * @see unsetModel()
    */
   const Model* getModel() const;
@@ -440,7 +440,7 @@ public:
    * The effect of calling this method is to set the stored model value
    * to @c NULL.
    *
-   * @see setModel(@if java Model model@endif)
+   * @see setModel(@if java Model@endif)
    * @see getModel()
    */
   void unsetModel();
@@ -486,7 +486,7 @@ public:
    * @li @sbmlconstant{L3P_PARSE_LOG_AS_LN,ParseLogType_t}
    * @li @sbmlconstant{L3P_PARSE_LOG_AS_ERROR,ParseLogType_t}
    *
-   * @see setParseLog(@if java int type@endif)
+   * @see setParseLog(@if java int@endif)
    */
   ParseLogType_t getParseLog() const;
 
@@ -523,7 +523,7 @@ public:
    * values are as follows:
    * @copydetails doc_unary_minus_values
    *
-   * @see setParseCollapseMinus(@if java boolean collapseminus@endif)
+   * @see setParseCollapseMinus(@if java boolean@endif)
    */
   bool getParseCollapseMinus() const;
 
@@ -560,7 +560,7 @@ public:
    * possible values are as follows:
    * @copydetails doc_parsing_units_values
    *
-   * @see setParseUnits(@if java boolean units@endif)
+   * @see setParseUnits(@if java boolean@endif)
    */
   bool getParseUnits() const;
 
@@ -609,7 +609,7 @@ public:
    * or
    * @sbmlconstant{L3P_AVOGADRO_IS_NAME,}.
    *
-   * @see setParseAvogadroCsymbol(@if java boolean l2only@endif)
+   * @see setParseAvogadroCsymbol(@if java boolean@endif)
    */
   bool getParseAvogadroCsymbol() const;
 

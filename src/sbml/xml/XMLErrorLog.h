@@ -269,9 +269,9 @@ public:
    * otherwise.
    *
    * @see getSeverityOverride()
-   * @see setSeverityOverride(@if java int severity@endif)
+   * @see setSeverityOverride(@if java int@endif)
    * @see unsetSeverityOverride()
-   * @see changeErrorSeverity(@if java int originalSeverity, int targetSeverity, String package@endif)
+   * @see changeErrorSeverity(@if java int, int, String@endif)
    */
   bool isSeverityOverridden() const;
 
@@ -282,9 +282,9 @@ public:
    * @copydetails doc_what_are_severity_overrides
    *
    * @see getSeverityOverride()
-   * @see setSeverityOverride(@if java int severity@endif)
+   * @see setSeverityOverride(@if java int@endif)
    * @see isSeverityOverridden()
-   * @see changeErrorSeverity(@if java int originalSeverity, int targetSeverity, String package@endif)
+   * @see changeErrorSeverity(@if java int, int, String@endif)
    */
   void unsetSeverityOverride();
 
@@ -301,9 +301,9 @@ public:
    * @li @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t}
    *
    * @see isSeverityOverridden()
-   * @see setSeverityOverride(@if java int severity@endif)
+   * @see setSeverityOverride(@if java int@endif)
    * @see unsetSeverityOverride()
-   * @see changeErrorSeverity(@if java int originalSeverity, int targetSeverity, String package@endif)
+   * @see changeErrorSeverity(@if java int, int, String@endif)
    */
   XMLErrorSeverityOverride_t getSeverityOverride() const;
 
@@ -325,7 +325,7 @@ public:
    * @see isSeverityOverridden()
    * @see getSeverityOverride()
    * @see unsetSeverityOverride()
-   * @see changeErrorSeverity(@if java int originalSeverity, int targetSeverity, String package@endif)
+   * @see changeErrorSeverity(@if java int, int, String@endif)
    */
   void setSeverityOverride(XMLErrorSeverityOverride_t severity);
 
@@ -356,7 +356,7 @@ public:
    *
    * @see isSeverityOverridden()
    * @see getSeverityOverride()
-   * @see setSeverityOverride(@if java int severity@endif)
+   * @see setSeverityOverride(@if java int@endif)
    * @see unsetSeverityOverride()
    */
   void changeErrorSeverity(XMLErrorSeverity_t originalSeverity,

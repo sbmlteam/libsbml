@@ -592,7 +592,7 @@ public:
    * @return the identifier of this Compartment object.
    *
    * @see getName()
-   * @see setId(@if java String id@endif)
+   * @see setId(@if java String@endif)
    * @see unsetId()
    * @see isSetId()
    */
@@ -606,7 +606,7 @@ public:
    *
    * @see getId()
    * @see isSetName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see unsetName()
    */
   virtual const std::string& getName () const;
@@ -623,7 +623,7 @@ public:
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    *
    * @see isSetCompartmentType()
-   * @see setCompartmentType(@if java String id@endif)
+   * @see setCompartmentType(@if java String@endif)
    * @see unsetCompartmentType()
    */
   const std::string& getCompartmentType () const;
@@ -638,7 +638,7 @@ public:
    * @copydetails doc_note_spatial_dimensions_as_double
    *
    * @see getSpatialDimensionsAsDouble()
-   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see setSpatialDimensions(@if java unsigned int@endif)
    * @see isSetSpatialDimensions()
    * @see unsetSpatialDimensions()
    */
@@ -656,7 +656,7 @@ public:
    * @copydetails doc_note_spatial_dimensions_as_double
    *
    * @see getSpatialDimensions()
-   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see setSpatialDimensions(@if java unsigned int@endif)
    * @see isSetSpatialDimensions()
    * @see unsetSpatialDimensions()
    */
@@ -676,7 +676,7 @@ public:
    *
    * @see getVolume()
    * @see isSetSize()
-   * @see setSize(@if java double value@endif)
+   * @see setSize(@if java double@endif)
    * @see unsetSize()
    */
   double getSize () const;
@@ -697,7 +697,7 @@ public:
    *
    * @see getSize()
    * @see isSetVolume()
-   * @see setVolume(@if java double value@endif)
+   * @see setVolume(@if java double@endif)
    * @see unsetVolume()
    */
   double getVolume () const;
@@ -716,7 +716,7 @@ public:
    * @copydetails doc_note_unassigned_unit_are_not_a_default
    *
    * @see isSetUnits()
-   * @see setUnits(@if java String sid@endif)
+   * @see setUnits(@if java String@endif)
    * @see unsetUnits()
    */
   const std::string& getUnits () const;
@@ -733,7 +733,7 @@ public:
    * Core.
    *
    * @see isSetOutside()
-   * @see setOutside(@if java String sid@endif)
+   * @see setOutside(@if java String@endif)
    * @see unsetOutside()
    */
   const std::string& getOutside () const;
@@ -746,7 +746,7 @@ public:
    * constant, @c false otherwise.
    *
    * @see isSetConstant()
-   * @see setConstant(@if java bool value@endif)
+   * @see setConstant(@if java bool@endif)
    */
   bool getConstant () const;
 
@@ -760,7 +760,7 @@ public:
    *
    * @see getId()
    * @see unsetId()
-   * @see setId(@if java String id@endif)
+   * @see setId(@if java String@endif)
    */
   virtual bool isSetId () const;
 
@@ -773,7 +773,7 @@ public:
    * set, @c false otherwise.
    *
    * @see getName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see unsetName()
    */
   virtual bool isSetName () const;
@@ -789,7 +789,7 @@ public:
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    *
-   * @see setCompartmentType(@if java String id@endif)
+   * @see setCompartmentType(@if java String@endif)
    * @see getCompartmentType()
    * @see unsetCompartmentType()
    */
@@ -812,7 +812,7 @@ public:
    * this Compartment object is set, @c false otherwise.
    *
    * @see isSetVolume()
-   * @see setSize(@if java double value@endif)
+   * @see setSize(@if java double@endif)
    * @see getSize()
    * @see unsetSize()
    */
@@ -836,7 +836,7 @@ public:
    *
    * @see isSetSize()
    * @see getVolume()
-   * @see setVolume(@if java double value@endif)
+   * @see setVolume(@if java double@endif)
    * @see unsetVolume()
    */
   bool isSetVolume () const;
@@ -851,7 +851,7 @@ public:
    *
    * @copydetails doc_note_unassigned_unit_are_not_a_default
    *
-   * @see setUnits(@if java String sid@endif)
+   * @see setUnits(@if java String@endif)
    * @see getUnits()
    * @see unsetUnits()
    */
@@ -870,7 +870,7 @@ public:
    * Core.
    *
    * @see getOutside()
-   * @see setOutside(@if java String sid@endif)
+   * @see setOutside(@if java String@endif)
    * @see unsetOutside()
    */
   bool isSetOutside () const;
@@ -884,7 +884,7 @@ public:
    * Compartment object is set, @c false otherwise.
    *
    * @see getSpatialDimensions()
-   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see setSpatialDimensions(@if java unsigned int@endif)
    * @see unsetSpatialDimensions()
    */
   bool isSetSpatialDimensions () const;
@@ -898,7 +898,7 @@ public:
    * set, @c false otherwise.
    *
    * @see getConstant()
-   * @see setConstant(@if java bool value@endif)
+   * @see setConstant(@if java bool@endif)
    */
   bool isSetConstant () const;
 
@@ -1028,7 +1028,7 @@ public:
    * @note This method is identical to
    * @if java Compartment::setVolume(double value)@else setVolume()@endif.
    *
-   * @see setVolume(@if java double value@endif)
+   * @see setVolume(@if java double@endif)
    * @see getSize()
    * @see isSetSize()
    * @see unsetSize()
@@ -1055,7 +1055,7 @@ public:
    *
    * @copydetails doc_note_compartment_volume
    *
-   * @see setSize(@if java double value@endif)
+   * @see setSize(@if java double@endif)
    * @see getVolume()
    * @see isSetVolume()
    * @see unsetVolume()
@@ -1148,7 +1148,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see isSetName()
    */
   virtual int unsetName ();
@@ -1196,7 +1196,7 @@ public:
    * @see unsetVolume()
    * @see getSize()
    * @see isSetSize()
-   * @see setSize(@if java double value@endif)
+   * @see setSize(@if java double@endif)
    */
   int unsetSize ();
 
@@ -1218,7 +1218,7 @@ public:
    *
    * @see unsetSize()
    * @see getVolume()
-   * @see setVolume(@if java double value@endif)
+   * @see setVolume(@if java double@endif)
    * @see isSetVolume()
    */
   int unsetVolume ();
@@ -1234,7 +1234,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see isSetUnits()
-   * @see setUnits(@if java String sid@endif)
+   * @see setUnits(@if java String@endif)
    * @see getUnits()
    */
   int unsetUnits ();
@@ -1255,7 +1255,7 @@ public:
    *
    * @see isSetOutside()
    * @see getOutside()
-   * @see setOutside(@if java String sid@endif)
+   * @see setOutside(@if java String@endif)
    */
   int unsetOutside ();
 
@@ -1280,7 +1280,7 @@ public:
    *
    * @see getSpatialDimensions()
    * @see isSetSpatialDimensions()
-   * @see setSpatialDimensions(@if java unsigned int value@endif)
+   * @see setSpatialDimensions(@if java unsigned int@endif)
    */
   int unsetSpatialDimensions ();
 

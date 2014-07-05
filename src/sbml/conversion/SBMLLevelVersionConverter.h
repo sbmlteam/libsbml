@@ -40,17 +40,17 @@
  * different Level+Version combination.
  *
  * This class is also the basis for
- * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif).
+ * SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif).
  *
  * @section SBMLLevelVersionConverter-usage Configuration and use of SBMLLevelVersionConverter
  *
  * SBMLLevelVersionConverter is enabled by creating a ConversionProperties
  * object with the option @c "setLevelAndVersion", and passing this
- * properties object to SBMLDocument::convert(@if java ConversionProperties
- * props@endif).  The target SBML Level and Version combination are
- * determined by the value of the SBML namespace set on the
+ * properties object to SBMLDocument::convert(@if java
+ * ConversionProperties@endif).  The target SBML Level and Version
+ * combination are determined by the value of the SBML namespace set on the
  * ConversionProperties object (using
- * ConversionProperties::setTargetNamespaces()).
+ * ConversionProperties::setTargetNamespaces(SBMLNamespaces *targetNS)).
  *
  * In addition, this converter offers one option:
  *
@@ -157,7 +157,7 @@ public:
    * object, setting the options desired, and then calling this method on
    * an SBMLLevelVersionConverter object to find out if the object's
    * property values match the given ones.  This method is also used by
-   * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+   * SBMLConverterRegistry::getConverterFor(@if java ConversionProperties@endif)
    * to search across all registered converters for one matching particular
    * properties.
    *
@@ -174,9 +174,9 @@ public:
    *
    * This method causes the converter to do the actual conversion work,
    * that is, to convert the SBMLDocument object set by
-   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
    * with the configuration options set by
-   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
+   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

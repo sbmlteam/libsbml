@@ -134,7 +134,7 @@ public:
    * (identifier) attribute of a CompartmentType object is required to have a
    * value.  Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method setId(@if java String id@endif).
+   * method setId(@if java String@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -203,7 +203,7 @@ public:
    * @return the identifier of this CompartmentType object.
    *
    * @see getName()
-   * @see setId(@if java String id@endif)
+   * @see setId(@if java String@endif)
    * @see unsetId()
    * @see isSetId()
    */
@@ -218,7 +218,7 @@ public:
    *
    * @see getId()
    * @see isSetName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see unsetName()
    */
   virtual const std::string& getName () const;
@@ -233,7 +233,7 @@ public:
    *
    * @see getId()
    * @see unsetId()
-   * @see setId(@if java String id@endif)
+   * @see setId(@if java String@endif)
    */
   virtual bool isSetId () const;
 
@@ -246,7 +246,7 @@ public:
    * is set, @c false otherwise.
    *
    * @see getName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see unsetName()
    */
   virtual bool isSetName () const;
@@ -307,7 +307,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getName()
-   * @see setName(@if java String id@endif)
+   * @see setName(@if java String@endif)
    * @see isSetName()
    */
   virtual int unsetName ();

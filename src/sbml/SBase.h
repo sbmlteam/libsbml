@@ -532,7 +532,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   XMLNode* getNotes();
 
@@ -560,7 +560,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   XMLNode* getNotes() const;
 
@@ -586,7 +586,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   std::string getNotesString ();
 
@@ -612,7 +612,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   std::string getNotesString () const;
 
@@ -1195,7 +1195,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   bool isSetNotes () const;
 
@@ -1672,7 +1672,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int setNotes(const XMLNode* notes);
 
@@ -1696,7 +1696,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1745,7 +1745,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int setNotes(const std::string& notes, bool addXHTMLMarkup = false);
 
@@ -1767,7 +1767,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1790,7 +1790,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int appendNotes(const XMLNode* notes);
 
@@ -1812,7 +1812,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1835,7 +1835,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int appendNotes(const std::string& notes);
 
@@ -1937,7 +1937,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
-   * @see setSBOTerm(@if java String sbo_id@else const std::string &sboid@endif)
+   * @see setSBOTerm(@if java String@else const std::string &sboid@endif)
    */
   virtual int setSBOTerm (int value);
 
@@ -2083,7 +2083,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -2101,7 +2101,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int unsetNotes ();
 
@@ -2812,7 +2812,7 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c 
    * false otherwise.
    *
-   * @see isPackageEnabled(@if java String pkgName@endif)
+   * @see isPackageEnabled(@if java String@endif)
    */
   bool isPackageURIEnabled(const std::string& pkgURI) const;
 
@@ -2828,7 +2828,7 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c
    * false otherwise.
    *
-   * @see isPackageURIEnabled(@if java String pkgURI@endif)
+   * @see isPackageURIEnabled(@if java String@endif)
    */
   bool isPackageEnabled(const std::string& pkgName) const;
 
@@ -2842,10 +2842,10 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c 
    * false otherwise.
    *
-   * @see isPkgEnabled(@if java String pkgName@endif)
+   * @see isPkgEnabled(@if java String@endif)
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isPackageURIEnabled(@if java String pkgURI@endif)
+   * isPackageURIEnabled(@if java String@endif)
    */
   bool isPkgURIEnabled(const std::string& pkgURI) const;
 
@@ -2861,10 +2861,10 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c
    * false otherwise.
    *
-   * @see isPkgURIEnabled(@if java String pkgURI@endif)
+   * @see isPkgURIEnabled(@if java String@endif)
    *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isPackageEnabled(@if java String pkgName@endif)
+   * isPackageEnabled(@if java String@endif)
    */
   bool isPkgEnabled(const std::string& pkgName) const;
 

@@ -41,7 +41,7 @@
  * files.  It works on the local file system only.  It can resolve relative
  * and absolute paths, and directories to be searched can be specified using
  * the methods @if clike SBMLFileResolver::setAdditionalDirs(), @endif
- * SBMLFileResolver::addAdditionalDir(@if java String dir@endif) and
+ * SBMLFileResolver::addAdditionalDir(@if java String@endif) and
  * SBMLFileResolver::clearAdditionalDirs().
  *
  * @see SBMLResolver
@@ -138,13 +138,13 @@ public:
    * Sets the list of directories in which to search for files to resolve.
    *
    * Unlike the similar
-   * SBMLFileResolver::addAdditionalDir(@if java String dir@endif), this
+   * SBMLFileResolver::addAdditionalDir(@if java String@endif), this
    * method replaces any current list of search directories with the given
    * list of @p dirs.
    *
    * @param dirs A vector of strings which contain directories
    *
-   * @see addAdditionalDir(@if java String dir@endif)
+   * @see addAdditionalDir(@if java String@endif)
    * @see clearAdditionalDirs()
    */
   virtual void setAdditionalDirs(const std::vector<std::string>& dirs);
@@ -153,13 +153,13 @@ public:
   /**
    * Removes the list of directories to search for files to resolve.
    *
-   * After this method is called,
-   * SBMLFileResolver::resolve(const std::string &uri, const std::string& baseUri)
-   * will only search absolute or relative directories.  New directories can
-   * be added using SBMLFileResolver::addAdditionalDir(@if java String
-   * dir@endif) @if clike or setAdditionalDirs()@endif.
+   * After this method is called, SBMLFileResolver::resolve(const std::string
+   * &uri, const std::string& baseUri) will only search absolute or relative
+   * directories.  New directories can be added using
+   * SBMLFileResolver::addAdditionalDir(@if java String@endif) @if clike or
+   * setAdditionalDirs()@endif.
    *
-   * @see addAdditionalDir(@if java String dir@endif)
+   * @see addAdditionalDir(@if java String@endif)
    * @if clike @see setAdditionalDirs()@endif
    */
   virtual void clearAdditionalDirs();

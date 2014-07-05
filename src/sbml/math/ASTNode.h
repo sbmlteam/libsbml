@@ -54,10 +54,10 @@
  * strings</a></h3>
  *
  * The text-string form of mathematical formulas produced by
- * @sbmlfunction{formulaToString, String formula} and
- * @sbmlfunction{formulaToL3String, String formula}, and read by
- * @sbmlfunction{parseFormula, ASTNode tree} and
- * @sbmlfunction{parseL3Formula, ASTNode tree}, are in a simple C-inspired
+ * @sbmlfunction{formulaToString, String} and
+ * @sbmlfunction{formulaToL3String, String}, and read by
+ * @sbmlfunction{parseFormula, ASTNode} and
+ * @sbmlfunction{parseL3Formula, ASTNode}, are in a simple C-inspired
  * infix notation.  A formula in one of these two text-string formats can be
  * handed to a program that understands SBML mathematical expressions, or
  * used as part of a translation system.  The libSBML distribution comes with
@@ -65,7 +65,7 @@
  * things as translating infix formulas into MathML and vice-versa.
  *
  * Please see the documentation for the functions @sbmlfunction{parseFormula,
- * ASTNode tree} and @sbmlfunction{parseL3Formula, ASTNode tree} for detailed
+ * ASTNode} and @sbmlfunction{parseL3Formula, ASTNode} for detailed
  * explanations of the infix syntax they accept.
  *
  * <h3><a class="anchor" name="math-history">Historical notes</a></h3>
@@ -78,13 +78,13 @@
  * compatibility, means that some of the underlying code is still written
  * in&nbsp;C.  This has lead to the exposed API being more C-like.
 
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToString, ASTNode}
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  */
 
@@ -447,7 +447,7 @@ public:
    * with an argument of @c 0.
    *
    * @see getNumChildren()
-   * @see getChild(@if java unsigned int n@endif)
+   * @see getChild(@if java unsigned int@endif)
    * @see getRightChild()
    */
   ASTNode* getLeftChild () const;
@@ -466,7 +466,7 @@ getChild( getNumChildren() - 1 );
    *
    * @see getNumChildren()
    * @see getLeftChild()
-   * @see getChild(@if java unsigned int n@endif)
+   * @see getChild(@if java unsigned int@endif)
    */
   ASTNode* getRightChild () const;
 
@@ -496,7 +496,7 @@ getChild( getNumChildren() - 1 );
    * @copydetails doc_note_mathml_semantic_annotations_uncommon
    *
    * @see ASTNode::getNumSemanticsAnnotations()
-   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int n@endif)
+   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int@endif)
    */
   int addSemanticsAnnotation (XMLNode* sAnnotation);
 
@@ -511,8 +511,8 @@ getChild( getNumChildren() - 1 );
    *
    * @copydetails doc_note_mathml_semantic_annotations_uncommon
    *
-   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode* sAnnotation@endif)
-   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int n@endif)
+   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode@endif)
+   * @see ASTNode::getSemanticsAnnotation(@if java unsigned int@endif)
    */
   unsigned int getNumSemanticsAnnotations () const;
 
@@ -534,7 +534,7 @@ getChild( getNumChildren() - 1 );
    *
    * @copydetails doc_note_mathml_semantic_annotations_uncommon
    *
-   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode* sAnnotation@endif)
+   * @see ASTNode::addSemanticsAnnotation(@if java XMLNode@endif)
    * @see ASTNode::getNumSemanticsAnnotations()
    */
   XMLNode* getSemanticsAnnotation (unsigned int n) const;
@@ -563,7 +563,7 @@ int (*ASTNodePredicate) (const ASTNode *node);
    * list; however, are not owned by the caller (as they still belong to
    * the tree itself), and therefore should not be deleted.
    *
-   * @see ASTNode::fillListOfNodes(@if java ASTNodePredicate predicate, List* lst@endif)
+   * @see ASTNode::fillListOfNodes(@if java ASTNodePredicate, List@endif)
    */
   List* getListOfNodes (ASTNodePredicate predicate) const;
 
@@ -573,7 +573,7 @@ int (*ASTNodePredicate) (const ASTNode *node);
    * predicate.
    *
    * This method is identical to calling
-   * ASTNode::getListOfNodes(@if java ASTNodePredicate predicate@endif), except
+   * ASTNode::getListOfNodes(@if java ASTNodePredicate@endif), except
    * that instead of creating a new List object, it uses the one passed in as
    * argument @p lst.  This method a depth-first search of the tree rooted at
    * this ASTNode object, and adds to the list @p lst the nodes for which the
@@ -593,7 +593,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * @param lst the List to which ASTNode objects should be added.
    *
-   * @see getListOfNodes(@if java ASTNodePredicate predicate@endif)
+   * @see getListOfNodes(@if java ASTNodePredicate@endif)
    */
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
 
@@ -850,7 +850,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @note The <code>sbml:units</code> attribute is only available in SBML
    * Level&nbsp;3.  It may not be used in Levels 1&ndash;2 of SBML.
    *
-   * @see @sbmlfunction{parseL3Formula, String formula}
+   * @see @sbmlfunction{parseL3Formula, String}
    */
   std::string getUnits () const;
 
@@ -867,7 +867,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @return @c true if this ASTNode is the special symbol avogadro,
    * @c false otherwise.
    *
-   * @see @sbmlfunction{parseL3Formula, String formula}
+   * @see @sbmlfunction{parseL3Formula, String}
    */
   virtual bool isAvogadro () const;
 
@@ -973,7 +973,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @return @c true if the given ASTNode represents a @c log10() function, @c
    * false otherwise.
    *
-   * @see @sbmlfunction{parseL3Formula, String formula}
+   * @see @sbmlfunction{parseL3Formula, String}
    */
   virtual bool isLog10 () const;
 
@@ -1135,17 +1135,17 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * @sbmlconstant{AST_MINUS, ASTNodeType_t} and has exactly one child.
    *
    * For numbers, unary minus nodes can be "collapsed" by negating the
-   * number.  In fact, @sbmlfunction{parseFormula, String formula} does this
-   * during its parsing process, and @sbmlfunction{parseL3Formula, String
-   * formula} has a configuration option that allows this behavior to be
-   * turned on or off.  However, unary minus nodes for symbols
-   * (@sbmlconstant{AST_NAME, ASTNodeType_t}) cannot be "collapsed", so this
-   * predicate function is necessary.
+   * number.  In fact, @sbmlfunction{parseFormula, String} does this during
+   * its parsing process, and @sbmlfunction{parseL3Formula, String} has a
+   * configuration option that allows this behavior to be turned on or off.
+   * However, unary minus nodes for symbols (@sbmlconstant{AST_NAME,
+   * ASTNodeType_t}) cannot be "collapsed", so this predicate function is
+   * necessary.
    *
    * @return @c true if this ASTNode is a unary minus, @c false
    * otherwise.
    *
-   * @see @sbmlfunction{parseL3Formula, String formula}
+   * @see @sbmlfunction{parseL3Formula, String}
    */
   bool isUMinus () const;
 

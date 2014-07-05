@@ -186,7 +186,7 @@ public:
    * This method makes a clone of the @p item handed to it.  This means that
    * when the ListOf object is destroyed, the original items will not be
    * destroyed.  For a method with an alternative ownership behavior, see the
-   * ListOf::appendAndOwn(@if java SBase* item@endif) method.
+   * ListOf::appendAndOwn(@if java SBase@endif) method.
    *
    * @param item the item to be added to the list.
    *

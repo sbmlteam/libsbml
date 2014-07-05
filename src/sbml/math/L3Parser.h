@@ -53,12 +53,12 @@ BEGIN_C_DECLS
  * returned, an error is recorded internally; information about the error can
  * be retrieved using @sbmlfunction{getLastParseL3Error,}.
  *
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToString, ASTNode}
  * @see L3ParserSettings
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  * @see @sbmlfunction{getLastParseL3Error,}
@@ -78,11 +78,11 @@ SBML_parseL3Formula (const char *formula);
  * Parses a text string as a mathematical formula using a Model to resolve
  * symbols, and returns an AST representation of the result.
  *
- * This is identical to @sbmlfunction{parseL3Formula, String formula}, except
+ * This is identical to @sbmlfunction{parseL3Formula, String}, except
  * that this function uses the given model in the argument @p model to check
  * against identifiers that appear in the @p formula.  For more information
  * about the parser, please see the definition of L3ParserSettings and
- * the function @sbmlfunction{parseL3Formula, String formula}.
+ * the function @sbmlfunction{parseL3Formula, String}.
  *
  * @param formula the mathematical formula expression to be parsed
  *
@@ -93,10 +93,10 @@ SBML_parseL3Formula (const char *formula);
  * is returned, an error is recorded internally; information about the
  * error can be retrieved using @sbmlfunction{getLastParseL3Error,}.
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
  * @see @sbmlfunction{getLastParseL3Error,}
  * @see L3ParserSettings
  *
@@ -113,7 +113,7 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * Parses a text string as a mathematical formula using specific parser
  * settings and returns an AST representation of the result.
  *
- * This is identical to @sbmlfunction{parseL3Formula, String formula}, except
+ * This is identical to @sbmlfunction{parseL3Formula, String}, except
  * that this function uses the parser settings given in the argument @p
  * settings.  The settings override the default parsing behavior.  The
  * following parsing behaviors can be configured:
@@ -121,8 +121,8 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * @copydetails doc_l3_parser_configuration_options
  *
  * For more details about the parser, please see the definition of
- * L3ParserSettings and @sbmlfunction{parseL3FormulaWithSettings, String
- * formula\, L3ParserSettings settings}.
+ * L3ParserSettings and @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}.
  *
  * @param formula the mathematical formula expression to be parsed
  *
@@ -133,10 +133,10 @@ SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model);
  * is returned, an error is recorded internally; information about the
  * error can be retrieved using @sbmlfunction{getLastParseL3Error,}.
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
- * @see @sbmlfunction{parseFormula, String formula}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
+ * @see @sbmlfunction{parseFormula, String}
  * @see @sbmlfunction{getLastParseL3Error,}
  * @see L3ParserSettings
  *
@@ -158,11 +158,11 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
  * @copydetails doc_summary_of_string_math_l3
  *
  * For more details about the parser, please see the definition of
- * L3ParserSettings and @sbmlfunction{parseL3Formula, String formula}.
+ * L3ParserSettings and @sbmlfunction{parseL3Formula, String}.
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
  * @see L3ParserSettings
  *
  * @if conly
@@ -177,19 +177,19 @@ SBML_getDefaultL3ParserSettings ();
 /**
  * Returns the last error reported by the "L3" mathematical formula parser.
  *
- * If the functions @sbmlfunction{parseL3Formula, String formula},
- * @sbmlfunction{parseL3FormulaWithSettings, String formula\,
- * L3ParserSettings settings}, or @sbmlfunction{parseL3FormulaWithModel,
- * String formula\, Model model} return @c NULL, an error is set internally.
+ * If the functions @sbmlfunction{parseL3Formula, String},
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}, or @sbmlfunction{parseL3FormulaWithModel,
+ * String\, Model} return @c NULL, an error is set internally.
  * This function allows callers to retrieve information about the error.
  *
  * @return a string describing the error that occurred.  This will contain
  * the input string the parser was trying to parse, the character it had
  * parsed when it encountered the error, and a description of the error.
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
  * @see @sbmlfunction{getDefaultL3ParserSettings,}
  *
  * @if conly

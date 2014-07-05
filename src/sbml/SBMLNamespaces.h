@@ -475,7 +475,7 @@ else
    * added by this function (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t} 
    * will be returned).
    *
-   * @see addNamespace(@if java String uri, String prefix@endif)
+   * @see addNamespace(@if java String, String@endif)
    */
   int addPackageNamespace(const std::string &pkgName, unsigned int pkgVersion, 
                       const std::string &prefix = "");
@@ -546,7 +546,7 @@ else
    * added by this function (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t} 
    * will be returned).
    *
-   * @see addNamespace(@if java String uri, String prefix@endif)
+   * @see addNamespace(@if java String, String@endif)
    */
   int addPkgNamespace(const std::string &pkgName, unsigned int pkgVersion, 
                       const std::string &prefix = "");

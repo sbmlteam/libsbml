@@ -146,8 +146,8 @@ public:
    *
    * @return the default properties for the converter.
    *
-   * @see setProperties(@if java ConversionProperties props@endif)
-   * @see matchesProperties(@if java ConversionProperties props@endif)
+   * @see setProperties(@if java ConversionProperties@endif)
+   * @see matchesProperties(@if java ConversionProperties@endif)
    */
   virtual ConversionProperties getDefaultProperties() const;
 
@@ -234,7 +234,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getProperties()
-   * @see matchesProperties(@if java ConversionProperties props@endif)
+   * @see matchesProperties(@if java ConversionProperties@endif)
    */
   virtual int setProperties(const ConversionProperties *props);
 
@@ -250,8 +250,8 @@ public:
    *
    * @return the currently set configuration properties.
    *
-   * @see setProperties(@if java ConversionProperties props@endif)
-   * @see matchesProperties(@if java ConversionProperties props@endif)
+   * @see setProperties(@if java ConversionProperties@endif)
+   * @see matchesProperties(@if java ConversionProperties@endif)
    */
   virtual ConversionProperties* getProperties() const;
 
@@ -261,9 +261,9 @@ public:
    *
    * This method causes the converter to do the actual conversion work,
    * that is, to convert the SBMLDocument object set by
-   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and
    * with the configuration options set by
-   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
+   * SBMLConverter::setProperties(@if java const ConversionProperties@endif).
    *
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

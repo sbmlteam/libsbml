@@ -55,12 +55,12 @@ BEGIN_C_DECLS
  * @return the root node of the AST corresponding to the @p formula, or @c
  * NULL if an error occurred in parsing the formula
  *
- * @see @sbmlfunction{parseL3Formula, String formula}
- * @see @sbmlfunction{formulaToString, ASTNode tree}
- * @see @sbmlfunction{formulaToL3String, ASTNode tree}
- * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode tree\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithSettings, String formula\, L3ParserSettings settings}
- * @see @sbmlfunction{parseL3FormulaWithModel, String formula\, Model model}
+ * @see @sbmlfunction{parseL3Formula, String}
+ * @see @sbmlfunction{formulaToString, ASTNode}
+ * @see @sbmlfunction{formulaToL3String, ASTNode}
+ * @see @sbmlfunction{formulaToL3StringWithSettings, ASTNode\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
+ * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
  * @see L3ParserSettings
  *
  * @copydetails doc_note_l3_parser_encouraged
