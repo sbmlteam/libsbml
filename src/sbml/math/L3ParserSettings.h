@@ -380,6 +380,8 @@ public:
    * it may understand vector/array extensions introduced by the SBML
    * Level&nbsp;3 @em Arrays package.
    *
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+   *
    * @see getModel()
    * @see setModel(@if java Model@endif)
    * @see unsetModel()
@@ -391,8 +393,6 @@ public:
    * @see setParseCollapseMinus(@if java boolean@endif)
    * @see getParseAvogadroCsymbol()
    * @see setParseAvogadroCsymbol(@if java boolean@endif)
-   *
-   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   L3ParserSettings(Model* model, ParseLogType_t parselog,
                    bool collapseminus, bool parseunits, bool avocsymbol,
