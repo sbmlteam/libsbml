@@ -688,23 +688,21 @@ def get_header_files (swig_files, include_path):
 
 
 def translateVerbatim (match):
-  text = match.group()
-  if re.search('@verbatim', text) != None:
-    tagName = 'verbatim'
-  else:
-    tagName = 'code'
-  text = text.replace('<p>', '')
-  text = text.replace('<', '&lt;')
-  text = text.replace('>', '&gt;')
+  tag  = match.group(1)
+  body = match.group(2)
 
-  regexp = '@' + tagName + '[ \t]*'
-  text = re.sub(regexp, r"<div class='fragment'><pre class='fragment'>", text)
+  # If this code block has the form @code{.java}, remove the {.java} part.
+  body = re.sub(r'\A{.java}', '', body)
 
-  regexp = '(\s*\*\s*)*@end' + tagName
-  p = re.compile(regexp, re.MULTILINE)
-  text = p.sub(r'</pre></div>', text)
+  # Do some other important replacements in the body.
+  body = body.replace('<p>', '')
+  body = body.replace('<', '&lt;')
+  body = body.replace('>', '&gt;')
 
-  return text
+  # Return the reconstructed version.
+  body = r"<pre class='fragment'>" + body
+  body = re.sub(r'(\s*\*\s*)*\Z', '</pre>', body)
+  return body
 
 
 
@@ -1001,9 +999,7 @@ def sanitizeForHTML (docstring):
   # convert it to raw HTML and transform the content too.  This requires
   # helpers.  The following treats both @verbatim and @code the same way.
 
-  p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
-  docstring = p.sub(translateVerbatim, docstring)
-  p = re.compile('@code.+?@endcode', re.DOTALL)
+  p = re.compile('@(?P<tag>verbatim|code)(.+?)@end(?P=tag)', re.DOTALL)
   docstring = p.sub(translateVerbatim, docstring)
 
   # Javadoc doesn't have a @section or @subsection commands, so we translate
