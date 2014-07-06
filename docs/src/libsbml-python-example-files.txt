@@ -8,6 +8,9 @@ named <code>examples/python</code>.
 
 @section simple-programs Simple programs
 
+@li @ref createSimpleModel.py "createSimpleModel.py":
+Creates and prints a simple SBML Level&nbsp;3 model.
+
 @li @ref echoSBML.py "echoSBML.py":
 Echos (and in the process, pretty prints) an SBML model.
 
@@ -282,6 +285,8 @@ A version of <code>example1.py</code> for SBML Level&nbsp;3.
 @example qual_example1.py
 An example of creating a model using SBML Level 3 Qualitative Models.
 
+@example createSimpleModel.py
+An example of creating a simple SBML Level 3 model.
 
 */
 <!-- The following is for [X]Emacs users.  Please leave in place. -->
