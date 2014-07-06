@@ -247,6 +247,7 @@ examples =                                                          \
   examples/python/callExternalValidator.py                          \
   examples/python/convertSBML.py                                    \
   examples/python/createExampleSBML.py                              \
+  examples/python/createSimpleModel.py                              \
   examples/python/getAllElementsWithNotes.py                        \
   examples/python/echoSBML.py                                       \
   examples/python/stripPackage.py                                   \
