@@ -75,7 +75,7 @@ def create_model():
   try:
     document = SBMLDocument(3, 1)
   except ValueError:
-    print('Could not create SBMLDocumention object')
+    print('Could not create SBMLDocument object')
     sys.exit(1)
 
   # Create the basic Model object inside the SBMLDocument object:
