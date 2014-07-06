@@ -410,7 +410,7 @@ pre.fragment
     font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
     font-size: 9pt;
     font-weight: 700;
-    border: 1px solid orange;
+    border: 1px solid #fdcba6;
     background-color: #f0f0f0;
     color: black;
     padding: 5px;
@@ -428,7 +428,7 @@ div.fragment
 {
     word-wrap: break-word;
     line-height: 125%;
-    border: 1px solid orange;
+    border: 1px solid #fdcba6;
     background-color: #f0f0f0;
     border-radius: 8px;
     -webkit-border-radius: 8px;

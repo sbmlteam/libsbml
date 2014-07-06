@@ -292,31 +292,33 @@ img.footer {
 
 /* @group Code Colorization */
 
-span.keyword {
-    color: #008000
-}
-
-span.keywordtype {
-    color: #604020
-}
-
-span.keywordflow {
-    color: #e08000
-}
-
 span.comment {
-    color: #777;
+    color: #888888;
     font-weight: normal;
     font-style: italic;
 }
 
+span.keywordtype {
+    color: #657b83
+}
+
+span.keyword {
+    color: #af005f
+/*    color: #904000 */
+/*    color: #008a90 */
+}
+
+span.keywordflow {
+    color: #e08700
+}
+
 span.preprocessor {
-    color: #806020
+    color: #700070 
 }
 
 span.stringliteral {
     font-weight: normal;
-    color: #008080
+    color: #2aa198
 }
 
 span.charliteral {
