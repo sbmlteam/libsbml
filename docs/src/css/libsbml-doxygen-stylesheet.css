@@ -128,48 +128,49 @@ dl.el {
 
 .contents div.textblock div.fragment {
     border: none;
-    background-color: white;
+    background-color: #f0f0f0;
     padding: 0px;
-    padding-top: 0px;
     margin: 0px;
     line-height: 100%;
-    border-radius: none;
-    -webkit-border-radius: none;
-    -moz-border-radius: none;
+    border: 1px solid orange;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+div.line:first-child {
+    padding-top: 0.5em;
+}
+
+div.line:last-child {
+    padding-bottom: 0.5em;
 }
 
 div.line {
-	font-family: monospace, fixed;
-        font-size: 13px;
-        font-weight: 700;
-	min-height: 13px;
-	line-height: 1.0;
-	text-wrap: unrestricted;
-	white-space: -moz-pre-wrap; /* Moz */
-	white-space: -pre-wrap;     /* Opera 4-6 */
-	white-space: -o-pre-wrap;   /* Opera 7 */
-	white-space: pre-wrap;      /* CSS3  */
-	word-wrap: break-word;      /* IE 5.5+ */
-	text-indent: -53px;
-	padding-left: 53px;
-	padding-bottom: 0px;
-	margin: 0px;
-        margin-left: 0.5em;
-	-webkit-transition-property: background-color, box-shadow;
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-property: background-color, box-shadow;
-	-moz-transition-duration: 0.5s;
-	-ms-transition-property: background-color, box-shadow;
-	-ms-transition-duration: 0.5s;
-	-o-transition-property: background-color, box-shadow;
-	-o-transition-duration: 0.5s;
-	transition-property: background-color, box-shadow;
-	transition-duration: 0.5s;
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-size: 13px;
+    font-weight: 700;
+    color: black;
+    min-height: 13px;
+    line-height: 1.0;
+    text-wrap: unrestricted;
+    white-space: -moz-pre-wrap; /* Moz */
+    white-space: -pre-wrap;     /* Opera 4-6 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    white-space: pre-wrap;      /* CSS3  */
+    word-wrap: break-word;      /* IE 5.5+ */
+    text-indent: -25px;
+
+    padding-left: 25px;
+    padding-bottom: 0px;
+    margin: 0px;
 }
 
 div.line.glow {
-	background-color: cyan;
-	box-shadow: 0 0 10px cyan;
+    background-color: cyan;
+    box-shadow: 0 0 10px cyan;
 }
 
 div.ah {
@@ -190,19 +191,28 @@ div.ah {
     background-image: -moz-linear-gradient(center top, #eee 0%, #444 40%, #000);
 }
 
+/* If you show line numbers, then if the user selects text, they
+get the line numbers too.  Not cool.  They're not important for
+us, so let's hide them with display: none. */
+
 span.lineno {
-	padding-right: 4px;
-	text-align: right;
-	border-right: 2px solid #0F0;
-	background-color: #E8E8E8;
-        white-space: pre;
+    display: none;
+
+    padding-right: 4px;
+    color: #bbb;
+    font-weight: normal;
+    font-style: italic;
+    text-align: right;
+    border-right: 1px solid #602;
+    white-space: pre;
 }
+
 span.lineno a {
-	background-color: #D8D8D8;
+    background-color: #D8D8D8;
 }
 
 span.lineno a:hover {
-	background-color: #C8C8C8;
+    background-color: #C8C8C8;
 }
 
 div.groupHeader {
@@ -305,11 +315,12 @@ span.preprocessor {
 }
 
 span.stringliteral {
-    color: #002080
+    font-weight: normal;
+    color: #008080
 }
 
 span.charliteral {
-    color: #008080
+    color: #0040a0
 }
 
 span.vhdldigit { 
