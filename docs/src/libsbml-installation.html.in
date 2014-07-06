@@ -81,25 +81,25 @@ following prerequisite software packages on your operating system:
 and <code style="padding-right: 0">libbz2-dev</code>.  Then, to get the
 stable release of libSBML, execute the following command:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 sudo pip install python-libsbml
-</div>
+</pre>
 
 <p> For the experimental release of libSBML, use the following command instead:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 sudo pip install python-libsbml-experimental
-</div>
+</pre>
 
 <p> If all goes well, the command above should result in <code>pip</code> 
 printing many messages while it builds libSBML on your computer, ultimately
 ending in the following message to tell you it finished successfully:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 <em><span style="font-weight: normal; font-family: Helvetica, Arial, Sans; color: #999">[... much text omitted ...]</span></em>
 Successfully installed python-libsbml
 Cleaning up...
-</div>
+</pre>
 
 <li><em>Using the operating system's software installation tools</em>: If you
 are running Linux, and you prefer to use the standard over-the-air installation
@@ -171,11 +171,11 @@ R CMD INSTALL <span class="placeholder">archive</span>
 
 <p> If all goes well, you should see R print messages such as the following
 (the paths on your computer may differ):
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 * installing to library ‘/Library/Frameworks/R.framework/Versions/3.1/Resources/library’
 * installing *binary* package ‘libSBML’ ...
 * DONE (libSBML) 
-</div>
+</pre>
 </ul>
 
 <p> <em><strong>If you are not using Python nor R</strong></em>, then the next step
@@ -372,9 +372,9 @@ into the directory thereby created (e.g.,
 libSBML into <code>/usr/local</code> (the default), then configuring
 libSBML is simply a matter of executing the following command:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure
-</pre></div>
+</pre>
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
 and Unicode support. It will by default attempt to use the <a
@@ -397,16 +397,16 @@ libraries either as part of their standard distribution or as an optional
 RPM, Debian, Mandrake or other package distributions.  To use Expat, run
 the libSBML configuration program as follows:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-expat
-</pre></div>
+</pre>
 
 <p>
 And for Xerces, use
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-xerces
-</pre></div>
+</pre>
 
 <p> As already noted, there is a bug in Xerces 2.6.0 that cannot be worked
 around.  Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to
@@ -419,17 +419,17 @@ directory), <code>configure</code> may not be able to find it by itself.
 In this case, <code>configure</code> needs to be told explicitly where to
 find the libraries.  Use the following forms:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-libxml="<span class="placeholder-nospace">DIR</span>"
-</pre></div>
+</pre>
 or
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-xerces="<span class="placeholder-nospace">DIR</span>"
-</pre></div>
+</pre>
 or
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-expat="<span class="placeholder-nospace">DIR</span>"
-</pre></div>
+</pre>
 
 <p> where <span class="placeholder">DIR</span> is the
 parent directory of where the <code>include</code> and <code>lib</code>
@@ -439,9 +439,9 @@ target="_blank" href="http://finkproject.org">Fink</a> to install Expat in
 Fink's default software tree, you would configure libSBML using the
 following command:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-expat="/sw"
-</pre></div>
+</pre>
 
 <p> By default, during the installation phase (i.e., when running
 <code>make install</code>, discussed below), the libSBML installation
@@ -455,9 +455,9 @@ libSBML).  To specify a different installation location instead of the
 default, use the <nobr><code>--prefix</code></nobr> argument to the
 <code>configure</code> program.  For example,
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --prefix="/my/favorite/path"
-</pre></div>
+</pre>
 
 <p> Of course, you can combine the flags to <code>configure</code>, giving both
 <nobr><code>--prefix</code></nobr> and <nobr><code>--with-expat</code></nobr> or
@@ -485,17 +485,17 @@ optional prefix argument; for example, on a Mac&nbsp;OS&nbsp;X 10.5 Intel-based 
 with MATLAB version R2010a installed in its default location of
 <code>/Applications/MATLAB_R2010a.app</code>, the proper argument would be
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-matlab=/Applications/MATLAB_R2010a.app
-</pre></div>
+</pre>
 
 <p>
 If you want to build multiple language bindings for libSBML, combine
 multiple flags together as in the following example:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-java --with-python
-</pre></div>
+</pre>
 
 <p>Some of the language interfaces provide additional configuration options
 besides the basic <code>--with-<span
@@ -507,9 +507,9 @@ the Apple-supplied version of Python 2.6 on a Mac&nbsp;OS&nbsp;X 10.7 system
 (which has versions 2.5, 2.6 and&nbsp;2.7 located in <code>/usr/bin</code>), you
 could use the following options:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-python --with-python-interpreter=/usr/bin/python2.6
-</pre></div>
+</pre>
 
 <p>Please run <nobr><code>configure --help</code></nobr> to obtain a list of
 the possible options offered by <code>configure</code>.
@@ -563,9 +563,9 @@ system.  Currently, the most common situation where this issue arises is on
 available in 64-bit format.  Then, libSBML needs to be configured to be
 built as a 32-bit binary:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --enable-m32
-</pre></div>
+</pre>
 
 <p> The two options <nobr><code>--enable-m32</code></nobr> and
 <nobr><code>--enable-m64</code></nobr> cannot be used together; if they are
@@ -589,9 +589,9 @@ specify the optional argument
 <nobr><code>--enable-universal-binary</code></nobr> to
 <code>configure</code>.  The following example illustrates how to do this:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --enable-universal-binary
-</pre></div>
+</pre>
 
 <p>
 By default, on Mac&nbsp;OS 10.5, the libSBML option above will construct a
@@ -603,9 +603,9 @@ argument to the <nobr><code>--enable-universal-binary</nobr></code> option.
 For example, universal binaries will be built with i386, ppc, x86_64 and
 ppc64 architectures in the following example:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
-</pre></div>
+</pre>
 
 <p> Beware that building with this option turn on results in the creation
 of larger libSBML binary files, because the files contain essentially two
@@ -640,9 +640,9 @@ cannot find it on its own, you can specify it as an optional argument to
 the <nobr><code>--with-swig</code></nobr> option as in the following
 example:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-swig="<span class="placeholder-nospace">DIR</span>"
-</pre></div>
+</pre>
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -681,9 +681,9 @@ invocation.  Or, to completely disable compression support and checking for
 both libraries, add the <nobr><code>--enable-compression=no</code></nobr>
 option to configure:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --enable-compression=no
-</pre></div>
+</pre>
 
 
 
@@ -728,9 +728,9 @@ system and you installed the binary distribution of Doxygen from the
 point <code>configure</code> to the doxygen executable inside the package
 for Doxygen:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-doxygen=/Applications/Doxygen.app/Contents/Resources
-</pre></div>
+</pre>
 </li>
 
 </li> <li><em>For the Java API
@@ -749,21 +749,21 @@ the libSBML source directory to regenerate all the documentation files.
 Alternatively, you can moving to the <code>docs/src</code> subdirectory and
 execute
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make java-manual           # Note: use 'gmake java-manual' on FreeBSD
-</pre></div>
+</pre>
 to recreate just the Java documentation, or 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make cpp-manual            # Note: use 'gmake cpp-manual' on FreeBSD
-</pre></div>
+</pre>
 to recreate just the C++ documentation, or 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make c-manual              # Note: use 'gmake c-manual' on FreeBSD
-</pre></div>
+</pre>
 to recreate just the C documentation, or
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make python-manual         # Note: use 'gmake python-manual' on FreeBSD
-</pre></div>
+</pre>
 to recreate just the Python documentation.
 
 
@@ -796,17 +796,17 @@ versions of g++ after 3.3.)
 <p> To enable the unit testing facilities in libSBML, add the
 <nobr><code>--with-check</code></nobr> flag to the configure command:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 ./configure --with-check
-</pre></div>
+</pre>
 
 <p>
 Following this, you must build libSBML and then you can run the tests:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make                   # Note: use 'gmake' on FreeBSD
 make check             # Note: use 'gmake check' on FreeBSD
-</pre></div>
+</pre>
 
 <p> The make check step is optional and will build and run an
 extensive suite of unit tests to verify all facets of the library.
@@ -839,16 +839,16 @@ you placed it in a subdirectory of the libSBML source directory (let
 <span class="placeholder">SRC</span> stand for that directory), you would simply
 do the following:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 cd <span class="placeholder">SRC</span>/build
-</pre></div>
+</pre>
 
 <p> Next, execute the following commands to compile and install libSBML:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make                # Note: use 'gmake' on FreeBSD
 sudo make install   # Note: use 'sudo gmake install' on FreeBSD
-</pre></div>
+</pre>
 
 <p> Once the libSBML files are installed as described in the sections
 above, you may need to perform additional steps so that software can find
@@ -865,16 +865,16 @@ window, <code>cd</code> to the top level of the libSBML source directory.
 In the following example, let
 <span class="placeholder">SRC</span> stand for that directory:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 cd <span class="placeholder">SRC</span>/build
-</pre></div>
+</pre>
 
 <p> Next, execute the following commands to compile and install libSBML:
 
-<div class="fragment"><pre class="fragment">
+<pre class="fragment">
 make                # Note: use 'gmake' on FreeBSD
 sudo make install   # Note: use 'sudo gmake install' on FreeBSD
-</pre></div>
+</pre>
 
 <p> Once the libSBML files are installed as described in the sections
 above, you may need to perform additional steps so that software can find
