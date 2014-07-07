@@ -4800,6 +4800,20 @@ L3P_AVOGADRO_IS_CSYMBOL = _libsbml.L3P_AVOGADRO_IS_CSYMBOL
 L3P_AVOGADRO_IS_NAME = _libsbml.L3P_AVOGADRO_IS_NAME
     ## @var long L3P_AVOGADRO_IS_NAME
     ##
+    ## Collapse unary minuses where possible.
+
+L3P_COMPARE_BUILTINS_CASELESS = _libsbml.L3P_COMPARE_BUILTINS_CASELESS
+    ## @var long L3P_COMPARE_BUILTINS_CASELESS
+    ##
+    ## Treat all forms of built-in functions as referencing that function, 
+    ## regardless of the capitalization of that string.
+
+L3P_COMPARE_BUILTINS_NONCASELESS = _libsbml.L3P_COMPARE_BUILTINS_NONCASELESS
+    ## @var long L3P_COMPARE_BUILTINS_NONCASELESS
+    ##
+    ## Treat only the all-lower-case form of built-in functions as referencing
+    ## that function, and all other forms of capitalization of that string
+    ## as referencing user-defined functions or values.
 
 MODEL_QUALIFIER = _libsbml.MODEL_QUALIFIER
     ## @var long MODEL_QUALIFIER
