@@ -44,9 +44,9 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ConversionOption::ConversionOption(string key, string value, 
+ConversionOption::ConversionOption(const std::string& key, const std::string& value, 
     ConversionOptionType_t type, 
-    string description) : 
+    const std::string& description) : 
     mKey(key)
   , mValue(value)
   , mType(type)
@@ -54,8 +54,8 @@ ConversionOption::ConversionOption(string key, string value,
 {
 }
 
-ConversionOption::ConversionOption(std::string key, const char* value, 
-  std::string description) : 
+ConversionOption::ConversionOption(const std::string& key, const char* value, 
+  const std::string& description) : 
     mKey(key)
   , mValue(value)
   , mType(CNV_TYPE_STRING)
@@ -63,8 +63,8 @@ ConversionOption::ConversionOption(std::string key, const char* value,
 {
 }
 
-ConversionOption::ConversionOption(std::string key, bool value, 
-  std::string description) : 
+ConversionOption::ConversionOption(const std::string& key, bool value, 
+  const std::string& description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -73,8 +73,8 @@ ConversionOption::ConversionOption(std::string key, bool value,
   setBoolValue(value);
 }
 
-ConversionOption::ConversionOption(std::string key, double value, 
-  std::string description): 
+ConversionOption::ConversionOption(const std::string& key, double value, 
+  const std::string& description): 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -83,8 +83,8 @@ ConversionOption::ConversionOption(std::string key, double value,
   setDoubleValue(value);
 }
 
-ConversionOption::ConversionOption(std::string key, float value, 
-  std::string description) : 
+ConversionOption::ConversionOption(const std::string& key, float value, 
+  const std::string& description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -93,8 +93,8 @@ ConversionOption::ConversionOption(std::string key, float value,
   setFloatValue(value);
 }
 
-ConversionOption::ConversionOption(std::string key, int value, 
-  std::string description) : 
+ConversionOption::ConversionOption(const std::string& key, int value, 
+  const std::string& description) : 
     mKey(key)
   , mValue("")
   , mType(CNV_TYPE_STRING)
@@ -147,38 +147,38 @@ ConversionOption::clone() const
 
 ConversionOption::~ConversionOption() {}
 
-const string&
+const std::string&
 ConversionOption::getKey() const
 {
   return mKey;
 }
 
 void 
-ConversionOption::setKey(string key)
+ConversionOption::setKey(const std::string& key)
 {
   mKey = key;
 }
 
-const string&
+const std::string&
 ConversionOption::getValue() const
 {
   return mValue;
 }
 
 void 
-ConversionOption::setValue(string value)
+ConversionOption::setValue(const std::string& value)
 {
   mValue = value;
 }
 
-const string&
+const std::string&
 ConversionOption::getDescription() const
 {
   return mDescription;
 }
 
 void 
-ConversionOption::setDescription(string description)
+ConversionOption::setDescription(const std::string& description)
 {
   mDescription = description;
 }

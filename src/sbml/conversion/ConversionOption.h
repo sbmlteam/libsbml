@@ -169,9 +169,9 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, std::string value="",
+  ConversionOption(const std::string& key, const std::string& value="",
                    ConversionOptionType_t type=CNV_TYPE_STRING,
-                   std::string description="");
+                   const std::string& description="");
 
 
   /**
@@ -183,8 +183,8 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, const char* value,
-                   std::string description="");
+  ConversionOption(const std::string& key, const char* value,
+                   const std::string& description="");
 
 
   /**
@@ -196,8 +196,8 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, bool value,
-                   std::string description="");
+  ConversionOption(const std::string& key, bool value,
+                   const std::string& description="");
 
 
   /**
@@ -209,8 +209,8 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, double value,
-                   std::string description="");
+  ConversionOption(const std::string& key, double value,
+                   const std::string& description="");
 
 
   /**
@@ -222,8 +222,8 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, float value,
-                   std::string description="");
+  ConversionOption(const std::string& key, float value,
+                   const std::string& description="");
 
 
   /**
@@ -235,8 +235,8 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  ConversionOption(std::string key, int value,
-                   std::string description="");
+  ConversionOption(const std::string& key, int value,
+                   const std::string& description="");
 
 
   /**
@@ -289,7 +289,7 @@ public:
    *
    * @param key a string representing the key to set.
    */
-  void setKey(std::string key);
+  void setKey(const std::string& key);
 
 
   /**
@@ -305,7 +305,7 @@ public:
    *
    * @param value the value to set, as a string.
    */
-  void setValue(std::string value);
+  void setValue(const std::string& value);
 
 
   /**
@@ -321,7 +321,7 @@ public:
    *
    * @param description the description to set for this option.
    */
-  void setDescription(std::string description);
+  void setDescription(const std::string& description);
 
 
   /**
