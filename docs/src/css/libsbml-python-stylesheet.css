@@ -10,3 +10,9 @@
 .memdoc > p:first-child:after {
   content: "The Python method signature(s) are as follows:";
 }
+
+.contents div.textblock div.fragment {
+    padding-left: 0 !important;  /* Overrides libsbml-doxygen-stylesheet */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}

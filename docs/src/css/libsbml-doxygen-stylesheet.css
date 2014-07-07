@@ -129,15 +129,17 @@ dl.el {
 .contents div.textblock div.fragment {
     border: none;
     background-color: #f0f0f0;
-    padding: 0px;
-    margin: 0px;
+    padding-left: 0.75em;
+    margin: 0px 1em 0px 1em;
     line-height: 100%;
     border: 1px solid #fdcba6;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
-    margin-right: 1em;
-    margin-left: 1em;
+}
+
+.memdoc div.fragment {
+    margin: 0px 1.75em 0px 1.75em;
 }
 
 div.line:first-child {
@@ -154,7 +156,7 @@ div.line {
     font-weight: 700;
     color: black;
     min-height: 13px;
-    line-height: 1.0;
+    line-height: 120%;
     text-wrap: unrestricted;
     white-space: -moz-pre-wrap; /* Moz */
     white-space: -pre-wrap;     /* Opera 4-6 */
