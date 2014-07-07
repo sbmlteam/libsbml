@@ -40,7 +40,7 @@
 /**
  * Include our own version of rtype.swg, as it will make the bindings easier to work with
  */ 
-%include "rtype.swg"
+%include "libsbml_rtype.swg"
 
 /**
  *  Wraps std::cout, std::cerr, std::clog, std::ostream, and std::ostringstream, 
