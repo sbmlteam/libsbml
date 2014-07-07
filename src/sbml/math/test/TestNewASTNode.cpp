@@ -4087,50 +4087,6 @@ START_TEST (test_ASTNode_nested_children1)
 END_TEST
 
 
-START_TEST (test_ASTNode_getListOfNodes)
-{
-  // TO DO
-  //const char *gaussian =
-  //(
-  //  "(1 / (sigma * sqrt(2 * pi))) * exp( -(x - mu)^2 / (2 * sigma^2) )"
-  //);
-
-  //ASTNode_t *root, *node;
-  //List_t    *list;
-
-
-  //root = SBML_parseFormula(gaussian);
-  //list = ASTNode_getListOfNodes(root, (ASTNodePredicate) ASTNode_isName);
-
-  //fail_unless( List_size(list) == 4 );
-
-
-  //node = (ASTNode_t *) List_get(list, 0);
-
-  //fail_unless( ASTNode_isName(node) );
-  //fail_unless( !strcmp(ASTNode_getName(node), "sigma") );
-
-  //node = (ASTNode_t *) List_get(list, 1);
-
-  //fail_unless( ASTNode_isName(node) );
-  //fail_unless( !strcmp(ASTNode_getName(node), "x") );
-
-  //node = (ASTNode_t *) List_get(list, 2);
-
-  //fail_unless( ASTNode_isName(node) );
-  //fail_unless( !strcmp(ASTNode_getName(node), "mu") );
-
-  //node = (ASTNode_t *) List_get(list, 3);
-
-  //fail_unless( ASTNode_isName(node) );
-  //fail_unless( !strcmp(ASTNode_getName(node), "sigma") );
-
-  //List_free(list);
-  //ASTNode_free(root);
-}
-END_TEST
-
-
 START_TEST (test_ASTNode_getListOfNodes1)
 {
   ASTNode *node1 = new ASTNode();
@@ -6415,31 +6371,6 @@ START_TEST (test_ASTNode_renameUnitSIdRefs)
 END_TEST
 
 
-START_TEST (test_ASTNode_replaceIDWithFunction_1)
-{
-  ASTNode *n = new ASTNode(AST_NAME);
-  n->setName("x");
-
-  ASTNode *replaced = new ASTNode(AST_PLUS);
-  ASTNode *c = new ASTNode();
-  c->setValue(1.0);
-  replaced->addChild(c);
-
-  fail_unless(strcmp(n->getName(), "x") == 0);
-  fail_unless(n->getType() == AST_NAME);
-  fail_unless(n->getNumChildren() == 0);
-
-  n->replaceIDWithFunction("x", replaced);
-
-  fail_unless(strcmp(n->getName(), "x") == 1);
-  fail_unless(n->getType() == AST_PLUS);
-  fail_unless(n->getNumChildren() == 1);
-
-  delete n;
-}
-END_TEST
-
-
 START_TEST (test_ASTNode_replaceIDWithFunction_2)
 {
   ASTNode *n = new ASTNode(AST_POWER);
@@ -6999,9 +6930,6 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_nested_children                );
   tcase_add_test( tcase, test_ASTNode_nested_children1                );
 
-  // need the formula parse to test this as it is a nightmare to just create
-//  tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
-
   tcase_add_test( tcase, test_ASTNode_getListOfNodes1          );
   tcase_add_test( tcase, test_ASTNode_replaceArgument         );
   tcase_add_test( tcase, test_ASTNode_removeChild             );
@@ -7028,9 +6956,6 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_avogadro_1              );
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
 
-  // not relevant in C++
-//  tcase_add_test( tcase, test_ASTNode_accessWithNULL          );
-  
   tcase_add_test( tcase, test_ASTNode_isBoolean               );
   tcase_add_test( tcase, test_ASTNode_returnsBoolean          );
   tcase_add_test( tcase, test_ASTNode_isAvogadro              );
@@ -7044,7 +6969,6 @@ create_suite_NewASTNode (void)
   tcase_add_test( tcase, test_ASTNode_hasUnits         );
   tcase_add_test( tcase, test_ASTNode_renameSIdRefs         );
   tcase_add_test( tcase, test_ASTNode_renameUnitSIdRefs         );
-  //tcase_add_test( tcase, test_ASTNode_replaceIDWithFunction_1        );
   tcase_add_test( tcase, test_ASTNode_replaceIDWithFunction_2        );
   tcase_add_test( tcase, test_ASTNode_reduceToBinary   );
   tcase_add_test( tcase, test_ASTNode_userData_1   );

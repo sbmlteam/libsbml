@@ -66,7 +66,6 @@ UnitFormulaFormatter3Test_setup (void)
  
   char *filename = safe_strcat(TestDataDirectory, "unitsTest.xml");
 
-
   d = readSBML(filename);
   m = d->getModel();
 
@@ -221,7 +220,7 @@ START_TEST (test_getUnitDefinition_power_neg_integer_exponent)
 }
 END_TEST
 
-
+#if (0)
 START_TEST (test_getUnitDefinition_power_minus_integer_exponent)
 {
   ASTNode * node = new ASTNode(AST_POWER);
@@ -238,7 +237,7 @@ START_TEST (test_getUnitDefinition_power_minus_integer_exponent)
     
   ud = uff->getUnitDefinition(node);
   
-  fail_unless(uff->getContainsUndeclaredUnits() == false);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
   fail_unless(uff->canIgnoreUndeclaredUnits() == false);
 
   fail_unless(ud != NULL);
@@ -252,7 +251,7 @@ START_TEST (test_getUnitDefinition_power_minus_integer_exponent)
 
 }
 END_TEST
-
+#endif
 
 START_TEST (test_getUnitDefinition_power_double_exponent)
 {
@@ -313,7 +312,7 @@ START_TEST (test_getUnitDefinition_power_neg_double_exponent)
 }
 END_TEST
 
-
+#if (0)
 START_TEST (test_getUnitDefinition_power_minus_double_exponent)
 {
   ASTNode * node = new ASTNode(AST_POWER);
@@ -344,7 +343,7 @@ START_TEST (test_getUnitDefinition_power_minus_double_exponent)
 
 }
 END_TEST
-
+#endif
 
 START_TEST (test_getUnitDefinition_power_dim_param_exponent)
 {
@@ -421,10 +420,10 @@ create_suite_UnitFormulaFormatter3 (void)
   tcase_add_test(tcase, test_getUnitDefinition_power_three_children );
   tcase_add_test(tcase, test_getUnitDefinition_power_integer_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_neg_integer_exponent );
-  tcase_add_test(tcase, test_getUnitDefinition_power_integer_exponent );
+//  tcase_add_test(tcase, test_getUnitDefinition_power_minus_integer_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_double_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_neg_double_exponent );
-  tcase_add_test(tcase, test_getUnitDefinition_power_double_exponent );
+//  tcase_add_test(tcase, test_getUnitDefinition_power_minus_double_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_dim_param_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_nondim_param_exponent );
 

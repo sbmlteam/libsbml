@@ -1535,7 +1535,8 @@ SBMLDocument* test_flatten_qual(string orig, string flat, string noqual)
   return doc;
 }
 
-
+#if (0)
+// unused test
 START_TEST (test_comp_flatten_converter_layout_submodel)
 { 
   SBMLDocument* doc = test_flatten_layout("layout_submodel.xml", "layout_submodel_flat.xml", "layout_submodel_flat_layout_removed.xml");
@@ -1548,7 +1549,7 @@ START_TEST (test_comp_flatten_converter_layout_submodel)
   delete doc;
 }
 END_TEST
-
+#endif
 
 START_TEST (test_comp_flatten_converter_layout1)
 { 
