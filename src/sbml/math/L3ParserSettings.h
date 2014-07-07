@@ -433,7 +433,7 @@ public:
   /**
    * Destroys this L3ParserSettings object.
    */
-  ~L3ParserSettings();
+  virtual ~L3ParserSettings();
 
 
   /**
