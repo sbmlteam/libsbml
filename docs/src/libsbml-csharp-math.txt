@@ -79,7 +79,7 @@ example of using the various MathML and AST reading and writing methods,
 and shows that libSBML preserves the ordering and structure of the
 mathematical expressions.
 
-@verbatim
+@code{.cs}
 using System;
 using libsbml;
 
@@ -115,7 +115,7 @@ public class Example
         Console.WriteLine(new_string);
     }
 }
-@endverbatim
+@endcode
 
 The text-string form of mathematical formulas produced by
 libsbmlcs.libsbml.formulaToString() and read by
@@ -150,12 +150,12 @@ calls, symbols, and white space characters.  The allowable white space
 characters are tab and space.  The following are illustrative examples of
 formulas expressed in the syntax:
 
-@verbatim
+@code
 0.10 * k4^2
-@endverbatim
-@verbatim
+@endcode
+@code
 (vm * s1)/(km + s1)
-@endverbatim
+@endcode
 
 The following table shows the precedence rules in this syntax.  In the
 Class column, @em operand implies the construct is an operand, @em prefix

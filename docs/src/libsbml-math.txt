@@ -47,7 +47,7 @@ mathematical expressions.
 
 <a class="anchor" name="example-program">
 @if cpp
-@verbatim
+@code{.cpp}
 #include <iostream>
 #include <sbml/SBMLTypes.h>
 
@@ -76,17 +76,17 @@ main (int argc, char *argv[])
 
   std::cout << "Result of writing AST:" << std::endl << new_s << std::endl;
 }
-@endverbatim
+@endcode
 @endif
 
 @if conly
-@verbatim
+@code{.c}
 NEED A C VERSION HERE ...
-@endverbatim
+@endcode
 @endif
 
 @if python
-@verbatim
+@code{.py}
 import libsbml
 
 expected = "1 + f(x)"
@@ -111,7 +111,7 @@ new_string = libsbml.writeMathMLToString(new_mathml)
 
 print "Result of writing AST to string: "
 print new_string
-@endverbatim
+@endcode
 @endif
 
 The text-string form of mathematical formulas written by

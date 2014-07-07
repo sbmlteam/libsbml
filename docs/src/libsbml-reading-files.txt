@@ -16,7 +16,7 @@ navigating to other parts of this manual.
 LibSBML provides the class SBMLDocument as a top-level container for storing
 SBML content and data associated with it (such as warnings and error
 messages).  Here is a simple example to start this discussion:
-@verbatim
+@code{.cpp}
 #include <iostream>
 #include <sbml/SBMLTypes.h>
 
@@ -38,15 +38,15 @@ main (int argc, char* argv[])
 
   return errors;
 }
-@endverbatim
+@endcode
 The code above illustrates probably the simplest possible use of libSBML:
 reading a model and printing any errors or warnings encountered.  The code
 begins with the inclusion of a single SBML header file, SBMLTypes.h, which
 serves to include most of the other useful libSBML individual header files.
 Next, in the body of the main function, the line
-@verbatim
+@code{.cpp}
 SBMLDocument* document = readSBML(argv[1]);
-@endverbatim
+@endcode
 reads in a file and returns a pointer to an SBMLDocument object.  A
 subsequent call to the method
 @link @if conly SBMLDocument_getNumErrors() @else

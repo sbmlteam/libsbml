@@ -61,7 +61,7 @@ libSBML under C++.  For convenience, we will also set the default C++
 namespace to <code>std</code> so that we do not have to prefix common
 C++ functions used throughout our code.
 
-@verbatim
+@code{.c}
 /**
  * File:        example.cpp
  * Description: Create an example model.
@@ -72,7 +72,7 @@ C++ functions used throughout our code.
 #include <sbml/SBMLTypes.h>
 
 using namespace std;
-@endverbatim
+@endcode
 
 
 The next few lines of our program will not be used until the end of
@@ -83,7 +83,7 @@ libSBML as XML comments into the final SBML file.  We will do
 something very simple here and define the relevant values as global
 parameters; other approaches are possible.
 
-@verbatim
+@code{.c}
 //
 // These variables are used in writeExampleSBML when writing an SBML
 // document.  They are handed to libSBML functions in order to include
@@ -91,26 +91,26 @@ parameters; other approaches are possible.
 //
 const static string ProgramName    = "createExample";
 const static string ProgramVersion = "1.0.0";
-@endverbatim
+@endcode
 
 
 We need a few forward declarations for helper functions.  Here they
 are:
 
-@verbatim
+@code{.c}
 //
 // Forward declarations for functions defined below.
 //
 SBMLDocument* createExampleEnzymaticReaction();
 bool validateExampleSBML(SBMLDocument *sbmlDoc);
 bool writeExampleSBML(const SBMLDocument *sbmlDoc, const string& filename);
-@endverbatim
+@endcode
 
 
 Now we can define a main routine for the program.  This essentially acts as
 scaffolding for calling worker functions and dealing with overall errors.
 
-@verbatim
+@code{.c}
 //
 // Main routine
 //
@@ -146,7 +146,7 @@ main (int argc, char *argv[])
   // A 0 return status is the standard Unix/Linux way to say "all ok".
   return 0;
 }
-@endverbatim
+@endcode
 
 The code above has three key functions,
 <code>createExampleEnzymaticReaction()</code>,
@@ -163,7 +163,7 @@ We begin this function by creating an @link SBMLDocument_t SBMLDocument_t
 the document object, and setting the @link Model_t Model_t @endlink
 object's identifier.
 
-@verbatim
+@code{.c}
 /**
  * Create an SBML model represented in "7.1 A Simple example application
  * of SBML" in the SBML Level 2 Version 4 Specification.
@@ -179,7 +179,7 @@ SBMLDocument* createExampleEnzymaticReaction()
 
   Model* model = sbmlDoc->createModel();
   model->setId("EnzymaticReaction");
-@endverbatim
+@endcode
 
 Next, we need to define some units in order to properly characterize
 the quantities used in the model.  The libSBML API for unit
@@ -191,7 +191,7 @@ The resulting code for creating units is a little bit tedious because
 there is a lot to set up, but on the other hand, it is quite
 straightforward and hopefully easy to follow:
 
-@verbatim
+@code{.c}
   // Temporary pointers (reused more than once below).
 
   UnitDefinition* unitdef;
@@ -231,7 +231,7 @@ straightforward and hopefully easy to follow:
   unit = unitdef->createUnit();
   unit->setKind(UNIT_KIND_SECOND);
   unit->setExponent(-1);
-@endverbatim
+@endcode
 
 Before going on, we digress to explain one libSBML API idiom
 illustrated in the code above and in the rest of the program below.
@@ -269,7 +269,7 @@ class="placeholder"><i>Object</i></span>()</code> methods.
 
 Back to the example now, we create a compartment object:
 
-@verbatim
+@code{.c}
   // Create a string for the identifier of the compartment.  This
   // will be used again later, so it's worth defining a constant here.
 
@@ -286,7 +286,7 @@ Back to the example now, we create a compartment object:
   // which are liters.
 
   comp->setSize(1e-14);
-@endverbatim
+@endcode
 
 
 Next, we turn to the species definitions in the model.  For each
@@ -294,7 +294,7 @@ species, the program needs to set an identifier, the compartment in
 which it's located, and optionally the initial quantity of the species
 in the compartment.
 
-@verbatim
+@code{.c}
   // Temporary pointer (reused more than once below).
   
   Species *sp;
@@ -343,7 +343,7 @@ in the compartment.
   sp->setCompartment(compName);
   sp->setId("E");
   sp->setInitialAmount(5e-21 );
-@endverbatim
+@endcode
 
 
 It remains only to create objects representing the reactions in the
@@ -359,7 +359,7 @@ originating from different sources (users, files, other programs etc.)
 to/from the <a href="libsbml-math.html">Abstract Syntax Trees</a>
 (ASTs) used by libSBML.
 
-@verbatim
+@code{.c}
   // Temporary pointers reused below.
 
   Reaction* reaction;
@@ -543,7 +543,7 @@ to/from the <a href="libsbml-math.html">Abstract Syntax Trees</a>
   para->setId("koff");
   para->setValue(0.2);
   para->setUnits("per_second");
-@endverbatim
+@endcode
 
 
 That was one reaction.  One more reaction to go.  This time around,
@@ -551,7 +551,7 @@ for variety and to illustrate another one of libSBML's facilities, we
 create the AST for the reaction rate formula starting from a string in
 MathML form.
 
-@verbatim
+@code{.c}
   // (Reaction 2) Create a Reaction object ("vcat") .
   
   reaction = model->createReaction();
@@ -618,21 +618,21 @@ MathML form.
   para->setId("kcat");
   para->setValue(0.1);
   para->setUnits("per_second");
-@endverbatim
+@endcode
 
 
 That concludes all the model creation code.  Our
 <code>createExampleEnzymaticReaction()</code> function now only needs
 to return the SBMLDocument object that it created.
 
-@verbatim
+@code{.c}
   // Return the created SBMLDocument object.
   // The returned object must be explicitly deleted by the caller,
   // otherwise a memory leak will happen.
 
   return sbmlDoc;
 }
-@endverbatim
+@endcode
 
 
 @subsection validating Function for verifying the model
@@ -682,7 +682,7 @@ SBMLDocument::checkInternalConsistency() and
 SBMLDocument::checkConsistency(), and handling the reporting of
 problems to the user.
 
-@verbatim
+@code{.c}
 bool validateExampleSBML (SBMLDocument* sbmlDoc)
 {
   if ( ! sbmlDoc )
@@ -793,7 +793,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
     return ( numConsistencyErrors == 0 && numValidationErrors == 0 );
   }
 }
-@endverbatim
+@endcode
 
 
 
@@ -804,7 +804,7 @@ provides a class of object (SBMLWriter) that provides the necessary
 functionality.  All that is left to do is to call it with a desired file
 name.
 
-@verbatim
+@code{.c}
 /**
  *
  * Writes the given SBMLDocument to the given file.
@@ -827,7 +827,7 @@ bool writeExampleSBML(const SBMLDocument* sbmlDoc, const string& filename)
     return false;
   }
 }
-@endverbatim
+@endcode
 
 
 @section source Source code

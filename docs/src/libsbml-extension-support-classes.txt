@@ -367,16 +367,16 @@ element.
 For example, an SBaseExtensionPoint object which represents an extension point of the model
 element defined in the <em>core</em> package can be created as follows:
 
-@verbatim
+@code{.cpp}
       SBaseExtensionPoint  modelextp("core", SBML_MODEL);
-@endverbatim
+@endcode
 
 Similarly, an SBaseExtensionPoint object which represents an extension point of
 the layout element defined in the layout extension can be created as follows:
 
-@verbatim
+@code{.cpp}
       SBaseExtensionPoint  layoutextp("layout", SBML_LAYOUT_LAYOUT);
-@endverbatim
+@endcode
  
 SBaseExtensionPoint object is required as one of arguments of the constructor 
 of SBasePluginCreator&lt;class SBasePluginType, class SBMLExtensionType&gt;
@@ -386,7 +386,7 @@ For example, the SBasePluginCreator class which creates a LayoutModelPlugin obje
 of the layout extension which is plugged in to the model element of the <em>core</em>
 package can be created with the corresponding SBaseExtensionPoint object as follows:
 
-@verbatim
+@code{.cpp}
   // std::vector object that contains a list of URI (package versions) supported 
   // by the plugin object.
   std::vector<std::string> packageURIs;
@@ -398,7 +398,7 @@ package can be created with the corresponding SBaseExtensionPoint object as foll
    
   // creates an SBasePluginCreator object 
   SBasePluginCreator<LayoutModelPlugin, LayoutExtension>  modelPluginCreator(modelExtPoint,packageURIs);
-@endverbatim
+@endcode
 
 This kind of code is implemented in init() function of each SBMLExtension derived classes.
 
@@ -431,18 +431,18 @@ implementation).
 For example, a LayoutModelPlugin object of SBML L3V1 Layout V1 is internally/dynamically 
 created and added to a Model object when the Model object is constructed as follows:
 
-@verbatim
+@code{.cpp}
      SBMLNamespaces sbmlns(3,1,"layout",1);  // namespace of L3V1 Core with L3V1 Layout V1
      Model model(&sbmlns);                   
-@endverbatim
+@endcode
 
 On the other hand, no SBasePlugin extended objects are created/added when no package extensions 
 are specified as follows:
 
-@verbatim
+@code{.cpp}
      SBMLNamespaces sbmlns(3,1);   // namespace of L3V1 Core 
      Model model(&sbmlns);    
-@endverbatim
+@endcode
 
 To read/create elements of a package extension in user's program, the followings are required:
 
@@ -480,34 +480,34 @@ The purpose of this class is as follows:
 Package developers must define (instantiate) its own SBMLNamespaces derived class 
 from this template class and then define a typedef declaration as follows:
    
-@verbatim
+@code{.cpp}
     typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces   
 
     // (this code is implemented in "src/packages/layout/extension/LayoutExtension.h")
-@endverbatim
+@endcode
 
 
 Also, package developers must implement a template instantiation code for the above 
 typedef definition in its implementation file (i.e. *.cpp file).
 For example, the template instantiation code for LayoutExtension is as follows:
   
-@verbatim
+@code{.cpp}
     template class LIBSBML_EXTERN SBMLExtensionNamespaces<LayoutExtension>;
 
     // (this code is implemented in "src/packages/layout/extension/LayoutExtension.cpp")
-@endverbatim
+@endcode
 
 Each SBase derived class of package extensions should implement a constructor
 that accepts its SBMLNamespaces derived class.
 For example, Layout class (one of SBase derived classes in the layout extension)
 defines the following constructor which accepts a LayoutPkgNamespaces object.
 
-@verbatim
+@code{.cpp}
   /**
    * Creates a new Layout with the given LayoutPkgNamespaces object.
    */
    Layout(LayoutPkgNamespaces* layoutns);
-@endverbatim
+@endcode
 
 <h3><a class="anchor" name="SBMLExtensionRegistry">6. SBMLExtensionRegistry class</a></h3>
 
@@ -544,7 +544,7 @@ extensions which are not registered in the registry class.
   in their SBMLExtension extended class for registering their packages to this class
   as follows:
 
-@verbatim
+@code{.cpp}
        static void LayoutExtension::init()
        {
          LayoutExtension layoutExtension;
@@ -553,7 +553,7 @@ extensions which are not registered in the registry class.
          ...
          int result = SBMLExtensionRegistry::getInstance().addExtension(&layoutExtension);
        }
-@endverbatim
+@endcode
 
 
 <h3><a class="anchor" name="SBMLExtensionRegister">7. SBMLExtensionRegister class</a></h3>
@@ -563,9 +563,9 @@ extensions which are not registered in the registry class.
 
  This class is very simple and easy to be used as follows (just instantiating an object):
 
-@verbatim
+@code{.cpp}
      static SBMLExtensionRegister<LayoutExtension> layoutExtensionRegistry;
-@endverbatim
+@endcode
 
   This code registers the LayoutExtension to the SBMLExtensionRegistry class
   when the code is parsed at start-up time.

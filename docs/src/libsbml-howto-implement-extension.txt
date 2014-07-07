@@ -83,7 +83,7 @@ based on the steps described in SBMLExtension class.
        For example, the following protected data members are defined in
        Group class ('src/packages/groups/sbml/Group.h'):
   </p>
-@verbatim
+@code{.cpp}
           class LIBSBML_EXTERN Group : public SBase
           {
           protected:
@@ -94,7 +94,7 @@ based on the steps described in SBMLExtension class.
             ....
                              
           };    
-@endverbatim
+@endcode
 
   <p>
      Basically, the attribute data will have one of the types "std::string", 
@@ -120,7 +120,7 @@ based on the steps described in SBMLExtension class.
      in 'src/packages/groups/sbml/Group.cpp' as follows:
   </p>     
 
-@verbatim
+@code{.cpp}
                Group::Group (unsigned int level, unsigned int version, 
                              unsigned int pkgVersion)
                  : SBase (level,version)   // <-- invokes parent's constructor
@@ -136,7 +136,7 @@ based on the steps described in SBMLExtension class.
                  // connects child elements to this element.
                  connectToChild(); 
                }
-@endverbatim
+@endcode
 
    <p><em>NOTE</em></p>
    <ul>
@@ -161,9 +161,9 @@ based on the steps described in SBMLExtension class.
            constructor as follows:
     </p>
 
-@verbatim   
+@code{.cpp}   
                Layout layout(3,1,1);
-@endverbatim
+@endcode
 
    <li><p> a constructor that accepts an SBMLNamespaces derived object </p>
 
@@ -174,7 +174,7 @@ based on the steps described in SBMLExtension class.
             groups package)
      </p>
 
-@verbatim
+@code{.cpp}
                Group::Group(GroupsPkgNamespaces* groupsns)
                 : SBase(groupsns)
                  ,mId("")
@@ -190,7 +190,7 @@ based on the steps described in SBMLExtension class.
                  // load pacakge extensions bound with this object (if any)
                  loadPlugins(groupsns);
                }
-@endverbatim
+@endcode
 
    <p><em>NOTE</em></p>
    <ul>
@@ -220,7 +220,7 @@ based on the steps described in SBMLExtension class.
            this constructor as follows:
    </p>
    
-@verbatim   
+@code{.cpp}   
                try
                {
                  LayputPkgNamespaces layoutns(3,1,1);
@@ -230,7 +230,7 @@ based on the steps described in SBMLExtension class.
                {
                  cerr << "Caught " << e.what() << endl;
                }
-@endverbatim
+@endcode
 
   </ol> 
 
@@ -280,15 +280,15 @@ based on the steps described in SBMLExtension class.
                 as follows:
 	      </p>
 	      
-@verbatim
+@code{.cpp}
                 Group::addExpectedAttributes(ExpectedAttributes& attributes)
                 {
                    SBase::addExpectedAttributes(attributes);
                    ....
                 }
-@endverbatim
+@endcode
 
-@verbatim
+@code{.cpp}
                void
                Group::readAttributes (const XMLAttributes& attributes,
                                       const ExpectedAttributes& expectedAttributes)
@@ -296,7 +296,7 @@ based on the steps described in SBMLExtension class.
                  SBase::readAttributes(attributes,expectedAttributes);
                   ...
                }
-@endverbatim
+@endcode
          
                 (SBase class is a parent of Group class.)
 
@@ -374,9 +374,9 @@ based on the steps described in SBMLExtension class.
                  attribute if the top-level element of the package extension 
                  belongs to default XML namespace.
                  This behaviour can be enabled/disabled by the following function:
-@verbatim
+@code{.cpp}
     SBMLDocument::enableDefaultNS(const std::string& package, bool flag)
-@endverbatim
+@endcode
 	  </ul>
 
 
@@ -402,9 +402,9 @@ based on the steps described in SBMLExtension class.
            </li> setId() function can be easily implemented as follows (one line):
       </ul>	  
 
-@verbatim
+@code{.cpp}
                  return SyntaxChecker::checkAndSetSId(id,mId);
-@endverbatim
+@endcode
 
   <h4><a class="anchor" name="i2-3-8">2.3.8. Override the following virtual functions if 'name' attribute is defined in the element</a></h4>
 
@@ -577,9 +577,9 @@ Thirdly, SBasePlugin derived classes for the pacakge needs to be implemented.
          class (in GroupsModelPlugin.h):
       </p>
 
-@verbatim
+@code{.cpp}
              ListOfGroups mGroups;
-@endverbatim
+@endcode
 
   <h4><a class="anchor" name="i3-2-2">3-2-2. Override the following functions in the SBasePlugin class</a></h4>
 
@@ -772,7 +772,7 @@ USE_\%%PACKAGE_NAME%% macro variable needs to be defined in the following files:
       <ol>
         <li> Add --enable-XXXX 
 
-@verbatim
+@code{.m4}
           dnl -------------------------------------------------------
           dnl Groups extension
           dnl -------------------------------------------------------
@@ -787,35 +787,35 @@ USE_\%%PACKAGE_NAME%% macro variable needs to be defined in the following files:
             AC_DEFINE([USE_GROUPS], 1, [Define to 1 to build the SBML groups extension.])
             AC_SUBST(USE_GROUPS, 1)
           fi
-@endverbatim
+@endcode
 
 
         <li> Add AC_CONFIG_FILES for additional Makefile.in files
 
 
-@verbatim
+@code{.m4}
           AC_CONFIG_FILES([src/packages/groups/Makefile])
           AC_CONFIG_FILES([src/packages/groups/common/Makefile])
           AC_CONFIG_FILES([src/packages/groups/extension/Makefile])
           AC_CONFIG_FILES([src/packages/groups/sbml/Makefile])
-@endverbatim
+@endcode
 
   
         <li> Add the code for noticing the enabled package
 
-@verbatim
+@code{.m4}
            if test "$enable_groups" != "no" ; then
              echo "  Using groups extension  = yes"
            fi
-@endverbatim
+@endcode
 
 
         <li> Run a shell script "autogen.sh" in the top directory of the libsbml-5
              as follows (for updating configure script):
 
-@verbatim
+@code{.sh}
               % ./autogen.sh
-@endverbatim
+@endcode
       </ol>
 
       <h4><a class="anchor" name="i7-1-2">7-1-2. src/packages/Makefile.in</a></h4>

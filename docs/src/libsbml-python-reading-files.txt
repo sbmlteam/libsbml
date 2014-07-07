@@ -16,14 +16,14 @@ In LibSBML, the class @link libsbml.SBMLDocument SBMLDocument@endlink is
 used as a top-level container for storing SBML content and data associated
 with it (such as warnings and error messages).  Here is a simple example to
 start this discussion, using Python in interactive mode:
-@verbatim
+@code{.py}
 >>> from libsbml import *
 >>> reader = SBMLReader()
 >>> document = reader.readSBML("examples/sample-models/from-spec/level-2/enzymekinetics.xml")
 >>> document.getNumErrors()
 0
 >>>
-@endverbatim
+@endcode
 
 The code above illustrates probably the simplest possible use of libSBML:
 reading a model and printing any errors or warnings encountered.  The code
@@ -97,7 +97,7 @@ returns a libsbml::Model object for the SBML model contained in the
 @link libsbml.SBMLDocument SBMLDocument@endlink.
 
 Here is an example of using this:
-@verbatim
+@code{.py}
 >>> from libsbml import *
 >>> reader = SBMLReader()
 >>> document = reader.readSBMLFromFile("examples/sample-models/from-spec/level-2/enzymekinetics.xml")
@@ -105,7 +105,7 @@ Here is an example of using this:
 >>> model.getNumSpecies()
 4
 >>> 
-@endverbatim
+@endcode
 
 @link libsbml.SBMLDocument SBMLDocument@endlink also acts to log any
 problems encountered while reading the model from the file or data stream.

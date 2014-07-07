@@ -9,7 +9,7 @@ In LibSBML, the class libsbmlcs.SBMLDocument is used as a top-level
 container for storing SBML content and data associated with it (such as
 warnings and error messages).  Here is a simple example to start this
 discussion:
-@verbatim
+@code{.cs}
 namespace LibSBMLCSExample
 {
   using System;
@@ -54,7 +54,7 @@ namespace LibSBMLCSExample
   }
 
 }
-@endverbatim
+@endcode
 
 The code above illustrates probably the simplest possible use of libSBML:
 reading a model and printing any errors or warnings encountered.  The code
