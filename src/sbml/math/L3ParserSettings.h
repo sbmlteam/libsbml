@@ -178,6 +178,16 @@
  * parser to translate the string @c avogadro into an AST of type
  * @sbmlconstant{AST_NAME,ASTNodeType_t}.
  * </ul>
+ *
+ * @class doc_case_sensitivity
+ *
+ * @par
+ * By default, the parser compares symbols in a case insensitive manner for
+ * built-in functions such as @c sin and @c piecewise, and for constants
+ * such as @c true and @c avogadro.  Setting this option to @c false via
+ * the argument @p strcmp, you can force the string comparison to @em only
+ * match lower-case strings.  Thus, for example, @c sin and @c true will
+ * match the built-in values, but @c SIN and @c TRUE will not.
  */
 
 #ifndef L3ParserSettings_h
@@ -636,14 +646,13 @@ public:
 
 
   /**
-   * Sets the parser's behavior in handling the string comparison of built-in functions.
+   * Sets the parser's behavior with respect to case sensitivity for
+   * recognizing predefined symbols.
    *
-   * By default, the parser will compare strings caselessly for built-in functions 
-   * such as 'sin' and 'piecewise', and for constants such as 'true' and 'avogadro'.
+   * @copydetails doc_case_sensitivity
    *
-   * With this option set 'false', you can force the string comparison to only match
-   * lower-case strings, so (for example) 'sin' and 'true' will match the built-in
-   * values, but 'SIN' and 'TRUE' will not.
+   * @param strcmp a boolean indicating whether to be case insensitive (if @c
+   * true) or be case sensitive (if @c false).
    *
    * @see getStrCmpIsCaseless()
    */
@@ -651,19 +660,19 @@ public:
 
 
   /**
-   * Returns @c true if the current settings compare built-in functions and 
-   * constants caselessly, @c false if not.
+   * Returns @c true if the parser is configured to match built-in symbols
+   * in a case-insensitive way.
    *
-   * By default, the parser will compare strings caselessly for built-in functions 
-   * such as 'sin' and 'piecewise', and for constants such as 'true' and 'avogadro'.
+   * @copydetails doc_case_sensitivity
    *
-   * With this option set 'false', you can force the string comparison to only match
-   * lower-case strings, so (for example) 'sin' and 'true' will match the built-in
-   * values, but 'SIN' and 'TRUE' will not.
+   * @return @c true if the parser will recognize built-in functions and
+   * constants regardless of case, and @c false if matches are done in a
+   * a case-sensitive manner.
    *
-   * @see setStrCmpIsCaseless()(@if java boolean l2only@endif)
+   * @see setStrCmpIsCaseless(@if java boolean@endif)
    */
   bool getStrCmpIsCaseless() const;
+
 
   /**
    * Set up the plugins for this L3ParserSettings, based on the
