@@ -99,8 +99,8 @@ section_end_template = '''
 
 def main(args):
     if len(args) != 2:
-	print "Must be given one argument: the path to package-summary.html"
-        sys.exit(1)
+      print ("Must be given one argument: the path to package-summary.html")
+      sys.exit(1)
 
     # Read the lines of the file into a string variable.
     with open(args[1]) as file:
@@ -116,14 +116,14 @@ def main(args):
     found_pkgs = sorted(list(set([entry[1] for entry in tuples])))
 
     # Now let's write some output, starting with lead-in text.
-    print header_template
+    print (header_template)
 
     for pkg in found_pkgs:
-        print section_start_template.format(pkg)
+        print (section_start_template.format(pkg))
         class_tuples = [tuple for tuple in tuples if tuple[1] == pkg]
         for c in class_tuples:
-            print entry_template.format(c[0], c[0], pkg, pkg, pkg, c[2])
-        print section_end_template
+            print (entry_template.format(c[0], c[0], pkg, pkg, pkg, c[2]))
+        print (section_end_template)
 
 
 if __name__ == '__main__':

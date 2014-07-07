@@ -52,9 +52,9 @@ def main (args):
         else:
             classes.append(f[f.rfind('/') + 1 : f.rfind('.')])
 
-    print "Processing " + args[1]
-    print "Will remove the following classes: " + ", ".join(classes)
-    print "Will remove the following functions: " + ", ".join(functions)
+    print ("Processing " + args[1])
+    print ("Will remove the following classes: " + ", ".join(classes))
+    print ("Will remove the following functions: " + ", ".join(functions))
 
     skipping = False
     for line in input:
@@ -95,11 +95,11 @@ def main (args):
 
     # Append the contents of files we're using for substitutions.
 
-    print "Will append the contents of the following files: " + " ".join(filenames)
+    print ("Will append the contents of the following files: " + " ".join(filenames))
     for f in filenames:
         newContents += open(f, 'r').read() + '\n'
 
-    print "Writing output to " + args[2]
+    print ("Writing output to " + args[2])
     output.write(newContents)
 
 

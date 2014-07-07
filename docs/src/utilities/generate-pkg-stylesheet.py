@@ -55,18 +55,18 @@ from libsbmlutils import find_classes
 
 
 color_table = [
-    # Name, 	red, 	green, 	blue
-    ['comp',	'205', 	'200', 	'230'],
-    ['fbc',	'190', 	'230',	'215'],
-    ['layout',	'240',	'195',	'160'],
-    ['qual',	'160', 	'185',	'235'],
-    ['multi',	'223',	'189',	'30'],
-    ['groups',	'250',	'170',	'210'],
-    ['arrays',	'55',	'221',	'177'],
-    ['distrib',	'243',	'250',	'134'],
-    ['spatial',	'0',	'150',	'132'],
-    ['req',	'100',	'100',	'100'],
-    ['render',	'225',	'225',	'225']
+    # Name,   red,   green,   blue
+    ['comp',  '205',   '200',   '230'],
+    ['fbc',  '190',   '230',  '215'],
+    ['layout',  '240',  '195',  '160'],
+    ['qual',  '160',   '185',  '235'],
+    ['multi',  '223',  '189',  '30'],
+    ['groups',  '250',  '170',  '210'],
+    ['arrays',  '55',  '221',  '177'],
+    ['distrib',  '243',  '250',  '134'],
+    ['spatial',  '0',  '150',  '132'],
+    ['req',  '100',  '100',  '100'],
+    ['render',  '225',  '225',  '225']
 ]
 
 
@@ -140,17 +140,17 @@ after_template = '''{{
 
 def main(args):
     if len(args) != 2:
-	print "Must be given one argument: the path to the package source dir"
-        sys.exit(1)
+      print ("Must be given one argument: the path to the package source dir")
+      sys.exit(1)
 
     src_dir = args[1]
 
     # First, write out an informative file header.
-    print header_template
+    print (header_template)
 
     # Next, write out the .pkg-color-x CSS classes:
     for entry in color_table:
-        print pkg_style_template.format(entry[0], entry[1], entry[2], entry[3])
+        print (pkg_style_template.format(entry[0], entry[1], entry[2], entry[3]))
 
     # Next, read the source dir to find out the L3 packages available, and
     # extract the names of the libSBML object classes in each package.
@@ -164,7 +164,7 @@ def main(args):
     # could split this into a separate file for Javadoc-only styling, but
     # it's easier to write all our package CSS code into one file.
     for pkg in found_pkgs:
-        print pkg_separator_template.format(pkg)
+        print (pkg_separator_template.format(pkg))
 
         color   = next(entry for entry in color_table if entry[0] == pkg)
         classes = find_classes(os.path.join(src_dir, pkg))
@@ -177,27 +177,27 @@ def main(args):
         # http://stackoverflow.com/a/8988418/743730
         for c in classes:
             comma = (',' if c != last else '')
-            print '.FrameItemFont a[href$="{}.html"]{}'.format(c, comma)
-        print safari_bugfix_template
+            print ('.FrameItemFont a[href$="{}.html"]{}'.format(c, comma))
+        print (safari_bugfix_template)
 
         # With that out of the way, we can write the real CSS.
         for c in classes:
             comma = (',' if c != last else '')
-            print '.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma)
-        print before_template.format(pkg, color[1], color[2], color[3])
+            print ('.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma))
+        print (before_template.format(pkg, color[1], color[2], color[3]))
 
         for c in classes:
             comma = (',' if c != last else '')
-            print '.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma)
-        print after_template.format(pkg, color[1], color[2], color[3])
+            print ('.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma))
+        print (after_template.format(pkg, color[1], color[2], color[3]))
 
     # A final bit of styling for Doxygen output.
-    print '/* Styles for page headings and "Level 3 Extensions" section. */\n'
+    print ('/* Styles for page headings and "Level 3 Extensions" section. */\n')
     for entry in color_table:
-        print '.title .ingroups a[href="group__{}.html"]:after,'.format(entry[0])
-        print '#navrow2 ul.tablist li a[href="group__{}.html"]:after,'.format(entry[0])
-        print '.contents ul li a[href="group__{}.html"]:after'.format(entry[0])
-        print after_template.format(entry[0], entry[1], entry[2], entry[3])
+        print ('.title .ingroups a[href="group__{}.html"]:after,'.format(entry[0]))
+        print ('#navrow2 ul.tablist li a[href="group__{}.html"]:after,'.format(entry[0]))
+        print ('.contents ul li a[href="group__{}.html"]:after'.format(entry[0]))
+        print (after_template.format(entry[0], entry[1], entry[2], entry[3]))
 
 
 

@@ -40,7 +40,7 @@ import sys
 
 def main(args):
     if len(args) != 2:
-        print "Must be given one argument: the path to class-list.txt"
+        print("Must be given one argument: the path to class-list.txt")
         sys.exit(1)
 
     filestream = open(args[1], 'r')
