@@ -310,13 +310,14 @@ public:
    * The following code gives an example of how one could add the XHTML
    * namespace to the list of namespaces recorded by the top-level
    * <code>&lt;sbml&gt;</code> element of a model.  It gives the new
-   * namespace a prefix of <code>html</code>.  @if clike
-   * @verbatim
+   * namespace a prefix of <code>html</code>.
+   * @if cpp
+   * @code{.cpp}
 SBMLDocument *sd;
-try 
+try
 {
     sd = new SBMLDocument(3, 1);
-} 
+}
 catch (SBMLConstructorException e)
 {
     // Here, have code to handle a truly exceptional situation. Candidate
@@ -334,14 +335,15 @@ else
 {
     // Handle another truly exceptional situation.
 }
-@endverbatim
-   * @endif@if java
-@verbatim
+@endcode
+@endif
+@if java
+@code{.java}
 SBMLDocument sd;
-try 
+try
 {
     sd = new SBMLDocument(3, 1);
-} 
+}
 catch (SBMLConstructorException e)
 {
     // Here, have code to handle a truly exceptional situation. Candidate
@@ -359,9 +361,10 @@ else
 {
     // Handle another truly exceptional situation.
  }
-@endverbatim
-   * @endif@if python
-@verbatim
+@endcode
+@endif
+@if python
+@code{.py}
 sbmlDoc = None
 try:
   sbmlDoc = SBMLDocument(3, 1)
@@ -378,9 +381,10 @@ if namespaces == None:
 status = namespaces.add("http://www.w3.org/1999/xhtml", "html")
 if status != LIBSBML_OPERATION_SUCCESS:
   # Do something to handle failure.
-@endverbatim
-   * @endif@if csharp
-@verbatim
+@endcode
+@endif
+@if csharp
+@code{.cs}
 SBMLDocument sd = null;
 try
 {
@@ -397,13 +401,13 @@ catch (SBMLConstructorException e)
 XMLNamespaces sn = sd.getNamespaces();
 if (sn != null)
 {
-    sn.add("http://www.w3.org/1999/xhtml", "html");            
+    sn.add("http://www.w3.org/1999/xhtml", "html");
 }
 else
 {
     // Handle another truly exceptional situation.
 }
-@endverbatim
+@endcode
    * @endif@~
    *
    * @param xmlns the XML namespaces to be added.

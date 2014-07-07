@@ -1708,22 +1708,41 @@ public:
    * using this method.  Here, the object being annotated is the whole SBML
    * document, but that is for illustration purposes only; you could of
    * course use this same approach to annotate any other SBML component.
-   * @if clike
-@verbatim
+   * @if cpp
+@code{.cpp}
 SBMLDocument* s = new SBMLDocument(3, 1);
 s->setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
-@endverbatim
-   * @endif@if java
-@verbatim
+@endcode
+@endif
+@if java
+@code{.java}
 SBMLDocument s = new SBMLDocument(3, 1);
 s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
-@endverbatim
-   * @endif@if csharp
-@verbatim
+@endcode
+@endif
+@if python
+@code{.py}
+try:
+  sbmlDoc = SBMLDocument(3, 1)
+except ValueError:
+  print('Could not create SBMLDocument object')
+  sys.exit(1)
+
+note = "<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>"
+
+status = sbmlDoc.setNotes(note)
+if status != LIBSBML_OPERATION_SUCCESS:
+  # Do something to handle the error here.
+  print("Unable to set notes on the SBML document object")
+  sys.exit(1)
+@endcode
+@endif
+@if csharp
+@code
 SBMLDocument s = new SBMLDocument(3, 1);
 s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
-@endverbatim
-   * @endif@~
+@endcode
+@endif@~
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
@@ -2458,8 +2477,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Returns the name of the SBML Level&nbsp;3 package in which this
-   * element is defined.
+   * Returns the name of the SBML Level&nbsp;3 package in which this element
+   * is defined.
    *
    * @return the name of the SBML package in which this element is defined.
    * The string <code>&quot;core&quot;</code> will be returned if this
@@ -2472,22 +2491,21 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns the libSBML type code for this object.
-   * 
-   * This method may return the type code of this SBML object, or it may
-   * return @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t}.  This
-   * is because subclasses of SBase are not required to implement this
-   * method to return a type code.  This method is meant primarily for the
-   * LibSBML C interface, in which class and subclass information is not
-   * readily available.
    *
-   * @return the @if clike #SBMLTypeCode_t value@else SBML object type code@endif@~
-   * of this SBML object or
-   * @sbmlconstant{SBML_UNKNOWN, SBMLTypeCode_t} (the default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @copydetails doc_additional_typecode_details
+   *
+   * @return the @if clike #SBMLTypeCode_t value@else SBML object type
+   * code@endif@~ of this SBML object, or @sbmlconstant{SBML_UNKNOWN,
+   * SBMLTypeCode_t} (the default).  The latter is possible because
+   * subclasses of SBase are not required to implement this method to return
+   * a type code.
    *
    * @copydetails doc_warning_typecodes_not_unique
    *
-   * @see getElementName()
    * @see getPackageName()
+   * @see getElementName()
    */
   virtual int getTypeCode () const;
 
@@ -2688,7 +2706,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * You could reconstruct the same namespaces in the in-memory model first,
    * but as a shortcut, you could also disable the package namespace on the
    * object being added.  Here is a code example to help clarify this:
-   * @if clike @verbatim
+   * @if cpp
+@code{.cpp}
 // We read in an SBML L3V1 model that uses the 'comp' package namespace
 doc = readSBML("sbml-file-with-comp-elements.xml");
 
@@ -2710,38 +2729,72 @@ Model * newModel = new Model(3,1);
 s1->disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
                    "comp");
 newModel->addSpecies(s1);
-@endverbatim
-@endif@if python
-@verbatim
+@endcode
+@endif
+@if python
+@code{.py}
 import sys
 import os.path
 from libsbml import *
 
-# We read in an SBML L3V1 model that uses the 'comp' package namespace
+# We read an SBML L3V1 model that uses the 'comp' package.
+
 doc = readSBML("sbml-file-with-comp-elements.xml");
+if doc.getNumErrors() > 0:
+  print('readSBML encountered errors while reading the file.')
+  doc.printErrors()
+  sys.exit(1)
 
 # We extract one of the species from the model we just read in.
-s1 = doc.getModel().getSpecies(0);
 
-# We construct a new model.  This model does not use the 'comp' package.
-newDoc = SBMLDocument(3, 1);
-newModel = newDoc.createModel();
+model = doc.getModel()
+if model == None:
+  print('Unable to retrieve Model object')
+  sys.exit(1)
 
-# The following would fail with an error, because addSpecies() would
-# first check that the parent of the given object has namespaces
-# declared, and will discover that s1 does but newModel does not.
+s1 = model.getSpecies(0)
+if s1 == None:
+  print('Unable to retrieve Species object')
+  sys.exit(1)
 
-# newModel.addSpecies(s1);
+# We construct a new model.
+# This model does not use the 'comp' package.
 
-# However, if we disable the 'comp' package on s1, then the call
-# to addSpecies will work.
+try:
+  newDoc = SBMLDocument(3, 1)
+except ValueError:
+  print('Could not create SBMLDocument object')
+  sys.exit(1)
 
-s1.disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
-                  "comp");
-newModel.addSpecies(s1);
-@endverbatim
-@endif@if java
-@verbatim
+newModel = newDoc.createModel()
+if newModel == None:
+  print('Unable to create new Model object')
+  sys.exit(1)
+
+# The following would normally fail with an error, because
+# addSpecies() would first check that the parent of the given
+# object has namespaces declared, and will discover that s1
+# does but newModel does not.
+
+#   newModel.addSpecies(s1)
+
+# However, if we disable the 'comp' package on s1, then the
+# call to addSpecies will work.
+
+compNS = "http://www.sbml.org/sbml/level3/version1/comp/version1"
+status = s1.disablePackage(compNS, "comp")
+if status != LIBSBML_OPERATION_SUCCESS:
+  print('Unable to disable package.')
+  sys.exit(1)
+
+newSpecies = newModel.addSpecies(s1)   # This will work now.
+if newSpecies == None:
+  print('Could not add Species')       # (This will not happen,
+  sys.exit(1)                          # but always check errors.)
+@endcode
+@endif
+@if java
+@code{.java}
 // We read in an SBML L3V1 model that uses the 'comp' package namespace
 SBMLReader reader = new SBMLReader();
 SBMLDocument doc = reader.readSBML("sbml-file-with-comp-elements.xml");
@@ -2764,7 +2817,7 @@ Model newModel = new Model(3,1);
 s1->disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
                    "comp");
 newModel.addSpecies(s1);
-@endverbatim
+@endcode
 @endif
    *
    * @param pkgURI the URI of the package
@@ -3436,7 +3489,7 @@ protected:
    * Read attributes of package extensions from the given XMLAttributes 
    * set into their specific fields. 
    * 
-   * Be sure to call your parents implementation of this function as well.  
+   * Be sure to call your parent's implementation of this function as well.  
    * For example:
    * @if clike
 @verbatim

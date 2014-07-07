@@ -1462,21 +1462,21 @@
  * @class doc_additional_typecode_details
  *
  * @par
- * Here follow some additional general information about SBML type codes:
+ * Here follow some additional general information about libSBML type codes:
  *
  * @li The codes are the possible return values (integers) for the following
  * functions:
  * <ul>
- *     <li> virtual int SBase::getTypeCode() const;
- *     <li> virtual int ListOf::getItemTypeCode() const;
+ *     <li> SBase::getTypeCode()
+ *     <li> ListOf::getItemTypeCode()
  * </ul>
- * (In libSBML 5, the type of return values of these functions changed from
- * an enumeration to an integer for extensibility in the face of different
- * programming languages.)
+ * (Compatibility note: in libSBML 5, the type of return values of these
+ * functions changed from an enumeration to an integer for extensibility
+ * in the face of different programming languages.)
  *
  * @li Each package extension must define similar sets of values for each
- * SBase subclass (e.g. #SBMLLayoutTypeCode_t for the SBML Level&nbsp;3
- * Layout extension, #SBMLFbcTypeCode_t for the SBML Level&nbsp;3 Flux
+ * SBase subclass (e.g. <code>SBMLLayoutTypeCode_t</code> for the SBML Level&nbsp;3
+ * %Layout extension, <code>SBMLFbcTypeCode_t</code> for the SBML Level&nbsp;3 Flux
  * Balance Constraints extension, etc.).
  *
  * @li The value of each package-specific type code can be duplicated between
@@ -1489,13 +1489,15 @@
  * @li To distinguish between the type codes of different packages, both the
  * return value of SBase::getTypeCode() and SBase::getPackageName() must be
  * checked.  This is particularly important for functions that take an SBML
- * type code as an argument, such as SBase::getAncestorOfType(), which by
+ * type code as an argument, such as
+ * SBase::getAncestorOfType(@if java int, String@endif), which by
  * default assumes you are handing it a core type, and will return @c NULL if
  * the value you give it is actually from a package.
  *
  * The following example code illustrates the combined use of
  * SBase::getPackageName() and SBase::getTypeCode():
- *@verbatim
+ * @if cpp
+ * @code{.cpp}
  void example (const SBase *sb)
  {
    cons std::string pkgName = sb->getPackageName();
@@ -1523,13 +1525,72 @@
    }
    ...
  }
- @endverbatim
- *
- *  @see #SBMLTypeCode_t
- *  @see #SBMLCompTypeCode_t
- *  @see #SBMLFbcTypeCode_t
- *  @see #SBMLLayoutTypeCode_t
- *  @see #SBMLQualTypeCode_t
+@endcode
+@endif
+@if python
+@code{.py}
+def example(item):
+  pkg_name  = item.getPackageName()
+  type_code = item.getTypeCode()
+  if pkg_name == "core":
+    print("Got a " + SBMLTypeCode_toString(type_code, "core") + " object")
+    if type_code == SBML_MODEL:
+      print("This is a very, very nice model")
+      # Do whatever the application wants to do with the model.
+    elif type_code == SBML_COMPARTMENT:
+      print("This is a very, very nice compartment")
+      # Do whatever the application wants to do with the compartment.
+    elif type_code == SBML_SPECIES:
+      print("This is a very, very nice species")
+      # Do whatever the application wants to do with the species.
+    elif ...
+      ...
+  elif pkg_name == "layout":
+    print("Got a " + SBMLTypeCode_toString(type_code, "layout") + " object")
+    if type_code == SBML_LAYOUT_POINT:
+      print("This is a very, very nice layout point")
+      # Do whatever the application wants to do with the layout point.
+    elif type_code == SBML_LAYOUT_BOUNDINGBOX:
+      print("This is a very, very nice layout bounding box")
+      # Do whatever the application wants to do with the layout bounding box.
+    elif ...
+      ...
+  elif pkg_name == "unknown":
+    print("Something went wrong -- libSBML did not recognize the object type")
+    # Handle errors
+@endcode
+@endif
+@if java
+@code{.java}
+void example (SBase sb)
+{
+  String pkgName = sb.getPackageName();
+  if (pkgName.equals("core"))
+  {
+    switch (sb.getTypeCode())
+    {
+      case libsbml.SBML_MODEL:
+         ....
+         break;
+      case libsbml.SBML_REACTION:
+         ....
+    }
+  }
+  else if (pkgName.equals("layout"))
+  {
+    switch (sb.getTypeCode())
+    {
+      case libsbml.SBML_LAYOUT_LAYOUT:
+         ....
+         break;
+      case libsbml.SBML_LAYOUT_REACTIONGLYPH:
+         ....
+    }
+  }
+  ...
+}
+@endcode
+@endif
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_sbml_error_code_ranges
@@ -1674,40 +1735,123 @@
  * SBMLReactionConverter, which is invoked using the option string @c
  * "replaceReactions":
  *
- * @verbatim
+ * @if cpp
+ * @code{.cpp}
 ConversionProperties props;
 props.addOption("replaceReactions");
-@endverbatim
+@endcode
+@endif
+@if python
+@code{.py}
+config = ConversionProperties()
+if config != None:
+  config.addOption("replaceReactions")
+@endcode
+@endif
+@if java
+@code{.java}
+ConversionProperties props = new ConversionProperties();
+if (props != null) {
+  props.addOption("replaceReactions");
+} else {
+  // Deal with error.
+}
+@endcode
+@endif
+ *
  * In the case of SBMLReactionConverter, there are no options to affect
  * its behavior, so the next step is simply to invoke the converter on
- * an SBMLDocument object.  This is also simple to do:
+ * an SBMLDocument object.  Continuing the example code:
  *
- * @verbatim
+ * @if cpp
+ * @code{.cpp}
 // Assume that the variable "document" has been set to an SBMLDocument object.
-int success = document->convert(props);
-if (success != LIBSBML_OPERATION_SUCCESS)
+int status = document->convert(props);
+if (status != LIBSBML_OPERATION_SUCCESS)
 {
-    cerr << "Unable to perform conversion due to the following:" << endl;
-    document->printErrors(cerr);
+  cerr << "Unable to perform conversion due to the following:" << endl;
+  document->printErrors(cerr);
 }
-@endverbatim
+@endcode
+@endif
+@if python
+@code{.py}
+  # Assume that the variable "document" has been set to an SBMLDocument object.
+  status = document.convert(config)
+  if status != LIBSBML_OPERATION_SUCCESS:
+    # Handle error somehow.
+    print("Error: conversion failed due to the following:")
+    document.printErrors()
+@endcode
+@endif
+@if java
+@code{.java}
+  # Assume that the variable "document" has been set to an SBMLDocument object.
+  status = document.convert(config);
+  if (status != libsbml.LIBSBML_OPERATION_SUCCESS)
+  {
+    # Handle error somehow.
+    System.out.println("Error: conversion failed due to the following:");
+    document.printErrors();
+  }
+@endcode
+@endif
+ *
  * Here is an example of using a converter that offers an option. The
  * following code invokes SBMLStripPackageConverter to remove the
- * SBML Level&nbsp;3 "Layout" package from a model.  It sets the name
+ * SBML Level&nbsp;3 @em %Layout package from a model.  It sets the name
  * of the package to be removed by adding a value for the option named
  * @c "package" defined by that converter:
- * @verbatim
+ *
+ * @if cpp
+ * @code{.cpp}
 ConversionProperties props;
 props.addOption("stripPackage");
 props.addOption("package", "layout");
 
-int success = document->convert(props);
-if (success != LIBSBML_OPERATION_SUCCESS)
+int status = document->convert(props);
+if (status != LIBSBML_OPERATION_SUCCESS)
 {
     cerr << "Unable to strip the Layout package from the model";
-    cerr << "Error returned: " << success;
+    cerr << "Error returned: " << status;
 }
-@endverbatim
+@endcode
+@endif
+@if python
+@code{.py}
+def strip_layout_example(document):
+  config = ConversionProperties()
+  if config != None:
+    config.addOption("stripPackage")
+    config.addOption("package", "layout")
+    status = document.convert(config)
+    if status != LIBSBML_OPERATION_SUCCESS:
+      # Handle error somehow.
+      print("Error: unable to strip the Layout package.")
+      print("LibSBML returned error: " + OperationReturnValue_toString(status).strip())
+  else:
+    # Handle error somehow.
+    print("Error: unable to create ConversionProperties object")
+@endcode
+@endif
+@if java
+@code{.java}
+ConversionProperties config = new ConversionProperties();
+if (config != None) {
+  config.addOption("stripPackage");
+  config.addOption("package", "layout");
+  status = document.convert(config);
+  if (status != LIBSBML_OPERATION_SUCCESS) {
+    // Handle error somehow.
+    System.out.println("Error: unable to strip the Layout package");
+    document.printErrors();
+  }
+} else {
+  // Handle error somehow.
+  System.out.println("Error: unable to create ConversionProperties object");
+}
+@endcode
+@endif
  *
  * @subsection available-converters Available SBML converters in libSBML
  *

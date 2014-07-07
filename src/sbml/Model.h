@@ -98,18 +98,18 @@
  * LibSBML provides two main mechanisms for creating objects: class
  * constructors
  * (e.g., @if java <a href="org/sbml/libsbml/Species.html">Species()</a> @else Species::Species() @endif), 
- * and <code>create<span class="placeholder"><em>Object</em></span>()</code>
+ * and <code>create<span class="placeholder-nospace"><em>Object</em></span>()</code>
  * methods (such as Model::createSpecies()) provided by certain <span
- * class="placeholder"><em>Object</em></span> classes such as Model.  These
+ * class="placeholder-nospace"><em>Object</em></span> classes such as Model.  These
  * multiple mechanisms are provided by libSBML for flexibility and to
  * support different use-cases, but they also have different implications
  * for the overall model structure.
  *
  * In general, the recommended approach is to use the <code>create<span
- * class="placeholder"><em>Object</em></span>()</code> methods.  These
+ * class="placeholder-nospace"><em>Object</em></span>()</code> methods.  These
  * methods both create an object @em and link it to the parent in one step.
  * Here is an example:@if clike
- * @verbatim
+ * @code{.cpp}
 // Create an SBMLDocument object in Level 3 Version 1 format:
 
 SBMLDocument* sbmlDoc = new SBMLDocument(3, 1);
@@ -129,9 +129,9 @@ model->setId("BestModelEver");
 
 Species *sp = model->createSpecies();
 sp->setId("MySpecies");
-@endverbatim
+@endcode
  * @endif@if java
-@verbatim
+@code{.java}
 // Create an SBMLDocument object in Level 3 Version 1 format:
 
 SBMLDocument sbmlDoc = new SBMLDocument(3, 1);
@@ -155,32 +155,52 @@ model.setId(&#34;BestModelEver&#34;);
 
 Species sp = model.createSpecies();
 sp.setId(&#34;BestSpeciesEver&#34;);
-@endverbatim
+@endcode
  * @endif@if python
-@verbatim
-# Create an SBMLDocument object in Level 3 Version 1 format:
+@code{.py}
+# Create an SBMLDocument object in Level 3 Version 1 format.
+# Make sure to check for possible failures.
 
-sbmlDoc = SBMLDocument(3, 1)
+try:
+  sbmlDoc = SBMLDocument(3, 1)
+except ValueError:
+  print('Could not create SBMLDocument object')
+  sys.exit(1)
 
-# Create a Model object inside the SBMLDocument object and set
-# its identifier.  The call to setId() returns a status code
-# to indicate whether the assignment was successful.  Code 0
-# means success; see the documentation for Model's setId() for 
-# more information.
+# Create a Model object inside the SBMLDocument object and set its
+# identifier, checking the returned values.  The call to setId() returns a
+# status code to indicate whether the assignment was successful.
 
 model = sbmlDoc.createModel()
-model.setId(&#34;BestModelEver&#34;)
+if model == None:
+  # Do something to handle the error here.
+  print("Unable to create Model object.")
+  sys.exit(1)
+
+status = model.setId('BestModelEver')
+if status != LIBSBML_OPERATION_SUCCESS:
+  # Do something to handle the error here.
+  print("Unable to set identifier on the Model object")
+  sys.exit(1)
 
 # Create a Species object inside the Model and set its identifier.
 # Again, the setId() returns a status code to indicate whether the
-# assignment was successful.  Code 0 means success; see the
-# documentation for Specie's setId() for more information.
+# assignment was successful.
 
 sp = model.createSpecies()
-sp.setId(&#34;BestSpeciesEver&#34;)
-@endverbatim
+if sp == None:
+  # Do something to handle the error here.
+  print("Unable to create Species object.")
+  sys.exit(1)
+
+status = sp.setId('BestSpeciesEver')
+if status != LIBSBML_OPERATION_SUCCESS:
+  # Do something to handle the error here.
+  print("Unable to set identifier on the Species object")
+  sys.exit(1)
+@endcode
  * @endif@if csharp
-@verbatim
+@code
 // Create an SBMLDocument object in Level 3 Version 1 format:
 
 SBMLDocument sbmlDoc = new SBMLDocument(3, 1);
@@ -200,15 +220,15 @@ model.setId("BestModelEver");
 
 Species sp = model.createSpecies();
 sp.setId("MySpecies");
-@endverbatim
+@endcode
  * @endif@~
  *
  * The <code>create<span
- * class="placeholder"><em>Object</em></span>()</code> methods return a
+ * class="placeholder-nospace"><em>Object</em></span>()</code> methods return a
  * pointer to the object created, but they also add the object to the
  * relevant list of object instances contained in the parent.  (These lists
  * become the <code>&lt;listOf<span
- * class="placeholder"><em>Object</em></span>s&gt;</code> elements in the
+ * class="placeholder-nospace"><em>Object</em></span>s&gt;</code> elements in the
  * finished XML rendition of SBML.)  In the example above,
  * Model::createSpecies() adds the created species directly to the
  * <code>&lt;listOfSpecies&gt;</code> list in the model.  Subsequently,
@@ -1586,7 +1606,9 @@ public:
    *
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
-   * @return the SpeciesReference object created
+   * @return the SpeciesReference object created.  If a Reaction does not
+   * exist for this model, a new SpeciesReference is @em not created and @c
+   * NULL is returned.
    */
   SpeciesReference* createReactant ();
 
@@ -1601,7 +1623,9 @@ public:
    *
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
-   * @return the SpeciesReference object created
+   * @return the SpeciesReference object created. If a Reaction does not
+   * exist for this model, a new SpeciesReference is @em not created and @c
+   * NULL is returned.
    */
   SpeciesReference* createProduct ();
 
@@ -1617,7 +1641,9 @@ public:
    *
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
-   * @return the SpeciesReference object created
+   * @return the SpeciesReference object created.  If a Reaction does not
+   * exist for this model, a new SpeciesReference is @em not created and @c
+   * NULL is returned.
    */
   ModifierSpeciesReference* createModifier ();
 
@@ -1632,7 +1658,9 @@ public:
    *
    * @copydetails doc_how_added_last_reaction_irrelevant
    *
-   * @return the KineticLaw object created
+   * @return the KineticLaw object created.  If a Reaction does not exist for
+   * this model, or a Reaction does exist but already has a KineticLaw, a new
+   * KineticLaw is @em not created and @c NULL is returned.
    */
   KineticLaw* createKineticLaw ();
 
@@ -1647,7 +1675,9 @@ public:
    *
    * @copydetails doc_how_added_last_kineticlaw_irrelevant
    *
-   * @return the Parameter object created
+   * @return the Parameter object created.  If a Reaction does not exist for
+   * this model, or a KineticLaw for the Reaction does not exist, a new
+   * Parameter is @em not created and @c NULL is returned.
    */
   Parameter* createKineticLawParameter ();
 
@@ -1662,7 +1692,9 @@ public:
    *
    * @copydetails doc_how_added_last_kineticlaw_irrelevant
    *
-   * @return the Parameter object created
+   * @return the Parameter object created.  If a Reaction does not exist for
+   * this model, or a KineticLaw for the Reaction does not exist, a new
+   * Parameter is @em not created and @c NULL is returned.
    */
   LocalParameter* createKineticLawLocalParameter ();
 
