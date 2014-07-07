@@ -12,7 +12,7 @@
 }
 
 .contents div.textblock div.fragment {
-    padding-left: 0 !important;  /* Overrides libsbml-doxygen-stylesheet */
+    padding-left: 0.25em !important;  /* Overrides libsbml-doxygen-stylesheet */
     padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 0.25em !important;
 }
