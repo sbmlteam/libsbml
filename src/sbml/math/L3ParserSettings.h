@@ -283,20 +283,20 @@ typedef enum
  * Treat all forms of built-in functions as referencing that function, 
  * regardless of the capitalization of that string.
  *
- * @see L3ParserSettings::getStrCmpIsCaseless()
- * @see L3ParserSettings::setStrCmpIsCaseless()
+ * @see L3ParserSettings::getComparisonCaseSensitivity()
+ * @see L3ParserSettings::setComparisonCaseSensitivity()
  */
-#define L3P_COMPARE_BUILTINS_CASELESS true
+#define L3P_COMPARE_BUILTINS_CASE_SENSITIVE true
 
 /**
  * Treat only the all-lower-case form of built-in functions as referencing
  * that function, and all other forms of capitalization of that string
  * as referencing user-defined functions or values.
  *
- * @see L3ParserSettings::getStrCmpIsCaseless()
- * @see L3ParserSettings::setStrCmpIsCaseless()
+ * @see L3ParserSettings::getComparisonCaseSensitivity()
+ * @see L3ParserSettings::setComparisonCaseSensitivity()
  */
-#define L3P_COMPARE_BUILTINS_NONCASELESS false
+#define L3P_COMPARE_BUILTINS_CASE_INSENSITIVE false
 
 
 typedef enum
@@ -329,7 +329,7 @@ private:
   bool mCollapseminus;
   bool mParseunits;
   bool mAvoCsymbol;
-  bool mStrCmpIsCaseless;
+  bool mStrCmpIsCaseSensitive;
   std::vector<ASTBasePlugin*> mPlugins;
 
   /** @endcond */
@@ -427,6 +427,7 @@ public:
    */
   L3ParserSettings(Model* model, ParseLogType_t parselog,
                    bool collapseminus, bool parseunits, bool avocsymbol,
+                   bool caseSensitive = false, 
                    SBMLNamespaces* sbmlns = NULL);
 
 
@@ -654,9 +655,9 @@ public:
    * @param strcmp a boolean indicating whether to be case insensitive (if @c
    * true) or be case sensitive (if @c false).
    *
-   * @see getStrCmpIsCaseless()
+   * @see getComparisonCaseSensitivity()
    */
-  void setStrCmpIsCaseless(bool strcmp);
+  void setComparisonCaseSensitivity(bool strcmp);
 
 
   /**
@@ -669,9 +670,9 @@ public:
    * constants regardless of case, and @c false if matches are done in a
    * a case-sensitive manner.
    *
-   * @see setStrCmpIsCaseless(@if java boolean@endif)
+   * @see setComparisonCaseSensitivity(@if java boolean@endif)
    */
-  bool getStrCmpIsCaseless() const;
+  bool getComparisonCaseSensitivity() const;
 
 
   /**

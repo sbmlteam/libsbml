@@ -1826,7 +1826,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings1)
 
   //Explicit noncaseless
   L3ParserSettings settings;
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_NONCASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
   r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
@@ -1842,7 +1842,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings1)
   ASTNode_free(r);
 
   //Explicit noncaseless
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_CASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
   r = SBML_parseL3FormulaWithSettings("SqRt(3)", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ROOT, NULL );
@@ -1877,7 +1877,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings2)
 
   //Explicit noncaseless
   L3ParserSettings settings;
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_NONCASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
   r = SBML_parseL3FormulaWithSettings("PI", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_NAME, NULL );
@@ -1887,7 +1887,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings2)
   ASTNode_free(r);
 
   //Explicit noncaseless
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_CASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
   r = SBML_parseL3FormulaWithSettings("PI", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_PI, NULL );
@@ -1916,7 +1916,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings3)
 
   //Explicit noncaseless
   L3ParserSettings settings;
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_NONCASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_SENSITIVE);
   r = SBML_parseL3FormulaWithSettings("ArcSinH(3)", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION, NULL );
@@ -1932,7 +1932,7 @@ START_TEST (test_SBML_parseL3Formula_capssettings3)
   ASTNode_free(r);
 
   //Explicit noncaseless
-  settings.setStrCmpIsCaseless(L3P_COMPARE_BUILTINS_CASELESS);
+  settings.setComparisonCaseSensitivity(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE);
   r = SBML_parseL3FormulaWithSettings("ArcSinH(3)", &settings);
 
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION_ARCSINH, NULL );

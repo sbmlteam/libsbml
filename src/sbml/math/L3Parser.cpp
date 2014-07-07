@@ -152,7 +152,7 @@ public:
   bool parseunits;
   bool avocsymbol;
   const L3ParserSettings* currentSettings;
-  bool strCmpIsCaseless;
+  bool strCmpIsCaseSensitive;
 
   L3Parser();
   ~L3Parser();
@@ -205,11 +205,11 @@ public:
    */
   void setAvoCsymbol(bool avo);
   /**
-   * Sets the member variable 'strCmpIsCaseless' to the provided boolean. Used in
+   * Sets the member variable 'strCmpIsCaseSensitive' to the provided boolean. Used in
    * deciding whether to parse the built-in functions and variables caseless
    * or not.
    */
-  void setStrCmpIsCaseless(bool strcmp);
+  void setComparisonCaseSensitivity(bool strcmp);
   /**
    * Compares the two strings, and returns 'true' if they are equivalent,
    * ignoring case.  Used in the parser and in the 'getSymbolFor' and 
@@ -2571,7 +2571,7 @@ L3Parser::L3Parser()
   , collapseminus(L3P_EXPAND_UNARY_MINUS)
   , parseunits(L3P_PARSE_UNITS)
   , avocsymbol(L3P_AVOGADRO_IS_CSYMBOL)
-  , strCmpIsCaseless(L3P_COMPARE_BUILTINS_CASELESS)
+  , strCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_SENSITIVE)
 {
 }
 
@@ -2761,14 +2761,14 @@ void L3Parser::setAvoCsymbol(bool avo)
   avocsymbol = avo;
 }
 
-void L3Parser::setStrCmpIsCaseless(bool strcmp)
+void L3Parser::setComparisonCaseSensitivity(bool strcmp)
 {
-  strCmpIsCaseless = strcmp;
+  strCmpIsCaseSensitive = strcmp;
 }
 
 bool L3Parser::l3StrCmp(const string& lhs, const string& rhs) const
 {
-  if (!strCmpIsCaseless) {
+  if (strCmpIsCaseSensitive) {
     return lhs==rhs;
   }
   if (lhs.size() != rhs.size()) return false;
@@ -2814,7 +2814,7 @@ void L3Parser::clear()
   collapseminus = defaultL3ParserSettings.getParseCollapseMinus();
   parseunits = defaultL3ParserSettings.getParseUnits();
   avocsymbol = defaultL3ParserSettings.getParseAvogadroCsymbol();
-  strCmpIsCaseless = defaultL3ParserSettings.getStrCmpIsCaseless();
+  strCmpIsCaseSensitive = defaultL3ParserSettings.getComparisonCaseSensitivity();
 }
 
 string L3Parser::getError()
@@ -3034,7 +3034,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->parseunits = settings->getParseUnits();
   l3p->avocsymbol = settings->getParseAvogadroCsymbol();
   l3p->currentSettings = settings;
-  l3p->strCmpIsCaseless = settings->getStrCmpIsCaseless();
+  l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   sbml_yyparse();
   return l3p->outputNode;
 }

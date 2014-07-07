@@ -54,17 +54,19 @@ L3ParserSettings::L3ParserSettings()
   , mCollapseminus(L3P_EXPAND_UNARY_MINUS)
   , mParseunits(L3P_PARSE_UNITS)
   , mAvoCsymbol(L3P_AVOGADRO_IS_CSYMBOL)
+  , mStrCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE)
   , mPlugins()
 {
   setPlugins(NULL);
 }
 
-L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, SBMLNamespaces* sbmlns)
+L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool collapseminus, bool parseunits, bool avocsymbol, bool caseSensitive, SBMLNamespaces* sbmlns)
   : mModel (model)
   , mParselog(parselog)
   , mCollapseminus(collapseminus)
   , mParseunits(parseunits)
   , mAvoCsymbol(avocsymbol)
+  , mStrCmpIsCaseSensitive(caseSensitive)
   , mPlugins()
 {
   setPlugins(sbmlns);
@@ -263,14 +265,14 @@ void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
 }
 /** @endcond */
 
-void L3ParserSettings::setStrCmpIsCaseless(bool strcmp)
+void L3ParserSettings::setComparisonCaseSensitivity(bool strcmp)
 {
-  mStrCmpIsCaseless = strcmp;
+  mStrCmpIsCaseSensitive = strcmp;
 }
 
-bool L3ParserSettings::getStrCmpIsCaseless() const
+bool L3ParserSettings::getComparisonCaseSensitivity() const
 {
-  return mStrCmpIsCaseless;
+  return mStrCmpIsCaseSensitive;
 }
 
 
