@@ -375,7 +375,7 @@ endif
 # processed by swigdoc.py.
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
-	../swig/swigdoc.py --language java --top ../../.. $(SWIGDOCDEFINES) \
+	touch ../../../docs/src/libsbml-converters.txt && ../swig/swigdoc.py --language java --top ../../.. $(SWIGDOCDEFINES) \
 		--extra ../../../docs/src/libsbml-converters.txt \
 		--master ../swig/libsbml.i --output javadoc.i
 
