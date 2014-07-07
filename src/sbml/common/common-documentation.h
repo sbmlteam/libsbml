@@ -1786,11 +1786,11 @@ if (status != LIBSBML_OPERATION_SUCCESS)
 @endif
 @if java
 @code{.java}
-  # Assume that the variable "document" has been set to an SBMLDocument object.
+  // Assume that the variable "document" has been set to an SBMLDocument object.
   status = document.convert(config);
   if (status != libsbml.LIBSBML_OPERATION_SUCCESS)
   {
-    # Handle error somehow.
+    // Handle error somehow.
     System.out.println("Error: conversion failed due to the following:");
     document.printErrors();
   }
