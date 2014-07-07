@@ -183,11 +183,11 @@
  *
  * @par
  * By default, the parser compares symbols in a case insensitive manner for
- * built-in functions such as @c sin and @c piecewise, and for constants
- * such as @c true and @c avogadro.  Setting this option to @c false via
- * the argument @p strcmp, you can force the string comparison to @em only
- * match lower-case strings.  Thus, for example, @c sin and @c true will
- * match the built-in values, but @c SIN and @c TRUE will not.
+ * built-in functions such as @c "sin" and @c "piecewise", and for constants
+ * such as @c "true" and @c "avogadro".  Setting this option to @c false, you
+ * can force the string comparison to @em only match lower-case strings.
+ * Thus, for example, @c "sin" and @c "true" will match the built-in values, but
+ * @c "SIN" and @c "TRUE" will not.
  */
 
 #ifndef L3ParserSettings_h
