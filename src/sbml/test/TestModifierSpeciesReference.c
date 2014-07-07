@@ -35,6 +35,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
 

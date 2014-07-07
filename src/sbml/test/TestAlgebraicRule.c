@@ -37,6 +37,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/Rule.h>
+#include <sbml/AlgebraicRule.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/SBMLDocument.h>
 
