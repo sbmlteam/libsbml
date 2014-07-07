@@ -549,9 +549,9 @@ getChild( getNumChildren() - 1 );
    * different programming languages, the predicate is passed in as a pointer
    * to a function.  @if clike The function definition must have the type
    * @link ASTNode.h::ASTNodePredicate ASTNodePredicate@endlink, which is defined as
-   * @verbatim
+   * @code{.cpp}
 int (*ASTNodePredicate) (const ASTNode *node);
-@endverbatim
+@endcode
    * where a return value of nonzero represents @c true and zero
    * represents @c false. @endif
    *
@@ -583,9 +583,9 @@ int (*ASTNodePredicate) (const ASTNode *node);
    * is passed in as a pointer to a function.  The function definition must
    * have the type @link ASTNode.h::ASTNodePredicate
    * ASTNodePredicate@endlink, which is defined as
-   * @verbatim
+   * @code{.cpp}
 int (*ASTNodePredicate) (const ASTNode_t *node);
-@endverbatim
+@endcode
    * where a return value of nonzero represents @c true and zero
    * represents @c false.
    *
@@ -2384,9 +2384,9 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  * The predicate is passed in as a pointer to a function.  The function
  * definition must have the type @sbmlconstant{AST_PLUS, ASTNode.h::ASTNodePredicate
  * ASTNodePredicate@endlink, which is defined as
- * @verbatim
+ * @code{.c}
  int (*ASTNodePredicate) (const ASTNode_t *node);
- @endverbatim
+ @endcode
  * where a return value of nonzero represents true and zero
  * represents false.
  *
@@ -2421,9 +2421,9 @@ ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
  * The predicate is passed in as a pointer to a function.  The function
  * definition must have the type @link ASTNode.h::ASTNodePredicate
  * ASTNodePredicate@endlink, which is defined as
- * @verbatim
+ * @code{.c}
  int (*ASTNodePredicate) (const ASTNode_t *node);
- @endverbatim
+ @endcode
  * where a return value of nonzero represents true and zero
  * represents false.
  *
@@ -2951,9 +2951,9 @@ ASTNode_isNegInfinity (const ASTNode_t *node);
  * Returns true if the given node contains a number.
  *
  * This is functionally equivalent to:
- * @verbatim
+ * @code{.c}
 ASTNode_isInteger(node) || ASTNode_isReal(node).
-@endverbatim
+@endcode
  *
  * @param node the node to query
  *
