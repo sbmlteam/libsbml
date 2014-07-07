@@ -46,6 +46,8 @@ if (NOT R_INCLUDE_DIRS)
         NAMES R.h
         PATHS /usr/include /usr/local/include /usr/share/R/include
               /Library/Frameworks/R.framework/Versions/Current/Resources/include
+              $ENV{ProgramFiles}/R/R-3.1.0/include
+              $ENV{ProgramW6432}/R/R-3.1.0/include
               $ENV{ProgramFiles}/R/R-3.0.3/include
               $ENV{ProgramW6432}/R/R-3.0.3/include
               $ENV{ProgramFiles}/R/R-2.15.3/include
@@ -72,6 +74,8 @@ if (NOT R_LIB)
 	find_library(R_LIB
 			NAMES Rlib.lib R
 			PATHS /usr/lib /usr/local/lib /usr/lib/R/lib
+            $ENV{ProgramFiles}/R/R-3.1.0/bin${R_SUFFIX}
+            $ENV{ProgramW6432}/R/R-3.1.0/bin${R_SUFFIX}
             $ENV{ProgramFiles}/R/R-3.0.3/bin${R_SUFFIX}
             $ENV{ProgramW6432}/R/R-3.0.3/bin${R_SUFFIX}
             $ENV{ProgramFiles}/R/R-2.15.3/bin${R_SUFFIX}
@@ -90,6 +94,8 @@ if (NOT R_INTERPRETER)
 	find_program(R_INTERPRETER
         NAMES R R32 R64
         PATHS 
+          $ENV{ProgramFiles}/R/R-3.1.0/bin
+          $ENV{ProgramW6432}/R/R-3.1.0/bin
           $ENV{ProgramFiles}/R/R-3.0.3/bin
           $ENV{ProgramW6432}/R/R-3.0.3/bin
           $ENV{ProgramFiles}/R/R-2.15.3/bin
