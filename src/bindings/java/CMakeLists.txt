@@ -151,6 +151,14 @@ if (LIBSBML_REMOVE_WRAPPERS)
   endforeach()
 endif(LIBSBML_REMOVE_WRAPPERS)
 
+# the Java bindings will only build if some files are generated, 
+# for those files to be generated the following python scripts are 
+# needed
+file(COPY 
+     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbmlutils.py  
+	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-class-name-list.py"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-converters-list.py"
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ####################################################################
 #
@@ -160,15 +168,27 @@ endif(LIBSBML_REMOVE_WRAPPERS)
 ADD_CUSTOM_COMMAND(	
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	       ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
+	       ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
+	       ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-class-name-list.py"
+	        "${LIBSBML_ROOT_SOURCE_DIR}/src"
+			>
+			"${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-converters-list.py"	
+	        "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+			>
+		    "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			--language java
 			--top "${LIBSBML_ROOT_SOURCE_DIR}"
 			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-		        --extra "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/libsbml-converters.txt"
+		    --extra "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
 			--output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
 			${SWIG_SWIGDOCDEFINES}
     COMMAND "${SWIG_EXECUTABLE}"
