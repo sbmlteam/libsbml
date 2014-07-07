@@ -1630,8 +1630,32 @@ public interface libsbmlConstants
     public final static boolean L3P_AVOGADRO_IS_NAME = false;
 
 
-    // XMLErrorCode_t 
-  
+    /**
+     * Treat all forms of built-in functions as referencing that function,
+     * regardless of the capitalization of that string.
+     */
+    public final static boolean L3P_COMPARE_BUILTINS_CASELESS = true;
+
+
+    /**
+     * Treat only the all-lower-case form of built-in functions as
+     * referencing that function, and all other forms of capitalization of
+     * that string as referencing user-defined functions or values.
+     */
+    public final static boolean L3P_COMPARE_BUILTINS_NONCASELESS = true;
+
+
+    // L3ParserGrammarLineType_t
+
+    /**
+     */
+    public final static int INFIX_SYNTAX_NAMED_SQUARE_BRACKETS = 0;
+    public final static int INFIX_SYNTAX_CURLY_BRACES = INFIX_SYNTAX_NAMED_SQUARE_BRACKETS + 1;
+    public final static int INFIX_SYNTAX_CURLY_BRACES_SEMICOLON = INFIX_SYNTAX_CURLY_BRACES + 1;
+
+
+    // XMLErrorCode_t
+
 
     /**
      * A value in the enumeration of all the error and warning codes
