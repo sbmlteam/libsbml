@@ -111,6 +111,8 @@ INPUT = \
   libsbml-python-reading-files.txt      \
   libsbml-release-info.txt              \
   libsbml.py                            \
+  ../../src/sbml/SBMLReader.h           \
+  ../../src/sbml/SBMLWriter.h           \
   ../../src/sbml/common/common-documentation.h \
   ../../src/sbml/common/common-sbmlerror-codes.h
 

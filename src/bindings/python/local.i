@@ -658,82 +658,21 @@ SBMLReader::readSBMLFromFile(const std::string&)
 %{
   def readSBMLFromFile(*args):
     """
-    readSBMLFromFile(self, string filename) -> SBMLDocument
+    @copydoc doc_readsbmlfromfile
 
-    Reads an SBML document from a file.
+    This method is identical to
+    SBMLReader::readSBML(@if java String@endif).
 
-    This method is identical to readSBMLFromFile().
+    @param filename the name or full pathname of the file to be read.
 
-    If the file named 'filename' does not exist or its content is not
-    valid SBML, one or more errors will be logged with the SBMLDocument
-    object returned by this method.  Callers can use the methods on
-    SBMLDocument such as SBMLDocument.getNumErrors() and
-    SBMLDocument.getError() to get the errors.  The object returned by
-    SBMLDocument.getError() is an SBMLError object, and it has methods to
-    get the error code, category, and severity level of the problem, as
-    well as a textual description of the problem.  The possible severity
-    levels range from informational messages to fatal errors; see the
-    documentation for SBMLError for more information.
+    @return a pointer to the SBMLDocument object created from the SBML
+    content in @p filename.
 
-    If the file 'filename' could not be read, the file-reading error will
-    appear first.  The error code can provide a clue about what happened.
-    For example, a file might be unreadable (either because it does not
-    actually exist or because the user does not have the necessary access
-    priviledges to read it) or some sort of file operation error may have
-    been reported by the underlying operating system.  Callers can check
-    for these situations using a program fragment such as the following:
+    @copydetails doc_note_sbmlreader_error_handling
 
-     reader = SBMLReader()
-     doc    = reader.readSBML(filename)
-
-     if doc.getNumErrors() > 0:
-       if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
-         # Handle case of unreadable file here.
-       elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
-         # Handle case of other file error here.
-       else:
-         # Handle other error cases here.
-
-    If the given filename ends with the suffix \".gz\" (for example,
-    \"myfile.xml.gz\"), the file is assumed to be compressed in gzip format
-    and will be automatically decompressed upon reading.  Similarly, if the
-    given filename ends with \".zip\" or \".bz2\", the file is assumed to be
-    compressed in zip or bzip2 format (respectively).  Files whose names
-    lack these suffixes will be read uncompressed.  Note that if the file
-    is in zip format but the archive contains more than one file, only the
-    first file in the archive will be read and the rest ignored.
-
-    To read a gzip/zip file, libSBML needs to be configured and linked with
-    the zlib library at compile time.  It also needs to be linked with the
-    bzip2 library to read files in bzip2 format.  (Both of these are the
-    default configurations for libSBML.)  Errors about unreadable files
-    will be logged if a compressed filename is given and libSBML was not
-    linked with the corresponding required library.
-
-    Parameter 'filename is the name or full pathname of the file to be
-    read.
-
-    Returns a pointer to the SBMLDocument created from the SBML content.
-
-    See also SBMLError.
-
-    Note:
-
-    LibSBML versions 2.x and later versions behave differently in
-    error handling in several respects.  One difference is how early some
-    errors are caught and whether libSBML continues processing a file in
-    the face of some early errors.  In general, libSBML versions after 2.x
-    stop parsing SBML inputs sooner than libSBML version 2.x in the face
-    of XML errors, because the errors may invalidate any further SBML
-    content.  For example, a missing XML declaration at the beginning of
-    the file was ignored by libSBML 2.x but in version 3.x and later, it
-    will cause libSBML to stop parsing the rest of the input altogether.
-    While this behavior may seem more severe and intolerant, it was
-    necessary in order to provide uniform behavior regardless of which
-    underlying XML parser (Expat, Xerces, libxml2) is being used by
-    libSBML.  The XML parsers themselves behave differently in their error
-    reporting, and sometimes libSBML has to resort to the lowest common
-    denominator.
+    @see readSBMLFromString(@if java String@endif)
+    @see SBMLError
+    @see SBMLDocument
     """
     args_copy    = list(args)
     args_copy[1] = conditional_abspath(args[1])
@@ -756,82 +695,21 @@ SBMLReader::readSBMLFromFile(const std::string&)
 %{
 def readSBML(*args):
   """
-  readSBML(self, string filename) -> SBMLDocument
+  @copydoc doc_readsbmlfromfile
 
-  Reads an SBML document from a file.
+  This method is identical to
+  SBMLReader::readSBMLFromFile(@if java String@endif).
 
-  This method is identical to readSBMLFromFile().
+  @param filename the name or full pathname of the file to be read.
 
-  If the file named 'filename' does not exist or its content is not
-  valid SBML, one or more errors will be logged with the SBMLDocument
-  object returned by this method.  Callers can use the methods on
-  SBMLDocument such as SBMLDocument.getNumErrors() and
-  SBMLDocument.getError() to get the errors.  The object returned by
-  SBMLDocument.getError() is an SBMLError object, and it has methods to
-  get the error code, category, and severity level of the problem, as
-  well as a textual description of the problem.  The possible severity
-  levels range from informational messages to fatal errors; see the
-  documentation for SBMLError for more information.
+  @return a pointer to the SBMLDocument object created from the SBML
+  content in @p filename.
 
-  If the file 'filename' could not be read, the file-reading error will
-  appear first.  The error code can provide a clue about what happened.
-  For example, a file might be unreadable (either because it does not
-  actually exist or because the user does not have the necessary access
-  priviledges to read it) or some sort of file operation error may have
-  been reported by the underlying operating system.  Callers can check
-  for these situations using a program fragment such as the following:
+  @copydetails doc_note_sbmlreader_error_handling
 
-   reader = SBMLReader()
-   doc    = reader.readSBML(filename)
-
-   if doc.getNumErrors() > 0:
-     if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
-       # Handle case of unreadable file here.
-     elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
-       # Handle case of other file error here.
-     else:
-       # Handle other error cases here.
-
-  If the given filename ends with the suffix \".gz\" (for example,
-  \"myfile.xml.gz\"), the file is assumed to be compressed in gzip format
-  and will be automatically decompressed upon reading.  Similarly, if the
-  given filename ends with \".zip\" or \".bz2\", the file is assumed to be
-  compressed in zip or bzip2 format (respectively).  Files whose names
-  lack these suffixes will be read uncompressed.  Note that if the file
-  is in zip format but the archive contains more than one file, only the
-  first file in the archive will be read and the rest ignored.
-
-  To read a gzip/zip file, libSBML needs to be configured and linked with
-  the zlib library at compile time.  It also needs to be linked with the
-  bzip2 library to read files in bzip2 format.  (Both of these are the
-  default configurations for libSBML.)  Errors about unreadable files
-  will be logged if a compressed filename is given and libSBML was not
-  linked with the corresponding required library.
-
-  Parameter 'filename is the name or full pathname of the file to be
-  read.
-
-  Returns a pointer to the SBMLDocument created from the SBML content.
-
-  See also SBMLError.
-
-  Note:
-
-  LibSBML versions 2.x and later versions behave differently in
-  error handling in several respects.  One difference is how early some
-  errors are caught and whether libSBML continues processing a file in
-  the face of some early errors.  In general, libSBML versions after 2.x
-  stop parsing SBML inputs sooner than libSBML version 2.x in the face
-  of XML errors, because the errors may invalidate any further SBML
-  content.  For example, a missing XML declaration at the beginning of
-  the file was ignored by libSBML 2.x but in version 3.x and later, it
-  will cause libSBML to stop parsing the rest of the input altogether.
-  While this behavior may seem more severe and intolerant, it was
-  necessary in order to provide uniform behavior regardless of which
-  underlying XML parser (Expat, Xerces, libxml2) is being used by
-  libSBML.  The XML parsers themselves behave differently in their error
-  reporting, and sometimes libSBML has to resort to the lowest common
-  denominator.
+  @see readSBMLFromString(@if java String@endif)
+  @see SBMLError
+  @see SBMLDocument
   """
   reader = SBMLReader()
   return reader.readSBML(args[0])
