@@ -32,9 +32,10 @@ from distutils.sysconfig import get_config_vars
 
 # remove -Wstrict-prototypes
 (opt,) = get_config_vars('OPT')
-os.environ['OPT'] = " ".join(
-    flag for flag in opt.split() if flag != '-Wstrict-prototypes'
-)
+if opt != None:
+  os.environ['OPT'] = " ".join(
+      flag for flag in opt.split() if flag != '-Wstrict-prototypes'
+  )
 
 
 
@@ -42,8 +43,8 @@ os.environ['OPT'] = " ".join(
 basepath = './base/'
 current_os = 'LINUX'
 lib_dirs =  ['/usr/lib']
-inc_dirs = ["/usr/include/libxml2"]
-libs = ["xml2", "bz2", "z"]
+inc_dirs = ['/usr/include/libxml2']
+libs = ['xml2', 'bz2', 'z']
 package_name = '"libsbml"'
 definitions = []
 packages = [
@@ -64,7 +65,7 @@ elif platform.system() == 'Windows':
   dependency_dir = 'D:\Development\libsbml_dependencies\install_vs9_release_x86'
   inc_dirs= [ dependency_dir + '/include']
   lib_dirs= [ dependency_dir + '/lib']
-  libs = ["libxml2", "libbz2", "zdll", "libiconv", "ws2_32"]
+  libs = ['libxml2', 'libbz2', 'zdll', 'libiconv', 'ws2_32']
 
 cfiles = [ basepath + 'libsbml_wrap.cpp' ]
 for root, dirs, files in os.walk(basepath + 'sbml'):
