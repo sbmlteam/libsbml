@@ -1634,7 +1634,7 @@ public interface libsbmlConstants
      * Treat all forms of built-in functions as referencing that function,
      * regardless of the capitalization of that string.
      */
-    public final static boolean L3P_COMPARE_BUILTINS_CASELESS = true;
+    public final static boolean L3P_COMPARE_BUILTINS_CASE_INSENSITIVE = true;
 
 
     /**
@@ -1642,7 +1642,7 @@ public interface libsbmlConstants
      * referencing that function, and all other forms of capitalization of
      * that string as referencing user-defined functions or values.
      */
-    public final static boolean L3P_COMPARE_BUILTINS_NONCASELESS = true;
+    public final static boolean L3P_COMPARE_BUILTINS_CASE_SENSITIVE = true;
 
 
     // L3ParserGrammarLineType_t
