@@ -286,7 +286,7 @@ typedef enum
  * @see L3ParserSettings::getComparisonCaseSensitivity()
  * @see L3ParserSettings::setComparisonCaseSensitivity()
  */
-#define L3P_COMPARE_BUILTINS_CASE_SENSITIVE true
+#define L3P_COMPARE_BUILTINS_CASE_INSENSITIVE false
 
 /**
  * Treat only the all-lower-case form of built-in functions as referencing
@@ -296,7 +296,7 @@ typedef enum
  * @see L3ParserSettings::getComparisonCaseSensitivity()
  * @see L3ParserSettings::setComparisonCaseSensitivity()
  */
-#define L3P_COMPARE_BUILTINS_CASE_INSENSITIVE false
+#define L3P_COMPARE_BUILTINS_CASE_SENSITIVE true
 
 
 typedef enum
@@ -403,6 +403,13 @@ public:
    * the symbol is interpreted as the SBML/MathML @em csymbol @c avogadro; if
    * set to the value @sbmlconstant{L3P_AVOGADRO_IS_NAME,}, the symbol is
    * interpreted as a plain symbol name.
+   *
+   * @param caseSensitive a flag that controls how the
+   * parser will handle case sensitivity of any function name.
+   * If set to the value @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_INSENSITIVE,},
+   * the name is interpreted as teh relevant math function regardless of case; if
+   * set to the value @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,}, the name is
+   * interpreted as a user defined function unless it is all lower case.
    *
    * @param sbmlns ("SBML namespaces") an SBML namespaces object.  The
    * namespaces identify the SBML Level&nbsp;3 packages that can extend the
@@ -652,8 +659,8 @@ public:
    *
    * @copydetails doc_case_sensitivity
    *
-   * @param strcmp a boolean indicating whether to be case insensitive (if @c
-   * true) or be case sensitive (if @c false).
+   * @param strcmp a boolean indicating whether to be case sensitive (if @c
+   * true) or be case insensitive (if @c false).
    *
    * @see getComparisonCaseSensitivity()
    */
@@ -666,9 +673,9 @@ public:
    *
    * @copydetails doc_case_sensitivity
    *
-   * @return @c true if the parser will recognize built-in functions and
-   * constants regardless of case, and @c false if matches are done in a
-   * a case-sensitive manner.
+   * @return @c true if matches are done in a case-sensitive manner, and 
+   * @c false if the parser will recognize built-in functions and
+   * constants regardless of case,.
    *
    * @see setComparisonCaseSensitivity(@if java boolean@endif)
    */
