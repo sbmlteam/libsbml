@@ -269,6 +269,26 @@ typedef enum
 #define L3P_AVOGADRO_IS_NAME    false
 
 
+/**
+ * Treat all forms of built-in functions as referencing that function, 
+ * regardless of the capitalization of that string.
+ *
+ * @see L3ParserSettings::getStrCmpIsCaseless()
+ * @see L3ParserSettings::setStrCmpIsCaseless()
+ */
+#define L3P_COMPARE_BUILTINS_CASELESS true
+
+/**
+ * Treat only the all-lower-case form of built-in functions as referencing
+ * that function, and all other forms of capitalization of that string
+ * as referencing user-defined functions or values.
+ *
+ * @see L3ParserSettings::getStrCmpIsCaseless()
+ * @see L3ParserSettings::setStrCmpIsCaseless()
+ */
+#define L3P_COMPARE_BUILTINS_NONCASELESS false
+
+
 typedef enum
 {
     INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
@@ -299,6 +319,7 @@ private:
   bool mCollapseminus;
   bool mParseunits;
   bool mAvoCsymbol;
+  bool mStrCmpIsCaseless;
   std::vector<ASTBasePlugin*> mPlugins;
 
   /** @endcond */
@@ -613,6 +634,36 @@ public:
    */
   bool getParseAvogadroCsymbol() const;
 
+
+  /**
+   * Sets the parser's behavior in handling the string comparison of built-in functions.
+   *
+   * By default, the parser will compare strings caselessly for built-in functions 
+   * such as 'sin' and 'piecewise', and for constants such as 'true' and 'avogadro'.
+   *
+   * With this option set 'false', you can force the string comparison to only match
+   * lower-case strings, so (for example) 'sin' and 'true' will match the built-in
+   * values, but 'SIN' and 'TRUE' will not.
+   *
+   * @see getStrCmpIsCaseless()
+   */
+  void setStrCmpIsCaseless(bool strcmp);
+
+
+  /**
+   * Returns @c true if the current settings compare built-in functions and 
+   * constants caselessly, @c false if not.
+   *
+   * By default, the parser will compare strings caselessly for built-in functions 
+   * such as 'sin' and 'piecewise', and for constants such as 'true' and 'avogadro'.
+   *
+   * With this option set 'false', you can force the string comparison to only match
+   * lower-case strings, so (for example) 'sin' and 'true' will match the built-in
+   * values, but 'SIN' and 'TRUE' will not.
+   *
+   * @see setStrCmpIsCaseless()(@if java boolean l2only@endif)
+   */
+  bool getStrCmpIsCaseless() const;
 
   /**
    * Set up the plugins for this L3ParserSettings, based on the

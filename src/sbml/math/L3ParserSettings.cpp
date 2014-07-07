@@ -263,6 +263,17 @@ void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
 }
 /** @endcond */
 
+void L3ParserSettings::setStrCmpIsCaseless(bool strcmp)
+{
+  mStrCmpIsCaseless = strcmp;
+}
+
+bool L3ParserSettings::getStrCmpIsCaseless() const
+{
+  return mStrCmpIsCaseless;
+}
+
+
 #endif /* __cplusplus */
 
 
