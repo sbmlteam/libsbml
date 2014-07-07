@@ -786,6 +786,11 @@ endef
 SBMLDoclet.class: SBMLDoclet.java
 	$(JAVAC) -nowarn -cp $(JAVADOC_JAR) $<
 
+# Rerun configure if needed.
+
+java-substitutions/libsbmlConstants.java: java-substitutions/libsbmlConstants.java.in
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
+
 # There are certain things I can't figure out how to make compatible
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
@@ -810,7 +815,8 @@ java-subst-dir	    = java-substitutions
 java-class-path	    = org/sbml/libsbml
 java-constants-file = $(java-source-dir)/org/sbml/libsbml/libsbmlConstants.java
 
-java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class
+java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
+    java-substitutions/libsbmlConstants.java
 	$(call compare_constants,$(java-constants-file),$(java-subst-dir)/libsbmlConstants.java)
 	rm -rf $(java-local-dir)
 	mkdir -p $(java-local-dir)/$(java-class-path)
