@@ -1228,6 +1228,9 @@
  * be treated as an ASTNode of type
  * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t} or of type
  * @sbmlconstant{AST_NAME, ASTNodeType_t}.
+ * @li Strings that match built-in functions and constants can either be parsed
+ * as a match regardless of capitalization, or may be required to be
+ * all-lower-case to be considered a match.  
  * @li LibSBML plug-ins implementing support for SBML Level&nbsp;3 packages
  * may introduce extensions to the syntax understood by the parser.  The
  * precise nature of the extensions will be documented by the individual

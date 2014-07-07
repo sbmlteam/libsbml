@@ -16,6 +16,10 @@ STABLE RELEASE
     and evaluateASTNode.  Examples of using these functions 
     are also provided.
 	
+  - The L3ParserSettings object can now be configured to compare
+    built-in functions and constants caselessly (as it did in the
+    past; the default), or to only accept the lower-case forms.
+
   - 'layout' package-specific updates:
   
     - The C API has been improved and appropriate argument checking
@@ -63,6 +67,9 @@ STABLE RELEASE
   - LibSBML incorrectly reported the units of 'pi' as radians. This
     has been corrected to report 'dimensionless'.  Thanks to Matthias
     König for reporting this.
+
+  - The L3 parser did not recognize 'arcsinh' or 'asinh' as valid
+    built-in functions.  This has been fixed.
 
   - 'comp' package-specific bug fixes:
   
