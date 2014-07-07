@@ -729,7 +729,7 @@ private:
    * The generic parsing function for grammar lines that packages recognize,
    * but not core.  When a package recognizes the 'type', it will parse and
    * return the correct ASTNode.  If it does not recognize the 'type', or if
-   * the arguments are incorrect, NULL is returend.
+   * the arguments are incorrect, NULL is returned.
    */
   virtual ASTNode* parsePackageInfix(L3ParserGrammarLineType_t type, 
                                      std::vector<ASTNode*> *nodeList = NULL,
