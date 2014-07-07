@@ -483,7 +483,7 @@ TransformationComponents::writeAttributes (XMLOutputStream& stream) const
 void
 TransformationComponents::write(XMLOutputStream& stream) const
 {
-  stream.startElement(getElementName());
+  stream.startElement(getElementName(), getPrefix());
   writeAttributes(stream);
   if(isSetComponents())
   {
@@ -492,7 +492,7 @@ TransformationComponents::write(XMLOutputStream& stream) const
       stream << (double)mComponents[i] << " ";
     }
   }
-  stream.endElement(getElementName());
+  stream.endElement(getElementName(), getPrefix());
 }
 
 

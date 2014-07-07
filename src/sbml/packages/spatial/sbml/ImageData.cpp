@@ -44,14 +44,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
-* Creates a new ImageData with the given level, version, and package version.
-*/
-ImageData::ImageData(unsigned int level, unsigned int version, unsigned int pkgVersion)
-: SBase(level, version)
-, mSamples(NULL)
-, mSamplesLength(SBML_INT_MAX)
-, mIsSetSamplesLength(false)
-, mDataType("")
+ * Creates a new ImageData with the given level, version, and package version.
+ */
+ImageData::ImageData (unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : SBase(level, version)
+  , mSamples (NULL)
+  , mSamplesLength (SBML_INT_MAX)
+  , mIsSetSamplesLength (false)
+  , mDataType ("")
 , mUncompressedSamples(NULL)
 , mUncompressedLength(0)
 {
@@ -61,14 +61,14 @@ ImageData::ImageData(unsigned int level, unsigned int version, unsigned int pkgV
 
 
 /*
-* Creates a new ImageData with the given SpatialPkgNamespaces object.
-*/
-ImageData::ImageData(SpatialPkgNamespaces* spatialns)
+ * Creates a new ImageData with the given SpatialPkgNamespaces object.
+ */
+ImageData::ImageData (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mSamples(NULL)
-  , mSamplesLength(SBML_INT_MAX)
-  , mIsSetSamplesLength(false)
-  , mDataType("")
+  , mSamples (NULL)
+  , mSamplesLength (SBML_INT_MAX)
+  , mIsSetSamplesLength (false)
+  , mDataType ("")
   , mUncompressedSamples(NULL)
   , mUncompressedLength(0)
 {
@@ -81,9 +81,9 @@ ImageData::ImageData(SpatialPkgNamespaces* spatialns)
 
 
 /*
-* Copy constructor for ImageData.
-*/
-ImageData::ImageData(const ImageData& orig)
+ * Copy constructor for ImageData.
+ */
+ImageData::ImageData (const ImageData& orig)
   : SBase(orig)
 {
   if (&orig == NULL)
@@ -92,11 +92,11 @@ ImageData::ImageData(const ImageData& orig)
   }
   else
   {
-    mSamples = NULL;
+    mSamples  = NULL;
     setSamples(orig.mSamples, orig.mSamplesLength);
-    mSamplesLength = orig.mSamplesLength;
-    mIsSetSamplesLength = orig.mIsSetSamplesLength;
-    mDataType = orig.mDataType;
+    mSamplesLength  = orig.mSamplesLength;
+    mIsSetSamplesLength  = orig.mIsSetSamplesLength;
+    mDataType  = orig.mDataType;
     mUncompressedSamples = NULL;
     mUncompressedLength = 0;
   }
@@ -104,8 +104,8 @@ ImageData::ImageData(const ImageData& orig)
 
 
 /*
-* Assignment for ImageData.
-*/
+ * Assignment for ImageData.
+ */
 ImageData&
 ImageData::operator=(const ImageData& rhs)
 {
@@ -116,17 +116,16 @@ ImageData::operator=(const ImageData& rhs)
   else if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mSamples = NULL;
+    mSamples  = NULL;
     setSamples(rhs.mSamples, rhs.mSamplesLength);
-    mSamplesLength = rhs.mSamplesLength;
-    mIsSetSamplesLength = rhs.mIsSetSamplesLength;
-    mDataType = rhs.mDataType;
+    mSamplesLength  = rhs.mSamplesLength;
+    mIsSetSamplesLength  = rhs.mIsSetSamplesLength;
+    mDataType  = rhs.mDataType;
     mUncompressedSamples = NULL;
     mUncompressedLength = 0;
   }
   return *this;
 }
-
 
 
 /*
@@ -573,7 +572,7 @@ ImageData::writeAttributes (XMLOutputStream& stream) const
 void
 ImageData::write(XMLOutputStream& stream) const
 {
-  stream.startElement(getElementName());
+  stream.startElement(getElementName(), getPrefix());
   writeAttributes(stream);
   if(isSetSamples())
   {
@@ -582,7 +581,7 @@ ImageData::write(XMLOutputStream& stream) const
       stream << (long)mSamples[i] << " ";
     }
   }
-  stream.endElement(getElementName());
+  stream.endElement(getElementName(), getPrefix());
 }
 
 

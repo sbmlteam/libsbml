@@ -461,7 +461,7 @@ PolygonObject::writeAttributes (XMLOutputStream& stream) const
 void
 PolygonObject::write(XMLOutputStream& stream) const
 {
-  stream.startElement(getElementName());
+  stream.startElement(getElementName(), getPrefix());
   writeAttributes(stream);
   if(isSetPointIndex())
   {
@@ -470,7 +470,7 @@ PolygonObject::write(XMLOutputStream& stream) const
       stream << (long)mPointIndex[i] << " ";
     }
   }
-  stream.endElement(getElementName());
+  stream.endElement(getElementName(), getPrefix());
 }
 
 
