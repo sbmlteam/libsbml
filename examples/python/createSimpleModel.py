@@ -46,7 +46,7 @@ from libsbml import *
 def check(value, message):
   """If the value is None, prints the message and exit with status code 1.
   If the value is an integer, checks if it's equal to LIBSBML_OPERATION_SUCCESS.
-  If if is, returns without further action; if it's a different integer, prints
+  If it is, returns without further action; if it's a different integer, prints
   the message along with text from libSBML explaining the meaning of the code,
   and exits with status code 1.
   """
