@@ -37,21 +37,22 @@
  *
  * The SBMLReader class provides the main interface for reading SBML content
  * from files and strings.  The methods for reading SBML all return an
- * SBMLDocument object representing the results.  In the case of failures
- * (such as if the SBML contains errors or a file cannot be read), the errors
- * will be recorded with the SBMLErrorLog object kept in the SBMLDocument
+ * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
+ * object representing the results.  In the case of failures (such as if the
+ * SBML contains errors or a file cannot be read), the errors will be
+ * recorded with the SBMLErrorLog object kept in the
+ * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
  * returned by SBMLReader.  Consequently, immediately after calling a method
  * on SBMLReader, callers should always check for errors and warnings using
- * the methods for this purpose provided by SBMLDocument.
+ * the methods for this purpose provided by @if python @link
+ * libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif.
  *
  * For convenience as well as easy access from other languages besides C++,
- * this file also defines two global functions,
- * libsbml::readSBML(@if java String@endif)
- * and libsbml::readSBMLFromString(@if java String@endif).
- * They are equivalent to creating an SBMLReader object and then calling the
- * SBMLReader::readSBML(@if java String@endif) or
- * SBMLReader::readSBMLFromString(@if java String@endif) methods,
- * respectively.
+ * this file also defines two global functions, @sbmlfunction{readSBML,
+ * String} and @sbmlfunction{readSBMLFromString, String}.  They are
+ * equivalent to creating an SBMLReader object and then calling the
+ * @if python @link SBMLReader::readSBML() SBMLReader.readSBML()@endlink@endif@if java SBMLReader::readSBML(String)@endif@if cpp SBMLReader::readSBML()@endif@if csharp SBMLReader.readSBML()@endif@~ and
+ * @if python @link SBMLReader::readSBMLFromString() SBMLReader.readSBMLFromString()@endlink@endif@if java SBMLReader::readSBMLFromString(String)@endif@if cpp SBMLReader::readSBMLFromString()@endif@if csharp SBMLReader.readSBMLFromString()@endif@~ methods, respectively.
  *
  * @section compression Support for reading compressed files
  *
@@ -61,17 +62,17 @@
  * deliberate to invoke the functionality.  If a given SBML filename ends
  * with an extension for the @em gzip, @em zip or @em bzip2 compression
  * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
- * SBMLReader::readSBML(@if java String@endif) and
- * SBMLWriter::writeSBML(@if java SBMLDocument, String@endif)
- * will automatically decompress and compress the file while writing and
- * reading it.  If the filename has no such extension, it
- * will be read and written uncompressed as normal.
+ * @if python @link SBMLReader::readSBML() SBMLReader.readSBML()@endlink@endif@if java @link SBMLReader::readSBML(String) SBMLReader.readSBML(String)@endlink@endif@if cpp SBMLReader::readSBML()@endif@if csharp SBMLReader.readSBML()@endif@~ and
+ * @if python @link SBMLWriter::writeSBML() SBMLWriter.writeSBML()@endlink@endif@if java @link SBMLWriter::writeSBML(String) SBMLWriter.writeSBML(String)@endlink@endif@if cpp SBMLWriter::writeSBML()@endif@if csharp SBMLWriter.writeSBML()@endif@~
+ * will automatically decompress and compress the file while reading and
+ * writing it.  If the filename has no such extension, it will be read and
+ * written uncompressed as normal.
  *
  * The compression feature requires that the @em zlib (for @em gzip and @em
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
  * support compiled-in.  Please see the libSBML
- * @if java <a href="../../../libsbml-installation.html">installation instructions</a> @else <a href="libsbml-installation.html">installation instructions</a> @endif@~
+ * @if java <a href="../../../libsbml-installation.html">installation instructions</a> @else <a href="libsbml-installation.html">installation instructions</a>@endif@~
  * for more information about this.  The methods
  * @if java SBMLReader::hasZlib()@else hasZlib()@endif@~ and
  * @if java SBMLReader::hasBzip2()@else hasBzip2()@endif@~
@@ -130,19 +131,25 @@
  * Reads an SBML document from the given file.
  *
  * If the file named @p filename does not exist or its content is not
- * valid SBML, one or more errors will be logged with the SBMLDocument
+ * valid SBML, one or more errors will be logged with the
+ * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~
  * object returned by this method.  Callers can use the methods on
- * SBMLDocument such as SBMLDocument::getNumErrors() and
- * SBMLDocument::getError(@if java long@endif) to get the errors.
- * The object returned by SBMLDocument::getError(@if java long@endif) is an
- * SBMLError object, and it has methods to get the error code, category, and
- * severity level of the problem, as well as a textual description of the
- * problem.  The possible severity levels range from informational messages
- * to fatal errors; see the documentation for SBMLError for more information.
+ * @if python @link libsbml.SBMLDocument SBMLDocument@endlink@else SBMLDocument@endif@~ such as
+ * @if python @link libsbml.SBMLDocument.getNumErrors() SBMLDocument.getNumErrors()@endlink@else SBMLDocument::getNumErrors()@endif@~
+ * and
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@if java SBMLDocument::getError(long)@endif@if cpp SBMLDocument::getError()@endif@if csharp SBMLDocument::getError()@endif@~
+ * to get the errors.  The object returned by
+ * @if python @link libsbml.SBMLDocument.getError() SBMLDocument.getError()@endlink@endif@if java SBMLDocument::getError(long)@endif@if cpp SBMLDocument::getError()@endif@if csharp SBMLDocument::getError()@endif@~
+ * is an SBMLError object, and it has methods to get the error code,
+ * category, and severity level of the problem, as well as a textual
+ * description of the problem.  The possible severity levels range from
+ * informational messages to fatal errors; see the documentation for
+ * @if python @link libsbml.SBMLError SBMLError@endlink@else SBMLError@endif@~
+ * for more information.
  *
  * If the file @p filename could not be read, the file-reading error will
  * appear first.  The error code @if clike (a value drawn from the
- * enumeration #XMLErrorCode_t) @endif@~ can provide a clue about what
+ * enumeration #XMLErrorCode_t)@endif@~ can provide a clue about what
  * happened.  For example, a file might be unreadable (either because it does
  * not actually exist or because the user does not have the necessary access
  * priviledges to read it) or some sort of file operation error may have been
@@ -334,7 +341,7 @@ public:
    * @copydoc doc_readsbmlfromfile
    *
    * This method is identical to
-   * SBMLReader::readSBMLFromFile(@if java String@endif).
+   * @if python @link SBMLReader::readSBMLFromFile() SBMLReader.readSBMLFromFile()@endlink@endif@if java @link SBMLReader::readSBMLFromFile(String) SBMLReader.readSBMLFromFile(String)@endlink@endif@if cpp SBMLReader::readSBMLFromFile()@endif@if csharp SBMLReader.readSBMLFromFile()@endif.
    *
    * @param filename the name or full pathname of the file to be read.
    *
@@ -354,7 +361,7 @@ public:
    * @copydoc doc_readsbmlfromfile
    *
    * This method is identical to
-   * SBMLReader::readSBML(@if java String@endif).
+   * @if python @link SBMLReader::readSBML() SBMLReader.readSBML()@endlink@endif@if java @link SBMLReader::readSBML(String) SBMLReader.readSBML(String)@endlink@endif@if cpp SBMLReader::readSBML()@endif@if csharp SBMLReader.readSBML()@endif.
    *
    * @param filename the name or full pathname of the file to be read.
    *
@@ -394,7 +401,7 @@ public:
    *
    * @copydetails doc_note_static_methods
    *
-   * @see @if clike hasBzip2() @else SBMLReader::hasBzip2() @endif@~
+   * @see @if clike hasBzip2() @else SBMLReader::hasBzip2()@endif@~
    */
   static bool hasZlib();
 
@@ -408,7 +415,7 @@ public:
    *
    * @copydetails doc_note_static_methods
    *
-   * @see @if clike hasZlib() @else SBMLReader::hasZlib() @endif@~
+   * @see @if clike hasZlib() @else SBMLReader::hasZlib()@endif@~
    */
   static bool hasBzip2();
 
@@ -419,7 +426,7 @@ protected:
   /**
    * Used by readSBML() and readSBMLFromString().
    *
-   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html@endif@~
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 
