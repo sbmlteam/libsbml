@@ -4815,6 +4815,18 @@ L3P_COMPARE_BUILTINS_NONCASELESS = _libsbml.L3P_COMPARE_BUILTINS_NONCASELESS
     ## that function, and all other forms of capitalization of that string
     ## as referencing user-defined functions or values.
 
+INFIX_SYNTAX_NAMED_SQUARE_BRACKETS = _libsbml.INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
+    ## @var long INFIX_SYNTAX_NAMED_SQUARE_BRACKETS
+    ##
+
+INFIX_SYNTAX_CURLY_BRACES = _libsbml.INFIX_SYNTAX_CURLY_BRACES
+    ## @var long INFIX_SYNTAX_CURLY_BRACES
+    ##
+
+INFIX_SYNTAX_CURLY_BRACES_SEMICOLON = _libsbml.INFIX_SYNTAX_CURLY_BRACES_SEMICOLON
+    ## @var long INFIX_SYNTAX_CURLY_BRACES_SEMICOLON
+    ##
+
 MODEL_QUALIFIER = _libsbml.MODEL_QUALIFIER
     ## @var long MODEL_QUALIFIER
     ##
