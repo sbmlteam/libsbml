@@ -51,13 +51,14 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 class AnalyticGeometry;
 class SampledFieldGeometry;
 class CSGeometry;
 class ParametricGeometry;
-
-
-LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 class LIBSBML_EXTERN GeometryDefinition : public SBase

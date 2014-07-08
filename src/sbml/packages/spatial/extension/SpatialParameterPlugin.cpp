@@ -740,12 +740,6 @@ SpatialParameterPlugin::accept(SBMLVisitor& v) const
 
 
 
-LIBSBML_CPP_NAMESPACE_END
-
-
-#endif /* __cplusplus */
-
-
 /* 
  * @return true, if either the spatial symbol reference, diffusion coefficient, 
  *   advection coefficient or boundary is set. Otherwise the return value is false.
@@ -787,3 +781,11 @@ SpatialParameterPlugin::getType() const
   }    
   return -1;
 }
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
+#endif /* __cplusplus */
+
+
