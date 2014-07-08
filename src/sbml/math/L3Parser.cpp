@@ -2667,7 +2667,8 @@ int L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "minus"))    return AST_MINUS;
   if (l3StrCmp(name, "plus"))     return AST_PLUS;
   if (l3StrCmp(name, "times"))    return AST_TIMES;
-  return AST_UNKNOWN;
+
+  return currentSettings->getPackageFunctionFor(name);
 }
 
 ASTNode* L3Parser::createModuloTree(ASTNode* x, ASTNode* y) const
