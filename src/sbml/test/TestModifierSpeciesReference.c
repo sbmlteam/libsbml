@@ -85,7 +85,7 @@ START_TEST (test_ModifierSpeciesReference_create)
 
   fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR) );
 
-  fail_unless( SpeciesReference_isModifier(MSR) );
+  fail_unless( SpeciesReference_isModifier((SpeciesReference_t*)(MSR)) );
 }
 END_TEST
 

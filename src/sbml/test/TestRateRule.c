@@ -188,9 +188,9 @@ START_TEST (test_RateRule_createWithNS )
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Rule_getNamespaces     ((Rule_t*)object) != NULL );
-  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(object)) == 2 );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces((Rule_t*)(object))) == 2 );
 
-  Rule_free(object);
+  Rule_free((Rule_t*)(object));
 }
 END_TEST
 

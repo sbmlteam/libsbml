@@ -69,7 +69,7 @@ AlgebraicRuleTest_setup (void)
 void
 AlgebraicRuleTest_teardown (void)
 {
-  Rule_free(AR);
+  Rule_free((Rule_t*)(AR));
 }
 
 
@@ -157,11 +157,11 @@ START_TEST (test_AlgebraicRule_createWithNS )
   fail_unless( SBase_getLevel       ((SBase_t *) r) == 2 );
   fail_unless( SBase_getVersion     ((SBase_t *) r) == 3 );
 
-  fail_unless( Rule_getNamespaces     (r) != NULL );
-  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces(r)) == 2 );
+  fail_unless( Rule_getNamespaces     ((Rule_t*)(r)) != NULL );
+  fail_unless( XMLNamespaces_getLength(Rule_getNamespaces((Rule_t*)(r))) == 2 );
 
 
-  Rule_free(r);
+  Rule_free((Rule_t*)(r));
 }
 END_TEST
 
