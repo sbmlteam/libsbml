@@ -57,7 +57,7 @@ static SBMLDocument* d;
  * e.g. times
  */
 BEGIN_C_DECLS
-static 
+
 
 void
 UnitFormulaFormatter3Test_setup (void)
