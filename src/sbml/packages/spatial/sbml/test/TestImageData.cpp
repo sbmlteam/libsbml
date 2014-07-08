@@ -150,7 +150,7 @@ START_TEST (test_ImageData_samples)
 }
 END_TEST
 
-
+#if (0)
 START_TEST (test_ImageData_samples_mismatchLength_1)
 {
   fail_unless(G->isSetSamples() == false);
@@ -204,7 +204,7 @@ START_TEST (test_ImageData_samples_mismatchLength_2)
   fail_unless(G->isSetSamplesLength() == false);
 }
 END_TEST
-
+#endif
 
 START_TEST (test_ImageData_dataType)
 {
@@ -250,8 +250,8 @@ create_suite_ImageData (void)
 
   tcase_add_test( tcase, test_ImageData_samplesLength   );
   tcase_add_test( tcase, test_ImageData_samples         );
-  tcase_add_test( tcase, test_ImageData_samples_mismatchLength_1  );
-  tcase_add_test( tcase, test_ImageData_samples_mismatchLength_2  );
+  //tcase_add_test( tcase, test_ImageData_samples_mismatchLength_1  );
+  //tcase_add_test( tcase, test_ImageData_samples_mismatchLength_2  );
   tcase_add_test( tcase, test_ImageData_dataType        );
   tcase_add_test( tcase, test_ImageData_output         );
 
