@@ -1726,7 +1726,7 @@ START_TEST (test_ASTNode_setType_2)
   fail_unless( ASTNode_getInteger(node) == 1);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_REAL);
 
@@ -1734,7 +1734,7 @@ START_TEST (test_ASTNode_setType_2)
   fail_unless( ASTNode_getInteger(node) == 0);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -1761,7 +1761,7 @@ START_TEST (test_ASTNode_setType_3)
   fail_unless( util_isEqual(ASTNode_getReal(node), 23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_RATIONAL);
 
@@ -1774,7 +1774,7 @@ START_TEST (test_ASTNode_setType_3)
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -1794,7 +1794,7 @@ START_TEST (test_ASTNode_setType_4)
   fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 0);
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( ASTNode_getReal(node) == 0);
@@ -1807,7 +1807,7 @@ START_TEST (test_ASTNode_setType_4)
   fail_unless( util_isEqual(ASTNode_getReal(node), 6.02214179e23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 1);
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -1829,7 +1829,7 @@ START_TEST (test_ASTNode_setType_5)
 
   fail_unless( ASTNode_getType(node) == AST_CONSTANT_PI );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 1);
   fail_unless( ASTNode_getInteger(node) == 0);
 
@@ -1839,7 +1839,7 @@ START_TEST (test_ASTNode_setType_5)
   fail_unless( ASTNode_getType(node) == AST_INTEGER );
   fail_unless( ASTNode_getInteger(node) == 0);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 0);
 
 
@@ -1860,7 +1860,7 @@ START_TEST (test_ASTNode_setType_6)
 
   fail_unless( ASTNode_getType(node) == AST_NAME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "my_url") == 0);
@@ -1870,7 +1870,7 @@ START_TEST (test_ASTNode_setType_6)
   fail_unless( ASTNode_getType(node) == AST_INTEGER );
   fail_unless( ASTNode_getInteger(node) == 0);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
@@ -1893,7 +1893,7 @@ START_TEST (test_ASTNode_setType_7)
   fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -1904,7 +1904,7 @@ START_TEST (test_ASTNode_setType_7)
   fail_unless( ASTNode_getType(node) == AST_REAL );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( ASTNode_getName(node) == NULL);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -1935,7 +1935,7 @@ START_TEST (test_ASTNode_setType_8)
   fail_unless( util_isEqual(ASTNode_getReal(node), 23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
                       "") == 0);
 
@@ -1950,7 +1950,7 @@ START_TEST (test_ASTNode_setType_8)
   fail_unless( util_isEqual(ASTNode_getReal(node), 6.02214179e23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
                       "http://www.sbml.org/sbml/symbols/avogadro") == 0);
 
@@ -1980,7 +1980,7 @@ START_TEST (test_ASTNode_setType_9)
   fail_unless( util_isEqual(ASTNode_getReal(node), 23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_NAME);
 
@@ -1993,7 +1993,7 @@ START_TEST (test_ASTNode_setType_9)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2021,7 +2021,7 @@ START_TEST (test_ASTNode_setType_10)
   fail_unless( util_isEqual(ASTNode_getReal(node), 23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_PLUS);
 
@@ -2034,7 +2034,7 @@ START_TEST (test_ASTNode_setType_10)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2062,7 +2062,7 @@ START_TEST (test_ASTNode_setType_11)
   fail_unless( util_isEqual(ASTNode_getReal(node), 2.3));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_FUNCTION_COS);
 
@@ -2075,7 +2075,7 @@ START_TEST (test_ASTNode_setType_11)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2103,7 +2103,7 @@ START_TEST (test_ASTNode_setType_12)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_DIVIDE);
 
@@ -2116,7 +2116,7 @@ START_TEST (test_ASTNode_setType_12)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2136,7 +2136,7 @@ START_TEST (test_ASTNode_setType_13)
 
   fail_unless( ASTNode_getType(node) == AST_NAME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "my_url") == 0);
@@ -2145,7 +2145,7 @@ START_TEST (test_ASTNode_setType_13)
 
   fail_unless( ASTNode_getType(node) == AST_FUNCTION );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "my_url") == 0);
@@ -2168,7 +2168,7 @@ START_TEST (test_ASTNode_setType_14)
   fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2179,7 +2179,7 @@ START_TEST (test_ASTNode_setType_14)
   fail_unless( ASTNode_getType(node) == AST_LAMBDA );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2203,7 +2203,7 @@ START_TEST (test_ASTNode_setType_15)
   fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2214,7 +2214,7 @@ START_TEST (test_ASTNode_setType_15)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_PIECEWISE );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2238,7 +2238,7 @@ START_TEST (test_ASTNode_setType_16)
   fail_unless( ASTNode_getType(node) == AST_NAME_TIME );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2249,7 +2249,7 @@ START_TEST (test_ASTNode_setType_16)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_DELAY );
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getName(node), "t") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( ASTNode_getReal(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2280,7 +2280,7 @@ START_TEST (test_ASTNode_setType_17)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "mole") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
                       "") == 0);
 
@@ -2295,7 +2295,7 @@ START_TEST (test_ASTNode_setType_17)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
                       "http://www.sbml.org/sbml/symbols/delay") == 0);
 
@@ -2322,7 +2322,7 @@ START_TEST (test_ASTNode_setType_18)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_INTEGER);
 
@@ -2335,7 +2335,7 @@ START_TEST (test_ASTNode_setType_18)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2360,7 +2360,7 @@ START_TEST (test_ASTNode_setType_19)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_RATIONAL);
 
@@ -2373,7 +2373,7 @@ START_TEST (test_ASTNode_setType_19)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2398,7 +2398,7 @@ START_TEST (test_ASTNode_setType_20)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_REAL_E);
 
@@ -2411,7 +2411,7 @@ START_TEST (test_ASTNode_setType_20)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2436,7 +2436,7 @@ START_TEST (test_ASTNode_setType_21)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_setType(node, AST_REAL);
 
@@ -2449,7 +2449,7 @@ START_TEST (test_ASTNode_setType_21)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
 
   ASTNode_free(node);
@@ -2474,7 +2474,7 @@ START_TEST (test_ASTNode_setType_22)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 0);
 
@@ -2490,7 +2490,7 @@ START_TEST (test_ASTNode_setType_22)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 1);
 
@@ -2517,7 +2517,7 @@ START_TEST (test_ASTNode_setType_23)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 0);
 
   ASTNode_setType(node, AST_CONSTANT_E);
@@ -2531,7 +2531,7 @@ START_TEST (test_ASTNode_setType_23)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_isConstant(node) == 1);
 
 
@@ -2557,7 +2557,7 @@ START_TEST (test_ASTNode_setType_24)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
@@ -2574,7 +2574,7 @@ START_TEST (test_ASTNode_setType_24)
   fail_unless( util_isEqual(ASTNode_getReal(node), 6.02214179e23));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "avogadro") == 0);
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2604,7 +2604,7 @@ START_TEST (test_ASTNode_setType_25)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
@@ -2621,7 +2621,7 @@ START_TEST (test_ASTNode_setType_25)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2651,7 +2651,7 @@ START_TEST (test_ASTNode_setType_26)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "delay") == 0);
   fail_unless( ASTNode_isName(node) == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2668,7 +2668,7 @@ START_TEST (test_ASTNode_setType_26)
   fail_unless( util_isEqual(ASTNode_getReal(node), 0));
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
   fail_unless( strcmp(ASTNode_getUnits(node), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( ASTNode_isName(node) == 1);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
@@ -2693,14 +2693,14 @@ START_TEST (test_ASTNode_setType_27)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2,(SBase_t*)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_PLUS );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -2715,7 +2715,7 @@ START_TEST (test_ASTNode_setType_27)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t*)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_FUNCTION_COS);
@@ -2723,7 +2723,7 @@ START_TEST (test_ASTNode_setType_27)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_COS );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -2738,7 +2738,7 @@ START_TEST (test_ASTNode_setType_27)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -2762,14 +2762,14 @@ START_TEST (test_ASTNode_setType_28)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_DIVIDE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -2784,7 +2784,7 @@ START_TEST (test_ASTNode_setType_28)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_RELATIONAL_NEQ);
@@ -2792,7 +2792,7 @@ START_TEST (test_ASTNode_setType_28)
   fail_unless( ASTNode_getType(node) == AST_RELATIONAL_NEQ );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -2807,7 +2807,7 @@ START_TEST (test_ASTNode_setType_28)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -2831,14 +2831,14 @@ START_TEST (test_ASTNode_setType_29)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_DIVIDE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -2853,7 +2853,7 @@ START_TEST (test_ASTNode_setType_29)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_LOGICAL_OR);
@@ -2861,7 +2861,7 @@ START_TEST (test_ASTNode_setType_29)
   fail_unless( ASTNode_getType(node) == AST_LOGICAL_OR );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -2876,7 +2876,7 @@ START_TEST (test_ASTNode_setType_29)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -2900,14 +2900,14 @@ START_TEST (test_ASTNode_setType_30)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_DIVIDE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -2922,7 +2922,7 @@ START_TEST (test_ASTNode_setType_30)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_FUNCTION);
@@ -2930,7 +2930,7 @@ START_TEST (test_ASTNode_setType_30)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -2945,7 +2945,7 @@ START_TEST (test_ASTNode_setType_30)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -2969,14 +2969,14 @@ START_TEST (test_ASTNode_setType_31)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_DELAY );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "delay") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
     "http://www.sbml.org/sbml/symbols/delay") == 0);
@@ -2994,7 +2994,7 @@ START_TEST (test_ASTNode_setType_31)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_FUNCTION);
@@ -3002,7 +3002,7 @@ START_TEST (test_ASTNode_setType_31)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( ASTNode_getName(node) == NULL);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
     "http://www.sbml.org/sbml/symbols/delay") == 0);
@@ -3020,7 +3020,7 @@ START_TEST (test_ASTNode_setType_31)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -3044,14 +3044,14 @@ START_TEST (test_ASTNode_setType_32)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_DIVIDE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -3066,7 +3066,7 @@ START_TEST (test_ASTNode_setType_32)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_LAMBDA);
@@ -3074,7 +3074,7 @@ START_TEST (test_ASTNode_setType_32)
   fail_unless( ASTNode_getType(node) == AST_LAMBDA );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -3089,7 +3089,7 @@ START_TEST (test_ASTNode_setType_32)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -3113,14 +3113,14 @@ START_TEST (test_ASTNode_setType_33)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_DIVIDE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   ASTNode_t *child = ASTNode_getChild(node, 0);
 
@@ -3135,7 +3135,7 @@ START_TEST (test_ASTNode_setType_33)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_FUNCTION_PIECEWISE);
@@ -3143,7 +3143,7 @@ START_TEST (test_ASTNode_setType_33)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_PIECEWISE );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
 
   child = ASTNode_getChild(node, 0);
 
@@ -3158,7 +3158,7 @@ START_TEST (test_ASTNode_setType_33)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -3184,14 +3184,14 @@ START_TEST (test_ASTNode_setType_34)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_FUNCTION );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "my_func") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
     "my_url") == 0);
@@ -3209,7 +3209,7 @@ START_TEST (test_ASTNode_setType_34)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_FUNCTION_DELAY);
@@ -3217,7 +3217,7 @@ START_TEST (test_ASTNode_setType_34)
   fail_unless( ASTNode_getType(node) == AST_FUNCTION_DELAY );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "my_func") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
     "http://www.sbml.org/sbml/symbols/delay") == 0);
@@ -3235,7 +3235,7 @@ START_TEST (test_ASTNode_setType_34)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
@@ -3261,14 +3261,14 @@ START_TEST (test_ASTNode_setType_35)
   ASTNode_addChild(node, c1);
 
   ASTNode_t * c2 = ASTNode_createWithType(AST_REAL);
-  ASTNode_setParentSBMLObject(c2, m);
+  ASTNode_setParentSBMLObject(c2, (SBase_t *)(m));
   ASTNode_setReal(c2, 3.2);
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getType(node) == AST_FUNCTION );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "my_func") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), 
     "my_url") == 0);
@@ -3286,7 +3286,7 @@ START_TEST (test_ASTNode_setType_35)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
   ASTNode_setType(node, AST_LAMBDA);
@@ -3294,7 +3294,7 @@ START_TEST (test_ASTNode_setType_35)
   fail_unless( ASTNode_getType(node) == AST_LAMBDA );
   fail_unless( ASTNode_getNumChildren(node) == 2);
   fail_unless( strcmp(ASTNode_getId(node), "s") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(node) == m);
+  fail_unless( ASTNode_getParentSBMLObject(node) == (SBase_t *)(m));
   fail_unless( strcmp(ASTNode_getName(node), "my_func") == 0);
   fail_unless( strcmp(ASTNode_getDefinitionURLString(node), "") == 0);
 
@@ -3311,7 +3311,7 @@ START_TEST (test_ASTNode_setType_35)
   fail_unless( ASTNode_getType(child) == AST_REAL );
   fail_unless( ASTNode_getNumChildren(child) == 0);
   fail_unless( strcmp(ASTNode_getId(child), "") == 0);
-  fail_unless( ASTNode_getParentSBMLObject(child) == m);
+  fail_unless( ASTNode_getParentSBMLObject(child) == (SBase_t *)(m));
   fail_unless( util_isEqual(ASTNode_getReal(child), 3.2));
 
 
