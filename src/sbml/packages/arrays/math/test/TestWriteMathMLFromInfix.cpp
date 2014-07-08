@@ -41,6 +41,7 @@
 #include <sbml/packages/arrays/extension/ArraysExtension.h>
 #include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/ASTNode.h>
 
 /**
  * Wraps the string s in the appropriate XML boilerplate.
@@ -53,6 +54,8 @@
 
 #define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
 #define wrapMathMLUnits(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS2 s MATHML_FOOTER
+
+LIBSBML_CPP_NAMESPACE_USE
 
 
 static ASTNode_t* N;
