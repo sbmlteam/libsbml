@@ -576,7 +576,8 @@ Model::convertParametersToLocals(unsigned int level, unsigned int version)
       {
         LocalParameter *lp = new LocalParameter(level, version);
         (*lp) = *(kl->getParameter(j));
-        kl->addLocalParameter(lp);
+        kl->getListOfLocalParameters()->appendAndOwn(lp);
+//        kl->addLocalParameter(lp);
       }
     }
   }
