@@ -127,6 +127,17 @@ from prettytable import PrettyTable
 
 
 # -----------------------------------------------------------------------------
+# Globals.
+# -----------------------------------------------------------------------------
+
+# Need to find a better way than hardwiring these here.
+known_refs = { 'comp'   : 'Hierarchical Model Composition',
+               'layout' : 'Layout',
+               'fbc'    : 'Flux Balance Constraints',
+               'qual'   : 'Qualitative Modeling' }
+
+
+# -----------------------------------------------------------------------------
 # Command-line argument handling.
 # -----------------------------------------------------------------------------
 
@@ -297,7 +308,7 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     # Next, deal with conditionals, since that affects what else needs to
     # be done.
 
-    p = re.compile(r'@if\s+(\S+)\s+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
+    p = re.compile('(@if|@ifnot)[\s*]+(\w+)[\s*]+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
     body = p.sub(rewrite_if_else, body)
 
     # Insert inclusions early, because we may need to process the contents.
@@ -316,8 +327,8 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     placeholders = []
     p = re.compile('@verbatim(.+?)@endverbatim\n', re.DOTALL)
     body = p.sub(lambda match: store_text(match, 1, placeholders, "\n"), body)
-    p = re.compile('@code(.+?)@endcode\n', re.DOTALL)
-    body = p.sub(lambda match: store_text(match, 1, placeholders, "\n"), body)
+    p = re.compile('@code({[.\w]+?})?(.+?)@endcode\n', re.DOTALL)
+    body = p.sub(lambda match: store_text(match, 2, placeholders, "\n"), body)
 
     # Remove things that have been commented out with HTML comments.
 
@@ -326,20 +337,20 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     # Translate basic HTML constructs.
 
-    body = re.sub(r'&lt;',       '<',                                 body)
-    body = re.sub(r'&le;',       '<=',                                body)
-    body = re.sub(r'&gt;',       '>',                                 body)
-    body = re.sub(r'&ge;',       '>=',                                body)
-    body = re.sub(r'&ne;',       '!=',                                body)
-    body = re.sub(r'&pi;',       'Pi',                                body)
-    body = re.sub(r'&#34;',      '\\"',                               body)
-    body = re.sub(r'&#64;',      '@',                                 body)
-    body = re.sub(r'&quot;',     '\\\\"',                             body)
-    body = re.sub(r'&[lr]quo;',  '\\\\"',                             body)
-    body = re.sub(r'&nbsp;',     ' ',                                 body)
-    body = re.sub(r'&ndash;',    '-',                                 body)
-    body = re.sub(r'&mdash;',    ' -- ',                              body)
-    body = re.sub(r'<br>\s*',    '\n',                                body)
+    body = re.sub(r'&lt;',        '<',                                body)
+    body = re.sub(r'&le;',        '<=',                               body)
+    body = re.sub(r'&gt;',        '>',                                body)
+    body = re.sub(r'&ge;',        '>=',                               body)
+    body = re.sub(r'&ne;',        '!=',                               body)
+    body = re.sub(r'&pi;',        'Pi',                               body)
+    body = re.sub(r'&#34;',       '\\"',                              body)
+    body = re.sub(r'&#64;',       '@',                                body)
+    body = re.sub(r'&quot;',      '\\\\"',                            body)
+    body = re.sub(r'&[lr]d?quo;', '\\\\"',                            body)
+    body = re.sub(r'&nbsp;',      ' ',                                body)
+    body = re.sub(r'&ndash;',     '-',                                body)
+    body = re.sub(r'&mdash;',     ' -- ',                             body)
+    body = re.sub(r'<br>\s*',     '\n',                               body)
     body = re.sub(r'<ul(\s+.*?)?>\s*', '\n',                          body)
     body = re.sub(r'</ul>\s*',         '',                            body)
     body = re.sub(r'<li(\s+.*?)?>\s*', '\n' + ' '*list_indent + '* ', body)
@@ -405,20 +416,28 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'@p\s+(\S+)\b', re.IGNORECASE)
     body = p.sub(r"'\1'", body)
 
-    p = re.compile(r'@link\s+(\S+)(\s+\S+\s*)?@endlink', re.IGNORECASE)
-    body = p.sub(r'\1', body)
+    p = re.compile(r'@link\s+(\S+)\s+(\S+\+)?(\S+)\s*@endlink', re.IGNORECASE)
+    body = p.sub(r'\3', body)
+    # Fix up a case that mysteriously doesn't get caught by the regexp above.
+    body = re.sub(r'@link\s+libsbml@endlink', "'libsbml'", body)
+
+    p = re.compile(r'@ref\s+(\w+)', re.IGNORECASE)
+    body = p.sub(rewrite_ref, body)
 
     p = re.compile(r'@note(\s*)', re.IGNORECASE)
     body = p.sub(r'Note:\n\n', body)
 
     p = re.compile(r'@docnote(\s*)', re.IGNORECASE)
-    body = p.sub(r'Documentation note:\n\n', body)
+    body = p.sub(R'Documentation note:\n\n', body)
 
     p = re.compile(r'@warning(\s*)', re.IGNORECASE)
     body = p.sub(r'WARNING:\n\n', body)
 
     p = re.compile(r'@sbmlpackage{(\w+)}', re.IGNORECASE)
     body = p.sub(r'', body)
+
+    p = re.compile(r'@sbmlfunction{(\w+)(,\s*[^}]*?)?}', re.IGNORECASE)
+    body = p.sub(r'\1()', body)
 
     # Handle @image as best as we can.  We ignore @image latex, and for
     # @image html, we will try to substitute a .txt file later on.
@@ -429,6 +448,7 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
     body = re.sub(r"\\'", "'", body)      # Don't need quoted single quotes.
     body = re.sub(r'@~', '', body)        # We use this as a Doxygen hack.
+    body = re.sub(r'@par ?', '', body)    # We use this as a Doxygen hack too.
 
     # Convert HTML tables to text.  This is another case of where we don't
     # want to wrap the results.  To handle this, the table translator outputs
@@ -479,13 +499,25 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
 
 
 def rewrite_if_else(match):
-    lang = match.group(1)
-    if lang == 'python' or lang == 'notcpp' or lang == 'notclike':
-        return match.group(2)
-    elif match.group(4) == '@else':
-        return match.group(5)
+    # Our possible conditional elements and their meanings are:
+    #
+    #   a language name: java, python, csharp, perl, cpp, conly
+    #   special terms: clike (= C or C++)
+    #
+    # The special variants are because Doxygen doesn't have a way to indicate a
+    # conjunction like "if not C or C++".  We have to have special smarts here
+    # for notclike.
+
+    ifnot = match.group(1) == '@ifnot'
+    cond  = match.group(2)
+    if ((not ifnot) and (cond == 'python')) \
+       or (ifnot and (cond != 'python' or cond == 'clike')):
+      text = match.group(3)
+    elif match.group(5) == '@else':
+      text = match.group(6)
     else:
-        return ''
+      text = ''
+    return text
 
 
 def store_text(match, group_number, placeholder_list, padding=""):
@@ -506,9 +538,9 @@ def replace_stored_text(match, placeholder_list):
 def rewrite_see(text):
     matches = []
     words = []
-    for m in re.finditer(r'(@see\s+(\S+)(\s+const)?[ \t]*\n)+', text):
+    for m in re.finditer(r'(@see\s+([^\n]+\n))', text):
         matches.append(m)
-        words.append(m.group(2))
+        words.append(m.group(2).strip())
 
     if len(matches) == 0: return text
 
@@ -517,6 +549,13 @@ def rewrite_see(text):
     post_text        = text[matches[-1].end(0):]
 
     return pre_text + replacement_text + post_text
+
+
+def rewrite_ref(match):
+    name = match.group(1)
+    for key, value in known_refs.items():
+        if name == key:
+            return value
 
 
 def rewrite_section_heading(match, line_width):
@@ -648,7 +687,7 @@ def rewrite_fill_paragraph(match, line_width):
 
 
 def wrap_paragraph(text, line_width):
-    return textwrap.fill(text, width = line_width) + '\n\n'
+    return textwrap.fill(text, width = line_width).strip() + '\n\n'
 
 
 def expanded_path(path):
