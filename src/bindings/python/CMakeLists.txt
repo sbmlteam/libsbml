@@ -122,8 +122,24 @@ if (LIBSBML_REMOVE_WRAPPERS)
   endforeach()
 endif(LIBSBML_REMOVE_WRAPPERS)
 
+# the Python bindings will only build if some files are generated, 
+# for those files to be generated the following python scripts are 
+# needed
+file(COPY 
+     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbmlutils.py  
+	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-class-name-list.py"
+	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-converters-list.py"
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+####################################################################
+#
+# Swig bindings
+#
+#
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+           ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
+           ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
 			--language python
@@ -133,6 +149,16 @@ ADD_CUSTOM_COMMAND(
 			${SWIG_SWIGDOCDEFINES}
 			
     COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-class-name-list.py"
+	        "${LIBSBML_ROOT_SOURCE_DIR}/src"
+			>
+			"${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-converters-list.py"	
+	        "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+			>
+		    "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
+	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
 			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
 			-o "${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i"

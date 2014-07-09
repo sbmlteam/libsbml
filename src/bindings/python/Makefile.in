@@ -413,7 +413,8 @@ libsbml.py: libsbml_wrap.cpp
 
 pydoc-doxygen.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py \
   doc-converter/rewrite_pydoc.py ../swig/libsbml.i
-	../swig/swigdoc.py --language python --top ../../.. $(SWIGDOCDEFINES) \
+	touch ../../../docs/src/libsbml-converters.txt && ../swig/swigdoc.py --language python --top ../../.. $(SWIGDOCDEFINES) \
+		--extra ../../../docs/src/libsbml-converters.txt \
 		--master ../swig/libsbml.i --output pydoc-doxygen.i
 
 pydoc-normal.i: pydoc-doxygen.i
