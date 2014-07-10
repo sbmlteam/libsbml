@@ -841,7 +841,7 @@ int
 ImageData_setSamplesLength(ImageData_t * id, int samplesLength)
 {
   if (id != NULL)
-    return (samplesLength == NULL) ? id->unsetSamplesLength() : id->setSamplesLength(samplesLength);
+    return id->setSamplesLength(samplesLength);
   else
     return LIBSBML_INVALID_OBJECT;
 }

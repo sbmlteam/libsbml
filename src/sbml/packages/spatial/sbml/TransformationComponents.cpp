@@ -583,7 +583,7 @@ int
 TransformationComponents_setComponentsLength(TransformationComponents_t * tc, int componentsLength)
 {
   if (tc != NULL)
-    return (componentsLength == NULL) ? tc->unsetComponentsLength() : tc->setComponentsLength(componentsLength);
+    return tc->setComponentsLength(componentsLength);
   else
     return LIBSBML_INVALID_OBJECT;
 }

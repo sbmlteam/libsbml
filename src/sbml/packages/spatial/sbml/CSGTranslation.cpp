@@ -663,7 +663,7 @@ int
 CSGTranslation_setTranslateX(CSGTranslation_t * csgt, double translateX)
 {
   if (csgt != NULL)
-    return (translateX == NULL) ? csgt->unsetTranslateX() : csgt->setTranslateX(translateX);
+    return csgt->setTranslateX(translateX);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -674,7 +674,7 @@ int
 CSGTranslation_setTranslateY(CSGTranslation_t * csgt, double translateY)
 {
   if (csgt != NULL)
-    return (translateY == NULL) ? csgt->unsetTranslateY() : csgt->setTranslateY(translateY);
+    return csgt->setTranslateY(translateY);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -685,7 +685,7 @@ int
 CSGTranslation_setTranslateZ(CSGTranslation_t * csgt, double translateZ)
 {
   if (csgt != NULL)
-    return (translateZ == NULL) ? csgt->unsetTranslateZ() : csgt->setTranslateZ(translateZ);
+    return csgt->setTranslateZ(translateZ);
   else
     return LIBSBML_INVALID_OBJECT;
 }

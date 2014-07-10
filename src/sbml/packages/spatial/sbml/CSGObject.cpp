@@ -1405,7 +1405,7 @@ int
 CSGObject_setOrdinal(CSGObject_t * csgo, int ordinal)
 {
   if (csgo != NULL)
-    return (ordinal == NULL) ? csgo->unsetOrdinal() : csgo->setOrdinal(ordinal);
+    return csgo->setOrdinal(ordinal);
   else
     return LIBSBML_INVALID_OBJECT;
 }

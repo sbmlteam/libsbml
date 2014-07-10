@@ -1304,7 +1304,7 @@ int
 SampledField_setNumSamples1(SampledField_t * sf, int numSamples1)
 {
   if (sf != NULL)
-    return (numSamples1 == NULL) ? sf->unsetNumSamples1() : sf->setNumSamples1(numSamples1);
+    return sf->setNumSamples1(numSamples1);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1315,7 +1315,7 @@ int
 SampledField_setNumSamples2(SampledField_t * sf, int numSamples2)
 {
   if (sf != NULL)
-    return (numSamples2 == NULL) ? sf->unsetNumSamples2() : sf->setNumSamples2(numSamples2);
+    return sf->setNumSamples2(numSamples2);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1326,7 +1326,7 @@ int
 SampledField_setNumSamples3(SampledField_t * sf, int numSamples3)
 {
   if (sf != NULL)
-    return (numSamples3 == NULL) ? sf->unsetNumSamples3() : sf->setNumSamples3(numSamples3);
+    return sf->setNumSamples3(numSamples3);
   else
     return LIBSBML_INVALID_OBJECT;
 }

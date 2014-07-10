@@ -663,7 +663,7 @@ int
 CSGScale_setScaleX(CSGScale_t * csgs, double scaleX)
 {
   if (csgs != NULL)
-    return (scaleX == NULL) ? csgs->unsetScaleX() : csgs->setScaleX(scaleX);
+    return csgs->setScaleX(scaleX);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -674,7 +674,7 @@ int
 CSGScale_setScaleY(CSGScale_t * csgs, double scaleY)
 {
   if (csgs != NULL)
-    return (scaleY == NULL) ? csgs->unsetScaleY() : csgs->setScaleY(scaleY);
+    return csgs->setScaleY(scaleY);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -685,7 +685,7 @@ int
 CSGScale_setScaleZ(CSGScale_t * csgs, double scaleZ)
 {
   if (csgs != NULL)
-    return (scaleZ == NULL) ? csgs->unsetScaleZ() : csgs->setScaleZ(scaleZ);
+    return csgs->setScaleZ(scaleZ);
   else
     return LIBSBML_INVALID_OBJECT;
 }

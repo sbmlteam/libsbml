@@ -772,7 +772,7 @@ int
 CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX)
 {
   if (csgr != NULL)
-    return (rotateAxisX == NULL) ? csgr->unsetRotateAxisX() : csgr->setRotateAxisX(rotateAxisX);
+    return csgr->setRotateAxisX(rotateAxisX);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -783,7 +783,7 @@ int
 CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY)
 {
   if (csgr != NULL)
-    return (rotateAxisY == NULL) ? csgr->unsetRotateAxisY() : csgr->setRotateAxisY(rotateAxisY);
+    return csgr->setRotateAxisY(rotateAxisY);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -794,7 +794,7 @@ int
 CSGRotation_setRotateAxisZ(CSGRotation_t * csgr, double rotateAxisZ)
 {
   if (csgr != NULL)
-    return (rotateAxisZ == NULL) ? csgr->unsetRotateAxisZ() : csgr->setRotateAxisZ(rotateAxisZ);
+    return csgr->setRotateAxisZ(rotateAxisZ);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -805,7 +805,7 @@ int
 CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRadians)
 {
   if (csgr != NULL)
-    return (rotateAngleInRadians == NULL) ? csgr->unsetRotateAngleInRadians() : csgr->setRotateAngleInRadians(rotateAngleInRadians);
+    return csgr->setRotateAngleInRadians(rotateAngleInRadians);
   else
     return LIBSBML_INVALID_OBJECT;
 }

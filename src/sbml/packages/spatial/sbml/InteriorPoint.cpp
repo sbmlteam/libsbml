@@ -955,7 +955,7 @@ int
 InteriorPoint_setCoord1(InteriorPoint_t * ip, double coord1)
 {
   if (ip != NULL)
-    return (coord1 == NULL) ? ip->unsetCoord1() : ip->setCoord1(coord1);
+    return ip->setCoord1(coord1);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -966,7 +966,7 @@ int
 InteriorPoint_setCoord2(InteriorPoint_t * ip, double coord2)
 {
   if (ip != NULL)
-    return (coord2 == NULL) ? ip->unsetCoord2() : ip->setCoord2(coord2);
+    return ip->setCoord2(coord2);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -977,7 +977,7 @@ int
 InteriorPoint_setCoord3(InteriorPoint_t * ip, double coord3)
 {
   if (ip != NULL)
-    return (coord3 == NULL) ? ip->unsetCoord3() : ip->setCoord3(coord3);
+    return ip->setCoord3(coord3);
   else
     return LIBSBML_INVALID_OBJECT;
 }

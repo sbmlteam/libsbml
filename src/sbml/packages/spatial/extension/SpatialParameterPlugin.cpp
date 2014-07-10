@@ -738,8 +738,6 @@ SpatialParameterPlugin::accept(SBMLVisitor& v) const
 }
 
 
-
-
 /* 
  * @return true, if either the spatial symbol reference, diffusion coefficient, 
  *   advection coefficient or boundary is set. Otherwise the return value is false.

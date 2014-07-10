@@ -695,7 +695,7 @@ int
 CompartmentMapping_setUnitSize(CompartmentMapping_t * cm, double unitSize)
 {
   if (cm != NULL)
-    return (unitSize == NULL) ? cm->unsetUnitSize() : cm->setUnitSize(unitSize);
+    return cm->setUnitSize(unitSize);
   else
     return LIBSBML_INVALID_OBJECT;
 }

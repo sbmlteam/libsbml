@@ -1207,7 +1207,7 @@ int
 SampledVolume_setSampledValue(SampledVolume_t * sv, double sampledValue)
 {
   if (sv != NULL)
-    return (sampledValue == NULL) ? sv->unsetSampledValue() : sv->setSampledValue(sampledValue);
+    return sv->setSampledValue(sampledValue);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1218,7 +1218,7 @@ int
 SampledVolume_setMinValue(SampledVolume_t * sv, double minValue)
 {
   if (sv != NULL)
-    return (minValue == NULL) ? sv->unsetMinValue() : sv->setMinValue(minValue);
+    return sv->setMinValue(minValue);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1229,7 +1229,7 @@ int
 SampledVolume_setMaxValue(SampledVolume_t * sv, double maxValue)
 {
   if (sv != NULL)
-    return (maxValue == NULL) ? sv->unsetMaxValue() : sv->setMaxValue(maxValue);
+    return sv->setMaxValue(maxValue);
   else
     return LIBSBML_INVALID_OBJECT;
 }

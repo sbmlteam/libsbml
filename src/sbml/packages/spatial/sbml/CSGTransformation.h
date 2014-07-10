@@ -52,15 +52,14 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 
-
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
 class CSGTranslation;
 class CSGRotation;
 class CSGScale;
 class CSGHomogeneousTransformation;
+
 
 
 class LIBSBML_EXTERN CSGTransformation : public CSGNode

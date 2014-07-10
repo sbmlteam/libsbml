@@ -868,7 +868,7 @@ int
 DomainType_setSpatialDimension(DomainType_t * dt, int spatialDimension)
 {
   if (dt != NULL)
-    return (spatialDimension == NULL) ? dt->unsetSpatialDimension() : dt->setSpatialDimension(spatialDimension);
+    return dt->setSpatialDimension(spatialDimension);
   else
     return LIBSBML_INVALID_OBJECT;
 }

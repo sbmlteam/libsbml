@@ -561,7 +561,7 @@ int
 PolygonObject_setPointIndexLength(PolygonObject_t * po, int pointIndexLength)
 {
   if (po != NULL)
-    return (pointIndexLength == NULL) ? po->unsetPointIndexLength() : po->setPointIndexLength(pointIndexLength);
+    return po->setPointIndexLength(pointIndexLength);
   else
     return LIBSBML_INVALID_OBJECT;
 }

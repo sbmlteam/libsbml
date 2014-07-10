@@ -1196,7 +1196,7 @@ int
 SpatialPoint_setCoord1(SpatialPoint_t * sp, double coord1)
 {
   if (sp != NULL)
-    return (coord1 == NULL) ? sp->unsetCoord1() : sp->setCoord1(coord1);
+    return sp->setCoord1(coord1);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1207,7 +1207,7 @@ int
 SpatialPoint_setCoord2(SpatialPoint_t * sp, double coord2)
 {
   if (sp != NULL)
-    return (coord2 == NULL) ? sp->unsetCoord2() : sp->setCoord2(coord2);
+    return sp->setCoord2(coord2);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -1218,7 +1218,7 @@ int
 SpatialPoint_setCoord3(SpatialPoint_t * sp, double coord3)
 {
   if (sp != NULL)
-    return (coord3 == NULL) ? sp->unsetCoord3() : sp->setCoord3(coord3);
+    return sp->setCoord3(coord3);
   else
     return LIBSBML_INVALID_OBJECT;
 }

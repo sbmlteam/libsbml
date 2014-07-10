@@ -1267,7 +1267,7 @@ int
 AnalyticVolume_setOrdinal(AnalyticVolume_t * av, int ordinal)
 {
   if (av != NULL)
-    return (ordinal == NULL) ? av->unsetOrdinal() : av->setOrdinal(ordinal);
+    return av->setOrdinal(ordinal);
   else
     return LIBSBML_INVALID_OBJECT;
 }

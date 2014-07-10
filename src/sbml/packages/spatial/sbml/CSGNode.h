@@ -52,9 +52,7 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
 
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
 class CSGPrimitive;
 class CSGTranslation;
 class CSGRotation;
@@ -62,6 +60,7 @@ class CSGScale;
 class CSGHomogeneousTransformation;
 class CSGPseudoPrimitive;
 class CSGSetOperator;
+
 
 
 class LIBSBML_EXTERN CSGNode : public SBase

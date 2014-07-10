@@ -569,7 +569,7 @@ int
 Boundary_setValue(Boundary_t * b, double value)
 {
   if (b != NULL)
-    return (value == NULL) ? b->unsetValue() : b->setValue(value);
+    return b->setValue(value);
   else
     return LIBSBML_INVALID_OBJECT;
 }
