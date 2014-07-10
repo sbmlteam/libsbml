@@ -307,6 +307,13 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SyntaxChecker::hasDeclaredNS;
 %ignore SyntaxChecker::isCorrectHTMLNode;
 
+/** 
+ * Ignore some const versions of methods
+ */
+%ignore SBMLConverter::setDocument(SBMLDocument const *);
+%ignore SBMLReactionConverter::setDocument(SBMLDocument const *);
+
+
 /**
  * Ignore internal implementation methods and some other methods
  * on SBMLNamespces.

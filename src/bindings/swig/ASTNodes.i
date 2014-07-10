@@ -57,6 +57,14 @@
 
 #ifndef LIBSBML_USE_LEGACY_MATH
 
+
+  /** 
+   * Ignore some methods that shadow others
+   */
+  %ignore ASTNode::ASTNode(ASTNodeType_t);
+  %ignore ASTNode::ASTNode(SBMLNamespaces *,ASTNodeType_t);
+  %ignore ASTNode::setType(ASTNodeType_t);
+
   %include <sbml/math/ASTTypes.h>
   %include <sbml/math/ASTBase.h>
 
