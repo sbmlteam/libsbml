@@ -51,8 +51,13 @@ def main(args):
       sys.exit(1)
 
   classes = [re.sub('_t', '', c) for c in find_classes(args[1], True)]
-  for c in sorted(set(classes)):
-      print (c)
+  try:
+    for c in sorted(set(classes)):
+        print (c)
+  except (NameError,):
+    classes.sort()
+    for c in classes:
+        print (c)
 
 if __name__ == '__main__':
   main(sys.argv)

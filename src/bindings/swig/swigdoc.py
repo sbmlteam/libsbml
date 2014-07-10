@@ -1753,6 +1753,8 @@ def main (args):
 
   try:
     libsbml_classes  = sorted(list(set(libsbml_classes)))
+  except (NameError,):
+    libsbml_classes.sort()
   except (Exception,):
     e = sys.exc_info()[1]
     pass
