@@ -81,6 +81,8 @@ distfiles =                      \
         mexopts-xcode43.sh       \
         mexopts-xcode45.sh       \
         mexopts-lion.sh          \
+        mexopts-osx108.sh        \
+        mexopts-osx109.sh        \
         test.xml                 \
         test/CMakeLists.txt
 
