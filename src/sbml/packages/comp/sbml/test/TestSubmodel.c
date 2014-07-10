@@ -28,6 +28,7 @@
 #include <sbml/packages/comp/sbml/Submodel.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
 #include <sbml/packages/comp/sbml/SBaseRef.h>
+#include <sbml/packages/comp/sbml/Deletion.h>
 
 #include <sbml/SBMLDocument.h>
 
