@@ -1689,7 +1689,7 @@ int
 Geometry_setCoordinateSystem(Geometry_t * g, GeometryKind_t coordinateSystem)
 {
   if (g != NULL)
-    return (coordinateSystem == NULL) ? g->unsetCoordinateSystem() : g->setCoordinateSystem(coordinateSystem);
+    return g->setCoordinateSystem(coordinateSystem);
   else
     return LIBSBML_INVALID_OBJECT;
 }

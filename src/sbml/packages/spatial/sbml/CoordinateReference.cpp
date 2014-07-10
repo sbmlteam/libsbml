@@ -750,7 +750,7 @@ int
 CoordinateReference_setCoordinate(CoordinateReference_t * cr, CoordinateKind_t coordinate)
 {
   if (cr != NULL)
-    return (coordinate == NULL) ? cr->unsetCoordinate() : cr->setCoordinate(coordinate);
+    return cr->setCoordinate(coordinate);
   else
     return LIBSBML_INVALID_OBJECT;
 }

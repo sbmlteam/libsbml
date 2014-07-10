@@ -60,6 +60,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN Geometry : public SBase
 {
 

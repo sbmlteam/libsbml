@@ -846,7 +846,7 @@ int
 DiffusionCoefficient_setType(DiffusionCoefficient_t * dc, DiffusionKind_t type)
 {
   if (dc != NULL)
-    return (type == NULL) ? dc->unsetType() : dc->setType(type);
+    return dc->setType(type);
   else
     return LIBSBML_INVALID_OBJECT;
 }

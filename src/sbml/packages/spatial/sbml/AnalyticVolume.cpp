@@ -1256,7 +1256,7 @@ int
 AnalyticVolume_setFunctionType(AnalyticVolume_t * av, FunctionKind_t functionType)
 {
   if (av != NULL)
-    return (functionType == NULL) ? av->unsetFunctionType() : av->setFunctionType(functionType);
+    return av->setFunctionType(functionType);
   else
     return LIBSBML_INVALID_OBJECT;
 }

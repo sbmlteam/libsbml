@@ -797,7 +797,7 @@ int
 BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryConditionKind_t type)
 {
   if (bc != NULL)
-    return (type == NULL) ? bc->unsetType() : bc->setType(type);
+    return bc->setType(type);
   else
     return LIBSBML_INVALID_OBJECT;
 }

@@ -577,7 +577,7 @@ int
 AdvectionCoefficient_setCoordinate(AdvectionCoefficient_t * ac, CoordinateKind_t coordinate)
 {
   if (ac != NULL)
-    return (coordinate == NULL) ? ac->unsetCoordinate() : ac->setCoordinate(coordinate);
+    return ac->setCoordinate(coordinate);
   else
     return LIBSBML_INVALID_OBJECT;
 }

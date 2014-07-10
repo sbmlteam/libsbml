@@ -57,6 +57,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN CSGeometry : public GeometryDefinition
 {
 

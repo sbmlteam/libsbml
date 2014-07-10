@@ -56,6 +56,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN CSGPrimitive : public CSGNode
 {
 

@@ -938,7 +938,7 @@ int
 CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operationType)
 {
   if (csgso != NULL)
-    return (operationType == NULL) ? csgso->unsetOperationType() : csgso->setOperationType(operationType);
+    return csgso->setOperationType(operationType);
   else
     return LIBSBML_INVALID_OBJECT;
 }

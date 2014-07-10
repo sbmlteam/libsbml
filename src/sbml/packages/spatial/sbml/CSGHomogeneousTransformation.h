@@ -58,6 +58,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN CSGHomogeneousTransformation : public CSGTransformation
 {
 

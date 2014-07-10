@@ -53,6 +53,7 @@
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 class AnalyticGeometry;
 class SampledFieldGeometry;
 class CSGeometry;

@@ -55,6 +55,7 @@
 #include <sbml/packages/spatial/sbml/CSGNode.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 class CSGTranslation;
 class CSGRotation;
 class CSGScale;

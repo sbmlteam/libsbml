@@ -1391,7 +1391,7 @@ int
 CoordinateComponent_setType(CoordinateComponent_t * cc, CoordinateKind_t type)
 {
   if (cc != NULL)
-    return (type == NULL) ? cc->unsetType() : cc->setType(type);
+    return cc->setType(type);
   else
     return LIBSBML_INVALID_OBJECT;
 }

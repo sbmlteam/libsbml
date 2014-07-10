@@ -55,6 +55,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN SampledVolume : public SBase
 {
 
