@@ -37,10 +37,12 @@
 %warnfilter(401) basic_ios<char>;    
 %warnfilter(801) basic_string<char>; 
 
+ 
 /**
  * Include our own version of rtype.swg, as it will make the bindings easier to work with
  */ 
 %include "libsbml_rtype.swg"
+
 
 /**
  *  Wraps std::cout, std::cerr, std::clog, std::ostream, and std::ostringstream, 
@@ -399,6 +401,49 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   ListWrapper<CVTerm> *listw = ($1 != 0)? new ListWrapper<CVTerm>($1) : 0;
   $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, SWIG_POINTER_OWN |  0 );
 }
+ 
 
 %include "local-packages.i"
 
+
+%typemap(scoerceout) List* SBMLNamespaces::getSupportedNamespaces
+%{ 
+   if (length(grep("0x0>",capture.output($result))) > 0 ||
+      length(grep("nil",capture.output($result))) > 0)
+    {
+      return(NULL);
+    }
+    $result <- new("_p_ListWrapperT_SBMLNamespaces_t", ref=$result) ;
+ %}
+ 
+%typemap(scoerceout) List* ModelHistory::getListCreators
+%{ 
+   if (length(grep("0x0>",capture.output($result))) > 0 ||
+      length(grep("nil",capture.output($result))) > 0)
+    {
+      return(NULL);
+    }
+    $result <- new("_p_ListWrapperT_ModelCreator_t", ref=$result) ;
+ %}
+ 
+ 
+%typemap(scoerceout) List* ModelHistory::getListModifiedDates
+%{ 
+   if (length(grep("0x0>",capture.output($result))) > 0 ||
+      length(grep("nil",capture.output($result))) > 0)
+    {
+      return(NULL);
+    }
+    $result <- new("_p_ListWrapperT_Date_t", ref=$result) ;
+ %}
+ 
+ 
+%typemap(scoerceout) List* SBase::getCVTerms
+%{ 
+   if (length(grep("0x0>",capture.output($result))) > 0 ||
+      length(grep("nil",capture.output($result))) > 0)
+    {
+      return(NULL);
+    }
+    $result <- new("_p_ListWrapperT_CVTerm_t", ref=$result) ;
+ %}
