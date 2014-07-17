@@ -64,11 +64,11 @@ dim.setId("i");
 dim.setSize("m");
 
 index = assignmentPlugin.createIndex();
-newAst = NewASTNode(AST_ARRAYS_FUNCTION_SELECTOR);
-ci1 = NewASTNode(AST_NAME);
+newAst = ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+ci1 = ASTNode(AST_NAME);
 ci1.setName("z");
 newAst.addChild(ci1);
-ci2 = NewASTNode(AST_NAME);
+ci2 = ASTNode(AST_NAME);
 ci2.setName("i");
 newAst.addChild(ci2);
 index.setMath(newAst);
@@ -85,16 +85,16 @@ dim.setId("i");
 dim.setSize("m");
 
 index = assignmentPlugin.createIndex();
-newAst = NewASTNode(AST_ARRAYS_FUNCTION_SELECTOR);
-ci = NewASTNode(AST_NAME);
+newAst = ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+ci = ASTNode(AST_NAME);
 ci.setName("z");
 newAst.addChild(ci);
-plus = NewASTNode(AST_PLUS);
+plus = ASTNode(AST_PLUS);
 
-ci1 = NewASTNode(AST_NAME);
+ci1 = ASTNode(AST_NAME);
 ci1.setName("i");
 plus.addChild(ci1);
-ci2 = NewASTNode(AST_NAME);
+ci2 = ASTNode(AST_NAME);
 ci2.setName("m");
 plus.addChild(ci2);
 newAst.addChild(plus);
