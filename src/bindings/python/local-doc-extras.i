@@ -1,46 +1,70 @@
-%feature("docstring") Model::renameIDs "
+/**
+ * @file    local-doc-extras.i
+ * @brief   Python-specific SWIG directives for documentation purposes
+ * @author  Michael Hucka
+ *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
+
+/**
+ * SWIG generates __init__() methods for classes that have no explicit
+ * constructors.  E.g., it creates Rule::__init(Rule self, Rule orig)__. This
+ * results in Doxygen listing the methods, but Doxygen puts them in a section
+ * called "Functions" on our page "Core libSBML" in the API manual, and this
+ * is confusing.  Since these don't have explicit constructors anyway, the
+ * least-evil approach to stop Doxygen from doing that is to mark them as
+ * internal.
+ */
+
+%feature("docstring") Rule::Rule "
+@internal
 ";
 
 
-%feature("docstring") SBasePlugin::getListOfAllElements "
-@return an SBaseList of all child SBase objects, including those
-nested to an arbitrary depth.
-
-@return a list of all child objects.
+%feature("docstring") SBO::SBO "
+@internal
 ";
 
 
-
-%feature("docstring") SBase::getListOfAllElements "
-@return an SBaseList of all child SBase objects, including those
-nested to an arbitrary depth.
-
-@return a list of all child objects.
+%feature("docstring") SyntaxChecker::SyntaxChecker "
+@internal
 ";
 
 
-%feature("docstring") SBase::getListOfAllElementsFromPlugins "
-@return an SBaseList of all child SBase objects contained in SBML package
-plug-ins.
-
-This method walks down the list of all SBML Level 3 packages used by the
-model, and returns all objects contained in them.
-
-@return an SBaseList of all children objects from package plug-ins.
+%feature("docstring") XMLErrorLog::XMLErrorLog "
+@internal
 ";
 
 
-%feature("docstring") ASTNode::getListOfNodes "
-@return an ASTNodeList of all ASTNode objects.
+%feature("docstring") SBMLErrorLog::SBMLErrorLog "
+@internal
+";
 
-Unlike the equivalent method in the libSBML C/C++ interface, this method does
-not offer the ability to pass a predicate as an argument.  The method always
-returns the list of all ASTNode objects.
 
-@return the ASTNodeList of nodes.
-
-@warning The list returned is owned by the caller and should be deleted after
-the caller is done using it.  The ASTNode objects in the list; however, are
-<strong>not</strong> owned by the caller (as they still belong to the tree
-itself), and therefore should not be deleted.
+%feature("docstring") RDFAnnotationParser::RDFAnnotationParser "
+@internal
 ";
