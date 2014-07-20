@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBase
- * @sbmlbrief{core} SBML's <em>%SBase</em>, the base class of most SBML objects.
+ * @sbmlbrief{core} SBML's %SBase class, the base class of most SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other
@@ -243,16 +243,17 @@ public:
    * @return pointer to the first element found with the given meta-identifier.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
-  
-  
+
+
   /**
    * Returns a List of all child SBase objects, including those nested to
    * an arbitrary depth.
    *
-   * @return a pointer to a List of pointers to all children objects.
+   * @return a pointer to a List of pointers to all objects that are children
+   * of this object.
    */
   virtual List* getAllElements(ElementFilter* filter=NULL);
-  
+
 
   /**
    * @copydoc doc_renamesidref_common
@@ -940,12 +941,11 @@ public:
 
 
   /**
-   * Returns the identifiers.org URL representation of the "sboTerm" attribute of
-   * this object.
+   * Returns the URL representation of the "sboTerm" attribute of this
+   * object.
    *
-   * This method returns the entire SBO
-   * identifier as a text string in the form 
-   * "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN".
+   * This method returns the entire SBO identifier as a text string in the
+   * form <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://identifiers.org/biomodels.sbo/SBO:NNNNNNN"</code>.
    *
    * SBO terms are a type of optional annotation, and each different class
    * of SBML object derived from SBase imposes its own requirements about
@@ -953,10 +953,8 @@ public:
    * Level&nbsp;2 Version&nbsp;4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
-   * @return the value of the "sboTerm" attribute as an identifiers.org URL
-   * (its value will be of the form 
-   * "http://identifiers.org/biomodels.sbo/SBO:NNNNNNN"), or an empty string if
-   * the value is not set.
+   * @return the value of the "sboTerm" attribute as an identifiers.org URL,
+   * or an empty string if the value is not set.
    */
   std::string getSBOTermAsURL () const;
 
@@ -964,7 +962,7 @@ public:
   /**
    * Returns the line number on which this object first appears in the XML
    * representation of the SBML document.
-   * 
+   *
    * @return the line number of this SBML object.
    *
    * @note The line number for each construct in an SBML model is set upon
@@ -2511,19 +2509,18 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
-   * Predicate returning @c true if this
-   * object's level/version and namespace values correspond to a valid
-   * SBML specification.
+   * Predicate returning @c true if this object's level/version and namespace
+   * values correspond to a valid SBML specification.
    *
    * The valid combinations of SBML Level, Version and Namespace as of this
    * release of libSBML are the following:
    * <ul>
-   * <li> Level&nbsp;1 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level1"</code>
-   * <li> Level&nbsp;2 Version&nbsp;1: <code>"http://www.sbml.org/sbml/level2"</code>
-   * <li> Level&nbsp;2 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level2/version2"</code>
-   * <li> Level&nbsp;2 Version&nbsp;3: <code>"http://www.sbml.org/sbml/level2/version3"</code>
-   * <li> Level&nbsp;2 Version&nbsp;4: <code>"http://www.sbml.org/sbml/level2/version4"</code>
-   * <li> Level&nbsp;3 Version&nbsp;1 Core: <code>"http://www.sbml.org/sbml/level3/version1/core"</code>
+   * <li> Level&nbsp;1 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level1"</code>
+   * <li> Level&nbsp;2 Version&nbsp;1: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;3: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version3"</code>
+   * <li> Level&nbsp;2 Version&nbsp;4: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version4"</code>
+   * <li> Level&nbsp;3 Version&nbsp;1 Core: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level3/version1/core"</code>
    * </ul>
    *
    * @return @c true if the level, version and namespace values of this 
@@ -2708,23 +2705,26 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * object being added.  Here is a code example to help clarify this:
    * @if cpp
 @code{.cpp}
-// We read in an SBML L3V1 model that uses the 'comp' package namespace
+// We read in an SBML L3V1 model that uses the 'comp'
+// package namespace.
 doc = readSBML("sbml-file-with-comp-elements.xml");
 
-// We extract one of the species from the model we just read in.
+// We extract one of the species from the model.
 Species* s1 = doc->getModel()->getSpecies(0);
 
-// We construct a new model.  This model does not use the 'comp' package.
+// We construct a new model.  This model does not use the
+// 'comp' package.
 Model * newModel = new Model(3,1);
 
-// The following will fail with an error, because addSpecies() will
-// first check that the parent of the given object has namespaces
-// declared, and will discover that s1 does but newModel does not.
+// The following will fail with an error, because addSpecies()
+// will first check that the parent of the given object has
+// namespaces declared, and will discover that s1 does but
+// newModel does not.
 
 // newModel->addSpecies(s1);
 
-// However, if we disable the 'comp' package on s1, then the call
-// to addSpecies will work.
+// However, if we disable the 'comp' package on s1, then
+// the call to addSpecies will work.
 
 s1->disablePackage("http://www.sbml.org/sbml/level3/version1/comp/version1",
                    "comp");
@@ -2745,7 +2745,7 @@ if doc.getNumErrors() > 0:
   doc.printErrors()
   sys.exit(1)
 
-# We extract one of the species from the model we just read in.
+# We extract one of the species from the model.
 
 model = doc.getModel()
 if model == None:
