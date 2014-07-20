@@ -471,14 +471,23 @@ LIBSBML_CPP_NAMESPACE_USE
    }
 }
 
+/*
+ * Docstring additions using SWIG's %feature("docstring") have to come before
+ * the method definitions.  I have no idea why.  I don't think it's
+ * documented that way, and it's backwards, and I would never have figured it
+ * out except for the fact that I found a comment in someone else's code on
+ * GitHub where they had problems with missing doc strings.
+ */
+
+%feature("docstring") SBasePlugin::getListOfAllElements "
+Returns an SBaseList of all child SBase objects, including those
+nested to an arbitrary depth.
+
+@return a list of all objects that are children of this object.
+";
+
 %extend SBasePlugin
 {
-        /**
-         * Returns a list of all child SBase objects, including those nested to
-         * an arbitrary depth.
-         *
-         * @return SBaseList
-         */
 	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
 	{
 		List* list = $self->getAllElements(filter);
@@ -486,35 +495,61 @@ LIBSBML_CPP_NAMESPACE_USE
 	}
 }
 
+%feature("docstring") SBase::getListOfAllElements "
+Returns an SBaseList of all child SBase objects, including those
+nested to an arbitrary depth.
+
+@return a list of all objects that are children of this object.
+";
+
 %extend SBase
 {
-        /**
-         * Returns an SBaseList of all child SBase objects, including those
-         * nested to an arbitrary depth.
-         *
-         * @return an SBaseList
-         */
 	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
 	{
 		List* list = $self->getAllElements(filter);
 		return new ListWrapper<SBase>(list);
 	}
+}
 
-        /**
-         * Returns an SBaseList of all child SBase objects contained in SBML
-         * package plugins.
-         * 
-         * This method walks down the list of all packages used by the model
-         * and returns all objects contained in them.
-         * 
-         * @return an SBaseList of all children objects from plugins.
-	 */
+
+%feature("docstring") SBase::getListOfAllElementsFromPlugins "
+Returns a List of all child SBase objects contained in SBML package
+plug-ins.
+
+@copydetails doc_what_are_plugins
+
+This method walks down the list of all SBML Level&nbsp;3 packages used
+by this object and returns all child objects defined by those packages.
+
+@return a pointer to a List of pointers to all children objects from
+plug-ins.
+
+@ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+";
+
+%extend SBase
+{
 	ListWrapper<SBase>* getListOfAllElementsFromPlugins(ElementFilter* filter=NULL)
 	{
 		List* list = $self->getAllElementsFromPlugins(filter);
 		return new ListWrapper<SBase>(list);
 	}
 }
+
+%feature("docstring") ASTNode::getListOfNodes "
+Returns a list of nodes.
+
+Unlike the equivalent method in the libSBML C/C++ interface, this method does
+not offer the ability to pass a predicate as an argument.  The method always
+returns the list of all ASTNode objects.
+
+@return the ASTNodeList of nodes.
+
+@warning The list returned is owned by the caller and should be deleted after
+the caller is done using it.  The ASTNode objects in the list; however, are
+<strong>not</strong> owned by the caller (as they still belong to the tree
+itself), and therefore should not be deleted.
+";
 
 %extend ASTNode
 {
@@ -524,6 +559,7 @@ LIBSBML_CPP_NAMESPACE_USE
     return new ListWrapper<ASTNode>(list);
   }
 }
+
 
 /*
  * Wraps "static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
@@ -536,25 +572,26 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL);
 
+%feature("docstring") RDFAnnotationParser::parseRDFAnnotation "
+Parses an annotation (given as an XMLNode tree) into a list of
+CVTerm objects.
+
+This is used to take an annotation that has been read into an SBML
+model, identify the RDF elements within it, and create a list of
+corresponding CVTerm (controlled vocabulary term) objects.
+
+@param annotation XMLNode containing the annotation.
+@param CVTerms list of CVTerm objects to be created.
+@param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
+@param stream optional XMLInputStream that facilitates error logging.
+
+@copydetails doc_note_static_methods
+
+@htmlinclude warn-default-args-in-docs.html
+";
+
 %extend RDFAnnotationParser
 {
-  /**
-   * Parses an annotation (given as an XMLNode tree) into a list of
-   * CVTerm objects.
-   *
-   * This is used to take an annotation that has been read into an SBML
-   * model, identify the RDF elements within it, and create a list of
-   * corresponding CVTerm (controlled vocabulary term) objects.
-   *
-   * @param annotation XMLNode containing the annotation.
-   * @param CVTerms list of CVTerm objects to be created.
-   *
-   * @copydetails doc_note_static_methods
-   *
-   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
-   *
-   * @htmlinclude warn-default-args-in-docs.html
-   */
   static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms)
   {
     if (!CVTerms) return;
@@ -563,25 +600,6 @@ LIBSBML_CPP_NAMESPACE_USE
     RDFAnnotationParser::parseRDFAnnotation(annotation,list);
   }
 
-  /**
-   * Parses an annotation (given as an XMLNode tree) into a list of
-   * CVTerm objects.
-   *
-   * This is used to take an annotation that has been read into an SBML
-   * model, identify the RDF elements within it, and create a list of
-   * corresponding CVTerm (controlled vocabulary term) objects.
-   *
-   * @param annotation XMLNode containing the annotation.
-   * @param CVTerms list of CVTerm objects to be created.
-   * @param metaId optional metaId, if set only the RDF annotation for this metaId will be returned.
-   * @param stream optional XMLInputStream that facilitates error logging.
-   *
-   * @copydetails doc_note_static_methods
-   *
-   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif@~
-   *
-   * @htmlinclude warn-default-args-in-docs.html
-   */
   static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL)
   {
     if (!CVTerms) return;
@@ -591,6 +609,86 @@ LIBSBML_CPP_NAMESPACE_USE
   }
 }
 
+
+/**
+ * For reasons I cannot fathom, SWIG refuses to incorporate the comment for
+ * this method into the libsbml_wrap.cpp file, even though there is nothing
+ * special about this method and it looks for all the world like other
+ * methods in SBase.h.  So, this next item is simply to duplicate the method
+ * comment from SBase.h to here.
+ */
+
+%feature("docstring") SBase::hasValidLevelVersionNamespaceCombination "
+Predicate returning @c true if this object's level/version and namespace
+values correspond to a valid SBML specification.
+
+The valid combinations of SBML Level, Version and Namespace as of this
+release of libSBML are the following:
+<ul>
+<li> Level&nbsp;1 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level1</code>
+<li> Level&nbsp;2 Version&nbsp;1: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2</code>
+<li> Level&nbsp;2 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version2</code>
+<li> Level&nbsp;2 Version&nbsp;3: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version3</code>
+<li> Level&nbsp;2 Version&nbsp;4: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version4</code>
+<li> Level&nbsp;3 Version&nbsp;1 Core: <code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level3/version1/core</code>
+</ul>
+
+@return @c true if the level, version and namespace values of this 
+SBML object correspond to a valid set of values, @c false otherwise.
+";
+
+
+/*
+ * If left as-is, the method descriptions for the constructors for
+ * XMLInputStream and XMLOutputStream end up on our "Core libSBML" page in
+ * the API docs rather than on the pages for the individual classes
+ * themselves.  This is another case of unfathomable behavior of either
+ * Doxygen or SWIG (not sure which one is to blame for this).  Adding
+ * explicit docstrings declarations here solves this problem.
+ */
+
+%feature("docstring") XMLInputStream::XMLInputStream "
+Creates a new XMLInputStream.
+
+@param content the source of the stream.
+
+@param isFile a boolean flag to indicate whether @p content is a file
+name.  If @c true, @p content is assumed to be the file from which the
+XML content is to be read.  If @c false, @p content is taken to be a
+string that @em is the content to be read.
+
+@param library the name of the parser library to use.
+
+@param errorLog the XMLErrorLog object to use.
+
+@htmlinclude warn-default-args-in-docs.html
+";
+
+%feature("docstring") XMLOutputStream::XMLOutputStream "
+Creates a new XMLOutputStream that wraps the given @p stream.
+
+@copydetails doc_programname_arguments
+
+@copydetails doc_xml_declaration
+
+@param stream the input stream to wrap.
+
+@param encoding the XML encoding to declare in the output. This value should
+be <code>&quot;UTF-8&quot;</code> for SBML documents.  The default value is
+<code>&quot;UTF-8&quot;</code> if no value is supplied for this parameter.
+
+@param writeXMLDecl whether to write a standard XML declaration at
+the beginning of the content written on @p stream.  The default is
+@c true.
+
+@param programName an optional program name to write as a comment
+in the output stream.
+
+@param programVersion an optional version identification string to write
+as a comment in the output stream.
+
+@htmlinclude warn-default-args-in-docs.html
+";
 
 
 /**
@@ -698,4 +796,3 @@ LIBSBML_CPP_NAMESPACE_USE
 %include ASTNodes.i
 
 %include "../swig/libsbml-packages.i"
-
