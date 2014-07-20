@@ -164,9 +164,11 @@ class LIBSBML_EXTERN CompFlatteningConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-  
-  /* register with the ConversionRegistry */
-  static void init();  
+
+  /**
+   * Register with the ConversionRegistry.
+   */
+  static void init();
 
   /** @endcond */
 
