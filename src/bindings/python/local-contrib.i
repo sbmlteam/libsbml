@@ -49,8 +49,7 @@
 
 class AutoProperty(type):
     """
-    Metaclass for automatically detecting getX/setX methods and adding
-    properties to the class dictionary.
+    Auto-detect Python class getX/setX methods.
 
     This class is attached to SBase and automatically applies for all classes
     which inherit from it.  Its purpose is to make libSBML more convenient to
