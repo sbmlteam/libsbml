@@ -66,6 +66,13 @@ h2
     padding-bottom: 2px;
 }
 
+h2 code
+{
+    font-size: 18px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 /* This is for the words "Detailed Description" in Doxygen class pages. */
 h2.groupheader {
     font-size: 16pt;    
@@ -125,18 +132,30 @@ strong, b
     font-weight: 700;
 }
 
-ul
+ul, ol
 {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
+    padding: 0;
 }
 
-ul li
+ul li,
+ol li
 {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
+    margin-left: 2.5em;
 }
 
+.tabs ul li,
+.tabs2 ul li,
+.tabs3 ul li,
+.tabs4 ul li
+{
+    margin-left: 0;
+}
+
+ul li p,
 ul li p
 {
     margin: 0px;
@@ -162,8 +181,8 @@ pre, code
     font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
     font-weight: 700;
     font-size: 13px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 1px;
+    padding-right: 0px;
     color: black;
     margin-top: 1em;
     margin-bottom: 1em;

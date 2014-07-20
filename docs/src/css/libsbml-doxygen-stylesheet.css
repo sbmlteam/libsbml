@@ -102,6 +102,8 @@ a.el {
     font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
     font-weight: 700;
     font-size: 10pt;
+    padding-left: 1px;
+    padding-right: 0px;
 }
 
 a.code, a.code:visited {
@@ -669,8 +671,10 @@ table.directory td.desc {
 
 table.directory td.entry {
     border-bottom: 1px dotted #ccc;
-    min-width: 235px;
-    padding-top: 5px;
+    min-width: 240px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    vertical-align: middle;
 }
 
 table.directory td.entry a.el {
@@ -1312,7 +1316,7 @@ signatureTitle {
 pre.signature { 
   font-size: 13px;
   font-weight:  700;
-  margin-left: 12px;
+  margin-left: 15px;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
@@ -1353,11 +1357,6 @@ table.params td.paramname {
 
 td.paramname {
     padding-right: 1em;
-}
-
-.textblock ul,
-.textblock ol {
-    padding-left: 2.5em;
 }
 
 .textblock ul li p.startli,

@@ -196,6 +196,15 @@ dl dd a[href*="org/sbml/libsbml"]
     font-weight: bold;
 }
 
+/* This next one catches the most common use of li for us inside
+method documentation, namely for return types.  Hacky, this is. */
+
+dl dd dl dd ul li 
+{
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
 td, th
 {
     padding: 2px;
