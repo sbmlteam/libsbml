@@ -1487,7 +1487,7 @@ setValue(value, 0);
    * previously stored in this node are reset to zero.
    *
    * @see getType()
-   * @see setType(ASTNodeType_t type)
+   * @see setType(@if java int@else ASTNodeType_t type@endif)
    */
   int setType (int type);
 
