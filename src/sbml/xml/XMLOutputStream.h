@@ -42,21 +42,113 @@
  * layer.  XMLInputStream and XMLOutputStream are two parts of that
  * abstraction layer.
  *
- * XMLOutputStream provides a wrapper above a standard ostream to facilitate
+ * XMLOutputStream provides a wrapper above output streams to facilitate
  * writing XML.  XMLOutputStream keeps track of start and end elements,
  * indentation, XML namespace prefixes, and more.  The interface provides
  * features for converting non-text data types into appropriate textual form;
- * this takes the form of overloaded <code>writeAttribute</code> methods that
- * allow users to simply use the same method with any data type.  For example,
- * @verbatim
+ * this takes the form of overloaded <code>writeAttribute(...)</code> methods
+ * that allow users to simply use the same method with any data type.  For
+ * example, suppose an element @c testElement has two attributes, @c size and
+ * @c id, and the attributes are variables in your code as follows:
+@if cpp
+@code{.cpp}
 double size = 3.2;
 std::string id = "id";
-@endverbatim
-  * can be written out using
-  * @verbatim
-writeAttribute("size", size);
-writeAttribute("id", id);
-@endverbatim
+@endcode
+@endif
+@if java
+@code
+double size = 3.2;
+String id = "id";
+@endcode
+@endif
+@if python
+@code
+size = 3.2;
+id = "id";
+@endcode
+@endif
+  * Then, the element and the attributes can be written to the
+  * standard output stream @ifnot cpp (provided as @c cout in the libSBML
+  * language bindings)@endif@~ as follows:
+@if cpp
+@code{.cpp}
+double size = 3.2;
+std::string id = "id";
+
+// Create an XMLOutputStream object that will write to the
+// standard output stream:
+
+XMLOutputStream xos = new XMLOutputStream(cout);
+
+// Create the start element, write the attributes, and close
+// the element.  The output will be written immediately as
+// each method is called.
+
+xos.startElement("testElement")
+xos.writeAttribute("size", size)
+xos.writeAttribute("id", id)
+xos.endElement("testElement")
+@endcode
+@endif
+@if java
+@code{.java}
+import org.sbml.libsbml.XMLOutputStream;
+import org.sbml.libsbml.libsbml;
+
+public class test
+{
+    public static void main (String[] args)
+    {
+        double size = 3.2;
+        String id = "id";
+
+        // Create an XMLOutputStream object that will write to the
+        // standard output stream, which is provide in libSBML's
+        // Java language interface as the object "libsbml.cout".
+
+        XMLOutputStream xos = new XMLOutputStream(libsbml.cout);
+
+        // Create the start element, write the attributes, and close
+        // the element.  The output will be written immediately as
+        // each method is called.
+
+        xos.startElement("testElement");
+        xos.writeAttribute("size", size);
+        xos.writeAttribute("id", id);
+        xos.endElement("testElement");
+    }
+
+    static
+    {
+        System.loadLibrary("sbmlj");
+    }
+}
+@endcode
+@endif
+@if python
+@code{.py}
+from libsbml import *
+
+size = 3.2;
+id = "id";
+
+# Create an XMLOutputStream object that will write to the standard
+# output stream, which is provide in libSBML's Python language
+# interface as the object "libsbml.cout".  Since we imported * from
+# the libsbml module, we can simply refer to it as "cout" here:
+
+output_stream = XMLOutputStream(cout)
+
+# Create the start element, write the attributes, and close the
+# element.  The output is written immediately by each method.
+
+output_stream.startElement("testElement")
+output_stream.writeAttribute("size", size)
+output_stream.writeAttribute("id", id)
+output_stream.endElement("testElement")
+@endcode
+@endif
  *
  * Other classes in SBML take XMLOutputStream objects as arguments, and use
  * that to write elements and attributes seamlessly to the XML output stream.
@@ -111,6 +203,16 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  * comment is also not mandated by any SBML specification.  This libSBML
  * functionality is provided for the convenience of calling programs, and to
  * help humans trace the origin of SBML files.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_indentation
+ *
+ * LibSBML tries to produce human-readable XML output by automatically
+ * indenting the bodies of elements.  Callers can manually control
+ * indentation further by using the XMLOutputStream::upIndent()
+ * and XMLOutputStream::downIndent() methods to increase and
+ * decrease, respectively, the current level of indentation in the
+ * XML output.
  */
 
 #ifndef XMLOutputStream_h
@@ -345,7 +447,7 @@ public:
    *
    * @param value the value of the attribute.
    */
-  void writeAttribute (const std::string& name, const std::string &prefix, 
+  void writeAttribute (const std::string& name, const std::string &prefix,
                        const bool& value);
 
 
@@ -381,7 +483,7 @@ public:
    *
    * @param value the value of the attribute.
    */
-  void writeAttribute (const std::string& name, const std::string& prefix, 
+  void writeAttribute (const std::string& name, const std::string& prefix,
                        const double& value);
 
 
@@ -417,7 +519,7 @@ public:
    *
    * @param value the value of the attribute.
    */
-  void writeAttribute (const std::string& name, const std::string& prefix, 
+  void writeAttribute (const std::string& name, const std::string& prefix,
                        const long& value);
 
 
@@ -567,12 +669,20 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 
   /**
    * Decreases the indentation level for this XMLOutputStream.
+   *
+   * @copydetails doc_indentation
+   *
+   * @see upIndent()
    */
   void downIndent ();
 
 
   /**
    * Increases the indentation level for this XMLOutputStream.
+   *
+   * @copydetails doc_indentation
+   *
+   * @see downIndent()
    */
   void upIndent ();
 
@@ -602,13 +712,13 @@ private:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
+   * Copy Constructor, made private so as to notify users, that copying an input stream is not supported.
    */
   XMLOutputStream (const XMLOutputStream& other);
 
 
   /**
-   * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
+   * Assignment operator, made private so as to notify users, that copying an input stream is not supported.
    */
   XMLOutputStream& operator=(const XMLOutputStream& other);
 
@@ -701,7 +811,7 @@ protected:
   bool mInText;
   bool mSkipNextIndent;
 
-  // this bool value is used to identify if the next character is '&' 
+  // this bool value is used to identify if the next character is '&'
   // for a character reference or predefined entity.
   bool mNextAmpersandIsRef;
 
@@ -756,7 +866,7 @@ public:
    */
   XMLOutputFileStream (  std::ofstream&      stream
                        , const std::string&  encoding     = "UTF-8"
-                       , bool                writeXMLDecl = true 
+                       , bool                writeXMLDecl = true
                        , const std::string&  programName  = ""
                        , const std::string&  programVersion = "");
 
@@ -867,7 +977,7 @@ XMLOutputStream_createFileWithProgramInfo (const char * filename, const char * e
 
 
 /**
- * Deletes this XMLOutputStream_t. 
+ * Deletes this XMLOutputStream_t.
  *
  * @memberof XMLTriple_t
  */
@@ -883,7 +993,7 @@ XMLOutputStream_free (XMLOutputStream_t *stream);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
+void
 XMLOutputStream_writeXMLDecl (XMLOutputStream_t *stream);
 
 
@@ -913,7 +1023,7 @@ XMLOutputStream_downIndent(XMLOutputStream_t *stream);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
+void
 XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name);
 
 
@@ -924,8 +1034,8 @@ XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_endElementTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_endElementTriple (XMLOutputStream_t *stream,
                                   const XMLTriple_t *triple);
 
 
@@ -935,7 +1045,7 @@ XMLOutputStream_endElementTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
+void
 XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent);
 
 
@@ -945,7 +1055,7 @@ XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
+void
 XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name);
 
 
@@ -956,8 +1066,8 @@ XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_startElementTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_startElementTriple (XMLOutputStream_t *stream,
                                     const XMLTriple_t *triple);
 
 
@@ -967,7 +1077,7 @@ XMLOutputStream_startElementTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
+void
 XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name);
 
 
@@ -978,8 +1088,8 @@ XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name);
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream,
                                        const XMLTriple_t *triple);
 
 
@@ -989,8 +1099,8 @@ XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream,
                                      const char* name, const char* chars);
 
 
@@ -1001,8 +1111,8 @@ XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream,
                                            const XMLTriple_t *triple,
                                            const char* chars);
 
@@ -1013,8 +1123,8 @@ XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream,
                                     const char* name,
                                     const int flag);
 
@@ -1025,8 +1135,8 @@ XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const int flag);
 
@@ -1037,8 +1147,8 @@ XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream,
                                       const char* name,
                                       const double value);
 
@@ -1049,8 +1159,8 @@ XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream,
                                             const XMLTriple_t *triple,
                                             const double value);
 
@@ -1061,8 +1171,8 @@ XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream,
                                     const char* name,
                                     const long value);
 
@@ -1073,8 +1183,8 @@ XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const long value);
 
@@ -1085,8 +1195,8 @@ XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream,
                                    const char* name,
                                    const int value);
 
@@ -1097,8 +1207,8 @@ XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream,
                                          const XMLTriple_t *triple,
                                          const int value);
 
@@ -1109,8 +1219,8 @@ XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream,
                                     const char* name,
                                     const unsigned int value);
 
@@ -1121,8 +1231,8 @@ XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream,
  * @memberof XMLTriple_t
  */
 LIBLAX_EXTERN
-void 
-XMLOutputStream_writeAttributeUIntTriple (XMLOutputStream_t *stream, 
+void
+XMLOutputStream_writeAttributeUIntTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const unsigned int value);
 

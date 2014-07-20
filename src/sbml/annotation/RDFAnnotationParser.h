@@ -47,7 +47,7 @@
  * Format</a>).  The general scheme is as follows.  A set of RDF-based
  * annotations attached to a given SBML <code>&lt;annotation&gt;</code>
  * element are read by RDFAnnotationParser and converted into a list of
- * CVTerm objects.  There are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %CVTermList *CVTerms) @endif@~ and
+ * CVTerm objects.  There are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(XMLNode, %CVTermList) @endif@~ and
  * RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), used
  * depending on whether the annotation in question concerns the MIRIAM model
  * history or other MIRIAM resource annotations.  A special object class,
@@ -144,46 +144,46 @@ public:
    * is an SBML object derived from SBase (e.g., a Model, or a Species, or
    * a Compartment, etc.).  Then:@if clike
 @code{.cpp}
-int success;                              // Status code variable, used below.
+int success;                              // Status code variable.
 
-XMLNode *RDF = createRDFAnnotation();     // Create RDF annotation XML structure.
+XMLNode *RDF = createRDFAnnotation();     // Create XML structure.
 success = RDF->addChild(...content...);   // Put some content into it.
-...                                       // Check "success" return code value.
+...                                       // Check return code value.
 
-XMLNode *ann = createAnnotation();        // Create <annotation> container.
-success = ann->addChild(RDF);             // Put the RDF annotation into it.
-...                                       // Check "success" return code value.
+XMLNode *ann = createAnnotation();        // Create <annotation>.
+success = ann->addChild(RDF);             // Put the annotation into it.
+...                                       // Check return code value.
 
-success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
-...                                       // Check "success" return code value.
+success = sbmlObject->setAnnotation(ann); // Set object's annotation.
+...                                       // Check return code value.
 @endcode
    * @endif@if java
 @code{.java}
-int success;                                   // Status code variable, used below.
+int success;                                   // Status code variable.
 
-XMLNode RDF = createRDFAnnotation();          // Create RDF annotation XML structure.
+XMLNode RDF = createRDFAnnotation();          // Create XML structure.
 success      = RDF.addChild(...content...);    // Put some content into it.
-...                                            // Check "success" return code value.
+...                                            // Check return code value.
 
-XMLNode ann = createAnnotation();             // Create <annotation> container.
-success      = ann.addChild(RDF);              // Put the RDF annotation into it.
-...                                            // Check "success" return code value.
+XMLNode ann = createAnnotation();             // Create <annotation>.
+success      = ann.addChild(RDF);              // Put the annotation into it.
+...                                            // Check return code value.
 
-success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what we built.
-...                                            // Check "success" return code value.
+success      = sbmlObject.setAnnotation(ann); // Set object's annotation.
+...                                            // Check return code value.
 @endcode
    * @endif@if python
 @code{.py}
-RDF     = RDFAnnotationParser.createRDFAnnotation() # Create RDF annotation XML structure.
+RDF     = RDFAnnotationParser.createRDFAnnotation() # Create XML structure.
 success = RDF.addChild(...content...)               # Put some content into it.
-...                                                 # Check "success" return code value.
+...                                                 # Check return code value.
 
-annot   = RDFAnnotationParser.createAnnotation()    # Create <annotation> container.
-success = annot.addChild(RDF)                       # Put the RDF annotation into it.
-...                                                 # Check "success" return code value.
+annot   = RDFAnnotationParser.createAnnotation()    # Create <annotation>.
+success = annot.addChild(RDF)                       # Put the annotation into it.
+...                                                 # Check return code value.
 
-success = sbmlObject.setAnnotation(annot)           # Set object's annotation to what we built.
-...                                                 # Check "success" return code value.
+success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
+...                                                 # Check return code value.
 @endcode
    * @endif@~
    * The SBML specification contains more information about the format of
