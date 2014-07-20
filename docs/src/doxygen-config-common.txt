@@ -196,7 +196,7 @@ ALIASES += sbmlbrief{1}="@sbmlpackage{\1}\n\
 
 ALIASES += sbmlfunction{2}="@if clike SBML_\1()@endif @if csharp SBML_\1()@endif @if python @link libsbml.\1() \1()@endlink@endif@~"
 
-ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbmlcs#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
+ALIASES += sbmlconstant{2}="@if clike @link \2#\1 \1@endlink@endif @if csharp @link libsbml#\1 \1@endlink@endif @if python @link libsbml#\1 \1@endlink@endif @if java @link libsbmlConstants#\1 \1@endlink@endif@~"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
