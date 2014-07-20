@@ -2,8 +2,7 @@ class LayoutPkgNamespaces(SBMLNamespaces):
     """
     @sbmlpackage{layout}
     
-    @htmlinclude pkg-marker-layout.html Class to store SBML Level, Version, and XML
-    namespace for the SBML Layout (&ldquo;layout&rdquo;) package.
+    @htmlinclude pkg-marker-layout.html SBMLNamespaces extension for the package.
     
     @htmlinclude not-sbml-warning.html
     

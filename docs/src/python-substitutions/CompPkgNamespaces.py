@@ -2,9 +2,7 @@ class CompPkgNamespaces(SBMLNamespaces):
     """
     @sbmlpackage{comp}
     
-    @htmlinclude pkg-marker-comp.html Class to store SBML Level, Version, and XML
-    namespace for the SBML Hierarchical Model Composition (&ldquo;comp&rdquo;)
-    package.
+    @htmlinclude pkg-marker-comp.html SBMLNamespaces extension for the package.
     
     @htmlinclude not-sbml-warning.html
     

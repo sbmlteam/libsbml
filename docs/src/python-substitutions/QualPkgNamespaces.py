@@ -2,8 +2,7 @@ class QualPkgNamespaces(SBMLNamespaces):
     """
     @sbmlpackage{qual}
     
-    @htmlinclude pkg-marker-qual.html Class to store SBML Level, Version, and XML
-    namespace for the SBML Qualitative Models (&ldquo;qual&rdquo;) package.
+    @htmlinclude pkg-marker-qual.html SBMLNamespaces extension for the package.
     
     @htmlinclude not-sbml-warning.html
     

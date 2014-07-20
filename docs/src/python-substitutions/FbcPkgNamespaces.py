@@ -2,9 +2,7 @@ class FbcPkgNamespaces(SBMLNamespaces):
     """
     @sbmlpackage{fbc}
     
-    @htmlinclude pkg-marker-fbc.html Class to store SBML Level, Version, and XML
-    namespace for the SBML Flux Balance Constraints (&ldquo;fbc&rdquo;)
-    package.
+    @htmlinclude pkg-marker-fbc.html SBMLNamespaces extension for the package.
     
     @htmlinclude not-sbml-warning.html
     
