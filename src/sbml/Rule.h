@@ -152,7 +152,6 @@ class SBMLNamespaces;
 class LIBSBML_EXTERN Rule : public SBase
 {
 public:
-
   /**
    * Destroys this Rule.
    */

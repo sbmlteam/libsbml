@@ -274,7 +274,6 @@ public:
    *        static SBMLExtensionRegister<LayoutExtension> layoutExtensionRegistry;
    *
    */
-
   static void init();
 
   /** @endcond */
