@@ -360,7 +360,7 @@ else
   all:
 	@echo
 	@echo "Reconfigure libSBML using --with-csharp to enable CSharp support."; 
-	@echo "(--with-cli-interpreter=path" and/or --with-csharp-compiler=path may be required.)";
+	@echo "(--with-cli-interpreter=path and/or --with-csharp-compiler=path may be required.)";
 	@echo
 	@exit 1
 endif
@@ -368,7 +368,24 @@ endif
 # Until we improve swigdoc.py, the following warnings are spurious and annoying
 # and we don't need to see them.
 
-CSC_NOWARN = -nowarn:108,109,219
+# the compile run disables the following warnings
+# -  105: duplicated using statement, due to the patch above 
+# -  108: 'method name' hides inherited member 'base member name'. Use the 
+#         new keyword if hiding was intended.
+# -  114: 'method name' hides inherited member 'base member name'. To make 
+#         the current member override that implementation, add the override 
+#         keyword. Otherwise add the new keyword.
+# - 1570: XML comment on 'class name' has badly formed XML.
+# - 1572: XML comment on 'method name' has a param tag for 'parameter name'
+#         but there is no parameter by that name.
+# - 1573: Parameter 'parameter name' has no matching param tag in the XML 
+#         comment for 'method name' (but other parameters do).
+# - 1574: XML comment on 'method name' has cref attribute 'method name' 
+#         that could not be resolved.
+# - 1591: Missing XML comment for publicly visible type or member 'method
+#         name'
+
+CSC_NOWARN = -nowarn:105,108,109,114,1570,1572,1573,1574,1591
 
 $(csproxy_lib): $(outpath)/libsbml.cs $(dllimport_lib)
 	-"$(SN)" -k $(sn_keyfile)
@@ -464,6 +481,13 @@ csdoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*
 # stand-in for the .cs files.  Their creation results in the creation of the .cs 
 # files too -- both are made by running swig.
 
+patch-swig-output:
+	@list='$(wildcard $(outpath)/*.cs)'; for file in $$list; do \
+	  echo 'using System;\nusing System.Runtime.InteropServices;\n\n' > $(outpath)/.tmpfile; \
+	  cat $$file >> $(outpath)/.tmpfile; \
+	  mv -f $(outpath)/.tmpfile $$file; \
+	done
+
 # for non-Windows
 libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources) csdoc.i \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
@@ -473,6 +497,7 @@ libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources) csdoc.i \
 	"$(SWIG)" $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -csharp -namespace libsbmlcs -dllimport $(dllimport_name) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
+	make patch-swig-output
 
 # for Windows
 libsbml_wrap-win.cpp $(outpath_win) : $(swig_sources) $(main_sources) csdoc.i \
