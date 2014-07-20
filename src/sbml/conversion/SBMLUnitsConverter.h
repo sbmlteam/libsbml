@@ -83,8 +83,11 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /* register with the ConversionRegistry */
+  /**
+   * Register with the ConversionRegistry.
+   */
   static void init();
+
 #ifndef SWIG
   typedef std::map<const std::string, const std::string> GlobalUnits;
   typedef GlobalUnits::iterator                  GlobalUnitsIter;

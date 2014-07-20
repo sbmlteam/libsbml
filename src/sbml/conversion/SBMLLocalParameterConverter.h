@@ -78,7 +78,9 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
 
-  /* register with the ConversionRegistry */
+  /**
+   * Register with the ConversionRegistry.
+   */
   static void init();
 
   /** @endcond */
