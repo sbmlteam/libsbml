@@ -46,14 +46,14 @@ import sys, string, os.path, re
 def reformatDocString (match):
   text = match.group(1)
 
-  # First, a regexp we use more than once below.
-  # This regexp matches signatures of the following form:
+  # First, define some regexps we use more than once below.
+  # The regexp matches signatures of the following form:
   #    foo()
   #    foo() -> result(arg, arg, ...)
   #    foo(arg, arg, ...) -> result(arg, arg, ...)
 
-  sigLHS  = '\w+\([\w()=*:"<>?,.\n ]*\)'
-  sigRHS  = '( -> [\w()=*:"<>?|, \t]+)?'
+  sigLHS  = '\w+\([-\w()=&*:"<>?,.\n ]*\)'
+  sigRHS  = '( -> [-\w()=&*:"<>?|, \t]+)?'
   sigLine = sigLHS + sigRHS
 
   # We start by fixing some wonkiness with the output from SWIG: it sometimes
@@ -105,19 +105,38 @@ def reformatDocString (match):
   p = re.compile(' -> ')
   text = p.sub(r' ' + newArrow + ' ', text)
 
-  # Now we do a final transformation: bring up the brief description, if there
-  # is one, to make it the first line of the doc string.
+  # Now we do some final transformations.
 
-  start = '<pre class="signature">'
+  start  = '<pre class=["\']signature["\']>'
+  middle = '.*?'
+  end    = '</pre>'
+
+  # First, clean up whitespace in the method signature strings (and not the
+  # rest of the doc body, because that will mess up code example blocks).
+
+  p = re.compile(start + '(' + middle + ')' + end, re.DOTALL)
+  text = p.sub(clean_up_spaces, text)
+
+  # Next, bring up the brief description, if there is one, to make it the
+  # first line of the doc string.
+
   brief = '\w[^.]+\.'
-
-  p = re.compile('(' + start + r'.*?)<p>\s*(' + brief + ')\s(.*)', re.DOTALL)
+  p = re.compile('(' + start + middle + end + '\s*?)<p>\s*(' + brief + ')\s(.*)', re.DOTALL)
   text = p.sub(r'\2\n\n' + r'\1' + r'\3', text)
 
   # Crucial detail: need a '!' character after the opening triple quotes or
   # else Doxygen puts the entire docstring inside a verbatim environment.
 
   return "\"\"\"!" + text + "\"\"\""
+
+
+def clean_up_spaces(match):
+  normalized = re.sub(' +', ' ', match.group(0))  # Multiple spaces.
+  normalized = re.sub('^ +', '', normalized, flags=re.MULTILINE) # Leading spaces.
+  normalized = normalized.replace(' , ', ', ')    # Space before comma.
+  normalized = normalized.replace('( ', '(')      # Space after paren.
+  normalized = normalized.replace(' )', ')')      # Space before paren.
+  return normalized
 
 
 def filterDocStrings (contents):
@@ -171,6 +190,9 @@ def filterDocStrings (contents):
   # Other simple type replacements.
   contents = contents.replace('an unsigned int',           'a long integer')
   contents = contents.replace('unsigned int',              'long')
+  contents = contents.replace('const int&',                'int')
+  contents = contents.replace('const long&',               'long')
+  contents = contents.replace('const bool&',               'bool')
   contents = contents.replace('const std.string&',         'string')
   contents = contents.replace('const std.string',          'string')
   contents = contents.replace('SBMLConstructorException',  'ValueError')
@@ -179,6 +201,14 @@ def filterDocStrings (contents):
   contents = contents.replace('const ',                    '')
   contents = contents.replace('char *',                    'string')
   contents = contents.replace('string *',                  'string')
+  contents = contents.replace('string &',                  'string')
+  contents = contents.replace('double *',                  'float')
+  contents = contents.replace('double &',                  'float')
+  contents = contents.replace('float &',                   'float')
+  contents = contents.replace('float&',                    'float')
+  contents = contents.replace('bool &',                    'bool')
+  contents = contents.replace('long &',                    'long')
+  contents = contents.replace('int &',                     'int')
 
   return contents
 
@@ -266,9 +296,3 @@ def main (args):
 
 if __name__ == '__main__':
   main(sys.argv)
-
-
-# Misc. code from previous iterations that I don't want to throw
-# away just yet:
-# 
-#  text = p.sub(r'\1<table class="signatureTable"><tr><td class="signatureIntro"><b>Python method signature(s)</b>:</td><td class="signatureBlock">\2</td></tr></table>\1<p>', text)
