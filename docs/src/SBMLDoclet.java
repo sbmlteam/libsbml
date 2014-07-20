@@ -388,6 +388,20 @@ public class SBMLDoclet extends Doclet
             return doc.name().startsWith("libsbmlJNI");
         }
 
+        private static boolean isSWIGOwnershipMethod(Doc doc)
+        {
+            if (doc instanceof ProgramElementDoc)
+            {
+                ProgramElementDoc pdoc = (ProgramElementDoc) doc;
+                if (pdoc.qualifiedName().endsWith("swigReleaseOwnership")
+                    || pdoc.qualifiedName().endsWith("swigTakeOwnership"))
+                    return true;
+            }
+            return (doc.isMethod()
+                    && (doc.name().equals("swigReleaseOwnership")
+                        || doc.name().equals("swigTakeOwnership")));
+        }
+
         private static boolean isDeleteMethod(Doc doc)
         {
             if (doc instanceof ProgramElementDoc)
@@ -425,7 +439,8 @@ public class SBMLDoclet extends Doclet
                         if (markedInternal(item))
                             continue;
 
-                        if (isSWIGWrapper(item) || isJNIclass(item))
+                        if (isSWIGWrapper(item) || isJNIclass(item) ||
+                            isSWIGOwnershipMethod(item))
                         {
                             if (m_list_skipped)
                             {
