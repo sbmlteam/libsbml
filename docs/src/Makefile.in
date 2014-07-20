@@ -123,16 +123,10 @@ extra_distclean =                           \
         doxygen-config-octave.txt           \
         doxygen-config-perl.txt             \
         doxygen-config-python.txt           \
-        libsbml-accessing.html              \
-        libsbml-converters.txt              \
-        libsbml-group-comp-intro.html       \
-        libsbml-group-core-intro.html       \
-        libsbml-group-fbc-intro.html        \
-        libsbml-group-layout-intro.html     \
-        libsbml-group-qual-intro.html       \
-        libsbml-installation.html           \
         perlmod                             \
-        xml
+        xml                                 \
+        $(other-generated-files)            \
+        $(expanded-html-files)
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -677,7 +671,7 @@ ifdef USE_CSHARP
 # we can't currently do anything about, and that are harmless.
 
 cs-ignorable-warnings = \
-  "is not found in the argument list of|explicit link request to 'GO' could not be resolved"
+  "is not found in the argument list of|explicit link request to 'GO' could not be resolved|multiple use of section label"
 
 csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(all-sources) \
   $(css-files)
@@ -760,7 +754,7 @@ define rewrite_links
 endef
 
 define adjust_frameset_in_file
-  perl -i -pe 's/20%,80%/22%,78%/' $(1)
+  perl -i -pe 's/20%,80%/26%,74%/' $(1)
 endef
 
 define fix_broken_highlighting
