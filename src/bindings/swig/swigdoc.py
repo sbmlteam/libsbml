@@ -271,7 +271,7 @@ class CHeader:
       self.inClass = True
       self.classname = line[6:].split(':')[0].strip()
       if self.classname[:6] == 'LIBSBM' or self.classname[:6] == 'LIBLAX':
-        self.classname = self.classname.split(' ')[1].strip()
+        self.classname = self.classname.split()[1].strip()
       self.classes.append( CClass(self.classname) )
       return
 
@@ -797,14 +797,8 @@ def translateJavaSeeArgs (match):
   return match.group(0)
 
 
-def rewriteClassRefAddingSpace (match):
-  return match.group(1) + match.group(2) + match.group(3)
-
-
-
 def rewriteClassRef (match):
-  return match.group(1) + match.group(2)
-
+  return match.group(2) + match.group(3) + match.group(4)
 
 
 def translateCrossRefs (str):
@@ -812,7 +806,7 @@ def translateCrossRefs (str):
     p = re.compile('@sbmlfunction{([^}]+?)}')
     str = p.sub(translateSBMLFunctionRef, str)
   else:
-    p = re.compile(r'([^\w.">])(' + '|'.join(libsbml_classes) + r')\b([^:])')
+    p = re.compile(r'([^\w.%">])(' + '|'.join(libsbml_classes) + r')\b([^:])')
     str = p.sub(translateClassRef, str)
     p = re.compile('(\W+)(\w+?)::(\w+\s*\([^)]*?\))')
     str = p.sub(translateMethodRef, str)
@@ -928,10 +922,8 @@ def rewriteEnumLink (match):
 
   if language == 'java':
     return '{@link libsbmlConstants#' + target + ' ' + print_name + '}'
-  elif language == 'python':
+  elif language == 'python' or language == 'csharp':
     return '@link libsbml#' + target + ' ' + print_name + '@endlink'
-  elif language == 'csharp':
-    return '@link libsbmlcs#' + target + ' ' + print_name + '@endlink'
   else:
     return match.group(0)
 
@@ -1160,10 +1152,8 @@ def rewriteDocstringForJava (docstring):
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRefAddingSpace, docstring)
-  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRefAddingSpace, docstring)
+  p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRef, docstring)
 
   # Do the big work.
 
@@ -1255,15 +1245,13 @@ def rewriteDocstringForCSharp (docstring):
 
   # Use C# syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRefAddingSpace, docstring)
-  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRefAddingSpace, docstring)
+  p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRef, docstring)
 
   # Do replacements on some documentation text we sometimes use.
 
   p = re.compile(r'libsbmlConstants([@.])')
-  docstring = p.sub(r'libsbmlcs.libsbml\1', docstring)
+  docstring = p.sub(r'libsbml.libsbml\1', docstring)
 
   # Fix @link for constants that we forgot conditionalize in the source.
 
@@ -1278,8 +1266,8 @@ def rewriteDocstringForCSharp (docstring):
 
   # Some additional special cases.
 
-  docstring = docstring.replace(r'SBML_formulaToString()', 'libsbmlcs.libsbml.formulaToString()')
-  docstring = docstring.replace(r'SBML_parseFormula()', 'libsbmlcs.libsbml.parseFormula()')
+  docstring = docstring.replace(r'SBML_formulaToString()', 'libsbml.formulaToString()')
+  docstring = docstring.replace(r'SBML_parseFormula()', 'libsbml.parseFormula()')
 
   # Need to escape the quotation marks:
 
@@ -1316,10 +1304,18 @@ def rewriteDocstringForPython (docstring):
   # classes & methods, not the method signatures.)
 
   docstring = re.sub(r'const\s+char\s+\*',    'string ',        docstring)
+  docstring = re.sub(r'char\s+const\s+\*',    'string ',        docstring)
   docstring = re.sub(r'const\s+char\* ',      'string ',        docstring)
   docstring = re.sub(r'const\s+std::string&', 'string',         docstring)
   docstring = re.sub(r'const\s+std::string',  'string',         docstring)
   docstring = re.sub(r'std::string',          'string',         docstring)
+  docstring = re.sub(r'bool\s+const\s+&',     'bool',           docstring)
+  docstring = re.sub(r'float\s+const\s+&',    'float',          docstring)
+  docstring = re.sub(r'double\s+const\s+&',   'float',          docstring)
+  docstring = re.sub(r'long\s+const\s+&',     'long',           docstring)
+  docstring = re.sub(r'unsigned int const &', 'int',            docstring)
+  docstring = re.sub(r'int\s+const\s+&',      'int',            docstring)
+
   docstring = re.sub(r'NULL',                 'None',           docstring)
 
   breakable_translations = [[r'an unsigned int',     'a long integer'],
@@ -1332,9 +1328,7 @@ def rewriteDocstringForPython (docstring):
 
   # Also use Python syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbml_classes) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRef, docstring)
-  p = re.compile(r'(%?)(' + '|'.join(libsbml_classes) + r') ?(\*|&)', re.DOTALL)
+  p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)
 
   # Need to escape the quotation marks:
