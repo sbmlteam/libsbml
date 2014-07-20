@@ -280,6 +280,8 @@ namespace std
  * with a bool value in Python code.
  */
 
+%feature("docstring") XMLOutputStream::writeAttributeBool "@internal";
+
 %extend XMLOutputStream
 {
   void writeAttributeBool(const std::string& name, const bool& value)
