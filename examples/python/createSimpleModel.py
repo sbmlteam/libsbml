@@ -44,11 +44,12 @@ from libsbml import *
 
 
 def check(value, message):
-  """If the value is None, prints the message and exit with status code 1.
-  If the value is an integer, checks if it's equal to LIBSBML_OPERATION_SUCCESS.
-  If it is, returns without further action; if it's a different integer, prints
-  the message along with text from libSBML explaining the meaning of the code,
-  and exits with status code 1.
+  """If 'value' is None, prints an error message constructed using
+  'message' and then exits with status code 1.  If 'value' is an integer,
+  it assumes it is a libSBML return status code.  If the code value is
+  LIBSBML_OPERATION_SUCCESS, returns without further action; if it is not,
+  prints an error message constructed using 'message' along with text from
+  libSBML explaining the meaning of the code, and exits with status code 1.
   """
   if value == None:
     print('LibSBML returned a null value trying to ' + message + '.')
@@ -70,15 +71,23 @@ def check(value, message):
 def create_model():
   """Returns a simple but complete SBML Level 3 model for illustration."""
 
-  # Create an empty SBMLDocument object:
+  # Create an empty SBMLDocument object.  It's a good idea to check for
+  # possible errors.  Even when the parameter values are hardwired like
+  # this, it is still possible for a failure to occur (e.g., if the
+  # operating system runs out of memory).
 
   try:
     document = SBMLDocument(3, 1)
   except ValueError:
-    print('Could not create SBMLDocument object')
+    print('Could not create SBMLDocumention object')
     sys.exit(1)
 
-  # Create the basic Model object inside the SBMLDocument object:
+  # Create the basic Model object inside the SBMLDocument object.  To
+  # produce a model with complete units for the reaction rates, we need
+  # to set the 'timeUnits' and 'extentUnits' attributes on Model.  We
+  # set 'substanceUnits' too, for good measure, though it's not strictly
+  # necessary here because we also set the units for invididual species
+  # in their definitions.
 
   model = document.createModel()
   check(model,                              'create model')
@@ -86,7 +95,9 @@ def create_model():
   check(model.setExtentUnits("mole"),       'set model units of extent')
   check(model.setSubstanceUnits('mole'),    'set model substance units')
 
-  # Create a unit definition we will need later:
+  # Create a unit definition we will need later.  Note that SBML Unit
+  # objects must have all four attributes 'kind', 'exponent', 'scale'
+  # and 'multiplier' defined.
 
   per_second = model.createUnitDefinition()
   check(per_second,                         'create unit definition')
@@ -98,7 +109,8 @@ def create_model():
   check(unit.setScale(0),                   'set unit scale')
   check(unit.setMultiplier(1),              'set unit multiplier')
 
-  # Create components inside the model:
+  # Create a compartment inside this model, and set the required
+  # attributes for an SBML compartment in SBML Level 3.
 
   c1 = model.createCompartment()
   check(c1,                                 'create compartment')
@@ -107,6 +119,12 @@ def create_model():
   check(c1.setSize(1),                      'set compartment "size"')
   check(c1.setSpatialDimensions(3),         'set compartment dimensions')
   check(c1.setUnits('litre'),               'set compartment size units')
+
+  # Create two species inside this model, set the required attributes
+  # for each species in SBML Level 3 (which are the 'id', 'compartment',
+  # 'constant', 'hasOnlySubstanceUnits', and 'boundaryCondition'
+  # attributes), and initialize the amount of the species along with the
+  # units of the amount.
 
   s1 = model.createSpecies()
   check(s1,                                 'create species s1')
@@ -128,12 +146,22 @@ def create_model():
   check(s2.setBoundaryCondition(False),     'set "boundaryCondition" on s2')
   check(s2.setHasOnlySubstanceUnits(False), 'set "hasOnlySubstanceUnits" on s2')
 
+  # Create a parameter object inside this model, set the required
+  # attributes 'id' and 'constant' for a parameter in SBML Level 3, and
+  # initialize the parameter with a value along with its units.
+
   k = model.createParameter()
   check(k,                                  'create parameter k')
   check(k.setId('k'),                       'set parameter k id')
+  check(k.setConstant(True),                'set parameter k "constant"')
   check(k.setValue(1),                      'set parameter k value')
   check(k.setUnits('per_second'),           'set parameter k units')
-  check(k.setConstant(True),                'set parameter k "constant"')
+
+  # Create a reaction inside this model, set the reactants and products,
+  # and set the reaction rate expression (the SBML "kinetic law").  We
+  # set the minimum required attributes for all of these objects.  The
+  # units of the reaction rate are determined from the 'timeUnits' and
+  # 'extentUnits' attributes on the Model object.
 
   r1 = model.createReaction()
   check(r1,                                 'create reaction')
@@ -158,7 +186,8 @@ def create_model():
   check(kinetic_law,                        'create kinetic law')
   check(kinetic_law.setMath(math_ast),      'set math on kinetic law')
 
-  # Done. Return a text string containing the model.
+  # And we're done creating the basic model.
+  # Now return a text string containing the model in XML format.
 
   return writeSBMLToString(document)
 
