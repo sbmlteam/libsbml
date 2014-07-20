@@ -14,8 +14,8 @@ use the navigation bar or the table of contents to visit the relevant pages.
 @endif
 @if python
 - @subpage libsbml-python-reading-files
-- @subpage libsbml-math
 - @subpage libsbml-python-creating-model
+- @subpage libsbml-math
 - @subpage libsbml-python-example-files
 @endif
 @if conly
