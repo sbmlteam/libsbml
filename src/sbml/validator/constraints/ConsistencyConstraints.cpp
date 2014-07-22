@@ -1003,19 +1003,30 @@ START_CONSTRAINT (20507, Compartment, c)
   pre( c.getSpatialDimensions() == 1 );
   pre( c.isSetUnits()                );
 
-  if (c.getLevel() == 2 && c.getVersion() == 1)
+  if (c.getLevel() == 2)
   {
-    msg =
-      "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '1' must be either 'length' or 'metre', "
-      "or the identifier of a <unitDefinition> based on "
-      "either 'metre' (with 'exponent' equal to '1').";
+    if (c.getVersion() == 1)
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '1' must be either 'length' or 'metre', "
+        "or the identifier of a <unitDefinition> based on "
+        "either 'metre' (with 'exponent' equal to '1').";
+    }
+    else
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '1' must be either 'length', 'metre', "
+        "'dimensionless', or the identifier of a <unitDefinition> based on "
+        "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'.";
+    }
   }
   else
   {
     msg =
       "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '1' must be either 'length', 'metre', "
+      "'spatialDimensions' of '1' must be either 'metre', "
       "'dimensionless', or the identifier of a <unitDefinition> based on "
       "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'.";
   }
@@ -1024,15 +1035,25 @@ START_CONSTRAINT (20507, Compartment, c)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (c.getLevel() == 2 && c.getVersion() == 1)
+  if (c.getLevel() == 2)
   {
-    inv_or( units == "length" );
-    inv_or( units == "metre"  );
-    inv_or( defn  != NULL && defn->isVariantOfLength() );
+    if (c.getVersion() == 1)
+    {
+      inv_or( units == "length" );
+      inv_or( units == "metre"  );
+      inv_or( defn  != NULL && defn->isVariantOfLength() );
+    }
+    else
+    {
+      inv_or( units == "length" );
+      inv_or( units == "metre"  );
+      inv_or( units == "dimensionless"  );
+      inv_or( defn  != NULL && defn->isVariantOfLength() );
+      inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    }
   }
   else
   {
-    inv_or( units == "length" );
     inv_or( units == "metre"  );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfLength() );
@@ -1048,19 +1069,30 @@ START_CONSTRAINT (20508, Compartment, c)
   pre( c.getSpatialDimensions() == 2 );
   pre( c.isSetUnits()                );
 
-  if (c.getLevel() == 2 && c.getVersion() == 1)
+  if (c.getLevel() == 2)
   {
-    msg =
-      "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '2' must be either 'area' or "
-      "the identifier of a <unitDefinition> based on 'metre' (with "
-      "'exponent' equal to '2').";
+    if (c.getVersion() == 1)
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '2' must be either 'area' or "
+        "the identifier of a <unitDefinition> based on 'metre' (with "
+        "'exponent' equal to '2').";
+    }
+    else
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
+        "the identifier of a <unitDefinition> based on either 'metre' (with "
+        "'exponent' equal to '2') or 'dimensionless'.";
+    }
   }
   else
   {
     msg =
       "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
+      "'spatialDimensions' of '2' must be either 'dimensionless', or "
       "the identifier of a <unitDefinition> based on either 'metre' (with "
       "'exponent' equal to '2') or 'dimensionless'.";
   }
@@ -1069,14 +1101,23 @@ START_CONSTRAINT (20508, Compartment, c)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (c.getLevel() == 2 && c.getVersion() == 1)
+  if (c.getLevel() == 2)
   {
-    inv_or( units == "area" );
-    inv_or( defn  != NULL && defn->isVariantOfArea() );
+    if (c.getVersion() == 1)
+    {
+      inv_or( units == "area" );
+      inv_or( defn  != NULL && defn->isVariantOfArea() );
+    }
+    else
+    {
+      inv_or( units == "area" );
+      inv_or( units == "dimensionless"  );
+      inv_or( defn  != NULL && defn->isVariantOfArea() );
+      inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    }
   }
   else
   {
-    inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfArea() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );

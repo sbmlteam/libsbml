@@ -4,11 +4,11 @@
    <listOfUnitDefinitions>
     <unitDefinition id="substance">
     </unitDefinition>
-    <unitDefinition id="volume">
+    <unitDefinition id="vol">
     </unitDefinition>
    </listOfUnitDefinitions>
 	<listOfCompartments>
-	 <compartment id="comp" name="comp" size="1.0" constant="true" units="volume"/>
+	 <compartment id="comp" name="comp" size="1.0" constant="true" units="vol"/>
 	</listOfCompartments>
   </model>
 </sbml>

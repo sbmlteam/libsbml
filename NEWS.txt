@@ -16,6 +16,10 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - Code checking the values of units attributes was incorrectly 
+    allowing the default Level 2 units, such as substance, to
+    be used in Level 3.  This has been corrected.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:

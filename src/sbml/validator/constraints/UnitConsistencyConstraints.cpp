@@ -217,17 +217,32 @@ START_CONSTRAINT (20509, Compartment, c)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if ( c.getLevel() == 1
-    || (c.getLevel() == 2 && c.getVersion() == 1))
+  if ( c.getLevel() == 1)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
-    inv_or( units == "liter" && c.getLevel() == 1 );
+    inv_or( units == "liter"  );
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  }
+  else if (c.getLevel() == 2)
+  {
+    if (c.getVersion() == 1)
+    {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+    }
+    else
+    {
+      inv_or( units == "volume" );
+      inv_or( units == "litre"  );
+      inv_or( units == "dimensionless"  );
+      inv_or( defn  != NULL && defn->isVariantOfVolume() );
+      inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    }
   }
   else
   {
-    inv_or( units == "volume" );
     inv_or( units == "litre"  );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
@@ -309,7 +324,6 @@ START_CONSTRAINT (20608, Species, s)
   }
   else if (s.getLevel() == 3)
   {
-    inv_or( units == "substance"      );
     inv_or( units == "item"           );
     inv_or( units == "mole"           );
     inv_or( units == "dimensionless"  );
