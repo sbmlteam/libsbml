@@ -1547,13 +1547,37 @@ SBase::removeTopLevelAnnotationElement(const std::string elementName,
   else
   {
     // check uri matches
-    std::string prefix = mAnnotation->getChild(index).getPrefix();
-
-    if (elementURI.empty() == false
-      && elementURI != mAnnotation->getChild(index).getNamespaceURI(prefix))
+    if (elementURI.empty() == false)
     {
-      success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
-      return success;
+      XMLNode child = mAnnotation->getChild(index);
+      std::string prefix = child.getPrefix();
+
+      if (prefix.empty() == false
+        && elementURI != child.getNamespaceURI(prefix))
+      {
+        success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
+        return success;
+      }
+      else
+      {
+        bool match = false;
+        int n = 0;
+
+        while (match == false && n < child.getNamespacesLength())
+        {
+          if (elementURI == child.getNamespaceURI(n))
+          {
+            match = true;
+          }
+          n++;
+        }
+
+        if (match == false)
+        {
+          success = LIBSBML_ANNOTATION_NS_NOT_FOUND;
+          return success;
+        }
+      }
     }
 
     // remove the annotation at the index corresponding to the name
