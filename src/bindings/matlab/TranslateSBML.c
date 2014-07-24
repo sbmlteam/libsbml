@@ -167,6 +167,10 @@ typedef enum
 #define FILE_FOPEN(file) fopen(file, "r")
 #endif
 
+#ifndef uint16_t
+#define uint16_t unsigned short
+#endif
+
 FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 {
   wchar_t* utf16 = (wchar_t *) mxCalloc(length, sizeof(wchar_t));
