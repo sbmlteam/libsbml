@@ -200,7 +200,7 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 }
 
 
-FILE_CHAR readUnicodeStringFromArrays(const mxArray *mxFilename[2])
+FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2])
 
 {
   mwSize nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
