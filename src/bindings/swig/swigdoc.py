@@ -144,7 +144,8 @@ overriders = \
 
 virtual_functions = \
 {
-'ElementFilter'             : [ 'filter' ]
+'ElementFilter'             : [ 'filter' ],
+'SBMLConverter'             : [ 'getDefaultProperties', 'getTargetNamespaces', 'matchesProperties' , 'setDocument', 'setProperties', 'getProperties', 'convert'  ]
 }
 
 #
