@@ -856,6 +856,19 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
       if (type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE) break;
 
       ASTNode* child = new ASTNode();
+
+      // this is catch the situation where someone has used a <math>
+      // tag in the middle of the math
+      bool addChild = true;
+      if (stream.peek().getName() == "math" && stream.peek().isStart() == true)
+      {
+        std::string message = "<";
+        message += stream.peek().getName();
+        message += "> incorrectly used.";
+
+        logError(stream, elem, BadMathMLNodeType, message);
+        addChild = false;
+      }
       readMathML(*child, stream, reqd_prefix);
 
       stream.skipText();
@@ -888,7 +901,10 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
         delete child;
         break;
       }
-      node.addChild(child);
+      if (addChild == true)
+      {
+        node.addChild(child);
+      }
 
       if (stream.peek().getName() == "piece" && stream.isGood()) 
         stream.next();

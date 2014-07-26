@@ -1357,7 +1357,8 @@ ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
 
       if (fd != NULL && fd->isSetMath())
       {
-        return fd->getMath()->getRightChild()->returnsBoolean();
+        return (fd->getMath()->getRightChild() != NULL ? 
+          fd->getMath()->getRightChild()->returnsBoolean() : false);
       }
       else
       {
