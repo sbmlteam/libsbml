@@ -1,6 +1,10 @@
 PKG_CPPFLAGS = @CPPFLAGS@
 PKG_LIBS = @LIBS@
 
+ifeq "$(PLATFORM)" ""
+PLATFORM := $(shell uname)
+endif
+
 ifeq "$(PLATFORM)" "Darwin"
   PKG_CXXFLAGS = -std=c++11
   CXX_STD = CXX11
