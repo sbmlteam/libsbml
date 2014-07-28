@@ -173,6 +173,13 @@ typedef enum
 
 FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 {
+
+#ifdef USE_OCTAVE
+  char* ansii = (char *) mxCalloc(length, sizeof(char));
+  mxGetString(prhs, ansii, length);
+  return ansii;
+#endif
+
   wchar_t* utf16 = (wchar_t *) mxCalloc(length, sizeof(wchar_t));
   char* utf8 = NULL;
   uint16_T *ch = (uint16_T *) mxGetData(prhs);
