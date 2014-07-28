@@ -1,7 +1,10 @@
 PKG_CPPFLAGS = @CPPFLAGS@
-PKG_CXXFLAGS = -std=c++11
-CXX_STD = CXX11
 PKG_LIBS = @LIBS@
+
+ifeq "$(PLATFORM)" "Darwin"
+  PKG_CXXFLAGS = -std=c++11
+  CXX_STD = CXX11
+endif
 
 CPP_SOURCES = \
     sbml/compress/CompressCommon.cpp                \
