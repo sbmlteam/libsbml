@@ -415,3 +415,66 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake-r-install.cmake.in
 
 INSTALL (SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake )
 
+
+####################################################################
+#
+# create the r source package
+#
+
+
+option(WITH_CREATE_R_SOURCE   "Generate R Source Package." ON)
+if (WITH_CREATE_R_SOURCE)
+
+
+
+SET(R_SOURCE_OUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/out)
+file(TO_NATIVE_PATH ${R_SOURCE_OUT_DIR} NATIVE_OUT)
+
+add_custom_command(
+	OUTPUT ${R_SOURCE_OUT_DIR}/configure
+	COMMAND "${CMAKE_COMMAND}" 
+	ARGS -E make_directory ${R_SOURCE_OUT_DIR}
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS -DOUT_DIR=\"${NATIVE_OUT}\" 
+		 -DSRC_DIR=\"${LIBSBML_ROOT_SOURCE_DIR}/src\"
+		 -DBIN_DIR=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		 -P "${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake"
+
+	DEPENDS ${LIBSBML_ROOT_SOURCE_DIR}/VERSION.txt
+                ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
+	WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    COMMENT "Configure R source package"
+	)
+
+add_custom_target(binding_r_source_config ALL DEPENDS ${R_SOURCE_OUT_DIR}/configure)
+
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION.in"
+  "${R_SOURCE_OUT_DIR}/DESCRIPTION"
+  )
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/NAMESPACE"
+  "${R_SOURCE_OUT_DIR}/NAMESPACE"
+)
+add_dependencies(binding_r_source_config binding_python_swig)
+
+add_custom_command(
+	OUTPUT ${R_SOURCE_OUT_DIR}/NAMESPACE
+
+	COMMAND "${R_INTERPRETER}"
+	ARGS CMD 
+	     build
+	     . 
+	DEPENDS ${R_SOURCE_OUT_DIR}/DESCRIPTION
+	        ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
+	WORKING_DIRECTORY "${R_SOURCE_OUT_DIR}"
+    COMMENT "Create R source package"
+	)
+
+add_custom_target(binding_r_source_package ALL DEPENDS ${R_SOURCE_OUT_DIR}/NAMESPACE)
+add_dependencies(binding_r_source_package binding_r_source_config)
+ 
+
+endif(WITH_CREATE_R_SOURCE)
+
+
