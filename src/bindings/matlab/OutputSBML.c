@@ -55,6 +55,108 @@
 #endif
 
 
+
+#if defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE)
+#define FILE_CHAR wchar_t*
+#define FILE_FOPEN(file) _wfopen(file, L"r")
+#define USE_FILE_WCHAR 1
+#else 
+#define FILE_CHAR char*
+#define FILE_FOPEN(file) fopen(file, "r")
+#endif
+
+#ifndef uint16_t
+#define uint16_t unsigned short
+#endif
+
+FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
+{
+#ifdef USE_OCTAVE
+  char* ansii = (char *) mxCalloc(length, sizeof(char));
+  mxGetString(prhs, ansii, length);
+  return ansii;
+#else   
+  wchar_t* utf16 = (wchar_t *) mxCalloc(length, sizeof(wchar_t));
+  char* utf8 = NULL;
+  uint16_T *ch = (uint16_T *) mxGetData(prhs);
+  wchar_t* p = utf16;
+  mwSize i;
+  for ( i = 0; i < length-1; ++i)
+    *p++ = *ch++;
+  *p = 0;
+
+#if USE_FILE_WCHAR
+  return utf16;
+#else
+
+  utf8 = (char*)mxCalloc(length*2, sizeof(char));
+
+  wcstombs(utf8, utf16, length*2);
+
+  /*mxFree(utf16);*/
+
+  if (utf8 != NULL && strlen(utf8) == 0 && length > 0)
+  {
+    mexErrMsgTxt("This string uses characters that cannot be expressed in UTF8, please rename the file.");
+  }
+
+  return utf8;
+#endif /* USE_FILE_WCHAR */ 
+
+#endif /* USE_OCTAVE*/ 
+
+}
+
+
+FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2])
+
+{
+  mwSize nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
+  FILE_CHAR pacTempString1 = readUnicodeString(mxFilename[0],nBuflen);
+
+  mwSize nBufferLen = (mxGetM(mxFilename[1])*mxGetN(mxFilename[1])+1);
+  FILE_CHAR  pacTempString2 = readUnicodeString(mxFilename[1],nBufferLen);
+  
+#if USE_FILE_WCHAR
+  FILE_CHAR  pacFilename = (wchar_t *) mxCalloc(nBufferLen+nBuflen, sizeof(wchar_t));
+  wcscpy(pacFilename, pacTempString2);
+  wcscpy(pacFilename, pacTempString1);
+#else
+  FILE_CHAR  pacFilename = (char *) mxCalloc(nBufferLen+nBuflen, sizeof(char));
+  strcpy(pacFilename, pacTempString2);
+  strcat(pacFilename, pacTempString1);
+#endif
+  
+  /*mxFree(pacTempString1);*/
+  /*mxFree(pacTempString2);*/
+  return pacFilename;
+}
+
+#if USE_FILE_WCHAR
+
+int endsWith(const wchar_t* fileName, const char* ext)
+{
+  size_t len = wcslen(fileName), i;
+  size_t targetLen = strlen(ext);
+  wchar_t* temp1 =  (wchar_t*)mxCalloc(targetLen, sizeof(wchar_t));
+  char* temp2 =  (char*)mxCalloc(targetLen, sizeof(char));
+  int result = 0;
+  
+  for (i = 0; i < targetLen; ++i)
+  {
+    temp1[i] = fileName[len - targetLen + i];
+  }
+  
+  wcstombs(temp2,temp1, targetLen);
+  result = strcmp_insensitive(temp2, ext);
+
+  /*mxFree(temp1);*/
+  /*mxFree(temp2);*/
+  return result;
+}
+
+#endif
+
 static char * timeSymbol = NULL;
 static char * delaySymbol = NULL;
 static char * avoSymbol = NULL;
@@ -139,7 +241,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxCheckStructure[2];
   mxArray * mxFilename[2], * mxExt[1];
   int nStatus;
-  char *pacFilename = NULL, *pacTempString1 = NULL, *pacTempString2 = NULL;
+  FILE_CHAR pacFilename = NULL;
+  char *pacTempString1 = NULL, *pacTempString2 = NULL;
   size_t nBuflen, nBufferLen;
 
   SBMLDocument_t *sbmlDocument;
@@ -253,15 +356,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if ((nStatus != 0) || (mxIsLogicalScalarTrue(mxCheckStructure[0]) != 1))
   {
-    /* there are errors - use the pacFilename char * to list these to the user */
+    /* there are errors - use the pacTempString1 char * to list these to the user */
     nBuflen = (mxGetM(mxCheckStructure[1])*mxGetN(mxCheckStructure[1])+1);
-    pacFilename = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxCheckStructure[1], pacFilename, (mwSize)(nBuflen));
+    pacTempString1 = (char *)mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxCheckStructure[1], pacTempString1, (mwSize)(nBuflen));
     if (nStatus == 0)
     {
       msgTxt = (char *) mxCalloc(200+nBuflen, sizeof(char));
       sprintf(msgTxt, "\n%s\n\nErrors reported: %s%s\n", "First input must be a valid MATLAB_SBML Structure", 
-        pacFilename, "USAGE: OutputSBML(SBMLModel, (filename))");
+        pacTempString1, "USAGE: OutputSBML(SBMLModel, (filename))");
       mexErrMsgTxt(msgTxt);
     }
     else
@@ -283,13 +386,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
 
     nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
-    pacFilename = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(prhs[1], pacFilename, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy filename");
-    }
+    pacFilename = readUnicodeString(prhs[1], (mwSize)nBuflen);
 
   }
   /*********************************************************************************************************
@@ -651,36 +748,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexErrMsgTxt("Failed to read filename");
     }
 
-    /* get the filename returned */ 
-    nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
-    pacTempString1 = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxFilename[0], pacTempString1, (mwSize)(nBuflen));
+    pacFilename = readUnicodeStringFromArrays(mxFilename);
 
-    if (nStatus != 0)
+#if USE_FILE_WCHAR
+    if (wcsstr(pacFilename, L".xml") == NULL)
     {
-      mexErrMsgTxt("Cannot copy filename");
+      wcscat(pacFilename, L".xml");
     }
-
-    /* get the full path */
-    nBufferLen = (mxGetM(mxFilename[1])*mxGetN(mxFilename[1])+1);
-    pacTempString2 = (char *)mxCalloc(nBufferLen, sizeof(char));
-    nStatus = mxGetString(mxFilename[1], pacTempString2, (mwSize)(nBufferLen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy path");
-    }
-
-    /* write full path and filename */
-    pacFilename = (char *) mxCalloc(nBufferLen+nBuflen+4, sizeof(char));
-    strcpy(pacFilename, pacTempString2);
-    strcat(pacFilename, pacTempString1);
-
+#else
     /* check that the extension has been used  */
     if (strstr(pacFilename, ".xml") == NULL)
     {
       strcat(pacFilename, ".xml");
     }
+#endif
   }
   else
   {
@@ -688,17 +769,35 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     * user has specified a filename	  
     * check that the extension has been used  
     */
+#if USE_FILE_WCHAR
+    if (wcsstr(pacFilename, L".xml") == NULL)
+    {
+      wcscat(pacFilename, L".xml");
+    }
+#else
+    /* check that the extension has been used  */
     if (strstr(pacFilename, ".xml") == NULL)
     {
       strcat(pacFilename, ".xml");
     }
+#endif
   }
 
 
 
   /* write the SBML document to the filename specified */
+#if USE_FILE_WCHAR
+  {
+    char* sbml = writeSBMLToString(sbmlDocument);
+    size_t len = strlen(sbml);
+    FILE* fp = _wfopen(pacFilename, L"w");
+    fwrite(sbml, sizeof(char), len, fp);
+    fclose(fp);
+    nStatus = 1;
+  }
+#else
   nStatus = writeSBML(sbmlDocument, pacFilename);
-
+#endif
   /* don't output messages from installer tests */
   if (inInstaller == 0)
   {
