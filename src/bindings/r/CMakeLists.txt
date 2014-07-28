@@ -456,11 +456,13 @@ configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/NAMESPACE"
   "${R_SOURCE_OUT_DIR}/NAMESPACE"
 )
-add_dependencies(binding_r_source_config binding_python_swig)
+add_dependencies(binding_r_source_config binding_r_swig)
 
 add_custom_command(
 	OUTPUT ${R_SOURCE_OUT_DIR}/libSBML_${PACKAGE_VERSION}.tar.gz
-
+	COMMAND "${CMAKE_COMMAND}"
+			-DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
+			-P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
 	COMMAND "${R_INTERPRETER}"
 	ARGS CMD 
 	     build
