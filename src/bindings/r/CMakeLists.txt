@@ -467,8 +467,7 @@ add_custom_command(
 	ARGS CMD 
 	     build
 	     . 
-  DEPENDS ${R_SOURCE_OUT_DIR}/DESCRIPTION
-	        ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
   WORKING_DIRECTORY "${R_SOURCE_OUT_DIR}"
   COMMENT "Create R source package"
 )
