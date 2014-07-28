@@ -422,7 +422,7 @@ INSTALL (SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/cmake-r-install.cmake )
 #
 
 
-option(WITH_CREATE_R_SOURCE   "Generate R Source Package." ON)
+option(WITH_CREATE_R_SOURCE   "Generate R Source Package." OFF)
 if (WITH_CREATE_R_SOURCE)
 
 
@@ -459,19 +459,19 @@ configure_file (
 add_dependencies(binding_r_source_config binding_python_swig)
 
 add_custom_command(
-	OUTPUT ${R_SOURCE_OUT_DIR}/NAMESPACE
+	OUTPUT ${R_SOURCE_OUT_DIR}/libSBML_${PACKAGE_VERSION}.tar.gz
 
 	COMMAND "${R_INTERPRETER}"
 	ARGS CMD 
 	     build
 	     . 
-	DEPENDS ${R_SOURCE_OUT_DIR}/DESCRIPTION
+  DEPENDS ${R_SOURCE_OUT_DIR}/DESCRIPTION
 	        ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
-	WORKING_DIRECTORY "${R_SOURCE_OUT_DIR}"
-    COMMENT "Create R source package"
-	)
+  WORKING_DIRECTORY "${R_SOURCE_OUT_DIR}"
+  COMMENT "Create R source package"
+)
 
-add_custom_target(binding_r_source_package ALL DEPENDS ${R_SOURCE_OUT_DIR}/NAMESPACE)
+add_custom_target(binding_r_source_package ALL DEPENDS ${R_SOURCE_OUT_DIR}/libSBML_${PACKAGE_VERSION}.tar.gz)
 add_dependencies(binding_r_source_package binding_r_source_config)
  
 

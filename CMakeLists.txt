@@ -1008,6 +1008,10 @@ if(WITH_MATLAB)
     message(STATUS "     Using Matlab                    = ${MATLAB_ROOT_PATH}")
 endif()
 
+if(WITH_R)
+    message(STATUS "     Using R                         = ${R_INTERPRETER}")
+endif()
+
 if(WITH_CHECK)
     message(STATUS "     Using libcheck                  = ${LIBCHECK_LIBRARY}")
 
