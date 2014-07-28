@@ -158,7 +158,7 @@ typedef enum
 #endif
 
 
-#if defined(WIN32) && !defined(CYGWIN)
+#if defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE)
 #define FILE_CHAR wchar_t*
 #define FILE_FOPEN(file) _wfopen(file, L"r")
 #define USE_FILE_WCHAR 1
@@ -173,13 +173,11 @@ typedef enum
 
 FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 {
-
 #ifdef USE_OCTAVE
   char* ansii = (char *) mxCalloc(length, sizeof(char));
   mxGetString(prhs, ansii, length);
   return ansii;
-#endif
-
+#else   
   wchar_t* utf16 = (wchar_t *) mxCalloc(length, sizeof(wchar_t));
   char* utf8 = NULL;
   uint16_T *ch = (uint16_T *) mxGetData(prhs);
@@ -205,8 +203,9 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
   }
 
   return utf8;
+#endif /* USE_FILE_WCHAR */ 
 
-#endif
+#endif /* USE_OCTAVE*/ 
 
 }
 
