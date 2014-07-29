@@ -145,7 +145,8 @@ overriders = \
 virtual_functions = \
 {
 'ElementFilter'             : [ 'filter' ],
-'SBMLConverter'             : [ 'getDefaultProperties', 'getTargetNamespaces', 'matchesProperties' , 'setDocument', 'setProperties', 'getProperties', 'convert'  ]
+'SBMLConverter'             : [ 'getDefaultProperties', 'getTargetNamespaces', 'matchesProperties' , 'setDocument', 'setProperties', 'getProperties', 'convert'  ],
+'SBMLValidator'             : [ 'clone', 'getDocument', 'setDocument' , 'validate', 'clearFailures' ]
 }
 
 #
