@@ -4,7 +4,7 @@ Date: ${CURRENT_DATE}
 Title: libSBML: An API Library for SBML
 Author: LibSBML Team <libsbml-team@caltech.edu>
 Maintainer: Frank Bergmann <fbergman@caltech.edu>
-Depends: R (>= 1.8.0)
+Depends: R (>= 1.8.0), methods
 Description: LibSBML is an open-source programming library designed to help you 
 	read, write, manipulate, translate, and validate SBML files and data 
 	streams.  It is not an application itself (though it does come with 
