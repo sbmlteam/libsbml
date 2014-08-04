@@ -222,7 +222,7 @@ FILE_CHAR readUnicodeStringFromArrays(mxArray *mxFilename[2])
 #if USE_FILE_WCHAR
   FILE_CHAR  pacFilename = (wchar_t *) mxCalloc(nBufferLen+nBuflen, sizeof(wchar_t));
   wcscpy(pacFilename, pacTempString2);
-  wcscpy(pacFilename, pacTempString1);
+  wcscat(pacFilename, pacTempString1);
 #else
   FILE_CHAR  pacFilename = (char *) mxCalloc(nBufferLen+nBuflen, sizeof(char));
   strcpy(pacFilename, pacTempString2);
