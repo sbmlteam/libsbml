@@ -68,6 +68,7 @@ class AutoProperty(type):
 
         import re
         import keyword
+        import inspect
 
         re_mangle = re.compile(r'[A-Za-z][a-z]+|[A-Z]+(?=$|[A-Z0-9])|\d+')
         re_id = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
@@ -80,6 +81,13 @@ class AutoProperty(type):
         get_methods = set()
         set_methods = set()
         swig_setter = classdict.get('__swig_setmethods__', {})
+
+        allowed_methods = [
+                           'Annotation', 
+                           'AnnotationString', 
+                           'Notes', 
+                           'NotesString', 
+                           ]
 
         #only search for get/set methods
         #we assume that any unset method also has either get or set
@@ -112,9 +120,14 @@ class AutoProperty(type):
                 #this is a very dirty way of checking if the get method
                 #requires extra arguments (and hence cannot be a property)
                 #it should be possible to do this properly in SWIG?
-                if getter.__doc__:
-                    if not re_getdoc.match(getter.__doc__):
-                        continue
+                try:
+                  argspec = inspect.getargspec(getter)
+                  numargs = len(argspec.args)
+                  if numargs > 1 or (numargs == 1 and argspec.args[0] != 'self')  \
+                    or (argspec.varargs!=None and name not in allowed_methods and not name.startswith('ListOf') ):
+                    continue
+                except:
+                  continue
 
                 #use the c-level get function if the python function
                 #only consists of a call to it
@@ -125,29 +138,35 @@ class AutoProperty(type):
     
             if name in set_methods:
                 setter = classdict['set'+name]
-                if setter.__doc__:
-                    if not re_setdoc.match(setter.__doc__):
-                        continue
-
-                cname = classname + '_set' + name
-                if setter.func_code.co_names == ('_libsbml', cname):
-                    setter = getattr(_libsbml, cname)
-                #property fget does not get intercepted by __getattr__
-                #but fset does, so we implement property setting via
-                #the __swig_setmethods__ dict
-                swig_setter[mangled] = setter
+                try:
+                 argspec = inspect.getargspec(getter)
+                 numargs = len(argspec.args)
+                 if numargs > 1 and argspec.args[0] == 'self':
+                   cname = classname + '_set' + name
+                   if setter.func_code.co_names == ('_libsbml', cname):
+                       setter = getattr(_libsbml, cname)
+                   
+                   #property fget does not get intercepted by __getattr__
+                   #but fset does, so we implement property setting via
+                   #the __swig_setmethods__ dict
+                   swig_setter[mangled] = setter
+                   continue
+                except:
+                  pass
             
             if 'unset' + name in classdict:
                 deleter = classdict['unset'+name]
-                if deleter.__doc__:
-                    #like a get method, a delete method should
-                    #only require a self argument
-                    if not re_getdoc.match(deleter.__doc__):
-                        continue
-                
-                cname = classname + '_unset' + name
-                if deleter.func_code.co_names == ('_libsbml', cname):
-                    deleter = getattr(_libsbml, cname)
+
+                try:
+                  argspec = inspect.getargspec(getter)
+                  numargs = len(argspec.args)
+                  if numargs == 1 and argspec.args[0] == 'self' and \
+                    (argspec.varargs==None or name in allowed_methods):
+                    cname = classname + '_unset' + name
+                    if deleter.func_code.co_names == ('_libsbml', cname):
+                        deleter = getattr(_libsbml, cname)                    
+                except:
+                  pass
 
             if getter or setter or deleter:
                 #fset is technically redundant since the method is dispatched
