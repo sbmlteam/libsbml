@@ -57,8 +57,8 @@ class AutoProperty(type):
     (not at instantiation) and adding corresponding properties (directly
     calling C methods where possible) to the class dictionary.
 
-    @note Currently this class only works for Python 2.x, but should not break
-    in Python 3.
+    @note The code should work for python 2.6 upwards, however for python 3 it 
+          needs to be attached via constructors.
     """
     def __new__(cls, classname, bases, classdict):
         """
@@ -133,7 +133,11 @@ class AutoProperty(type):
                 #only consists of a call to it
                 cname = classname + '_get' + name
                 #test if function is "return _libsbml.CLASS_getNAME(__args__)"
-                if getter.func_code.co_names == ('_libsbml', cname):
+                try:
+                  if getter.func_code.co_names == ('_libsbml', cname):
+                    getter = getattr(_libsbml, cname)
+                except:
+                  if getter.__code__.co_names == ('_libsbml', cname):
                     getter = getattr(_libsbml, cname)
     
             if name in set_methods:
@@ -143,8 +147,12 @@ class AutoProperty(type):
                  numargs = len(argspec.args)
                  if numargs > 1 and argspec.args[0] == 'self':
                    cname = classname + '_set' + name
-                   if setter.func_code.co_names == ('_libsbml', cname):
-                       setter = getattr(_libsbml, cname)
+                   try:
+                     if setter.func_code.co_names == ('_libsbml', cname):
+                         setter = getattr(_libsbml, cname)
+                   except:
+                     if setter.__code__.co_names == ('_libsbml', cname):
+                         setter = getattr(_libsbml, cname)
                    
                    #property fget does not get intercepted by __getattr__
                    #but fset does, so we implement property setting via
@@ -163,8 +171,12 @@ class AutoProperty(type):
                   if numargs == 1 and argspec.args[0] == 'self' and \
                     (argspec.varargs==None or name in allowed_methods):
                     cname = classname + '_unset' + name
-                    if deleter.func_code.co_names == ('_libsbml', cname):
-                        deleter = getattr(_libsbml, cname)                    
+                    try:
+                      if deleter.func_code.co_names == ('_libsbml', cname):
+                          deleter = getattr(_libsbml, cname)                    
+                    except:
+                      if deleter.__code__.co_names == ('_libsbml', cname):
+                          deleter = getattr(_libsbml, cname)                    
                 except:
                   pass
 
