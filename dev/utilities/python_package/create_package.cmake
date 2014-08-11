@@ -48,6 +48,8 @@ Need three arguments:
 	
 endif()
 
+SET(CURRENT_DIR ${SRC_DIR}/../dev/utilities/python_package)
+
 
 # delete prior builds 
 if (EXISTS ${OUT_DIR}/build)
@@ -234,19 +236,30 @@ if (EXISTS ${OUT_DIR}/libsbml)
   file (REMOVE_RECURSE ${OUT_DIR}/libsbml )
 endif()
 file (MAKE_DIRECTORY ${OUT_DIR}/libsbml)
-
+file (MAKE_DIRECTORY ${OUT_DIR}/script)
 # copy new python script
 file(
     COPY 
 	  ${BIN_DIR}/src/bindings/python/libsbml.py	  
-    DESTINATION ${OUT_DIR}/libsbml
+    DESTINATION ${OUT_DIR}/script
 ) 
+
+
 # rename python script
 file(
     RENAME  
-	${OUT_DIR}/libsbml/libsbml.py	  
-    ${OUT_DIR}/libsbml/__init__.py
-) 
+    ${OUT_DIR}/script/libsbml.py
+    ${OUT_DIR}/script/libsbml2.py
+)
+
+# generate a version compatible with python 3.x
+file(READ ${OUT_DIR}/script/libsbml2.py init_script)
+string(REPLACE 
+  "class SBase(_object):"
+  "class SBase(_object, metaclass=AutoProperty):"
+  init3_script ${init_script}
+)
+file(WRITE ${OUT_DIR}/script/libsbml3.py ${init3_script})
 
 
 # discover current version (default to 5.9.0)
@@ -272,9 +285,9 @@ endif()
 # copy manifest template
 file(
     COPY 
-	  ${CMAKE_CURRENT_SOURCE_DIR}/MANIFEST.in
+	  ${CURRENT_DIR}/MANIFEST.in
     DESTINATION ${OUT_DIR}/
 ) 
 
 #configure version in setup.py
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in ${OUT_DIR}/setup.py)
+configure_file(${CURRENT_DIR}/setup.py.in ${OUT_DIR}/setup.py)

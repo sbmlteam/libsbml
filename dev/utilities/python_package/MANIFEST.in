@@ -1,2 +1,3 @@
-recursive-include base *.h *.cpp *.cxx *.i
-recursive-include swig *.i *.h *.cpp 
+recursive-include script *.py
+recursive-include base *.h *.cpp *.cxx
+recursive-include swig *.h *.cpp
