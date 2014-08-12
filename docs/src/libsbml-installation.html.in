@@ -520,7 +520,7 @@ However, if you obtained the libSBML distribution from the project SVN
 repository on SourceForge, or you want to recreate the files deliberately,
 you may need to configure libSBML to use SWIG to regenerate the libSBML
 language interfaces.  Please see the section below on using <a
-href="#SWIG">SWIG</a>.
+href="#unix-swig">SWIG</a>.
 
 <p> Finally, note that these additional language bindings are implemented
 via foreign function interfaces in the respective languages; in all cases,
