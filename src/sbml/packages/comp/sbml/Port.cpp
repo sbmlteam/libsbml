@@ -268,7 +268,13 @@ Port::readAttributes (const XMLAttributes& attributes,
         logEmptyString("name", "<Port>");
       }
     }
-    //LS DEBUG:  add an error if the 'port' attribute was used.
+
+    if (isSetPortRef() == true)
+    {
+      getErrorLog()->logPackageError("comp", CompPortAllowedAttributes,
+        getPackageVersion(), sbmlLevel, sbmlVersion);
+      unsetPortRef();
+    }
   }
 }
 /** @endcond */
