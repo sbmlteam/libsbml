@@ -478,14 +478,14 @@ LIBSBML_CPP_NAMESPACE_USE
  * out except for the fact that I found a comment in someone else's code on
  * GitHub where they had problems with missing doc strings.
  */
-
+#ifndef SWIGRUBY
 %feature("docstring") SBasePlugin::getListOfAllElements "
 Returns an SBaseList of all child SBase objects, including those
 nested to an arbitrary depth.
 
 @return a list of all objects that are children of this object.
 ";
-
+#endif
 %extend SBasePlugin
 {
 	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
@@ -494,14 +494,14 @@ nested to an arbitrary depth.
 		return new ListWrapper<SBase>(list);
 	}
 }
-
+#ifndef SWIGRUBY
 %feature("docstring") SBase::getListOfAllElements "
 Returns an SBaseList of all child SBase objects, including those
 nested to an arbitrary depth.
 
 @return a list of all objects that are children of this object.
 ";
-
+#endif
 %extend SBase
 {
 	ListWrapper<SBase>* getListOfAllElements(ElementFilter* filter=NULL)
@@ -511,7 +511,7 @@ nested to an arbitrary depth.
 	}
 }
 
-
+#ifndef SWIGRUBY
 %feature("docstring") SBase::getListOfAllElementsFromPlugins "
 Returns a List of all child SBase objects contained in SBML package
 plug-ins.
@@ -526,7 +526,7 @@ plug-ins.
 
 @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
 ";
-
+#endif
 %extend SBase
 {
 	ListWrapper<SBase>* getListOfAllElementsFromPlugins(ElementFilter* filter=NULL)
@@ -535,6 +535,7 @@ plug-ins.
 		return new ListWrapper<SBase>(list);
 	}
 }
+#ifndef SWIGRUBY
 
 %feature("docstring") ASTNode::getListOfNodes "
 Returns a list of nodes.
@@ -550,7 +551,7 @@ the caller is done using it.  The ASTNode objects in the list; however, are
 <strong>not</strong> owned by the caller (as they still belong to the tree
 itself), and therefore should not be deleted.
 ";
-
+#endif
 %extend ASTNode
 {
   ListWrapper<ASTNode>* getListOfNodes()
@@ -572,6 +573,8 @@ itself), and therefore should not be deleted.
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms, const char* metaId = NULL, XMLInputStream* stream = NULL);
 
+#ifndef SWIGRUBY
+
 %feature("docstring") RDFAnnotationParser::parseRDFAnnotation "
 Parses an annotation (given as an XMLNode tree) into a list of
 CVTerm objects.
@@ -589,7 +592,7 @@ corresponding CVTerm (controlled vocabulary term) objects.
 
 @htmlinclude warn-default-args-in-docs.html
 ";
-
+#endif
 %extend RDFAnnotationParser
 {
   static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms)
@@ -617,6 +620,8 @@ corresponding CVTerm (controlled vocabulary term) objects.
  * methods in SBase.h.  So, this next item is simply to duplicate the method
  * comment from SBase.h to here.
  */
+
+#ifndef SWIGRUBY
 
 %feature("docstring") SBase::hasValidLevelVersionNamespaceCombination "
 Predicate returning @c true if this object's level/version and namespace
@@ -690,7 +695,7 @@ as a comment in the output stream.
 @htmlinclude warn-default-args-in-docs.html
 ";
 
-
+#endif
 /**
  * Wrap these files.
  */
