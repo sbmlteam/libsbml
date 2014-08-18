@@ -50,13 +50,26 @@ endif()
 
 # compile files
 execute_process(
-	COMMAND "${Java_JAVAC_EXECUTABLE}"
+	
+  COMMAND "${Java_JAVAC_EXECUTABLE}"
 		 -source 1.5
 		 -target 1.5
 		 -d java-files
-		 ${NATIVE_FILES}	
-	WORKING_DIRECTORY "${BIN_DIRECTORY}"
+		 ${NATIVE_FILES}
+  
+  ERROR_VARIABLE COMPILE_ERRORS
+  
+  WORKING_DIRECTORY "${BIN_DIRECTORY}"
 )
+
+if (NOT COMPILE_ERRORS STREQUAL "")
+  message (FATAL_ERROR 
+"
+Could not compile java wrappers:
+
+${COMPILE_ERRORS}
+")
+endif()
 
 # enumerate class files
 file(GLOB_RECURSE CLASS_FILES RELATIVE ${BIN_DIRECTORY}/java-files ${BIN_DIRECTORY}/java-files/org/sbml/libsbml/*.class)
@@ -71,7 +84,7 @@ execute_process(
 	COMMAND "${Java_JAR_EXECUTABLE}"
 		 -cvfm ..${PATH_SEP}libsbmlj.jar
 		 ../Manifest.txt
-		 ${NATIVE_CLASS_FILES}	
+		 ${NATIVE_CLASS_FILES}
 	WORKING_DIRECTORY "${BIN_DIRECTORY}/java-files"
 )
 

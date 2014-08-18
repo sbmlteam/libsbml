@@ -155,9 +155,9 @@ endif(LIBSBML_REMOVE_WRAPPERS)
 # for those files to be generated the following python scripts are 
 # needed
 file(COPY 
-     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbmlutils.py  
-	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-class-name-list.py"
-	 "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-converters-list.py"
+     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbmlutils.py
+     "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-class-name-list.py"
+     "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-converters-list.py"
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 ####################################################################
@@ -173,45 +173,52 @@ ADD_CUSTOM_COMMAND(
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
+
 	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-class-name-list.py"
-	        "${LIBSBML_ROOT_SOURCE_DIR}/src"
-			>
-			"${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+	ARGS	
+      "${CMAKE_CURRENT_BINARY_DIR}/generate-class-name-list.py"
+      "${LIBSBML_ROOT_SOURCE_DIR}/src"
+      >
+      "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+
 	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_BINARY_DIR}/generate-converters-list.py"	
-	        "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
+	ARGS
+      "${CMAKE_CURRENT_BINARY_DIR}/generate-converters-list.py"
+      "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
 			>
-		    "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
+      "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
+
 	COMMAND "${PYTHON_EXECUTABLE}"
 	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			--language java
-			--top "${LIBSBML_ROOT_SOURCE_DIR}"
-			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-		    --extra "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
-			--output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
-			${SWIG_SWIGDOCDEFINES}
-    COMMAND "${SWIG_EXECUTABLE}"
-    ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-         -I${CMAKE_CURRENT_SOURCE_DIR} 
-		 -I${LIBSBML_ROOT_BINARY_DIR}/src
-		 -I${LIBSBML_ROOT_SOURCE_DIR}/src
-		 -I${LIBSBML_ROOT_SOURCE_DIR}/include
-		 -c++
-		 -java
-		 -package org.sbml.libsbml
-		 ${SWIG_EXTRA_ARGS}
-		 -outdir ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
-         -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-         ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+      --language java
+      --top "${LIBSBML_ROOT_SOURCE_DIR}"
+      --master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+      --extra "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
+      --output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"
+      ${SWIG_SWIGDOCDEFINES}
+
+	COMMAND "${SWIG_EXECUTABLE}"
+	ARGS
+      -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
+      -I${CMAKE_CURRENT_SOURCE_DIR}
+      -I${LIBSBML_ROOT_BINARY_DIR}/src
+      -I${LIBSBML_ROOT_SOURCE_DIR}/src
+      -I${LIBSBML_ROOT_SOURCE_DIR}/include
+      -c++
+      -java
+      -package org.sbml.libsbml
+      ${SWIG_EXTRA_ARGS}
+      -outdir ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
+      -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+
+	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 	        ${SWIG_DEPENDENCIES}
-    COMMENT "Swig Java source") 
+	COMMENT "Swig Java source")
 	
 add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 
-	
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(${LIBSBML_ROOT_SOURCE_DIR}/include)
@@ -248,9 +255,11 @@ target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY}-static )
 
 ADD_CUSTOM_COMMAND(	
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
-		   ${CMAKE_CURRENT_BINARY_DIR}/test/AutoTestRunner.class
+		     ${CMAKE_CURRENT_BINARY_DIR}/test/AutoTestRunner.class
+
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/test
+
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DJava_JAVAC_EXECUTABLE=\"${Java_JAVAC_EXECUTABLE}\"
 		 -DJava_JAR_EXECUTABLE=\"${Java_JAR_EXECUTABLE}\"
@@ -260,13 +269,16 @@ ADD_CUSTOM_COMMAND(
 		 -DPATH_SEP=${PATH_SEP}
 		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
 	
+	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
+
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-    COMMENT "Building: libsbml.jar"
-	) 
+  COMMENT "Building: libsbml.jar"
+)
 
 add_custom_target(binding_java_jar ALL DEPENDS 
 	${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
 	${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
+  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 	)
 	
 add_dependencies(binding_java_jar binding_java_swig)
