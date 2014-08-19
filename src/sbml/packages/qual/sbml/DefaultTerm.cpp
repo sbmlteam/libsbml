@@ -131,7 +131,7 @@ DefaultTerm::~DefaultTerm ()
 /*
  * Returns the value of the "resultLevel" attribute of this DefaultTerm.
  */
-const int
+int
 DefaultTerm::getResultLevel() const
 {
   return mResultLevel;

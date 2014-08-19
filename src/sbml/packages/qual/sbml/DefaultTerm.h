@@ -130,7 +130,7 @@ public:
    *
    * @return the value of the "resultLevel" attribute of this DefaultTerm as a integer.
    */
-  virtual const int getResultLevel() const;
+  virtual int getResultLevel() const;
 
 
   /**
