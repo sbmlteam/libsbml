@@ -167,7 +167,7 @@ Output::getQualitativeSpecies() const
 /*
  * Returns the value of the "transitionEffect" attribute of this Output.
  */
-const OutputTransitionEffect_t
+OutputTransitionEffect_t
 Output::getTransitionEffect() const
 {
   return mTransitionEffect;
@@ -187,7 +187,7 @@ Output::getName() const
 /*
  * Returns the value of the "outputLevel" attribute of this Output.
  */
-const int
+int
 Output::getOutputLevel() const
 {
   return mOutputLevel;

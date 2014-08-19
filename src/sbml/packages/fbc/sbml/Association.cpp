@@ -162,7 +162,7 @@ Association::~Association ()
 {
 }
 
-const AssociationTypeCode_t 
+AssociationTypeCode_t 
 Association::getType () const
 {
   return mType;

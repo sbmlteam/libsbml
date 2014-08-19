@@ -171,7 +171,7 @@ public:
    *
    * @return the value of the "transitionEffect" attribute of this Output as a string.
    */
-  const OutputTransitionEffect_t getTransitionEffect() const;
+  OutputTransitionEffect_t getTransitionEffect() const;
 
 
   /**
@@ -187,7 +187,7 @@ public:
    *
    * @return the value of the "outputLevel" attribute of this Output as a integer.
    */
-  virtual const int getOutputLevel() const;
+  virtual int getOutputLevel() const;
 
 
   /**

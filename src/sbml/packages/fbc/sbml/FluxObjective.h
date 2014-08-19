@@ -221,7 +221,7 @@ public:
    *
    * @return the value of the "coefficient" attribute of this FluxObjective.
    */
-  virtual const double getCoefficient () const;
+  virtual double getCoefficient () const;
 
 
   /**

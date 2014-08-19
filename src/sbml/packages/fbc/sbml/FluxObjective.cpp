@@ -270,7 +270,7 @@ FluxObjective::unsetReaction ()
 /*
   * Returns the value of the "coefficient" attribute of this FluxObjective.
   */
-const double 
+double 
 FluxObjective::getCoefficient () const
 {
   return mCoefficient;

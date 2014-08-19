@@ -165,7 +165,7 @@ public:
    *
    * @return the value of the "constant" attribute of this QualitativeSpecies as a boolean.
    */
-  virtual const bool getConstant() const;
+  virtual bool getConstant() const;
 
 
   /**
@@ -181,7 +181,7 @@ public:
    *
    * @return the value of the "initialLevel" attribute of this QualitativeSpecies as a integer.
    */
-  virtual const int getInitialLevel() const;
+  virtual int getInitialLevel() const;
 
 
   /**
@@ -189,7 +189,7 @@ public:
    *
    * @return the value of the "maxLevel" attribute of this QualitativeSpecies as a integer.
    */
-  virtual const int getMaxLevel() const;
+  virtual int getMaxLevel() const;
 
 
   /**

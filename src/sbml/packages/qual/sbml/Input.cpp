@@ -171,7 +171,7 @@ Input::getQualitativeSpecies() const
 /*
  * Returns the value of the "transitionEffect" attribute of this Input.
  */
-const InputTransitionEffect_t
+InputTransitionEffect_t
 Input::getTransitionEffect() const
 {
   return mTransitionEffect;
@@ -191,7 +191,7 @@ Input::getName() const
 /*
  * Returns the value of the "sign" attribute of this Input.
  */
-const InputSign_t
+InputSign_t
 Input::getSign() const
 {
   return mSign;
@@ -201,7 +201,7 @@ Input::getSign() const
 /*
  * Returns the value of the "thresholdLevel" attribute of this Input.
  */
-const int
+int
 Input::getThresholdLevel() const
 {
   return mThresholdLevel;

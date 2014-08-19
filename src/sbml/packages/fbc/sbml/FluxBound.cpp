@@ -381,7 +381,7 @@ FluxBound::setValue (const double value)
 /*
  * @return the value of this SBML object.
  */
-const double
+double
 FluxBound::getValue () const
 {
   return mValue;

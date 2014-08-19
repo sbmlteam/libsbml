@@ -133,7 +133,7 @@ public:
    *
    * @return the value of the "resultLevel" attribute of this FunctionTerm as a integer.
    */
-  virtual const int getResultLevel() const;
+  virtual int getResultLevel() const;
 
 
   /**

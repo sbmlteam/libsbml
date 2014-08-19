@@ -155,7 +155,7 @@ FunctionTerm::~FunctionTerm ()
 /*
  * Returns the value of the "resultLevel" attribute of this FunctionTerm.
  */
-const int
+int
 FunctionTerm::getResultLevel() const
 {
   return mResultLevel;

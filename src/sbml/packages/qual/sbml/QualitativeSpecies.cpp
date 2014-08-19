@@ -179,7 +179,7 @@ QualitativeSpecies::getCompartment() const
 /*
  * Returns the value of the "constant" attribute of this QualitativeSpecies.
  */
-const bool
+bool
 QualitativeSpecies::getConstant() const
 {
   return mConstant;
@@ -199,7 +199,7 @@ QualitativeSpecies::getName() const
 /*
  * Returns the value of the "initialLevel" attribute of this QualitativeSpecies.
  */
-const int
+int
 QualitativeSpecies::getInitialLevel() const
 {
   return mInitialLevel;
@@ -209,7 +209,7 @@ QualitativeSpecies::getInitialLevel() const
 /*
  * Returns the value of the "maxLevel" attribute of this QualitativeSpecies.
  */
-const int
+int
 QualitativeSpecies::getMaxLevel() const
 {
   return mMaxLevel;

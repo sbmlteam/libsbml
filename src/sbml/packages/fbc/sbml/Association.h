@@ -115,7 +115,7 @@ public:
    *
    * @return the string of the "type" attribute of this Association.
    */
-  virtual const AssociationTypeCode_t getType () const;
+  virtual AssociationTypeCode_t getType () const;
 
 
   /**

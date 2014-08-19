@@ -299,7 +299,7 @@ public:
    *
    * @return the value of the "value" attribute of this FluxBound.
    */
-  virtual const double getValue () const;
+  virtual double getValue () const;
 
 
   /**

@@ -181,7 +181,7 @@ public:
    *
    * @return the value of the "transitionEffect" attribute of this Input as a string.
    */
-  const InputTransitionEffect_t getTransitionEffect() const;
+  InputTransitionEffect_t getTransitionEffect() const;
 
 
   /**
@@ -197,7 +197,7 @@ public:
    *
    * @return the value of the "sign" attribute of this Input as a string.
    */
-  const InputSign_t getSign() const;
+  InputSign_t getSign() const;
 
 
   /**
@@ -205,7 +205,7 @@ public:
    *
    * @return the value of the "thresholdLevel" attribute of this Input as a integer.
    */
-  virtual const int getThresholdLevel() const;
+  virtual int getThresholdLevel() const;
 
 
   /**
