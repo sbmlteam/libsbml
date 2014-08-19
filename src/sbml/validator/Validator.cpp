@@ -683,7 +683,7 @@ Validator::clearFailures ()
 /*
  * @return the category covered by this Validator.
  */
-const unsigned int
+unsigned int
 Validator::getCategory () const
 {
   return mCategory;

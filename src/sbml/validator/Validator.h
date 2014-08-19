@@ -141,7 +141,7 @@ public:
    * #SBMLErrorCategory_t.  See the documentation for the class SBMLError
    * for more information.
    */
-  const unsigned int getCategory () const;
+  unsigned int getCategory () const;
 
 
   /**
