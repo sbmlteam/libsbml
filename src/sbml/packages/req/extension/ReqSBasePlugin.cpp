@@ -55,6 +55,7 @@ ReqSBasePlugin::ReqSBasePlugin(const std::string& uri,
     SBasePlugin(uri, prefix, reqns)
   , mChangedMaths (reqns)
 {
+  connectToChild();
 }
 
 
@@ -65,6 +66,7 @@ ReqSBasePlugin::ReqSBasePlugin(const ReqSBasePlugin& orig) :
     SBasePlugin(orig)
   , mChangedMaths ( orig.mChangedMaths)
 {
+  connectToChild();
 }
 
 
@@ -78,6 +80,7 @@ ReqSBasePlugin::operator=(const ReqSBasePlugin& rhs)
   {
     this->SBasePlugin::operator=(rhs);
     mChangedMaths = rhs.mChangedMaths;
+    connectToChild();
   }
 
   return *this;
@@ -366,12 +369,17 @@ ReqSBasePlugin::connectToParent(SBase* sbase)
 {
   SBasePlugin::connectToParent(sbase);
 
-  if (getNumChangedMaths() > 0)
-  {
-    mChangedMaths.connectToParent(sbase);
-  }
+  mChangedMaths.connectToParent(sbase);
 }
 
+/** @cond doxygenLibsbmlInternal */
+void
+ReqSBasePlugin::connectToChild()
+{
+//  SBasePlugin::connectToChild();
+  connectToParent(this->getParentSBMLObject());
+}
+/** @endcond */
 
 /*
  * Enables the given package.

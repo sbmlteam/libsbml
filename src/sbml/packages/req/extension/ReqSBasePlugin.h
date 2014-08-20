@@ -292,7 +292,14 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
+
   /** @cond doxygenLibsbmlInternal */
+  
+  virtual void connectToChild ();
+  
+  /** @endcond */
+
+ /** @cond doxygenLibsbmlInternal */
 
   virtual void connectToParent (SBase* sbase);
 
