@@ -116,3 +116,7 @@ if(WITH_R)
 add_subdirectory(r)
 endif()
 
+if(WITH_JAVASCRIPT)
+add_subdirectory(javascript)
+endif()
+

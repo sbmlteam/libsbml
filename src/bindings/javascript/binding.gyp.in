@@ -1,0 +1,30 @@
+{
+ "targets": [
+    {
+
+    "target_name": "sbml",
+
+    "include_dirs": [ 
+      "@LIBSBML_ROOT_SOURCE_DIR@/src",
+      "@LIBSBML_ROOT_SOURCE_DIR@/src/bindings/swig",
+      "@LIBSBML_ROOT_SOURCE_DIR@/src/bindings/javascript",
+      "@LIBSBML_ROOT_BINARY_DIR@/src",
+    ],
+
+    "sources": [ "libsbml_wrap.cpp" ],
+    "libraries": ["-L@LIBSBML_ROOT_BINARY_DIR@/src", "-lsbml-static", "-lxml2", "-lz", "-lbz2" ],
+
+    "defines": [ "MACOSX",
+      "USE_BZ2",
+      "USE_COMP",
+      "USE_FBC",
+      "USE_LAYOUT",
+      "USE_LIBXML",
+      "USE_QUAL",
+      "USE_ZLIB"
+    ],
+
+    "cflags": ["-fPIC"],
+    }
+  ], 
+}

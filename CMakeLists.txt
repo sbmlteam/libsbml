@@ -160,6 +160,21 @@ option(WITH_R        "Generate the R language interface for libSBML"       OFF)
 option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
 option(WITH_MATLAB   "Generate the MATLAB language interface for libSBML." OFF)
 
+if (${SWIG_VERSION} VERSION_GREATER 3.0.1)
+
+  find_program(NODE_GYP_EXECUTABLE
+        NAMES node-gyp
+        PATHS
+              /usr/local/bin
+              /opt/local/bin
+              /usr/bin
+        DOC "The file name of the node-gyp executable."
+        )
+if (NODE_GYP_EXECUTABLE AND EXISTS ${NODE_GYP_EXECUTABLE})
+option(WITH_JAVASCRIPT   "Generate the experimental NodeJS language interface for libSBML." OFF)
+endif()
+endif()
+
 # Add an option to compile with all warnings shown
 option(WITH_WALL     "Compile with -Wall, so that the compiler will display all warnings." OFF)
 mark_as_advanced(WITH_WALL)
@@ -269,6 +284,8 @@ if(WITH_SWIG)
     find_program(SWIG_EXECUTABLE
         NAMES swig
         PATHS
+              c:/swigwin-3.0.2
+              c:/swigwin-3.0.1
               c:/swigwin-2.0.11
               c:/swigwin-2.0.10
               c:/swigwin-2.0.9
@@ -290,7 +307,7 @@ if(WITH_SWIG)
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
     	message(WARNING
 "You are using SWIG version ${SWIG_VERSION}.  We strongly recommend
-using at least version 2.0.4.")
+using at least version 2.0.4, for Javascript support you will need SWIG > 3.0.1.")
     endif()
     set(SWIG_EXTRA_ARGS)
     set(SWIG_SWIGDOCDEFINES)
