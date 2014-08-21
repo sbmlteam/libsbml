@@ -154,5 +154,7 @@ ADD_CUSTOM_COMMAND(
 	DEPENDS ${SWIG_DEPENDENCIES}
     COMMENT "Build sbml.node")
 
-add_custom_target(binding_js_node ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node)
+add_custom_target(binding_js_node ALL DEPENDS 
+  ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
+  ${LIBSBML_LIBRARY}-static)
 
