@@ -5,11 +5,11 @@
     "target_name": "sbml",
 
     "include_dirs": [ 
+      "@LIBSBML_ROOT_BINARY_DIR@/src",
+      "@LIBSBML_ROOT_BINARY_DIR@/src/bindings/javascript",
       "@LIBSBML_ROOT_SOURCE_DIR@/src",
       "@LIBSBML_ROOT_SOURCE_DIR@/src/bindings/swig",
       "@LIBSBML_ROOT_SOURCE_DIR@/src/bindings/javascript",
-      "@LIBSBML_ROOT_BINARY_DIR@/src",
-      "@LIBSBML_ROOT_BINARY_DIR@/src/bindings/javascript",
     ],
 
     "sources": [ "libsbml_wrap.cpp" ],
