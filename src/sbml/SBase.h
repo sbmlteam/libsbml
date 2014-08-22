@@ -694,7 +694,7 @@ public:
    * Returns the content of the "annotation" subelement of this object as a
    * character string.
    *
-   * @copydetails doc_what_are_annotations 
+   * @copydetails doc_what_are_annotations
    *
    * The annotations returned by this method will be in string form.  See the
    * method getAnnotation() for a version that returns annotations in XML form.
@@ -713,7 +713,8 @@ public:
 
 
   /**
-   * Returns a list of the XML Namespaces declared on this SBML document.
+   * Returns a list of the XML Namespaces declared on the SBML document
+   * owning this object.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and (in
