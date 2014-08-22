@@ -2600,6 +2600,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
+   *
+   * @see getPlugin(unsigned int n)
    */
   SBasePlugin* getPlugin(const std::string& package);
 
@@ -2614,6 +2616,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
+   *
+   * @see getPlugin(unsigned int n)
    */
   const SBasePlugin* getPlugin(const std::string& package) const;
 
@@ -2626,8 +2630,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param n the index of the plug-in to return
    *
-   * @return the plug-in object (the libSBML extension interface) of
-   * a package extension with the given package name or URI.
+   * @return the nth plug-in object (the libSBML extension interface) of a
+   * package extension.
+   *
+   * @see getNumPlugins()
+   * @see getPlugin(@if java String@else const std::string& package@endif)
    */
   SBasePlugin* getPlugin(unsigned int n);
 
@@ -2640,8 +2647,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param n the index of the plug-in to return
    *
-   * @return the plug-in object (the libSBML extension interface) of a
-   * package extension with the given package name or URI.
+   * @return the nth plug-in object (the libSBML extension interface) of a
+   * package extension.
+   *
+   * @see getNumPlugins()
+   * @see getPlugin(@if java String@else const std::string& package@endif)
    */
   const SBasePlugin* getPlugin(unsigned int n) const;
 
@@ -2654,6 +2664,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @return the number of plug-in objects (extension interfaces) of
    * package extensions known by this instance of libSBML.
+   *
+   * @see getPlugin(unsigned int n)
    */
   unsigned int getNumPlugins() const;
 
