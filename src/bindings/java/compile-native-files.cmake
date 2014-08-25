@@ -62,7 +62,7 @@ execute_process(
   WORKING_DIRECTORY "${BIN_DIRECTORY}"
 )
 
-if (NOT COMPILE_ERRORS STREQUAL "")
+if (NOT COMPILE_ERRORS STREQUAL "" AND COMPILE_ERRORS MATCHES "error")
   message (FATAL_ERROR 
 "
 Could not compile java wrappers:
