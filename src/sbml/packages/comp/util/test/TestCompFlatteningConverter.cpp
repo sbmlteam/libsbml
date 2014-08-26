@@ -43,7 +43,7 @@ string writeSBMLToStringSafe(const SBMLDocument* doc)
 {
   char* modelC = writeSBMLToString(doc);
   string model(modelC);
-  delete modelC;
+  free(modelC);
   return model;
 }
 
