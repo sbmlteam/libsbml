@@ -160,18 +160,21 @@ option(WITH_R        "Generate the R language interface for libSBML"       OFF)
 option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
 option(WITH_MATLAB   "Generate the MATLAB language interface for libSBML." OFF)
 
+if (SWIG_VERSION)
 if (${SWIG_VERSION} VERSION_GREATER 3.0.1)
 
   find_program(NODE_GYP_EXECUTABLE
-        NAMES node-gyp
+        NAMES node-gyp node-gyp.cmd
         PATHS
               /usr/local/bin
               /opt/local/bin
               /usr/bin
+			  $ENV{PROGRAMFILES}/nodejs/
         DOC "The file name of the node-gyp executable."
         )
 if (NODE_GYP_EXECUTABLE AND EXISTS ${NODE_GYP_EXECUTABLE})
 option(WITH_JAVASCRIPT   "Generate the experimental NodeJS language interface for libSBML." OFF)
+endif()
 endif()
 endif()
 
