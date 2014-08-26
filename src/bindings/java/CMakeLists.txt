@@ -171,6 +171,7 @@ ADD_CUSTOM_COMMAND(
 	       ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
 	       ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
+		  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
 
@@ -278,8 +279,8 @@ ADD_CUSTOM_COMMAND(
 add_custom_target(binding_java_jar ALL DEPENDS 
 	${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
 	${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
-  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
-	)
+     ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
+)
 	
 add_dependencies(binding_java_jar binding_java_swig)
 	
