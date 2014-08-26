@@ -1581,7 +1581,8 @@ SBase::removeTopLevelAnnotationElement(const std::string elementName,
     }
 
     // remove the annotation at the index corresponding to the name
-    mAnnotation->removeChild(index);
+    XMLNode* removed = mAnnotation->removeChild(index);
+    delete removed;
     if (removeEmpty && mAnnotation->getNumChildren() == 0)
     {
       delete mAnnotation;
@@ -3207,7 +3208,8 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
         && pkgPrefix == mElementsOfUnknownDisabledPkg.getChild(i).getPrefix())
       {
         mElementsOfUnknownPkg.addChild(mElementsOfUnknownDisabledPkg.getChild(i));
-        mElementsOfUnknownDisabledPkg.removeChild(i);
+        XMLNode* removed = mElementsOfUnknownDisabledPkg.removeChild(i);
+        delete removed;
       }
       else {
         i++;
@@ -3256,7 +3258,8 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
         && pkgPrefix == mElementsOfUnknownPkg.getChild(i).getPrefix())
       {
         mElementsOfUnknownDisabledPkg.addChild(mElementsOfUnknownPkg.getChild(i));
-        mElementsOfUnknownPkg.removeChild(i);
+        XMLNode* removed = mElementsOfUnknownPkg.removeChild(i);
+        delete removed;
       }
       else {
         i++;
