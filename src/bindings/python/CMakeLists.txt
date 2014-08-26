@@ -138,6 +138,7 @@ file(COPY
 #
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+           ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py
            ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
            ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
 	COMMAND "${PYTHON_EXECUTABLE}"
