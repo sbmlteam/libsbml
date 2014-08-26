@@ -1169,8 +1169,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
   // create the filter we want to use
   IdFilter filter;
 
-  ReferencedModel *ref = new ReferencedModel(m, p);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, p);
+  const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
