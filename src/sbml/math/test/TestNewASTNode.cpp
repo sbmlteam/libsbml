@@ -6825,7 +6825,17 @@ START_TEST (test_ASTNode_representsBvar)
 END_TEST
 
 
+START_TEST (test_ASTNode_functionChildren)
+{
+  ASTNode * N = SBML_parseFormula("foo(3, y, z)");
 
+  fail_unless(N->getNumChildren() == 3);
+  for (unsigned int c=N->getNumChildren(); c > 0; c--) {
+    //DEBUG:  this should work:
+    //N->removeChild(c-1);
+  }
+}
+END_TEST
 
 
 
@@ -6983,6 +6993,7 @@ create_suite_NewASTNode (void)
   
   tcase_add_test( tcase, test_ASTNode_representsBvar   );
 
+  tcase_add_test( tcase, test_ASTNode_functionChildren   );
   suite_add_tcase(suite, tcase);
 
   return suite;

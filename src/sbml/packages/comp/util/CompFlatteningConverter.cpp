@@ -56,8 +56,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 void CompFlatteningConverter::init()
 {
-  SBMLConverterRegistry::getInstance().addConverter
-                                      (new CompFlatteningConverter());
+  //'addConverter' adds a clone, not the original.
+  CompFlatteningConverter cfc;
+  SBMLConverterRegistry::getInstance().addConverter(&cfc);
 }
 /** @endcond */
 
@@ -261,7 +262,7 @@ CompFlatteningConverter::convert()
   {
     // Otherwise, transfer only errors 1090107->1090110
     SBMLErrorLog* log = mDocument->getErrorLog();
-    SBMLDocument *dummy = new SBMLDocument(mDocument->getSBMLNamespaces());
+    SBMLDocument dummy(mDocument->getSBMLNamespaces());
     for (unsigned int en=0; en<log->getNumErrors(); en++) 
     {
       unsigned int errid = mDocument->getError(en)->getErrorId();
@@ -270,7 +271,7 @@ CompFlatteningConverter::convert()
           errid == CompFlatteningNotImplementedNotReqd ||
           errid == CompFlatteningNotImplementedReqd)
       {
-            dummy->getErrorLog()->add(*(mDocument->getError(en)));
+            dummy.getErrorLog()->add(*(mDocument->getError(en)));
       }
     }
 
@@ -279,7 +280,7 @@ CompFlatteningConverter::convert()
     // create a dummyDocument that will mirror what the user options are 
     //Now check to see if the flat model is valid
     // run regular validation on the flattened document if requested.
-    result = reconstructDocument(flatmodel, *(dummy), true );
+    result = reconstructDocument(flatmodel, dummy, true );
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
       delete flatmodel;
@@ -289,14 +290,14 @@ CompFlatteningConverter::convert()
 
     // override comp flattening if necessary
     CompSBMLDocumentPlugin * dummyPlugin = static_cast<CompSBMLDocumentPlugin*>
-                                           (dummy->getPlugin("comp"));
+                                           (dummy.getPlugin("comp"));
 
     if (dummyPlugin != NULL)
     {
       dummyPlugin->setOverrideCompFlattening(true);
     }
 
-    dummy->checkConsistency();
+    dummy.checkConsistency();
 
     if (dummyPlugin != NULL)
     {
@@ -304,7 +305,7 @@ CompFlatteningConverter::convert()
     }
 
     unsigned int errors = 
-             dummy->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+             dummy.getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
     if (errors > 0)
     {
       // we have serious errors so we are going to bail on the
@@ -322,10 +323,10 @@ CompFlatteningConverter::convert()
         modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
         modelPlugin->getVersion(), message);
     
-      unsigned int nerrors = dummy->getErrorLog()->getNumErrors();
+      unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
       for (unsigned int n = 0; n < nerrors; n++)
       {
-        const SBMLError* error = dummy->getError(n);
+        const SBMLError* error = dummy.getError(n);
         if (error->getSeverity() >= LIBSBML_SEV_ERROR) 
         {
           log->add( *(error) );
@@ -341,7 +342,6 @@ CompFlatteningConverter::convert()
           log->add( *(error) );
         }
       }
-      delete dummy;
       delete flatmodel;
       restoreNamespaces();
       return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
@@ -350,13 +350,12 @@ CompFlatteningConverter::convert()
     {
       // put any warnings into the document that will be have the
       // flat model
-      unsigned int nerrors = dummy->getErrorLog()->getNumErrors();
+      unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
       for (unsigned int n = 0; n < nerrors; n++)
       {
-        const SBMLError* error = dummy->getError(n);
+        const SBMLError* error = dummy.getError(n);
         log->add( *(error) );
       }
-      delete dummy;
     }
   }
 
@@ -379,8 +378,8 @@ CompFlatteningConverter::convert()
 int
 CompFlatteningConverter::reconstructDocument(Model * flatmodel)
 {
-  SBMLDocument * tempDoc = NULL;
-  return reconstructDocument(flatmodel, *(tempDoc));
+  SBMLDocument tempDoc;
+  return reconstructDocument(flatmodel, tempDoc);
 }
 
 

@@ -46,12 +46,12 @@ extern char *TestDataDirectory;
 
 START_TEST(test_comp_flatten_abort_reqd_only_1)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -81,15 +81,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_reqd_only_2)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking the default
-  props->addOption("abortIfUnflattenable", "requiredOnly");
+  props.addOption("abortIfUnflattenable", "requiredOnly");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -119,15 +119,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_reqd_only_3)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking the default
-  props->addOption("stripUnflattenablePackages", true);
+  props.addOption("stripUnflattenablePackages", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -157,14 +157,14 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_reqd_only_4)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -194,12 +194,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_reqd_only_5)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -233,14 +233,14 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_reqd_only_6)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -274,15 +274,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_all_1)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking the default
-  props->addOption("abortIfUnflattenable", "all");
+  props.addOption("abortIfUnflattenable", "all");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -312,15 +312,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_all_2)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking the default
-  props->addOption("abortIfUnflattenable", "all");
+  props.addOption("abortIfUnflattenable", "all");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -350,16 +350,16 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_all_3)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking the default
-  props->addOption("abortIfUnflattenable", "all");
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("abortIfUnflattenable", "all");
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -389,16 +389,16 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_all_4)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   
-  props->addOption("abortIfUnflattenable", "all");
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("abortIfUnflattenable", "all");
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -428,15 +428,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_1)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -470,15 +470,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_2)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -512,16 +512,16 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_3)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("abortIfUnflattenable", "none");
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -555,16 +555,16 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_4)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
-  props->addOption("stripUnflattenablePackages", false);
+  props.addOption("abortIfUnflattenable", "none");
+  props.addOption("stripUnflattenablePackages", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -598,15 +598,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_5)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -643,15 +643,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_6)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -688,15 +688,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_7)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -733,15 +733,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_8)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -778,15 +778,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_9)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -823,15 +823,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_10)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -868,15 +868,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_11)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -913,15 +913,15 @@ END_TEST
 
 START_TEST(test_comp_flatten_abort_none_12)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
   
   // checking for none
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("abortIfUnflattenable", "none");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);

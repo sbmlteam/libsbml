@@ -51,6 +51,7 @@
 #include <sbml/math/ASTBase.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/util/StringBuffer.h>
+#include <sbml/math/L3ParserSettings.h>
 
 #include <sbml/math/L3ParserSettings.h>
 

@@ -333,7 +333,7 @@ SBMLRuleConverter::convert()
   if (mModel == NULL) return LIBSBML_INVALID_OBJECT;
 
   
-  /* if there are no function definitions and initial assignments bail now */
+  /* if there are no rules and initial assignments bail now */
   if (mModel->getNumRules() == 0 && mModel->getNumInitialAssignments() == 0)
   {
     return LIBSBML_OPERATION_SUCCESS;

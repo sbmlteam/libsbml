@@ -58,7 +58,6 @@
 #include <algorithm>
 #include <string>
 
-using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 void SweetConverter::init()

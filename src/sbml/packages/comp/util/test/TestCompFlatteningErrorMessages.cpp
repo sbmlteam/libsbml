@@ -46,12 +46,12 @@ extern char *TestDataDirectory;
 
 START_TEST(test_comp_flatten_invalid)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
+  props.addOption("flatten comp");
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -75,12 +75,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid2)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -123,12 +123,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid3)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -172,12 +172,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid4)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -226,12 +226,12 @@ START_TEST(test_comp_flatten_invalid5)
   // This tests the fix I made to 
   // ExternalModelReferenceCycles 
   // so it doesn't expect a 5-character URI prefix.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", true);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -281,12 +281,12 @@ START_TEST(test_comp_flatten_invalid6)
   // This tests the fix I made to 
   // ExternalModelReferenceCycles so it doesn't expect any 
   // locationURI to be set at all.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", true);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -331,12 +331,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid7)
 {
   //Test recursive submodels.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -377,12 +377,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid8)
 {
   //Test recursive submodels.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -433,12 +433,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid9)
 {
   //Test submodels with no ID.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -483,12 +483,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid10)
 {
   //Test submodels with no modelRef.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -528,12 +528,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid11)
 {
   //Test submodels with incorrect modelRef.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -574,12 +574,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid12)
 {
   //Test external model definition that points to an l2 model.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -629,12 +629,12 @@ START_TEST(test_comp_flatten_invalid13)
 {
   //Test external model definition that points to a directory 
   // (a real thing, but something libsbml can't open)
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -682,12 +682,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid14)
 {
   //Test external model definition that points to a text file
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -736,12 +736,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid15)
 {
   //Test external model definition that points to an empty L3 model
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -791,12 +791,12 @@ START_TEST(test_comp_flatten_invalid16)
 {
   //Test external model definition with a modelRef
   // that points to an empty L3 model
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -847,12 +847,12 @@ START_TEST(test_comp_flatten_invalid17)
 {
   //Test external model definition with a modelRef
   //that points to an empty L3 model
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -903,12 +903,12 @@ START_TEST(test_comp_flatten_invalid18)
 {
   //Test external model definition with a modelRef doesn't 
   //appear in the referenced L3 document.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -959,12 +959,12 @@ START_TEST(test_comp_flatten_invalid19)
 {
   //Test external model definition with a modelRef doesn't 
   //appear in the referenced L3 document.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -1015,12 +1015,12 @@ START_TEST(test_comp_flatten_invalid20)
 {
   //Test external model definition with a modelRef doesn't 
   //appear in the referenced L3 document.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -1070,12 +1070,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid21)
 {
   //Test external model definition with a modelRef doesn't appear in the referenced L3 document.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   //int retval = 0;
   int rv;
@@ -1125,12 +1125,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid22)
 {
   //Test external model definition from a document with comp turned off.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
 
@@ -1181,12 +1181,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid23)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1242,12 +1242,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid24)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1303,12 +1303,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid25)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1364,12 +1364,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid26)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1425,12 +1425,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid27)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1486,12 +1486,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid28)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1547,12 +1547,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid29)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1608,12 +1608,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid30)
 {
   //Test replacedBy without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1668,12 +1668,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid31)
 {
   //Test port without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1712,12 +1712,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid32)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1765,12 +1765,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid33)
 {
   //Test SBaseRef without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1838,12 +1838,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid34)
 {
   //Test SBaseRef that shouldn't be there.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1941,12 +1941,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid37)
 {
   //Test ReplacedElement with errant submodelRef.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -1992,12 +1992,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid38)
 {
   //Test ReplacedBy with errant submodelRef.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2043,12 +2043,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid39)
 {
   //Test mismatched IDs in replacement.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2106,12 +2106,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid40)
 {
   //Test mismatched metaIDs in replacement.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2171,12 +2171,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid41)
 {
   //Test mismatched IDs in replacement.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2235,12 +2235,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid42)
 {
   //Test mismatched metaIDs in replacement.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2503,13 +2503,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid55)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2539,13 +2539,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid56)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2576,12 +2576,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid57)
 {
   //Test double deletion.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2635,13 +2635,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid58)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2669,13 +2669,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid59)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2703,13 +2703,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid60)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2738,12 +2738,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid61)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2812,12 +2812,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid62)
 {
   //Test replaced element without correct attributes.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2882,12 +2882,12 @@ END_TEST
 START_TEST(test_comp_flatten_invalid63)
 {
   //Test invalid flattened models.
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", true);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -2945,13 +2945,13 @@ END_TEST
 START_TEST(test_comp_flatten_invalid64)
 {
   //Test invalid flattened models.
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -2983,13 +2983,13 @@ END_TEST
 START_TEST(test_comp_flatten_invalid65)
 {
   //Test invalid flattened models.
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3021,13 +3021,13 @@ END_TEST
 START_TEST(test_comp_flatten_invalid_core)
 {
   //Test invalid flattened models.
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3056,13 +3056,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid66)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3093,13 +3093,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid67)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3130,13 +3130,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid68)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3167,13 +3167,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid69)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3204,13 +3204,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid70)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3241,12 +3241,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid71)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -3325,12 +3325,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid72)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -3425,12 +3425,12 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid73)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", false);
-  props->addOption("performValidation", false);
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", false);
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   SBMLNamespaces sbmlns(3,1,"comp",1);
   int rv;
@@ -3518,13 +3518,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid74)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3552,13 +3552,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid75)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);
@@ -3589,13 +3589,13 @@ END_TEST
 
 START_TEST(test_comp_flatten_invalid77)
 {
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("performValidation", false);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string dir(TestDataDirectory);

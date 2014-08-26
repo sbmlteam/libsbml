@@ -53,20 +53,20 @@ extern char *TestDataDirectory;
 
 START_TEST (test_conversion_registry_get)
 {
-  ConversionProperties* props = new ConversionProperties();
-  props->addOption("expandInitialAssignments");
+  ConversionProperties props;
+  props.addOption("expandInitialAssignments");
   
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   fail_unless(converter!= NULL);
   delete converter;
 
   // ensure that nothing bad happened when deleting the converter
-  converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   fail_unless(converter!= NULL);
   delete converter;
 
   // ensure that nothing bad happened when deleting the converter
-  converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   fail_unless(converter!= NULL);
   delete converter;
 

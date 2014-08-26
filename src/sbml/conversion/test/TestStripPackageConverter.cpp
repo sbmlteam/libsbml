@@ -62,11 +62,11 @@ START_TEST (test_strip_unknownreq)
 
   fail_unless(d != NULL);
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("package", "unknownreq");
+  ConversionProperties props;
+  props.addOption("package", "unknownreq");
 
   SBMLConverter* converter = new SBMLStripPackageConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(d);
 
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
@@ -96,11 +96,11 @@ START_TEST (test_strip_comp)
 
   fail_unless(d != NULL);
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("package", "comp");
+  ConversionProperties props;
+  props.addOption("package", "comp");
 
   SBMLConverter* converter = new SBMLStripPackageConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(d);
 
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);

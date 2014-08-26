@@ -554,7 +554,7 @@ CompSBMLDocumentPlugin::removeExternalModelDefinition(unsigned int index)
 const SBase* CompSBMLDocumentPlugin::getModel(const string& sid) const
 {
   const SBase* ret = getSBMLDocument()->getModel();
-  if (ret->getId() == sid) return ret;
+  if (ret != NULL && ret->getId() == sid) return ret;
   ret = getModelDefinition(sid);
   if (ret!=NULL) return ret;
   ret = getExternalModelDefinition(sid);
@@ -847,7 +847,7 @@ CompSBMLDocumentPlugin::checkConsistency()
     {
       mCheckingDummyDoc = true;
       mFlattenAndCheck = false;
-      SBMLDocument * dummyDoc = doc->clone();
+      SBMLDocument dummyDoc = *doc;
 
       /* a document clone does not clone the error log as this was deemed
        * to be a situation where you wanted an empty log
@@ -858,40 +858,40 @@ CompSBMLDocumentPlugin::checkConsistency()
        */
       if (doc->getErrorLog()->contains(UnrequiredPackagePresent) == true)
       {
-        dummyDoc->getErrorLog()->logError(UnrequiredPackagePresent, 
+        dummyDoc.getErrorLog()->logError(UnrequiredPackagePresent, 
           doc->getLevel(), doc->getVersion());
       }
       if (doc->getErrorLog()->contains(RequiredPackagePresent) == true)
       {
-        dummyDoc->getErrorLog()->logError(RequiredPackagePresent, 
+        dummyDoc.getErrorLog()->logError(RequiredPackagePresent, 
           doc->getLevel(), doc->getVersion());
       }
       
       const Model * dummyModel = doc->getModel();
       
       CompSBMLDocumentPlugin * dummyPlugin = 
-        static_cast<CompSBMLDocumentPlugin*>(dummyDoc->getPlugin("comp"));
+        static_cast<CompSBMLDocumentPlugin*>(dummyDoc.getPlugin("comp"));
 
       /* now swap the existing model with the modeldefinition */
       ModelDefinition dummyDef(*dummyModel);
       dummyPlugin->addModelDefinition(&dummyDef);
 
-      dummyDoc->setModel(getModelDefinition(i));
+      dummyDoc.setModel(getModelDefinition(i));
 
       dummyPlugin->removeModelDefinition(i);
 
 
-      nerrors = dummyDoc->checkConsistency();
+      nerrors = dummyDoc.checkConsistency();
 
       /* remove the unknown package errors as these will just get relogged
        */
-      if (dummyDoc->getErrorLog()->contains(UnrequiredPackagePresent) == true)
+      if (dummyDoc.getErrorLog()->contains(UnrequiredPackagePresent) == true)
       {
-        dummyDoc->getErrorLog()->remove(UnrequiredPackagePresent);
+        dummyDoc.getErrorLog()->remove(UnrequiredPackagePresent);
       }
-      if (dummyDoc->getErrorLog()->contains(RequiredPackagePresent) == true)
+      if (dummyDoc.getErrorLog()->contains(RequiredPackagePresent) == true)
       {
-        dummyDoc->getErrorLog()->remove(RequiredPackagePresent);
+        dummyDoc.getErrorLog()->remove(RequiredPackagePresent);
       }
 
 
@@ -913,22 +913,20 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+          if (dummyDoc.getErrorLog()->getError(n)->getErrorId() 
             != CompLineNumbersUnreliable)
           {
-            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+            log->add( *(dummyDoc.getErrorLog()->getError(n)) );
           }
         }
 
         /* only want to bail if errors not warnings */
         if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
         {
-          delete dummyDoc;
           return total_errors;
         }
       }
 
-      delete dummyDoc;
       mFlattenAndCheck = true;
     }
 
@@ -939,7 +937,7 @@ CompSBMLDocumentPlugin::checkConsistency()
 
   if (mFlattenAndCheck == true && mOverrideCompFlattening == false)
   {
-    SBMLDocument * dummyDoc = doc->clone();
+    SBMLDocument dummyDoc = *doc;
     ConversionProperties props;
     
     props.addOption("flatten comp");
@@ -949,14 +947,14 @@ CompSBMLDocumentPlugin::checkConsistency()
                SBMLConverterRegistry::getInstance().getConverterFor(props);
     
 
-    converter->setDocument(dummyDoc);
+    converter->setDocument(&dummyDoc);
     
     int result = converter->convert();
 
     if (result == LIBSBML_OPERATION_SUCCESS)
     {
-      nerrors = dummyDoc->checkConsistency();
-      if (dummyDoc->getErrorLog()->
+      nerrors = dummyDoc.checkConsistency();
+      if (dummyDoc.getErrorLog()->
                               getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       {
         /* log a message to say not to trust line numbers 
@@ -996,17 +994,17 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+          if (dummyDoc.getErrorLog()->getError(n)->getErrorId() 
             != CompLineNumbersUnreliable)
           {
-            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+            log->add( *(dummyDoc.getErrorLog()->getError(n)) );
           }
         }
       }
     }
     else
     {
-      nerrors = dummyDoc->getNumErrors();
+      nerrors = dummyDoc.getNumErrors();
       total_errors += nerrors;
       if (nerrors > 0) 
       {
@@ -1025,16 +1023,14 @@ CompSBMLDocumentPlugin::checkConsistency()
 
         for (unsigned int n = 0; n < nerrors; n++)
         {
-          if (dummyDoc->getErrorLog()->getError(n)->getErrorId() 
+          if (dummyDoc.getErrorLog()->getError(n)->getErrorId() 
             != CompLineNumbersUnreliable)
           {
-            log->add( *(dummyDoc->getErrorLog()->getError(n)) );
+            log->add( *(dummyDoc.getErrorLog()->getError(n)) );
           }
         }
       }
     }
-      
-    delete dummyDoc;
   }
   return total_errors;  
 }

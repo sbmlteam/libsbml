@@ -49,13 +49,13 @@ SBMLDocument* TestFlattenedUnknownNoValidate(string file1, string file2)
   string filename(TestDataDirectory);
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", false);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + file1;  
@@ -102,14 +102,14 @@ SBMLDocument* TestFlattenedUnknownValidate(string file1, string file2)
 {
   string filename(TestDataDirectory);
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + file1;  
@@ -142,14 +142,14 @@ SBMLDocument* TestFlattenedUnknownValidateFailsFlattening(string file1)
 {
   string filename(TestDataDirectory);
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", true);
 
   SBMLConverter* converter = 
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + file1;  
@@ -182,14 +182,14 @@ SBMLDocument* TestFlattenedUnknownAbortNone(string file1, string file2)
   string filename(TestDataDirectory);
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", false);
-  props->addOption("abortIfUnflattenable", "none");
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", false);
+  props.addOption("abortIfUnflattenable", "none");
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + file1;  
@@ -519,13 +519,13 @@ START_TEST (test_comp_flatten_unknown_21)
   string filename(TestDataDirectory);
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", false);
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", false);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + "flatten_fail_unknown.xml";  
@@ -847,13 +847,13 @@ START_TEST (test_comp_flatten_unknown_withValidation_21)
   string filename(TestDataDirectory);
   //string filename("C:\\Development\\libsbml\\src\\sbml\\packages\\comp\\util\\test\\test-data\\");
   
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("basePath", filename);
-  props->addOption("performValidation", true);
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", true);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   
   // load document
   string cfile = filename + "flatten_fail_unknown.xml";  

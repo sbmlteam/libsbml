@@ -233,12 +233,12 @@ START_TEST (test_comp_model_flattening_with_ports)
   //===========
   // replace with
 
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", true);
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", true);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   converter->setDocument(doc);
   int result = converter->convert();
 
@@ -285,12 +285,12 @@ START_TEST (test_comp_flatten_exchange4)
   //===========
   // replace with
 
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", true);
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", true);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   converter->setDocument(doc);
   int result = converter->convert();
 
@@ -339,12 +339,12 @@ START_TEST (test_comp_flatten_exchange5)
   //===========
   // replace with
 
-  ConversionProperties* props = new ConversionProperties();
+  ConversionProperties props;
   
-  props->addOption("flatten comp");
-  props->addOption("leavePorts", true);
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", true);
 
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
   converter->setDocument(doc);
   int result = converter->convert();
 

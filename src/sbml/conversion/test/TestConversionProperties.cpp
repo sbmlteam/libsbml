@@ -50,30 +50,27 @@ extern char *TestDataDirectory;
 START_TEST (test_conversion_properties_read)
 {
 
-  ConversionProperties *props = new ConversionProperties();
+  ConversionProperties props;
 
-  fail_unless(props->hasTargetNamespaces() == false);
-  fail_unless(props->hasOption("nonexistent") == false);
+  fail_unless(props.hasTargetNamespaces() == false);
+  fail_unless(props.hasOption("nonexistent") == false);
 
   ConversionOption* option = new ConversionOption("strict", "true", CNV_TYPE_BOOL, "observe validation rules");
-  props->addOption(*option);
+  props.addOption(*option);
   delete option;
 
-  fail_unless(props->hasOption("strict") == true);
-  fail_unless(props->getValue("strict") == "true");
-  fail_unless(props->getBoolValue("strict") == true);
+  fail_unless(props.hasOption("strict") == true);
+  fail_unless(props.getValue("strict") == "true");
+  fail_unless(props.getBoolValue("strict") == true);
   
-  props->setValue("strict", "false");
-  fail_unless(props->getBoolValue("strict") == false);
+  props.setValue("strict", "false");
+  fail_unless(props.getBoolValue("strict") == false);
 
-  props->setBoolValue("strict", true);
-  fail_unless(props->getBoolValue("strict") == true);
+  props.setBoolValue("strict", true);
+  fail_unless(props.getBoolValue("strict") == true);
 
-  props->setIntValue("strict", (int)false);
-  fail_unless(props->getBoolValue("strict") == false);
-
-
-  delete props;
+  props.setIntValue("strict", (int)false);
+  fail_unless(props.getBoolValue("strict") == false);
 }
 END_TEST
 

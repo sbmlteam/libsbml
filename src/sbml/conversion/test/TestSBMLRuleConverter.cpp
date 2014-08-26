@@ -83,19 +83,17 @@ START_TEST (test_conversion_ruleconverter_sort)
   rule2->setFormula("1");
   rule2->setMetaId("m2");
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("sortRules", true, "sort rules");
+  ConversionProperties props;
+  props.addOption("sortRules", true, "sort rules");
 
   SBMLConverter* converter = new SBMLRuleConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(&doc);
   
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (model->getNumRules() == 2);
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
-
-  delete props;
 }
 END_TEST
 
@@ -131,19 +129,17 @@ START_TEST (test_conversion_ruleconverter_dontSort)
   rule1->setMetaId("m1");
 
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("sortRules", true, "sort rules");
+  ConversionProperties props;
+  props.addOption("sortRules", true, "sort rules");
 
   SBMLConverter* converter = new SBMLRuleConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(&doc);
 
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (model->getNumRules() == 2);
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
-
-  delete props;
 }
 END_TEST
 
@@ -179,19 +175,17 @@ START_TEST (test_conversion_ruleconverter_sortIA)
   ia2->setMath(SBML_parseFormula("1"));
   ia2->setMetaId("m2");
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("sortRules", true, "sort rules");
+  ConversionProperties props;
+  props.addOption("sortRules", true, "sort rules");
 
   SBMLConverter* converter = new SBMLRuleConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(&doc);
   
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (model->getNumInitialAssignments() == 2);
   fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
   fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
-
-  delete props;
 }
 END_TEST
 
@@ -226,19 +220,17 @@ START_TEST (test_conversion_ruleconverter_dontSortIA)
   ia1->setMath(SBML_parseFormula("p + 1"));
   ia1->setMetaId("m1");
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("sortRules", true, "sort rules");
+  ConversionProperties props;
+  props.addOption("sortRules", true, "sort rules");
 
   SBMLConverter* converter = new SBMLRuleConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(&doc);
   
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (model->getNumInitialAssignments() == 2);
   fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
   fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
-
-  delete props;
 }
 END_TEST
 
@@ -281,11 +273,11 @@ START_TEST (test_conversion_ruleconverter_with_alg)
   rule2->setFormula("1");
   rule2->setMetaId("m2");
 
-  ConversionProperties *props = new ConversionProperties();
-  props->addOption("sortRules", true, "sort rules");
+  ConversionProperties props;
+  props.addOption("sortRules", true, "sort rules");
 
   SBMLConverter* converter = new SBMLRuleConverter();
-  converter->setProperties(props);
+  converter->setProperties(&props);
   converter->setDocument(&doc);
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
@@ -293,8 +285,6 @@ START_TEST (test_conversion_ruleconverter_with_alg)
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
   fail_unless (model->getRule(2)->getMetaId() == "m0");
-
-  delete props;
 }
 END_TEST
 
