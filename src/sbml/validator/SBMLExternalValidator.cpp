@@ -52,7 +52,7 @@
 #if defined (WIN32) && !defined (CYGWIN)
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <windows.h>
 
 #else
 
