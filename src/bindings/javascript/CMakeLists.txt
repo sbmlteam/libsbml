@@ -120,10 +120,10 @@ SET(NODE_JS_DEFINES)
 # construct the define statement in binding.gyp
 # from current settings
 if (UNIX)
-  if (APPLE)
-  SET(NODE_JS_DEFINES "'MACOSX', ")
-  endif()
   SET(NODE_JS_DEFINES "'LINUX', ")
+  if (APPLE)
+    SET(NODE_JS_DEFINES "${NODE_JS_DEFINES} 'MACOSX', ")
+  endif()
 else()
   SET(NODE_JS_DEFINES "'WIN32', 'LIBSBML_EXPORTS', 'LIBLAX_EXPORTS', ")
 endif()
