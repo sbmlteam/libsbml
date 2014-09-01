@@ -34,9 +34,11 @@
 cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
-# allow us to read the location property of the libsbml-static project, 
-# so we can link against it in the generated gyp file for javascript 
-cmake_policy(SET CMP0026 OLD)
+if(POLICY CMP0026)
+ # allow us to read the location property of the libsbml-static project, 
+ # so we can link against it in the generated gyp file for javascript 
+ cmake_policy(SET CMP0026 OLD)
+endif()
 
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
     "Path to the libSBML root source directory")
