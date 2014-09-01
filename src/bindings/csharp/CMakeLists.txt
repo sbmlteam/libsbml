@@ -124,7 +124,7 @@ endif()
 
 
 if (NOT EXISTS "${PYTHON_EXECUTABLE}")
-	message(FATAL_ERROR "The java language bindings require PYTHON_EXECUTABLE to be set to the python command.")
+	message(FATAL_ERROR "The csharp language bindings require PYTHON_EXECUTABLE to be set to the python command.")
 endif()
 
 

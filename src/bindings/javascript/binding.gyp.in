@@ -13,16 +13,13 @@
     ],
 
     "sources": [ "libsbml_wrap.cpp" ],
-    "libraries": ["-L@LIBSBML_ROOT_BINARY_DIR@/src", "-lsbml-static", "-lxml2", "-lz", "-lbz2" ],
-
-    "defines": [ "MACOSX",
-      "USE_BZ2",
-      "USE_COMP",
-      "USE_FBC",
-      "USE_LAYOUT",
-      "USE_LIBXML",
-      "USE_QUAL",
-      "USE_ZLIB"
+	
+    "libraries": [
+	  "@LIBSBML_STATIC_LOCATION@"
+	  @NODE_JS_LIBS@
+	],
+	
+    "defines": [ @NODE_JS_DEFINES@
     ],
 
     "cflags": ["-fPIC"],

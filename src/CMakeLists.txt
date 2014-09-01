@@ -530,13 +530,16 @@ if (WIN32 AND NOT CYGWIN)
     set_target_properties(${LIBSBML_LIBRARY}-static PROPERTIES COMPILE_DEFINITIONS "LIBLAX_STATIC=1;LIBSBML_STATIC=1")
 endif(WIN32 AND NOT CYGWIN)
 
+
 target_link_libraries(${LIBSBML_LIBRARY}-static ${LIBSBML_LIBS} ${EXTRA_LIBS})
+set (LIBSBML_STATIC_LOCATION)
+get_target_property(LIBSBML_STATIC_LOCATION ${LIBSBML_LIBRARY}-static LOCATION)
 
 INSTALL(TARGETS ${LIBSBML_LIBRARY}-static
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  )
+)
 
 ##############################################################################
 #

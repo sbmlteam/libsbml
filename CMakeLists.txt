@@ -34,6 +34,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(libsbml)
 
+# allow us to read the location property of the libsbml-static project, 
+# so we can link against it in the generated gyp file for javascript 
+cmake_policy(SET CMP0026 OLD)
+
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}" CACHE PATH
     "Path to the libSBML root source directory")
 set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH
@@ -344,6 +348,7 @@ if(WITH_EXPAT)
               )
 
     add_definitions( -DUSE_EXPAT )
+    list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)	
 
     set(LIBSBML_XML_LIBRARY "expat")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
@@ -382,6 +387,7 @@ if(WITH_LIBXML)
               )
 
     add_definitions( -DUSE_LIBXML )
+	list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)	
 	set(USE_LIBXML ON)
 
     set(LIBSBML_XML_LIBRARY "libxml2")
@@ -403,6 +409,8 @@ endif(WITH_LIBXML)
 
 if(WITH_XERCES)
     add_definitions( -DUSE_XERCES )
+    list(APPEND SWIG_EXTRA_ARGS -DUSE_XERCES)
+
     find_library(XERCES_LIBRARY
         NAMES xerces-c_3.lib xerces-c
         PATHS /usr/lib /usr/local/lib
@@ -478,6 +486,7 @@ if(WITH_BZIP2)
 
     set(USE_BZ2 ON)
     add_definitions( -DUSE_BZ2 )
+	list(APPEND SWIG_EXTRA_ARGS -DUSE_BZ2)
 
     # make sure that we have a valid bzip2 library
     check_library_exists("${LIBBZ_LIBRARY}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
@@ -560,6 +569,7 @@ if(WITH_ZLIB)
     endif()
     set(USE_ZLIB ON)
     add_definitions( -DUSE_ZLIB )
+	list(APPEND SWIG_EXTRA_ARGS -DUSE_ZLIB)	
 
     # make sure that we have a valid zip library
     check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
@@ -765,7 +775,7 @@ other operating systems.)" OFF)
         endif(ENABLE_UNIVERSAL)
     else(APPLE)
         add_definitions(-DLINUX)
-
+		
         if(NOT CYGWIN)
             # on cygwin all code is position independent so -fPIC is not needed
             set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -fPIC")

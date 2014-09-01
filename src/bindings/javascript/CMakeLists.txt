@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Description       : CMake build script for libSBML Ruby bindings
+# Description       : CMake build script for libSBML JS bindings
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
 #
@@ -32,9 +32,18 @@
 ###############################################################################
 
 find_package(SWIG REQUIRED)
+include(FindPythonInterp)
 include(${SWIG_USE_FILE})
 
-
+if (NOT NODE_GYP_EXECUTABLE)
+  message(FATAL_ERROR 
+  "
+       node-gyp is required to build the libSBML JS bindings. 
+	   Please set the NODE_GYP_EXECUTABLE variable to the 
+	   full location of node-gyp.
+  "
+  )
+endif()
 
 ####################################################################
 #
@@ -106,9 +115,53 @@ update_cfile(
    "${DOWNCAST_EXTENSION}"
 )
 
+SET(NODE_JS_DEFINES)
+
+# construct the define statement in binding.gyp
+# from current settings
+if (UNIX)
+  if (APPLE)
+  SET(NODE_JS_DEFINES "'MACOSX', ")
+  endif()
+  SET(NODE_JS_DEFINES "'LINUX', ")
+else()
+  SET(NODE_JS_DEFINES "'WIN32', 'LIBSBML_EXPORTS', 'LIBLAX_EXPORTS', ")
+endif()
+
+foreach(var ${SWIG_EXTRA_ARGS})
+	string(REPLACE "-D" "" current ${var})
+	string(FIND "${NODE_JS_DEFINES}" "${current}" pos)
+	if (${pos} EQUAL -1)
+	set (NODE_JS_DEFINES "${NODE_JS_DEFINES} '${current}', ")
+	endif()
+endforeach()
+
+# construct the library statement in binding.gyp
+# from current settings
+
+SET(NODE_JS_LIBS)
+
+if (WITH_ZLIB AND EXISTS ${LIBZ_LIBRARY})
+	SET(NODE_JS_LIBS "${NODE_JS_LIBS}, '${LIBZ_LIBRARY}'")
+endif()
+
+if (WITH_BZ2 AND EXISTS ${LIBBZ_LIBRARY})
+	SET(NODE_JS_LIBS "${NODE_JS_LIBS}, '${LIBBZ_LIBRARY}'")
+endif()
+
+foreach (var ${LIBSBML_XML_LIBRARY_LIBS})
+  SET(NODE_JS_LIBS "${NODE_JS_LIBS}, '${var}'")
+endforeach()
+
+foreach (var ${EXTRA_LIBS})
+  SET(NODE_JS_LIBS "${NODE_JS_LIBS}, '${var}'")
+endforeach()
 
 # generate binding.gyp
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/binding.gyp.in ${CMAKE_CURRENT_BINARY_DIR}/binding.gyp)
+configure_file(
+   ${CMAKE_CURRENT_SOURCE_DIR}/binding.gyp.in 
+   ${CMAKE_CURRENT_BINARY_DIR}/binding.gyp
+)
 
 #
 # Remove SWIG wrappers if requested
@@ -133,10 +186,10 @@ ADD_CUSTOM_COMMAND(
 			-I${LIBSBML_ROOT_SOURCE_DIR}/include
 			-c++
 			-javascript -node
-      -module sbml
+			-module sbml
 			${SWIG_EXTRA_ARGS}		 
 			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-      -xmlout ${CMAKE_CURRENT_BINARY_DIR}/tree.xml
+			-xmlout ${CMAKE_CURRENT_BINARY_DIR}/tree.xml
 			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${SWIG_DEPENDENCIES}
@@ -144,11 +197,22 @@ ADD_CUSTOM_COMMAND(
 
 add_custom_target(binding_js_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 
+set(NODE_GYP_ARGS)
+
+# need extra variable on 32 bit build
+if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+set (NODE_GYP_ARGS "--arch=ia32")
+endif()
 
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
-    COMMAND "${NODE_GYP_EXECUTABLE}"
-    ARGS    rebuild
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS -DNODE_GYP_EXECUTABLE=\"${NODE_GYP_EXECUTABLE}\"
+		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		 -DNODE_GYP_ARGS=\"${NODE_GYP_ARGS}\"
+		 -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	DEPENDS ${SWIG_DEPENDENCIES}
