@@ -14,6 +14,7 @@ possible pitfalls in using libSBML:
 <li><a href="#libsbml_wrap">Sometimes, the libsbml_wrap.cpp files are not recreated</a></li>
 <li><a href="#swig-warnings">Some libsbml_wrap.cpp files produce compile-time warnings</a></li>
 <li><a href="#mac-libcheck-build">Difficulty configuring libSBML with MacPorts version of libcheck under Mac OS X 10.6</a></li>
+<li><a href="#matlab-win-unicode">MATLAB on Windows has issues with unicode filenames</a></li>
 </ul>
 
 
@@ -415,3 +416,12 @@ with the MATLAB and libcheck flags, and it should successfully configure
 libSBML.
 
 <p>
+
+<h2><a class="anchor" name="link-accidents">MATLAB on Windows has issues with unicode filenames</a></h2>
+
+<p> Using MATLAB on a Windows system unicode filenames can prove problematic.
+There appears to be an issue with MATLAB failing to correctly pass along such
+filenames when typed directly into the workspace.  It is possible to use
+unicode filenames directly via the dialogs that OutputSBML / TranslateSBML 
+open up; but only if the relevant executable and the file are in the same
+directory.
