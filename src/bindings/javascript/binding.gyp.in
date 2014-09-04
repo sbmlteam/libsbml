@@ -15,7 +15,7 @@
     "sources": [ "libsbml_wrap.cpp" ],
 	
     "libraries": [
-	  "@LIBSBML_STATIC_LOCATION@"
+	  "LIBSBML_LOCATION"
 	  @NODE_JS_LIBS@
 	],
 	

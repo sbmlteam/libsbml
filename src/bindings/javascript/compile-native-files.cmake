@@ -33,8 +33,59 @@
 
 message("Creating: sbml.node")
 
-set(ENV{PYTHON} ${PYTHON_EXECUTABLE}) 
+# first ensure that all required variables are provided: 
+#  
+#  NODE_GYP_EXECUTABLE - path to node-gyp
+#  PYTHON_EXECUTABLE   - path to python, that will be called by node-gyp
+#  BIN_DIRECTORY       - path to the build dir, where binding.gyp.in was generated
+#  LIBSBML_LIBRARY     - full path to the libsbml library to link against
+#
 
+if (NOT NODE_GYP_EXECUTABLE)
+  message(FATAL_ERROR 
+  "
+       node-gyp is required to build the libSBML JS bindings. 
+	   Please set the NODE_GYP_EXECUTABLE variable to the 
+	   full location of node-gyp.
+  "
+  )
+endif()
+
+if (NOT PYTHON_EXECUTABLE)
+  message(FATAL_ERROR 
+  "
+       Please specify the PYTHON_EXECUTABLE variable to a python 2 executable
+	   compatible with node-gyp
+  "
+  )
+endif()
+
+if (NOT BIN_DIRECTORY)
+  message(FATAL_ERROR 
+  "
+       Please specify the BIN_DIRECTORY variable
+  "
+  )
+endif()
+
+if (NOT LIBSBML_LIBRARY)
+  message(FATAL_ERROR 
+  "
+       Please specify the LIBSBML_LIBRARY library to link against.
+  "
+  )
+endif()
+
+# create binding.gyp out of the generated binding.gyp.in, by writing the 
+# library name inside
+# 
+file(READ ${BIN_DIRECTORY}/binding.gyp.in BINDING_CONTENT)
+string(REPLACE "LIBSBML_LOCATION" ${LIBSBML_LIBRARY} BINDING_CONTENT ${BINDING_CONTENT})
+file(WRITE ${BIN_DIRECTORY}/binding.gyp ${BINDING_CONTENT})
+
+# finally compile the library
+# 
+set(ENV{PYTHON} ${PYTHON_EXECUTABLE}) 
 execute_process(
     COMMAND "${NODE_GYP_EXECUTABLE}"
             "rebuild"
