@@ -9,26 +9,63 @@ STABLE RELEASE
 
 * New features
 	
+  - The facility of using the data members of objects as attributes
+    in python has been extended to work with Python version 3.
+
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
-
+  
 * Bug fixes
+
+  - There was an issue with using the libsbml namespace and the
+    ReactionConverter.  This has been fixed.  Thanks to Andy Somogyi
+    for reporting it.
+
+  - The facility to use data members of objects as attributes
+    was broken.  This has now been fixed.
 
   - Code checking the values of units attributes was incorrectly 
     allowing the default Level 2 units, such as substance, to
     be used in Level 3.  This has been corrected.
-
+    
+  - Using unicode filenames with MATLAB on a Windows system proves to
+    be very problematic. We have solved the problem but only for the
+    case where filenames are entered directly via the dialogs that 
+    OutputSBML / TranslateSBML open up. There appears to be an issue
+    with MATLAB using such filenames directly from the workspace. 
+    This has been added to the known issues documentation.
+    
   - 'comp' package-specific bug fixes:
+  
+    - Validation was failing to report when a portRef attribute
+      had been used on a Port object and indeed this situation caused
+      validation to crash in some cases.  This has now been sorted.
+      
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
+  - When javac fails to compile a class no error was reported
+    and a useless jar file was created.  The build has been
+    changed to highlight the issue.
+    
+  - Sourceforge libsbml Tracker #380: The use of #include Windows.h
+    has been changed to lowercase to facilitate building using
+    MinGW.  Thanks to Takeshi Abi for reporting the problem.
+
 
 * Miscellaneous
+
+  - We have continued our review of code and many more memory leaks 
+    have been plugged.  Thanks to people, in particular Andy Somogyi, 
+    for reporting these.
+
+  - Sourceforge libsbml Tracker #372: Documentation has been corrected. 
+    Thanks to Gerard Weatherby for reporting the issues.
 
 
 EXPERIMENTAL RELEASE
@@ -50,7 +87,14 @@ EXPERIMENTAL RELEASE
   - 'groups' package-specific bug fixes:
   - 'multi' package-specific bug fixes:
   - 'render' package-specific bug fixes:
+  
   - 'req' package-specific bug fixes:
+
+    - Sourceforge libsbml Tracker #373: The code was not keeping
+      proper track of parent-child relationships which could
+      lead to incorrect namespaces being used.  This is now sorted.
+      Thanks to Gerard Weatherby for reporting it.
+
   - 'spatial' package-specific bug fixes:
 
 		   
