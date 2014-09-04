@@ -223,3 +223,13 @@ add_custom_target(binding_js_node ALL DEPENDS
   ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
   ${LIBSBML_LIBRARY}-static)
 
+# determine install location
+set(NODEJS_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN)
+  set(NODEJS_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/node_modules)
+else()
+  set(NODEJS_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/nodejs)
+endif()
+
+# install file 
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node DESTINATION ${NODEJS_PACKAGE_INSTALL_DIR})
