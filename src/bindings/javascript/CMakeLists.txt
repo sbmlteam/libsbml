@@ -226,7 +226,7 @@ add_custom_target(binding_js_node ALL DEPENDS
 # determine install location
 set(NODEJS_PACKAGE_INSTALL_DIR)
 if (UNIX OR CYGWIN)
-  set(NODEJS_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/node_modules)
+  set(NODEJS_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/node)
 else()
   set(NODEJS_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/nodejs)
 endif()
