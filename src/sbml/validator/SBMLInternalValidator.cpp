@@ -400,23 +400,21 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
 
   if (sbml)
   {
-    ConsistencyValidator* validator = new ConsistencyValidator();
-    validator->init();
-    nerrors = validator->validate(*doc);
+    ConsistencyValidator validator;
+    validator.init();
+    nerrors = validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      log->add( validator->getFailures() );
+      log->add( validator.getFailures() );
       /* only want to bail if errors not warnings */
       if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
       {
         if (writeDocument)
           SBMLDocument_free(doc);
-        delete validator;
         return total_errors;
       }
     }
-    delete validator;
   }
 
   if (sbo)
