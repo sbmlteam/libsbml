@@ -102,7 +102,7 @@ var resource_att = new sbml.XMLAttributes();
 
 //  create the outer statement node 
 var statement_triple = new sbml.XMLTriple("Statement",
-                                       "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                       "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                        "rdf")
 
 var statement_token = new sbml.XMLToken(statement_triple, blank_att);
@@ -111,7 +111,7 @@ var statement = new sbml.XMLNode(statement_token);
 
 // create the subject node
 var subject_triple = new sbml.XMLTriple("subject",
-                                     "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                      "rdf");
 
 resource_att.clear();
@@ -124,7 +124,7 @@ var subject = new sbml.XMLNode(subject_token);
 
 //create the predicate node 
 var predicate_triple = new sbml.XMLTriple("predicate",
-                                       "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                       "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                        "rdf")
 
 resource_att.clear();
@@ -137,7 +137,7 @@ var predicate = new sbml.XMLNode(predicate_token);
 
 //create the object node 
 var object_triple = new sbml.XMLTriple("object",
-                                    "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                     "rdf");
 
 resource_att.clear();
@@ -158,7 +158,7 @@ var bqbiol = new sbml.XMLNode(bqbiol_token);
 
 // create the bag node 
 var bag_triple = new sbml.XMLTriple("Bag",
-                                 "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                  "rdf");
 
 var bag_token = new sbml.XMLToken(bag_triple, blank_att);
@@ -167,7 +167,7 @@ var bag = new sbml.XMLNode(bag_token);
 
 // create each li node and add to the bag 
 var li_triple = new sbml.XMLTriple("li",
-                                "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                 "rdf");
 
 resource_att.clear();
@@ -203,7 +203,7 @@ statement.addChild(bqbiol);
 // 
 
 var xmlns = new sbml.XMLNamespaces();
-xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns//", "rdf");
+xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
 xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
 xmlns.add("http://purl.org/dc/terms/", "dcterms");
 xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0//", "vCard");
@@ -211,7 +211,7 @@ xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
 xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
 
 var rDF_triple = new sbml.XMLTriple("RDF",
-                                 "http://www.w3.org/1999/02/22-rdf-syntax-ns//",
+                                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                                  "rdf");
 
 var rDF_token = new sbml.XMLToken(rDF_triple, blank_att, xmlns);
