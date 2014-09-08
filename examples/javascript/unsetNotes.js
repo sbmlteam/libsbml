@@ -91,7 +91,7 @@ for (i = 0; i < m.getNumReactions(); i++)
     var kl = re.getKineticLaw();
     kl.unsetNotes();
 
-    for (j = 0; j < re.kl.getNumParameters(); j++)
+    for (j = 0; j < kl.getNumParameters(); j++)
     {
       var pa = kl.getParameter(j);
       pa.unsetNotes();
@@ -105,11 +105,11 @@ for (i = 0; i < m.getNumSpecies(); i++)
   sp.unsetNotes();
 }
 
-for (i = 0; i < m.getNumSpecies(); i++)
-m.getNumCompartments.times do |i|
-    sp = m.getCompartment(i)
+for (i = 0; i < m.getNumCompartments(); i++)
+{
+    var sp = m.getCompartment(i)
     sp.unsetNotes
-end
+}
 
 for (i = 0; i < m.getNumFunctionDefinitions(); i++)
 {

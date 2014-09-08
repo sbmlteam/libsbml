@@ -47,10 +47,10 @@ if (process.argv.length <= 4)
   process.exit(1);
 }
 
-var filename = process.argv[2];
+var filename = process.argv[3];
 
 // read additional args
-var externalValidator = process.argv[3];
+var externalValidator = process.argv[2];
 
 var tempSBMLFileName = filename + "_temp.xml";
 if (process.argv.length  > 4)
@@ -80,7 +80,7 @@ validator.setProgram(externalValidator);
 validator.setSBMLFileName(tempSBMLFileName);
 validator.setOutputFileName(outputFile);
 
-for (i = 0; i < additionalArgs.length(); i++)
+for (i = 0; i < additionalArgs.length; i++)
   validator.addArgument(additionalArgs[i]);
 
 // this means that the external program will be called with the following arguments

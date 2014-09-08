@@ -42,7 +42,7 @@
 
 var sbml = require('sbml');
 
-console.log("This version of LibSBML: " + LibSBML::getLibSBMLDottedVersion() + " includes: \n");
+console.log("This version of LibSBML: " + sbml.getLibSBMLDottedVersion() + " includes: \n");
 
 for (i = 0; i < sbml.SBMLExtensionRegistry.getNumRegisteredPackages(); i++)
 {

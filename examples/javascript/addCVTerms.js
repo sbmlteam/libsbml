@@ -59,15 +59,18 @@ if (errors > 0)
   process.exit(errors);
 }
 
-var n = d.getModel.getNumSpecies();
+var n = d.getModel().getNumSpecies();
 
 if (n <= 0)
 {
     console.log("Model has no species.\n Cannot add CV terms\n");
-	process.exit(0);
+    process.exit(0);
 }
 
-var s = d.getModel.getSpecies(0);
+var s = d.getModel().getSpecies(0);
+
+if (!s.isSetMetaId())
+  s.setMetaId("meta_001");
 
 var cv = new sbml.CVTerm();
 cv.setQualifierType(sbml.BIOLOGICAL_QUALIFIER);

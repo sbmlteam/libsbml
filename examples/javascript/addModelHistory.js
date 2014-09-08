@@ -55,7 +55,7 @@ function printStatus(message, status)
     statusString = "operation failed";
   else
     statusString = "unknown";          
-  end
+  
   console.log(message + " " + statusString);
 }
 
@@ -99,10 +99,13 @@ printStatus("Set created date:      ", status);
 status = h.setModifiedDate(date2);
 printStatus("Set modified date:     ", status);
 
+if (!d.getModel().isSetMetaId())
+  d.getModel().setMetaId("meta_0001");
+
 status = d.getModel().setModelHistory(h);
 printStatus("Set model history:     ", status);
 
 
 sbml.writeSBML(d, process.argv[3]);
 
-exit(errors);
+process.exit(errors);

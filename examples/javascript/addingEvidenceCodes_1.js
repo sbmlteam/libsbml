@@ -61,7 +61,7 @@ if (errors > 0)
   process.exit(errors);
 }
 
-var n = d.getModel.getNumReactions();
+var n = d.getModel().getNumReactions();
 
 if (n <= 0)
 {
@@ -69,7 +69,7 @@ if (n <= 0)
   process.exit(0);
 }
 
-var r = d.getModel.getReaction(0);
+var r = d.getModel().getReaction(0);
 
 // check that the reaction has a metaid
 // no CVTerms will be added if there is no metaid to reference

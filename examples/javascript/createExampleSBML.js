@@ -306,7 +306,7 @@ function createExampleEnzymaticReaction()
   //
   //------------------------------------------
 
-  var astCytosol = new ASTNode(sbml.AST_NAME);
+  var astCytosol = new sbml.ASTNode(sbml.AST_NAME);
   astCytosol.setName("cytosol");
 
   var astKon = new sbml.ASTNode(sbml.AST_NAME);
@@ -315,13 +315,13 @@ function createExampleEnzymaticReaction()
   var astKoff = new sbml.ASTNode(sbml.AST_NAME);
   astKoff.setName("koff");
 
-  var astE = sbml.ASTNode(sbml.AST_NAME);
+  var astE = new sbml.ASTNode(sbml.AST_NAME);
   astE.setName("E");
 
-  var astS = sbml.ASTNode(sbml.AST_NAME);
+  var astS = new sbml.ASTNode(sbml.AST_NAME);
   astS.setName("S");
 
-  var astES = sbml.ASTNode(sbml.AST_NAME);
+  var astES = new sbml.ASTNode(sbml.AST_NAME);
   astES.setName("ES");
 
 
@@ -568,7 +568,7 @@ function createExampleInvolvingUnits()
   // because we will add notes to the model.  (By default, the SBML document
   // created by SBMLDocument only declares the SBML XML namespace.)
 
-  sbmlDoc.getNamespaces.add("http://www.w3.org/1999/xhtml", "xhtml");
+  sbmlDoc.getNamespaces().add("http://www.w3.org/1999/xhtml", "xhtml");
 
   //---------------------------------------------------------------------------
   //
@@ -1156,9 +1156,9 @@ function createExampleInvolvingFunctionDefinitions()
   // Sets a math (object) to the KineticLaw object.
   //---------------------------------------------------------------------------
 
-  math = " f(S1)*compartmentOne/t";
+  var math = "f(S1) * compartmentOne / t";
 
-  var astMath = sbml.readMathMLFromString(math);
+  var astMath = sbml.parseFormula(math);
   kl.setMath(astMath);
 
   // Returns the created SBMLDocument object.
