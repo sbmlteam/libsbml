@@ -204,6 +204,29 @@ examples =                                                          \
   examples/java/layout/CMakeLists.txt                               \
   examples/java/layout/layout_example1.java                         \
   examples/java/layout/layout_example1_L3.java                      \
+  examples/javascript/addCVTerms.js                                 \
+  examples/javascript/addingEvidenceCodes_1.js                      \
+  examples/javascript/addingEvidenceCodes_2.js                      \
+  examples/javascript/addModelHistory.js                            \
+  examples/javascript/appendAnnotation.js                           \
+  examples/javascript/callExternalValidator.js                      \
+  examples/javascript/convertSBML.js                                \
+  examples/javascript/createExampleSBML.js                          \
+  examples/javascript/echoSBML.js                                   \
+  examples/javascript/printAnnotation.js                            \
+  examples/javascript/printMath.js                                  \
+  examples/javascript/printNotes.js                                 \
+  examples/javascript/printRegisteredPackages.js                    \
+  examples/javascript/printSBML.js                                  \
+  examples/javascript/printsupported.js                             \
+  examples/javascript/printUnits.js                                 \
+  examples/javascript/promoteParameters.js                          \
+  examples/javascript/readSBML.js                                   \
+  examples/javascript/stripPackage.js                               \
+  examples/javascript/translateMath.js                              \
+  examples/javascript/unsetAnnotation.js                            \
+  examples/javascript/unsetNotes.js                                 \
+  examples/javascript/validateSBML.js                               \
   examples/perl/layout/example1-L3.pl                               \
   examples/ruby/layout/example1-L3.rb                               \
   examples/csharp/layout/CMakeLists.txt                             \
@@ -347,7 +370,7 @@ examples =                                                          \
   examples/sample-models/from-spec/level-3/twodimensional.xml       \
   examples/sample-models/from-spec/level-3/conversionfactor2.xml
 
-# The files listed in `r bindigns' have to be included the dist files, even
+# The files listed in 'r bindings' have to be included the dist files, even
 # though they can't be created by gnumake.
 
 rbindings =                                           \
@@ -373,6 +396,48 @@ rbindings =                                           \
   src/bindings/r/local.cpp                            \
   src/bindings/r/local.i                              \
   src/bindings/r/patch-swig-file.cmake
+
+# The files listed in 'javscript bindings' have to be included the dist files, even
+# though they can't be created by gnumake.
+
+jsbindings =                                                   \
+  src/bindings/javascript/binding.gyp.in                       \
+  src/bindings/javascript/CMakeLists.txt                       \
+  src/bindings/javascript/compile-native-files.cmake           \
+  src/bindings/javascript/libsbml.i                            \
+  src/bindings/javascript/local-comp.i                         \
+  src/bindings/javascript/local.cpp                            \
+  src/bindings/javascript/local-downcast-converters-comp.cpp   \
+  src/bindings/javascript/local-downcast-converters.cpp.in     \
+  src/bindings/javascript/local-downcast-converters-fbc.cpp    \
+  src/bindings/javascript/local-downcast-converters-layout.cpp \
+  src/bindings/javascript/local-downcast-converters-qual.cpp   \
+  src/bindings/javascript/local-downcast.cpp.in                \
+  src/bindings/javascript/local-downcast-extension-comp.cpp    \
+  src/bindings/javascript/local-downcast-extension.cpp.in      \
+  src/bindings/javascript/local-downcast-extension-fbc.cpp     \
+  src/bindings/javascript/local-downcast-extension-layout.cpp  \
+  src/bindings/javascript/local-downcast-extension-qual.cpp    \
+  src/bindings/javascript/local-downcast-namespaces-comp.cpp   \
+  src/bindings/javascript/local-downcast-namespaces.cpp.in     \
+  src/bindings/javascript/local-downcast-namespaces-fbc.cpp    \
+  src/bindings/javascript/local-downcast-namespaces-layout.cpp \
+  src/bindings/javascript/local-downcast-namespaces-qual.cpp   \
+  src/bindings/javascript/local-downcast-packages-comp.cpp     \
+  src/bindings/javascript/local-downcast-packages-fbc.cpp      \
+  src/bindings/javascript/local-downcast-packages-layout.cpp   \
+  src/bindings/javascript/local-downcast-packages-qual.cpp     \
+  src/bindings/javascript/local-downcast-plugins-comp.cpp      \
+  src/bindings/javascript/local-downcast-plugins.cpp.in        \
+  src/bindings/javascript/local-downcast-plugins-fbc.cpp       \
+  src/bindings/javascript/local-downcast-plugins-layout.cpp    \
+  src/bindings/javascript/local-downcast-plugins-qual.cpp      \
+  src/bindings/javascript/local-fbc.i                          \
+  src/bindings/javascript/local.i                              \
+  src/bindings/javascript/local-layout.i                       \
+  src/bindings/javascript/local-packages.i.in                  \
+  src/bindings/javascript/local-qual.i
+
 
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
@@ -459,6 +524,7 @@ distfiles =                         \
   common.cmake                      \
   layout-package.cmake              \
   $(examples)                       \
+  $(jsbindings)                     \
   $(rbindings)
 
 # The files listed in `extra_distclean' are items created by configure or
