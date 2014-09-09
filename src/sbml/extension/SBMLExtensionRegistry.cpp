@@ -443,39 +443,69 @@ SBMLExtensionRegistry::getRegisteredPackageNames()
   const SBMLExtensionRegistry& instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
   List* result = new List();
-  IdList  * present = new IdList();
+  std::vector<std::string> present;
   while (it != instance.mSBMLExtensionMap.end())
   {    
-    if (present->contains((*it).second->getName().c_str()) == false)
+    const std::string& temp = (*it).second->getName();
+    if (std::find(present.begin(), present.end(), temp) == present.end())
     {
-      char *name = safe_strdup((*it).second->getName().c_str());
+      char *name = safe_strdup(temp.c_str());
       result->add(name);
-      present->append(name);
+      present.push_back(temp);
     }
     it++;
   }
-  delete present;
+  
+  return result;
+}
+
+std::vector<std::string> SBMLExtensionRegistry::getAllRegisteredPackageNames()
+{
+  const SBMLExtensionRegistry& instance = getInstance();
+  std::vector<std::string> result;
+  SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
+  while (it != instance.mSBMLExtensionMap.end())
+  {    
+    const std::string& temp = (*it).second->getName();
+    if (std::find(result.begin(), result.end(), temp) == result.end())
+    {
+      result.push_back(temp);
+    }
+    ++it;
+  }
   return result;
 }
 
 unsigned int 
 SBMLExtensionRegistry::getNumRegisteredPackages()
 {
-  List* names = getRegisteredPackageNames();
-  unsigned int result = names->getSize();
-  List::deleteListAndChildrenWith(names, DeleteStringChild);  
-  return result;
+   return (unsigned int)getAllRegisteredPackageNames().size();
 }
 
 
 std::string
 SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 {
-  List* names = getRegisteredPackageNames();
-  char * name = (char *) (names->get(index));
-  string result(name);
-  List::deleteListAndChildrenWith(names, DeleteStringChild);  
-  return result;
+  const SBMLExtensionRegistry& instance = getInstance();
+  SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
+  std::vector<std::string> present;
+  int count = 0;
+  while (it != instance.mSBMLExtensionMap.end())
+  {    
+    const std::string& temp = (*it).second->getName();
+    if (std::find(present.begin(), present.end(), temp) == present.end())
+    {
+      if (index == count) 
+	 {
+	   return temp;
+	 }
+      present.push_back(temp);
+	 ++count;
+    }
+    ++it;
+  }
+
+  return "";
 }
 
 void 

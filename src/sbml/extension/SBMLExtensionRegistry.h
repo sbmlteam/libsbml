@@ -280,6 +280,14 @@ public:
   static List* getRegisteredPackageNames();
 
   /** 
+   * Returns a vector of registered packages (such as 'layout', 'fbc' or 'comp')
+   * the vector contains std::strings. 
+   * 
+   * @return the names of the registered packages in a list
+   */
+  static std::vector<std::string> SBMLExtensionRegistry::getAllRegisteredPackageNames();
+  
+  /** 
    * Returns the number of registered packages.
    * 
    * @return the number of registered packages.

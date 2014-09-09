@@ -85,7 +85,7 @@ IdList::IdList(const std::string& commaSeparated)
  * @return true if id is already in this IdList, false otherwise.
  */
 bool
-IdList::contains (const std::string id) const
+IdList::contains (const std::string& id) const
 {
   IdList::const_iterator end = mIds.end();
   
@@ -97,7 +97,7 @@ IdList::contains (const std::string id) const
  * Removes all ids in this IdList before the given @p id.
  */
 void
-IdList::removeIdsBefore (const std::string id)
+IdList::removeIdsBefore (const std::string& id)
 {
   IdList::iterator end = mIds.end();
   IdList::iterator pos = std::find(mIds.begin(), end, id);

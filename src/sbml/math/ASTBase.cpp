@@ -1692,17 +1692,17 @@ ASTBase::getNameFromType(int type) const
   return name;
 }
 
-
 void
 ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
 {
   if (sbmlns == NULL)
   {
-    unsigned int numPkgs = SBMLExtensionRegistry::getNumRegisteredPackages();
-
+    const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
+    unsigned int numPkgs = names.size();
+    
     for (unsigned int i=0; i < numPkgs; i++)
     {
-      const std::string &uri = SBMLExtensionRegistry::getRegisteredPackageName(i);
+      const std::string& uri = names[i];
       const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
 
       if (sbmlext && sbmlext->isEnabled())
