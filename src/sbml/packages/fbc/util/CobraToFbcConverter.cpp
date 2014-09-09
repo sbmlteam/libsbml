@@ -213,6 +213,7 @@ int
   }
   else
   {
+    mDocument->getModel()->convertParametersToLocals(3, 1);
     mDocument->updateSBMLNamespace("core", 3, 1);
     mDocument->getModel()->convertL2ToL3();
   }
