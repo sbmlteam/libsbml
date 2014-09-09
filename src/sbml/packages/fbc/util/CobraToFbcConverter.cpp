@@ -88,12 +88,23 @@ ConversionProperties
 {
   static ConversionProperties prop;
   prop.addOption("convert cobra", true, "convert cobra sbml to fbc");
+  prop.addOption("checkCompatibility", false, "checks level/version compatibility");
   return prop;
+}
+
+bool 
+CobraToFbcConverter::checkCompatibility() const
+{
+ if (getProperties() == NULL || 
+     !getProperties()->hasOption("checkCompatibility"))
+  return false;
+  
+ return getProperties()->getBoolValue("checkCompatibility");
 }
 
 
 bool 
-  CobraToFbcConverter::matchesProperties(const ConversionProperties &props) const
+CobraToFbcConverter::matchesProperties(const ConversionProperties &props) const
 {
   if (&props == NULL || !props.hasOption("convert cobra"))
     return false;
@@ -189,16 +200,23 @@ int
 
   mDocument->setConversionValidators(AllChecksON & UnitsCheckOFF);
 
-  SBMLNamespaces l3ns(3,1);
-  ConversionProperties prop(&l3ns);
-  prop.addOption("strict", false, "should validity be preserved");
-  prop.addOption("ignorePackages", true, "convert even if packages are used");
-  prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
-  int conversionResult = mDocument->convert(prop);
-  if (conversionResult != LIBSBML_OPERATION_SUCCESS)
-    return conversionResult;
-
-  
+  if (checkCompatibility())
+  {
+    SBMLNamespaces l3ns(3,1);
+    ConversionProperties prop(&l3ns);
+    prop.addOption("strict", false, "should validity be preserved");
+    prop.addOption("ignorePackages", true, "convert even if packages are used");
+    prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
+    int conversionResult = mDocument->convert(prop);
+    if (conversionResult != LIBSBML_OPERATION_SUCCESS)
+      return conversionResult;
+  }
+  else
+  {
+    mDocument->updateSBMLNamespace("core", 3, 1);
+    mDocument->getModel()->convertL2ToL3();
+  }
+    
   mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc",true);
   mDocument->setPkgRequired("fbc", false);
 
