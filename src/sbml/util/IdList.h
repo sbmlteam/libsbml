@@ -91,7 +91,7 @@ public:
    *
    * @return an iterator to the beginning of this IdList.
    */
-  std::vector<std::string>::const_iterator& begin () const
+  std::vector<std::string>::const_iterator begin () const
   {
     return mIds.begin();
   }
@@ -101,7 +101,7 @@ public:
    *
    * @return an iterator to the end of this IdList.
    */
-  std::vector<std::string>::const_iterator& end () const
+  std::vector<std::string>::const_iterator end () const
   {
     return mIds.end();
   }
