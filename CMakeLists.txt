@@ -312,7 +312,8 @@ if(WITH_SWIG)
 "You are using SWIG version ${SWIG_VERSION}.  We strongly recommend
 using at least version 2.0.4, for Javascript support you will need SWIG > 3.0.1.")
     endif()
-    set(SWIG_EXTRA_ARGS)
+    set(SWIG_EXTRA_ARGS -DLIBSBML_COMPILED_IN_SRC)
+    add_definitions(-DLIBSBML_COMPILED_IN_SRC)
     set(SWIG_SWIGDOCDEFINES)
 endif(WITH_SWIG)
 
