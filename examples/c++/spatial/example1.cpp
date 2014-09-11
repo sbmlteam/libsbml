@@ -70,8 +70,7 @@ void writeSpatialSBML()
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   diffCoeff->setVariable(species1->getId());
   diffCoeff->setType(SPATIAL_DIFFUSIONKIND_ANISOTROPIC);
-  CoordinateReference* coordRef = diffCoeff->createCoordinateReference();
-  coordRef->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X);  
+  diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X);
   // add parameter for adv coeff of species1
   paramSp = model->createParameter();
   paramSp->setId(species1->getId()+"_ac");
@@ -148,7 +147,7 @@ void writeSpatialSBML()
 
   DomainType* domainType = geometry->createDomainType();
   domainType->setId("dtype1");
-  domainType->setSpatialDimension(3);
+  domainType->setSpatialDimensions(3);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   SpatialCompartmentPlugin* cplugin;
@@ -188,14 +187,14 @@ void writeSpatialSBML()
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   sfg->setId("sampledFieldGeom1");
-  SampledField* sampledField = sfg->createSampledField();
+  sfg->setSampledField("sampledField1");
+  SampledField* sampledField = geometry->createSampledField();
   sampledField->setId("sampledField1");
   sampledField->setNumSamples1(4);
   sampledField->setNumSamples2(4);
   sampledField->setNumSamples3(2);
-  sampledField->setDataType("double");
   sampledField->setInterpolationType("linear");
-  sampledField->setEncoding("encoding1");
+  sampledField->setCompression("uncompressed");
   //int samples[5] = {1, 2, 3, 4, 5};
   int samples[32] = {
 	                 // z=0
@@ -209,9 +208,8 @@ void writeSpatialSBML()
 					 0,1,1,0,
 					 0,0,0,0
   };
-  ImageData* id = sampledField->createImageData();
-  id->setDataType("uint8");
-  id->setSamples(samples, 32);
+  sampledField->setDataType("uint8");
+  sampledField->setSamples(samples, 32);
   SampledVolume* sampledVol = sfg->createSampledVolume();
   sampledVol->setId("sv_1");
   sampledVol->setDomainType(domainType->getId());
@@ -262,8 +260,10 @@ void readSpatialSBML() {
 		if (pplugin->isSetDiffusionCoefficient()) {
 			cout << "Diff_" << i << "  SpeciesVarId: "  << pplugin->getDiffusionCoefficient()->getVariable() << endl;
 			cout << "Diff_" << i << "  Type: "  << DiffusionKind_toString(pplugin->getDiffusionCoefficient()->getType()) << endl;
-      for (unsigned int j = 0; j < pplugin->getDiffusionCoefficient()->getNumCoordinateReferences(); ++j)
-        cout << "Diff_" << i << "  SpCoordIndex  " << j << " : " << CoordinateKind_toString(pplugin->getDiffusionCoefficient()->getCoordinateReference(j) ->getCoordinate()) << endl;
+      if (pplugin->getDiffusionCoefficient()->isSetCoordinateReference1())
+        cout << "Diff_" << i << "  CoordinateReference1 : " << CoordinateKind_toString(pplugin->getDiffusionCoefficient()->getCoordinateReference1()) << endl;
+      if (pplugin->getDiffusionCoefficient()->isSetCoordinateReference2())
+        cout << "Diff_" << i << "  CoordinateReference2 : " << CoordinateKind_toString(pplugin->getDiffusionCoefficient()->getCoordinateReference2()) << endl;
 		}
 		if (pplugin->isSetAdvectionCoefficient()) {
 			cout << "Adv_" << i << "  SpeciesVarId: "  << pplugin->getAdvectionCoefficient()->getVariable() << endl;
@@ -330,7 +330,7 @@ void readSpatialSBML() {
 	// get a DomainType object via the Geometry object.	
 	DomainType* domainType2 = geometry2->getDomainType(0);
 	std::cout << "DomainType Id: " << domainType2->getId() << std::endl;
-	std::cout << "DomainType spatialDim: " << domainType2->getSpatialDimension() << std::endl;
+	std::cout << "DomainType spatialDim: " << domainType2->getSpatialDimensions() << std::endl;
 
 	// get a Domain object via the Geometry object.	
 	Domain* domain = geometry2->getDomain(0);
@@ -375,22 +375,21 @@ void readSpatialSBML() {
 		if (gd->isSampledFieldGeometry()) {
 			SampledFieldGeometry* sfGeom = static_cast<SampledFieldGeometry*>(gd);
 			std::cout << "SampledFieldGeom Id: " << sfGeom->getId() << std::endl;
+      std::cout << "SampledFieldGeom sampledField: " << sfGeom->getSampledField() << std::endl;
 			
 			// sampledField from sfGeom
-			SampledField* sf = sfGeom->getSampledField();
+      SampledField* sf = geometry2->getSampledField(sfGeom->getSampledField());
 			std::cout << "SampledField Id: " << sf->getId() << std::endl;
-			std::cout << "SampledField dataType: " << sf->getDataType() << std::endl;
-			std::cout << "SampledField interpolation: " << sf->getInterpolationType() << std::endl;
-			std::cout << "SampledField encoding: " << sf->getEncoding() << std::endl;
+			std::cout << "SampledField dataType: " << DataKind_toString(sf->getDataType()) << std::endl;
+			std::cout << "SampledField interpolation: " << InterpolationKind_toString(sf->getInterpolationType()) << std::endl;
+			std::cout << "SampledField compression: " << CompressionKind_toString( sf->getCompression() ) << std::endl;
 			std::cout << "SampledField numSamples1: " << sf->getNumSamples1() << std::endl;
 			std::cout << "SampledField numSamples2: " << sf->getNumSamples2() << std::endl;
 			std::cout << "SampledField numSamples3: " << sf->getNumSamples3() << std::endl;
-			const ImageData* id = sf->getImageData();
-			int* samples = new int[id->getSamplesLength()];
-			id->getSamples(samples);
-			std::cout << "ImageData samples[0]: " << samples[0] << std::endl;
-			std::cout << "ImageData dtype: " << id->getDataType() << std::endl;
-			std::cout << "ImageData samplesLen: " << id->getSamplesLength() << std::endl;
+			int* samples = new int[sf->getSamplesLength()];
+			sf->getSamples(samples);
+			std::cout << "SampledField samples[0]: " << samples[0] << std::endl;
+			std::cout << "SampledField samplesLen: " << sf->getSamplesLength() << std::endl;
       
 			// sampledVolVol from sfGeom.
 			SampledVolume* sv = sfGeom->getSampledVolume(0);
