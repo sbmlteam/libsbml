@@ -284,6 +284,15 @@ SBMLWriter::writeToString (const SBMLDocument* d)
   return safe_strdup( stream.str().c_str() );
 }
 
+std::string 
+SBMLWriter::writeSBMLToStdString(const SBMLDocument* d)
+{
+  if (d == NULL) return "";
+  
+  ostringstream stream;
+  writeSBML(d, stream);
+  return stream.str();
+}
 
 LIBSBML_EXTERN
 char*
@@ -460,6 +469,17 @@ writeSBMLToString (const SBMLDocument_t *d)
   else
     return sw.writeToString(d);
 }
+
+LIBSBML_EXTERN
+std::string writeSBMLToStdString(const SBMLDocument* d)
+{
+  SBMLWriter sw;
+  if (d == NULL)
+    return "";
+  else
+    return sw.writeSBMLToStdString(d);
+}
+
 
 /** @endcond */
 

@@ -275,6 +275,22 @@ public:
    */
   char* writeSBMLToString (const SBMLDocument* d);
 
+#ifndef SWIG
+  /**
+   * Writes the given SBML document to an in-memory string and returns it.
+   *
+   * @param d the SBML document to be written
+   *
+   * @return the string on success or an empty string, 
+   *         if one of the underlying parser
+   *         components fail.
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
+   */
+  std::string writeSBMLToStdString(const SBMLDocument* d);
+#endif
+  
 
   /**
    * Predicate returning @c true if this copy of libSBML has been linked
@@ -322,6 +338,23 @@ public:
 
   /** @endcond */
 };
+
+#ifndef SWIG
+
+/**
+ * Writes the given SBML document to an in-memory string that is returned.
+ *
+ * @param d the SBML document to be written
+ *
+ * @return the string on success or an empty string, 
+ *         if one of the underlying parser
+ *         components fail.
+ * 
+ */
+LIBSBML_EXTERN
+std::string writeSBMLToStdString(const SBMLDocument* d);
+
+#endif
 
 LIBSBML_CPP_NAMESPACE_END
 
