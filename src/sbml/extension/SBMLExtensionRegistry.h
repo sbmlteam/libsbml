@@ -285,7 +285,7 @@ public:
    * 
    * @return the names of the registered packages in a list
    */
-  static std::vector<std::string> SBMLExtensionRegistry::getAllRegisteredPackageNames();
+  static std::vector<std::string> getAllRegisteredPackageNames();
   
   /** 
    * Returns the number of registered packages.
