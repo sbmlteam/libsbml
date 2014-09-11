@@ -579,6 +579,9 @@ CSGObject::hasRequiredAttributes () const
   if (isSetDomainType() == false)
     allPresent = false;
 
+  if (isSetOrdinal() == false)
+    allPresent = false;
+
   return allPresent;
 }
 
@@ -802,7 +805,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
               getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -810,7 +813,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
                    getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -829,7 +832,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -837,7 +840,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -860,14 +863,14 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Spatial attribute 'id' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -893,11 +896,11 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'domainType' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // ordinal int   ( use = "optional" )
+  // ordinal int   ( use = "required" )
   //
   numErrs = getErrorLog()->getNumErrors();
   mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
@@ -911,7 +914,13 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'ordinal' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
     }
   }

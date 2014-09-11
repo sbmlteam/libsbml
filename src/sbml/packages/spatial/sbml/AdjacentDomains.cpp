@@ -476,7 +476,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
               getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -484,7 +484,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
                    getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -503,7 +503,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -511,7 +511,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -534,14 +534,14 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Spatial attribute 'id' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -567,7 +567,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'domain1' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -593,7 +593,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'domain2' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }

@@ -56,6 +56,7 @@
 #include <sbml/packages/spatial/sbml/Domain.h>
 #include <sbml/packages/spatial/sbml/AdjacentDomains.h>
 #include <sbml/packages/spatial/sbml/GeometryDefinition.h>
+#include <sbml/packages/spatial/sbml/SampledField.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -73,6 +74,7 @@ protected:
   ListOfDomains   mDomains;
   ListOfAdjacentDomains   mAdjacentDomains;
   ListOfGeometryDefinitions   mGeometryDefinitions;
+  ListOfSampledFields   mSampledFields;
 
 
 public:
@@ -937,6 +939,17 @@ public:
 
 
   /**
+   * Creates a new MixedGeometry object, adds it to this Geometrys
+   * ListOfGeometryDefinitions and returns the MixedGeometry object created. 
+   *
+   * @return a new MixedGeometry object instance
+   *
+   * @see addGeometryDefinition(const GeometryDefinition* gd)
+   */
+  MixedGeometry* createMixedGeometry();
+
+
+  /**
    * Removes the nth GeometryDefinition from the ListOfGeometryDefinitions within this Geometry.
    * and returns a pointer to it.
    *
@@ -963,6 +976,145 @@ public:
    * returned item.
    */
 	GeometryDefinition* removeGeometryDefinition(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfSampledFields" in this Geometry object.
+   *
+   * @return the "ListOfSampledFields" attribute of this Geometry.
+   */
+  const ListOfSampledFields* getListOfSampledFields() const;
+
+
+  /**
+   * Returns the  "ListOfSampledFields" in this Geometry object.
+   *
+   * @return the "ListOfSampledFields" attribute of this Geometry.
+   */
+  ListOfSampledFields* getListOfSampledFields();
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields.
+   *
+   * @param n the index number of the SampledField to get.
+   *
+   * @return the nth SampledField in the ListOfSampledFields within this Geometry.
+   *
+   * @see getNumSampledFields()
+   */
+	SampledField* getSampledField(unsigned int n);
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields.
+   *
+   * @param n the index number of the SampledField to get.
+   *
+   * @return the nth SampledField in the ListOfSampledFields within this Geometry.
+   *
+   * @see getNumSampledFields()
+   */
+	const SampledField* getSampledField(unsigned int n) const;
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the SampledField to get.
+   *
+   * @return the SampledField in the ListOfSampledFields
+   * with the given id or NULL if no such
+   * SampledField exists.
+   *
+   * @see getSampledField(unsigned int n)
+   *
+   * @see getNumSampledFields()
+   */
+	SampledField* getSampledField(const std::string& sid);
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the SampledField to get.
+   *
+   * @return the SampledField in the ListOfSampledFields
+   * with the given id or NULL if no such
+   * SampledField exists.
+   *
+   * @see getSampledField(unsigned int n)
+   *
+   * @see getNumSampledFields()
+   */
+	const SampledField* getSampledField(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "SampledField" to this Geometry.
+   *
+   * @param sf; the SampledField object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addSampledField(const SampledField* sf);
+
+
+  /**
+   * Get the number of SampledField objects in this Geometry.
+   *
+   * @return the number of SampledField objects in this Geometry
+   */
+  unsigned int getNumSampledFields() const;
+
+
+  /**
+   * Creates a new SampledField object, adds it to this Geometrys
+   * ListOfSampledFields and returns the SampledField object created. 
+   *
+   * @return a new SampledField object instance
+   *
+   * @see addSampledField(const SampledField* sf)
+   */
+  SampledField* createSampledField();
+
+
+  /**
+   * Removes the nth SampledField from the ListOfSampledFields within this Geometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the SampledField to remove.
+   *
+   * @see getNumSampledFields()
+   */
+	SampledField* removeSampledField(unsigned int n);
+
+
+  /**
+   * Removes the SampledField with the given identifier from the ListOfSampledFields within this Geometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the SampledField to remove.
+   *
+   * @return the SampledField removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	SampledField* removeSampledField(const std::string& sid);
 
 
   /**
@@ -1553,6 +1705,11 @@ Geometry_createParametricGeometry(Geometry_t * g);
 
 
 LIBSBML_EXTERN
+MixedGeometry_t *
+Geometry_createMixedGeometry(Geometry_t * g);
+
+
+LIBSBML_EXTERN
 ListOf_t *
 Geometry_getListOfGeometryDefinitions(Geometry_t * g) ;
 
@@ -1580,6 +1737,46 @@ Geometry_removeGeometryDefinition(Geometry_t * g, unsigned int n);
 LIBSBML_EXTERN
 GeometryDefinition_t *
 Geometry_removeGeometryDefinitionById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+Geometry_addSampledField(Geometry_t * g, SampledField_t * sf);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_createSampledField(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfSampledFields(Geometry_t * g) ;
+
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_getSampledField(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_getSampledFieldById(Geometry_t * g, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumSampledFields(Geometry_t * g);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_removeSampledField(Geometry_t * g, unsigned int n);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_removeSampledFieldById(Geometry_t * g, const char * sid);
 
 
 /**

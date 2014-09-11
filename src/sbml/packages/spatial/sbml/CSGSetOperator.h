@@ -64,6 +64,8 @@ class LIBSBML_EXTERN CSGSetOperator : public CSGNode
 protected:
 
   SetOperation_t   mOperationType;
+  std::string   mComplementA;
+  std::string   mComplementB;
   ListOfCSGNodes   mCsgNodes;
 
 
@@ -131,6 +133,22 @@ public:
 
 
   /**
+   * Returns the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @return the value of the "complementA" attribute of this CSGSetOperator as a string.
+   */
+  virtual const std::string& getComplementA() const;
+
+
+  /**
+   * Returns the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @return the value of the "complementB" attribute of this CSGSetOperator as a string.
+   */
+  virtual const std::string& getComplementB() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * CSGSetOperator's "operationType" attribute has been set.
    *
@@ -138,6 +156,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetOperationType() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGSetOperator's "complementA" attribute has been set.
+   *
+   * @return @c true if this CSGSetOperator's "complementA" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetComplementA() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * CSGSetOperator's "complementB" attribute has been set.
+   *
+   * @return @c true if this CSGSetOperator's "complementB" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetComplementB() const;
 
 
   /**
@@ -171,6 +209,36 @@ public:
 
 
   /**
+   * Sets the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @param complementA; const std::string& value of the "complementA" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setComplementA(const std::string& complementA);
+
+
+  /**
+   * Sets the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @param complementB; const std::string& value of the "complementB" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setComplementB(const std::string& complementB);
+
+
+  /**
    * Unsets the value of the "operationType" attribute of this CSGSetOperator.
    *
    * @return integer value indicating success/failure of the
@@ -181,6 +249,32 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   virtual int unsetOperationType();
+
+
+  /**
+   * Unsets the value of the "complementA" attribute of this CSGSetOperator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetComplementA();
+
+
+  /**
+   * Unsets the value of the "complementB" attribute of this CSGSetOperator.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetComplementB();
 
 
   /**
@@ -386,6 +480,21 @@ public:
    * returned item.
    */
 	CSGNode* removeCsgNode(const std::string& sid);
+
+
+  /**
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
+   */
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
@@ -649,6 +758,36 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
 
 
 /**
+ * Returns the value of the "complementA" attribute of the given CSGSetOperator_t
+ * structure.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return the complementA of this structure.
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+const char *
+CSGSetOperator_getComplementA(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Returns the value of the "complementB" attribute of the given CSGSetOperator_t
+ * structure.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return the complementB of this structure.
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+const char *
+CSGSetOperator_getComplementB(const CSGSetOperator_t * csgso);
+
+
+/**
  * Predicate returning @c 1 if the given CSGSetOperator_t structure's "operationType"
  * is set.
  *
@@ -662,6 +801,38 @@ CSGSetOperator_getOperationType(const CSGSetOperator_t * csgso);
 LIBSBML_EXTERN
 int
 CSGSetOperator_isSetOperationType(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGSetOperator_t structure's "complementA"
+ * is set.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return @c 1 if the "complementA" of this CSGSetOperator_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementA(const CSGSetOperator_t * csgso);
+
+
+/**
+ * Predicate returning @c 1 if the given CSGSetOperator_t structure's "complementB"
+ * is set.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return @c 1 if the "complementB" of this CSGSetOperator_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_isSetComplementB(const CSGSetOperator_t * csgso);
 
 
 /**
@@ -688,6 +859,64 @@ CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operati
 
 
 /**
+ * Sets the "complementA" attribute of the given CSGSetOperator_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGSetOperator_unsetComplementA() instead.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @param complementA the string to which the structures "complementA" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementA(CSGSetOperator_t * csgso, const char * complementA);
+
+
+/**
+ * Sets the "complementB" attribute of the given CSGSetOperator_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs CSGSetOperator_unsetComplementB() instead.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @param complementB the string to which the structures "complementB" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_setComplementB(CSGSetOperator_t * csgso, const char * complementB);
+
+
+/**
  * Unsets the value of the "operationType" attribute of the given 
  *CSGSetOperator_t structure.
  *
@@ -706,6 +935,48 @@ CSGSetOperator_setOperationType(CSGSetOperator_t * csgso, SetOperation_t operati
 LIBSBML_EXTERN
 int
 CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso);
+
+
+/**
+ * Unsets the value of the "complementA" attribute of the given 
+ *CSGSetOperator_t structure.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementA(CSGSetOperator_t * csgso);
+
+
+/**
+ * Unsets the value of the "complementB" attribute of the given 
+ *CSGSetOperator_t structure.
+ *
+ * @param csgso the CSGSetOperator_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of CSGSetOperator_t
+ */
+LIBSBML_EXTERN
+int
+CSGSetOperator_unsetComplementB(CSGSetOperator_t * csgso);
 
 
 LIBSBML_EXTERN

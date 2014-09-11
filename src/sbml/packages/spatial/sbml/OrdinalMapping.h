@@ -1,6 +1,6 @@
 /**
- * @file:   GeometryDefinition.h
- * @brief:  Implementation of the GeometryDefinition class
+ * @file:   OrdinalMapping.h
+ * @brief:  Implementation of the OrdinalMapping class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -32,8 +32,8 @@
  */
 
 
-#ifndef GeometryDefinition_H__
-#define GeometryDefinition_H__
+#ifndef OrdinalMapping_H__
+#define OrdinalMapping_H__
 
 
 #include <sbml/common/extern.h>
@@ -54,119 +54,113 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class AnalyticGeometry;
-class SampledFieldGeometry;
-class CSGeometry;
-class ParametricGeometry;
-class MixedGeometry;
 
 
-
-class LIBSBML_EXTERN GeometryDefinition : public SBase
+class LIBSBML_EXTERN OrdinalMapping : public SBase
 {
 
 protected:
 
-  std::string   mId;
-  bool          mIsActive;
-  bool          mIsSetIsActive;
+  std::string   mGeometryDefinition;
+  int           mOrdinal;
+  bool          mIsSetOrdinal;
 
 
 public:
 
   /**
-   * Creates a new GeometryDefinition with the given level, version, and package version.
+   * Creates a new OrdinalMapping with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this GeometryDefinition
+   * @param level an unsigned int, the SBML Level to assign to this OrdinalMapping
    *
-   * @param version an unsigned int, the SBML Version to assign to this GeometryDefinition
+   * @param version an unsigned int, the SBML Version to assign to this OrdinalMapping
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this GeometryDefinition
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this OrdinalMapping
    */
-  GeometryDefinition(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                     unsigned int version    = SpatialExtension::getDefaultVersion(),
-                     unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  OrdinalMapping(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                 unsigned int version    = SpatialExtension::getDefaultVersion(),
+                 unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new GeometryDefinition with the given SpatialPkgNamespaces object.
+   * Creates a new OrdinalMapping with the given SpatialPkgNamespaces object.
    *
    * @param spatialns the SpatialPkgNamespaces object
    */
-  GeometryDefinition(SpatialPkgNamespaces* spatialns);
+  OrdinalMapping(SpatialPkgNamespaces* spatialns);
 
 
    /**
-   * Copy constructor for GeometryDefinition.
+   * Copy constructor for OrdinalMapping.
    *
-   * @param orig; the GeometryDefinition instance to copy.
+   * @param orig; the OrdinalMapping instance to copy.
    */
-  GeometryDefinition(const GeometryDefinition& orig);
+  OrdinalMapping(const OrdinalMapping& orig);
 
 
    /**
-   * Assignment operator for GeometryDefinition.
+   * Assignment operator for OrdinalMapping.
    *
    * @param rhs; the object whose values are used as the basis
    * of the assignment
    */
-  GeometryDefinition& operator=(const GeometryDefinition& rhs);
+  OrdinalMapping& operator=(const OrdinalMapping& rhs);
 
 
    /**
-   * Creates and returns a deep copy of this GeometryDefinition object.
+   * Creates and returns a deep copy of this OrdinalMapping object.
    *
-   * @return a (deep) copy of this GeometryDefinition object.
+   * @return a (deep) copy of this OrdinalMapping object.
    */
-  virtual GeometryDefinition* clone () const;
+  virtual OrdinalMapping* clone () const;
 
 
    /**
-   * Destructor for GeometryDefinition.
+   * Destructor for OrdinalMapping.
    */
-  virtual ~GeometryDefinition();
+  virtual ~OrdinalMapping();
 
 
    /**
-   * Returns the value of the "id" attribute of this GeometryDefinition.
+   * Returns the value of the "geometryDefinition" attribute of this OrdinalMapping.
    *
-   * @return the value of the "id" attribute of this GeometryDefinition as a string.
+   * @return the value of the "geometryDefinition" attribute of this OrdinalMapping as a string.
    */
-  virtual const std::string& getId() const;
+  virtual const std::string& getGeometryDefinition() const;
 
 
   /**
-   * Returns the value of the "isActive" attribute of this GeometryDefinition.
+   * Returns the value of the "ordinal" attribute of this OrdinalMapping.
    *
-   * @return the value of the "isActive" attribute of this GeometryDefinition as a boolean.
+   * @return the value of the "ordinal" attribute of this OrdinalMapping as a integer.
    */
-  virtual bool getIsActive() const;
+  virtual int getOrdinal() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * GeometryDefinition's "id" attribute has been set.
+   * OrdinalMapping's "geometryDefinition" attribute has been set.
    *
-   * @return @c true if this GeometryDefinition's "id" attribute has been set,
+   * @return @c true if this OrdinalMapping's "geometryDefinition" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetId() const;
+  virtual bool isSetGeometryDefinition() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * GeometryDefinition's "isActive" attribute has been set.
+   * OrdinalMapping's "ordinal" attribute has been set.
    *
-   * @return @c true if this GeometryDefinition's "isActive" attribute has been set,
+   * @return @c true if this OrdinalMapping's "ordinal" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetIsActive() const;
+  virtual bool isSetOrdinal() const;
 
 
   /**
-   * Sets the value of the "id" attribute of this GeometryDefinition.
+   * Sets the value of the "geometryDefinition" attribute of this OrdinalMapping.
    *
-   * @param id; const std::string& value of the "id" attribute to be set
+   * @param geometryDefinition; const std::string& value of the "geometryDefinition" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -175,13 +169,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setId(const std::string& id);
+  virtual int setGeometryDefinition(const std::string& geometryDefinition);
 
 
   /**
-   * Sets the value of the "isActive" attribute of this GeometryDefinition.
+   * Sets the value of the "ordinal" attribute of this OrdinalMapping.
    *
-   * @param isActive; bool value of the "isActive" attribute to be set
+   * @param ordinal; int value of the "ordinal" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -190,11 +184,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setIsActive(bool isActive);
+  virtual int setOrdinal(int ordinal);
 
 
   /**
-   * Unsets the value of the "id" attribute of this GeometryDefinition.
+   * Unsets the value of the "geometryDefinition" attribute of this OrdinalMapping.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -203,11 +197,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetId();
+  virtual int unsetGeometryDefinition();
 
 
   /**
-   * Unsets the value of the "isActive" attribute of this GeometryDefinition.
+   * Unsets the value of the "ordinal" attribute of this OrdinalMapping.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -216,59 +210,29 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetIsActive();
+  virtual int unsetOrdinal();
 
 
   /**
-   * Returns @c true, if this abstract "GeometryDefinition" is of type AnalyticGeometry.
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
    *
-   * @return @c true, if this abstract "GeometryDefinition" is of type AnalyticGeometry.
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
    *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
-  virtual bool isAnalyticGeometry() const;
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Returns @c true, if this abstract "GeometryDefinition" is of type SampledFieldGeometry.
+   * Returns the XML element name of this object, which for OrdinalMapping, is
+   * always @c "ordinalMapping".
    *
-   * @return @c true, if this abstract "GeometryDefinition" is of type SampledFieldGeometry.
-   *
-   */
-  virtual bool isSampledFieldGeometry() const;
-
-
-  /**
-   * Returns @c true, if this abstract "GeometryDefinition" is of type CSGeometry.
-   *
-   * @return @c true, if this abstract "GeometryDefinition" is of type CSGeometry.
-   *
-   */
-  virtual bool isCSGeometry() const;
-
-
-  /**
-   * Returns @c true, if this abstract "GeometryDefinition" is of type ParametricGeometry.
-   *
-   * @return @c true, if this abstract "GeometryDefinition" is of type ParametricGeometry.
-   *
-   */
-  virtual bool isParametricGeometry() const;
-
-
-  /**
-   * Returns @c true, if this abstract "GeometryDefinition" is of type MixedGeometry.
-   *
-   * @return @c true, if this abstract "GeometryDefinition" is of type MixedGeometry.
-   *
-   */
-  virtual bool isMixedGeometry() const;
-
-
-  /**
-   * Returns the XML element name of this object, which for GeometryDefinition, is
-   * always @c "geometryDefinition".
-   *
-   * @return the name of this element, i.e. @c "geometryDefinition".
+   * @return the name of this element, i.e. @c "ordinalMapping".
    */
   virtual const std::string& getElementName () const;
 
@@ -308,11 +272,11 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes
-   * for this GeometryDefinition object have been set.
+   * for this OrdinalMapping object have been set.
    *
-   * @note The required attributes for a GeometryDefinition object are:
-   * @li "id"
-   * @li "isActive"
+   * @note The required attributes for a OrdinalMapping object are:
+   * @li "geometryDefinition"
+   * @li "ordinal"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -406,103 +370,103 @@ protected:
 
 };
 
-class LIBSBML_EXTERN ListOfGeometryDefinitions : public ListOf
+class LIBSBML_EXTERN ListOfOrdinalMappings : public ListOf
 {
 
 public:
 
   /**
-   * Creates a new ListOfGeometryDefinitions with the given level, version, and package version.
+   * Creates a new ListOfOrdinalMappings with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfGeometryDefinitions
+   * @param level an unsigned int, the SBML Level to assign to this ListOfOrdinalMappings
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfGeometryDefinitions
+   * @param version an unsigned int, the SBML Version to assign to this ListOfOrdinalMappings
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfGeometryDefinitions
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfOrdinalMappings
    */
-  ListOfGeometryDefinitions(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                            unsigned int version    = SpatialExtension::getDefaultVersion(),
-                            unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  ListOfOrdinalMappings(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                        unsigned int version    = SpatialExtension::getDefaultVersion(),
+                        unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new ListOfGeometryDefinitions with the given SpatialPkgNamespaces object.
+   * Creates a new ListOfOrdinalMappings with the given SpatialPkgNamespaces object.
    *
    * @param spatialns the SpatialPkgNamespaces object
    */
-  ListOfGeometryDefinitions(SpatialPkgNamespaces* spatialns);
+  ListOfOrdinalMappings(SpatialPkgNamespaces* spatialns);
 
 
    /**
-   * Creates and returns a deep copy of this ListOfGeometryDefinitions object.
+   * Creates and returns a deep copy of this ListOfOrdinalMappings object.
    *
-   * @return a (deep) copy of this ListOfGeometryDefinitions object.
+   * @return a (deep) copy of this ListOfOrdinalMappings object.
    */
-  virtual ListOfGeometryDefinitions* clone () const;
+  virtual ListOfOrdinalMappings* clone () const;
 
 
    /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
+   * Get a OrdinalMapping from the ListOfOrdinalMappings.
    *
-   * @param n the index number of the GeometryDefinition to get.
+   * @param n the index number of the OrdinalMapping to get.
    *
-   * @return the nth GeometryDefinition in this ListOfGeometryDefinitions.
-   *
-   * @see size()
-   */
-	virtual GeometryDefinition* get(unsigned int n);
-
-
-  /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions.
-   *
-   * @param n the index number of the GeometryDefinition to get.
-   *
-   * @return the nth GeometryDefinition in this ListOfGeometryDefinitions.
+   * @return the nth OrdinalMapping in this ListOfOrdinalMappings.
    *
    * @see size()
    */
-	virtual const GeometryDefinition* get(unsigned int n) const;
+	virtual OrdinalMapping* get(unsigned int n);
 
 
   /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions
+   * Get a OrdinalMapping from the ListOfOrdinalMappings.
+   *
+   * @param n the index number of the OrdinalMapping to get.
+   *
+   * @return the nth OrdinalMapping in this ListOfOrdinalMappings.
+   *
+   * @see size()
+   */
+	virtual const OrdinalMapping* get(unsigned int n) const;
+
+
+  /**
+   * Get a OrdinalMapping from the ListOfOrdinalMappings
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the GeometryDefinition to get.
+   * of the OrdinalMapping to get.
    *
-   * @return GeometryDefinition in this ListOfGeometryDefinitions
+   * @return OrdinalMapping in this ListOfOrdinalMappings
    * with the given id or NULL if no such
-   * GeometryDefinition exists.
+   * OrdinalMapping exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
    */
-	virtual GeometryDefinition* get(const std::string& sid);
+	virtual OrdinalMapping* get(const std::string& sid);
 
 
   /**
-   * Get a GeometryDefinition from the ListOfGeometryDefinitions
+   * Get a OrdinalMapping from the ListOfOrdinalMappings
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the GeometryDefinition to get.
+   * of the OrdinalMapping to get.
    *
-   * @return GeometryDefinition in this ListOfGeometryDefinitions
+   * @return OrdinalMapping in this ListOfOrdinalMappings
    * with the given id or NULL if no such
-   * GeometryDefinition exists.
+   * OrdinalMapping exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
    */
-  virtual const GeometryDefinition* get(const std::string& sid) const;
+  virtual const OrdinalMapping* get(const std::string& sid) const;
 
 
 	/**
-	 * Adds a copy the given "GeometryDefinition" to this ListOfGeometryDefinitions.
+	 * Adds a copy the given "OrdinalMapping" to this ListOfOrdinalMappings.
 	 *
-	 * @param gd; the GeometryDefinition object to add
+	 * @param om; the OrdinalMapping object to add
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -511,106 +475,62 @@ public:
 	 * @li LIBSEDML_OPERATION_SUCCESS
 	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
 	 */
-	int addGeometryDefinition(const GeometryDefinition* gd);
+	int addOrdinalMapping(const OrdinalMapping* om);
 
 
 	/**
-	 * Get the number of GeometryDefinition objects in this ListOfGeometryDefinitions.
+	 * Get the number of OrdinalMapping objects in this ListOfOrdinalMappings.
 	 *
-	 * @return the number of GeometryDefinition objects in this ListOfGeometryDefinitions
+	 * @return the number of OrdinalMapping objects in this ListOfOrdinalMappings
 	 */
-	unsigned int getNumGeometryDefinitions() const;
+	unsigned int getNumOrdinalMappings() const;
 
 
 	/**
-	 * Creates a new GeometryDefinition object, adds it to the
-	 * ListOfGeometryDefinitions and returns the GeometryDefinition object created. 
+	 * Creates a new OrdinalMapping object, adds it to the
+	 * ListOfOrdinalMappings and returns the OrdinalMapping object created. 
 	 *
-	 * @return a new GeometryDefinition object instance
+	 * @return a new OrdinalMapping object instance
 	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
+	 * @see addOrdinalMapping(const OrdinalMapping* om)
 	 */
-	AnalyticGeometry* createAnalyticGeometry();
-
-
-	/**
-	 * Creates a new GeometryDefinition object, adds it to the
-	 * ListOfGeometryDefinitions and returns the GeometryDefinition object created. 
-	 *
-	 * @return a new GeometryDefinition object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	SampledFieldGeometry* createSampledFieldGeometry();
-
-
-	/**
-	 * Creates a new GeometryDefinition object, adds it to the
-	 * ListOfGeometryDefinitions and returns the GeometryDefinition object created. 
-	 *
-	 * @return a new GeometryDefinition object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	CSGeometry* createCsGeometry();
-
-
-	/**
-	 * Creates a new GeometryDefinition object, adds it to the
-	 * ListOfGeometryDefinitions and returns the GeometryDefinition object created. 
-	 *
-	 * @return a new GeometryDefinition object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	ParametricGeometry* createParametricGeometry();
-
-
-	/**
-	 * Creates a new GeometryDefinition object, adds it to the
-	 * ListOfGeometryDefinitions and returns the GeometryDefinition object created. 
-	 *
-	 * @return a new GeometryDefinition object instance
-	 *
-	 * @see addGeometryDefinition(const GeometryDefinition* gd)
-	 */
-	MixedGeometry* createMixedGeometry();
+	OrdinalMapping* createOrdinalMapping();
 
 
   /**
-   * Removes the nth GeometryDefinition from this ListOfGeometryDefinitions
+   * Removes the nth OrdinalMapping from this ListOfOrdinalMappings
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the GeometryDefinition to remove.
+   * @param n the index of the OrdinalMapping to remove.
    *
    * @see size()
    */
-	virtual GeometryDefinition* remove(unsigned int n);
+	virtual OrdinalMapping* remove(unsigned int n);
 
 
   /**
-   * Removes the GeometryDefinition from this ListOfGeometryDefinitions with the given identifier
+   * Removes the OrdinalMapping from this ListOfOrdinalMappings with the given identifier
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @param sid the identifier of the GeometryDefinition to remove.
+   * @param sid the identifier of the OrdinalMapping to remove.
    *
-   * @return the GeometryDefinition removed. As mentioned above, the caller owns the
+   * @return the OrdinalMapping removed. As mentioned above, the caller owns the
    * returned item.
    */
-	virtual GeometryDefinition* remove(const std::string& sid);
+	virtual OrdinalMapping* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfGeometryDefinitions, is
-   * always @c "listOfGeometryDefinitions".
+   * Returns the XML element name of this object, which for ListOfOrdinalMappings, is
+   * always @c "listOfOrdinalMappings".
    *
-   * @return the name of this element, i.e. @c "listOfGeometryDefinitions".
+   * @return the name of this element, i.e. @c "listOfOrdinalMappings".
    */
   virtual const std::string& getElementName () const;
 
@@ -687,7 +607,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new GeometryDefinition in this ListOfGeometryDefinitions
+   * Creates a new OrdinalMapping in this ListOfOrdinalMappings
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
@@ -706,12 +626,6 @@ protected:
   /** @endcond doxygenLibsbmlInternal */
 
 
-	virtual bool isValidTypeForList(SBase * item) {
-		int code = item->getTypeCode();
-		return code == getItemTypeCode() || code == SBML_SPATIAL_ANALYTICGEOMETRY || code == SBML_SPATIAL_SAMPLEDFIELDGEOMETRY || code == SBML_SPATIAL_CSGEOMETRY || code == SBML_SPATIAL_PARAMETRICGEOMETRY || code == SBML_SPATIAL_MIXEDGEOMETRY ;
-	}
-
-
 
 };
 
@@ -727,126 +641,126 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Creates a new GeometryDefinition_t structure using the given SBML @p level and
+ * Creates a new OrdinalMapping_t structure using the given SBML @p level and
  * @p version values.
  *
  * @param level an unsigned int, the SBML level to assign to this
- * GeometryDefinition_t structure.
+ * OrdinalMapping_t structure.
  *
  * @param version an unsigned int, the SBML version to assign to this
- * GeometryDefinition_t structure.
+ * OrdinalMapping_t structure.
  *
- * @returns the newly-created GeometryDefinition_t structure, or a null pointer if
+ * @returns the newly-created OrdinalMapping_t structure, or a null pointer if
  * an error occurred during construction.
  *
  * @copydetails doc_note_setting_lv
  *
- * @memberof GeometryDefinition_t
+ * @memberof OrdinalMapping_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_create(unsigned int level, unsigned int version,
-                          unsigned int pkgVersion);
+OrdinalMapping_t *
+OrdinalMapping_create(unsigned int level, unsigned int version,
+                      unsigned int pkgVersion);
 
 
 /**
- * Frees the given GeometryDefinition_t structure.
+ * Frees the given OrdinalMapping_t structure.
  * 
- * @param gd the GeometryDefinition_t structure to be freed.
+ * @param om the OrdinalMapping_t structure to be freed.
  *
- * @memberof GeometryDefinition_t
+ * @memberof OrdinalMapping_t
  */
 LIBSBML_EXTERN
 void
-GeometryDefinition_free(GeometryDefinition_t * gd);
+OrdinalMapping_free(OrdinalMapping_t * om);
 
 
 /**
- * Creates a deep copy of the given GeometryDefinition_t structure.
+ * Creates a deep copy of the given OrdinalMapping_t structure.
  * 
- * @param gd the GeometryDefinition_t structure to be copied.
+ * @param om the OrdinalMapping_t structure to be copied.
  *
- * @returns a (deep) copy of the given GeometryDefinition_t structure, or a null
+ * @returns a (deep) copy of the given OrdinalMapping_t structure, or a null
  * pointer if a failure occurred.
  *
- * @memberof GeometryDefinition_t
+ * @memberof OrdinalMapping_t
  */
 LIBSBML_EXTERN
-GeometryDefinition_t *
-GeometryDefinition_clone(GeometryDefinition_t * gd);
+OrdinalMapping_t *
+OrdinalMapping_clone(OrdinalMapping_t * om);
 
 
 /**
- * Returns the value of the "id" attribute of the given GeometryDefinition_t
+ * Returns the value of the "geometryDefinition" attribute of the given OrdinalMapping_t
  * structure.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @return the id of this structure.
+ * @return the geometryDefinition of this structure.
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 const char *
-GeometryDefinition_getId(const GeometryDefinition_t * gd);
+OrdinalMapping_getGeometryDefinition(const OrdinalMapping_t * om);
 
 
 /**
- * Returns the value of the "isActive" attribute of the given GeometryDefinition_t
+ * Returns the value of the "ordinal" attribute of the given OrdinalMapping_t
  * structure.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @return the isActive of this structure.
+ * @return the ordinal of this structure.
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_getIsActive(const GeometryDefinition_t * gd);
+OrdinalMapping_getOrdinal(const OrdinalMapping_t * om);
 
 
 /**
- * Predicate returning @c 1 if the given GeometryDefinition_t structure's "id"
+ * Predicate returning @c 1 if the given OrdinalMapping_t structure's "geometryDefinition"
  * is set.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @return @c 1 if the "id" of this GeometryDefinition_t structure is
+ * @return @c 1 if the "geometryDefinition" of this OrdinalMapping_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_isSetId(const GeometryDefinition_t * gd);
+OrdinalMapping_isSetGeometryDefinition(const OrdinalMapping_t * om);
 
 
 /**
- * Predicate returning @c 1 if the given GeometryDefinition_t structure's "isActive"
+ * Predicate returning @c 1 if the given OrdinalMapping_t structure's "ordinal"
  * is set.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @return @c 1 if the "isActive" of this GeometryDefinition_t structure is
+ * @return @c 1 if the "ordinal" of this OrdinalMapping_t structure is
  * set, @c 0 otherwise.
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd);
+OrdinalMapping_isSetOrdinal(const OrdinalMapping_t * om);
 
 
 /**
- * Sets the "id" attribute of the given GeometryDefinition_t structure.
+ * Sets the "geometryDefinition" attribute of the given OrdinalMapping_t structure.
  *
  * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs GeometryDefinition_unsetId() instead.
+ * a null pointer, this function performs OrdinalMapping_unsetGeometryDefinition() instead.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @param id the string to which the structures "id" attribute should be
+ * @param geometryDefinition the string to which the structures "geometryDefinition" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -860,19 +774,19 @@ GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id);
+OrdinalMapping_setGeometryDefinition(OrdinalMapping_t * om, const char * geometryDefinition);
 
 
 /**
- * Sets the "isActive" attribute of the given GeometryDefinition_t structure.
+ * Sets the "ordinal" attribute of the given OrdinalMapping_t structure.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
- * @param isActive the string to which the structures "isActive" attribute should be
+ * @param ordinal the string to which the structures "ordinal" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -883,18 +797,18 @@ GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive);
+OrdinalMapping_setOrdinal(OrdinalMapping_t * om, int ordinal);
 
 
 /**
- * Unsets the value of the "id" attribute of the given 
- *GeometryDefinition_t structure.
+ * Unsets the value of the "geometryDefinition" attribute of the given 
+ *OrdinalMapping_t structure.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -904,18 +818,18 @@ GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_unsetId(GeometryDefinition_t * gd);
+OrdinalMapping_unsetGeometryDefinition(OrdinalMapping_t * om);
 
 
 /**
- * Unsets the value of the "isActive" attribute of the given 
- *GeometryDefinition_t structure.
+ * Unsets the value of the "ordinal" attribute of the given 
+ *OrdinalMapping_t structure.
  *
- * @param gd the GeometryDefinition_t structure.
+ * @param om the OrdinalMapping_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -925,37 +839,37 @@ GeometryDefinition_unsetId(GeometryDefinition_t * gd);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_unsetIsActive(GeometryDefinition_t * gd);
+OrdinalMapping_unsetOrdinal(OrdinalMapping_t * om);
 
 
 /**
  * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given GeometryDefinition_t structure have been set.
+ * attributes of the given OrdinalMapping_t structure have been set.
  *
- * @param gd the GeometryDefinition_t structure to check.
+ * @param om the OrdinalMapping_t structure to check.
  *
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of GeometryDefinition_t
+ * @member of OrdinalMapping_t
  */
 LIBSBML_EXTERN
 int
-GeometryDefinition_hasRequiredAttributes(const GeometryDefinition_t * gd);
+OrdinalMapping_hasRequiredAttributes(const OrdinalMapping_t * om);
 
 
 LIBSBML_EXTERN
-GeometryDefinition_t *
-ListOfGeometryDefinitions_getById(ListOf_t * lo, const char * sid);
+OrdinalMapping_t *
+ListOfOrdinalMappings_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
-GeometryDefinition_t *
-ListOfGeometryDefinitions_removeById(ListOf_t * lo, const char * sid);
+OrdinalMapping_t *
+ListOfOrdinalMappings_removeById(ListOf_t * lo, const char * sid);
 
 
 
@@ -965,5 +879,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  !SWIG  */
 
-#endif /*  GeometryDefinition_H__  */
+#endif /*  OrdinalMapping_H__  */
 

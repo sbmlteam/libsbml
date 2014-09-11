@@ -1,6 +1,6 @@
 /**
- * @file:   DomainType.cpp
- * @brief:  Implementation of the DomainType class
+ * @file:   OrdinalMapping.cpp
+ * @brief:  Implementation of the OrdinalMapping class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -32,7 +32,7 @@
  */
 
 
-#include <sbml/packages/spatial/sbml/DomainType.h>
+#include <sbml/packages/spatial/sbml/OrdinalMapping.h>
 #include <sbml/packages/spatial/validator/SpatialSBMLError.h>
 #include <sbml/util/ElementFilter.h>
 
@@ -44,13 +44,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new DomainType with the given level, version, and package version.
+ * Creates a new OrdinalMapping with the given level, version, and package version.
  */
-DomainType::DomainType (unsigned int level, unsigned int version, unsigned int pkgVersion)
+OrdinalMapping::OrdinalMapping (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mId ("")
-  , mSpatialDimensions (SBML_INT_MAX)
-  , mIsSetSpatialDimensions (false)
+  , mGeometryDefinition ("")
+  , mOrdinal (SBML_INT_MAX)
+  , mIsSetOrdinal (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -58,13 +58,13 @@ DomainType::DomainType (unsigned int level, unsigned int version, unsigned int p
 
 
 /*
- * Creates a new DomainType with the given SpatialPkgNamespaces object.
+ * Creates a new OrdinalMapping with the given SpatialPkgNamespaces object.
  */
-DomainType::DomainType (SpatialPkgNamespaces* spatialns)
+OrdinalMapping::OrdinalMapping (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
-  , mId ("")
-  , mSpatialDimensions (SBML_INT_MAX)
-  , mIsSetSpatialDimensions (false)
+  , mGeometryDefinition ("")
+  , mOrdinal (SBML_INT_MAX)
+  , mIsSetOrdinal (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -75,9 +75,9 @@ DomainType::DomainType (SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Copy constructor for DomainType.
+ * Copy constructor for OrdinalMapping.
  */
-DomainType::DomainType (const DomainType& orig)
+OrdinalMapping::OrdinalMapping (const OrdinalMapping& orig)
   : SBase(orig)
 {
   if (&orig == NULL)
@@ -86,18 +86,18 @@ DomainType::DomainType (const DomainType& orig)
   }
   else
   {
-    mId  = orig.mId;
-    mSpatialDimensions  = orig.mSpatialDimensions;
-    mIsSetSpatialDimensions  = orig.mIsSetSpatialDimensions;
+    mGeometryDefinition  = orig.mGeometryDefinition;
+    mOrdinal  = orig.mOrdinal;
+    mIsSetOrdinal  = orig.mIsSetOrdinal;
   }
 }
 
 
 /*
- * Assignment for DomainType.
+ * Assignment for OrdinalMapping.
  */
-DomainType&
-DomainType::operator=(const DomainType& rhs)
+OrdinalMapping&
+OrdinalMapping::operator=(const OrdinalMapping& rhs)
 {
   if (&rhs == NULL)
   {
@@ -106,103 +106,115 @@ DomainType::operator=(const DomainType& rhs)
   else if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mId  = rhs.mId;
-    mSpatialDimensions  = rhs.mSpatialDimensions;
-    mIsSetSpatialDimensions  = rhs.mIsSetSpatialDimensions;
+    mGeometryDefinition  = rhs.mGeometryDefinition;
+    mOrdinal  = rhs.mOrdinal;
+    mIsSetOrdinal  = rhs.mIsSetOrdinal;
   }
   return *this;
 }
 
 
 /*
- * Clone for DomainType.
+ * Clone for OrdinalMapping.
  */
-DomainType*
-DomainType::clone () const
+OrdinalMapping*
+OrdinalMapping::clone () const
 {
-  return new DomainType(*this);
+  return new OrdinalMapping(*this);
 }
 
 
 /*
- * Destructor for DomainType.
+ * Destructor for OrdinalMapping.
  */
-DomainType::~DomainType ()
+OrdinalMapping::~OrdinalMapping ()
 {
 }
 
 
 /*
- * Returns the value of the "id" attribute of this DomainType.
+ * Returns the value of the "geometryDefinition" attribute of this OrdinalMapping.
  */
 const std::string&
-DomainType::getId() const
+OrdinalMapping::getGeometryDefinition() const
 {
-  return mId;
+  return mGeometryDefinition;
 }
 
 
 /*
- * Returns the value of the "spatialDimensions" attribute of this DomainType.
+ * Returns the value of the "ordinal" attribute of this OrdinalMapping.
  */
 int
-DomainType::getSpatialDimensions() const
+OrdinalMapping::getOrdinal() const
 {
-  return mSpatialDimensions;
+  return mOrdinal;
 }
 
 
 /*
- * Returns true/false if id is set.
+ * Returns true/false if geometryDefinition is set.
  */
 bool
-DomainType::isSetId() const
+OrdinalMapping::isSetGeometryDefinition() const
 {
-  return (mId.empty() == false);
+  return (mGeometryDefinition.empty() == false);
 }
 
 
 /*
- * Returns true/false if spatialDimensions is set.
+ * Returns true/false if ordinal is set.
  */
 bool
-DomainType::isSetSpatialDimensions() const
+OrdinalMapping::isSetOrdinal() const
 {
-  return mIsSetSpatialDimensions;
+  return mIsSetOrdinal;
 }
 
 
 /*
- * Sets id and returns value indicating success.
+ * Sets geometryDefinition and returns value indicating success.
  */
 int
-DomainType::setId(const std::string& id)
+OrdinalMapping::setGeometryDefinition(const std::string& geometryDefinition)
 {
-  return SyntaxChecker::checkAndSetSId(id, mId);
+  if (&(geometryDefinition) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(geometryDefinition)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mGeometryDefinition = geometryDefinition;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
- * Sets spatialDimensions and returns value indicating success.
+ * Sets ordinal and returns value indicating success.
  */
 int
-DomainType::setSpatialDimensions(int spatialDimensions)
+OrdinalMapping::setOrdinal(int ordinal)
 {
-  mSpatialDimensions = spatialDimensions;
-  mIsSetSpatialDimensions = true;
+  mOrdinal = ordinal;
+  mIsSetOrdinal = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Unsets id and returns value indicating success.
+ * Unsets geometryDefinition and returns value indicating success.
  */
 int
-DomainType::unsetId()
+OrdinalMapping::unsetGeometryDefinition()
 {
-  mId.erase();
+  mGeometryDefinition.erase();
 
-  if (mId.empty() == true)
+  if (mGeometryDefinition.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -214,15 +226,15 @@ DomainType::unsetId()
 
 
 /*
- * Unsets spatialDimensions and returns value indicating success.
+ * Unsets ordinal and returns value indicating success.
  */
 int
-DomainType::unsetSpatialDimensions()
+OrdinalMapping::unsetOrdinal()
 {
-  mSpatialDimensions = SBML_INT_MAX;
-  mIsSetSpatialDimensions = false;
+  mOrdinal = SBML_INT_MAX;
+  mIsSetOrdinal = false;
 
-  if (isSetSpatialDimensions() == false)
+  if (isSetOrdinal() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -230,6 +242,20 @@ DomainType::unsetSpatialDimensions()
   {
     return LIBSBML_OPERATION_FAILED;
   }
+}
+
+
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+OrdinalMapping::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetGeometryDefinition() == true && mGeometryDefinition == oldid)
+  {
+    setGeometryDefinition(newid);
+  }
+
 }
 
 
@@ -237,9 +263,9 @@ DomainType::unsetSpatialDimensions()
  * Returns the XML element name of this object
  */
 const std::string&
-DomainType::getElementName () const
+OrdinalMapping::getElementName () const
 {
-  static const string name = "domainType";
+  static const string name = "ordinalMapping";
   return name;
 }
 
@@ -248,9 +274,9 @@ DomainType::getElementName () const
  * Returns the libSBML type code for this SBML object.
  */
 int
-DomainType::getTypeCode () const
+OrdinalMapping::getTypeCode () const
 {
-  return SBML_SPATIAL_DOMAINTYPE;
+  return SBML_SPATIAL_ORDINALMAPPING;
 }
 
 
@@ -258,14 +284,14 @@ DomainType::getTypeCode () const
  * check if all the required attributes are set
  */
 bool
-DomainType::hasRequiredAttributes () const
+OrdinalMapping::hasRequiredAttributes () const
 {
   bool allPresent = true;
 
-  if (isSetId() == false)
+  if (isSetGeometryDefinition() == false)
     allPresent = false;
 
-  if (isSetSpatialDimensions() == false)
+  if (isSetOrdinal() == false)
     allPresent = false;
 
   return allPresent;
@@ -278,7 +304,7 @@ DomainType::hasRequiredAttributes () const
  * write contained elements
  */
 void
-DomainType::writeElements (XMLOutputStream& stream) const
+OrdinalMapping::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
   SBase::writeExtensionElements(stream);
@@ -294,7 +320,7 @@ DomainType::writeElements (XMLOutputStream& stream) const
  * Accepts the given SBMLVisitor.
  */
 bool
-DomainType::accept (SBMLVisitor& v) const
+OrdinalMapping::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
@@ -309,7 +335,7 @@ DomainType::accept (SBMLVisitor& v) const
  * Sets the parent SBMLDocument.
  */
 void
-DomainType::setSBMLDocument (SBMLDocument* d)
+OrdinalMapping::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -324,7 +350,7 @@ DomainType::setSBMLDocument (SBMLDocument* d)
  * Enables/Disables the given package with this element.
  */
 void
-DomainType::enablePackageInternal(const std::string& pkgURI,
+OrdinalMapping::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
@@ -340,12 +366,12 @@ DomainType::enablePackageInternal(const std::string& pkgURI,
  * Get the list of expected attributes for this element.
  */
 void
-DomainType::addExpectedAttributes(ExpectedAttributes& attributes)
+OrdinalMapping::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  attributes.add("id");
-  attributes.add("spatialDimensions");
+  attributes.add("geometryDefinition");
+  attributes.add("ordinal");
 }
 
 
@@ -358,7 +384,7 @@ DomainType::addExpectedAttributes(ExpectedAttributes& attributes)
  * Read values from the given XMLAttributes set into their specific fields.
  */
 void
-DomainType::readAttributes (const XMLAttributes& attributes,
+OrdinalMapping::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
   const unsigned int sbmlLevel   = getLevel  ();
@@ -367,12 +393,12 @@ DomainType::readAttributes (const XMLAttributes& attributes,
   unsigned int numErrs;
 
   /* look to see whether an unknown attribute error was logged
-   * during the read of the listOfDomainTypes - which will have
+   * during the read of the listOfOrdinalMappings - which will have
    * happened immediately prior to this read
   */
 
   if (getErrorLog() != NULL &&
-      static_cast<ListOfDomainTypes*>(getParentSBMLObject())->size() < 2)
+      static_cast<ListOfOrdinalMappings*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -426,38 +452,38 @@ DomainType::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // id SId  ( use = "required" )
+  // geometryDefinition SIdRef   ( use = "required" )
   //
-  assigned = attributes.readInto("id", mId);
+  assigned = attributes.readInto("geometryDefinition", mGeometryDefinition);
 
-   if (assigned == true)
+  if (assigned == true)
   {
     // check string is not empty and correct syntax
 
-    if (mId.empty() == true)
+    if (mGeometryDefinition.empty() == true)
     {
-      logEmptyString(mId, getLevel(), getVersion(), "<DomainType>");
+      logEmptyString(mGeometryDefinition, getLevel(), getVersion(), "<OrdinalMapping>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mGeometryDefinition) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+        "The syntax of the attribute geometryDefinition='" + mGeometryDefinition + "' does not conform.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'geometryDefinition' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // spatialDimensions int   ( use = "required" )
+  // ordinal int   ( use = "required" )
   //
   numErrs = getErrorLog()->getNumErrors();
-  mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", mSpatialDimensions);
+  mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
 
-  if (mIsSetSpatialDimensions == false)
+  if (mIsSetOrdinal == false)
   {
     if (getErrorLog() != NULL)
     {
@@ -470,7 +496,7 @@ DomainType::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'spatialDimensions' is missing.";
+        std::string message = "Spatial attribute 'ordinal' is missing.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
@@ -489,15 +515,15 @@ DomainType::readAttributes (const XMLAttributes& attributes,
  * Write values of XMLAttributes to the output stream.
  */
   void
-DomainType::writeAttributes (XMLOutputStream& stream) const
+OrdinalMapping::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetId() == true)
-    stream.writeAttribute("id", getPrefix(), mId);
+  if (isSetGeometryDefinition() == true)
+    stream.writeAttribute("geometryDefinition", getPrefix(), mGeometryDefinition);
 
-  if (isSetSpatialDimensions() == true)
-    stream.writeAttribute("spatialDimensions", getPrefix(), mSpatialDimensions);
+  if (isSetOrdinal() == true)
+    stream.writeAttribute("ordinal", getPrefix(), mOrdinal);
 
 }
 
@@ -508,9 +534,9 @@ DomainType::writeAttributes (XMLOutputStream& stream) const
 /*
  * Constructor 
  */
-ListOfDomainTypes::ListOfDomainTypes(unsigned int level, 
-                    unsigned int version, 
-                    unsigned int pkgVersion)
+ListOfOrdinalMappings::ListOfOrdinalMappings(unsigned int level, 
+                        unsigned int version, 
+                        unsigned int pkgVersion)
  : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
@@ -520,7 +546,7 @@ ListOfDomainTypes::ListOfDomainTypes(unsigned int level,
 /*
  * Constructor 
  */
-ListOfDomainTypes::ListOfDomainTypes(SpatialPkgNamespaces* spatialns)
+ListOfOrdinalMappings::ListOfOrdinalMappings(SpatialPkgNamespaces* spatialns)
   : ListOf(spatialns)
 {
   setElementNamespace(spatialns->getURI());
@@ -528,63 +554,63 @@ ListOfDomainTypes::ListOfDomainTypes(SpatialPkgNamespaces* spatialns)
 
 
 /*
- * Returns a deep copy of this ListOfDomainTypes 
+ * Returns a deep copy of this ListOfOrdinalMappings 
  */
-ListOfDomainTypes* 
-ListOfDomainTypes::clone () const
+ListOfOrdinalMappings* 
+ListOfOrdinalMappings::clone () const
  {
-  return new ListOfDomainTypes(*this);
+  return new ListOfOrdinalMappings(*this);
 }
 
 
 /*
- * Get a DomainType from the ListOfDomainTypes by index.
+ * Get a OrdinalMapping from the ListOfOrdinalMappings by index.
 */
-DomainType*
-ListOfDomainTypes::get(unsigned int n)
+OrdinalMapping*
+ListOfOrdinalMappings::get(unsigned int n)
 {
-  return static_cast<DomainType*>(ListOf::get(n));
+  return static_cast<OrdinalMapping*>(ListOf::get(n));
 }
 
 
 /*
- * Get a DomainType from the ListOfDomainTypes by index.
+ * Get a OrdinalMapping from the ListOfOrdinalMappings by index.
  */
-const DomainType*
-ListOfDomainTypes::get(unsigned int n) const
+const OrdinalMapping*
+ListOfOrdinalMappings::get(unsigned int n) const
 {
-  return static_cast<const DomainType*>(ListOf::get(n));
+  return static_cast<const OrdinalMapping*>(ListOf::get(n));
 }
 
 
 /*
- * Get a DomainType from the ListOfDomainTypes by id.
+ * Get a OrdinalMapping from the ListOfOrdinalMappings by id.
  */
-DomainType*
-ListOfDomainTypes::get(const std::string& sid)
+OrdinalMapping*
+ListOfOrdinalMappings::get(const std::string& sid)
 {
-	return const_cast<DomainType*>(
-    static_cast<const ListOfDomainTypes&>(*this).get(sid));
+	return const_cast<OrdinalMapping*>(
+    static_cast<const ListOfOrdinalMappings&>(*this).get(sid));
 }
 
 
 /*
- * Get a DomainType from the ListOfDomainTypes by id.
+ * Get a OrdinalMapping from the ListOfOrdinalMappings by id.
  */
-const DomainType*
-ListOfDomainTypes::get(const std::string& sid) const
+const OrdinalMapping*
+ListOfOrdinalMappings::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<DomainType>(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <DomainType*> (*result);
+  result = find_if( mItems.begin(), mItems.end(), IdEq<OrdinalMapping>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <OrdinalMapping*> (*result);
 }
 
 
 /**
- * Adds a copy the given "DomainType" to this ListOfDomainTypes.
+ * Adds a copy the given "OrdinalMapping" to this ListOfOrdinalMappings.
  *
- * @param dt; the DomainType object to add
+ * @param om; the OrdinalMapping object to add
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -594,64 +620,64 @@ ListOfDomainTypes::get(const std::string& sid) const
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-ListOfDomainTypes::addDomainType(const DomainType* dt)
+ListOfOrdinalMappings::addOrdinalMapping(const OrdinalMapping* om)
 {
-  if (dt == NULL)
+  if (om == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (dt->hasRequiredAttributes() == false)
+  else if (om->hasRequiredAttributes() == false)
   {
     return LIBSBML_INVALID_OBJECT;
   }
-  else if (getLevel() != dt->getLevel())
+  else if (getLevel() != om->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != dt->getVersion())
+  else if (getVersion() != om->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(dt)) == false)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(om)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-	append(dt);
+	append(om);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
 
 /**
- * Get the number of DomainType objects in this ListOfDomainTypes.
+ * Get the number of OrdinalMapping objects in this ListOfOrdinalMappings.
  *
- * @return the number of DomainType objects in this ListOfDomainTypes
+ * @return the number of OrdinalMapping objects in this ListOfOrdinalMappings
  */
 unsigned int 
-ListOfDomainTypes::getNumDomainTypes() const
+ListOfOrdinalMappings::getNumOrdinalMappings() const
 {
 	return size();
 }
 
 /**
- * Creates a new DomainType object, adds it to this ListOfDomainTypes
- * DomainType and returns the DomainType object created. 
+ * Creates a new OrdinalMapping object, adds it to this ListOfOrdinalMappings
+ * OrdinalMapping and returns the OrdinalMapping object created. 
  *
- * @return a new DomainType object instance
+ * @return a new OrdinalMapping object instance
  *
- * @see addDomainType(const DomainType* dt)
+ * @see addOrdinalMapping(const OrdinalMapping* om)
  */
-DomainType* 
-ListOfDomainTypes::createDomainType()
+OrdinalMapping* 
+ListOfOrdinalMappings::createOrdinalMapping()
 {
-  DomainType* dt = NULL;
+  OrdinalMapping* om = NULL;
 
   try
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    dt = new DomainType(spatialns);
+    om = new OrdinalMapping(spatialns);
     delete spatialns;
   }
   catch (...)
@@ -663,34 +689,34 @@ ListOfDomainTypes::createDomainType()
      */
   }
 
-  if(dt != NULL)
+  if(om != NULL)
   {
-    appendAndOwn(dt);
+    appendAndOwn(om);
   }
 
-  return dt;
+  return om;
 }
 
 /*
- * Removes the nth DomainType from this ListOfDomainTypes
+ * Removes the nth OrdinalMapping from this ListOfOrdinalMappings
  */
-DomainType*
-ListOfDomainTypes::remove(unsigned int n)
+OrdinalMapping*
+ListOfOrdinalMappings::remove(unsigned int n)
 {
-  return static_cast<DomainType*>(ListOf::remove(n));
+  return static_cast<OrdinalMapping*>(ListOf::remove(n));
 }
 
 
 /*
- * Removes the DomainType from this ListOfDomainTypes with the given identifier
+ * Removes the OrdinalMapping from this ListOfOrdinalMappings with the given identifier
  */
-DomainType*
-ListOfDomainTypes::remove(const std::string& sid)
+OrdinalMapping*
+ListOfOrdinalMappings::remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<DomainType>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<OrdinalMapping>(sid) );
 
   if (result != mItems.end())
   {
@@ -698,7 +724,7 @@ ListOfDomainTypes::remove(const std::string& sid)
     mItems.erase(result);
   }
 
-	return static_cast <DomainType*> (item);
+	return static_cast <OrdinalMapping*> (item);
 }
 
 
@@ -706,9 +732,9 @@ ListOfDomainTypes::remove(const std::string& sid)
  * Returns the XML element name of this object
  */
 const std::string&
-ListOfDomainTypes::getElementName () const
+ListOfOrdinalMappings::getElementName () const
 {
-  static const string name = "listOfDomainTypes";
+  static const string name = "listOfOrdinalMappings";
   return name;
 }
 
@@ -717,7 +743,7 @@ ListOfDomainTypes::getElementName () const
  * Returns the libSBML type code for this SBML object.
  */
 int
-ListOfDomainTypes::getTypeCode () const
+ListOfOrdinalMappings::getTypeCode () const
 {
   return SBML_LIST_OF;
 }
@@ -727,27 +753,27 @@ ListOfDomainTypes::getTypeCode () const
  * Returns the libSBML type code for the objects in this LIST_OF.
  */
 int
-ListOfDomainTypes::getItemTypeCode () const
+ListOfOrdinalMappings::getItemTypeCode () const
 {
-  return SBML_SPATIAL_DOMAINTYPE;
+  return SBML_SPATIAL_ORDINALMAPPING;
 }
 
 
   /** @cond doxygenLibsbmlInternal */
 
 /*
- * Creates a new DomainType in this ListOfDomainTypes
+ * Creates a new OrdinalMapping in this ListOfOrdinalMappings
  */
 SBase*
-ListOfDomainTypes::createObject(XMLInputStream& stream)
+ListOfOrdinalMappings::createObject(XMLInputStream& stream)
 {
   const std::string& name   = stream.peek().getName();
   SBase* object = NULL;
 
-  if (name == "domainType")
+  if (name == "ordinalMapping")
   {
     SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    object = new DomainType(spatialns);
+    object = new OrdinalMapping(spatialns);
     appendAndOwn(object);
     delete spatialns;
   }
@@ -765,7 +791,7 @@ ListOfDomainTypes::createObject(XMLInputStream& stream)
  * Write the namespace for the Spatial package.
  */
 void
-ListOfDomainTypes::writeXMLNS(XMLOutputStream& stream) const
+ListOfOrdinalMappings::writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
 
@@ -788,30 +814,30 @@ ListOfDomainTypes::writeXMLNS(XMLOutputStream& stream) const
 
 
 LIBSBML_EXTERN
-DomainType_t *
-DomainType_create(unsigned int level, unsigned int version,
-                  unsigned int pkgVersion)
+OrdinalMapping_t *
+OrdinalMapping_create(unsigned int level, unsigned int version,
+                      unsigned int pkgVersion)
 {
-  return new DomainType(level, version, pkgVersion);
+  return new OrdinalMapping(level, version, pkgVersion);
 }
 
 
 LIBSBML_EXTERN
 void
-DomainType_free(DomainType_t * dt)
+OrdinalMapping_free(OrdinalMapping_t * om)
 {
-  if (dt != NULL)
-    delete dt;
+  if (om != NULL)
+    delete om;
 }
 
 
 LIBSBML_EXTERN
-DomainType_t *
-DomainType_clone(DomainType_t * dt)
+OrdinalMapping_t *
+OrdinalMapping_clone(OrdinalMapping_t * om)
 {
-  if (dt != NULL)
+  if (om != NULL)
   {
-    return static_cast<DomainType_t*>(dt->clone());
+    return static_cast<OrdinalMapping_t*>(om->clone());
   }
   else
   {
@@ -822,42 +848,42 @@ DomainType_clone(DomainType_t * dt)
 
 LIBSBML_EXTERN
 const char *
-DomainType_getId(const DomainType_t * dt)
+OrdinalMapping_getGeometryDefinition(const OrdinalMapping_t * om)
 {
-	return (dt != NULL && dt->isSetId()) ? dt->getId().c_str() : NULL;
+	return (om != NULL && om->isSetGeometryDefinition()) ? om->getGeometryDefinition().c_str() : NULL;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_getSpatialDimensions(const DomainType_t * dt)
+OrdinalMapping_getOrdinal(const OrdinalMapping_t * om)
 {
-	return (dt != NULL) ? dt->getSpatialDimensions() : SBML_INT_MAX;
+	return (om != NULL) ? om->getOrdinal() : SBML_INT_MAX;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_isSetId(const DomainType_t * dt)
+OrdinalMapping_isSetGeometryDefinition(const OrdinalMapping_t * om)
 {
-  return (dt != NULL) ? static_cast<int>(dt->isSetId()) : 0;
+  return (om != NULL) ? static_cast<int>(om->isSetGeometryDefinition()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_isSetSpatialDimensions(const DomainType_t * dt)
+OrdinalMapping_isSetOrdinal(const OrdinalMapping_t * om)
 {
-  return (dt != NULL) ? static_cast<int>(dt->isSetSpatialDimensions()) : 0;
+  return (om != NULL) ? static_cast<int>(om->isSetOrdinal()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_setId(DomainType_t * dt, const char * id)
+OrdinalMapping_setGeometryDefinition(OrdinalMapping_t * om, const char * geometryDefinition)
 {
-  if (dt != NULL)
-    return (id == NULL) ? dt->setId("") : dt->setId(id);
+  if (om != NULL)
+    return (geometryDefinition == NULL) ? om->setGeometryDefinition("") : om->setGeometryDefinition(geometryDefinition);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -865,10 +891,10 @@ DomainType_setId(DomainType_t * dt, const char * id)
 
 LIBSBML_EXTERN
 int
-DomainType_setSpatialDimensions(DomainType_t * dt, int spatialDimensions)
+OrdinalMapping_setOrdinal(OrdinalMapping_t * om, int ordinal)
 {
-  if (dt != NULL)
-    return dt->setSpatialDimensions(spatialDimensions);
+  if (om != NULL)
+    return om->setOrdinal(ordinal);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -876,25 +902,25 @@ DomainType_setSpatialDimensions(DomainType_t * dt, int spatialDimensions)
 
 LIBSBML_EXTERN
 int
-DomainType_unsetId(DomainType_t * dt)
+OrdinalMapping_unsetGeometryDefinition(OrdinalMapping_t * om)
 {
-  return (dt != NULL) ? dt->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (om != NULL) ? om->unsetGeometryDefinition() : LIBSBML_INVALID_OBJECT;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_unsetSpatialDimensions(DomainType_t * dt)
+OrdinalMapping_unsetOrdinal(OrdinalMapping_t * om)
 {
-  return (dt != NULL) ? dt->unsetSpatialDimensions() : LIBSBML_INVALID_OBJECT;
+  return (om != NULL) ? om->unsetOrdinal() : LIBSBML_INVALID_OBJECT;
 }
 
 
 LIBSBML_EXTERN
 int
-DomainType_hasRequiredAttributes(const DomainType_t * dt)
+OrdinalMapping_hasRequiredAttributes(const OrdinalMapping_t * om)
 {
-  return (dt != NULL) ? static_cast<int>(dt->hasRequiredAttributes()) : 0;
+  return (om != NULL) ? static_cast<int>(om->hasRequiredAttributes()) : 0;
 }
 
 
@@ -902,13 +928,13 @@ DomainType_hasRequiredAttributes(const DomainType_t * dt)
  *
  */
 LIBSBML_EXTERN
-DomainType_t *
-ListOfDomainTypes_getById(ListOf_t * lo, const char * sid)
+OrdinalMapping_t *
+ListOfOrdinalMappings_getById(ListOf_t * lo, const char * sid)
 {
   if (lo == NULL)
     return NULL;
 
-  return (sid != NULL) ? static_cast <ListOfDomainTypes *>(lo)->get(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfOrdinalMappings *>(lo)->get(sid) : NULL;
 }
 
 
@@ -916,13 +942,13 @@ ListOfDomainTypes_getById(ListOf_t * lo, const char * sid)
  *
  */
 LIBSBML_EXTERN
-DomainType_t *
-ListOfDomainTypes_removeById(ListOf_t * lo, const char * sid)
+OrdinalMapping_t *
+ListOfOrdinalMappings_removeById(ListOf_t * lo, const char * sid)
 {
   if (lo == NULL)
     return NULL;
 
-  return (sid != NULL) ? static_cast <ListOfDomainTypes *>(lo)->remove(sid) : NULL;
+  return (sid != NULL) ? static_cast <ListOfOrdinalMappings *>(lo)->remove(sid) : NULL;
 }
 
 

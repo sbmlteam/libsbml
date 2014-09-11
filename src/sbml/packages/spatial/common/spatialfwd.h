@@ -60,7 +60,6 @@ typedef CLASS_OR_STRUCT CompartmentMapping    CompartmentMapping_t;
 typedef CLASS_OR_STRUCT CoordinateComponent    CoordinateComponent_t;
 typedef CLASS_OR_STRUCT SampledFieldGeometry    SampledFieldGeometry_t;
 typedef CLASS_OR_STRUCT SampledField    SampledField_t;
-typedef CLASS_OR_STRUCT ImageData    ImageData_t;
 typedef CLASS_OR_STRUCT SampledVolume    SampledVolume_t;
 typedef CLASS_OR_STRUCT AnalyticGeometry    AnalyticGeometry_t;
 typedef CLASS_OR_STRUCT AnalyticVolume    AnalyticVolume_t;
@@ -86,6 +85,8 @@ typedef CLASS_OR_STRUCT AdvectionCoefficient    AdvectionCoefficient_t;
 typedef CLASS_OR_STRUCT BoundaryCondition    BoundaryCondition_t;
 typedef CLASS_OR_STRUCT Geometry    Geometry_t;
 typedef CLASS_OR_STRUCT CoordinateReference    CoordinateReference_t;
+typedef CLASS_OR_STRUCT MixedGeometry    MixedGeometry_t;
+typedef CLASS_OR_STRUCT OrdinalMapping    OrdinalMapping_t;
 
 LIBSBML_CPP_NAMESPACE_END
 

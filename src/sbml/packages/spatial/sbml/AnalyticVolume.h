@@ -433,6 +433,7 @@ public:
    * @note The required attributes for a AnalyticVolume object are:
    * @li "id"
    * @li "functionType"
+   * @li "ordinal"
    * @li "domainType"
    *
    * @return a boolean value indicating whether all the required

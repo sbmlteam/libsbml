@@ -431,6 +431,7 @@ public:
    * @note The required attributes for a CSGObject object are:
    * @li "id"
    * @li "domainType"
+   * @li "ordinal"
    * @li "csgNode"
    *
    * @return a boolean value indicating whether all the required

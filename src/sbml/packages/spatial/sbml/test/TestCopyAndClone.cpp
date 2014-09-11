@@ -214,15 +214,15 @@ START_TEST ( test_ParametricObject_clone )
 END_TEST
 
 
-START_TEST ( test_ImageData_copyConstructor )
+START_TEST ( test_SampledField_copyConstructor )
 {
-  ImageData* o1=new ImageData(GNS);
+  SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
   
   fail_unless(o1->getSamplesLength() == 3);
 
-  ImageData* o2=new ImageData(*o1);
+  SampledField* o2=new SampledField(*o1);
 
   fail_unless(o2->getSamplesLength() == 3);
 
@@ -241,15 +241,15 @@ START_TEST ( test_ImageData_copyConstructor )
 END_TEST
 
 
-START_TEST ( test_ImageData_assignmentOperator )
+START_TEST ( test_SampledField_assignmentOperator )
 {
-  ImageData* o1=new ImageData(GNS);
+  SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
   
   fail_unless(o1->getSamplesLength() == 3);
   
-  ImageData* o2 = new ImageData(GNS);;
+  SampledField* o2 = new SampledField(GNS);;
   (*o2)=*o1;
 
   fail_unless(o2->getSamplesLength() == 3);
@@ -269,15 +269,15 @@ START_TEST ( test_ImageData_assignmentOperator )
 END_TEST
 
 
-START_TEST ( test_ImageData_clone )
+START_TEST ( test_SampledField_clone )
 {
-  ImageData* o1=new ImageData(GNS);
+  SampledField* o1=new SampledField(GNS);
   int points [] = {1,2,3};
   o1->setSamples(points, 3);
   
   fail_unless(o1->getSamplesLength() == 3);
 
-  ImageData* o2=o1->clone();
+  SampledField* o2=o1->clone();
  
   fail_unless(o2->getSamplesLength() == 3);
 
@@ -390,9 +390,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_ParametricObject_copyConstructor );
   tcase_add_test( tcase, test_ParametricObject_assignmentOperator );
   tcase_add_test( tcase, test_ParametricObject_clone );
-  tcase_add_test( tcase, test_ImageData_copyConstructor );
-  tcase_add_test( tcase, test_ImageData_assignmentOperator );
-  tcase_add_test( tcase, test_ImageData_clone );
+  tcase_add_test( tcase, test_SampledField_copyConstructor );
+  tcase_add_test( tcase, test_SampledField_assignmentOperator );
+  tcase_add_test( tcase, test_SampledField_clone );
   tcase_add_test( tcase, test_TransformationComponents_copyConstructor );
   tcase_add_test( tcase, test_TransformationComponents_assignmentOperator );
   tcase_add_test( tcase, test_TransformationComponents_clone );

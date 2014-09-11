@@ -62,8 +62,8 @@ class LIBSBML_EXTERN DomainType : public SBase
 protected:
 
   std::string   mId;
-  int           mSpatialDimension;
-  bool          mIsSetSpatialDimension;
+  int           mSpatialDimensions;
+  bool          mIsSetSpatialDimensions;
 
 
 public:
@@ -130,11 +130,11 @@ public:
 
 
   /**
-   * Returns the value of the "spatialDimension" attribute of this DomainType.
+   * Returns the value of the "spatialDimensions" attribute of this DomainType.
    *
-   * @return the value of the "spatialDimension" attribute of this DomainType as a integer.
+   * @return the value of the "spatialDimensions" attribute of this DomainType as a integer.
    */
-  virtual int getSpatialDimension() const;
+  virtual int getSpatialDimensions() const;
 
 
   /**
@@ -149,12 +149,12 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * DomainType's "spatialDimension" attribute has been set.
+   * DomainType's "spatialDimensions" attribute has been set.
    *
-   * @return @c true if this DomainType's "spatialDimension" attribute has been set,
+   * @return @c true if this DomainType's "spatialDimensions" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetSpatialDimension() const;
+  virtual bool isSetSpatialDimensions() const;
 
 
   /**
@@ -173,9 +173,9 @@ public:
 
 
   /**
-   * Sets the value of the "spatialDimension" attribute of this DomainType.
+   * Sets the value of the "spatialDimensions" attribute of this DomainType.
    *
-   * @param spatialDimension; int value of the "spatialDimension" attribute to be set
+   * @param spatialDimensions; int value of the "spatialDimensions" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -184,7 +184,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSpatialDimension(int spatialDimension);
+  virtual int setSpatialDimensions(int spatialDimensions);
 
 
   /**
@@ -201,7 +201,7 @@ public:
 
 
   /**
-   * Unsets the value of the "spatialDimension" attribute of this DomainType.
+   * Unsets the value of the "spatialDimensions" attribute of this DomainType.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -210,7 +210,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetSpatialDimension();
+  virtual int unsetSpatialDimensions();
 
 
   /**
@@ -261,7 +261,7 @@ public:
    *
    * @note The required attributes for a DomainType object are:
    * @li "id"
-   * @li "spatialDimension"
+   * @li "spatialDimensions"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -691,18 +691,18 @@ DomainType_getId(const DomainType_t * dt);
 
 
 /**
- * Returns the value of the "spatialDimension" attribute of the given DomainType_t
+ * Returns the value of the "spatialDimensions" attribute of the given DomainType_t
  * structure.
  *
  * @param dt the DomainType_t structure.
  *
- * @return the spatialDimension of this structure.
+ * @return the spatialDimensions of this structure.
  *
  * @member of DomainType_t
  */
 LIBSBML_EXTERN
 int
-DomainType_getSpatialDimension(const DomainType_t * dt);
+DomainType_getSpatialDimensions(const DomainType_t * dt);
 
 
 /**
@@ -722,19 +722,19 @@ DomainType_isSetId(const DomainType_t * dt);
 
 
 /**
- * Predicate returning @c 1 if the given DomainType_t structure's "spatialDimension"
+ * Predicate returning @c 1 if the given DomainType_t structure's "spatialDimensions"
  * is set.
  *
  * @param dt the DomainType_t structure.
  *
- * @return @c 1 if the "spatialDimension" of this DomainType_t structure is
+ * @return @c 1 if the "spatialDimensions" of this DomainType_t structure is
  * set, @c 0 otherwise.
  *
  * @member of DomainType_t
  */
 LIBSBML_EXTERN
 int
-DomainType_isSetSpatialDimension(const DomainType_t * dt);
+DomainType_isSetSpatialDimensions(const DomainType_t * dt);
 
 
 /**
@@ -767,11 +767,11 @@ DomainType_setId(DomainType_t * dt, const char * id);
 
 
 /**
- * Sets the "spatialDimension" attribute of the given DomainType_t structure.
+ * Sets the "spatialDimensions" attribute of the given DomainType_t structure.
  *
  * @param dt the DomainType_t structure.
  *
- * @param spatialDimension the string to which the structures "spatialDimension" attribute should be
+ * @param spatialDimensions the string to which the structures "spatialDimensions" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -786,7 +786,7 @@ DomainType_setId(DomainType_t * dt, const char * id);
  */
 LIBSBML_EXTERN
 int
-DomainType_setSpatialDimension(DomainType_t * dt, int spatialDimension);
+DomainType_setSpatialDimensions(DomainType_t * dt, int spatialDimensions);
 
 
 /**
@@ -811,7 +811,7 @@ DomainType_unsetId(DomainType_t * dt);
 
 
 /**
- * Unsets the value of the "spatialDimension" attribute of the given 
+ * Unsets the value of the "spatialDimensions" attribute of the given 
  *DomainType_t structure.
  *
  * @param dt the DomainType_t structure.
@@ -828,7 +828,7 @@ DomainType_unsetId(DomainType_t * dt);
  */
 LIBSBML_EXTERN
 int
-DomainType_unsetSpatialDimension(DomainType_t * dt);
+DomainType_unsetSpatialDimensions(DomainType_t * dt);
 
 
 /**

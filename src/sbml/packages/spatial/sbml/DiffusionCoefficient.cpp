@@ -50,7 +50,8 @@ DiffusionCoefficient::DiffusionCoefficient (unsigned int level, unsigned int ver
   : SBase(level, version)
   , mVariable ("")
   , mType (DIFFUSIONKIND_UNKNOWN)
-  , mCoordinateReferences (level, version, pkgVersion)
+  , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
+  , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -67,7 +68,8 @@ DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
   , mVariable ("")
   , mType (DIFFUSIONKIND_UNKNOWN)
-  , mCoordinateReferences (spatialns)
+  , mCoordinateReference1 (COORDINATEKIND_UNKNOWN)
+  , mCoordinateReference2 (COORDINATEKIND_UNKNOWN)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -94,7 +96,8 @@ DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
   {
     mVariable  = orig.mVariable;
     mType  = orig.mType;
-    mCoordinateReferences  = orig.mCoordinateReferences;
+    mCoordinateReference1  = orig.mCoordinateReference1;
+    mCoordinateReference2  = orig.mCoordinateReference2;
 
     // connect to child objects
     connectToChild();
@@ -117,7 +120,8 @@ DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
     SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
     mType  = rhs.mType;
-    mCoordinateReferences  = rhs.mCoordinateReferences;
+    mCoordinateReference1  = rhs.mCoordinateReference1;
+    mCoordinateReference2  = rhs.mCoordinateReference2;
 
     // connect to child objects
     connectToChild();
@@ -165,6 +169,26 @@ DiffusionCoefficient::getType() const
 
 
 /*
+ * Returns the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
+ */
+CoordinateKind_t
+DiffusionCoefficient::getCoordinateReference1() const
+{
+  return mCoordinateReference1;
+}
+
+
+/*
+ * Returns the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
+ */
+CoordinateKind_t
+DiffusionCoefficient::getCoordinateReference2() const
+{
+  return mCoordinateReference2;
+}
+
+
+/*
  * Returns true/false if variable is set.
  */
 bool
@@ -181,6 +205,26 @@ bool
 DiffusionCoefficient::isSetType() const
 {
   return mType != DIFFUSIONKIND_UNKNOWN;
+}
+
+
+/*
+ * Returns true/false if coordinateReference1 is set.
+ */
+bool
+DiffusionCoefficient::isSetCoordinateReference1() const
+{
+  return mCoordinateReference1 != COORDINATEKIND_UNKNOWN;
+}
+
+
+/*
+ * Returns true/false if coordinateReference2 is set.
+ */
+bool
+DiffusionCoefficient::isSetCoordinateReference2() const
+{
+  return mCoordinateReference2 != COORDINATEKIND_UNKNOWN;
 }
 
 
@@ -231,6 +275,54 @@ DiffusionCoefficient::setType(const std::string& type)
 
 
 /*
+ * Sets coordinateReference1 and returns value indicating success.
+ */
+int
+DiffusionCoefficient::setCoordinateReference1(CoordinateKind_t coordinateReference1)
+{
+  mCoordinateReference1 = coordinateReference1;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets coordinateReference1 and returns value indicating success.
+ */
+int
+DiffusionCoefficient::setCoordinateReference1(const std::string& coordinateReference1)
+{
+  CoordinateKind_t parsed = CoordinateKind_parse(coordinateReference1.c_str());
+  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  mCoordinateReference1 = parsed;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets coordinateReference2 and returns value indicating success.
+ */
+int
+DiffusionCoefficient::setCoordinateReference2(CoordinateKind_t coordinateReference2)
+{
+  mCoordinateReference2 = coordinateReference2;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets coordinateReference2 and returns value indicating success.
+ */
+int
+DiffusionCoefficient::setCoordinateReference2(const std::string& coordinateReference2)
+{
+  CoordinateKind_t parsed = CoordinateKind_parse(coordinateReference2.c_str());
+  if (parsed == COORDINATEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  mCoordinateReference2 = parsed;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
  * Unsets variable and returns value indicating success.
  */
 int
@@ -261,174 +353,24 @@ DiffusionCoefficient::unsetType()
 
 
 /*
- * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
- */
-const ListOfCoordinateReferences*
-DiffusionCoefficient::getListOfCoordinateReferences() const
-{
-  return &mCoordinateReferences;
-}
-
-
-/*
- * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
- */
-ListOfCoordinateReferences*
-DiffusionCoefficient::getListOfCoordinateReferences()
-{
-  return &mCoordinateReferences;
-}
-
-
-/*
- * Removes the nth CoordinateReference from the ListOfCoordinateReferences.
- */
-CoordinateReference*
-DiffusionCoefficient::removeCoordinateReference(unsigned int n)
-{
-	return mCoordinateReferences.remove(n);
-}
-
-
-/*
- * Removes the a CoordinateReference with given id from the ListOfCoordinateReferences.
- */
-CoordinateReference*
-DiffusionCoefficient::removeCoordinateReference(const std::string& sid)
-{
-	return mCoordinateReferences.remove(sid);
-}
-
-
-/*
- * Return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
- */
-CoordinateReference*
-DiffusionCoefficient::getCoordinateReference(unsigned int n)
-{
-	return mCoordinateReferences.get(n);
-}
-
-
-/*
- * Return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
- */
-const CoordinateReference*
-DiffusionCoefficient::getCoordinateReference(unsigned int n) const
-{
-	return mCoordinateReferences.get(n);
-}
-
-
-/*
- * Return a CoordinateReference from the ListOfCoordinateReferences by id.
- */
-CoordinateReference*
-DiffusionCoefficient::getCoordinateReference(const std::string& sid)
-{
-	return mCoordinateReferences.get(sid);
-}
-
-
-/*
- * Return a CoordinateReference from the ListOfCoordinateReferences by id.
- */
-const CoordinateReference*
-DiffusionCoefficient::getCoordinateReference(const std::string& sid) const
-{
-	return mCoordinateReferences.get(sid);
-}
-
-
-/*
- * Adds a copy the given "CoordinateReference" to this DiffusionCoefficient.
- *
- * @param cr; the CoordinateReference object to add
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif The possible values
- * returned by this function are:
- * @li LIBSBML_OPERATION_SUCCESS
- * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * Unsets coordinateReference1 and returns value indicating success.
  */
 int
-DiffusionCoefficient::addCoordinateReference(const CoordinateReference* cr)
+DiffusionCoefficient::unsetCoordinateReference1()
 {
-  if (cr == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else if (cr->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != cr->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != cr->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(cr)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-    mCoordinateReferences.append(cr);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Get the number of CoordinateReference objects in this DiffusionCoefficient.
- *
- * @return the number of CoordinateReference objects in this DiffusionCoefficient
+ * Unsets coordinateReference2 and returns value indicating success.
  */
-unsigned int
-DiffusionCoefficient::getNumCoordinateReferences() const
+int
+DiffusionCoefficient::unsetCoordinateReference2()
 {
-  return mCoordinateReferences.size();
-}
-
-
-/*
- * Creates a new CoordinateReference object, adds it to this DiffusionCoefficients
- * DiffusionCoefficient and returns the CoordinateReference object created. 
- *
- * @return a new CoordinateReference object instance
- *
- * @see addCoordinateReference(const CoordinateReference* cr)
- */
-CoordinateReference*
-DiffusionCoefficient::createCoordinateReference()
-{
-  CoordinateReference* cr = NULL;
-
-  try
-  {
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-    cr = new CoordinateReference(spatialns);
-    delete spatialns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * do nothing
-     */
-  }
-
-  if(cr != NULL)
-  {
-    mCoordinateReferences.appendAndOwn(cr);
-  }
-
-  return cr;
+  mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -519,11 +461,6 @@ void
 DiffusionCoefficient::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
-  if (getNumCoordinateReferences() > 0)
-  {
-    mCoordinateReferences.write(stream);
-  }
-
   SBase::writeExtensionElements(stream);
 }
 
@@ -561,7 +498,6 @@ void
 DiffusionCoefficient::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
-  mCoordinateReferences.setSBMLDocument(d);
 }
 
 
@@ -578,7 +514,6 @@ DiffusionCoefficient::connectToChild()
 {
   SBase::connectToChild();
 
-  mCoordinateReferences.connectToParent(this);
 }
 
 
@@ -595,7 +530,6 @@ DiffusionCoefficient::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-  mCoordinateReferences.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
@@ -614,10 +548,6 @@ DiffusionCoefficient::createObject(XMLInputStream& stream)
 
   const string& name = stream.peek().getName();
 
-  if (name == "listOfCoordinateReferences")
-  {
-    object = &mCoordinateReferences;
-  }
   connectToChild();
 
 
@@ -640,6 +570,8 @@ DiffusionCoefficient::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("variable");
   attributes.add("type");
+  attributes.add("coordinateReference1");
+  attributes.add("coordinateReference2");
 }
 
 
@@ -674,7 +606,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -682,7 +614,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -712,7 +644,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'variable' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -734,9 +666,39 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'type' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
+  //
+  // coordinateReference1 enum  ( use = "optional" )
+  //
+  mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+  {
+    std::string stringValue;
+    assigned = attributes.readInto("coordinateReference1", stringValue);
+
+    if (assigned == true)
+    {
+      // parse enum
+
+      mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
+    }
+  }
+  //
+  // coordinateReference2 enum  ( use = "optional" )
+  //
+  mCoordinateReference2 = COORDINATEKIND_UNKNOWN;
+  {
+    std::string stringValue;
+    assigned = attributes.readInto("coordinateReference2", stringValue);
+
+    if (assigned == true)
+    {
+      // parse enum
+
+      mCoordinateReference2 = CoordinateKind_parse(stringValue.c_str());
+    }
+  }
 }
 
 
@@ -758,6 +720,12 @@ DiffusionCoefficient::writeAttributes (XMLOutputStream& stream) const
 
   if (isSetType() == true)
     stream.writeAttribute("type", getPrefix(), DiffusionKind_toString(mType));
+
+  if (isSetCoordinateReference1() == true)
+    stream.writeAttribute("coordinateReference1", getPrefix(), CoordinateKind_toString(mCoordinateReference1));
+
+  if (isSetCoordinateReference2() == true)
+    stream.writeAttribute("coordinateReference2", getPrefix(), CoordinateKind_toString(mCoordinateReference2));
 
 }
 
@@ -815,6 +783,22 @@ DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc)
 
 
 LIBSBML_EXTERN
+CoordinateKind_t
+DiffusionCoefficient_getCoordinateReference1(const DiffusionCoefficient_t * dc)
+{
+	return (dc != NULL) ? dc->getCoordinateReference1() : COORDINATEKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
+CoordinateKind_t
+DiffusionCoefficient_getCoordinateReference2(const DiffusionCoefficient_t * dc)
+{
+	return (dc != NULL) ? dc->getCoordinateReference2() : COORDINATEKIND_UNKNOWN;
+}
+
+
+LIBSBML_EXTERN
 int
 DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc)
 {
@@ -827,6 +811,22 @@ int
 DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc)
 {
   return (dc != NULL) ? static_cast<int>(dc->isSetType()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetCoordinateReference1(const DiffusionCoefficient_t * dc)
+{
+  return (dc != NULL) ? static_cast<int>(dc->isSetCoordinateReference1()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetCoordinateReference2(const DiffusionCoefficient_t * dc)
+{
+  return (dc != NULL) ? static_cast<int>(dc->isSetCoordinateReference2()) : 0;
 }
 
 
@@ -854,6 +854,28 @@ DiffusionCoefficient_setType(DiffusionCoefficient_t * dc, DiffusionKind_t type)
 
 LIBSBML_EXTERN
 int
+DiffusionCoefficient_setCoordinateReference1(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference1)
+{
+  if (dc != NULL)
+    return dc->setCoordinateReference1(coordinateReference1);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference2)
+{
+  if (dc != NULL)
+    return dc->setCoordinateReference2(coordinateReference2);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
 DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc)
 {
   return (dc != NULL) ? dc->unsetVariable() : LIBSBML_INVALID_OBJECT;
@@ -870,59 +892,19 @@ DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc)
 
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_addCoordinateReference(DiffusionCoefficient_t * dc, CoordinateReference_t * cr)
+DiffusionCoefficient_unsetCoordinateReference1(DiffusionCoefficient_t * dc)
 {
-	return  (dc != NULL) ? dc->addCoordinateReference(cr) : LIBSBML_INVALID_OBJECT;
+  return (dc != NULL) ? dc->unsetCoordinateReference1() : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_createCoordinateReference(DiffusionCoefficient_t * dc)
-{
-	return  (dc != NULL) ? dc->createCoordinateReference() : NULL;
-}
 
 LIBSBML_EXTERN
-ListOf_t *
-DiffusionCoefficient_getListOfCoordinateReferences(DiffusionCoefficient_t * dc)
+int
+DiffusionCoefficient_unsetCoordinateReference2(DiffusionCoefficient_t * dc)
 {
-	return  (dc != NULL) ? (ListOf_t *)dc->getListOfCoordinateReferences() : NULL;
+  return (dc != NULL) ? dc->unsetCoordinateReference2() : LIBSBML_INVALID_OBJECT;
 }
 
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_getCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n)
-{
-	return  (dc != NULL) ? dc->getCoordinateReference(n) : NULL;
-}
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_getCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid)
-{
-	return  (dc != NULL) ? dc->getCoordinateReference(sid) : NULL;
-}
-
-LIBSBML_EXTERN
-unsigned int
-DiffusionCoefficient_getNumCoordinateReferences(DiffusionCoefficient_t * dc)
-{
-	return  (dc != NULL) ? dc->getNumCoordinateReferences() : SBML_INT_MAX;
-}
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_removeCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n)
-{
-	return  (dc != NULL) ? dc->removeCoordinateReference(n) : NULL;
-}
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_removeCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid)
-{
-	return  (dc != NULL) ? dc->removeCoordinateReference(sid) : NULL;
-}
 
 LIBSBML_EXTERN
 int

@@ -40,6 +40,7 @@
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
 #include <sbml/packages/spatial/sbml/CSGeometry.h>
 #include <sbml/packages/spatial/sbml/ParametricGeometry.h>
+#include <sbml/packages/spatial/sbml/MixedGeometry.h>
 
 
 
@@ -55,6 +56,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
+  , mIsActive (false)
+  , mIsSetIsActive (false)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -67,6 +70,8 @@ GeometryDefinition::GeometryDefinition (unsigned int level, unsigned int version
 GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
   , mId ("")
+  , mIsActive (false)
+  , mIsSetIsActive (false)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -89,6 +94,8 @@ GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
   else
   {
     mId  = orig.mId;
+    mIsActive  = orig.mIsActive;
+    mIsSetIsActive  = orig.mIsSetIsActive;
   }
 }
 
@@ -107,6 +114,8 @@ GeometryDefinition::operator=(const GeometryDefinition& rhs)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
+    mIsActive  = rhs.mIsActive;
+    mIsSetIsActive  = rhs.mIsSetIsActive;
   }
   return *this;
 }
@@ -141,6 +150,16 @@ GeometryDefinition::getId() const
 
 
 /*
+ * Returns the value of the "isActive" attribute of this GeometryDefinition.
+ */
+bool
+GeometryDefinition::getIsActive() const
+{
+  return mIsActive;
+}
+
+
+/*
  * Returns true/false if id is set.
  */
 bool
@@ -151,12 +170,34 @@ GeometryDefinition::isSetId() const
 
 
 /*
+ * Returns true/false if isActive is set.
+ */
+bool
+GeometryDefinition::isSetIsActive() const
+{
+  return mIsSetIsActive;
+}
+
+
+/*
  * Sets id and returns value indicating success.
  */
 int
 GeometryDefinition::setId(const std::string& id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets isActive and returns value indicating success.
+ */
+int
+GeometryDefinition::setIsActive(bool isActive)
+{
+  mIsActive = isActive;
+  mIsSetIsActive = true;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -176,6 +217,18 @@ GeometryDefinition::unsetId()
   {
     return LIBSBML_OPERATION_FAILED;
   }
+}
+
+
+/*
+ * Unsets isActive and returns value indicating success.
+ */
+int
+GeometryDefinition::unsetIsActive()
+{
+  mIsActive = false;
+  mIsSetIsActive = false;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -220,6 +273,16 @@ GeometryDefinition::isParametricGeometry() const
 
 
 /*
+ * Return @c true if of type MixedGeometry.
+ */
+bool
+GeometryDefinition::isMixedGeometry() const
+{
+  return dynamic_cast<const MixedGeometry*>(this) != NULL;
+}
+
+
+/*
  * Returns the XML element name of this object
  */
 const std::string&
@@ -249,6 +312,9 @@ GeometryDefinition::hasRequiredAttributes () const
   bool allPresent = true;
 
   if (isSetId() == false)
+    allPresent = false;
+
+  if (isSetIsActive() == false)
     allPresent = false;
 
   return allPresent;
@@ -328,6 +394,7 @@ GeometryDefinition::addExpectedAttributes(ExpectedAttributes& attributes)
   SBase::addExpectedAttributes(attributes);
 
   attributes.add("id");
+  attributes.add("isActive");
 }
 
 
@@ -365,7 +432,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
               getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -373,7 +440,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
                    getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                  getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -392,7 +459,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -400,7 +467,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -423,14 +490,40 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Spatial attribute 'id' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+  }
+
+  //
+  // isActive bool   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetIsActive = attributes.readInto("isActive", mIsActive);
+
+  if (mIsSetIsActive == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+      }
+      else
+      {
+        std::string message = "Spatial attribute 'isActive' is missing.";
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
+    }
   }
 
 }
@@ -451,6 +544,9 @@ GeometryDefinition::writeAttributes (XMLOutputStream& stream) const
 
   if (isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
+
+  if (isSetIsActive() == true)
+    stream.writeAttribute("isActive", getPrefix(), mIsActive);
 
 }
 
@@ -732,6 +828,42 @@ ListOfGeometryDefinitions::createParametricGeometry()
   return pg;
 }
 
+/**
+ * Creates a new MixedGeometry object, adds it to this ListOfGeometryDefinitions
+ * mixedGeometry and returns the MixedGeometry object created. 
+ *
+ * @return a new MixedGeometry object instance
+ *
+ * @see addMixedGeometry(const GeometryDefinition* gd)
+ */
+MixedGeometry* 
+ListOfGeometryDefinitions::createMixedGeometry()
+{
+  MixedGeometry* mg = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    mg = new MixedGeometry(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(mg != NULL)
+  {
+    appendAndOwn(mg);
+  }
+
+  return mg;
+}
+
 /*
  * Removes the nth GeometryDefinition from this ListOfGeometryDefinitions
  */
@@ -845,6 +977,14 @@ ListOfGeometryDefinitions::createObject(XMLInputStream& stream)
     delete spatialns;
   }
 
+  if (name == "mixedGeometry")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new MixedGeometry(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
   return object;
 }
 
@@ -923,9 +1063,25 @@ GeometryDefinition_getId(const GeometryDefinition_t * gd)
 
 LIBSBML_EXTERN
 int
+GeometryDefinition_getIsActive(const GeometryDefinition_t * gd)
+{
+	return (gd != NULL) ? static_cast<int>(gd->getIsActive()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
 GeometryDefinition_isSetId(const GeometryDefinition_t * gd)
 {
   return (gd != NULL) ? static_cast<int>(gd->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+GeometryDefinition_isSetIsActive(const GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? static_cast<int>(gd->isSetIsActive()) : 0;
 }
 
 
@@ -942,9 +1098,28 @@ GeometryDefinition_setId(GeometryDefinition_t * gd, const char * id)
 
 LIBSBML_EXTERN
 int
+GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive)
+{
+  if (gd != NULL)
+    return (isActive == NULL) ? gd->setIsActive("") : gd->setIsActive(isActive);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
 GeometryDefinition_unsetId(GeometryDefinition_t * gd)
 {
   return (gd != NULL) ? gd->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+GeometryDefinition_unsetIsActive(GeometryDefinition_t * gd)
+{
+  return (gd != NULL) ? gd->unsetIsActive() : LIBSBML_INVALID_OBJECT;
 }
 
 

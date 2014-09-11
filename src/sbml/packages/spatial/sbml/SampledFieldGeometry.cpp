@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 SampledFieldGeometry::SampledFieldGeometry (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : GeometryDefinition(level, version)
   , mSampledVolumes (level, version, pkgVersion)
-  , mSampledField (NULL)
+  , mSampledField ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -65,7 +65,7 @@ SampledFieldGeometry::SampledFieldGeometry (unsigned int level, unsigned int ver
 SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
   : GeometryDefinition(spatialns)
   , mSampledVolumes (spatialns)
-  , mSampledField (NULL)
+  , mSampledField ("")
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -91,14 +91,7 @@ SampledFieldGeometry::SampledFieldGeometry (const SampledFieldGeometry& orig)
   else
   {
     mSampledVolumes  = orig.mSampledVolumes;
-    if (orig.mSampledField != NULL)
-    {
-      mSampledField = orig.mSampledField->clone();
-    }
-    else
-    {
-      mSampledField = NULL;
-    }
+    mSampledField  = orig.mSampledField;
 
     // connect to child objects
     connectToChild();
@@ -120,14 +113,7 @@ SampledFieldGeometry::operator=(const SampledFieldGeometry& rhs)
   {
     GeometryDefinition::operator=(rhs);
     mSampledVolumes  = rhs.mSampledVolumes;
-    if (rhs.mSampledField != NULL)
-    {
-      mSampledField = rhs.mSampledField->clone();
-    }
-    else
-    {
-      mSampledField = NULL;
-    }
+    mSampledField  = rhs.mSampledField;
 
     // connect to child objects
     connectToChild();
@@ -151,42 +137,15 @@ SampledFieldGeometry::clone () const
  */
 SampledFieldGeometry::~SampledFieldGeometry ()
 {
-  delete mSampledField;
-  mSampledField = NULL;
 }
 
 
 /*
  * Returns the value of the "sampledField" attribute of this SampledFieldGeometry.
  */
-const SampledField*
+const std::string&
 SampledFieldGeometry::getSampledField() const
 {
-  return mSampledField;
-}
-
-
-/*
- * Returns the value of the "sampledField" attribute of this SampledFieldGeometry.
- */
-SampledField*
-SampledFieldGeometry::getSampledField()
-{
-  return mSampledField;
-}
-
-
-/*
- * Creates a new "sampledField" element of this SampledFieldGeometry and returns it.
- */
-SampledField*
-SampledFieldGeometry::createSampledField()
-{
-  if (mSampledField != NULL) delete mSampledField;
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-  mSampledField = new SampledField(spatialns);
-  delete spatialns;
-  connectToChild();
   return mSampledField;
 }
 
@@ -197,7 +156,7 @@ SampledFieldGeometry::createSampledField()
 bool
 SampledFieldGeometry::isSetSampledField() const
 {
-  return (mSampledField != NULL);
+  return (mSampledField.empty() == false);
 }
 
 
@@ -205,27 +164,19 @@ SampledFieldGeometry::isSetSampledField() const
  * Sets sampledField and returns value indicating success.
  */
 int
-SampledFieldGeometry::setSampledField(SampledField* sampledField)
+SampledFieldGeometry::setSampledField(const std::string& sampledField)
 {
-  if (mSampledField == sampledField)
+  if (&(sampledField) == NULL)
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (sampledField == NULL)
+  else if (!(SyntaxChecker::isValidInternalSId(sampledField)))
   {
-    delete mSampledField;
-    mSampledField = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    delete mSampledField;
-    mSampledField = (sampledField != NULL) ?
-      static_cast<SampledField*>(sampledField->clone()) : NULL;
-    if (mSampledField != NULL)
-    {
-      mSampledField->connectToParent(this);
-    }
+    mSampledField = sampledField;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -237,9 +188,16 @@ SampledFieldGeometry::setSampledField(SampledField* sampledField)
 int
 SampledFieldGeometry::unsetSampledField()
 {
-  delete mSampledField;
-  mSampledField = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
+  mSampledField.erase();
+
+  if (mSampledField.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -415,13 +373,26 @@ SampledFieldGeometry::createSampledVolume()
 }
 
 
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+SampledFieldGeometry::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetSampledField() == true && mSampledField == oldid)
+  {
+    setSampledField(newid);
+  }
+
+}
+
+
 List*
 SampledFieldGeometry::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_POINTER(ret, sublist, mSampledField, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -458,6 +429,9 @@ SampledFieldGeometry::hasRequiredAttributes () const
 {
   bool allPresent = GeometryDefinition::hasRequiredAttributes();
 
+  if (isSetSampledField() == false)
+    allPresent = false;
+
   return allPresent;
 }
 
@@ -488,10 +462,6 @@ SampledFieldGeometry::writeElements (XMLOutputStream& stream) const
     mSampledVolumes.write(stream);
   }
 
-  if (isSetSampledField() == true)
-  {
-    mSampledField->write(stream);
-  }
   SBase::writeExtensionElements(stream);
 }
 
@@ -530,8 +500,6 @@ SampledFieldGeometry::setSBMLDocument (SBMLDocument* d)
 {
   GeometryDefinition::setSBMLDocument(d);
   mSampledVolumes.setSBMLDocument(d);
-  if (mSampledField != NULL)
-    mSampledField->setSBMLDocument(d);
 }
 
 
@@ -549,8 +517,6 @@ SampledFieldGeometry::connectToChild()
   GeometryDefinition::connectToChild();
 
   mSampledVolumes.connectToParent(this);
-  if (mSampledField != NULL)
-    mSampledField->connectToParent(this);
 }
 
 
@@ -586,20 +552,10 @@ SampledFieldGeometry::createObject(XMLInputStream& stream)
 
   const string& name = stream.peek().getName();
 
-  SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-
   if (name == "listOfSampledVolumes")
   {
     object = &mSampledVolumes;
   }
-  else if (name == "sampledField")
-  {
-    mSampledField = new SampledField(spatialns);
-    object = mSampledField;
-  }
-
-  delete spatialns;
-
   connectToChild();
 
 
@@ -620,6 +576,7 @@ SampledFieldGeometry::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   GeometryDefinition::addExpectedAttributes(attributes);
 
+  attributes.add("sampledField");
 }
 
 
@@ -654,7 +611,7 @@ SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -662,12 +619,38 @@ SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
 
   bool assigned = false;
+
+  //
+  // sampledField SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("sampledField", mSampledField);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mSampledField.empty() == true)
+    {
+      logEmptyString(mSampledField, getLevel(), getVersion(), "<SampledFieldGeometry>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mSampledField) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute sampledField='" + mSampledField + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Spatial attribute 'sampledField' is missing.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+  }
 
 }
 
@@ -684,6 +667,9 @@ SampledFieldGeometry::readAttributes (const XMLAttributes& attributes,
 SampledFieldGeometry::writeAttributes (XMLOutputStream& stream) const
 {
   GeometryDefinition::writeAttributes(stream);
+
+  if (isSetSampledField() == true)
+    stream.writeAttribute("sampledField", getPrefix(), mSampledField);
 
 }
 
@@ -725,24 +711,10 @@ SampledFieldGeometry_clone(SampledFieldGeometry_t * sfg)
 
 
 LIBSBML_EXTERN
-SampledField_t*
-SampledFieldGeometry_getSampledField(SampledFieldGeometry_t * sfg)
+const char *
+SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg)
 {
-	if (sfg == NULL)
-		return NULL;
-
-	return (SampledField_t*)sfg->getSampledField();
-}
-
-
-LIBSBML_EXTERN
-SampledField_t*
-SampledFieldGeometry_createSampledField(SampledFieldGeometry_t * sfg)
-{
-	if (sfg == NULL)
-		return NULL;
-
-	return (SampledField_t*)sfg->createSampledField();
+	return (sfg != NULL && sfg->isSetSampledField()) ? sfg->getSampledField().c_str() : NULL;
 }
 
 
@@ -756,9 +728,20 @@ SampledFieldGeometry_isSetSampledField(const SampledFieldGeometry_t * sfg)
 
 LIBSBML_EXTERN
 int
-SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, SampledField_t* sampledField)
+SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, const char * sampledField)
 {
-	return (sfg != NULL) ? sfg->setSampledField(sampledField) : LIBSBML_INVALID_OBJECT;
+  if (sfg != NULL)
+    return (sampledField == NULL) ? sfg->setSampledField("") : sfg->setSampledField(sampledField);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg)
+{
+  return (sfg != NULL) ? sfg->unsetSampledField() : LIBSBML_INVALID_OBJECT;
 }
 
 

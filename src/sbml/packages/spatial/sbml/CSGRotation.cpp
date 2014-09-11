@@ -48,12 +48,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CSGRotation::CSGRotation (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : CSGTransformation(level, version)
-  , mRotateAxisX (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisX (false)
-  , mRotateAxisY (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisY (false)
-  , mRotateAxisZ (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisZ (false)
+  , mRotateX (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateX (false)
+  , mRotateY (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateY (false)
+  , mRotateZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateZ (false)
   , mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
   , mIsSetRotateAngleInRadians (false)
 {
@@ -67,12 +67,12 @@ CSGRotation::CSGRotation (unsigned int level, unsigned int version, unsigned int
  */
 CSGRotation::CSGRotation (SpatialPkgNamespaces* spatialns)
   : CSGTransformation(spatialns)
-  , mRotateAxisX (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisX (false)
-  , mRotateAxisY (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisY (false)
-  , mRotateAxisZ (numeric_limits<double>::quiet_NaN())
-  , mIsSetRotateAxisZ (false)
+  , mRotateX (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateX (false)
+  , mRotateY (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateY (false)
+  , mRotateZ (numeric_limits<double>::quiet_NaN())
+  , mIsSetRotateZ (false)
   , mRotateAngleInRadians (numeric_limits<double>::quiet_NaN())
   , mIsSetRotateAngleInRadians (false)
 {
@@ -96,12 +96,12 @@ CSGRotation::CSGRotation (const CSGRotation& orig)
   }
   else
   {
-    mRotateAxisX  = orig.mRotateAxisX;
-    mIsSetRotateAxisX  = orig.mIsSetRotateAxisX;
-    mRotateAxisY  = orig.mRotateAxisY;
-    mIsSetRotateAxisY  = orig.mIsSetRotateAxisY;
-    mRotateAxisZ  = orig.mRotateAxisZ;
-    mIsSetRotateAxisZ  = orig.mIsSetRotateAxisZ;
+    mRotateX  = orig.mRotateX;
+    mIsSetRotateX  = orig.mIsSetRotateX;
+    mRotateY  = orig.mRotateY;
+    mIsSetRotateY  = orig.mIsSetRotateY;
+    mRotateZ  = orig.mRotateZ;
+    mIsSetRotateZ  = orig.mIsSetRotateZ;
     mRotateAngleInRadians  = orig.mRotateAngleInRadians;
     mIsSetRotateAngleInRadians  = orig.mIsSetRotateAngleInRadians;
   }
@@ -121,12 +121,12 @@ CSGRotation::operator=(const CSGRotation& rhs)
   else if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
-    mRotateAxisX  = rhs.mRotateAxisX;
-    mIsSetRotateAxisX  = rhs.mIsSetRotateAxisX;
-    mRotateAxisY  = rhs.mRotateAxisY;
-    mIsSetRotateAxisY  = rhs.mIsSetRotateAxisY;
-    mRotateAxisZ  = rhs.mRotateAxisZ;
-    mIsSetRotateAxisZ  = rhs.mIsSetRotateAxisZ;
+    mRotateX  = rhs.mRotateX;
+    mIsSetRotateX  = rhs.mIsSetRotateX;
+    mRotateY  = rhs.mRotateY;
+    mIsSetRotateY  = rhs.mIsSetRotateY;
+    mRotateZ  = rhs.mRotateZ;
+    mIsSetRotateZ  = rhs.mIsSetRotateZ;
     mRotateAngleInRadians  = rhs.mRotateAngleInRadians;
     mIsSetRotateAngleInRadians  = rhs.mIsSetRotateAngleInRadians;
   }
@@ -153,32 +153,32 @@ CSGRotation::~CSGRotation ()
 
 
 /*
- * Returns the value of the "rotateAxisX" attribute of this CSGRotation.
+ * Returns the value of the "rotateX" attribute of this CSGRotation.
  */
 double
-CSGRotation::getRotateAxisX() const
+CSGRotation::getRotateX() const
 {
-  return mRotateAxisX;
+  return mRotateX;
 }
 
 
 /*
- * Returns the value of the "rotateAxisY" attribute of this CSGRotation.
+ * Returns the value of the "rotateY" attribute of this CSGRotation.
  */
 double
-CSGRotation::getRotateAxisY() const
+CSGRotation::getRotateY() const
 {
-  return mRotateAxisY;
+  return mRotateY;
 }
 
 
 /*
- * Returns the value of the "rotateAxisZ" attribute of this CSGRotation.
+ * Returns the value of the "rotateZ" attribute of this CSGRotation.
  */
 double
-CSGRotation::getRotateAxisZ() const
+CSGRotation::getRotateZ() const
 {
-  return mRotateAxisZ;
+  return mRotateZ;
 }
 
 
@@ -193,32 +193,32 @@ CSGRotation::getRotateAngleInRadians() const
 
 
 /*
- * Returns true/false if rotateAxisX is set.
+ * Returns true/false if rotateX is set.
  */
 bool
-CSGRotation::isSetRotateAxisX() const
+CSGRotation::isSetRotateX() const
 {
-  return mIsSetRotateAxisX;
+  return mIsSetRotateX;
 }
 
 
 /*
- * Returns true/false if rotateAxisY is set.
+ * Returns true/false if rotateY is set.
  */
 bool
-CSGRotation::isSetRotateAxisY() const
+CSGRotation::isSetRotateY() const
 {
-  return mIsSetRotateAxisY;
+  return mIsSetRotateY;
 }
 
 
 /*
- * Returns true/false if rotateAxisZ is set.
+ * Returns true/false if rotateZ is set.
  */
 bool
-CSGRotation::isSetRotateAxisZ() const
+CSGRotation::isSetRotateZ() const
 {
-  return mIsSetRotateAxisZ;
+  return mIsSetRotateZ;
 }
 
 
@@ -233,37 +233,37 @@ CSGRotation::isSetRotateAngleInRadians() const
 
 
 /*
- * Sets rotateAxisX and returns value indicating success.
+ * Sets rotateX and returns value indicating success.
  */
 int
-CSGRotation::setRotateAxisX(double rotateAxisX)
+CSGRotation::setRotateX(double rotateX)
 {
-  mRotateAxisX = rotateAxisX;
-  mIsSetRotateAxisX = true;
+  mRotateX = rotateX;
+  mIsSetRotateX = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Sets rotateAxisY and returns value indicating success.
+ * Sets rotateY and returns value indicating success.
  */
 int
-CSGRotation::setRotateAxisY(double rotateAxisY)
+CSGRotation::setRotateY(double rotateY)
 {
-  mRotateAxisY = rotateAxisY;
-  mIsSetRotateAxisY = true;
+  mRotateY = rotateY;
+  mIsSetRotateY = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Sets rotateAxisZ and returns value indicating success.
+ * Sets rotateZ and returns value indicating success.
  */
 int
-CSGRotation::setRotateAxisZ(double rotateAxisZ)
+CSGRotation::setRotateZ(double rotateZ)
 {
-  mRotateAxisZ = rotateAxisZ;
-  mIsSetRotateAxisZ = true;
+  mRotateZ = rotateZ;
+  mIsSetRotateZ = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -281,15 +281,15 @@ CSGRotation::setRotateAngleInRadians(double rotateAngleInRadians)
 
 
 /*
- * Unsets rotateAxisX and returns value indicating success.
+ * Unsets rotateX and returns value indicating success.
  */
 int
-CSGRotation::unsetRotateAxisX()
+CSGRotation::unsetRotateX()
 {
-  mRotateAxisX = numeric_limits<double>::quiet_NaN();
-  mIsSetRotateAxisX = false;
+  mRotateX = numeric_limits<double>::quiet_NaN();
+  mIsSetRotateX = false;
 
-  if (isSetRotateAxisX() == false)
+  if (isSetRotateX() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -301,15 +301,15 @@ CSGRotation::unsetRotateAxisX()
 
 
 /*
- * Unsets rotateAxisY and returns value indicating success.
+ * Unsets rotateY and returns value indicating success.
  */
 int
-CSGRotation::unsetRotateAxisY()
+CSGRotation::unsetRotateY()
 {
-  mRotateAxisY = numeric_limits<double>::quiet_NaN();
-  mIsSetRotateAxisY = false;
+  mRotateY = numeric_limits<double>::quiet_NaN();
+  mIsSetRotateY = false;
 
-  if (isSetRotateAxisY() == false)
+  if (isSetRotateY() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -321,15 +321,15 @@ CSGRotation::unsetRotateAxisY()
 
 
 /*
- * Unsets rotateAxisZ and returns value indicating success.
+ * Unsets rotateZ and returns value indicating success.
  */
 int
-CSGRotation::unsetRotateAxisZ()
+CSGRotation::unsetRotateZ()
 {
-  mRotateAxisZ = numeric_limits<double>::quiet_NaN();
-  mIsSetRotateAxisZ = false;
+  mRotateZ = numeric_limits<double>::quiet_NaN();
+  mIsSetRotateZ = false;
 
-  if (isSetRotateAxisZ() == false)
+  if (isSetRotateZ() == false)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -389,7 +389,7 @@ CSGRotation::hasRequiredAttributes () const
 {
   bool allPresent = CSGTransformation::hasRequiredAttributes();
 
-  if (isSetRotateAxisX() == false)
+  if (isSetRotateX() == false)
     allPresent = false;
 
   if (isSetRotateAngleInRadians() == false)
@@ -491,9 +491,9 @@ CSGRotation::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   CSGTransformation::addExpectedAttributes(attributes);
 
-  attributes.add("rotateAxisX");
-  attributes.add("rotateAxisY");
-  attributes.add("rotateAxisZ");
+  attributes.add("rotateX");
+  attributes.add("rotateY");
+  attributes.add("rotateZ");
   attributes.add("rotateAngleInRadians");
 }
 
@@ -529,7 +529,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -537,7 +537,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -545,12 +545,12 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // rotateAxisX double   ( use = "required" )
+  // rotateX double   ( use = "required" )
   //
   numErrs = getErrorLog()->getNumErrors();
-  mIsSetRotateAxisX = attributes.readInto("rotateAxisX", mRotateAxisX);
+  mIsSetRotateX = attributes.readInto("rotateX", mRotateX);
 
-  if (mIsSetRotateAxisX == false)
+  if (mIsSetRotateX == false)
   {
     if (getErrorLog() != NULL)
     {
@@ -559,24 +559,24 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
       else
       {
-        std::string message = "Spatial attribute 'rotateAxisX' is missing.";
+        std::string message = "Spatial attribute 'rotateX' is missing.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
   }
 
   //
-  // rotateAxisY double   ( use = "optional" )
+  // rotateY double   ( use = "optional" )
   //
   numErrs = getErrorLog()->getNumErrors();
-  mIsSetRotateAxisY = attributes.readInto("rotateAxisY", mRotateAxisY);
+  mIsSetRotateY = attributes.readInto("rotateY", mRotateY);
 
-  if (mIsSetRotateAxisY == false)
+  if (mIsSetRotateY == false)
   {
     if (getErrorLog() != NULL)
     {
@@ -585,18 +585,18 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
     }
   }
 
   //
-  // rotateAxisZ double   ( use = "optional" )
+  // rotateZ double   ( use = "optional" )
   //
   numErrs = getErrorLog()->getNumErrors();
-  mIsSetRotateAxisZ = attributes.readInto("rotateAxisZ", mRotateAxisZ);
+  mIsSetRotateZ = attributes.readInto("rotateZ", mRotateZ);
 
-  if (mIsSetRotateAxisZ == false)
+  if (mIsSetRotateZ == false)
   {
     if (getErrorLog() != NULL)
     {
@@ -605,7 +605,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
     }
   }
@@ -625,13 +625,13 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                     getPackageVersion(), sbmlLevel, sbmlVersion);
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
       else
       {
         std::string message = "Spatial attribute 'rotateAngleInRadians' is missing.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
   }
@@ -652,14 +652,14 @@ CSGRotation::writeAttributes (XMLOutputStream& stream) const
 {
   CSGTransformation::writeAttributes(stream);
 
-  if (isSetRotateAxisX() == true)
-    stream.writeAttribute("rotateAxisX", getPrefix(), mRotateAxisX);
+  if (isSetRotateX() == true)
+    stream.writeAttribute("rotateX", getPrefix(), mRotateX);
 
-  if (isSetRotateAxisY() == true)
-    stream.writeAttribute("rotateAxisY", getPrefix(), mRotateAxisY);
+  if (isSetRotateY() == true)
+    stream.writeAttribute("rotateY", getPrefix(), mRotateY);
 
-  if (isSetRotateAxisZ() == true)
-    stream.writeAttribute("rotateAxisZ", getPrefix(), mRotateAxisZ);
+  if (isSetRotateZ() == true)
+    stream.writeAttribute("rotateZ", getPrefix(), mRotateZ);
 
   if (isSetRotateAngleInRadians() == true)
     stream.writeAttribute("rotateAngleInRadians", getPrefix(), mRotateAngleInRadians);
@@ -705,25 +705,25 @@ CSGRotation_clone(CSGRotation_t * csgr)
 
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisX(const CSGRotation_t * csgr)
+CSGRotation_getRotateX(const CSGRotation_t * csgr)
 {
-	return (csgr != NULL) ? csgr->getRotateAxisX() : numeric_limits<double>::quiet_NaN();
+	return (csgr != NULL) ? csgr->getRotateX() : numeric_limits<double>::quiet_NaN();
 }
 
 
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisY(const CSGRotation_t * csgr)
+CSGRotation_getRotateY(const CSGRotation_t * csgr)
 {
-	return (csgr != NULL) ? csgr->getRotateAxisY() : numeric_limits<double>::quiet_NaN();
+	return (csgr != NULL) ? csgr->getRotateY() : numeric_limits<double>::quiet_NaN();
 }
 
 
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisZ(const CSGRotation_t * csgr)
+CSGRotation_getRotateZ(const CSGRotation_t * csgr)
 {
-	return (csgr != NULL) ? csgr->getRotateAxisZ() : numeric_limits<double>::quiet_NaN();
+	return (csgr != NULL) ? csgr->getRotateZ() : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -737,25 +737,25 @@ CSGRotation_getRotateAngleInRadians(const CSGRotation_t * csgr)
 
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisX(const CSGRotation_t * csgr)
+CSGRotation_isSetRotateX(const CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateAxisX()) : 0;
+  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateX()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisY(const CSGRotation_t * csgr)
+CSGRotation_isSetRotateY(const CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateAxisY()) : 0;
+  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateY()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisZ(const CSGRotation_t * csgr)
+CSGRotation_isSetRotateZ(const CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateAxisZ()) : 0;
+  return (csgr != NULL) ? static_cast<int>(csgr->isSetRotateZ()) : 0;
 }
 
 
@@ -769,10 +769,10 @@ CSGRotation_isSetRotateAngleInRadians(const CSGRotation_t * csgr)
 
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX)
+CSGRotation_setRotateX(CSGRotation_t * csgr, double rotateX)
 {
   if (csgr != NULL)
-    return csgr->setRotateAxisX(rotateAxisX);
+    return csgr->setRotateX(rotateX);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -780,10 +780,10 @@ CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX)
 
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY)
+CSGRotation_setRotateY(CSGRotation_t * csgr, double rotateY)
 {
   if (csgr != NULL)
-    return csgr->setRotateAxisY(rotateAxisY);
+    return csgr->setRotateY(rotateY);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -791,10 +791,10 @@ CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY)
 
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisZ(CSGRotation_t * csgr, double rotateAxisZ)
+CSGRotation_setRotateZ(CSGRotation_t * csgr, double rotateZ)
 {
   if (csgr != NULL)
-    return csgr->setRotateAxisZ(rotateAxisZ);
+    return csgr->setRotateZ(rotateZ);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -813,25 +813,25 @@ CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRa
 
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisX(CSGRotation_t * csgr)
+CSGRotation_unsetRotateX(CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? csgr->unsetRotateAxisX() : LIBSBML_INVALID_OBJECT;
+  return (csgr != NULL) ? csgr->unsetRotateX() : LIBSBML_INVALID_OBJECT;
 }
 
 
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisY(CSGRotation_t * csgr)
+CSGRotation_unsetRotateY(CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? csgr->unsetRotateAxisY() : LIBSBML_INVALID_OBJECT;
+  return (csgr != NULL) ? csgr->unsetRotateY() : LIBSBML_INVALID_OBJECT;
 }
 
 
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisZ(CSGRotation_t * csgr)
+CSGRotation_unsetRotateZ(CSGRotation_t * csgr)
 {
-  return (csgr != NULL) ? csgr->unsetRotateAxisZ() : LIBSBML_INVALID_OBJECT;
+  return (csgr != NULL) ? csgr->unsetRotateZ() : LIBSBML_INVALID_OBJECT;
 }
 
 

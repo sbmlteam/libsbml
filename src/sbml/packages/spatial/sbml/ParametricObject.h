@@ -63,8 +63,8 @@ class LIBSBML_EXTERN ParametricObject : public SBase
 protected:
 
   std::string   mId;
-  std::string   mPolygonType;
-  std::string   mDomain;
+  PolygonKind_t   mPolygonType;
+  std::string   mDomainType;
   PolygonObject*      mPolygonObject;
 
 
@@ -134,17 +134,17 @@ public:
   /**
    * Returns the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @return the value of the "polygonType" attribute of this ParametricObject as a string.
+   * @return the value of the "polygonType" attribute of this ParametricObject as a PolygonKind_t.
    */
-  virtual const std::string& getPolygonType() const;
+  virtual PolygonKind_t getPolygonType() const;
 
 
   /**
-   * Returns the value of the "domain" attribute of this ParametricObject.
+   * Returns the value of the "domainType" attribute of this ParametricObject.
    *
-   * @return the value of the "domain" attribute of this ParametricObject as a string.
+   * @return the value of the "domainType" attribute of this ParametricObject as a string.
    */
-  virtual const std::string& getDomain() const;
+  virtual const std::string& getDomainType() const;
 
 
   /**
@@ -193,12 +193,12 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ParametricObject's "domain" attribute has been set.
+   * ParametricObject's "domainType" attribute has been set.
    *
-   * @return @c true if this ParametricObject's "domain" attribute has been set,
+   * @return @c true if this ParametricObject's "domainType" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetDomain() const;
+  virtual bool isSetDomainType() const;
 
 
   /**
@@ -229,7 +229,22 @@ public:
   /**
    * Sets the value of the "polygonType" attribute of this ParametricObject.
    *
-   * @param polygonType; const std::string& value of the "polygonType" attribute to be set
+   * @param polygonType; PolygonKind_t value of the "polygonType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setPolygonType(PolygonKind_t polygonType);
+
+
+  /**
+   * Sets the value of the "polygonType" attribute of this ParametricObject.
+   *
+   * @param polygonType; string value of the "polygonType" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -242,9 +257,9 @@ public:
 
 
   /**
-   * Sets the value of the "domain" attribute of this ParametricObject.
+   * Sets the value of the "domainType" attribute of this ParametricObject.
    *
-   * @param domain; const std::string& value of the "domain" attribute to be set
+   * @param domainType; const std::string& value of the "domainType" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -253,7 +268,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setDomain(const std::string& domain);
+  virtual int setDomainType(const std::string& domainType);
 
 
   /**
@@ -298,7 +313,7 @@ public:
 
 
   /**
-   * Unsets the value of the "domain" attribute of this ParametricObject.
+   * Unsets the value of the "domainType" attribute of this ParametricObject.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -307,7 +322,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetDomain();
+  virtual int unsetDomainType();
 
 
   /**
@@ -396,7 +411,7 @@ public:
    * @note The required attributes for a ParametricObject object are:
    * @li "id"
    * @li "polygonType"
-   * @li "domain"
+   * @li "domainType"
    * @li "polygonObject"
    *
    * @return a boolean value indicating whether all the required
@@ -613,23 +628,23 @@ ParametricObject_getId(const ParametricObject_t * po);
  * @member of ParametricObject_t
  */
 LIBSBML_EXTERN
-const char *
+PolygonKind_t
 ParametricObject_getPolygonType(const ParametricObject_t * po);
 
 
 /**
- * Returns the value of the "domain" attribute of the given ParametricObject_t
+ * Returns the value of the "domainType" attribute of the given ParametricObject_t
  * structure.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return the domain of this structure.
+ * @return the domainType of this structure.
  *
  * @member of ParametricObject_t
  */
 LIBSBML_EXTERN
 const char *
-ParametricObject_getDomain(const ParametricObject_t * po);
+ParametricObject_getDomainType(const ParametricObject_t * po);
 
 
 LIBSBML_EXTERN
@@ -675,19 +690,19 @@ ParametricObject_isSetPolygonType(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if the given ParametricObject_t structure's "domain"
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "domainType"
  * is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if the "domain" of this ParametricObject_t structure is
+ * @return @c 1 if the "domainType" of this ParametricObject_t structure is
  * set, @c 0 otherwise.
  *
  * @member of ParametricObject_t
  */
 LIBSBML_EXTERN
 int
-ParametricObject_isSetDomain(const ParametricObject_t * po);
+ParametricObject_isSetDomainType(const ParametricObject_t * po);
 
 
 /**
@@ -738,9 +753,6 @@ ParametricObject_setId(ParametricObject_t * po, const char * id);
 /**
  * Sets the "polygonType" attribute of the given ParametricObject_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs ParametricObject_unsetPolygonType() instead.
- *
  * @param po the ParametricObject_t structure.
  *
  * @param polygonType the string to which the structures "polygonType" attribute should be
@@ -754,25 +766,22 @@ ParametricObject_setId(ParametricObject_t * po, const char * id);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
  * @member of ParametricObject_t
  */
 LIBSBML_EXTERN
 int
-ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonType);
+ParametricObject_setPolygonType(ParametricObject_t * po, PolygonKind_t polygonType);
 
 
 /**
- * Sets the "domain" attribute of the given ParametricObject_t structure.
+ * Sets the "domainType" attribute of the given ParametricObject_t structure.
  *
  * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs ParametricObject_unsetDomain() instead.
+ * a null pointer, this function performs ParametricObject_unsetDomainType() instead.
  *
  * @param po the ParametricObject_t structure.
  *
- * @param domain the string to which the structures "domain" attribute should be
+ * @param domainType the string to which the structures "domainType" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -790,7 +799,7 @@ ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonTyp
  */
 LIBSBML_EXTERN
 int
-ParametricObject_setDomain(ParametricObject_t * po, const char * domain);
+ParametricObject_setDomainType(ParametricObject_t * po, const char * domainType);
 
 
 LIBSBML_EXTERN
@@ -841,7 +850,7 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po);
 
 
 /**
- * Unsets the value of the "domain" attribute of the given 
+ * Unsets the value of the "domainType" attribute of the given 
  *ParametricObject_t structure.
  *
  * @param po the ParametricObject_t structure.
@@ -858,7 +867,7 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po);
  */
 LIBSBML_EXTERN
 int
-ParametricObject_unsetDomain(ParametricObject_t * po);
+ParametricObject_unsetDomainType(ParametricObject_t * po);
 
 
 /**

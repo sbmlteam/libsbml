@@ -114,9 +114,8 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(diffCoeff != NULL);
 
   fail_unless(diffCoeff->getVariable()		== "ATPc");
-  fail_unless(diffCoeff->getNumCoordinateReferences() > 0);
-  if (diffCoeff->getNumCoordinateReferences() > 0)
-  fail_unless(diffCoeff->getCoordinateReference(0)->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  fail_unless(diffCoeff->isSetCoordinateReference1());
+  fail_unless(diffCoeff->getCoordinateReference1() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
@@ -193,7 +192,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
 
   DomainType *domainType = geometry->getDomainType(0);
   fail_unless(domainType->getId()         == "dtype1");
-  fail_unless(domainType->getSpatialDimension() == 3);
+  fail_unless(domainType->getSpatialDimensions() == 3);
   fail_unless(domainType->getPackageName()		  == "spatial");
 
   // geometry domains
@@ -282,21 +281,21 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(sv->getPackageName()  == "spatial");
 
   // sampledFieldGeometry : SampledField
-  SampledField* sf = sfGeom->getSampledField();
+  SampledField* sf = geometry->getSampledField(sfGeom->getSampledField());
+  fail_unless(sf != NULL);
   fail_unless(sf->getId()		  == "sampledField1");
-  fail_unless(sf->getDataType()		  == "double");
-  fail_unless(sf->getInterpolationType() == "linear");
-  fail_unless(sf->getEncoding()          == "encoding1");
+  fail_unless(sf->getDataType()		  == SPATIAL_DATAKIND_UINT8);
+  fail_unless(sf->getInterpolationType() == SPATIAL_INTERPOLATIONKIND_LINEAR);
+  fail_unless(sf->getCompression()          == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   fail_unless(sf->getNumSamples1()       == 4);
   fail_unless(sf->getNumSamples2()       == 4);
   fail_unless(sf->getNumSamples3()       == 2);
   fail_unless(sf->getPackageName()		  == "spatial");
 
   // sampledField : ImageData
-  const ImageData* id = sf->getImageData();
-  fail_unless(id->getSamplesLength()  == 32);
-  int* samples = new int[id->getSamplesLength()];
-  id->getSamples(samples);
+  fail_unless(sf->getSamplesLength() == 32);
+  int* samples = new int[sf->getSamplesLength()];
+  sf->getSamples(samples);
   fail_unless(samples[0] == 0);
 
 
@@ -357,7 +356,7 @@ END_TEST
   fail_unless(srplugin->getIsSpatial() == true);
 
   // model : parameters (species diffusion, advection coeffs, species boundary conditions, coordinate components from Geometry
-  fail_unless(model->getNumParameters() == 4);
+  fail_unless(model->getNumParameters() == 5);
 
 
 
@@ -369,9 +368,8 @@ END_TEST
   fail_unless(pplugin->getType() == SBML_SPATIAL_DIFFUSIONCOEFFICIENT);
   DiffusionCoefficient *diffCoeff = pplugin->getDiffusionCoefficient();
   fail_unless(diffCoeff->getVariable()		== "ATPc");
-  fail_unless(diffCoeff->getNumCoordinateReferences() > 0);
-  if (diffCoeff->getNumCoordinateReferences() > 0)
-  fail_unless(diffCoeff->getCoordinateReference(0)->getCoordinate() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
+  fail_unless(diffCoeff->isSetCoordinateReference1());
+  fail_unless(diffCoeff->getCoordinateReference1() == SPATIAL_COORDINATEKIND_CARTESIAN_X);
 
   // parameter 1 : advectionCoefficient
   param = model->getParameter(1);
@@ -445,7 +443,7 @@ END_TEST
 
   DomainType *domainType = geometry->getDomainType(0);
   fail_unless(domainType->getId()         == "dtype1");
-  fail_unless(domainType->getSpatialDimension() == 3);
+  fail_unless(domainType->getSpatialDimensions() == 3);
   fail_unless(domainType->getPackageName()		  == "spatial");
 
   // geometry domains
@@ -533,21 +531,20 @@ END_TEST
   fail_unless(sv->getPackageName()  == "spatial");
 
   // sampledFieldGeometry : SampledField
-  SampledField* sf = sfGeom->getSampledField();
+  SampledField* sf = geometry->getSampledField( sfGeom->getSampledField() );
   fail_unless(sf->getId()		  == "sampledField1");
-  fail_unless(sf->getDataType()		  == "double");
-  fail_unless(sf->getInterpolationType() == "linear");
-  fail_unless(sf->getEncoding()          == "encoding1");
+  fail_unless(sf->getDataType()		  == SPATIAL_DATAKIND_UINT8);
+  fail_unless(sf->getInterpolationType() == SPATIAL_INTERPOLATIONKIND_LINEAR);
+  fail_unless(sf->getCompression()          == SPATIAL_COMPRESSIONKIND_UNCOMPRESSED);
   fail_unless(sf->getNumSamples1()       == 4);
   fail_unless(sf->getNumSamples2()       == 4);
   fail_unless(sf->getNumSamples3()       == 2);
   fail_unless(sf->getPackageName()		  == "spatial");
 
   // sampledField : ImageData
-  const ImageData* id = sf->getImageData();
-  fail_unless(id->getSamplesLength()  == 32);
-  int* samples = new int[id->getSamplesLength()];
-  id->getSamples(samples);
+  fail_unless(sf->getSamplesLength()  == 32);
+  int* samples = new int[sf->getSamplesLength()];
+  sf->getSamples(samples);
   fail_unless(samples[0] == 0);
 
   char* s2 = writeSBMLToString(document);
@@ -658,23 +655,21 @@ END_TEST
   fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions()->size() == 1);
   SampledFieldGeometry* geometry = (SampledFieldGeometry*)plugin->getGeometry()->getListOfGeometryDefinitions()->get(0);
   fail_unless(geometry != NULL);
-  SampledField* field = geometry->getSampledField();
+  SampledField* field = plugin->getGeometry()->getSampledField( geometry->getSampledField() );
   fail_unless(field->getNumSamples1() == 57);
   fail_unless(field->getNumSamples2() == 63);
-  ImageData *data = field->getImageData();
-  fail_unless(data != NULL);
-  fail_unless(data->getDataType() == "compressed");
+  fail_unless(field->getDataType() == SPATIAL_DATAKIND_UINT8);
   
   // test new API 
-  int length1 = data->getUncompressedLength();
+  int length1 = field->getUncompressedLength();
   int* array1 = new int[length1]; 
   fail_unless(length1 == 3591);
-  data->getUncompressed(array1);
+  field->getUncompressed(array1);
   string test1 = dataToString(array1, field->getNumSamples1(), length1);
   fail_unless(test1 == expected);
 
   int* result; int resultLength;
-  data->getUncompressedData(result, resultLength);
+  field->getUncompressedData(result, resultLength);
 
   fail_unless(resultLength == length1);
 
@@ -684,10 +679,10 @@ END_TEST
   fail_unless(resultString == expected);
 
   // test new API
-  int uncompressed = data->getUncompressedLength();
+  int uncompressed = field->getUncompressedLength();
   fail_unless(resultLength == uncompressed);
   int* more = new int[uncompressed]; 
-  data->getUncompressed(more);
+  field->getUncompressed(more);
   resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 
@@ -773,23 +768,22 @@ END_TEST
   fail_unless(plugin->getGeometry()->getListOfGeometryDefinitions()->size() == 1);
   SampledFieldGeometry* geometry = (SampledFieldGeometry*)plugin->getGeometry()->getListOfGeometryDefinitions()->get(0);
   fail_unless(geometry != NULL);
-  SampledField* field = geometry->getSampledField();
+  SampledField* field = plugin->getGeometry()->getSampledField( geometry->getSampledField() );
+  fail_unless(field != NULL);
   fail_unless(field->getNumSamples1() == 57);
   fail_unless(field->getNumSamples2() == 63);
-  ImageData *data = field->getImageData();
-  fail_unless(data != NULL);
-  fail_unless(data->getDataType() == "uint8");
+  fail_unless(field->getDataType() == SPATIAL_DATAKIND_UINT8);
   
   // test new API 
-  int length1 = data->getUncompressedLength();
+  int length1 = field->getUncompressedLength();
   int* array1 = new int[length1]; 
   fail_unless(length1 == 3591);
-  data->getUncompressed(array1);
+  field->getUncompressed(array1);
   string test1 = dataToString(array1, field->getNumSamples1(), length1);
   fail_unless(test1 == expected);
 
   int* result; int resultLength;
-  data->getUncompressedData(result, resultLength);
+  field->getUncompressedData(result, resultLength);
 
   fail_unless(resultLength == length1);
 
@@ -799,10 +793,10 @@ END_TEST
   fail_unless(resultString == expected);
 
   // test new API
-  int uncompressed = data->getUncompressedLength();
+  int uncompressed = field->getUncompressedLength();
   fail_unless(resultLength == uncompressed);
   int* more = new int[uncompressed]; 
-  data->getUncompressed(more);
+  field->getUncompressed(more);
   resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 

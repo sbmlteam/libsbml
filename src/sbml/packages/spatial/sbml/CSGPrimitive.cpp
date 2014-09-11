@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : CSGNode(level, version)
-  , mPrimitiveType ("")
+  , mPrimitiveType (PRIMITIVEKIND_UNKNOWN)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -60,7 +60,7 @@ CSGPrimitive::CSGPrimitive (unsigned int level, unsigned int version, unsigned i
  */
 CSGPrimitive::CSGPrimitive (SpatialPkgNamespaces* spatialns)
   : CSGNode(spatialns)
-  , mPrimitiveType ("")
+  , mPrimitiveType (PRIMITIVEKIND_UNKNOWN)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -127,7 +127,7 @@ CSGPrimitive::~CSGPrimitive ()
 /*
  * Returns the value of the "primitiveType" attribute of this CSGPrimitive.
  */
-const std::string&
+PrimitiveKind_t
 CSGPrimitive::getPrimitiveType() const
 {
   return mPrimitiveType;
@@ -140,7 +140,18 @@ CSGPrimitive::getPrimitiveType() const
 bool
 CSGPrimitive::isSetPrimitiveType() const
 {
-  return (mPrimitiveType.empty() == false);
+  return mPrimitiveType != PRIMITIVEKIND_UNKNOWN;
+}
+
+
+/*
+ * Sets primitiveType and returns value indicating success.
+ */
+int
+CSGPrimitive::setPrimitiveType(PrimitiveKind_t primitiveType)
+{
+  mPrimitiveType = primitiveType;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -150,15 +161,10 @@ CSGPrimitive::isSetPrimitiveType() const
 int
 CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
 {
-  if (&(primitiveType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mPrimitiveType = primitiveType;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  PrimitiveKind_t parsed = PrimitiveKind_parse(primitiveType.c_str());
+  if (parsed == PRIMITIVEKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  mPrimitiveType = parsed;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -168,16 +174,8 @@ CSGPrimitive::setPrimitiveType(const std::string& primitiveType)
 int
 CSGPrimitive::unsetPrimitiveType()
 {
-  mPrimitiveType.erase();
-
-  if (mPrimitiveType.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -344,7 +342,7 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -352,7 +350,7 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -360,24 +358,25 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // primitiveType string   ( use = "required" )
+  // primitiveType enum  ( use = "required" )
   //
-  assigned = attributes.readInto("primitiveType", mPrimitiveType);
-
-  if (assigned == true)
+  mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
   {
-    // check string is not empty
+    std::string stringValue;
+    assigned = attributes.readInto("primitiveType", stringValue);
 
-    if (mPrimitiveType.empty() == true)
+    if (assigned == true)
     {
-      logEmptyString(mPrimitiveType, getLevel(), getVersion(), "<CSGPrimitive>");
+      // parse enum
+
+      mPrimitiveType = PrimitiveKind_parse(stringValue.c_str());
     }
   }
-  else
+  if(mPrimitiveType == PRIMITIVEKIND_UNKNOWN)
   {
     std::string message = "Spatial attribute 'primitiveType' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }
@@ -397,7 +396,7 @@ CSGPrimitive::writeAttributes (XMLOutputStream& stream) const
   CSGNode::writeAttributes(stream);
 
   if (isSetPrimitiveType() == true)
-    stream.writeAttribute("primitiveType", getPrefix(), mPrimitiveType);
+    stream.writeAttribute("primitiveType", getPrefix(), PrimitiveKind_toString(mPrimitiveType));
 
 }
 
@@ -439,10 +438,10 @@ CSGPrimitive_clone(CSGPrimitive_t * csgp)
 
 
 LIBSBML_EXTERN
-const char *
+PrimitiveKind_t
 CSGPrimitive_getPrimitiveType(const CSGPrimitive_t * csgp)
 {
-	return (csgp != NULL && csgp->isSetPrimitiveType()) ? csgp->getPrimitiveType().c_str() : NULL;
+	return (csgp != NULL) ? csgp->getPrimitiveType() : PRIMITIVEKIND_UNKNOWN;
 }
 
 
@@ -456,10 +455,10 @@ CSGPrimitive_isSetPrimitiveType(const CSGPrimitive_t * csgp)
 
 LIBSBML_EXTERN
 int
-CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, const char * primitiveType)
+CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, PrimitiveKind_t primitiveType)
 {
   if (csgp != NULL)
-    return (primitiveType == NULL) ? csgp->setPrimitiveType("") : csgp->setPrimitiveType(primitiveType);
+    return csgp->setPrimitiveType(primitiveType);
   else
     return LIBSBML_INVALID_OBJECT;
 }

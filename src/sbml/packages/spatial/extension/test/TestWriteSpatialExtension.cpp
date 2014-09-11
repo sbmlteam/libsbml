@@ -3,8 +3,6 @@
 * @brief   Unit tests of writing SpatialExtension 
 * @author  Akiya Jouraku
 *
-* $Id: $
-* $HeadURL: $
 */
 
 #include <limits>
@@ -142,7 +140,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(diffCoeff->setType(SPATIAL_DIFFUSIONKIND_ANISOTROPIC) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -230,7 +228,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 
   DomainType* domainType = geometry->createDomainType();
   fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   SpatialCompartmentPlugin* cplugin;
@@ -275,14 +273,16 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
-  SampledField* sampledField = sfg->createSampledField();
+  
+  SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  sfg->setSampledField(sampledField->getId());
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setDataType("double") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setEncoding("encoding1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setDataType(SPATIAL_DATAKIND_UINT8) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setInterpolationType(SPATIAL_INTERPOLATIONKIND_LINEAR) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED) == LIBSBML_OPERATION_SUCCESS);
   //int samples[5] = {1, 2, 3, 4, 5};
   int samples[32] = {
     // z=0
@@ -296,8 +296,7 @@ START_TEST (test_SpatialExtension_create_and_write_L3V1V1)
     0,1,1,0,
     0,0,0,0
   };
-  ImageData* id = sampledField->createImageData();
-  fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
   fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
@@ -402,7 +401,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setType(SPATIAL_DIFFUSIONKIND_ANISOTROPIC) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(diffCoeff->setVariable(species1->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(model->addParameter(paramSp) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
@@ -501,7 +500,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
 
   DomainType* domainType = new DomainType(&sbmlns);
   fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(geometry->addDomainType(domainType) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
@@ -540,6 +539,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   fail_unless(geometry->addAdjacentDomains(adjDomain) == LIBSBML_OPERATION_SUCCESS);
 
   AnalyticGeometry* analyticGeom = new AnalyticGeometry(&sbmlns);
+  analyticGeom->setIsActive(true);
   fail_unless(analyticGeom->setId("analyticGeom1") == LIBSBML_OPERATION_SUCCESS);
   AnalyticVolume* analyticVol = new AnalyticVolume(&sbmlns);
   fail_unless(analyticVol->setId("analyticVol1") == LIBSBML_OPERATION_SUCCESS);
@@ -553,15 +553,16 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   fail_unless(geometry->addGeometryDefinition(analyticGeom) == LIBSBML_OPERATION_SUCCESS);
 
   SampledFieldGeometry* sfg = new SampledFieldGeometry(&sbmlns);
+  sfg->setIsActive(false);
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
   SampledField* sampledField = new SampledField(&sbmlns);
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setDataType("double") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setDataType("uint8") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setEncoding("encoding1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setCompression("uncompressed") == LIBSBML_OPERATION_SUCCESS);
   //int samples[5] = {1, 2, 3, 4, 5};
   int samples[32] = {
     // z=0
@@ -575,10 +576,10 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
     0,1,1,0,
     0,0,0,0
   };
-  ImageData* id = new ImageData(&sbmlns);
-  fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setImageData(id)  == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sfg->setSampledField(sampledField)  == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sfg->setSampledField(sampledField->getId())  == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(geometry->addSampledField(sampledField)  == LIBSBML_OPERATION_SUCCESS);
+
 
   SampledVolume* sampledVol = new SampledVolume(&sbmlns);
   fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
@@ -653,7 +654,7 @@ END_TEST
   fail_unless(pplugin != NULL);
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -728,7 +729,7 @@ END_TEST
 
   DomainType* domainType = geometry->createDomainType();
   fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
@@ -775,14 +776,15 @@ END_TEST
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
-  SampledField* sampledField = sfg->createSampledField();
+  SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  sfg->setSampledField(sampledField->getId());
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setDataType("double") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setEncoding("encoding1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setDataType(SPATIAL_DATAKIND_UINT8) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setInterpolationType(SPATIAL_INTERPOLATIONKIND_LINEAR) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setCompression(SPATIAL_COMPRESSIONKIND_UNCOMPRESSED) == LIBSBML_OPERATION_SUCCESS);
   //int samples[5] = {1, 2, 3, 4, 5};
   int samples[32] = {
     // z=0
@@ -796,8 +798,7 @@ END_TEST
     0,1,1,0,
     0,0,0,0
   };
-  ImageData* id = sampledField->createImageData();
-  fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
   fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);
@@ -907,7 +908,7 @@ END_TEST
   fail_unless(pplugin != NULL);
   DiffusionCoefficient* diffCoeff = pplugin->createDiffusionCoefficient();
   fail_unless(diffCoeff->setVariable(species->getId()) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(diffCoeff->createCoordinateReference()->setCoordinate(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(diffCoeff->setCoordinateReference1(SPATIAL_COORDINATEKIND_CARTESIAN_X) == LIBSBML_OPERATION_SUCCESS);
 
   // add parameter for advection coeff of species
   paramSp = model->createParameter();
@@ -979,7 +980,7 @@ END_TEST
 
   DomainType* domainType = geometry->createDomainType();
   fail_unless(domainType->setId("dtype1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(domainType->setSpatialDimension(3) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(domainType->setSpatialDimensions(3) == LIBSBML_OPERATION_SUCCESS);
 
   // Spatial package extension to compartment (mapping compartment with domainType)
   // required elements package extention to compartment
@@ -1026,14 +1027,15 @@ END_TEST
 
   SampledFieldGeometry* sfg = geometry->createSampledFieldGeometry();
   fail_unless(sfg->setId("sampledFieldGeom1") == LIBSBML_OPERATION_SUCCESS);
-  SampledField* sampledField = sfg->createSampledField();
+  SampledField* sampledField = geometry->createSampledField();
   fail_unless(sampledField->setId("sampledField1") == LIBSBML_OPERATION_SUCCESS);
+  sfg->setSampledField(sampledField->getId());
   fail_unless(sampledField->setNumSamples1(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples2(4) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setNumSamples3(2) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setDataType("double") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledField->setInterpolationType("linear") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(sampledField->setEncoding("encoding1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setCompression("uncompressed") == LIBSBML_OPERATION_SUCCESS);
   //int samples[5] = {1, 2, 3, 4, 5};
   int samples[32] = {
     // z=0
@@ -1047,8 +1049,7 @@ END_TEST
     0,1,1,0,
     0,0,0,0
   };
-  ImageData* id = sampledField->createImageData();
-  fail_unless(id->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(sampledField->setSamples(samples, 32) == LIBSBML_OPERATION_SUCCESS);
   SampledVolume* sampledVol = sfg->createSampledVolume();
   fail_unless(sampledVol->setId("sv_1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(sampledVol->setDomainType(domainType->getId()) == LIBSBML_OPERATION_SUCCESS);

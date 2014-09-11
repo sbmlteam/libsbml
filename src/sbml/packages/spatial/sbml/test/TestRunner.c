@@ -48,7 +48,7 @@ BEGIN_C_DECLS
 
 Suite *create_suite_PolygonObject (void);
 Suite *create_suite_ParametricObject (void);
-Suite *create_suite_ImageData (void);
+Suite *create_suite_SampledField(void);
 Suite *create_suite_TransformationComponents (void);
 Suite *create_suite_CopyAndClone (void);
 
@@ -92,7 +92,7 @@ main (int argc, char* argv[])
 
   SRunner *runner = srunner_create(create_suite_PolygonObject());
   srunner_add_suite(runner, create_suite_ParametricObject());
-  srunner_add_suite(runner, create_suite_ImageData());
+  srunner_add_suite(runner, create_suite_SampledField());
   srunner_add_suite(runner, create_suite_TransformationComponents());
   srunner_add_suite(runner, create_suite_CopyAndClone());
 

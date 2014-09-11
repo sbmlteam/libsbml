@@ -40,6 +40,7 @@
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
 #include <sbml/packages/spatial/sbml/CSGeometry.h>
 #include <sbml/packages/spatial/sbml/ParametricGeometry.h>
+#include <sbml/packages/spatial/sbml/MixedGeometry.h>
 
 
 
@@ -61,6 +62,7 @@ Geometry::Geometry (unsigned int level, unsigned int version, unsigned int pkgVe
   , mDomains (level, version, pkgVersion)
   , mAdjacentDomains (level, version, pkgVersion)
   , mGeometryDefinitions (level, version, pkgVersion)
+  , mSampledFields (level, version, pkgVersion)
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
@@ -82,6 +84,7 @@ Geometry::Geometry (SpatialPkgNamespaces* spatialns)
   , mDomains (spatialns)
   , mAdjacentDomains (spatialns)
   , mGeometryDefinitions (spatialns)
+  , mSampledFields (spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
@@ -113,6 +116,7 @@ Geometry::Geometry (const Geometry& orig)
     mDomains  = orig.mDomains;
     mAdjacentDomains  = orig.mAdjacentDomains;
     mGeometryDefinitions  = orig.mGeometryDefinitions;
+    mSampledFields  = orig.mSampledFields;
 
     // connect to child objects
     connectToChild();
@@ -140,6 +144,7 @@ Geometry::operator=(const Geometry& rhs)
     mDomains  = rhs.mDomains;
     mAdjacentDomains  = rhs.mAdjacentDomains;
     mGeometryDefinitions  = rhs.mGeometryDefinitions;
+    mSampledFields  = rhs.mSampledFields;
 
     // connect to child objects
     connectToChild();
@@ -1241,6 +1246,215 @@ Geometry::createParametricGeometry()
 }
 
 
+/**
+ * Creates a new MixedGeometry object, adds it to this Geometrys
+ * ListOfGeometryDefinitions and returns the MixedGeometry object created. 
+ *
+ * @return a new MixedGeometry object instance
+ *
+ * @see addGeometryDefinition(const GeometryDefinition*)
+ */
+MixedGeometry* 
+Geometry::createMixedGeometry()
+{
+  MixedGeometry* mg = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    mg = new MixedGeometry(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(mg != NULL)
+  {
+    mGeometryDefinitions.appendAndOwn(mg);
+  }
+
+  return mg;
+}
+
+
+/*
+ * Returns the  "ListOfSampledFields" in this Geometry object.
+ */
+const ListOfSampledFields*
+Geometry::getListOfSampledFields() const
+{
+  return &mSampledFields;
+}
+
+
+/*
+ * Returns the  "ListOfSampledFields" in this Geometry object.
+ */
+ListOfSampledFields*
+Geometry::getListOfSampledFields()
+{
+  return &mSampledFields;
+}
+
+
+/*
+ * Removes the nth SampledField from the ListOfSampledFields.
+ */
+SampledField*
+Geometry::removeSampledField(unsigned int n)
+{
+	return mSampledFields.remove(n);
+}
+
+
+/*
+ * Removes the a SampledField with given id from the ListOfSampledFields.
+ */
+SampledField*
+Geometry::removeSampledField(const std::string& sid)
+{
+	return mSampledFields.remove(sid);
+}
+
+
+/*
+ * Return the nth SampledField in the ListOfSampledFields within this Geometry.
+ */
+SampledField*
+Geometry::getSampledField(unsigned int n)
+{
+	return mSampledFields.get(n);
+}
+
+
+/*
+ * Return the nth SampledField in the ListOfSampledFields within this Geometry.
+ */
+const SampledField*
+Geometry::getSampledField(unsigned int n) const
+{
+	return mSampledFields.get(n);
+}
+
+
+/*
+ * Return a SampledField from the ListOfSampledFields by id.
+ */
+SampledField*
+Geometry::getSampledField(const std::string& sid)
+{
+	return mSampledFields.get(sid);
+}
+
+
+/*
+ * Return a SampledField from the ListOfSampledFields by id.
+ */
+const SampledField*
+Geometry::getSampledField(const std::string& sid) const
+{
+	return mSampledFields.get(sid);
+}
+
+
+/*
+ * Adds a copy the given "SampledField" to this Geometry.
+ *
+ * @param sf; the SampledField object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+Geometry::addSampledField(const SampledField* sf)
+{
+  if (sf == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (sf->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != sf->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != sf->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(sf)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    mSampledFields.append(sf);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Get the number of SampledField objects in this Geometry.
+ *
+ * @return the number of SampledField objects in this Geometry
+ */
+unsigned int
+Geometry::getNumSampledFields() const
+{
+  return mSampledFields.size();
+}
+
+
+/*
+ * Creates a new SampledField object, adds it to this Geometrys
+ * Geometry and returns the SampledField object created. 
+ *
+ * @return a new SampledField object instance
+ *
+ * @see addSampledField(const SampledField* sf)
+ */
+SampledField*
+Geometry::createSampledField()
+{
+  SampledField* sf = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    sf = new SampledField(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(sf != NULL)
+  {
+    mSampledFields.appendAndOwn(sf);
+  }
+
+  return sf;
+}
+
+
 List*
 Geometry::getAllElements(ElementFilter* filter)
 {
@@ -1339,6 +1553,11 @@ Geometry::writeElements (XMLOutputStream& stream) const
     mGeometryDefinitions.write(stream);
   }
 
+  if (getNumSampledFields() > 0)
+  {
+    mSampledFields.write(stream);
+  }
+
   SBase::writeExtensionElements(stream);
 }
 
@@ -1381,6 +1600,7 @@ Geometry::setSBMLDocument (SBMLDocument* d)
   mDomains.setSBMLDocument(d);
   mAdjacentDomains.setSBMLDocument(d);
   mGeometryDefinitions.setSBMLDocument(d);
+  mSampledFields.setSBMLDocument(d);
 }
 
 
@@ -1402,6 +1622,7 @@ Geometry::connectToChild()
   mDomains.connectToParent(this);
   mAdjacentDomains.connectToParent(this);
   mGeometryDefinitions.connectToParent(this);
+  mSampledFields.connectToParent(this);
 }
 
 
@@ -1423,6 +1644,7 @@ Geometry::enablePackageInternal(const std::string& pkgURI,
   mDomains.enablePackageInternal(pkgURI, pkgPrefix, flag);
   mAdjacentDomains.enablePackageInternal(pkgURI, pkgPrefix, flag);
   mGeometryDefinitions.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  mSampledFields.enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
 
 
@@ -1460,6 +1682,10 @@ Geometry::createObject(XMLInputStream& stream)
   else if (name == "listOfGeometryDefinitions")
   {
     object = &mGeometryDefinitions;
+  }
+  else if (name == "listOfSampledFields")
+  {
+    object = &mSampledFields;
   }
   connectToChild();
 
@@ -1517,7 +1743,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -1525,7 +1751,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -1548,14 +1774,14 @@ Geometry::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Spatial attribute 'id' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
@@ -1577,7 +1803,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
   {
     std::string message = "Spatial attribute 'coordinateSystem' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }
@@ -1971,6 +2197,13 @@ Geometry_createParametricGeometry(Geometry_t * g)
 }
 
 LIBSBML_EXTERN
+MixedGeometry_t *
+Geometry_createMixedGeometry(Geometry_t * g)
+{
+	return  (g != NULL) ? g->createMixedGeometry() : NULL;
+}
+
+LIBSBML_EXTERN
 ListOf_t *
 Geometry_getListOfGeometryDefinitions(Geometry_t * g)
 {
@@ -2010,6 +2243,62 @@ GeometryDefinition_t *
 Geometry_removeGeometryDefinitionById(Geometry_t * g, const char * sid)
 {
 	return  (g != NULL) ? g->removeGeometryDefinition(sid) : NULL;
+}
+
+LIBSBML_EXTERN
+int
+Geometry_addSampledField(Geometry_t * g, SampledField_t * sf)
+{
+	return  (g != NULL) ? g->addSampledField(sf) : LIBSBML_INVALID_OBJECT;
+}
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_createSampledField(Geometry_t * g)
+{
+	return  (g != NULL) ? g->createSampledField() : NULL;
+}
+
+LIBSBML_EXTERN
+ListOf_t *
+Geometry_getListOfSampledFields(Geometry_t * g)
+{
+	return  (g != NULL) ? (ListOf_t *)g->getListOfSampledFields() : NULL;
+}
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_getSampledField(Geometry_t * g, unsigned int n)
+{
+	return  (g != NULL) ? g->getSampledField(n) : NULL;
+}
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_getSampledFieldById(Geometry_t * g, const char * sid)
+{
+	return  (g != NULL) ? g->getSampledField(sid) : NULL;
+}
+
+LIBSBML_EXTERN
+unsigned int
+Geometry_getNumSampledFields(Geometry_t * g)
+{
+	return  (g != NULL) ? g->getNumSampledFields() : SBML_INT_MAX;
+}
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_removeSampledField(Geometry_t * g, unsigned int n)
+{
+	return  (g != NULL) ? g->removeSampledField(n) : NULL;
+}
+
+LIBSBML_EXTERN
+SampledField_t *
+Geometry_removeSampledFieldById(Geometry_t * g, const char * sid)
+{
+	return  (g != NULL) ? g->removeSampledField(sid) : NULL;
 }
 
 LIBSBML_EXTERN

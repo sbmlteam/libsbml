@@ -51,7 +51,6 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
-#include <sbml/packages/spatial/sbml/CoordinateReference.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -64,7 +63,8 @@ protected:
 
   std::string   mVariable;
   DiffusionKind_t   mType;
-  ListOfCoordinateReferences   mCoordinateReferences;
+  CoordinateKind_t   mCoordinateReference1;
+  CoordinateKind_t   mCoordinateReference2;
 
 
 public:
@@ -139,6 +139,22 @@ public:
 
 
   /**
+   * Returns the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
+   *
+   * @return the value of the "coordinateReference1" attribute of this DiffusionCoefficient as a CoordinateKind_t.
+   */
+  virtual CoordinateKind_t getCoordinateReference1() const;
+
+
+  /**
+   * Returns the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
+   *
+   * @return the value of the "coordinateReference2" attribute of this DiffusionCoefficient as a CoordinateKind_t.
+   */
+  virtual CoordinateKind_t getCoordinateReference2() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * DiffusionCoefficient's "variable" attribute has been set.
    *
@@ -156,6 +172,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetType() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DiffusionCoefficient's "coordinateReference1" attribute has been set.
+   *
+   * @return @c true if this DiffusionCoefficient's "coordinateReference1" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetCoordinateReference1() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DiffusionCoefficient's "coordinateReference2" attribute has been set.
+   *
+   * @return @c true if this DiffusionCoefficient's "coordinateReference2" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetCoordinateReference2() const;
 
 
   /**
@@ -204,6 +240,66 @@ public:
 
 
   /**
+   * Sets the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
+   *
+   * @param coordinateReference1; CoordinateKind_t value of the "coordinateReference1" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateReference1(CoordinateKind_t coordinateReference1);
+
+
+  /**
+   * Sets the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
+   *
+   * @param coordinateReference1; string value of the "coordinateReference1" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateReference1(const std::string& coordinateReference1);
+
+
+  /**
+   * Sets the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
+   *
+   * @param coordinateReference2; CoordinateKind_t value of the "coordinateReference2" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateReference2(CoordinateKind_t coordinateReference2);
+
+
+  /**
+   * Sets the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
+   *
+   * @param coordinateReference2; string value of the "coordinateReference2" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCoordinateReference2(const std::string& coordinateReference2);
+
+
+  /**
    * Unsets the value of the "variable" attribute of this DiffusionCoefficient.
    *
    * @return integer value indicating success/failure of the
@@ -230,142 +326,29 @@ public:
 
 
   /**
-   * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
-   *
-   * @return the "ListOfCoordinateReferences" attribute of this DiffusionCoefficient.
-   */
-  const ListOfCoordinateReferences* getListOfCoordinateReferences() const;
-
-
-  /**
-   * Returns the  "ListOfCoordinateReferences" in this DiffusionCoefficient object.
-   *
-   * @return the "ListOfCoordinateReferences" attribute of this DiffusionCoefficient.
-   */
-  ListOfCoordinateReferences* getListOfCoordinateReferences();
-
-
-  /**
-   * Get a CoordinateReference from the ListOfCoordinateReferences.
-   *
-   * @param n the index number of the CoordinateReference to get.
-   *
-   * @return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
-   *
-   * @see getNumCoordinateReferences()
-   */
-	CoordinateReference* getCoordinateReference(unsigned int n);
-
-
-  /**
-   * Get a CoordinateReference from the ListOfCoordinateReferences.
-   *
-   * @param n the index number of the CoordinateReference to get.
-   *
-   * @return the nth CoordinateReference in the ListOfCoordinateReferences within this DiffusionCoefficient.
-   *
-   * @see getNumCoordinateReferences()
-   */
-	const CoordinateReference* getCoordinateReference(unsigned int n) const;
-
-
-  /**
-   * Get a CoordinateReference from the ListOfCoordinateReferences
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier
-   * of the CoordinateReference to get.
-   *
-   * @return the CoordinateReference in the ListOfCoordinateReferences
-   * with the given id or NULL if no such
-   * CoordinateReference exists.
-   *
-   * @see getCoordinateReference(unsigned int n)
-   *
-   * @see getNumCoordinateReferences()
-   */
-	CoordinateReference* getCoordinateReference(const std::string& sid);
-
-
-  /**
-   * Get a CoordinateReference from the ListOfCoordinateReferences
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier
-   * of the CoordinateReference to get.
-   *
-   * @return the CoordinateReference in the ListOfCoordinateReferences
-   * with the given id or NULL if no such
-   * CoordinateReference exists.
-   *
-   * @see getCoordinateReference(unsigned int n)
-   *
-   * @see getNumCoordinateReferences()
-   */
-	const CoordinateReference* getCoordinateReference(const std::string& sid) const;
-
-
-  /**
-   * Adds a copy the given "CoordinateReference" to this DiffusionCoefficient.
-   *
-   * @param cr; the CoordinateReference object to add
+   * Unsets the value of the "coordinateReference1" attribute of this DiffusionCoefficient.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_OPERATION_FAILED
    */
-  int addCoordinateReference(const CoordinateReference* cr);
+  virtual int unsetCoordinateReference1();
 
 
   /**
-   * Get the number of CoordinateReference objects in this DiffusionCoefficient.
+   * Unsets the value of the "coordinateReference2" attribute of this DiffusionCoefficient.
    *
-   * @return the number of CoordinateReference objects in this DiffusionCoefficient
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  unsigned int getNumCoordinateReferences() const;
-
-
-  /**
-   * Creates a new CoordinateReference object, adds it to this DiffusionCoefficients
-   * ListOfCoordinateReferences and returns the CoordinateReference object created. 
-   *
-   * @return a new CoordinateReference object instance
-   *
-   * @see addCoordinateReference(const CoordinateReference* cr)
-   */
-  CoordinateReference* createCoordinateReference();
-
-
-  /**
-   * Removes the nth CoordinateReference from the ListOfCoordinateReferences within this DiffusionCoefficient.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
-   * @param n the index of the CoordinateReference to remove.
-   *
-   * @see getNumCoordinateReferences()
-   */
-	CoordinateReference* removeCoordinateReference(unsigned int n);
-
-
-  /**
-   * Removes the CoordinateReference with the given identifier from the ListOfCoordinateReferences within this DiffusionCoefficient
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
-   *
-   * @param sid the identifier of the CoordinateReference to remove.
-   *
-   * @return the CoordinateReference removed. As mentioned above, the caller owns the
-   * returned item.
-   */
-	CoordinateReference* removeCoordinateReference(const std::string& sid);
+  virtual int unsetCoordinateReference2();
 
 
   /**
@@ -660,6 +643,36 @@ DiffusionCoefficient_getType(const DiffusionCoefficient_t * dc);
 
 
 /**
+ * Returns the value of the "coordinateReference1" attribute of the given DiffusionCoefficient_t
+ * structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return the coordinateReference1 of this structure.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+CoordinateKind_t
+DiffusionCoefficient_getCoordinateReference1(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Returns the value of the "coordinateReference2" attribute of the given DiffusionCoefficient_t
+ * structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return the coordinateReference2 of this structure.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+CoordinateKind_t
+DiffusionCoefficient_getCoordinateReference2(const DiffusionCoefficient_t * dc);
+
+
+/**
  * Predicate returning @c 1 if the given DiffusionCoefficient_t structure's "variable"
  * is set.
  *
@@ -689,6 +702,38 @@ DiffusionCoefficient_isSetVariable(const DiffusionCoefficient_t * dc);
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_isSetType(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Predicate returning @c 1 if the given DiffusionCoefficient_t structure's "coordinateReference1"
+ * is set.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return @c 1 if the "coordinateReference1" of this DiffusionCoefficient_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetCoordinateReference1(const DiffusionCoefficient_t * dc);
+
+
+/**
+ * Predicate returning @c 1 if the given DiffusionCoefficient_t structure's "coordinateReference2"
+ * is set.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return @c 1 if the "coordinateReference2" of this DiffusionCoefficient_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_isSetCoordinateReference2(const DiffusionCoefficient_t * dc);
 
 
 /**
@@ -744,6 +789,52 @@ DiffusionCoefficient_setType(DiffusionCoefficient_t * dc, DiffusionKind_t type);
 
 
 /**
+ * Sets the "coordinateReference1" attribute of the given DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @param coordinateReference1 the string to which the structures "coordinateReference1" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference1(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference1);
+
+
+/**
+ * Sets the "coordinateReference2" attribute of the given DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @param coordinateReference2 the string to which the structures "coordinateReference2" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
+LIBSBML_EXTERN
+int
+DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc, CoordinateKind_t coordinateReference2);
+
+
+/**
  * Unsets the value of the "variable" attribute of the given 
  *DiffusionCoefficient_t structure.
  *
@@ -785,44 +876,46 @@ int
 DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc);
 
 
+/**
+ * Unsets the value of the "coordinateReference1" attribute of the given 
+ *DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
 LIBSBML_EXTERN
 int
-DiffusionCoefficient_addCoordinateReference(DiffusionCoefficient_t * dc, CoordinateReference_t * cr);
+DiffusionCoefficient_unsetCoordinateReference1(DiffusionCoefficient_t * dc);
 
 
+/**
+ * Unsets the value of the "coordinateReference2" attribute of the given 
+ *DiffusionCoefficient_t structure.
+ *
+ * @param dc the DiffusionCoefficient_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DiffusionCoefficient_t
+ */
 LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_createCoordinateReference(DiffusionCoefficient_t * dc);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-DiffusionCoefficient_getListOfCoordinateReferences(DiffusionCoefficient_t * dc) ;
-
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_getCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n);
-
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_getCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid);
-
-
-LIBSBML_EXTERN
-unsigned int
-DiffusionCoefficient_getNumCoordinateReferences(DiffusionCoefficient_t * dc);
-
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_removeCoordinateReference(DiffusionCoefficient_t * dc, unsigned int n);
-
-
-LIBSBML_EXTERN
-CoordinateReference_t *
-DiffusionCoefficient_removeCoordinateReferenceById(DiffusionCoefficient_t * dc, const char * sid);
+int
+DiffusionCoefficient_unsetCoordinateReference2(DiffusionCoefficient_t * dc);
 
 
 /**

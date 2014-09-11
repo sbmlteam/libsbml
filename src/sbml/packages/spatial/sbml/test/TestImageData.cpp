@@ -1,6 +1,6 @@
 /**
- * @file    TestImageData.cpp
- * @brief   TestImageData unit tests
+ * @file    TestSampledField.cpp
+ * @brief   TestSampledField unit tests
  * @author  Sarah Keating
  *
  * <!--------------------------------------------------------------------------
@@ -62,26 +62,26 @@ equals (const char* expected, const char* actual)
 
 CK_CPPSTART
 
-static ImageData* G; 
+static SampledField* G; 
 static SpatialPkgNamespaces* GNS;
 static char*    S;
 
 void
-ImageDataTest_setup (void)
+SampledFieldTest_setup (void)
 {
   GNS = new SpatialPkgNamespaces();
-  G = new ImageData(GNS);
+  G = new SampledField(GNS);
   S = NULL;
   
   if (G == NULL)
   {
-    fail("Failed to create a ImageData object");
+    fail("Failed to create a SampledField object");
   }
 }
 
 
 void
-ImageDataTest_teardown (void)
+SampledFieldTest_teardown (void)
 {
   delete G;
   delete GNS;
@@ -89,7 +89,7 @@ ImageDataTest_teardown (void)
 }
 
 
-START_TEST (test_ImageData_create)
+START_TEST (test_SampledField_create)
 {
   fail_unless(G->isSetSamples() == false);
   fail_unless(G->isSetSamplesLength() == false);
@@ -98,7 +98,7 @@ START_TEST (test_ImageData_create)
 END_TEST
 
 
-START_TEST (test_ImageData_samplesLength)
+START_TEST (test_SampledField_samplesLength)
 {
   fail_unless(G->isSetSamples() == false);
   fail_unless(G->isSetSamplesLength() == false);
@@ -125,7 +125,7 @@ START_TEST (test_ImageData_samplesLength)
 END_TEST
 
 
-START_TEST (test_ImageData_samples)
+START_TEST (test_SampledField_samples)
 {
   fail_unless(G->isSetSamples() == false);
   fail_unless(G->isSetSamplesLength() == false);
@@ -151,7 +151,7 @@ START_TEST (test_ImageData_samples)
 END_TEST
 
 #if (0)
-START_TEST (test_ImageData_samples_mismatchLength_1)
+START_TEST (test_SampledField_samples_mismatchLength_1)
 {
   fail_unless(G->isSetSamples() == false);
   fail_unless(G->isSetSamplesLength() == false);
@@ -178,7 +178,7 @@ START_TEST (test_ImageData_samples_mismatchLength_1)
 END_TEST
 
 
-START_TEST (test_ImageData_samples_mismatchLength_2)
+START_TEST (test_SampledField_samples_mismatchLength_2)
 {
   fail_unless(G->isSetSamples() == false);
   fail_unless(G->isSetSamplesLength() == false);
@@ -206,15 +206,15 @@ START_TEST (test_ImageData_samples_mismatchLength_2)
 END_TEST
 #endif
 
-START_TEST (test_ImageData_dataType)
+START_TEST (test_SampledField_dataType)
 {
   fail_unless(G->isSetDataType() == false);
 
-  G->setDataType("ww");
+  G->setDataType("uint8");
 
   fail_unless(G->isSetDataType() == true);
 
-  fail_unless(G->getDataType() == "ww");
+  fail_unless(G->getDataType() == SPATIAL_DATAKIND_UINT8);
 
   G->unsetDataType();
 
@@ -223,13 +223,13 @@ START_TEST (test_ImageData_dataType)
 END_TEST
 
 
-START_TEST (test_ImageData_output)
+START_TEST (test_SampledField_output)
 {
-  const char *expected = "<imageData samplesLength=\"3\" dataType=\"ww\">1 2 3 </imageData>";
+  const char *expected = "<sampledField dataType=\"uint8\" samplesLength=\"3\">1 2 3 </sampledField>";
 
   int points [] = {1,2,3};
   G->setSamples(points, 3);
-  G->setDataType("ww");
+  G->setDataType("uint8");
 
   S = G->toSBML();
 
@@ -239,21 +239,21 @@ END_TEST
 
 
 Suite *
-create_suite_ImageData (void)
+create_suite_SampledField (void)
 {
-  Suite *suite = suite_create("ImageData");
-  TCase *tcase = tcase_create("ImageData");
+  Suite *suite = suite_create("SampledField");
+  TCase *tcase = tcase_create("SampledField");
 
-  tcase_add_checked_fixture(tcase, ImageDataTest_setup, ImageDataTest_teardown);
+  tcase_add_checked_fixture(tcase, SampledFieldTest_setup, SampledFieldTest_teardown);
  
-  tcase_add_test( tcase, test_ImageData_create         );
+  tcase_add_test( tcase, test_SampledField_create         );
 
-  tcase_add_test( tcase, test_ImageData_samplesLength   );
-  tcase_add_test( tcase, test_ImageData_samples         );
-  //tcase_add_test( tcase, test_ImageData_samples_mismatchLength_1  );
-  //tcase_add_test( tcase, test_ImageData_samples_mismatchLength_2  );
-  tcase_add_test( tcase, test_ImageData_dataType        );
-  tcase_add_test( tcase, test_ImageData_output         );
+  tcase_add_test( tcase, test_SampledField_samplesLength   );
+  tcase_add_test( tcase, test_SampledField_samples         );
+  //tcase_add_test( tcase, test_SampledField_samples_mismatchLength_1  );
+  //tcase_add_test( tcase, test_SampledField_samples_mismatchLength_2  );
+  tcase_add_test( tcase, test_SampledField_dataType        );
+  tcase_add_test( tcase, test_SampledField_output         );
 
   suite_add_tcase(suite, tcase);
 

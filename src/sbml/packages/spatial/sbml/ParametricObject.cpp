@@ -49,8 +49,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ParametricObject::ParametricObject (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
-  , mPolygonType ("")
-  , mDomain ("")
+  , mPolygonType (POLYGONKIND_UNKNOWN)
+  , mDomainType ("")
   , mPolygonObject (NULL)
 {
   // set an SBMLNamespaces derived object of this package
@@ -67,8 +67,8 @@ ParametricObject::ParametricObject (unsigned int level, unsigned int version, un
 ParametricObject::ParametricObject (SpatialPkgNamespaces* spatialns)
   : SBase(spatialns)
   , mId ("")
-  , mPolygonType ("")
-  , mDomain ("")
+  , mPolygonType (POLYGONKIND_UNKNOWN)
+  , mDomainType ("")
   , mPolygonObject (NULL)
 {
   // set the element namespace of this object
@@ -96,7 +96,7 @@ ParametricObject::ParametricObject (const ParametricObject& orig)
   {
     mId  = orig.mId;
     mPolygonType  = orig.mPolygonType;
-    mDomain  = orig.mDomain;
+    mDomainType  = orig.mDomainType;
     if (orig.mPolygonObject != NULL)
     {
       mPolygonObject = orig.mPolygonObject->clone();
@@ -127,7 +127,7 @@ ParametricObject::operator=(const ParametricObject& rhs)
     SBase::operator=(rhs);
     mId  = rhs.mId;
     mPolygonType  = rhs.mPolygonType;
-    mDomain  = rhs.mDomain;
+    mDomainType  = rhs.mDomainType;
     if (rhs.mPolygonObject != NULL)
     {
       mPolygonObject = rhs.mPolygonObject->clone();
@@ -177,7 +177,7 @@ ParametricObject::getId() const
 /*
  * Returns the value of the "polygonType" attribute of this ParametricObject.
  */
-const std::string&
+PolygonKind_t
 ParametricObject::getPolygonType() const
 {
   return mPolygonType;
@@ -185,12 +185,12 @@ ParametricObject::getPolygonType() const
 
 
 /*
- * Returns the value of the "domain" attribute of this ParametricObject.
+ * Returns the value of the "domainType" attribute of this ParametricObject.
  */
 const std::string&
-ParametricObject::getDomain() const
+ParametricObject::getDomainType() const
 {
-  return mDomain;
+  return mDomainType;
 }
 
 
@@ -245,17 +245,17 @@ ParametricObject::isSetId() const
 bool
 ParametricObject::isSetPolygonType() const
 {
-  return (mPolygonType.empty() == false);
+  return mPolygonType != POLYGONKIND_UNKNOWN;
 }
 
 
 /*
- * Returns true/false if domain is set.
+ * Returns true/false if domainType is set.
  */
 bool
-ParametricObject::isSetDomain() const
+ParametricObject::isSetDomainType() const
 {
-  return (mDomain.empty() == false);
+  return (mDomainType.empty() == false);
 }
 
 
@@ -283,37 +283,43 @@ ParametricObject::setId(const std::string& id)
  * Sets polygonType and returns value indicating success.
  */
 int
-ParametricObject::setPolygonType(const std::string& polygonType)
+ParametricObject::setPolygonType(PolygonKind_t polygonType)
 {
-  if (&(polygonType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mPolygonType = polygonType;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mPolygonType = polygonType;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Sets domain and returns value indicating success.
+ * Sets polygonType and returns value indicating success.
  */
 int
-ParametricObject::setDomain(const std::string& domain)
+ParametricObject::setPolygonType(const std::string& polygonType)
 {
-  if (&(domain) == NULL)
+  PolygonKind_t parsed = PolygonKind_parse(polygonType.c_str());
+  if (parsed == POLYGONKIND_UNKNOWN) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  mPolygonType = parsed;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets domainType and returns value indicating success.
+ */
+int
+ParametricObject::setDomainType(const std::string& domainType)
+{
+  if (&(domainType) == NULL)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidInternalSId(domain)))
+  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    mDomain = domain;
+    mDomainType = domainType;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -374,28 +380,20 @@ ParametricObject::unsetId()
 int
 ParametricObject::unsetPolygonType()
 {
-  mPolygonType.erase();
-
-  if (mPolygonType.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  mPolygonType = POLYGONKIND_UNKNOWN;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
- * Unsets domain and returns value indicating success.
+ * Unsets domainType and returns value indicating success.
  */
 int
-ParametricObject::unsetDomain()
+ParametricObject::unsetDomainType()
 {
-  mDomain.erase();
+  mDomainType.erase();
 
-  if (mDomain.empty() == true)
+  if (mDomainType.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -424,9 +422,9 @@ ParametricObject::unsetPolygonObject()
 void
 ParametricObject::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  if (isSetDomain() == true && mDomain == oldid)
+  if (isSetDomainType() == true && mDomainType == oldid)
   {
-    setDomain(newid);
+    setDomainType(newid);
   }
 
 }
@@ -481,7 +479,7 @@ ParametricObject::hasRequiredAttributes () const
   if (isSetPolygonType() == false)
     allPresent = false;
 
-  if (isSetDomain() == false)
+  if (isSetDomainType() == false)
     allPresent = false;
 
   return allPresent;
@@ -639,7 +637,7 @@ ParametricObject::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("id");
   attributes.add("polygonType");
-  attributes.add("domain");
+  attributes.add("domainType");
 }
 
 
@@ -674,7 +672,7 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -682,7 +680,7 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, details);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -705,61 +703,62 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute id='" + mId + "' does not conform.");
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
   else
   {
     std::string message = "Spatial attribute 'id' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // polygonType string   ( use = "required" )
+  // polygonType enum  ( use = "required" )
   //
-  assigned = attributes.readInto("polygonType", mPolygonType);
-
-  if (assigned == true)
+  mPolygonType = POLYGONKIND_UNKNOWN;
   {
-    // check string is not empty
+    std::string stringValue;
+    assigned = attributes.readInto("polygonType", stringValue);
 
-    if (mPolygonType.empty() == true)
+    if (assigned == true)
     {
-      logEmptyString(mPolygonType, getLevel(), getVersion(), "<ParametricObject>");
+      // parse enum
+
+      mPolygonType = PolygonKind_parse(stringValue.c_str());
     }
   }
-  else
+  if(mPolygonType == POLYGONKIND_UNKNOWN)
   {
     std::string message = "Spatial attribute 'polygonType' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // domain SIdRef   ( use = "required" )
+  // domainType SIdRef   ( use = "required" )
   //
-  assigned = attributes.readInto("domain", mDomain);
+  assigned = attributes.readInto("domainType", mDomainType);
 
   if (assigned == true)
   {
     // check string is not empty and correct syntax
 
-    if (mDomain.empty() == true)
+    if (mDomainType.empty() == true)
     {
-      logEmptyString(mDomain, getLevel(), getVersion(), "<ParametricObject>");
+      logEmptyString(mDomainType, getLevel(), getVersion(), "<ParametricObject>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mDomain) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mDomainType) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute domain='" + mDomain + "' does not conform.");
+        "The syntax of the attribute domainType='" + mDomainType + "' does not conform.");
     }
   }
   else
   {
-    std::string message = "Spatial attribute 'domain' is missing.";
+    std::string message = "Spatial attribute 'domainType' is missing.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }
@@ -782,10 +781,10 @@ ParametricObject::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetPolygonType() == true)
-    stream.writeAttribute("polygonType", getPrefix(), mPolygonType);
+    stream.writeAttribute("polygonType", getPrefix(), PolygonKind_toString(mPolygonType));
 
-  if (isSetDomain() == true)
-    stream.writeAttribute("domain", getPrefix(), mDomain);
+  if (isSetDomainType() == true)
+    stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
 }
 
@@ -835,18 +834,18 @@ ParametricObject_getId(const ParametricObject_t * po)
 
 
 LIBSBML_EXTERN
-const char *
+PolygonKind_t
 ParametricObject_getPolygonType(const ParametricObject_t * po)
 {
-	return (po != NULL && po->isSetPolygonType()) ? po->getPolygonType().c_str() : NULL;
+	return (po != NULL) ? po->getPolygonType() : POLYGONKIND_UNKNOWN;
 }
 
 
 LIBSBML_EXTERN
 const char *
-ParametricObject_getDomain(const ParametricObject_t * po)
+ParametricObject_getDomainType(const ParametricObject_t * po)
 {
-	return (po != NULL && po->isSetDomain()) ? po->getDomain().c_str() : NULL;
+	return (po != NULL && po->isSetDomainType()) ? po->getDomainType().c_str() : NULL;
 }
 
 
@@ -890,9 +889,9 @@ ParametricObject_isSetPolygonType(const ParametricObject_t * po)
 
 LIBSBML_EXTERN
 int
-ParametricObject_isSetDomain(const ParametricObject_t * po)
+ParametricObject_isSetDomainType(const ParametricObject_t * po)
 {
-  return (po != NULL) ? static_cast<int>(po->isSetDomain()) : 0;
+  return (po != NULL) ? static_cast<int>(po->isSetDomainType()) : 0;
 }
 
 
@@ -917,10 +916,10 @@ ParametricObject_setId(ParametricObject_t * po, const char * id)
 
 LIBSBML_EXTERN
 int
-ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonType)
+ParametricObject_setPolygonType(ParametricObject_t * po, PolygonKind_t polygonType)
 {
   if (po != NULL)
-    return (polygonType == NULL) ? po->setPolygonType("") : po->setPolygonType(polygonType);
+    return po->setPolygonType(polygonType);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -928,10 +927,10 @@ ParametricObject_setPolygonType(ParametricObject_t * po, const char * polygonTyp
 
 LIBSBML_EXTERN
 int
-ParametricObject_setDomain(ParametricObject_t * po, const char * domain)
+ParametricObject_setDomainType(ParametricObject_t * po, const char * domainType)
 {
   if (po != NULL)
-    return (domain == NULL) ? po->setDomain("") : po->setDomain(domain);
+    return (domainType == NULL) ? po->setDomainType("") : po->setDomainType(domainType);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -963,9 +962,9 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po)
 
 LIBSBML_EXTERN
 int
-ParametricObject_unsetDomain(ParametricObject_t * po)
+ParametricObject_unsetDomainType(ParametricObject_t * po)
 {
-  return (po != NULL) ? po->unsetDomain() : LIBSBML_INVALID_OBJECT;
+  return (po != NULL) ? po->unsetDomainType() : LIBSBML_INVALID_OBJECT;
 }
 
 

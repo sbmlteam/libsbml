@@ -51,7 +51,6 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
-#include <sbml/packages/spatial/sbml/ImageData.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -63,16 +62,18 @@ class LIBSBML_EXTERN SampledField : public SBase
 protected:
 
   std::string   mId;
-  std::string   mDataType;
+  DataKind_t   mDataType;
   int           mNumSamples1;
   bool          mIsSetNumSamples1;
   int           mNumSamples2;
   bool          mIsSetNumSamples2;
   int           mNumSamples3;
   bool          mIsSetNumSamples3;
-  std::string   mInterpolationType;
-  std::string   mEncoding;
-  ImageData*      mImageData;
+  InterpolationKind_t   mInterpolationType;
+  CompressionKind_t   mCompression;
+  int*         mSamples;
+  int           mSamplesLength;
+  bool          mIsSetSamplesLength;
 
 
 public:
@@ -141,9 +142,9 @@ public:
   /**
    * Returns the value of the "dataType" attribute of this SampledField.
    *
-   * @return the value of the "dataType" attribute of this SampledField as a string.
+   * @return the value of the "dataType" attribute of this SampledField as a DataKind_t.
    */
-  virtual const std::string& getDataType() const;
+  virtual DataKind_t getDataType() const;
 
 
   /**
@@ -173,41 +174,36 @@ public:
   /**
    * Returns the value of the "interpolationType" attribute of this SampledField.
    *
-   * @return the value of the "interpolationType" attribute of this SampledField as a string.
+   * @return the value of the "interpolationType" attribute of this SampledField as a InterpolationKind_t.
    */
-  virtual const std::string& getInterpolationType() const;
+  virtual InterpolationKind_t getInterpolationType() const;
 
 
   /**
-   * Returns the value of the "encoding" attribute of this SampledField.
+   * Returns the value of the "compression" attribute of this SampledField.
    *
-   * @return the value of the "encoding" attribute of this SampledField as a string.
+   * @return the value of the "compression" attribute of this SampledField as a CompressionKind_t.
    */
-  virtual const std::string& getEncoding() const;
+  virtual CompressionKind_t getCompression() const;
 
 
   /**
-   * Returns the "imageData" element of this SampledField.
+   * The "samples" attribute of this SampledField is returned in an int* array (pointer)
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). The method itself has a return type void.
    *
-   * @return the "imageData" element of this SampledField.
+   * NOTE: you have to pre-allocate the array with the correct length!   *
+   * @return void.
    */
-  virtual const ImageData* getImageData() const;
+  void getSamples(int* outArray) const;
 
 
   /**
-   * Returns the "imageData" element of this SampledField.
+   * Returns the value of the "samplesLength" attribute of this SampledField.
    *
-   * @return the "imageData" element of this SampledField.
+   * @return the value of the "samplesLength" attribute of this SampledField as a integer.
    */
-  virtual ImageData* getImageData();
-
-
-  /**
-   * Creates a new "ImageData" and sets it for this SampledField.
-   *
-   * @return the created "ImageData" element of this SampledField.
-   */
-  virtual ImageData* createImageData();
+  virtual int getSamplesLength() const;
 
 
   /**
@@ -272,22 +268,32 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * SampledField's "encoding" attribute has been set.
+   * SampledField's "compression" attribute has been set.
    *
-   * @return @c true if this SampledField's "encoding" attribute has been set,
+   * @return @c true if this SampledField's "compression" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetEncoding() const;
+  virtual bool isSetCompression() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * SampledField's "imageData" element has been set.
+   * SampledField's "samples" attribute has been set.
    *
-   * @return @c true if this SampledField's "imageData" element has been set,
+   * @return @c true if this SampledField's "samples" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetImageData() const;
+  virtual bool isSetSamples() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SampledField's "samplesLength" attribute has been set.
+   *
+   * @return @c true if this SampledField's "samplesLength" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetSamplesLength() const;
 
 
   /**
@@ -308,7 +314,22 @@ public:
   /**
    * Sets the value of the "dataType" attribute of this SampledField.
    *
-   * @param dataType; const std::string& value of the "dataType" attribute to be set
+   * @param dataType; DataKind_t value of the "dataType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDataType(DataKind_t dataType);
+
+
+  /**
+   * Sets the value of the "dataType" attribute of this SampledField.
+   *
+   * @param dataType; string value of the "dataType" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -368,7 +389,22 @@ public:
   /**
    * Sets the value of the "interpolationType" attribute of this SampledField.
    *
-   * @param interpolationType; const std::string& value of the "interpolationType" attribute to be set
+   * @param interpolationType; InterpolationKind_t value of the "interpolationType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setInterpolationType(InterpolationKind_t interpolationType);
+
+
+  /**
+   * Sets the value of the "interpolationType" attribute of this SampledField.
+   *
+   * @param interpolationType; string value of the "interpolationType" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -381,9 +417,9 @@ public:
 
 
   /**
-   * Sets the value of the "encoding" attribute of this SampledField.
+   * Sets the value of the "compression" attribute of this SampledField.
    *
-   * @param encoding; const std::string& value of the "encoding" attribute to be set
+   * @param compression; CompressionKind_t value of the "compression" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -392,13 +428,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setEncoding(const std::string& encoding);
+  virtual int setCompression(CompressionKind_t compression);
 
 
   /**
-   * Sets the "imageData" element of this SampledField.
+   * Sets the value of the "compression" attribute of this SampledField.
    *
-   * @param imageData; ImageData* to be set.
+   * @param compression; string value of the "compression" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -407,7 +443,38 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setImageData(ImageData* imageData);
+  virtual int setCompression(const std::string& compression);
+
+
+  /**
+   * Sets the "samples" element of this SampledField.
+   *
+   * @param inArray; int* array to be set (it will be copied).
+   * @param arrayLength; the length of the array.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setSamples(int* inArray, int arrayLength);
+
+
+  /**
+   * Sets the value of the "samplesLength" attribute of this SampledField.
+   *
+   * @param samplesLength; int value of the "samplesLength" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setSamplesLength(int samplesLength);
 
 
   /**
@@ -489,7 +556,7 @@ public:
 
 
   /**
-   * Unsets the value of the "encoding" attribute of this SampledField.
+   * Unsets the value of the "compression" attribute of this SampledField.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -498,11 +565,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetEncoding();
+  virtual int unsetCompression();
 
 
   /**
-   * Unsets the "imageData" element of this SampledField.
+   * Unsets the value of the "samples" attribute of this SampledField.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -511,7 +578,20 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetImageData();
+  virtual int unsetSamples();
+
+
+  /**
+   * Unsets the value of the "samplesLength" attribute of this SampledField.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetSamplesLength();
 
 
   /**
@@ -571,9 +651,11 @@ public:
    *
    * @note The required attributes for a SampledField object are:
    * @li "id"
+   * @li "dataType"
    * @li "numSamples1"
-   * @li "encoding"
-   * @li "imageData"
+   * @li "compression"
+   * @li "samples"
+   * @li "samplesLength"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -586,7 +668,6 @@ public:
    * for this SampledField object have been set.
    *
    * @note The required elements for a SampledField object are:
-   * @li "imageData"
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -652,6 +733,9 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
+  virtual void write(XMLOutputStream& stream) const;
+
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -694,6 +778,313 @@ protected:
    * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  virtual void setElementText(const std::string &text);
+
+
+protected:
+  int* mUncompressedSamples;
+  int mUncompressedLength;
+
+  static void copySampleArrays(int* &target, int& targetLength, int* source, int sourceLength);
+  static void uncompress_data(void *data, size_t length, int*& result, int& outLength);
+
+public:
+
+ /**
+   * Returns the "samplesLength" attribute of this SampledField.
+   *
+   * @return the "samplesLength" attribute of this SampledField.
+   */
+  unsigned int getUncompressedLength();
+
+ /**
+   * The "samples" attribute of this SampledField is returned in an int array (pointer) 
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). This method returns the uncompressed sample field.
+   *
+   * @return void.
+   */
+  void getUncompressed(int* outputSamples);
+
+  /** 
+   * utility function freeing the uncompressed data. 
+   */
+  void freeUncompressed();
+  
+  /** 
+   * utility function uncompressing samples
+   */
+  void uncompress();
+
+  /**  
+   *  Returns the data of this image as uncompressed array of integers
+   * 
+   * @param data the output array of integers (it will be allocated using
+   *             malloc and will have to be freed using free)
+   * @param length the output lenght of the array
+   *
+   */
+  void getUncompressedData(int* &data, int& length);
+
+
+};
+
+class LIBSBML_EXTERN ListOfSampledFields : public ListOf
+{
+
+public:
+
+  /**
+   * Creates a new ListOfSampledFields with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfSampledFields
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfSampledFields
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfSampledFields
+   */
+  ListOfSampledFields(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                      unsigned int version    = SpatialExtension::getDefaultVersion(),
+                      unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new ListOfSampledFields with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  ListOfSampledFields(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Creates and returns a deep copy of this ListOfSampledFields object.
+   *
+   * @return a (deep) copy of this ListOfSampledFields object.
+   */
+  virtual ListOfSampledFields* clone () const;
+
+
+   /**
+   * Get a SampledField from the ListOfSampledFields.
+   *
+   * @param n the index number of the SampledField to get.
+   *
+   * @return the nth SampledField in this ListOfSampledFields.
+   *
+   * @see size()
+   */
+	virtual SampledField* get(unsigned int n);
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields.
+   *
+   * @param n the index number of the SampledField to get.
+   *
+   * @return the nth SampledField in this ListOfSampledFields.
+   *
+   * @see size()
+   */
+	virtual const SampledField* get(unsigned int n) const;
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the SampledField to get.
+   *
+   * @return SampledField in this ListOfSampledFields
+   * with the given id or NULL if no such
+   * SampledField exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+	virtual SampledField* get(const std::string& sid);
+
+
+  /**
+   * Get a SampledField from the ListOfSampledFields
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the SampledField to get.
+   *
+   * @return SampledField in this ListOfSampledFields
+   * with the given id or NULL if no such
+   * SampledField exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const SampledField* get(const std::string& sid) const;
+
+
+	/**
+	 * Adds a copy the given "SampledField" to this ListOfSampledFields.
+	 *
+	 * @param sf; the SampledField object to add
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSEDML_OPERATION_SUCCESS
+	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+	 */
+	int addSampledField(const SampledField* sf);
+
+
+	/**
+	 * Get the number of SampledField objects in this ListOfSampledFields.
+	 *
+	 * @return the number of SampledField objects in this ListOfSampledFields
+	 */
+	unsigned int getNumSampledFields() const;
+
+
+	/**
+	 * Creates a new SampledField object, adds it to the
+	 * ListOfSampledFields and returns the SampledField object created. 
+	 *
+	 * @return a new SampledField object instance
+	 *
+	 * @see addSampledField(const SampledField* sf)
+	 */
+	SampledField* createSampledField();
+
+
+  /**
+   * Removes the nth SampledField from this ListOfSampledFields
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the SampledField to remove.
+   *
+   * @see size()
+   */
+	virtual SampledField* remove(unsigned int n);
+
+
+  /**
+   * Removes the SampledField from this ListOfSampledFields with the given identifier
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the SampledField to remove.
+   *
+   * @return the SampledField removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	virtual SampledField* remove(const std::string& sid);
+
+
+  /**
+   * Returns the XML element name of this object, which for ListOfSampledFields, is
+   * always @c "listOfSampledFields".
+   *
+   * @return the name of this element, i.e. @c "listOfSampledFields".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getItemTypeCode () const;
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates a new SampledField in this ListOfSampledFields
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Spatial package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
 
 
   /** @endcond doxygenLibsbmlInternal */
@@ -789,7 +1180,7 @@ SampledField_getId(const SampledField_t * sf);
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+DataKind_t
 SampledField_getDataType(const SampledField_t * sf);
 
 
@@ -849,33 +1240,53 @@ SampledField_getNumSamples3(const SampledField_t * sf);
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
-const char *
+InterpolationKind_t
 SampledField_getInterpolationType(const SampledField_t * sf);
 
 
 /**
- * Returns the value of the "encoding" attribute of the given SampledField_t
+ * Returns the value of the "compression" attribute of the given SampledField_t
  * structure.
  *
  * @param sf the SampledField_t structure.
  *
- * @return the encoding of this structure.
+ * @return the compression of this structure.
  *
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
-const char *
-SampledField_getEncoding(const SampledField_t * sf);
+CompressionKind_t
+SampledField_getCompression(const SampledField_t * sf);
 
 
+/**
+ * Returns the value of the "samples" attribute of the given SampledField_t
+ * structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return the samples of this structure.
+ *
+ * @member of SampledField_t
+ */
 LIBSBML_EXTERN
-ImageData_t*
-SampledField_getImageData(SampledField_t * sf);
+int*
+SampledField_getSamples(const SampledField_t * sf);
 
 
+/**
+ * Returns the value of the "samplesLength" attribute of the given SampledField_t
+ * structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return the samplesLength of this structure.
+ *
+ * @member of SampledField_t
+ */
 LIBSBML_EXTERN
-ImageData_t*
-SampledField_createImageData(SampledField_t * sf);
+int
+SampledField_getSamplesLength(const SampledField_t * sf);
 
 
 /**
@@ -975,35 +1386,51 @@ SampledField_isSetInterpolationType(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if the given SampledField_t structure's "encoding"
+ * Predicate returning @c 1 if the given SampledField_t structure's "compression"
  * is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if the "encoding" of this SampledField_t structure is
+ * @return @c 1 if the "compression" of this SampledField_t structure is
  * set, @c 0 otherwise.
  *
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
 int
-SampledField_isSetEncoding(const SampledField_t * sf);
+SampledField_isSetCompression(const SampledField_t * sf);
 
 
 /**
- * Predicate returning @c 1 if the given SampledField_t structure's "imageData"
+ * Predicate returning @c 1 if the given SampledField_t structure's "samples"
  * is set.
  *
  * @param sf the SampledField_t structure.
  *
- * @return @c 1 if the "imageData" of this SampledField_t structure is
+ * @return @c 1 if the "samples" of this SampledField_t structure is
  * set, @c 0 otherwise.
  *
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
 int
-SampledField_isSetImageData(const SampledField_t * sf);
+SampledField_isSetSamples(const SampledField_t * sf);
+
+
+/**
+ * Predicate returning @c 1 if the given SampledField_t structure's "samplesLength"
+ * is set.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return @c 1 if the "samplesLength" of this SampledField_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_isSetSamplesLength(const SampledField_t * sf);
 
 
 /**
@@ -1038,9 +1465,6 @@ SampledField_setId(SampledField_t * sf, const char * id);
 /**
  * Sets the "dataType" attribute of the given SampledField_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs SampledField_unsetDataType() instead.
- *
  * @param sf the SampledField_t structure.
  *
  * @param dataType the string to which the structures "dataType" attribute should be
@@ -1054,14 +1478,11 @@ SampledField_setId(SampledField_t * sf, const char * id);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
 int
-SampledField_setDataType(SampledField_t * sf, const char * dataType);
+SampledField_setDataType(SampledField_t * sf, DataKind_t dataType);
 
 
 /**
@@ -1136,9 +1557,6 @@ SampledField_setNumSamples3(SampledField_t * sf, int numSamples3);
 /**
  * Sets the "interpolationType" attribute of the given SampledField_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs SampledField_unsetInterpolationType() instead.
- *
  * @param sf the SampledField_t structure.
  *
  * @param interpolationType the string to which the structures "interpolationType" attribute should be
@@ -1152,25 +1570,19 @@ SampledField_setNumSamples3(SampledField_t * sf, int numSamples3);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
 int
-SampledField_setInterpolationType(SampledField_t * sf, const char * interpolationType);
+SampledField_setInterpolationType(SampledField_t * sf, InterpolationKind_t interpolationType);
 
 
 /**
- * Sets the "encoding" attribute of the given SampledField_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs SampledField_unsetEncoding() instead.
+ * Sets the "compression" attribute of the given SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
- * @param encoding the string to which the structures "encoding" attribute should be
+ * @param compression the string to which the structures "compression" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -1181,19 +1593,57 @@ SampledField_setInterpolationType(SampledField_t * sf, const char * interpolatio
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
  * @member of SampledField_t
  */
 LIBSBML_EXTERN
 int
-SampledField_setEncoding(SampledField_t * sf, const char * encoding);
+SampledField_setCompression(SampledField_t * sf, CompressionKind_t compression);
 
 
+/**
+ * Sets the "samples" attribute of the given SampledField_t structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @param samples the string to which the structures "samples" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SampledField_t
+ */
 LIBSBML_EXTERN
 int
-SampledField_setImageData(SampledField_t * sf, ImageData_t* imageData);
+SampledField_setSamples(SampledField_t * sf, int* samples);
+
+
+/**
+ * Sets the "samplesLength" attribute of the given SampledField_t structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @param samplesLength the string to which the structures "samplesLength" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_setSamplesLength(SampledField_t * sf, int samplesLength);
 
 
 /**
@@ -1323,7 +1773,7 @@ SampledField_unsetInterpolationType(SampledField_t * sf);
 
 
 /**
- * Unsets the value of the "encoding" attribute of the given 
+ * Unsets the value of the "compression" attribute of the given 
  *SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
@@ -1340,7 +1790,49 @@ SampledField_unsetInterpolationType(SampledField_t * sf);
  */
 LIBSBML_EXTERN
 int
-SampledField_unsetEncoding(SampledField_t * sf);
+SampledField_unsetCompression(SampledField_t * sf);
+
+
+/**
+ * Unsets the value of the "samples" attribute of the given 
+ *SampledField_t structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_unsetSamples(SampledField_t * sf);
+
+
+/**
+ * Unsets the value of the "samplesLength" attribute of the given 
+ *SampledField_t structure.
+ *
+ * @param sf the SampledField_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SampledField_t
+ */
+LIBSBML_EXTERN
+int
+SampledField_unsetSamplesLength(SampledField_t * sf);
 
 
 /**
@@ -1373,6 +1865,16 @@ SampledField_hasRequiredAttributes(const SampledField_t * sf);
 LIBSBML_EXTERN
 int
 SampledField_hasRequiredElements(const SampledField_t * sf);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+ListOfSampledFields_getById(ListOf_t * lo, const char * sid);
+
+
+LIBSBML_EXTERN
+SampledField_t *
+ListOfSampledFields_removeById(ListOf_t * lo, const char * sid);
 
 
 

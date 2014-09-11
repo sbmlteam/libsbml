@@ -53,7 +53,6 @@
 #include <sbml/packages/spatial/sbml/GeometryDefinition.h>
 
 #include <sbml/packages/spatial/sbml/SampledVolume.h>
-#include <sbml/packages/spatial/sbml/SampledField.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -65,7 +64,7 @@ class LIBSBML_EXTERN SampledFieldGeometry : public GeometryDefinition
 protected:
 
   ListOfSampledVolumes   mSampledVolumes;
-  SampledField*      mSampledField;
+  std::string   mSampledField;
 
 
 public:
@@ -124,43 +123,27 @@ public:
 
 
    /**
-   * Returns the "sampledField" element of this SampledFieldGeometry.
+   * Returns the value of the "sampledField" attribute of this SampledFieldGeometry.
    *
-   * @return the "sampledField" element of this SampledFieldGeometry.
+   * @return the value of the "sampledField" attribute of this SampledFieldGeometry as a string.
    */
-  virtual const SampledField* getSampledField() const;
-
-
-  /**
-   * Returns the "sampledField" element of this SampledFieldGeometry.
-   *
-   * @return the "sampledField" element of this SampledFieldGeometry.
-   */
-  virtual SampledField* getSampledField();
-
-
-  /**
-   * Creates a new "SampledField" and sets it for this SampledFieldGeometry.
-   *
-   * @return the created "SampledField" element of this SampledFieldGeometry.
-   */
-  virtual SampledField* createSampledField();
+  virtual const std::string& getSampledField() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * SampledFieldGeometry's "sampledField" element has been set.
+   * SampledFieldGeometry's "sampledField" attribute has been set.
    *
-   * @return @c true if this SampledFieldGeometry's "sampledField" element has been set,
+   * @return @c true if this SampledFieldGeometry's "sampledField" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetSampledField() const;
 
 
   /**
-   * Sets the "sampledField" element of this SampledFieldGeometry.
+   * Sets the value of the "sampledField" attribute of this SampledFieldGeometry.
    *
-   * @param sampledField; SampledField* to be set.
+   * @param sampledField; const std::string& value of the "sampledField" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -169,11 +152,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSampledField(SampledField* sampledField);
+  virtual int setSampledField(const std::string& sampledField);
 
 
   /**
-   * Unsets the "sampledField" element of this SampledFieldGeometry.
+   * Unsets the value of the "sampledField" attribute of this SampledFieldGeometry.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -325,6 +308,21 @@ public:
 
 
   /**
+   * Renames all the @c SIdRef attributes on this element, including any
+   * found in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * mathematical formulas, comparing the identifiers to the value of @p
+   * oldid.  If any matches are found, the matching identifiers are replaced
+   * with @p newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
+   */
+   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
@@ -380,6 +378,7 @@ public:
    * for this SampledFieldGeometry object have been set.
    *
    * @note The required attributes for a SampledFieldGeometry object are:
+   * @li "sampledField"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -568,14 +567,19 @@ SampledFieldGeometry_t *
 SampledFieldGeometry_clone(SampledFieldGeometry_t * sfg);
 
 
+/**
+ * Returns the value of the "sampledField" attribute of the given SampledFieldGeometry_t
+ * structure.
+ *
+ * @param sfg the SampledFieldGeometry_t structure.
+ *
+ * @return the sampledField of this structure.
+ *
+ * @member of SampledFieldGeometry_t
+ */
 LIBSBML_EXTERN
-SampledField_t*
-SampledFieldGeometry_getSampledField(SampledFieldGeometry_t * sfg);
-
-
-LIBSBML_EXTERN
-SampledField_t*
-SampledFieldGeometry_createSampledField(SampledFieldGeometry_t * sfg);
+const char *
+SampledFieldGeometry_getSampledField(const SampledFieldGeometry_t * sfg);
 
 
 /**
@@ -594,9 +598,54 @@ int
 SampledFieldGeometry_isSetSampledField(const SampledFieldGeometry_t * sfg);
 
 
+/**
+ * Sets the "sampledField" attribute of the given SampledFieldGeometry_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs SampledFieldGeometry_unsetSampledField() instead.
+ *
+ * @param sfg the SampledFieldGeometry_t structure.
+ *
+ * @param sampledField the string to which the structures "sampledField" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of SampledFieldGeometry_t
+ */
 LIBSBML_EXTERN
 int
-SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, SampledField_t* sampledField);
+SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, const char * sampledField);
+
+
+/**
+ * Unsets the value of the "sampledField" attribute of the given 
+ *SampledFieldGeometry_t structure.
+ *
+ * @param sfg the SampledFieldGeometry_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SampledFieldGeometry_t
+ */
+LIBSBML_EXTERN
+int
+SampledFieldGeometry_unsetSampledField(SampledFieldGeometry_t * sfg);
 
 
 LIBSBML_EXTERN

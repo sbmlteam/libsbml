@@ -53,7 +53,6 @@
 #include <sbml/packages/spatial/sbml/CoordinateComponent.h>
 #include <sbml/packages/spatial/sbml/SampledFieldGeometry.h>
 #include <sbml/packages/spatial/sbml/SampledField.h>
-#include <sbml/packages/spatial/sbml/ImageData.h>
 #include <sbml/packages/spatial/sbml/SampledVolume.h>
 #include <sbml/packages/spatial/sbml/AnalyticGeometry.h>
 #include <sbml/packages/spatial/sbml/AnalyticVolume.h>
@@ -79,6 +78,8 @@
 #include <sbml/packages/spatial/sbml/BoundaryCondition.h>
 #include <sbml/packages/spatial/sbml/Geometry.h>
 #include <sbml/packages/spatial/sbml/CoordinateReference.h>
+#include <sbml/packages/spatial/sbml/MixedGeometry.h>
+#include <sbml/packages/spatial/sbml/OrdinalMapping.h>
 
 #endif  /* SpatialExtensionTypes_H */
 

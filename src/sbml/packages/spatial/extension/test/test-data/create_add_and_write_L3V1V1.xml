@@ -12,11 +12,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="ATPc_dc" value="1" constant="true">
-        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:type="anisotropic">
-          <spatial:listOfCoordinateReferences>
-            <spatial:coordinateReference spatial:coordinate="cartesianX"/>
-          </spatial:listOfCoordinateReferences>
-        </spatial:diffusionCoefficient>
+        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:type="anisotropic" spatial:coordinateReference1="cartesianX"/>
       </parameter>
       <parameter id="ATPc_ac" value="1.5" constant="true">
         <spatial:advectionCoefficient spatial:variable="ATPc" spatial:coordinate="cartesianX"/>
@@ -39,7 +35,7 @@
         </spatial:coordinateComponent>
       </spatial:listOfCoordinateComponents>
       <spatial:listOfDomainTypes>
-        <spatial:domainType spatial:id="dtype1" spatial:spatialDimension="3"/>
+        <spatial:domainType spatial:id="dtype1" spatial:spatialDimensions="3"/>
       </spatial:listOfDomainTypes>
       <spatial:listOfDomains>
         <spatial:domain spatial:id="domain1" spatial:domainType="dtype1">
@@ -57,7 +53,7 @@
         <spatial:adjacentDomains spatial:id="adjDomain1" spatial:domain1="domain1" spatial:domain2="domain2"/>
       </spatial:listOfAdjacentDomains>
       <spatial:listOfGeometryDefinitions>
-        <spatial:analyticGeometry spatial:id="analyticGeom1">
+        <spatial:analyticGeometry spatial:id="analyticGeom1" spatial:isActive="true">
           <spatial:listOfAnalyticVolumes>
             <spatial:analyticVolume spatial:id="analyticVol1" spatial:functionType="layered" spatial:ordinal="1" spatial:domainType="dtype1">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -77,15 +73,15 @@
             </spatial:analyticVolume>
           </spatial:listOfAnalyticVolumes>
         </spatial:analyticGeometry>
-        <spatial:sampledFieldGeometry spatial:id="sampledFieldGeom1">
+        <spatial:sampledFieldGeometry spatial:id="sampledFieldGeom1" spatial:isActive="false" spatial:sampledField="sampledField1">
           <spatial:listOfSampledVolumes>
             <spatial:sampledVolume spatial:id="sv_1" spatial:domainType="dtype1" spatial:sampledValue="128" spatial:minValue="0" spatial:maxValue="255"/>
           </spatial:listOfSampledVolumes>
-          <spatial:sampledField spatial:id="sampledField1" spatial:dataType="double" spatial:numSamples1="4" spatial:numSamples2="4" spatial:numSamples3="2" spatial:interpolationType="linear" spatial:encoding="encoding1">
-            <imageData spatial:samplesLength="32">0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </imageData>
-          </spatial:sampledField>
         </spatial:sampledFieldGeometry>
       </spatial:listOfGeometryDefinitions>
+      <spatial:listOfSampledFields>
+        <spatial:sampledField spatial:id="sampledField1" spatial:dataType="uint8" spatial:numSamples1="4" spatial:numSamples2="4" spatial:numSamples3="2" spatial:interpolationType="linear" spatial:compression="uncompressed" spatial:samplesLength="32">0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:sampledField>
+      </spatial:listOfSampledFields>
     </spatial:geometry>
   </model>
 </sbml>

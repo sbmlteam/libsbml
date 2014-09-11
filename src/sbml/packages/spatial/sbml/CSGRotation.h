@@ -62,12 +62,12 @@ class LIBSBML_EXTERN CSGRotation : public CSGTransformation
 
 protected:
 
-  double        mRotateAxisX;
-  bool          mIsSetRotateAxisX;
-  double        mRotateAxisY;
-  bool          mIsSetRotateAxisY;
-  double        mRotateAxisZ;
-  bool          mIsSetRotateAxisZ;
+  double        mRotateX;
+  bool          mIsSetRotateX;
+  double        mRotateY;
+  bool          mIsSetRotateY;
+  double        mRotateZ;
+  bool          mIsSetRotateZ;
   double        mRotateAngleInRadians;
   bool          mIsSetRotateAngleInRadians;
 
@@ -128,27 +128,27 @@ public:
 
 
    /**
-   * Returns the value of the "rotateAxisX" attribute of this CSGRotation.
+   * Returns the value of the "rotateX" attribute of this CSGRotation.
    *
-   * @return the value of the "rotateAxisX" attribute of this CSGRotation as a double.
+   * @return the value of the "rotateX" attribute of this CSGRotation as a double.
    */
-  virtual double getRotateAxisX() const;
+  virtual double getRotateX() const;
 
 
   /**
-   * Returns the value of the "rotateAxisY" attribute of this CSGRotation.
+   * Returns the value of the "rotateY" attribute of this CSGRotation.
    *
-   * @return the value of the "rotateAxisY" attribute of this CSGRotation as a double.
+   * @return the value of the "rotateY" attribute of this CSGRotation as a double.
    */
-  virtual double getRotateAxisY() const;
+  virtual double getRotateY() const;
 
 
   /**
-   * Returns the value of the "rotateAxisZ" attribute of this CSGRotation.
+   * Returns the value of the "rotateZ" attribute of this CSGRotation.
    *
-   * @return the value of the "rotateAxisZ" attribute of this CSGRotation as a double.
+   * @return the value of the "rotateZ" attribute of this CSGRotation as a double.
    */
-  virtual double getRotateAxisZ() const;
+  virtual double getRotateZ() const;
 
 
   /**
@@ -161,32 +161,32 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotateAxisX" attribute has been set.
+   * CSGRotation's "rotateX" attribute has been set.
    *
-   * @return @c true if this CSGRotation's "rotateAxisX" attribute has been set,
+   * @return @c true if this CSGRotation's "rotateX" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetRotateAxisX() const;
+  virtual bool isSetRotateX() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotateAxisY" attribute has been set.
+   * CSGRotation's "rotateY" attribute has been set.
    *
-   * @return @c true if this CSGRotation's "rotateAxisY" attribute has been set,
+   * @return @c true if this CSGRotation's "rotateY" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetRotateAxisY() const;
+  virtual bool isSetRotateY() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * CSGRotation's "rotateAxisZ" attribute has been set.
+   * CSGRotation's "rotateZ" attribute has been set.
    *
-   * @return @c true if this CSGRotation's "rotateAxisZ" attribute has been set,
+   * @return @c true if this CSGRotation's "rotateZ" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetRotateAxisZ() const;
+  virtual bool isSetRotateZ() const;
 
 
   /**
@@ -200,9 +200,9 @@ public:
 
 
   /**
-   * Sets the value of the "rotateAxisX" attribute of this CSGRotation.
+   * Sets the value of the "rotateX" attribute of this CSGRotation.
    *
-   * @param rotateAxisX; double value of the "rotateAxisX" attribute to be set
+   * @param rotateX; double value of the "rotateX" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -211,13 +211,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setRotateAxisX(double rotateAxisX);
+  virtual int setRotateX(double rotateX);
 
 
   /**
-   * Sets the value of the "rotateAxisY" attribute of this CSGRotation.
+   * Sets the value of the "rotateY" attribute of this CSGRotation.
    *
-   * @param rotateAxisY; double value of the "rotateAxisY" attribute to be set
+   * @param rotateY; double value of the "rotateY" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -226,13 +226,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setRotateAxisY(double rotateAxisY);
+  virtual int setRotateY(double rotateY);
 
 
   /**
-   * Sets the value of the "rotateAxisZ" attribute of this CSGRotation.
+   * Sets the value of the "rotateZ" attribute of this CSGRotation.
    *
-   * @param rotateAxisZ; double value of the "rotateAxisZ" attribute to be set
+   * @param rotateZ; double value of the "rotateZ" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -241,7 +241,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setRotateAxisZ(double rotateAxisZ);
+  virtual int setRotateZ(double rotateZ);
 
 
   /**
@@ -260,7 +260,7 @@ public:
 
 
   /**
-   * Unsets the value of the "rotateAxisX" attribute of this CSGRotation.
+   * Unsets the value of the "rotateX" attribute of this CSGRotation.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -269,11 +269,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetRotateAxisX();
+  virtual int unsetRotateX();
 
 
   /**
-   * Unsets the value of the "rotateAxisY" attribute of this CSGRotation.
+   * Unsets the value of the "rotateY" attribute of this CSGRotation.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -282,11 +282,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetRotateAxisY();
+  virtual int unsetRotateY();
 
 
   /**
-   * Unsets the value of the "rotateAxisZ" attribute of this CSGRotation.
+   * Unsets the value of the "rotateZ" attribute of this CSGRotation.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -295,7 +295,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetRotateAxisZ();
+  virtual int unsetRotateZ();
 
 
   /**
@@ -358,7 +358,7 @@ public:
    * for this CSGRotation object have been set.
    *
    * @note The required attributes for a CSGRotation object are:
-   * @li "rotateAxisX"
+   * @li "rotateX"
    * @li "rotateAngleInRadians"
    *
    * @return a boolean value indicating whether all the required
@@ -526,48 +526,48 @@ CSGRotation_clone(CSGRotation_t * csgr);
 
 
 /**
- * Returns the value of the "rotateAxisX" attribute of the given CSGRotation_t
+ * Returns the value of the "rotateX" attribute of the given CSGRotation_t
  * structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return the rotateAxisX of this structure.
+ * @return the rotateX of this structure.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisX(const CSGRotation_t * csgr);
+CSGRotation_getRotateX(const CSGRotation_t * csgr);
 
 
 /**
- * Returns the value of the "rotateAxisY" attribute of the given CSGRotation_t
+ * Returns the value of the "rotateY" attribute of the given CSGRotation_t
  * structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return the rotateAxisY of this structure.
+ * @return the rotateY of this structure.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisY(const CSGRotation_t * csgr);
+CSGRotation_getRotateY(const CSGRotation_t * csgr);
 
 
 /**
- * Returns the value of the "rotateAxisZ" attribute of the given CSGRotation_t
+ * Returns the value of the "rotateZ" attribute of the given CSGRotation_t
  * structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return the rotateAxisZ of this structure.
+ * @return the rotateZ of this structure.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 double
-CSGRotation_getRotateAxisZ(const CSGRotation_t * csgr);
+CSGRotation_getRotateZ(const CSGRotation_t * csgr);
 
 
 /**
@@ -586,51 +586,51 @@ CSGRotation_getRotateAngleInRadians(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisX"
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateX"
  * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if the "rotateAxisX" of this CSGRotation_t structure is
+ * @return @c 1 if the "rotateX" of this CSGRotation_t structure is
  * set, @c 0 otherwise.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisX(const CSGRotation_t * csgr);
+CSGRotation_isSetRotateX(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisY"
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateY"
  * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if the "rotateAxisY" of this CSGRotation_t structure is
+ * @return @c 1 if the "rotateY" of this CSGRotation_t structure is
  * set, @c 0 otherwise.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisY(const CSGRotation_t * csgr);
+CSGRotation_isSetRotateY(const CSGRotation_t * csgr);
 
 
 /**
- * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateAxisZ"
+ * Predicate returning @c 1 if the given CSGRotation_t structure's "rotateZ"
  * is set.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @return @c 1 if the "rotateAxisZ" of this CSGRotation_t structure is
+ * @return @c 1 if the "rotateZ" of this CSGRotation_t structure is
  * set, @c 0 otherwise.
  *
  * @member of CSGRotation_t
  */
 LIBSBML_EXTERN
 int
-CSGRotation_isSetRotateAxisZ(const CSGRotation_t * csgr);
+CSGRotation_isSetRotateZ(const CSGRotation_t * csgr);
 
 
 /**
@@ -650,11 +650,11 @@ CSGRotation_isSetRotateAngleInRadians(const CSGRotation_t * csgr);
 
 
 /**
- * Sets the "rotateAxisX" attribute of the given CSGRotation_t structure.
+ * Sets the "rotateX" attribute of the given CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @param rotateAxisX the string to which the structures "rotateAxisX" attribute should be
+ * @param rotateX the string to which the structures "rotateX" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -669,15 +669,15 @@ CSGRotation_isSetRotateAngleInRadians(const CSGRotation_t * csgr);
  */
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX);
+CSGRotation_setRotateX(CSGRotation_t * csgr, double rotateX);
 
 
 /**
- * Sets the "rotateAxisY" attribute of the given CSGRotation_t structure.
+ * Sets the "rotateY" attribute of the given CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @param rotateAxisY the string to which the structures "rotateAxisY" attribute should be
+ * @param rotateY the string to which the structures "rotateY" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -692,15 +692,15 @@ CSGRotation_setRotateAxisX(CSGRotation_t * csgr, double rotateAxisX);
  */
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY);
+CSGRotation_setRotateY(CSGRotation_t * csgr, double rotateY);
 
 
 /**
- * Sets the "rotateAxisZ" attribute of the given CSGRotation_t structure.
+ * Sets the "rotateZ" attribute of the given CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
- * @param rotateAxisZ the string to which the structures "rotateAxisZ" attribute should be
+ * @param rotateZ the string to which the structures "rotateZ" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -715,7 +715,7 @@ CSGRotation_setRotateAxisY(CSGRotation_t * csgr, double rotateAxisY);
  */
 LIBSBML_EXTERN
 int
-CSGRotation_setRotateAxisZ(CSGRotation_t * csgr, double rotateAxisZ);
+CSGRotation_setRotateZ(CSGRotation_t * csgr, double rotateZ);
 
 
 /**
@@ -742,7 +742,7 @@ CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRa
 
 
 /**
- * Unsets the value of the "rotateAxisX" attribute of the given 
+ * Unsets the value of the "rotateX" attribute of the given 
  *CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
@@ -759,11 +759,11 @@ CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRa
  */
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisX(CSGRotation_t * csgr);
+CSGRotation_unsetRotateX(CSGRotation_t * csgr);
 
 
 /**
- * Unsets the value of the "rotateAxisY" attribute of the given 
+ * Unsets the value of the "rotateY" attribute of the given 
  *CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
@@ -780,11 +780,11 @@ CSGRotation_unsetRotateAxisX(CSGRotation_t * csgr);
  */
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisY(CSGRotation_t * csgr);
+CSGRotation_unsetRotateY(CSGRotation_t * csgr);
 
 
 /**
- * Unsets the value of the "rotateAxisZ" attribute of the given 
+ * Unsets the value of the "rotateZ" attribute of the given 
  *CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
@@ -801,7 +801,7 @@ CSGRotation_unsetRotateAxisY(CSGRotation_t * csgr);
  */
 LIBSBML_EXTERN
 int
-CSGRotation_unsetRotateAxisZ(CSGRotation_t * csgr);
+CSGRotation_unsetRotateZ(CSGRotation_t * csgr);
 
 
 /**

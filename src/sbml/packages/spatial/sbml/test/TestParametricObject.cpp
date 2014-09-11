@@ -93,7 +93,7 @@ START_TEST (test_ParametricObject_create)
 {
   fail_unless(G->isSetId() == false);
   fail_unless(G->isSetPolygonType() == false);
-  fail_unless(G->isSetDomain() == false);
+  fail_unless(G->isSetDomainType() == false);
   fail_unless(G->isSetPolygonObject() == false);
 }
 END_TEST
@@ -120,9 +120,9 @@ START_TEST (test_ParametricObject_polygonType)
 {
   fail_unless(G->isSetPolygonType() == false);
 
-  fail_unless(G->setPolygonType("i1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(G->setPolygonType("triangle") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetPolygonType() == true);
-  fail_unless(G->getPolygonType() == "i1");
+  fail_unless(G->getPolygonType() == SPATIAL_POLYGONKIND_TRIANGLE);
 
   fail_unless(G->unsetPolygonType() == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetPolygonType() == false);
@@ -132,14 +132,14 @@ END_TEST
 
 START_TEST (test_ParametricObject_domain)
 {
-  fail_unless(G->isSetDomain() == false);
+  fail_unless(G->isSetDomainType() == false);
 
-  fail_unless(G->setDomain("i1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(G->isSetDomain() == true);
-  fail_unless(G->getDomain() == "i1");
+  fail_unless(G->setDomainType("i1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(G->isSetDomainType() == true);
+  fail_unless(G->getDomainType() == "i1");
 
-  fail_unless(G->unsetDomain() == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(G->isSetDomain() == false);
+  fail_unless(G->unsetDomainType() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(G->isSetDomainType() == false);
 }
 END_TEST
 
@@ -162,7 +162,7 @@ END_TEST
 START_TEST (test_ParametricObject_output)
 {
   const char *expected = 
-    "<parametricObject id=\"i\" polygonType=\"pp\" domain=\"p\">\n"
+    "<parametricObject id=\"i\" polygonType=\"triangle\" domainType=\"p\">\n"
     "  <polygonObject pointIndexLength=\"3\">1 2 3 </polygonObject>\n"
     "</parametricObject>";
 
@@ -171,8 +171,8 @@ START_TEST (test_ParametricObject_output)
   obj->setPointIndex(points, 3);
 
   G->setId("i");
-  G->setPolygonType("pp");
-  G->setDomain("p");
+  G->setPolygonType("triangle");
+  G->setDomainType("p");
   G->setPolygonObject(obj);
 
   S = G->toSBML();

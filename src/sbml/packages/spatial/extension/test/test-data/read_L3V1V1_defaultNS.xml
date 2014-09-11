@@ -12,11 +12,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="ATPc_dc" value="1" constant="true">
-        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:type="anisotropic">
-          <spatial:listOfCoordinateReferences>
-            <spatial:coordinateReference spatial:coordinate="cartesianX"/>
-          </spatial:listOfCoordinateReferences>
-        </spatial:diffusionCoefficient>
+        <spatial:diffusionCoefficient spatial:variable="ATPc" spatial:coordinateReference1="cartesianX"/>
       </parameter>
       <parameter id="ATPc_ac" value="1.5" constant="true">
         <spatial:advectionCoefficient spatial:variable="ATPc" spatial:coordinate="cartesianX"/>
@@ -27,39 +23,40 @@
       <parameter id="x" value="8" constant="true">
         <spatial:spatialSymbolReference spatial:spatialRef="coordComp1"/>
       </parameter>
+	  <parameter id="x2" value="8" constant="true" />
     </listOfParameters>
     <listOfReactions>
       <reaction id="rxn1" reversible="false" fast="false" compartment="cytosol" spatial:isLocal="true"/>
     </listOfReactions>
-    <geometry coordinateSystem="cartesian" xmlns="http://www.sbml.org/sbml/level3/version1/spatial/version1">
-      <listOfCoordinateComponents>
-        <coordinateComponent id="coordComp1" type="cartesianX" unit="umeter">
-          <boundaryMin id="Xmin" value="0"/>
-          <boundaryMax id="Xmax" value="10"/>
-        </coordinateComponent>
-      </listOfCoordinateComponents>
-      <listOfDomainTypes>
-        <domainType id="dtype1" spatialDimension="3"/>
-      </listOfDomainTypes>
-      <listOfDomains>
-        <domain id="domain1" domainType="dtype1">
-          <listOfInteriorPoints>
-            <interiorPoint coord1="1"/>
-          </listOfInteriorPoints>
-        </domain>
-        <domain id="domain2" domainType="dtype1">
-          <listOfInteriorPoints>
-            <interiorPoint coord1="5"/>
-          </listOfInteriorPoints>
-        </domain>
-      </listOfDomains>
-      <listOfAdjacentDomains>
-        <adjacentDomains id="adjDomain1" domain1="domain1" domain2="domain2"/>
-      </listOfAdjacentDomains>
-      <listOfGeometryDefinitions>
-        <analyticGeometry id="analyticGeom1">
-          <listOfAnalyticVolumes>
-            <analyticVolume id="analyticVol1" functionType="layered" ordinal="1" domainType="dtype1">
+    <spatial:geometry spatial:coordinateSystem="cartesian">
+      <spatial:listOfCoordinateComponents>
+        <spatial:coordinateComponent spatial:id="coordComp1" spatial:type="cartesianX" spatial:unit="umeter">
+          <spatial:boundaryMin spatial:id="Xmin" spatial:value="0"/>
+          <spatial:boundaryMax spatial:id="Xmax" spatial:value="10"/>
+        </spatial:coordinateComponent>
+      </spatial:listOfCoordinateComponents>
+      <spatial:listOfDomainTypes>
+        <spatial:domainType spatial:id="dtype1" spatial:spatialDimensions="3"/>
+      </spatial:listOfDomainTypes>
+      <spatial:listOfDomains>
+        <spatial:domain spatial:id="domain1" spatial:domainType="dtype1">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="1"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+        <spatial:domain spatial:id="domain2" spatial:domainType="dtype1">
+          <spatial:listOfInteriorPoints>
+            <spatial:interiorPoint spatial:coord1="5"/>
+          </spatial:listOfInteriorPoints>
+        </spatial:domain>
+      </spatial:listOfDomains>
+      <spatial:listOfAdjacentDomains>
+        <spatial:adjacentDomains spatial:id="adjDomain1" spatial:domain1="domain1" spatial:domain2="domain2"/>
+      </spatial:listOfAdjacentDomains>
+      <spatial:listOfGeometryDefinitions>
+        <spatial:analyticGeometry spatial:id="analyticGeom1">
+          <spatial:listOfAnalyticVolumes>
+            <spatial:analyticVolume spatial:id="analyticVol1" spatial:functionType="layered" spatial:ordinal="1" spatial:domainType="dtype1">
               <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <apply>
                   <plus/>
@@ -74,18 +71,18 @@
                   </apply>
                 </apply>
               </math>
-            </analyticVolume>
-          </listOfAnalyticVolumes>
-        </analyticGeometry>
-        <sampledFieldGeometry id="sampledFieldGeom1">
-          <listOfSampledVolumes>
-            <sampledVolume id="sv_1" domainType="dtype1" sampledValue="128" minValue="0" maxValue="255"/>
-          </listOfSampledVolumes>
-          <sampledField id="sampledField1" dataType="double" numSamples1="4" numSamples2="4" numSamples3="2" interpolationType="linear" encoding="encoding1">
-            <imageData samplesLength="32">0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </imageData>
-          </sampledField>
-        </sampledFieldGeometry>
-      </listOfGeometryDefinitions>
-    </geometry>
+            </spatial:analyticVolume>
+          </spatial:listOfAnalyticVolumes>
+        </spatial:analyticGeometry>
+        <spatial:sampledFieldGeometry spatial:id="sampledFieldGeom1" spatial:sampledField="sampledField1">
+          <spatial:listOfSampledVolumes>
+            <spatial:sampledVolume spatial:id="sv_1" spatial:domainType="dtype1" spatial:sampledValue="128" spatial:minValue="0" spatial:maxValue="255"/>
+          </spatial:listOfSampledVolumes>
+        </spatial:sampledFieldGeometry>
+      </spatial:listOfGeometryDefinitions>
+      <spatial:listOfSampledFields>
+        <spatial:sampledField spatial:id="sampledField1" spatial:dataType="uint8" spatial:numSamples1="4" spatial:numSamples2="4" spatial:numSamples3="2" spatial:interpolationType="linear" spatial:compression="uncompressed" spatial:samplesLength="32">0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 </spatial:sampledField>
+      </spatial:listOfSampledFields>
+    </spatial:geometry>
   </model>
 </sbml>

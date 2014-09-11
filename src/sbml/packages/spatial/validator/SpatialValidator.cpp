@@ -148,7 +148,6 @@ struct SpatialValidatorConstraints
   ConstraintSet<CoordinateComponent>      mCoordinateComponent;
   ConstraintSet<SampledFieldGeometry>      mSampledFieldGeometry;
   ConstraintSet<SampledField>      mSampledField;
-  ConstraintSet<ImageData>      mImageData;
   ConstraintSet<SampledVolume>      mSampledVolume;
   ConstraintSet<AnalyticGeometry>      mAnalyticGeometry;
   ConstraintSet<AnalyticVolume>      mAnalyticVolume;
@@ -174,6 +173,8 @@ struct SpatialValidatorConstraints
   ConstraintSet<BoundaryCondition>      mBoundaryCondition;
   ConstraintSet<Geometry>      mGeometry;
   ConstraintSet<CoordinateReference>      mCoordinateReference;
+  ConstraintSet<MixedGeometry>      mMixedGeometry;
+  ConstraintSet<OrdinalMapping>      mOrdinalMapping;
   map<VConstraint*,bool> ptrMap;
 
   ~SpatialValidatorConstraints ();
@@ -280,12 +281,6 @@ SpatialValidatorConstraints::add (VConstraint* c)
   if (dynamic_cast< TConstraint<SampledField>* >(c) != NULL)
   {
     mSampledField.add( static_cast< TConstraint<SampledField>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<ImageData>* >(c) != NULL)
-  {
-    mImageData.add( static_cast< TConstraint<ImageData>* >(c) );
     return;
   }
 
@@ -439,6 +434,18 @@ SpatialValidatorConstraints::add (VConstraint* c)
     return;
   }
 
+  if (dynamic_cast< TConstraint<MixedGeometry>* >(c) != NULL)
+  {
+    mMixedGeometry.add( static_cast< TConstraint<MixedGeometry>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<OrdinalMapping>* >(c) != NULL)
+  {
+    mOrdinalMapping.add( static_cast< TConstraint<OrdinalMapping>* >(c) );
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -521,12 +528,6 @@ public:
   {
     v.mSpatialConstraints->mSampledField.applyTo(m, x);
     return !v.mSpatialConstraints->mSampledField.empty();
-  }
-
-  bool visit (const ImageData &x)
-  {
-    v.mSpatialConstraints->mImageData.applyTo(m, x);
-    return !v.mSpatialConstraints->mImageData.empty();
   }
 
   bool visit (const SampledVolume &x)
@@ -679,6 +680,18 @@ public:
     return !v.mSpatialConstraints->mCoordinateReference.empty();
   }
 
+  bool visit (const MixedGeometry &x)
+  {
+    v.mSpatialConstraints->mMixedGeometry.applyTo(m, x);
+    return !v.mSpatialConstraints->mMixedGeometry.empty();
+  }
+
+  bool visit (const OrdinalMapping &x)
+  {
+    v.mSpatialConstraints->mOrdinalMapping.applyTo(m, x);
+    return !v.mSpatialConstraints->mOrdinalMapping.empty();
+  }
+
   virtual bool visit(const SBase &x)
   {
     if (&x == NULL || x.getPackageName() != "spatial")
@@ -735,10 +748,6 @@ public:
       else if (code == SBML_SPATIAL_SAMPLEDFIELD)
       {
         return visit((const SampledField&)x);
-      }
-      else if (code == SBML_SPATIAL_IMAGEDATA)
-      {
-        return visit((const ImageData&)x);
       }
       else if (code == SBML_SPATIAL_SAMPLEDVOLUME)
       {
@@ -839,6 +848,14 @@ public:
       else if (code == SBML_SPATIAL_COORDINATEREFERENCE)
       {
         return visit((const CoordinateReference&)x);
+      }
+      else if (code == SBML_SPATIAL_MIXEDGEOMETRY)
+      {
+        return visit((const MixedGeometry&)x);
+      }
+      else if (code == SBML_SPATIAL_ORDINALMAPPING)
+      {
+        return visit((const OrdinalMapping&)x);
       }
       else 
       {
