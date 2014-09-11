@@ -1101,7 +1101,7 @@ int
 GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive)
 {
   if (gd != NULL)
-    return (isActive == NULL) ? gd->setIsActive("") : gd->setIsActive(isActive);
+    return gd->setIsActive(isActive);
   else
     return LIBSBML_INVALID_OBJECT;
 }
