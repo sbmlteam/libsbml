@@ -2588,6 +2588,20 @@ START_TEST (test_ReadSBML_line_col_numbers)
 }
 END_TEST
 
+START_TEST (test_ReadSBML_no_sbml )
+{
+  const char* invalid1 = wrapXML
+  (
+  "<html/>"
+  );
+  
+  D = readSBMLFromString(invalid1);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( M == NULL );
+  fail_unless( D->getErrorLog()->contains(NotSchemaConformant) );
+}
+END_TEST
 
 START_TEST (test_ReadSBML_invalid_default_namespace )
 {
@@ -2803,6 +2817,7 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_annotation_sbml_L2 );
   
   tcase_add_test( tcase, test_ReadSBML_line_col_numbers );
+  tcase_add_test( tcase, test_ReadSBML_no_sbml );
 
   tcase_add_test( tcase, test_ReadSBML_invalid_default_namespace );
   
