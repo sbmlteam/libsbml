@@ -658,6 +658,36 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
 
   unsigned int numErrs;
 
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfParametricObjects - which will have
+   * happened immediately prior to this read
+  */
+
+  if (getErrorLog() != NULL &&
+      static_cast<ListOfParametricObjects*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+              getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                   getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
+
   SBase::readAttributes(attributes, expectedAttributes);
 
   // look to see whether an unknown attribute error was logged
@@ -786,6 +816,288 @@ ParametricObject::writeAttributes (XMLOutputStream& stream) const
   if (isSetDomainType() == true)
     stream.writeAttribute("domainType", getPrefix(), mDomainType);
 
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+/*
+ * Constructor 
+ */
+ListOfParametricObjects::ListOfParametricObjects(unsigned int level, 
+                          unsigned int version, 
+                          unsigned int pkgVersion)
+ : ListOf(level, version)
+{
+  setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion)); 
+}
+
+
+/*
+ * Constructor 
+ */
+ListOfParametricObjects::ListOfParametricObjects(SpatialPkgNamespaces* spatialns)
+  : ListOf(spatialns)
+{
+  setElementNamespace(spatialns->getURI());
+}
+
+
+/*
+ * Returns a deep copy of this ListOfParametricObjects 
+ */
+ListOfParametricObjects* 
+ListOfParametricObjects::clone () const
+ {
+  return new ListOfParametricObjects(*this);
+}
+
+
+/*
+ * Get a ParametricObject from the ListOfParametricObjects by index.
+*/
+ParametricObject*
+ListOfParametricObjects::get(unsigned int n)
+{
+  return static_cast<ParametricObject*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a ParametricObject from the ListOfParametricObjects by index.
+ */
+const ParametricObject*
+ListOfParametricObjects::get(unsigned int n) const
+{
+  return static_cast<const ParametricObject*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a ParametricObject from the ListOfParametricObjects by id.
+ */
+ParametricObject*
+ListOfParametricObjects::get(const std::string& sid)
+{
+	return const_cast<ParametricObject*>(
+    static_cast<const ListOfParametricObjects&>(*this).get(sid));
+}
+
+
+/*
+ * Get a ParametricObject from the ListOfParametricObjects by id.
+ */
+const ParametricObject*
+ListOfParametricObjects::get(const std::string& sid) const
+{
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEq<ParametricObject>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <ParametricObject*> (*result);
+}
+
+
+/**
+ * Adds a copy the given "ParametricObject" to this ListOfParametricObjects.
+ *
+ * @param po; the ParametricObject object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ListOfParametricObjects::addParametricObject(const ParametricObject* po)
+{
+  if (po == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (po->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != po->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != po->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(po)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+	append(po);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+ * Get the number of ParametricObject objects in this ListOfParametricObjects.
+ *
+ * @return the number of ParametricObject objects in this ListOfParametricObjects
+ */
+unsigned int 
+ListOfParametricObjects::getNumParametricObjects() const
+{
+	return size();
+}
+
+/**
+ * Creates a new ParametricObject object, adds it to this ListOfParametricObjects
+ * ParametricObject and returns the ParametricObject object created. 
+ *
+ * @return a new ParametricObject object instance
+ *
+ * @see addParametricObject(const ParametricObject* po)
+ */
+ParametricObject* 
+ListOfParametricObjects::createParametricObject()
+{
+  ParametricObject* po = NULL;
+
+  try
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    po = new ParametricObject(spatialns);
+    delete spatialns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(po != NULL)
+  {
+    appendAndOwn(po);
+  }
+
+  return po;
+}
+
+/*
+ * Removes the nth ParametricObject from this ListOfParametricObjects
+ */
+ParametricObject*
+ListOfParametricObjects::remove(unsigned int n)
+{
+  return static_cast<ParametricObject*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the ParametricObject from this ListOfParametricObjects with the given identifier
+ */
+ParametricObject*
+ListOfParametricObjects::remove(const std::string& sid)
+{
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEq<ParametricObject>(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+	return static_cast <ParametricObject*> (item);
+}
+
+
+/*
+ * Returns the XML element name of this object
+ */
+const std::string&
+ListOfParametricObjects::getElementName () const
+{
+  static const string name = "listOfParametricObjects";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+ListOfParametricObjects::getTypeCode () const
+{
+  return SBML_LIST_OF;
+}
+
+
+/*
+ * Returns the libSBML type code for the objects in this LIST_OF.
+ */
+int
+ListOfParametricObjects::getItemTypeCode () const
+{
+  return SBML_SPATIAL_PARAMETRICOBJECT;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new ParametricObject in this ListOfParametricObjects
+ */
+SBase*
+ListOfParametricObjects::createObject(XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
+
+  if (name == "parametricObject")
+  {
+    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
+    object = new ParametricObject(spatialns);
+    appendAndOwn(object);
+    delete spatialns;
+  }
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write the namespace for the Spatial package.
+ */
+void
+ListOfParametricObjects::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(SpatialExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(SpatialExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
+
+  stream << xmlns;
 }
 
 
@@ -981,6 +1293,34 @@ int
 ParametricObject_hasRequiredElements(const ParametricObject_t * po)
 {
 	return (po != NULL) ? static_cast<int>(po->hasRequiredElements()) : 0;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+ParametricObject_t *
+ListOfParametricObjects_getById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfParametricObjects *>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+ParametricObject_t *
+ListOfParametricObjects_removeById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfParametricObjects *>(lo)->remove(sid) : NULL;
 }
 
 

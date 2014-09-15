@@ -541,6 +541,265 @@ protected:
 
 };
 
+class LIBSBML_EXTERN ListOfParametricObjects : public ListOf
+{
+
+public:
+
+  /**
+   * Creates a new ListOfParametricObjects with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfParametricObjects
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfParametricObjects
+   *
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this ListOfParametricObjects
+   */
+  ListOfParametricObjects(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                          unsigned int version    = SpatialExtension::getDefaultVersion(),
+                          unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new ListOfParametricObjects with the given SpatialPkgNamespaces object.
+   *
+   * @param spatialns the SpatialPkgNamespaces object
+   */
+  ListOfParametricObjects(SpatialPkgNamespaces* spatialns);
+
+
+   /**
+   * Creates and returns a deep copy of this ListOfParametricObjects object.
+   *
+   * @return a (deep) copy of this ListOfParametricObjects object.
+   */
+  virtual ListOfParametricObjects* clone () const;
+
+
+   /**
+   * Get a ParametricObject from the ListOfParametricObjects.
+   *
+   * @param n the index number of the ParametricObject to get.
+   *
+   * @return the nth ParametricObject in this ListOfParametricObjects.
+   *
+   * @see size()
+   */
+	virtual ParametricObject* get(unsigned int n);
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects.
+   *
+   * @param n the index number of the ParametricObject to get.
+   *
+   * @return the nth ParametricObject in this ListOfParametricObjects.
+   *
+   * @see size()
+   */
+	virtual const ParametricObject* get(unsigned int n) const;
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the ParametricObject to get.
+   *
+   * @return ParametricObject in this ListOfParametricObjects
+   * with the given id or NULL if no such
+   * ParametricObject exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+	virtual ParametricObject* get(const std::string& sid);
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the ParametricObject to get.
+   *
+   * @return ParametricObject in this ListOfParametricObjects
+   * with the given id or NULL if no such
+   * ParametricObject exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const ParametricObject* get(const std::string& sid) const;
+
+
+	/**
+	 * Adds a copy the given "ParametricObject" to this ListOfParametricObjects.
+	 *
+	 * @param po; the ParametricObject object to add
+	 *
+	 * @return integer value indicating success/failure of the
+	 * function.  @if clike The value is drawn from the
+	 * enumeration #OperationReturnValues_t. @endif The possible values
+	 * returned by this function are:
+	 * @li LIBSEDML_OPERATION_SUCCESS
+	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+	 */
+	int addParametricObject(const ParametricObject* po);
+
+
+	/**
+	 * Get the number of ParametricObject objects in this ListOfParametricObjects.
+	 *
+	 * @return the number of ParametricObject objects in this ListOfParametricObjects
+	 */
+	unsigned int getNumParametricObjects() const;
+
+
+	/**
+	 * Creates a new ParametricObject object, adds it to the
+	 * ListOfParametricObjects and returns the ParametricObject object created. 
+	 *
+	 * @return a new ParametricObject object instance
+	 *
+	 * @see addParametricObject(const ParametricObject* po)
+	 */
+	ParametricObject* createParametricObject();
+
+
+  /**
+   * Removes the nth ParametricObject from this ListOfParametricObjects
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the ParametricObject to remove.
+   *
+   * @see size()
+   */
+	virtual ParametricObject* remove(unsigned int n);
+
+
+  /**
+   * Removes the ParametricObject from this ListOfParametricObjects with the given identifier
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the ParametricObject to remove.
+   *
+   * @return the ParametricObject removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	virtual ParametricObject* remove(const std::string& sid);
+
+
+  /**
+   * Returns the XML element name of this object, which for ListOfParametricObjects, is
+   * always @c "listOfParametricObjects".
+   *
+   * @return the name of this element, i.e. @c "listOfParametricObjects".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getItemTypeCode () const;
+
+
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Creates a new ParametricObject in this ListOfParametricObjects
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write the namespace for the Spatial package.
+   */
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+
+};
+
 
 
 LIBSBML_CPP_NAMESPACE_END
@@ -900,6 +1159,16 @@ ParametricObject_hasRequiredAttributes(const ParametricObject_t * po);
 LIBSBML_EXTERN
 int
 ParametricObject_hasRequiredElements(const ParametricObject_t * po);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ListOfParametricObjects_getById(ListOf_t * lo, const char * sid);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ListOfParametricObjects_removeById(ListOf_t * lo, const char * sid);
 
 
 

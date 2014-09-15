@@ -65,7 +65,7 @@ class LIBSBML_EXTERN ParametricGeometry : public GeometryDefinition
 protected:
 
   ListOfSpatialPoints   mSpatialPoints;
-  ParametricObject*      mParametricObject;
+  ListOfParametricObjects   mParametricObjects;
 
 
 public:
@@ -124,68 +124,6 @@ public:
 
 
    /**
-   * Returns the "parametricObject" element of this ParametricGeometry.
-   *
-   * @return the "parametricObject" element of this ParametricGeometry.
-   */
-  virtual const ParametricObject* getParametricObject() const;
-
-
-  /**
-   * Returns the "parametricObject" element of this ParametricGeometry.
-   *
-   * @return the "parametricObject" element of this ParametricGeometry.
-   */
-  virtual ParametricObject* getParametricObject();
-
-
-  /**
-   * Creates a new "ParametricObject" and sets it for this ParametricGeometry.
-   *
-   * @return the created "ParametricObject" element of this ParametricGeometry.
-   */
-  virtual ParametricObject* createParametricObject();
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * ParametricGeometry's "parametricObject" element has been set.
-   *
-   * @return @c true if this ParametricGeometry's "parametricObject" element has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetParametricObject() const;
-
-
-  /**
-   * Sets the "parametricObject" element of this ParametricGeometry.
-   *
-   * @param parametricObject; ParametricObject* to be set.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   */
-  virtual int setParametricObject(ParametricObject* parametricObject);
-
-
-  /**
-   * Unsets the "parametricObject" element of this ParametricGeometry.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  virtual int unsetParametricObject();
-
-
-  /**
    * Returns the  "ListOfSpatialPoints" in this ParametricGeometry object.
    *
    * @return the "ListOfSpatialPoints" attribute of this ParametricGeometry.
@@ -322,6 +260,145 @@ public:
    * returned item.
    */
 	SpatialPoint* removeSpatialPoint(const std::string& sid);
+
+
+  /**
+   * Returns the  "ListOfParametricObjects" in this ParametricGeometry object.
+   *
+   * @return the "ListOfParametricObjects" attribute of this ParametricGeometry.
+   */
+  const ListOfParametricObjects* getListOfParametricObjects() const;
+
+
+  /**
+   * Returns the  "ListOfParametricObjects" in this ParametricGeometry object.
+   *
+   * @return the "ListOfParametricObjects" attribute of this ParametricGeometry.
+   */
+  ListOfParametricObjects* getListOfParametricObjects();
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects.
+   *
+   * @param n the index number of the ParametricObject to get.
+   *
+   * @return the nth ParametricObject in the ListOfParametricObjects within this ParametricGeometry.
+   *
+   * @see getNumParametricObjects()
+   */
+	ParametricObject* getParametricObject(unsigned int n);
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects.
+   *
+   * @param n the index number of the ParametricObject to get.
+   *
+   * @return the nth ParametricObject in the ListOfParametricObjects within this ParametricGeometry.
+   *
+   * @see getNumParametricObjects()
+   */
+	const ParametricObject* getParametricObject(unsigned int n) const;
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the ParametricObject to get.
+   *
+   * @return the ParametricObject in the ListOfParametricObjects
+   * with the given id or NULL if no such
+   * ParametricObject exists.
+   *
+   * @see getParametricObject(unsigned int n)
+   *
+   * @see getNumParametricObjects()
+   */
+	ParametricObject* getParametricObject(const std::string& sid);
+
+
+  /**
+   * Get a ParametricObject from the ListOfParametricObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the ParametricObject to get.
+   *
+   * @return the ParametricObject in the ListOfParametricObjects
+   * with the given id or NULL if no such
+   * ParametricObject exists.
+   *
+   * @see getParametricObject(unsigned int n)
+   *
+   * @see getNumParametricObjects()
+   */
+	const ParametricObject* getParametricObject(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "ParametricObject" to this ParametricGeometry.
+   *
+   * @param po; the ParametricObject object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addParametricObject(const ParametricObject* po);
+
+
+  /**
+   * Get the number of ParametricObject objects in this ParametricGeometry.
+   *
+   * @return the number of ParametricObject objects in this ParametricGeometry
+   */
+  unsigned int getNumParametricObjects() const;
+
+
+  /**
+   * Creates a new ParametricObject object, adds it to this ParametricGeometrys
+   * ListOfParametricObjects and returns the ParametricObject object created. 
+   *
+   * @return a new ParametricObject object instance
+   *
+   * @see addParametricObject(const ParametricObject* po)
+   */
+  ParametricObject* createParametricObject();
+
+
+  /**
+   * Removes the nth ParametricObject from the ListOfParametricObjects within this ParametricGeometry.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the ParametricObject to remove.
+   *
+   * @see getNumParametricObjects()
+   */
+	ParametricObject* removeParametricObject(unsigned int n);
+
+
+  /**
+   * Removes the ParametricObject with the given identifier from the ListOfParametricObjects within this ParametricGeometry
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the ParametricObject to remove.
+   *
+   * @return the ParametricObject removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+	ParametricObject* removeParametricObject(const std::string& sid);
 
 
   /**
@@ -569,37 +646,6 @@ ParametricGeometry_clone(ParametricGeometry_t * pg);
 
 
 LIBSBML_EXTERN
-ParametricObject_t*
-ParametricGeometry_getParametricObject(ParametricGeometry_t * pg);
-
-
-LIBSBML_EXTERN
-ParametricObject_t*
-ParametricGeometry_createParametricObject(ParametricGeometry_t * pg);
-
-
-/**
- * Predicate returning @c 1 if the given ParametricGeometry_t structure's "parametricObject"
- * is set.
- *
- * @param pg the ParametricGeometry_t structure.
- *
- * @return @c 1 if the "parametricObject" of this ParametricGeometry_t structure is
- * set, @c 0 otherwise.
- *
- * @member of ParametricGeometry_t
- */
-LIBSBML_EXTERN
-int
-ParametricGeometry_isSetParametricObject(const ParametricGeometry_t * pg);
-
-
-LIBSBML_EXTERN
-int
-ParametricGeometry_setParametricObject(ParametricGeometry_t * pg, ParametricObject_t* parametricObject);
-
-
-LIBSBML_EXTERN
 int
 ParametricGeometry_addSpatialPoint(ParametricGeometry_t * pg, SpatialPoint_t * sp);
 
@@ -637,6 +683,46 @@ ParametricGeometry_removeSpatialPoint(ParametricGeometry_t * pg, unsigned int n)
 LIBSBML_EXTERN
 SpatialPoint_t *
 ParametricGeometry_removeSpatialPointById(ParametricGeometry_t * pg, const char * sid);
+
+
+LIBSBML_EXTERN
+int
+ParametricGeometry_addParametricObject(ParametricGeometry_t * pg, ParametricObject_t * po);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricGeometry_createParametricObject(ParametricGeometry_t * pg);
+
+
+LIBSBML_EXTERN
+ListOf_t *
+ParametricGeometry_getListOfParametricObjects(ParametricGeometry_t * pg) ;
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricGeometry_getParametricObject(ParametricGeometry_t * pg, unsigned int n);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricGeometry_getParametricObjectById(ParametricGeometry_t * pg, const char * sid);
+
+
+LIBSBML_EXTERN
+unsigned int
+ParametricGeometry_getNumParametricObjects(ParametricGeometry_t * pg);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricGeometry_removeParametricObject(ParametricGeometry_t * pg, unsigned int n);
+
+
+LIBSBML_EXTERN
+ParametricObject_t *
+ParametricGeometry_removeParametricObjectById(ParametricGeometry_t * pg, const char * sid);
 
 
 /**
