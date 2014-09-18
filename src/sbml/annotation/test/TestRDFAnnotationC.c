@@ -67,6 +67,8 @@ RDFAnnotation_C_setup (void)
   // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = SBMLDocument_getModel(d);
+
+  free(filename);
 }
 
 
@@ -329,8 +331,11 @@ create_suite_RDFAnnotation_C (void)
   tcase_add_test(tcase, test_RDFAnnotation_C_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_C_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_C_parseCVTerms );
-  tcase_add_test(tcase, test_RDFAnnotation_C_delete );
   tcase_add_test(tcase, test_RDFAnnotation_C_accessWithNULL    );
+
+  // // memory leaks unresolved
+  tcase_add_test(tcase, test_RDFAnnotation_C_delete );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -147,6 +147,8 @@ START_TEST (test_Validation_ModelHistory1)
   fail_unless (mh->hasRequiredAttributes());
   
   delete mh;
+  delete mc;
+  delete date;
 }
 END_TEST
 
@@ -176,6 +178,8 @@ START_TEST (test_Validation_ModelHistory2)
   fail_unless (!(mh->hasRequiredAttributes()));
   
   delete mh;
+  delete mc;
+  delete date;
 }
 END_TEST
 
@@ -204,6 +208,8 @@ START_TEST (test_Validation_ModelHistory3)
   fail_unless (!(mh->hasRequiredAttributes()));
   
   delete mh;
+  delete mc;
+  delete date;
 }
 END_TEST
 

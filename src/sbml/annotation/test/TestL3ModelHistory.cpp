@@ -69,6 +69,8 @@ L3ModelHistory_setup (void)
   d = readSBML(filename);
   m = d->getModel();
   c = m->getCompartment(0);
+
+  delete filename;
 }
 
 
@@ -255,6 +257,7 @@ START_TEST (test_L3ModelHistory_delete)
   fail_unless( equals(expected, n1->toXMLString().c_str()) );
 
   delete node;
+  delete n1;
 }
 END_TEST
 
@@ -418,9 +421,11 @@ START_TEST (test_L3ModelHistory_recreateWithOutOther)
     "  </annotation>\n"
     "</compartment>";
 
+  char * sbml = c->toSBML();
 
-  fail_unless( equals(expected, c->toSBML()) );
+  fail_unless( equals(expected, sbml) );
 
+  delete sbml;
 }
 END_TEST
 
@@ -657,18 +662,22 @@ create_suite_L3ModelHistory (void)
                             L3ModelHistory_setup,
                             L3ModelHistory_teardown);
 
+  // libxml leaks these but expat does not
   tcase_add_test(tcase, test_L3ModelHistory_getModelHistory );
   tcase_add_test(tcase, test_L3ModelHistory_parseModelHistory );
-  tcase_add_test(tcase, test_L3ModelHistory_delete );
-  tcase_add_test(tcase, test_L3ModelHistory_deleteWithOther );
-//  tcase_add_test(tcase, test_L3ModelHistory_recreate );
-//  tcase_add_test(tcase, test_L3ModelHistory_recreateFromEmpty );
   tcase_add_test(tcase, test_L3ModelHistory_deleteWithOutOther );
   tcase_add_test(tcase, test_L3ModelHistory_recreateWithOutOther );
   tcase_add_test(tcase, test_L3ModelHistory_getModelHistory_Model );
   tcase_add_test(tcase, test_L3ModelHistory_parseModelHistory_Model );
+
+  // // memory leaks unresolved
+  // leaks XMLNodes removeChild
+  tcase_add_test(tcase, test_L3ModelHistory_delete );
+  tcase_add_test(tcase, test_L3ModelHistory_deleteWithOther );
   tcase_add_test(tcase, test_L3ModelHistory_delete_Model );
-//  tcase_add_test(tcase, test_L3ModelHistory_recreateFromEmpty_Model );
+
+  
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

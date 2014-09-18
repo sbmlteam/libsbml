@@ -69,6 +69,8 @@ RDFAnnotation_setup (void)
   // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = d->getModel();
+
+  free(filename);
 }
 
 
@@ -519,11 +521,12 @@ START_TEST (test_RDFAnnotation_testAnnotationForMetaId)
   
   // unset metaid ... now we have potentially dangling RDF
   model->setMetaId("");
-  std::string test = model->toSBML();
+  char * test = model->toSBML();
 
   // this should be the test
-  fail_unless(test == "<model id=\"test1\"/>");   
+  fail_unless(!strcmp(test, "<model id=\"test1\"/>"));
 
+  free(test);
 }
 END_TEST
 
@@ -633,10 +636,12 @@ START_TEST (test_RDFAnnotation_testMissingMetaId)
   
   // unset metaid ... now we have potentially dangling RDF
   model->setMetaId("");
-  std::string test = model->toSBML();
+  char * test = model->toSBML();
 
   // this should be the test
-  fail_unless(test == "<model id=\"test1\"/>");   
+  fail_unless(!strcmp(test, "<model id=\"test1\"/>"));  
+
+  free(test);
 
 }
 END_TEST
@@ -2060,16 +2065,9 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_invalid_user_annotation );
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseModelHistory );
-  tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
-  tcase_add_test(tcase, test_RDFAnnotation_delete );
-  tcase_add_test(tcase, test_RDFAnnotation_deleteWithOther );
-//  tcase_add_test(tcase, test_RDFAnnotation_recreate );
-//  tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOtherRDF );
-//  tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
-  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testAnnotationForMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_testHasRDFAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_testHasAdditionalRDFAnnotation );
@@ -2078,13 +2076,21 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testCreateAnnotations );
-  tcase_add_test(tcase, test_RDFAnnotation_deleteCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotation_removeAnnotation );
+  
+  // // memory leaks unresolved
+  tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
+  tcase_add_test(tcase, test_RDFAnnotation_delete );
+  tcase_add_test(tcase, test_RDFAnnotation_deleteWithOther );
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
+  tcase_add_test(tcase, test_RDFAnnotation_deleteCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation2 );
+
+
   suite_add_tcase(suite, tcase);
 
   return suite;

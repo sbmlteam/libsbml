@@ -525,6 +525,11 @@ public:
    */
   QualifierType_t getQualifierType();
 
+  /** @cond doxygenLibsbmlInternal */
+
+  QualifierType_t getQualifierType() const;
+
+  /** @endcond */
 
   /**
    * Returns the model qualifier type of this CVTerm object.
@@ -566,6 +571,12 @@ public:
    */
   ModelQualifierType_t getModelQualifierType();
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  ModelQualifierType_t getModelQualifierType() const;
+
+  /** @endcond */
 
   /**
    * Returns the biological qualifier type of this CVTerm object.
@@ -616,6 +627,12 @@ public:
    */
   BiolQualifierType_t getBiologicalQualifierType();
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  BiolQualifierType_t getBiologicalQualifierType() const;
+
+  /** @endcond */
 
   /**
    * Returns the resource references for this CVTerm object.
@@ -687,6 +704,27 @@ public:
    */
   unsigned int getNumResources(); 
 
+
+  /**
+   * Returns the number of resources for this CVTerm object.
+   * 
+   * @copydetails doc_cvterm_common_description
+   *
+   * The fragment above illustrates that there can be more than one
+   * resource referenced by a given relationship annotation (i.e., the
+   * <span class="code" style="background-color: #d0d0ee">resource
+   * URI</span> values associated with a particular <span class="code"
+   * style="background-color: #bbb">RELATION_ELEMENT</span>).  The present
+   * method returns a count of the resources stored in this CVTerm object.
+   *
+   * @return the number of resources in the set of XMLAttributes
+   * of this CVTerm.
+   *
+   * @see getResources()
+   * @see getResourceURI(unsigned int n)
+   */
+  unsigned int getNumResources() const;
+
   
   /**
    * Returns the value of the <em>n</em>th resource for this CVTerm object.
@@ -713,6 +751,32 @@ public:
    */
   std::string getResourceURI(unsigned int n); 
 
+  
+  /**
+   * Returns the value of the <em>n</em>th resource for this CVTerm object.
+   *
+   * @copydetails doc_cvterm_common_description
+   *
+   * The fragment above illustrates that there can be more than one
+   * resource referenced by a given relationship annotation (i.e., the
+   * <span class="code" style="background-color: #d0d0ee">resource
+   * URI</span> values associated with a particular <span class="code"
+   * style="background-color: #bbb">RELATION_ELEMENT</span>).  LibSBML
+   * stores all resource URIs in a single CVTerm object for a given
+   * relationship.  Callers can use getNumResources() to find out how many
+   * resources are stored in this CVTerm object, then call this method to
+   * retrieve the <em>n</em>th resource URI.
+   * 
+   * @param n the index of the resource to query
+   *
+   * @return string representing the value of the nth resource
+   * in the set of XMLAttributes of this CVTerm.
+   *
+   * @see getNumResources()
+   * @see getQualifierType()
+   */
+  std::string getResourceURI(unsigned int n) const; 
+  
   
   /**
    * Sets the @if clike #QualifierType_t@else qualifier code@endif@~ of this
@@ -923,6 +987,7 @@ public:
 
   void resetModifiedFlags();
    
+  bool hasRequiredAttributes() const;
   
   /** @endcond */
 

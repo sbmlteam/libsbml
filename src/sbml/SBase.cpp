@@ -1473,7 +1473,9 @@ SBase::appendAnnotation (const XMLNode* annotation)
     }
     else
     {
-      success = setAnnotation(mAnnotation->clone());
+      XMLNode *copy = mAnnotation->clone();
+      success = setAnnotation(copy);
+      delete copy;
     }
 
 
@@ -1652,8 +1654,9 @@ SBase::replaceTopLevelAnnotationElement(const std::string& annotation)
   if(annt_xmln != NULL)
   {
     success = replaceTopLevelAnnotationElement(annt_xmln);
-    delete annt_xmln;
   }
+
+  delete annt_xmln;
 
   return success;
 }

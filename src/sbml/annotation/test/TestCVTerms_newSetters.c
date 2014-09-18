@@ -137,8 +137,15 @@ START_TEST (test_CVTerm_addResource)
   xa = CVTerm_getResources(term);
 
   fail_unless(XMLAttributes_getLength(xa) == 1);
-  fail_unless(!strcmp(XMLAttributes_getName(xa, 0), "rdf:resource"));
-  fail_unless(!strcmp(XMLAttributes_getValue(xa, 0), "GO6666"));
+  
+  char * name = XMLAttributes_getName(xa, 0);
+  char * value = XMLAttributes_getValue(xa, 0);
+  
+  fail_unless(!strcmp(name, "rdf:resource"));
+  fail_unless(!strcmp(value, "GO6666"));
+
+  free(name);
+  free(value);
 
   CVTerm_free(term);
 }

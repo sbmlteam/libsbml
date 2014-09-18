@@ -118,7 +118,6 @@ START_TEST (test_CVTerm_createFromNode)
   XMLNode_addChild(bag, li);
   XMLNode_addChild(node, bag);
 
-
   CVTerm_t *term = CVTerm_createFromNode(node);
 
   fail_unless(term != NULL);
@@ -128,8 +127,15 @@ START_TEST (test_CVTerm_createFromNode)
   xa = CVTerm_getResources(term);
 
   fail_unless(XMLAttributes_getLength(xa) == 1);
-  fail_unless(!strcmp(XMLAttributes_getName(xa, 0), "rdf:resource"));
-  fail_unless(!strcmp(XMLAttributes_getValue(xa, 0), "This is my resource"));
+  
+  char * name = XMLAttributes_getName(xa, 0);
+  char * value = XMLAttributes_getValue(xa, 0);
+  
+  fail_unless(!strcmp(name, "rdf:resource"));
+  fail_unless(!strcmp(value, "This is my resource"));
+
+  free(name);
+  free(value);
 
   XMLTriple_free(qual_triple);
   XMLTriple_free(bag_triple);
@@ -143,8 +149,6 @@ START_TEST (test_CVTerm_createFromNode)
   XMLNode_free(node);
   XMLNode_free(bag);
   XMLNode_free(li);
-  
-
 }
 END_TEST
 
@@ -162,13 +166,17 @@ START_TEST (test_CVTerm_addResource)
   xa = CVTerm_getResources(term);
 
   fail_unless(XMLAttributes_getLength(xa) == 1);
-  fail_unless(!strcmp(XMLAttributes_getName(xa, 0), "rdf:resource"));
-  fail_unless(!strcmp(XMLAttributes_getValue(xa, 0), "GO6666"));
 
+  char * name = XMLAttributes_getName(xa, 0);
+  char * value = XMLAttributes_getValue(xa, 0);
+  
+  fail_unless(!strcmp(name, "rdf:resource"));
+  fail_unless(!strcmp(value, "GO6666"));
 
+  free(name);
+  free(value);
   
   CVTerm_free(term);
-
 }
 END_TEST
 
@@ -186,13 +194,17 @@ START_TEST (test_CVTerm_getResources)
   number = CVTerm_getNumResources(term);
 
   fail_unless(number == 2);
-  fail_unless(!strcmp(CVTerm_getResourceURI(term, 0), "GO6666"));
-  fail_unless(!strcmp(CVTerm_getResourceURI(term, 1), "OtherURI"));
 
+  char * res1 = CVTerm_getResourceURI(term, 0);
+  char * res2 = CVTerm_getResourceURI(term, 1);
 
+  fail_unless(!strcmp(res1, "GO6666"));
+  fail_unless(!strcmp(res2, "OtherURI"));
+
+  free(res1);
+  free(res2);
   
   CVTerm_free(term);
-
 }
 END_TEST
 
@@ -221,13 +233,11 @@ START_TEST (test_CVTerm_accessWithNULL)
 	
   fail_unless (ModelQualifierType_fromString(NULL) == BQM_UNKNOWN);
 	fail_unless (BiolQualifierType_fromString(NULL) == BQB_UNKNOWN);
-
 }
 END_TEST
 
 START_TEST (test_CVTerm_get_biol_qualifiers)
 {
-  
   fail_unless (BiolQualifierType_fromString("is") == BQB_IS);
   fail_unless (BiolQualifierType_fromString("hasPart") == BQB_HAS_PART);
   fail_unless (BiolQualifierType_fromString("isPartOf") == BQB_IS_PART_OF);
@@ -256,7 +266,6 @@ START_TEST (test_CVTerm_get_biol_qualifiers)
   fail_unless (strcmp(BiolQualifierType_toString(BQB_HAS_PROPERTY), "hasProperty") == 0);
   fail_unless (strcmp(BiolQualifierType_toString(BQB_IS_PROPERTY_OF), "isPropertyOf") == 0);
   fail_unless (BiolQualifierType_toString(BQB_UNKNOWN) ==  NULL); 
-
 }
 END_TEST
 

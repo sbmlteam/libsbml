@@ -69,6 +69,8 @@ RDFAnnotationMetaid_setup (void)
   // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = d->getModel();
+
+  free(filename);
 }
 
 
@@ -263,6 +265,7 @@ create_suite_RDFAnnotationMetaid (void)
                             RDFAnnotationMetaid_setup,
                             RDFAnnotationMetaid_teardown);
 
+  // // memory leaks unresolved
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation2 );
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation3 );

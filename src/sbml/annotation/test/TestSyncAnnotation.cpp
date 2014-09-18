@@ -69,6 +69,8 @@ SyncAnnotation_setup (void)
   // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = d->getModel();
+
+  free(filename);
 }
 
 
@@ -141,8 +143,11 @@ START_TEST (test_SyncAnnotation_noChanges_1)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
 
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -342,7 +347,11 @@ START_TEST (test_SyncAnnotation_modifyHistory_1)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -453,7 +462,11 @@ START_TEST (test_SyncAnnotation_modifyHistory_4)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -497,7 +510,11 @@ START_TEST (test_SyncAnnotation_modifyHistory_5)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -525,7 +542,11 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_1)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -638,7 +659,11 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_4)
     "</compartment>";
 
 
-    fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -667,7 +692,11 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_5)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -715,7 +744,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_1)
     "</compartment>";
 
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
   c->unsetModelHistory();
   c->addCVTerm(cv);
@@ -735,7 +768,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_1)
     "</compartment>";
 
 
-  fail_unless( equals(expected1, c->toSBML()) );
+  sbml = c->toSBML();
+
+  fail_unless( equals(expected1, sbml) );
+
+  free(sbml);
 
   c->setModelHistory(mh);
   c->unsetCVTerms();
@@ -777,7 +814,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_1)
     "</compartment>";
 
 
-  fail_unless( equals(expected2, c->toSBML()) );
+  sbml = c->toSBML();
+
+  fail_unless( equals(expected2, sbml) );
+
+  free(sbml);
 
 }
 END_TEST
@@ -810,8 +851,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_2)
     "</compartment>";
 
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
 
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -862,8 +906,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_3)
     "</compartment>";
 
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
 
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -895,7 +942,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_4)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 
   c->setModelHistory(mh);
   c->addCVTerm(cv);
@@ -941,7 +992,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_4)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected1, c->toSBML()) );
+  sbml = c->toSBML();
+
+  fail_unless( equals(expected1, sbml) );
+
+  free(sbml);
 
   c->unsetModelHistory();
   c->unsetCVTerms();
@@ -972,7 +1027,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_4)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected2, c->toSBML()) );
+  sbml = c->toSBML();
+
+  fail_unless( equals(expected2, sbml) );
+
+  free(sbml);
 
   c->unsetModelHistory();
   c->unsetCVTerms();
@@ -1024,7 +1083,11 @@ START_TEST (test_SyncAnnotation_modifyBoth_4)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected3, c->toSBML()) );
+  sbml = c->toSBML();
+
+  fail_unless( equals(expected3, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1107,7 +1170,11 @@ START_TEST (test_SyncAnnotation_stringHistoryWhenNotValid)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1188,7 +1255,11 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1269,7 +1340,11 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid1)
     "  </annotation>\n"
     "</model>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1310,7 +1385,11 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid2)
     "  </annotation>\n"
     "</compartment>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1391,7 +1470,11 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid3)
     "  </annotation>\n"
     "</model>";
 
-  fail_unless( equals(expected, c->toSBML()) );
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
 }
 END_TEST
 
@@ -1408,6 +1491,9 @@ create_suite_SyncAnnotation (void)
 
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_1 );
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_2 );
+ 
+  // // memory leaks unresolved
+
   tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly );
   tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly_1 );
   tcase_add_test(tcase, test_SyncAnnotation_deleteCVTerms );

@@ -287,6 +287,13 @@ CVTerm::getQualifierType()
 }
 
 
+QualifierType_t 
+CVTerm::getQualifierType() const
+{
+  return mQualifier;
+}
+
+
 /*
  * gets the Model Qualifier type
  */
@@ -297,11 +304,25 @@ CVTerm::getModelQualifierType()
 }
 
 
+ModelQualifierType_t 
+CVTerm::getModelQualifierType() const
+{
+  return mModelQualifier;
+}
+
+
 /*
  * gets the biological Qualifier type
  */
 BiolQualifierType_t 
 CVTerm::getBiologicalQualifierType()
+{
+  return mBiolQualifier;
+}
+
+
+BiolQualifierType_t 
+CVTerm::getBiologicalQualifierType() const
 {
   return mBiolQualifier;
 }
@@ -336,11 +357,28 @@ CVTerm::getNumResources()
 }
 
   
+unsigned int 
+CVTerm::getNumResources() const
+{
+  return mResources->getLength();
+}
+
+  
 /*
  * Returns the value of the nth resource for this %CVTerm.
  */
 std::string
 CVTerm::getResourceURI(unsigned int n)
+{
+  return mResources->getValue(n);
+}
+
+  
+/*
+ * Returns the value of the nth resource for this %CVTerm.
+ */
+std::string
+CVTerm::getResourceURI(unsigned int n) const
 {
   return mResources->getValue(n);
 }
@@ -400,6 +438,41 @@ CVTerm::removeResource(std::string resource)
 /** @cond doxygenLibsbmlInternal */
 bool 
 CVTerm::hasRequiredAttributes()
+{
+  bool valid = true;
+
+  if (getQualifierType() == UNKNOWN_QUALIFIER)
+  {
+    valid = false;
+  }
+  else if (getQualifierType() == MODEL_QUALIFIER)
+  {
+    if (getModelQualifierType() == BQM_UNKNOWN)
+    {
+      valid = false;
+    }
+  }
+  else
+  {
+    if (getBiologicalQualifierType() == BQB_UNKNOWN)
+    {
+      valid = false;
+    }
+  }
+
+  if (valid)
+  {
+    if (getResources()->isEmpty())
+    {
+      valid = false;
+    }
+  }
+
+  return valid;
+}
+
+bool 
+CVTerm::hasRequiredAttributes() const
 {
   bool valid = true;
 
