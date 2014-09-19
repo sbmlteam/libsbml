@@ -950,6 +950,7 @@ CompSBMLDocumentPlugin::checkConsistency()
     converter->setDocument(&dummyDoc);
     
     int result = converter->convert();
+    delete converter;
 
     if (result == LIBSBML_OPERATION_SUCCESS)
     {

@@ -93,13 +93,15 @@ START_TEST (test_comp_replacedBy_submodelRef)
   
   ReplacedBy_setSubmodelRef(P, submodelRef);
 
-  fail_unless( !strcmp(ReplacedBy_getSubmodelRef(P), submodelRef) );
+  char* getchar = ReplacedBy_getSubmodelRef(P);
+  fail_unless( !strcmp(getchar, submodelRef) );
   fail_unless( ReplacedBy_isSetSubmodelRef(P) );
 
-  if (ReplacedBy_getSubmodelRef(P) == submodelRef)
+  if (getchar == submodelRef)
   {
     fail("ReplacedBy_setSubmodelRef(...) submodelRef not make a copy of string.");
   }
+  free(getchar);
  
   ReplacedBy_unsetSubmodelRef(P);
   

@@ -59,6 +59,16 @@ SBMLResolverRegistry::addResolver (const SBMLResolver* resolver)
 }
 
 int
+SBMLResolverRegistry::addOwnedSBMLDocument(const SBMLDocument* doc)
+{
+  if (doc == NULL) return LIBSBML_INVALID_OBJECT;
+
+  mOwnedDocuments.insert(doc);
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+int
 SBMLResolverRegistry::removeResolver(int index)
 {
   if (index < 0 || index >= getNumResolvers())
@@ -114,6 +124,13 @@ SBMLResolverRegistry::~SBMLResolverRegistry()
     }
   }
   mResolvers.clear();
+
+  while(mOwnedDocuments.size())
+  {
+    const SBMLDocument* doc = *(mOwnedDocuments.begin());
+    delete doc;
+    mOwnedDocuments.erase(doc);
+  }
 }
 
 SBMLDocument*

@@ -4778,7 +4778,7 @@ Model::getSubstanceUD()
       Unit* uFromModel = getUnitDefinition("substance")->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -4823,7 +4823,7 @@ Model::getL3SubstanceUD()
       Unit* uFromModel = getUnitDefinition(substanceUnits)->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -4881,7 +4881,7 @@ Model::getTimeUD()
       Unit* uFromModel = getUnitDefinition("time")->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -4926,7 +4926,7 @@ Model::getL3TimeUD()
       Unit* uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -4984,7 +4984,7 @@ Model::getVolumeUD()
       Unit* uFromModel = getUnitDefinition("volume")->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -5029,7 +5029,7 @@ Model::getL3VolumeUD()
       Unit* uFromModel = getUnitDefinition(volumeUnits)->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -5087,7 +5087,7 @@ Model::getAreaUD()
       Unit* uFromModel = getUnitDefinition("area")->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -5133,7 +5133,7 @@ Model::getL3AreaUD()
       Unit* uFromModel = getUnitDefinition(areaUnits)->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -5191,7 +5191,7 @@ Model::getLengthUD()
       Unit* uFromModel = getUnitDefinition("length")->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }
@@ -5236,7 +5236,7 @@ Model::getL3LengthUD()
       Unit* uFromModel = getUnitDefinition(lengthUnits)->getUnit(n);
       if (uFromModel  != NULL)
       {
-        ud->addUnit(uFromModel->clone());
+        ud->addUnit(uFromModel);
       }
     }
   }

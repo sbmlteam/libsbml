@@ -90,10 +90,11 @@ START_TEST (test_comp_modelDefinition_id)
   
   Model_setId(P, id);
 
-  fail_unless( !strcmp(Model_getId(P), id) );
+  const char* getchar = Model_getId(P);
+  fail_unless( !strcmp(getchar, id) );
   fail_unless( Model_isSetId(P) );
 
-  if (Model_getId(P) == id)
+  if (getchar == id)
   {
     fail("Model_setId(...) did not make a copy of string.");
   }
@@ -119,10 +120,11 @@ START_TEST (test_comp_modelDefinition_name)
 
   Model_setName(P, name);
 
-  fail_unless( !strcmp(Model_getName(P), name) );
+  const char* getchar = Model_getName(P);
+  fail_unless( !strcmp(getchar, name) );
   fail_unless( Model_isSetName(P) );
 
-  if (Model_getName(P) == name)
+  if (getchar == name)
   {
     fail("Model_setName(...) did not make a copy of string.");
   }

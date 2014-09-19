@@ -123,13 +123,14 @@ ExtModelReferenceCycles::addAllReferences(const SBMLDocument* doc,
     mDocumentsHandled.append(location);
 
 
-    const SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
+    SBMLResolverRegistry& registry = SBMLResolverRegistry::getInstance();
 
     for (unsigned int i = 0; i < docPlug->getNumExternalModelDefinitions(); i++)
     {
       string uri = docPlug->getExternalModelDefinition(i)->getSource();
 
       SBMLDocument* newDoc = registry.resolve(uri, locationURI);
+      registry.addOwnedSBMLDocument(newDoc);
 
       addAllReferences(newDoc, uri);
     }
@@ -279,9 +280,9 @@ ExtModelReferenceCycles::logCycle (const Model& m, std::string id,
   //const CompSBMLDocumentPlugin* docPlug = (CompSBMLDocumentPlugin*)
   //  (m.getSBMLDocument()->getPlugin("comp"));
   COMP_CREATE_NS(compns, m.getSBMLNamespaces());
-  ExternalModelDefinition *extMD = new ExternalModelDefinition(compns);
+  ExternalModelDefinition extMD(compns);
   delete compns;
-  logFailure(*(extMD));
+  logFailure(extMD);
 }  
 
 

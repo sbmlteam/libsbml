@@ -65,11 +65,11 @@ START_TEST (test_comp_rwports)
   port->setIdRef("p1");
   port->setSBOTerm(10);
 
-  string original = writeSBMLToString(&orig);
+  string original = writeSBMLToStdString(&orig);
 
   // Now round-trip that model.
   SBMLDocument* doc = readSBMLFromString(original.c_str());
-  string rtmodel = writeSBMLToString(doc);
+  string rtmodel = writeSBMLToStdString(doc);
 
   fail_unless(original == rtmodel);
   delete doc;

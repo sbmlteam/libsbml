@@ -101,13 +101,15 @@ START_TEST (test_comp_sBaseRef_idRef)
   
   SBaseRef_setIdRef(P, idRef);
 
-  fail_unless( !strcmp(SBaseRef_getIdRef(P), idRef) );
+  char* getchar = SBaseRef_getIdRef(P);
+  fail_unless( !strcmp(getchar, idRef) );
   fail_unless( SBaseRef_isSetIdRef(P) );
 
-  if (SBaseRef_getIdRef(P) == idRef)
+  if (getchar == idRef)
   {
     fail("SBaseRef_setIdRef(...) did not make a copy of string.");
   }
+  free(getchar);
  
   SBaseRef_unsetIdRef(P);
   
@@ -130,13 +132,15 @@ START_TEST (test_comp_sBaseRef_unitRef)
 
   SBaseRef_setUnitRef(P, unitRef);
 
-  fail_unless( !strcmp(SBaseRef_getUnitRef(P), unitRef) );
+  char* getchar = SBaseRef_getUnitRef(P);
+  fail_unless( !strcmp(getchar, unitRef) );
   fail_unless( SBaseRef_isSetUnitRef(P) );
 
-  if (SBaseRef_getUnitRef(P) == unitRef)
+  if (getchar == unitRef)
   {
     fail("SBaseRef_setUnitRef(...) did not make a copy of string.");
   }
+  free(getchar);
 
   SBaseRef_unsetUnitRef(P);
   
@@ -159,13 +163,15 @@ START_TEST (test_comp_sBaseRef_metaIdRef)
 
   SBaseRef_setMetaIdRef(P, metaIdRef);
 
-  fail_unless( !strcmp(SBaseRef_getMetaIdRef(P), metaIdRef) );
+  char* getchar = SBaseRef_getMetaIdRef(P);
+  fail_unless( !strcmp(getchar, metaIdRef) );
   fail_unless( SBaseRef_isSetMetaIdRef(P) );
 
-  if (SBaseRef_getMetaIdRef(P) == metaIdRef)
+  if (getchar == metaIdRef)
   {
     fail("SBaseRef_setMetaIdRef(...) did not make a copy of string.");
   }
+  free(getchar);
 
   SBaseRef_unsetMetaIdRef(P);
   
@@ -188,13 +194,15 @@ START_TEST (test_comp_sBaseRef_portRef)
 
   SBaseRef_setPortRef(P, portRef);
 
-  fail_unless( !strcmp(SBaseRef_getPortRef(P), portRef) );
+  char* getchar = SBaseRef_getPortRef(P);
+  fail_unless( !strcmp(getchar, portRef) );
   fail_unless( SBaseRef_isSetPortRef(P) );
 
-  if (SBaseRef_getPortRef(P) == portRef)
+  if (getchar == portRef)
   {
     fail("SBaseRef_setPortRef(...) did not make a copy of string.");
   }
+  free(getchar);
 
   SBaseRef_unsetPortRef(P);
   
@@ -216,12 +224,13 @@ START_TEST (test_comp_sBaseRef_sBaseRef)
 
   SBaseRef_setSBaseRef(P, sBaseRef);
 
-  fail_unless( SBaseRef_getSBaseRef(P) != NULL);
+  SBaseRef_t* getsbr = SBaseRef_getSBaseRef(P);
+  fail_unless( getsbr != NULL);
   fail_unless( SBaseRef_isSetSBaseRef(P) );
 
-  if (SBaseRef_getSBaseRef(P) == sBaseRef)
+  if (getsbr == sBaseRef)
   {
-    fail("SBaseRef_setSBaseRef(...) did not make a copy of string.");
+    fail("SBaseRef_setSBaseRef(...) did not make a copy of the SBaseRef_t.");
   }
 
   SBaseRef_unsetSBaseRef(P);
@@ -230,7 +239,7 @@ START_TEST (test_comp_sBaseRef_sBaseRef)
 
   if (SBaseRef_getSBaseRef(P) != NULL)
   {
-    fail("SBaseRef_unsetSBaseRef(P) did not clear string.");
+    fail("SBaseRef_unsetSBaseRef(P) did not clear the SBaseRef_t.");
   }
 
   SBaseRef_free(sBaseRef);

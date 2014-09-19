@@ -107,13 +107,15 @@ START_TEST (test_comp_submodel_id)
   
   Submodel_setId(P, id);
 
-  fail_unless( !strcmp(Submodel_getId(P), id) );
+  char* getchar = Submodel_getId(P);
+  fail_unless( !strcmp(getchar, id) );
   fail_unless( Submodel_isSetId(P) );
 
-  if (Submodel_getId(P) == id)
+  if (getchar == id)
   {
     fail("Submodel_setId(...) did not make a copy of string.");
   }
+  free(getchar);
  
   Submodel_unsetId(P);
   
@@ -136,13 +138,15 @@ START_TEST (test_comp_submodel_name)
 
   Submodel_setName(P, name);
 
-  fail_unless( !strcmp(Submodel_getName(P), name) );
+  char* getchar = Submodel_getName(P);
+  fail_unless( !strcmp(getchar, name) );
   fail_unless( Submodel_isSetName(P) );
 
-  if (Submodel_getName(P) == name)
+  if (getchar == name)
   {
     fail("Submodel_setName(...) did not make a copy of string.");
   }
+  free(getchar);
 
   Submodel_unsetName(P);
   
@@ -165,13 +169,15 @@ START_TEST (test_comp_submodel_modelRef)
 
   Submodel_setModelRef(P, modelRef);
 
-  fail_unless( !strcmp(Submodel_getModelRef(P), modelRef) );
+  char* getchar = Submodel_getModelRef(P);
+  fail_unless( !strcmp(getchar, modelRef) );
   fail_unless( Submodel_isSetModelRef(P) );
 
-  if (Submodel_getModelRef(P) == modelRef)
+  if (getchar == modelRef)
   {
     fail("Submodel_setModelRef(...) did not make a copy of string.");
   }
+  free(getchar);
 
   Submodel_unsetModelRef(P);
   
@@ -211,13 +217,15 @@ START_TEST (test_comp_submodel_timeConversionFactor)
 
   Submodel_setTimeConversionFactor(P, timeConversionFactor);
 
-  fail_unless( !strcmp(Submodel_getTimeConversionFactor(P), timeConversionFactor) );
+  char* getchar = Submodel_getTimeConversionFactor(P);
+  fail_unless( !strcmp(getchar, timeConversionFactor) );
   fail_unless( Submodel_isSetTimeConversionFactor(P) );
 
-  if (Submodel_getTimeConversionFactor(P) == timeConversionFactor)
+  if (getchar == timeConversionFactor)
   {
     fail("Submodel_setTimeConversionFactor(...) did not make a copy of string.");
   }
+  free(getchar);
 
   Submodel_unsetTimeConversionFactor(P);
   
@@ -240,13 +248,15 @@ START_TEST (test_comp_submodel_extentConversionFactor)
 
   Submodel_setExtentConversionFactor(P, extentConversionFactor);
 
-  fail_unless( !strcmp(Submodel_getExtentConversionFactor(P), extentConversionFactor) );
+  char* getchar = Submodel_getExtentConversionFactor(P);
+  fail_unless( !strcmp(getchar, extentConversionFactor) );
   fail_unless( Submodel_isSetExtentConversionFactor(P) );
 
-  if (Submodel_getExtentConversionFactor(P) == extentConversionFactor)
+  if (getchar == extentConversionFactor)
   {
     fail("Submodel_setExtentConversionFactor(...) did not make a copy of string.");
   }
+  free(getchar);
 
   Submodel_unsetExtentConversionFactor(P);
   
@@ -271,13 +281,15 @@ START_TEST (test_comp_submodel_deletion)
 
   Submodel_addDeletion(P, deletion);
 
-  fail_unless( Submodel_getDeletion(P, 0) != NULL);
+  Deletion_t* getdel = Submodel_getDeletion(P, 0);
+  fail_unless( getdel != NULL);
   fail_unless( Submodel_getNumDeletions(P)==1 );
 
-  if (Submodel_getDeletion(P, 0) == deletion)
+  if (getdel == deletion)
   {
     fail("Submodel_addDeletion(...) did not make a copy of the deletion.");
   }
+  delete getdel;
 
   Submodel_removeDeletion(P, 0);
   
@@ -289,7 +301,8 @@ START_TEST (test_comp_submodel_deletion)
   Submodel_addDeletion(P, deletion);
   fail_unless( Submodel_getDeletionById(P, delname) != NULL);
 
-  Submodel_removeDeletionById(P, delname);
+  Deletion_t* remdel = Submodel_removeDeletionById(P, delname);
+  delete remdel;
   fail_unless( Submodel_getDeletionById(P, delname) == NULL);
   fail_unless( Submodel_getNumDeletions(P)==0 );
 

@@ -55,6 +55,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <set>
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -87,6 +88,23 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   int addResolver (const SBMLResolver* resolver);
+
+
+  /**
+   * Adds the given SBMLDocument* to the registry of SBML documents that will need to be deleted.
+   *
+   * When calculating reference cycles, sometimes we need SBML Documents to persist, but nobody
+   * else owns them directly.  We hand them to the registry here so they can be cleaned up
+   *
+   * @param doc the SBML Document to add to the registry.
+   *
+   * @return integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif@~ The possible values are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
+  int addOwnedSBMLDocument (const SBMLDocument* doc);
 
 
   /**
@@ -172,6 +190,7 @@ protected:
 protected:
   /** @cond doxygenLibsbmlInternal */
   std::vector<const SBMLResolver*>  mResolvers;
+  std::set<const SBMLDocument*>  mOwnedDocuments;
   /** @endcond */
 };
 

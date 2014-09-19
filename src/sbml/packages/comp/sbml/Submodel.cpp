@@ -576,7 +576,7 @@ Submodel::readAttributes (const XMLAttributes& attributes,
         const std::string details = 
           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
-        getErrorLog()->logPackageError("fbc", CompSubmodelAllowedAttributes,
+        getErrorLog()->logPackageError("comp", CompSubmodelAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -584,7 +584,7 @@ Submodel::readAttributes (const XMLAttributes& attributes,
         const std::string details = 
           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", CompSubmodelAllowedCoreAttributes,
+        getErrorLog()->logPackageError("comp", CompSubmodelAllowedCoreAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
     }

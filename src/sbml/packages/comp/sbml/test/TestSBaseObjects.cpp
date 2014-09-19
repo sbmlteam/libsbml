@@ -536,6 +536,7 @@ START_TEST (test_comp_submodel)
   fail_unless(delref->getIdRef()=="ID1");
   fail_unless(submod.removeDeletion(3)==NULL);
   fail_unless(submod.removeDeletion(0)==del);
+  delete del;
   fail_unless(submod.getDeletion("del1")==NULL);
 
 }

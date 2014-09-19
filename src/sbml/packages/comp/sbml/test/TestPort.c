@@ -95,13 +95,15 @@ START_TEST (test_comp_port_id)
   
   Port_setId(P, id);
 
-  fail_unless( !strcmp(Port_getId(P), id) );
+  char* getchar = Port_getId(P);
+  fail_unless( !strcmp(getchar, id) );
   fail_unless( Port_isSetId(P) );
 
-  if (Port_getId(P) == id)
+  if (getchar == id)
   {
     fail("Port_setId(...) did not make a copy of string.");
   }
+  free(getchar);
  
   Port_unsetId(P);
   
@@ -124,13 +126,15 @@ START_TEST (test_comp_port_name)
 
   Port_setName(P, name);
 
-  fail_unless( !strcmp(Port_getName(P), name) );
+  char* getchar = Port_getName(P);
+  fail_unless( !strcmp(getchar, name) );
   fail_unless( Port_isSetName(P) );
 
-  if (Port_getName(P) == name)
+  if (getchar == name)
   {
     fail("Port_setName(...) did not make a copy of string.");
   }
+  free(getchar);
 
   Port_unsetName(P);
   

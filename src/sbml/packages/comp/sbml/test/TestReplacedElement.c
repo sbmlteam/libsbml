@@ -97,13 +97,15 @@ START_TEST (test_comp_replacedElement_submodelRef)
   
   ReplacedElement_setSubmodelRef(P, submodelRef);
 
-  fail_unless( !strcmp(ReplacedElement_getSubmodelRef(P), submodelRef) );
+  char* getchar = ReplacedElement_getSubmodelRef(P);
+  fail_unless( !strcmp(getchar, submodelRef) );
   fail_unless( ReplacedElement_isSetSubmodelRef(P) );
 
-  if (ReplacedElement_getSubmodelRef(P) == submodelRef)
+  if (getchar == submodelRef)
   {
     fail("ReplacedElement_setSubmodelRef(...) did not make a copy of string.");
   }
+  free(getchar);
  
   ReplacedElement_unsetSubmodelRef(P);
   
@@ -126,13 +128,15 @@ START_TEST (test_comp_replacedElement_deletion)
 
   ReplacedElement_setDeletion(P, deletion);
 
-  fail_unless( !strcmp(ReplacedElement_getDeletion(P), deletion) );
+  char* getchar = ReplacedElement_getDeletion(P);
+  fail_unless( !strcmp(getchar, deletion) );
   fail_unless( ReplacedElement_isSetDeletion(P) );
 
-  if (ReplacedElement_getDeletion(P) == deletion)
+  if (getchar == deletion)
   {
     fail("ReplacedElement_setDeletion(...) did not make a copy of string.");
   }
+  free(getchar);
 
   ReplacedElement_unsetDeletion(P);
   
@@ -155,13 +159,15 @@ START_TEST (test_comp_replacedElement_conversionFactor)
 
   ReplacedElement_setConversionFactor(P, conversionFactor);
 
-  fail_unless( !strcmp(ReplacedElement_getConversionFactor(P), conversionFactor) );
+  char* getchar = ReplacedElement_getConversionFactor(P);
+  fail_unless( !strcmp(getchar, conversionFactor) );
   fail_unless( ReplacedElement_isSetConversionFactor(P) );
 
-  if (ReplacedElement_getConversionFactor(P) == conversionFactor)
+  if (getchar == conversionFactor)
   {
     fail("ReplacedElement_setConversionFactor(...) did not make a copy of string.");
   }
+  free(getchar);
 
   ReplacedElement_unsetConversionFactor(P);
   

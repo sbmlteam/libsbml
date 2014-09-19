@@ -99,13 +99,15 @@ START_TEST (test_comp_externalModelDefinition_id)
   
   ExternalModelDefinition_setId(P, id);
 
-  fail_unless( !strcmp(ExternalModelDefinition_getId(P), id) );
+  char* getid = ExternalModelDefinition_getId(P);
+  fail_unless( !strcmp(getid, id) );
   fail_unless( ExternalModelDefinition_isSetId(P) );
 
-  if (ExternalModelDefinition_getId(P) == id)
+  if (getid == id)
   {
     fail("ExternalModelDefinition_setId(...) did not make a copy of string.");
   }
+  free(getid);
  
   ExternalModelDefinition_unsetId(P);
   
@@ -128,13 +130,15 @@ START_TEST (test_comp_externalModelDefinition_name)
 
   ExternalModelDefinition_setName(P, name);
 
-  fail_unless( !strcmp(ExternalModelDefinition_getName(P), name) );
+  char* getname = ExternalModelDefinition_getName(P);
+  fail_unless( !strcmp(getname, name) );
   fail_unless( ExternalModelDefinition_isSetName(P) );
 
-  if (ExternalModelDefinition_getName(P) == name)
+  if (getname == name)
   {
     fail("ExternalModelDefinition_setName(...) did not make a copy of string.");
   }
+  free(getname);
 
   ExternalModelDefinition_unsetName(P);
   
@@ -157,13 +161,15 @@ START_TEST (test_comp_externalModelDefinition_modelRef)
 
   ExternalModelDefinition_setModelRef(P, modelRef);
 
-  fail_unless( !strcmp(ExternalModelDefinition_getModelRef(P), modelRef) );
+  char* getchar = ExternalModelDefinition_getModelRef(P);
+  fail_unless( !strcmp(getchar, modelRef) );
   fail_unless( ExternalModelDefinition_isSetModelRef(P) );
 
-  if (ExternalModelDefinition_getModelRef(P) == modelRef)
+  if (getchar == modelRef)
   {
     fail("ExternalModelDefinition_setModelRef(...) did not make a copy of string.");
   }
+  free(getchar);
 
   ExternalModelDefinition_unsetModelRef(P);
   
@@ -186,13 +192,15 @@ START_TEST (test_comp_externalModelDefinition_source)
 
   ExternalModelDefinition_setSource(P, source);
 
-  fail_unless( !strcmp(ExternalModelDefinition_getSource(P), source) );
+  char* getchar = ExternalModelDefinition_getSource(P);
+  fail_unless( !strcmp(getchar, source) );
   fail_unless( ExternalModelDefinition_isSetSource(P) );
 
-  if (ExternalModelDefinition_getSource(P) == source)
+  if (getchar == source)
   {
     fail("ExternalModelDefinition_setSource(...) did not make a copy of string.");
   }
+  free(getchar);
 
   ExternalModelDefinition_unsetSource(P);
   

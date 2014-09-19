@@ -170,11 +170,12 @@ public:
             string locationURI = doc->getLocationURI();
             string uri = emd->getSource();
 
-            const SBMLResolverRegistry& registry = 
+            SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
             doc = registry.resolve(uri, locationURI);
             if (doc != NULL)
             {
+              registry.addOwnedSBMLDocument(doc);
               if (emd->isSetModelRef() == false)
               {
                 referencedModel = doc->getModel();
@@ -288,7 +289,8 @@ public:
       int tc = sbRef.getParentSBMLObject()->getTypeCode();
       //const SBMLDocument * doc = sbRef.getSBMLDocument();
       
-      ReferencedModel *ref;
+      SBaseRef sbr(3,1,1);
+      ReferencedModel ref(m, sbr);
       std::string idRef;
       std::string metaIdRef;
       std::string modelId;
@@ -307,32 +309,32 @@ public:
         case SBML_COMP_REPLACEDELEMENT:
           repE = 
             static_cast<const ReplacedElement*>(sbRef.getParentSBMLObject());
-          ref = new ReferencedModel(m, *(repE));
-          parentRefModel = ref->getReferencedModel();
+          ref = ReferencedModel(m, *(repE));
+          parentRefModel = ref.getReferencedModel();
           idRef = repE->getIdRef();
           metaIdRef = repE->getMetaIdRef();
           break;
         case SBML_COMP_REPLACEDBY:
           repBy = 
             static_cast<const ReplacedBy*>(sbRef.getParentSBMLObject());
-          ref = new ReferencedModel(m, *(repBy));
-          parentRefModel = ref->getReferencedModel();
+          ref = ReferencedModel(m, *(repBy));
+          parentRefModel = ref.getReferencedModel();
           idRef = repBy->getIdRef();
           metaIdRef = repBy->getMetaIdRef();
           break;
         case SBML_COMP_PORT:
           port = 
             static_cast<const Port*>(sbRef.getParentSBMLObject());
-          ref = new ReferencedModel(m, *(port));
-          parentRefModel = ref->getReferencedModel();
+          ref = ReferencedModel(m, *(port));
+          parentRefModel = ref.getReferencedModel();
           idRef = port->getIdRef();
           metaIdRef = port->getMetaIdRef();
          break;
         case SBML_COMP_DELETION:
           del = 
             static_cast<const Deletion*>(sbRef.getParentSBMLObject());
-          ref = new ReferencedModel(m, *(del));
-          parentRefModel = ref->getReferencedModel();
+          ref = ReferencedModel(m, *(del));
+          parentRefModel = ref.getReferencedModel();
           idRef = del->getIdRef();
           metaIdRef = del->getMetaIdRef();
          break;
@@ -372,32 +374,32 @@ public:
             case SBML_COMP_REPLACEDELEMENT:
               repE = 
                 static_cast<const ReplacedElement*>(grandParent);
-              ref = new ReferencedModel(m, *(repE));
-              parentRefModel = ref->getReferencedModel();
+              ref = ReferencedModel(m, *(repE));
+              parentRefModel = ref.getReferencedModel();
               idRef = repE->getIdRef();
               metaIdRef = repE->getMetaIdRef();
               break;
             case SBML_COMP_REPLACEDBY:
               repBy = 
                 static_cast<const ReplacedBy*>(grandParent);
-              ref = new ReferencedModel(m, *(repBy));
-              parentRefModel = ref->getReferencedModel();
+              ref = ReferencedModel(m, *(repBy));
+              parentRefModel = ref.getReferencedModel();
               idRef = repBy->getIdRef();
               metaIdRef = repBy->getMetaIdRef();
               break;
             case SBML_COMP_PORT:
               port = 
                 static_cast<const Port*>(grandParent);
-              ref = new ReferencedModel(m, *(port));
-              parentRefModel = ref->getReferencedModel();
+              ref = ReferencedModel(m, *(port));
+              parentRefModel = ref.getReferencedModel();
               idRef = port->getIdRef();
               metaIdRef = port->getMetaIdRef();
              break;
             case SBML_COMP_DELETION:
               del = 
                 static_cast<const Deletion*>(grandParent);
-              ref = new ReferencedModel(m, *(del));
-              parentRefModel = ref->getReferencedModel();
+              ref = ReferencedModel(m, *(del));
+              parentRefModel = ref.getReferencedModel();
               idRef = del->getIdRef();
               metaIdRef = del->getMetaIdRef();
              break;
@@ -619,7 +621,11 @@ START_CONSTRAINT (CompModReferenceMustIdOfModel, ExternalModelDefinition, emd)
   //delete resolved;
   doc = registry.resolve(uri, locationURI);
   pre(doc != NULL);
-  pre(doc->getLevel() == 3);
+  if(doc->getLevel() != 3) {
+    delete doc;
+    pre(false);
+  }
+  //pre(doc->getLevel() == 3);
 
   const CompSBMLDocumentPlugin* csdp = 
     static_cast<const CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
@@ -677,7 +683,7 @@ START_CONSTRAINT (CompUnresolvedReference, ExternalModelDefinition, emd)
   {
     fail = true;
   }
-
+  delete resolved;
   inv(fail == false);
 }
 END_CONSTRAINT
@@ -929,8 +935,8 @@ START_CONSTRAINT (CompPortRefMustReferencePort, Deletion, d)
   msg += sub->getId();
   msg += "'.";
 
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -977,8 +983,8 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedElement, repE)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1025,8 +1031,8 @@ START_CONSTRAINT (CompPortRefMustReferencePort, ReplacedBy, repBy)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repBy);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repBy);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1109,8 +1115,8 @@ START_CONSTRAINT (CompPortRefMustReferencePort, SBaseRef, sbRef)
   }
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1235,8 +1241,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
   msg += sub->getId();
   msg += "'.";
 
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1366,8 +1372,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repBy);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repBy);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1473,8 +1479,8 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
   }
   
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1571,8 +1577,8 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, Deletion, d)
   msg += sub->getId();
   msg += "'.";
 
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1615,8 +1621,8 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedElement, repE)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1659,8 +1665,8 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, ReplacedBy, repBy)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repBy);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repBy);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1739,8 +1745,8 @@ START_CONSTRAINT (CompUnitRefMustReferenceUnitDef, SBaseRef, sbRef)
   }
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1797,8 +1803,8 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Port, p)
   MetaIdFilter filter;
 
   //  get a list of all elements with an id
-  ReferencedModel *ref = new ReferencedModel(m, p);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, p);
+  const Model* mod = ref.getReferencedModel();
 
   pre (mod != NULL);
   
@@ -1808,6 +1814,7 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Port, p)
   {
     mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
   }
+  delete allElements;
 
 
   if (mIds.contains(p.getMetaIdRef()) == false)
@@ -1862,8 +1869,8 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, Deletion, d)
   msg += sub->getId();
   msg += "'.";
 
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1933,8 +1940,8 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedElement, repE)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -1993,8 +2000,8 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, ReplacedBy, repBy)
   msg += "'.";
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, repBy);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, repBy);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -2100,8 +2107,8 @@ START_CONSTRAINT (CompMetaIdRefMustReferenceObject, SBaseRef, sbRef)
   }
 
   /* need to be using the correct model */
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* referencedModel = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
 
@@ -2169,8 +2176,8 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, Port, port)
     msg += "' which is not a submodel within the <model>.";
 
     /* need to be using the correct model */
-    ReferencedModel *ref = new ReferencedModel(m, port);
-    const Model* mod = ref->getReferencedModel();
+    ReferencedModel ref(m, port);
+    const Model* mod = ref.getReferencedModel();
 
     pre (mod != NULL);
 
@@ -2262,8 +2269,8 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, Deletion, del)
     msg += "'.";
 
     /* need to be using the correct model */
-    ReferencedModel *ref = new ReferencedModel(m, del);
-    const Model* referencedModel = ref->getReferencedModel();
+    ReferencedModel ref(m, del);
+    const Model* referencedModel = ref.getReferencedModel();
 
     pre (referencedModel != NULL);
 
@@ -2381,8 +2388,8 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedElement, repE)
     msg += "'.";
 
     /* need to be using the correct model */
-    ReferencedModel *ref = new ReferencedModel(m, repE);
-    const Model* referencedModel = ref->getReferencedModel();
+    ReferencedModel ref(m, repE);
+    const Model* referencedModel = ref.getReferencedModel();
 
     pre (referencedModel != NULL);
 
@@ -2500,8 +2507,8 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, ReplacedBy, repE)
     msg += "'.";
 
     /* need to be using the correct model */
-    ReferencedModel *ref = new ReferencedModel(m, repE);
-    const Model* referencedModel = ref->getReferencedModel();
+    ReferencedModel ref(m, repE);
+    const Model* referencedModel = ref.getReferencedModel();
 
     pre (referencedModel != NULL);
 
@@ -2617,8 +2624,8 @@ START_CONSTRAINT (CompParentOfSBRefChildMustBeSubmodel, SBaseRef, sbRef)
 
     /* need to be using the correct model */
     /* need to be using the correct model */
-    ReferencedModel *ref = new ReferencedModel(m, sbRef);
-    const Model* referencedModel = ref->getReferencedModel();
+    ReferencedModel ref(m, sbRef);
+    const Model* referencedModel = ref.getReferencedModel();
 
     pre (referencedModel != NULL);
 
@@ -3875,8 +3882,8 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Port, p)
   // create the filter we want to use
   IdFilter filter;
 
-  ReferencedModel *ref = new ReferencedModel(m, p);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, p);
+  const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
@@ -3927,8 +3934,8 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Deletion, d)
   // create the filter we want to use
   IdFilter filter;
 
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
@@ -3977,8 +3984,8 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, ReplacedElement, repE)
   // create the filter we want to use
   IdFilter filter;
 
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
@@ -4064,8 +4071,8 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, SBaseRef, sbRef)
   // create the filter we want to use
   IdFilter filter;
 
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
@@ -4113,8 +4120,8 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Port, p)
   MetaIdFilter filter;
 
   //  get a list of all elements with an id
-  ReferencedModel *ref = new ReferencedModel(m, p);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, p);
+  const Model* mod = ref.getReferencedModel();
 
   pre (mod != NULL);
   
@@ -4167,8 +4174,8 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Deletion, d)
   MetaIdFilter filter;
 
   //  get a list of all elements with an id
-  ReferencedModel *ref = new ReferencedModel(m, d);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, d);
+  const Model* mod = ref.getReferencedModel();
 
   pre (mod != NULL);
   
@@ -4218,8 +4225,8 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, ReplacedElement, repE)
   MetaIdFilter filter;
 
   //  get a list of all elements with an id
-  ReferencedModel *ref = new ReferencedModel(m, repE);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, repE);
+  const Model* mod = ref.getReferencedModel();
 
   pre (mod != NULL);
   
@@ -4305,8 +4312,8 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
   MetaIdFilter filter;
 
   //  get a list of all elements with an id
-  ReferencedModel *ref = new ReferencedModel(m, sbRef);
-  const Model* mod = ref->getReferencedModel();
+  ReferencedModel ref(m, sbRef);
+  const Model* mod = ref.getReferencedModel();
 
   pre (mod != NULL);
   

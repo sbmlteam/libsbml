@@ -63,7 +63,7 @@ START_TEST (test_comp_enable_comp)
   fail_unless(doc->isPackageEnabled("comp") == true);
   fail_unless(doc->getModel()->isPackageEnabled("comp") == true);
   fail_unless(doc->getModel()->getCompartment(0)->isPackageEnabled("comp") == true);
-
+  delete doc;
 }
 END_TEST
 
@@ -91,6 +91,7 @@ START_TEST (test_comp_model)
   fail_unless(submodref->getModelRef()=="ID1");
   fail_unless(mplugin->removeSubmodel(3)==NULL);
   fail_unless(mplugin->removeSubmodel(0)==submod);
+  delete submod;
   fail_unless(mplugin->getSubmodel("submod1")==NULL);
 
   fail_unless(mplugin->getNumPorts()==0);
@@ -111,6 +112,7 @@ START_TEST (test_comp_model)
   fail_unless(portref->getIdRef()=="ID1");
   fail_unless(mplugin->removePort(3)==NULL);
   fail_unless(mplugin->removePort(0)==port);
+  delete port;
   fail_unless(mplugin->getPort("port1")==NULL);
 }
 END_TEST
@@ -143,6 +145,7 @@ START_TEST (test_comp_sbase)
   fail_unless(reref->getDeletion()=="ID1");
   fail_unless(pplugin->removeReplacedElement(3)==NULL);
   fail_unless(pplugin->removeReplacedElement(0)==re);
+  delete re;
   fail_unless(pplugin->getReplacedElement(1)==NULL);
 
   fail_unless(pplugin->isSetReplacedBy()==false);
@@ -185,6 +188,7 @@ START_TEST (test_comp_sbmldocument)
   fail_unless(moddefref->getId()=="ID1");
   fail_unless(docplugin->removeModelDefinition(3)==NULL);
   fail_unless(docplugin->removeModelDefinition(0)==moddef);
+  delete moddef;
   fail_unless(docplugin->getModelDefinition("moddef1")==NULL);
 
   fail_unless(docplugin->getNumExternalModelDefinitions()==0);
@@ -205,6 +209,7 @@ START_TEST (test_comp_sbmldocument)
   fail_unless(exmoddefref->getModelRef()=="ID1");
   fail_unless(docplugin->removeExternalModelDefinition(3)==NULL);
   fail_unless(docplugin->removeExternalModelDefinition(0)==exmoddef);
+  delete exmoddef;
   fail_unless(docplugin->getExternalModelDefinition("exmoddef1")==NULL);
 
 }

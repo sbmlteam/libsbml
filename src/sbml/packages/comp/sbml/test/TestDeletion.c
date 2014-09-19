@@ -95,14 +95,16 @@ START_TEST (test_comp_deletion_id)
   
   Deletion_setId(P, id);
 
-  fail_unless( !strcmp(Deletion_getId(P), id) );
+  char* getid = Deletion_getId(P);
+  fail_unless( !strcmp(getid, id) );
   fail_unless( Deletion_isSetId(P) );
 
-  if (Deletion_getId(P) == id)
+  if (getid == id)
   {
     fail("Deletion_setId(...) did not make a copy of string.");
   }
  
+  free(getid);
   Deletion_unsetId(P);
   
   fail_unless( !Deletion_isSetId(P) );
@@ -124,19 +126,51 @@ START_TEST (test_comp_deletion_name)
 
   Deletion_setName(P, name);
 
-  fail_unless( !strcmp(Deletion_getName(P), name) );
+  char* getname = Deletion_getName(P);
+  fail_unless( !strcmp(getname, name) );
   fail_unless( Deletion_isSetName(P) );
 
-  if (Deletion_getName(P) == name)
+  if (getname == name)
   {
     fail("Deletion_setName(...) did not make a copy of string.");
   }
+  free(getname);
 
   Deletion_unsetName(P);
   
   fail_unless( !Deletion_isSetName(P) );
 
   if (Deletion_getName(P) != NULL)
+  {
+    fail("Deletion_unsetName(P) did not clear string.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_comp_deletion_metaid)
+{
+  const char *name = "delMetaId";
+
+
+  fail_unless( !SBase_isSetMetaId(P) );
+
+  SBase_setMetaId(P, name);
+
+  const char* getmetaid = SBase_getMetaId(P);
+  fail_unless( !strcmp(getmetaid, name) );
+  fail_unless( SBase_isSetMetaId(P) );
+
+  if (getmetaid == name)
+  {
+    fail("SBase_setMetaId(...) did not make a copy of string.");
+  }
+
+  SBase_unsetMetaId(P);
+  
+  fail_unless( !SBase_isSetMetaId(P) );
+
+  if (SBase_getMetaId(P) != NULL)
   {
     fail("Deletion_unsetName(P) did not clear string.");
   }
@@ -174,11 +208,12 @@ create_suite_TestComp_Deletion (void)
                              DeletionTest_setup,
                              DeletionTest_teardown );
 
-  tcase_add_test( tcase, test_comp_deletion_create              );
-  tcase_add_test( tcase, test_comp_deletion_free_NULL           );
-  tcase_add_test( tcase, test_comp_deletion_id               );
-  tcase_add_test( tcase, test_comp_deletion_name             );
-  tcase_add_test( tcase, test_comp_deletion_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_comp_deletion_create                );
+  tcase_add_test( tcase, test_comp_deletion_free_NULL             );
+  tcase_add_test( tcase, test_comp_deletion_id                    );
+  tcase_add_test( tcase, test_comp_deletion_metaid                );
+  tcase_add_test( tcase, test_comp_deletion_name                  );
+  tcase_add_test( tcase, test_comp_deletion_hasRequiredAttributes );
 
   suite_add_tcase(suite, tcase);
 
