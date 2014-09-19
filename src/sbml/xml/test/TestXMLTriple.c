@@ -42,27 +42,50 @@ CK_CPPSTART
 
 START_TEST (test_XMLTriple_create)
 {
+  const char * test;
   XMLTriple_t *t = XMLTriple_create();
   fail_unless(t != NULL);
   fail_unless(XMLTriple_isEmpty(t) != 0);
   XMLTriple_free(t);
 
   t = XMLTriple_createWith("attr", "uri", "prefix");
-  fail_unless( strcmp(XMLTriple_getName(t), "attr") == 0 );
-  fail_unless( strcmp(XMLTriple_getURI(t), "uri") == 0 );
-  fail_unless( strcmp(XMLTriple_getPrefix(t), "prefix") == 0 );
-  fail_unless( strcmp(XMLTriple_getPrefixedName(t), "prefix:attr") == 0 );
+
+  test = XMLTriple_getName(t);
+  fail_unless( strcmp(test, "attr") == 0 );
+
+  test = XMLTriple_getURI(t);
+  fail_unless( strcmp(test, "uri") == 0 );
+  
+  test = XMLTriple_getPrefix(t);
+  fail_unless( strcmp(test, "prefix") == 0 );
+
+  test = XMLTriple_getPrefixedName(t);
+  fail_unless( strcmp(test, "prefix:attr") == 0 );
+  
   fail_unless(XMLTriple_isEmpty(t) == 0);
+  
+  safe_free((void*)(test));
+
   XMLTriple_free(t);
 
   t = XMLTriple_createWith("attr", "uri", "");
-  fail_unless( strcmp(XMLTriple_getName(t), "attr") == 0 );
-  fail_unless( strcmp(XMLTriple_getURI(t), "uri") == 0 );
-  fail_unless( XMLTriple_getPrefix(t) == NULL );
-  fail_unless( strcmp(XMLTriple_getPrefixedName(t), "attr") == 0 );
-  fail_unless(XMLTriple_isEmpty(t) == 0);
-  XMLTriple_free(t);
 
+  test = XMLTriple_getName(t);
+  fail_unless( strcmp(test, "attr") == 0 );
+
+  test = XMLTriple_getURI(t);
+  fail_unless( strcmp(XMLTriple_getURI(t), "uri") == 0 );
+
+  fail_unless( XMLTriple_getPrefix(t) == NULL );
+  
+  test = XMLTriple_getPrefixedName(t);
+  fail_unless( strcmp(test, "attr") == 0 );
+
+  fail_unless(XMLTriple_isEmpty(t) == 0);
+
+  safe_free((void*)(test));
+  
+  XMLTriple_free(t);
 }
 END_TEST
 
@@ -88,10 +111,11 @@ END_TEST
 
 START_TEST (test_XMLTriple_accessWithNULL)
 {
+  XMLTriple * temp = XMLTriple_create();
   fail_unless( XMLTriple_clone(NULL) == NULL);
   fail_unless( XMLTriple_createWith(NULL, NULL, NULL) == NULL);
   fail_unless( XMLTriple_equalTo(NULL, NULL) == 1);
-  fail_unless( XMLTriple_equalTo(NULL, XMLTriple_create()) == 0);
+  fail_unless( XMLTriple_equalTo(NULL, temp) == 0);
   
   XMLTriple_free(NULL);
   
@@ -100,8 +124,10 @@ START_TEST (test_XMLTriple_accessWithNULL)
   fail_unless( XMLTriple_getPrefixedName(NULL) == NULL);
   fail_unless( XMLTriple_getURI(NULL) == NULL);
   fail_unless( XMLTriple_isEmpty(NULL) == 1);
-  fail_unless( XMLTriple_notEqualTo(NULL, XMLTriple_create()) == 1);
+  fail_unless( XMLTriple_notEqualTo(NULL, temp) == 1);
   fail_unless( XMLTriple_notEqualTo(NULL, NULL) == 0);
+
+  XMLTriple_free(temp);
 }
 END_TEST
 

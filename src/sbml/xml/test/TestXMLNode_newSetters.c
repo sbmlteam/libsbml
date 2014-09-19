@@ -351,7 +351,9 @@ START_TEST(test_XMLNode_accessWithNULL)
   fail_unless( XMLNode_createStartElement(NULL, NULL) == NULL);
   fail_unless( XMLNode_createStartElementNS(NULL, NULL, NULL) == NULL);
   fail_unless( XMLNode_equals(NULL, NULL) == 1);
-  fail_unless( XMLNode_equals(NULL, XMLNode_createTextNode(NULL)) == 0);
+  XMLNode_t * text = XMLNode_createTextNode(NULL);
+  fail_unless( XMLNode_equals(NULL, text) == 0);
+  XMLNode_free(text);
 
   XMLNode_free(NULL);
 

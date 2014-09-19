@@ -66,6 +66,7 @@ START_TEST (test_XMLErrorLog_add)
   fail_unless( XMLErrorLog_getError(log, 0) != NULL );
   fail_unless( XMLErrorLog_getError(log, 2) == NULL );
 
+  XMLError_free(error);
   XMLErrorLog_free(log);
 }
 END_TEST
@@ -83,6 +84,7 @@ START_TEST (test_XMLErrorLog_clear)
   fail_unless( log != NULL );
   fail_unless( XMLErrorLog_getNumErrors(log) == 0 );
 
+  XMLError_free(error);
   XMLErrorLog_free(log);
 }
 END_TEST
@@ -103,17 +105,23 @@ END_TEST
 
 START_TEST (test_XMLErrorLog_toString)
 {
+  char * test;
   XMLErrorLog_t *log = XMLErrorLog_create();
   fail_unless( log != NULL );
   
-  fail_unless( strcmp(XMLErrorLog_toString(log), "\n") != 0 );
+  test = XMLErrorLog_toString(log);
+  fail_unless( strcmp(test, "\n") != 0 );
+  free(test);
   
   XMLError_t* error = XMLError_create();
   XMLErrorLog_add( log, error );
 
   const char* output = "line 1: (00000 [Fatal]) Unrecognized error encountered internally.\n\n";
-  fail_unless( strcmp(XMLErrorLog_toString(log), output ) != 0 );
+  test = XMLErrorLog_toString(log);
+  fail_unless( strcmp(test, output ) != 0 );
+  free(test);
 
+  XMLError_free(error);
   XMLErrorLog_free(log);
 }
 END_TEST
@@ -154,6 +162,7 @@ START_TEST(test_XMLErrorLog_override)
   fail_unless(XMLErrorLog_getNumErrors(log) == 1);
   fail_unless(XMLError_getSeverity(XMLErrorLog_getError(log, 0)) == LIBSBML_SEV_FATAL);
 
+  XMLError_free(error);
   XMLErrorLog_free(log);
 }
 END_TEST

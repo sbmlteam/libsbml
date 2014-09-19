@@ -291,6 +291,8 @@ START_TEST (test_Node_copyConstructor)
   delete token;
   delete node;
   delete node2;
+  delete child;
+  delete att;
 
 }
 END_TEST
@@ -329,7 +331,8 @@ START_TEST (test_Node_assignmentOperator)
   delete token;
   delete node;
   delete node2;
-
+  delete child;
+  delete att;
 }
 END_TEST
 START_TEST (test_Node_clone)
@@ -365,7 +368,8 @@ START_TEST (test_Node_clone)
   delete token;
   delete node;
   delete node2;
-
+  delete child;
+  delete att;
 }
 END_TEST
 

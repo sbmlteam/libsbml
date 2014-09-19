@@ -65,8 +65,13 @@ START_TEST (test_XMLToken_create)
   XMLAttributes_add(attr, "attr2", "value");
   token = XMLToken_createWithTripleAttr(triple, attr);  
   fail_unless(token != NULL);
+  
   const XMLAttributes_t *returnattr = XMLToken_getAttributes(token);
-  fail_unless(strcmp(XMLAttributes_getName(returnattr, 0), "attr2") == 0);
+  
+  char * name = XMLAttributes_getName(returnattr, 0);
+  fail_unless(strcmp(name, "attr2") == 0);
+  free(name);
+  
   XMLToken_free(token);
   XMLTriple_free(triple);
   XMLAttributes_free(attr);
@@ -168,12 +173,22 @@ START_TEST (test_XMLToken_namespace_get)
   fail_unless( XMLToken_getNamespacesLength(token) == 9 );
 
   fail_unless( XMLToken_getNamespaceIndex(token, "http://test1.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getNamespacePrefix(token, 1), "test2") == 0 );
-  fail_unless( strcmp(XMLToken_getNamespacePrefixByURI(token, "http://test1.org/"),
-		      "test1") == 0 );
-  fail_unless( strcmp(XMLToken_getNamespaceURI(token, 1), "http://test2.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getNamespaceURIByPrefix(token, "test2"),
-		      "http://test2.org/") == 0 );
+
+  char * test = XMLToken_getNamespacePrefix(token, 1);
+  fail_unless( strcmp(test, "test2") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespacePrefixByURI(token, "http://test1.org/");
+  fail_unless( strcmp(test, "test1") == 0 );
+  free (test);
+
+  test = XMLToken_getNamespaceURI(token, 1);
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURIByPrefix(token, "test2");
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
 
   fail_unless( XMLToken_getNamespaceIndex(token, "http://test1.org/") ==  0 );
   fail_unless( XMLToken_getNamespaceIndex(token, "http://test2.org/") ==  1 );
@@ -332,6 +347,7 @@ START_TEST (test_XMLToken_namespace_set_clear )
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLToken_t*      token  = XMLToken_createWithTripleAttr(triple, attr);
   XMLNamespaces_t* ns = XMLNamespaces_create();
+  char * test;
 
   fail_unless( XMLToken_getNamespacesLength(token) == 0 );
   fail_unless( XMLToken_isNamespacesEmpty(token)   == 1 );  
@@ -345,17 +361,47 @@ START_TEST (test_XMLToken_namespace_set_clear )
   XMLToken_setNamespaces(token, ns);
 
   fail_unless(XMLToken_getNamespacesLength(token) == 5 );
-  fail_unless(XMLToken_isNamespacesEmpty(token)   == 0 );  
-  fail_unless(strcmp(XMLToken_getNamespacePrefix(token, 0), "test1") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespacePrefix(token, 1), "test2") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespacePrefix(token, 2), "test3") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespacePrefix(token, 3), "test4") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespacePrefix(token, 4), "test5") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespaceURI(token, 0), "http://test1.org/") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespaceURI(token, 1), "http://test2.org/") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespaceURI(token, 2), "http://test3.org/") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespaceURI(token, 3), "http://test4.org/") == 0 );
-  fail_unless(strcmp(XMLToken_getNamespaceURI(token, 4), "http://test5.org/") == 0 );
+  fail_unless(XMLToken_isNamespacesEmpty(token)   == 0 ); 
+
+  test = XMLToken_getNamespacePrefix(token, 0);
+  fail_unless(strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespacePrefix(token, 1);
+  fail_unless(strcmp(test, "test2") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespacePrefix(token, 2);
+  fail_unless(strcmp(test, "test3") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespacePrefix(token, 3);
+  fail_unless(strcmp(test, "test4") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespacePrefix(token, 4);
+  fail_unless(strcmp(test, "test5") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURI(token, 0);
+  fail_unless(strcmp(test, "http://test1.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURI(token, 1);
+  fail_unless(strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURI(token, 2);
+  fail_unless(strcmp(test, "http://test3.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURI(token, 3);
+  fail_unless(strcmp(test, "http://test4.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getNamespaceURI(token, 4);
+  fail_unless(strcmp(test, "http://test5.org/") == 0 );
+  free(test);
 
   XMLToken_clearNamespaces(token);
   fail_unless( XMLToken_getNamespacesLength(token) == 0 );
@@ -370,6 +416,7 @@ END_TEST
 
 START_TEST(test_XMLToken_attribute_add_remove)
 {
+  char * test;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -389,20 +436,57 @@ START_TEST(test_XMLToken_attribute_add_remove)
   fail_unless( XMLToken_getAttributesLength(token) == 2 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
 
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "val1" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 1), "name2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 1), "val2" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 1), "p2"   ) == 0 );
+  test = XMLToken_getAttrName  (token, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 0);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 0);
+  fail_unless( strcmp(test, "p1"   ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrName  (token, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 1);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 1);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  free(test);
+
   fail_unless( XMLToken_getAttrValueByName (token, "name1") == NULL );
   fail_unless( XMLToken_getAttrValueByName (token, "name2") == NULL );
-  fail_unless( strcmp(XMLToken_getAttrValueByNS (token, "name1", "http://name1.org/"), "val1" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByNS (token, "name2", "http://name2.org/"), "val2" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByTriple (token, xt1), "val1" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByTriple (token, xt2), "val2" ) == 0 );
+
+  test = XMLToken_getAttrValueByNS (token, "name1", "http://name1.org/");
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByNS (token, "name2", "http://name2.org/");
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByTriple (token, xt1);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByTriple (token, xt2);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+
 
   fail_unless( XMLToken_hasAttr(token, -1) == 0 );
   fail_unless( XMLToken_hasAttr(token,  2) == 0 );
@@ -419,12 +503,26 @@ START_TEST(test_XMLToken_attribute_add_remove)
   XMLToken_addAttr(token, "noprefix", "val3");
   fail_unless( XMLToken_getAttributesLength(token) == 3 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName (token, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue(token, 2), "val3"    ) == 0 );
+  
+  test = XMLToken_getAttrName  (token, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue  (token, 2);
+  fail_unless( strcmp(test, "val3"    ) == 0 );
+  free(test);
+
   fail_unless( XMLToken_getAttrURI    (token, 2) == NULL );
   fail_unless( XMLToken_getAttrPrefix (token, 2) == NULL );
-  fail_unless( strcmp(XMLToken_getAttrValueByName (token, "noprefix"),     "val3" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByNS   (token, "noprefix", ""), "val3" ) == 0 );
+  
+  test = XMLToken_getAttrValueByName (token, "noprefix");
+  fail_unless( strcmp(test,     "val3" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByNS (token, "noprefix", "");
+  fail_unless( strcmp(test, "val3" ) == 0 );
+  free(test);
+
   fail_unless( XMLToken_hasAttrWithName (token, "noprefix"    ) == 1 );
   fail_unless( XMLToken_hasAttrWithNS   (token, "noprefix", "") == 1 );
 
@@ -436,14 +534,38 @@ START_TEST(test_XMLToken_attribute_add_remove)
   fail_unless( XMLToken_getAttributesLength(token) == 3 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
 
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "mval1") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 1), "name2"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 1), "mval2"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 1), "p2"      ) == 0 );
+  test = XMLToken_getAttrName  (token, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 0);
+  fail_unless( strcmp(test, "mval1") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 0);
+  fail_unless( strcmp(test, "p1"   ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrName  (token, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 1);
+  fail_unless( strcmp(test, "mval2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 1);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  free(test);
+
   fail_unless( XMLToken_hasAttrWithTriple(token, xt1) == 1 );
   fail_unless( XMLToken_hasAttrWithNS(token, "name1", "http://name1.org/")   == 1 );
 
@@ -452,8 +574,15 @@ START_TEST(test_XMLToken_attribute_add_remove)
   XMLToken_addAttr(token, "noprefix", "mval3");
   fail_unless( XMLToken_getAttributesLength(token) == 3 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 2), "mval3"   ) == 0 );
+
+  test = XMLToken_getAttrName  (token, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 2);
+  fail_unless( strcmp(test, "mval3"   ) == 0 );
+  free(test);
+
   fail_unless(        XMLToken_getAttrURI   (token, 2) == NULL );
   fail_unless(        XMLToken_getAttrPrefix(token, 2) == NULL );
   fail_unless( XMLToken_hasAttrWithName (token, "noprefix") == 1 );
@@ -464,18 +593,55 @@ START_TEST(test_XMLToken_attribute_add_remove)
   XMLToken_addAttrWithTriple(token, xt1a, "val1a");
   XMLToken_addAttrWithTriple(token, xt2a, "val2a");
   fail_unless( XMLToken_getAttributesLength(token) == 5 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 3), "name1") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 3), "val1a") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 3), "http://name1a.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 3), "p1a") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 4), "name2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 4), "val2a") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 4), "http://name2a.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 4), "p2a") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByNS (token, "name1", "http://name1a.org/"), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByNS (token, "name2", "http://name2a.org/"), "val2a" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByTriple (token, xt1a), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValueByTriple (token, xt2a), "val2a" ) == 0 );
+
+  test = XMLToken_getAttrName  (token, 3);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 3);
+  fail_unless( strcmp(test, "val1a") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 3);
+  fail_unless( strcmp(test, "http://name1a.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 3);
+  fail_unless( strcmp(test, "p1a") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrName  (token, 4);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 4);
+  fail_unless( strcmp(test, "val2a") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 4);
+  fail_unless( strcmp(test, "http://name2a.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 4);
+  fail_unless( strcmp(test, "p2a") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByNS (token, "name1", "http://name1a.org/");
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByNS (token, "name2", "http://name2a.org/");
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByTriple (token, xt1a);
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValueByTriple (token, xt2a);
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+
 
   /*-- test of removing attributes with namespace --*/
 
@@ -486,12 +652,32 @@ START_TEST(test_XMLToken_attribute_add_remove)
   XMLToken_removeAttrByNS(token, "name1", "http://name1.org/");
   fail_unless( XMLToken_getAttributesLength(token) == 2 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "mval2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 0), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 0), "p2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 1), "noprefix") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 1), "mval3") == 0 );
+ 
+  test = XMLToken_getAttrName  (token, 0);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 0);
+  fail_unless( strcmp(test, "mval2") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrURI   (token, 0);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrPrefix(token, 0);
+  fail_unless( strcmp(test, "p2") == 0 );
+  free(test);
+
+
+  test = XMLToken_getAttrName  (token, 1);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 1);
+  fail_unless( strcmp(test, "mval3") == 0 );
+  free(test);
+
   fail_unless(        XMLToken_getAttrURI   (token, 1) == NULL);
   fail_unless(        XMLToken_getAttrPrefix(token, 1) == NULL);
   fail_unless( XMLToken_hasAttrWithNS(token, "name1", "http://name1.org/")   == 0 );
@@ -499,8 +685,15 @@ START_TEST(test_XMLToken_attribute_add_remove)
   XMLToken_removeAttrByTriple(token, xt2);
   fail_unless( XMLToken_getAttributesLength(token) == 1 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName (token, 0), "noprefix") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue(token, 0), "mval3") == 0 );
+  
+  test = XMLToken_getAttrName  (token, 0);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLToken_getAttrValue (token, 0);
+  fail_unless( strcmp(test, "mval3") == 0 );
+  free(test);
+
   fail_unless(       XMLToken_getAttrURI   (token, 0) == NULL );
   fail_unless(       XMLToken_getAttrPrefix(token, 0) == NULL );
   fail_unless( XMLToken_hasAttrWithTriple(token, xt2) == 0 );
@@ -531,6 +724,7 @@ END_TEST
 
 START_TEST(test_XMLToken_attribute_set_clear)
 {
+  const char * test, * test1;;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -556,34 +750,100 @@ START_TEST(test_XMLToken_attribute_set_clear)
   fail_unless(XMLToken_getAttributesLength(token) == 5 );
   fail_unless(XMLToken_isAttributesEmpty(token)   == 0 );
 
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "val1" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 1), "name2") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 1), "val2" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 1), "p2"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 2), "name3") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 2), "val3" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 2), "http://name3.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 2), "p3"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 3), "name4") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 3), "val4" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 3), "http://name4.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 3), "p4"   ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrName  (token, 4), "name5") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrValue (token, 4), "val5" ) == 0 );
-  fail_unless( strcmp(XMLToken_getAttrURI   (token, 4), "http://name5.org/") == 0 );
-  fail_unless( strcmp(XMLToken_getAttrPrefix(token, 4), "p5"   ) == 0 );
+  test = XMLToken_getAttrName  (token, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrValue (token, 0);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrURI   (token, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrPrefix(token, 0);
+  fail_unless( strcmp(test, "p1"   ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrName  (token, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrValue (token, 1);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrURI   (token, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrPrefix(token, 1);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrName  (token, 2);
+  fail_unless( strcmp(test, "name3") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrValue (token, 2);
+  fail_unless( strcmp(test, "val3" ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrURI   (token, 2);
+  fail_unless( strcmp(test, "http://name3.org/") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrPrefix(token, 2);
+  fail_unless( strcmp(test, "p3"   ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrName  (token, 3);
+  fail_unless( strcmp(test, "name4") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrValue (token, 3);
+  fail_unless( strcmp(test, "val4" ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrURI   (token, 3);
+  fail_unless( strcmp(test, "http://name4.org/") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrPrefix(token, 3);
+  fail_unless( strcmp(test, "p4"   ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrName  (token, 4);
+  fail_unless( strcmp(test, "name5") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrValue (token, 4);
+  fail_unless( strcmp(test, "val5" ) == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrURI   (token, 4);
+  fail_unless( strcmp(test, "http://name5.org/") == 0 );
+  safe_free((void*)(test));
+
+  test = XMLToken_getAttrPrefix(token, 4);
+  fail_unless( strcmp(test, "p5"   ) == 0 );
+  safe_free((void*)(test));
 
   /*-- test of setTriple -- */
 
   XMLTriple_t* ntriple = XMLTriple_createWith("test2","http://test2.org/","p2");  
   XMLToken_setTriple(token, ntriple);
-  fail_unless(strcmp(XMLToken_getName(token),   "test2") == 0);
-  fail_unless(strcmp(XMLToken_getURI(token),    "http://test2.org/") == 0);
-  fail_unless(strcmp(XMLToken_getPrefix(token), "p2") == 0);
+
+  test1 = XMLToken_getName(token);
+  fail_unless(strcmp(test1,   "test2") == 0);
+
+  test1 = XMLToken_getURI(token);
+  fail_unless(strcmp(test1,    "http://test2.org/") == 0);
+
+  test1 = XMLToken_getPrefix(token);
+  fail_unless(strcmp(test1, "p2") == 0);
+
 
   /*-- test of clearing attributes -- */
 
@@ -592,6 +852,7 @@ START_TEST(test_XMLToken_attribute_set_clear)
   fail_unless( XMLToken_isAttributesEmpty(token)   != 0 );
 
   /*-- teardown --*/
+
 
   XMLAttributes_free(nattr);
   XMLTriple_free(triple);
@@ -603,7 +864,6 @@ START_TEST(test_XMLToken_attribute_set_clear)
   XMLTriple_free(xt3);
   XMLTriple_free(xt4);
   XMLTriple_free(xt5);
-
 }
 END_TEST
 

@@ -74,11 +74,11 @@ START_TEST (test_XMLInputStream_create)
   fail_unless(XMLInputStream_isGood(stream) == 1);
   fail_unless(XMLInputStream_isError(stream) == 0);
 
-  XMLInputStream_next(stream);
+  XMLToken_t * token = XMLInputStream_next(stream);
   fail_unless(strcmp(XMLInputStream_getEncoding(stream), "UTF-8") == 0);
 
+  XMLToken_free(token);
   XMLInputStream_free(stream);
-
 }
 END_TEST
 
@@ -104,6 +104,7 @@ START_TEST (test_XMLInputStream_next_peek)
   
   fail_unless(strcmp(XMLToken_getName(next1), "sbml") == 0);
  
+  XMLToken_free(next1);
   XMLInputStream_free(stream);
 
 }
@@ -134,17 +135,20 @@ START_TEST (test_XMLInputStream_skip)
   
   XMLToken_t * next0 = XMLInputStream_next(stream);
   XMLInputStream_skipText (stream);
+  XMLToken_free(next0);
 
   /* skip past listOfFunctionDefinitions */
-  XMLInputStream_skipPastEnd(stream, XMLInputStream_next(stream)); 
+  next0 = XMLInputStream_next(stream);
+  XMLInputStream_skipPastEnd(stream, next0); 
   XMLInputStream_skipText (stream);
+  XMLToken_free(next0);
 
   next0= XMLInputStream_next(stream);
 
   fail_unless(strcmp(XMLToken_getName(next0), "listOfUnitDefinitions") == 0);
  
+  XMLToken_free(next0);
   XMLInputStream_free(stream);
-
 }
 END_TEST
 
@@ -181,6 +185,9 @@ START_TEST (test_XMLInputStream_setErrorLog)
   i = XMLInputStream_setErrorLog(stream, NULL);
   fail_unless(i == LIBSBML_OPERATION_FAILED);
 
+
+  XMLErrorLog_free(log);
+  XMLInputStream_free(stream);
 }
 END_TEST 
 

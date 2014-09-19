@@ -351,6 +351,8 @@ START_TEST(test_XMLAttributes_add_removeResource)
   fail_unless( att1->getValue(0) == "http://foo.org/" );
   fail_unless( att1->getName(1) ==  "rdf" );
   fail_unless( att1->getValue(1) == "http://foo2.org/" );
+
+  delete att1;
 }
 END_TEST
 

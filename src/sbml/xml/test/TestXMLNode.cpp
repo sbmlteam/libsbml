@@ -171,6 +171,7 @@ END_TEST
 
 START_TEST (test_XMLNode_createElement)
 {
+  char * test;
   XMLTriple_t     *triple;
   XMLAttributes_t *attr;
   XMLNamespaces_t *ns;
@@ -208,10 +209,22 @@ START_TEST (test_XMLNode_createElement)
 
   cattr = XMLNode_getAttributes(snode);
   fail_unless(cattr != NULL);
-  fail_unless(strcmp(XMLAttributes_getName  (cattr, 0), "id"   ) == 0);
-  fail_unless(strcmp(XMLAttributes_getValue (cattr, 0), "value") == 0);
-  fail_unless(strcmp(XMLAttributes_getPrefix(cattr, 0),  prefix) == 0);
-  fail_unless(strcmp(XMLAttributes_getURI   (cattr, 0),  uri   ) == 0);
+  
+  test = XMLAttributes_getName  (cattr, 0);
+  fail_unless(strcmp(test, "id"   ) == 0);
+  free(test);
+  
+  test = XMLAttributes_getValue (cattr, 0);
+  fail_unless(strcmp(test, "value") == 0);
+  free(test);
+  
+  test = XMLAttributes_getPrefix(cattr, 0);
+  fail_unless(strcmp(test,  prefix) == 0);
+  free(test);
+  
+  test = XMLAttributes_getURI   (cattr, 0);
+  fail_unless(strcmp(test,  uri   ) == 0);
+  free(test);
 
   XMLTriple_free(triple);
   XMLAttributes_free(attr);
@@ -237,8 +250,15 @@ START_TEST (test_XMLNode_createElement)
 
   cattr = XMLNode_getAttributes(snode);
   fail_unless(cattr != NULL);
-  fail_unless(strcmp(XMLAttributes_getName  (cattr, 0), "id"   ) == 0);
-  fail_unless(strcmp(XMLAttributes_getValue (cattr, 0), "value") == 0);
+  
+  test = XMLAttributes_getName  (cattr, 0);
+  fail_unless(strcmp(test, "id"   ) == 0);
+  free(test);
+  
+  test = XMLAttributes_getValue (cattr, 0);
+  fail_unless(strcmp(test, "value") == 0);
+  free(test);
+
   fail_unless(XMLAttributes_getPrefix(cattr, 0) == NULL);
   fail_unless(XMLAttributes_getURI   (cattr, 0) == NULL);
 
@@ -281,6 +301,7 @@ END_TEST
 
 START_TEST (test_XMLNode_getters)
 {
+  char * test;
   XMLToken_t *token;
   XMLNode_t *node;
   XMLTriple_t *triple;
@@ -299,6 +320,9 @@ START_TEST (test_XMLNode_getters)
   fail_unless(strcmp(XMLNode_getCharacters(node), "This is a test") == 0);
   fail_unless (XMLNode_getChild(node, 1) != NULL);
 
+  XMLToken_free(token);
+  XMLNode_free(node);
+
   attr = XMLAttributes_create();
   fail_unless(attr != NULL);
   XMLAttributes_add(attr, "attr2", "value");
@@ -314,9 +338,20 @@ START_TEST (test_XMLNode_getters)
   fail_unless(strcmp(XMLNode_getPrefix(node), "prefix") == 0);
 
   const XMLAttributes_t *returnattr = XMLNode_getAttributes(node);
-  fail_unless(strcmp(XMLAttributes_getName(returnattr, 0), "attr2") == 0);
-  fail_unless(strcmp(XMLAttributes_getValue(returnattr, 0), "value") == 0);
 
+  test = XMLAttributes_getName(returnattr, 0);
+  fail_unless(strcmp(test, "attr2") == 0);
+  free(test);
+
+  test = XMLAttributes_getValue(returnattr, 0);
+  fail_unless(strcmp(test, "value") == 0);
+  free(test);
+
+  XMLTriple_free(triple);
+  XMLToken_free(token);
+  XMLNode_free(node);
+
+  triple = XMLTriple_createWith("attr", "uri", "prefix");
   token = XMLToken_createWithTripleAttrNS(triple, attr, NS); 
   node = XMLNode_createFromToken(token);
 
@@ -324,6 +359,8 @@ START_TEST (test_XMLNode_getters)
   fail_unless( XMLNamespaces_getLength(returnNS) == 1 );
   fail_unless( XMLNamespaces_isEmpty(returnNS) == 0 );
   
+  XMLNamespaces_free(NS);
+  XMLAttributes_free(attr);
   XMLTriple_free(triple);
   XMLToken_free(token);
   XMLNode_free(node);
@@ -341,6 +378,7 @@ START_TEST (test_XMLNode_convert)
   const XMLNode_t *child, *gchild;
   const XMLAttributes_t *attr;
   const XMLNamespaces_t *ns;
+  char * test;
 
   node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
   child  = XMLNode_getChild(node,0);
@@ -351,9 +389,19 @@ START_TEST (test_XMLNode_convert)
   fail_unless(strcmp(XMLNode_getName(node), "annotation") == 0);
   fail_unless(strcmp(XMLNode_getName(child),"test" ) == 0);
   fail_unless(strcmp(XMLNode_getCharacters(gchild),"test" ) == 0);
-  fail_unless(strcmp(XMLAttributes_getName (attr,0), "id"   ) == 0);
-  fail_unless(strcmp(XMLAttributes_getValue(attr,0), "test" ) == 0);
-  fail_unless(strcmp(XMLNamespaces_getURI(ns,0), "http://test.org/" ) == 0 );
+
+  test = XMLAttributes_getName (attr,0);
+  fail_unless(strcmp(test, "id"   ) == 0);
+  free(test);
+
+  test = XMLAttributes_getValue(attr,0);
+  fail_unless(strcmp(test, "test" ) == 0);
+  free(test);
+
+  test = XMLNamespaces_getURI(ns,0);
+  fail_unless(strcmp(test, "http://test.org/" ) == 0 );
+  free(test);
+
   fail_unless(XMLNamespaces_getPrefix(ns,0) == NULL );
 
   char* toxmlstring = XMLNode_toXMLString(node);
@@ -862,6 +910,7 @@ END_TEST
 
 START_TEST (test_XMLNode_namespace_get)
 {
+  char * test;
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLNode_t*       node   = XMLNode_createStartElement(triple, attr);
@@ -879,12 +928,22 @@ START_TEST (test_XMLNode_namespace_get)
   fail_unless( XMLNode_getNamespacesLength(node) == 9 );
 
   fail_unless( XMLNode_getNamespaceIndex(node, "http://test1.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getNamespacePrefix(node, 1), "test2") == 0 );
-  fail_unless( strcmp(XMLNode_getNamespacePrefixByURI(node, "http://test1.org/"),
-		      "test1") == 0 );
-  fail_unless( strcmp(XMLNode_getNamespaceURI(node, 1), "http://test2.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getNamespaceURIByPrefix(node, "test2"),
-		      "http://test2.org/") == 0 );
+
+  test = XMLNode_getNamespacePrefix(node, 1);
+  fail_unless( strcmp(test, "test2") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespacePrefixByURI(node, "http://test1.org/");
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 1);
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURIByPrefix(node, "test2");
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
 
   fail_unless( XMLNode_getNamespaceIndex(node, "http://test1.org/") ==  0 );
   fail_unless( XMLNode_getNamespaceIndex(node, "http://test2.org/") ==  1 );
@@ -1040,6 +1099,7 @@ END_TEST
 
 START_TEST (test_XMLNode_namespace_set_clear )
 {
+  char * test;
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLNode_t*       node   = XMLNode_createStartElement(triple, attr);
@@ -1058,16 +1118,46 @@ START_TEST (test_XMLNode_namespace_set_clear )
 
   fail_unless(XMLNode_getNamespacesLength(node) == 5 );
   fail_unless(XMLNode_isNamespacesEmpty(node)   == 0 );  
-  fail_unless(strcmp(XMLNode_getNamespacePrefix(node, 0), "test1") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespacePrefix(node, 1), "test2") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespacePrefix(node, 2), "test3") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespacePrefix(node, 3), "test4") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespacePrefix(node, 4), "test5") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespaceURI(node, 0), "http://test1.org/") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespaceURI(node, 1), "http://test2.org/") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespaceURI(node, 2), "http://test3.org/") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespaceURI(node, 3), "http://test4.org/") == 0 );
-  fail_unless(strcmp(XMLNode_getNamespaceURI(node, 4), "http://test5.org/") == 0 );
+
+  test = XMLNode_getNamespacePrefix(node, 0);
+  fail_unless(strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespacePrefix(node, 1);
+  fail_unless(strcmp(test, "test2") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespacePrefix(node, 2);
+  fail_unless(strcmp(test, "test3") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespacePrefix(node, 3);
+  fail_unless(strcmp(test, "test4") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespacePrefix(node, 4);
+  fail_unless(strcmp(test, "test5") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 0);
+  fail_unless(strcmp(test, "http://test1.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 1);
+  fail_unless(strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 2);
+  fail_unless(strcmp(test, "http://test3.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 3);
+  fail_unless(strcmp(test, "http://test4.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getNamespaceURI(node, 4);
+  fail_unless(strcmp(test, "http://test5.org/") == 0 );
+  free(test);
 
   XMLNode_clearNamespaces(node);
   fail_unless( XMLNode_getNamespacesLength(node) == 0 );
@@ -1083,6 +1173,7 @@ END_TEST
 
 START_TEST(test_XMLNode_attribute_add_remove)
 {
+  char * test;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -1101,20 +1192,56 @@ START_TEST(test_XMLNode_attribute_add_remove)
   fail_unless( XMLNode_getAttributesLength(node) == 2 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
 
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 0), "val1" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 1), "name2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 1), "val2" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 1), "p2"   ) == 0 );
+  test = XMLNode_getAttrName  (node, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 0);
+  fail_unless( strcmp(test, "val1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 0);
+  fail_unless( strcmp(test, "p1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 1);
+  fail_unless( strcmp(test, "val2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 1);
+  fail_unless( strcmp(test, "p2") == 0 );
+  free(test);
+
   fail_unless( XMLNode_getAttrValueByName (node, "name1") == NULL );
   fail_unless( XMLNode_getAttrValueByName (node, "name2") == NULL );
-  fail_unless( strcmp(XMLNode_getAttrValueByNS (node, "name1", "http://name1.org/"), "val1" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByNS (node, "name2", "http://name2.org/"), "val2" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByTriple (node, xt1), "val1" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByTriple (node, xt2), "val2" ) == 0 );
+
+  test = XMLNode_getAttrValueByNS (node, "name1", "http://name1.org/");
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByNS (node, "name2", "http://name2.org/");
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByTriple (node, xt1);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByTriple (node, xt2);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
 
   fail_unless( XMLNode_hasAttr(node, -1) == 0 );
   fail_unless( XMLNode_hasAttr(node,  2) == 0 );
@@ -1131,12 +1258,26 @@ START_TEST(test_XMLNode_attribute_add_remove)
   XMLNode_addAttr(node, "noprefix", "val3");
   fail_unless( XMLNode_getAttributesLength(node) == 3 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName (node, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue(node, 2), "val3"    ) == 0 );
+
+  test = XMLNode_getAttrName (node, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue(node, 2);
+  fail_unless( strcmp(test, "val3"    ) == 0 );
+  free(test);
+
   fail_unless( XMLNode_getAttrURI    (node, 2) == NULL );
   fail_unless( XMLNode_getAttrPrefix (node, 2) == NULL );
-  fail_unless( strcmp(XMLNode_getAttrValueByName (node, "noprefix"),     "val3" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByNS   (node, "noprefix", ""), "val3" ) == 0 );
+  
+  test = XMLNode_getAttrValueByName (node, "noprefix");
+  fail_unless( strcmp(test,     "val3" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByNS   (node, "noprefix", "");
+  fail_unless( strcmp(test, "val3" ) == 0 );
+  free(test);
+
   fail_unless( XMLNode_hasAttrWithName (node, "noprefix"    ) == 1 );
   fail_unless( XMLNode_hasAttrWithNS   (node, "noprefix", "") == 1 );
 
@@ -1148,14 +1289,38 @@ START_TEST(test_XMLNode_attribute_add_remove)
   fail_unless( XMLNode_getAttributesLength(node) == 3 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
 
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 0), "mval1") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 1), "name2"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 1), "mval2"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 1), "p2"      ) == 0 );
+  test = XMLNode_getAttrName  (node, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 0);
+  fail_unless( strcmp(test, "mval1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 0);
+  fail_unless( strcmp(test, "p1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 1);
+  fail_unless( strcmp(test, "mval2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 1);
+  fail_unless( strcmp(test, "p2") == 0 );
+  free(test);
+
   fail_unless( XMLNode_hasAttrWithTriple(node, xt1) == 1 );
   fail_unless( XMLNode_hasAttrWithNS(node, "name1", "http://name1.org/")   == 1 );
 
@@ -1164,8 +1329,15 @@ START_TEST(test_XMLNode_attribute_add_remove)
   XMLNode_addAttr(node, "noprefix", "mval3");
   fail_unless( XMLNode_getAttributesLength(node) == 3 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 2), "mval3"   ) == 0 );
+  
+  test = XMLNode_getAttrName  (node, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 2);
+  fail_unless( strcmp(test, "mval3") == 0 );
+  free(test);
+
   fail_unless(        XMLNode_getAttrURI   (node, 2) == NULL );
   fail_unless(        XMLNode_getAttrPrefix(node, 2) == NULL );
   fail_unless( XMLNode_hasAttrWithName (node, "noprefix") == 1 );
@@ -1176,18 +1348,54 @@ START_TEST(test_XMLNode_attribute_add_remove)
   XMLNode_addAttrWithTriple(node, xt1a, "val1a");
   XMLNode_addAttrWithTriple(node, xt2a, "val2a");
   fail_unless( XMLNode_getAttributesLength(node) == 5 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 3), "name1") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 3), "val1a") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 3), "http://name1a.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 3), "p1a") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 4), "name2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 4), "val2a") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 4), "http://name2a.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 4), "p2a") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByNS (node, "name1", "http://name1a.org/"), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByNS (node, "name2", "http://name2a.org/"), "val2a" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByTriple (node, xt1a), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValueByTriple (node, xt2a), "val2a" ) == 0 );
+  
+  test = XMLNode_getAttrName  (node, 3);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 3);
+  fail_unless( strcmp(test, "val1a") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 3);
+  fail_unless( strcmp(test, "http://name1a.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 3);
+  fail_unless( strcmp(test, "p1a") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 4);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 4);
+  fail_unless( strcmp(test, "val2a") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 4);
+  fail_unless( strcmp(test, "http://name2a.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 4);
+  fail_unless( strcmp(test, "p2a") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByNS (node, "name1", "http://name1a.org/");
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByNS (node, "name2", "http://name2a.org/");
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByTriple (node, xt1a);
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValueByTriple (node, xt2a);
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
 
   /*-- test of removing attributes with namespace --*/
 
@@ -1198,12 +1406,31 @@ START_TEST(test_XMLNode_attribute_add_remove)
   XMLNode_removeAttrByNS(node, "name1", "http://name1.org/");
   fail_unless( XMLNode_getAttributesLength(node) == 2 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 0), "name2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 0), "mval2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 0), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 0), "p2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 1), "noprefix") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 1), "mval3") == 0 );
+ 
+  test = XMLNode_getAttrName  (node, 0);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 0);
+  fail_unless( strcmp(test, "mval2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 0);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 0);
+  fail_unless( strcmp(test, "p2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 1);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 1);
+  fail_unless( strcmp(test, "mval3") == 0 );
+  free(test);
+
   fail_unless(        XMLNode_getAttrURI   (node, 1) == NULL);
   fail_unless(        XMLNode_getAttrPrefix(node, 1) == NULL);
   fail_unless( XMLNode_hasAttrWithNS(node, "name1", "http://name1.org/")   == 0 );
@@ -1211,8 +1438,15 @@ START_TEST(test_XMLNode_attribute_add_remove)
   XMLNode_removeAttrByTriple(node, xt2);
   fail_unless( XMLNode_getAttributesLength(node) == 1 );
   fail_unless( XMLNode_isAttributesEmpty(node)   == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName (node, 0), "noprefix") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue(node, 0), "mval3") == 0 );
+  
+  test = XMLNode_getAttrName  (node, 0);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 0);
+  fail_unless( strcmp(test, "mval3") == 0 );
+  free(test);
+
   fail_unless(       XMLNode_getAttrURI   (node, 0) == NULL );
   fail_unless(       XMLNode_getAttrPrefix(node, 0) == NULL );
   fail_unless( XMLNode_hasAttrWithTriple(node, xt2) == 0 );
@@ -1242,6 +1476,7 @@ END_TEST
 
 START_TEST(test_XMLNode_attribute_set_clear)
 {
+  char * test;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -1267,26 +1502,85 @@ START_TEST(test_XMLNode_attribute_set_clear)
   fail_unless(XMLNode_getAttributesLength(node) == 5 );
   fail_unless(XMLNode_isAttributesEmpty(node)   == 0 );
 
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 0), "val1" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 1), "name2") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 1), "val2" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 1), "p2"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 2), "name3") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 2), "val3" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 2), "http://name3.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 2), "p3"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 3), "name4") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 3), "val4" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 3), "http://name4.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 3), "p4"   ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrName  (node, 4), "name5") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrValue (node, 4), "val5" ) == 0 );
-  fail_unless( strcmp(XMLNode_getAttrURI   (node, 4), "http://name5.org/") == 0 );
-  fail_unless( strcmp(XMLNode_getAttrPrefix(node, 4), "p5"   ) == 0 );
+  test = XMLNode_getAttrName  (node, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 0);
+  fail_unless( strcmp(test, "val1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 0);
+  fail_unless( strcmp(test, "p1") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 1);
+  fail_unless( strcmp(test, "val2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 1);
+  fail_unless( strcmp(test, "p2") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 2);
+  fail_unless( strcmp(test, "name3") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 2);
+  fail_unless( strcmp(test, "val3") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 2);
+  fail_unless( strcmp(test, "http://name3.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 2);
+  fail_unless( strcmp(test, "p3") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 3);
+  fail_unless( strcmp(test, "name4") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 3);
+  fail_unless( strcmp(test, "val4") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 3);
+  fail_unless( strcmp(test, "http://name4.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 3);
+  fail_unless( strcmp(test, "p4") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrName  (node, 4);
+  fail_unless( strcmp(test, "name5") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrValue  (node, 4);
+  fail_unless( strcmp(test, "val5") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrURI  (node, 4);
+  fail_unless( strcmp(test, "http://name5.org/") == 0 );
+  free(test);
+
+  test = XMLNode_getAttrPrefix  (node, 4);
+  fail_unless( strcmp(test, "p5") == 0 );
+  free(test);
 
   /*-- test of setTriple -- */
 
@@ -1343,7 +1637,6 @@ create_suite_XMLNode (void)
   Suite *suite = suite_create("XMLNode");
   TCase *tcase = tcase_create("XMLNode");
 
-  //tcase_add_test( tcase, test_XMLInputStream_assignment );
   tcase_add_test( tcase, test_XMLNode_getIndex  );
   tcase_add_test( tcase, test_XMLNode_hasChild  );
   tcase_add_test( tcase, test_XMLNode_getChildForName  );

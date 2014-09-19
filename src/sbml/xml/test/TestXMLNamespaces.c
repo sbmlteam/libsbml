@@ -97,6 +97,7 @@ END_TEST
 
 START_TEST (test_XMLNamespaces_add1)
 {
+  char * test;
   fail_unless( XMLNamespaces_getLength(NS) == 0 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 1 );
 
@@ -105,10 +106,23 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( XMLNamespaces_getLength(NS) == 1 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 0), "test1") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefixByURI(NS, "http://test1.org/"),
-		      "test1") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 0), "http://test1.org/") == 0 );
+
+  test = XMLNamespaces_getPrefix(NS, 0);
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getPrefixByURI(NS, "http://test1.org/");
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getURI(NS, 0);
+  fail_unless( strcmp(test, "http://test1.org/") == 0 );
+  free(test);
+
+
+  test = XMLNamespaces_getURIByPrefix(NS, "test1");
+  fail_unless( strcmp(test, "http://test1.org/") == 0 );
+  free(test);
 
   // add with existing prefix
   i = XMLNamespaces_add(NS, "http://test2.org/", "test1");
@@ -116,10 +130,23 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( XMLNamespaces_getLength(NS) == 1 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 0), "test1") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefixByURI(NS, "http://test2.org/"),
-		      "test1") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 0), "http://test2.org/") == 0 );
+  
+  test = XMLNamespaces_getPrefix(NS, 0);
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getPrefixByURI(NS, "http://test2.org/");
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getURI(NS, 0);
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+
+  test = XMLNamespaces_getURIByPrefix(NS, "test1");
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
 
   // add 
   i = XMLNamespaces_add(NS, "http://test.org/", "");
@@ -127,9 +154,14 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( XMLNamespaces_getLength(NS) == 2 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
+
   fail_unless( XMLNamespaces_getPrefix(NS, 1) == NULL );
   fail_unless( XMLNamespaces_getPrefixByURI(NS, "http://test.org/") == NULL);
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), "http://test.org/") == 0 );
+
+  test = XMLNamespaces_getURI(NS, 1);
+  fail_unless( strcmp(test, "http://test.org/") == 0 );
+  free(test);
+
 
   // add repeat with empty prefix
   i = XMLNamespaces_add(NS, "http://test3.org/", "");
@@ -139,7 +171,11 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
   fail_unless( XMLNamespaces_getPrefix(NS, 1) == NULL );
   fail_unless( XMLNamespaces_getPrefixByURI(NS, "http://test3.org/") == NULL);
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), "http://test3.org/") == 0 );
+
+  test = XMLNamespaces_getURI(NS, 1);
+  fail_unless( strcmp(test, "http://test3.org/") == 0 );
+  free(test);
+
 
   // add sbml ns
   i = XMLNamespaces_add(NS, "http://www.sbml.org/sbml/level1", "");
@@ -150,8 +186,11 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( XMLNamespaces_getPrefix(NS, 1) == NULL );
   fail_unless( XMLNamespaces_getPrefixByURI(NS, 
                      "http://www.sbml.org/sbml/level1") == NULL);
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), 
-    "http://www.sbml.org/sbml/level1") == 0 );
+
+  test = XMLNamespaces_getURI(NS, 1);
+  fail_unless( strcmp(test, "http://www.sbml.org/sbml/level1") == 0 );
+  free(test);
+
 
   // add a repeat of the sbml prefix ns
   i = XMLNamespaces_add(NS, "http://test_sbml_prefix/", "");
@@ -162,8 +201,11 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( XMLNamespaces_getPrefix(NS, 1) == NULL );
   fail_unless( XMLNamespaces_getPrefixByURI(NS, 
                      "http://www.sbml.org/sbml/level1") == NULL);
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), 
-    "http://www.sbml.org/sbml/level1") == 0 );
+  
+  test = XMLNamespaces_getURI(NS, 1);
+  fail_unless( strcmp(test, "http://www.sbml.org/sbml/level1") == 0 );
+  free(test);
+
 
   // add repeat sbml ns uri
   i = XMLNamespaces_add(NS, "http://www.sbml.org/sbml/level1", "newprefix");
@@ -171,12 +213,19 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( XMLNamespaces_getLength(NS) == 3 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 2), "newprefix") == 0 );
+  
+  test = XMLNamespaces_getPrefix(NS, 2);
+  fail_unless( strcmp(test, "newprefix") == 0 );
+  free(test);
+
   // this fails because the search finds the uri with the empty prefix first
   fail_unless( XMLNamespaces_getPrefixByURI(NS, 
                      "http://www.sbml.org/sbml/level1") == NULL);
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 2), 
-    "http://www.sbml.org/sbml/level1") == 0 );
+
+  test = XMLNamespaces_getURI(NS, 2);
+  fail_unless( strcmp(test, "http://www.sbml.org/sbml/level1") == 0 );
+  free(test);
+
 
   // add repeat prefix
   i = XMLNamespaces_add(NS, "http://www.foo", "newprefix");
@@ -184,10 +233,14 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_FAILED);
   fail_unless( XMLNamespaces_getLength(NS) == 3 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 2), "newprefix") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 2), 
-    "http://www.sbml.org/sbml/level1") == 0 );
 
+  test = XMLNamespaces_getPrefix(NS, 2);
+  fail_unless( strcmp(test, "newprefix") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getURI(NS, 2);
+  fail_unless( strcmp(test, "http://www.sbml.org/sbml/level1") == 0 );
+  free(test);
 
   // change sbml ns uri - it will not do this
   i = XMLNamespaces_add(NS, "http://www.sbml.org/sbml/level2", "newprefix");
@@ -195,12 +248,13 @@ START_TEST (test_XMLNamespaces_add1)
   fail_unless( i == LIBSBML_OPERATION_FAILED);
   fail_unless( XMLNamespaces_getLength(NS) == 3 );
   fail_unless( XMLNamespaces_isEmpty(NS) == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 2), "newprefix") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 2), 
-    "http://www.sbml.org/sbml/level1") == 0 );
+  test = XMLNamespaces_getPrefix(NS, 2);
+  fail_unless( strcmp(test, "newprefix") == 0 );
+  free(test);
 
-
-
+  test = XMLNamespaces_getURI(NS, 2);
+  fail_unless( strcmp(test, "http://www.sbml.org/sbml/level1") == 0 );
+  free(test);
 }
 END_TEST
 
@@ -234,6 +288,8 @@ END_TEST
 
 START_TEST (test_XMLNamespaces_get)
 {
+  char* test;
+
   XMLNamespaces_add(NS, "http://test1.org/", "test1");    /* index 0 */
   XMLNamespaces_add(NS, "http://test2.org/", "test2");    /* index 1 */
   XMLNamespaces_add(NS, "http://test3.org/", "test3");    /* index 2 */
@@ -248,12 +304,23 @@ START_TEST (test_XMLNamespaces_get)
   fail_unless( XMLNamespaces_getNumNamespaces(NS) == 9 );
 
   fail_unless( XMLNamespaces_getIndex(NS, "http://test1.org/") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefix(NS, 1), "test2") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getPrefixByURI(NS, "http://test1.org/"),
-		      "test1") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURI(NS, 1), "http://test2.org/") == 0 );
-  fail_unless( strcmp(XMLNamespaces_getURIByPrefix(NS, "test2"),
-		      "http://test2.org/") == 0 );
+
+  test = XMLNamespaces_getPrefix(NS, 1);
+  fail_unless( strcmp(test, "test2") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getPrefixByURI(NS, "http://test1.org/");
+  fail_unless( strcmp(test, "test1") == 0 );
+  free(test);
+
+  test = XMLNamespaces_getURI(NS, 1);
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
+
+
+  test = XMLNamespaces_getURIByPrefix(NS, "test2");
+  fail_unless( strcmp(test, "http://test2.org/") == 0 );
+  free(test);
 
   fail_unless( XMLNamespaces_getIndex(NS, "http://test1.org/") ==  0 );
   fail_unless( XMLNamespaces_getIndex(NS, "http://test2.org/") ==  1 );
@@ -281,6 +348,7 @@ START_TEST (test_XMLNamespaces_get)
   fail_unless( XMLNamespaces_hasNS(NS, "http://test5.org/", "test5") !=  0 );
   fail_unless( XMLNamespaces_hasNS(NS, "http://test9.org/", "test9") !=  0 );
   fail_unless( XMLNamespaces_hasNS(NS, "http://testX.org/", "testX") ==  0 );
+
 }
 END_TEST
 

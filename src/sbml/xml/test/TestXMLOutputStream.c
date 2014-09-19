@@ -74,6 +74,8 @@ START_TEST (test_XMLOutputStream_createString)
 
   fail_unless(!strcmp(str, expected));
 
+  safe_free((void*)(str));
+
   XMLOutputStream_free(stream);
 
 }
@@ -114,6 +116,8 @@ START_TEST (test_XMLOutputStream_createStringWithProgramInfo)
 
   fail_unless(!strcmp(str, expected));
 
+  safe_free((void*)(str));
+
   XMLOutputStream_free(stream);
 
 }
@@ -130,6 +134,8 @@ START_TEST (test_XMLOutputStream_startEnd)
   const char * str = XMLOutputStream_getString(stream);
 
   fail_unless(!strcmp(str, "<id/>"));
+
+  safe_free((void*)(str));
 
   XMLOutputStream_free(stream);
 }
@@ -155,6 +161,8 @@ START_TEST (test_XMLOutputStream_Elements)
   const char * s = XMLOutputStream_getString(stream);
 
   fail_unless(!strcmp(s,expected));
+  
+  safe_free((void*)(s));
 
   XMLOutputStream_free(stream);
 
@@ -183,6 +191,8 @@ START_TEST (test_XMLOutputStream_CharacterReference)
 
   fail_unless(!strcmp(s,expected));
 
+  safe_free((void*)(s));
+
   XMLOutputStream_free(stream);
 
 }
@@ -209,6 +219,8 @@ START_TEST (test_XMLOutputStream_PredefinedEntity)
   const char * s = XMLOutputStream_getString(stream);
 
   fail_unless(!strcmp(s,expected));
+
+  safe_free((void*)(s));
 
   XMLOutputStream_free(stream);
 
@@ -268,16 +280,19 @@ create_suite_XMLOutputStream (void)
   TCase *tcase = tcase_create("XMLOutputStream");
 
   tcase_add_test( tcase, test_XMLOutputStream_createStdout  );
+  tcase_add_test( tcase, test_XMLOutputStream_createStdoutWithProgramInfo  );
+  tcase_add_test( tcase, test_XMLOutputStream_accessWithNULL               );
+
+  // // memory leaks unresolved
+  // // all due to createAsString
   tcase_add_test( tcase, test_XMLOutputStream_createFile  );
   tcase_add_test( tcase, test_XMLOutputStream_createString  );
-  tcase_add_test( tcase, test_XMLOutputStream_createStdoutWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_createFileWithProgramInfo    );
   tcase_add_test( tcase, test_XMLOutputStream_createStringWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_startEnd  );
   tcase_add_test( tcase, test_XMLOutputStream_Elements  );
   tcase_add_test( tcase, test_XMLOutputStream_CharacterReference );
   tcase_add_test( tcase, test_XMLOutputStream_PredefinedEntity );
-  tcase_add_test( tcase, test_XMLOutputStream_accessWithNULL               );
 
   suite_add_tcase(suite, tcase);
 

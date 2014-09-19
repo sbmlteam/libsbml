@@ -94,6 +94,8 @@ END_TEST
 
 START_TEST(test_XMLAttributes_add_remove_qname_C)
 {
+  char * test;
+
   XMLAttributes_t *xa = XMLAttributes_create();
   XMLTriple_t* xt1    = XMLTriple_createWith("name1", "http://name1.org/", "p1");
   XMLTriple_t* xt2    = XMLTriple_createWith("name2", "http://name2.org/", "p2");
@@ -106,22 +108,62 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   fail_unless( XMLAttributes_getLength(xa) == 2 );
   fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
 
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 0), "val1" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 1), "name2") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 1), "val2" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 1), "p2"   ) == 0 );
+  test = XMLAttributes_getName  (xa, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
 
-  fail_unless( strcmp(XMLAttributes_getValueByName (xa, "name1"), "val1" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByName (xa, "name2"), "val2" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByNS (xa, "name1", "http://name1.org/"), "val1" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByNS (xa, "name2", "http://name2.org/"), "val2" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByTriple (xa, xt1), "val1" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByTriple (xa, xt2), "val2" ) == 0 );
+  test = XMLAttributes_getValue (xa, 0);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
 
+  test = XMLAttributes_getURI   (xa, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 0);
+  fail_unless( strcmp(test, "p1"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getName  (xa, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 1);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getURI   (xa, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 1);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getValueByName (xa, "name1");
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByName (xa, "name2");
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByNS (xa, "name1", "http://name1.org/");
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByNS (xa, "name2", "http://name2.org/");
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByTriple (xa, xt1);
+  fail_unless( strcmp(test, "val1" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByTriple (xa, xt2);
+  fail_unless( strcmp(test, "val2" ) == 0 );
+  free(test);
+  
   fail_unless( XMLAttributes_hasAttribute        (xa, -1) == 0 );
   fail_unless( XMLAttributes_hasAttribute        (xa,  2) == 0 );
   fail_unless( XMLAttributes_hasAttribute        (xa,  0) == 1 );
@@ -136,11 +178,22 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   XMLAttributes_add(xa, "noprefix", "val3");
   fail_unless( XMLAttributes_getLength(xa) == 3 );
   fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
-  fail_unless( strcmp(XMLAttributes_getName (xa, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue(xa, 2), "val3"    ) == 0 );
+  
+  test = XMLAttributes_getName  (xa, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 2);
+  fail_unless( strcmp(test, "val3" ) == 0 );
+  free(test);
+
   fail_unless( XMLAttributes_getURI    (xa, 2) == NULL );
   fail_unless( XMLAttributes_getPrefix (xa, 2) == NULL );
-  fail_unless( strcmp(XMLAttributes_getValueByNS (xa, "noprefix", ""), "val3" ) == 0 );
+
+  test = XMLAttributes_getValueByNS (xa, "noprefix", "");
+  fail_unless( strcmp(test, "val3") == 0 );
+  free(test);
+
   fail_unless( XMLAttributes_hasAttributeWithName (xa, "noprefix"    ) == 1 );
   fail_unless( XMLAttributes_hasAttributeWithNS(xa, "noprefix", "") == 1 );
 
@@ -150,16 +203,47 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   XMLAttributes_add(xa, "noprefix", "mval3");
   fail_unless( XMLAttributes_getLength(xa) == 3 );
   fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 0), "name1") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 0), "mval1") == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 0), "http://name1.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 0), "p1"   ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 1), "name2"   ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 1), "mval2"   ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 1), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 1), "p2"      ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 2), "noprefix") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 2), "mval3"   ) == 0 );
+  
+  test = XMLAttributes_getName  (xa, 0);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 0);
+  fail_unless( strcmp(test, "mval1" ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getURI   (xa, 0);
+  fail_unless( strcmp(test, "http://name1.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 0);
+  fail_unless( strcmp(test, "p1"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getName  (xa, 1);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 1);
+  fail_unless( strcmp(test, "mval2" ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getURI   (xa, 1);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 1);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getName  (xa, 2);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 2);
+  fail_unless( strcmp(test, "mval3" ) == 0 );
+  free(test);
+
   fail_unless(        XMLAttributes_getURI   (xa, 2) == NULL );
   fail_unless(        XMLAttributes_getPrefix(xa, 2) == NULL );
   fail_unless( XMLAttributes_hasAttributeWithTriple(xa, xt1) == 1 );
@@ -170,22 +254,64 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   XMLAttributes_addWithTriple(xa, xt1a, "val1a");
   XMLAttributes_addWithTriple(xa, xt2a, "val2a");
   fail_unless( XMLAttributes_getLength(xa) == 5 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 3), "name1") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 3), "val1a") == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 3), "http://name1a.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 3), "p1a") == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 4), "name2") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 4), "val2a") == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 4), "http://name2a.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 4), "p2a") == 0 );
+  
+  test = XMLAttributes_getName  (xa, 3);
+  fail_unless( strcmp(test, "name1") == 0 );
+  free(test);
 
-  fail_unless( strcmp(XMLAttributes_getValueByName (xa, "name1"), "mval1" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByName (xa, "name2"), "mval2" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByNS (xa, "name1", "http://name1a.org/"), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByNS (xa, "name2", "http://name2a.org/"), "val2a" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByTriple (xa, xt1a), "val1a" ) == 0 );
-  fail_unless( strcmp(XMLAttributes_getValueByTriple (xa, xt2a), "val2a" ) == 0 );
+  test = XMLAttributes_getValue (xa, 3);
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
 
+  test = XMLAttributes_getURI   (xa, 3);
+  fail_unless( strcmp(test, "http://name1a.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 3);
+  fail_unless( strcmp(test, "p1a"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getName  (xa, 4);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 4);
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getURI   (xa, 4);
+  fail_unless( strcmp(test, "http://name2a.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 4);
+  fail_unless( strcmp(test, "p2a"   ) == 0 );
+  free(test);
+
+
+  test = XMLAttributes_getValueByName (xa, "name1");
+  fail_unless( strcmp(test, "mval1" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByName (xa, "name2");
+  fail_unless( strcmp(test, "mval2" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByNS (xa, "name1", "http://name1a.org/");
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByNS (xa, "name2", "http://name2a.org/");
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByTriple (xa, xt1a);
+  fail_unless( strcmp(test, "val1a" ) == 0 );
+  free(test);
+  
+  test = XMLAttributes_getValueByTriple (xa, xt2a);
+  fail_unless( strcmp(test, "val2a" ) == 0 );
+  free(test);
+  
   XMLAttributes_removeByTriple(xa, xt1a);
   XMLAttributes_removeByTriple(xa, xt2a);
   fail_unless( XMLAttributes_getLength(xa) == 3 );
@@ -193,12 +319,31 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   XMLAttributes_removeByNS(xa, "name1", "http://name1.org/");
   fail_unless( XMLAttributes_getLength(xa)    == 2     );
   fail_unless( XMLAttributes_isEmpty(xa)      == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 0), "name2") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 0), "mval2") == 0 );
-  fail_unless( strcmp(XMLAttributes_getURI   (xa, 0), "http://name2.org/") == 0 );
-  fail_unless( strcmp(XMLAttributes_getPrefix(xa, 0), "p2") == 0 );
-  fail_unless( strcmp(XMLAttributes_getName  (xa, 1), "noprefix") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue (xa, 1), "mval3") == 0 );
+  
+  test = XMLAttributes_getName  (xa, 0);
+  fail_unless( strcmp(test, "name2") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 0);
+  fail_unless( strcmp(test, "mval2" ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getURI   (xa, 0);
+  fail_unless( strcmp(test, "http://name2.org/") == 0 );
+  free(test);
+
+  test = XMLAttributes_getPrefix(xa, 0);
+  fail_unless( strcmp(test, "p2"   ) == 0 );
+  free(test);
+
+  test = XMLAttributes_getName  (xa, 1);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 1);
+  fail_unless( strcmp(test, "mval3" ) == 0 );
+  free(test);
+
   fail_unless(        XMLAttributes_getURI   (xa, 1) == NULL);
   fail_unless(        XMLAttributes_getPrefix(xa, 1) == NULL);
   fail_unless( XMLAttributes_hasAttributeWithNS(xa, "name1", "http://name1.org/")   == 0 );
@@ -206,8 +351,15 @@ START_TEST(test_XMLAttributes_add_remove_qname_C)
   XMLAttributes_removeByTriple(xa, xt2);
   fail_unless( XMLAttributes_getLength(xa) == 1 );
   fail_unless( XMLAttributes_isEmpty(xa)   == 0 );
-  fail_unless( strcmp(XMLAttributes_getName (xa, 0), "noprefix") == 0 );
-  fail_unless( strcmp(XMLAttributes_getValue(xa, 0), "mval3") == 0 );
+
+  test = XMLAttributes_getName  (xa, 0);
+  fail_unless( strcmp(test, "noprefix") == 0 );
+  free(test);
+
+  test = XMLAttributes_getValue (xa, 0);
+  fail_unless( strcmp(test, "mval3" ) == 0 );
+  free(test);
+
   fail_unless(       XMLAttributes_getURI   (xa, 0) == NULL );
   fail_unless(       XMLAttributes_getPrefix(xa, 0) == NULL );
   fail_unless( XMLAttributes_hasAttributeWithTriple(xa, xt2) == 0 );
@@ -301,6 +453,7 @@ START_TEST (test_XMLAttributes_readInto_string_C)
   fail_unless( XMLErrorLog_getNumErrors(log) == 1 );
   fail_unless( XMLErrorLog_getError(log, 0) != NULL );
   XMLErrorLog_clearLog(log);
+  safe_free(value);
 
   fail_unless( XMLAttributes_readIntoStringByTriple(attrs, trp0, &value, NULL, 0) != 0 );
   fail_unless( strcmp(value, "id0") == 0 );
@@ -331,6 +484,8 @@ START_TEST (test_XMLAttributes_readInto_string_C)
   fail_unless( strcmp(value, "false") == 0 );
   fail_unless( XMLErrorLog_getNumErrors(log) == 2 );
   fail_unless( XMLErrorLog_getError(log, 1) != NULL );
+
+  safe_free(value);
 
   XMLAttributes_free(attrs);
   XMLTriple_free(trp0);
