@@ -84,12 +84,12 @@ SBMLDocument* TestFlattenedUnknownNoValidate(string file1, string file2)
   }
   */
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
   //string outfile = filename + "unknown_flat.xml";
   //writeSBMLToFile(doc, outfile.c_str());
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete fdoc;
@@ -124,11 +124,11 @@ SBMLDocument* TestFlattenedUnknownValidate(string file1, string file2)
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   
   fail_unless(flatModel == newModel);
 
@@ -164,10 +164,10 @@ SBMLDocument* TestFlattenedUnknownValidateFailsFlattening(string file1)
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_FAILED);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   SBMLDocument* fdoc = readSBMLFromFile(cfile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   
   fail_unless(flatModel == newModel);
 
@@ -218,12 +218,12 @@ SBMLDocument* TestFlattenedUnknownAbortNone(string file1, string file2)
   }
   */
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
   //string outfile = filename + "unknown_flat.xml";
   //writeSBMLToFile(doc, outfile.c_str());
   string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete fdoc;
@@ -535,7 +535,7 @@ START_TEST (test_comp_flatten_unknown_21)
   fail_unless(doc->getModel() != NULL);
 
   // write the doc before we attempt conversion
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   converter->setDocument(doc);
   int result = converter->convert();
@@ -544,7 +544,7 @@ START_TEST (test_comp_flatten_unknown_21)
   fail_unless(result == LIBSBML_OPERATION_FAILED);
 
 
-  string flatModel = writeSBMLToString(doc);
+  string flatModel = writeSBMLToStdString(doc);
   fail_unless(flatModel == newModel);
 
   delete converter; 
@@ -863,7 +863,7 @@ START_TEST (test_comp_flatten_unknown_withValidation_21)
   fail_unless(doc->getModel() != NULL);
 
   // write the doc before we attempt conversion
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   converter->setDocument(doc);
   int result = converter->convert();
@@ -872,7 +872,7 @@ START_TEST (test_comp_flatten_unknown_withValidation_21)
   fail_unless(result == LIBSBML_OPERATION_FAILED);
 
 
-  string flatModel = writeSBMLToString(doc);
+  string flatModel = writeSBMLToStdString(doc);
   fail_unless(flatModel == newModel);
 
   delete converter; 

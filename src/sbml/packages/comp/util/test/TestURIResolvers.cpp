@@ -167,6 +167,8 @@ START_TEST (test_comp_fileresolver_resolve)
   SBMLDocument* doc2 = fr.resolve("enzyme_model.xml", doc->getLocationURI());
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc;
+  delete doc2;
 }
 END_TEST
   
@@ -183,6 +185,8 @@ START_TEST (test_comp_fileresolver_resolve_1)
   SBMLDocument* doc2 = fr.resolve(newFilename, doc->getLocationURI());
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc;
+  delete doc2;
 }
 END_TEST
   
@@ -200,6 +204,8 @@ START_TEST (test_comp_fileresolver_resolve_2)
   // the file name at the end of the uri
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc;
+  delete doc2;
 }
 END_TEST
   
@@ -211,6 +217,7 @@ START_TEST (test_comp_fileresolver_resolve_3)
   SBMLDocument* doc2 = fr.resolve("enzyme_model.xml", filename);
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc2;
 }
 END_TEST
   
@@ -228,6 +235,8 @@ START_TEST (test_comp_fileresolver_resolve_4)
   SBMLDocument* doc2 = fr.resolve("new_aggregate.xml", doc->getLocationURI());
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc;
+  delete doc2;
 }
 END_TEST
   
@@ -241,6 +250,7 @@ START_TEST (test_comp_fileresolver_resolve_5)
   // this passes because we have inadvertently used
   // the file nam at the end of the uri
   fail_unless(doc2 == NULL);
+  delete doc2;
 }
 END_TEST
   
@@ -257,6 +267,7 @@ START_TEST (test_comp_fileresolver_resolve_6)
   SBMLDocument* doc2 = fr.resolve("enzyme_model.xml", filename);
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc2;
 }
 END_TEST
   
@@ -281,9 +292,11 @@ START_TEST (test_comp_resolverregistry_2)
   filename += "complexified.xml";
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
   fail_unless(doc->getLocationURI() == "file:" + filename);
+  delete doc;
   SBMLDocument* doc2 = registry.resolve("enzyme_model.xml", doc->getLocationURI());
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
+  delete doc2;
   doc2 = registry.resolve("non-existent-file.really");
   fail_unless(doc2 == NULL);
 }
