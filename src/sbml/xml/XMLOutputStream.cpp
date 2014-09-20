@@ -1155,25 +1155,39 @@ XMLOutputStream_createAsStringWithProgramInfo (const char * encoding,
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFile (const char * filename, const char * encoding, int writeXMLDecl)
+XMLOutputStream_createFile (const char * filename, const char * encoding, 
+                            int writeXMLDecl)
 {
   if (filename == NULL || encoding == NULL) return NULL;
 
   std::ofstream *fout = new std::ofstream(filename, std::ios::out);
-  return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl);
+  
+  XMLOutputStream_t * out = new(nothrow) 
+                           XMLOutputFileStream(*fout, encoding, writeXMLDecl);
+
+  delete fout;
+
+  return out;
 }
 
 
 LIBLAX_EXTERN
 XMLOutputStream_t *
-XMLOutputStream_createFileWithProgramInfo (const char * filename, const char * encoding, 
+XMLOutputStream_createFileWithProgramInfo (const char * filename, 
+                                           const char * encoding, 
         int writeXMLDecl, const char * programName, const char * programVersion)
 {
   if (filename == NULL || encoding == NULL) return NULL;
 
   std::ofstream *fout = new std::ofstream(filename, std::ios::out);
-  return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl,
-                          programName, programVersion);
+
+  XMLOutputStream_t * out = new(nothrow) 
+                           XMLOutputFileStream(*fout, encoding, writeXMLDecl,
+                           programName, programVersion);
+
+  delete fout;
+
+  return out;
 }
 
 

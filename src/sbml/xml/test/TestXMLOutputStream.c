@@ -282,12 +282,12 @@ create_suite_XMLOutputStream (void)
   tcase_add_test( tcase, test_XMLOutputStream_createStdout  );
   tcase_add_test( tcase, test_XMLOutputStream_createStdoutWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_accessWithNULL               );
+  tcase_add_test( tcase, test_XMLOutputStream_createFile  );
+  tcase_add_test( tcase, test_XMLOutputStream_createFileWithProgramInfo    );
 
   // // memory leaks unresolved
   // // all due to createAsString
-  tcase_add_test( tcase, test_XMLOutputStream_createFile  );
   tcase_add_test( tcase, test_XMLOutputStream_createString  );
-  tcase_add_test( tcase, test_XMLOutputStream_createFileWithProgramInfo    );
   tcase_add_test( tcase, test_XMLOutputStream_createStringWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_startEnd  );
   tcase_add_test( tcase, test_XMLOutputStream_Elements  );
