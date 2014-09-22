@@ -281,8 +281,9 @@ SBase::getAllElementsFromPlugins(ElementFilter *filter)
  * Creates a new SBase object with the given level and version.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (unsigned int level, unsigned int version) :
-   mNotes     ( NULL )
+SBase::SBase (unsigned int level, unsigned int version) 
+ : mMetaId ("")
+ , mNotes(NULL)
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
@@ -324,8 +325,9 @@ SBase::SBase (unsigned int level, unsigned int version) :
  * Creates a new SBase object with the given SBMLNamespaces.
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (SBMLNamespaces *sbmlns) :
-   mNotes     ( NULL )
+SBase::SBase (SBMLNamespaces *sbmlns) 
+ : mMetaId("")
+ , mNotes(NULL)
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
