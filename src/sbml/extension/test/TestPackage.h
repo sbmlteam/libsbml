@@ -95,23 +95,26 @@ typedef enum
 class TestModelPlugin : public SBasePlugin
 {
 public:
+  TestModelPlugin(const std::string &uri, const std::string &prefix,
+    TestPkgNamespaces *groupsns);
+  TestModelPlugin(const TestModelPlugin& orig);
+  virtual ~TestModelPlugin();
+  TestModelPlugin& operator=(const TestModelPlugin& orig);
+  virtual TestModelPlugin* clone() const;
+  virtual SBase* createObject(XMLInputStream& stream);
+  virtual void writeElements(XMLOutputStream& stream) const;
+  virtual bool hasRequiredElements() const;
 
-	  TestModelPlugin (const std::string &uri, const std::string &prefix,
-                    TestPkgNamespaces *groupsns);
-      TestModelPlugin(const TestModelPlugin& orig);
-	  virtual ~TestModelPlugin ();
-	  TestModelPlugin& operator=(const TestModelPlugin& orig);
-	  virtual TestModelPlugin* clone () const;
-	  virtual SBase* createObject (XMLInputStream& stream);
-	  virtual void writeElements (XMLOutputStream& stream) const;
-	  virtual bool hasRequiredElements() const ;
+  virtual void setSBMLDocument(SBMLDocument* d);
+  virtual void connectToParent(SBase *sbase);
 
-	  virtual void setSBMLDocument (SBMLDocument* d);
-	  virtual void connectToParent (SBase *sbase);
+  virtual void enablePackageInternal(const std::string& pkgURI,
+    const std::string& pkgPrefix, bool flag);
+  const std::string& getValue() const;
+  void setValue(const std::string& value);
 
-	  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
-
+protected:
+  std::string mValue;
 };
 LIBSBML_CPP_NAMESPACE_END
 #endif //__cplusplus

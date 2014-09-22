@@ -136,6 +136,44 @@ START_TEST (test_SBMLExtension_c_api)
 }
 END_TEST
 
+START_TEST(test_SBMLExtension_reenable)
+{  
+  TestPkgNamespaces ns(3, 1, 1);
+  SBMLDocument doc(&ns);
+  Model* model = doc.createModel();  
+  TestModelPlugin* mPlugin = dynamic_cast<TestModelPlugin*>( model->getPlugin("test") );
+  fail_unless(mPlugin != NULL);
+  mPlugin->setValue("foo");
+  fail_unless(mPlugin->getValue() == "foo");
+  fail_unless(doc.getNumDisabledPlugins() == 0);
+
+  // disable plugin 
+  doc.disablePackage(TestExtension::getXmlnsL3V1V1(), "test");
+  fail_unless(doc.getNumDisabledPlugins() == 1);
+  mPlugin = dynamic_cast<TestModelPlugin*>(model->getPlugin("test"));
+  fail_unless(mPlugin == NULL);
+
+  // re-enable plugin
+  doc.enablePackage(TestExtension::getXmlnsL3V1V1(), "test", true);
+  fail_unless(doc.getNumDisabledPlugins() == 0);
+  mPlugin = dynamic_cast<TestModelPlugin*>(model->getPlugin("test"));
+  fail_unless(mPlugin != NULL);
+  fail_unless(mPlugin->getValue() == "foo");
+
+  // disable again
+  doc.disablePackage(TestExtension::getXmlnsL3V1V1(), "test");
+  fail_unless(doc.getNumDisabledPlugins() == 1);
+  doc.deleteDisabledPlugins();
+  fail_unless(doc.getNumDisabledPlugins() == 0);
+
+  // enable plugin
+  doc.enablePackage(TestExtension::getXmlnsL3V1V1(), "test", true);
+  mPlugin = dynamic_cast<TestModelPlugin*>(model->getPlugin("test"));
+  fail_unless(mPlugin != NULL);
+  fail_unless(mPlugin->getValue().empty());
+
+}
+END_TEST
 
 Suite *
 create_suite_SBMLExtension (void)
@@ -145,6 +183,7 @@ create_suite_SBMLExtension (void)
 	
   tcase_add_test( tcase, test_SBMLExtension );
   tcase_add_test( tcase, test_SBMLExtension_c_api );
+  tcase_add_test( tcase, test_SBMLExtension_reenable );
   
   suite_add_tcase(suite, tcase);
 

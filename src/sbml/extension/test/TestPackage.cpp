@@ -226,11 +226,13 @@ TestModelPlugin::TestModelPlugin (const std::string &uri,
 	const std::string &prefix,
 	TestPkgNamespaces *groupsns)
 	: SBasePlugin(uri,prefix, groupsns)
+  , mValue()
 {
 }
 
 TestModelPlugin::TestModelPlugin(const TestModelPlugin& orig)
 	: SBasePlugin(orig)
+  , mValue(orig.mValue)
 {
 }
 
@@ -241,6 +243,7 @@ TestModelPlugin&
 {
 	if(&orig!=this)
 	{
+    this->mValue = orig.mValue;
 		this->SBasePlugin::operator =(orig);
 	}    
 	return *this;
@@ -251,6 +254,18 @@ TestModelPlugin*
 {
 	return new TestModelPlugin(*this);  
 }
+
+const std::string& 
+TestModelPlugin::getValue() const
+{
+  return mValue;
+}
+void 
+TestModelPlugin::setValue(const std::string& value)
+{
+  mValue = value;
+}
+
 
 SBase*
 	TestModelPlugin::createObject(XMLInputStream& stream)

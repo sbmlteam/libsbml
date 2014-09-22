@@ -2672,6 +2672,28 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+   * Returns the number of disabled plug-in objects (extenstion interfaces) 
+   * for SBML Level&nbsp;3 package extensions known.
+   *
+   * @copydetails doc_what_are_plugins
+   *
+   * @return the number of disabled plug-in objects (extension interfaces) 
+   * of package extensions known by this instance of libSBML.
+   *
+   */
+  unsigned int getNumDisabledPlugins() const;
+
+  /** 
+   * Deletes all information stored in disabled plugins. 
+   *
+   * @param recursive if @c true, the disabled information will be deleted
+   * also from all child elements, otherwise only from this SBase element.
+   *
+   * @see getNumDisabledPlugins()
+   */
+  void deleteDisabledPlugins(bool recursive=true);
+
+  /**
    * Enables or disables the given SBML Level&nbsp;3 package on this object.
    *
    * This method enables the specified package on this object and other
@@ -3643,6 +3665,12 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
   // an SBase derived object.
   //
   std::vector<SBasePlugin*> mPlugins;
+
+  //
+  // In case an SBasePlugin is disabled, we still store it here in case it 
+  // will be re-enabled later on. 
+  //
+  std::vector<SBasePlugin*> mDisabledPlugins;
 
 
   //

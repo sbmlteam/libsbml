@@ -86,7 +86,7 @@ struct DeletePluginEntity : public unary_function<SBasePlugin*, void>
 struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
 {
   SBasePlugin* operator() (SBasePlugin* sb) {
-    if (!sb) return 0;
+    if (!sb) return NULL;
     return sb->clone();
   }
 };
@@ -484,6 +484,7 @@ SBase::~SBase ()
   mHasBeenDeleted = true;
 
   for_each( mPlugins.begin(), mPlugins.end(), DeletePluginEntity() );
+  deleteDisabledPlugins(false);
 }
 
 /*
@@ -3046,6 +3047,27 @@ SBase::getNumPlugins() const
   return (int)mPlugins.size();
 }
 
+unsigned int
+SBase::getNumDisabledPlugins() const
+{
+  return (int)mDisabledPlugins.size();
+}
+
+void 
+SBase::deleteDisabledPlugins(bool recursive /*= true*/)
+{
+  for_each(mDisabledPlugins.begin(), mDisabledPlugins.end(), DeletePluginEntity());
+  mDisabledPlugins.clear();
+
+  if (recursive)
+  {
+    List* list = getAllElements();
+    for (unsigned int i = 0; i < list->getSize(); ++i)
+      ((SBase*)list->get(i))->deleteDisabledPlugins();
+  }
+
+}
+
 int
 SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
 {
@@ -3168,25 +3190,49 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
     {
 #if 0
       cout << "[DEBUG] SBase::enablePackageInternal() (uri) " <<  pkgURI
-           << " (prefix) " << pkgPrefix << " (element) " << getElementName() << endl;
+        << " (prefix) " << pkgPrefix << " (element) " << getElementName() << endl;
 #endif
-      mSBMLNamespaces->addNamespace(pkgURI,pkgPrefix);
+      mSBMLNamespaces->addNamespace(pkgURI, pkgPrefix);
     }
 
     //
-    // enable the given package
+    // go through disabled plugins, and if we have one re-enable that one, rather 
+    // than creating a new one
     //
-    const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(pkgURI);
 
-    if (sbmlext)
+    bool wasDisabled = false;
+    int numDisabledPlugins = (int)mDisabledPlugins.size();
+    for (int i = numDisabledPlugins - 1; i >= 0; --i)
     {
-      SBaseExtensionPoint extPoint(getPackageName(),getTypeCode());
-      const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
-      if (sbPluginCreator)
+      SBasePlugin *current = mDisabledPlugins[i];
+      std::string uri = current->getURI();
+      if (pkgURI == uri)
       {
-        SBasePlugin* entity = sbPluginCreator->createPlugin(pkgURI,pkgPrefix,getNamespaces());
-        entity->connectToParent(this);
-        mPlugins.push_back(entity);
+        mDisabledPlugins.erase(mDisabledPlugins.begin() + i);
+        current->connectToParent(this);
+        mPlugins.push_back(current);
+        wasDisabled = true;
+      }
+    }
+
+
+    if (!wasDisabled)
+    {
+      //
+      // enable the given package
+      //
+      const SBMLExtension* sbmlext = SBMLExtensionRegistry::getInstance().getExtensionInternal(pkgURI);
+
+      if (sbmlext)
+      {
+        SBaseExtensionPoint extPoint(getPackageName(), getTypeCode());
+        const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
+        if (sbPluginCreator)
+        {
+          SBasePlugin* entity = sbPluginCreator->createPlugin(pkgURI, pkgPrefix, getNamespaces());
+          entity->connectToParent(this);
+          mPlugins.push_back(entity);
+        }
       }
 
     }
@@ -3226,12 +3272,15 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
     //
     // disable the given package
     //
-    for (size_t i=0; i < mPlugins.size(); i++)
+    int numPlugins = (int)mPlugins.size();
+    for (int i=numPlugins-1; i >= 0; --i)
     {
-      std::string uri = mPlugins[i]->getURI();
+      SBasePlugin *current = mPlugins[i];
+      std::string uri = current->getURI();
       if (pkgURI == uri)
-      {
+      {        
         mPlugins.erase( mPlugins.begin() + i );
+        mDisabledPlugins.push_back(current);
       }
     }
 
