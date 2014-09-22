@@ -932,9 +932,20 @@ Submodel::instantiate()
   //                                    plugin->getPrefix(), true);
   //}
   
+  CompModelPlugin* origmodplug = 
+    static_cast<CompModelPlugin*>(rootdoc->getModel()->getPlugin(getPrefix()));
+
   CompModelPlugin* instmodplug = 
     static_cast<CompModelPlugin*>(mInstantiatedModel->getPlugin(getPrefix()));
   
+  // if we have a transformer specified, then we need to propagate it, so it can
+  // be used
+  if (origmodplug->isSetTransformer())
+  {
+    if (instmodplug != NULL)
+      instmodplug->setTransformer(origmodplug->getTransformer());
+  }
+
   for (unsigned int sub=0; sub<instmodplug->getNumSubmodels(); sub++) 
   {
     Submodel* instsub = instmodplug->getSubmodel(sub);

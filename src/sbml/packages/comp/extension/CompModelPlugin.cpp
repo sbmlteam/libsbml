@@ -693,14 +693,17 @@ CompModelPlugin::instantiateSubmodels()
       return LIBSBML_OPERATION_FAILED;
     }
     
-    // if we have a transformer specified, then we need to propagate it, so it can
-    // be used
-    if (isSetTransformer())
-    {
-      CompModelPlugin* other = dynamic_cast<CompModelPlugin*>(submodinst->getPlugin("comp"));
-      if (other != NULL)
-        other->setTransformer(getTransformer());
-    }
+    //// if we have a transformer specified, then we need to propagate it, so it can
+    //// be used
+
+    // this needs to happen in Submodel:instantiate
+
+    //if (isSetTransformer())
+    //{
+    //  CompModelPlugin* other = dynamic_cast<CompModelPlugin*>(submodinst->getPlugin("comp"));
+    //  if (other != NULL)
+    //    other->setTransformer(getTransformer());
+    //}
   }
 
   // Next, recursively find all the targets of SBaseRef elements 
