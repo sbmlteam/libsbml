@@ -293,7 +293,7 @@ START_TEST (test_comp_resolverregistry_2)
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
   fail_unless(doc->getLocationURI() == "file:" + filename);
   delete doc;
-  SBMLDocument* doc2 = registry.resolve("enzyme_model.xml", doc->getLocationURI());
+  SBMLDocument* doc2 = registry.resolve("enzyme_model.xml", "file:" + filename);
   fail_unless(doc2 != NULL);
   fail_unless(doc2->getModel() != NULL);
   delete doc2;

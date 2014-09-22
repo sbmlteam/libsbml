@@ -2009,7 +2009,10 @@ START_TEST(test_invalid_layout_disabled)
 
   ffile = filename + "layout_invalid_removed_flat.xml";
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(doc->getNumErrors() == 0);
+
+  if (SBMLExtensionRegistry::isPackageEnabled("layout") == true)
+    fail_unless(doc->getNumErrors() == 0);
+
 
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
   string flatModel = writeSBMLToStringSafe(fdoc);
