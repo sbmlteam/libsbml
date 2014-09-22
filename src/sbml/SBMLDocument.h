@@ -464,6 +464,15 @@ public:
   virtual SBMLDocument* clone () const;
 
 
+
+  /**
+  * Returns @c true if the Model object has been set, otherwise 
+  * returns @c false.
+  *
+  * @return @c true if the Model object has been set
+  */
+  bool isSetModel () const;
+
   /**
    * Returns the Model object stored in this SBMLDocument.
    *
@@ -1725,6 +1734,22 @@ SBMLDocument_getLevel (const SBMLDocument_t *d);
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getVersion (const SBMLDocument_t *d);
+
+
+/**
+ * Predicate for testing whether the identifier of a given SBMLDocument_t
+ * structure is assigned.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return nonzero if the model object of this SBMLDocument_t structure is
+ * set, zero (0) otherwise.
+ *
+ * @memberof SBMLDocument_t
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetModel(const SBMLDocument_t *d);
 
 
 /**

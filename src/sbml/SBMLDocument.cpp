@@ -353,6 +353,13 @@ SBMLDocument::clone () const
 }
 
 
+bool 
+SBMLDocument::isSetModel() const
+{
+  return mModel != NULL;
+}
+
+
 /*
  * @return the Model contained in this SBMLDocument.
  */
@@ -1935,6 +1942,14 @@ unsigned int
 SBMLDocument_getVersion (const SBMLDocument_t *d)
 {
   return (d != NULL) ? d->getVersion() : SBML_INT_MAX;
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetModel(const SBMLDocument_t *d)
+{
+  return (d != NULL) ? (int)d->isSetModel() : 0;
 }
 
 
