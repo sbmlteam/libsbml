@@ -67,155 +67,151 @@ const string usage = "Usage: flattenModelAdvanced [-p] inputFile outputFile\n"
 class CPrefixNameTransformer : public PrefixTransformer
 {
 public:
-	CPrefixNameTransformer() {}
+  CPrefixNameTransformer() {}
 
-	static void replaceStringInPlace(std::string& subject, const std::string& search,
-	const std::string& replace)
-	{
-		size_t pos = 0;
+  static void replaceStringInPlace(std::string& subject, const std::string& search,
+  const std::string& replace)
+  {
+    size_t pos = 0;
 
-		while ((pos = subject.find(search, pos)) != std::string::npos)
-		{
-			subject.replace(pos, search.length(), replace);
-			pos += replace.length();
-		}
-	}
+    while ((pos = subject.find(search, pos)) != std::string::npos)
+    {
+      subject.replace(pos, search.length(), replace);
+      pos += replace.length();
+    }
+  }
 
-	static inline std::string &rtrim(std::string &str)
-	{
-		size_t endpos = str.find_last_not_of(" \t");
+  static inline std::string &rtrim(std::string &str)
+  {
+    size_t endpos = str.find_last_not_of(" \t");
 
-		if (string::npos != endpos)
-		{
-			str = str.substr(0, endpos + 1);
-		}
+    if (string::npos != endpos)
+    {
+      str = str.substr(0, endpos + 1);
+    }
 
-		return str;
-	}
+    return str;
+  }
 
-	const std::string& cleanName(std::string& prefix)
-	{
-		std::replace(prefix.begin(), prefix.end(), '_', ' ');
-		replaceStringInPlace(prefix, "  ", " ");
-		rtrim(prefix);
-		return prefix;
-	}
+  const std::string& cleanName(std::string& prefix)
+  {
+    std::replace(prefix.begin(), prefix.end(), '_', ' ');
+    replaceStringInPlace(prefix, "  ", " ");
+    rtrim(prefix);
+    return prefix;
+  }
 
-	virtual int transform(SBase* element)
-	{
-		if (element == NULL || getPrefix().empty())
-		return LIBSBML_OPERATION_SUCCESS;
+  virtual int transform(SBase* element)
+  {
+    if (element == NULL || getPrefix().empty())
+    return LIBSBML_OPERATION_SUCCESS;
 
-		// set up ids
+    // set up ids
     // this will rename the SIds and SIdRefs as
     // the comp flattening routine does by default
-		PrefixTransformer::transform(element);
+    PrefixTransformer::transform(element);
 
-		// skip local parameters, as they are not renamed
-		if (element->getTypeCode() == SBML_LOCAL_PARAMETER)
-		return LIBSBML_OPERATION_SUCCESS;
+    // skip local parameters, as they are not renamed
+    if (element->getTypeCode() == SBML_LOCAL_PARAMETER)
+    return LIBSBML_OPERATION_SUCCESS;
 
-		// setup names
+    // setup names
     // here we want to rename the name attribute to also indicate if
     // the element came from a subModel
-		if (element->isSetName())
-		{
-			std::stringstream newName;
-			std::string prefix = getPrefix();
-			newName << element->getName() << " (" << cleanName(prefix) << ")";
-			element->setName(newName.str());
-		}
+    if (element->isSetName())
+    {
+      std::stringstream newName;
+      std::string prefix = getPrefix();
+      newName << element->getName() << " (" << cleanName(prefix) << ")";
+      element->setName(newName.str());
+    }
 
-		return LIBSBML_OPERATION_SUCCESS;
-	}
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 };
 
 
 int main(int argc,char** argv)
 {
-	bool leavePorts = false;
-	if (argc < 3)
-	{
-		cout << usage << endl;
-		return 1;
-	}
-	else if (argc == 3)
-	{
-		if ( string("-p") == string(argv[1]) )
-		{
-			cout << usage << endl;
-			return 1;
-		}       
-	}
+  bool leavePorts = false;
+  if (argc < 3)
+  {
+    cout << usage << endl;
+    return 1;
+  }
+  else if (argc == 3)
+  {
+    if ( string("-p") == string(argv[1]) )
+    {
+      cout << usage << endl;
+      return 1;
+    }       
+  }
 
-	int  argIndex = 1;
+  int  argIndex = 1;
 
-	if ( string("-p") == string(argv[1]) )
-	{
-		leavePorts = true;
-		++argIndex;
-	}     
+  if ( string("-p") == string(argv[1]) )
+  {
+    leavePorts = true;
+    ++argIndex;
+  }     
 
-	if (SBMLExtensionRegistry::isPackageEnabled("comp") == false)
-	{
-		cerr << "The version of libsbml being used does not have the comp"
-		     << " package code enabled" << endl;
-		return 1;
-	}
+  if (SBMLExtensionRegistry::isPackageEnabled("comp") == false)
+  {
+    cerr << "The version of libsbml being used does not have the comp"
+         << " package code enabled" << endl;
+    return 1;
+  }
 
-	const char* inputFile   = argv[argIndex];
-	const char* outputFile  = argv[argIndex+1];
+  const char* inputFile   = argv[argIndex];
+  const char* outputFile  = argv[argIndex+1];
 
-	SBMLDocument* document = readSBML(inputFile);
+  SBMLDocument* document = readSBML(inputFile);
 
-	if (document->getNumErrors() > 0)
-	{
-		cerr << "Encountered the following SBML errors:" << endl;
-		document->printErrors(cerr);
-		return 1;
-	}
+  if (document->getNumErrors() > 0)
+  {
+    cerr << "Encountered the following SBML errors:" << endl;
+    document->printErrors(cerr);
+    return 1;
+  }
 
-	// add the advanced prefix transformer to the comp plugin
+  // add the advanced prefix transformer to the comp plugin
   // this transformer will be used during the flattening process
   // to rename SIds and SIdRefs (as would happen by default)
   // but allows the user to specify other changes that they
-  // may wsh to be made (e.g. rename the name attribute)
-	CompModelPlugin* mPlug = dynamic_cast<CompModelPlugin*>(document->getModel()->getPlugin("comp"));
-	CPrefixNameTransformer trans;
+  // may wish to be made (e.g. rename the name attribute)
+  CompModelPlugin* mPlug = dynamic_cast<CompModelPlugin*>(document->getModel()->getPlugin("comp"));
+  CPrefixNameTransformer trans;
 
-	if (mPlug != NULL)
-	{
-		mPlug->setTransformer(&trans);
-	}
+  if (mPlug != NULL)
+  {
+    mPlug->setTransformer(&trans);
+  }
 
-	ConversionProperties* props = new ConversionProperties();
+  ConversionProperties* props = new ConversionProperties();
 
-	props->addOption("flatten comp");
-	props->addOption("leavePorts", leavePorts);
+  props->addOption("flatten comp");
+  props->addOption("leavePorts", leavePorts);
 
-	SBMLConverter* converter = 
-	SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  SBMLConverter* converter = 
+  SBMLConverterRegistry::getInstance().getConverterFor(*props);
 
 
-	converter->setDocument(document);
+  converter->setDocument(document);
 
-	int result = converter->convert();
+  // NOTE: after a call to convert, the comp model plugin pointer 
+  // is no longer valid and has to be retrieved again. 
+  int result = converter->convert();
 
-	if (result != LIBSBML_OPERATION_SUCCESS)
-	{
-		cerr << "Conversion failed\n";
-		document->printErrors();
-	}
+  if (result != LIBSBML_OPERATION_SUCCESS)
+  {
+    cerr << "Conversion failed\n";
+    document->printErrors();
+  }
+  
+  writeSBML(document, outputFile);
 
-	// unset the transformer before it goes out of scope
-	if (mPlug != NULL)
-	{
-		mPlug->setTransformer(NULL);
-	}
-
-	writeSBML(document, outputFile);
-
-	delete converter;
-	delete document;
+  delete converter;
+  delete document;
 
 }
