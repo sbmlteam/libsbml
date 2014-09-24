@@ -168,7 +168,7 @@ int main(int argc,char** argv)
 
   SBMLDocument* document = readSBML(inputFile);
 
-  if (document->getNumErrors() > 0)
+  if (document->getNumErrors(LIBSBML_SEV_ERROR) > 0)
   {
     cerr << "Encountered the following SBML errors:" << endl;
     document->printErrors(cerr);
