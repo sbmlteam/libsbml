@@ -1,0 +1,831 @@
+/**
+ * @file:   DynElement.cpp
+ * @brief:  Implementation of the DynElement class
+ * @author: SBMLTeam
+ *
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2013-2014 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *     3. University of Heidelberg, Heidelberg, Germany
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ */
+
+
+#include <sbml/packages/dyn/sbml/DynElement.h>
+#include <sbml/packages/dyn/validator/DynSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+
+
+using namespace std;
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+/*
+ * Creates a new DynElement with the given level, version, and package version.
+ */
+DynElement::DynElement (unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : SBase(level, version)
+  , mElement ("")
+{
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new DynPkgNamespaces(level, version, pkgVersion));
+}
+
+
+/*
+ * Creates a new DynElement with the given DynPkgNamespaces object.
+ */
+DynElement::DynElement (DynPkgNamespaces* dynns)
+  : SBase(dynns)
+  , mElement ("")
+{
+  // set the element namespace of this object
+  setElementNamespace(dynns->getURI());
+
+  // load package extensions bound with this object (if any) 
+  loadPlugins(dynns);
+}
+
+
+/*
+ * Copy constructor for DynElement.
+ */
+DynElement::DynElement (const DynElement& orig)
+  : SBase(orig)
+{
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mElement  = orig.mElement;
+  }
+}
+
+
+/*
+ * Assignment for DynElement.
+ */
+DynElement&
+DynElement::operator=(const DynElement& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment");
+  }
+  else if (&rhs != this)
+  {
+    SBase::operator=(rhs);
+    mElement  = rhs.mElement;
+  }
+  return *this;
+}
+
+
+/*
+ * Clone for DynElement.
+ */
+DynElement*
+DynElement::clone () const
+{
+  return new DynElement(*this);
+}
+
+
+/*
+ * Destructor for DynElement.
+ */
+DynElement::~DynElement ()
+{
+}
+
+
+/*
+ * Returns the value of the "element" attribute of this DynElement.
+ */
+const std::string&
+DynElement::getElement() const
+{
+  return mElement;
+}
+
+
+/*
+ * Returns true/false if element is set.
+ */
+bool
+DynElement::isSetElement() const
+{
+  return (mElement.empty() == false);
+}
+
+
+/*
+ * Sets element and returns value indicating success.
+ */
+int
+DynElement::setElement(const std::string& element)
+{
+  if (&(element) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidInternalSId(element)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mElement = element;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets element and returns value indicating success.
+ */
+int
+DynElement::unsetElement()
+{
+  mElement.erase();
+
+  if (mElement.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * rename attributes that are SIdRefs or instances in math
+ */
+void
+DynElement::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+  if (isSetElement() == true && mElement == oldid)
+  {
+    setElement(newid);
+  }
+
+}
+
+
+/*
+ * Returns the XML element name of this object
+ */
+const std::string&
+DynElement::getElementName () const
+{
+  static const string name = "element";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+DynElement::getTypeCode () const
+{
+  return SBML_DYN_ELEMENT;
+}
+
+
+/*
+ * check if all the required attributes are set
+ */
+bool
+DynElement::hasRequiredAttributes () const
+{
+  bool allPresent = true;
+
+  if (isSetElement() == false)
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+DynElement::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor.
+ */
+bool
+DynElement::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+DynElement::setSBMLDocument (SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+DynElement::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
+void
+DynElement::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBase::addExpectedAttributes(attributes);
+
+  attributes.add("element");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+DynElement::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfDynElements - which will have
+   * happened immediately prior to this read
+  */
+
+  if (getErrorLog() != NULL &&
+      static_cast<ListOfDynElements*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+              getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("dyn", DynUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                   getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("dyn", DynUnknownError,
+                  getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
+
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("dyn", DynUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("dyn", DynUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // element SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("element", mElement);
+
+  if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mElement.empty() == true)
+    {
+      logEmptyString(mElement, getLevel(), getVersion(), "<DynElement>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mElement) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute element='" + mElement + "' does not conform.");
+    }
+  }
+  else
+  {
+    std::string message = "Dyn attribute 'element' is missing.";
+    getErrorLog()->logPackageError("dyn", DynUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+DynElement::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+
+  if (isSetElement() == true)
+    stream.writeAttribute("element", getPrefix(), mElement);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+/*
+ * Constructor 
+ */
+ListOfDynElements::ListOfDynElements(unsigned int level, 
+                    unsigned int version, 
+                    unsigned int pkgVersion)
+ : ListOf(level, version)
+{
+  setSBMLNamespacesAndOwn(new DynPkgNamespaces(level, version, pkgVersion)); 
+}
+
+
+/*
+ * Constructor 
+ */
+ListOfDynElements::ListOfDynElements(DynPkgNamespaces* dynns)
+  : ListOf(dynns)
+{
+  setElementNamespace(dynns->getURI());
+}
+
+
+/*
+ * Returns a deep copy of this ListOfDynElements 
+ */
+ListOfDynElements* 
+ListOfDynElements::clone () const
+ {
+  return new ListOfDynElements(*this);
+}
+
+
+/*
+ * Get a Element from the ListOfDynElements by index.
+*/
+DynElement*
+ListOfDynElements::get(unsigned int n)
+{
+  return static_cast<DynElement*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a Element from the ListOfDynElements by index.
+ */
+const DynElement*
+ListOfDynElements::get(unsigned int n) const
+{
+  return static_cast<const DynElement*>(ListOf::get(n));
+}
+
+
+/*
+ * Get a Element from the ListOfDynElements by id.
+ */
+DynElement*
+ListOfDynElements::get(const std::string& sid)
+{
+	return const_cast<DynElement*>(
+    static_cast<const ListOfDynElements&>(*this).get(sid));
+}
+
+
+/*
+ * Get a Element from the ListOfDynElements by id.
+ */
+const DynElement*
+ListOfDynElements::get(const std::string& sid) const
+{
+  vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEq<DynElement>(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <DynElement*> (*result);
+}
+
+
+/**
+ * Adds a copy the given "DynElement" to this ListOfDynElements.
+ *
+ * @param de; the DynElement object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ListOfDynElements::addElement(const DynElement* de)
+{
+  if (de == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (de->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != de->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != de->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(de)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+	append(de);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/**
+ * Get the number of DynElement objects in this ListOfDynElements.
+ *
+ * @return the number of DynElement objects in this ListOfDynElements
+ */
+unsigned int 
+ListOfDynElements::getNumElements() const
+{
+	return size();
+}
+
+/**
+ * Creates a new DynElement object, adds it to this ListOfDynElements
+ * DynElement and returns the DynElement object created. 
+ *
+ * @return a new DynElement object instance
+ *
+ * @see addDynElement(const DynElement* de)
+ */
+DynElement* 
+ListOfDynElements::createElement()
+{
+  DynElement* de = NULL;
+
+  try
+  {
+    DYN_CREATE_NS(dynns, getSBMLNamespaces());
+    de = new DynElement(dynns);
+    delete dynns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(de != NULL)
+  {
+    appendAndOwn(de);
+  }
+
+  return de;
+}
+
+/*
+ * Removes the nth Element from this ListOfDynElements
+ */
+DynElement*
+ListOfDynElements::remove(unsigned int n)
+{
+  return static_cast<DynElement*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the Element from this ListOfDynElements with the given identifier
+ */
+DynElement*
+ListOfDynElements::remove(const std::string& sid)
+{
+  SBase* item = NULL;
+  vector<SBase*>::iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEq<DynElement>(sid) );
+
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
+  }
+
+	return static_cast <DynElement*> (item);
+}
+
+
+/*
+ * Returns the XML element name of this object
+ */
+const std::string&
+ListOfDynElements::getElementName () const
+{
+  static const string name = "listOfElements";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+ListOfDynElements::getTypeCode () const
+{
+  return SBML_LIST_OF;
+}
+
+
+/*
+ * Returns the libSBML type code for the objects in this LIST_OF.
+ */
+int
+ListOfDynElements::getItemTypeCode () const
+{
+  return SBML_DYN_ELEMENT;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new DynElement in this ListOfDynElements
+ */
+SBase*
+ListOfDynElements::createObject(XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase* object = NULL;
+
+  if (name == "element")
+  {
+    DYN_CREATE_NS(dynns, getSBMLNamespaces());
+    object = new DynElement(dynns);
+    appendAndOwn(object);
+    delete dynns;
+  }
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write the namespace for the Dyn package.
+ */
+void
+ListOfDynElements::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(DynExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(DynExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
+
+  stream << xmlns;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+LIBSBML_EXTERN
+DynElement_t *
+DynElement_create(unsigned int level, unsigned int version,
+                  unsigned int pkgVersion)
+{
+  return new DynElement(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+DynElement_free(DynElement_t * de)
+{
+  if (de != NULL)
+    delete de;
+}
+
+
+LIBSBML_EXTERN
+DynElement_t *
+DynElement_clone(DynElement_t * de)
+{
+  if (de != NULL)
+  {
+    return static_cast<DynElement_t*>(de->clone());
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+
+LIBSBML_EXTERN
+const char *
+DynElement_getElement(const DynElement_t * de)
+{
+	return (de != NULL && de->isSetElement()) ? de->getElement().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_isSetElement(const DynElement_t * de)
+{
+  return (de != NULL) ? static_cast<int>(de->isSetElement()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_setElement(DynElement_t * de, const char * element)
+{
+  if (de != NULL)
+    return (element == NULL) ? de->setElement("") : de->setElement(element);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_unsetElement(DynElement_t * de)
+{
+  return (de != NULL) ? de->unsetElement() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_hasRequiredAttributes(const DynElement_t * de)
+{
+  return (de != NULL) ? static_cast<int>(de->hasRequiredAttributes()) : 0;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+DynElement_t *
+ListOfDynElements_getById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfDynElements *>(lo)->get(sid) : NULL;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+DynElement_t *
+ListOfDynElements_removeById(ListOf_t * lo, const char * sid)
+{
+  if (lo == NULL)
+    return NULL;
+
+  return (sid != NULL) ? static_cast <ListOfDynElements *>(lo)->remove(sid) : NULL;
+}
+
+
+
+
+LIBSBML_CPP_NAMESPACE_END
+
+
