@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
+  xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" fbc:required="false"
+  level="3" version="1">
+  <model id="aggregate">
+    <listOfCompartments>
+      <compartment id="submod1__comp" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="submod2__c2" name="comp4" constant="true" units="litre"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="submod1__S" compartment="submod1__comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
+      <species id="submod2__S" compartment="submod2__c2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
+    </listOfSpecies>
+    
+  </model>
+  
+  
+</sbml>

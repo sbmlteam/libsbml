@@ -254,6 +254,8 @@ public:
 
 private:
 
+  int stripPackages();
+
   int reconstructDocument(Model* flatmodel); 
 
   int reconstructDocument(Model* flatmodel, 
@@ -276,6 +278,8 @@ private:
   bool getAbortForRequired() const;
 
   bool getAbortForNone() const;
+
+  const std::string& getPackagesToStrip() const;
 
   bool canBeFlattened();
 

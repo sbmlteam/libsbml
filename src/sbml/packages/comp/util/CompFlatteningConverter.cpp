@@ -39,6 +39,7 @@
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
 #include <sbml/SBMLWriter.h>
 #include <sbml/SBMLReader.h>
+#include <sbml/util/IdList.h>
 
 #ifdef __cplusplus
 
@@ -111,6 +112,8 @@ CompFlatteningConverter::getDefaultProperties() const
     "specify whether to abort if any unflattenable packages are encountered");
   prop.addOption("stripUnflattenablePackages", true, 
     "specify whether to strip any unflattenable packages ignored by 'abortIfUnflattenable'");
+  prop.addOption("stripPackages", "", 
+    "comma separated list of packages to be stripped before flattening is attempted");
   return prop;
 }
 
@@ -149,7 +152,14 @@ CompFlatteningConverter::convert()
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-  // look at the document and work out the status of any packages
+  // strip packages as instructed by user
+  int success = stripPackages();
+  if (success != LIBSBML_OPERATION_SUCCESS)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+
+  // look at the document and work out the status of any remaining packages
   mPackageValues.clear();
   analyseDocument();
 
@@ -639,6 +649,27 @@ CompFlatteningConverter::getAbortForNone() const
 }
 
 
+const std::string& 
+CompFlatteningConverter::getPackagesToStrip() const
+{
+	static std::string empty = "";
+
+  if (getProperties() == NULL)
+  {
+    return empty;
+  }
+  else if (getProperties()->hasOption("stripPackages") == false)
+  {
+    return empty;
+  }
+  else
+  {
+    return getProperties()->getValue("stripPackages");
+  }
+}
+
+
+
 void
 CompFlatteningConverter::stripUnflattenablePackages()
 {
@@ -720,6 +751,53 @@ CompFlatteningConverter::stripUnflattenablePackages()
       }
     }
 
+  }
+}
+
+int
+CompFlatteningConverter::stripPackages()
+{
+  IdList pkgsToStrip(getPackagesToStrip());
+
+  unsigned int num = pkgsToStrip.size();
+
+  if (num == 0)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  XMLNamespaces *ns = mDocument->getSBMLNamespaces()->getNamespaces();
+  for (int i = 0; i < ns->getLength(); i++)
+  {
+    std::string nsURI = ns->getURI(i);
+    std::string package = ns->getPrefix(i);
+    if (package.empty() == true)
+    {
+      continue;
+    }
+    else if (pkgsToStrip.contains(package) == true)
+    {
+      mDocument->enablePackage(nsURI, package, false);
+      mDisabledPackages.insert(make_pair(nsURI, package));
+    }
+  }
+
+  unsigned int count = 0;
+  for (unsigned int i = 0; i < num; i++)
+  {
+    if (mDocument->isPackageEnabled(pkgsToStrip.at(i)) == false)
+    {
+      count++;
+    }
+  }
+
+  if (num == count)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
   }
 }
 

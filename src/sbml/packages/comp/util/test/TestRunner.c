@@ -121,6 +121,7 @@ Suite *create_suite_TestFlatteningErrorMessages  (void);
 Suite *create_suite_TestURIResolvers (void);
 Suite *create_suite_TestExternalModelResolving (void);
 Suite *create_suite_TestCompFlatteningNewFlags (void);
+Suite *create_suite_TestFlatteningConverterStripPackage (void);
 
 /**
  * Global.
@@ -171,6 +172,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestFlatteningConverter() );
   srunner_add_suite( runner, create_suite_TestExternalModelResolving() );
   srunner_add_suite( runner, create_suite_TestCompFlatteningNewFlags() );
+  srunner_add_suite( runner, create_suite_TestFlatteningConverterStripPackage() );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

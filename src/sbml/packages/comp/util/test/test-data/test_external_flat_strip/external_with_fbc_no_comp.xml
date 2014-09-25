@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
+
+ xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" fbc:required="false">
+  <model id="Mod2">
+    <listOfCompartments>
+      <compartment id="c2" name="comp4" constant="true" units="litre"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="c2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
+      </listOfSpecies>
+  </model>
+  
+</sbml>

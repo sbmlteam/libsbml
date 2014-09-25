@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="c1" constant="true" name="comp1" units="litre">
+          <comp:replacedBy comp:idRef="c1" comp:submodelRef="submod1"/>
+      </compartment>
+    </listOfCompartments>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="submod1" comp:modelRef="Mod1"/>
+    </comp:listOfSubmodels>
+    
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="Mod1" comp:source="external_with_layout_no_comp.xml"/>
+  </comp:listOfExternalModelDefinitions>
+  
+</sbml>

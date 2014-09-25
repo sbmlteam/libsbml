@@ -2658,6 +2658,40 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+   * Returns the nth disabled plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @copydetails doc_what_are_plugins
+   *
+   * @param n the index of the disabled plug-in to return
+   *
+   * @return the nth disabled plug-in object (the libSBML extension interface) of a
+   * package extension.
+   *
+   * @see getNumDisabledPlugins()
+   * @see getPlugin(@if java String@else const std::string& package@endif)
+   */
+  SBasePlugin* getDisabledPlugin(unsigned int n);
+
+
+  /**
+   * Returns the nth disabled plug-in object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @copydetails doc_what_are_plugins
+   *
+   * @param n the index of the disabled plug-in to return
+   *
+   * @return the nth disabled plug-in object (the libSBML extension interface) of a
+   * package extension.
+   *
+   * @see getNumDisabledPlugins()
+   * @see getPlugin(@if java String@else const std::string& package@endif)
+   */
+  const SBasePlugin* getDisabledPlugin(unsigned int n) const;
+
+
+  /**
    * Returns the number of plug-in objects (extenstion interfaces) for SBML
    * Level&nbsp;3 package extensions known.
    *

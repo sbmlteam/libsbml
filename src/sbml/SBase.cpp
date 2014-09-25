@@ -3020,6 +3020,14 @@ SBase::getPlugin(unsigned int n)
 }
 
 
+SBasePlugin*
+SBase::getDisabledPlugin(unsigned int n)
+{
+  if (n>=getNumDisabledPlugins()) return NULL;
+  return mDisabledPlugins[n];
+}
+
+
 /*
  * Returns a plugin object (extenstion interface) of package extension
  * with the given package name or URI.
@@ -3033,6 +3041,13 @@ const SBasePlugin*
 SBase::getPlugin(unsigned int n) const
 {
   return const_cast<SBase*>(this)->getPlugin(n);
+}
+
+
+const SBasePlugin*
+SBase::getDisabledPlugin(unsigned int n) const
+{
+  return const_cast<SBase*>(this)->getDisabledPlugin(n);
 }
 
 
