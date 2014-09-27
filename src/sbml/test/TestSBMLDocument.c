@@ -66,6 +66,8 @@ START_TEST (test_SBMLDocument_create)
 
   fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
 
+  fail_unless( SBMLDocument_isSetModel(d) == 0 );
+
   SBMLDocument_free(d);
 }
 END_TEST
@@ -84,6 +86,8 @@ START_TEST (test_SBMLDocument_createWith)
   fail_unless( SBMLDocument_getVersion(d) == 2);
 
   fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
+
+  fail_unless( SBMLDocument_isSetModel(d) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -105,12 +109,14 @@ START_TEST (test_SBMLDocument_setModel)
   Model_t        *mout;
 
   fail_unless(SBMLDocument_getModel(d) == NULL);
+  fail_unless( SBMLDocument_isSetModel(d) == 0 );
 
   int i = SBMLDocument_setModel(d, m1);
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
   mout = SBMLDocument_getModel(d);
   fail_unless(mout != NULL);
   fail_unless(mout != m1);
+  fail_unless( SBMLDocument_isSetModel(d) == 1 );
 
   /* Reflexive case (pathological) */
   i = SBMLDocument_setModel(d, SBMLDocument_getModel(d));
