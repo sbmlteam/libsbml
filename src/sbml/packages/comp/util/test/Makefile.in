@@ -35,6 +35,7 @@ test_sources   =					 \
 	TestCompFlatteningConverter.cpp		 \
 	TestCompFlatteningErrorMessages.cpp	 \
 	TestCompFlatteningUnknownPackageRefs.cpp \
+  TestCompFlatteningConverterStripPackage.cpp \
 	TestExternalModelResolving.cpp		 \
   TestCompFlatteningNewFlags.cpp \
 	TestRunner.c				 \
