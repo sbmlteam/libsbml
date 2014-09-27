@@ -8,10 +8,21 @@
 STABLE RELEASE
 
 * New features
+
+  - There is now an interface for JavaScript.  This has been tested
+    on all platforms.  Building requires SWIG version 3.0.2 or greater 
+    and depends on node-gyp.  Feedback on this would be greatly
+    appreciated.
 	
   - The facility of using the data members of objects as attributes
     in python has been extended to work with Python version 3.
-
+    
+  - The SBMLDocument class now has an 'isSetModel()' function.
+  
+  - There is a new writSBMLToStdString() function that returns a 
+    std::string rather than a const char *. This facilitates cleaner
+    memory management.
+  
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
@@ -72,6 +83,10 @@ EXPERIMENTAL RELEASE
 
 * New features
 
+  Code for the Dynamic Structures ('dyn') package has been added. 
+  This reflects the draft specification dated August 8 2014.
+  
+
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
   - 'groups' package-specific updates:
@@ -96,7 +111,9 @@ EXPERIMENTAL RELEASE
       Thanks to Gerard Weatherby for reporting it.
 
   - 'spatial' package-specific bug fixes:
-
+  
+    - The spatial code has been updated in line with the specification
+      Release 0.88 dated September 2014.
 		   
 ====================================================================
 5.10.2 (2014-07-17)
