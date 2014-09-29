@@ -1049,6 +1049,13 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
   if (name == "model")
   {
+    // check that we do not already have a model
+    if (isSetModel() == true)
+    {
+      logError(NotSchemaConformant, getLevel(), getVersion(), 
+        "Only one <model> element is allowed within an SBMLDocument.");
+    }
+
     delete mModel;
 
     try
