@@ -3210,10 +3210,10 @@ newModel.addSpecies(s1);
    * Gets the namespace URI to which this element belongs to.
    *
    * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must would have the URI @c "http://www.sbml.org/sbml/level3/version1/core";
+   * must would have the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>;
    * all elements that belong to Layout Extension Version 1 for SBML Level 3
    * Version 1 Core must would have the URI
-   * @c "http://www.sbml.org/sbml/level3/version1/layout/version1/".
+   * @c <code>"http://www.sbml.org/sbml/level3/version1/layout/version1"</code>.
    *
    * This function first returns the URI for this element by looking into the
    * SBMLNamespaces object of the document with the its package name.  If not
@@ -3533,10 +3533,10 @@ protected:
   /**
    * Sets the XML namespace to which this element belongs to.
    * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core"; 
+   * must set the namespace to <code>"http://www.sbml.org/sbml/level3/version1/core"</code>; 
    * all elements that belong to Layout Extension Version 1 for SBML Level 3
    * Version 1 Core must set the namespace to 
-   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   * <code>"http://www.sbml.org/sbml/level3/version1/layout/version1"</code>.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -3926,7 +3926,7 @@ SBase_getSBOTermID (const SBase_t *sb);
  * this structure.
  *
  * @return the value of the "sboTerm" attribute as a string of the form
- * http://identifiers.org/biomodels.sbo/SBO:NNNNNNN, or @c NULL if the value is not set.
+ * <code>http://identifiers.org/biomodels.sbo/SBO:NNNNNNN</code>, or @c NULL if the value is not set.
  *
  * @memberof SBase_t
  */
@@ -4810,7 +4810,7 @@ SBase_unsetModelHistory(SBase_t *sb);
  *
  * @param sb the structure to query
  * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
+ * <code>"http://www.geneontology.org/#GO:0005892"</code>.
  *
  * @return the BiolQualifierType_t associated with the resource
  *
@@ -4827,7 +4827,7 @@ SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource);
  *
  * @param sb the structure to query
  * @param resource string representing the resource; e.g.,
- * "http://www.geneontology.org/#GO:0005892"
+ * <code>"http://www.geneontology.org/#GO:0005892"</code>.
  *
  * @return the ModelQualifierType_t associated with the resource
  *
