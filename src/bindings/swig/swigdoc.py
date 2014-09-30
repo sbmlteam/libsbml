@@ -808,7 +808,7 @@ def translateCrossRefs (str):
     p = re.compile('@sbmlfunction{([^}]+?)}')
     str = p.sub(translateSBMLFunctionRef, str)
   else:
-    p = re.compile(r'([^\w.%">])(' + '|'.join(libsbml_classes) + r')\b([^:])')
+    p = re.compile(r'([^\w."])(' + '|'.join(libsbml_classes) + r')\b([^:])')
     str = p.sub(translateClassRef, str)
     p = re.compile('(\W+)(\w+?)::(\w+\s*\([^)]*?\))')
     str = p.sub(translateMethodRef, str)
@@ -875,7 +875,11 @@ def translateClassRef (match):
   leading      = match.group(1)
   classname    = match.group(2)
   trailing     = match.group(3)
-  if leading == '%' or leading == '(':
+  # Don't create a link if
+  # - it's a quoted reference (using doxygen's % quote char)
+  # - it's an argument to a function call
+  # - it appears to be inside an HTML command (hence the test for '>'):
+  if leading == '%' or leading == '(' or leading == '>':
     return match.group(0)
   elif language == 'java':
     return leading + '{@link ' + classname + '}' + trailing
@@ -1101,7 +1105,7 @@ def sanitizeForHTML (docstring):
   # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
   # the %foo quoting mechanism.
 
-  docstring = re.sub(r'(\s)%(\w)', r'\1\2', docstring)
+  docstring = re.sub(r'([\s(>."])%(\w)', r'\1\2', docstring)
 
   # Currently, we don't handle @ingroup or our pseudo-tag, @sbmlpackage.
 
@@ -1375,7 +1379,7 @@ def rewriteDocstringForPerl (docstring):
   docstring = p.sub(r'', docstring)
 
   # Get rid of the %foo quoting.
-  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
+  docstring = re.sub(r'([\s(>."])%(\w)', r'\1\2', docstring)
 
   # The following are done in pairs because I couldn't come up with a
   # better way to catch the case where @c and @em end up alone at the end
