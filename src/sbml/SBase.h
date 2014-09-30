@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  * 
  * @class SBase
- * @sbmlbrief{core} SBML's %SBase class, the base class of most SBML objects.
+ * @sbmlbrief{core} SBML's <em>%SBase</em> class, the base class of most SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other
@@ -2964,10 +2964,10 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c 
    * false otherwise.
    *
-   * @see isPkgEnabled(@if java String@endif)
-   *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isPackageURIEnabled(@if java String@endif)
+   * SBase::isPackageURIEnabled(@if java String@endif).
+   *
+   * @see isPkgEnabled(@if java String@endif)
    */
   bool isPkgURIEnabled(const std::string& pkgURI) const;
 
@@ -2983,10 +2983,10 @@ newModel.addSpecies(s1);
    * @return @c true if the given package is enabled within this object, @c
    * false otherwise.
    *
-   * @see isPkgURIEnabled(@if java String@endif)
-   *
    * @deprecated Replaced in libSBML 5.2.0 by
-   * isPackageEnabled(@if java String@endif)
+   * SBase::isPackageEnabled(@if java String@endif).
+   *
+   * @see isPkgURIEnabled(@if java String@endif)
    */
   bool isPkgEnabled(const std::string& pkgName) const;
 
@@ -3210,10 +3210,10 @@ newModel.addSpecies(s1);
    * Gets the namespace URI to which this element belongs to.
    *
    * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core";
+   * must would have the URI @c "http://www.sbml.org/sbml/level3/version1/core";
    * all elements that belong to Layout Extension Version 1 for SBML Level 3
    * Version 1 Core must would have the URI
-   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   * @c "http://www.sbml.org/sbml/level3/version1/layout/version1/".
    *
    * This function first returns the URI for this element by looking into the
    * SBMLNamespaces object of the document with the its package name.  If not
