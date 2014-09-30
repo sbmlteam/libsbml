@@ -337,3 +337,7 @@ div.fragment
     background-color: white;
 }
 
+.deprecated
+{
+    color: #C35817;
+}
