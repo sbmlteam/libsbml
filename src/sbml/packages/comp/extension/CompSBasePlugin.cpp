@@ -337,7 +337,7 @@ void
 CompSBasePlugin::clearReplacedElements()
 {
   if (mListOfReplacedElements!=NULL) {
-    mListOfReplacedElements->clear();
+    mListOfReplacedElements->clear(true);
   }
 }
   
