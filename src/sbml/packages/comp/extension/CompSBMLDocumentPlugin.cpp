@@ -876,9 +876,10 @@ CompSBMLDocumentPlugin::checkConsistency()
       ModelDefinition dummyDef(*dummyModel);
       dummyPlugin->addModelDefinition(&dummyDef);
 
+
       dummyDoc.setModel(getModelDefinition(i));
 
-      dummyPlugin->removeModelDefinition(i);
+      delete dummyPlugin->removeModelDefinition(i);
 
 
       nerrors = dummyDoc.checkConsistency();
