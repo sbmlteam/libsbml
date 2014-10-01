@@ -217,11 +217,11 @@ START_TEST(test_comp_flatten_abort_reqd_only_5)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown1_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -258,11 +258,11 @@ START_TEST(test_comp_flatten_abort_reqd_only_6)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown1_flat_stay.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -454,11 +454,11 @@ START_TEST(test_comp_flatten_abort_none_1)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown2_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -496,11 +496,11 @@ START_TEST(test_comp_flatten_abort_none_2)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown1_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -539,11 +539,11 @@ START_TEST(test_comp_flatten_abort_none_3)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown2_flat_stay.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -582,11 +582,11 @@ START_TEST(test_comp_flatten_abort_none_4)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown1_flat_stay.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -627,11 +627,11 @@ START_TEST(test_comp_flatten_abort_none_5)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown21_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -672,11 +672,11 @@ START_TEST(test_comp_flatten_abort_none_6)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown22_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -717,11 +717,11 @@ START_TEST(test_comp_flatten_abort_none_7)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown23_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -762,11 +762,11 @@ START_TEST(test_comp_flatten_abort_none_8)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown24_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -807,11 +807,11 @@ START_TEST(test_comp_flatten_abort_none_9)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown25_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -852,11 +852,11 @@ START_TEST(test_comp_flatten_abort_none_10)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown26_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -897,11 +897,11 @@ START_TEST(test_comp_flatten_abort_none_11)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown27_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -942,11 +942,11 @@ START_TEST(test_comp_flatten_abort_none_12)
 
   fail_unless( result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = dir + "unknown28_flat.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;

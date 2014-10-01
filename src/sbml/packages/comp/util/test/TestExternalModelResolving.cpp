@@ -82,6 +82,7 @@ START_TEST (test_comp_externalmodelresolving_)
 
   document->getErrorLog()->clearLog();
   
+  delete document;
 
  }
 END_TEST
