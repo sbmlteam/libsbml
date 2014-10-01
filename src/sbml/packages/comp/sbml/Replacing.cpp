@@ -54,11 +54,10 @@ Replacing::Replacing (unsigned int level, unsigned int version, unsigned int pkg
 
 
 Replacing::Replacing(CompPkgNamespaces* compns)
-  : SBaseRef(compns)
+  : SBaseRef(compns, true)
   , mSubmodelRef("")
   , mConversionFactor("")
 {
-  loadPlugins(compns);
 }
 
 

@@ -52,7 +52,7 @@ Deletion::Deletion (unsigned int level, unsigned int version, unsigned int pkgVe
 
 
 Deletion::Deletion(CompPkgNamespaces* compns)
-  : SBaseRef(compns)
+  : SBaseRef(compns, true)
   ,mId("")
   ,mName("")
 {

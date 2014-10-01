@@ -73,6 +73,23 @@ SBaseRef::SBaseRef(CompPkgNamespaces* compns)
 }
 
 
+SBaseRef::SBaseRef(CompPkgNamespaces* compns, bool isDerived)
+  : CompBase(compns)
+  , mMetaIdRef("")
+  , mPortRef("")
+  , mIdRef("")
+  , mUnitRef("")
+  , mSBaseRef(NULL)
+  , mReferencedElement(NULL)
+  , mDirectReference(NULL)
+{
+  if (!isDerived)
+  {
+    loadPlugins(compns);
+  }
+}
+
+
 SBaseRef::SBaseRef(const SBaseRef& source) 
   : CompBase (source)
 {

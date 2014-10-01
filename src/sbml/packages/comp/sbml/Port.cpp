@@ -52,7 +52,7 @@ Port::Port (unsigned int level, unsigned int version, unsigned int pkgVersion)
 
 
 Port::Port(CompPkgNamespaces* compns)
-  : SBaseRef(compns)
+  : SBaseRef(compns, true)
   , mId("")
   , mName("")
 {

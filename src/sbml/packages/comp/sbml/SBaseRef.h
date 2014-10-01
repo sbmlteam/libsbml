@@ -618,6 +618,16 @@ public:
 
 protected:
 
+protected:
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Need a version of the SBaseRef constructor that does not load plugins.
+   *
+   * @param compns the namespace to use
+   */
+  SBaseRef(CompPkgNamespaces* compns, bool isDerived);
+  /** @endcond */
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to get the list of
