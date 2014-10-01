@@ -295,12 +295,17 @@ XMLInputStream::getSBMLNamespaces()
 void
 XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
+  if (mSBMLns == sbmlns) return;
+  delete mSBMLns;
   if (sbmlns != NULL)
+  {
     mSBMLns = sbmlns->clone();
+  }
   else
+  {
     mSBMLns = NULL;
+  }
 }
-
 
 unsigned int
 XMLInputStream::determineNumberChildren(const std::string& elementName)
