@@ -62,7 +62,10 @@ def find_classes(arg, swig_too = False):
 
 def classes_in_dir(dir, swig_too):
     files = []
-    for root, dir, found_files in os.walk(dir):
+    for root, dirnames, found_files in os.walk(dir):
+        # Skip legacy dirs; we want the current code only.
+        if root.find('-legacy') >= 0:
+            continue
         for tail in found_files:
             if (not (tail.endswith('.h') or \
                      tail.endswith('.txt') or \
