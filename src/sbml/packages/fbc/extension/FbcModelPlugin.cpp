@@ -1382,7 +1382,7 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
   {
     if (getFluxBound(i)->getReaction() == reaction)
     {
-      loFB->append(getFluxBound(i)->clone());
+      loFB->append(getFluxBound(i));
     }
   }
 

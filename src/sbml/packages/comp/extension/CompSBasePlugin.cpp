@@ -62,7 +62,7 @@ CompSBasePlugin::CompSBasePlugin(const CompSBasePlugin& orig)
   if (orig.getNumReplacedElements() > 0) {
     createListOfReplacedElements();
     for (unsigned int re=0; re<orig.getNumReplacedElements(); re++) {
-      mListOfReplacedElements->append(orig.getReplacedElement(re)->clone());
+      mListOfReplacedElements->append(orig.getReplacedElement(re));
     }
   }
   connectToChild();
@@ -86,7 +86,7 @@ CompSBasePlugin::operator=(const CompSBasePlugin& orig)
     if (orig.getNumReplacedElements() > 0) {
       createListOfReplacedElements();
       for (unsigned int re=0; re<orig.getNumReplacedElements(); re++) {
-        mListOfReplacedElements->append(orig.getReplacedElement(re)->clone());
+        mListOfReplacedElements->append(orig.getReplacedElement(re));
       }
     }
     if (orig.mReplacedBy != NULL) {
