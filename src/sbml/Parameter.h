@@ -714,6 +714,7 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
 
+  Parameter (SBMLNamespaces* sbmlns, bool isLocal);
 
   /**
    * Subclasses should override this method to get the list of

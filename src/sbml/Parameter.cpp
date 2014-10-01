@@ -99,7 +99,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
     throw SBMLConstructorException(getElementName(), sbmlns);
   }
 
-  loadPlugins(sbmlns);
+   loadPlugins(sbmlns);
 
   // if level 3 values have no defaults
   if (sbmlns->getLevel() == 3)
@@ -111,6 +111,29 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
   {
     mIsSetConstant = true;
   }
+}
+
+
+
+Parameter::Parameter (SBMLNamespaces * sbmlns, bool isLocal) :
+   SBase      ( sbmlns   )
+ , mId        ( ""       )
+ , mName      ( ""       )
+ , mValue     ( 0.0      )
+ , mUnits     ( ""       )
+ , mConstant  ( true     )
+ , mIsSetValue( false    )
+ , mIsSetConstant (false )
+ , mExplicitlySetConstant ( false )
+ , mCalculatingUnits (false)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+  {
+    throw SBMLConstructorException(getElementName(), sbmlns);
+  }
+
+  // we are creating a L3 LocalParameter so L3 defaults apply
+  mValue = numeric_limits<double>::quiet_NaN();
 }
 
 

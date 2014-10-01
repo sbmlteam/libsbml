@@ -69,7 +69,7 @@ LocalParameter::LocalParameter (unsigned int level, unsigned int version) :
 
 
 LocalParameter::LocalParameter (SBMLNamespaces * sbmlns) :
-   Parameter ( sbmlns )
+   Parameter ( sbmlns,  true)
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {

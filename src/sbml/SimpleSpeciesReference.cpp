@@ -75,7 +75,8 @@ SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
  , mName   ( "" )
  , mSpecies( "" )
 {
-  loadPlugins(sbmlns);
+  // does not need to load here as this is an inbetween class
+  //loadPlugins(sbmlns);
 }
 /** @endcond */
 
