@@ -1,0 +1,47 @@
+Numbers used for packages
+
+Each package lists the relevant SBMLTypeCode_t in an enumeration. This 
+list shows the value of the first entry for each package.
+
+Also each package uses an error id offset to internally maintain different
+numbers for different errors. These are shown here.
+
+Note these numbers are only ever used internally in libSBML.
+
+PACKAGE       | TYPECODE ENUM | ERROR ID OFFSET
+------------------------------------------------------
+arrays        |   1200        |    8000000    
+
+comp          |    200        |    1000000
+
+distrib       |   1300        |    5000000
+
+dyn           |    400        |    9000000
+
+fbc           |    800        |    2000000
+
+groups        |    500        |    4000000
+
+layout        |    100        |    6000000
+
+multi         |   1400        |    7000000
+
+qual          |   1100        |    3000000
+
+render        |   1000        |    TBC
+
+req           |   1600        |    1100000
+
+spatial       |    300        |    1200000
+
+
+NOT YET USED
+
+TypeCode enum: 600, 700, 900, 1500, 1700 ...
+
+Id Offset: 1300000 - 1900000, 
+
+
+
+
+
