@@ -1052,7 +1052,7 @@ def sanitizeForHTML (docstring):
 
   # Wrap @deprecated content with a class so that we can style it.
 
-  p = re.compile('^(\s+\*\s+)(@deprecated\s)((\S|\s)+)(<p>|\*/)', re.MULTILINE|re.DOTALL)
+  p = re.compile('^(\s+\*\s+)(@deprecated\s)((\S|\s)+?)(<p>|\*/)', re.MULTILINE|re.DOTALL)
   docstring = p.sub(rewriteDeprecated, docstring)
 
   # Handle cross references for languages where it's not done.  Doxygen
@@ -1086,7 +1086,7 @@ def sanitizeForHTML (docstring):
 
   # Merge separated @see's, or else the first gets lost in the javadoc output.
 
-  p = re.compile(r'(@see.+?)<p>.+?@see', re.DOTALL)
+  p = re.compile(r'(@see.+?)(\s*\*)?<p>\s*@see', re.DOTALL)
   docstring = p.sub(r'\1@see', docstring)
 
   # If the doc string ends with <p> followed by */, then javadoc parses it
@@ -1191,8 +1191,15 @@ def rewriteDocstringForJava (docstring):
   # text of the reference.)  At this point, we expect to see only single
   # types like "long" and not "unsigned int", because we translated them above.
 
-  p = re.compile(r'(@see\s+#?\w+)\((\w+)+\s+\w+(\s*,\s*(\w+)\s+\w+)?\)')
+  p = re.compile(r'(@see\s+#?\w+)\((\w+)\s+\w+(\s*,\s*(\w+)\s+\w+)?\)')
   docstring = p.sub(translateJavaSeeArgs, docstring)
+
+  # For reasons I haven't been able to figure out, @see has to be the last
+  # thing in the doc comments, or Javadoc outputs empty "See ... ".  So, here
+  # we move any @see's to the end of the doc string.
+
+  p = re.compile(r'(@see.+?)<p>(.+?)(\*/|\Z)', re.DOTALL)
+  docstring = p.sub(r'\2<p>\n   * \1\3', docstring)
 
   # The syntax for @link is vastly different.
 
