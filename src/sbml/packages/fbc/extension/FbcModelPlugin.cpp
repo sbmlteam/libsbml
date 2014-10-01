@@ -321,8 +321,8 @@ FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
   if (annt && annt->getNumChildren() > 0)
   {
     parent->appendAnnotation(annt);
-    delete annt;
   }
+  delete annt;
 }
 /** @endcond */
 
