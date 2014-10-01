@@ -40,15 +40,6 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
 
-std::string writeSBMLToStringSafe1(const SBMLDocument* doc)
-{
-  char* modelC = writeSBMLToString(doc);
-  std::string model(modelC);
-  free(modelC);
-  return model;
-}
-
-
 BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
@@ -86,11 +77,11 @@ void TestPair(std::string file1, std::string file2, std::string pkgToStrip,
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  std::string newModel = writeSBMLToStringSafe1(doc);
+  std::string newModel = writeSBMLToStdString(doc);
   
   std::string ffile = filename + dir + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  std::string flatModel = writeSBMLToStringSafe1(fdoc);
+  std::string flatModel = writeSBMLToStdString(fdoc);
 
   fail_unless(flatModel == newModel);
 
@@ -133,11 +124,11 @@ void TestPairDiffDir(std::string file1, std::string file2,
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  std::string newModel = writeSBMLToStringSafe1(doc);
+  std::string newModel = writeSBMLToStdString(doc);
   
   std::string ffile = filename + file2;
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  std::string flatModel = writeSBMLToStringSafe1(fdoc);
+  std::string flatModel = writeSBMLToStdString(fdoc);
 
   fail_unless(flatModel == newModel);
 

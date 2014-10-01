@@ -3601,7 +3601,7 @@ START_TEST(test_comp_flatten_invalid77)
   string dir(TestDataDirectory);
   string fileName = dir + "replacedby_unknown.xml";  
   SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
-  string origdoc = writeSBMLToString(doc);
+  string origdoc = writeSBMLToStdString(doc);
 
   // fail if there is no model 
   //(readSBMLFromFile always returns a valid document)
@@ -3613,7 +3613,7 @@ START_TEST(test_comp_flatten_invalid77)
 
   converter->setDocument(doc);
   int result = converter->convert();
-  string newdoc = writeSBMLToString(doc);
+  string newdoc = writeSBMLToStdString(doc);
 
   fail_unless( result == LIBSBML_OPERATION_FAILED);
   fail_unless(newdoc == origdoc); //Failing to convert should always leave the original document intact.
