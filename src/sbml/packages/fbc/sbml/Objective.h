@@ -194,9 +194,9 @@ public:
 
 
   /**
-   * Returns the ObjectiveType_t of the "type" attribute of this Objective.
+   * Returns the enumeration value of the "type" attribute of this Objective.
    *
-   * @return the ObjectiveType_t of the "type" attribute of this Objective.
+   * @return the enumeration value of the "type" attribute of this Objective.
    */
   ObjectiveType_t getObjectiveType () const;
 
