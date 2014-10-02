@@ -3985,7 +3985,10 @@ protected:
 
   void createEventAssignmentUnitsData(UnitFormulaFormatter* unitFormatter, 
                             EventAssignment * ea, const std::string& eventId);
-
+  
+  
+  void createLocalParameterUnitsData(KineticLaw * kl,
+                                     UnitFormulaFormatter * unitFormatter);
 
 
 

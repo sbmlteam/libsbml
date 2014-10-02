@@ -101,9 +101,9 @@ START_TEST (test_FormulaUnitsData_setters)
 
   m->addFormulaUnitsData(fud);
 
-  fail_unless(m->getNumFormulaUnitsData() == 25);
+  fail_unless(m->getNumFormulaUnitsData() == 27);
 
-//  delete fud;
+  delete fud;
 
 }
 END_TEST
@@ -533,6 +533,7 @@ START_TEST (test_FormulaUnitsData_getrule)
 }
 END_TEST
 
+
 START_TEST (test_FormulaUnitsData_getreaction)
 {
   FormulaUnitsData *fud = m->getFormulaUnitsData(20);
@@ -558,7 +559,7 @@ START_TEST (test_FormulaUnitsData_getreaction)
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(21);
+  fud = m->getFormulaUnitsData(23);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "StoichiometryMath"), NULL);
@@ -574,9 +575,48 @@ START_TEST (test_FormulaUnitsData_getreaction)
 END_TEST
 
 
+START_TEST (test_FormulaUnitsData_getlocalparameters)
+{
+  FormulaUnitsData *fud = m->getFormulaUnitsData(21);
+
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k_1_R"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "LocalParameter"), NULL);
+  fail_unless(fud->getContainsUndeclaredUnits() == 0);
+  fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
+
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+
+  fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
+
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  fud = m->getFormulaUnitsData(22);
+
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2_R"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "LocalParameter"), NULL);
+  fail_unless(fud->getContainsUndeclaredUnits() == 0);
+  fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
+
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 1);
+
+  fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
+
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == -2);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_METRE);}
+END_TEST
+
+
+
 START_TEST (test_FormulaUnitsData_getevent)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(22);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(24);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Event"), NULL);
@@ -587,7 +627,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fud = m->getFormulaUnitsData(23);
+  fud = m->getFormulaUnitsData(25);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "EventAssignment"), NULL);
@@ -674,6 +714,7 @@ create_suite_FormulaUnitsData (void)
   tcase_add_test(tcase, test_FormulaUnitsData_getinitialassignment );
   tcase_add_test(tcase, test_FormulaUnitsData_getrule );
   tcase_add_test(tcase, test_FormulaUnitsData_getreaction );
+  tcase_add_test(tcase, test_FormulaUnitsData_getlocalparameters );
   tcase_add_test(tcase, test_FormulaUnitsData_getevent );
   tcase_add_test(tcase, test_FormulaUnitsData_getById );
   tcase_add_test(tcase, test_FormulaUnitsData_setters );
