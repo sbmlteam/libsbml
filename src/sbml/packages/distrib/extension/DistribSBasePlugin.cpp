@@ -65,8 +65,10 @@ DistribSBasePlugin::DistribSBasePlugin(const std::string& uri,
  */
 DistribSBasePlugin::DistribSBasePlugin(const DistribSBasePlugin& orig) :
     SBasePlugin(orig)
-  , mUncertainty ( orig.mUncertainty )
+  , mUncertainty ( NULL )
 {
+  if (orig.mUncertainty != NULL)
+  mUncertainty = orig.mUncertainty->clone();
 }
 
 
@@ -101,6 +103,7 @@ DistribSBasePlugin::clone () const
  */
 DistribSBasePlugin::~DistribSBasePlugin()
 {
+  delete mUncertainty;
 }
 
 
@@ -129,6 +132,7 @@ DistribSBasePlugin::createObject (XMLInputStream& stream)
     DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
     if (name == "uncertainty" ) 
     { 
+      delete mUncertainty;
       mUncertainty = new Uncertainty(distribns);
 
       object = mUncertainty;

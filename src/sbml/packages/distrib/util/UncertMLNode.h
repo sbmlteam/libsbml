@@ -103,7 +103,7 @@ public:
   /**
    * Destructor for UncertMLNode.
    */
-  ~UncertMLNode();
+  virtual ~UncertMLNode();
 
 
   /**

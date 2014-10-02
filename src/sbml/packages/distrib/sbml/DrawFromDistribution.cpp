@@ -152,6 +152,8 @@ DrawFromDistribution::clone () const
  */
 DrawFromDistribution::~DrawFromDistribution ()
 {
+  if (mUncertML != NULL)
+    delete mUncertML;
 }
 
 

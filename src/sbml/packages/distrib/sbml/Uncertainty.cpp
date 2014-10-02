@@ -156,6 +156,7 @@ Uncertainty::clone () const
  */
 Uncertainty::~Uncertainty ()
 {
+  delete mUncertML;
 }
 
 

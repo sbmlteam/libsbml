@@ -50,7 +50,7 @@ UncertMLNode::UncertMLNode ()
  * Creates a new UncertMLNode from XMLNode object.
  */
 UncertMLNode::UncertMLNode (XMLNode* xml)
-  : mElementName ("")
+  : mElementName ("")  
   //, mAttributes ( NULL )
 {
   mChildren = new List();
@@ -127,7 +127,12 @@ UncertMLNode::clone () const
  * Destructor for UncertMLNode.
  */
 UncertMLNode::~UncertMLNode ()
-{
+{  
+  for (int c = (int)getNumChildren()-1; c >=0; --c)
+  {
+      delete getChild(c);
+  }
+  delete mChildren;
 }
 
 
@@ -240,6 +245,7 @@ UncertMLNode::unsetAttributes()
 unsigned int
 UncertMLNode::getNumChildren() const
 {
+  if (mChildren == NULL) return 0;
   return mChildren->getSize();
 }
 
@@ -247,6 +253,7 @@ UncertMLNode::getNumChildren() const
 UncertMLNode*
 UncertMLNode::getChild (unsigned int index) const
 {
+  if (mChildren == NULL) return NULL;
   return static_cast<UncertMLNode*>( mChildren->get(index) );
 }
 
@@ -261,6 +268,7 @@ UncertMLNode::addChild(UncertMLNode * child)
   else
   {
     unsigned int numBefore = getNumChildren();
+    
     mChildren->add(child);
 
     if (getNumChildren() == numBefore + 1)

@@ -64,8 +64,10 @@ DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const std::stri
  */
 DistribFunctionDefinitionPlugin::DistribFunctionDefinitionPlugin(const DistribFunctionDefinitionPlugin& orig) :
     SBasePlugin(orig)
-  , mDrawFromDistribution ( orig.mDrawFromDistribution )
+  , mDrawFromDistribution ( NULL )
 {
+  if (orig.mDrawFromDistribution != NULL)
+    mDrawFromDistribution = orig.mDrawFromDistribution->clone();
 }
 
 
@@ -100,6 +102,8 @@ DistribFunctionDefinitionPlugin::clone () const
  */
 DistribFunctionDefinitionPlugin::~DistribFunctionDefinitionPlugin()
 {
+  if (isSetDrawFromDistribution()) 
+    delete mDrawFromDistribution;
 }
 
 
@@ -128,6 +132,9 @@ DistribFunctionDefinitionPlugin::createObject (XMLInputStream& stream)
     DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
     if (name == "drawFromDistribution" ) 
     { 
+      if (isSetDrawFromDistribution()) 
+	delete mDrawFromDistribution;
+      
       mDrawFromDistribution = new DrawFromDistribution(distribns);
 
       object = mDrawFromDistribution;
@@ -247,6 +254,9 @@ DrawFromDistribution*
 DistribFunctionDefinitionPlugin::createDrawFromDistribution()
 {
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());
+  
+  if (isSetDrawFromDistribution()) delete mDrawFromDistribution;
+  
   mDrawFromDistribution = new DrawFromDistribution(distribns);
 
   mDrawFromDistribution->setSBMLDocument(this->getSBMLDocument());
