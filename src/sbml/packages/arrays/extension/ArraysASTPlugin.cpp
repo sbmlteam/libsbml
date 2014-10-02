@@ -906,7 +906,6 @@ ArraysASTPlugin::getTypeFromName(const std::string& name) const
 const char * 
 ArraysASTPlugin::getNameFromType(int type) const
 {
-  std::string name = "";
 
   static const int size = sizeof(ARRAYS_MATHML_ELEMENTS) / sizeof(ARRAYS_MATHML_ELEMENTS[0]);
   if (type >= AST_QUALIFIER_CONDITION && type < AST_ARRAYS_UNKNOWN)
@@ -920,11 +919,11 @@ ArraysASTPlugin::getNameFromType(int type) const
     }
     if (found == true)
     {
-      name = ARRAYS_MATHML_ELEMENTS[i-1];
+      return ARRAYS_MATHML_ELEMENTS[i-1];
     }
   }
 
-  return safe_strdup(name.c_str());
+  return "";
 }
 
 
