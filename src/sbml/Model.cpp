@@ -5779,6 +5779,8 @@ Model::createLocalParameterUnitsData(KineticLaw * kl,
     std::string units = lp->getUnits();
     if (units.empty() == false)
     {
+      fud->setContainsParametersWithUndeclaredUnits(false);
+
       if (UnitKind_isValidUnitKindString(units.c_str(), 
                             getLevel(), getVersion()))
       {
@@ -5794,12 +5796,20 @@ Model::createLocalParameterUnitsData(KineticLaw * kl,
       else
       {
         /* must be a unit definition */
-        ud = new UnitDefinition(*(getUnitDefinition(units)));
-        ud->setId("");
+        UnitDefinition * existingUD = getUnitDefinition(units);
+        if (existingUD != NULL)
+        {
+          ud = new UnitDefinition(*(getUnitDefinition(units)));
+          ud->setId("");
+        }
+        else
+        {
+          ud = new UnitDefinition(getSBMLNamespaces());
+          fud->setContainsParametersWithUndeclaredUnits(true);
+        }
       }
 
       fud->setUnitDefinition(ud);
-      fud->setContainsParametersWithUndeclaredUnits(false);
       fud->setCanIgnoreUndeclaredUnits(false);
     }
     else
