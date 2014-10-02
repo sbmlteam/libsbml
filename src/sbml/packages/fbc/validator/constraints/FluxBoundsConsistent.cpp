@@ -71,6 +71,7 @@ FluxBoundsConsistent::check_ (const Model& m, const Model& object)
     if (lofb != NULL)
     {
       checkBounds(*(lofb));
+      delete lofb;
     }
   }
 }

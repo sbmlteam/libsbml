@@ -63,11 +63,11 @@ START_TEST (test_FbcExtension_create_and_write_geneassociation)
   
   // create the document
   
-  SBMLDocument *document = new SBMLDocument(sbmlns);
+  SBMLDocument document(sbmlns);
   
   // create the Model
   
-  Model* model=document->createModel();
+  Model* model=document.createModel();
   
   // create the Compartment
   
@@ -131,28 +131,30 @@ START_TEST (test_FbcExtension_create_and_write_geneassociation)
   delete test;
   delete test2;
   
-  Association* association = new Association(sbmlns);
-  association->setType(OR_ASSOCIATION);
-  association->addGene("b111");
-  association->addGene("b112");
+  Association association(sbmlns);
+  association.setType(OR_ASSOCIATION);
+  association.addGene("b111");
+  association.addGene("b112");
   
-  ga->setAssociation(association);
+  ga->setAssociation(&association);
+
   
-  char *s1 = writeSBMLToString(document);
+  string s1 = writeSBMLToStdString(&document);
   
   // check clone()
   
-  SBMLDocument* document2 = document->clone();
-  char *s2 = writeSBMLToString(document2);
-  fail_unless(strcmp(s1,s2) == 0);
-  free(s2);
+  SBMLDocument document2 = document;
+  string s2 = writeSBMLToStdString(&document2);
+  fail_unless(s1==s2);
   
   // check operator=
   
-  Model *m = new Model(document->getSBMLNamespaces());
-  m = document->getModel();
-  document2->setModel(m);
-  s2 = writeSBMLToString(document2);
+  Model m = *(document.getModel());
+  document2.setModel(&m);
+  s2 = writeSBMLToStdString(&document2);
+  fail_unless(s1==s2);
+
+  delete sbmlns;
 }
 END_TEST
 
@@ -164,6 +166,7 @@ START_TEST (test_FbcExtension_create_and_write_L3V1V1)
   // create the document
 
   SBMLDocument *document = new SBMLDocument(sbmlns);
+  delete sbmlns;
 
   // create the Model
 
@@ -220,24 +223,21 @@ START_TEST (test_FbcExtension_create_and_write_L3V1V1)
   fluxObjective->setReaction("J0");
   fluxObjective->setCoefficient(1);
 
-  char *s1 = writeSBMLToString(document);
+  string s1 = writeSBMLToStdString(document);
 
   // check clone()
 
   SBMLDocument* document2 = document->clone();
-  char *s2 = writeSBMLToString(document2);
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  string s2 = writeSBMLToStdString(document2);
+  fail_unless(s1==s2); 
 
   // check operator=
 
-  Model *m = new Model(document->getSBMLNamespaces()); 
-  m = document->getModel();
-  document2->setModel(m);
-  s2 = writeSBMLToString(document2);
+  Model m = *(document->getModel());
+  document2->setModel(&m);
+  s2 = writeSBMLToStdString(document2);
 
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  fail_unless(s1==s2); 
   delete document2;
 
   delete document;  

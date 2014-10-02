@@ -312,7 +312,7 @@ int
 
   while (model->getNumUnitDefinitions() > 0)
   {
-    model->removeUnitDefinition(0);
+    delete model->removeUnitDefinition(0);
   }
 
   for (unsigned int i = 0; i < model->getNumCompartments(); ++i)

@@ -249,9 +249,7 @@ Model::convertL3ToL2 (bool strict)
       KineticLaw *kl = r->getKineticLaw();
       for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
       {
-        Parameter *lp = new Parameter(getLevel(), getVersion());
-        (*lp) = *(kl->getLocalParameter(j));
-        kl->addParameter(lp);
+        kl->addParameter(kl->getLocalParameter(j));
       }
     }
   }
@@ -1211,6 +1209,7 @@ Model::dealWithModelUnits()
           obj->renameUnitSIdRefs("volume", newSubsName);
         }
         addUnitDefinition(existingUD);
+        delete existingUD;
       }
     }
     UnitDefinition * ud = getUnitDefinition(volume) != NULL ? 
@@ -1252,6 +1251,7 @@ Model::dealWithModelUnits()
           obj->renameUnitSIdRefs("area", newSubsName);
         }
         addUnitDefinition(existingUD);
+        delete existingUD;
       }
     }
     UnitDefinition * ud = getUnitDefinition(area) != NULL ? 
@@ -1293,6 +1293,7 @@ Model::dealWithModelUnits()
           obj->renameUnitSIdRefs("length", newSubsName);
         }
         addUnitDefinition(existingUD);
+        delete existingUD;
       }
     }
     UnitDefinition * ud = getUnitDefinition(length) != NULL ? 
@@ -1334,6 +1335,7 @@ Model::dealWithModelUnits()
           obj->renameUnitSIdRefs("substance", newSubsName);
         }
         addUnitDefinition(existingUD);
+        delete existingUD;
       }
     }
     UnitDefinition * ud = getUnitDefinition(substance) != NULL ? 
@@ -1375,23 +1377,21 @@ Model::dealWithModelUnits()
           obj->renameUnitSIdRefs("time", newSubsName);
         }
         addUnitDefinition(existingUD);
+        delete existingUD;
       }
     }
     UnitDefinition * ud = getUnitDefinition(time) != NULL ? 
                           getUnitDefinition(time)->clone() : NULL;
-    if (ud != NULL)
-    {
-      ud->setId("time");
-    }
-    else
+    if (ud == NULL)
     {
       ud = new UnitDefinition(getSBMLNamespaces());
-      ud->setId("time");
       Unit *u = ud->createUnit();
       u->initDefaults();
       u->setKind(UnitKind_forName(time.c_str()));
     }
+    ud->setId("time");
     addUnitDefinition(ud);
+    delete ud;
   }
 
   delete elements;

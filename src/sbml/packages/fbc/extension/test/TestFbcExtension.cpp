@@ -106,6 +106,7 @@ START_TEST (test_FbcExtension_getSBMLExtensionNamespaces)
   fail_unless(fbcns->getVersion()        == 1);
   fail_unless(fbcns->getPackageVersion() == 1);
 
+  delete fbcns;
   fbcns = static_cast<FbcPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
 
   fail_unless(fbcns == NULL);
@@ -223,6 +224,8 @@ START_TEST(test_FbcExtension_registry)
   fail_unless(sbext->getPackageVersion(FBC_XMLNS_L3V1V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
+
+  delete sbext;
 }
 END_TEST
 
@@ -239,6 +242,8 @@ START_TEST(test_FbcExtension_typecode)
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_FLUXOBJECTIVE), "FluxObjective") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_ASSOCIATION-1), "(Unknown SBML Fbc Type)") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_OBJECTIVE+1), "(Unknown SBML Fbc Type)") == 0);
+
+  delete sbext;
 }
 END_TEST
 
@@ -356,10 +361,11 @@ START_TEST(test_FbcExtension_parseGeneAssociation)
   Association* test = Association::parseInfixAssociation("F1.F2.F3 OR F2.f3.f4");
   fail_unless(test != NULL);
   fail_unless(test->toInfix() == "(F1.F2.F3 or F2.f3.f4)");
+  delete test;
   test = Association::parseInfixAssociation("3.1 or 3.2");
   fail_unless(test != NULL);
   fail_unless(test->toInfix() == "(3.1 or 3.2)");
-
+  delete test;
 }
 END_TEST
 

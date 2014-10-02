@@ -1025,7 +1025,7 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
         {
           if (m.getUnitDefinition(newId) != NULL)
           {
-            m.removeUnitDefinition(newId);
+            delete m.removeUnitDefinition(newId);
           }
         }
         i = m.addUnitDefinition(newUD);
@@ -1455,7 +1455,7 @@ SBMLUnitsConverter::removeUnusedUnitDefinitions(Model& m)
     if (Unit::isBuiltIn(m.getUnitDefinition(i)->getId(), m.getLevel()) == false
       && (isUsed(m, m.getUnitDefinition(i)->getId()) == false))
     {
-      m.removeUnitDefinition(i);
+      delete m.removeUnitDefinition(i);
     }
   }
 

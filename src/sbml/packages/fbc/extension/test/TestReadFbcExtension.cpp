@@ -78,7 +78,7 @@ START_TEST (test_FbcExtension_read_L3V1V1)
   fail_unless(bound->getOperation() == "equal");
   fail_unless(bound->getValue() == 10);
   
-  
+  safe_free(filename);
   delete document;  
 }
 END_TEST
@@ -129,7 +129,7 @@ START_TEST (test_FbcExtension_read_L3V1V1_defaultNS)
   fail_unless(bound->getOperation() == "equal");
   fail_unless(bound->getValue() == 10);
   
-  
+  safe_free(filename);
   delete document;  
 }
 END_TEST
@@ -286,7 +286,7 @@ START_TEST(test_FbcExtension_read_L3V1V1_with_wonky_chemicals)
   fail_unless(fbcSpeciesPlugin->getCharge() == -1);
   fail_unless(fbcSpeciesPlugin->getChemicalFormula() == "Fe2S2X");
   
-
+  delete doc;
 }
 END_TEST
 
@@ -367,6 +367,7 @@ START_TEST(test_FbcExtension_read_and_validate_chemicals)
   doc->checkInternalConsistency();
   fail_unless(doc->getErrorLog()->contains(FbcSpeciesFormulaMustBeString));
 
+  delete ns;
   delete doc;
 }
 END_TEST
