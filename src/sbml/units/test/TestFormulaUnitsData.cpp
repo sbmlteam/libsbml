@@ -101,7 +101,7 @@ START_TEST (test_FormulaUnitsData_setters)
 
   m->addFormulaUnitsData(fud);
 
-  fail_unless(m->getNumFormulaUnitsData() == 27);
+  fail_unless(m->getNumFormulaUnitsData() == 28);
 
   delete fud;
 
@@ -559,7 +559,7 @@ START_TEST (test_FormulaUnitsData_getreaction)
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(23);
+  fud = m->getFormulaUnitsData(24);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "StoichiometryMath"), NULL);
@@ -609,14 +609,26 @@ START_TEST (test_FormulaUnitsData_getlocalparameters)
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == -2);
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_METRE);}
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  
+  fud = m->getFormulaUnitsData(23);
+
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k3_R"), NULL);
+  fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "LocalParameter"), NULL);
+  fail_unless(fud->getContainsUndeclaredUnits() == 1);
+  fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
+
+  fail_unless(fud->getUnitDefinition()->getNumUnits() == 0);
+
+  fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
+}
 END_TEST
 
 
 
 START_TEST (test_FormulaUnitsData_getevent)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(24);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(25);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Event"), NULL);
@@ -627,7 +639,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fud = m->getFormulaUnitsData(25);
+  fud = m->getFormulaUnitsData(26);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "EventAssignment"), NULL);

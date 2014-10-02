@@ -118,6 +118,7 @@
           <listOfParameters>
             <parameter id="k_1" value="1" units="second"/>
             <parameter id="k2" value="1" units="length"/>
+            <parameter id="k3" value="1"/>
           </listOfParameters>
         </kineticLaw>
       </reaction>
