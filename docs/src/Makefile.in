@@ -526,6 +526,7 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
+
 define run_doxygen
   $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
@@ -617,7 +618,8 @@ python-sources	     =	     \
 python-ignorable-warnings = \
   "is not found in the argument list|The following parameters of libsbml|parameter 'args'|multiple use of section label"
 
-python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
+python-manual $(python-manual): doxygen-config-python.txt $(python-sources) \
+  filters/doc-filter-python.py class-list.txt
 	mkdir -p $(python-manual)
 	$(call compare_constants,$(python-input),python-substitutions/libsbml.py)
 	utilities/pythondocpreprocessor.py $(python-input) libsbml.py $(python-substitutions)
