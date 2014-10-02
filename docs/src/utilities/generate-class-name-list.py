@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 #
 # @file   generate-class-name-list.py
-# @brief  Generate a list of class names defined in libSBML
+# @brief  Generate a list of class & enum names defined in libSBML
 # @author Michael Hucka
 # @date   Created 2013-12-19
 #
 # This program takes one argument, the root of the libSBML src/sbml
 # directory.  It walks down the directory tree recursively, looking in .h
-# files, and in every file it finds, it looks for the string "@class"
-# followed by a word.  It extracts the word.  In the end, it prints to
+# files, and in every file it finds, it looks for the strings "@class" and
+# "@enum" followed by a word.  It extracts the word.  In the end, it prints to
 # standard output all the words it found.
 #
 #<!---------------------------------------------------------------------------
@@ -50,9 +50,8 @@ def main(args):
       print ("Must be given one argument: the path to the libSBML src/sbml dir")
       sys.exit(1)
 
-  classes = [re.sub('_t', '', c) for c in find_classes(args[1], True)]
   try:
-    for c in sorted(set(classes)):
+    for c in sorted(set(find_classes(args[1], True))):
         print (c)
   except (NameError,):
     classes.sort()
