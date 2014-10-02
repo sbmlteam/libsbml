@@ -30,7 +30,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @var typedef enum UnitKind_t
+ * @enum UnitKind_t
  * @brief Enumeration of predefined SBML base units
  *
  * For more information, please refer to the class documentation for Unit.
@@ -48,9 +48,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/**
- * @var typedef enum UnitKind_t
- */
 typedef enum
 {
     UNIT_KIND_AMPERE /*!< Ampere ('A'); SI base unit of electrical current (<i>I</i>) */
