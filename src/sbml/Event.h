@@ -1072,9 +1072,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required elements for the given Event_t structure
-   * have been set.
+   * Predicate returning @c true if all the required elements for this Event
+   * object have been set.
    *
    * @note The required elements for an Event object are:
    * @li "trigger"

@@ -2971,7 +2971,7 @@ newModel.addSpecies(s1);
    */
   bool isPkgURIEnabled(const std::string& pkgURI) const;
 
-  
+
   /**
    * Predicate returning @c true if the given SBML Level&nbsp;3 package is
    * enabled with this object.
@@ -3001,7 +3001,7 @@ newModel.addSpecies(s1);
   /** @endcond */
 
   // ------------------------------------------------------------------
-  
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
