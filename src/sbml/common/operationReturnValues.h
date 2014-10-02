@@ -40,7 +40,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Diagnostic return codes.
+ * @enum OperationReturnValues_t
+ * LibSBML diagnostic return codes.
  *
  * Many methods in libSBML return a status code to indicate whether the
  * operation requested by the caller succeeded or failed.  This enumeration
