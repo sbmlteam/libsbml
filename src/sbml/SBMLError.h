@@ -415,7 +415,7 @@
  *
  * </table>
  * </center>
- * 
+ *
  * @if clike
  * <h3><a class="anchor" name="SBMLErrorSeverity_t">SBMLErrorSeverity_t</a></h3>
  *
@@ -423,11 +423,12 @@
  * User programs receiving an SBMLError object can use this distinction to
  * check whether the error represents a low-level XML problem or an SBML
  * problem.
- * 
+ *
  * In libSBML version @htmlinclude libsbml-version.html
- * there are no additional severity codes in SBMLErrorSeverity_t beyond
+ * there are no additional severity codes in
+ * @link SBMLError::SBMLErrorSeverity_t SBMLErrorSeverity_t @endlink beyond
  * those defined in @link XMLError::XMLErrorSeverity_t XMLErrorSeverity_t@endlink.
- * 
+ *
  * <hr>
  * @endif@if java <h3><a class="anchor"
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
@@ -885,6 +886,7 @@ typedef enum
 
 
 /**
+ * @enum SBMLErrorCategory_t
  * Category codes for SBMLError diagnostics.
  *
  * Note that these are distinct from XMLError's category codes.  User
@@ -894,7 +896,7 @@ typedef enum
  *
  * @see #XMLErrorCategory_t
  */
-typedef enum 
+typedef enum
 {
     LIBSBML_CAT_SBML = (LIBSBML_CAT_XML + 1)
     /*!< General SBML error  not falling into another category below. */
@@ -993,6 +995,7 @@ typedef enum
 
 
 /**
+ * @enum SBMLErrorSeverity_t
  * Severity codes for SBMLError diagnostics.
  *
  * The only publicly-reported values of this type are the four from #XMLErrorSeverity_t.
