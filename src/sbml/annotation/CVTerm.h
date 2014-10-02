@@ -803,9 +803,9 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @note If the Qualifier Type of this object is not
-   * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, 
-   * then the ModelQualifierType_t value will default to
-   * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
+   * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, then the
+   * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
+   * will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
@@ -826,8 +826,8 @@ public:
    *
    * @note If the Qualifier Type of this object is not
    * @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t},
-   * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~ will default
-   * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
+   * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~
+   * will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
@@ -836,7 +836,8 @@ public:
 
 
   /**
-   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif@~ value of this CVTerm object.
+   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier
+   * type code@endif@~ value of this CVTerm object.
    *
    * @param qualifier the string representing a model qualifier
    *
@@ -848,8 +849,8 @@ public:
    *
    * @note If the Qualifier Type of this object is not
    * @sbmlconstant{MODEL_QUALIFIER, QualifierType_t}, 
-   * then the ModelQualifierType_t value will default to
-   * @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
+   * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
+   * value will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
@@ -871,8 +872,8 @@ public:
    *
    * @note If the Qualifier Type of this object is not
    * @sbmlconstant{BIOLOGICAL_QUALIFIER, QualifierType_t},
-   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif@~ value will default
-   * to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
+   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif@~
+   * will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
    * @see getQualifierType()
    * @see setQualifierType(@if java int@endif)
