@@ -481,6 +481,7 @@ typedef enum {
 
 
 /**
+ * @enum XMLErrorCategory_t
  * Category codes for errors in the XML layer.
  */
 typedef enum
@@ -503,6 +504,7 @@ typedef enum
 
 
 /**
+ * @enum XMLErrorSeverity_t
  * Severity codes for errors in the XML layer
  *
  * These severity levels are based on those defined in the XML
@@ -531,13 +533,14 @@ typedef enum
 
 
 /**
+ * @enum XMLErrorSeverityOverride_t
  * Severity override codes for errors logged in the XML layer.
  *
  * XMLErrorLog can be configured to not log errors by specifying one of these
  * enum values below.
  *
  */
-typedef enum 
+typedef enum
 {
     LIBSBML_OVERRIDE_DISABLED = 0 /*!< All errors will be issued as 
                                        specified in the error log. */
