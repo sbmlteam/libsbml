@@ -793,6 +793,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     FILE* fp = _wfopen(pacFilename, L"w");
     fwrite(sbml, sizeof(char), len, fp);
     fclose(fp);
+    free(sbml);
     nStatus = 1;
   }
 #else
