@@ -1472,7 +1472,13 @@ setValue(value, 0);
   /**
    * Sets the type of this ASTNode.
    *
-   * This uses integer type codes, which may come from ASTNodeType_t or an
+   * This uses integer type codes, which may come from @if clike
+   * the enumeration ASTNodeType_t @else the set of static integer constants
+   * whose names begin with the prefix <code>AST_</code> @endif
+   * @if java defined in the interface class <code><a
+   * href="libsbmlConstants.html">libsbmlConstants</a></code>
+   * @endif@if python defined in the interface class
+   * @link libsbml libsbml@endlink@endif or an
    * enumeration of AST types in an SBML Level&nbsp;3 package.
    *
    * @param type the integer representing the type to which this node should
