@@ -106,6 +106,7 @@ def main (args):
 
     istream         = open(classes_list_file, 'r')
     libsbml_classes = istream.read().splitlines()
+    libsbml_classes = filter(lambda c: not c.endswith('_t'), libsbml_classes)
     istream.close()
 
     istream         = open(args[1], 'r')
