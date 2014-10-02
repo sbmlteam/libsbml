@@ -719,21 +719,27 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 #if USE_FILE_WCHAR
   if (endsWith(pacFilename, ".xml") == 0)
   {
-
-    char *file_contents = NULL;
+    StringBuffer_t *sb = NULL;
     long input_file_size = 0;
+	char buffer[1024];
 
     fp = FILE_FOPEN(pacFilename);
 
     fseek(fp, 0, SEEK_END);
     input_file_size = ftell(fp);
     rewind(fp);
+	
+	sb = StringBuffer_create(input_file_size);
 
-    file_contents = (char*) mxCalloc(input_file_size, sizeof(char));
-    fread(file_contents, sizeof(char), input_file_size, fp);
-
+	while (fread(&buffer, sizeof(char), 1024, fp) > 0)
+    {
+	  StringBuffer_append(sb,buffer); 
+	  memset(&buffer, 0, 1024*sizeof(char));
+    }	
+    
     fclose(fp);
-    sbmlDocument = readSBMLFromString(file_contents);
+    sbmlDocument = readSBMLFromString(StringBuffer_getBuffer(sb));
+	StringBuffer_free(sb);
     /*mxFree(file_contents);*/
   }
   else
