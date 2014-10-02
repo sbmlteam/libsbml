@@ -43,34 +43,6 @@ import sys, string, os.path, re, argparse, libsbmlutils
 
 ignored_hfiles   = ['ListWrapper.h']
 ignored_ifiles   = ['std_string.i', 'javadoc.i', 'spatial-package.i']
-libsbml_types    = ['ASTNodeType_t',
-                    'ASTNode_t',
-                    'BiolQualifierType_t',
-                    'ConversionOptionType_t',
-                    'ModelQualifierType_t',
-                    'OperationReturnValues_t',
-                    'ParseLogType_t',
-                    'QualifierType_t',
-                    'RuleType_t',
-                    'SBMLCompTypeCode_t',
-                    'SBMLErrorCategory_t',
-                    'SBMLErrorSeverity_t',
-                    'SBMLFbcTypeCode_t',
-                    'SBMLLayoutTypeCode_t',
-                    'SBMLQualTypeCode_t',
-                    'SBMLTypeCode_t',
-                    'UnitKind_t',
-                    'XMLErrorCategory_t',
-                    'XMLErrorCode_t',
-                    'XMLErrorSeverityOverride_t',
-                    'XMLErrorSeverity_t',
-                    'CompSBMLErrorCode_t',
-                    'QualSBMLErrorCode_t',
-                    'FbcSBMLErrorCode_t',
-                    'LayoutSBMLErrorCode_t',
-                    # Keep this one last, so that in regexp searches, it
-                    # doesn't match the XXXXSBMLErrorCode_t ones above.
-                    'SBMLErrorCode_t']
 
 # In some languages like C#, we have to be careful about the method declaration
 # that we put on the swig %{java|cs}methodmodifiers.  In particular, in C#, if
@@ -156,7 +128,6 @@ virtual_functions = \
 language         = ''
 doc_include_path = ''
 libsbml_classes  = []
-
 
 #
 # Global variable for tracking all class docs, so that we can handle
@@ -808,7 +779,7 @@ def translateCrossRefs (str):
     p = re.compile('@sbmlfunction{([^}]+?)}')
     str = p.sub(translateSBMLFunctionRef, str)
   else:
-    p = re.compile(r'([^\w."])(' + '|'.join(libsbml_classes) + r')\b([^:])')
+    p = re.compile(r'([^\w."#])(' + '|'.join(libsbml_classes) + r')\b([^:])')
     str = p.sub(translateClassRef, str)
     p = re.compile('(\W+)(\w+?)::(\w+\s*\([^)]*?\))')
     str = p.sub(translateMethodRef, str)
@@ -944,7 +915,8 @@ def rewriteCommonReferences (docstring):
   # For some languages, we don't have separate types like ASTNode_t.
   # They're just values on a single global class.  So, remove the type names.
 
-  docstring = re.sub('(' + '|'.join(libsbml_types) + ')#', '#', docstring)
+  enums = filter(lambda c: c.endswith('_t'), libsbml_classes)
+  docstring = re.sub(r'(\b' + r'\b|\b'.join(enums) + r'\b)#', '#', docstring)
 
   # Handle references to enumerations and #define constants.  (Make sure to
   # run rewriteConstantLink before rewriteEnumLink, because the former relies
@@ -1749,9 +1721,10 @@ def main (args):
   tmpfilename = output_swig_file + ".tmp"
   stream      = open(tmpfilename, 'w')
 
-  # Find all class names, by searching header files for @class declarations
-  # and SWIG .i files for %template declarations.  We need this list to
-  # recognize when class names are mentioned inside documentation text.
+  # Find all class and enum names, by searching header files for @class and
+  # @enum declarations, and SWIG .i files for %template declarations.  We
+  # need this list to recognize when class and enum names are mentioned
+  # inside documentation text.
 
   swig_files       = get_swig_files(main_swig_file)
   header_files     = get_header_files(swig_files, h_include_path)
@@ -1759,7 +1732,7 @@ def main (args):
   libsbml_classes += libsbmlutils.find_classes(swig_files)
 
   try:
-    libsbml_classes  = sorted(list(set(libsbml_classes)))
+    libsbml_classes = sorted(list(set(libsbml_classes)))
   except (NameError,):
     libsbml_classes.sort()
   except (Exception,):
@@ -1806,7 +1779,9 @@ def main (args):
     #FB: not printing the warning below, as after all the documentation file
     #    has been correctly created. 
     pass
-    # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a serious error, but an issue with the python interpreter known to occur in python 2.7." % e
+    # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a
+    # serious error, but an issue with the python interpreter known to occur
+    # in python 2.7." % e
   finalstream.flush()
   finalstream.close()
 
