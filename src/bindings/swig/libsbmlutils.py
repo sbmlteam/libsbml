@@ -35,12 +35,13 @@
 import os, re
 from os.path import join
 
+skip_names = ['is', 'endl', 'flush']
 
 #
 # find_classes(X)
 #
 
-def find_classes(arg, swig_too = False):
+def find_classes(arg, swig_too = False, enums_too = True):
     """List class declarations found in .h files.
 
     ARG can be a single directory or a list of files.  Returns a list of all
@@ -55,9 +56,12 @@ def find_classes(arg, swig_too = False):
     """
 
     if type(arg) is list:
-        return [c for file in arg for c in classes_in_file(file)]
+        classes = [c for file in arg for c in classes_in_file(file)]
     else:
-        return classes_in_dir(arg, swig_too)
+        classes = classes_in_dir(arg, swig_too)
+    if not enums_too:
+        classes = filter(lambda c: not c.endswith('_t'), classes)
+    return cleanup(classes)
 
 
 def classes_in_dir(dir, swig_too):
@@ -93,13 +97,12 @@ def classes_in_file(filename):
 def classes_in_header_file(stream):
     classes = []
     for line in stream.readlines():
-        start = line.find('@class')
-        if start < 0:
+        match = re.search('(@class|@enum)\s+(\w+)', line)
+        if match == None:
             continue
-        # Sometimes we have "@class Name." instead of "@class Name"
-        name = re.sub(r'\.', '', line[start + 6:]).strip()
-        # Ignore a few cases.
-        if name and (not (name.startswith("doc_") or name.startswith("is "))):
+        name = match.group(2)
+        # Ignore documentation fragments pseudoclasses.
+        if not name.startswith("doc_"):
             classes.append(name)
     return classes
 
@@ -115,3 +118,7 @@ def classes_in_swig_file(stream):
         if name:
           classes.append(name)
     return classes
+
+
+def cleanup(classes):
+    return filter(lambda s: s not in skip_names, classes)
