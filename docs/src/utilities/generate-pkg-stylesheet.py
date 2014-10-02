@@ -167,7 +167,7 @@ def main(args):
         print (pkg_separator_template.format(pkg))
 
         color   = next(entry for entry in color_table if entry[0] == pkg)
-        classes = find_classes(os.path.join(src_dir, pkg))
+        classes = find_classes(os.path.join(src_dir, pkg), enums_too = False)
         last    = classes[-1]
 
         # There is a spectacularly obscure bug in Safari that necessitates
