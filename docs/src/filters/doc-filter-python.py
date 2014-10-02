@@ -42,6 +42,15 @@
 
 import sys, string, os.path, re
 
+#
+# Global variables.
+#
+
+libsbml_enums = []
+
+#
+# Helper functions.
+#
 
 def reformatDocString (match):
   text = match.group(1)
@@ -140,6 +149,8 @@ def clean_up_spaces(match):
 
 
 def filterDocStrings (contents):
+  global libsbml_enums
+
   # Make the docstrings more readable.
   p = re.compile('\"\"\"(.+?)\"\"\"', re.DOTALL | re.MULTILINE)
   contents = p.sub(reformatDocString, contents)
@@ -152,36 +163,8 @@ def filterDocStrings (contents):
   contents = contents.replace(' double', " float")
   contents = contents.replace('(double', " (float")
 
-  # These enumeration types are actually integers in the Python bindings.
-
-  contents = re.sub(r'ASTNodeType_t\b',              'long',         contents)
-  contents = re.sub(r'ASTNode_t\b',                  'long',         contents)
-  contents = re.sub(r'BiolQualifierType_t\b',        'long',         contents)
-  contents = re.sub(r'ConversionOptionType_t\b',     'long',         contents)
-  contents = re.sub(r'ModelQualifierType_t\b',       'long',         contents)
-  contents = re.sub(r'OperationReturnValues_t\b',    'long',         contents)
-  contents = re.sub(r'ParseLogType_t\b',             'long',         contents)
-  contents = re.sub(r'QualifierType_t\b',            'long',         contents)
-  contents = re.sub(r'RuleType_t\b',                 'long',         contents)
-  contents = re.sub(r'SBMLCompTypeCode_t\b',         'long',         contents)
-  contents = re.sub(r'SBMLErrorCategory_t\b',        'long',         contents)
-  contents = re.sub(r'SBMLErrorSeverity_t\b',        'long',         contents)
-  contents = re.sub(r'SBMLFbcTypeCode_t\b',          'long',         contents)
-  contents = re.sub(r'SBMLLayoutTypeCode_t\b',       'long',         contents)
-  contents = re.sub(r'SBMLQualTypeCode_t\b',         'long',         contents)
-  contents = re.sub(r'SBMLTypeCode_t\b',             'long',         contents)
-  contents = re.sub(r'UnitKind_t\b',                 'long',         contents)
-  contents = re.sub(r'XMLErrorCategory_t\b',         'long',         contents)
-  contents = re.sub(r'XMLErrorCode_t\b',             'long',         contents)
-  contents = re.sub(r'XMLErrorSeverityOverride_t\b', 'long',         contents)
-  contents = re.sub(r'XMLErrorSeverity_t\b',         'long',         contents)
-
-  # Replace SBMLErrorCode_t last.
-  contents = re.sub(r'CompSBMLErrorCode_t\b',        'long',         contents)
-  contents = re.sub(r'QualSBMLErrorCode_t\b',        'long',         contents)
-  contents = re.sub(r'FbcSBMLErrorCode_t\b',         'long',         contents)
-  contents = re.sub(r'LayoutSBMLErrorCode_t\b',      'long',         contents)
-  contents = re.sub(r'SBMLErrorCode_t\b',            'long',         contents)
+  # Enumeration types are actually integers in the Python bindings.
+  contents = re.sub(r'(\b' + r'\b|\b'.join(libsbml_enums) + r'\b)', 'long', contents)
 
   # We alter the names of some functions.
   contents = re.sub('SBML_parseFormula\b',        "parseFormula",    contents)
@@ -265,6 +248,10 @@ def filterForDoxygen (contents):
   return contents
 
 
+#
+# Main driver.
+#
+
 def main (args):
   """Usage: pythondocfilter.py libsbml.py > output.py
 
@@ -276,9 +263,25 @@ def main (args):
   SWIG.  This only acts on files whose names end in .py.
   """
 
+  global libsbml_enums
+
   if len(args) != 2:
     print main.__doc__
     sys.exit(1)
+
+  # Check if the environment variable LIBSBML_CLASSES_LIST is set.
+  # If it is, use its value as the path to the classes list file.
+  # If not, use a default name.
+
+  if os.environ.get('LIBSBML_CLASSES_LIST'):
+    classes_list_file = os.environ.get('LIBSBML_CLASSES_LIST')
+  else:
+    classes_list_file = 'class-list.txt'
+
+  istream         = open(classes_list_file, 'r')
+  libsbml_classes = istream.read().splitlines()
+  libsbml_enums   = filter(lambda c: c.endswith('_t'), libsbml_classes)
+  istream.close()
 
   istream    = open(args[1], 'r')
   contents   = istream.read()
