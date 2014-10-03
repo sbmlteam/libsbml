@@ -264,10 +264,10 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
   }
   else
   {
-    setSBMLDocument(this);
-
     mLevel                             = orig.mLevel;
     mVersion                           = orig.mVersion;
+
+    setSBMLDocument(this);
 
     mInternalValidator = new SBMLInternalValidator();
     mInternalValidator->setDocument(this);
