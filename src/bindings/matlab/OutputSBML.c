@@ -56,7 +56,7 @@
 
 
 
-#if defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE)
+#if 0 /* defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE) */
 #define FILE_CHAR wchar_t*
 #define FILE_FOPEN(file) _wfopen(file, L"r")
 #define USE_FILE_WCHAR 1
