@@ -1378,6 +1378,7 @@ UnitDefinition::divide(UnitDefinition *ud1, UnitDefinition *ud2)
       Unit * u = new Unit(*(ud2->getUnit(n)));
       u->setExponent(u->getExponent() * -1);
       ud->addUnit(u);
+      delete u;
     }
 
     UnitDefinition::simplify(ud);

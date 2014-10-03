@@ -77,7 +77,7 @@ void
 setTestDataDirectory (void)
 {
   char *srcdir = getenv("srcdir");
-  int  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+  size_t  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
 
 
   /**

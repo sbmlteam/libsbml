@@ -89,6 +89,7 @@ START_TEST(test_unitdefinition_simplify)
   
   fail_unless(ud->getNumUnits() == 1);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+  delete ud;
 
   /* NULL case*/
   ud = NULL;
@@ -150,6 +151,7 @@ START_TEST(test_unitdefinition_order)
   fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
 
   /* NULL case*/
+  delete ud;
   ud = NULL;
 
   UnitDefinition::reorder(ud);
@@ -166,7 +168,7 @@ END_TEST
 START_TEST(test_unitdefinition_convert_SI)
 {
   UnitDefinition* ud  = new UnitDefinition(2, 4);
-  UnitDefinition* ud1 = new UnitDefinition(2, 4);
+  UnitDefinition* ud1 = NULL;
 
   Unit* u  = new Unit(2, 4);
   u->setKind(UNIT_KIND_JOULE);
@@ -184,6 +186,8 @@ START_TEST(test_unitdefinition_convert_SI)
   fail_unless(ud1->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
   /* NULL case*/
+  delete ud;
+  delete ud1;
   ud = NULL;
 
   ud1 = UnitDefinition::convertToSI(ud);
@@ -216,6 +220,7 @@ START_TEST (test_unitdefinition_convert_SI1)
 
 
   UnitDefinition_free(ud);
+  UnitDefinition_free(ud1);
 }
 END_TEST
 
@@ -244,6 +249,7 @@ START_TEST (test_unitdefinition_convert_SI2)
 
 
   UnitDefinition_free(ud);
+  UnitDefinition_free(ud1);
 }
 END_TEST
 
@@ -277,6 +283,7 @@ START_TEST(test_unitdefinition_areIdentical)
   fail_unless(identical == 0);
 
   /* NULL case*/
+  delete ud;
   ud = NULL;
 
   identical = UnitDefinition::areIdentical(ud, ud1);;
@@ -287,6 +294,7 @@ START_TEST(test_unitdefinition_areIdentical)
   
   fail_unless(identical == 0);
   
+  delete ud1;
   ud1 = NULL;
 
   identical = UnitDefinition::areIdentical(ud, ud1);;
@@ -546,6 +554,7 @@ START_TEST(test_unitdefinition_areEquivalent)
   fail_unless(equivalent == 0);
 
   /* NULL case*/
+  delete ud;
   ud = NULL;
 
   equivalent = UnitDefinition::areEquivalent(ud, ud1);
@@ -556,6 +565,7 @@ START_TEST(test_unitdefinition_areEquivalent)
   
   fail_unless(equivalent == 0);
  
+  delete ud1;
   ud1 = NULL;
 
   equivalent = UnitDefinition::areEquivalent(ud, ud1);
@@ -575,6 +585,7 @@ START_TEST(test_unitdefinition_combine)
   UnitDefinition* ud = new UnitDefinition(2, 4);
   UnitDefinition* ud1 = new UnitDefinition(2, 4);
   UnitDefinition* udTemp;
+  UnitDefinition* udTemp1;
 
   Unit* u  = new Unit(2, 4);
   u->setKind(UNIT_KIND_METRE);
@@ -596,16 +607,18 @@ START_TEST(test_unitdefinition_combine)
   /* case with two units of same kind */
   ud1->addUnit(u2);
 
-  udTemp = UnitDefinition::combine(udTemp, ud1);
+  udTemp1 = UnitDefinition::combine(udTemp, ud1);
 
-  fail_unless(udTemp->getNumUnits() == 3);
-  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
-  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
-  fail_unless(udTemp->getUnit(1)->getExponent() == 2);
-  fail_unless(udTemp->getUnit(2)->getKind() == UNIT_KIND_SECOND);
-  fail_unless(udTemp->getUnit(2)->getExponent() == 2);
+  fail_unless(udTemp1->getNumUnits() == 3);
+  fail_unless(udTemp1->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(udTemp1->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp1->getUnit(1)->getExponent() == 2);
+  fail_unless(udTemp1->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp1->getUnit(2)->getExponent() == 2);
+  delete udTemp;
 
-  /* NULL case*/
+  ///* NULL case*/
+  delete ud;
   ud = NULL;
   
   udTemp = UnitDefinition::combine(ud, ud1);
@@ -614,14 +627,17 @@ START_TEST(test_unitdefinition_combine)
   fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
   fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
   fail_unless(udTemp->getUnit(1)->getExponent() == 2);
-
+  delete udTemp;
+  
   udTemp = UnitDefinition::combine(ud1, ud);
 
   fail_unless(udTemp->getNumUnits() == 2);
   fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
   fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
   fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+  delete udTemp;
 
+  delete ud1;
   ud1 = NULL;
 
   udTemp = UnitDefinition::combine(ud1, ud);
@@ -633,6 +649,8 @@ START_TEST(test_unitdefinition_combine)
   delete u1;
   delete u2;
   delete ud;
+  delete udTemp;
+  delete udTemp1;
  }
 END_TEST
 
@@ -695,6 +713,7 @@ START_TEST(test_unitdefinition_divide)
   UnitDefinition* ud = new UnitDefinition(2, 4);
   UnitDefinition* ud1 = new UnitDefinition(2, 4);
   UnitDefinition* udTemp;
+  UnitDefinition* udTemp1;
 
   Unit* u  = new Unit(2, 4);
   u->setKind(UNIT_KIND_METRE);
@@ -717,16 +736,18 @@ START_TEST(test_unitdefinition_divide)
   /* case with two units of same kind */
   ud1->addUnit(u2);
 
-  udTemp = UnitDefinition::divide(udTemp, ud1);
+  udTemp1 = UnitDefinition::divide(udTemp, ud1);
 
-  fail_unless(udTemp->getNumUnits() == 3);
-  fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_METRE);
-  fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_MOLE);
-  fail_unless(udTemp->getUnit(1)->getExponent() == -2);
-  fail_unless(udTemp->getUnit(2)->getKind() == UNIT_KIND_SECOND);
-  fail_unless(udTemp->getUnit(2)->getExponent() == -2);
+  fail_unless(udTemp1->getNumUnits() == 3);
+  fail_unless(udTemp1->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(udTemp1->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(udTemp1->getUnit(1)->getExponent() == -2);
+  fail_unless(udTemp1->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(udTemp1->getUnit(2)->getExponent() == -2);
+  delete udTemp;
 
   /* NULL case*/
+  delete ud;
   ud = NULL;
   
   udTemp = UnitDefinition::divide(ud, ud1);
@@ -736,6 +757,7 @@ START_TEST(test_unitdefinition_divide)
   fail_unless(udTemp->getUnit(0)->getExponent() == -1);
   fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
   fail_unless(udTemp->getUnit(1)->getExponent() == -2);
+  delete udTemp;
 
   udTemp = UnitDefinition::divide(ud1, ud);
 
@@ -743,13 +765,17 @@ START_TEST(test_unitdefinition_divide)
   fail_unless(udTemp->getUnit(0)->getKind() == UNIT_KIND_MOLE);
   fail_unless(udTemp->getUnit(1)->getKind() == UNIT_KIND_SECOND);
   fail_unless(udTemp->getUnit(1)->getExponent() == 2);
+  delete udTemp;
 
+  delete ud1;
   ud1 = NULL;
 
   udTemp = UnitDefinition::divide(ud1, ud);
 
   fail_unless(udTemp == NULL);
 
+  delete udTemp;
+  delete udTemp1;
   delete u;
   delete ud1;
   delete u1;
@@ -777,6 +803,7 @@ START_TEST(test_unitdefinition_divide1)
 
   fail_unless(udTemp == 0);
 
+  delete udTemp;
   delete u;
   delete ud1;
   delete u1;
