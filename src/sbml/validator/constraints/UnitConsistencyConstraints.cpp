@@ -583,8 +583,6 @@ START_CONSTRAINT (99508, Parameter, p)
   bool isNotNull = ud != NULL;
   int numUnits = isNotNull ? ud->getNumUnits() : 0;
   
-  delete(ud);
-  
   if (!isNotNull)  
 
   pre ( isNotNull);

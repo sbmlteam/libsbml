@@ -3230,7 +3230,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
         {
           number++;
         }
-        delete ud;
+        //delete ud;
       }
       else if (allowReactionId == true 
          && m->getReaction(id) != NULL 

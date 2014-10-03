@@ -97,8 +97,6 @@ START_TEST (test_CalcUnitDefinition_parameter)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
-
-  delete fud;
 }
 END_TEST
 
@@ -121,8 +119,6 @@ START_TEST (test_CalcUnitDefinition_parameter1)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
-
-  delete fud;
 }
 END_TEST
 
@@ -497,8 +493,6 @@ START_TEST (test_CalcUnitDefinition_global_with_local_known)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
-
-  delete fud;
 }
 END_TEST
 
@@ -514,8 +508,6 @@ START_TEST (test_CalcUnitDefinition_global_with_local_unknown)
   m->getParameter("r")->setCalculatingUnits(false);
 
   fail_unless(fud == NULL);
-
-  delete fud;
 }
 END_TEST
 
@@ -542,8 +534,6 @@ START_TEST (test_CalcUnitDefinition_local)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
-
-  delete fud;
 }
 END_TEST
 
@@ -570,8 +560,6 @@ START_TEST (test_CalcUnitDefinition_local1)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
-
-  delete fud;
 }
 END_TEST
 
@@ -589,8 +577,6 @@ START_TEST (test_CalcUnitDefinition_unknownReaction)
   m->getParameter("o")->setCalculatingUnits(false);
 
   fail_unless(fud == NULL);
-
-  delete fud;
 }
 END_TEST
 
@@ -608,8 +594,6 @@ START_TEST (test_CalcUnitDefinition_rateRule_timeUnknown)
   m->getParameter("h")->setCalculatingUnits(false);
 
   fail_unless(fud == NULL);
-
-  delete fud;
 }
 END_TEST
 
@@ -642,7 +626,6 @@ START_TEST (test_CalcUnitDefinition_noModel)
   fail_unless(fud == NULL);
 
   delete p;
-  delete fud;
 }
 END_TEST
 

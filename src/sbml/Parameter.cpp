@@ -580,10 +580,24 @@ Parameter::getDerivedUnitDefinition()
    * OR the object is not yet a child of a model
    */
 
+  if (m == NULL)
+  {
+    return NULL;
+  }
+  else
+  {
+  /* if we have a model calculate all units */
+    if (!m->isPopulatedListFormulaUnitsData())
+    {
+      m->populateListFormulaUnitsData();
+    }
+  }
+
   /* need to distinguish between a global and local parameter
-  * for a global parameter a unit definition will have been created
-  * for a local parameter need to create one based on the units field
-  */
+   * in order to determine the id that will be used
+   * in the ListFormulaUnitsData
+   */
+    
   bool globalParameter = false;
   SBase *parent  = getParentSBMLObject();
   SBase *pparent = (parent) ? parent->getParentSBMLObject() : NULL; 
@@ -592,72 +606,35 @@ Parameter::getDerivedUnitDefinition()
     globalParameter = true;
   }
 
-  /* if we have a model calculate all units */
-  if (m != NULL)
-  {
-    if (!m->isPopulatedListFormulaUnitsData())
-    {
-      m->populateListFormulaUnitsData();
-    }
-  }
-
   std::string id = this->getId();
+  int typecode = getTypeCode();
+
+  if (globalParameter == false)
+  {
+    // need the id of the reaction
+    Reaction * r = static_cast<Reaction*>(getAncestorOfType(SBML_REACTION));
+    
+    // should not get NULL here but just in case
+    if (r == NULL) return NULL;
+    
+    id = getId() + '_' + r->getId();
+    typecode = SBML_LOCAL_PARAMETER;
+  }
 
   if (calculate == true)
   {
-    if (m != NULL)
-    {
-      derivedUD = inferUnits(m, globalParameter);
-    }
+    derivedUD = inferUnits(m, globalParameter);
   }
   else
   {
     /* here we do not want to try to infer the unit from any formula
     * we just use what is given
     */
-    if (m != NULL)
+    if (m->getFormulaUnitsData(id, typecode) != NULL)
     {
-      if (globalParameter)
-      {
-        /* we are global parameter so units might have been set
-         * if not return NULL
-         */
-        if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
-        {
-          derivedUD = new UnitDefinition(*(m->getFormulaUnitsData(id, 
-                              getTypeCode())->getUnitDefinition()));
-        }
-      }
-      else
-      {
-        std::string units = getUnits();
-        if (units.empty() == false)
-        {
-          if (UnitKind_isValidUnitKindString(units.c_str(), 
-                                getLevel(), getVersion()))
-          {
-            Unit * unit = new Unit(getSBMLNamespaces());
-            unit->setKind(UnitKind_forName(units.c_str()));
-            unit->initDefaults();
-            derivedUD   = new UnitDefinition(getSBMLNamespaces());
+      // we already have the ud in memory return it
 
-            derivedUD->addUnit(unit);
-
-            delete unit;
-          }
-          else
-          {
-            /* must be a unit definition */
-            derivedUD = new UnitDefinition(*(m->getUnitDefinition(units)));
-          }
-        }
-        else
-        {
-          // here we have none but for consistency return a unitDefinition
-          // with no units
-          derivedUD = new UnitDefinition(getSBMLNamespaces());
-        }
-      }
+      derivedUD = m->getFormulaUnitsData(id, typecode)->getUnitDefinition();
     }
   }
 
