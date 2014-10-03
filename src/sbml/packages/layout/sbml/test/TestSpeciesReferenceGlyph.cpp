@@ -255,10 +255,10 @@ END_TEST
 START_TEST ( test_SpeciesReferenceGlyph_copyConstructor )
 {
   SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
-  XMLNode* notes=new XMLNode();
-  srg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  srg1->setAnnotation(annotation);
+  XMLNode notes;
+  srg1->setNotes(&notes);
+  XMLNode annotation;
+  srg1->setAnnotation(&annotation);
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
@@ -277,10 +277,10 @@ END_TEST
 START_TEST ( test_SpeciesReferenceGlyph_assignmentOperator )
 {
   SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
-  XMLNode* notes=new XMLNode();
-  srg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  srg1->setAnnotation(annotation);
+  XMLNode notes;
+  srg1->setNotes(&notes);
+  XMLNode annotation;
+  srg1->setAnnotation(&annotation);
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
@@ -290,9 +290,7 @@ START_TEST ( test_SpeciesReferenceGlyph_assignmentOperator )
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
-  SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph();
-  (*srg2)=(*srg1);
-  delete srg2;
+  SpeciesReferenceGlyph srg2=*srg1;
   delete srg1;
 }
 END_TEST

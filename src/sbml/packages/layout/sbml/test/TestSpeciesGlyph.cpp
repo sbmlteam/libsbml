@@ -105,10 +105,10 @@ END_TEST
 START_TEST ( test_SpeciesGlyph_copyConstructor )
 {
   SpeciesGlyph* sg1=new SpeciesGlyph();
-  XMLNode* notes=new XMLNode();
-  sg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  sg1->setAnnotation(annotation);
+  XMLNode notes;
+  sg1->setNotes(&notes);
+  XMLNode annotation;
+  sg1->setAnnotation(&annotation);
   SpeciesGlyph* sg2=new SpeciesGlyph(*sg1);
   delete sg2;
   delete sg1;
@@ -118,13 +118,11 @@ END_TEST
 START_TEST ( test_SpeciesGlyph_assignmentOperator )
 {
   SpeciesGlyph* sg1=new SpeciesGlyph();
-  XMLNode* notes=new XMLNode();
-  sg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  sg1->setAnnotation(annotation);
-  SpeciesGlyph* sg2=new SpeciesGlyph();
-  (*sg2)=(*sg1);
-  delete sg2;
+  XMLNode notes;
+  sg1->setNotes(&notes);
+  XMLNode annotation;
+  sg1->setAnnotation(&annotation);
+  SpeciesGlyph sg2=*sg1;
   delete sg1;
 }
 END_TEST

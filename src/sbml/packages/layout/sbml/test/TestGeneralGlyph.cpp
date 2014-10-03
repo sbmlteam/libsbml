@@ -251,10 +251,10 @@ END_TEST
 START_TEST ( test_GeneralGlyph_copyConstructor )
 {
   GeneralGlyph* rg1=new GeneralGlyph();
-  XMLNode* notes=new XMLNode();
-  rg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  rg1->setAnnotation(annotation);
+  XMLNode notes;
+  rg1->setNotes(&notes);
+  XMLNode annotation;
+  rg1->setAnnotation(&annotation);
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createCubicBezier();
@@ -285,10 +285,10 @@ END_TEST
 START_TEST ( test_GeneralGlyph_assignmentOperator )
 {
   GeneralGlyph* rg1=new GeneralGlyph();
-  XMLNode* notes=new XMLNode();
-  rg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  rg1->setAnnotation(annotation);
+  XMLNode notes;
+  rg1->setNotes(&notes);
+  XMLNode annotation;
+  rg1->setAnnotation(&annotation);
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createCubicBezier();
@@ -310,9 +310,7 @@ START_TEST ( test_GeneralGlyph_assignmentOperator )
   srg->setId("srg5");
   srg=rg1->createReferenceGlyph();
   srg->setId("srg6");
-  GeneralGlyph* rg2=new GeneralGlyph();
-  (*rg2)=(*rg1);
-  delete rg2;
+  GeneralGlyph rg2=*rg1;
   delete rg1;
 }
 END_TEST

@@ -452,10 +452,10 @@ END_TEST
 START_TEST ( test_Layout_copyConstructor )
 {
   Layout* l1=new Layout();
-  XMLNode* notes=new XMLNode();
-  l1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  l1->setAnnotation(annotation);
+  XMLNode notes;
+  l1->setNotes(&notes);
+  XMLNode annotation;
+  l1->setAnnotation(&annotation);
   GraphicalObject* go=l1->createCompartmentGlyph();
   go->setId("go1");
   go=l1->createCompartmentGlyph();
@@ -515,10 +515,10 @@ END_TEST
 START_TEST ( test_Layout_assignmentOperator )
 {
   Layout* l1=new Layout();
-  XMLNode* notes=new XMLNode();
-  l1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  l1->setAnnotation(annotation);
+  XMLNode notes;
+  l1->setNotes(&notes);
+  XMLNode annotation;
+  l1->setAnnotation(&annotation);
   GraphicalObject* go=l1->createCompartmentGlyph();
   go->setId("go1");
   go=l1->createCompartmentGlyph();
@@ -569,9 +569,7 @@ START_TEST ( test_Layout_assignmentOperator )
   go->setId("go24");
   go=l1->createAdditionalGraphicalObject();
   go->setId("go25");
-  Layout* l2=new Layout();
-  (*l2)=(*l1);
-  delete l2;
+  Layout l2=*l1;
   delete l1;
 }
 END_TEST

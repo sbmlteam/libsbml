@@ -123,10 +123,10 @@ END_TEST
 START_TEST ( test_TextGlyph_copyConstructor )
 {
   TextGlyph* tg1=new TextGlyph();
-  XMLNode* notes=new XMLNode();
-  tg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  tg1->setAnnotation(annotation);
+  XMLNode notes;
+  tg1->setNotes(&notes);
+  XMLNode annotation;
+  tg1->setAnnotation(&annotation);
   TextGlyph* tg2=new TextGlyph(*tg1);
   delete tg2;
   delete tg1;
@@ -136,13 +136,11 @@ END_TEST
 START_TEST ( test_TextGlyph_assignmentOperator )
 {
   TextGlyph* tg1=new TextGlyph();
-  XMLNode* notes=new XMLNode();
-  tg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  tg1->setAnnotation(annotation);
-  TextGlyph* tg2=new TextGlyph();
-  (*tg2)=(*tg1);
-  delete tg2;
+  XMLNode notes;
+  tg1->setNotes(&notes);
+  XMLNode annotation;
+  tg1->setAnnotation(&annotation);
+  TextGlyph tg2=*tg1;
   delete tg1;
 }
 END_TEST

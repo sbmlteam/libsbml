@@ -215,10 +215,10 @@ END_TEST
 START_TEST ( test_ReferenceGlyph_copyConstructor )
 {
   ReferenceGlyph* srg1=new ReferenceGlyph();
-  XMLNode* notes=new XMLNode();
-  srg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  srg1->setAnnotation(annotation);
+  XMLNode notes;
+  srg1->setNotes(&notes);
+  XMLNode annotation;
+  srg1->setAnnotation(&annotation);
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
@@ -237,10 +237,10 @@ END_TEST
 START_TEST ( test_ReferenceGlyph_assignmentOperator )
 {
   ReferenceGlyph* srg1=new ReferenceGlyph();
-  XMLNode* notes=new XMLNode();
-  srg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  srg1->setAnnotation(annotation);
+  XMLNode notes;
+  srg1->setNotes(&notes);
+  XMLNode annotation;
+  srg1->setAnnotation(&annotation);
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
@@ -250,9 +250,7 @@ START_TEST ( test_ReferenceGlyph_assignmentOperator )
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createLineSegment();
   srg1->getCurve()->createCubicBezier();
-  ReferenceGlyph* srg2=new ReferenceGlyph();
-  (*srg2)=(*srg1);
-  delete srg2;
+  ReferenceGlyph srg2=*srg1;
   delete srg1;
 }
 END_TEST

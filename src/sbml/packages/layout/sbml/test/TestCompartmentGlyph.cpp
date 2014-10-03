@@ -114,10 +114,10 @@ END_TEST
 START_TEST ( test_CompartmentGlyph_copyConstructor )
 {
   CompartmentGlyph* cg1=new CompartmentGlyph();
-  XMLNode* notes=new XMLNode();
-  cg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  cg1->setAnnotation(annotation);
+  XMLNode notes;
+  cg1->setNotes(&notes);
+  XMLNode annotation;
+  cg1->setAnnotation(&annotation);
   CompartmentGlyph* cg2=new CompartmentGlyph(*cg1);
   delete cg2;
   delete cg1;
@@ -127,13 +127,11 @@ END_TEST
 START_TEST ( test_CompartmentGlyph_assignmentOperator )
 {
   CompartmentGlyph* cg1=new CompartmentGlyph();
-  XMLNode* notes=new XMLNode();
-  cg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  cg1->setAnnotation(annotation);
-  CompartmentGlyph* cg2=new CompartmentGlyph();
-  (*cg2)=(*cg1);
-  delete cg2;
+  XMLNode notes;
+  cg1->setNotes(&notes);
+  XMLNode annotation;
+  cg1->setAnnotation(&annotation);
+  CompartmentGlyph cg2=*cg1;
   delete cg1;
 }
 END_TEST

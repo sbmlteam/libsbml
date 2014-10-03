@@ -113,58 +113,17 @@ Dimensions::Dimensions(const Dimensions& orig)
     this->mW=orig.mW;
     this->mD=orig.mD;
     this->mDExplicitlySet=orig.mDExplicitlySet;
-    // attributes of SBase
-//    this->mId=orig.mId;
-//    this->mName=orig.mName;
-    this->mMetaId=orig.mMetaId;
-    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Dimensions&>(orig).getNotes());
-    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Dimensions&>(orig).mAnnotation);
-    this->mSBML=orig.mSBML;
-    this->mSBOTerm=orig.mSBOTerm;
-    this->mLine=orig.mLine;
-    this->mColumn=orig.mColumn;
-
-    if(orig.mCVTerms)
-    {
-      this->mCVTerms=new List();
-      unsigned int i,iMax=orig.mCVTerms->getSize();
-      for(i=0;i<iMax;++i)
-      {
-        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
-      }
-    }
 }
 
 Dimensions& Dimensions::operator=(const Dimensions& orig)
 {
   if(&orig!=this)
   {
+    SBase::operator=(orig);
     this->mH=orig.mH;
     this->mW=orig.mW;
     this->mD=orig.mD;
     this->mDExplicitlySet=orig.mDExplicitlySet;
-    this->mMetaId=orig.mMetaId;
-    delete this->mNotes;
-    this->mNotes=NULL;
-    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Dimensions&>(orig).getNotes());
-    delete this->mAnnotation;
-    this->mAnnotation=NULL;
-    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Dimensions&>(orig).mAnnotation);
-    this->mSBML=orig.mSBML;
-    this->mSBOTerm=orig.mSBOTerm;
-    this->mLine=orig.mLine;
-    this->mColumn=orig.mColumn;
-    delete this->mCVTerms;
-    this->mCVTerms=NULL;
-    if(orig.mCVTerms)
-    {
-      this->mCVTerms=new List();
-      unsigned int i,iMax=orig.mCVTerms->getSize();
-      for(i=0;i<iMax;++i)
-      {
-        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
-      }
-    }
   }
   
   return *this;

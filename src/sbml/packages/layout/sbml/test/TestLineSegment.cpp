@@ -280,10 +280,10 @@ END_TEST
 START_TEST ( test_LineSegment_copyConstructor )
 {
   LineSegment* ls1=new LineSegment();
-  XMLNode* notes=new XMLNode();
-  ls1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  ls1->setAnnotation(annotation);
+  XMLNode notes;
+  ls1->setNotes(&notes);
+  XMLNode annotation;
+  ls1->setAnnotation(&annotation);
   LineSegment* ls2=new LineSegment(*ls1);
   delete ls2;
   delete ls1;
@@ -293,13 +293,11 @@ END_TEST
 START_TEST ( test_LineSegment_assignmentOperator )
 {
   LineSegment* ls1=new LineSegment();
-  XMLNode* notes=new XMLNode();
-  ls1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  ls1->setAnnotation(annotation);
-  LineSegment* ls2=new LineSegment();
-  (*ls2)=(*ls1);
-  delete ls2;
+  XMLNode notes;
+  ls1->setNotes(&notes);
+  XMLNode annotation;
+  ls1->setAnnotation(&annotation);
+  LineSegment ls2=*ls1;
   delete ls1;
 }
 END_TEST

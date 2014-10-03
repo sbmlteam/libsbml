@@ -255,10 +255,10 @@ END_TEST
 START_TEST ( test_ReactionGlyph_copyConstructor )
 {
   ReactionGlyph* rg1=new ReactionGlyph();
-  XMLNode* notes=new XMLNode();
-  rg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  rg1->setAnnotation(annotation);
+  XMLNode notes;
+  rg1->setNotes(&notes);
+  XMLNode annotation;
+  rg1->setAnnotation(&annotation);
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createCubicBezier();
@@ -289,10 +289,10 @@ END_TEST
 START_TEST ( test_ReactionGlyph_assignmentOperator )
 {
   ReactionGlyph* rg1=new ReactionGlyph();
-  XMLNode* notes=new XMLNode();
-  rg1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  rg1->setAnnotation(annotation);
+  XMLNode notes;
+  rg1->setNotes(&notes);
+  XMLNode annotation;
+  rg1->setAnnotation(&annotation);
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createLineSegment();
   rg1->getCurve()->createCubicBezier();
@@ -314,9 +314,7 @@ START_TEST ( test_ReactionGlyph_assignmentOperator )
   srg->setId("srg5");
   srg=rg1->createSpeciesReferenceGlyph();
   srg->setId("srg6");
-  ReactionGlyph* rg2=new ReactionGlyph();
-  (*rg2)=(*rg1);
-  delete rg2;
+  ReactionGlyph rg2=*rg1;
   delete rg1;
 }
 END_TEST

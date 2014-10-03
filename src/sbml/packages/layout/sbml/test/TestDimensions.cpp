@@ -158,10 +158,10 @@ END_TEST
 START_TEST ( test_Dimensions_copyConstructor )
 {
   Dimensions* d1=new Dimensions();
-  XMLNode* notes=new XMLNode();
-  d1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  d1->setAnnotation(annotation);
+  XMLNode notes;
+  d1->setNotes(&notes);
+  XMLNode annotation;
+  d1->setAnnotation(&annotation);
   Dimensions* d2=new Dimensions(*d1);
   delete d2;
   delete d1;
@@ -171,13 +171,11 @@ END_TEST
 START_TEST ( test_Dimensions_assignmentOperator )
 {
   Dimensions* d1=new Dimensions();
-  XMLNode* notes=new XMLNode();
-  d1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  d1->setAnnotation(annotation);
-  Dimensions* d2=new Dimensions();
-  (*d2)=(*d1);
-  delete d2;
+  XMLNode notes;
+  d1->setNotes(&notes);
+  XMLNode annotation;
+  d1->setAnnotation(&annotation);
+  Dimensions d2=*d1;
   delete d1;
 }
 END_TEST

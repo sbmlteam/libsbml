@@ -260,10 +260,10 @@ END_TEST
 START_TEST ( test_BoundingBox_copyConstructor )
 {
   BoundingBox* bb1=new BoundingBox();
-  XMLNode* notes=new XMLNode();
-  bb1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  bb1->setAnnotation(annotation);
+  XMLNode notes;
+  bb1->setNotes(&notes);
+  XMLNode annotation;
+  bb1->setAnnotation(&annotation);
   BoundingBox* bb2=new BoundingBox(*bb1);
   delete bb2;
   delete bb1;
@@ -273,13 +273,11 @@ END_TEST
 START_TEST ( test_BoundingBox_assignmentOperator )
 {
   BoundingBox* bb1=new BoundingBox();
-  XMLNode* notes=new XMLNode();
-  bb1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  bb1->setAnnotation(annotation);
-  BoundingBox* bb2=new BoundingBox();
-  (*bb2)=(*bb1);
-  delete bb2;
+  XMLNode notes;
+  bb1->setNotes(&notes);
+  XMLNode annotation;
+  bb1->setAnnotation(&annotation);
+  BoundingBox bb2=*bb1;
   delete bb1;
 }
 END_TEST

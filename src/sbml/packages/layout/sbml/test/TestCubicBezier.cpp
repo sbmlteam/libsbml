@@ -183,11 +183,12 @@ END_TEST
 
 START_TEST ( test_CubicBezier_createWithCoordinates )
 {
-  CubicBezier_t* cb= new CubicBezier(LN,
-                                     new (std::nothrow) Point(LN,1.1,-2.2,3.3),
-                                     new (std::nothrow) Point(LN,-4.4,5.5,-6.6),
-                                     new (std::nothrow) Point(LN,7.7,-8.8,9.9),
-                                     new (std::nothrow) Point(LN,-10.10,11.11,-12.12));
+  Point p1(LN,1.1,-2.2,3.3);
+  Point p2(LN,-4.4,5.5,-6.6);
+  Point p3(LN,7.7,-8.8,9.9);
+  Point p4(LN,-10.10,11.11,-12.12);
+
+  CubicBezier_t* cb= new CubicBezier(LN, &p1, &p2, &p3, &p4);
   
   fail_unless( cb->getPackageName() == "layout");
   fail_unless( cb->getTypeCode() == SBML_LAYOUT_CUBICBEZIER);
@@ -412,10 +413,10 @@ END_TEST
 START_TEST ( test_CubicBezier_copyConstructor )
 {
   CubicBezier* cb1=new CubicBezier();
-  XMLNode* notes=new XMLNode();
-  cb1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  cb1->setAnnotation(annotation);
+  XMLNode notes;
+  cb1->setNotes(&notes);
+  XMLNode annotation;
+  cb1->setAnnotation(&annotation);
   CubicBezier* cb2=new CubicBezier(*cb1);
   delete cb2;
   delete cb1;
@@ -425,13 +426,11 @@ END_TEST
 START_TEST ( test_CubicBezier_assignmentOperator )
 {
   CubicBezier* cb1=new CubicBezier();
-  XMLNode* notes=new XMLNode();
-  cb1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  cb1->setAnnotation(annotation);
-  CubicBezier* cb2=new CubicBezier();
-  (*cb2)=(*cb1);
-  delete cb2;
+  XMLNode notes;
+  cb1->setNotes(&notes);
+  XMLNode annotation;
+  cb1->setAnnotation(&annotation);
+  CubicBezier cb2=*cb1;
   delete cb1;
 }
 END_TEST

@@ -162,10 +162,10 @@ END_TEST
 START_TEST ( test_Point_copyConstructor )
 {
   Point* p1=new Point();
-  XMLNode* notes=new XMLNode();
-  p1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  p1->setAnnotation(annotation);
+  XMLNode notes;
+  p1->setNotes(&notes);
+  XMLNode annotation;
+  p1->setAnnotation(&annotation);
   Point* p2=new Point(*p1);
   delete p2;
   delete p1;
@@ -175,13 +175,11 @@ END_TEST
 START_TEST ( test_Point_assignmentOperator )
 {
   Point* p1=new Point();
-  XMLNode* notes=new XMLNode();
-  p1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  p1->setAnnotation(annotation);
-  Point* p2=new Point();
-  (*p2)=(*p1);
-  delete p2;
+  XMLNode notes;
+  p1->setNotes(&notes);
+  XMLNode annotation;
+  p1->setAnnotation(&annotation);
+  Point p2=(*p1);
   delete p1;
 }
 END_TEST

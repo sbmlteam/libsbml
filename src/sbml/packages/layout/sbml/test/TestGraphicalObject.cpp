@@ -259,10 +259,10 @@ END_TEST
 START_TEST ( test_GraphicalObject_copyConstructor )
 {
   GraphicalObject* go1=new GraphicalObject();
-  XMLNode* notes=new XMLNode();
-  go1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  go1->setAnnotation(annotation);
+  XMLNode notes;
+  go1->setNotes(&notes);
+  XMLNode annotation;
+  go1->setAnnotation(&annotation);
   GraphicalObject* go2=new GraphicalObject(*go1);
   delete go2;
   delete go1;
@@ -272,13 +272,11 @@ END_TEST
 START_TEST ( test_GraphicalObject_assignmentOperator )
 {
   GraphicalObject* go1=new GraphicalObject();
-  XMLNode* notes=new XMLNode();
-  go1->setNotes(notes);
-  XMLNode* annotation=new XMLNode();
-  go1->setAnnotation(annotation);
-  GraphicalObject* go2=new GraphicalObject();
-  (*go2)=(*go1);
-  delete go2;
+  XMLNode notes;
+  go1->setNotes(&notes);
+  XMLNode annotation;
+  go1->setAnnotation(&annotation);
+  GraphicalObject go2=*go1;
   delete go1;
 }
 END_TEST
@@ -339,22 +337,26 @@ START_TEST ( test_GeneralGlyph_new )
   
   fail_unless(glyph.getNumSubGlyphs() == 1);
   
-  std::string result = glyph.toSBML();
+  char* result = glyph.toSBML();
   XMLNode node = glyph.toXML();
   GeneralGlyph fromXml(node);
-  std::string read = fromXml.toSBML();
+  char* read = fromXml.toSBML();
   
-  fail_unless(result == read);
+  fail_unless(strcmp(result,read) == 0);
+  safe_free(result);
+  safe_free(read);
   
   // deletion
   ReferenceGlyph* temp = glyph.removeReferenceGlyph(0);
   
   fail_unless(glyph.getNumReferenceGlyphs() == 0);
   
-  std::string ref1 = temp->toSBML();
-  std::string ref2 = r2.toSBML();
+  char* ref1 = temp->toSBML();
+  char* ref2 = r2.toSBML();
   
-  fail_unless(ref1 == ref2);
+  fail_unless(strcmp(ref1,ref2)==0);
+  safe_free(ref1);
+  safe_free(ref2);
   delete temp;
   
   TextGlyph *temp1 = (TextGlyph*)glyph.removeSubGlyph("text1");
@@ -362,10 +364,12 @@ START_TEST ( test_GeneralGlyph_new )
   fail_unless(temp1 != NULL);
   fail_unless(glyph.getNumSubGlyphs() == 0);
   
-  std::string sub1 = temp1->toSBML();
-  std::string sub2 = text.toSBML();
+  char* sub1 = temp1->toSBML();
+  char* sub2 = text.toSBML();
   
-  fail_unless( sub1 == sub2 );
+  fail_unless( strcmp(sub1,sub2) == 0 );
+  safe_free(sub1);
+  safe_free(sub2);
   delete temp1;
   
 }
