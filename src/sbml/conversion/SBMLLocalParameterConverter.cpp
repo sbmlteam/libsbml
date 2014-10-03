@@ -169,16 +169,17 @@ SBMLLocalParameterConverter::convert()
 
       if (lParam != NULL)
       {
-        param = new Parameter(*lParam);
-        param->setId(newId);
-        param->setConstant(true);
-        mModel->addParameter(param);
+        Parameter newparam(*lParam);
+        newparam.setId(newId);
+        newparam.setConstant(true);
+        mModel->addParameter(&newparam);
       }
       else
       {
         param->setId(newId);
         mModel->addParameter(param);
       }
+      delete param;
 
       if (law->isSetMath()) 
         (const_cast<ASTNode*>(law->getMath()))->renameSIdRefs(oldId, newId);

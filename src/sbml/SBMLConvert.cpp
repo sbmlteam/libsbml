@@ -1606,12 +1606,12 @@ useStoichMath(Model & m, SpeciesReference &sr, bool isRule)
     if (isRule == true)
     {
       sm->setMath(m.getRule(sr.getId())->getMath());
-      m.removeRule(sr.getId());
+      delete m.removeRule(sr.getId());
     }
     else
     {
       sm->setMath(m.getInitialAssignment(sr.getId())->getMath());
-      m.removeInitialAssignment(sr.getId());
+      delete m.removeInitialAssignment(sr.getId());
     }
   }
 }

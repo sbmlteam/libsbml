@@ -1003,7 +1003,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
             if (expandInitialAssignment(m->getCompartment(id), 
                                         m->getInitialAssignment(i)))
             {
-              m->removeInitialAssignment(id);
+              delete m->removeInitialAssignment(id);
               count--;
             }
           }
@@ -1012,7 +1012,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
             if (expandInitialAssignment(m->getParameter(id), 
                                         m->getInitialAssignment(i)))
             {
-              m->removeInitialAssignment(id);
+              delete m->removeInitialAssignment(id);
               count--;
             }
           }
@@ -1021,7 +1021,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
             if (expandInitialAssignment(m->getSpecies(id), 
                                         m->getInitialAssignment(i)))
             {
-              m->removeInitialAssignment(id);
+              delete m->removeInitialAssignment(id);
               count--;
             }
           }
@@ -1038,7 +1038,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
                   if (expandInitialAssignment(r->getProduct(k), 
                                               m->getInitialAssignment(i)))
                   {
-                    m->removeInitialAssignment(id);
+                    delete m->removeInitialAssignment(id);
                     count--;
                   }
                 }
@@ -1050,7 +1050,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
                   if (expandInitialAssignment(r->getReactant(k), 
                                               m->getInitialAssignment(i)))
                   {
-                    m->removeInitialAssignment(id);
+                    delete m->removeInitialAssignment(id);
                     count--;
                   }
                 }

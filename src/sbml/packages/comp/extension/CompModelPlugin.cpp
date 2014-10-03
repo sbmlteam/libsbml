@@ -534,7 +534,7 @@ Model* CompModelPlugin::flattenModel() const
       //Strip the ports from the submodel, as we no longer need them.
       while (submodplug->getNumPorts() > 0) 
       {
-        submodplug->removePort(0);
+        delete submodplug->removePort(0);
       }
     }
     success = flat->appendFrom(submodel);

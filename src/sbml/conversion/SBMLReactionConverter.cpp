@@ -462,7 +462,7 @@ SBMLReactionConverter::replaceReactions()
   // remove the reactions
   for (unsigned int i = 0; i < mReactionsToRemove.size(); i++)
   {
-    model->removeReaction(mReactionsToRemove.at(i));
+    delete model->removeReaction(mReactionsToRemove.at(i));
   }
 
   // check we have succeeded

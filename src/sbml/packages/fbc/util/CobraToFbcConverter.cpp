@@ -302,8 +302,7 @@ int
   // remove objective if we never had an active one
   if (objective->getNumFluxObjectives() == 0)
   {
-    objective = fbcPlugin->removeObjective("obj");
-    delete objective;
+    delete fbcPlugin->removeObjective("obj");
     fbcPlugin->unsetActiveObjectiveId();
   }
   

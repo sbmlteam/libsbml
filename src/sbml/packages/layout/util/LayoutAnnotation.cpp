@@ -141,7 +141,7 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
       if (name1 == "listOfLayouts" || 
         pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
       {
-        pAnnotation->removeChild(n);
+        delete pAnnotation->removeChild(n);
         continue;
       }
       n++;
@@ -235,7 +235,7 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
       if (name1 == "layoutId" || 
         pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
       {
-        pAnnotation->removeChild(n);
+        delete pAnnotation->removeChild(n);
         continue;
       }
       n++;

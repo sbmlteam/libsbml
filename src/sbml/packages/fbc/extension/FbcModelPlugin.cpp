@@ -271,9 +271,7 @@ XMLNode* deleteFbcAnnotation(XMLNode* pAnnotation)
         pAnnotation->getChild(n).getNamespaces().getIndex(FbcExtension::getXmlnsL3V1V1()) !=-1)
     {
       // delete the anotation
-      XMLNode* temp = pAnnotation->removeChild(n);
-      if (temp != NULL)
-        delete temp;
+      delete pAnnotation->removeChild(n);
 
       continue;
     }

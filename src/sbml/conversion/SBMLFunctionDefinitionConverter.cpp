@@ -277,7 +277,7 @@ SBMLFunctionDefinitionConverter::convert()
       continue;
     }
 
-    mModel->getListOfFunctionDefinitions()->remove(size);
+    delete mModel->getListOfFunctionDefinitions()->remove(size);
   }
 
   success = (mModel->getNumFunctionDefinitions() == skipped);

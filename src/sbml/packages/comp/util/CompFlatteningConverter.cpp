@@ -425,11 +425,11 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
 
       for (i = docPlug->getNumModelDefinitions() - 1; i >= 0; i--)
       {
-        docPlug->removeModelDefinition(i);
+        delete docPlug->removeModelDefinition(i);
       }
       for (i = docPlug->getNumExternalModelDefinitions() - 1; i >= 0; i--)
       {
-        docPlug->removeExternalModelDefinition(i);
+        delete docPlug->removeExternalModelDefinition(i);
       }
 
     }
