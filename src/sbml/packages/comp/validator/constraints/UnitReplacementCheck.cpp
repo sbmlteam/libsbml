@@ -292,6 +292,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   UnitDefinition *parentUnits = parent->getDerivedUnitDefinition();
   
   UnitDefinition *refElemUnits = refElem->getDerivedUnitDefinition();
+  bool delrefelem = false;
 
   bool cfPresent = false;
   /* adjust the refElement units for conversion factor */
@@ -302,11 +303,16 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
     UnitDefinition *ud = p->getDerivedUnitDefinition();
     UnitDefinition *newRefElemUnits = UnitDefinition::combine(refElemUnits, ud);
     refElemUnits = newRefElemUnits;
+    delrefelem = true;
     cfPresent = true;
   }
 
   if (parentUnits == NULL)
   {
+    if (delrefelem)
+    {
+      delete refElemUnits;
+    }
     return;
   }
 
@@ -319,6 +325,10 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
   if (parent->containsUndeclaredUnits() == true ||
     refElem->containsUndeclaredUnits() == true)
   {
+    if (delrefelem)
+    {
+      delete refElemUnits;
+    }
     return;
   }
 
@@ -347,6 +357,10 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
         }
       }
     }
+  }
+  if (delrefelem)
+  {
+    delete refElemUnits;
   }
 }
 
