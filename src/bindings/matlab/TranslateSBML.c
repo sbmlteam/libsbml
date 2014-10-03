@@ -158,7 +158,7 @@ typedef enum
 #endif
 
 
-#if 0 /* defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE) */
+#if defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE)
 #define FILE_CHAR wchar_t*
 #define FILE_FOPEN(file) _wfopen(file, L"r")
 #define USE_FILE_WCHAR 1
@@ -720,26 +720,23 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   if (endsWith(pacFilename, ".xml") == 0)
   {
     StringBuffer_t *sb = NULL;
-    long input_file_size = 0;
-	char buffer[1024];
+    unsigned long count = 0;
+    char buffer[1024];
 
     fp = FILE_FOPEN(pacFilename);
 
-    fseek(fp, 0, SEEK_END);
-    input_file_size = ftell(fp);
-    rewind(fp);
-	
-	sb = StringBuffer_create(input_file_size);
+    sb = StringBuffer_create(1);
 
-	while (fread(&buffer, sizeof(char), 1024, fp) > 0)
+    while ((count = (unsigned long)fread(&buffer, sizeof(char), 1024, fp)) > 0)
     {
-	  StringBuffer_append(sb,buffer); 
-	  memset(&buffer, 0, 1024*sizeof(char));
+      StringBuffer_appendWithLength(sb,buffer, (unsigned long)count); 
+      memset(&buffer, 0, 1024*sizeof(char));
     }	
-    
+    StringBuffer_appendChar(sb, 0);
+
     fclose(fp);
     sbmlDocument = readSBMLFromString(StringBuffer_getBuffer(sb));
-	StringBuffer_free(sb);
+    StringBuffer_free(sb);
     /*mxFree(file_contents);*/
   }
   else

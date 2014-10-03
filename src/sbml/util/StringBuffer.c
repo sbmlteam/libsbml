@@ -94,6 +94,20 @@ StringBuffer_append (StringBuffer_t *sb, const char *s)
 
 LIBSBML_EXTERN
 void
+StringBuffer_appendWithLength (StringBuffer_t *sb, const char *s, unsigned long len)
+{
+
+  if (sb == NULL || s == NULL) return;
+  
+  StringBuffer_ensureCapacity(sb, len);
+
+  strncpy(sb->buffer + sb->length, s, len + 1);
+  sb->length += len;
+}
+
+
+LIBSBML_EXTERN
+void
 StringBuffer_appendChar (StringBuffer_t *sb, char c)
 {
   if (sb == NULL) return;
