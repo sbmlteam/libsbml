@@ -225,6 +225,8 @@ Model::convertL3ToL1 ()
         Parameter *lp = new Parameter(getLevel(), getVersion());
         (*lp) = *(kl->getLocalParameter(j));
         kl->addParameter(lp);
+        delete kl->removeLocalParameter(j);
+        delete lp;
       }
     }
   }
@@ -249,7 +251,11 @@ Model::convertL3ToL2 (bool strict)
       KineticLaw *kl = r->getKineticLaw();
       for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
       {
-        kl->addParameter(kl->getLocalParameter(j));
+        Parameter *lp = new Parameter(getLevel(), getVersion());
+        (*lp) = *(kl->getLocalParameter(j));
+        kl->addParameter(lp);
+        delete kl->removeLocalParameter(j);
+        delete lp;
       }
     }
   }
@@ -1566,6 +1572,7 @@ createNoValueStoichMath(Model & m, SpeciesReference & sr, unsigned int idCount)
   {
     ASTNode *ast = SBML_parseFormula(id.c_str());
     sm->setMath(ast);
+    delete ast;
   }
 }
 
