@@ -338,15 +338,17 @@ ReqValidator::validate (const std::string& filename)
   if (&filename == NULL) return 0;
 
   SBMLReader    reader;
-  SBMLDocument& d = *reader.readSBML(filename);
+  SBMLDocument* d = reader.readSBML(filename);
 
 
-  for (unsigned int n = 0; n < d.getNumErrors(); ++n)
+  for (unsigned int n = 0; n < d->getNumErrors(); ++n)
   {
-    logFailure( *d.getError(n) );
+    logFailure( *d->getError(n) );
   }
 
-  return validate(d);
+  unsigned int ret = validate(*d);
+  delete d;
+  return ret;
 }
 
 
