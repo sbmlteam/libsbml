@@ -134,11 +134,11 @@ START_TEST (test_Transition_Input)
 
   fail_unless(G->getNumInputs() == 2);
 
-  G->removeInput("i1");
+  delete G->removeInput("i1");
 
   fail_unless(G->getNumInputs() == 1);
 
-  G->removeInput(0);
+  delete G->removeInput(0);
 
   fail_unless(G->getNumInputs() == 0);
 }
@@ -158,11 +158,11 @@ START_TEST (test_Transition_Output)
 
   fail_unless(G->getNumOutputs() == 2);
 
-  G->removeOutput("i1");
+  delete G->removeOutput("i1");
 
   fail_unless(G->getNumOutputs() == 1);
 
-  G->removeOutput(0);
+  delete G->removeOutput(0);
 
   fail_unless(G->getNumOutputs() == 0);
 }
@@ -182,11 +182,11 @@ START_TEST (test_Transition_FunctionTerm)
 
   fail_unless(G->getNumFunctionTerms() == 2);
 
-  G->removeFunctionTerm(1);
+  delete G->removeFunctionTerm(1);
 
   fail_unless(G->getNumFunctionTerms() == 1);
 
-  G->removeFunctionTerm(0);
+  delete G->removeFunctionTerm(0);
 
   fail_unless(G->getNumFunctionTerms() == 0);
 }

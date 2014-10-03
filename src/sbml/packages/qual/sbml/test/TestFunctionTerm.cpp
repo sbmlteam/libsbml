@@ -110,10 +110,15 @@ START_TEST (test_FunctionTerm_math)
 
   fail_unless(G->setMath(ast) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetMath() == true);
-  fail_unless(!strcmp(SBML_formulaToString(G->getMath()), "geq(1, 2)"));
+  char* f2s = SBML_formulaToString(G->getMath());
+  fail_unless(!strcmp(f2s, "geq(1, 2)"));
+  
 
   fail_unless(G->unsetMath() == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetMath() == false);
+
+  safe_free(f2s);
+  delete ast;
 }
 END_TEST
 

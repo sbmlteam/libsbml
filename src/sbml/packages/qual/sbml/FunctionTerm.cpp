@@ -838,6 +838,31 @@ ListOfFunctionTerms::setDefaultTerm(const DefaultTerm* dt)
 }
 
 
+DefaultTerm* 
+ListOfFunctionTerms::createDefaultTerm()
+{
+  DefaultTerm* dt = NULL;
+
+  try
+  {
+    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+    dt = new DefaultTerm(qualns);
+    delete qualns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  mDefaultTerm = dt;
+  if (mDefaultTerm != NULL) mDefaultTerm->connectToParent(this);
+  return dt;
+}
+
+
 bool 
 ListOfFunctionTerms::isSetDefaultTerm() const
 {

@@ -128,6 +128,7 @@ START_TEST (test_QualExtension_getSBMLExtensionNamespaces)
   fail_unless(qualns->getVersion()        == 1);
   fail_unless(qualns->getPackageVersion() == 1);
 
+  delete qualns;
   qualns = static_cast<QualPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
 
   fail_unless(qualns == NULL);
@@ -245,13 +246,15 @@ START_TEST(test_QualExtension_registry)
   fail_unless(sbext->getPackageVersion(QUAL_XMLNS_L3V1V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
+
+  delete sbext;
 }
 END_TEST
 
 
 START_TEST(test_QualExtension_typecode)
 {
-  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("qual");
+  SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("qual");
 
   fail_unless(sbext != NULL);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_QUAL_QUALITATIVE_SPECIES), "QualitativeSpecies") == 0);
@@ -262,6 +265,8 @@ START_TEST(test_QualExtension_typecode)
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_QUAL_DEFAULT_TERM), "DefaultTerm") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_QUAL_QUALITATIVE_SPECIES-1), "(Unknown SBML Qual Type)") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_QUAL_DEFAULT_TERM+1), "(Unknown SBML Qual Type)") == 0);
+
+  delete sbext;
 }
 END_TEST
 

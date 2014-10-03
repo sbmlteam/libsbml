@@ -579,6 +579,17 @@ public:
    */
   bool isSetDefaultTerm() const;
 
+  /**
+   * Creates a new DefaultTerm object, adds it to this
+   * ListOfFunctionTerms and returns the DefaultTerm object created. 
+   *
+   * @return a new DefaultTerm object instance
+   *
+   * @see setDefaultTerm(const DefaultTerm* ft)
+   */
+   DefaultTerm* createDefaultTerm();
+
+
   /** @cond doxygenLibsbmlInternal */
 
   /**

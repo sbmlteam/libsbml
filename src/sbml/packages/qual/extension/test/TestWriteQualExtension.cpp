@@ -120,19 +120,19 @@ START_TEST (test_QualExtension_create_and_write_L3V1V1)
     "</sbml>\n"
     ;
 
-  QualPkgNamespaces *sbmlns = new QualPkgNamespaces(3,1,1);
+  QualPkgNamespaces sbmlns(3,1,1);
 
   // create the document
 
-  SBMLDocument *document = new SBMLDocument(sbmlns);
+  SBMLDocument document(&sbmlns);
 
   //// mark qual as required
 
-  document->setPackageRequired("qual", true);
+  document.setPackageRequired("qual", true);
 
   // create the Model
 
-  Model* model=document->createModel();
+  Model* model=document.createModel();
 
   // create the Compartment
 
@@ -186,31 +186,23 @@ START_TEST (test_QualExtension_create_and_write_L3V1V1)
   fail_unless(ft->setMath(math)     == LIBSBML_OPERATION_SUCCESS);
 
 
-  char *s2 = writeSBMLToString(document);
+  string s2 = writeSBMLToStdString(&document);
 
-  fail_unless(strcmp(s1,s2) == 0); 
-
-  free(s2);
+  fail_unless(strcmp(s1,s2.c_str()) == 0); 
 
   // check clone()
 
-  SBMLDocument* document2 = document->clone();
-  s2 = writeSBMLToString(document2);
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  SBMLDocument document2 = document;
+  s2 = writeSBMLToStdString(&document2);
+  fail_unless(strcmp(s1,s2.c_str()) == 0); 
 
   // check operator=
 
-  Model *m = new Model(document->getSBMLNamespaces()); 
-  m = document->getModel();
-  document2->setModel(m);
-  s2 = writeSBMLToString(document2);
+  Model* m = document.getModel();
+  document2.setModel(m);
+  s2 = writeSBMLToStdString(&document2);
 
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
-  delete document2;
- 
-  delete document;  
+  fail_unless(strcmp(s1,s2.c_str()) == 0); 
 }
 END_TEST
 
@@ -253,95 +245,92 @@ START_TEST (test_QualExtension_create_add_and_write_L3V1V1)
     "</sbml>\n"
     ;
 
-  QualPkgNamespaces *sbmlns = new QualPkgNamespaces(3,1,1);
+  QualPkgNamespaces sbmlns(3,1,1);
 
   // create the document
 
-  SBMLDocument *document = new SBMLDocument(sbmlns);
+  SBMLDocument document(&sbmlns);
 
   //// mark qual as required
 
-  document->setPackageRequired("qual", true);
+  document.setPackageRequired("qual", true);
 
   // create the Model
 
-  Model* model= new Model(sbmlns);
+  Model model(&sbmlns);
 
   // create the Compartment
 
-  Compartment* compartment = new Compartment(sbmlns);
-  compartment->setId("c");
-  compartment->setConstant(true);
+  Compartment compartment(&sbmlns);
+  compartment.setId("c");
+  compartment.setConstant(true);
 
-  fail_unless(model->addCompartment(compartment) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model.addCompartment(&compartment) == LIBSBML_OPERATION_SUCCESS);
 
   //// create the QualitativeSpecies
 
-  QualModelPlugin* mplugin = static_cast<QualModelPlugin*>(model->getPlugin("qual"));
+  QualModelPlugin* mplugin = static_cast<QualModelPlugin*>(model.getPlugin("qual"));
 
   fail_unless(mplugin != NULL);
 
-  QualitativeSpecies* qs = new QualitativeSpecies(sbmlns); 
-  fail_unless(qs->setId("s1")               == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setCompartment("c")       == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setConstant(false)        == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setInitialLevel(1)        == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setMaxLevel(4)            == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setName("sss")            == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(qs->setMetaId("ddd")          == LIBSBML_OPERATION_SUCCESS);
+  QualitativeSpecies qs(&sbmlns); 
+  fail_unless(qs.setId("s1")               == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setCompartment("c")       == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setConstant(false)        == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setInitialLevel(1)        == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setMaxLevel(4)            == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setName("sss")            == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(qs.setMetaId("ddd")          == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(mplugin->addQualitativeSpecies(qs) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(mplugin->addQualitativeSpecies(&qs) == LIBSBML_OPERATION_SUCCESS);
 
-  Transition* t = new Transition(sbmlns);
-  fail_unless(t->setId("d")               == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(t->setSBOTerm(1)            == LIBSBML_OPERATION_SUCCESS);
+  Transition t(&sbmlns);
+  fail_unless(t.setId("d")               == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(t.setSBOTerm(1)            == LIBSBML_OPERATION_SUCCESS);
 
-  Input* i = new Input(sbmlns);
-  fail_unless(i->setId("RD")                 == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(i->setQualitativeSpecies("s1") == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(i->setTransitionEffect
+  Input i(&sbmlns);
+  fail_unless(i.setId("RD")                 == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(i.setQualitativeSpecies("s1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(i.setTransitionEffect
   (InputTransitionEffect_fromString("none")) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(i->setSign(InputSign_fromString("negative"))
+  fail_unless(i.setSign(InputSign_fromString("negative"))
                                              == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(i->setThresholdLevel(2)        == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(i->setName("aa")               == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(i.setThresholdLevel(2)        == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(i.setName("aa")               == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(t->addInput(i) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(t.addInput(&i) == LIBSBML_OPERATION_SUCCESS);
 
-  Output* o = new Output(sbmlns);
-  fail_unless(o->setId("wd")                       == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(o->setQualitativeSpecies("s1")       == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(o->setTransitionEffect
+  Output o(&sbmlns);
+  fail_unless(o.setId("wd")                       == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(o.setQualitativeSpecies("s1")       == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(o.setTransitionEffect
   (OutputTransitionEffect_fromString("production")) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(o->setOutputLevel(2)                 == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(o->setName("aa")                     == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(o.setOutputLevel(2)                 == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(o.setName("aa")                     == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(t->addOutput(o) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(t.addOutput(&o) == LIBSBML_OPERATION_SUCCESS);
 
-  FunctionTerm* ft = new FunctionTerm(sbmlns);
+  FunctionTerm ft(&sbmlns);
   ASTNode* math = SBML_parseL3Formula("geq(s1, 2)");
-  fail_unless(ft->setResultLevel(2) == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(ft->setMath(math)     == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ft.setResultLevel(2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ft.setMath(math)     == LIBSBML_OPERATION_SUCCESS);
+  delete math;
 
-  fail_unless(t->addFunctionTerm(ft) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(t.addFunctionTerm(&ft) == LIBSBML_OPERATION_SUCCESS);
 
-  DefaultTerm* dt = new DefaultTerm(sbmlns);
-  fail_unless(dt->setResultLevel(1) == LIBSBML_OPERATION_SUCCESS);
+  DefaultTerm dt(&sbmlns);
+  fail_unless(dt.setResultLevel(1) == LIBSBML_OPERATION_SUCCESS);
 
 
-  fail_unless(t->setDefaultTerm(dt) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(t.setDefaultTerm(&dt) == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(mplugin->addTransition(t) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(mplugin->addTransition(&t) == LIBSBML_OPERATION_SUCCESS);
 
-  fail_unless(document->setModel(model) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(document.setModel(&model) == LIBSBML_OPERATION_SUCCESS);
 
-  char *s2 = writeSBMLToString(document);
+  string s2 = writeSBMLToStdString(&document);
 
-  fail_unless(strcmp(s1,s2) == 0); 
-
-  free(s2);
-
-  delete document;  
+  fail_unless(strcmp(s1,s2.c_str()) == 0); 
 }
 END_TEST
 

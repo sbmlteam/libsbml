@@ -837,32 +837,7 @@ Transition::createFunctionTerm()
 DefaultTerm* 
 Transition::createDefaultTerm()
 {
-  DefaultTerm* dt = NULL;
-
-  try
-  {
-    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-    dt = new DefaultTerm(qualns);
-    delete qualns;
-  }
-  catch (...)
-  {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * so do nothing
-     */
-  }
-  
-  if (dt != NULL) 
-  {
-    mFunctionTerms.setDefaultTerm(dt);
-    dt = mFunctionTerms.getDefaultTerm();
-  }
-
-
-  return dt;
-
+  return mFunctionTerms.createDefaultTerm();
 }
 
 

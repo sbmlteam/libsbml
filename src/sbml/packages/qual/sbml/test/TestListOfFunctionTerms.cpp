@@ -108,10 +108,10 @@ START_TEST (test_ListOfFunctionTerms_defaultTerm)
   fail_unless(G->isSetDefaultTerm() == false);
   fail_unless(G->size() == 0);
 
-  DefaultTerm *dt = new DefaultTerm(GNS);
-  dt->setResultLevel(1);
+  DefaultTerm dt(GNS);
+  dt.setResultLevel(1);
 
-  fail_unless(G->setDefaultTerm(dt) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(G->setDefaultTerm(&dt) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetDefaultTerm() == true);
   fail_unless(G->size() == 0);
 }
@@ -124,17 +124,16 @@ START_TEST(test_ListOfFunctionTerms_copy)
   ASTNode * ast = SBML_parseL3Formula("geq(1,2)");
   ft->setResultLevel(1);
   ft->setMath(ast);
-  DefaultTerm *dt = new DefaultTerm(GNS);
-  dt->setResultLevel(1);
+  delete ast;
+  DefaultTerm dt(GNS);
+  dt.setResultLevel(1);
   G->appendAndOwn(ft);
-  G->setDefaultTerm(dt);
+  G->setDefaultTerm(&dt);
 
-  ListOfFunctionTerms *g2 = new ListOfFunctionTerms(*G);
+  ListOfFunctionTerms g2(*G);
 
-  fail_unless(g2->isSetDefaultTerm() == true);
-  fail_unless(g2->size()   == 1);
- 
-  delete g2;
+  fail_unless(g2.isSetDefaultTerm() == true);
+  fail_unless(g2.size()   == 1);
 }
 END_TEST
 
@@ -145,19 +144,15 @@ START_TEST(test_ListOfFunctionTerms_assignment)
   ASTNode * ast = SBML_parseL3Formula("geq(1,2)");
   ft->setResultLevel(1);
   ft->setMath(ast);
-  DefaultTerm *dt = new DefaultTerm(GNS);
-  dt->setResultLevel(1);
+  DefaultTerm dt(GNS);
+  dt.setResultLevel(1);
   G->appendAndOwn(ft);
-  G->setDefaultTerm(dt);
+  G->setDefaultTerm(&dt);
 
-  ListOfFunctionTerms* g2 = new ListOfFunctionTerms();
+  ListOfFunctionTerms g2 = *G;
 
-  (*g2) = (*G);
-
-  fail_unless(g2->isSetDefaultTerm() == true);
-  fail_unless(g2->size()   == 1);
-
-  delete g2;
+  fail_unless(g2.isSetDefaultTerm() == true);
+  fail_unless(g2.size()   == 1);
 }
 END_TEST
 
@@ -168,10 +163,10 @@ START_TEST(test_ListOfFunctionTerms_clone)
   ASTNode * ast = SBML_parseL3Formula("geq(1,2)");
   ft->setResultLevel(1);
   ft->setMath(ast);
-  DefaultTerm *dt = new DefaultTerm(GNS);
-  dt->setResultLevel(1);
+  DefaultTerm dt(GNS);
+  dt.setResultLevel(1);
   G->appendAndOwn(ft);
-  G->setDefaultTerm(dt);
+  G->setDefaultTerm(&dt);
 
   ListOfFunctionTerms* g2 = G->clone();
   
