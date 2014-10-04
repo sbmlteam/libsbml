@@ -134,7 +134,8 @@
           class="text-table normal-font alt-row-colors">
  * <caption>Possible XMLError error codes.  Depending on the programming
  * language in use, the <em>Enumerator</em> values will be defined either
- * as a value from the enumeration XMLErrorCode_t or as integer constants.
+ * as a value from an enumeration type @if clike (XMLErrorCode_t)@endif@~
+ * or as integer constants.
  * To make this table more compact, we have shortened the identifiers for
  * the category and severity codes to their essential parts.  To get the
  * actual names of the constants, prepend <code>LIBSBML_CAT_</code> to the
