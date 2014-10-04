@@ -3213,7 +3213,7 @@ newModel.addSpecies(s1);
    * must would have the URI <code>"http://www.sbml.org/sbml/level3/version1/core"</code>;
    * all elements that belong to Layout Extension Version 1 for SBML Level 3
    * Version 1 Core must would have the URI
-   * @c <code>"http://www.sbml.org/sbml/level3/version1/layout/version1"</code>.
+   * <code>"http://www.sbml.org/sbml/level3/version1/layout/version1"</code>.
    *
    * This function first returns the URI for this element by looking into the
    * SBMLNamespaces object of the document with the its package name.  If not
