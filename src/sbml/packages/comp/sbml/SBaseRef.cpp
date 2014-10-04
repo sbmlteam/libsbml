@@ -73,6 +73,7 @@ SBaseRef::SBaseRef(CompPkgNamespaces* compns)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 SBaseRef::SBaseRef(CompPkgNamespaces* compns, bool isDerived)
   : CompBase(compns)
   , mMetaIdRef("")
@@ -88,6 +89,7 @@ SBaseRef::SBaseRef(CompPkgNamespaces* compns, bool isDerived)
     loadPlugins(compns);
   }
 }
+/** @endcond */
 
 
 SBaseRef::SBaseRef(const SBaseRef& source) 

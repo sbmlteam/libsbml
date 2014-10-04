@@ -114,7 +114,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
 }
 
 
-
+/** @cond doxygenLibsbmlInternal */
 Parameter::Parameter (SBMLNamespaces * sbmlns, bool isLocal) :
    SBase      ( sbmlns   )
  , mId        ( ""       )
@@ -135,6 +135,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns, bool isLocal) :
   // we are creating a L3 LocalParameter so L3 defaults apply
   mValue = numeric_limits<double>::quiet_NaN();
 }
+/** @endcond */
 
 
 /*
