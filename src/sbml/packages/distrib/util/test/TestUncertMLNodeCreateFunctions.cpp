@@ -75,6 +75,8 @@ START_TEST ( test_uncertml_create_normalDistribution)
   std::string xml = uncert->toXMLString();
 
   fail_unless( equals(expected, xml.c_str()) );
+  
+  delete uncert;
 }
 END_TEST
 
@@ -104,6 +106,8 @@ START_TEST ( test_uncertml_create_statistics)
   std::string xml = uncert->toXMLString();
 
   fail_unless( equals(expected, xml.c_str()) );
+  
+  delete uncert;
 }
 END_TEST
 

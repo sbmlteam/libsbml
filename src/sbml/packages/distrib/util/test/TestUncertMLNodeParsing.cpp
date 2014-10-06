@@ -63,6 +63,7 @@ START_TEST (test_uncertml_read_normalDistribution)
 {
   char *filename = safe_strcat(TestDataDirectory, "normalDistrib.xml");
   SBMLDocument *document = readSBMLFromFile(filename);
+  free(filename);
 
   fail_unless ( document->getModel() != NULL );
 
@@ -130,6 +131,7 @@ START_TEST ( test_uncertml_write_normalDistribution)
 
   char *filename = safe_strcat(TestDataDirectory, "normalDistrib.xml");
   SBMLDocument *document = readSBMLFromFile(filename);
+  free(filename);
 
   fail_unless ( document->getModel() != NULL );
 
@@ -152,7 +154,8 @@ START_TEST (test_uncertml_read_statistics)
 {
   char *filename = safe_strcat(TestDataDirectory, "statistics.xml");
   SBMLDocument *document = readSBMLFromFile(filename);
-
+  free(filename);
+  
   fail_unless ( document->getModel() != NULL );
 
   Parameter * p = document->getModel()->getParameter(0);
@@ -241,7 +244,8 @@ START_TEST ( test_uncertml_write_statistics)
 
   char *filename = safe_strcat(TestDataDirectory, "statistics.xml");
   SBMLDocument *document = readSBMLFromFile(filename);
-
+  free(filename);
+  
   fail_unless ( document->getModel() != NULL );
 
   Parameter * p = document->getModel()->getParameter(0);

@@ -363,7 +363,9 @@ UncertMLNode::constructXMLNode() const
  
   XMLNode * xml = new XMLNode(top_triple, blank_att, xmlns);
 
-  xml->addChild(*(reconstructXML()));
+  XMLNode * child = reconstructXML();
+  xml->addChild(*(child));
+  delete child;
 
   return xml;
 }
@@ -380,6 +382,7 @@ UncertMLNode::reconstructXML() const
   {
     XMLNode * child = getChild(n)->reconstructXML();
     xml->addChild(*(child));
+    delete child;
   }
   return xml;
 }
