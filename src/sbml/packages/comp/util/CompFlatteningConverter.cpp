@@ -779,7 +779,7 @@ CompFlatteningConverter::stripUnflattenablePackages()
 }
 
 // simple callback disabling packages on child documents
-int DisablePackageOnChildDocuments(Model* m, void* userdata)
+int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 

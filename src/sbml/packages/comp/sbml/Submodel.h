@@ -126,10 +126,11 @@ class ReplacedElement;
  * A ModelProcessingCallback takes two parameters: 
  * 
  * @param m the newly instantiated Model to be processed
+ * @param log an error log to log potential issies to
  * @param userdata any needed userdata that helps processing the document.
  *
  */
-typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, void* userdata);  
+typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, SBMLErrorLog* log, void* userdata);  
 
 /** 
  * ModelProcessingCallbackData is an internal structure storing callback and userdata

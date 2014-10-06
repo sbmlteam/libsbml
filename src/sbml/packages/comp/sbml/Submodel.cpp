@@ -934,7 +934,7 @@ Submodel::instantiate()
   while(it != mProcessingCBs.end())
   {
     ModelProcessingCallbackData* current = *it;
-    int result = current->cb(mInstantiatedModel, current->data);
+    int result = current->cb(mInstantiatedModel, rootdoc->getErrorLog(), current->data);
     if (result != LIBSBML_OPERATION_SUCCESS)
       return result;
     ++it;

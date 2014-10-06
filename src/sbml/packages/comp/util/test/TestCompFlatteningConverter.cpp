@@ -2017,7 +2017,7 @@ START_TEST(test_invalid_layout_disabled)
 }
 END_TEST
 
-int processingCb(Model* m, void* userdata)
+int processingCb(Model* m, SBMLErrorLog*, void* userdata)
 {
   return 0;
 }
