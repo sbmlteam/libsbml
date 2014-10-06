@@ -234,7 +234,7 @@ START_TEST (test_comp_model_flattening_with_ports)
   //SBMLDocument doc2(&sbmlns);
   //doc2.setPackageRequired("comp", true);
   //doc2.setModel(flatmod);
-  //string newModel = writeSBMLToString(&doc2);
+  //string newModel = writeSBMLToStdString(&doc2);
   //===========
   // replace with
 
@@ -250,11 +250,11 @@ START_TEST (test_comp_model_flattening_with_ports)
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = filename + "test14_A_flat_ports.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -286,7 +286,7 @@ START_TEST (test_comp_flatten_exchange4)
   //flatdoc.setPackageRequired("comp", true);
   //flatdoc.setModel(flatmod);
 
-  //string newModel = writeSBMLToString(&flatdoc);
+  //string newModel = writeSBMLToStdString(&flatdoc);
   //===========
   // replace with
 
@@ -302,11 +302,11 @@ START_TEST (test_comp_flatten_exchange4)
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = filename + "exchangetest2_flat_ports.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;
@@ -340,7 +340,7 @@ START_TEST (test_comp_flatten_exchange5)
   //flatdoc.setModel(flatmod);
   //writeSBMLToFile(&flatdoc, "CompTest_flat_ports.xml");
 
-  //string newModel = writeSBMLToString(&flatdoc);
+  //string newModel = writeSBMLToStdString(&flatdoc);
   //===========
   // replace with
 
@@ -356,11 +356,11 @@ START_TEST (test_comp_flatten_exchange5)
   // fail if conversion was not valid
   fail_unless(result == LIBSBML_OPERATION_SUCCESS);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   string ffile = filename + "CompTest_flat_ports.xml";
   SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
-  string flatModel = writeSBMLToString(fdoc);
+  string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
   delete doc;

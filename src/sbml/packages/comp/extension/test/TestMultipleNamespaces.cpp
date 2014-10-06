@@ -78,10 +78,10 @@ START_TEST (test_modeldef_layout)
   ModelDefinition* md = new ModelDefinition(*model);
   csdp->addModelDefinition(md);
 
-  string result1 = writeSBMLToString(doc);
+  string result1 = writeSBMLToStdString(doc);
 
   SBMLDocument *doc2 = readSBMLFromString(result1.c_str());
-  string result2 = writeSBMLToString(doc2);
+  string result2 = writeSBMLToStdString(doc2);
 
   fail_unless(result1 == result2);
 
@@ -94,7 +94,7 @@ START_TEST (test_transfer_moddef)
   string filename(TestDataDirectory);
   filename += "ModelDefWithLayout.xml";
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
-  string origmodstr = writeSBMLToString(doc);
+  string origmodstr = writeSBMLToStdString(doc);
   fail_unless(origmodstr.find("layout:") != string::npos);
   CompSBMLDocumentPlugin* compdoc = static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
   compdoc->setRequired(true);
@@ -109,12 +109,14 @@ START_TEST (test_transfer_moddef)
   compdoc->addModelDefinition(transfer);
   SBMLDocumentPlugin* layoutdoc = static_cast<SBMLDocumentPlugin*>(transferdoc.getPlugin("layout"));
   layoutdoc->setRequired(false);
-  string newmodstr = writeSBMLToString(&transferdoc);
+  string newmodstr = writeSBMLToStdString(&transferdoc);
   filename = TestDataDirectory;
   filename += "test_transfer_moddef.xml";
+  delete doc;
   doc = readSBMLFromFile(filename.c_str());
-  string compare = writeSBMLToString(doc);
+  string compare = writeSBMLToStdString(doc);
   fail_unless(newmodstr == compare);
+  delete doc;
 }
 END_TEST
 
@@ -138,12 +140,14 @@ START_TEST (test_transfer_moddef2mod)
   compdoc->setRequired(true);
   Model* newmod = transferdoc.getModel();
   fail_unless(newmod != NULL);
-  string newmodstr = writeSBMLToString(&transferdoc);
+  string newmodstr = writeSBMLToStdString(&transferdoc);
   filename = TestDataDirectory;
   filename += "test_transfer_moddef2mod.xml";
+  delete doc;
   doc = readSBMLFromFile(filename.c_str());
-  string compare = writeSBMLToString(doc);
+  string compare = writeSBMLToStdString(doc);
   fail_unless(newmodstr == compare);
+  delete doc;
 }
 END_TEST
 #endif
