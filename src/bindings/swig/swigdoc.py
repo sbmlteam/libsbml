@@ -915,7 +915,7 @@ def rewriteCommonReferences (docstring):
   # For some languages, we don't have separate types like ASTNode_t.
   # They're just values on a single global class.  So, remove the type names.
 
-  enums = filter(lambda c: c.endswith('_t'), libsbml_classes)
+  enums = [item for item in libsbml_classes if item.endswith('_t')]
   docstring = re.sub(r'(\b' + r'\b|\b'.join(enums) + r'\b)#', '#', docstring)
 
   # Handle references to enumerations and #define constants.  (Make sure to
@@ -1729,7 +1729,7 @@ def main (args):
   swig_files       = get_swig_files(main_swig_file)
   header_files     = get_header_files(swig_files, h_include_path)
   libsbml_classes  = libsbmlutils.find_classes(header_files)
-  libsbml_classes += libsbmlutils.find_classes(swig_files)
+  libsbml_classes.extend(libsbmlutils.find_classes(swig_files))
 
   try:
     libsbml_classes = sorted(list(set(libsbml_classes)))
