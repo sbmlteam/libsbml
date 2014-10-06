@@ -42,8 +42,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 UncertMLNode::UncertMLNode ()
   : mElementName ("")
+  , mAttributes()
+  , mChildren()
 {
-  mChildren = new List();
 }
 
 /*
@@ -51,10 +52,10 @@ UncertMLNode::UncertMLNode ()
  */
 UncertMLNode::UncertMLNode (XMLNode* xml)
   : mElementName ("")  
-  //, mAttributes ( NULL )
+  , mAttributes()
+  , mChildren()
 {
-  mChildren = new List();
-  
+ 
   this->parseXMLNode(xml);
 }
 
@@ -72,8 +73,6 @@ UncertMLNode::UncertMLNode (const UncertMLNode& orig)
   {
     mElementName  = orig.mElementName;
     mAttributes  = orig.mAttributes;
-
-    mChildren = new List();
 
     for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
     {
@@ -98,10 +97,13 @@ UncertMLNode::operator=(const UncertMLNode& rhs)
     mElementName  = rhs.mElementName;
     mAttributes  = rhs.mAttributes;
     
-    unsigned int size = mChildren->getSize();
-    while (size--) delete static_cast<UncertMLNode*>( mChildren->remove(0) );
-    delete mChildren;
-    mChildren = new List();
+    int size = (int)mChildren.size();
+    for (int i = size -1; i >=0;--i)
+    {
+      delete mChildren[i];
+    }
+
+    mChildren.clear();
 
     for (unsigned int c = 0; c < rhs.getNumChildren(); ++c)
     {
@@ -128,11 +130,13 @@ UncertMLNode::clone () const
  */
 UncertMLNode::~UncertMLNode ()
 {  
-  for (int c = (int)getNumChildren()-1; c >=0; --c)
+  int size = (int)mChildren.size();
+  for (int i = size -1; i >=0;--i)
   {
-      delete getChild(c);
+    delete mChildren[i];
   }
-  delete mChildren;
+
+  mChildren.clear();
 }
 
 
@@ -245,16 +249,15 @@ UncertMLNode::unsetAttributes()
 unsigned int
 UncertMLNode::getNumChildren() const
 {
-  if (mChildren == NULL) return 0;
-  return mChildren->getSize();
+  return (unsigned int)mChildren.size();
 }
 
 
 UncertMLNode*
 UncertMLNode::getChild (unsigned int index) const
 {
-  if (mChildren == NULL) return NULL;
-  return static_cast<UncertMLNode*>( mChildren->get(index) );
+  if ( index >= mChildren.size()) return NULL;
+  return static_cast<UncertMLNode*>( mChildren[index]);
 }
 
 
@@ -269,7 +272,7 @@ UncertMLNode::addChild(UncertMLNode * child)
   {
     unsigned int numBefore = getNumChildren();
     
-    mChildren->add(child);
+    mChildren.push_back(child);
 
     if (getNumChildren() == numBefore + 1)
     {

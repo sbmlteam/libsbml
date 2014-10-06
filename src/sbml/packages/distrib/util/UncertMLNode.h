@@ -40,7 +40,7 @@
 
 
 #include <string>
-
+#include <vector>
 
 #include <sbml/packages/distrib/extension/DistribExtension.h>
 #include <sbml/packages/distrib/sbml/DistribInput.h>
@@ -56,7 +56,7 @@ protected:
 
   std::string   mElementName;
   XMLAttributes mAttributes;
-  List * mChildren;
+  std::vector<UncertMLNode*> mChildren;
 
 
 public:
