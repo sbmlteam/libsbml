@@ -60,7 +60,7 @@ def find_classes(arg, swig_too = False, enums_too = True):
     else:
         classes = classes_in_dir(arg, swig_too)
     if not enums_too:
-        classes = filter(lambda c: not c.endswith('_t'), classes)
+        classes = [item for item in classes if not item.endswith('_t')]
     return cleanup(classes)
 
 
@@ -121,4 +121,5 @@ def classes_in_swig_file(stream):
 
 
 def cleanup(classes):
-    return filter(lambda s: s not in skip_names, classes)
+    return [item for item in classes if not item in skip_names]
+
