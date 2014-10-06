@@ -481,8 +481,7 @@ create_suite_TestFlatteningConverterStripPackage (void)
   tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_1);
   
   // fbc not in main doc but only in external doc
-  // FAILS - fbc not removed from external references
-  //tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_2);
+  tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_2);
 
   // fbc not in main doc but only in external doc
   // flat doc should declare fbc

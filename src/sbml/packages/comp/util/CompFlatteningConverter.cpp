@@ -782,16 +782,22 @@ CompFlatteningConverter::stripUnflattenablePackages()
 int DisablePackageOnChildDocuments(Model* m, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
-  SBMLDocument* rootdoc = static_cast<SBMLDocument*>(userdata);
-  if (rootdoc == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
-  // disable any packages that were disabled on the rootdoc
-  for (unsigned int n = 0; n < rootdoc->getNumDisabledPlugins(); n++)
+  IdList *pkgsToStrip = static_cast<IdList*>(userdata);
+
+  XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
+  for (int i = 0; i < ns->getLength(); i++)
   {
-    SBasePlugin * plugin = rootdoc->getDisabledPlugin(n);
-    
-    m->enablePackageInternal(plugin->getURI(),
-                                      plugin->getPrefix(), false);
+    std::string nsURI = ns->getURI(i);
+    std::string package = ns->getPrefix(i);
+    if (package.empty() == true)
+    {
+      continue;
+    }
+    else if (pkgsToStrip->contains(package) == true)
+    {
+      m->enablePackageInternal(nsURI, package, false);
+    }
   }
 
   return LIBSBML_OPERATION_SUCCESS;
@@ -800,9 +806,9 @@ int DisablePackageOnChildDocuments(Model* m, void* userdata)
 int
 CompFlatteningConverter::stripPackages()
 {
-  IdList pkgsToStrip(getPackagesToStrip());
+  IdList *pkgsToStrip = new IdList(getPackagesToStrip());
 
-  unsigned int num = pkgsToStrip.size();
+  unsigned int num = pkgsToStrip->size();
 
   if (num == 0)
   {
@@ -818,7 +824,7 @@ CompFlatteningConverter::stripPackages()
     {
       continue;
     }
-    else if (pkgsToStrip.contains(package) == true)
+    else if (pkgsToStrip->contains(package) == true)
     {
       mDocument->enablePackage(nsURI, package, false);
       mDisabledPackages.insert(make_pair(nsURI, package));
@@ -828,14 +834,14 @@ CompFlatteningConverter::stripPackages()
   unsigned int count = 0;
   for (unsigned int i = 0; i < num; i++)
   {
-    if (mDocument->isPackageEnabled(pkgsToStrip.at(i)) == false)
+    if (mDocument->isPackageEnabled(pkgsToStrip->at(i)) == false)
     {
       count++;
     }
   }
 
   // setup callback that will disable the packages on submodels
-  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, mDocument);
+  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip);
 
   if (num == count)
   {
