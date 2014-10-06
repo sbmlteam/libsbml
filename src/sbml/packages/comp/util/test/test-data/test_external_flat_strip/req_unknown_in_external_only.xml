@@ -13,7 +13,7 @@
     </comp:listOfSubmodels>
   </model>
   <comp:listOfExternalModelDefinitions>
-    <comp:externalModelDefinition comp:id="foo" comp:source="external_with_unreq_unknown.xml"/>
+    <comp:externalModelDefinition comp:id="foo" comp:source="external_with_req_unknown.xml"/>
   </comp:listOfExternalModelDefinitions>
   
 </sbml>
