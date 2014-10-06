@@ -2017,6 +2017,35 @@ START_TEST(test_invalid_layout_disabled)
 }
 END_TEST
 
+int processingCb(Model* m, void* userdata)
+{
+  return 0;
+}
+
+START_TEST(test_submodel_callbacks)
+{
+  Submodel::clearProcessingCallbacks();
+
+  fail_unless(Submodel::getNumProcessingCallbacks() == 0);
+
+  Submodel::addProcessingCallback(&processingCb);
+
+  fail_unless(Submodel::getNumProcessingCallbacks() == 1);
+
+  Submodel::removeProcessingCallback(&processingCb);
+
+  fail_unless(Submodel::getNumProcessingCallbacks() == 0);
+
+  Submodel::addProcessingCallback(&processingCb);
+
+  fail_unless(Submodel::getNumProcessingCallbacks() == 1);
+
+  Submodel::removeProcessingCallback(0);
+
+  fail_unless(Submodel::getNumProcessingCallbacks() == 0);
+
+}
+END_TEST
 
 Suite *
 create_suite_TestFlatteningConverter (void)
@@ -2025,6 +2054,8 @@ create_suite_TestFlatteningConverter (void)
   Suite *suite = suite_create("SBMLCompFlatteningConverter");
   
   tcase_add_test(tcase, test_invalid_layout_disabled);
+  
+  tcase_add_test(tcase, test_submodel_callbacks);
   
   tcase_add_test(tcase, test_comp_flatten_double_ext2);
   tcase_add_test(tcase, test_comp_get_flattening_converter);

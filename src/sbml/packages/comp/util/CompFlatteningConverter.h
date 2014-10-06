@@ -211,12 +211,18 @@ public:
 
 
   /**
-   * Performs the actual conversion.
+   * Calls the conversion and cleans up potentially changed state.
    * 
    * @return status code represeting success/failure/conversion impossible
    */
   virtual int convert();
 
+  /**
+   * Performs the actual conversion.
+   * 
+   * @return status code represeting success/failure/conversion impossible
+   */
+  virtual int performConversion();
 
   /**
    * Returns the default properties of this converter.

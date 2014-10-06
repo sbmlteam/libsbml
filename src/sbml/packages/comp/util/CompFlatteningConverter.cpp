@@ -34,6 +34,7 @@
 #include <sbml/conversion/SBMLConverterRegister.h>
 
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/SBMLDocument.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
@@ -130,6 +131,50 @@ CompFlatteningConverter::matchesProperties
 int 
 CompFlatteningConverter::convert()
 {  
+   // need to keep track so we can delete it later;
+  int basePathResolverIndex = -1;
+
+  // need to set the base path if we have the option
+  if (getProperties() != NULL && getProperties()->hasOption("basePath"))
+  {
+    string basePath = getProperties()->getValue("basePath");
+    if(basePath != ".")
+    {
+      // temporarily add a new resolver with the new basePath
+      SBMLFileResolver basePathResolver;
+      basePathResolver.addAdditionalDir(basePath);
+      basePathResolverIndex = 
+                   SBMLResolverRegistry::getInstance().getNumResolvers();
+      SBMLResolverRegistry::getInstance().addResolver(&basePathResolver);    
+    }
+  }  
+
+  // remember number of registered callbacks
+
+  int numRegisteredCallbacks = Submodel::getNumProcessingCallbacks();
+
+  int result = performConversion();
+
+   if (basePathResolverIndex != -1)
+  {
+    // if we added a resolver remove it
+    SBMLResolverRegistry::getInstance().removeResolver(basePathResolverIndex);
+  }
+
+  // remove all registered callbacks
+  for (int index = Submodel::getNumProcessingCallbacks()-1; index >= numRegisteredCallbacks; --index)
+  {
+    Submodel::removeProcessingCallback(index);
+  }
+
+  return result;
+
+}
+
+
+int 
+CompFlatteningConverter::performConversion()
+{  
   int result = LIBSBML_OPERATION_FAILED;
 
   if (mDocument == NULL) 
@@ -171,23 +216,7 @@ CompFlatteningConverter::convert()
     return LIBSBML_OPERATION_FAILED;
   }
 
-  // need to keep track so we can delete it later;
-  int basePathResolverIndex = -1;
-
-  // need to set the base path if we have the option
-  if (getProperties() != NULL && getProperties()->hasOption("basePath"))
-  {
-    string basePath = getProperties()->getValue("basePath");
-    if(basePath != ".")
-    {
-      // temporarily add a new resolver with the new basePath
-      SBMLFileResolver basePathResolver;
-      basePathResolver.addAdditionalDir(basePath);
-      basePathResolverIndex = 
-                   SBMLResolverRegistry::getInstance().getNumResolvers();
-      SBMLResolverRegistry::getInstance().addResolver(&basePathResolver);    
-    }
-  }  
+ 
 
   /* strip any unflattenable packages before we run validation */
   if (getStripUnflattenablePackages() == true)
@@ -251,11 +280,6 @@ CompFlatteningConverter::convert()
 
   Model* flatmodel = modelPlugin->flattenModel();
   
-  if (basePathResolverIndex != -1)
-  {
-    // if we added a resolver remove it
-    SBMLResolverRegistry::getInstance().removeResolver(basePathResolverIndex);
-  }
 
   if (flatmodel == NULL) 
   {
@@ -754,6 +778,25 @@ CompFlatteningConverter::stripUnflattenablePackages()
   }
 }
 
+// simple callback disabling packages on child documents
+int DisablePackageOnChildDocuments(Model* m, void* userdata)
+{
+  if (m == NULL) return LIBSBML_OPERATION_FAILED;
+  SBMLDocument* rootdoc = static_cast<SBMLDocument*>(userdata);
+  if (rootdoc == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  // disable any packages that were disabled on the rootdoc
+  for (unsigned int n = 0; n < rootdoc->getNumDisabledPlugins(); n++)
+  {
+    SBasePlugin * plugin = rootdoc->getDisabledPlugin(n);
+    
+    m->enablePackageInternal(plugin->getURI(),
+                                      plugin->getPrefix(), false);
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 int
 CompFlatteningConverter::stripPackages()
 {
@@ -790,6 +833,9 @@ CompFlatteningConverter::stripPackages()
       count++;
     }
   }
+
+  // setup callback that will disable the packages on submodels
+  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, mDocument);
 
   if (num == count)
   {

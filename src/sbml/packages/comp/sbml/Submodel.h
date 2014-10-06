@@ -103,6 +103,7 @@
 #ifdef __cplusplus
 
 #include <string>
+#include <vector>
 
 #include <sbml/SBase.h>
 #include <sbml/packages/comp/extension/CompExtension.h>
@@ -112,6 +113,34 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ReplacedElement;
+
+/** @cond doxygenLibsbmlInternal */
+
+/**
+ * ModelProcessingCallback defines a processing callback that changes submodel instantiations
+ * 
+ * When submodels are instantiated, they might need to be modified in various 
+ * ways so that they can be integrated with the target document. So as to not 
+ * hard code any of the customizations needed, the callback concept is used. 
+ * 
+ * A ModelProcessingCallback takes two parameters: 
+ * 
+ * @param m the newly instantiated Model to be processed
+ * @param userdata any needed userdata that helps processing the document.
+ *
+ */
+typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, void* userdata);  
+
+/** 
+ * ModelProcessingCallbackData is an internal structure storing callback and userdata
+ */
+struct ModelProcessingCallbackData
+{
+  ModelProcessingCallback cb;
+  void* data;
+};
+
+/** @endcond */
 
 class LIBSBML_EXTERN Submodel : public CompBase
 {
@@ -126,6 +155,9 @@ protected:
   ListOfDeletions  mListOfDeletions;
   Model*        mInstantiatedModel;
   std::string   mInstantiationOriginalURI;
+
+  static std::vector<ModelProcessingCallbackData*> mProcessingCBs;
+
   /** @endcond */
 
 public:
@@ -779,6 +811,45 @@ public:
    * timeConversionFactor and extentConversionFactor attributes.
    */
   virtual int convertTimeAndExtent();
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /** 
+   * Clears all registered processing callbacks
+   */
+  static void clearProcessingCallbacks();
+
+  /** 
+   * Registers a new processing callback that will be called with a newly instantiated
+   * ModelDefinition object. This allows for all post processing on it that needs to 
+   * happen before integrating it with the target document. 
+   *
+   * @param cb the callback
+   * @param userdata an optional parameter containing userdata that the callback needs
+   */
+  static void addProcessingCallback(ModelProcessingCallback cb, void* userdata = NULL);
+
+  /** 
+   * @return the number of registered callbacks
+   */
+  static int getNumProcessingCallbacks();
+
+  /**
+   * Removes the callback with given index. 
+   * 
+   * @param index the index of the callback to be removed from the list
+   *
+   */
+  static void removeProcessingCallback(int index);
+
+  /**
+   * Removes the specified callback from the list of registered callbacks
+   *
+   * @param cb the callback to be removed
+   */ 
+  static void removeProcessingCallback(ModelProcessingCallback cb);
+  /** @endcond */
 
 protected:
 

@@ -929,14 +929,17 @@ Submodel::instantiate()
     mInstantiatedModel->enablePackageInternal(getPackageURI(), getPrefix(), true);
   }
 
-  // disable any packages that were disabled on the rootdoc
-  for (unsigned int n = 0; n < rootdoc->getNumDisabledPlugins(); n++)
+  // call all registered callbacks
+  std::vector<ModelProcessingCallbackData*>::iterator it = mProcessingCBs.begin();
+  while(it != mProcessingCBs.end())
   {
-    SBasePlugin * plugin = rootdoc->getDisabledPlugin(n);
-    
-    mInstantiatedModel->enablePackageInternal(plugin->getURI(),
-                                      plugin->getPrefix(), false);
+    ModelProcessingCallbackData* current = *it;
+    int result = current->cb(mInstantiatedModel, current->data);
+    if (result != LIBSBML_OPERATION_SUCCESS)
+      return result;
+    ++it;
   }
+
   
   CompModelPlugin* origmodplug = 
     static_cast<CompModelPlugin*>(rootdoc->getModel()->getPlugin(getPrefix()));
@@ -1355,6 +1358,52 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
   ia->setMath(SBML_parseL3Formula(math.c_str()));
 }
 
+std::vector<ModelProcessingCallbackData*> Submodel::mProcessingCBs = std::vector<ModelProcessingCallbackData*>();
+
+void 
+Submodel::clearProcessingCallbacks()
+{
+  mProcessingCBs.clear();
+}
+
+void 
+Submodel::addProcessingCallback(ModelProcessingCallback cb, void* userdata /* = NULL */)
+{
+  ModelProcessingCallbackData* cbdata = new ModelProcessingCallbackData();
+  cbdata->cb = cb;
+  cbdata->data = userdata;
+  mProcessingCBs.push_back(cbdata);
+}
+
+int 
+Submodel::getNumProcessingCallbacks()
+{
+  return (int) mProcessingCBs.size();
+}
+
+void 
+Submodel::removeProcessingCallback(int index)
+{
+  if (index < 0 || index >= getNumProcessingCallbacks()) return;
+
+  ModelProcessingCallbackData* cbdata = mProcessingCBs[index];
+  mProcessingCBs.erase(mProcessingCBs.begin() + index, mProcessingCBs.begin() + 1 + index);
+  delete cbdata;
+}
+
+void 
+Submodel::removeProcessingCallback(ModelProcessingCallback cb)
+{
+  for(int i = getNumProcessingCallbacks() -1; i >= 0; --i)
+  {
+    ModelProcessingCallbackData* cbdata = mProcessingCBs[i];
+    if (cbdata->cb == cb)
+    {
+      removeProcessingCallback(i);
+      break;
+    }
+  }
+}
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
