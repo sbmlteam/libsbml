@@ -12,6 +12,7 @@
 #include <sbml/packages/spatial/common/SpatialExtensionTypes.h>
 
 using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
 void writeSpatialSBML();
 void readSpatialSBML();
