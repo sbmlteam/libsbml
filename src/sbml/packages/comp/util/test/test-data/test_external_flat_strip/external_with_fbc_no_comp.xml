@@ -8,7 +8,30 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="S" compartment="c2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
-      </listOfSpecies>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="R1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S" constant="false"/>
+        </listOfReactants>
+        
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> S </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      
+    </listOfReactions>    <fbc:listOfFluxBounds>
+      <fbc:fluxBound fbc:id="s" fbc:reaction="R1" fbc:operation="equal" fbc:value="10"/>
+    </fbc:listOfFluxBounds>
   </model>
   
 </sbml>

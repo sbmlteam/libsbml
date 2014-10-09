@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
-  xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" fbc:required="false"
-  level="3" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" fbc:required="false">
   <model id="aggregate">
     <listOfCompartments>
       <compartment id="submod1__comp" spatialDimensions="3" size="1" constant="true"/>
-      <compartment id="submod2__c2" name="comp4" constant="true" units="litre"/>
+      <compartment id="submod2__c2" name="comp4" units="litre" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
       <species id="submod1__S" compartment="submod1__comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
       <species id="submod2__S" compartment="submod2__c2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
     </listOfSpecies>
-    
+    <listOfReactions>
+      <reaction id="submod2__R1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="submod2__S" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> submod2__S </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfFluxBounds>
+      <fbc:fluxBound fbc:id="submod2__s" fbc:reaction="submod2__R1" fbc:operation="equal" fbc:value="10"/>
+    </fbc:listOfFluxBounds>
   </model>
-  
-  
 </sbml>
