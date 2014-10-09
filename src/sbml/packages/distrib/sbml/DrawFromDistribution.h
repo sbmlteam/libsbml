@@ -155,6 +155,18 @@ public:
 
 
   /**
+   * Create a new "UncertML" element object, sets it to be the child of this 
+   * DrawFromDistribution and returns the UncertMLNode created.  Removes
+   * and deletes any old UncertML node that may have existed previously.
+   *
+   * @return a new UncertMLNode object instance
+   *
+   * @see setUncertML(const DistribInput* di)
+   */
+  virtual UncertMLNode* createUncertML();
+
+
+  /**
    * Unsets the "UncertML" element of this DrawFromDistribution.
    *
    * @return integer value indicating success/failure of the

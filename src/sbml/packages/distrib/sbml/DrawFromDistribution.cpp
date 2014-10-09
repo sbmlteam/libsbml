@@ -187,23 +187,21 @@ DrawFromDistribution::setUncertML(UncertMLNode* uncertML)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (uncertML == NULL)
-  {
-    delete mUncertML;
-    mUncertML = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    delete mUncertML;
-    mUncertML = (uncertML != NULL) ?
-      static_cast<UncertMLNode*>(uncertML->clone()) : NULL;
-    //if (mUncertML != NULL)
-    //{
-    //  mUncertML->connectToParent(this);
-    //}
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  delete mUncertML;
+  mUncertML = (uncertML != NULL) ? uncertML->clone() : NULL;
+  //if (mUncertML != NULL)
+  //{
+  //  mUncertML->connectToParent(this);
+  //}
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+UncertMLNode*
+DrawFromDistribution::createUncertML()
+{
+  delete mUncertML;
+  mUncertML = new UncertMLNode();
+  return mUncertML;
 }
 
 
