@@ -2920,6 +2920,8 @@ START_TEST(test_comp_flatten_invalid63)
   species->setId("S1");
   species->setConstant(true);
   species->setCompartment("compartment");
+  species->setHasOnlySubstanceUnits(false);
+  species->setBoundaryCondition(false);
 
   Compartment* comp = md->createCompartment();
   comp->setId("compartment");
@@ -3630,6 +3632,69 @@ START_TEST(test_comp_flatten_invalid77)
 END_TEST
 
 
+START_TEST(test_comp_flatten_invalid_read_only)
+{
+  //Test invalid flattened models.
+  ConversionProperties props;
+  props.addOption("flatten comp");
+  props.addOption("leavePorts", false);
+  props.addOption("performValidation", true);
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
+  
+  SBMLNamespaces sbmlns(3,1,"comp",1);
+  int rv;
+
+  // create the document
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
+  CompSBMLDocumentPlugin* compdoc = 
+           static_cast<CompSBMLDocumentPlugin*>(document->getPlugin("comp"));
+  compdoc->setRequired(true);
+
+  // create the Model
+  Model* model=document->createModel();
+  model->setId("mainmod");
+  CompModelPlugin* mplugin = 
+                   static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  
+  // create a Submodel with a deletion
+  Submodel* submod1 = mplugin->createSubmodel();
+  submod1->setId("submod1");
+  submod1->setModelRef("Mod1");
+  Deletion* del = submod1->createDeletion();
+  del->setId("del1");
+  del->setIdRef("compartment");
+
+  // Create a model definition
+  ModelDefinition* md = compdoc->createModelDefinition();
+  md->setId("Mod1");
+
+  Species* species = md->createSpecies();
+  species->setId("S1");
+  species->setConstant(true);
+  species->setCompartment("compartment");
+
+  Compartment* comp = md->createCompartment();
+  comp->setId("compartment");
+  comp->setConstant(true);
+
+  //Now try to flatten it
+  converter->setDocument(document);
+  rv = converter->convert();
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  SBMLErrorLog* errors = document->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 4);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompFlatModelNotValid) == true);
+  fail_unless(errors->contains(AllowedAttributesOnSpecies) == true);
+  
+  delete document;
+  delete converter;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
 { 
@@ -3715,6 +3780,9 @@ create_suite_TestFlatteningErrorMessages (void)
   tcase_add_test(tcase, test_comp_flatten_invalid77);
 
   tcase_add_test(tcase, test_comp_flatten_invalid_core);
+
+  tcase_add_test(tcase, test_comp_flatten_invalid_read_only);
+
   suite_add_tcase(suite, tcase);
 
   return suite;
