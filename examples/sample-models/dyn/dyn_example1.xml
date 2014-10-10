@@ -12,11 +12,9 @@
       <species id="RCC_M" compartment="PlasmaMembrane" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="A_C" compartment="Cytosol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="AA_C" compartment="Cytosol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="T" compartment="Cytosol" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S" compartment="Cytosol" initialConcentration="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
-    <listOfParameters>
-      <parameter id="S" constant="true"/>
-      <parameter id="T" constant="true"/>
-    </listOfParameters>
     <listOfReactions>
       <reaction id="r1" reversible="true" fast="false" compartment="Extracellular">
         <listOfReactants>
