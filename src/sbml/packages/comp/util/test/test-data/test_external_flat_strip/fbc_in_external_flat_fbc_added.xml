@@ -11,7 +11,28 @@
       <species id="submod1__S" compartment="submod1__comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="submod2__S" compartment="submod2__c2" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="9"/>
     </listOfSpecies>
-    
+    <listOfReactions>
+      <reaction id="submod2__R1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="submod2__S" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> submod2__S </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfFluxBounds>
+      <fbc:fluxBound fbc:id="submod2__s" fbc:reaction="submod2__R1" fbc:operation="equal" fbc:value="10"/>
+    </fbc:listOfFluxBounds>
   </model>
   
   
