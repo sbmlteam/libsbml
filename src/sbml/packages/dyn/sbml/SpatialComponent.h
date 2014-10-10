@@ -63,6 +63,8 @@ protected:
 
   SpatialKind_t   mSpatialIndex;
   std::string   mVariable;
+  std::string   mId;
+  std::string   mName;
 
 
 public:
@@ -137,6 +139,22 @@ public:
 
 
   /**
+   * Returns the value of the "id" attribute of this SpatialComponent.
+   *
+   * @return the value of the "id" attribute of this SpatialComponent as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this SpatialComponent.
+   *
+   * @return the value of the "name" attribute of this SpatialComponent as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * SpatialComponent's "spatialIndex" attribute has been set.
    *
@@ -154,6 +172,26 @@ public:
    * otherwise @c false is returned.
    */
   virtual bool isSetVariable() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpatialComponent's "id" attribute has been set.
+   *
+   * @return @c true if this SpatialComponent's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpatialComponent's "name" attribute has been set.
+   *
+   * @return @c true if this SpatialComponent's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -202,6 +240,36 @@ public:
 
 
   /**
+   * Sets the value of the "id" attribute of this SpatialComponent.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this SpatialComponent.
+   *
+   * @param name; const std::string& value of the "name" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setName(const std::string& name);
+
+
+  /**
    * Unsets the value of the "spatialIndex" attribute of this SpatialComponent.
    *
    * @return integer value indicating success/failure of the
@@ -225,6 +293,32 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   virtual int unsetVariable();
+
+
+  /**
+   * Unsets the value of the "id" attribute of this SpatialComponent.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this SpatialComponent.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetName();
 
 
   /**
@@ -735,6 +829,36 @@ SpatialComponent_getVariable(const SpatialComponent_t * sc);
 
 
 /**
+ * Returns the value of the "id" attribute of the given SpatialComponent_t
+ * structure.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+const char *
+SpatialComponent_getId(const SpatialComponent_t * sc);
+
+
+/**
+ * Returns the value of the "name" attribute of the given SpatialComponent_t
+ * structure.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return the name of this structure.
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+const char *
+SpatialComponent_getName(const SpatialComponent_t * sc);
+
+
+/**
  * Predicate returning @c 1 if the given SpatialComponent_t structure's "spatialIndex"
  * is set.
  *
@@ -764,6 +888,38 @@ SpatialComponent_isSetSpatialIndex(const SpatialComponent_t * sc);
 LIBSBML_EXTERN
 int
 SpatialComponent_isSetVariable(const SpatialComponent_t * sc);
+
+
+/**
+ * Predicate returning @c 1 if the given SpatialComponent_t structure's "id"
+ * is set.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return @c 1 if the "id" of this SpatialComponent_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_isSetId(const SpatialComponent_t * sc);
+
+
+/**
+ * Predicate returning @c 1 if the given SpatialComponent_t structure's "name"
+ * is set.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return @c 1 if the "name" of this SpatialComponent_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_isSetName(const SpatialComponent_t * sc);
 
 
 /**
@@ -819,6 +975,64 @@ SpatialComponent_setVariable(SpatialComponent_t * sc, const char * variable);
 
 
 /**
+ * Sets the "id" attribute of the given SpatialComponent_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs SpatialComponent_unsetId() instead.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_setId(SpatialComponent_t * sc, const char * id);
+
+
+/**
+ * Sets the "name" attribute of the given SpatialComponent_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs SpatialComponent_unsetName() instead.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @param name the string to which the structures "name" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_setName(SpatialComponent_t * sc, const char * name);
+
+
+/**
  * Unsets the value of the "spatialIndex" attribute of the given 
  * SpatialComponent_t structure.
  *
@@ -858,6 +1072,48 @@ SpatialComponent_unsetSpatialIndex(SpatialComponent_t * sc);
 LIBSBML_EXTERN
 int
 SpatialComponent_unsetVariable(SpatialComponent_t * sc);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ * SpatialComponent_t structure.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_unsetId(SpatialComponent_t * sc);
+
+
+/**
+ * Unsets the value of the "name" attribute of the given 
+ * SpatialComponent_t structure.
+ *
+ * @param sc the SpatialComponent_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SpatialComponent_t
+ */
+LIBSBML_EXTERN
+int
+SpatialComponent_unsetName(SpatialComponent_t * sc);
 
 
 /**

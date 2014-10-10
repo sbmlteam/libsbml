@@ -61,7 +61,10 @@ class LIBSBML_EXTERN DynElement : public SBase
 
 protected:
 
-  std::string   mElement;
+  std::string   mIdRef;
+  std::string   mId;
+  std::string   mName;
+  std::string   mMetaIdRef;
 
 
 public:
@@ -120,27 +123,81 @@ public:
 
 
    /**
-   * Returns the value of the "element" attribute of this DynElement.
+   * Returns the value of the "idRef" attribute of this DynElement.
    *
-   * @return the value of the "element" attribute of this DynElement as a string.
+   * @return the value of the "idRef" attribute of this DynElement as a string.
    */
-  virtual const std::string& getElement() const;
+  virtual const std::string& getIdRef() const;
+
+
+  /**
+   * Returns the value of the "id" attribute of this DynElement.
+   *
+   * @return the value of the "id" attribute of this DynElement as a string.
+   */
+  virtual const std::string& getId() const;
+
+
+  /**
+   * Returns the value of the "name" attribute of this DynElement.
+   *
+   * @return the value of the "name" attribute of this DynElement as a string.
+   */
+  virtual const std::string& getName() const;
+
+
+  /**
+   * Returns the value of the "metaIdRef" attribute of this DynElement.
+   *
+   * @return the value of the "metaIdRef" attribute of this DynElement as a string.
+   */
+  virtual const std::string& getMetaIdRef() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * DynElement's "element" attribute has been set.
+   * DynElement's "idRef" attribute has been set.
    *
-   * @return @c true if this DynElement's "element" attribute has been set,
+   * @return @c true if this DynElement's "idRef" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetElement() const;
+  virtual bool isSetIdRef() const;
 
 
   /**
-   * Sets the value of the "element" attribute of this DynElement.
+   * Predicate returning @c true or @c false depending on whether this
+   * DynElement's "id" attribute has been set.
    *
-   * @param element; const std::string& value of the "element" attribute to be set
+   * @return @c true if this DynElement's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DynElement's "name" attribute has been set.
+   *
+   * @return @c true if this DynElement's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * DynElement's "metaIdRef" attribute has been set.
+   *
+   * @return @c true if this DynElement's "metaIdRef" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetMetaIdRef() const;
+
+
+  /**
+   * Sets the value of the "idRef" attribute of this DynElement.
+   *
+   * @param idRef; const std::string& value of the "idRef" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -149,11 +206,56 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setElement(const std::string& element);
+  virtual int setIdRef(const std::string& idRef);
 
 
   /**
-   * Unsets the value of the "element" attribute of this DynElement.
+   * Sets the value of the "id" attribute of this DynElement.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this DynElement.
+   *
+   * @param name; const std::string& value of the "name" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setName(const std::string& name);
+
+
+  /**
+   * Sets the value of the "metaIdRef" attribute of this DynElement.
+   *
+   * @param metaIdRef; const std::string& value of the "metaIdRef" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setMetaIdRef(const std::string& metaIdRef);
+
+
+  /**
+   * Unsets the value of the "idRef" attribute of this DynElement.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -162,7 +264,46 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetElement();
+  virtual int unsetIdRef();
+
+
+  /**
+   * Unsets the value of the "id" attribute of this DynElement.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetId();
+
+
+  /**
+   * Unsets the value of the "name" attribute of this DynElement.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetName();
+
+
+  /**
+   * Unsets the value of the "metaIdRef" attribute of this DynElement.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetMetaIdRef();
 
 
   /**
@@ -227,7 +368,7 @@ public:
    * for this DynElement object have been set.
    *
    * @note The required attributes for a DynElement object are:
-   * @li "element"
+   * @li "idRef"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -357,11 +498,11 @@ public:
 
 
    /**
-   * Get a Element from the ListOfDynElements.
+   * Get a DynElement from the ListOfDynElements.
    *
-   * @param n the index number of the Element to get.
+   * @param n the index number of the DynElement to get.
    *
-   * @return the nth Element in this ListOfDynElements.
+   * @return the nth DynElement in this ListOfDynElements.
    *
    * @see size()
    */
@@ -369,11 +510,11 @@ public:
 
 
   /**
-   * Get a Element from the ListOfDynElements.
+   * Get a DynElement from the ListOfDynElements.
    *
-   * @param n the index number of the Element to get.
+   * @param n the index number of the DynElement to get.
    *
-   * @return the nth Element in this ListOfDynElements.
+   * @return the nth DynElement in this ListOfDynElements.
    *
    * @see size()
    */
@@ -381,15 +522,15 @@ public:
 
 
   /**
-   * Get a Element from the ListOfDynElements
+   * Get a DynElement from the ListOfDynElements
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the Element to get.
+   * of the DynElement to get.
    *
-   * @return Element in this ListOfDynElements
+   * @return DynElement in this ListOfDynElements
    * with the given id or NULL if no such
-   * Element exists.
+   * DynElement exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -398,15 +539,15 @@ public:
 
 
   /**
-   * Get a Element from the ListOfDynElements
+   * Get a DynElement from the ListOfDynElements
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the Element to get.
+   * of the DynElement to get.
    *
-   * @return Element in this ListOfDynElements
+   * @return DynElement in this ListOfDynElements
    * with the given id or NULL if no such
-   * Element exists.
+   * DynElement exists.
    *
    * @see get(unsigned int n)   *
    * @see size()
@@ -415,9 +556,9 @@ public:
 
 
 	/**
-	 * Adds a copy the given "Element" to this ListOfDynElements.
+	 * Adds a copy the given "DynElement" to this ListOfDynElements.
 	 *
-	 * @param e; the Element object to add
+	 * @param de; the DynElement object to add
 	 *
 	 * @return integer value indicating success/failure of the
 	 * function.  @if clike The value is drawn from the
@@ -426,35 +567,35 @@ public:
 	 * @li LIBSEDML_OPERATION_SUCCESS
 	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
 	 */
-	int addElement(const DynElement* e);
+	int addDynElement(const DynElement* de);
 
 
 	/**
-	 * Get the number of Element objects in this ListOfDynElements.
+	 * Get the number of DynElement objects in this ListOfDynElements.
 	 *
-	 * @return the number of Element objects in this ListOfDynElements
+	 * @return the number of DynElement objects in this ListOfDynElements
 	 */
-	unsigned int getNumElements() const;
+	unsigned int getNumDynElements() const;
 
 
 	/**
-	 * Creates a new Element object, adds it to the
-	 * ListOfDynElements and returns the Element object created. 
+	 * Creates a new DynElement object, adds it to the
+	 * ListOfDynElements and returns the DynElement object created. 
 	 *
-	 * @return a new Element object instance
+	 * @return a new DynElement object instance
 	 *
-	 * @see addElement(const DynElement* e)
+	 * @see addDynElement(const DynElement* de)
 	 */
-	DynElement* createElement();
+	DynElement* createDynElement();
 
 
   /**
-   * Removes the nth Element from this ListOfDynElements
+   * Removes the nth DynElement from this ListOfDynElements
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the Element to remove.
+   * @param n the index of the DynElement to remove.
    *
    * @see size()
    */
@@ -462,16 +603,16 @@ public:
 
 
   /**
-   * Removes the Element from this ListOfDynElements with the given identifier
+   * Removes the DynElement from this ListOfDynElements with the given identifier
    * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
-   * @param sid the identifier of the Element to remove.
+   * @param sid the identifier of the DynElement to remove.
    *
-   * @return the Element removed. As mentioned above, the caller owns the
+   * @return the DynElement removed. As mentioned above, the caller owns the
    * returned item.
    */
 	virtual DynElement* remove(const std::string& sid);
@@ -558,7 +699,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Creates a new Element in this ListOfElements
+   * Creates a new DynElement in this ListOfDynElements
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
@@ -642,45 +783,138 @@ DynElement_clone(DynElement_t * de);
 
 
 /**
- * Returns the value of the "element" attribute of the given DynElement_t
+ * Returns the value of the "idRef" attribute of the given DynElement_t
  * structure.
  *
  * @param de the DynElement_t structure.
  *
- * @return the element of this structure.
+ * @return the idRef of this structure.
  *
  * @member of DynElement_t
  */
 LIBSBML_EXTERN
 const char *
-DynElement_getElement(const DynElement_t * de);
+DynElement_getIdRef(const DynElement_t * de);
 
 
 /**
- * Predicate returning @c 1 if the given DynElement_t structure's "element"
+ * Returns the value of the "id" attribute of the given DynElement_t
+ * structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+const char *
+DynElement_getId(const DynElement_t * de);
+
+
+/**
+ * Returns the value of the "name" attribute of the given DynElement_t
+ * structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return the name of this structure.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+const char *
+DynElement_getName(const DynElement_t * de);
+
+
+/**
+ * Returns the value of the "metaIdRef" attribute of the given DynElement_t
+ * structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return the metaIdRef of this structure.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+const char *
+DynElement_getMetaIdRef(const DynElement_t * de);
+
+
+/**
+ * Predicate returning @c 1 if the given DynElement_t structure's "idRef"
  * is set.
  *
  * @param de the DynElement_t structure.
  *
- * @return @c 1 if the "element" of this DynElement_t structure is
+ * @return @c 1 if the "idRef" of this DynElement_t structure is
  * set, @c 0 otherwise.
  *
  * @member of DynElement_t
  */
 LIBSBML_EXTERN
 int
-DynElement_isSetElement(const DynElement_t * de);
+DynElement_isSetIdRef(const DynElement_t * de);
 
 
 /**
- * Sets the "element" attribute of the given DynElement_t structure.
- *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs DynElement_unsetElement() instead.
+ * Predicate returning @c 1 if the given DynElement_t structure's "id"
+ * is set.
  *
  * @param de the DynElement_t structure.
  *
- * @param element the string to which the structures "element" attribute should be
+ * @return @c 1 if the "id" of this DynElement_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_isSetId(const DynElement_t * de);
+
+
+/**
+ * Predicate returning @c 1 if the given DynElement_t structure's "name"
+ * is set.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return @c 1 if the "name" of this DynElement_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_isSetName(const DynElement_t * de);
+
+
+/**
+ * Predicate returning @c 1 if the given DynElement_t structure's "metaIdRef"
+ * is set.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return @c 1 if the "metaIdRef" of this DynElement_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_isSetMetaIdRef(const DynElement_t * de);
+
+
+/**
+ * Sets the "idRef" attribute of the given DynElement_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs DynElement_unsetIdRef() instead.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @param idRef the string to which the structures "idRef" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -698,11 +932,98 @@ DynElement_isSetElement(const DynElement_t * de);
  */
 LIBSBML_EXTERN
 int
-DynElement_setElement(DynElement_t * de, const char * element);
+DynElement_setIdRef(DynElement_t * de, const char * idRef);
 
 
 /**
- * Unsets the value of the "element" attribute of the given 
+ * Sets the "id" attribute of the given DynElement_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs DynElement_unsetId() instead.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @param id the string to which the structures "id" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_setId(DynElement_t * de, const char * id);
+
+
+/**
+ * Sets the "name" attribute of the given DynElement_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs DynElement_unsetName() instead.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @param name the string to which the structures "name" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_setName(DynElement_t * de, const char * name);
+
+
+/**
+ * Sets the "metaIdRef" attribute of the given DynElement_t structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs DynElement_unsetMetaIdRef() instead.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @param metaIdRef the string to which the structures "metaIdRef" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_setMetaIdRef(DynElement_t * de, const char * metaIdRef);
+
+
+/**
+ * Unsets the value of the "idRef" attribute of the given 
  * DynElement_t structure.
  *
  * @param de the DynElement_t structure.
@@ -719,7 +1040,70 @@ DynElement_setElement(DynElement_t * de, const char * element);
  */
 LIBSBML_EXTERN
 int
-DynElement_unsetElement(DynElement_t * de);
+DynElement_unsetIdRef(DynElement_t * de);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ * DynElement_t structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_unsetId(DynElement_t * de);
+
+
+/**
+ * Unsets the value of the "name" attribute of the given 
+ * DynElement_t structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_unsetName(DynElement_t * de);
+
+
+/**
+ * Unsets the value of the "metaIdRef" attribute of the given 
+ * DynElement_t structure.
+ *
+ * @param de the DynElement_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of DynElement_t
+ */
+LIBSBML_EXTERN
+int
+DynElement_unsetMetaIdRef(DynElement_t * de);
 
 
 /**
@@ -740,12 +1124,12 @@ DynElement_hasRequiredAttributes(const DynElement_t * de);
 
 LIBSBML_EXTERN
 DynElement_t *
-ListOfElements_getById(ListOf_t * lo, const char * sid);
+ListOfDynElements_getById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
 DynElement_t *
-ListOfElements_removeById(ListOf_t * lo, const char * sid);
+ListOfDynElements_removeById(ListOf_t * lo, const char * sid);
 
 
 

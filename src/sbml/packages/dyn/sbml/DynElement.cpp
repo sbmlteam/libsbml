@@ -48,7 +48,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 DynElement::DynElement (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-  , mElement ("")
+  , mIdRef ("")
+  , mId ("")
+  , mName ("")
+  , mMetaIdRef ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new DynPkgNamespaces(level, version, pkgVersion));
@@ -60,7 +63,10 @@ DynElement::DynElement (unsigned int level, unsigned int version, unsigned int p
  */
 DynElement::DynElement (DynPkgNamespaces* dynns)
   : SBase(dynns)
-  , mElement ("")
+  , mIdRef ("")
+  , mId ("")
+  , mName ("")
+  , mMetaIdRef ("")
 {
   // set the element namespace of this object
   setElementNamespace(dynns->getURI());
@@ -82,7 +88,10 @@ DynElement::DynElement (const DynElement& orig)
   }
   else
   {
-    mElement  = orig.mElement;
+    mIdRef  = orig.mIdRef;
+    mId  = orig.mId;
+    mName  = orig.mName;
+    mMetaIdRef  = orig.mMetaIdRef;
   }
 }
 
@@ -100,7 +109,10 @@ DynElement::operator=(const DynElement& rhs)
   else if (&rhs != this)
   {
     SBase::operator=(rhs);
-    mElement  = rhs.mElement;
+    mIdRef  = rhs.mIdRef;
+    mId  = rhs.mId;
+    mName  = rhs.mName;
+    mMetaIdRef  = rhs.mMetaIdRef;
   }
   return *this;
 }
@@ -125,56 +137,219 @@ DynElement::~DynElement ()
 
 
 /*
- * Returns the value of the "element" attribute of this DynElement.
+ * Returns the value of the "idRef" attribute of this DynElement.
  */
 const std::string&
-DynElement::getElement() const
+DynElement::getIdRef() const
 {
-  return mElement;
+  return mIdRef;
 }
 
 
 /*
- * Returns true/false if element is set.
+ * Returns the value of the "id" attribute of this DynElement.
+ */
+const std::string&
+DynElement::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this DynElement.
+ */
+const std::string&
+DynElement::getName() const
+{
+  return mName;
+}
+
+
+/*
+ * Returns the value of the "metaIdRef" attribute of this DynElement.
+ */
+const std::string&
+DynElement::getMetaIdRef() const
+{
+  return mMetaIdRef;
+}
+
+
+/*
+ * Returns true/false if idRef is set.
  */
 bool
-DynElement::isSetElement() const
+DynElement::isSetIdRef() const
 {
-  return (mElement.empty() == false);
+  return (mIdRef.empty() == false);
 }
 
 
 /*
- * Sets element and returns value indicating success.
+ * Returns true/false if id is set.
+ */
+bool
+DynElement::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if name is set.
+ */
+bool
+DynElement::isSetName() const
+{
+  return (mName.empty() == false);
+}
+
+
+/*
+ * Returns true/false if metaIdRef is set.
+ */
+bool
+DynElement::isSetMetaIdRef() const
+{
+  return (mMetaIdRef.empty() == false);
+}
+
+
+/*
+ * Sets idRef and returns value indicating success.
  */
 int
-DynElement::setElement(const std::string& element)
+DynElement::setIdRef(const std::string& idRef)
 {
-  if (&(element) == NULL)
+  if (&(idRef) == NULL)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidInternalSId(element)))
+  else if (!(SyntaxChecker::isValidInternalSId(idRef)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    mElement = element;
+    mIdRef = idRef;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
 
 /*
- * Unsets element and returns value indicating success.
+ * Sets id and returns value indicating success.
  */
 int
-DynElement::unsetElement()
+DynElement::setId(const std::string& id)
 {
-  mElement.erase();
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
 
-  if (mElement.empty() == true)
+
+/*
+ * Sets name and returns value indicating success.
+ */
+int
+DynElement::setName(const std::string& name)
+{
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets metaIdRef and returns value indicating success.
+ */
+int
+DynElement::setMetaIdRef(const std::string& metaIdRef)
+{
+  if (&(metaIdRef) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mMetaIdRef = metaIdRef;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets idRef and returns value indicating success.
+ */
+int
+DynElement::unsetIdRef()
+{
+  mIdRef.erase();
+
+  if (mIdRef.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+DynElement::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets name and returns value indicating success.
+ */
+int
+DynElement::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets metaIdRef and returns value indicating success.
+ */
+int
+DynElement::unsetMetaIdRef()
+{
+  mMetaIdRef.erase();
+
+  if (mMetaIdRef.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -191,9 +366,9 @@ DynElement::unsetElement()
 void
 DynElement::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  if (isSetElement() == true && mElement == oldid)
+  if (isSetIdRef() == true && mIdRef == oldid)
   {
-    setElement(newid);
+    setIdRef(newid);
   }
 
 }
@@ -205,7 +380,7 @@ DynElement::renameSIdRefs(const std::string& oldid, const std::string& newid)
 const std::string&
 DynElement::getElementName () const
 {
-  static const string name = "element";
+  static const string name = "dynElement";
   return name;
 }
 
@@ -228,7 +403,7 @@ DynElement::hasRequiredAttributes () const
 {
   bool allPresent = true;
 
-  if (isSetElement() == false)
+  if (isSetIdRef() == false)
     allPresent = false;
 
   return allPresent;
@@ -307,7 +482,10 @@ DynElement::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
-  attributes.add("element");
+  attributes.add("idRef");
+  attributes.add("id");
+  attributes.add("name");
+  attributes.add("metaIdRef");
 }
 
 
@@ -388,29 +566,79 @@ DynElement::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // element SIdRef   ( use = "required" )
+  // idRef SIdRef   ( use = "required" )
   //
-  assigned = attributes.readInto("element", mElement);
+  assigned = attributes.readInto("idRef", mIdRef);
 
   if (assigned == true)
   {
     // check string is not empty and correct syntax
 
-    if (mElement.empty() == true)
+    if (mIdRef.empty() == true)
     {
-      logEmptyString(mElement, getLevel(), getVersion(), "<DynElement>");
+      logEmptyString(mIdRef, getLevel(), getVersion(), "<DynElement>");
     }
-    else if (SyntaxChecker::isValidSBMLSId(mElement) == false && getErrorLog() != NULL)
+    else if (SyntaxChecker::isValidSBMLSId(mIdRef) == false && getErrorLog() != NULL)
     {
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute element='" + mElement + "' does not conform.");
+        "The syntax of the attribute idRef='" + mIdRef + "' does not conform.");
     }
   }
   else
   {
-    std::string message = "Dyn attribute 'element' is missing.";
+    std::string message = "Dyn attribute 'idRef' is missing.";
     getErrorLog()->logPackageError("dyn", DynUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+  }
+
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<DynElement>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+    }
+  }
+
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<DynElement>");
+    }
+  }
+
+  //
+  // metaIdRef string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("metaIdRef", mMetaIdRef);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mMetaIdRef.empty() == true)
+    {
+      logEmptyString(mMetaIdRef, getLevel(), getVersion(), "<DynElement>");
+    }
   }
 
 }
@@ -429,8 +657,17 @@ DynElement::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetElement() == true)
-    stream.writeAttribute("element", getPrefix(), mElement);
+  if (isSetIdRef() == true)
+    stream.writeAttribute("idRef", getPrefix(), mIdRef);
+
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
+
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
+
+  if (isSetMetaIdRef() == true)
+    stream.writeAttribute("metaIdRef", getPrefix(), mMetaIdRef);
 
 }
 
@@ -471,7 +708,7 @@ ListOfDynElements::clone () const
 
 
 /*
- * Get a Element from the ListOfDynElements by index.
+ * Get a DynElement from the ListOfDynElements by index.
 */
 DynElement*
 ListOfDynElements::get(unsigned int n)
@@ -481,7 +718,7 @@ ListOfDynElements::get(unsigned int n)
 
 
 /*
- * Get a Element from the ListOfDynElements by index.
+ * Get a DynElement from the ListOfDynElements by index.
  */
 const DynElement*
 ListOfDynElements::get(unsigned int n) const
@@ -491,7 +728,7 @@ ListOfDynElements::get(unsigned int n) const
 
 
 /*
- * Get a Element from the ListOfDynElements by id.
+ * Get a DynElement from the ListOfDynElements by id.
  */
 DynElement*
 ListOfDynElements::get(const std::string& sid)
@@ -502,7 +739,7 @@ ListOfDynElements::get(const std::string& sid)
 
 
 /*
- * Get a Element from the ListOfDynElements by id.
+ * Get a DynElement from the ListOfDynElements by id.
  */
 const DynElement*
 ListOfDynElements::get(const std::string& sid) const
@@ -527,7 +764,7 @@ ListOfDynElements::get(const std::string& sid) const
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-ListOfDynElements::addElement(const DynElement* de)
+ListOfDynElements::addDynElement(const DynElement* de)
 {
   if (de == NULL)
   {
@@ -563,7 +800,7 @@ ListOfDynElements::addElement(const DynElement* de)
  * @return the number of DynElement objects in this ListOfDynElements
  */
 unsigned int 
-ListOfDynElements::getNumElements() const
+ListOfDynElements::getNumDynElements() const
 {
 	return size();
 }
@@ -577,7 +814,7 @@ ListOfDynElements::getNumElements() const
  * @see addDynElement(const DynElement* de)
  */
 DynElement* 
-ListOfDynElements::createElement()
+ListOfDynElements::createDynElement()
 {
   DynElement* de = NULL;
 
@@ -605,7 +842,7 @@ ListOfDynElements::createElement()
 }
 
 /*
- * Removes the nth Element from this ListOfDynElements
+ * Removes the nth DynElement from this ListOfDynElements
  */
 DynElement*
 ListOfDynElements::remove(unsigned int n)
@@ -615,7 +852,7 @@ ListOfDynElements::remove(unsigned int n)
 
 
 /*
- * Removes the Element from this ListOfDynElements with the given identifier
+ * Removes the DynElement from this ListOfDynElements with the given identifier
  */
 DynElement*
 ListOfDynElements::remove(const std::string& sid)
@@ -641,7 +878,7 @@ ListOfDynElements::remove(const std::string& sid)
 const std::string&
 ListOfDynElements::getElementName () const
 {
-  static const string name = "listOfElements";
+  static const string name = "listOfDynElements";
   return name;
 }
 
@@ -677,7 +914,7 @@ ListOfDynElements::createObject(XMLInputStream& stream)
   const std::string& name   = stream.peek().getName();
   SBase* object = NULL;
 
-  if (name == "element")
+  if (name == "dynElement")
   {
     DYN_CREATE_NS(dynns, getSBMLNamespaces());
     object = new DynElement(dynns);
@@ -755,26 +992,74 @@ DynElement_clone(DynElement_t * de)
 
 LIBSBML_EXTERN
 const char *
-DynElement_getElement(const DynElement_t * de)
+DynElement_getIdRef(const DynElement_t * de)
 {
-	return (de != NULL && de->isSetElement()) ? de->getElement().c_str() : NULL;
+	return (de != NULL && de->isSetIdRef()) ? de->getIdRef().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+DynElement_getId(const DynElement_t * de)
+{
+	return (de != NULL && de->isSetId()) ? de->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+DynElement_getName(const DynElement_t * de)
+{
+	return (de != NULL && de->isSetName()) ? de->getName().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+DynElement_getMetaIdRef(const DynElement_t * de)
+{
+	return (de != NULL && de->isSetMetaIdRef()) ? de->getMetaIdRef().c_str() : NULL;
 }
 
 
 LIBSBML_EXTERN
 int
-DynElement_isSetElement(const DynElement_t * de)
+DynElement_isSetIdRef(const DynElement_t * de)
 {
-  return (de != NULL) ? static_cast<int>(de->isSetElement()) : 0;
+  return (de != NULL) ? static_cast<int>(de->isSetIdRef()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-DynElement_setElement(DynElement_t * de, const char * element)
+DynElement_isSetId(const DynElement_t * de)
+{
+  return (de != NULL) ? static_cast<int>(de->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_isSetName(const DynElement_t * de)
+{
+  return (de != NULL) ? static_cast<int>(de->isSetName()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_isSetMetaIdRef(const DynElement_t * de)
+{
+  return (de != NULL) ? static_cast<int>(de->isSetMetaIdRef()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_setIdRef(DynElement_t * de, const char * idRef)
 {
   if (de != NULL)
-    return (element == NULL) ? de->setElement("") : de->setElement(element);
+    return (idRef == NULL) ? de->setIdRef("") : de->setIdRef(idRef);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -782,9 +1067,66 @@ DynElement_setElement(DynElement_t * de, const char * element)
 
 LIBSBML_EXTERN
 int
-DynElement_unsetElement(DynElement_t * de)
+DynElement_setId(DynElement_t * de, const char * id)
 {
-  return (de != NULL) ? de->unsetElement() : LIBSBML_INVALID_OBJECT;
+  if (de != NULL)
+    return (id == NULL) ? de->setId("") : de->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_setName(DynElement_t * de, const char * name)
+{
+  if (de != NULL)
+    return (name == NULL) ? de->setName("") : de->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_setMetaIdRef(DynElement_t * de, const char * metaIdRef)
+{
+  if (de != NULL)
+    return (metaIdRef == NULL) ? de->setMetaIdRef("") : de->setMetaIdRef(metaIdRef);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_unsetIdRef(DynElement_t * de)
+{
+  return (de != NULL) ? de->unsetIdRef() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_unsetId(DynElement_t * de)
+{
+  return (de != NULL) ? de->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_unsetName(DynElement_t * de)
+{
+  return (de != NULL) ? de->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+DynElement_unsetMetaIdRef(DynElement_t * de)
+{
+  return (de != NULL) ? de->unsetMetaIdRef() : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -50,6 +50,8 @@ SpatialComponent::SpatialComponent (unsigned int level, unsigned int version, un
   : SBase(level, version)
   , mSpatialIndex (SPATIALKIND_UNKNOWN)
   , mVariable ("")
+  , mId ("")
+  , mName ("")
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new DynPkgNamespaces(level, version, pkgVersion));
@@ -63,6 +65,8 @@ SpatialComponent::SpatialComponent (DynPkgNamespaces* dynns)
   : SBase(dynns)
   , mSpatialIndex (SPATIALKIND_UNKNOWN)
   , mVariable ("")
+  , mId ("")
+  , mName ("")
 {
   // set the element namespace of this object
   setElementNamespace(dynns->getURI());
@@ -86,6 +90,8 @@ SpatialComponent::SpatialComponent (const SpatialComponent& orig)
   {
     mSpatialIndex  = orig.mSpatialIndex;
     mVariable  = orig.mVariable;
+    mId  = orig.mId;
+    mName  = orig.mName;
   }
 }
 
@@ -105,6 +111,8 @@ SpatialComponent::operator=(const SpatialComponent& rhs)
     SBase::operator=(rhs);
     mSpatialIndex  = rhs.mSpatialIndex;
     mVariable  = rhs.mVariable;
+    mId  = rhs.mId;
+    mName  = rhs.mName;
   }
   return *this;
 }
@@ -149,6 +157,26 @@ SpatialComponent::getVariable() const
 
 
 /*
+ * Returns the value of the "id" attribute of this SpatialComponent.
+ */
+const std::string&
+SpatialComponent::getId() const
+{
+  return mId;
+}
+
+
+/*
+ * Returns the value of the "name" attribute of this SpatialComponent.
+ */
+const std::string&
+SpatialComponent::getName() const
+{
+  return mName;
+}
+
+
+/*
  * Returns true/false if spatialIndex is set.
  */
 bool
@@ -165,6 +193,26 @@ bool
 SpatialComponent::isSetVariable() const
 {
   return (mVariable.empty() == false);
+}
+
+
+/*
+ * Returns true/false if id is set.
+ */
+bool
+SpatialComponent::isSetId() const
+{
+  return (mId.empty() == false);
+}
+
+
+/*
+ * Returns true/false if name is set.
+ */
+bool
+SpatialComponent::isSetName() const
+{
+  return (mName.empty() == false);
 }
 
 
@@ -215,6 +263,34 @@ SpatialComponent::setVariable(const std::string& variable)
 
 
 /*
+ * Sets id and returns value indicating success.
+ */
+int
+SpatialComponent::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets name and returns value indicating success.
+ */
+int
+SpatialComponent::setName(const std::string& name)
+{
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Unsets spatialIndex and returns value indicating success.
  */
 int
@@ -234,6 +310,44 @@ SpatialComponent::unsetVariable()
   mVariable.erase();
 
   if (mVariable.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+SpatialComponent::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets name and returns value indicating success.
+ */
+int
+SpatialComponent::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -371,6 +485,8 @@ SpatialComponent::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("spatialIndex");
   attributes.add("variable");
+  attributes.add("id");
+  attributes.add("name");
 }
 
 
@@ -498,6 +614,41 @@ SpatialComponent::readAttributes (const XMLAttributes& attributes,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+   if (assigned == true)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<SpatialComponent>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false && getErrorLog() != NULL)
+    {
+      getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
+        "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
+    }
+  }
+
+  //
+  // name string   ( use = "optional" )
+  //
+  assigned = attributes.readInto("name", mName);
+
+  if (assigned == true)
+  {
+    // check string is not empty
+
+    if (mName.empty() == true)
+    {
+      logEmptyString(mName, getLevel(), getVersion(), "<SpatialComponent>");
+    }
+  }
+
 }
 
 
@@ -519,6 +670,12 @@ SpatialComponent::writeAttributes (XMLOutputStream& stream) const
 
   if (isSetVariable() == true)
     stream.writeAttribute("variable", getPrefix(), mVariable);
+
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
+
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
 
 }
 
@@ -858,6 +1015,22 @@ SpatialComponent_getVariable(const SpatialComponent_t * sc)
 
 
 LIBSBML_EXTERN
+const char *
+SpatialComponent_getId(const SpatialComponent_t * sc)
+{
+	return (sc != NULL && sc->isSetId()) ? sc->getId().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
+const char *
+SpatialComponent_getName(const SpatialComponent_t * sc)
+{
+	return (sc != NULL && sc->isSetName()) ? sc->getName().c_str() : NULL;
+}
+
+
+LIBSBML_EXTERN
 int
 SpatialComponent_isSetSpatialIndex(const SpatialComponent_t * sc)
 {
@@ -870,6 +1043,22 @@ int
 SpatialComponent_isSetVariable(const SpatialComponent_t * sc)
 {
   return (sc != NULL) ? static_cast<int>(sc->isSetVariable()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialComponent_isSetId(const SpatialComponent_t * sc)
+{
+  return (sc != NULL) ? static_cast<int>(sc->isSetId()) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialComponent_isSetName(const SpatialComponent_t * sc)
+{
+  return (sc != NULL) ? static_cast<int>(sc->isSetName()) : 0;
 }
 
 
@@ -897,6 +1086,28 @@ SpatialComponent_setVariable(SpatialComponent_t * sc, const char * variable)
 
 LIBSBML_EXTERN
 int
+SpatialComponent_setId(SpatialComponent_t * sc, const char * id)
+{
+  if (sc != NULL)
+    return (id == NULL) ? sc->setId("") : sc->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialComponent_setName(SpatialComponent_t * sc, const char * name)
+{
+  if (sc != NULL)
+    return (name == NULL) ? sc->setName("") : sc->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
 SpatialComponent_unsetSpatialIndex(SpatialComponent_t * sc)
 {
   return (sc != NULL) ? sc->unsetSpatialIndex() : LIBSBML_INVALID_OBJECT;
@@ -908,6 +1119,22 @@ int
 SpatialComponent_unsetVariable(SpatialComponent_t * sc)
 {
   return (sc != NULL) ? sc->unsetVariable() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialComponent_unsetId(SpatialComponent_t * sc)
+{
+  return (sc != NULL) ? sc->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpatialComponent_unsetName(SpatialComponent_t * sc)
+{
+  return (sc != NULL) ? sc->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
