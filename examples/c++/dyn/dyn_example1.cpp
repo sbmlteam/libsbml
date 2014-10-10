@@ -115,15 +115,21 @@ int main(int argc,char** argv)
   species->setConstant(false);
   species->setHasOnlySubstanceUnits(false);
 
-  // create Parameters
+  species = model->createSpecies();
+  species->setId("T");
+  species->setCompartment("Cytosol");
+  species->setBoundaryCondition(false);
+  species->setConstant(false);
+  species->setInitialConcentration(10);
+  species->setHasOnlySubstanceUnits(false);
 
-  Parameter* param = model->createParameter();
-  param->initDefaults();
-  param->setId("S");
-
-  param = model->createParameter();
-  param->initDefaults();
-  param->setId("T");
+  species = model->createSpecies();
+  species->setId("S");
+  species->setCompartment("Cytosol");
+  species->setBoundaryCondition(false);
+  species->setConstant(false);
+  species->setInitialConcentration(5);
+  species->setHasOnlySubstanceUnits(false);
 
   // create the Reactions
 
