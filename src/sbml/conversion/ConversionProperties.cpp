@@ -541,11 +541,11 @@ ConversionProperties_addOptionWithKey(ConversionProperties_t* cp, const char* ke
 }
 
 LIBSBML_EXTERN 
-void 
+ConversionOption_t* 
 ConversionProperties_removeOption(ConversionProperties_t* cp, const char* key)
 {
-  if (cp == NULL || key == NULL) return;
-  cp->removeOption(key);
+  if (cp == NULL || key == NULL) return NULL;
+  return cp->removeOption(key);
 }
   
 LIBSBML_CPP_NAMESPACE_END
