@@ -171,6 +171,43 @@ CompFlatteningConverter::convert()
 
 }
 
+// simple callback enabling packages on main doc
+int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
+{
+  if (m == NULL) return LIBSBML_OPERATION_FAILED;
+
+  SBMLDocument *mainDoc = static_cast<SBMLDocument*>(userdata);
+
+  if (mainDoc == NULL) return LIBSBML_OPERATION_FAILED;
+
+  XMLNamespaces *mainNS = mainDoc->getSBMLNamespaces()->getNamespaces();
+
+  XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
+  for (int i = 0; i < ns->getLength(); i++)
+  {
+    std::string nsURI = ns->getURI(i);
+    std::string prefix = ns->getPrefix(i);
+    if (prefix.empty() == true)
+    {
+      continue;
+    }
+    else if (mainNS->containsUri(nsURI) == false)
+    {
+      if (m->isPackageEnabled(prefix) == true)
+      {
+        mainNS->add(nsURI, prefix);
+        mainDoc->enablePackageInternal(nsURI, prefix, true);
+        mainDoc->setPackageRequired(prefix, 
+          m->getSBMLDocument()->getPackageRequired(prefix));
+      }
+    }
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+
 
 int 
 CompFlatteningConverter::performConversion()
@@ -278,6 +315,8 @@ CompFlatteningConverter::performConversion()
     mDocument->getVersion(),
     "The subsequent errors are from this attempt.");
 
+  // setup callback that will disable the packages on submodels
+  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, mDocument);
   Model* flatmodel = modelPlugin->flattenModel();
   
 
@@ -884,6 +923,7 @@ int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+
 
 int
 CompFlatteningConverter::stripPackages()
