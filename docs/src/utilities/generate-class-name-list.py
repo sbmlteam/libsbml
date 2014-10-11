@@ -49,13 +49,17 @@ def main(args):
     if len(args) != 2:
         print ("Must be given one argument: the path to the libSBML src/sbml dir")
         sys.exit(1)
+
+    classes = []
     try:
-        for c in sorted(set(find_classes(args[1], True))):
+        classes = find_classes(args[1], True)
+        for c in sorted(set(classes)):
             print (c)
     except (NameError,):
-        classes.sort()
-        for c in classes:
-            print (c)
+        if classes:
+            classes.sort()
+            for c in classes:
+                print (c)
 
 if __name__ == '__main__':
     main(sys.argv)
