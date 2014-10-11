@@ -52,10 +52,10 @@ def main(args):
     try:
         for c in sorted(set(find_classes(args[1], True))):
             print (c)
-        except (NameError,):
-            classes.sort()
-            for c in classes:
-                print (c)
+    except (NameError,):
+        classes.sort()
+        for c in classes:
+            print (c)
 
 if __name__ == '__main__':
     main(sys.argv)
