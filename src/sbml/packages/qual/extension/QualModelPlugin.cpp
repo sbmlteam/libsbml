@@ -253,10 +253,12 @@ QualModelPlugin::appendFrom(const Model* model)
   const QualModelPlugin* modplug = 
     static_cast<const QualModelPlugin*>(model->getPlugin(getPrefix()));
   
+  // absence of a plugin is not an error
   if (modplug==NULL)
   {
-    return LIBSBML_INVALID_OBJECT;
+    return LIBSBML_OPERATION_SUCCESS;
   }
+
 
   Model* parent = static_cast<Model*>(getParentSBMLObject());
 

@@ -74,10 +74,12 @@ LayoutModelPlugin::appendFrom(const Model* model)
   const LayoutModelPlugin* modplug = 
     static_cast<const LayoutModelPlugin*>(model->getPlugin(getPrefix()));
   
+  // absence of a plugin is not an error
   if (modplug==NULL)
   {
-    return LIBSBML_INVALID_OBJECT;
+    return LIBSBML_OPERATION_SUCCESS;
   }
+
 
   Model* parent = static_cast<Model*>(getParentSBMLObject());
 

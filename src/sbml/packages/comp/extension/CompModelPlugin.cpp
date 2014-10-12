@@ -644,8 +644,12 @@ CompModelPlugin::appendFrom(const Model* model)
   const CompModelPlugin* modplug = 
     static_cast<const CompModelPlugin*>(model->getPlugin(getPrefix()));
   
-  if (modplug==NULL) 
-    return LIBSBML_INVALID_OBJECT;
+  // absence of a plugin is not an error
+  if (modplug==NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
 
   Model* parent = static_cast<Model*>(getParentSBMLObject());
 

@@ -175,7 +175,7 @@ END_TEST
 
 START_TEST (test_comp_flatten_strip_fbc_external_1)
 { 
-  // fbc in main doc and external doc
+  // fbc in main doc and external doc - dont strip
   if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
   {
     TestPair("fbc_in_external.xml", "fbc_in_external_flat.xml", "");
@@ -186,7 +186,7 @@ END_TEST
 
 START_TEST (test_comp_flatten_strip_fbc_external_2)
 { 
-  // fbc not in main doc but only in external doc
+  // fbc not in main doc but only in external doc - strip 
   if (SBMLExtensionRegistry::isPackageEnabled("fbc") == true)
   {
     TestPair("fbc_in_external_only.xml", 
@@ -480,13 +480,12 @@ create_suite_TestFlatteningConverterStripPackage (void)
   tcase_add_test(tcase, test_comp_flatten_strip_fbc_external);
   tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_1);
   
-  // fbc not in main doc but only in external doc
+  // fbc not in main doc but only in external doc - strip fbc
   tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_2);
 
   // fbc not in main doc but only in external doc
   // flat doc should declare fbc
-  // FAILS - fbc not declared on flat doc
-  //tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_3);
+  tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_3);
 
   // comp in main doc not in external; fbc in both
   tcase_add_test(tcase, test_comp_flatten_strip_fbc_external_4);
@@ -504,8 +503,7 @@ create_suite_TestFlatteningConverterStripPackage (void)
 
   // layout not in main doc but only in external doc
   // flat doc should declare layout
-  // FAILS - layout not declared on flat doc
-  //tcase_add_test(tcase, test_comp_flatten_strip_layout_external_3);
+  tcase_add_test(tcase, test_comp_flatten_strip_layout_external_3);
 
   // comp in main doc not in external; layout in both
   tcase_add_test(tcase, test_comp_flatten_strip_layout_external_4);
@@ -534,12 +532,10 @@ create_suite_TestFlatteningConverterStripPackage (void)
   tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_1);
  
   // unknown required not in main doc but only in external doc
-  // FAILS conversion
-  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_2);
+  tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_2);
 
   // unknown required not in main doc but only in external doc
-  // FAILS conversion
-  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3);
+  tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3);
 
   // comp in main doc not in external; unknown required in both
   tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_4);

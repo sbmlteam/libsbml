@@ -538,9 +538,10 @@ FbcModelPlugin::appendFrom(const Model* model)
   const FbcModelPlugin* modplug = 
     static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
   
+  // absence of a plugin is not an error
   if (modplug==NULL)
   {
-    return LIBSBML_INVALID_OBJECT;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
   Model* parent = static_cast<Model*>(getParentSBMLObject());

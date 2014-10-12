@@ -196,9 +196,18 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
       if (m->isPackageEnabled(prefix) == true)
       {
         mainNS->add(nsURI, prefix);
-        mainDoc->enablePackageInternal(nsURI, prefix, true);
+        mainDoc->enablePackage(nsURI, prefix, true);
         mainDoc->setPackageRequired(prefix, 
           m->getSBMLDocument()->getPackageRequired(prefix));
+        
+
+        // we also need to make sure that if m was a modelDefinition
+        // that we enable the package on its parent model
+        Model * parent = dynamic_cast<Model*>(m->getAncestorOfType(SBML_MODEL));
+        if (parent != NULL)
+        {
+          parent->enablePackageInternal(nsURI, prefix, true);
+        }
       }
     }
   }
