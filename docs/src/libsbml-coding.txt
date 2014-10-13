@@ -418,6 +418,25 @@ arguments in alias/macro definitions.  Rather than define two separate forms,
 it seems simpler to have only one---i.e., <code>@@sbmlconstant</code>---and
 simply remember to leave the second argument empty if necessary.)
 
+Finally, sometimes you will want to refer the enumeration type itself rather
+than a specific value, for example to say something along the lines of "the
+values are drawn from the enumeration X".  Unfortunately, this poses a
+portability problem, because the enumerations do not explicitly exist outside
+of C and C++.  The simplest way around this problem is to conditionalize the
+text such that in the case of <code>clike</code>, the text mentions the
+enumeration name, and otherwise, the text describes integer constants more
+generally.  The following is an example:
+@htmlinclude libsbml-coding-enum-text-example.html
+
+In the example above, when the condition is not satisfied (meaning,
+<code>@@if clike</code> is false and thus C/C++ documentation is not being
+generated), the text above will result in the output "This uses integer type
+codes, which may come from the of static integer constants whose names begin
+with the prefix <code>AST_</code>".  Such a description works for Java,
+Python and other languages equally, and while it is not as specific as
+possible, it is better than attempting to a list all the alternatives
+explicitly.
+
 
 @subsubsection coding-function-refs 4.1.2 Referring to libSBML pure functions
 
@@ -600,6 +619,7 @@ In general, the use of <code>@@copydetails</code> is preferable to the use of
 resort to the latter command.  In some other situations, you may want to copy
 the entire method documentation for methods that are repeated on every class;
 for this, you can use <code>@@copydoc</code>, described next.
+@htmlinclude libsbml-coding-copydetails-example.html
 
 
 @subsubsection coding-copydoc 4.2.2 Using "copydoc"
