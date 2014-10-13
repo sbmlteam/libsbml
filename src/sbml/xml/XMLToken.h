@@ -2,7 +2,7 @@
  * @file    XMLToken.h
  * @brief   A unit of XML syntax, either an XML element or text.
  * @author  Ben Bornstein
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -35,8 +35,80 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
+ * The libSBML XML parser interface can read an XML file or data stream and
+ * convert the contents into tokens.  The tokens represent items in the XML
+ * stream, either XML elements (start or end tags) or text that appears as
+ * content inside an element.  The XMLToken class is libSBML's low-level
+ * representation of these entities.
+ *
+ * Each XMLToken has the following information associated with it:
+ * <ol>
+ * <li> <em>Qualified name</em>: every XML element or XML attribute has a
+ * name (e.g., for the element <code>&lt;mytag&gt;</code>, the name is
+ * <code>"mytag"</code>), but this name may be qualified with a namespace
+ * (e.g., it may appear as <code>&lt;someNamespace:mytag&gt;</code> in the
+ * input).  An XMLToken stores the name of a token, along with any namespace
+ * qualification present, through the use of an XMLTriple object.  This
+ * object stores the bare name of the element, its XML namespace prefix (if
+ * any), and the XML namespace with which that prefix is associated.
+ * <li> @em Namespaces: An XML token can have one or more XML namespaces
+ * associated with it.  These namespaces may be specified explicitly on the
+ * element or inherited from parent elements.  In libSBML, a list of
+ * namespaces is stored in an XMLNamespaces object.  An XMLToken possesses a
+ * field for storing an XMLNamespaces object.
+ * <li> @em Attributes: XML elements can have attributes associated with
+ * them, and these attributes can have values assigned to them.  The set of
+ * attribute-value pairs is stored in an XMLAttributes object stored in an
+ * XMLToken object.  (Note: only elements can have attributes&mdash;text
+ * blocks cannot have them in XML.)
+ * <li> @em Line number: the line number in the input where the token appears.
+ * <li> @em Column number: the column number in the input where the token appears.
+ * </ol>
+ *
+ * The XMLToken class serves as base class for XMLNode.  XML lends itself to
+ * a tree-structured representation, and in libSBML, the nodes in an XML
+ * document tree are XMLNode objects.  Most higher-level libSBML classes and
+ * methods that offer XML-level functionality (such as the methods on SBase
+ * for interacting with annotations) work with XMLNode objects rather than
+ * XMLToken objects directly.
+ *
+ * @see XMLNode
+ * @see XMLTriple
+ * @see XMLAttributes
+ * @see XMLNamespaces
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_only_for_start_elements
+ *
+ * @par
+ * This operation only makes sense for XML start elements.  This
+ * method will return @sbmlconstant{LIBSBML_INVALID_XML_OPERATION,
+ * OperationReturnValues_t} if this XMLToken object is not an XML start
+ * element.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_note_overwrites_existing_attribute
+ *
+ * @note If an attribute with the same name and XML namespace URI already
+ * exists on this XMLToken object, then the previous value will be replaced
+ * with the new value provided to this method.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_note_index_out_of_range_behavior
+ *
+ * @note If @p index is out of range, this method will return an empty
+ * string.  XMLToken::hasAttr(@if java int@endif) can be used to test for an
+ * attribute's existence explicitly, and XMLToken::getAttributesLength() can
+ * be used to find out the number of attributes possessed by this token.
+ */
 
 #ifndef XMLToken_h
 #define XMLToken_h
@@ -67,20 +139,27 @@ class LIBLAX_EXTERN XMLToken
 public:
 
   /**
-   * Creates a new empty XMLToken.
+   * Creates a new empty XMLToken object.
    */
   XMLToken ();
 
 
   /**
-   * Creates a start element XMLToken with the given set of attributes and
-   * namespace declarations.
+   * Creates an XML start element with attributes and namespace declarations.
    *
-   * @param triple XMLTriple.
-   * @param attributes XMLAttributes, the attributes to set.
-   * @param namespaces XMLNamespaces, the namespaces to set.
-   * @param line an unsigned int, the line number (default = 0).
-   * @param column an unsigned int, the column number (default = 0).
+   * @param triple an XMLTriple object describing the start tag.
+   *
+   * @param attributes XMLAttributes, the attributes to set on the element to
+   * be created.
+   *
+   * @param namespaces XMLNamespaces, the namespaces to set on the element to
+   * be created.
+   *
+   * @param line an unsigned int, the line number to associate with the
+   * token (default = 0).
+   *
+   * @param column an unsigned int, the column number to associate with the
+   * token (default = 0).
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -92,12 +171,22 @@ public:
 
 
   /**
-   * Creates a start element XMLToken with the given set of attributes.
+   * Creates an XML start element with attributes.
    *
-   * @param triple XMLTriple.
-   * @param attributes XMLAttributes, the attributes to set.
-   * @param line an unsigned int, the line number (default = 0).
-   * @param column an unsigned int, the column number (default = 0).
+   * @param triple an XMLTriple object describing the start tag.
+   *
+   * @param attributes XMLAttributes, the attributes to set on the element to
+   * be created.
+   *
+   * @param line an unsigned int, the line number to associate with the
+   * token (default = 0).
+   *
+   * @param column an unsigned int, the column number to associate with the
+   * token (default = 0).
+   *
+   * The XML namespace component of this XMLToken object will be left empty.
+   * See the other variants of the XMLToken constructors for versions that
+   * take namespace arguments.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -108,11 +197,15 @@ public:
 
 
   /**
-   * Creates an end element XMLToken.
+   * Creates an XML end element.
    *
-   * @param triple XMLTriple.
-   * @param line an unsigned int, the line number (default = 0).
-   * @param column an unsigned int, the column number (default = 0).
+   * @param triple an XMLTriple object describing the end tag.
+   *
+   * @param line an unsigned int, the line number to associate with the
+   * token (default = 0).
+   *
+   * @param column an unsigned int, the column number to associate with the
+   * token (default = 0).
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -122,14 +215,18 @@ public:
 
 
   /**
-   * Creates a text XMLToken.
+   * Creates a text object.
    *
-   * @param chars a string, the text to be added to the XMLToken
-   * @param line an unsigned int, the line number (default = 0).
-   * @param column an unsigned int, the column number (default = 0).
+   * @param chars a string, the text to be added to the XMLToken object.
+   *
+   * @param line an unsigned int, the line number to associate with the
+   * token (default = 0).
+   *
+   * @param column an unsigned int, the column number to associate with the
+   * token (default = 0).
    *
    * @throws XMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
+   * Thrown if the argument @p chars is @c NULL.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -139,13 +236,13 @@ public:
 
 
   /**
-   * Destroys this XMLToken.
+   * Destroys this XMLToken object.
    */
   virtual ~XMLToken ();
 
 
   /**
-   * Copy constructor; creates a copy of this XMLToken.
+   * Copy constructor; creates a copy of this XMLToken object.
    *
    * @param orig the XMLToken object to copy.
    *
@@ -176,18 +273,22 @@ public:
 
 
   /**
-   * Returns the attributes of this element.
+   * Returns the attributes of the XML element represented by this token.
    *
-   * @return the XMLAttributes of this XML element.
+   * @return the attributes of this XML element, stored in an XMLAttributes
+   * object.
    */
   const XMLAttributes& getAttributes () const;
 
 
   /**
-   * Sets an XMLAttributes to this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Sets the attributes on the XML element represented by this token.
    *
-   * @param attributes XMLAttributes to be set to this XMLToken.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param attributes an XMLAttributes object to be assigned to this
+   * XMLToken object, thereby setting the XML attributes associated with this
+   * token.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -197,61 +298,81 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
-   * @note This function replaces the existing XMLAttributes with the new one.
+   * @note This function replaces any existing XMLAttributes object
+   * on this XMLToken object with the one given by @p attributes.
    */
   int setAttributes(const XMLAttributes& attributes);
 
 
   /**
-   * Adds an attribute to the attribute set in this XMLToken optionally 
-   * with a prefix and URI defining a namespace.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Adds an attribute to the XML element represented by this token.
    *
-   * @param name a string, the local name of the attribute.
-   * @param value a string, the value of the attribute.
-   * @param namespaceURI a string, the namespace URI of the attribute.
-   * @param prefix a string, the prefix of the namespace
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param name a string, the so-called "local part" of the attribute name;
+   * that is, the attribute name without any namespace qualifier or prefix.
+   *
+   * @param value a string, the value assigned to the attribute.
+   *
+   * @param namespaceURI a string, the XML namespace URI of the attribute.
+   *
+   * @param prefix a string, the prefix for the XML namespace.
+   *
+   * Recall that in XML, the complete form of an attribute on an XML element
+   * is the following:
+   * <center>
+   * <code>prefix:name="value"</code>
+   * </center>
+   * The <code>name</code> part is the name of the attribute, the
+   * <code>"value"</code> part is the value assigned to the attribute (and
+   * it is always a quoted string), and the <code>prefix</code> part is
+   * an optional XML namespace prefix.  Internally in libSBML, this data
+   * is stored in an XMLAttributes object associated with this XMLToken.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    *
-   * @note if local name with the same namespace URI already exists in the
-   * attribute set, its value and prefix will be replaced.
+   * @copydetails doc_note_overwrites_existing_attribute
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   int addAttr (  const std::string& name
-	        , const std::string& value
-	        , const std::string& namespaceURI = ""
-	        , const std::string& prefix = "");
+               , const std::string& value
+               , const std::string& namespaceURI = ""
+               , const std::string& prefix = "");
+
 
   /**
-   * Adds an attribute with the given XMLTriple/value pair to the attribute set
-   * in this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Adds an attribute to the XML element represented by this token.
    *
-   * @note if local name with the same namespace URI already exists in the 
-   * attribute set, its value and prefix will be replaced.
+   * @copydetails doc_only_for_start_elements
    *
-   * @param triple an XMLTriple, the XML triple of the attribute.
-   * @param value a string, the value of the attribute.
+   * @param triple an XMLTriple object defining the attribute, its value,
+   * and optionally its XML namespace (if any is provided).
+   *
+   * @param value a string, the value assigned to the attribute.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_overwrites_existing_attribute
    */
-   int addAttr ( const XMLTriple& triple, const std::string& value);
+  int addAttr ( const XMLTriple& triple, const std::string& value);
 
 
   /**
-   * Removes an attribute with the given index from the attribute set in
-   * this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes the <em>n</em>th attribute from the XML element represented by
+   * this token.
+   *
+   * @copydetails doc_only_for_start_elements
    *
    * @param n an integer the index of the resource to be deleted
    *
@@ -261,17 +382,25 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   *
+   * The value @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE,
+   * OperationReturnValues_t} is returned if there is no attribute on this
+   * element at the given index @p n.
+   *
+   * @see XMLToken::getAttrIndex(const XMLTriple& triple) const
+   * @see XMLToken::getAttrIndex(const std::string& name, const std::string& uri="") const;
+   * @see XMLToken::getAttributesLength()
    */
   int removeAttr (int n);
 
 
   /**
-   * Removes an attribute with the given local name and namespace URI from 
-   * the attribute set in this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes an attribute from the XML element represented by this token.
    *
-   * @param name   a string, the local name of the attribute.
-   * @param uri    a string, the namespace URI of the attribute.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param name   a string, the name of the attribute to be removed.
+   * @param uri    a string, the XML namespace URI of the attribute to be removed.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -279,16 +408,22 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   *
+   * The value @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE,
+   * OperationReturnValues_t} is returned if there is no attribute on this
+   * element with the given @p name (and @p uri if specified).
+   *
+   * @see XMLToken::hasAttr(const std::string name, const std::string uri="") const
    */
   int removeAttr (const std::string& name, const std::string& uri = "");
 
 
   /**
-   * Removes an attribute with the given XMLTriple from the attribute set 
-   * in this XMLToken.  
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes an attribute from the XML element represented by this token.
    *
-   * @param triple an XMLTriple, the XML triple of the attribute.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param triple an XMLTriple describing the attribute to be removed.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -296,13 +431,20 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   *
+   * The value @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE,
+   * OperationReturnValues_t} is returned if there is no attribute on this
+   * element matching the properties of the given @p triple.
+   *
+   * @see XMLToken::hasAttr(const XMLTriple& triple) const
    */
-  int removeAttr (const XMLTriple& triple); 
+  int removeAttr (const XMLTriple& triple);
 
 
   /**
-   * Clears (deletes) all attributes in this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes all attributes of this XMLToken object.
+   *
+   * @copydetails doc_only_for_start_elements
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -314,13 +456,14 @@ public:
 
 
   /**
-   * Return the index of an attribute with the given local name and namespace URI.
+   * Returns the index of the attribute with the given name and namespace
+   * URI.
    *
-   * @param name a string, the local name of the attribute.
+   * @param name a string, the name of the attribute.
    * @param uri  a string, the namespace URI of the attribute.
    *
-   * @return the index of an attribute with the given local name and namespace URI, 
-   * or <code>-1</code> if not present.
+   * @return the index of an attribute with the given local name and
+   * namespace URI, or <code>-1</code> if it is not present on this token.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -328,120 +471,128 @@ public:
 
 
   /**
-   * Return the index of an attribute with the given XMLTriple.
+   * Returns the index of the attribute defined by the given XMLTriple
+   * object.
    *
-   * @param triple an XMLTriple, the XML triple of the attribute for which 
-   *        the index is required.
+   * @param triple the XMLTriple object that defines the attribute whose
+   * index is being sought.
    *
-   * @return the index of an attribute with the given XMLTriple, or <code>-1</code> if not present.
+   * @return the index of an attribute with the given XMLTriple object, or
+   * <code>-1</code> if no such attribute is present on this token.
    */
   int getAttrIndex (const XMLTriple& triple) const;
 
 
   /**
-   * Return the number of attributes in the attributes set.
+   * Returns the number of attributes on this XMLToken object.
    *
-   * @return the number of attributes in the attributes set in this XMLToken.
+   * @return the number of attributes possessed by this token.
+   *
+   * @see XMLToken::hasAttr(@if java int@endif)
    */
   int getAttributesLength () const;
 
 
   /**
-   * Return the local name of an attribute in the attributes set in this 
-   * XMLToken (by position).
+   * Returns the name of the <em>n</em>th attribute in this token's list of
+   * attributes.
    *
-   * @param index an integer, the position of the attribute whose local name 
-   * is required.
+   * @param index an integer, the position of the attribute whose name
+   * is being sought.
    *
-   * @return the local name of an attribute in this list (by position).  
+   * @return the name of the attribute located at position @p n in the list
+   * of attributes possessed by this XMLToken object.
    *
-   * @note If index
-   * is out of range, an empty string will be returned.  Use
-   * XMLToken::hasAttr(@if java int@endif)
-   * to test for the attribute existence.
+   * @copydetails doc_note_index_out_of_range_behavior 
+   *
+   * @see XMLToken::hasAttr(@if java int@endif)
+   * @see XMLToken::getAttributesLength()
    */
   std::string getAttrName (int index) const;
 
 
   /**
-   * Return the prefix of an attribute in the attribute set in this 
-   * XMLToken (by position).
+   * Returns the prefix of the <em>n</em>th attribute in this token's list of
+   * attributes.
    *
-   * @param index an integer, the position of the attribute whose prefix is 
-   * required.
+   * @param index an integer, the position of the attribute whose prefix is
+   * being sought.
    *
-   * @return the namespace prefix of an attribute in the attribute set
-   * (by position).  
+   * @return the XML namespace prefix of the attribute located at position @p
+   * n in the list of attributes possessed by this XMLToken object.
    *
-   * @note If index is out of range, an empty string will be returned. Use
-   * XMLToken::hasAttr(@if java int@endif) to test
-   * for the attribute existence.
+   * @copydetails doc_note_index_out_of_range_behavior
+   *
+   * @see XMLToken::hasAttr(@if java int@endif)
+   * @see XMLToken::getAttributesLength()
    */
   std::string getAttrPrefix (int index) const;
 
 
   /**
-   * Return the prefixed name of an attribute in the attribute set in this 
-   * XMLToken (by position).
+   * Returns the prefixed name of the <em>n</em>th attribute in this token's
+   * list of attributes.
    *
-   * @param index an integer, the position of the attribute whose prefixed 
-   * name is required.
+   * In this context, <em>prefixed name</em> means the name of the attribute
+   * prefixed with the XML namespace prefix assigned to the attribute.  This
+   * will be a string of the form <code>prefix:name</code>.
    *
-   * @return the prefixed name of an attribute in the attribute set 
-   * (by position).  
+   * @param index an integer, the position of the attribute whose prefixed
+   * name is being sought.
    *
-   * @note If index is out of range, an empty string will be returned.  Use
-   * XMLToken::hasAttr(@if java int@endif) to test
-   * for attribute existence.
+   * @return the prefixed name of the attribute located at position @p
+   * n in the list of attributes possessed by this XMLToken object.
+   *
+   * @copydetails doc_note_index_out_of_range_behavior
    */
   std::string getAttrPrefixedName (int index) const;
 
 
   /**
-   * Return the namespace URI of an attribute in the attribute set in this 
-   * XMLToken (by position).
+   * Returns the XML namespace URI of the <em>n</em>th attribute in this
+   * token's list of attributes.
    *
-   * @param index an integer, the position of the attribute whose namespace 
-   * URI is required.
+   * @param index an integer, the position of the attribute whose namespace
+   * URI is being sought.
    *
-   * @return the namespace URI of an attribute in the attribute set (by position).
+   * @return the XML namespace URI of the attribute located at position @p n
+   * in the list of attributes possessed by this XMLToken object.
    *
-   * @note If index is out of range, an empty string will be returned.  Use
-   * XMLToken::hasAttr(@if java int@endif) to test
-   * for attribute existence.
+   * @copydetails doc_note_index_out_of_range_behavior
    */
   std::string getAttrURI (int index) const;
 
 
   /**
-   * Return the value of an attribute in the attribute set in this XMLToken  
-   * (by position).
+   * Returns the value of the <em>n</em>th attribute in this token's list of
+   * attributes.
    *
-   * @param index an integer, the position of the attribute whose value is 
+   * @param index an integer, the position of the attribute whose value is
    * required.
    *
-   * @return the value of an attribute in the attribute set (by position).  
+   * @return the value of the attribute located at position @p n in the list
+   * of attributes possessed by this XMLToken object.
    *
-   * @note If index is out of range, an empty string will be returned. Use
-   * XMLToken::hasAttr(@if java int@endif) to test
-   * for attribute existence.
+   * @copydetails doc_note_index_out_of_range_behavior
    */
   std::string getAttrValue (int index) const;
 
 
   /**
-   * Return a value of an attribute with the given local name and namespace URI.
+   * Returns the value of the attribute with a given name and XML namespace URI.
    *
-   * @param name a string, the local name of the attribute whose value is required.
-   * @param uri  a string, the namespace URI of the attribute.
+   * @param name a string, the name of the attribute whose value is being
+   * sought.
    *
-   * @return The attribute value as a string.  
+   * @param uri a string, the XML namespace URI of the attribute.
    *
-   * @note If an attribute with the 
-   * given local name and namespace URI does not exist, an empty string will be 
-   * returned.  
-   * Use XMLToken::hasAttr(@if java String, String@endif)
-   * to test for attribute existence.
+   * @return The value of the attribute, as a string.
+   *
+   * @note If an attribute with the given @p name and @p uri does not exist
+   * on this token object, this method will return an empty string.
+   * XMLToken::hasAttr(@if java String, String@endif) can be used to test
+   * explicitly for the presence of an attribute with a given name and
+   * namespace.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -449,44 +600,45 @@ public:
 
 
   /**
-   * Return a value of an attribute with the given XMLTriple.
+   * Returns the value of the attribute specified by a given XMLTriple object.
    *
-   * @param triple an XMLTriple, the XML triple of the attribute whose 
-   *        value is required.
+   * @param triple an XMLTriple describing the attribute whose value is being
+   * sought.
    *
-   * @return The attribute value as a string.  
+   * @return The value of the attribute, as a string.
    *
-   * @note If an attribute with the
-   * given XMLTriple does not exist, an empty string will be returned.  
-   * Use XMLToken::hasAttr(@if java XMLTriple@endif)
-   * to test for attribute existence.
+   * @note If an attribute defined by the given @p triple does not exist on
+   * this token object, this method will return an empty string.
+   * XMLToken::hasAttr(@if java XMLTriple@endif) can be used to test
+   * explicitly for the existence of an attribute with the properties of
+   * a given triple.
    */
   std::string getAttrValue (const XMLTriple& triple) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
-   * an attribute with the given index exists in the attribute set in this 
-   * XMLToken.
+   * Returns @c true if an attribute with the given index exists.
    *
    * @param index an integer, the position of the attribute.
    *
-   * @return @c true if an attribute with the given index exists in the attribute 
-   * set in this XMLToken, @c false otherwise.
+   * @return @c true if this token object possesses an attribute with the
+   * given index, @c false otherwise.
    */
   bool hasAttr (int index) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
-   * an attribute with the given local name and namespace URI exists 
-   * in the attribute set in this XMLToken.
+   * Returns @c true if an attribute with a given name and namespace URI
+   * exists.
    *
-   * @param name a string, the local name of the attribute.
-   * @param uri  a string, the namespace URI of the attribute.
+   * @param name a string, the name of the attribute being sought.
    *
-   * @return @c true if an attribute with the given local name and namespace 
-   * URI exists in the attribute set in this XMLToken, @c false otherwise.
+   * @param uri a string, the XML namespace URI of the attribute being
+   * sought.
+   *
+   * @return @c true if an attribute with the given local name and namespace
+   * URI exists in the list of attributes on this token object, @c false
+   * otherwise.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -494,32 +646,29 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
-   * an attribute with the given XML triple exists in the attribute set in 
-   * this XMLToken 
+   * Returns @c true if an attribute defined by a given XMLTriple object
+   * exists.
    *
-   * @param triple an XMLTriple, the XML triple of the attribute 
+   * @param triple an XMLTriple object describing the attribute being sought.
    *
-   * @return @c true if an attribute with the given XML triple exists
-   * in the attribute set in this XMLToken, @c false otherwise.
-   *
+   * @return @c true if an attribute matching the properties of the given
+   * XMLTriple object exists in the list of attributes on this token, @c
+   * false otherwise.
    */
   bool hasAttr (const XMLTriple& triple) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the attribute set in this XMLToken set is empty.
-   * 
-   * @return @c true if the attribute set in this XMLToken is empty, 
+   * Returns @c true if this token has no attributes.
+   *
+   * @return @c true if the list of attributes on XMLToken object is empty,
    * @c false otherwise.
    */
   bool isAttributesEmpty () const;
 
 
-
   /**
-   * Returns the XML namespace declarations for this XML element.
+   * Returns the XML namespaces declared for this token.
    *
    * @return the XML namespace declarations for this XML element.
    */
@@ -527,10 +676,11 @@ public:
 
 
   /**
-   * Sets an XMLnamespaces to this XML element.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Sets the XML namespaces on this XML element.
    *
-   * @param namespaces XMLNamespaces to be set to this XMLToken.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param namespaces the XMLNamespaces object to be assigned to this XMLToken object.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -540,25 +690,32 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
-   * @note This function replaces the existing XMLNamespaces with the new one.
+   * @note This function replaces any existing XMLNamespaces object on this
+   * XMLToken object with the new one given by @p namespaces.
    */
   int setNamespaces(const XMLNamespaces& namespaces);
 
 
   /**
-   * Appends an XML namespace prefix and URI pair to this XMLToken.
-   * If there is an XML namespace with the given prefix in this XMLToken, 
-   * then the existing XML namespace will be overwritten by the new one.
+   * Appends an XML namespace declaration to this token.
    *
-   * Nothing will be done if this XMLToken is not a start element.
+   * The namespace added will be defined by the given XML namespace URI and
+   * an optional prefix.  If this XMLToken object already possesses an XML
+   * namespace declaration with the given @p prefix, then the existing XML
+   * namespace URI will be overwritten by the new one given by @p uri.
    *
-   * @param uri a string, the uri for the namespace
-   * @param prefix a string, the prefix for the namespace
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param uri a string, the XML namespace URI for the namespace.
+   * 
+   * @param prefix a string, the namespace prefix to use.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
@@ -567,11 +724,15 @@ public:
 
 
   /**
-   * Removes an XML Namespace stored in the given position of the XMLNamespaces
-   * of this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes the <em>n</em>th XML namespace declaration.
    *
-   * @param index an integer, position of the removed namespace.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param index an integer, the position of the namespace to be removed.
+   * The position in this context refers to the position of the namespace in
+   * the XMLNamespaces object stored in this XMLToken object.  Callers can
+   * use one of the <code>getNamespace___()</code> methods to find the index
+   * number of a given namespace.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -579,15 +740,20 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   *
+   * @see XMLToken::getNamespaceIndex(@if java String uri@endif)
+   * @see XMLToken::getNamespaceIndexByPrefix(@if java String prefix@endif)
+   * @see XMLToken::getNamespacesLength()
    */
   int removeNamespace (int index);
 
 
   /**
-   * Removes an XML Namespace with the given prefix.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes an XML namespace declaration having a given prefix.
    *
-   * @param prefix a string, prefix of the required namespace.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param prefix a string, the prefix of the namespace to be removed.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -595,14 +761,20 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   *
+   * The value @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+   * is returned if there is no namespace with the given @p prefix on this
+   * element.
+   *
+   * @see XMLToken::getNamespaceIndexByPrefix(@if java String prefix@endif)
    */
   int removeNamespace (const std::string& prefix);
 
 
   /**
-   * Clears (deletes) all XML namespace declarations in the XMLNamespaces of
-   * this XMLToken.
-   * Nothing will be done if this XMLToken is not a start element.
+   * Removes all XML namespace declarations from this token.
+   *
+   * @copydetails doc_only_for_start_elements 
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -614,89 +786,93 @@ public:
 
 
   /**
-   * Look up the index of an XML namespace declaration by URI.
+   * Returns the index of an XML namespace declaration based on its URI.
    *
-   * @param uri a string, uri of the required namespace.
+   * @param uri a string, the XML namespace URI of the sought-after namespace.
    *
-   * @return the index of the given declaration, or <code>-1</code> if not present.
+   * @return the index of the given declaration, or <code>-1</code> if
+   * no such namespace URI is present on this XMLToken object.
    */
   int getNamespaceIndex (const std::string& uri) const;
 
 
   /**
-   * Look up the index of an XML namespace declaration by prefix.
+   * Returns the index of an XML namespace declaration based on its prefix.
    *
-   * @param prefix a string, prefix of the required namespace.
+   * @param prefix a string, the prefix of the sought-after XML namespace.
    *
-   * @return the index of the given declaration, or <code>-1</code> if not present.
+   * @return the index of the given declaration, or <code>-1</code> if
+   * no such namespace URI is present on this XMLToken object.
    */
   int getNamespaceIndexByPrefix (const std::string& prefix) const;
 
 
   /**
-   * Returns the number of XML namespaces stored in the XMLNamespaces 
-   * of this XMLToken.
+   * Returns the number of XML namespaces declared on this token.
    *
-   * @return the number of namespaces in this list.
+   * @return the number of XML namespaces stored in the XMLNamespaces
+   * object of this XMLToken object.
    */
   int getNamespacesLength () const;
 
 
   /**
-   * Look up the prefix of an XML namespace declaration by position.
-   *
-   * Callers should use getNamespacesLength() to find out how many 
-   * namespaces are stored in the XMLNamespaces.
+   * Returns the prefix of the <em>n</em>th XML namespace declaration.
    *
    * @param index an integer, position of the required prefix.
    *
-   * @return the prefix of an XML namespace declaration in the XMLNamespaces 
-   * (by position).  
+   * @return the prefix of an XML namespace declaration in the XMLNamespaces
+   * (by position).
    *
-   * @note If index is out of range, an empty string will be
-   * returned.
+   * @note If @p index is out of range, this method will return an empty
+   * string.  XMLToken::getNamespacesLength() can be used to find out how
+   * many namespaces are defined on this XMLToken object.
    *
-   * @see getNamespacesLength()
+   * @see XMLToken::getNamespacesLength()
    */
   std::string getNamespacePrefix (int index) const;
 
 
   /**
-   * Look up the prefix of an XML namespace declaration by its URI.
+   * Returns the prefix associated with a given XML namespace URI on this
+   * token.
    *
-   * @param uri a string, the URI of the prefix being sought
+   * @param uri a string, the URI of the namespace whose prefix is being
+   * sought.
    *
-   * @return the prefix of an XML namespace declaration given its URI.  
+   * @return the prefix of an XML namespace declaration on this XMLToken object.
    *
-   * @note If @p uri does not exist, an empty string will be returned.
+   * @note If there is no XML namespace with the given @p uri declared on
+   * this XMLToken object, this method will return an empty string.
    */
   std::string getNamespacePrefix (const std::string& uri) const;
 
 
   /**
-   * Look up the URI of an XML namespace declaration by its position.
+   * Returns the URI of the <em>n</em>th XML namespace declared on this token. 
    *
-   * @param index an integer, position of the required URI.
+   * @param index an integer, the position of the sought-after XML namespace URI.
    *
-   * @return the URI of an XML namespace declaration in the XMLNamespaces
-   * (by position).  
+   * @return the URI of the <em>n</em>th XML namespace stored in the
+   * XMLNamespaces object in this XMLToken object.
    *
-   * @note If @p index is out of range, an empty string will be
-   * returned.
+   * @note If @p index is out of range, this method will return an empty string.
    *
-   * @see getNamespacesLength()
+   * @see XMLToken::getNamespacesLength()
    */
   std::string getNamespaceURI (int index) const;
 
 
   /**
-   * Look up the URI of an XML namespace declaration by its prefix.
+   * Returns the URI of an XML namespace with a given prefix.
    *
-   * @param prefix a string, the prefix of the required URI
+   * @param prefix a string, the prefix of the sought-after XML namespace URI.
    *
-   * @return the URI of an XML namespace declaration given its prefix.  
+   * @return the URI of an XML namespace declaration given its prefix.
    *
-   * @note If @p prefix does not exist, an empty string will be returned.
+   * @note If there is no XML namespace with the given @p prefix stored in
+   * the XMLNamespaces object of this XMLToken object, this method will
+   * return an empty string.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -704,35 +880,30 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * the XMLNamespaces of this XMLToken is empty.
-   * 
-   * @return @c true if the XMLNamespaces of this XMLToken is empty, 
-   * @c false otherwise.
+   * Returns @c true if there are no namespaces declared on this token.
+   *
+   * @return @c true if the XMLNamespaces object stored in this XMLToken
+   * token is empty, @c false otherwise.
    */
   bool isNamespacesEmpty () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given URI is contained in the XMLNamespaces of
-   * this XMLToken.
-   * 
-   * @param uri a string, the uri for the namespace
+   * Returns @c true if this token has an XML namespace with a given URI.
    *
-   * @return @c true if an XML Namespace with the given URI is contained in the
-   * XMLNamespaces of this XMLToken,  @c false otherwise.
+   * @param uri a string, the URI of the XML namespace.
+   *
+   * @return @c true if an XML namespace with the given URI is contained in
+   * the XMLNamespaces object of this XMLToken object, @c false otherwise.
    */
   bool hasNamespaceURI(const std::string& uri) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given prefix is contained in the XMLNamespaces of
-   * this XMLToken.
+   * Returns @c true if this token has an XML namespace with a given prefix.
    *
-   * @param prefix a string, the prefix for the namespace
-   * 
+   * @param prefix a string, the prefix for the XML namespace.
+   *
    * @return @c true if an XML Namespace with the given URI is contained in the
    * XMLNamespaces of this XMLToken, @c false otherwise.
    */
@@ -740,24 +911,27 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * an XML Namespace with the given uri/prefix pair is contained in the 
-   * XMLNamespaces ofthis XMLToken.
+   * Returns @c true if this token has an XML namespace with a given prefix
+   * and URI combination.
    *
-   * @param uri a string, the uri for the namespace
-   * @param prefix a string, the prefix for the namespace
-   * 
-   * @return @c true if an XML Namespace with the given uri/prefix pair is 
-   * contained in the XMLNamespaces of this XMLToken,  @c false otherwise.
+   * @param uri a string, the URI for the namespace.
+   * @param prefix a string, the prefix for the namespace.
+   *
+   * @return @c true if an XML namespace with the given URI/prefix pair is
+   * contained in the XMLNamespaces object of this XMLToken object, @c false
+   * otherwise.
    */
   bool hasNamespaceNS(const std::string& uri, const std::string& prefix) const;
 
 
   /**
-   * Sets the XMLTripe (name, uri and prefix) of this XML element.
-   * Nothing will be done if this XML element is a text node.
+   * Sets the name, namespace prefix and namespace URI of this token.
    *
-   * @param triple XMLTriple to be added to this XML element.
+   * @copydetails doc_only_for_start_elements
+   *
+   * @param triple the new XMLTriple to use for this XMLToken object.  If
+   * this XMLToken already had an XMLTriple object stored within it, that
+   * object will be replaced.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -771,57 +945,69 @@ public:
 
 
   /**
-   * Returns the (unqualified) name of this XML element.
+   * Returns the (unqualified) name of token.
    *
-   * @return the (unqualified) name of this XML element.
+   * @return the (unqualified) name of token.
    */
   const std::string& getName () const;
 
 
   /**
-   * Returns the namespace prefix of this XML element.
+   * Returns the XML namespace prefix of token.
    *
-   * @return the namespace prefix of this XML element.  
+   * @return the XML namespace prefix of token.
    *
-   * @note If no prefix
-   * exists, an empty string will be return.
+   * @note If no XML namespace prefix has been assigned to this token, this
+   * method will return an empty string.
    */
   const std::string& getPrefix () const;
 
 
   /**
-   * Returns the namespace URI of this XML element.
+   * Returns the XML namespace URI of token.
    *
-   * @return the namespace URI of this XML element.
+   * @return the XML namespace URI of token.
    */
   const std::string& getURI () const;
 
 
   /**
-   * Returns the text of this element.
+   * Returns the character text of token.
    *
-   * @return the characters of this XML text.
+   * @return the characters of this XML token.  If this token is not a
+   * text token (i.e., it's an XML element and not character content),
+   * then this will return an empty string.
+   *
+   * @see XMLToken::isText()
+   * @see XMLToken::isElement()
    */
   const std::string& getCharacters () const;
 
 
   /**
-   * Appends characters to this XML text content.
+   * Appends characters to the text content of token.
    *
-   * @param chars string, characters to append
+   * This method only makes sense for XMLToken objects that contains text.
+   * If this method is called on a token that represents an XML start or end
+   * tag, it will return the code @sbmlconstant{LIBSBML_OPERATION_FAILED,
+   * OperationReturnValues_t}.
+   *
+   * @param chars string, characters to append to the text of this token.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see XMLToken::isText()
+   * @see XMLToken::isElement()
    */
   int append (const std::string& chars);
 
-  
+
   /**
-   * Returns the column at which this XMLToken occurred in the input
-   * document or data stream.
+   * Returns the column number at which this token occurs in the input.
    *
    * @return the column at which this XMLToken occurred.
    */
@@ -829,8 +1015,7 @@ public:
 
 
   /**
-   * Returns the line at which this XMLToken occurred in the input document
-   * or data stream.
+   * Returns the line number at which this token occurs in the input.
    *
    * @return the line at which this XMLToken occurred.
    */
@@ -838,89 +1023,121 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an XML element.
-   * 
-   * @return @c true if this XMLToken is an XML element, @c false otherwise.
+   * Returns @c true if this token represents an XML element.
+   *
+   * This generic predicate returns @c true if the element is either a start
+   * or end tag, and @c false if it's a text object.  The related methods
+   * XMLToken:isStart(), XMLToken::isEnd() and XMLToken::isText() are more
+   * specific predicates.
+   *
+   * @return @c true if this XMLToken object represents an XML element, @c
+   * false otherwise.
+   *
+   * @see XMLToken::isStart()
+   * @see XMLToken::isEnd()
+   * @see XMLToken::isText()
    */
   bool isElement () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an XML end element.
-   * 
-   * @return @c true if this XMLToken is an XML end element, @c false otherwise.
+   * Returns @c true if this token represents an XML end element.
+   *
+   * @return @c true if this XMLToken object represents an XML end element,
+   * @c false otherwise.
+   *
+   * @see XMLToken::isStart()
+   * @see XMLToken::isElement()
+   * @see XMLToken::isText()
    */
   bool isEnd () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an XML end element for the given start element.
-   * 
-   * @param element XMLToken, element for which query is made.
+   * Returns @c true if this token represents an XML end element for a
+   * particular start element.
    *
-   * @return @c true if this XMLToken is an XML end element for the given
-   * XMLToken start element, @c false otherwise.
+   * @param element XMLToken, the element with which the current object
+   * should be compared to determined whether the current object is a
+   * start element for the given one.
+   *
+   * @return @c true if this XMLToken object represents an XML end tag for
+   * the start tag given by @p element, @c false otherwise.
+   *
+   * @see XMLToken::isElement()
+   * @see XMLToken::isStart()
+   * @see XMLToken::isEnd()
+   * @see XMLToken::isText()
    */
   bool isEndFor (const XMLToken& element) const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an end of file marker.
-   * 
-   * @return @c true if this XMLToken is an end of file (input) marker, @c false
-   * otherwise.
+   * Returns @c true if this token is an end of file marker.
+   *
+   * @return @c true if this XMLToken object represents the end of the input,
+   * @c false otherwise.
+   *
+   * @see XMLToken::setEOF()
    */
   bool isEOF () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an XML start element.
-   * 
+   * Returns @c true if this token represents an XML start element.
+   *
    * @return @c true if this XMLToken is an XML start element, @c false otherwise.
+   *
+   * @see XMLToken::isElement()
+   * @see XMLToken::isEnd()
+   * @see XMLToken::isText()
    */
   bool isStart () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
-   * this XMLToken is an XML text element.
-   * 
+   * Returns @c true if this token represents an XML text element.
+   *
    * @return @c true if this XMLToken is an XML text element, @c false otherwise.
+   *
+   * @see XMLToken::isElement()
+   * @see XMLToken::isStart()
+   * @see XMLToken::isEnd()
    */
   bool isText () const;
 
 
   /**
-   * Declares this XML start element is also an end element.
+   * Declares that this token represents an XML element end tag.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see XMLToken::isStart()
+   * @see XMLToken::isEnd()
    */
   int setEnd ();
 
 
   /**
-   * Declares this XMLToken is an end-of-file (input) marker.
+   * Declares that this token is an end-of-file/input marker.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see XMLToken::isEOF()
    */
   int setEOF ();
 
 
   /**
-   * Declares this XML start/end element is no longer an end element.
+   * Declares that this token no longer represents an XML start/end element.
    *
    * @return integer value indicating success/failure of the
    * function.   The possible values
@@ -941,9 +1158,13 @@ public:
   void write (XMLOutputStream& stream) const;
   /** @endcond */
 
+
   /**
-   * Prints a string representation of the underlying token stream, for
-   * debugging purposes.
+   * Prints a string representation of the underlying token stream.
+   *
+   * This method is intended for debugging purposes.
+   *
+   * @return a text string representing this XMLToken object.
    */
   std::string toString ();
 
@@ -1089,9 +1310,9 @@ XMLToken_free (XMLToken_t *token);
 
 /**
  * Creates a deep copy of the given XMLToken_t structure
- * 
+ *
  * @param token the XMLToken_t structure to be copied
- * 
+ *
  * @return a (deep) copy of the given XMLToken_t structure.
  *
  * @memberof XMLToken_t
@@ -1196,7 +1417,7 @@ XMLToken_getAttributes (const XMLToken_t *token);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_setAttributes (XMLToken_t *token, const XMLAttributes_t* attributes);
 
 
@@ -1229,8 +1450,8 @@ XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
 
 
 /**
- * Adds an attribute with a prefix and namespace URI to the attribute set 
- * in this XMLToken_t optionally 
+ * Adds an attribute with a prefix and namespace URI to the attribute set
+ * in this XMLToken_t optionally
  * Nothing will be done if this XMLToken_t is not a start element.
  *
  * @param token XMLToken_t structure to which an attribute to be added.
@@ -1247,14 +1468,12 @@ XMLToken_addAttr ( XMLToken_t *token,  const char* name, const char* value );
  * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
- * @note if local name with the same namespace URI already exists in the
- * attribute set, its value and prefix will be replaced.
- *
+ * @copydetails doc_note_overwrites_existing_attribute
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
 	                , const char* value
     	                , const char* namespaceURI
@@ -1265,9 +1484,6 @@ XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
  * Adds an attribute with the given XMLTriple_t/value pair to the attribute set
  * in this XMLToken_t.
  * Nothing will be done if this XMLToken_t is not a start element.
- *
- * @note if local name with the same namespace URI already exists in the 
- * attribute set, its value and prefix will be replaced.
  *
  * @param token XMLToken_t structure to which an attribute to be added.
  * @param triple an XMLTriple_t, the XML triple of the attribute.
@@ -1280,10 +1496,12 @@ XMLToken_addAttrWithNS ( XMLToken_t *token,  const char* name
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
  *
+ * @copydetails doc_note_overwrites_existing_attribute
+ *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_addAttrWithTriple (XMLToken_t *token, const XMLTriple_t *triple, const char* value);
 
 
@@ -1307,12 +1525,12 @@ XMLToken_addAttrWithTriple (XMLToken_t *token, const XMLTriple_t *triple, const 
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeAttr (XMLToken_t *token, int n);
 
 
 /**
- * Removes an attribute with the given local name (without namespace URI) 
+ * Removes an attribute with the given local name (without namespace URI)
  * from the attribute set in this XMLToken_t.
  * Nothing will be done if this XMLToken_t is not a start element.
  *
@@ -1331,12 +1549,12 @@ XMLToken_removeAttr (XMLToken_t *token, int n);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeAttrByName (XMLToken_t *token, const char* name);
 
 
 /**
- * Removes an attribute with the given local name and namespace URI from 
+ * Removes an attribute with the given local name and namespace URI from
  * the attribute set in this XMLToken_t.
  * Nothing will be done if this XMLToken_t is not a start element.
  *
@@ -1356,13 +1574,13 @@ XMLToken_removeAttrByName (XMLToken_t *token, const char* name);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeAttrByNS (XMLToken_t *token, const char* name, const char* uri);
 
 
 /**
- * Removes an attribute with the given XMLTriple_t from the attribute set 
- * in this XMLToken_t.  
+ * Removes an attribute with the given XMLTriple_t from the attribute set
+ * in this XMLToken_t.
  * Nothing will be done if this XMLToken_t is not a start element.
  *
  * @param token XMLToken_t structure from which an attribute to be removed.
@@ -1380,7 +1598,7 @@ XMLToken_removeAttrByNS (XMLToken_t *token, const char* name, const char* uri);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeAttrByTriple (XMLToken_t *token, const XMLTriple_t *triple);
 
 
@@ -1401,7 +1619,7 @@ XMLToken_removeAttrByTriple (XMLToken_t *token, const XMLTriple_t *triple);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_clearAttributes(XMLToken_t *token);
 
 
@@ -1412,14 +1630,14 @@ XMLToken_clearAttributes(XMLToken_t *token);
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return the index of an attribute with the given local name and namespace URI, 
+ * @return the index of an attribute with the given local name and namespace URI,
  * or -1 if not present.
  *
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getAttrIndex (const XMLToken_t *token, const char* name, const char* uri);
 
 
@@ -1427,15 +1645,15 @@ XMLToken_getAttrIndex (const XMLToken_t *token, const char* name, const char* ur
  * Return the index of an attribute with the given XMLTriple_t.
  *
  * @param token XMLToken_t structure to be queried.
- * @param triple an XMLTriple_t, the XML triple of the attribute for which 
- *        the index is required.
+ * @param triple an XMLTriple_t, the XML triple of the attribute for which
+ *        the index is being sought.
  *
  * @return the index of an attribute with the given XMLTriple_t, or -1 if not present.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getAttrIndexByTriple (const XMLToken_t *token, const XMLTriple_t *triple);
 
 
@@ -1449,41 +1667,41 @@ XMLToken_getAttrIndexByTriple (const XMLToken_t *token, const XMLTriple_t *tripl
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getAttributesLength (const XMLToken_t *token);
 
 
 /**
- * Return the local name of an attribute in the attributes set in this 
+ * Return the local name of an attribute in the attributes set in this
  * XMLToken_t (by position).
  *
  * @param token XMLToken_t structure to be queried.
- * @param index an integer, the position of the attribute whose local name 
- * is required.
+ * @param index an integer, the position of the attribute whose local name
+ * is being sought.
  *
- * @return the local name of an attribute in this list (by position).  
+ * @return the local name of an attribute in this list (by position).
  *
  * @note If index
- * is out of range, an empty string will be returned.  Use XMLToken_hasAttr(...) 
+ * is out of range, an empty string will be returned.  Use XMLToken_hasAttr(...)
  * to test for the attribute existence.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrName (const XMLToken_t *token, int index);
 
 
 /**
- * Return the prefix of an attribute in the attribute set in this 
+ * Return the prefix of an attribute in the attribute set in this
  * XMLToken (by position).
  *
  * @param token XMLToken_t structure to be queried.
- * @param index an integer, the position of the attribute whose prefix is 
+ * @param index an integer, the position of the attribute whose prefix is
  * required.
  *
  * @return the namespace prefix of an attribute in the attribute set
- * (by position).  
+ * (by position).
  *
  * @note If index is out of range, an empty string will be
  * returned. Use XMLToken_hasAttr(...) to test for the attribute existence.
@@ -1491,20 +1709,20 @@ XMLToken_getAttrName (const XMLToken_t *token, int index);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrPrefix (const XMLToken_t *token, int index);
 
 
 /**
- * Return the prefixed name of an attribute in the attribute set in this 
+ * Return the prefixed name of an attribute in the attribute set in this
  * XMLToken (by position).
  *
  * @param token XMLToken_t structure to be queried.
- * @param index an integer, the position of the attribute whose prefixed 
- * name is required.
+ * @param index an integer, the position of the attribute whose prefixed
+ * name is being sought.
  *
- * @return the prefixed name of an attribute in the attribute set 
- * (by position).  
+ * @return the prefixed name of an attribute in the attribute set
+ * (by position).
  *
  * @note If index is out of range, an empty string will be
  * returned.  Use XMLToken_hasAttr(...) to test for attribute existence.
@@ -1512,17 +1730,17 @@ XMLToken_getAttrPrefix (const XMLToken_t *token, int index);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrPrefixedName (const XMLToken_t *token, int index);
 
 
 /**
- * Return the namespace URI of an attribute in the attribute set in this 
+ * Return the namespace URI of an attribute in the attribute set in this
  * XMLToken (by position).
  *
  * @param token XMLToken_t structure to be queried.
- * @param index an integer, the position of the attribute whose namespace 
- * URI is required.
+ * @param index an integer, the position of the attribute whose namespace
+ * URI is being sought.
  *
  * @return the namespace URI of an attribute in the attribute set (by position).
  *
@@ -1532,7 +1750,7 @@ XMLToken_getAttrPrefixedName (const XMLToken_t *token, int index);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrURI (const XMLToken_t *token, int index);
 
 
@@ -1541,10 +1759,10 @@ XMLToken_getAttrURI (const XMLToken_t *token, int index);
  * (by position).
  *
  * @param token XMLToken_t structure to be queried.
- * @param index an integer, the position of the attribute whose value is 
+ * @param index an integer, the position of the attribute whose value is
  * required.
  *
- * @return the value of an attribute in the attribute set (by position).  
+ * @return the value of an attribute in the attribute set (by position).
  *
  * @note If index
  * is out of range, an empty string will be returned. Use XMLToken_hasAttr(...)
@@ -1553,7 +1771,7 @@ XMLToken_getAttrURI (const XMLToken_t *token, int index);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrValue (const XMLToken_t *token, int index);
 
 
@@ -1561,18 +1779,18 @@ XMLToken_getAttrValue (const XMLToken_t *token, int index);
  * Return a value of an attribute with the given local name (without namespace URI).
  *
  * @param token XMLToken_t structure to be queried.
- * @param name a string, the local name of the attribute whose value is required.
+ * @param name a string, the local name of the attribute whose value is being sought.
  *
- * @return The attribute value as a string.  
+ * @return The attribute value as a string.
  *
- * @note If an attribute with the given local name (without namespace URI) 
- * does not exist, an empty string will be returned.  
+ * @note If an attribute with the given local name (without namespace URI)
+ * does not exist, an empty string will be returned.
  * Use XMLToken_hasAttr(...) to test for attribute existence.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrValueByName (const XMLToken_t *token, const char* name);
 
 
@@ -1580,20 +1798,20 @@ XMLToken_getAttrValueByName (const XMLToken_t *token, const char* name);
  * Return a value of an attribute with the given local name and namespace URI.
  *
  * @param token XMLToken_t structure to be queried.
- * @param name a string, the local name of the attribute whose value is required.
+ * @param name a string, the local name of the attribute whose value is being sought.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return The attribute value as a string.  
+ * @return The attribute value as a string.
  *
- * @note If an attribute with the 
- * given local name and namespace URI does not exist, an empty string will be 
- * returned.  
+ * @note If an attribute with the
+ * given local name and namespace URI does not exist, an empty string will be
+ * returned.
  * Use XMLToken_hasAttr(name, uri) to test for attribute existence.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrValueByNS (const XMLToken_t *token, const char* name, const char* uri);
 
 
@@ -1601,31 +1819,31 @@ XMLToken_getAttrValueByNS (const XMLToken_t *token, const char* name, const char
  * Return a value of an attribute with the given XMLTriple_t.
  *
  * @param token XMLToken_t structure to be queried.
- * @param triple an XMLTriple_t, the XML triple of the attribute whose 
- *        value is required.
+ * @param triple an XMLTriple_t, the XML triple of the attribute whose
+ *        value is being sought.
  *
- * @return The attribute value as a string.  
+ * @return The attribute value as a string.
  *
  * @note If an attribute with the
- * given XMLTriple_t does not exist, an empty string will be returned.  
+ * given XMLTriple_t does not exist, an empty string will be returned.
  * Use XMLToken_hasAttr(...) to test for attribute existence.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getAttrValueByTriple (const XMLToken_t *token, const XMLTriple_t *triple);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given index exists in the attribute set in this 
+ * Returns @c true or @c false depending on whether
+ * an attribute with the given index exists in the attribute set in this
  * XMLToken.
  *
  * @param token XMLToken_t structure to be queried.
  * @param index an integer, the position of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given index exists in 
+ * @return @c non-zero (true) if an attribute with the given index exists in
  * the attribute set in this XMLToken_t, @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1636,15 +1854,15 @@ XMLToken_hasAttr (const XMLToken_t *token, int index);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given local name (without namespace URI) 
+ * Returns @c true or @c false depending on whether
+ * an attribute with the given local name (without namespace URI)
  * exists in the attribute set in this XMLToken_t.
  *
  * @param token XMLToken_t structure to be queried.
  * @param name a string, the local name of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name 
- * (without namespace URI) exists in the attribute set in this XMLToken_t, 
+ * @return @c non-zero (true) if an attribute with the given local name
+ * (without namespace URI) exists in the attribute set in this XMLToken_t,
  * @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1654,16 +1872,16 @@ int
 XMLToken_hasAttrWithName (const XMLToken_t *token, const char* name);
 
 /**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given local name and namespace URI exists 
+ * Returns @c true or @c false depending on whether
+ * an attribute with the given local name and namespace URI exists
  * in the attribute set in this XMLToken_t.
  *
  * @param token XMLToken_t structure to be queried.
  * @param name a string, the local name of the attribute.
  * @param uri  a string, the namespace URI of the attribute.
  *
- * @return @c non-zero (true) if an attribute with the given local name 
- * and namespace URI exists in the attribute set in this XMLToken_t, 
+ * @return @c non-zero (true) if an attribute with the given local name
+ * and namespace URI exists in the attribute set in this XMLToken_t,
  * @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1674,12 +1892,12 @@ XMLToken_hasAttrWithNS (const XMLToken_t *token, const char* name, const char* u
 
 
 /**
- * Predicate returning @c true or @c false depending on whether
- * an attribute with the given XML triple exists in the attribute set in 
+ * Returns @c true or @c false depending on whether
+ * an attribute with the given XML triple exists in the attribute set in
  * this XMLToken_t
  *
  * @param token XMLToken_t structure to be queried.
- * @param triple an XMLTriple_t, the XML triple of the attribute 
+ * @param triple an XMLTriple_t, the XML triple of the attribute
  *
  * @return @c non-zero (true) if an attribute with the given XML triple exists
  * in the attribute set in this XMLToken_t, @c zero (false) otherwise.
@@ -1693,12 +1911,12 @@ XMLToken_hasAttrWithTriple (const XMLToken_t *token, const XMLTriple_t *triple);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * the attribute set in this XMLToken_t set is empty.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if the attribute set in this XMLToken_t is empty, 
+ * @return @c non-zero (true) if the attribute set in this XMLToken_t is empty,
  * @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1743,13 +1961,13 @@ XMLToken_getNamespaces (const XMLToken_t *token);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_setNamespaces(XMLToken_t *token, const XMLNamespaces_t* namespaces);
 
 
 /**
  * Appends an XML namespace prefix and URI pair to this XMLToken_t.
- * If there is an XML namespace with the given prefix in this XMLToken_t, 
+ * If there is an XML namespace with the given prefix in this XMLToken_t,
  * then the existing XML namespace will be overwritten by the new one.
  *
  * Nothing will be done if this XMLToken_t is not a start element.
@@ -1769,7 +1987,7 @@ XMLToken_setNamespaces(XMLToken_t *token, const XMLNamespaces_t* namespaces);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_addNamespace (XMLToken_t *token, const char* uri, const char* prefix);
 
 
@@ -1793,7 +2011,7 @@ XMLToken_addNamespace (XMLToken_t *token, const char* uri, const char* prefix);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeNamespace (XMLToken_t *token, int index);
 
 
@@ -1816,12 +2034,12 @@ XMLToken_removeNamespace (XMLToken_t *token, int index);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_removeNamespaceByPrefix (XMLToken_t *token, const char* prefix);
 
 
 /**
- * Clears (deletes) all XML namespace declarations in the XMLNamespaces_t 
+ * Clears (deletes) all XML namespace declarations in the XMLNamespaces_t
  * of this XMLNode_t.
  * Nothing will be done if this XMLToken_t is not a start element.
  *
@@ -1838,7 +2056,7 @@ XMLToken_removeNamespaceByPrefix (XMLToken_t *token, const char* prefix);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_clearNamespaces (XMLToken_t *token);
 
 
@@ -1853,7 +2071,7 @@ XMLToken_clearNamespaces (XMLToken_t *token);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getNamespaceIndex (const XMLToken_t *token, const char* uri);
 
 
@@ -1868,12 +2086,12 @@ XMLToken_getNamespaceIndex (const XMLToken_t *token, const char* uri);
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getNamespaceIndexByPrefix (const XMLToken_t *token, const char* prefix);
 
 
 /**
- * Returns the number of XML namespaces stored in the XMLNamespaces_t 
+ * Returns the number of XML namespaces stored in the XMLNamespaces_t
  * of this XMLNode_t.
  *
  * @param token XMLToken_t structure to be queried.
@@ -1883,28 +2101,28 @@ XMLToken_getNamespaceIndexByPrefix (const XMLToken_t *token, const char* prefix)
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_getNamespacesLength (const XMLToken_t *token);
 
 
 /**
  * Look up the prefix of an XML namespace declaration by position.
  *
- * Callers should use getNamespacesLength() to find out how many 
+ * Callers should use getNamespacesLength() to find out how many
  * namespaces are stored in the XMLNamespaces_t.
  *
  * @param token XMLToken_t structure to be queried.
  * @param index an integer, position of the removed namespace.
- * 
+ *
  * @return the prefix of an XML namespace declaration in the XMLNamespaces_t
- * (by position).  
+ * (by position).
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getNamespacePrefix (const XMLToken_t *token, int index);
 
 
@@ -1914,14 +2132,14 @@ XMLToken_getNamespacePrefix (const XMLToken_t *token, int index);
  * @param token XMLToken_t structure to be queried.
  * @param uri a string, uri of the required namespace.
  *
- * @return the prefix of an XML namespace declaration given its URI.  
+ * @return the prefix of an XML namespace declaration given its URI.
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getNamespacePrefixByURI (const XMLToken_t *token, const char* uri);
 
 
@@ -1932,14 +2150,14 @@ XMLToken_getNamespacePrefixByURI (const XMLToken_t *token, const char* uri);
  * @param index an integer, position of the removed namespace.
  *
  * @return the URI of an XML namespace declaration in the XMLNamespaces_t
- * (by position).  
+ * (by position).
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getNamespaceURI (const XMLToken_t *token, int index);
 
 
@@ -1949,24 +2167,24 @@ XMLToken_getNamespaceURI (const XMLToken_t *token, int index);
  * @param token XMLToken_t structure to be queried.
  * @param prefix a string, prefix of the required namespace.
  *
- * @return the URI of an XML namespace declaration given its prefix.  
+ * @return the URI of an XML namespace declaration given its prefix.
  *
  * @note returned char* should be freed with safe_free() by the caller.
  *
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-char* 
+char*
 XMLToken_getNamespaceURIByPrefix (const XMLToken_t *token, const char* prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * the XMLNamespaces_t of this XMLToken_t is empty.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
- * @return @c non-zero (true) if the XMLNamespaces_t of this XMLToken_t is empty, 
+ * @return @c non-zero (true) if the XMLNamespaces_t of this XMLToken_t is empty,
  * @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1977,14 +2195,14 @@ XMLToken_isNamespacesEmpty (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * an XML Namespace with the given URI is contained in the XMLNamespaces_t of
  * this XMLToken_t.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  * @param uri a string, the uri for the namespace
  *
- * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ * @return @c no-zero (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLToken_t,  @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -1995,14 +2213,14 @@ XMLToken_hasNamespaceURI(const XMLToken_t *token, const char* uri);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * an XML Namespace with the given prefix is contained in the XMLNamespaces_t of
  * this XMLToken_t.
  *
  * @param token XMLToken_t structure to be queried.
  * @param prefix a string, the prefix for the namespace
- * 
- * @return @c no-zero (true) if an XML Namespace with the given URI is 
+ *
+ * @return @c no-zero (true) if an XML Namespace with the given URI is
  * contained in the XMLNamespaces_t of this XMLToken_t, @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -2013,15 +2231,15 @@ XMLToken_hasNamespacePrefix(const XMLToken_t *token, const char* prefix);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
- * an XML Namespace with the given uri/prefix pair is contained in the 
+ * Returns @c true or @c false depending on whether
+ * an XML Namespace with the given uri/prefix pair is contained in the
  * XMLNamespaces_t ofthis XMLToken_t.
  *
  * @param token XMLToken_t structure to be queried.
  * @param uri a string, the uri for the namespace
  * @param prefix a string, the prefix for the namespace
- * 
- * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is 
+ *
+ * @return @c non-zero (true) if an XML Namespace with the given uri/prefix pair is
  * contained in the XMLNamespaces_t of this XMLToken_t,  @c zero (false) otherwise.
  *
  * @memberof XMLToken_t
@@ -2029,13 +2247,13 @@ XMLToken_hasNamespacePrefix(const XMLToken_t *token, const char* prefix);
 LIBLAX_EXTERN
 int
 XMLToken_hasNamespaceNS(const XMLToken_t *token, const char* uri, const char* prefix);
-                        
+
 
 /**
  * Sets the XMLTriple_t (name, uri and prefix) of this XML element.
  * Nothing will be done if this XML element is a text node.
  *
- * @param token XMLToken_t structure to be queried. 
+ * @param token XMLToken_t structure to be queried.
  * @param triple an XMLTriple_t, the XML triple to be set to this XML element.
  *
  * @return integer value indicating success/failure of the
@@ -2049,7 +2267,7 @@ XMLToken_hasNamespaceNS(const XMLToken_t *token, const char* uri, const char* pr
  * @memberof XMLToken_t
  */
 LIBLAX_EXTERN
-int 
+int
 XMLToken_setTriple(XMLToken_t *token, const XMLTriple_t *triple);
 
 
@@ -2072,7 +2290,7 @@ XMLToken_getName (const XMLToken_t *token);
  *
  * @param token XMLToken_t structure to be queried.
  *
- * @return the namespace prefix of this XML element.  
+ * @return the namespace prefix of this XML element.
  *
  * @note If no prefix
  * exists, an empty string will be return.
@@ -2099,9 +2317,9 @@ XMLToken_getURI (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an XML element.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
  * @return @c non-zero (true) if this XMLToken_t structure is an XML element, @c zero (false) otherwise.
@@ -2114,9 +2332,9 @@ XMLToken_isElement (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an XML end element.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
  * @return @c non-zero (true) if this XMLToken_t structure is an XML end element, @c zero (false) otherwise.
@@ -2125,13 +2343,13 @@ XMLToken_isElement (const XMLToken_t *token);
  */
 LIBLAX_EXTERN
 int
-XMLToken_isEnd (const XMLToken_t *token); 
+XMLToken_isEnd (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an XML end element for the given start element.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  * @param element XMLToken_t structure, element for which query is made.
  *
@@ -2146,9 +2364,9 @@ XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an end of file marker.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
  * @return @c non-zero (true) if this XMLToken_t structure is an end of file (input) marker, @c zero (false)
@@ -2162,9 +2380,9 @@ XMLToken_isEOF (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an XML start element.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
  * @return @c true if this XMLToken_t structure is an XML start element, @c false otherwise.
@@ -2177,9 +2395,9 @@ XMLToken_isStart (const XMLToken_t *token);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether 
+ * Returns @c true or @c false depending on whether
  * this XMLToken_t structure is an XML text element.
- * 
+ *
  * @param token XMLToken_t structure to be queried.
  *
  * @return @c non-zero (true) if this XMLToken_t structure is an XML text element, @c zero (false) otherwise.
