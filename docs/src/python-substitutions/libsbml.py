@@ -3790,7 +3790,7 @@ SBML_UNKNOWN = _libsbml.SBML_UNKNOWN
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3802,7 +3802,7 @@ SBML_COMPARTMENT = _libsbml.SBML_COMPARTMENT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3814,7 +3814,7 @@ SBML_COMPARTMENT_TYPE = _libsbml.SBML_COMPARTMENT_TYPE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3826,7 +3826,7 @@ SBML_CONSTRAINT = _libsbml.SBML_CONSTRAINT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3838,7 +3838,7 @@ SBML_DOCUMENT = _libsbml.SBML_DOCUMENT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3850,7 +3850,7 @@ SBML_EVENT = _libsbml.SBML_EVENT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3862,7 +3862,7 @@ SBML_EVENT_ASSIGNMENT = _libsbml.SBML_EVENT_ASSIGNMENT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3874,7 +3874,7 @@ SBML_FUNCTION_DEFINITION = _libsbml.SBML_FUNCTION_DEFINITION
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3886,7 +3886,7 @@ SBML_INITIAL_ASSIGNMENT = _libsbml.SBML_INITIAL_ASSIGNMENT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3898,7 +3898,7 @@ SBML_KINETIC_LAW = _libsbml.SBML_KINETIC_LAW
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3910,7 +3910,7 @@ SBML_LIST_OF = _libsbml.SBML_LIST_OF
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3922,7 +3922,7 @@ SBML_MODEL = _libsbml.SBML_MODEL
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3934,7 +3934,7 @@ SBML_PARAMETER = _libsbml.SBML_PARAMETER
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3946,7 +3946,7 @@ SBML_REACTION = _libsbml.SBML_REACTION
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3958,7 +3958,7 @@ SBML_RULE = _libsbml.SBML_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3970,7 +3970,7 @@ SBML_SPECIES = _libsbml.SBML_SPECIES
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3982,7 +3982,7 @@ SBML_SPECIES_REFERENCE = _libsbml.SBML_SPECIES_REFERENCE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -3994,7 +3994,7 @@ SBML_SPECIES_TYPE = _libsbml.SBML_SPECIES_TYPE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4006,7 +4006,7 @@ SBML_MODIFIER_SPECIES_REFERENCE = _libsbml.SBML_MODIFIER_SPECIES_REFERENCE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4018,7 +4018,7 @@ SBML_UNIT_DEFINITION = _libsbml.SBML_UNIT_DEFINITION
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4030,7 +4030,7 @@ SBML_UNIT = _libsbml.SBML_UNIT
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4042,7 +4042,7 @@ SBML_ALGEBRAIC_RULE = _libsbml.SBML_ALGEBRAIC_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4054,7 +4054,7 @@ SBML_ASSIGNMENT_RULE = _libsbml.SBML_ASSIGNMENT_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4066,7 +4066,7 @@ SBML_RATE_RULE = _libsbml.SBML_RATE_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4078,7 +4078,7 @@ SBML_SPECIES_CONCENTRATION_RULE = _libsbml.SBML_SPECIES_CONCENTRATION_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4090,7 +4090,7 @@ SBML_COMPARTMENT_VOLUME_RULE = _libsbml.SBML_COMPARTMENT_VOLUME_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4102,7 +4102,7 @@ SBML_PARAMETER_RULE = _libsbml.SBML_PARAMETER_RULE
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4114,7 +4114,7 @@ SBML_TRIGGER = _libsbml.SBML_TRIGGER
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4126,7 +4126,7 @@ SBML_DELAY = _libsbml.SBML_DELAY
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4138,7 +4138,7 @@ SBML_STOICHIOMETRY_MATH = _libsbml.SBML_STOICHIOMETRY_MATH
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4150,7 +4150,7 @@ SBML_LOCAL_PARAMETER = _libsbml.SBML_LOCAL_PARAMETER
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4162,7 +4162,7 @@ SBML_PRIORITY = _libsbml.SBML_PRIORITY
     ## These are known as <em>SBML type codes</em>.  In other languages,
     ## the set of type codes is stored in an enumeration; in the Java
     ## language interface for libSBML, the type codes are defined as static
-    ## integer constants in the interface class {@link libsbml}.
+    ## integer constants in the interface class @link libsbml@endlink.
     ## The names of the type codes all begin with the characters
     ## <code>SBML_</code>.
 
@@ -4986,8 +4986,8 @@ LIBSBML_INVALID_OBJECT = _libsbml.LIBSBML_INVALID_OBJECT
     ## This code has the following meaning: The object passed as an
     ## argument to the method is not of a type that is valid for the
     ## operation or kind of object involved.  For example, handing an
-    ## invalidly-constructed {@link ASTNode} to a method expecting an
-    ## {@link ASTNode} will result in this error.
+    ## invalidly-constructed @link ASTNode@endlink to a method expecting an
+    ## @link ASTNode@endlink will result in this error.
   
 LIBSBML_DUPLICATE_OBJECT_ID = _libsbml.LIBSBML_DUPLICATE_OBJECT_ID
     ## @var long LIBSBML_DUPLICATE_OBJECT_ID
@@ -5038,7 +5038,7 @@ LIBSBML_NAMESPACES_MISMATCH = _libsbml.LIBSBML_NAMESPACES_MISMATCH
     ## This code has the following meaning: The operation attempt could not
     ## be performed because the object(s) involved have mismatched XML
     ## namespaces for SBML Level/Versions.  This typically means the
-    ## properties of the {@link SBMLNamespaces} objects possessed by the
+    ## properties of the @link SBMLNamespaces@endlink objects possessed by the
     ## SBML objects do not correspond in some way.
 
 LIBSBML_PKG_VERSION_MISMATCH = _libsbml.LIBSBML_PKG_VERSION_MISMATCH
@@ -5091,8 +5091,8 @@ LIBSBML_PKG_UNKNOWN = _libsbml.LIBSBML_PKG_UNKNOWN
     ##
     ## This code has the following meaning: the required package extension
     ## is unknown. This error is typically returned when creating an object
-    ## of {@link SBase} derived class with the required package, creating
-    ## an object of {@link SBMLNamespaces} or its derived class with the
+    ## of @link SBase@endlink derived class with the required package, creating
+    ## an object of @link SBMLNamespaces@endlink or its derived class with the
     ## required package, or invoking functions depending on the required
     ## package.  To avoid this error, the library of the required package
     ## needs to be linked.
@@ -5103,8 +5103,8 @@ LIBSBML_PKG_UNKNOWN_VERSION = _libsbml.LIBSBML_PKG_UNKNOWN_VERSION
     ##
     ## This code has the following meaning: The required version of the
     ## package extension is unknown.  This error is typically returned when
-    ## creating an object of {@link SBase} derived class with the required
-    ## package, creating an object of {@link SBMLNamespaces} or its derived
+    ## creating an object of @link SBase@endlink derived class with the required
+    ## package, creating an object of @link SBMLNamespaces@endlink or its derived
     ## class with the required package, or invoking functions depending on
     ## the required package.  This error may be avoided by updating the
     ## library of the required package to be linked.
@@ -5115,8 +5115,8 @@ LIBSBML_PKG_DISABLED = _libsbml.LIBSBML_PKG_DISABLED
     ##
     ## This code has the following meaning: The required package extension
     ## is disabled.  This error is typically returned when creating an
-    ## object of {@link SBase} derived class with the required package,
-    ## creating an object of {@link SBMLNamespaces} or its derived class
+    ## object of @link SBase@endlink derived class with the required package,
+    ## creating an object of @link SBMLNamespaces@endlink or its derived class
     ## with the required package, or invoking functions depending on the
     ## required package.  To avoid this error, the library of the required
     ## package needs to be enabled.
@@ -5129,8 +5129,8 @@ LIBSBML_PKG_CONFLICTED_VERSION = _libsbml.LIBSBML_PKG_CONFLICTED_VERSION
     ## package extension has already been enabled in the target SBase
     ## object, or enabled in the model to/in which the target object to be
     ## added/contained. This error is typically returned when adding an
-    ## object of some {@link SBase} derived class with the required package
-    ## to other {@link SBase} derived object, or when enabling the required
+    ## object of some @link SBase@endlink derived class with the required package
+    ## to other @link SBase@endlink derived object, or when enabling the required
     ## package in the target object.  To avoid this error, the conflict of
     ## versions need to be avoided.
 
@@ -5141,7 +5141,7 @@ LIBSBML_PKG_CONFLICT = _libsbml.LIBSBML_PKG_CONFLICT
     ## This code has the following meaning: another SBML package extension
     ## for the same URI has already been registered. This error is
     ## typically returned when adding a SBML package extension to the
-    ## {@link SBMLExtensionRegistry}. To avoid this error, ensure that SBML
+    ## @link SBMLExtensionRegistry@endlink. To avoid this error, ensure that SBML
     ## package extensions are only registered once.
 
 LIBSBML_CONV_INVALID_TARGET_NAMESPACE = _libsbml.LIBSBML_CONV_INVALID_TARGET_NAMESPACE
@@ -5149,9 +5149,9 @@ LIBSBML_CONV_INVALID_TARGET_NAMESPACE = _libsbml.LIBSBML_CONV_INVALID_TARGET_NAM
     ## @brief One of the possible libSBML package operation return codes.
     ##
     ## This code has the following meaning: while attempting to convert the
-    ## SBML document using {@link SBMLLevelVersionConverter#convert()} or
+    ## SBML document using @link SBMLLevelVersionConverter#convert()@endlink or
     ## related methods, the target namespace has been found to be invalid
-    ## or unset.  (The function {@link SBMLNamespaces#isValidCombination()}
+    ## or unset.  (The function @link SBMLNamespaces#isValidCombination()@endlink
     ## may be useful in detecting this situation and preventing the error.)
 
 LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE = _libsbml.LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE
@@ -11252,6 +11252,6 @@ DanglingUnitSIdRef = _libsbml.DanglingUnitSIdRef
     ## @var long DanglingUnitSIdRef
     ##
     ## A value in the enumeration of all the SBML error and warning codes
-    ## for objects of class {@link SBMLError}.  Please consult the
-    ## documentation for {@link SBMLError} for an explanation of the
+    ## for objects of class @link SBMLError@endlink.  Please consult the
+    ## documentation for @link SBMLError@endlink for an explanation of the
     ## meaning of this particular error code.
