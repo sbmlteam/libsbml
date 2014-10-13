@@ -6,10 +6,11 @@
 # @date   Created 2013-12-19
 #
 # This program takes one argument, the root of the libSBML src/sbml
-# directory.  It walks down the directory tree recursively, looking in .h
-# files, and in every file it finds, it looks for the strings "@class" and
-# "@enum" followed by a word.  It extracts the word.  In the end, it prints to
-# standard output all the words it found.
+# directory.  It walks down the directory tree recursively, looking in .h and
+# .i files, and in every file it finds, it looks for the strings "@class" and
+# "@enum" followed by a word (and for .i files, it also looks for %template).
+# It extracts the word.  In the end, it prints to standard output all the
+# words it found.
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
@@ -52,7 +53,7 @@ def main(args):
 
     classes = []
     try:
-        classes = find_classes(args[1], True)
+        classes = find_classes(args[1], swig_too=True)
         for c in sorted(set(classes)):
             print (c)
     except (NameError,):
