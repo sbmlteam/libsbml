@@ -388,7 +388,7 @@ public:
    * element at the given index @p n.
    *
    * @see XMLToken::getAttrIndex(const XMLTriple& triple) const
-   * @see XMLToken::getAttrIndex(const std::string& name, const std::string& uri="") const;
+   * @see XMLToken::getAttrIndex(const std::string& name, const std::string& uri) const
    * @see XMLToken::getAttributesLength()
    */
   int removeAttr (int n);
@@ -413,7 +413,7 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute on this
    * element with the given @p name (and @p uri if specified).
    *
-   * @see XMLToken::hasAttr(const std::string name, const std::string uri="") const
+   * @see XMLToken::hasAttr(const std::string name, const std::string uri) const
    */
   int removeAttr (const std::string& name, const std::string& uri = "");
 
