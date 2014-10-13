@@ -185,11 +185,11 @@ public:
    * Unless the argument @p type is given, the returned node will by default
    * have a type of @sbmlconstant{AST_UNKNOWN, ASTNodeType_t}.  If the type
    * isn't supplied when caling this constructor, the caller should set the
-   * node type to something else as soon as possible using @if clike
-   * setType()@else ASTNode::setType(int)@endif.
+   * node type to something else as soon as possible using
+   * @if clike setType()@else ASTNode::setType(int)@endif.
    *
    * @param type an optional
-   * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif@~
+   * @if clike #ASTNodeType_t@else integer type@endif@~
    * code indicating the type of node to create.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
@@ -823,7 +823,7 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * Returns the extended type of this ASTNode.
    *
    * The type may be either a core
-   * @ifnot clike integer type code@else ASTNodeType_t value@endif
+   * @ifnot clike integer type code@else #ASTNodeType_t value@endif
    * or a value of a type code defined by an SBML Level&nbsp;3 package.
    *
    * @return the type of this ASTNode.
@@ -1472,14 +1472,14 @@ setValue(value, 0);
   /**
    * Sets the type of this ASTNode.
    *
-   * This uses integer type codes, which may come from @if clike
-   * the enumeration ASTNodeType_t @else the set of static integer constants
-   * whose names begin with the prefix <code>AST_</code> @endif
-   * @if java defined in the interface class <code><a
-   * href="libsbmlConstants.html">libsbmlConstants</a></code>
-   * @endif@if python defined in the interface class
-   * @link libsbml libsbml@endlink@endif or an
-   * enumeration of AST types in an SBML Level&nbsp;3 package.
+   * This uses integer type codes, which may come from @if clike the
+   * enumeration #ASTNodeType_t@else the set
+   * of static integer constants whose names begin with the prefix
+   * <code>AST_</code> @endif @if java defined in the interface class
+   * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>
+   * @endif@if python defined in the interface class @link libsbml
+   * libsbml@endlink@endif@~ or an enumeration of AST types in an SBML
+   * Level&nbsp;3 package.
    *
    * @param type the integer representing the type to which this node should
    * be set.
