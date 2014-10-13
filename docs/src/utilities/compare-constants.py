@@ -134,10 +134,12 @@ def main (args):
     diff_original = set(original_names) - set(substitution_names)
     diff_substitution = set(substitution_names) - set(original_names)
 
-    if len(diff_original) > 0 or len(diff_substitution) > 0:
-        print("")
-        print("*"*79)
-        print("Warning: differences found in documentation substitution files.")
+    if len(diff_original) <= 0 and len(diff_substitution) <= 0:
+        return
+
+    print("")
+    print("*"*79)
+    print("Warning: differences found in documentation substitution files.")
 
     if len(diff_original) > 0:
         print("The following exist in " + args[1])
@@ -150,8 +152,8 @@ def main (args):
         print("but are not in " + args[1])
         print("Extra: " + "\nExtra: ".join(sorted(diff_substitution)))
 
-    if len(diff_original) > 0 or len(diff_substitution) > 0:
-        print("*"*79)
+    print("*"*79)
+    print("")
 
 
 if __name__ == '__main__':
