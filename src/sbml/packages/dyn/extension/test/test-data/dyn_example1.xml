@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:dyn="http://www.sbml.org/sbml/level3/version1/dyn/version1" level="3" version="1" dyn:required="true">
+  <model id="singleCell">
+    <listOfCompartments>
+      <compartment id="Extracellular" spatialDimensions="3" size="8000000" constant="true"/>
+      <compartment id="PlasmaMembrane" spatialDimensions="2" size="314" constant="true"/>
+      <compartment id="Cytosol" spatialDimensions="3" size="523" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="C_EC" compartment="Extracellular" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="RTR_M" compartment="PlasmaMembrane" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="RCC_M" compartment="PlasmaMembrane" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="A_C" compartment="Cytosol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="AA_C" compartment="Cytosol" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="T" compartment="Cytosol" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S" compartment="Cytosol" initialConcentration="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r1" reversible="true" fast="false" compartment="Extracellular">
+        <listOfReactants>
+          <speciesReference species="RTR_M" stoichiometry="1" constant="true"/>
+          <speciesReference species="C_EC" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="RCC_M" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="r2" reversible="true" fast="false" compartment="Cytosol">
+        <listOfReactants>
+          <speciesReference species="A_C" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="AA_C" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="RCC_M"/>
+        </listOfModifiers>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event useValuesFromTriggerTime="true" dyn:cboTerm="http://cbo.biocomplexity.indiana.edu/svn/cbo/trunk/CBO_1_0.owl#CellDeath" dyn:applyToAll="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <lt/>
+              <ci> AA_C </ci>
+              <ci> T </ci>
+            </apply>
+          </math>
+        </trigger>
+      </event>
+      <event useValuesFromTriggerTime="true" dyn:cboTerm="http://cbo.biocomplexity.indiana.edu/svn/cbo/trunk/CBO_1_0.owl#CellDevision" dyn:applyToAll="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <lt/>
+              <ci> AA_C </ci>
+              <ci> S </ci>
+            </apply>
+          </math>
+        </trigger>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>
