@@ -6,13 +6,13 @@
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2014 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -28,7 +28,7 @@
  *
  * The FluxBound object holds a single (in)equality that provides the maximum
  * or minimum value that a reaction flux can obtain at steady state.
- */ 
+ */
 
 #ifndef FluxBound_H__
 #define FluxBound_H__
@@ -41,21 +41,23 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   /**
-   * The FluxBoundOperation_t enumeration contains the possible values for
-   * the FluxBound 'operation' attribute.  The possible legal values are less
-   * than or equal to, greater than or equal to, or equal to.  The two
-   * options 'less than' and 'greater than' are not legal values for the
-   * FluxBound 'operation' attribute, but are provided to allow backwards
-   * compatibility with an earlier version of the draft specification.
+   * @enum FluxBoundOperation_t
+   * @brief Possible values for the FluxBound 'operation' attribute.
+   *
+   * The possible legal values are less than or equal to, greater than or
+   * equal to, or equal to.  The two options <i>less than</i> and <i>greater
+   * than</i> are not legal values for the FluxBound 'operation' attribute,
+   * but are provided to allow backwards compatibility with an earlier
+   * version of the draft specification.
    */
 typedef enum
 {
-    FLUXBOUND_OPERATION_LESS_EQUAL /** Less than or equal to. */ 
-  , FLUXBOUND_OPERATION_GREATER_EQUAL /** Greater than or equal to.*/ 
-  , FLUXBOUND_OPERATION_LESS /** Less than. NOTE:  ILLEGAL VALUE */ 
-  , FLUXBOUND_OPERATION_GREATER /** Greater than. NOTE:  ILLEGAL VALUE*/ 
-  , FLUXBOUND_OPERATION_EQUAL /** Equal to. */ 
-  , FLUXBOUND_OPERATION_UNKNOWN  /** Unknown operation. */
+    FLUXBOUND_OPERATION_LESS_EQUAL    /*!< Less than or equal to. */
+  , FLUXBOUND_OPERATION_GREATER_EQUAL /*!< Greater than or equal to.*/
+  , FLUXBOUND_OPERATION_LESS          /*!< Less than. NOTE:  ILLEGAL VALUE. */
+  , FLUXBOUND_OPERATION_GREATER       /*!< Greater than. NOTE:  ILLEGAL VALUE. */
+  , FLUXBOUND_OPERATION_EQUAL         /*!< Equal to. */
+  , FLUXBOUND_OPERATION_UNKNOWN       /*!< Unknown operation. */
 } FluxBoundOperation_t;
 
 LIBSBML_CPP_NAMESPACE_END
@@ -113,14 +115,14 @@ public:
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~FluxBound ();
 
 
   /**
-   * Returns the value of the "id" attribute of this FluxBound.
+   * Returns the value of the "id" attribute of this FluxBound object.
    *
-   * @return the value of the "id" attribute of this FluxBound.
+   * @return the value of the "id" attribute of this FluxBound object.
    */
   virtual const std::string& getId () const;
 
@@ -129,14 +131,14 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * FluxBound's "id" attribute has been set.
    *
-   * @return @c true if this FluxBound's "id" attribute has been set, 
+   * @return @c true if this FluxBound object's "id" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetId () const;
 
-  
+
   /**
-   * Sets the value of the "id" attribute of this FluxBound.
+   * Sets the value of the "id" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -147,7 +149,7 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this FluxBound.
+   * Unsets the value of the "id" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -155,28 +157,28 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId ();
-  
-  
+
+
   /**
-   * Returns the value of the "name" attribute of this FluxBound.
+   * Returns the value of the "name" attribute of this FluxBound object.
    *
-   * @return the value of the "name" attribute of this FluxBound.
+   * @return the value of the "name" attribute of this FluxBound object.
    */
   virtual const std::string& getName () const;
-  
-  
+
+
   /**
    * Predicate returning @c true or @c false depending on whether this
    * FluxBound's "name" attribute has been set.
    *
-   * @return @c true if this FluxBound's "id" attribute has been set,
+   * @return @c true if this FluxBound object's "id" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetName () const;
-  
-  
+
+
   /**
-   * Sets the value of the "name" attribute of this FluxBound.
+   * Sets the value of the "name" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -184,10 +186,10 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName (const std::string& name);
-  
-  
+
+
   /**
-   * Unsets the value of the "name" attribute of this FluxBound.
+   * Unsets the value of the "name" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -197,9 +199,9 @@ public:
   virtual int unsetName ();
 
   /**
-   * Returns the value of the "reaction" attribute of this FluxBound.
+   * Returns the value of the "reaction" attribute of this FluxBound object.
    *
-   * @return the value of the "reaction" attribute of this FluxBound.
+   * @return the value of the "reaction" attribute of this FluxBound object.
    */
   virtual const std::string& getReaction () const;
 
@@ -208,14 +210,14 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * FluxBound's "reaction" attribute has been set.
    *
-   * @return @c true if this FluxBound's "reaction" attribute has been set, 
+   * @return @c true if this FluxBound object's "reaction" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetReaction () const;
 
-  
+
   /**
-   * Sets the value of the "reaction" attribute of this FluxBound.
+   * Sets the value of the "reaction" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -226,7 +228,7 @@ public:
 
 
   /**
-   * Unsets the value of the "reaction" attribute of this FluxBound.
+   * Unsets the value of the "reaction" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -237,17 +239,17 @@ public:
 
 
   /**
-   * Returns the value of the "operation" attribute of this FluxBound.
+   * Returns the value of the "operation" attribute of this FluxBound object.
    *
-   * @return the value of the "operation" attribute of this FluxBound.
+   * @return the value of the "operation" attribute of this FluxBound object.
    */
   const std::string& getOperation ();
 
 
   /**
-   * Returns the value of the "operation" attribute of this FluxBound.
+   * Returns the value of the "operation" attribute of this FluxBound object.
    *
-   * @return the value of the "operation" attribute of this FluxBound.
+   * @return the value of the "operation" attribute of this FluxBound object.
    */
   FluxBoundOperation_t getFluxBoundOperation () const;
 
@@ -256,14 +258,14 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * FluxBound's "operation" attribute has been set.
    *
-   * @return @c true if this FluxBound's "operation" attribute has been set, 
+   * @return @c true if this FluxBound object's "operation" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetOperation () const;
 
-  
+
   /**
-   * Sets the value of the "operation" attribute of this FluxBound.
+   * Sets the value of the "operation" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -274,7 +276,7 @@ public:
 
 
   /**
-   * Sets the value of the "operation" attribute of this FluxBound.
+   * Sets the value of the "operation" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -285,7 +287,7 @@ public:
 
 
   /**
-   * Unsets the value of the "operation" attribute of this FluxBound.
+   * Unsets the value of the "operation" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -295,9 +297,9 @@ public:
   virtual int unsetOperation ();
 
   /**
-   * Returns the value of the "value" attribute of this FluxBound.
+   * Returns the value of the "value" attribute of this FluxBound object.
    *
-   * @return the value of the "value" attribute of this FluxBound.
+   * @return the value of the "value" attribute of this FluxBound object.
    */
   virtual double getValue () const;
 
@@ -306,14 +308,14 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * FluxBound's "value" attribute has been set.
    *
-   * @return @c true if this FluxBound's "value" attribute has been set, 
+   * @return @c true if this FluxBound object's "value" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetValue () const;
 
-  
+
   /**
-   * Sets the value of the "value" attribute of this FluxBound.
+   * Sets the value of the "value" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -324,7 +326,7 @@ public:
 
 
   /**
-   * Unsets the value of the "value" attribute of this FluxBound.
+   * Unsets the value of the "value" attribute of this FluxBound object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -350,9 +352,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this FluxBound.
-   * 
-   * @return a (deep) copy of this FluxBound.
+   * Creates and returns a deep copy of this FluxBound object.
+   *
+   * @return a (deep) copy of this FluxBound object.
    */
   virtual FluxBound* clone () const;
 
@@ -430,7 +432,7 @@ public:
   virtual bool hasRequiredElements() const ;
   /** @endcond */
 
-    
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -461,7 +463,7 @@ protected:
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
   /** @endcond */
 
@@ -485,9 +487,9 @@ protected:
 /**
  * @class ListOfFluxBounds
  * @sbmlbrief{fbc} A list of FluxBound objects.
- * 
+ *
  * The ListOfFluxBounds is a container for the FluxBound elements of a Model.
- * 
+ *
  * @copydetails doc_what_is_listof
  */
 class LIBSBML_EXTERN ListOfFluxBounds : public ListOf
@@ -496,7 +498,7 @@ public:
 
   /**
    * Creates and returns a deep copy of this ListOfFluxBounds.
-   * 
+   *
    * @return a (deep) copy of this ListOfFluxBounds.
    */
   virtual ListOfFluxBounds* clone () const;
@@ -505,8 +507,8 @@ public:
   /**
    * Creates a new ListOfFluxBounds with the given level, version, and package version.
    */
-   ListOfFluxBounds(unsigned int level      = FbcExtension::getDefaultLevel(), 
-                unsigned int version    = FbcExtension::getDefaultVersion(), 
+   ListOfFluxBounds(unsigned int level      = FbcExtension::getDefaultLevel(),
+                unsigned int version    = FbcExtension::getDefaultVersion(),
                 unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
 
 
@@ -520,33 +522,33 @@ public:
    * Get a FluxBound from the ListOfFluxBounds.
    *
    * @param n the index number of the FluxBound to get.
-   * 
+   *
    * @return the nth FluxBound in this ListOfFluxBounds.
    *
    * @see size()
    */
-  virtual FluxBound* get(unsigned int n); 
+  virtual FluxBound* get(unsigned int n);
 
 
   /**
    * Get a FluxBound from the ListOfFluxBounds.
    *
    * @param n the index number of the FluxBound to get.
-   * 
+   *
    * @return the nth FluxBound in this ListOfFluxBounds.
    *
    * @see size()
    */
-  virtual const FluxBound * get(unsigned int n) const; 
+  virtual const FluxBound * get(unsigned int n) const;
 
 
   /**
    * Get a FluxBound from the ListOfFluxBounds
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the FluxBound to get.
-   * 
+   *
    * @return FluxBound in this ListOfFluxBounds
    * with the given @p sid or @c NULL if no such
    * FluxBound exists.
@@ -561,9 +563,9 @@ public:
    * Get a FluxBound from the ListOfFluxBounds
    * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the FluxBound to get.
-   * 
+   *
    * @return FluxBound in this ListOfFluxBounds
    * with the given @p sid or @c NULL if no such
    * FluxBound exists.
@@ -605,7 +607,7 @@ public:
   /**
    * Returns the libSBML type code for the SBML objects
    * contained in this ListOf object.
-   * 
+   *
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for objects contained in this list:
@@ -675,7 +677,7 @@ FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgVersi
  * Takes an FluxBound_t structure and returns its identifier.
  *
  * @param fb the FluxBound_t structure whose identifier is sought
- * 
+ *
  * @return the identifier of the given FluxBound_t, as a pointer to a string.
  *
  * @memberof FluxBound_t
@@ -690,7 +692,7 @@ FluxBound_getId(FluxBound_t * fb);
  * FluxBound_t structure's identifier is set.
  *
  * @param fb the FluxBound_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "id" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
  *
@@ -763,7 +765,7 @@ FluxBound_getName(FluxBound_t * fb);
  * FluxBound_t structure's name is set.
  *
  * @param fb the FluxBound_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "name" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
  *
@@ -835,7 +837,7 @@ FluxBound_getReaction(FluxBound_t * fb);
  * FluxBound_t structure's reaction is set.
  *
  * @param fb the FluxBound_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "reaction" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
  *
@@ -907,7 +909,7 @@ FluxBound_getOperation(FluxBound_t * fb);
  * FluxBound_t structure's operation is set.
  *
  * @param fb the FluxBound_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "operation" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
  *
@@ -979,7 +981,7 @@ FluxBound_getValue(FluxBound_t * fb);
  * FluxBound_t structure's value is set.
  *
  * @param fb the FluxBound_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "value" attribute of the given
  * FluxBound_t structure is set, zero (false) otherwise.
  *
@@ -995,7 +997,7 @@ FluxBound_isSetValue(FluxBound_t * fb);
  * structure.
  *
  * @param fb the FluxBound_t structure
- * 
+ *
  * @param value the value of value to assign to the "value" attribute
  *
  * @return integer value indicating success/failure of the
@@ -1035,43 +1037,43 @@ FluxBound_unsetValue(FluxBound_t * fb);
  *
  * @param type The FluxBoundOperation_t enumeration to convert
  *
- * @return A string corresponding to the given effect:  "lessEqual", 
- * "greaterEqual", "equal", or NULL if the value is FLUXBOUND_OPERATION_UNKNOWN 
+ * @return A string corresponding to the given effect:  "lessEqual",
+ * "greaterEqual", "equal", or NULL if the value is FLUXBOUND_OPERATION_UNKNOWN
  * or another invalid enumeration value.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
- * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is
  * always converted to "greaterEqual".
  *
  * @memberof FluxBound_t
  */
 LIBSBML_EXTERN
-const char* 
+const char*
 FluxBoundOperation_toString(FluxBoundOperation_t type);
 
 
 /**
- * Returns the FluxBoundOperation_t enumeration corresponding to 
- * the given string, or FLUXBOUND_OPERATION_UNKNOWN if there is 
- * no such match.  The matching is case-sensitive:  "lessEqual" will 
- * return FLUXBOUND_OPERATION_LESS_EQUAL, but "lessequal" will return 
+ * Returns the FluxBoundOperation_t enumeration corresponding to
+ * the given string, or FLUXBOUND_OPERATION_UNKNOWN if there is
+ * no such match.  The matching is case-sensitive:  "lessEqual" will
+ * return FLUXBOUND_OPERATION_LESS_EQUAL, but "lessequal" will return
  * FLUXBOUND_OPERATION_UNKNOWN.
  *
  * @param s The string to convert to an FluxBoundOperation_t
  *
- * @return The corresponding FluxBoundOperation_t, or 
+ * @return The corresponding FluxBoundOperation_t, or
  * FLUXBOUND_OPERATION_UNKNOWN if no match found.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
- * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is
  * always converted to "greaterEqual".
  *
  * @memberof FluxBound_t
  */
 LIBSBML_EXTERN
-FluxBoundOperation_t 
+FluxBoundOperation_t
 FluxBoundOperation_fromString(const char* s);
 
 
@@ -1080,45 +1082,45 @@ FluxBoundOperation_fromString(const char* s);
  * FluxBoundOperation_t is valid.
  *
  * @param type the FluxBoundOperation_t enumeration to query
- * 
+ *
  * @return @c non-zero (true) if the FluxBoundOperation_t is
- * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL, 
- * FLUXBOUND_OPERATION_LESS, FLUXBOUND_OPERATION_GREATER, or 
+ * FLUXBOUND_OPERATION_LESS_EQUAL, FLUXBOUND_OPERATION_GREATER_EQUAL,
+ * FLUXBOUND_OPERATION_LESS, FLUXBOUND_OPERATION_GREATER, or
  * FLUXBOUND_OPERATION_EQUAL;
  * zero (false) otherwise (including FLUXBOUND_OPERATION_UNKNOWN).
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
- * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is
  * always converted to "greaterEqual".
  *
  * @memberof FluxBound_t
  */
 LIBSBML_EXTERN
-int 
+int
 FluxBoundOperation_isValidFluxBoundOperation(FluxBoundOperation_t type);
 
 
 /**
- * Predicate returning @c true (non-zero) or @c false (zero) depending 
- * on whether the given string is a valid FluxBoundOperation_t.  
- * The matching is case-sensitive:  "lessEqual" will return @c true, but 
+ * Predicate returning @c true (non-zero) or @c false (zero) depending
+ * on whether the given string is a valid FluxBoundOperation_t.
+ * The matching is case-sensitive:  "lessEqual" will return @c true, but
  * "lessequal" will return @c false.
  *
  * @param s The string to query
- * 
+ *
  * @return @c non-zero (true) if the string is
  * "lessEqual", "greaterEqual", "less", "greater", or "equal"; zero (false) otherwise.
  *
  * @note In an earlier version of this specification, "less" and "greater" were
  * options that were dropped in the final version of the specification.
- * Accordingly, "less" is always converted to "lessEqual", and "greater" is 
+ * Accordingly, "less" is always converted to "lessEqual", and "greater" is
  * always converted to "greaterEqual".
  *
  * @memberof FluxBound_t
  */
 LIBSBML_EXTERN
-int 
+int
 FluxBoundOperation_isValidFluxBoundOperationString(const char* s);
 
 

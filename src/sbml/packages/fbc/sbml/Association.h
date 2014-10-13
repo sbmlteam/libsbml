@@ -6,13 +6,13 @@
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2014 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -24,13 +24,14 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlbrief{fbc} Proposed way of expressing associations
+ * @sbmlbrief{fbc} Proposed way of expressing associations between genes.
  *
- * The Association class is not part of the official Flux Balance
- * specification, but is instead a proposed future development of the
- * package.  If adopted, it would be a child of a GeneAssociation that would
- * describe a single 'and' or 'or' relationship between two or more genes or
- * other associations.
+ * The Association class is currently not part of the official SBML
+ * Level&nbsp;3 Flux Balance Constraints package specification; it is instead
+ * a proposed future development of the package.  If adopted, the Association
+ * class would be a child of a GeneAssociation that would describe a single
+ * @em and or @em or relationship between two or more genes or other
+ * associations.
  */
 
 #ifndef Association_H__
@@ -52,9 +53,14 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
 /**
  * @enum  AssociationTypeCode_t
- * @brief AssociationTypeCode_t is the enumeration of possible association children of the proposed GeneAssociation class.  This class is not part of Version&nbsp;1 of the Flux Balance Constraints specification.
+ * @brief Enumeration of possible association children of the proposed
+ * GeneAssociation class.
+ *
+ * This class is not part of Version&nbsp;1 of the Flux Balance Constraints
+ * specification.
  */
 typedef enum
 {
@@ -77,15 +83,16 @@ protected:
 public:
 
   /**
-   * Creates a new Association with the given level, version, and package version.
+   * Creates a new Association objet with the given SBML Level, Version, and
+   * FBC package version.
    */
    Association(unsigned int level      = FbcExtension::getDefaultLevel(),
-          unsigned int version    = FbcExtension::getDefaultVersion(),
-          unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
-
+               unsigned int version    = FbcExtension::getDefaultVersion(),
+               unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
 
    Association(const XMLNode& node, FbcPkgNamespaces* fbcns);
-  
+
+
   /**
    * Creates a new Association with the given FbcPkgNamespaces object.
    */
@@ -106,14 +113,14 @@ public:
 
   /**
    * Destructor.
-   */ 
+   */
   virtual ~Association ();
 
 
   /**
-   * Returns the string of the "type" attribute of this Association.
+   * Returns the string of the "type" attribute of this Association object.
    *
-   * @return the string of the "type" attribute of this Association.
+   * @return the string of the "type" attribute of this Association object.
    */
   virtual AssociationTypeCode_t getType () const;
 
@@ -122,14 +129,14 @@ public:
    * Predicate returning @c true or @c false depending on whether this
    * Association's "type" attribute has been set.
    *
-   * @return @c true if this Association's "type" attribute has been set, 
+   * @return @c true if this Association object's "type" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetType () const;
 
-  
+
   /**
-   * Sets the SIdRef string of the "type" attribute of this Association.
+   * Sets the SIdRef string of the "type" attribute of this Association object.
    *
    * @param type a SIdRef string to be set.
    *
@@ -142,7 +149,7 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this Association.
+   * Unsets the value of the "id" attribute of this Association object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -151,27 +158,27 @@ public:
    */
   virtual int unsetType ();
 
-  
+
   /**
-   * Returns the string of the "reference" attribute of this Association.
+   * Returns the string of the "reference" attribute of this Association object.
    *
-   * @return the string of the "reference" attribute of this Association.
+   * @return the string of the "reference" attribute of this Association object.
    */
   virtual const std::string& getReference () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Association's "reference" attribute has been set.
+   * Predicate returning @c true if this Association's "reference" attribute
+   * has been set.
    *
-   * @return @c true if this Association's "reference" attribute has been set, 
+   * @return @c true if this Association object's "reference" attribute has been set,
    * otherwise @c false is returned.
    */
   virtual bool isSetReference () const;
 
-  
+
   /**
-   * Sets the SIdRef string of the "reference" attribute of this Association.
+   * Sets the SIdRef string of the "reference" attribute of this Association object.
    *
    * @param reference a SIdRef string to be set.
    *
@@ -184,7 +191,7 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this Association.
+   * Unsets the value of the "id" attribute of this Association object.
    *
    * @return integer value indicating success/failure of the
    * operation. The possible return values are:
@@ -193,54 +200,112 @@ public:
    */
   virtual int unsetReference ();
 
+
   /**
-   * Add a gene with the given @p id to the association.
+   * Adds a gene with the given @p id to the association.
+   *
+   * @param id the gene name.
+   *
+   * @return integer value indicating success/failure of the
+   * operation. The possible return values are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int addGene(const std::string& id);
 
+
   /**
-   * Returns the number of child Associations of this Association.
+   * Returns the number of child Associations of this Association object.
+   *
+   * @return the number of associations.
    */
   virtual unsigned int getNumAssociations();
 
+
   /**
-   * Adds a child Association to this Association.
+   * Adds a child Association to this Association object.
+   *
+   * @param association the Association object to add. 
+   *
+   * @return integer value indicating success/failure of the
+   * operation. The possible return values are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int addAssociation(Association &association);
 
+
   /**
-   * Removes the child Associations with the given @p index from this Association.
+   * Removes the child Associations with the given @p index from this
+   * Association object.
+   *
+   * @param index the index number of the item to remove
+   *
+   * @return integer value indicating success/failure of the
+   * operation. The possible return values are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int removeAssociation(int index);
 
+
   /**
-   * Returns the number of child Associations of this Association.
+   * Removes all children of this Association object.
+   *
+   * @return integer value indicating success/failure of the
+   * operation. The possible return values are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int clearAssociations();
 
+
   /**
-   * Creates and returns a new Association of type 'and'.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   * Creates a new Association of type "and".
+   *
+   * This method does not actually add the created Association as a child of
+   * this Association object or do anything else with it&mdash;the returning
+   * pointer is now owned by the caller.
+   *
+   * @returns a new "and" type association.
    */
   virtual Association* createAnd();
 
+
   /**
-   * Creates and returns a new Association of type 'or'.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   * Creates a new Association of type 'or'.
+   *
+   * This method does not actually add the created Association as a child of
+   * this Association object or do anything else with it&mdash;the returning
+   * pointer is now owned by the caller.
+   *
+   * @returns a new "or" type association.
    */
   virtual Association* createOr();
 
+
   /**
-   * Creates and returns a new Association of type 'and', and with the gene reference @p reference.  Does not actually add the created Association as a child of this Association or do anything else with it--the returning pointer is now owned by the caller.
+   * Creates a new Association of type 'and' with a given gene reference.
+   *
+   * This method does not actually add the created Association as a child of
+   * this Association object or do anything else with it&mdash;the returning
+   * pointer is now owned by the caller.
+   *
+   * @param reference the gene reference, as a string
+   *
+   * @returns a new Association object.
    */
   virtual Association* createGene(const std::string reference = "" );
 
+
   /**
-   * Creates an XMLNode object from this.
+   * Creates an XMLNode object from this Association object.
    */
   XMLNode toXML() const;
-  
+
+
   /**
-   * Returns the XML element name of
-   * this SBML object.
+   * Returns the XML element name of this SBML object.
    *
    * @return the name of this element, as a text string.
    */
@@ -248,9 +313,9 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Association.
-   * 
-   * @return a (deep) copy of this Association.
+   * Creates and returns a deep copy of this Association object.
+   *
+   * @return a (deep) copy of this Association object.
    */
   virtual Association* clone () const;
 
@@ -289,6 +354,8 @@ public:
   /**
    * Accepts the given SBMLVisitor.
    *
+   * @param v the visitor.
+   *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
@@ -306,6 +373,8 @@ public:
 (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
 @endverbatim
    *
+   * @param association the string to parse.
+   *
    * @return the parsed association, or @c NULL in case of an error.
    *
    * @copydetails doc_note_static_methods
@@ -314,8 +383,7 @@ public:
 
 
   /**
-   * Converts this association into an infix string.
-   *
+   * Converts this Association object into an infix string representation.
    *
    * @return the association as infix string.
    */
@@ -352,7 +420,7 @@ protected:
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
-  virtual void readAttributes (const XMLAttributes& attributes, 
+  virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
   /** @endcond */
 
