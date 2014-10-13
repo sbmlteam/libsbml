@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @enum UnitKind_t
- * @brief Enumeration of predefined SBML base units
+ * @brief Enumeration of predefined SBML base units.
  *
  * For more information, please refer to the class documentation for Unit.
  * 

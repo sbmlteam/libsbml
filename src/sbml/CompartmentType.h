@@ -626,7 +626,8 @@ BEGIN_C_DECLS
  * and @p version values.
  *
  * @param level an unsigned int, the SBML Level to assign to this
- * CompartmentType_t
+ 
+* CompartmentType_t
  *
  * @param version an unsigned int, the SBML Version to assign to this
  * CompartmentType_t

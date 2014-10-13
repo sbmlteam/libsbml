@@ -411,7 +411,7 @@
  * Every ASTNode has an associated type code to indicate whether, for
  * example, it holds a number or stands for an arithmetic operator.
  * @if clike The type is recorded as a value drawn from the enumeration
- * @link ASTNode.h::ASTNodeType_t <code>ASTNodeType_t</code>@endlink.@endif
+ * #ASTNodeType_t.@endif@~
  * @if java The type is recorded as a value drawn from a
  * set of static integer constants defined in the class @link
  * libsbmlConstants@endlink. Their names begin with the characters @c AST_.@endif
@@ -802,8 +802,7 @@
  * ASTNode with the children of @c that ASTNode.
  * @li <code>void @link ASTNode::setType(ASTNodeType_t type)
  * setType(ASTNodeType_t type)@endlink</code> sets the type of this ASTNode
- * to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
- *  enumeration value.
+ * to the given #ASTNodeType_t enumeration value.
  * @endif
  * @if python
  * @li <code>ASTNode</code> @link libsbml.ASTNode(long) ASTNode(long)@endlink creates a new ASTNode object
@@ -855,8 +854,7 @@
  * @li <code>void ASTNode_swapChildren(ASTNode_t *node, ASTNode *that)</code> swaps the children
  * of this ASTNode with the children of @c that ASTNode.
  * @li <code>void ASTNode_setType(ASTNode_t *node, ASTNodeType_t type)</code> sets the type of
- * this ASTNode to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
- * enumeration value.
+ * this ASTNode to the given #ASTNodeType_t enumeration value.
  * @endif
  *
  * <!-- ------------------------------------------------------------------- -->
@@ -1403,7 +1401,8 @@
  * SBML Level 1 uses a different scheme than SBML Level 2 and Level 3 for
  * distinguishing rules; specifically, it uses an attribute whose value is
  * drawn from an enumeration of 3 values.  LibSBML supports this using methods
- * that work @if clike a libSBML enumeration type, RuleType_t, whose values
+ * that work @if clike a libSBML enumeration type,
+ * @link Rule::RuleType_t RuleType_t@endlink, whose values
  * are @else with the enumeration values @endif@~ listed below.
  *
  * @li @sbmlconstant{RULE_TYPE_RATE, RuleType_t}: Indicates
@@ -1874,4 +1873,12 @@ if (config != None) {
  * contains the units of any parameters in the model.  Finally, subsequent
  * elements of the list record the units derived for each mathematical
  * expression encountered within the model.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_returns_success_code
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
  */

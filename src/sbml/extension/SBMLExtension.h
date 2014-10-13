@@ -263,7 +263,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  *
  *  <li> Define an enum type for representing the typecode of elements (SBase extended classes) defined in the package extension
  *
- *   <p>  For example, SBMLGroupsTypeCode_t for groups package is
+ *   <p>  For example, #SBMLGroupsTypeCode_t for groups package is
  *  defined in GroupsExtension.h as follows: </p>
 @verbatim
       typedef enum
@@ -277,7 +277,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  * and <em>SBML_GROUPS_MEMBER</em> corresponds to the Member (&lt;member&gt;) class, respectively.
  *
  *
- *  <p> Similarly, SBMLLayoutTypeCode_t 
+ *  <p> Similarly, #SBMLLayoutTypeCode_t 
  *   for layout package is defined in LayoutExtension.h as follows: </p>
  *
 @verbatim  
@@ -306,7 +306,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  *
  *  <p>
  *   The value of each typecode can be duplicated between those of different 
- *   packages (In the above SBMLLayoutTypeCode_t and SBMLGroupsTypeCode_t types, 
+ *   packages (In the above #SBMLLayoutTypeCode_t and SBMLGroupsTypeCode_t types, 
  *   unique values are assigned to enum values, but this is not mandatory.)
  *  </p>
  *
@@ -688,13 +688,13 @@ public:
   /**
    *
    * Returns an SBasePluginCreatorBase object of this package extension
-   * bound to the given SBMLTyptCode_t.
+   * bound to the given #SBMLTyptCode_t.
    *
-   * @param code the SBMLTypeCode_t to which the returned 
+   * @param code the #SBMLTypeCode_t to which the returned 
    * SBasePluginCreatorBase object bound.
    *
    * @return an SBasePluginCreatorBase of this package extension bound to the 
-   * given SBMLTyptCode_t.
+   * given #SBMLTypeCode_t.
    */
   const SBasePluginCreatorBase* getSBasePluginCreator(const SBaseExtensionPoint& extPoint) const;
 

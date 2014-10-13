@@ -117,7 +117,8 @@ BEGIN_C_DECLS
 
 /**
  * @enum RuleType_t
- * @brief Enumeration of the two valid values for the 'type' attribute of an SBML Level&nbsp;1 Rule.
+ * @brief Enumeration of the valid values for the 'type' attribute of an
+ * SBML Level&nbsp;1 Rule.
  */
 typedef enum
 {
@@ -357,7 +358,7 @@ public:
    * Sets the "math" subelement of this Rule to a copy of the given
    * ASTNode.
    *
-   * @param math the ASTNode_t structure of the mathematical formula.
+   * @param math the AST structure of the mathematical formula.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values

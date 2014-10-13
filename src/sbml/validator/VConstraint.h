@@ -95,7 +95,7 @@ public:
   /**
    * Get the severity of this constraint.
    *
-   * Severity codes are defined by the enumeration SBMLErrorSeverity_t.
+   * Severity codes are defined by the enumeration #SBMLErrorSeverity_t.
    * See the documentation included in SBMLError for more information.
    * 
    * @return the severity for violating this Constraint.
