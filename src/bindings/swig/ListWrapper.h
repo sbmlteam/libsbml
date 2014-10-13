@@ -2,6 +2,8 @@
 #define ListWrapper_h
 
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    ListWrapper.h
  * @brief   A wrapper template class for List class
  * @author  Akiya Jouraku
@@ -153,5 +155,7 @@ class LIBSBML_EXTERN ListWrapper
       return (mList) ? mList->getSize() : 0; 
     }
 };
+
+/** @endcond */
 
 #endif // ListWrapper_h
