@@ -30,11 +30,6 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->
  *
- * @class FormulaTokenizer
- * @sbmlbrief{core} Tokenizes a math formula in SBML Level 1 syntax.
- *
- * @htmlinclude not-sbml-warning.html
- *
  * This file contains functions to tokenize a text string containing a
  * mathematical formula in SBML Level&nbsp;1 syntax.  The first entry
  * point is the function FormulaTokenizer_createFromFormula(), which
@@ -78,7 +73,7 @@ BEGIN_C_DECLS
  * @struct FormulaTokenizer_t
  * @sbmlbrief{core} Tracks the state of tokenizing a formula string.
  *
- * This structure (FormulaTokenizer_t) are part of the simpler mathematical
+ * This structure (FormulaTokenizer_t) is part of the simpler mathematical
  * formula translation system designed to help convert between SBML
  * Level&nbsp;1 and Levels&nbsp;2 and&nbsp;3.  SBML Level&nbsp;1 uses a
  * simple text-string representation of mathematical formulas, rather than
@@ -93,13 +88,14 @@ BEGIN_C_DECLS
  * FormulaTokenizer_createFromFormula() and FormulaTokenizer_nextToken().
  * The structure FormulaTokenizer_t is used to store the current parser
  * state when callers invoke these methods.
- * 
+ *
  * An instance of a FormulaTokenizer_t maintains its own internal copy of
  * the formula being tokenized and the current position within the formula
  * string.  The field @c formula holds the former, and the field @c pos
  * holds the latter.  Callers do not need to manipulate these fields
- * themselves; instances of FormulaTokenizer_t are only meant to be
- * passed around between the functions of the formula tokenizer system.
+ * themselves; instances of @if clike #FormulaTokenizer_t @else this
+ * data structure@endif@~ are only meant to be passed around between the
+ * functions of the formula tokenizer system.
  *
  * @see @sbmlfunction{parseFormula, String}
  * @see @sbmlfunction{formulaToString, ASTNode}
@@ -144,11 +140,11 @@ typedef enum
  * @struct Token_t
  * @sbmlbrief{core} A token from FormulaTokenizer_nextToken().
  * 
- * A Token_t token has a @c type and a @c value.  The @c value field is a
+ * A #Token_t token has a @c type and a @c value.  The @c value field is a
  * union of different possible members; the member that holds the value for
  * a given token (and thus the name of the member that is to be accessed
- * programmatically) depends on the value of the @c TokenType_t field @c
- * type.  The following table lists the possible scenarios:
+ * programmatically) depends on the value of the @c type field.  The
+ * following table lists the possible scenarios:
  *
  * <center>
  * <table border="0" class="text-table width80 normal-font alt-row-colors">
@@ -204,10 +200,10 @@ typedef struct
  * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
  * translate formulas between this text-string representation and MathML.
  * The first entry point is the function
- * FormulaTokenizer_createFromFormula(), which returns a FormulaTokenizer_t
+ * FormulaTokenizer_createFromFormula(), which returns a #FormulaTokenizer_t
  * structure.  The structure tracks the current position in the string to
  * be tokenized, and can be handed to other functions such as
- * FormulaTokenizer_nextToken().  Tokens are returned as Token_t
+ * FormulaTokenizer_nextToken().  Tokens are returned as #Token_t
  * structures.
  *
  * @param formula the text string that contains the mathematical formula to
@@ -250,13 +246,13 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
  * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
  * translate formulas between this text-string representation and MathML.
  * The first entry point is the function
- * FormulaTokenizer_createFromFormula(), which returns a FormulaTokenizer_t
+ * FormulaTokenizer_createFromFormula(), which returns a #FormulaTokenizer_t
  * structure.  The structure tracks the current position in the string to
  * be tokenized, and can be handed to other functions such as
- * FormulaTokenizer_nextToken().  Tokens are returned as Token_t
+ * FormulaTokenizer_nextToken().  Tokens are returned as #Token_t
  * structures.
  *
- * An instance of a FormulaTokenizer_t maintains its own internal copy of
+ * An instance of a #FormulaTokenizer_t maintains its own internal copy of
  * the formula being tokenized and the current position within the formula
  * string.  Callers do not need to manipulate the fields of a
  * FormulaTokenizer_t structure themselves; instances of FormulaTokenizer_t
