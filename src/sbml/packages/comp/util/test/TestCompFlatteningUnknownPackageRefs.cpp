@@ -138,6 +138,48 @@ SBMLDocument* TestFlattenedUnknownValidate(string file1, string file2)
   return doc;
 }
 
+SBMLDocument* TestFlattenedUnknownValidateNoStrip(string file1, string file2)
+{
+  string filename(TestDataDirectory);
+  
+  ConversionProperties props;
+  
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("performValidation", true);
+  props.addOption("stripUnflattenablePackages", false);
+  props.addOption("abortIfUnflattenable", "none");
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
+  
+  // load document
+  string cfile = filename + file1;  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  // fail if there is no model (readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  // fail if conversion was not valid
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  string newModel = writeSBMLToStdString(doc);
+
+  string ffile = filename + file2;
+  SBMLDocument* fdoc = readSBMLFromFile(ffile.c_str());
+  string flatModel = writeSBMLToStdString(fdoc);
+  
+  fail_unless(flatModel == newModel);
+
+  delete fdoc;
+  delete converter;
+
+  return doc;
+}
+
 SBMLDocument* TestFlattenedUnknownValidateFailsFlattening(string file1)
 {
   string filename(TestDataDirectory);
@@ -887,6 +929,398 @@ START_TEST (test_comp_flatten_unknown_withValidation_21)
 }
 END_TEST
 
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_1)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown1.xml", "unknown1_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_2)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown2.xml", "unknown2_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_3)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown3.xml", "unknown3_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_4)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown4.xml", "unknown4_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_5)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown5.xml", "unknown5_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_6)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown6.xml", "unknown6_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_7)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown7.xml", "unknown7_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_8)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown8.xml", "unknown8_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_9)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown9.xml", "unknown9_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  //fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_10)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown10.xml", "unknown10_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_11)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown11.xml", "unknown11_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_12)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown12.xml", "unknown12_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_13)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown13.xml", "unknown13_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_14)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown14.xml", "unknown14_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_15)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown15.xml", "unknown15_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_16)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown16.xml", "unknown16_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_17)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown17.xml", "unknown17_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_18)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown18.xml", "unknown18_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_19)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown19.xml", "unknown19_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_20)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown20.xml", "unknown20_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 3);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_21)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown21.xml", "unknown21_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_22)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown22.xml", "unknown22_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_23)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown23.xml", "unknown23_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_24)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown24.xml", "unknown24_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_25)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown25.xml", "unknown25_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_26)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown26.xml", "unknown26_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_27)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown27.xml", "unknown27_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);
+
+  delete doc;  
+}
+END_TEST
+
+START_TEST (test_comp_flatten_unknown_withValidation_nostrip_28)
+{ 
+  SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown28.xml", "unknown28_flat_stay.xml");
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+  fail_unless(errors->getNumErrors() == 0);
+  //fail_unless(errors->contains(RequiredPackagePresent) == true);
+  //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
+  //fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  //fail_unless(errors->contains(CompIdRefMayReferenceUnknownPackage) == true);
+
+  delete doc;  
+}
+END_TEST
 
 Suite *
 create_suite_TestFlatteningUnknownPackageRefs (void)
@@ -936,6 +1370,34 @@ create_suite_TestFlatteningUnknownPackageRefs (void)
   tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_19);
   tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_20);
   tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_21);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_1);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_2);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_3);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_4);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_5);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_6);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_7);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_8);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_9);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_10);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_11);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_12);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_13);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_14);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_15);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_16);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_17);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_18);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_19);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_20);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_21);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_22);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_23);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_24);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_25);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_26);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_27);
+  tcase_add_test(tcase, test_comp_flatten_unknown_withValidation_nostrip_28);
  
   suite_add_tcase(suite, tcase);
 
