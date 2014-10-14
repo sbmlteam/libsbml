@@ -159,9 +159,9 @@ option(WITH_RUBY     "Generate the Ruby language interface for libSBML"    OFF)
 option(WITH_R        "Generate the R language interface for libSBML"       OFF)
 option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
 option(WITH_MATLAB   "Generate the MATLAB language interface for libSBML." OFF)
+option(WITH_JAVASCRIPT   "Generate the experimental NodeJS language interface for libSBML." OFF)
 
-if (SWIG_VERSION)
-if (${SWIG_VERSION} VERSION_GREATER 3.0.1)
+if (WITH_JAVASCRIPT)
 
   find_program(NODE_GYP_EXECUTABLE
         NAMES node-gyp node-gyp.cmd
@@ -172,10 +172,19 @@ if (${SWIG_VERSION} VERSION_GREATER 3.0.1)
 			  $ENV{PROGRAMFILES}/nodejs/
         DOC "The file name of the node-gyp executable."
         )
-if (NODE_GYP_EXECUTABLE AND EXISTS ${NODE_GYP_EXECUTABLE})
-option(WITH_JAVASCRIPT   "Generate the experimental NodeJS language interface for libSBML." OFF)
-endif()
-endif()
+  # check that we found node-gyp
+  if (NOT NODE_GYP_EXECUTABLE)
+        message(FATAL_ERROR
+"In oder to build the javascript bindings, the node-gyp executable is needed, 
+please set the NODE_GYP_EXECUTABLE variable.")
+  endif()
+  
+  # ensure that the swig version is high enough for javascript
+  if (SWIG_VERSION AND NOT ${SWIG_VERSION} VERSION_GREATER 3.0.1)
+        message(FATAL_ERROR
+"In oder to build the javascript bindings, you will need at least swig 3.0.2.")  
+  endif()
+  
 endif()
 
 # Add an option to compile with all warnings shown
@@ -1015,7 +1024,7 @@ if(UNIX)
 endif()
 
 if(WITH_SWIG)
-    message(STATUS "     Using SWIG                      = ${SWIG_EXECUTABLE}")
+    message(STATUS "     Using SWIG                      = ${SWIG_EXECUTABLE} (Version ${SWIG_VERSION})")
     
     if (SWIG_FOUND AND SWIG_VERSION VERSION_LESS "2.0.4")
     	message(WARNING "   You are using SWIG version ${SWIG_VERSION}. We strongly recommend at least version 2.0.4.")
@@ -1030,6 +1039,10 @@ endif()
 
 if(WITH_JAVA)
     message(STATUS "     Using Java                      = ${Java_JAVA_EXECUTABLE}")
+endif()
+
+if(WITH_JAVASCRIPT)
+    message(STATUS "     Using node-gyp                  = ${NODE_GYP_EXECUTABLE}")
 endif()
 
 if(WITH_PYTHON)
