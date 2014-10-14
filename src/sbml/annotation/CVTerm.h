@@ -306,6 +306,19 @@ typedef enum
      * derived from or adapted from the referenced resource.  This relation
      * could be used, for instance, to express a refinement or adaptation in
      * usage of a model component located elsewere. */
+
+  , BQM_IS_INSTANCE_OF
+    /*!< The modeling entity represented by the object in the model is
+     * is an instance of the subject of the referenced resource. For 
+     * instance, this qualifier might be used to link a specific model 
+     * with its generic form. */
+
+  , BQM_HAS_INSTANCE
+    /*!< The modeling entity represented by the object in the model has 
+    * for instance (is a class of) the subject of the referenced resource. 
+    * For instance, this qualifier might be used to link a generic model 
+    * with its specific forms. */
+
   , BQM_UNKNOWN
     /*!< The relationship is unknown. */
 
@@ -382,6 +395,12 @@ typedef enum
   , BQB_IS_PROPERTY_OF
     /*!< The biological entity represented by the object in the model is
      * a property of the referenced resource. */
+
+ , BQB_HAS_TAXON
+   /*!< The biological entity represented by the object in the model is
+    * taxonomically restricted, where the restriction is the subject 
+    * of the referenced resource.  This relation may be used to ascribe
+    * a species restriction to a biochemical reaction. */
 
   , BQB_UNKNOWN
     /*!< The relationship is unknown. */
