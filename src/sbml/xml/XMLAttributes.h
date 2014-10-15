@@ -99,10 +99,11 @@
  * manipulate attributes based on a numerical index, XML attributes are in
  * fact unordered when they appear in files and data streams.  The
  * XMLAttributes class provides some list-like facilities, but it is only for
- * the convenience of callers.  Users should keep in mind that the order in
- * which attributes are stored in XMLAttributes objects has no real impact on
- * the order in which the attributes are read or written from an XML file or
- * data stream.
+ * the convenience of callers.  (For example, it permits callers to loop
+ * across all attributes more easily.)  Users should keep in mind that the
+ * order in which attributes are stored in XMLAttributes objects has no real
+ * impact on the order in which the attributes are read or written from an
+ * XML file or data stream.
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_note_read_methods_and_namespaces
