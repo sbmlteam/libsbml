@@ -505,6 +505,14 @@ START_TEST (test_comp_flatten_strip_req_unknown_external_3_paramchild_no_comp)
 END_TEST
 
 
+START_TEST (test_comp_flatten_strip_req_unknown_external_external)
+{ 
+  // unknown required not in main doc but only in external doc
+  TestPairNoStrip("req_unknown_in_external_external_only.xml", "req_unknown_in_external_flat_unknown_remains.xml", "");
+}
+END_TEST
+
+
 START_TEST (test_comp_flatten_strip_req_unknown_external_4)
 { 
   // comp in main doc not in external; unknown required in both
@@ -656,6 +664,9 @@ create_suite_TestFlatteningConverterStripPackage (void)
   //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_nostrip);
   //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_paramchild);
   //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_paramchild_no_comp);
+
+  // unknown required not in main doc nor in first external doc, but in referenced external doc.
+  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_external);
 
   // comp in main doc not in external; unknown required in both
   tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_4);
