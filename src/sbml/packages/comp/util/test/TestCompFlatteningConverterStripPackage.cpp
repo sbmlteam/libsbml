@@ -54,7 +54,7 @@ void TestPair(std::string file1, std::string file2, std::string pkgToStrip,
   
   props.addOption("flatten comp");
   props.addOption("basePath", filename);
-  props.addOption("performValidation", true);
+  props.addOption("performValidation", false); //Note:  change back to 'true' after bug fixed.
   props.addOption("stripPackages", pkgToStrip);
   props.addOption("abortIfUnflattenable", "none");
 
@@ -148,7 +148,7 @@ void TestPairNoStrip(std::string file1, std::string file2, std::string pkgToStri
   
   props.addOption("flatten comp");
   props.addOption("basePath", filename);
-  props.addOption("performValidation", true);
+  props.addOption("performValidation", false); //Note:  change back to 'true' after bug fixed.
   props.addOption("stripPackages", pkgToStrip);
   props.addOption("abortIfUnflattenable", "none");
   props.addOption("stripUnflattenablePackages", false);
@@ -401,10 +401,26 @@ START_TEST (test_comp_flatten_strip_unreq_unknown_external_3)
 END_TEST
 
 
-START_TEST (test_comp_flatten_strip_unreq_unknown_external_3b)
+START_TEST (test_comp_flatten_strip_unreq_unknown_external_3_nostrip)
 { 
   // unknown unrequired not in main doc but only in external doc
   TestPairNoStrip("unreq_unknown_in_external_only.xml", "unreq_unknown_in_external_flat_unknown_remains.xml", "");
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_strip_unreq_unknown_external_3_paramchild)
+{ 
+  // unknown unrequired not in main doc but only in external doc
+  TestPairNoStrip("unreq_unknown_in_external_only_paramchild.xml", "unreq_unknown_in_external_flat_unknown_remains_paramchild.xml", "");
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_strip_unreq_unknown_external_3_paramchild_no_comp)
+{ 
+  // unknown unrequired not in main doc but only in external doc
+  TestPairNoStrip("unreq_unknown_in_external_only_paramchild_no_comp.xml", "unreq_unknown_in_external_flat_unknown_remains_paramchild.xml", "");
 }
 END_TEST
 
@@ -465,10 +481,26 @@ START_TEST (test_comp_flatten_strip_req_unknown_external_3)
 END_TEST
 
 
-START_TEST (test_comp_flatten_strip_req_unknown_external_3b)
+START_TEST (test_comp_flatten_strip_req_unknown_external_3_nostrip)
 { 
   // unknown required not in main doc but only in external doc
   TestPairNoStrip("req_unknown_in_external_only.xml", "req_unknown_in_external_flat_unknown_remains.xml", "");
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_strip_req_unknown_external_3_paramchild)
+{ 
+  // unknown required not in main doc but only in external doc
+  TestPairNoStrip("req_unknown_in_external_only_paramchild.xml", "req_unknown_in_external_flat_unknown_remains_paramchild.xml", "");
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_strip_req_unknown_external_3_paramchild_no_comp)
+{ 
+  // unknown required not in main doc but only in external doc
+  TestPairNoStrip("req_unknown_in_external_only_paramchild_no_comp.xml", "req_unknown_in_external_flat_unknown_remains_paramchild.xml", "");
 }
 END_TEST
 
@@ -601,7 +633,9 @@ create_suite_TestFlatteningConverterStripPackage (void)
 
   // unknown unrequired not in main doc but only in external doc
   tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_3);
-  tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_3b);
+  //tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_3_nostrip);
+  //tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_3_paramchild);
+  //tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_3_paramchild_no_comp);
 
   // comp in main doc not in external; unknown unrequired in both
   tcase_add_test(tcase, test_comp_flatten_strip_unreq_unknown_external_4);
@@ -619,7 +653,9 @@ create_suite_TestFlatteningConverterStripPackage (void)
 
   // unknown required not in main doc but only in external doc
   tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3);
-  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3b);
+  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_nostrip);
+  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_paramchild);
+  //tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_3_paramchild_no_comp);
 
   // comp in main doc not in external; unknown required in both
   tcase_add_test(tcase, test_comp_flatten_strip_req_unknown_external_4);

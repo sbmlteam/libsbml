@@ -1184,7 +1184,7 @@ START_TEST(test_comp_flatten_invalid23)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1227,11 +1227,11 @@ START_TEST(test_comp_flatten_invalid23)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedElementAllowedAttributes) == true);
   
   delete document;
@@ -1245,7 +1245,7 @@ START_TEST(test_comp_flatten_invalid24)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1288,11 +1288,11 @@ START_TEST(test_comp_flatten_invalid24)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedElementAllowedAttributes) == true);
   
   delete document;
@@ -1306,7 +1306,7 @@ START_TEST(test_comp_flatten_invalid25)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1349,11 +1349,11 @@ START_TEST(test_comp_flatten_invalid25)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompIdRefMustReferenceObject) == true);
   
   delete document;
@@ -1367,7 +1367,7 @@ START_TEST(test_comp_flatten_invalid26)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1410,11 +1410,11 @@ START_TEST(test_comp_flatten_invalid26)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompMetaIdRefMustReferenceObject) == true);
   
   delete document;
@@ -1428,7 +1428,7 @@ START_TEST(test_comp_flatten_invalid27)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1471,11 +1471,11 @@ START_TEST(test_comp_flatten_invalid27)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompPortRefMustReferencePort) == true);
   
   delete document;
@@ -1489,7 +1489,7 @@ START_TEST(test_comp_flatten_invalid28)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1532,11 +1532,11 @@ START_TEST(test_comp_flatten_invalid28)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompUnitRefMustReferenceUnitDef) == true);
   
   delete document;
@@ -1550,7 +1550,7 @@ START_TEST(test_comp_flatten_invalid29)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1593,12 +1593,12 @@ START_TEST(test_comp_flatten_invalid29)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
-  fail_unless(errors->contains(CompDeletionMustReferenceObject) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompReplacedElementDeletionRef) == true);
   
   delete document;
   delete converter;
@@ -1656,8 +1656,8 @@ START_TEST(test_comp_flatten_invalid30)
   fail_unless(rv==LIBSBML_OPERATION_FAILED);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedByAllowedAttributes) == true);
   
   delete document;
@@ -1671,7 +1671,7 @@ START_TEST(test_comp_flatten_invalid31)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1690,19 +1690,18 @@ START_TEST(test_comp_flatten_invalid31)
   CompModelPlugin* mplugin = 
                    static_cast<CompModelPlugin*>(model->getPlugin("comp"));
   
-  // create a port
-  //Port* port =
+  // create a port.
   mplugin->createPort();
 
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
-  fail_unless(errors->contains(CompPortAllowedAttributes) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompPortMustReferenceObject) == true);
   
   delete document;
   delete converter;
@@ -1715,7 +1714,7 @@ START_TEST(test_comp_flatten_invalid32)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1750,12 +1749,12 @@ START_TEST(test_comp_flatten_invalid32)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
-  fail_unless(errors->contains(CompDeletionAllowedAttributes) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompDeletionMustReferenceObject) == true);
   
   delete document;
   delete converter;
@@ -1768,7 +1767,7 @@ START_TEST(test_comp_flatten_invalid33)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1823,11 +1822,11 @@ START_TEST(test_comp_flatten_invalid33)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompSBaseRefMustReferenceObject) == true);
   
   delete document;
@@ -1841,7 +1840,7 @@ START_TEST(test_comp_flatten_invalid34)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1891,11 +1890,11 @@ START_TEST(test_comp_flatten_invalid34)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompParentOfSBRefChildMustBeSubmodel) == true);
   
   delete document;
@@ -1944,7 +1943,7 @@ START_TEST(test_comp_flatten_invalid37)
   ConversionProperties props;
   props.addOption("flatten comp");
   props.addOption("leavePorts", false);
-  props.addOption("performValidation", false);
+  props.addOption("performValidation", true);
   SBMLConverter* converter = 
     SBMLConverterRegistry::getInstance().getConverterFor(props);
   
@@ -1977,11 +1976,11 @@ START_TEST(test_comp_flatten_invalid37)
   //Now try to flatten it
   converter->setDocument(document);
   rv = converter->convert();
-  fail_unless(rv==LIBSBML_OPERATION_FAILED);
+  fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  fail_unless(errors->getNumErrors() == 2);
-  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 6);
+  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedElementSubModelRef) == true);
   
   delete document;

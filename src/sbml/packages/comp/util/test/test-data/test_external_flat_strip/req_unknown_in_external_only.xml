@@ -3,6 +3,9 @@
   <model id="bar" name="bar">
     <listOfParameters>
       <parameter id="x" value="1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="y" comp:submodelRef="A"/>
+        </comp:listOfReplacedElements>
       </parameter>
     </listOfParameters>
     <comp:listOfSubmodels>

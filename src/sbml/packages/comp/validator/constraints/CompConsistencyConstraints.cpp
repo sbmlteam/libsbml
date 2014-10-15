@@ -2904,8 +2904,6 @@ END_CONSTRAINT
 //20801
 START_CONSTRAINT (CompPortMustReferenceObject, Port, p)
 {
-  pre (p.isSetId());
-
   bool idRef = p.isSetIdRef();
   bool unitRef = p.isSetUnitRef();
   bool metaidRef = p.isSetMetaIdRef();

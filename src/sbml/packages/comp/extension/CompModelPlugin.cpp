@@ -782,6 +782,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
   if (model->isSetId()) {
     modname = "the model '" + model->getId() + "'";
   }
+  set<SBase*> todelete;
   for (unsigned int el=0; el<allElements->getSize(); el++) {
     SBase* element = static_cast<SBase*>(allElements->get(el));
     int type = element->getTypeCode();
@@ -815,8 +816,6 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
                      CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 
                      getLevel(), getVersion(), fullmsg, element->getLine(), 
                      element->getColumn(), LIBSBML_SEV_WARNING);
-                    element->removeFromParentAndDelete();
-                    continue;
                 }
                 else if ( lasterr->getErrorId() == CompMetaIdRefMustReferenceObject)
                 {
@@ -830,27 +829,11 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
                      CompMetaIdRefMayReferenceUnknownPkg, getPackageVersion(), 
                      getLevel(), getVersion(), fullmsg, element->getLine(), 
                      element->getColumn(), LIBSBML_SEV_WARNING);
-                    element->removeFromParentAndDelete();
-                    continue;
-                }
-                else if (lasterr->getErrorId() == 
-                                  CompIdRefMayReferenceUnknownPackage)
-                {
-                  element->removeFromParentAndDelete();
-                  continue;
-                }
-                else if (lasterr->getErrorId() == 
-                                  CompMetaIdRefMayReferenceUnknownPkg)
-                {
-                  element->removeFromParentAndDelete();
-                  continue;
                 }
               }
-              else 
-              {
-                delete allElements;
-                return ret;
-              }
+              //Whether or not we could figure out the error, we can always still continue flattening.
+              todelete.insert(element);
+              continue;
             }
             else {
               delete allElements;
@@ -917,6 +900,9 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
     }
   }
 
+  for(set<SBase*>::iterator el=todelete.begin(); el != todelete.end(); el++) {
+    (*el)->removeFromParentAndDelete();
+  }
   delete allElements;
 
   //Now call saveAllReferencedElements for all instantiated submodels.
