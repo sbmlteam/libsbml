@@ -238,7 +238,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Adds an name/value pair to this XMLAttributes list.
    *
@@ -258,10 +257,10 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int addResource (const std::string& name, const std::string& value);
-
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Removes the <em>n</em>th attribute from this list of attributes.
    *
@@ -287,6 +286,7 @@ public:
    * @see XMLAttributes::remove(const std::string& name, const std::string& uri)
    */
   int removeResource (int n);
+  /** @endcond */
 
 
   /**

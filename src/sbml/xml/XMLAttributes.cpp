@@ -202,6 +202,7 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Removes an attribute with the given index from this XMLAttributes set.  
  * This is for annotations
@@ -222,6 +223,7 @@ XMLAttributes::removeResource (int n)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
 
 /*
