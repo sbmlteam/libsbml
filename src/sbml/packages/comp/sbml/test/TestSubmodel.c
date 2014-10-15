@@ -289,7 +289,7 @@ START_TEST (test_comp_submodel_deletion)
   {
     fail("Submodel_addDeletion(...) did not make a copy of the deletion.");
   }
-  delete getdel;
+  Deletion_free(getdel);
 
   Submodel_removeDeletion(P, 0);
   
@@ -302,7 +302,8 @@ START_TEST (test_comp_submodel_deletion)
   fail_unless( Submodel_getDeletionById(P, delname) != NULL);
 
   Deletion_t* remdel = Submodel_removeDeletionById(P, delname);
-  delete remdel;
+  Deletion_free(remdel);
+	
   fail_unless( Submodel_getDeletionById(P, delname) == NULL);
   fail_unless( Submodel_getNumDeletions(P)==0 );
 
