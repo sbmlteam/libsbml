@@ -267,7 +267,7 @@ public:
    * this Association object or do anything else with it&mdash;the returning
    * pointer is now owned by the caller.
    *
-   * @returns a new "and" type association.
+   * @return a new "and" type association.
    */
   virtual Association* createAnd();
 
@@ -279,7 +279,7 @@ public:
    * this Association object or do anything else with it&mdash;the returning
    * pointer is now owned by the caller.
    *
-   * @returns a new "or" type association.
+   * @return a new "or" type association.
    */
   virtual Association* createOr();
 
@@ -293,7 +293,7 @@ public:
    *
    * @param reference the gene reference, as a string
    *
-   * @returns a new Association object.
+   * @return a new Association object.
    */
   virtual Association* createGene(const std::string reference = "" );
 
