@@ -64,11 +64,11 @@
  * can be used to reorder the SBML objects regardless of whether the
  * input file contained them in the desired order.
  *
- * @note The two sets of assignments (list of assignment rules on the one
- * hand, and list of initial assignments on the other hand) are handled @em
- * independently.  In an SBML model, these entities are treated differently
- * and no amount of sorting can deal with inter-dependencies between
- * assignments of the two kinds.
+ * Note that the two sets of SBML assignments (list of assignment rules on
+ * the one hand, and list of initial assignments on the other hand) are
+ * handled @em independently.  In an SBML model, these entities are treated
+ * differently and no amount of sorting can deal with inter-dependencies
+ * between assignments of the two kinds.
 
  * @section SBMLRuleConverter-usage Configuration and use of SBMLRuleConverter
  *
