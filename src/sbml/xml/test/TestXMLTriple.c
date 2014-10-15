@@ -111,7 +111,7 @@ END_TEST
 
 START_TEST (test_XMLTriple_accessWithNULL)
 {
-  XMLTriple * temp = XMLTriple_create();
+  XMLTriple_t * temp = XMLTriple_create();
   fail_unless( XMLTriple_clone(NULL) == NULL);
   fail_unless( XMLTriple_createWith(NULL, NULL, NULL) == NULL);
   fail_unless( XMLTriple_equalTo(NULL, NULL) == 1);
