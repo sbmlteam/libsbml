@@ -815,7 +815,9 @@ SBaseRef::getReferencedElementFrom(Model* model)
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such SId in the model: '" + getIdRef() + "'.";
       if (doc->getErrorLog()->contains(UnrequiredPackagePresent) 
-        || doc->getErrorLog()->contains(RequiredPackagePresent))
+        || doc->getErrorLog()->contains(RequiredPackagePresent)
+        || model->getSBMLDocument()->getErrorLog()->contains(UnrequiredPackagePresent)
+        || model->getSBMLDocument()->getErrorLog()->contains(RequiredPackagePresent))
       {
         doc->getErrorLog()->logPackageError("comp", 
           CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 
@@ -841,7 +843,9 @@ SBaseRef::getReferencedElementFrom(Model* model)
     if (referent == NULL && doc) {
       string error = "In SBaseRef::getReferencedElementFrom, unable to find referenced element: no such metaid in the model: '" + getMetaIdRef() + "'.";
       if (doc->getErrorLog()->contains(UnrequiredPackagePresent) 
-        || doc->getErrorLog()->contains(RequiredPackagePresent))
+        || doc->getErrorLog()->contains(RequiredPackagePresent)
+        || model->getSBMLDocument()->getErrorLog()->contains(UnrequiredPackagePresent)
+        || model->getSBMLDocument()->getErrorLog()->contains(RequiredPackagePresent))
       {
         doc->getErrorLog()->logPackageError("comp", 
           CompIdRefMayReferenceUnknownPackage, getPackageVersion(), 

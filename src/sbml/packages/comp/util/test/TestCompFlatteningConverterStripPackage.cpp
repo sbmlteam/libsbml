@@ -54,7 +54,7 @@ void TestPair(std::string file1, std::string file2, std::string pkgToStrip,
   
   props.addOption("flatten comp");
   props.addOption("basePath", filename);
-  props.addOption("performValidation", false); //Note:  change back to 'true' after bug fixed.
+  props.addOption("performValidation", true); 
   props.addOption("stripPackages", pkgToStrip);
   props.addOption("abortIfUnflattenable", "none");
 

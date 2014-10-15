@@ -1180,6 +1180,18 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
   
   pre (mod != NULL);
   
+  // now need to chack that there is not an unknown package in
+  // the document the referenced model came from
+  doc = mod->getSBMLDocument();
+  errlog = const_cast<SBMLErrorLog*>(doc->getErrorLog());
+  unknownPackagePresent = false;
+  if (errlog->contains(UnrequiredPackagePresent)
+    || errlog->contains(RequiredPackagePresent))
+  {
+    unknownPackagePresent = true;
+  }
+  pre ( unknownPackagePresent == false);
+  
   List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
   for (unsigned int i = 0; i < allElements->getSize(); i++)
@@ -1245,6 +1257,18 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
   const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
+
+  // now need to chack that there is not an unknown package in
+  // the document the referenced model came from
+  doc = referencedModel->getSBMLDocument();
+  errlog = const_cast<SBMLErrorLog*>(doc->getErrorLog());
+  unknownPackagePresent = false;
+  if (errlog->contains(UnrequiredPackagePresent)
+    || errlog->contains(RequiredPackagePresent))
+  {
+    unknownPackagePresent = true;
+  }
+  pre ( unknownPackagePresent == false);
 
   IdList mIds;
 
@@ -1317,6 +1341,19 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
 
   pre (referencedModel != NULL);
 
+  // now need to chack that there is not an unknown package in
+  // the document the referenced model came from
+  doc = referencedModel->getSBMLDocument();
+  errlog = const_cast<SBMLErrorLog*>(doc->getErrorLog());
+  unknownPackagePresent = false;
+  if (errlog->contains(UnrequiredPackagePresent)
+    || errlog->contains(RequiredPackagePresent))
+  {
+    unknownPackagePresent = true;
+  }
+  pre ( unknownPackagePresent == false);
+
+
   IdList mIds;
 
   // create the filter we want to use
@@ -1376,6 +1413,18 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
   const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
+
+  // now need to chack that there is not an unknown package in
+  // the document the referenced model came from
+  const SBMLDocument * doc = referencedModel->getSBMLDocument();
+  SBMLErrorLog* errlog = const_cast<SBMLErrorLog*>(doc->getErrorLog());
+  bool unknownPackagePresent = false;
+  if (errlog->contains(UnrequiredPackagePresent)
+    || errlog->contains(RequiredPackagePresent))
+  {
+    unknownPackagePresent = true;
+  }
+  pre ( unknownPackagePresent == false);
 
   IdList mIds;
 
@@ -1483,6 +1532,18 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
   const Model* referencedModel = ref.getReferencedModel();
 
   pre (referencedModel != NULL);
+
+  // now need to chack that there is not an unknown package in
+  // the document the referenced model came from
+  doc = referencedModel->getSBMLDocument();
+  errlog = const_cast<SBMLErrorLog*>(doc->getErrorLog());
+  unknownPackagePresent = false;
+  if (errlog->contains(UnrequiredPackagePresent)
+    || errlog->contains(RequiredPackagePresent))
+  {
+    unknownPackagePresent = true;
+  }
+  pre ( unknownPackagePresent == false);
 
   IdList mIds;
 
