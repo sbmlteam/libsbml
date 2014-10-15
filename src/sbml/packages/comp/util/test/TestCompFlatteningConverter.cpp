@@ -60,6 +60,7 @@ START_TEST (test_comp_get_flattening_converter)
 
   CompPkgNamespaces cpn;
   SBMLDocument doc(&cpn);
+  static_cast<CompSBMLDocumentPlugin*>(doc.getPlugin("comp"))->setRequired(true);
   converter->setDocument(&doc);
 
   // ensure that conversion without model does not work

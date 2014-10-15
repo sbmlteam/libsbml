@@ -283,6 +283,20 @@ CompFlatteningConverter::performConversion()
     bool originalOverrideFlag = plugin->getOverrideCompFlattening();
     plugin->setOverrideCompFlattening(true);
     
+    // force a read
+    std::string sbml = writeSBMLToStdString(mDocument);
+    SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
+    for (unsigned int i = 0; i < tempdoc->getErrorLog()->getNumErrors(); i++)
+    {
+      // do not add the requried package present error
+      const SBMLError * error = tempdoc->getErrorLog()->getError(i);
+      if (error->getErrorId() != RequiredPackagePresent)
+      {
+        mDocument->getErrorLog()->add(*(error));
+      }
+    }
+    delete tempdoc;
+
     mDocument->checkConsistency();
 
     unsigned int errors = mDocument->getErrorLog()

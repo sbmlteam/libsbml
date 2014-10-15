@@ -1700,7 +1700,7 @@ START_TEST(test_comp_flatten_invalid31)
   SBMLErrorLog* errors = document->getErrorLog();
 
   //fail_unless(errors->getNumErrors() == 6);
-  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompPortAllowedAttributes) == true);
   fail_unless(errors->contains(CompPortMustReferenceObject) == true);
   
   delete document;
@@ -3672,6 +3672,8 @@ START_TEST(test_comp_flatten_invalid_read_only)
   species->setId("S1");
   species->setConstant(true);
   species->setCompartment("compartment");
+  species->setHasOnlySubstanceUnits(false);
+  species->setBoundaryCondition(false);
 
   Compartment* comp = md->createCompartment();
   comp->setId("compartment");
@@ -3686,7 +3688,6 @@ START_TEST(test_comp_flatten_invalid_read_only)
   fail_unless(errors->getNumErrors() == 4);
   fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompFlatModelNotValid) == true);
-  fail_unless(errors->contains(AllowedAttributesOnSpecies) == true);
   
   delete document;
   delete converter;
