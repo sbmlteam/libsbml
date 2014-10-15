@@ -260,6 +260,11 @@ public:
 
 private:
 
+  int validateOriginalDocument();
+
+  int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion, 
+                           unsigned int level, unsigned int version);
+
   int stripPackages();
 
   int reconstructDocument(Model* flatmodel); 

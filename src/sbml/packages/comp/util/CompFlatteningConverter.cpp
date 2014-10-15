@@ -276,53 +276,10 @@ CompFlatteningConverter::performConversion()
 
   if (getPerformValidation() == true)
   {
-    unsigned char origValidators = mDocument->getApplicableValidators();
-    mDocument->setApplicableValidators(AllChecksON);
-    
-    // set the flag to ignore flattening when validating
-    bool originalOverrideFlag = plugin->getOverrideCompFlattening();
-    plugin->setOverrideCompFlattening(true);
-    
-    // force a read
-    std::string sbml = writeSBMLToStdString(mDocument);
-    SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
-    for (unsigned int i = 0; i < tempdoc->getErrorLog()->getNumErrors(); i++)
+    int result = validateOriginalDocument();
+    if (result != LIBSBML_OPERATION_SUCCESS) 
     {
-      // do not add the requried package present error
-      const SBMLError * error = tempdoc->getErrorLog()->getError(i);
-      if (error->getErrorId() != RequiredPackagePresent)
-      {
-        mDocument->getErrorLog()->add(*(error));
-      }
-    }
-    delete tempdoc;
-
-    mDocument->checkConsistency();
-
-    unsigned int errors = mDocument->getErrorLog()
-                        ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-    
-    // take out the error about a requiredpackage
-    // if the user has specified to not abort for any packages
-    // NOTE: we cannot actually remove it since the flattening code
-    // uses it to check whether references might come from
-    // other packages
-    if (getAbortForNone() == true)
-    {
-      if (mDocument->getErrorLog()->contains(RequiredPackagePresent))
-      {
-        errors--;
-      }
-    }
-
-    // reset comp flattening flag and any validator
-    plugin->setOverrideCompFlattening(originalOverrideFlag);
-    mDocument->setApplicableValidators(origValidators);
-
-    if (errors > 0)
-    {
-      restoreNamespaces();
-      return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+      return result;
     }
   }
   CompModelPlugin *modelPlugin = (CompModelPlugin*)(mModel->getPlugin("comp"));
@@ -356,171 +313,13 @@ CompFlatteningConverter::performConversion()
 
   if (getPerformValidation() == true)
   {
-    // create a dummyDocument that will mirror what the user options are 
-     // we need the dummyDoc to know things about unknown packages
-    // but dont want teh original model/error log
-    SBMLDocument dummy = SBMLDocument(*(mDocument));
-    dummy.setModel(NULL);
-    dummy.getErrorLog()->clearLog();
-     
-    // Otherwise, transfer only errors 1090107->1090110
-    SBMLErrorLog* log = mDocument->getErrorLog();
-    for (unsigned int en=0; en<log->getNumErrors(); en++) 
-    {
-      unsigned int errid = mDocument->getError(en)->getErrorId();
-      if (errid == CompFlatteningNotRecognisedNotReqd ||
-          errid == CompFlatteningNotRecognisedReqd ||
-          errid == CompFlatteningNotImplementedNotReqd ||
-          errid == CompFlatteningNotImplementedReqd)
-      {
-            dummy.getErrorLog()->add(*(mDocument->getError(en)));
-      }
-    }
-
-    log->clearLog();
-  
-    result = reconstructDocument(flatmodel, dummy, true );
+    int result = validateFlatDocument(flatmodel, 
+                    modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
+                    modelPlugin->getVersion());
     if (result != LIBSBML_OPERATION_SUCCESS)
     {
       delete flatmodel;
-      restoreNamespaces();
       return result;
-    }
-
-   //Now check to see if the flat model is valid
-    // run regular validation on the flattened document if requested.
-
-    // override comp flattening if necessary
-    CompSBMLDocumentPlugin * dummyPlugin = static_cast<CompSBMLDocumentPlugin*>
-                                           (dummy.getPlugin("comp"));
-
-    if (dummyPlugin != NULL)
-    {
-      dummyPlugin->setOverrideCompFlattening(true);
-    }
-
-    std::string sbml = writeSBMLToStdString(&dummy);
-    SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
-    unsigned int errors = 
-             tempdoc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-    
-    // take out the error about a requiredpackage
-    // if the user has specified to not abort for any packages
-    // NOTE: we cannot actually remove it since the flattening code
-    // uses it to check whether references might come from
-    // other packages
-    if (getAbortForNone() == true)
-    {
-      if (tempdoc->getErrorLog()->contains(RequiredPackagePresent))
-      {
-        errors--;
-      }
-    }
-
-    if (errors > 0)
-    {
-      // we have serious errors so we are going to bail on the
-      // flattening - log ONLY the errors
-      //Transfer the errors to mDocument and don't reset the model.
-      if (log->contains(CompLineNumbersUnreliable) == false)
-      {
-        log->logPackageError("comp", CompLineNumbersUnreliable, 
-          modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
-          modelPlugin->getVersion());
-      }
-      std::string message = "Errors that follow relate to the flattened ";
-      message += "document produced using the CompFlatteningConverter.";
-      log->logPackageError("comp", CompFlatModelNotValid,
-        modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
-        modelPlugin->getVersion(), message);
-    
-      unsigned int nerrors = tempdoc->getErrorLog()->getNumErrors();
-      for (unsigned int n = 0; n < nerrors; n++)
-      {
-        const SBMLError* error = tempdoc->getError(n);
-        if (error->getSeverity() >= LIBSBML_SEV_ERROR) 
-        {
-          log->add( *(error) );
-        }
-        if (error->getErrorId() >= CompFlatteningNotRecognisedNotReqd &&
-          error->getErrorId() <= CompFlatteningNotImplementedReqd) 
-        {
-          log->add( *(error) );
-        }
-        else if (error->getErrorId() == UnrequiredPackagePresent ||
-          error->getErrorId() == RequiredPackagePresent)
-        {
-          log->add( *(error) );
-        }
-      }
-      delete flatmodel;
-      restoreNamespaces();
-      delete tempdoc;
-      return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
-    }
-    else
-    {
-      delete tempdoc;
-    }
-
-    dummy.checkConsistency();
-
-    if (dummyPlugin != NULL)
-    {
-      dummyPlugin->setOverrideCompFlattening(false);
-    }
-
-    errors = dummy.getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-    if (errors > 0)
-    {
-      // we have serious errors so we are going to bail on the
-      // flattening - log ONLY the errors
-      //Transfer the errors to mDocument and don't reset the model.
-      if (log->contains(CompLineNumbersUnreliable) == false)
-      {
-        log->logPackageError("comp", CompLineNumbersUnreliable, 
-          modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
-          modelPlugin->getVersion());
-      }
-      std::string message = "Errors that follow relate to the flattened ";
-      message += "document produced using the CompFlatteningConverter.";
-      log->logPackageError("comp", CompFlatModelNotValid,
-        modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
-        modelPlugin->getVersion(), message);
-    
-      unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
-      for (unsigned int n = 0; n < nerrors; n++)
-      {
-        const SBMLError* error = dummy.getError(n);
-        if (error->getSeverity() >= LIBSBML_SEV_ERROR) 
-        {
-          log->add( *(error) );
-        }
-        if (error->getErrorId() >= CompFlatteningNotRecognisedNotReqd &&
-          error->getErrorId() <= CompFlatteningNotImplementedReqd) 
-        {
-          log->add( *(error) );
-        }
-        else if (error->getErrorId() == UnrequiredPackagePresent ||
-          error->getErrorId() == RequiredPackagePresent)
-        {
-          log->add( *(error) );
-        }
-      }
-      delete flatmodel;
-      restoreNamespaces();
-      return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
-    }
-    else
-    {
-      // put any warnings into the document that will be have the
-      // flat model
-      unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
-      for (unsigned int n = 0; n < nerrors; n++)
-      {
-        const SBMLError* error = dummy.getError(n);
-        log->add( *(error) );
-      }
     }
   }
 
@@ -645,6 +444,238 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
 
   return result;
 }
+
+int
+CompFlatteningConverter::validateOriginalDocument()
+{
+  CompSBMLDocumentPlugin *plugin = 
+                  (CompSBMLDocumentPlugin*)(mDocument->getPlugin("comp"));
+
+  unsigned char origValidators = mDocument->getApplicableValidators();
+  mDocument->setApplicableValidators(AllChecksON);
+  
+  // set the flag to ignore flattening when validating
+  bool originalOverrideFlag = plugin->getOverrideCompFlattening();
+  plugin->setOverrideCompFlattening(true);
+  
+  // force a read
+  std::string sbml = writeSBMLToStdString(mDocument);
+  SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
+  for (unsigned int i = 0; i < tempdoc->getErrorLog()->getNumErrors(); i++)
+  {
+    // do not add the requried package present error
+    const SBMLError * error = tempdoc->getErrorLog()->getError(i);
+    if (error->getErrorId() != RequiredPackagePresent)
+    {
+      mDocument->getErrorLog()->add(*(error));
+    }
+  }
+  delete tempdoc;
+
+  mDocument->checkConsistency();
+
+  unsigned int errors = mDocument->getErrorLog()
+                      ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+  
+  // take out the error about a requiredpackage
+  // if the user has specified to not abort for any packages
+  // NOTE: we cannot actually remove it since the flattening code
+  // uses it to check whether references might come from
+  // other packages
+  if (getAbortForNone() == true)
+  {
+    if (mDocument->getErrorLog()->contains(RequiredPackagePresent))
+    {
+      errors--;
+    }
+  }
+
+  // reset comp flattening flag and any validator
+  plugin->setOverrideCompFlattening(originalOverrideFlag);
+  mDocument->setApplicableValidators(origValidators);
+
+  if (errors > 0)
+  {
+    restoreNamespaces();
+    return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+int
+CompFlatteningConverter::validateFlatDocument(Model * flatmodel,
+            unsigned int pkgVersion, unsigned int level, unsigned int version)
+{
+  int result;
+  // create a dummyDocument that will mirror what the user options are 
+   // we need the dummyDoc to know things about unknown packages
+  // but dont want teh original model/error log
+  SBMLDocument dummy = SBMLDocument(*(mDocument));
+  dummy.setModel(NULL);
+  dummy.getErrorLog()->clearLog();
+   
+  // Otherwise, transfer only errors 1090107->1090110
+  SBMLErrorLog* log = mDocument->getErrorLog();
+  for (unsigned int en=0; en<log->getNumErrors(); en++) 
+  {
+    unsigned int errid = mDocument->getError(en)->getErrorId();
+    if (errid == CompFlatteningNotRecognisedNotReqd ||
+        errid == CompFlatteningNotRecognisedReqd ||
+        errid == CompFlatteningNotImplementedNotReqd ||
+        errid == CompFlatteningNotImplementedReqd)
+    {
+          dummy.getErrorLog()->add(*(mDocument->getError(en)));
+    }
+  }
+
+  log->clearLog();
+
+  result = reconstructDocument(flatmodel, dummy, true );
+  if (result != LIBSBML_OPERATION_SUCCESS)
+  {
+    //delete flatmodel;
+    restoreNamespaces();
+    return result;
+  }
+
+ //Now check to see if the flat model is valid
+  // run regular validation on the flattened document if requested.
+
+  // override comp flattening if necessary
+  CompSBMLDocumentPlugin * dummyPlugin = static_cast<CompSBMLDocumentPlugin*>
+                                         (dummy.getPlugin("comp"));
+
+  if (dummyPlugin != NULL)
+  {
+    dummyPlugin->setOverrideCompFlattening(true);
+  }
+
+  std::string sbml = writeSBMLToStdString(&dummy);
+  SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
+  unsigned int errors = 
+           tempdoc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+  
+  // take out the error about a requiredpackage
+  // if the user has specified to not abort for any packages
+  // NOTE: we cannot actually remove it since the flattening code
+  // uses it to check whether references might come from
+  // other packages
+  if (getAbortForNone() == true)
+  {
+    if (tempdoc->getErrorLog()->contains(RequiredPackagePresent))
+    {
+      errors--;
+    }
+  }
+
+  if (errors > 0)
+  {
+    // we have serious errors so we are going to bail on the
+    // flattening - log ONLY the errors
+    //Transfer the errors to mDocument and don't reset the model.
+    if (log->contains(CompLineNumbersUnreliable) == false)
+    {
+      log->logPackageError("comp", CompLineNumbersUnreliable, 
+        pkgVersion, level, version);
+    }
+    std::string message = "Errors that follow relate to the flattened ";
+    message += "document produced using the CompFlatteningConverter.";
+    log->logPackageError("comp", CompFlatModelNotValid,
+        pkgVersion, level, version);
+  
+    unsigned int nerrors = tempdoc->getErrorLog()->getNumErrors();
+    for (unsigned int n = 0; n < nerrors; n++)
+    {
+      const SBMLError* error = tempdoc->getError(n);
+      if (error->getSeverity() >= LIBSBML_SEV_ERROR) 
+      {
+        log->add( *(error) );
+      }
+      if (error->getErrorId() >= CompFlatteningNotRecognisedNotReqd &&
+        error->getErrorId() <= CompFlatteningNotImplementedReqd) 
+      {
+        log->add( *(error) );
+      }
+      else if (error->getErrorId() == UnrequiredPackagePresent ||
+        error->getErrorId() == RequiredPackagePresent)
+      {
+        log->add( *(error) );
+      }
+    }
+    //delete flatmodel;
+    restoreNamespaces();
+    delete tempdoc;
+    return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+  }
+  else
+  {
+    delete tempdoc;
+  }
+
+  dummy.checkConsistency();
+
+  if (dummyPlugin != NULL)
+  {
+    dummyPlugin->setOverrideCompFlattening(false);
+  }
+
+  errors = dummy.getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
+  if (errors > 0)
+  {
+    // we have serious errors so we are going to bail on the
+    // flattening - log ONLY the errors
+    //Transfer the errors to mDocument and don't reset the model.
+    if (log->contains(CompLineNumbersUnreliable) == false)
+    {
+      log->logPackageError("comp", CompLineNumbersUnreliable, 
+        pkgVersion, level, version);
+    }
+    std::string message = "Errors that follow relate to the flattened ";
+    message += "document produced using the CompFlatteningConverter.";
+    log->logPackageError("comp", CompFlatModelNotValid,
+        pkgVersion, level, version);
+  
+    unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
+    for (unsigned int n = 0; n < nerrors; n++)
+    {
+      const SBMLError* error = dummy.getError(n);
+      if (error->getSeverity() >= LIBSBML_SEV_ERROR) 
+      {
+        log->add( *(error) );
+      }
+      if (error->getErrorId() >= CompFlatteningNotRecognisedNotReqd &&
+        error->getErrorId() <= CompFlatteningNotImplementedReqd) 
+      {
+        log->add( *(error) );
+      }
+      else if (error->getErrorId() == UnrequiredPackagePresent ||
+        error->getErrorId() == RequiredPackagePresent)
+      {
+        log->add( *(error) );
+      }
+    }
+    //delete flatmodel;
+    restoreNamespaces();
+    return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+  }
+  else
+  {
+    // put any warnings into the document that will be have the
+    // flat model
+    unsigned int nerrors = dummy.getErrorLog()->getNumErrors();
+    for (unsigned int n = 0; n < nerrors; n++)
+    {
+      const SBMLError* error = dummy.getError(n);
+      log->add( *(error) );
+    }
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
 
 bool
 CompFlatteningConverter::getLeavePorts() const
