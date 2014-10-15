@@ -3316,7 +3316,7 @@ START_CONSTRAINT (CompReplacedElementMustRefObject, ReplacedElement, repE)
     msg += mod->getId();
     msg += "'";
   }
-  msg = " does not refer to another object.";
+  msg += " does not refer to another object.";
 
   bool fail = true;
 
