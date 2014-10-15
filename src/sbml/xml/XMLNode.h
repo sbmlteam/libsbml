@@ -176,7 +176,7 @@ public:
 
 
   /**
-   * Creates a new XMLNode by copying token.
+   * Creates a new XMLNode by copying an XMLToken object.
    *
    * @param token XMLToken to be copied to XMLNode
    */
