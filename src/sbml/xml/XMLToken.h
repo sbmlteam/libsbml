@@ -387,9 +387,9 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute on this
    * element at the given index @p n.
    *
-   * @see XMLToken::getAttrIndex(const XMLTriple& triple) const
-   * @see XMLToken::getAttrIndex(const std::string& name, const std::string& uri) const
-   * @see XMLToken::getAttributesLength()
+   * @see getAttrIndex(const XMLTriple& triple) const
+   * @see getAttrIndex(const std::string& name, const std::string& uri) const
+   * @see getAttributesLength()
    */
   int removeAttr (int n);
 
@@ -413,7 +413,7 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute on this
    * element with the given @p name (and @p uri if specified).
    *
-   * @see XMLToken::hasAttr(const std::string name, const std::string uri) const
+   * @see hasAttr(const std::string name, const std::string uri) const
    */
   int removeAttr (const std::string& name, const std::string& uri = "");
 
@@ -436,7 +436,7 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute on this
    * element matching the properties of the given @p triple.
    *
-   * @see XMLToken::hasAttr(const XMLTriple& triple) const
+   * @see hasAttr(const XMLTriple& triple) const
    */
   int removeAttr (const XMLTriple& triple);
 
@@ -488,7 +488,7 @@ public:
    *
    * @return the number of attributes possessed by this token.
    *
-   * @see XMLToken::hasAttr(@if java int@endif)
+   * @see hasAttr(@if java int@endif)
    */
   int getAttributesLength () const;
 
@@ -505,8 +505,8 @@ public:
    *
    * @copydetails doc_note_index_out_of_range_behavior 
    *
-   * @see XMLToken::hasAttr(@if java int@endif)
-   * @see XMLToken::getAttributesLength()
+   * @see hasAttr(@if java int@endif)
+   * @see getAttributesLength()
    */
   std::string getAttrName (int index) const;
 
@@ -523,8 +523,8 @@ public:
    *
    * @copydetails doc_note_index_out_of_range_behavior
    *
-   * @see XMLToken::hasAttr(@if java int@endif)
-   * @see XMLToken::getAttributesLength()
+   * @see hasAttr(@if java int@endif)
+   * @see getAttributesLength()
    */
   std::string getAttrPrefix (int index) const;
 
@@ -741,9 +741,9 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    *
-   * @see XMLToken::getNamespaceIndex(@if java String uri@endif)
-   * @see XMLToken::getNamespaceIndexByPrefix(@if java String prefix@endif)
-   * @see XMLToken::getNamespacesLength()
+   * @see getNamespaceIndex(@if java String uri@endif)
+   * @see getNamespaceIndexByPrefix(@if java String prefix@endif)
+   * @see getNamespacesLength()
    */
   int removeNamespace (int index);
 
@@ -766,7 +766,7 @@ public:
    * is returned if there is no namespace with the given @p prefix on this
    * element.
    *
-   * @see XMLToken::getNamespaceIndexByPrefix(@if java String prefix@endif)
+   * @see getNamespaceIndexByPrefix(@if java String prefix@endif)
    */
   int removeNamespace (const std::string& prefix);
 
@@ -828,7 +828,7 @@ public:
    * string.  XMLToken::getNamespacesLength() can be used to find out how
    * many namespaces are defined on this XMLToken object.
    *
-   * @see XMLToken::getNamespacesLength()
+   * @see getNamespacesLength()
    */
   std::string getNamespacePrefix (int index) const;
 
@@ -858,7 +858,7 @@ public:
    *
    * @note If @p index is out of range, this method will return an empty string.
    *
-   * @see XMLToken::getNamespacesLength()
+   * @see getNamespacesLength()
    */
   std::string getNamespaceURI (int index) const;
 
@@ -978,8 +978,8 @@ public:
    * text token (i.e., it's an XML element and not character content),
    * then this will return an empty string.
    *
-   * @see XMLToken::isText()
-   * @see XMLToken::isElement()
+   * @see isText()
+   * @see isElement()
    */
   const std::string& getCharacters () const;
 
@@ -1000,8 +1000,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
-   * @see XMLToken::isText()
-   * @see XMLToken::isElement()
+   * @see isText()
+   * @see isElement()
    */
   int append (const std::string& chars);
 
@@ -1033,9 +1033,9 @@ public:
    * @return @c true if this XMLToken object represents an XML element, @c
    * false otherwise.
    *
-   * @see XMLToken::isStart()
-   * @see XMLToken::isEnd()
-   * @see XMLToken::isText()
+   * @see isStart()
+   * @see isEnd()
+   * @see isText()
    */
   bool isElement () const;
 
@@ -1046,9 +1046,9 @@ public:
    * @return @c true if this XMLToken object represents an XML end element,
    * @c false otherwise.
    *
-   * @see XMLToken::isStart()
-   * @see XMLToken::isElement()
-   * @see XMLToken::isText()
+   * @see isStart()
+   * @see isElement()
+   * @see isText()
    */
   bool isEnd () const;
 
@@ -1064,10 +1064,10 @@ public:
    * @return @c true if this XMLToken object represents an XML end tag for
    * the start tag given by @p element, @c false otherwise.
    *
-   * @see XMLToken::isElement()
-   * @see XMLToken::isStart()
-   * @see XMLToken::isEnd()
-   * @see XMLToken::isText()
+   * @see isElement()
+   * @see isStart()
+   * @see isEnd()
+   * @see isText()
    */
   bool isEndFor (const XMLToken& element) const;
 
@@ -1078,7 +1078,7 @@ public:
    * @return @c true if this XMLToken object represents the end of the input,
    * @c false otherwise.
    *
-   * @see XMLToken::setEOF()
+   * @see setEOF()
    */
   bool isEOF () const;
 
@@ -1088,9 +1088,9 @@ public:
    *
    * @return @c true if this XMLToken is an XML start element, @c false otherwise.
    *
-   * @see XMLToken::isElement()
-   * @see XMLToken::isEnd()
-   * @see XMLToken::isText()
+   * @see isElement()
+   * @see isEnd()
+   * @see isText()
    */
   bool isStart () const;
 
@@ -1100,9 +1100,9 @@ public:
    *
    * @return @c true if this XMLToken is an XML text element, @c false otherwise.
    *
-   * @see XMLToken::isElement()
-   * @see XMLToken::isStart()
-   * @see XMLToken::isEnd()
+   * @see isElement()
+   * @see isStart()
+   * @see isEnd()
    */
   bool isText () const;
 
@@ -1116,8 +1116,8 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
-   * @see XMLToken::isStart()
-   * @see XMLToken::isEnd()
+   * @see isStart()
+   * @see isEnd()
    */
   int setEnd ();
 
@@ -1131,7 +1131,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
-   * @see XMLToken::isEOF()
+   * @see isEOF()
    */
   int setEOF ();
 

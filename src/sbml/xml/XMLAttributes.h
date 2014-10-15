@@ -282,9 +282,9 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::remove(const XMLTriple& triple)
-   * @see XMLAttributes::remove(const std::string& name, const std::string& uri)
+   * @see getLength()
+   * @see remove(const XMLTriple& triple)
+   * @see remove(const std::string& name, const std::string& uri)
    */
   int removeResource (int n);
   /** @endcond */
@@ -307,9 +307,9 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::remove(const XMLTriple& triple)
-   * @see XMLAttributes::remove(const std::string& name, const std::string& uri)
+   * @see getLength()
+   * @see remove(const XMLTriple& triple)
+   * @see remove(const std::string& name, const std::string& uri)
    */
   int remove (int n);
 
@@ -332,8 +332,8 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute with the
    * given @p name (and @p uri if specified).
    *
-   * @see XMLAttributes::remove(int n)
-   * @see XMLAttributes::remove(const XMLTriple& triple)
+   * @see remove(int n)
+   * @see remove(const XMLTriple& triple)
    */
   int remove (const std::string& name, const std::string& uri = "");
 
@@ -353,8 +353,8 @@ public:
    * OperationReturnValues_t} is returned if there is no attribute matching
    * the properties of the given @p triple.
    *
-   * @see XMLAttributes::remove(int n)
-   * @see XMLAttributes::remove(const std::string& name, const std::string& uri)
+   * @see remove(int n)
+   * @see remove(const std::string& name, const std::string& uri)
    */
   int remove (const XMLTriple& triple);
 
@@ -367,9 +367,9 @@ public:
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @see XMLAttributes::remove(int n)
-   * @see XMLAttributes::remove(const XMLTriple& triple)
-   * @see XMLAttributes::remove(const std::string& name, const std::string& uri)
+   * @see remove(int n)
+   * @see remove(const XMLTriple& triple)
+   * @see remove(const std::string& name, const std::string& uri)
    */
   int clear();
 
@@ -450,8 +450,8 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::hasAttribute(int index) const
+   * @see getLength()
+   * @see hasAttribute(int index) const
    */
   std::string getName (int index) const;
 
@@ -469,8 +469,8 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::hasAttribute(int index) const
+   * @see getLength()
+   * @see hasAttribute(int index) const
    */
   std::string getPrefix (int index) const;
 
@@ -488,8 +488,8 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::hasAttribute(int index) const
+   * @see getLength()
+   * @see hasAttribute(int index) const
    */
   std::string getPrefixedName (int index) const;
 
@@ -507,8 +507,8 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::hasAttribute(int index) const
+   * @see getLength()
+   * @see hasAttribute(int index) const
    */
   std::string getURI (int index) const;
 
@@ -525,8 +525,8 @@ public:
    *
    * @copydetails doc_note_attributes_are_unordered
    *
-   * @see XMLAttributes::getLength()
-   * @see XMLAttributes::hasAttribute(int index) const
+   * @see getLength()
+   * @see hasAttribute(int index) const
    */
   std::string getValue (int index) const;
 
@@ -552,7 +552,7 @@ public:
    * or XMLAttributes::getIndex(const XMLTriple& triple) const to find
    * attributes in particular namespaces.
    *
-   * @see XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const std::string name, const std::string uri) const
    */
   std::string getValue (const std::string name) const;
 
@@ -571,7 +571,7 @@ public:
    * XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
    * to test for an attribute's existence.
    *
-   * @see XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const std::string name, const std::string uri) const
    */
   std::string getValue (const std::string name, const std::string uri) const;
 
@@ -590,7 +590,7 @@ public:
    * XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
    * to test for an attribute's existence.
    *
-   * @see XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const std::string name, const std::string uri) const
    */
   std::string getValue (const XMLTriple& triple) const;
 
@@ -618,7 +618,7 @@ public:
    * @return @c true if an attribute with the given local name and XML
    * namespace URI exists in this XMLAttributes object, @c false otherwise.
    */
-  bool hasAttribute (const std::string name, const std::string uri="") const;
+   bool hasAttribute (const std::string name, const std::string uri="") const;
 
 
   /**
