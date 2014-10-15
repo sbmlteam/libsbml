@@ -1230,8 +1230,7 @@ START_TEST(test_comp_flatten_invalid23)
   fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  //fail_unless(errors->getNumErrors() == 6);
-  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  //fail_unless(errors->getNumErrors() == 3);
   fail_unless(errors->contains(CompReplacedElementAllowedAttributes) == true);
   
   delete document;
@@ -1292,8 +1291,9 @@ START_TEST(test_comp_flatten_invalid24)
   SBMLErrorLog* errors = document->getErrorLog();
 
   //fail_unless(errors->getNumErrors() == 6);
-  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedElementAllowedAttributes) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompReplacedElementMustRefObject) == true);
   
   delete document;
   delete converter;
@@ -1354,6 +1354,7 @@ START_TEST(test_comp_flatten_invalid25)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompIdRefMustReferenceObject) == true);
   
   delete document;
@@ -1415,6 +1416,7 @@ START_TEST(test_comp_flatten_invalid26)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompMetaIdRefMustReferenceObject) == true);
   
   delete document;
@@ -1476,6 +1478,7 @@ START_TEST(test_comp_flatten_invalid27)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompPortRefMustReferencePort) == true);
   
   delete document;
@@ -1537,6 +1540,7 @@ START_TEST(test_comp_flatten_invalid28)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompUnitRefMustReferenceUnitDef) == true);
   
   delete document;
@@ -1598,6 +1602,7 @@ START_TEST(test_comp_flatten_invalid29)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompReplacedElementDeletionRef) == true);
   
   delete document;
@@ -1656,8 +1661,8 @@ START_TEST(test_comp_flatten_invalid30)
   fail_unless(rv==LIBSBML_OPERATION_FAILED);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  //fail_unless(errors->getNumErrors() == 6);
-  //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
   fail_unless(errors->contains(CompReplacedByAllowedAttributes) == true);
   
   delete document;
@@ -1699,8 +1704,9 @@ START_TEST(test_comp_flatten_invalid31)
   fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  //fail_unless(errors->getNumErrors() == 6);
+  fail_unless(errors->getNumErrors() == 3);
   fail_unless(errors->contains(CompPortAllowedAttributes) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompPortMustReferenceObject) == true);
   
   delete document;
@@ -1752,8 +1758,9 @@ START_TEST(test_comp_flatten_invalid32)
   fail_unless(rv==LIBSBML_CONV_INVALID_SRC_DOCUMENT);
   SBMLErrorLog* errors = document->getErrorLog();
 
-  //fail_unless(errors->getNumErrors() == 6);
+  fail_unless(errors->getNumErrors() == 2);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompDeletionMustReferenceObject) == true);
   
   delete document;
@@ -1827,6 +1834,7 @@ START_TEST(test_comp_flatten_invalid33)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompSBaseRefMustReferenceObject) == true);
   
   delete document;
@@ -1895,7 +1903,9 @@ START_TEST(test_comp_flatten_invalid34)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
   fail_unless(errors->contains(CompParentOfSBRefChildMustBeSubmodel) == true);
+  fail_unless(errors->contains(CompSBaseRefMustReferenceObject) == true);
   
   delete document;
   delete converter;
@@ -1981,6 +1991,8 @@ START_TEST(test_comp_flatten_invalid37)
 
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompLineNumbersUnreliable) == true);
+  fail_unless(errors->contains(CompReplacedElementMustRefObject) == true);
   fail_unless(errors->contains(CompReplacedElementSubModelRef) == true);
   
   delete document;
