@@ -171,12 +171,27 @@ CompFlatteningConverter::convert()
 
 }
 
+struct disable_info {
+  SBMLDocument * doc;
+  IdList * strippedPkgs;
+  std::set<std::pair<std::string, std::string> > disabledPkgs;
+  bool stripUnflattenable;
+  bool abortForRequiredOnly;
+};
+
 // simple callback enabling packages on main doc
 int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 
-  SBMLDocument *mainDoc = static_cast<SBMLDocument*>(userdata);
+  // pull information out of userdata
+  disable_info * info = static_cast<disable_info*>(userdata);
+  
+  SBMLDocument *mainDoc = static_cast<SBMLDocument*>(info->doc);
+  IdList* stripped = static_cast<IdList*>(info->strippedPkgs);
+  std::set<std::pair<std::string, std::string> > disabled = 
+    static_cast<std::set<std::pair<std::string, std::string> >>(info->disabledPkgs);
+
 
   if (mainDoc == NULL) return LIBSBML_OPERATION_FAILED;
 
@@ -193,6 +208,21 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
     }
     else if (mainNS->containsUri(nsURI) == false)
     {
+      bool alreadyDisabled = false;
+      for (set<pair<string, string> >::iterator pkg = disabled.begin();
+           pkg != disabled.end(); pkg++)
+      {
+        if ((*pkg).first == nsURI)
+        {
+          alreadyDisabled = true;
+          break;
+        }
+      }
+      // just in case
+      if (m->getSBMLDocument() == NULL)
+      {
+        continue;
+      }
       if (m->isPackageEnabled(prefix) == true)
       {
         mainNS->add(nsURI, prefix);
@@ -207,6 +237,43 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
         if (parent != NULL)
         {
           parent->enablePackageInternal(nsURI, prefix, true);
+        }
+      }
+      else if (m->getSBMLDocument()->hasUnknownPackage(nsURI) == true)
+      {
+        // here we are dealing with an unknown package
+        // need to decide whether to add the ns or not
+        bool addNS = true;
+        // if it was listed to be stripped do not add
+        if (stripped->contains(prefix) == true) 
+        {
+          addNS = false;
+        }
+        // if it has already been disabled do not add
+        else if (alreadyDisabled == true) 
+        {
+          addNS = false;
+        }
+        // if it is an unflattenable package and flags dicatate do not add
+        else if (info->stripUnflattenable == true)
+        {
+          if (info->abortForRequiredOnly == false)
+          {
+            addNS = false;
+          }
+          else if (m->getSBMLDocument()->getPackageRequired(nsURI) == true)
+          {
+            addNS = false;
+          }
+        }
+
+        if (addNS == true)
+        {
+          // we have an unknown package so we cannot enable it
+          // but we do tell the parent doc about it
+          mainNS->add(nsURI, prefix);
+          mainDoc->addUnknownPackageRequired(nsURI, prefix,
+            m->getSBMLDocument()->getPackageRequired(nsURI));
         }
       }
     }
@@ -295,8 +362,15 @@ CompFlatteningConverter::performConversion()
     mDocument->getVersion(),
     "The subsequent errors are from this attempt.");
 
-  // setup callback that will disable the packages on submodels
-  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, mDocument);
+  // setup callback that will enable the packages on submodels
+  disable_info mainDoc;
+  mainDoc.doc = mDocument;
+  mainDoc.strippedPkgs = new IdList(getPackagesToStrip());
+  mainDoc.disabledPkgs = mDisabledPackages;
+  mainDoc.stripUnflattenable = getStripUnflattenablePackages();
+  mainDoc.abortForRequiredOnly = getAbortForRequired(); 
+ 
+  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, &(mainDoc));
   Model* flatmodel = modelPlugin->flattenModel();
   
 

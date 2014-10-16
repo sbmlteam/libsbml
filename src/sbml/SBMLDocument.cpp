@@ -1206,6 +1206,18 @@ SBMLDocument::setPackageRequired(const std::string& package, bool flag)
 }
 
 int
+SBMLDocument::addUnknownPackageRequired(const std::string& pkgURI,
+                                const std::string& prefix, bool flag)
+{
+  std::string value = (flag) ? "true" : "false";
+
+  mRequiredAttrOfUnknownPkg.add("required", value, pkgURI, prefix);
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+int
 SBMLDocument::setPkgRequired(const std::string& package, bool flag)
 {
   return setPackageRequired(package,flag);
@@ -1313,6 +1325,17 @@ SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
 
   return false;
 }
+
+bool
+SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
+{
+  // has this package been added to teh list of unknown required attributes
+  std::string req = mRequiredAttrOfUnknownPkg.getValue("required", pkgURI);
+  if (!req.empty()) return true;
+
+  return false;
+}
+
 
 bool 
 SBMLDocument::isIgnoredPkg(const std::string& pkgURI)

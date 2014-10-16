@@ -1537,6 +1537,14 @@ public:
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  int addUnknownPackageRequired(const std::string& pkgURI,
+                                const std::string& prefix, bool flag);
+
+  bool hasUnknownPackage(const std::string& pkgURI);
+
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
