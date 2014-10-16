@@ -285,6 +285,7 @@ add_custom_command(
 		 -P "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/create_package.cmake"
 
 	DEPENDS ${LIBSBML_ROOT_SOURCE_DIR}/VERSION.txt
+	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py
 	WORKING_DIRECTORY "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/"
     COMMENT "Configure Python source package"
 	)
