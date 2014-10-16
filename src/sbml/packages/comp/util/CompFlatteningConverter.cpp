@@ -190,7 +190,7 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
   SBMLDocument *mainDoc = static_cast<SBMLDocument*>(info->doc);
   IdList* stripped = static_cast<IdList*>(info->strippedPkgs);
   std::set<std::pair<std::string, std::string> > disabled = 
-    static_cast<std::set<std::pair<std::string, std::string> >>(info->disabledPkgs);
+    static_cast<std::set <std::pair <std::string, std::string> > >(info->disabledPkgs);
 
 
   if (mainDoc == NULL) return LIBSBML_OPERATION_FAILED;
