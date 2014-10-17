@@ -2,7 +2,7 @@
 
 	
 ====================================================================
-5.10.3 (Current SVN)
+5.11.0 (Anticipated 2014-11-13)
 ====================================================================
 
 STABLE RELEASE
@@ -22,8 +22,25 @@ STABLE RELEASE
   - There is a new writSBMLToStdString() function that returns a 
     std::string rather than a const char *. This facilitates cleaner
     memory management.
+    
+  - The errors reported by OutputSBML in the MATLAB binding have been
+    extended to provide more information about the specific field
+    causing a problem.  Thanks to Thomas Pfau for providing a template
+    for adding this information.
+    
+  - Support for the MIRIAM qualifiers hasTaxon, isInstanceOf and 
+    hasInstance has been added.
   
   - 'comp' package-specific updates:
+  
+    - A new flag has been added to the CompFlatteningConverter to 
+      allow a user to specify a comment seperated list of packages
+      that should be stripped before flattening is attempted.
+      
+    - The CompFlatteningConverter has been made more rigorous
+      when it comes to specifying users options on models declared
+      as ExternalModelDefinitions.
+      
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
@@ -48,6 +65,21 @@ STABLE RELEASE
     with MATLAB using such filenames directly from the workspace. 
     This has been added to the known issues documentation.
     
+  - The C API function ConversionProperties_removeOption now returns
+    a pointer to the option being removed.  This is in line with other
+    remove functions.
+    
+  - Validation failed to report an error when more than one model
+    element was encountered and merely returned a document with the 
+    last model read.  This has now been corrected.
+    
+  - The getDerivedUnitDefinition function returns a pointer to an
+    existing unitDefinition object maintained by the model.  However
+    in teh case of a Parameter a new unitDefinition object was being
+    created, thus causing an inconsistency when it comes to freeing
+    memory. This has now been corrected and 
+    Parameter::getDerivedUnitDefinition now returns an existing pointer.
+
   - 'comp' package-specific bug fixes:
   
     - Validation was failing to report when a portRef attribute
@@ -84,22 +116,41 @@ EXPERIMENTAL RELEASE
 * New features
 
   Code for the Dynamic Structures ('dyn') package has been added. 
-  This reflects the draft specification dated August 8 2014.
+  This reflects the draft specification Release 0.1 dated 
+  October 1 2014.
   
 
   - 'arrays' package-specific updates:
+
   - 'distrib' package-specific updates:
+
+    - The UncertMLNode now uses a std::vector to save child members
+      rather than the List class.
+      
   - 'groups' package-specific updates:
   - 'multi' package-specific updates:
   - 'render' package-specific updates:
   - 'req' package-specific updates:
+
   - 'spatial' package-specific updates:
+  
+    - The spatial code has been updated in line with the specification
+      Release 0.88 dated September 2014.
 
  * Bug fixes
  
   - 'arrays' package-specific bug fixes:
   - 'distrib' package-specific bug fixes:
+  
+    - A number of memory leaks have been plugged. 
+      Thanks to Andy Somogyi for reporting them.
+  
   - 'groups' package-specific bug fixes:
+  
+    - The values of the enumeration of SBMLGroupsTypeCode_t clashed
+      with the values used by the comp enumeration.  The ones in
+      the groups package have been changed.
+      
   - 'multi' package-specific bug fixes:
   - 'render' package-specific bug fixes:
   
@@ -111,9 +162,6 @@ EXPERIMENTAL RELEASE
       Thanks to Gerard Weatherby for reporting it.
 
   - 'spatial' package-specific bug fixes:
-  
-    - The spatial code has been updated in line with the specification
-      Release 0.88 dated September 2014.
 		   
 ====================================================================
 5.10.2 (2014-07-17)
