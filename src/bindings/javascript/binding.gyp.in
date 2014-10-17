@@ -13,16 +13,28 @@
     ],
 
     "sources": [ "libsbml_wrap.cpp" ],
-	
+    
     "libraries": [
-	  "LIBSBML_LOCATION"
-	  @NODE_JS_LIBS@
-	],
-	
+      "LIBSBML_LOCATION"
+      @NODE_JS_LIBS@
+    ],
+  
     "defines": [ @NODE_JS_DEFINES@
     ],
 
     "cflags": ["-fPIC"],
+    
+    "cflags!": [ "-fno-exceptions" ],
+    "cflags_cc!": [ "-fno-exceptions" ],
+    
+    "conditions": [
+        ['OS=="mac"', {
+          "xcode_settings": {
+            "GCC_ENABLE_CPP_EXCEPTIONS": "YES"
+          }
+        }]
+     ]
+    
     }
   ], 
 }
