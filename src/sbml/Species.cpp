@@ -1543,7 +1543,9 @@ Species::readL3Attributes (const XMLAttributes& attributes)
                                  false, getLine(), getColumn());
   if (!assigned)
   {
-    logError(MissingSpeciesCompartment, level, version);
+    logError(MissingSpeciesCompartment, level, version,
+      "The <species> with id '" + mId + 
+      "' is missing the 'compartment' attribute.");
   }
 
   //

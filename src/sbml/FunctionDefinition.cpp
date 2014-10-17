@@ -689,7 +689,9 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(OneMathElementPerFunc, getLevel(), getVersion());
+        logError(OneMathElementPerFunc, getLevel(), getVersion(),
+          "The <functionDefinition> with id '" + getId() + "' contains "
+          "more than one <math> element.");
       }
     }
     /* check for MathML namespace 

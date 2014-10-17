@@ -1339,7 +1339,8 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(OneMathPerKineticLaw, getLevel(), getVersion());
+        logError(OneMathPerKineticLaw, getLevel(), getVersion(),
+          "The <kineticLaw> contains more than one <math> element.");
       }
     }
 

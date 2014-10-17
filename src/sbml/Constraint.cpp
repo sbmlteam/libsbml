@@ -409,7 +409,8 @@ Constraint::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(OneMathElementPerConstraint, getLevel(), getVersion());
+        logError(OneMathElementPerConstraint, getLevel(), getVersion(),
+          "The <constraint> contains more than one <math> element.");
       }
     }
     // If there's a <message>, it's supposed to show up first

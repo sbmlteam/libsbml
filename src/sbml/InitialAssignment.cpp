@@ -576,7 +576,9 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(OneMathElementPerInitialAssign, getLevel(), getVersion());
+        logError(OneMathElementPerInitialAssign, getLevel(), getVersion(),
+          "The <initialAssignment> with symbol '" + getSymbol() + 
+          "' contains more than one <math> element.");
       }
     }
    /* check for MathML namespace 

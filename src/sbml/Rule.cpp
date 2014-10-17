@@ -985,7 +985,23 @@ Rule::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(OneMathElementPerRule, getLevel(), getVersion());
+        std::string details;
+        if (isAssignment() == true)
+        {
+          details = "The <assignmentRule> with variable '" + getVariable() +"'";
+        }
+        else if (isRate() == true)
+        {
+          details = "The <rateRule> with variable '" + getVariable() +"'";
+        }
+        else
+        {
+          details = "The <algebraicRule>";
+        }
+
+        details += " contains more than one <math> element.";
+
+        logError(OneMathElementPerRule, getLevel(), getVersion(), details);
       }
     }
     delete mMath;
