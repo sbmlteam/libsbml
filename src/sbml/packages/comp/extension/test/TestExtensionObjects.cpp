@@ -223,21 +223,6 @@ START_TEST (test_comp_model_flattening_with_ports)
   Model* model = doc->getModel();
   fail_unless(model != NULL);
 
-
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //SBMLNamespaces sbmlns(3,1,"comp",1);
-  //SBMLDocument doc2(&sbmlns);
-  //doc2.setPackageRequired("comp", true);
-  //doc2.setModel(flatmod);
-  //string newModel = writeSBMLToStdString(&doc2);
-  //===========
-  // replace with
-
   ConversionProperties props;
   
   props.addOption("flatten comp");
@@ -257,7 +242,9 @@ START_TEST (test_comp_model_flattening_with_ports)
   string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
+  delete converter;
   delete doc;
+  delete fdoc;
 }
 END_TEST
 
@@ -274,22 +261,6 @@ START_TEST (test_comp_flatten_exchange4)
   // fail if there is no model (readSBMLFromFile always returns a valid document)
   fail_unless(model != NULL);
   
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //CompPkgNamespaces csbmlns(3,1,1,"comp");
-  //SBMLDocument flatdoc(&csbmlns);
-  //flatdoc.setPackageRequired("comp", true);
-  //flatdoc.setModel(flatmod);
-
-  //string newModel = writeSBMLToStdString(&flatdoc);
-  //===========
-  // replace with
-
   ConversionProperties props;
   
   props.addOption("flatten comp");
@@ -309,6 +280,7 @@ START_TEST (test_comp_flatten_exchange4)
   string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
+  delete converter;
   delete doc;
   delete fdoc;
 }
@@ -326,23 +298,6 @@ START_TEST (test_comp_flatten_exchange5)
   Model* model = doc->getModel();
   // fail if there is no model (readSBMLFromFile always returns a valid document)
   fail_unless(model != NULL);
-
-  // SK - since I made the flattenModel package protected
-  // this will no longer work
-  // ===========
-  //CompModelPlugin* cmp = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
-
-  //Model* flatmod = cmp->flattenModel();
-  //fail_unless(flatmod != NULL);
-  //CompPkgNamespaces csbmlns(3,1,1,"comp");
-  //SBMLDocument flatdoc(&csbmlns);
-  //flatdoc.setPackageRequired("comp", true);
-  //flatdoc.setModel(flatmod);
-  //writeSBMLToFile(&flatdoc, "CompTest_flat_ports.xml");
-
-  //string newModel = writeSBMLToStdString(&flatdoc);
-  //===========
-  // replace with
 
   ConversionProperties props;
   
@@ -363,6 +318,7 @@ START_TEST (test_comp_flatten_exchange5)
   string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
+  delete converter;
   delete doc;
   delete fdoc;
 }

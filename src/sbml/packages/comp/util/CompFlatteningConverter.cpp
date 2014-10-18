@@ -173,7 +173,7 @@ CompFlatteningConverter::convert()
 
 struct disable_info {
   SBMLDocument * doc;
-  IdList * strippedPkgs;
+  IdList strippedPkgs;
   std::set<std::pair<std::string, std::string> > disabledPkgs;
   bool stripUnflattenable;
   bool abortForRequiredOnly;
@@ -188,7 +188,6 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
   disable_info * info = static_cast<disable_info*>(userdata);
   
   SBMLDocument *mainDoc = static_cast<SBMLDocument*>(info->doc);
-  IdList* stripped = static_cast<IdList*>(info->strippedPkgs);
   std::set<std::pair<std::string, std::string> > disabled = 
     static_cast<std::set <std::pair <std::string, std::string> > >(info->disabledPkgs);
 
@@ -245,7 +244,7 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
         // need to decide whether to add the ns or not
         bool addNS = true;
         // if it was listed to be stripped do not add
-        if (stripped->contains(prefix) == true) 
+        if (info->strippedPkgs.contains(prefix) == true) 
         {
           addNS = false;
         }
@@ -365,7 +364,7 @@ CompFlatteningConverter::performConversion()
   // setup callback that will enable the packages on submodels
   disable_info mainDoc;
   mainDoc.doc = mDocument;
-  mainDoc.strippedPkgs = new IdList(getPackagesToStrip());
+  mainDoc.strippedPkgs = getPackagesToStrip();
   mainDoc.disabledPkgs = mDisabledPackages;
   mainDoc.stripUnflattenable = getStripUnflattenablePackages();
   mainDoc.abortForRequiredOnly = getAbortForRequired(); 
@@ -1062,6 +1061,7 @@ CompFlatteningConverter::stripPackages()
 
   if (num == 0)
   {
+    delete pkgsToStrip;
     return LIBSBML_OPERATION_SUCCESS;
   }
 

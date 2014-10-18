@@ -1224,16 +1224,18 @@ int Submodel::convertTimeAndExtentWith(const ASTNode* tcf, const ASTNode* xcf, c
           tcftimes.addChild(ast1);
           delay->setMath(&tcftimes);
           tcftimes.removeChild(1);
+          delete ast1;
         }
         break;
       case SBML_RATE_RULE:
         //Rate rules are divided by the time conversion factor.
         rrule = static_cast<RateRule*>(element);
         if (rrule->isSetMath()) {
-          //ast1 = rrule->getMath()->deepCopy();
-          tcfdiv.insertChild(0, rrule->getMath()->deepCopy());
+          ast1 = rrule->getMath()->deepCopy();
+          tcfdiv.insertChild(0, ast1);
           rrule->setMath(&tcfdiv);
           tcfdiv.removeChild(0);
+          delete ast1;
         }
         //Fall through to:
       case SBML_ASSIGNMENT_RULE:
@@ -1355,7 +1357,9 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
   InitialAssignment* ia = model->createInitialAssignment();
   ia->setSymbol(cf);
   string math = oldcf + " * " + newcf->getName();
-  ia->setMath(SBML_parseL3Formula(math.c_str()));
+  ASTNode* mathnode = SBML_parseL3Formula(math.c_str());
+  ia->setMath(mathnode);
+  delete mathnode;
 }
 
 std::vector<ModelProcessingCallbackData*> Submodel::mProcessingCBs = std::vector<ModelProcessingCallbackData*>();
