@@ -116,56 +116,61 @@ endif(LIBSBML_REMOVE_WRAPPERS)
 #
 # SWIG C# bindings
 #
-
 set(SWIG_EXTRA_FLAGS)
 if(NOT UNIX)
 	set(SWIG_EXTRA_FLAGS -DSWIGWIN -DSWIG_CSHARP_NO_WSTRING_HELPER)
 endif()
 
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/swig-binding.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake
+	@ONLY
+)
 
-if (NOT EXISTS "${PYTHON_EXECUTABLE}")
-	message(FATAL_ERROR "The csharp language bindings require PYTHON_EXECUTABLE to be set to the python command.")
+if (WITH_DOXYGEN AND NOT EXISTS "${PYTHON_EXECUTABLE}")
+  message(FATAL_ERROR 
+	"The csharp language bindings require PYTHON_EXECUTABLE to be set 
+	 to the python command in order to build documentation."
+  )
 endif()
 
+# munge argument lists to string, so that they can safely passed along
+SET(SWIG_ARGS)
+foreach(arg ${SWIG_EXTRA_ARGS} ${SWIG_EXTRA_FLAGS})
+  set(SWIG_ARGS "${SWIG_ARGS} ${arg}")
+endforeach()
 
-file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/csharp-files LIBSBML_CS_FILES)
-
-MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/csharp-files)
-ADD_CUSTOM_COMMAND(
+SET(DOC_ARGS)
+foreach(arg ${SWIG_SWIGDOCDEFINES})
+  set(DOC_ARGS "${DOC_ARGS} ${arg}")
+endforeach()
+ 
+# call a separate script for generating documentation / swiging the output 
+add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
+	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbmlPINVOKE.cs
 		   ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
-    COMMAND "${CMAKE_COMMAND}"
-    ARGS  -E remove_directory "${LIBSBML_CS_FILES}"
-	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-			--language csharp
-			--top "${LIBSBML_ROOT_SOURCE_DIR}"
-			--master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			--output "${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"
-			${SWIG_SWIGDOCDEFINES}
-    COMMAND "${CMAKE_COMMAND}"
-    ARGS  -E make_directory "${LIBSBML_CS_FILES}"
-    COMMAND "${SWIG_EXECUTABLE}"
-    ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-         -I${LIBSBML_ROOT_BINARY_DIR}/src
-         -I${LIBSBML_ROOT_SOURCE_DIR}/src
-         -I${LIBSBML_ROOT_SOURCE_DIR}/include
-         -I${CMAKE_CURRENT_SOURCE_DIR}
-	     -c++
-	     -csharp
-	     -namespace libsbmlcs
-	     -dllimport ${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}
-	     ${SWIG_EXTRA_ARGS}
-	     ${SWIG_EXTRA_FLAGS}
-         -outdir ${LIBSBML_CS_FILES}
-	     -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
-	     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
-
+		   
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		 -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		 -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		 -DSRC_DIRECTORY=\"${LIBSBML_ROOT_SOURCE_DIR}\"
+		 -DCMAKE_COMMAND=\"${CMAKE_COMMAND}\"
+		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		 -DSWIG_SWIGDOCDEFINES=\"${DOC_ARGS}\"
+		 -DSWIG_ARGS=\"${SWIG_ARGS}\"
+		 -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
+		 -DWITH_DOXYGEN=\"${WITH_DOXYGEN}\"
+		 -DLIB_NAME=\"${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}\"
+		 -P "${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake"
+    
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
             ${SWIG_DEPENDENCIES}
-    COMMENT "Swig C# source")
+    COMMENT "Swig C# source"
+)
 
 add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
 
@@ -292,15 +297,6 @@ if(UNIX)
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
-	# # to run the tests by compiling each source file
-	# add_test(test_csharp_bindings_full  mono
-	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
-	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
-	# 		${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
-	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-	# )
-
-
 	if(APPLE)
 		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
 		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
@@ -324,15 +320,6 @@ else()
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
-
-
-	# to run the tests by compiling each source file
-	# add_test(test_csharp_bindings_full
-	# 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
-	# 		${CMAKE_CURRENT_SOURCE_DIR}/test
-	# 		${LIBSBML_ROOT_SOURCE_DIR}/src/sbml/test/test-data
-	# 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-	# )
 	
 	# link again, this time against the dynamic librar, as this will reveal
 	# any potential link errors (this library will not be distributed)
@@ -341,8 +328,6 @@ else()
 	add_dependencies(binding_csharp_native_dll_link_check binding_csharp_swig)
 	set_target_properties (binding_csharp_native_dll_link_check PROPERTIES OUTPUT_NAME "DllLinkCheck")
 	target_link_libraries(binding_csharp_native_dll_link_check ${LIBSBML_LIBRARY})
-
-	
 	
 endif()
 

@@ -273,7 +273,7 @@ vs2005_files = \
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
   00README.txt Makefile.in $(csharp_files) $(csharp_files_win) \
   $(vs2005_files) CMakeLists.txt Properties/AssemblyInfo.cs.in \
-  compile-native-files.cmake csdoc.i
+  compile-native-files.cmake csdoc.i swig-binding.cmake.in
 
 tmpfiles = $(wildcard test*.xml*)
 
