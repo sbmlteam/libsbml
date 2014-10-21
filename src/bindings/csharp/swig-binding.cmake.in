@@ -46,7 +46,9 @@ endif()
 # generate documentation if needed
 if (WITH_DOXYGEN)
   # separate munged arguments
-  separate_arguments(SWIG_SWIGDOCDEFINES)
+  if (NOT UNIX)
+   separate_arguments(SWIG_SWIGDOCDEFINES)
+  endif()
 
   message("Creating csdoc.i")
   execute_process(
@@ -64,15 +66,14 @@ endif()
 
 # create csharp-files directory
 if (NOT EXISTS ${LIBSBML_CS_FILES})
-message("Creating ${LIBSBML_CS_FILES}")
-execute_process(
-    COMMAND "${CMAKE_COMMAND}"
-            -E make_directory "${LIBSBML_CS_FILES}"
-)
+  message("Creating ${LIBSBML_CS_FILES}")
+  file(MAKE_DIRECTORY ${LIBSBML_CS_FILES})
 endif()
 
 # separate munged arguments
-separate_arguments(SWIG_ARGS)
+if (NOT UNIX)
+ separate_arguments(SWIG_ARGS)
+endif()
 
 # execute swig
 execute_process(

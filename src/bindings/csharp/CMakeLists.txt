@@ -137,12 +137,20 @@ endif()
 # munge argument lists to string, so that they can safely passed along
 SET(SWIG_ARGS)
 foreach(arg ${SWIG_EXTRA_ARGS} ${SWIG_EXTRA_FLAGS})
+if (NOT UNIX)
   set(SWIG_ARGS "${SWIG_ARGS} ${arg}")
+else()
+  list(APPEND SWIG_ARGS ${arg})
+endif()
 endforeach()
 
 SET(DOC_ARGS)
 foreach(arg ${SWIG_SWIGDOCDEFINES})
+if (NOT UNIX)
   set(DOC_ARGS "${DOC_ARGS} ${arg}")
+else()
+  list(APPEND DOC_ARGS ${arg})
+endif()
 endforeach()
  
 # call a separate script for generating documentation / swiging the output 
