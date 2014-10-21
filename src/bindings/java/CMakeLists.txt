@@ -79,14 +79,6 @@ endif()
 # determine local dependencies, so as to re-swig if one of them changed
 # 
 
-file(GLOB SWIG_DEPENDENCIES 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
-	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
-	)
-
 
 ####################################################################
 #
@@ -160,63 +152,87 @@ file(COPY
      "${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/utilities/generate-converters-list.py"
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+	 
+# remove conflicting copies of files, if they exist
+foreach(conflict 
+ ${CMAKE_CURRENT_SOURCE_DIR}/local-packages.i
+ ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-namespaces.i
+ ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-converters.i
+ ${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-extension.i
+)
+  if (EXISTS ${conflict})
+    file(REMOVE ${conflict})
+  endif()
+endforeach()
+
+file(GLOB SWIG_DEPENDENCIES 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
+)
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/swig-binding.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake
+	@ONLY
+)
+
+# munge argument lists to string, so that they can safely passed along
+SET(SWIG_ARGS)
+foreach(arg ${SWIG_EXTRA_ARGS} ${SWIG_EXTRA_FLAGS})
+if (NOT UNIX)
+  set(SWIG_ARGS "${SWIG_ARGS} ${arg}")
+else()
+  list(APPEND SWIG_ARGS ${arg})
+endif()
+endforeach()
+
+SET(DOC_ARGS)
+foreach(arg ${SWIG_SWIGDOCDEFINES})
+if (NOT UNIX)
+  set(DOC_ARGS "${DOC_ARGS} ${arg}")
+else()
+  list(APPEND DOC_ARGS ${arg})
+endif()
+endforeach()
+
+	 
 ####################################################################
 #
 # Swig bindings
 #
 #
-ADD_CUSTOM_COMMAND(	
+add_custom_command(	
+
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	       ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
 	       ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
 	       ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
-		  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
+		   ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
+
 	COMMAND "${CMAKE_COMMAND}"
-	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
-
-	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	
-      "${CMAKE_CURRENT_BINARY_DIR}/generate-class-name-list.py"
-      "${LIBSBML_ROOT_SOURCE_DIR}/src"
-      >
-      "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
-
-	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS
-      "${CMAKE_CURRENT_BINARY_DIR}/generate-converters-list.py"
-      "${CMAKE_CURRENT_BINARY_DIR}/class-list.txt"
-			>
-      "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
-
-	COMMAND "${PYTHON_EXECUTABLE}"
-	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
-      --language java
-      --top "${LIBSBML_ROOT_SOURCE_DIR}"
-      --master "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-      --extra "${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt"
-      --output "${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"
-      ${SWIG_SWIGDOCDEFINES}
-
-	COMMAND "${SWIG_EXECUTABLE}"
-	ARGS
-      -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-      -I${CMAKE_CURRENT_SOURCE_DIR}
-      -I${LIBSBML_ROOT_BINARY_DIR}/src
-      -I${LIBSBML_ROOT_SOURCE_DIR}/src
-      -I${LIBSBML_ROOT_SOURCE_DIR}/include
-      -c++
-      -java
-      -package org.sbml.libsbml
-      ${SWIG_EXTRA_ARGS}
-      -outdir ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
-      -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+	ARGS -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		 -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		 -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		 -DSRC_DIRECTORY=\"${LIBSBML_ROOT_SOURCE_DIR}\"
+		 -DCMAKE_COMMAND=\"${CMAKE_COMMAND}\"
+		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		 -DSWIG_SWIGDOCDEFINES=\"${DOC_ARGS}\"
+		 -DSWIG_ARGS=\"${SWIG_ARGS}\"
+		 -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
+		 -DWITH_DOXYGEN=\"${WITH_DOXYGEN}\"
+		 -DLIB_NAME=\"${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}\"
+		 -P "${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake"
 
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 	        ${SWIG_DEPENDENCIES}
-	COMMENT "Swig Java source")
+	COMMENT "Swig Java source"
+
+)
 	
 add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 

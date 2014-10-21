@@ -243,6 +243,7 @@ distfiles = Makefile.in                \
             Manifest.txt.in            \
             CMakeLists.txt             \
             compile-native-files.cmake \
+            swig-binding.cmake.in      \
             $(check_sources)           \
             $(extra_sources)           \
             $(java_files)              \
