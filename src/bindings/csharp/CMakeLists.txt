@@ -110,7 +110,6 @@ file(GLOB SWIG_DEPENDENCIES
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
 	)
 
-
 #
 # Remove SWIG wrappers if requested
 #

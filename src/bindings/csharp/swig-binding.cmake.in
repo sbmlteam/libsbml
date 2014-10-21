@@ -46,9 +46,7 @@ endif()
 # generate documentation if needed
 if (WITH_DOXYGEN)
   # separate munged arguments
-  if (NOT UNIX)
-   separate_arguments(SWIG_SWIGDOCDEFINES)
-  endif()
+  separate_arguments(SWIG_SWIGDOCDEFINES)
 
   message("Creating csdoc.i")
   execute_process(
@@ -71,9 +69,7 @@ if (NOT EXISTS ${LIBSBML_CS_FILES})
 endif()
 
 # separate munged arguments
-if (NOT UNIX)
- separate_arguments(SWIG_ARGS)
-endif()
+separate_arguments(SWIG_ARGS)
 
 # execute swig
 execute_process(
