@@ -40,17 +40,6 @@ set(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME "libsbmlcs" CACHE STRING
                        "The name of the native library file to generate. This can be changed to avoid conflicts with other applications using another version of the library.")
 mark_as_advanced(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME)
 
-####################################################################
-#
-# determine local dependencies, so as to re-swig if one of them changed
-#
-
-file(GLOB SWIG_DEPENDENCIES
-	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/*.i
-	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
-	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
-	)
 
 ####################################################################
 #
@@ -109,6 +98,18 @@ foreach(conflict
     file(REMOVE ${conflict})
   endif()
 endforeach()
+
+####################################################################
+#
+# determine local dependencies, so as to re-swig if one of them changed
+#
+file(GLOB SWIG_DEPENDENCIES
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
+	)
+
 
 #
 # Remove SWIG wrappers if requested
