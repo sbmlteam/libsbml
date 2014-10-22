@@ -48,15 +48,21 @@ software to find libSBML.
 
 <li><em>Set environment variables</em>: Ensure that each user sets the
 environment variable <code>LD_LIBRARY_PATH</code> in their terminal shells.
-The value of <code>LD_LIBRARY_PATH</code> must include
-the directory <span class="placeholder">DIR</span> used
-during the <a href="libsbml-installation.html">libSBML
-configuration step</a> as the value of the
-<nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr>
-option (if you used <code>configure</code> to configure libSBML) or
-<code>CMAKE_INSTALL_PREFIX</code> (if you used
-<a target="_blank" href="http://www.cmake.org/">CMake</a>).
-For example, suppose that you configured
+The value of <code>LD_LIBRARY_PATH</code> depends on
+the installation directory used during the
+<a href="libsbml-installation.html">libSBML
+configuration step</a>.  If you downloaded a ready-to-run libSBML
+installer, the default where the libSBML library is installed is 
+<nobr><code>/usr/local/lib</code></nobr>.  If you built libSBML yourself using CMake,
+the path is the <code>/lib</code> appended to the value used
+for the <nobr><code>CMAKE_INSTALL_PREFIX</code></nobr>
+configuration variable.  If you built libSBML using GNU make, 
+the path is <nobr><span class="placeholder">DIR</span><code>/lib</code></nobr>, 
+where <span class="placeholder">DIR</span> is the value used for the
+configuration option
+<nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr>.
+
+<p> For example, suppose that you configured
 libSBML to use the default installation prefix
 <code><nobr>/usr/local/</nobr></code>.  Then in csh-based command shells
 under Linux, if the <code>ldconfig</code> step is not performed, you may
@@ -201,7 +207,7 @@ href="libsbml-installation.html">installation instructions</a>.
 
 <p> The Java interface for libSBML is implemented partly as pure Java and
 partly as Java Native Interface (JNI) code.  Once libSBML is configured and
-built using the <nobr><code>--with-java</code></nobr> flag described above,
+built using the appropriate options to enable Java,
 and libSBML has been installed on a computer, three more steps are required
 to use the Java-libSBML interface in an application.
 
