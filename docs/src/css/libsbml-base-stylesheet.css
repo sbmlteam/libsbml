@@ -295,7 +295,11 @@ a:hover
 .tight-list li
 {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.25em;
+}
+
+ul ul {
+    margin-left: 1.5em;
 }
 
 .placeholder
