@@ -4,13 +4,14 @@ to take additional steps so that software applications can find the libSBML
 library files at <em>run</em> time.  This section provides
 information about how to do that.
 
-<ol>
+<ol class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
  <li><a href="#common">Run-time environment configuration</a></li>
  <li><a href="#languages">Compiling software to use libSBML</a><br>
-    <ul>
+     <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
       <li><a href="#accessing-c">C++ and C</a></li>
       <li><a href="#accessing-csharp">C#</a></li>
       <li><a href="#accessing-java">Java</a></li>
+      <li><a href="#accessing-javascript">JavaScript</a></li>
       <li><a href="#accessing-matlab">MATLAB</a></li>
       <li><a href="#accessing-python">Python</a></li>
       <li><a href="#accessing-r">R</a></li>
@@ -54,7 +55,7 @@ the installation directory used during the
 configuration step</a>.  If you downloaded a ready-to-run libSBML
 installer, the default where the libSBML library is installed is 
 <nobr><code>/usr/local/lib</code></nobr>.  If you built libSBML yourself using CMake,
-the path is the <code>/lib</code> appended to the value used
+the path is <code>/lib</code> appended to the value used
 for the <nobr><code>CMAKE_INSTALL_PREFIX</code></nobr>
 configuration variable.  If you built libSBML using GNU make, 
 the path is <nobr><span class="placeholder">DIR</span><code>/lib</code></nobr>, 
@@ -428,6 +429,46 @@ public class YourMainApplicationClass
   }
 <span style="color: #777">
 }</span>
+</pre>
+
+
+<h3><a class="anchor" name="accessing-javascript">JavaScript</a></h3>
+
+<p> As is the case for the other language bindings, libSBML by default only
+builds the C and C++ APIs.  To build the JavaScript API as well, libSBML has to
+be configured appropriately as described in the <a
+href="libsbml-installation.html">installation instructions</a>.
+
+<p> The libSBML JavaScript interface is currently only designed to be used
+with <a target="_blank" href="http://www.nodejs.org">Node.js</a>.  After you
+have installed libSBML on your system, you may need to perform one more step
+to enable you and your users to access libSBML from Node.js: inform Node.js
+where to find the libSBML module.  One approach to doing this is to set the
+<nobr><code>NODE_PATH</code></nobr> environment variable to the location of
+where the libSBML module is installed.  The value of
+<nobr><code>NODE_PATH</code></nobr> depends on the installation directory
+used during the <a href="libsbml-installation.html">libSBML configuration
+step</a>.  If you built libSBML yourself using CMake, the path is
+<nobr><code>/lib/node</code></nobr> appended to the value used for the
+<nobr><code>CMAKE_INSTALL_PREFIX</code></nobr> configuration variable.  If
+you built libSBML using GNU make, the path is <nobr><span
+class="placeholder">DIR</span><code>/lib/node</code></nobr>, where <span
+class="placeholder">DIR</span> is the value used for the configuration option
+<nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr>.
+Once the <nobr><code>NODE_PATH</code></nobr> environment variable is set,
+Node.js should be able to access the libSBML module very simply as in the
+following example:
+
+<pre class="fragment">
+var sbml = require('sbml')
+</pre>
+
+Alternatively, if setting <nobr><code>NODE_PATH</code></nobr> is
+inconvenient, you can supply a full path to the Node <code>require</code>
+statement to load the libSBML module:
+
+<pre class="fragment">
+var sbml = require('/usr/local/lib/node/sbml')
 </pre>
 
 
