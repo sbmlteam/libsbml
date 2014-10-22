@@ -1123,15 +1123,23 @@ def rewriteDocstringForJava (docstring):
 
   docstring = translateAllowingBreaks(breakable_translations, docstring)
 
-  docstring = re.sub(r'std::string',            'String',  docstring)
-  docstring = re.sub(r'NULL',                   'null',    docstring)
-  docstring = re.sub(r'\bbool\b',               'boolean', docstring)
-  docstring = re.sub(r'const ',                 '',        docstring)
+  docstring = re.sub(r'std::string', 'String',  docstring)
+  docstring = re.sub(r'NULL',        'null',    docstring)
+  docstring = re.sub(r'\bbool\b',    'boolean', docstring)
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
   p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)
+
+  # Remove other cases of "const", with special attention to trailing "const"
+  # in method references.  We sometimes have to write "blah blah blah foo(x)
+  # const blah blah" (i.e., include the trailing const when referring to a
+  # function) because otherwise Doxygen won't match up the method.  We don't
+  # want to over-match the string "const", and we don't want to eat the
+  # following character either.  Thus:
+
+  docstring = re.sub(r'const(\W)', r'\1', docstring)
 
   # Do the big work.
 
@@ -1315,6 +1323,15 @@ def rewriteDocstringForPython (docstring):
 
   p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)
+
+  # Remove other cases of "const", with special attention to trailing "const"
+  # in method references.  We sometimes have to write "blah blah blah foo(x)
+  # const blah blah" (i.e., include the trailing const when referring to a
+  # function) because otherwise Doxygen won't match up the method.  We don't
+  # want to over-match the string "const", and we don't want to eat the
+  # following character either.  Thus:
+
+  docstring = re.sub(r'const(\W)', r'\1', docstring)
 
   # Need to escape the quotation marks:
 
@@ -1729,7 +1746,7 @@ def main (args):
   swig_files       = get_swig_files(main_swig_file)
   header_files     = get_header_files(swig_files, h_include_path)
   libsbml_classes  = libsbmlutils.find_classes(header_files)
-  libsbml_classes.extend(libsbmlutils.find_classes(swig_files))
+  libsbml_classes.extend(libsbmlutils.find_classes(swig_files, swig_too=True))
 
   try:
     libsbml_classes = sorted(list(set(libsbml_classes)))
