@@ -35,91 +35,120 @@
 import os, re
 from os.path import join
 
-skip_names = ['is', 'endl', 'flush']
+skip_dirs    = ['math-legacy', 'compress', 'test', '.deps', '.libs',
+                'test-data', 'subdir']
+
+skip_files   = ['extensiontypes.h', 'libsbml_wrap.h', 'libsbml_wrap-win.h',
+                'dirent.h', 'CMakeLists.txt', 'README.txt', 'extern.h',
+                'common-documentation.h', 'common-sbmlerror-codes.h']
+
+skip_classes = ['is', 'endl', 'flush']
 
 #
 # find_classes(X)
 #
 
-def find_classes(arg, swig_too = False, enums_too = True):
+def find_classes(arg, cplusplus = False, swig_too = False, enums_too = True):
     """List class declarations found in .h files.
 
     ARG can be a single directory or a list of files.  Returns a list of all
-    classes found in all .h or .i files in ARG (either one if present), or if
-    ARG is a directory, found recursively in .h (optionally, .i) files in ARG
-    and its subdirectories.  It does this by searching for Doxygen @class
-    declarations in the comments of the files and %template declarations in
-    .i files.  Skips classes whose names begin with 'doc_'.  The argument
-    swig_too is only necessary if ARG is a directory; if ARG is a list of
-    files, then the intention is clear based on whether the list contains .h
-    files or .i files.
+    classes found in all .h and (if swig_too=True) .i files in ARG, or if ARG
+    is a directory, found recursively in files in ARG and its subdirectories.
+
+    If cplusplus=True, it searches only for proper C++ declarations of
+    classes and (if enums_too=True) enumerations; otherwise, it looks only
+    for Doxygen-style @class and (if enums_too=True) @enum declarations in
+    the comments of .h files (and if swig_too=True, in the contents of .i
+    files).  It always skips classes whose names begin with 'doc_'.
+
+    Enums are assumed to have names ending '_t'.  When enums_too=False, all
+    classes whose names end in '_t' are omitted from the results.
     """
 
     if type(arg) is list:
-        classes = [c for file in arg for c in classes_in_file(file)]
+        classes = [c for file in arg for c in classes_in_file(file, cplusplus, swig_too)]
     else:
-        classes = classes_in_dir(arg, swig_too)
+        classes = classes_in_dir(arg, cplusplus, swig_too)
     if not enums_too:
         classes = [item for item in classes if not item.endswith('_t')]
     return cleanup(classes)
 
 
-def classes_in_dir(dir, swig_too):
-    files = []
+def classes_in_dir(dir, cplusplus, swig_too):
+    classes = []
     for root, dirnames, found_files in os.walk(dir):
-        # Skip legacy dirs; we want the current code only.
-        if root.find('-legacy') >= 0:
+        dirname = os.path.split(root)[1]
+        if dirname in skip_dirs:
             continue
         for tail in found_files:
-            if (not (tail.endswith('.h') or \
-                     tail.endswith('.txt') or \
-                     (swig_too and tail.endswith('.i')))):
-               continue
-            if tail.endswith('fwd.h'): 
-               continue
-            if tail.endswith('ExtensionTypes.h'): 
-               continue
-            files.append(os.path.join(root, tail))
-    return [c for file in files for c in classes_in_file(file)]
+            name = os.path.normcase(tail)
+            if (not (name.endswith('.h') or name.endswith('.txt') \
+                     or (swig_too and name.endswith('.i')))):
+                continue
+            if name.lower() in skip_files:
+                continue
+            path = os.path.join(root, tail)
+            classes.append(classes_in_file(path, cplusplus, swig_too))
+    return [item for sublist in classes for item in sublist]
 
 
-def classes_in_file(filename):
+def classes_in_file(filename, cplusplus, swig_too):
     stream = open(filename)
     classes = []
+    if cplusplus:
+        scanner = cplusplus_class_finder
+    else:
+        scanner = doxygen_class_finder
     if filename.endswith('.h') or filename.endswith('.txt'):
-        classes = classes_in_header_file(stream)
-    elif filename.endswith('.i'):
-        classes = classes_in_swig_file(stream)
+        classes = class_finder(stream, scanner)
+    elif swig_too and filename.endswith('.i'):
+        classes = class_finder(stream, swig_class_finder)
     stream.close()
     return classes
 
 
-def classes_in_header_file(stream):
+def class_finder(stream, scanner):
     classes = []
+    isInternal = False
     for line in stream.readlines():
-        match = re.search('(@class|@enum)\s+(\w+)', line)
-        if match == None:
+        if (line.find('@cond doxygenLibsbmlInternal') >= 0): isInternal = True
+        if (line.find('@endcond') >= 0):                     isInternal = False
+        if isInternal:
             continue
+        found = scanner(line)
+        if found:
+            classes.append(found)
+    return classes
+
+
+def cplusplus_class_finder(line):
+    if line.find(';') > 0:              # Skip forward class declarations.
+        return None
+    match = re.search(r'^class\s+(LIB[_A-Z]+\s+)?(\w+)', line)
+    if match != None:
+        return match.group(2)
+    return None
+
+
+def doxygen_class_finder(line):
+    match = re.search('(@class|@enum)\s+(\w+)', line)
+    if match != None:
         name = match.group(2)
         # Ignore documentation fragments pseudoclasses.
         if not name.startswith("doc_"):
-            classes.append(name)
-    return classes
+            return name
+    return None
 
 
-def classes_in_swig_file(stream):
-    classes = []
-    for line in stream.readlines():
-        start = line.find('%template(')
-        if start < 0:
-            continue
+def swig_class_finder(line):
+    start = line.find('%template(')
+    if start >= 0:
         end = line.find(')')
-        name = line[start + 10:end].strip()
-        if name:
-          classes.append(name)
-    return classes
+        return line[start + 10:end].strip()
+    return None
 
 
 def cleanup(classes):
-    return [item for item in classes if not item in skip_names]
-
+    nullfree  = [item for item in classes if item]
+    skipfree  = [item for item in nullfree if not item in skip_classes]
+    return skipfree
