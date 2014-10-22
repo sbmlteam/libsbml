@@ -1044,7 +1044,7 @@ if(WITH_JAVA)
 endif()
 
 if(WITH_JAVASCRIPT)
-    message(STATUS "     Using node-gyp                  = ${NODE_GYP_EXECUTABLE}")
+    message(STATUS "     Using Node.js                   = ${NODE_GYP_EXECUTABLE}")
 endif()
 
 if(WITH_PYTHON)
