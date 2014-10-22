@@ -291,8 +291,7 @@ public:
    * node type to something else as soon as possible using @if clike
    * setType()@else ASTNode::setType(int)@endif.
    *
-   * @param type an optional
-   * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@else type@endif@~
+   * @param type an optional @if clike #ASTNodeType_t@else type@endif@~
    * code indicating the type of node to create.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
