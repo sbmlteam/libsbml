@@ -3,7 +3,7 @@
 @htmlinclude libsbml-authors.html
 
 <p>
-This manual describes the @if python Python @endif@if cpp C++ @endif
+This manual describes the @if python@~ Python @endif@if cpp@~ C++ @endif
 application programming interface (API) of libSBML, an open-source (LGPL)
 library for writing and manipulating the Systems Biology Markup Language
 (SBML).  @htmlinclude libsbml-blurb.html
