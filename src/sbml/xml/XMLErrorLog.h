@@ -294,8 +294,10 @@ public:
    *
    * @copydetails doc_what_are_severity_overrides
    *
-   * @return a severity override code.  The possible values are @if clike drawn
-   * from the enumeration #XMLErrorSeverityOverride_t@endif:
+   * @return a severity override code.  The possible values are drawn
+   * from @if clike the enumeration #XMLErrorSeverityOverride_t@else the
+   * set of integer constants whose names begin with the prefix
+   * <code>LIBSBML_OVERRIDE_</code>@endif:
    * @li @sbmlconstant{LIBSBML_OVERRIDE_DISABLED, XMLErrorSeverityOverride_t}
    * @li @sbmlconstant{LIBSBML_OVERRIDE_DONT_LOG, XMLErrorSeverityOverride_t}
    * @li @sbmlconstant{LIBSBML_OVERRIDE_WARNING, XMLErrorSeverityOverride_t}
