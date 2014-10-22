@@ -184,6 +184,7 @@ distfiles =                                                  \
         common-text/libsbml-facility-only-warning.html       \
         common-text/libsbml-coding-copydetails-example.html  \
         common-text/libsbml-coding-copydoc-example.html      \
+        common-text/libsbml-coding-enum-text-example.html    \
         common-text/libsbml-coding-link-example.html         \
         common-text/libsbml-version.html.in                  \
         common-text/listof-illustration.txt                  \
@@ -340,9 +341,11 @@ distfiles =                                                  \
         python-substitutions/SBMLNamespacesList.py           \
         python-substitutions/libsbml.py                      \
         sbml.js                                              \
+        utilities/compare-classes.py                         \
         utilities/compare-constants.py                       \
         utilities/generate-class-name-list.py                \
         utilities/generate-converters-list.py                \
+        utilities/generate-cplusplus-class-names.py          \
         utilities/generate-extensions-summary.py             \
         utilities/generate-pkg-stylesheet.py                 \
         utilities/prettify/README.txt                        \
@@ -498,6 +501,10 @@ define compare_constants
   utilities/compare-constants.py $(1) $(2)
 endef
 
+define compare_classes
+  utilities/compare-classes.py $(TOP_SRCDIR)/src
+endef
+
 # If this copy of libSBML hasn't been configured with Doxygen support, we
 # throw an error in the "else" clause of the next conditional.
 
@@ -506,6 +513,7 @@ ifneq "$(USE_DOXYGEN)" ""
 doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
 
 define preprocess_doxygen
+  $(call compare_classes)
   if test $(doxygen-minor-version) -ge 8; then \
     echo "MARKDOWN_SUPPORT = NO" > doxygen-version-specific.txt; \
   else \
@@ -525,7 +533,6 @@ endef
 # defining @sbmlpackage to be @ingroup.  This results in the table of
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
-
 
 define run_doxygen
   $(call doxygen_indexing_pass,$(1),$(2),$(3))
@@ -813,6 +820,7 @@ java-constants-file = $(java-source-dir)/org/sbml/libsbml/libsbmlConstants.java
 
 java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
     java-substitutions/libsbmlConstants.java
+	$(call compare_classes)
 	$(call compare_constants,$(java-constants-file),$(java-subst-dir)/libsbmlConstants.java)
 	rm -rf $(java-local-dir)
 	mkdir -p $(java-local-dir)/$(java-class-path)
