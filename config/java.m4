@@ -171,6 +171,13 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       *darwin*)
         framework="/System/Library/Frameworks/JavaVM.framework"
         case $JAVA_VER_MINOR in
+          8)
+            if test -e "$framework/Versions/Current/Headers"; then
+              headers="$framework/Versions/Current/Headers"
+            elif test -e "$framework/Versions/CurrentJDK/Headers"; then
+              headers="$framework/Versions/CurrentJDK/Headers"
+            fi
+            ;;
           7)
             if test -e "$framework/Versions/Current/Headers"; then
               headers="$framework/Versions/Current/Headers"
