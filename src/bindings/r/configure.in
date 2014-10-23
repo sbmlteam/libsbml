@@ -1,21 +1,5 @@
 AC_INIT(src/libsbml_wrap.cpp)
 
-dnl @synopsis CXX_FLAGS_CHECK [compiler flags]                                        
-dnl @summary check whether compiler supports given C++ flags or not                   
-AC_DEFUN([CXX_FLAG_CHECK],                                                            
-[dnl                                                                                  
-  AC_MSG_CHECKING([if $CXX supports $1])
-  AC_LANG_PUSH([C++])
-  ac_saved_cxxflags="$CXXFLAGS"                                                       
-  CXXFLAGS="-Werror $1"                                                               
-  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],                                            
-    [AC_MSG_RESULT([yes])],                                                           
-    [AC_MSG_ERROR([no])]                                                              
-  )                                                                                   
-  CXXFLAGS="$ac_saved_cxxflags"                                                       
-  AC_LANG_POP([C++])
-])
-
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
@@ -70,8 +54,6 @@ LIBS="${XML2_LIBS}"
 if test [ -n "${LIBSBML_LIBS}" ] ; then
   LIBS="${LIBS} -L${LIBSBML_LIBS} ${LIBS}"
 fi
-
-CXX_FLAGS_CHECK([-std=c++11])
 
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LIBS)
