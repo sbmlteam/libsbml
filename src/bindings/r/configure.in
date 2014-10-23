@@ -1,20 +1,30 @@
 AC_INIT(src/libsbml_wrap.cpp)
 
+dnl @synopsis CXX_FLAGS_CHECK [compiler flags]                                        
+dnl @summary check whether compiler supports given C++ flags or not                   
+AC_DEFUN([CXX_FLAG_CHECK],                                                            
+[dnl                                                                                  
+  AC_MSG_CHECKING([if $CXX supports $1])
+  AC_LANG_PUSH([C++])
+  ac_saved_cxxflags="$CXXFLAGS"                                                       
+  CXXFLAGS="-Werror $1"                                                               
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],                                            
+    [AC_MSG_RESULT([yes])],                                                           
+    [AC_MSG_ERROR([no])]                                                              
+  )                                                                                   
+  CXXFLAGS="$ac_saved_cxxflags"                                                       
+  AC_LANG_POP([C++])
+])
+
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
   echo "could not determine R_HOME"
   exit 1
 fi
+
 CC=`"${R_HOME}/bin/R" CMD config CC`
 CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
-
-AC_ARG_WITH(libsbml-include, 
-            AC_HELP_STRING([--with-libsbml-include=PATH], [location of libsbml headers]),
-            [LIBSBML_INCLUDE=$withval])
-AC_ARG_WITH(libsbml-lib, 
-            AC_HELP_STRING([--with-libsbml-lib=PATH], [location of libsbml library]),
-            [LIBSBML_LIBS=$withval])
 
 AC_MSG_CHECKING([for xml2-config script])
 
@@ -61,10 +71,7 @@ if test [ -n "${LIBSBML_LIBS}" ] ; then
   LIBS="${LIBS} -L${LIBSBML_LIBS} ${LIBS}"
 fi
 
-AC_CHECK_HEADER([SBMLDocument.h],, 
-  AC_MSG_ERROR([Could not find sbml/SBMLDocument.h: 
-    rsbml requires libsbml from http://www.sbml.org/software/libsbml/
-    use --with-libsbml-include or LIBSBML_INCLUDE to specify the include path.]))
+CXX_FLAGS_CHECK([-std=c++11])
 
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LIBS)
