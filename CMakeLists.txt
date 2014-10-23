@@ -739,6 +739,15 @@ if(UNIX)
         add_definitions(-DMACOSX)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DMACOSX")
 
+        # Since we are encountering errors with the use of libc++ on OSX
+        # this option allows to override which stdlib to use
+        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+          option(CLANG_USE_STDLIB "Use libstdc++ rather than libc++" ON)
+          if (CLANG_USE_STDLIB)
+            SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++" )
+          endif()
+        endif()
+        
         # On OSX it is common to build universal binaries to support multiple
         # processor architectures. The default behavior is not to build
         # multiple architectures, as most users might not need that.
