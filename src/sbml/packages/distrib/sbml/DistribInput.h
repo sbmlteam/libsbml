@@ -537,6 +537,32 @@ public:
   virtual const DistribInput* get(const std::string& sid) const;
 
 
+   /**
+   * Get a DistribInput from the ListOfDistribInputs based on its 'index' attribute.
+   *
+   * @param n the value of the index attribute of the DistribInput to get.
+   *
+   * @return the DistribInput in this ListOfDistribInputs with the given index attribute, or NULL if no such element exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see get(const std::string& sid)   *
+   */
+  virtual DistribInput* getByIndex(unsigned int n);
+
+
+  /**
+   * Get a DistribInput from the ListOfDistribInputs based on its 'index' attribute.
+   *
+   * @param n the value of the index attribute of the DistribInput to get.
+   *
+   * @return the DistribInput in this ListOfDistribInputs with the given index attribute, or NULL if no such element exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see get(const std::string& sid)   *
+   */
+  virtual const DistribInput* getByIndex(unsigned int n) const;
+
+
   /**
    * Removes the nth DistribInput from this ListOfDistribInputs
    * and returns a pointer to it.
