@@ -1362,14 +1362,19 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
   delete mathnode;
 }
 
+/** @cond doxygenLibsbmlInternal */
 std::vector<ModelProcessingCallbackData*> Submodel::mProcessingCBs = std::vector<ModelProcessingCallbackData*>();
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void 
 Submodel::clearProcessingCallbacks()
 {
   mProcessingCBs.clear();
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void 
 Submodel::addProcessingCallback(ModelProcessingCallback cb, void* userdata /* = NULL */)
 {
@@ -1378,13 +1383,17 @@ Submodel::addProcessingCallback(ModelProcessingCallback cb, void* userdata /* = 
   cbdata->data = userdata;
   mProcessingCBs.push_back(cbdata);
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int 
 Submodel::getNumProcessingCallbacks()
 {
   return (int) mProcessingCBs.size();
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 void 
 Submodel::removeProcessingCallback(int index)
 {
@@ -1394,8 +1403,10 @@ Submodel::removeProcessingCallback(int index)
   mProcessingCBs.erase(mProcessingCBs.begin() + index, mProcessingCBs.begin() + 1 + index);
   delete cbdata;
 }
+/** @endcond */
 
-void 
+/** @cond doxygenLibsbmlInternal */
+void
 Submodel::removeProcessingCallback(ModelProcessingCallback cb)
 {
   for(int i = getNumProcessingCallbacks() -1; i >= 0; --i)
@@ -1408,6 +1419,7 @@ Submodel::removeProcessingCallback(ModelProcessingCallback cb)
     }
   }
 }
+/** @endcond */
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
