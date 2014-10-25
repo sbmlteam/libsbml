@@ -47,15 +47,15 @@
  * @li <code>prefix:name="value"</code>
  *
  * An attribute in XML must always have a value, and the value must always be
- * a string; i.e., it is always <code>name="value"</code> and not
+ * a quoted string; i.e., it is always <code>name="value"</code> and not
  * <code>name=value</code>.  An empty value is represented simply as an
  * empty string; i.e., <code>name=""</code>.
  *
  * In cases when a <code>prefix</code> is provided with an attribute name,
  * general XML validity rules require that the prefix is an XML namespace
  * prefix that has been declared somewhere else (possibly as an another
- * attribute on the same element).  However, the XMLAttributes class does not
- * test for the proper existence or declaration of XML
+ * attribute on the same element).  However, the XMLAttributes class does
+ * @em not test for the proper existence or declaration of XML
  * namespaces&mdash;callers must arrange to do this themselves in some other
  * way.  This class only provides facilities for tracking and manipulating
  * attributes and their prefix/URI/name/value components.
@@ -116,6 +116,108 @@
  * have XML namespaces be considered too, callers should use the variant
  * method that takes an XMLTriple object instead of a string @p name
  * argument.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_add_behavior_explanation
+ *
+ * @par
+ * Some explanations are in order about the behavior of XMLAttributes with
+ * respect to namespace prefixes and namespace URIs.  XMLAttributes does @em
+ * not verify the consistency of different uses of an XML namespace and the
+ * prefix used to refer to it in a given context.  It cannot, because the
+ * prefix used for a given XML namespace in an XML document may intentionally
+ * be different on different elements in the document.  Consequently, callers
+ * need to manage their own prefix-to-namespace mappings, and need to ensure
+ * that the desired prefix is used in any given context.
+ *
+ * When called with attribute names, prefixes and namespace URIs,
+ * XMLAttributes pays attention to the namespace URIs and not the prefixes: a
+ * match is established by a combination of attribute name and namespace URI,
+ * and if on different occasions a different prefix is used for the same
+ * name/namespace combination, the prefix associated with the namespace on
+ * that attribute is overwritten.
+ *
+ * Some examples will hopefully clarify this.  Here are the results of a
+ * sequence of calls to the XMLAttributes <code>add</code> methods with
+ * different argument combinations.  First, we create the object and add
+ * one attribute:
+ *
+ * @code{.cpp}
+XMLAttributes * att = new XMLAttributes();
+att->add("myattribute", "1", "myuri");
+@endcode
+ * The above adds an attribute named <code>myattribute</code> in the namespace
+ * <code>myuri</code>, and with the attribute value <code>1</code>.  No
+ * namespace prefix is associated with the attribute (but the attribute is
+ * recorded to exist in the namespace <code>myuri</code>).  If
+ * this attribute object were written out in XML, it would look like the
+ * following (and note that, since no namespace prefix was assigned, none
+ * is written out):
+ * <center><pre>
+myattribute="1"
+ * </pre></center>
+ *
+ * Continuing with this series of examples, suppose we invoke the
+ * <code>add</code> method again as follows:
+ *
+ * @code{.cpp}
+att->add("myattribute", "2");
+@endcode
+ * The above adds a @em new attribute @em also named <code>myattribute</code>,
+ * but in a different XML namespace: it is placed in the namespace with no
+ * URI, which is to say, the default XML namespace.  Both attributes coexist
+ * on this XMLAttributes object; both can be independently retrieved.
+ *
+ * @code{.cpp}
+att->add("myattribute", "3");
+@endcode
+ * The code above now replaces the value of the attribute
+ * <code>myattribute</code> that resides in the default namespace.  The
+ * attribute in the namespace <code>myuri</code> remains untouched.
+ *
+ * @code{.cpp}
+att->add("myattribute", "4", "myuri");
+@endcode
+ * The code above replaces the value of the attribute
+ * <code>myattribute</code> that resides in the <code>myuri</code> namespace.
+ * The attribute in the default namespace remains untouched.
+ *
+ * @code{.cpp}
+att->add("myattribute", "5", "myuri", "foo");
+@endcode
+ * The code above replaces the value of the attribute
+ * <code>myattribute</code> that resides in the <code>myuri</code> namespace.
+ * It also now assigns a namespace prefix, <code>foo</code>, to the attribute.
+ * The attribute <code>myattribute</code> in the default namespace remains
+ * untouched. If this XMLAttributes object were written out in XML, it would
+ * look like the following:
+ * <center><pre>
+myattribute="3"
+foo:myattribute="5"
+ * </pre></center>
+ * Pressing on, now suppose we call the <code>add</code> method as follows:
+ *
+ * @code{.cpp}
+att->add("myattribute", "6", "myuri", "bar");
+@endcode
+ * The code above replaces the value of the attribute
+ * <code>myattribute</code> that resides in the <code>myuri</code> namespace.
+ * It also assigns a different prefix to the attribute.  The namespace of
+ * the attribute remains <code>myuri</code>.
+ *
+ * @code{.cpp}
+att->add("myattribute", "7", "", "foo");
+@endcode
+
+ * The code above replaces the value of the attribute
+ * <code>myattribute</code> that resides in the default namespace.  It also
+ * now assigns a namespace prefix, <code>foo</code>, to that attribute.  If
+ * this XMLAttributes object were written out in XML, it would look like the
+ * following:
+ * <center><pre>
+bar:myattribute="6"
+foo:myattribute="7"
+ * </pre></center>
  */
 
 #ifndef XMLAttributes_h
@@ -192,9 +294,7 @@ public:
   /**
    * Adds an attribute to this list of attributes.
    *
-   * The value @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
-   * is returned if any of the arguments are @c NULL.  To set an empty
-   * @p prefix and/or @p name value, use an empty string rather than @c NULL.
+   * @copydetails doc_add_behavior_explanation
    *
    * @param name a string, the unprefixed name of the attribute.
    * @param value a string, the value of the attribute.
@@ -205,11 +305,20 @@ public:
    * function.  The possible values returned by this
    * function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}.
+   * This value is returned if any of the arguments are @c NULL.  To set an
+   * empty @p prefix and/or @p name value, use an empty string rather than @c
+   * NULL.
    *
    * @copydetails doc_note_overwrites_existing_values
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+   *
+   * @see add(const XMLTriple& triple, const std::string& value)
+   * @see getIndex(const std::string& name, const std::string& uri) const
+   * @see getIndex(const XMLTriple& triple) const
+   * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   int add (  const std::string& name
            , const std::string& value
@@ -220,9 +329,7 @@ public:
   /**
    * Adds an attribute to this list of attributes.
    *
-   * The value @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
-   * is returned if any of the arguments are @c NULL.  To set an empty
-   * value for the attribute, use an empty string rather than @c NULL.
+   * @copydetails doc_add_behavior_explanation
    *
    * @param triple an XMLTriple object describing the attribute to be added.
    * @param value a string, the value of the attribute.
@@ -231,9 +338,17 @@ public:
    * function. The possible values
    * returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}. 
+   * This value is returned if any of the arguments are @c NULL.  To set an
+   * empty value for the attribute, use an empty string rather than @c NULL.
    *
    * @copydetails doc_note_overwrites_existing_values
+   *
+   * @see add(const std::string& name, const std::string& value, const std::string& namespaceURI, const std::string& prefix)
+   * @see getIndex(const std::string& name, const std::string& uri) const
+   * @see getIndex(const XMLTriple& triple) const
+   * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
    int add ( const XMLTriple& triple, const std::string& value);
 
@@ -390,6 +505,9 @@ public:
    *
    * @return the index of an attribute with the given local name, or
    * <code>-1</code> if no such attribute is present.
+   *
+   * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   int getIndex (const std::string& name) const;
 
@@ -403,6 +521,9 @@ public:
    *
    * @return the index of an attribute with the given local name and
    * namespace URI, or <code>-1</code> if no such attribute is present.
+   *
+   * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   int getIndex (const std::string& name, const std::string& uri) const;
 
@@ -414,6 +535,9 @@ public:
    *
    * @return the index of an attribute described by the given XMLTriple
    * object, or <code>-1</code> if no such attribute is present.
+   *
+   * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   int getIndex (const XMLTriple& triple) const;
 
@@ -553,6 +677,7 @@ public:
    * attributes in particular namespaces.
    *
    * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   std::string getValue (const std::string name) const;
 
@@ -572,6 +697,7 @@ public:
    * to test for an attribute's existence.
    *
    * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   std::string getValue (const std::string name, const std::string uri) const;
 
@@ -591,6 +717,7 @@ public:
    * to test for an attribute's existence.
    *
    * @see hasAttribute(const std::string name, const std::string uri) const
+   * @see hasAttribute(const XMLTriple& triple) const
    */
   std::string getValue (const XMLTriple& triple) const;
 
@@ -617,6 +744,9 @@ public:
    *
    * @return @c true if an attribute with the given local name and XML
    * namespace URI exists in this XMLAttributes object, @c false otherwise.
+   *
+   * @see add(const std::string& name, const std::string& value, const std::string& namespaceURI, const std::string& prefix)
+   * @see add(const XMLTriple& triple, const std::string& value)
    */
    bool hasAttribute (const std::string name, const std::string uri="") const;
 
@@ -628,6 +758,9 @@ public:
    *
    * @return @c true if an attribute with the given XML triple exists in this
    * XMLAttributes object, @c false otherwise.
+   *
+   * @see add(const std::string& name, const std::string& value, const std::string& namespaceURI, const std::string& prefix)
+   * @see add(const XMLTriple& triple, const std::string& value)
    */
   bool hasAttribute (const XMLTriple& triple) const;
 
@@ -996,7 +1129,7 @@ public:
    *
    * Values are read using the "C" locale.
    *
-   * @param name a string, the name of the attribute.
+   * @param triple an XMLTriple object describing the attribute
    *
    * @param value a <code>long</code>, the return parameter into which the
    * value should be assigned.
@@ -1134,7 +1267,7 @@ public:
    *
    * Values are read using the "C" locale.
    *
-   * @param name a string, the name of the attribute.
+   * @param triple an XMLTriple object describing the attribute
    *
    * @param value an <code>int</code>, the return parameter into which the
    * value should be assigned.
@@ -1270,7 +1403,7 @@ public:
    *
    * Values are read using the "C" locale.
    *
-   * @param name a string, the name of the attribute.
+   * @param triple an XMLTriple object describing the attribute
    *
    * @param value an <code>int</code>, the return parameter into which the
    * value should be assigned.
@@ -1380,7 +1513,7 @@ public:
    *
    * Values are read using the "C" locale.
    *
-   * @param name a string, the name of the attribute.
+   * @param triple an XMLTriple object describing the attribute
    *
    * @param value a string, the return parameter into which the value should
    * be assigned.
