@@ -1205,6 +1205,8 @@ SBMLDocument::setPackageRequired(const std::string& package, bool flag)
   return LIBSBML_PKG_UNKNOWN_VERSION;
 }
 
+
+/** @cond doxygenLibsbmlInternal */
 int
 SBMLDocument::addUnknownPackageRequired(const std::string& pkgURI,
                                 const std::string& prefix, bool flag)
@@ -1215,6 +1217,7 @@ SBMLDocument::addUnknownPackageRequired(const std::string& pkgURI,
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
 
 int
@@ -1326,6 +1329,8 @@ SBMLDocument::isDisabledIgnoredPackage(const std::string& pkgURI)
   return false;
 }
 
+
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
 {
@@ -1335,6 +1340,7 @@ SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
 
   return false;
 }
+/** @endcond */
 
 
 bool 
