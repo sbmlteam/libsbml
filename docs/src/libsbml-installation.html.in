@@ -1203,6 +1203,11 @@ table below lists the pathnames where those files will be installed.
   <td><code>libsbmlj.jnilib</code><br><code> libsbmlj.jar</code></td>
   <td><code>sbmlj.dll</code><br><code> libsbmlj.jar</code></td>
 </tr><tr style="background: #f3f3f3">
+  <td colspan="2">JavaScript (for Node.js)</td>
+  <td><code>sbml.node</code></td>
+  <td><code>sbml.node</code></td>
+  <td><code>sbml.node</code></td>
+</tr><tr>
   <td rowspan="4">MATLAB</td>
   <td style="border-bottom: 1px dotted #aaa" valign="middle">
     <nobr><em>(Intel 32-bit)</em></nobr>
@@ -1220,36 +1225,36 @@ table below lists the pathnames where those files will be installed.
     <code>OutputSBML.mexw32</code><br>
   </td>
 </tr><tr>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="middle">
+  <td style="border-bottom: 1px dotted #aaa" valign="middle">
     <nobr><em>(Intel 64-bit)</em></nobr>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <code>TranslateSBML.mexa64</code><br>
                    <code>OutputSBML.mexa64</code>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <code>TranslateSBML.mexmaci64</code></br>
                    <code>OutputSBML.mexmaci64</code></br>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <code>TranslateSBML.mexw64</code><br>
                    <code>OutputSBML.mexw64</code><br>
   </td>
 </tr><tr>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="middle">
+  <td style="border-bottom: 1px dotted #aaa" valign="middle">
     <nobr><em>(PPC)</em></nobr>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <em>N/A</em><br><br>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <code>TranslateSBML.mexmac</code><br>
                    <code>OutputSBML.mexmac</code>
   </td>
-  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
                    <em>N/A</em><br><br>
   </td>
-</tr><tr style="background: #f3f3f3">
+</tr><tr>
   <td valign="middle">
     <nobr><em>(Additional files)</em></nobr>
   </td>
@@ -1274,7 +1279,7 @@ table below lists the pathnames where those files will be installed.
                    <code>isSBML_Model.m</code><br>
                    <code>isoctave.m</code><br>
   </td>
-</tr><tr>
+</tr><tr style="background: #f3f3f3">
   <td colspan="2">Octave</td>
   <td><code>TranslateSBML.mex</code><br>
       <code>OutputSBML.mex</code><br>
@@ -1300,7 +1305,7 @@ table below lists the pathnames where those files will be installed.
       <code>isSBML_Model.m</code><br>
       <code>isoctave.m</code><br>
   </td>
-</tr><tr style="background: #f3f3f3">
+</tr><tr>
   <td>Perl</td>
   <td valign="top">
     <nobr><em>(native C++ library)</em></nobr><br>
@@ -1319,7 +1324,7 @@ table below lists the pathnames where those files will be installed.
       <code>LibSBML.pm</code><br>
       <code>LibSBML.pod</code><br>
       <code>.packlist</code></td>
-</tr><tr>
+</tr><tr style="background: #f3f3f3">
   <td>Python <nobr>2.3&ndash;2.4</nobr></td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
@@ -1339,7 +1344,7 @@ table below lists the pathnames where those files will be installed.
       <code>libsbml.py</code><br>
       <code>libsbml.pyc</code><br>
       <code>libsbml.pth</code></td>
-</tr><tr style="background: #f3f3f3">
+</tr><tr>
   <td>Python <nobr>2.5&ndash;2.7</nobr></td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
@@ -1359,7 +1364,7 @@ table below lists the pathnames where those files will be installed.
       <code>libsbml.py</code><br>
       <code>libsbml.pyc</code><br>
       <code>libsbml.pth</code></td>
-</tr><tr>
+</tr><tr style="background: #f3f3f3">
   <td colspan="2">R</td>
   <td><code>libSBML.rdb</code><br>
       <code>libSBML.rdx</code><br>
@@ -1373,7 +1378,7 @@ table below lists the pathnames where those files will be installed.
       <code>libSBML.rdx</code><br>
       <code>libSBML.dll</code></td>
 </tr>
-</tr><tr style="background: #f3f3f3">
+</tr><tr>
   <td colspan="2">Ruby</td>
   <td><code>libSBML.so</code></td>
   <td><code>libSBML.bundle</code></td>
@@ -1413,6 +1418,10 @@ option to the <code>configure</code> program discussed above).
   </td>
   <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/</code></nobr><br>
       <nobr><span class="placeholder-nospace">DIR</span><code>/share/java/</code></nobr></td>
+  <td></td>
+</tr><tr>
+  <td colspan="2">JavaScript</td>
+  <td><nobr><span class="placeholder-nospace">DIR</span><code>/lib/node/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td colspan="2">MATLAB</td>
