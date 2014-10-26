@@ -49,6 +49,8 @@
  * SBML document; consequently, the packages in use are also communicated by
  * the values of the SBML namespaces set on a ConversionProperties object.
  *
+ * @copydetails doc_section_using_sbml_converters
+ *
  * @see ConversionOption
  * @see SBMLNamespaces
  */
