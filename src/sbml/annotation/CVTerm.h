@@ -53,18 +53,21 @@
  *
  * @section annotation-parts Components of an SBML annotation
  *
- * The SBML annotation format consists of RDF-based content placed inside
- * an <code>&lt;annotation&gt;</code> element attached to an SBML component
- * such as Species, Compartment, etc.  The following template illustrates
- * the different parts of SBML annotations in XML form:
- * 
+ * The SBML annotation format consists of RDF-based content placed inside an
+ * <code>&lt;annotation&gt;</code> element attached to an SBML component such
+ * as Species, Compartment, etc.  A small change was introduced in SBML
+ * Level&nbsp;2 Version&nbsp;5 and SBML Level&nbsp;3 Version&nbsp;2 to permit
+ * nested annotations: lower Versions of the SBML specifications did not
+ * explicitly allow this.  We first describe the different parts of SBML
+ * annotations in XML form for SBML Level&nbsp;2 below Version&nbsp;5 and
+ * SBML Level&nbsp;3 below Version&nbsp;2:
+ *
  <pre class="fragment">
  &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;
    <span style="background-color: #d0eed0">+++</span>
    &lt;annotation&gt;
      <span style="background-color: #d0eed0">+++</span>
      &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-              xmlns:dc="http://purl.org/dc/elements/1.1/"
               xmlns:dcterm="http://purl.org/dc/terms/"
               xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
               xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
@@ -86,7 +89,7 @@
    <span style="background-color: #d0eed0">+++</span>
  &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;
  </pre>
- * 
+ *
  * In the template above, the placeholder
  * <span class="code" style="background-color: #bbb">SBML_ELEMENT</span> stands for
  * the XML tag name of an SBML model component (e.g., <code>model</code>,
@@ -133,19 +136,66 @@
  * resolve robust cross-references in Systems Biology"</a>, <i>BMC Systems
  * Biology</i>, 58(1), 2007.
  *
- * The relation-resource pairs above are the "controlled vocabulary" terms
- * that which CVTerm is designed to store and manipulate.  The next section
- * describes these parts in more detail.  For more information about
- * SBML annotations in general, please refer to Section&nbsp;6 in the
- * SBML Level&nbsp;2 (Versions 2&ndash;4) or Level&nbsp;3 specification
- * documents.
- * 
+ * Finally, the following is the same template as above, but this time
+ * showing the nested content permitted by the most recent SBML
+ * specifications (SBML Level&nbsp;2 Version&nbsp;5 and Level&nbsp;3
+ * Version&nbsp;2):
+ <pre class="fragment">
+ &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;
+   <span style="background-color: #d0eed0">+++</span>
+   &lt;annotation&gt;
+     <span style="background-color: #d0eed0">+++</span>
+     &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              xmlns:dcterm="http://purl.org/dc/terms/"
+              xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+              xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
+              xmlns:bqmodel="http://biomodels.net/model-qualifiers/" &gt;
+       &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;
+         <span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span>
+         &lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+           &lt;rdf:Bag&gt;
+             &lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">URI</span>&quot; /&gt;
+             <span style="background-color: #fef">NESTED_CONTENT</span>
+             <span style="background-color: #edd">...</span>
+           &lt;/rdf:Bag&gt;
+         &lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;
+         <span style="background-color: #edd">...</span>
+       &lt;/rdf:Description&gt;
+       <span style="background-color: #d0eed0">+++</span>
+     &lt;/rdf:RDF&gt;
+     <span style="background-color: #d0eed0">+++</span>
+   &lt;/annotation&gt;
+   <span style="background-color: #d0eed0">+++</span>
+ &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;
+ </pre>
+ *
+ * The placeholder
+ * <span class="code" style="background-color: #fef">NESTED_CONTENT</span>
+ * refers to other optional RDF elements such as
+ * <code>"bqbiol:isDescribedBy"</code> that describe a clarification or
+ * another annotation about the
+ * <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>
+ * in which it appears.  Nested content allows one to, for example, describe
+ * protein modifications on species, or to add evidence codes for an
+ * annotation.  Nested content relates to its containing
+ * <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>,
+ * not the other way around.  It qualifies it, but does not change its
+ * meaning.  As such, ignoring a
+ * <span class="code" style="background-color: #fef">NESTED_CONTENT</span>
+ * does not affect the information provided by the containing
+ * <span class="code" style="background-color: #bbb">RELATION_ELEMENT</span>.
+ *
+ * For more information about SBML annotations in general, please refer to
+ * Section&nbsp;6 in the SBML Level&nbsp;2 (Versions 2&ndash;4) or
+ * Level&nbsp;3 specification documents.
  *
  * @section cvterm-parts The parts of a CVTerm
- * 
+ *
  * Annotations that refer to controlled vocabularies are managed in libSBML
- * using CVTerm objects.  A set of RDF-based annotations attached to a
- * given SBML <code>&lt;annotation&gt;</code> element are read by
+ * using CVTerm objects.  The relation-resource pairs discussed in the
+ * previous section are the "controlled vocabulary" terms that CVTerm is
+ * designed to store and manipulate.  A set of RDF-based annotations attached
+ * to a given SBML <code>&lt;annotation&gt;</code> element are read by
  * RDFAnnotationParser and converted into a list of these CVTerm objects.
  * Each CVTerm object instance stores the following components of an
  * annotation:
