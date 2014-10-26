@@ -144,11 +144,11 @@ dl.el {
     margin: 0px 1.75em 0px 1.75em;
 }
 
-div.line:first-child {
+div.contents :not(div.memdoc)  div.fragment div.line:first-child {
     padding-top: 0.5em;
 }
 
-div.line:last-child {
+div.contents :not(div.memdoc) div.fragment div.line:last-child {
     padding-bottom: 0.5em;
 }
 
