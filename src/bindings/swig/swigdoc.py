@@ -260,7 +260,7 @@ class CHeader:
 
     if self.inDocs:
       self.docstring += line
-      self.inDocs     = (stripped != '*/')
+      self.inDocs     = not stripped.endswith('*/')
       return
 
     # If we get here, we're no longer inside a comment block.
