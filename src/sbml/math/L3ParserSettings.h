@@ -182,12 +182,15 @@
  * @class doc_case_sensitivity
  *
  * @par
- * By default, the parser compares symbols in a case insensitive manner for
- * built-in functions such as @c "sin" and @c "piecewise", and for constants
- * such as @c "true" and @c "avogadro".  Setting this option to @c false, you
- * can force the string comparison to @em only match lower-case strings.
- * Thus, for example, @c "sin" and @c "true" will match the built-in values, but
- * @c "SIN" and @c "TRUE" will not.
+ * By default (which is the value
+ * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_INSENSITIVE,}), the parser
+ * compares symbols in a case @em insensitive manner for built-in functions
+ * such as @c "sin" and @c "piecewise", and for constants such as @c "true"
+ * and @c "avogadro".  Setting this option to
+ * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,} causes the parser to
+ * become case sensitive.  In that mode, for example, the symbols @c "sin"
+ * and @c "true" will match the built-in values, but the symbols @c "SIN",
+ * @c "Sin", @c "True", @c "TRUE", and so on, will not.
  */
 
 #ifndef L3ParserSettings_h
@@ -355,6 +358,9 @@ public:
    * @li <em>avocsymbol</em> ("Avogadro csymbol") is set to
    * @sbmlconstant{L3P_AVOGADRO_IS_CSYMBOL,}.
    *
+   * @li <em>caseSensitive</em> ("case sensitive") is set to
+   * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_INSENSITIVE,}.
+   *
    * @li <em>sbmlns</em> ("SBML namespaces") is set to @c NULL (which
    * indicates that no syntax extensions due to SBML Level&nbsp;3 packages
    * will be assumed---the formula parser will only understand the
@@ -404,12 +410,15 @@ public:
    * set to the value @sbmlconstant{L3P_AVOGADRO_IS_NAME,}, the symbol is
    * interpreted as a plain symbol name.
    *
-   * @param caseSensitive a flag that controls how the
-   * parser will handle case sensitivity of any function name.
-   * If set to the value @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_INSENSITIVE,},
-   * the name is interpreted as teh relevant math function regardless of case; if
-   * set to the value @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,}, the name is
-   * interpreted as a user defined function unless it is all lower case.
+   * @param caseSensitive ("case sensitive") a flag that controls how the
+   * cases of alphabetical characters are treated when symbols are compared.
+   * If the flag is set to the value
+   * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_INSENSITIVE,}, symbols are
+   * compared in a case-insensitive manner, which means that mathematical
+   * functions such as @c "sin" will be matched no matter what their case is:
+   * @c "Sin", @c "SIN", etc.  If the flag is set to the value
+   * @sbmlconstant{L3P_COMPARE_BUILTINS_CASE_SENSITIVE,}, symbols are
+   * interpreted in a case-sensitive manner.
    *
    * @param sbmlns ("SBML namespaces") an SBML namespaces object.  The
    * namespaces identify the SBML Level&nbsp;3 packages that can extend the
