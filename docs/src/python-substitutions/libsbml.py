@@ -4857,6 +4857,16 @@ BQM_IS_DERIVED_FROM = _libsbml.BQM_IS_DERIVED_FROM
     ##
     ## One of the possible MIRIAM annotation types used by CVTerm.
 
+BQM_IS_INSTANCE_OF = _libsbml.BQM_IS_INSTANCE_OF
+    ## @var long BQM_IS_INSTANCE_OF
+    ##
+    ## One of the possible MIRIAM annotation types used by CVTerm.
+
+BQM_HAS_INSTANCE = _libsbml.BQM_HAS_INSTANCE
+    ## @var long BQM_HAS_INSTANCE
+    ##
+    ## One of the possible MIRIAM annotation types used by CVTerm.
+
 BQM_UNKNOWN = _libsbml.BQM_UNKNOWN
     ## @var long BQM_UNKNOWN
     ##
@@ -4919,6 +4929,11 @@ BQB_HAS_PROPERTY = _libsbml.BQB_HAS_PROPERTY
 
 BQB_IS_PROPERTY_OF = _libsbml.BQB_IS_PROPERTY_OF
     ## @var long BQB_IS_PROPERTY_OF
+    ##
+    ## One of the possible MIRIAM annotation types used by CVTerm.
+
+BQB_HAS_TAXON = _libsbml.BQB_HAS_TAXON
+    ## @var long BQB_HAS_TAXON
     ##
     ## One of the possible MIRIAM annotation types used by CVTerm.
 

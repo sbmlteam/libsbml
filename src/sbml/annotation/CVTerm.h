@@ -176,7 +176,7 @@
  *
  * Detailed explanations of the qualifiers defined by BioModels.net can be
  * found at <a target="_blank"
- * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+ * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
  */
 
 /**
@@ -235,7 +235,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * @enum QualifierType_t
  *
  * Enumeration used to indicate the type of <a target="_blank"
- * href="http://biomodels.net/qualifiers/">BioModels.net</a> in a given
+ * href="http://co.mbine.org/standards/qualifiers/">BioModels.net</a> qualifier in a given
  * CVTerm object.  The qualification of an annotation is important to convey
  * the relationship between a given model component and the resource used to
  * annotate it. This relationship is rarely one-to-one, and the information
@@ -396,7 +396,7 @@ typedef enum
     /*!< The biological entity represented by the object in the model is
      * a property of the referenced resource. */
 
- , BQB_HAS_TAXON
+  , BQB_HAS_TAXON
    /*!< The biological entity represented by the object in the model is
     * taxonomically restricted, where the restriction is the subject 
     * of the referenced resource.  This relation may be used to ascribe
@@ -442,7 +442,7 @@ public:
    *
    * Different BioModels.net qualifier elements encode different types of
    * relationships.  Please refer to the SBML specification or the <a
-   * target="_blank" href="http://biomodels.net/qualifiers/">BioModels.net
+   * target="_blank" href="http://co.mbine.org/standards/qualifiers/">BioModels.net
    * qualifiers web page</a> for an explanation of the meaning of these
    * different qualifiers.
    *
@@ -585,6 +585,8 @@ public:
    * @li @sbmlconstant{BQM_IS, ModelQualifierType_t}
    * @li @sbmlconstant{BQM_IS_DESCRIBED_BY, ModelQualifierType_t}
    * @li @sbmlconstant{BQM_IS_DERIVED_FROM, ModelQualifierType_t}
+   * @li @sbmlconstant{BQM_IS_INSTANCE_OF, ModelQualifierType_t}
+   * @li @sbmlconstant{BQM_IS_HAS_INSTANCE, ModelQualifierType_t}
    *
    * Any other BioModels.net qualifier found in the model is considered
    * unknown by libSBML and reported as
@@ -641,6 +643,7 @@ public:
    * @li @sbmlconstant{BQB_OCCURS_IN, BiolQualifierType_t}
    * @li @sbmlconstant{BQB_HAS_PROPERTY, BiolQualifierType_t}
    * @li @sbmlconstant{BQB_IS_PROPERTY_OF, BiolQualifierType_t}
+   * @li @sbmlconstant{BQB_HAS_TAXON, BiolQualifierType_t}
    *
    * Any other BioModels.net qualifier found in the model is considered
    * unknown by libSBML and reported as

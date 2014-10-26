@@ -6101,6 +6101,18 @@ public interface libsbmlConstants
      * {@link CVTerm}.
      */
     public final static int BQM_IS_DERIVED_FROM = BQM_IS_DESCRIBED_BY + 1;
+
+    /**
+     * One of the possible MIRIAM annotation model qualifier types used by
+     * {@link CVTerm}.
+     */
+    public final static int BQM_IS_INSTANCE_OF = BQM_IS_DERIVED_FROM + 1;
+
+    /**
+     * One of the possible MIRIAM annotation model qualifier types used by
+     * {@link CVTerm}.
+     */
+    public final static int BQM_HAS_INSTANCE = BQM_IS_INSTANCE_OF + 1;
   
 
     /**
@@ -6116,7 +6128,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS = 0;
   
@@ -6125,7 +6137,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_HAS_PART = BQB_IS + 1;
   
@@ -6134,7 +6146,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_PART_OF = BQB_HAS_PART + 1;
   
@@ -6143,7 +6155,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_VERSION_OF = BQB_IS_PART_OF + 1;
   
@@ -6152,7 +6164,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_HAS_VERSION = BQB_IS_VERSION_OF + 1;
   
@@ -6161,7 +6173,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_HOMOLOG_TO = BQB_HAS_VERSION + 1;
   
@@ -6170,7 +6182,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_DESCRIBED_BY = BQB_IS_HOMOLOG_TO + 1;
   
@@ -6179,7 +6191,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_ENCODED_BY = BQB_IS_DESCRIBED_BY + 1;
   
@@ -6188,7 +6200,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_ENCODES = BQB_IS_ENCODED_BY + 1;
   
@@ -6197,7 +6209,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_OCCURS_IN = BQB_ENCODES + 1;
   
@@ -6206,7 +6218,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_HAS_PROPERTY = BQB_OCCURS_IN + 1;
   
@@ -6215,7 +6227,7 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
     public final static int BQB_IS_PROPERTY_OF = BQB_HAS_PROPERTY + 1;
   
@@ -6224,9 +6236,18 @@ public interface libsbmlConstants
      * One of the possible MIRIAM annotation model qualifier types used by
      * {@link CVTerm}.  Please consult the explanation of the qualifiers
      * defined by BioModels.net at <a target="_blank"
-     * href="http://biomodels.net/qualifiers">http://biomodels.net/qualifiers</a>.
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
      */
-    public final static int BQB_UNKNOWN = BQB_IS_PROPERTY_OF + 1;
+    public final static int BQB_HAS_TAXON = BQB_IS_PROPERTY_OF + 1;
+
+
+    /**
+     * One of the possible MIRIAM annotation model qualifier types used by
+     * {@link CVTerm}.  Please consult the explanation of the qualifiers
+     * defined by BioModels.net at <a target="_blank"
+     * href="http://co.mbine.org/standards/qualifiers">http://co.mbine.org/standards/qualifiers</a>.
+     */
+    public final static int BQB_UNKNOWN = BQB_HAS_TAXON + 1;
 
 
     /**
