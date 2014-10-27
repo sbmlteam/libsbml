@@ -42,6 +42,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 UncertMLNode::UncertMLNode ()
   : mElementName ("")
+  , mText ("")
   , mAttributes()
   , mChildren()
 {
@@ -52,6 +53,7 @@ UncertMLNode::UncertMLNode ()
  */
 UncertMLNode::UncertMLNode (XMLNode* xml)
   : mElementName ("")  
+  , mText ("")
   , mAttributes()
   , mChildren()
 {
@@ -71,7 +73,8 @@ UncertMLNode::UncertMLNode (const UncertMLNode& orig)
   }
   else
   {
-    mElementName  = orig.mElementName;
+    mElementName = orig.mElementName;
+    mText        = orig.mText;
     mAttributes  = orig.mAttributes;
 
     for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
@@ -94,7 +97,8 @@ UncertMLNode::operator=(const UncertMLNode& rhs)
   }
   else if (&rhs != this)
   {
-    mElementName  = rhs.mElementName;
+    mElementName = rhs.mElementName;
+    mText        = rhs.mText;
     mAttributes  = rhs.mAttributes;
     
     int size = (int)mChildren.size();
@@ -151,6 +155,16 @@ UncertMLNode::getElementName() const
 
 
 /*
+ * Returns the value of the "text" element of this UncertMLNode.
+ */
+const std::string&
+UncertMLNode::getText() const
+{
+  return mText;
+}
+
+
+/*
  * Returns the value of the "attributes" attribute of this UncertMLNode.
  */
 const XMLAttributes&
@@ -167,6 +181,16 @@ bool
 UncertMLNode::isSetElementName() const
 {
   return (mElementName.empty() == false);
+}
+
+
+/*
+ * Returns true/false if text is set.
+ */
+bool
+UncertMLNode::isSetText() const
+{
+  return (mText.empty() == false);
 }
 
 
@@ -199,6 +223,24 @@ UncertMLNode::setElementName(const std::string& elementName)
 
 
 /*
+ * Sets text and returns value indicating success.
+ */
+int
+UncertMLNode::setText(const std::string& text)
+{
+  if (&(text) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mText = text;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets attributes and returns value indicating success.
  */
 int
@@ -225,6 +267,25 @@ UncertMLNode::unsetElementName()
   mElementName.erase();
 
   if (mElementName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets text and returns value indicating success.
+ */
+int
+UncertMLNode::unsetText()
+{
+  mText.erase();
+
+  if (mText.empty() == true)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -314,33 +375,46 @@ UncertMLNode::parseXMLNode(const XMLNode* xml)
 
   bool success = true;
 
-  // set the element name
-  if (setElementName(xml->getName()) != LIBSBML_OPERATION_SUCCESS)
-  {
-    success = false;
-  }
+  std::string name = xml->getName();
 
-  // set any attributes from teh element
-  if (xml->getAttributesLength() > 0 && success != false)
+  if (name.empty() == false)
   {
-    if (setAttributes(xml->getAttributes()) != LIBSBML_OPERATION_SUCCESS)
+    // set the element name
+    if (setElementName(xml->getName()) != LIBSBML_OPERATION_SUCCESS)
     {
       success = false;
     }
-  }
 
-  // loop thru the children of the XMLNode
-  // parse each and add as a child
-  for (unsigned int i = 0; success != false && i < xml->getNumChildren(); i++)
-  {
-    UncertMLNode * child = new UncertMLNode();
-    success = child->parseXMLNode(&(xml->getChild(i)));
-    if (success == true)
+    // set any attributes from teh element
+    if (xml->getAttributesLength() > 0 && success != false)
     {
-      if (addChild(child) != LIBSBML_OPERATION_SUCCESS)
+      if (setAttributes(xml->getAttributes()) != LIBSBML_OPERATION_SUCCESS)
       {
         success = false;
       }
+    }
+
+    // loop thru the children of the XMLNode
+    // parse each and add as a child
+    for (unsigned int i = 0; success != false && i < xml->getNumChildren(); i++)
+    {
+      UncertMLNode * child = new UncertMLNode();
+      success = child->parseXMLNode(&(xml->getChild(i)));
+      if (success == true)
+      {
+        if (addChild(child) != LIBSBML_OPERATION_SUCCESS)
+        {
+          success = false;
+        }
+      }
+    }
+  }
+  else
+  {
+    // here we have a text element
+    if (setText(xml->getCharacters()) != LIBSBML_OPERATION_SUCCESS)
+    {
+      success = false;
     }
   }
 
@@ -373,17 +447,26 @@ UncertMLNode::constructXMLNode() const
 XMLNode *
 UncertMLNode::reconstructXML() const
 {
-  XMLTriple triple = XMLTriple(getElementName(),"", "");
-  XMLAttributes att = XMLAttributes(getAttributes());
-
-  XMLNode * xml = new XMLNode(triple, att);
-
-  for (unsigned int n = 0; n < getNumChildren(); n++)
+  XMLNode * xml = NULL;
+  if (isSetElementName() == true)
   {
-    XMLNode * child = getChild(n)->reconstructXML();
-    xml->addChild(*(child));
-    delete child;
+    XMLTriple triple = XMLTriple(getElementName(),"", "");
+    XMLAttributes att = XMLAttributes(getAttributes());
+
+    xml = new XMLNode(triple, att);
+
+    for (unsigned int n = 0; n < getNumChildren(); n++)
+    {
+      XMLNode * child = getChild(n)->reconstructXML();
+      xml->addChild(*(child));
+      delete child;
+    }
   }
+  else
+  {
+    xml = new XMLNode(getText());
+  }
+
   return xml;
 }
 

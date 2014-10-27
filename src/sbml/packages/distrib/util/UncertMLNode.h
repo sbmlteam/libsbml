@@ -55,6 +55,7 @@ class LIBSBML_EXTERN UncertMLNode
 protected:
 
   std::string   mElementName;
+  std::string   mText;
   XMLAttributes mAttributes;
   std::vector<UncertMLNode*> mChildren;
 
@@ -152,6 +153,54 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   int unsetElementName();
+
+
+  /**
+   * Returns the value of the "text" element of this UncertMLNode.
+   *
+   * @return the value of the "text" element of this 
+   * UncertMLNode as a string.
+   */
+  const std::string& getText() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * UncertMLNode's "text" element has been set.
+   *
+   * @return @c true if this UncertMLNode's "text" 
+   * element has been set, otherwise @c false is returned.
+   */
+  bool isSetText() const;
+
+
+  /**
+   * Sets the value of the "text" element of this UncertMLNode.
+   *
+   * @param text; const std::string& value of the "text" 
+   * element to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setText(const std::string& text);
+
+
+  /**
+   * Unsets the value of the "text" element of this UncertMLNode.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetText();
 
 
   /**
