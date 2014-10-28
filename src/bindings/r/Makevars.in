@@ -2,12 +2,16 @@ PKG_CPPFLAGS = @CPPFLAGS@
 PKG_LIBS = @LIBS@
 
 ifeq "$(PLATFORM)" ""
-PLATFORM := $(shell uname)
+  PLATFORM := $(shell uname)
 endif
 
 ifeq "$(PLATFORM)" "Darwin"
-  PKG_CXXFLAGS = -std=c++11
-  CXX_STD = CXX11
+  ifeq ($(shell sw_vers -productVersion | grep -c 10.6),0)
+  ifeq ($(shell sw_vers -productVersion | grep -c 10.7),0)
+    PKG_CXXFLAGS = -std=c++11
+    CXX_STD = CXX11
+  endif
+  endif
 endif
 
 CPP_SOURCES = \
