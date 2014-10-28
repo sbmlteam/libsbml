@@ -36,6 +36,7 @@ message("Creating: sbml.node")
 # first ensure that all required variables are provided: 
 #  
 #  NODE_GYP_EXECUTABLE - path to node-gyp
+#  NODEJS_EXECUTABLE   - path to node.js executable
 #  PYTHON_EXECUTABLE   - path to python, that will be called by node-gyp
 #  BIN_DIRECTORY       - path to the build dir, where binding.gyp.in was generated
 #  LIBSBML_LIBRARY     - full path to the libsbml library to link against
@@ -82,6 +83,15 @@ endif()
 file(READ ${BIN_DIRECTORY}/binding.gyp.in BINDING_CONTENT)
 string(REPLACE "LIBSBML_LOCATION" ${LIBSBML_LIBRARY} BINDING_CONTENT ${BINDING_CONTENT})
 file(WRITE ${BIN_DIRECTORY}/binding.gyp ${BINDING_CONTENT})
+
+# if we have NODEJS_EXECUTABLE, prepend its path to the PATH, so it will be 
+# called (needed to disambiguate on machines that use both 32bit and 64bit nodejs)
+if (WIN32)
+  if (NODEJS_EXECUTABLE)
+    get_filename_component(nodejs_dir ${NODEJS_EXECUTABLE} DIRECTORY)
+    set(ENV{PATH} "${nodejs_dir};$ENV{PATH}")
+  endif()
+endif()
 
 # finally compile the library
 # 

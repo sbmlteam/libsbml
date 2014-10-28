@@ -169,8 +169,20 @@ if (WITH_JAVASCRIPT)
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-			  $ENV{PROGRAMFILES}/nodejs/
+			  $ENV{ProgramFiles}/nodejs/
+			  $ENV{ProgramFiles(x86)}/nodejs/
         DOC "The file name of the node-gyp executable."
+        )
+		
+  find_program(NODEJS_EXECUTABLE
+        NAMES node nodeexe
+        PATHS
+              /usr/local/bin
+              /opt/local/bin
+              /usr/bin
+			  $ENV{ProgramFiles}/nodejs/
+			  $ENV{ProgramFiles(x86)}/nodejs/
+        DOC "The file name of the nodejs executable."
         )
   # check that we found node-gyp
   if (NOT NODE_GYP_EXECUTABLE)
