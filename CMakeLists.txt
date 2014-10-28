@@ -169,8 +169,8 @@ if (WITH_JAVASCRIPT)
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-			  $ENV{ProgramFiles}/nodejs/
-			  $ENV{ProgramFiles(x86)}/nodejs/
+			  "$ENV{ProgramFiles}/nodejs/"
+			  "$ENV{ProgramFiles(x86)}/nodejs/"
         DOC "The file name of the node-gyp executable."
         )
 		
@@ -180,8 +180,8 @@ if (WITH_JAVASCRIPT)
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-			  $ENV{ProgramFiles}/nodejs/
-			  $ENV{ProgramFiles(x86)}/nodejs/
+			  "$ENV{ProgramFiles}/nodejs/"
+			  "$ENV{ProgramFiles(x86)}/nodejs/"
         DOC "The file name of the nodejs executable."
         )
   # check that we found node-gyp
