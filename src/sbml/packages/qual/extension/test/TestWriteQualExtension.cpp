@@ -184,6 +184,7 @@ START_TEST (test_QualExtension_create_and_write_L3V1V1)
   ASTNode* math = SBML_parseL3Formula("geq(s1, 2)");
   fail_unless(ft->setResultLevel(2) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(ft->setMath(math)     == LIBSBML_OPERATION_SUCCESS);
+  delete math;
 
 
   string s2 = writeSBMLToStdString(&document);

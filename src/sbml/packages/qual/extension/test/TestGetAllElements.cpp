@@ -58,8 +58,8 @@ extern char *TestDataDirectory;
 
 START_TEST (test_getAllElements_transition)
 {
-  char *filename = safe_strcat(TestDataDirectory, "qual-example1.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "qual-example1.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   Model *model = document->getModel();
 

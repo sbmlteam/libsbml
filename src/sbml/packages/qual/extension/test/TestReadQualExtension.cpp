@@ -58,8 +58,8 @@ extern char *TestDataDirectory;
 
 START_TEST (test_QualExtension_read_L3V1V1)
 {
-  char *filename = safe_strcat(TestDataDirectory, "qual-example1.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "qual-example1.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   fail_unless(document->getPackageName() == "core");
 
@@ -163,8 +163,8 @@ END_TEST
 
 START_TEST (test_QualExtension_read_L3V1V1_defaultNS)
 {
-  char *filename = safe_strcat(TestDataDirectory, "qual-example1-defaultNS.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "qual-example1-defaultNS.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   fail_unless(document->getPackageName() == "core");
 
