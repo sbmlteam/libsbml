@@ -272,7 +272,7 @@ class CHeader:
       self.inDocs     = self.inComment  # Only in docs if we're in a comment.
       return
 
-    if stripped.startswith('#') or (stripped.find('typedef') >= 0):
+    if stripped.startswith('#') or 'typedef' in stripped:
       self.ignoreThis = True
       return
 
@@ -293,7 +293,7 @@ class CHeader:
           return
 
         # It might be a C++ operator redefinition.  Skip it.
-        if self.lines.find('operator') >= 0:
+        if 'operator' in self.lines:
           return
 
         # It might be an enum.  Skip it.
@@ -426,7 +426,7 @@ class Method:
     # this fixes a real problem in the Java documentation for libSBML.
 
     if language == 'java' or language == 'csharp':
-      if isConst and (args.find('unsigned int') >= 0):
+      if isConst and 'unsigned int' in args >= 0:
         self.args = ''
       elif not args.strip() == '()':
         if isConst:
