@@ -24,7 +24,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlbrief{fbc} Proposed way of expressing associations between genes.
+ * @sbmlbrief{fbc} Proposed representation of gene associations.
  *
  * The Association class is currently not part of the official SBML
  * Level&nbsp;3 Flux Balance Constraints package specification; it is instead
