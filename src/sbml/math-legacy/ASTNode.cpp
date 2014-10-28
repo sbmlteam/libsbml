@@ -2236,9 +2236,29 @@ ASTNode::setDefinitionURL(XMLAttributes url)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+
+/*
+  * sets the definitionURL attributes
+  */
+int 
+ASTNode::setDefinitionURL(const std::string& url)
+{
+  mDefinitionURL->clear();
+  mDefinitionURL->add("definitionURL", url);
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 LIBSBML_EXTERN
 bool 
 ASTNode::isBvar() const 
+{ 
+  return mIsBvar; 
+}
+
+
+LIBSBML_EXTERN
+bool 
+ASTNode::representsBvar() const 
 { 
   return mIsBvar; 
 }
@@ -2530,6 +2550,22 @@ ASTNode::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
 }
+
+LIBSBML_EXTERN
+int 
+ASTNode::unsetParentSBMLObject()
+{
+  mParentSBMLObject = NULL;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetParentSBMLObject() const
+{
+  return (mParentSBMLObject != NULL);
+}
 /** @endcond */
 
 
@@ -2549,6 +2585,23 @@ XMLAttributes*
 ASTNode::getDefinitionURL() const
 {
   return mDefinitionURL;
+}
+
+
+
+LIBSBML_EXTERN
+const std::string &
+ASTNode::getDefinitionURLString() const
+{
+  static std::string emptyString = "";
+  if (mDefinitionURL == NULL)
+  {
+    return emptyString;
+  }
+  else
+  {
+    return mDefinitionURL->getValue("definitionURL");
+  }
 }
 
 LIBSBML_EXTERN
@@ -2587,6 +2640,33 @@ ASTNode::setUserData(void *userData)
     return LIBSBML_OPERATION_FAILED;
   }
 }
+
+
+LIBSBML_EXTERN
+int
+ASTNode::unsetUserData()
+{
+  delete mUserData;
+	mUserData = NULL;
+ 
+  if (mUserData == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+LIBSBML_EXTERN
+bool
+ASTNode::isSetUserData() const
+{
+  return (mUserData != NULL);
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
@@ -3451,6 +3531,25 @@ ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb)
 
 
 LIBSBML_EXTERN
+int 
+ASTNode_unsetParentSBMLObject(ASTNode_t* node)
+{
+  if (node == NULL) return NULL;
+  return node->unsetParentSBMLObject();
+}
+
+
+LIBSBML_EXTERN
+int 
+ASTNode_isSetParentSBMLObject(ASTNode_t* node)
+{
+  if (node == NULL) return (int) false;
+  return static_cast<int>(node->isSetParentSBMLObject());
+}
+
+
+
+LIBSBML_EXTERN
 int
 ASTNode_removeChild(ASTNode_t* node, unsigned int n)
 {
@@ -3519,6 +3618,25 @@ void *ASTNode_getUserData(ASTNode_t* node)
   if (node == NULL) return NULL;
   return node->getUserData();
 }
+
+
+LIBSBML_EXTERN
+int
+ASTNode_unsetUserData(ASTNode_t* node)
+{
+  if (node == NULL) return NULL;
+  return node->unsetUserData();
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isSetUserData(ASTNode_t* node)
+{
+  if (node == NULL) return (int) false;
+  return static_cast<int>(node->isSetUserData());
+}
+
 
 LIBSBML_EXTERN
 int

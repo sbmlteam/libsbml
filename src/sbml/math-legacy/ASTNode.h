@@ -1604,6 +1604,25 @@ setValue(value, 0);
   LIBSBML_EXTERN
   int setDefinitionURL(XMLAttributes url);
 
+
+  /**
+   * Sets the MathML attribute @c definitionURL.
+   *
+   * @param url the URL value for the @c definitionURL attribute.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   *
+   * @see setDefinitionURL(XMLAttributes url)
+   * @see getDefinitionURL()
+   * @see getDefinitionURLString()
+   */
+  LIBSBML_EXTERN
+  int setDefinitionURL(const std::string& url);
+
+
   /** @endcond */
 
 
@@ -1656,6 +1675,34 @@ setValue(value, 0);
 
 
   /**
+   * Unsets the parent SBML object.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see isSetParentSBMLObject()
+   * @see getParentSBMLObject()
+   */
+  LIBSBML_EXTERN
+  int unsetParentSBMLObject();
+
+
+  /**
+   * Returns @c true if this node has a value for the parent SBML
+   * object.
+   *
+   * @return true if this ASTNode has an parent SBML object set, @c false otherwise.
+   *
+   * @see getParentSBMLObject()
+   * @if clike @see setParentSBMLObject()@endif@~
+   */
+  LIBSBML_EXTERN
+  bool isSetParentSBMLObject() const;
+
+
+  /**
    * Reduces this ASTNode to a binary tree.
    * 
    * Example: if this ASTNode is <code>and(x, y, z)</code>, then the 
@@ -1698,6 +1745,44 @@ setValue(value, 0);
 
 
  /**
+  * Unsets the user data of this node.
+  *
+  * The user data can be used by the application developer to attach custom
+  * information to the node.  In case of a deep copy, this attribute will
+  * passed as it is. The attribute will be never interpreted by this class.
+  *
+  * @return integer value indicating success/failure of the
+  * function.  The possible values returned by this function are:
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  *
+  * @if clike
+  * @see ASTNode::setUserData()
+  * @see ASTNode::getUserData()
+  * @see ASTNode::isSetUserData()
+  * @endif@~
+  */
+  LIBSBML_EXTERN
+  int unsetUserData();
+
+
+ /**
+  * Returns @c true if this node has a user data object.
+  *
+  * @return true if this ASTNode has a user data object set, @c false
+  * otherwise.
+  *
+  * @if clike
+  * @see ASTNode::setUserData()
+  * @see ASTNode::getUserData()
+  * @see ASTNode::unsetUserData()
+  * @endif@~
+  */
+  LIBSBML_EXTERN
+  bool isSetUserData() const;
+
+
+ /**
   * Returns @c true or @c false depending on whether this
   * ASTNode is well-formed.
   *
@@ -1729,6 +1814,28 @@ setValue(value, 0);
   */
   LIBSBML_EXTERN
   bool hasCorrectNumberArguments() const;
+
+  /**
+   * Returns the MathML @c definitionURL attribute value as a string.
+   *
+   * @return the value of the @c definitionURL attribute, as a string.
+   *
+   * @see getDefinitionURL()
+   * @see setDefinitionURL(const std::string& url)
+   * @see setDefinitionURL(XMLAttributes url)
+   */
+  LIBSBML_EXTERN
+  const std::string& getDefinitionURLString() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  LIBSBML_EXTERN
+  bool representsBvar() const;
+
+
+  /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
     
@@ -3413,6 +3520,20 @@ SBase_t *
 ASTNode_getParentSBMLObject(ASTNode_t* node);
 
 
+/**
+ * Returns true if the given node's parent SBML object is set.
+ *
+ * @param node the node to query
+ *
+ * @return @c 1 if the parent SBML object is set, @c 0 otherwise.
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isSetParentSBMLObject(ASTNode_t* node);
+
+
 /** @cond doxygenLibsbmlInternal */
 /**
  * @param node the node to modify
@@ -3422,6 +3543,24 @@ ASTNode_getParentSBMLObject(ASTNode_t* node);
 LIBSBML_EXTERN
 void 
 ASTNode_setParentSBMLObject(ASTNode_t* node, SBase_t * sb);
+/**
+ * Unsets the parent SBase_t structure.
+ *
+ * @param node the node to modify
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_unsetParentSBMLObject(ASTNode_t* node);
+
+
 /** @endcond */
 
 
@@ -3537,6 +3676,47 @@ ASTNode_setUserData(ASTNode_t* node, void *userData);
 LIBSBML_EXTERN
 void *
 ASTNode_getUserData(ASTNode_t* node);
+
+
+/**
+ * Unsets the user data of the given node.
+ *
+ * The user data can be used by the application developer to attach custom
+ * information to the node. In case of a deep copy, this attribute will
+ * passed as it is. The attribute will be never interpreted by this class.
+ *
+ * @param node the node to modify
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @see ASTNode_getUserData()
+ * @see ASTNode_setUserData()
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_unsetUserData(ASTNode_t* node);
+
+
+/**
+ * Returns true if the given node's user data object is set.
+ *
+ * @param node the node to query
+ *
+ * @return @c 1 if the user data object is set, @c 0 otherwise.
+ *
+ * @see ASTNode_setUserData()
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isSetUserData(ASTNode_t* node);
 
 
 /**
