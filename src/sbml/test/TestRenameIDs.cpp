@@ -93,7 +93,7 @@ START_TEST (test_RenameIDs)
   std::string xmlstr(xml);
   fail_unless(xmlstr.find("y_new") == std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
 
   //Compartment
   obj = d->getElementByMetaId("meta4");
@@ -118,7 +118,7 @@ START_TEST (test_RenameIDs)
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("b2_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
 
   //Local parameter
   obj = d->getElementByMetaId("meta28");
@@ -157,7 +157,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
 
   //Event assignment
   obj = d->getElementByMetaId("meta16");
@@ -166,7 +166,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
   EventAssignment* ea = static_cast<EventAssignment*>(obj);
   fail_unless(ea->getVariable() == "b_new");
 
@@ -177,7 +177,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
 
   //Priority
   obj = d->getElementByMetaId("meta19");
@@ -186,7 +186,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
 
   //Initial assignment
   obj = d->getElementByMetaId("meta23");
@@ -195,7 +195,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("x_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
   InitialAssignment* ia = static_cast<InitialAssignment*>(obj);
   fail_unless(ia->getSymbol() == "b_new");
 
@@ -206,7 +206,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
   RateRule* rr = static_cast<RateRule*>(obj);
   fail_unless(rr->getVariable() == "x_new"); 
 
@@ -217,7 +217,7 @@ START_TEST (test_RenameIDs)
   xmlstr = xml;
   fail_unless(xmlstr.find("b_new") != std::string::npos);
   fail_unless(xmlstr.find("volume_new") != std::string::npos);
-  delete xml;
+  safe_free(xml);
   AssignmentRule* ar = static_cast<AssignmentRule*>(obj);
   fail_unless(ar->getVariable() == "C_new");
 

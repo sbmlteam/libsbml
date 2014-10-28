@@ -68,15 +68,19 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-SBMLInternalValidator::SBMLInternalValidator() : SBMLValidator()
+SBMLInternalValidator::SBMLInternalValidator() 
+  : SBMLValidator()
+  , mApplicableValidators(0)
+  , mApplicableValidatorsForConversion(0)
 {
 
 }
 
 
-SBMLInternalValidator::SBMLInternalValidator(const SBMLInternalValidator& orig) :
-SBMLValidator(orig), mApplicableValidators(orig.mApplicableValidators), 
-  mApplicableValidatorsForConversion(orig.mApplicableValidatorsForConversion)
+SBMLInternalValidator::SBMLInternalValidator(const SBMLInternalValidator& orig) 
+  : SBMLValidator(orig)
+  , mApplicableValidators(orig.mApplicableValidators)
+  , mApplicableValidatorsForConversion(orig.mApplicableValidatorsForConversion)
 {
 }
 
