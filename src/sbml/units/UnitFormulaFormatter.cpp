@@ -520,6 +520,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     mContainsUndeclaredUnits = true;
   }
 
+  delete exponentUD;
   return variableUD;
 
 }

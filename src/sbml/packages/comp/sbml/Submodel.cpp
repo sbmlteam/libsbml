@@ -43,6 +43,7 @@
 #include <sbml/packages/comp/validator/CompSBMLError.h>
 
 #include <sbml/util/ElementFilter.h>
+#include <sbml/util/IdList.h>
 
 using namespace std;
 
@@ -934,7 +935,7 @@ Submodel::instantiate()
   while(it != mProcessingCBs.end())
   {
     ModelProcessingCallbackData* current = *it;
-    int result = current->cb(mInstantiatedModel, rootdoc->getErrorLog(), current->data);
+    int result = current->cb(mInstantiatedModel, rootdoc->getErrorLog(), current->idlist, current->userdata);
     if (result != LIBSBML_OPERATION_SUCCESS)
       return result;
     ++it;
@@ -1370,17 +1371,23 @@ std::vector<ModelProcessingCallbackData*> Submodel::mProcessingCBs = std::vector
 void 
 Submodel::clearProcessingCallbacks()
 {
+  for (size_t mpcb=0; mpcb<mProcessingCBs.size(); mpcb++) 
+  {
+    delete mProcessingCBs[mpcb]->idlist;
+    delete mProcessingCBs[mpcb];
+  }
   mProcessingCBs.clear();
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void 
-Submodel::addProcessingCallback(ModelProcessingCallback cb, void* userdata /* = NULL */)
+Submodel::addProcessingCallback(ModelProcessingCallback cb, IdList* idlist, void* userdata)
 {
   ModelProcessingCallbackData* cbdata = new ModelProcessingCallbackData();
   cbdata->cb = cb;
-  cbdata->data = userdata;
+  cbdata->idlist = idlist;
+  cbdata->userdata = userdata;
   mProcessingCBs.push_back(cbdata);
 }
 /** @endcond */
@@ -1401,6 +1408,7 @@ Submodel::removeProcessingCallback(int index)
 
   ModelProcessingCallbackData* cbdata = mProcessingCBs[index];
   mProcessingCBs.erase(mProcessingCBs.begin() + index, mProcessingCBs.begin() + 1 + index);
+  delete cbdata->idlist;
   delete cbdata;
 }
 /** @endcond */

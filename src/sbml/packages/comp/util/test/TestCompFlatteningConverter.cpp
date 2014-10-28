@@ -125,12 +125,9 @@ START_TEST (test_comp_flatten_aggregate)
   string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
-
   delete doc;
+  delete fdoc;
   delete converter;
-  
-
-
 }
 END_TEST
 
@@ -282,6 +279,7 @@ START_TEST (test_comp_flatten_qtpop)
   fail_unless(flatModel == newModel);
 
   delete doc;
+  delete fdoc;
   delete converter;
 }
 END_TEST
@@ -348,6 +346,8 @@ START_TEST (test_comp_flatten_double_ext1)
   fail_unless(flatModel == newModel);
 
   delete doc;
+  delete origdoc;
+  delete fdoc;
   delete converter;
 }
 END_TEST
@@ -413,6 +413,8 @@ START_TEST (test_comp_flatten_double_ext2)
 
 
   delete doc;
+  delete origdoc;
+  delete fdoc;
   delete converter;
 }
 END_TEST
@@ -638,6 +640,7 @@ START_TEST (test_comp_flatten_test14_ports)
   string flatModel = writeSBMLToStdString(fdoc);
   fail_unless(flatModel == newModel);
 
+  delete converter;
   delete doc;
   delete fdoc;
 }
@@ -2018,7 +2021,7 @@ START_TEST(test_invalid_layout_disabled)
 }
 END_TEST
 
-int processingCb(Model* m, SBMLErrorLog*, void* userdata)
+int processingCb(Model* m, SBMLErrorLog*, IdList* idlist, void* userdata)
 {
   return 0;
 }
@@ -2029,7 +2032,7 @@ START_TEST(test_submodel_callbacks)
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 0);
 
-  Submodel::addProcessingCallback(&processingCb);
+  Submodel::addProcessingCallback(&processingCb, NULL, NULL);
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 1);
 
@@ -2037,7 +2040,7 @@ START_TEST(test_submodel_callbacks)
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 0);
 
-  Submodel::addProcessingCallback(&processingCb);
+  Submodel::addProcessingCallback(&processingCb, NULL, NULL);
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 1);
 

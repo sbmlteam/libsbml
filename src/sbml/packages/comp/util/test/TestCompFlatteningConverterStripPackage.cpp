@@ -44,7 +44,7 @@ BEGIN_C_DECLS
 
 extern char *TestDataDirectory;
 
-void TestPair(std::string file1, std::string file2, std::string pkgToStrip,
+void TestPair(const std::string& file1, const std::string& file2, const std::string& pkgToStrip,
               unsigned int numErrors = 0)
 {
   std::string filename(TestDataDirectory);

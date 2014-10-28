@@ -59,18 +59,20 @@ class ReferencedModel
 public:
   ReferencedModel(const Model & m, const Port & p)
   {
-    referencedModel = 
+    mReferencedDocument = NULL;
+    mReferencedModel = 
       static_cast<const Model*>(p.getAncestorOfType(SBML_MODEL, "core"));
-    if (referencedModel == NULL) 
+    if (mReferencedModel == NULL) 
     {
-      referencedModel = static_cast<const Model*>
+      mReferencedModel = static_cast<const Model*>
         (p.getAncestorOfType(SBML_COMP_MODELDEFINITION, "comp"));
     }
   }
 
   ReferencedModel(const Model & m, const Deletion & d)
   {
-    referencedModel = NULL;
+    mReferencedDocument = NULL;
+    mReferencedModel = NULL;
 
     const Submodel * sub = static_cast<const Submodel*>
                         (d.getAncestorOfType(SBML_COMP_SUBMODEL, "comp"));
@@ -88,8 +90,8 @@ public:
         if (docPlug != NULL)
         {
 
-          referencedModel = docPlug->getModelDefinition(modelId);
-          if (referencedModel == NULL)
+          mReferencedModel = docPlug->getModelDefinition(modelId);
+          if (mReferencedModel == NULL)
           {
             // may be an external model
             ExternalModelDefinition * emd = 
@@ -101,19 +103,19 @@ public:
 
             const SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
-            doc = registry.resolve(uri, locationURI);
-            if (doc != NULL)
+            mReferencedDocument = registry.resolve(uri, locationURI);
+            if (mReferencedDocument != NULL)
             {
               if (emd->isSetModelRef() == false)
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = mReferencedDocument->getModel();
                 found = true;
               }
-              else if (doc->getModel() != NULL &&
-                doc->getModel()->isSetId() == true &&
-                emd->getModelRef() == doc->getModel()->getId())
+              else if (mReferencedDocument->getModel() != NULL &&
+                mReferencedDocument->getModel()->isSetId() == true &&
+                emd->getModelRef() == mReferencedDocument->getModel()->getId())
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = mReferencedDocument->getModel();
                 found = true;
               }
               else
@@ -139,7 +141,8 @@ public:
   
   ReferencedModel(const Model & m, const ReplacedElement & repE)
   {
-    referencedModel = NULL;
+    mReferencedDocument = NULL;
+    mReferencedModel = NULL;
 
     CompModelPlugin *plug = (CompModelPlugin*)(m.getPlugin("comp"));
     
@@ -159,8 +162,8 @@ public:
         if (docPlug != NULL)
         {
 
-          referencedModel = docPlug->getModelDefinition(modelId);
-          if (referencedModel == NULL)
+          mReferencedModel = docPlug->getModelDefinition(modelId);
+          if (mReferencedModel == NULL)
           {
             // may be an external model
             ExternalModelDefinition * emd = 
@@ -178,14 +181,14 @@ public:
               registry.addOwnedSBMLDocument(doc);
               if (emd->isSetModelRef() == false)
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = doc->getModel();
                 found = true;
               }
               else if (doc->getModel() != NULL &&
                 doc->getModel()->isSetId() == true &&
                 emd->getModelRef() == doc->getModel()->getId())
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = doc->getModel();
                 found = true;
               }
               else
@@ -211,7 +214,8 @@ public:
   
   ReferencedModel(const Model & m, const ReplacedBy & repBy)
   {
-    referencedModel = NULL;
+    mReferencedDocument = NULL;
+    mReferencedModel = NULL;
 
     CompModelPlugin *plug = (CompModelPlugin*)(m.getPlugin("comp"));
     
@@ -231,8 +235,8 @@ public:
         if (docPlug != NULL)
         {
 
-          referencedModel = docPlug->getModelDefinition(modelId);
-          if (referencedModel == NULL)
+          mReferencedModel = docPlug->getModelDefinition(modelId);
+          if (mReferencedModel == NULL)
           {
             // may be an external model
             ExternalModelDefinition * emd = 
@@ -244,19 +248,19 @@ public:
 
             const SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
-            doc = registry.resolve(uri, locationURI);
-            if (doc != NULL)
+            mReferencedDocument = registry.resolve(uri, locationURI);
+            if (mReferencedDocument != NULL)
             {
               if (emd->isSetModelRef() == false)
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = mReferencedDocument->getModel();
                 found = true;
               }
-              else if (doc->getModel() != NULL &&
-                doc->getModel()->isSetId() == true &&
-                emd->getModelRef() == doc->getModel()->getId())
+              else if (mReferencedDocument->getModel() != NULL &&
+                mReferencedDocument->getModel()->isSetId() == true &&
+                emd->getModelRef() == mReferencedDocument->getModel()->getId())
               {
-                referencedModel = doc->getModel();
+                mReferencedModel = mReferencedDocument->getModel();
                 found = true;
               }
               else
@@ -282,7 +286,8 @@ public:
   
   ReferencedModel(const Model & m, const SBaseRef & sbRef)
   {
-    referencedModel = NULL;
+    mReferencedDocument = NULL;
+    mReferencedModel = NULL;
     
     if (sbRef.getParentSBMLObject() != NULL)
     {
@@ -434,8 +439,8 @@ public:
             }
           }
 
-          referencedModel = docPlug->getModelDefinition(modelId);
-          if (referencedModel == NULL)
+          mReferencedModel = docPlug->getModelDefinition(modelId);
+          if (mReferencedModel == NULL)
           {
             /* may be an external model */
             ExternalModelDefinition * emd = 
@@ -447,9 +452,9 @@ public:
 
             const SBMLResolverRegistry& registry = 
                                   SBMLResolverRegistry::getInstance();
-            SBMLDocument *newDoc = registry.resolve(uri, locationURI);
-            pre(newDoc != NULL);
-            referencedModel = newDoc->getModel();
+            mReferencedDocument = registry.resolve(uri, locationURI);
+            pre(mReferencedDocument != NULL);
+            mReferencedModel = mReferencedDocument->getModel();
           }
 
           while (mReferences.empty() == false)
@@ -466,7 +471,7 @@ public:
               idRef = "";
             }
             CompModelPlugin *plug1 = 
-                        (CompModelPlugin*)(referencedModel->getPlugin("comp"));
+                        (CompModelPlugin*)(mReferencedModel->getPlugin("comp"));
             
             if (docPlug != NULL && plug1 != NULL)
             {
@@ -488,8 +493,8 @@ public:
                 }
               }
 
-              referencedModel = docPlug->getModelDefinition(modelId);
-              if (referencedModel == NULL)
+              mReferencedModel = docPlug->getModelDefinition(modelId);
+              if (mReferencedModel == NULL)
               {
                 /* may be an external model */
                 ExternalModelDefinition * emd = 
@@ -503,7 +508,7 @@ public:
                                       SBMLResolverRegistry::getInstance();
                 SBMLDocument *newDoc = registry.resolve(uri, locationURI);
                 pre(newDoc != NULL);
-                referencedModel = newDoc->getModel();
+                mReferencedModel = newDoc->getModel();
               }
             }
             mReferences.erase(mReferences.end()-1);
@@ -513,15 +518,21 @@ public:
     }
   }
 
+  ~ReferencedModel()
+  {
+    delete mReferencedDocument;
+  }
+
 
   const Model * getReferencedModel()
   {
-    return referencedModel;
+    return mReferencedModel;
   }
 
 private:
 
-  const Model* referencedModel;
+  const Model* mReferencedModel;
+  const SBMLDocument* mReferencedDocument;
   vector< pair< std::string, std::string > >  mReferences;
 };
 

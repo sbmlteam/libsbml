@@ -155,17 +155,14 @@ CompFlatteningConverter::convert()
 
   int result = performConversion();
 
-   if (basePathResolverIndex != -1)
+  if (basePathResolverIndex != -1)
   {
     // if we added a resolver remove it
     SBMLResolverRegistry::getInstance().removeResolver(basePathResolverIndex);
   }
 
   // remove all registered callbacks
-  for (int index = Submodel::getNumProcessingCallbacks()-1; index >= numRegisteredCallbacks; --index)
-  {
-    Submodel::removeProcessingCallback(index);
-  }
+  Submodel::clearProcessingCallbacks();
 
   return result;
 
@@ -180,7 +177,7 @@ struct disable_info {
 };
 
 // simple callback enabling packages on main doc
-int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
+int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, IdList* idlist, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 
@@ -369,7 +366,7 @@ CompFlatteningConverter::performConversion()
   mainDoc.stripUnflattenable = getStripUnflattenablePackages();
   mainDoc.abortForRequiredOnly = getAbortForRequired(); 
  
-  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, &(mainDoc));
+  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, NULL, &(mainDoc));
   Model* flatmodel = modelPlugin->flattenModel();
   
 
@@ -1027,11 +1024,11 @@ CompFlatteningConverter::stripUnflattenablePackages()
 }
 
 // simple callback disabling packages on child documents
-int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
+int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, IdList* idlist, void*)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 
-  IdList *pkgsToStrip = static_cast<IdList*>(userdata);
+  IdList *pkgsToStrip = idlist;
 
   XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
   for (int i = 0; i < ns->getLength(); i++)
@@ -1091,7 +1088,7 @@ CompFlatteningConverter::stripPackages()
   }
 
   // setup callback that will disable the packages on submodels
-  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip);
+  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip, NULL);
 
   if (num == count)
   {
