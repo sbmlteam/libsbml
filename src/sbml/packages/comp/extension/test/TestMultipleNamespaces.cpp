@@ -54,9 +54,9 @@ START_TEST (test_modeldef_layout)
   filename += "QTPop_flat_withlayout.xml";  
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
 
-  CompPkgNamespaces *ns = new CompPkgNamespaces(3);
+  CompPkgNamespaces ns(3);
 
-  doc->enablePackage(ns->getURI(), "comp", true);
+  doc->enablePackage(ns.getURI(), "comp", true);
   doc->setPackageRequired("comp", true);
 
   // fail if document is null
@@ -74,9 +74,8 @@ START_TEST (test_modeldef_layout)
     return;
   }
 
-  //CompModelPlugin *cmp = (CompModelPlugin *)model->getPlugin("comp");
-  ModelDefinition* md = new ModelDefinition(*model);
-  csdp->addModelDefinition(md);
+  ModelDefinition md(*model);
+  csdp->addModelDefinition(&md);
 
   string result1 = writeSBMLToStdString(doc);
 
@@ -85,6 +84,8 @@ START_TEST (test_modeldef_layout)
 
   fail_unless(result1 == result2);
 
+  delete doc;
+  delete doc2;
 }
 END_TEST
 #ifdef LIBSBML_HAS_PACKAGE_LAYOUT
