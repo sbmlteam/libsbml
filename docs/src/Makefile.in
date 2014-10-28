@@ -340,6 +340,8 @@ distfiles =                                                  \
         python-substitutions/QualPkgNamespaces.py            \
         python-substitutions/SBMLNamespacesList.py           \
         python-substitutions/libsbml.py                      \
+        python-substitutions/ostream.py                      \
+        python-substitutions/ostringstream.py                \
         sbml.js                                              \
         utilities/compare-classes.py                         \
         utilities/compare-constants.py                       \
