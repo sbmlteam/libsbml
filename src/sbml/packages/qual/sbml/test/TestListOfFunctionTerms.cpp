@@ -95,6 +95,7 @@ START_TEST (test_ListOfFunctionTerms_functionTerms)
   ASTNode * ast = SBML_parseL3Formula("geq(1,2)");
   ft->setResultLevel(1);
   ft->setMath(ast);
+  delete ast;
   
   fail_unless(G->appendAndOwn(ft) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetDefaultTerm() == false);
@@ -144,6 +145,7 @@ START_TEST(test_ListOfFunctionTerms_assignment)
   ASTNode * ast = SBML_parseL3Formula("geq(1,2)");
   ft->setResultLevel(1);
   ft->setMath(ast);
+  delete ast;
   DefaultTerm dt(GNS);
   dt.setResultLevel(1);
   G->appendAndOwn(ft);
