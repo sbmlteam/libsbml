@@ -166,6 +166,7 @@ class CHeader:
     self.inClass     = False
     self.inClassDocs = False
     self.inDocs      = False
+    self.inComment   = False
     self.isInternal  = False
     self.ignoreThis  = False
 
@@ -184,8 +185,8 @@ class CHeader:
     # Track things that we flag as internal, so that we can
     # remove them from the documentation.
 
-    if (stripped.find('@cond doxygenLibsbmlInternal') >= 0): self.isInternal = True
-    if (stripped.find('@endcond') >= 0):                     self.isInternal = False
+    if '@cond doxygenLibsbmlInternal' in stripped: self.isInternal = True
+    if '@endcond' in stripped:                     self.isInternal = False
 
     # Watch for class description, usually at top of file.
 
@@ -252,33 +253,40 @@ class CHeader:
       self.inClass = False
       return
 
-    if stripped == '/**':
+    if stripped.startswith('/*'):       # Also catches /** comment start.
+      self.inComment  = True
+
+    if stripped.startswith('/**'):      # We're only interested in /** ones.
       self.docstring  = ''
       self.lines      = ''
       self.ignoreThis = False
-      self.inDocs     = True
+      self.inDocs     = not self.isInternal
+
+    if self.inComment and stripped.endswith('*/'):
+      self.inComment  = False
 
     if self.inDocs:
+      # When inside a doc and we're not still inside an internal section,
+      # start saving lines.
       self.docstring += line
-      self.inDocs     = not stripped.endswith('*/')
+      self.inDocs     = self.inComment  # Only in docs if we're in a comment.
       return
-
-    # If we get here, we're no longer inside a comment block.
-    # Start saving lines, but skip embedded comments.
 
     if stripped.startswith('#') or (stripped.find('typedef') >= 0):
       self.ignoreThis = True
       return
 
     if not self.ignoreThis:
-      cppcomment = stripped.find('//')
-      if cppcomment != -1:
-        stripped = stripped[:cppcomment]
+      cppcomment = -1
+      if not stripped.startswith('*'):     # If not inside a block comment.
+        cppcomment = stripped.find('//')   # Look for a inline comment.
+      if cppcomment != -1:                 # If there is one, ignore what ...
+        stripped = stripped[:cppcomment]   # ... comes after the comment start.
       self.lines += stripped + ' '         # Space avoids jamming code together.
 
       # Keep an eye out for the end of the declaration.
-      if not stripped.startswith('*') and \
-         (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
+      if not self.inComment and \
+         (stripped.endswith(';') or stripped.endswith('}')):
 
         # It might be a forward declaration.  Skip it.
         if self.lines.startswith('class'):
