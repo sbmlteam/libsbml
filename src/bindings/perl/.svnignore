@@ -21,3 +21,4 @@ blib
 Makefile-perl
 LibSBML_wrap.cxx
 .libs
+local-downcast-converters.cpp
