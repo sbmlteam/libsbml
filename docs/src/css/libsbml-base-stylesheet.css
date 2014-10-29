@@ -696,3 +696,10 @@ td.meaning code {
 #sbmlerror-table tr:last-child > td {
   border-bottom: none;
 }
+
+/* Subset of the Pygments stylesheet */
+
+.highlight .cp { color: #700070; } /* Comment.Preproc */
+.highlight .s { color: #2aa198; font-weight: normal } /* Literal.String */
+.highlight .na { color: black } /* Name.Attribute */
+.highlight .nt { color: #0040a0; font-weight: bold } /* Name.Tag */

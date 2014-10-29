@@ -177,6 +177,12 @@ distfiles =                                                  \
         common-text/comment-set-methods.html                 \
         common-text/doxygen-regular-text-end.html            \
         common-text/doxygen-regular-text-start.html          \
+        common-text/example-sbml-enzyme-model.html           \
+        common-text/example-sbml-enzyme-model.xml            \
+        common-text/example-sbml-flattened-output.html       \
+        common-text/example-sbml-flattened-output.xml        \
+        common-text/example-sbml-main.html                   \
+        common-text/example-sbml-main.xml                    \
         common-text/force-serif-font-off.html                \
         common-text/force-serif-font-on.html                 \
         common-text/level-1-uses-text-string-math.html       \
@@ -536,8 +542,8 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
+#  $(call doxygen_indexing_pass,$(1),$(2),$(3))
 define run_doxygen
-  $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 
