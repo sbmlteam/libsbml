@@ -513,14 +513,14 @@ One often encounters the need to repeat the same text in different places in
 the documentation, such as to add a detail to each method where the detail
 may be relevant.  In software documentation, unlike in non-technical prose or
 creative writing, it is often @em better to repeat text---or refer to a
-common section---everywhere that it might be relevant, because a reader
-does not normally read class and method documentation linearly: they jump to
-a method description from elsewhere.  This means that the descriptions need
-to be reasonably self-contained.  However, repeating information by
-copy-pasting text leads to an obvious maintenance nightmare, requiring any
-updates or changes to be made in multiple places.  We avoid this in libSBML
-by writing common text as reusable blocks, then using text inclusion
-mechanisms to insert the common text where it is needed.
+common section---everywhere that it might be relevant, because a reader does
+not normally read class and method documentation linearly: they jump to a
+method description from elsewhere.  This means that the descriptions need to
+be reasonably self-contained.  However, repeating information by copy-pasting
+text leads to a maintenance nightmare, requiring any updates or changes to be
+made in multiple places.  We avoid this in libSBML by writing common text as
+reusable blocks, then using text inclusion mechanisms to insert the common
+text where it is needed.
 
 A surprising limitation of Doxygen is that it only provides two mechanisms
 for copying repeated text: <code>@@htmlinclude</code>, and the
@@ -540,7 +540,7 @@ libSBML, but do so with conventions to work around the behaviors of the
 latter set of commands.
 
 
-@subsubsection coding-copydetails 4.2.1 Using "copydetails"
+@subsubsection coding-copydetails 4.2.1 Using "@@copydetails"
 
 Experienced Doxygen users may be initially confused by our use of
 <code>@@copydetails</code>, because strictly speaking, we are not using it
@@ -622,7 +622,7 @@ for this, you can use <code>@@copydoc</code>, described next.
 @htmlinclude libsbml-coding-copydetails-example.html
 
 
-@subsubsection coding-copydoc 4.2.2 Using "copydoc"
+@subsubsection coding-copydoc 4.2.2 Using "@@copydoc"
 
 As mentioned above, the Doxygen <code>@@copydetails</code> command is
 actually intended for reusing the "details" portion of a method or other
@@ -664,7 +664,7 @@ exactly, right down to the use of the same parameter names
 values, the purpose of the method, and so on.
 
 
-@subsubsection coding-htmlinclude 4.2.3 Using "htmlinclude"
+@subsubsection coding-htmlinclude 4.2.3 Using "@@htmlinclude"
 
 The <code>@@copydetails</code> and <code>@@copydoc</code> methods described
 above works well for most situations, except when you need to use significant
@@ -837,6 +837,66 @@ Since we may at some point generate latex output, always use two @c @@image
 commands when you use it: once with @c html and once with @c latex.
 
 
+@subsection coding-verbatim 4.7 Code and verbatim text
+
+Putting fragments of sample code in the documentation is always helpful for
+readers.  Doing it in a way that produces text with syntactic elements
+highlighted makes the text more readable.  Doxygen can perform syntax
+coloring on code fragments written in C++, C#, C, Java, and Python, but not
+other languages, and (particularly unfortunate for libSBML), not for XML
+either.  Here is the approach used in the libSBML documentation for the
+different cases in order to cope with this limitation.
+
+@li For code written in C++, C#, C, Java, and Python, enclose the code in
+   Doxygen's <code>@@code</code>/<code>@@endcode</code> construct.  Indicate
+   the language as an option to <code>@@code</code> in curly braces, using
+   standard filename extensions.  For example: <code>@@code{.py}</code> for
+   Python, <code>@@code{.java}</code> for Java, etc.
+
+@li Provide different versions of the code for different languages.
+   Conditionalize them using the standard <code>@@if</code> construct.  Here
+   is an example:
+@verbatim
+@if cpp
+@code{.cpp}
+... C++ version ...
+@endcode
+@endif
+@if java
+@code{.java}
+... Java version ...
+@endcode
+@endif
+@if python
+@code{.py}
+... Python version ...
+@endcode
+@endif
+... etc. ...
+@endverbatim
+
+@li For XML (which is not one of types recognized by Doxygen natively), we
+   have to use an entirely different approach: store the content in a file
+   that is processed by a syntax coloring tool, and then use @c @@htmlinclude
+   to incorporate the result in the libSBML documentation.  Here is a
+   step-by-step procedure:
+-# Save the XML content in a file with a <code>.xml</code> extension in the
+   directory <code>docs/src/common-text/</code>.
+
+-# Obtain the Python-based syntax highlighting application <a target="_blank"
+   href="http://pygments.org">Pygments</a> and use it to perform syntax
+   coloring on the <code>.xml</code> file.  Save the result to another file
+   with the same basename but the extension <code>.html</code> in the
+   directory <code>docs/src/common-text/</code>.  Here is a general command
+   line for using the program @c pygmentize provided by the <a
+   target="_blank" href="http://pygments.org">Pygments</a> distribution:
+   <div style="margin-top: 1em; margin-bottom: 1em">@code{.sh}
+pygmentize -f html -o outputfile.html intputfile.xml
+@endcode</div>
+
+-# Finally, use the Doxygen command @c @@htmlinclude to include the
+   <code>.html</code> file produced by the previous step.  See section @ref
+   coding-htmlinclude for more information about using @c @@htmlinclude.
 
 @section coding-doxygen-summary 5. Commonly-used commands
 
@@ -874,6 +934,13 @@ put something that contains HTML tags in typewriter font, use the
 <code>&lt;code&gt;the words&lt;/code&gt;</code> form, and use the HTML
 character codes <code>\&lt;</code> and<code>\&gt;</code> to embed the
 opening '@c &lt;' and '@c &gt;' characters inside <code>the words</code>.
+</td></tr>
+<tr><td><code>@@code{.x}</code> ... @c @@endcode</td>
+<td>
+Formats the text as code in the programming language indicated by a filename
+extension <code>.x</code>.  For example, <code>@@code{.py}</code> interprets
+the contents as Python code.  See section @ref coding-verbatim above for more
+information about how to use this.
 </td></tr>
 <tr><td>@c @@class</td>
 <td>
