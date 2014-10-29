@@ -2675,6 +2675,8 @@ bool ASTNode::containsVariable(const std::string id) const
   bool found = false;
 
   List * nodes = this->getListOfNodes( ASTNode_isName );
+  if (nodes == NULL) return false;
+  
   unsigned int i = 0;
   while (found == false && i < nodes->getSize())
   {
@@ -2687,6 +2689,8 @@ bool ASTNode::containsVariable(const std::string id) const
     i++;
   }
 
+  delete nodes;
+  
   return found;
 }
 /** @endcond */
@@ -2719,17 +2723,21 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
   // create a list of variables in the math
   List * nodes = this->getListOfNodes( ASTNode_isName );
   IdList * variables = new IdList();
-  for (unsigned int i = 0; i < nodes->getSize(); i++)
+  if (nodes != NULL)
   {
-    ASTNode* node = static_cast<ASTNode*>( nodes->get(i) );
-    string   name = node->getName() ? node->getName() : "";
-    if (name.empty() == false)
+    for (unsigned int i = 0; i < nodes->getSize(); i++)
     {
-      if (variables->contains(name) == false)
+      ASTNode* node = static_cast<ASTNode*>( nodes->get(i) );
+      string   name = node->getName() ? node->getName() : "";
+      if (name.empty() == false)
       {
-        variables->append(name);
+        if (variables->contains(name) == false)
+        {
+          variables->append(name);
+        }
       }
     }
+    delete nodes;
   }
 
   if ( m == NULL)
@@ -2806,6 +2814,10 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       //}
     }
   }
+
+
+  variables->clear();
+  delete variables;
 
   return number;
 }
