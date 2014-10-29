@@ -81,25 +81,17 @@ START_TEST (test_SyntaxChecker_validXHTML)
   SBMLNamespaces_t *NS24 = SBMLNamespaces_create(2,4);
   SBMLNamespaces_t *NS31 = SBMLNamespaces_create(3,1);
 
-  XMLToken_t *toptoken;
-  XMLNode_t *topnode;
   XMLTriple_t * toptriple = XMLTriple_createWith("notes", "", "");
-
-  XMLToken_t *token;
-  XMLNode_t *node;
   XMLTriple_t * triple = XMLTriple_createWith("p", "", "");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
   XMLNamespaces_add(ns, "http://www.w3.org/1999/xhtml", "");
   XMLToken_t *tt = XMLToken_createWithText("This is my text");
   XMLNode_t *n1 = XMLNode_createFromToken(tt);
-
-
-  toptoken = XMLToken_createWithTripleAttr(toptriple, att);
-  topnode = XMLNode_createFromToken(toptoken);
-
-  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node = XMLNode_createFromToken(token);
+  XMLToken_t *toptoken = XMLToken_createWithTripleAttr(toptriple, att);
+  XMLNode_t *topnode = XMLNode_createFromToken(toptoken);
+  XMLToken_t *token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode_t *node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
   XMLNode_addChild(topnode, node);
 
@@ -108,11 +100,13 @@ START_TEST (test_SyntaxChecker_validXHTML)
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 1 );
 
   XMLTriple_free(triple);
+  XMLToken_free(token);
+  XMLNode_free(node);
   triple = XMLTriple_createWith("html", "", "");
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
-  XMLNode_removeChild(topnode, 0);
+  XMLNode_free(XMLNode_removeChild(topnode, 0));
   XMLNode_addChild(topnode, node);
 
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 1 );
@@ -123,16 +117,30 @@ START_TEST (test_SyntaxChecker_validXHTML)
   triple = XMLTriple_createWith("html", "", "");
   XMLNamespaces_clear(ns);
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
-  XMLNode_removeChild(topnode, 0);
+  XMLNode_free(XMLNode_removeChild(topnode, 0));
   XMLNode_addChild(topnode, node);
 
-  XMLTriple_free(triple);
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 0 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 0 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 0 );
+
+  SBMLNamespaces_free(NS24);
+  SBMLNamespaces_free(NS31);
+  XMLTriple_free(toptriple);
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(tt);
+  XMLNode_free(n1);
+  XMLToken_free(toptoken);
+  XMLNode_free(topnode);
+  XMLToken_free(token);
+  XMLNode_free(node);
 }
 END_TEST
 

@@ -697,6 +697,18 @@ SBMLNamespaces_create(unsigned int level, unsigned int version);
 
 
 /**
+ * Destroys this SBMLNamespaces_t structure.
+ *
+ * @param ns SBMLNamespaces_t structure to be freed.
+ *
+ * @memberof SBMLNamespaces_t
+ */
+LIBSBML_EXTERN
+void
+SBMLNamespaces_free (SBMLNamespaces_t *ns);
+
+
+/**
  * Get the SBML Level of this SBMLNamespaces_t structure.
  *
  * @param sbmlns the SBMLNamespaces_t structure to query

@@ -780,6 +780,15 @@ SBMLNamespaces_create(unsigned int level, unsigned int version)
 
 
 LIBSBML_EXTERN
+void
+SBMLNamespaces_free(SBMLNamespaces_t* ns)
+{
+  if (ns == NULL) return;
+  delete static_cast<SBMLNamespaces*>(ns);
+}
+
+
+LIBSBML_EXTERN
 unsigned int
 SBMLNamespaces_getLevel(SBMLNamespaces_t *sbmlns)
 {
