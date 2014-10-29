@@ -167,6 +167,7 @@ class CHeader:
     self.inClassDocs = False
     self.inDocs      = False
     self.inComment   = False
+    self.inPrivate   = False
     self.isInternal  = False
     self.ignoreThis  = False
 
@@ -187,6 +188,8 @@ class CHeader:
 
     if '@cond doxygenLibsbmlInternal' in stripped: self.isInternal = True
     if '@endcond' in stripped:                     self.isInternal = False
+
+    if stripped.startswith('private:'): self.inPrivate = True
 
     # Watch for class description, usually at top of file.
 
@@ -224,7 +227,8 @@ class CHeader:
         if not self.classname.startswith("doc_"):
           self.docstring = '/**\n' + self.docstring + ' */'
         self.docstring = removeHTMLcomments(self.docstring)
-        doc = CClassDoc(self.docstring, self.classname, self.isInternal)
+        private = (self.isInternal or self.inPrivate)
+        doc = CClassDoc(self.docstring, self.classname, private)
         self.classDocs.append(doc)
 
       # There may be more class docs in the same comment.
@@ -251,6 +255,7 @@ class CHeader:
 
     if stripped == '};':
       self.inClass = False
+      self.inPrivate = False
       return
 
     if stripped.startswith('/*'):       # Also catches /** comment start.
@@ -269,7 +274,7 @@ class CHeader:
       # When inside a doc and we're not still inside an internal section,
       # start saving lines.
       self.docstring += line
-      self.inDocs     = self.inComment  # Only in docs if we're in a comment.
+      self.inDocs = self.inComment      # Only in docs if we're in a comment.
       return
 
     if stripped.startswith('#') or 'typedef' in stripped:
@@ -328,8 +333,9 @@ class CHeader:
 
             # Swig doesn't seem to mind C++ argument lists, even though they
             # have "const", "&", etc. So I'm leaving the arg list unmodified.
-            func = Method(self.isInternal, self.docstring, name, args,
-                          (isConst > 0), (isVirtual != -1))
+            private = (self.isInternal or self.inPrivate)
+            func = Method(private, self.docstring, name, args, (isConst > 0),
+                          (isVirtual != -1))
 
             # Reset buffer for the next iteration, to skip the part seen.
             self.lines = self.lines[endparen + 2:]
