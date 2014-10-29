@@ -279,8 +279,6 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, IdList* idlist, void
 }
 
 
-
-
 int 
 CompFlatteningConverter::performConversion()
 {  
@@ -408,15 +406,16 @@ CompFlatteningConverter::performConversion()
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-
+/** @cond doxygenLibsbmlInternal */
 int
 CompFlatteningConverter::reconstructDocument(Model * flatmodel)
 {
   SBMLDocument tempDoc;
   return reconstructDocument(flatmodel, tempDoc);
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 int
 CompFlatteningConverter::reconstructDocument(Model * flatmodel, 
                            SBMLDocument& dummyDoc,  bool dummyRecon)
@@ -514,7 +513,9 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
 
   return result;
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int
 CompFlatteningConverter::validateOriginalDocument()
 {
@@ -574,7 +575,9 @@ CompFlatteningConverter::validateOriginalDocument()
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 int
 CompFlatteningConverter::validateFlatDocument(Model * flatmodel,
             unsigned int pkgVersion, unsigned int level, unsigned int version)
@@ -745,8 +748,10 @@ CompFlatteningConverter::validateFlatDocument(Model * flatmodel,
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getLeavePorts() const
 {
@@ -763,7 +768,9 @@ CompFlatteningConverter::getLeavePorts() const
     return getProperties()->getBoolValue("leavePorts");
   }
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getLeaveDefinitions() const
 {
@@ -780,8 +787,9 @@ CompFlatteningConverter::getLeaveDefinitions() const
     return getProperties()->getBoolValue("listModelDefinitions");
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getIgnorePackages() const
 {
@@ -798,8 +806,9 @@ CompFlatteningConverter::getIgnorePackages() const
     return getProperties()->getBoolValue("ignorePackages");
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getStripUnflattenablePackages() const
 {
@@ -823,8 +832,9 @@ CompFlatteningConverter::getStripUnflattenablePackages() const
     return getProperties()->getBoolValue("stripUnflattenablePackages");
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getPerformValidation() const
 {
@@ -841,8 +851,9 @@ CompFlatteningConverter::getPerformValidation() const
     return getProperties()->getBoolValue("performValidation");
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getAbortForAll() const
 {
@@ -866,8 +877,9 @@ CompFlatteningConverter::getAbortForAll() const
     }
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getAbortForRequired() const
 {
@@ -891,8 +903,9 @@ CompFlatteningConverter::getAbortForRequired() const
     }
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::getAbortForNone() const
 {
@@ -916,8 +929,9 @@ CompFlatteningConverter::getAbortForNone() const
     }
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 const std::string& 
 CompFlatteningConverter::getPackagesToStrip() const
 {
@@ -936,9 +950,10 @@ CompFlatteningConverter::getPackagesToStrip() const
     return getProperties()->getValue("stripPackages");
   }
 }
+/** @endcond */
 
 
-
+/** @cond doxygenLibsbmlInternal */
 void
 CompFlatteningConverter::stripUnflattenablePackages()
 {
@@ -1022,6 +1037,7 @@ CompFlatteningConverter::stripUnflattenablePackages()
 
   }
 }
+/** @endcond */
 
 // simple callback disabling packages on child documents
 int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, IdList* idlist, void*)
@@ -1048,7 +1064,7 @@ int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, IdList* idlist, voi
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-
+/** @cond doxygenLibsbmlInternal */
 int
 CompFlatteningConverter::stripPackages()
 {
@@ -1099,7 +1115,9 @@ CompFlatteningConverter::stripPackages()
     return LIBSBML_OPERATION_FAILED;
   }
 }
+/** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool
 CompFlatteningConverter::canBeFlattened()
 {
@@ -1175,8 +1193,9 @@ CompFlatteningConverter::canBeFlattened()
 
   return canFlatten;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 void 
 CompFlatteningConverter::restoreNamespaces()
 {
@@ -1186,8 +1205,9 @@ CompFlatteningConverter::restoreNamespaces()
     mDocument->enablePackage((*pkg).first, (*pkg).second, true);
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 void 
 CompFlatteningConverter::analyseDocument()
 {
@@ -1252,8 +1272,10 @@ CompFlatteningConverter::analyseDocument()
     mPackageValues.insert(pair<const std::string, ValueSet>(package, values));
   }
 }
+/** @endcond */
 
  
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::getRequiredStatus(const std::string & package)
 {
@@ -1263,8 +1285,10 @@ CompFlatteningConverter::getRequiredStatus(const std::string & package)
 
   return required;
 }
+/** @endcond */
 
   
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::getKnownStatus(const std::string& package)
 {
@@ -1274,8 +1298,10 @@ CompFlatteningConverter::getKnownStatus(const std::string& package)
   
   return known;
 }
+/** @endcond */
 
   
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::getFlattenableStatus(const std::string& package)
 {
@@ -1285,8 +1311,9 @@ CompFlatteningConverter::getFlattenableStatus(const std::string& package)
 
   return flattenable;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::haveUnknownRequiredPackages()
 {
@@ -1305,8 +1332,9 @@ CompFlatteningConverter::haveUnknownRequiredPackages()
 
   return haveUnknownReqd;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::haveUnknownUnrequiredPackages()
 {
@@ -1325,8 +1353,9 @@ CompFlatteningConverter::haveUnknownUnrequiredPackages()
 
   return haveUnknownUnreqd;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::haveUnflattenableRequiredPackages()
 {
@@ -1345,8 +1374,9 @@ CompFlatteningConverter::haveUnflattenableRequiredPackages()
 
   return haveUnflatReqd;
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompFlatteningConverter::haveUnflattenableUnrequiredPackages()
 {
@@ -1365,8 +1395,7 @@ CompFlatteningConverter::haveUnflattenableUnrequiredPackages()
 
   return haveUnflatUnreqd;
 }
-
-
+/** @endcond */
 
 
 
