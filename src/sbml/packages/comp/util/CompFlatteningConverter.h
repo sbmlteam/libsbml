@@ -78,36 +78,14 @@
  * all old pointers to the SBMLDocument object's Model object as well as all
  * of its children, will be rendered obsolete, and will no longer work.
  *
- * @section CompFlatteningConverter-usage Configuration and use of CompFlatteningConverter
+ * @section compflatteningconverter-options-summary Summary of options for CompFlatteningConverter
  *
- * CompFlatteningConverter is enabled by creating a ConversionProperties
- * object with the option @em "flatten comp", and passing this
- * ConversionProperties object to SBMLDocument::convert(@if java
- * ConversionProperties@endif).  The converter accepts numerous options.  The
- * following list summarizes the options; they are described in more detail
- * in the subsections below.
+ * @copydetails doc_compflatteningconverter_options
  *
- * @li @em abortIfUnflattenable: Possible values are @c "all", @c
- * "requiredOnly" (the default), or @c "none".
+ * @section compflatteningconverter-options-details Detailed explanation of available options
  *
- * @li @em stripUnflattenablePackages: Possible values are @c "true" or @c
- * "false" (the default).
- *
- * @li @em basePath: The value must be a string representing the path where
- * the converter should search for any ExternalModelDefinition objects.
- * (Default value: ".", meaning, the current directory.)
- *
- * @li @em leavePorts: Possible values are @c "true" or @c "false" (the
- * default).
- *
- * @li @em listModelDefinitions: Possible values are @c "true" or @c "false"
- * (the default).
- *
- * @li @em performValidation: Possible values are @c "true" (the default) or
- * @c "false".
- *
- * The following sections delve into more detail about the meanings of these
- * options and their effects on the flattening process.
+ * The following sections examine in detail the options understood by
+ * CompFlatteningConverter and their effects on the flattening process.
  *
  * @subsection behavior-if-unflattenable Options for handling Level&nbsp;3 packages that lack flattening algorithms
  *
@@ -115,21 +93,21 @@
  * rules apply to each package's constructs if an implementation of the
  * flattener exists for that Level&nbsp;3 package.  If no implementation
  * exists, the behavior of this CompFlatteningConverter depends on the values
- * of the options @em abortIfUnflattenable and @em
- * stripUnflattenablePackages.  Specifically:
+ * of the options @em "abortIfUnflattenable" and @em
+ * "stripUnflattenablePackages".  Specifically:
  * <ul>
  *
- * <li> The option @em abortIfUnflattenable controls whether the flattening
+ * <li> The option @em "abortIfUnflattenable" controls whether the flattening
  * process is abandoned.  The following are the possible values for this
  * option and their meanings:
  * <ul style="list-style-type: circle">
  *
- * <li> If the @em abortIfUnflattenable option is set to @c "all", then if any
+ * <li> If the @em "abortIfUnflattenable" option is set to @c "all", then if any
  *     construct is found for a package that has no flattening algorithm
  *     available, the converter will abort, return failure, and avoid
  *     changing the original SBMLDocument object.
  *
- * <li> If @em abortIfUnflattenable is set to @c "requiredOnly" (the default),
+ * <li> If @em "abortIfUnflattenable" is set to @c "requiredOnly" (the default),
  *     then if any SBML Level&nbsp;3 package construct is found for a package
  *     that is labeled @c "required=true" and for which no flattening
  *     algorithm is available, the converter will abort, return failure, and
@@ -137,29 +115,29 @@
  *     package constructs from packages set @c "required=false" for which no
  *     flattening algorithm is implemented will be ignored and the constructs
  *     will be kept or removed depending on the value of the @em
- *     stripUnflattenablePackages option described below.
+ *     "stripUnflattenablePackages" option described below.
  * 
- * <li> If @em abortIfUnflattenable is set to @c 'none', constructs from all
+ * <li> If @em "abortIfUnflattenable" is set to @c 'none', constructs from all
  *     unflattenable SBML Level&nbsp;3 packages will be ignored, and their
  *     constructs will be kept or removed depending on the value of the @em
- *     stripUnflattenablePackages option.
+ *     "stripUnflattenablePackages" option.
  *
  * </ul>
  *
- * <li> The option @em stripUnflattenablePackages controls whether SBML
+ * <li> The option @em "stripUnflattenablePackages" controls whether SBML
  * Level&nbsp;3 package constructs are removed from the final flattened
  * model.  The following are the possible values for this option and their
  * meanings:
  * <ul style="list-style-type: circle">
  *
- * <li> If the option @em stripUnflattenablePackages is set to @c "true", and
- *      the option @em abortIfUnflattenable has the value @c "requireOnly"
+ * <li> If the option @em "stripUnflattenablePackages" is set to @c "true", and
+ *      the option @em "abortIfUnflattenable" has the value @c "requireOnly"
  *      or @c "none", then CompFlatteningConverter will remove all constructs
  *      belonging to packages that lack a flattening converter.  The XML
  *      namespace declaration for unflattenable SBML Level&nbsp;3 packages
  *      will also be removed.
  *
- * <li> If the option @em stripUnflattenablePackages is set to @c "false"
+ * <li> If the option @em "stripUnflattenablePackages" is set to @c "false"
  *     (the default), CompFlatteningConverter will leave any package
  *     constructs that cannot be flattened due to the lack of a flattening
  *     implementation.  These Level&nbsp;3 package constructs will remain in
@@ -176,24 +154,24 @@
  *
  * The following are other, general options offered by CompFlatteningConverter:
  *
- * @li @em basePath: if there are ExternalModelDefinition objects that are to
- *     be instantiated in a flattened Submodel, the @em basePath option may
+ * @li @em "basePath": if there are ExternalModelDefinition objects that are to
+ *     be instantiated in a flattened Submodel, the @em "basePath" option may
  *     be set to a location where those external models may be found.  The
  *     default is the working directory (@c ".").
  *
- * @li @em leavePorts: if this option is set to @c "false" (the default), the
+ * @li @em "leavePorts": if this option is set to @c "false" (the default), the
  *     flattened model will have no Port objects in it.  Conversely, if @em
- *     leavePorts is set to @c "true", any Port objects not referenced by any
+ *     "leavePorts" is set to @c "true", any Port objects not referenced by any
  *     Replacement or Deletion will be left in the resulting flattened Model.
  *
- * @li @em listModelDefinitions: If this option is set to @c "false" (the
+ * @li @em "listModelDefinitions": If this option is set to @c "false" (the
  *     default), no ModelDefinition or ExternalModelDefinition objects will
- *     be present in the flattened SBMLDocument.  If @em listModelDefinitions
+ *     be present in the flattened SBMLDocument.  If @em "listModelDefinitions"
  *     is set to @c "true", they will remain, although they will no longer be
  *     referenced by any Submodel in the flattened Model child of the
  *     SBMLDocument.
  *
- * @li @em performValidation: if this option is set to @c "true" (the
+ * @li @em "performValidation": if this option is set to @c "true" (the
  *     default), the SBMLDocument will first be validated before flattening
  *     is attempted.  If there are any validation errors, those errors will
  *     be logged with the SBMLDocument, which will remain otherwise
@@ -201,14 +179,14 @@
  *     Similarly, if the flattened Model is not valid, those validation
  *     errors will be added to the SBMLDocument, which will remain otherwise
  *     unchanged, and the conversion attempt will return failure.
- *     Conversely, if the option @em performValidation is set to @c
+ *     Conversely, if the option @em "performValidation" is set to @c
  *     "false", the SBMLDocument will be flattened regardless of any
  *     validation errors.  The conversion may yet fail if insurmountable
  *     errors are encountered in the course of trying to flatten the model
  *     (for instance, if an element is replaced by something that does not
  *     exist), but no separate validation steps are performed.
  *
- * Note that if both the option @em leavePorts and @em listModelDefinitions
+ * Note that if both the option @em "leavePorts" and @em "listModelDefinitions"
  * are set to @c "false" (which they are by default), the Hierarchical %Model
  * Composition namespace will be removed from the resulting SBMLDocument.
  *
@@ -319,7 +297,7 @@ delete document;
 @endcode
 @endif
  *
- * @section comp-flattening-example-use Example use of the program
+ * @subsection comp-flattening-example-use Example use of the program
  *
  * What is the result of the above on an actual model?  Suppose we
  * have the following SBML Level&nbsp;3 model stored in a file named
@@ -491,6 +469,54 @@ delete document;
  *
  * @copydetails doc_section_using_sbml_converters
  */
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_compflatteningconverter_options
+ *
+ * @par
+ * CompFlatteningConverter is enabled by creating a ConversionProperties
+ * object with the option @em "flatten comp", and passing this
+ * ConversionProperties object to SBMLDocument::convert(@if java
+ * ConversionProperties@endif).  The CompFlatteningConverter converter
+ * accepts numerous options influencing its behavior.  The following list
+ * briefly summarizes the options:
+ *
+ * @li <em>"flatten comp"</em>: Possible values are @c "true" or @c "false".
+ * Setting the option to @c true (the default) means enable the flattening
+ * converter.
+ *
+ * @li @em "abortIfUnflattenable": Possible values are @c "all", @c
+ * "requiredOnly" (the default), or @c "none".  Controls what happens upon
+ * encountering an SBML Level&nbsp;3 package with no flattener
+ * implementation.
+ *
+ * @li @em "stripUnflattenablePackages": Possible values are @c "true" or @c
+ * "false" (the default).  Controls whether the constructs of Level&nbsp;3
+ * packages with no flattener implementation are stripped from the output.
+ *
+ * @li @em "basePath": The value must be a string representing the path where
+ * the converter should search for any ExternalModelDefinition objects.
+ * (Default value: ".", meaning, the current directory.)
+ *
+ * @li @em "leavePorts": Possible values are @c "true" or @c "false" (the
+ * default).  Controls what happens to Port constructs in the output.
+ *
+ * @li @em "listModelDefinitions": Possible values are @c "true" or @c
+ * "false" (the default).  Controls what happens to ModelDefinition and
+ * ExternalModelDefinition objects in the final output.
+ *
+ * @li @em "performValidation": Possible values are @c "true" (the default)
+ * or @c "false".  Controls whether whether libSBML validates the model
+ * before attempting to flatten it.
+ */ 
+
+
 
 #ifndef CompFlatteningConverter_h
 #define CompFlatteningConverter_h
@@ -522,20 +548,27 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new CompFlatteningConverter object.
    */
   CompFlatteningConverter();
 
 
   /**
    * Copy constructor.
+   *
+   * This creates a copy of a CompFlatteningConverter object.
+   *
+   * @param orig the CompFlatteningConverter instance to copy.
+   *
+   * @throws SBMLConstructorException
+   * Thrown if the argument @p orig is @c NULL.
    */
-  CompFlatteningConverter(const CompFlatteningConverter&);
+  CompFlatteningConverter(const CompFlatteningConverter& orig);
 
 
   /**
    * Creates and returns a deep copy of this CompFlatteningConverter.
-   * 
+   *
    * @return a (deep) copy of this CompFlatteningConverter.
    */
   virtual CompFlatteningConverter* clone() const;
@@ -548,76 +581,95 @@ public:
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
-   * 
-   * @param props the properties to match
-   * 
-   * @return @c true if this converter is a match, @c false otherwise.
+   * Returns @c true if this converter matches the given properties.
+   *
+   * Given a ConversionProperties object @p props, this method checks that @p
+   * props possesses an option value to enable the CompFlatteningConverter.  If
+   * it does, this method returns @c true.
+   *
+   * @param props the properties to match.
+   *
+   * @return @c true if the properties @p props would match the necessary
+   * properties for CompFlatteningConverter type of converter, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
 
   /**
-   * Calls the conversion and cleans up potentially changed state.
-   * 
-   * @return status code represeting success/failure/conversion impossible
+   * Performs the conversion.
+   *
+   * This method causes CompFlatteningConverter to do the actual conversion
+   * work, that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
+   * the configuration options set by SBMLConverter::setProperties(@if java
+   * const ConversionProperties@endif).
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values
+   * returned by this function are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int convert();
 
+
   /**
-   * Performs the actual conversion.
-   * 
-   * @return status code represeting success/failure/conversion impossible
+   * Performs the conversion.
+   *
+   * This method causes CompFlatteningConverter to do the actual conversion
+   * work, that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument@endif) and with
+   * the configuration options set by SBMLConverter::setProperties(@if java
+   * const ConversionProperties@endif).
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values
+   * returned by this function are:
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int performConversion();
 
+
   /**
    * Returns the default properties of this converter.
-   * 
-   * A given converter exposes one or more properties that can be adjusted
-   * in order to influence the behavior of the converter.  This method
-   * returns the @em default property settings for this converter.  It is
-   * meant to be called in order to discover all the settings for the
-   * converter object.
    *
-   * The properties for the CompFlatteningConverter are:
-   * @li "flatten comp": the name of this converter
-   * @li "basePath": the base directory to find external references in
-   * @li "leavePorts": boolean indicating whether unused ports 
-   *   should be listed in the flattened model; default = false
-   * @li "listModelDefinitions": boolean indicating whether the model 
-   *   definitions should be listed in the flattened model; default = false
-   * @li "stripUnflattenablePackages": boolean indicating whether packages 
-   *   that cannot be flattened should be removed; default = true
-   * @li "performValidation": boolean indicating whether validation should be 
-   *   performed. When @c true either an invalid source document or 
-   *   an invalid flattened document will cause flattening to fail; default = true
-   * @li "abortIfUnflattenable": string indicating the required status of
-   *   any unflattenable packages that should cause flattening to fail.
-   *   Possible values are "none", "requiredOnly" and "all"; default = requiredOnly
+   * A given converter exposes one or more properties that can be adjusted in
+   * order to influence the behavior of the converter.  This method returns
+   * the @em default property settings for CompFlatteningConverter.  It is
+   * meant to be called in order to be able to programmatically discover all
+   * the settings for the converter object.
    *
-   * @note previously there was an "ignorePackages" option; whose name
-   * proved to be very misleading. This option has been deprecated and 
-   * replaced by the "stripUnflattenablePackages" but will still work.
+   * @copydetails doc_compflatteningconverter_options
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.
+   *
+   * @note Previously, CompFlatteningConverter also offered an @em
+   * "ignorePackages" option, whose name proved to be confusing.  This option
+   * has been deprecated and replaced by the @em "stripUnflattenablePackages"
+   * option.
    */
   virtual ConversionProperties getDefaultProperties() const;
 
+
 private:
+
+  /** @cond doxygenLibsbmlInternal */
 
   int validateOriginalDocument();
 
-  int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion, 
+  int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion,
                            unsigned int level, unsigned int version);
 
   int stripPackages();
 
-  int reconstructDocument(Model* flatmodel); 
+  int reconstructDocument(Model* flatmodel);
 
-  int reconstructDocument(Model* flatmodel, 
+  int reconstructDocument(Model* flatmodel,
                           SBMLDocument &dummyDoc,  bool dummyRecon = false);
 
   void stripUnflattenablePackages();
@@ -646,7 +698,6 @@ private:
 
   std::set<std::pair<std::string, std::string> > mDisabledPackages;
 
-
 #ifndef SWIG
   typedef std::vector<bool>                     ValueSet;
   typedef std::map<const std::string, ValueSet> PackageValueMap;
@@ -671,13 +722,15 @@ private:
 
   bool haveUnflattenableUnrequiredPackages();
 
+  /** @endcond */
+
 };
 
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
-  
+
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
