@@ -31,12 +31,12 @@
  * This converter translates a hierarchical model defined with the SBML
  * Level&nbsp;3 Hierarchical %Model Composition package to a so-called
  * "flattened" version of the same model.  A "flattened" model is one that
- * results from interpreting the hierarchical structure but without using any
- * Hierarchical %Model Composition package constructs; all of the mathematics
- * of the model remain as intended, but the hierarchical structure is
- * removed.
- *
- * Specifically, the following actions are carried out:
+ * results from interpreting the hierarchical structure and creating an
+ * equivalent model that does not use any Hierarchical %Model Composition
+ * package constructs; all of the mathematics of the model remain as
+ * intended, but the hierarchical structure is removed.
+ * CompFlatteningConverter achieves this by performing the following actions
+ * on a model:
  * <ol>
  * <li> Each submodel is instantiated; that is, a copy of every Model object
  * referenced by every Submodel object is created.  This is a recursive
@@ -50,20 +50,23 @@
  * necessary to ensure uniqueness, plus two underscore characters
  * (<code>"__"</code>).  Typically, this results in a final identifier of the
  * form <span
- * class="code-placeholder">%SubmodelIdentifier</span><code>__</code><span
+ * class="code-placeholder">%SubmodelIdentifier__</span><span
  * class="code-placeholder2-nospace">ObjectIdentifier</span>, where <span
  * class="code-placeholder2">ObjectIdentifier</span> is the object's original
- * identifier.
-
+ * identifier and <span
+ * class="code-placeholder">%SubmodelIdentifier__</span> is
+ * the prefix.  The same process is applied to @em metaid (meta-identifier)
+ * values of every component object as well.
+ *
  * <li> All deleted elements are removed from the model and all instantiated
  * submodels.
-
+ *
  * <li> All replaced elements are removed from the model and all instantiated
  * submodels.
-
+ *
  * <li> All references to replaced elements are changed to point to the
  * replacement element instead.
-
+ *
  * <li> All remaining elements are placed in a single Model object; this Model
  * object is made the new child of the SBMLDocument container.  The original
  * Model, ModelDefinition, and ExternalModelDefinition objects are all
@@ -81,8 +84,8 @@
  * object with the option @em "flatten comp", and passing this
  * ConversionProperties object to SBMLDocument::convert(@if java
  * ConversionProperties@endif).  The converter accepts numerous options.  The
- * following list summarizes these options; they are described in more detail
- * below.
+ * following list summarizes the options; they are described in more detail
+ * in the subsections below.
  *
  * @li @em abortIfUnflattenable: Possible values are @c "all", @c
  * "requiredOnly" (the default), or @c "none".
@@ -110,10 +113,10 @@
  *
  * If other SBML Level&nbsp;3 packages are used in the SBMLDocument, the same
  * rules apply to each package's constructs if an implementation of the
- * flattener exists for that package.  If no implementation exists, the
- * behavior of this CompFlatteningConverter depends on the states of the
- * options @em abortIfUnflattenable and @em stripUnflattenablePackages.
- * Specifically:
+ * flattener exists for that Level&nbsp;3 package.  If no implementation
+ * exists, the behavior of this CompFlatteningConverter depends on the values
+ * of the options @em abortIfUnflattenable and @em
+ * stripUnflattenablePackages.  Specifically:
  * <ul>
  *
  * <li> The option @em abortIfUnflattenable controls whether the flattening
@@ -138,7 +141,7 @@
  * 
  * <li> If @em abortIfUnflattenable is set to @c 'none', constructs from all
  *     unflattenable SBML Level&nbsp;3 packages will be ignored, and their
- *     constructs will be kept or removed depending on the value of the @c
+ *     constructs will be kept or removed depending on the value of the @em
  *     stripUnflattenablePackages option.
  *
  * </ul>
@@ -150,29 +153,28 @@
  * <ul style="list-style-type: circle">
  *
  * <li> If the option @em stripUnflattenablePackages is set to @c "true", and
- *      the option @c "abortIfUnflattenable" has the value @c "requireOnly"
+ *      the option @em abortIfUnflattenable has the value @c "requireOnly"
  *      or @c "none", then CompFlatteningConverter will remove all constructs
  *      belonging to packages that lack a flattening converter.  The XML
- *      namespace declaration for unflattenable packages will also be
- *      removed.
+ *      namespace declaration for unflattenable SBML Level&nbsp;3 packages
+ *      will also be removed.
  *
- * <li> If the option @c stripUnflattenablePackages is set to @c "false"
+ * <li> If the option @em stripUnflattenablePackages is set to @c "false"
  *     (the default), CompFlatteningConverter will leave any package
  *     constructs that cannot be flattened due to the lack of a flattening
- *     implementation.  These package constructs will remain in the final
- *     model.  Note that any package constructs from an instantiated Submodel
- *     object that was @em not a child of a @em retained component will be
- *     lost (because the SBML component where it was located was
- *     removed from the final, flattened model).
+ *     implementation.  These Level&nbsp;3 package constructs will remain in
+ *     the final model.  Note that any package constructs from an
+ *     instantiated Submodel object that was @em not a child of a retained
+ *     component will be lost (because the SBML component where it was
+ *     located was removed from the final, flattened model).
  *
  * </ul>
  *
  * </ul>
  *
- * @subsection other-flattener-options Other conversion options
+ * @subsection general-flattener-options Additional general conversion options for CompFlatteningConverter
  *
- * CompFlatteningConverter offers many other options.  The following are their
- * meanings and default values:
+ * The following are other, general options offered by CompFlatteningConverter:
  *
  * @li @em basePath: if there are ExternalModelDefinition objects that are to
  *     be instantiated in a flattened Submodel, the @em basePath option may
@@ -209,6 +211,283 @@
  * Note that if both the option @em leavePorts and @em listModelDefinitions
  * are set to @c "false" (which they are by default), the Hierarchical %Model
  * Composition namespace will be removed from the resulting SBMLDocument.
+ *
+ * @section comp-flattening-example Complete example of invoking CompFlatteningConverter
+ *
+ * In this section, we present a complete example of a program that can take
+ * an SBML model containing Level&nbsp;3 Hierarchical %Model Composition
+ * constructs and flatten it to a plain SBML Level&nbsp;3 model.
+ * A version of this program is available in the libSBML distribution's
+ * @if cpp <code>examples/c++/comp</code>@endif
+ * @if python <code>examples/python/comp</code>@endif
+ * @if java <code>examples/java/comp</code>@endif
+ * @if javascript <code>examples/javascript/comp</code>@endif
+ * @if csharp <code>examples/csharp/comp</code>@endif
+ * @if ruby  <code>examples/ruby/comp</code>@endif
+ * @if perl  <code>examples/perl/comp</code>@endif@~ directory as the
+ * program named
+ * @if cpp @ref flattenModel.cpp "flattenModel.cpp"@endif
+ * @if python  @ref flattenModel.py "flattenModel.py"@endif
+ * @if java  @ref flattenModel.java "flattenModel.java"@endif
+ * @if javascript  @ref flattenModel.js "flattenModel.js"@endif
+ * @if csharp  @ref FlattenModel.cs "FlattenModel.cs"@endif
+ * @if ruby @ref flattenModel.rb "flattenModel.rb"@endif
+ * @if perl @ref flattenModel.pl "flattenModel.pl"@endif.  The example
+ * XML models shown below are the same models as given in sections
+ * 4.1&ndash;4.2 in the specification document for SBML Level&nbsp;3
+ * Hierarchical %Model Composition.
+ *
+ * @subsection comp-flattening-example-program Example program
+ *
+ * For brevity, we do not give the general scaffolding that a real program
+ * would have (such as inclusion of header files, command-line argument
+ * checks and so on), and focus instead on the parts relevant to an
+ * application of "comp".
+ *
+ * First, our program checks that this copy of libSBML has the "comp"
+ * extension available.  The process for doing that simply involves a call to
+ * the extension registry in libSBML:
+ * @if cpp
+@code{.cpp}
+if (SBMLExtensionRegistry::isPackageEnabled("comp") == false)
+{
+    cerr << "The version of libsbml being used does not have the comp"
+         << " package code enabled" << endl;
+    return 1;
+}
+@endcode
+@endif
+ *
+ * Next, we read the SBML input file.  For this example, we simply
+ * assume that the path to the file is given as the first argument
+ * to the program.
+ * @if cpp
+@code{.cpp}
+const char* inputFile  = argv[1];
+SBMLDocument* document = readSBML(inputFile);
+
+if (document->getNumErrors() > 0)
+{
+    cerr << "Encountered the following SBML errors:" << endl;
+    document->printErrors(cerr);
+    return 1;
+}
+@endcode
+@endif
+ * Continuing, we set up options for the call to the converter.
+ * The use of ConversionProperties and the general scheme behind
+ * conversion options is explained further below; for the purposes
+ * of this example, it is enough to know that the following are the
+ * basic lines of code needed to obtain a copy of a libSBML
+ * converter object that will invoke CompFlatteningConverter:
+ * @if cpp
+@code{.cpp}
+ConversionProperties* props = new ConversionProperties();
+props->addOption("flatten comp");
+SBMLConverter* converter =
+    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+@endcode
+@endif
+ * Now comes the actual invocation of CompFlatteningConverter.
+ * As always, it is critical to check for possible errors by
+ * checking the status code returned by the call; we do this
+ * in the code below too.
+ * @if cpp
+@code{.cpp}
+converter->setDocument(document);
+int result = converter->convert();
+
+if (result != LIBSBML_OPERATION_SUCCESS)
+{
+    cerr << "Conversion failed\n";
+    document->printErrors();
+}
+@endcode
+@endif
+ * If successful, we simply write out the resulting flattened model
+ * to an output file which, for the purposes of this simple example,
+ * we assume is indicated by the second argument handed to the program
+ * on the command line by the user.  We also clean up the objects
+ * we allocated, to avoid leaking memory.
+ * @if cpp
+@code{.cpp}
+const char* outputFile  = argv[2];
+writeSBML(document, outputFile);
+
+delete converter;
+delete document;
+@endcode
+@endif
+ *
+ * @section comp-flattening-example-use Example use of the program
+ *
+ * What is the result of the above on an actual model?  Suppose we
+ * have the following SBML Level&nbsp;3 model stored in a file named
+ * @c "enzyme_model.xml":
+@code{.xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
+
+  <model id="aggregate">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="submod1" comp:modelRef="enzyme"/>
+      <comp:submodel comp:id="submod2" comp:modelRef="enzyme"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="enzyme" name="enzyme">
+      <listOfCompartments>
+        <compartment id="compartment" spatialDimensions="3" size="1" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species id="S"  compartment="compartment" hasOnlySubstanceUnits="false"
+                         boundaryCondition="false" constant="false"/>
+        <species id="E"  compartment="compartment" hasOnlySubstanceUnits="false" 
+                         boundaryCondition="false" constant="false"/>
+        <species id="D"  compartment="compartment" hasOnlySubstanceUnits="false" 
+                         boundaryCondition="false" constant="false"/>
+        <species id="ES" compartment="compartment" hasOnlySubstanceUnits="false"
+                         boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfReactions>
+        <reaction id="J0" reversible="true" fast="false">
+          <listOfReactants>
+            <speciesReference species="S" stoichiometry="1" constant="true"/>
+            <speciesReference species="E" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="ES" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+        </reaction>
+        <reaction id="J1" reversible="true" fast="false">
+          <listOfReactants>
+            <speciesReference species="ES" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="E" stoichiometry="1" constant="true"/>
+            <speciesReference species="D" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+        </reaction>
+      </listOfReactions>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>
+@endcode
+ * Also suppose we have the following SBML Level&nbsp;3 model stored
+ * in a file called @c "main.xml" in the same directory as the
+ * file above.  The model below imports the model @c "enzyme" from
+ * the model file above twice; this is used to create two submodels
+ * whose identifiers are @c "A" and @c "B".
+@code{.xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
+  <model>
+    <listOfCompartments>
+      <compartment id="compartment" spatialDimensions="3" size="1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="compartment" comp:submodelRef="A"/>
+          <comp:replacedElement comp:idRef="compartment" comp:submodelRef="B"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="compartment" hasOnlySubstanceUnits="false"
+                      boundaryCondition="false" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="S" comp:submodelRef="A"/>
+          <comp:replacedElement comp:idRef="S" comp:submodelRef="B"/>
+        </comp:listOfReplacedElements>
+      </species>
+    </listOfSpecies>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="A" comp:modelRef="ExtMod1"/>
+      <comp:submodel comp:id="B" comp:modelRef="ExtMod1"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model.xml"
+                                  comp:modelRef="enzyme"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>
+@endcode
+ * Finally, invoking the example program developed the previous section on the
+ * file @c "main.xml", we would obtain the following XML output as result a
+ * result
+@code{.xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S"     compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="A__E"  compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="A__D"  compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="A__ES" compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="B__E"  compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="B__D"  compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+      <species id="B__ES" compartment="compartment" hasOnlySubstanceUnits="false"
+                          boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="A__J0" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+          <speciesReference species="A__E" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A__ES" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="A__J1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="A__ES" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A__E" stoichiometry="1" constant="true"/>
+          <speciesReference species="A__D" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="B__J0" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+          <speciesReference species="B__E" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B__ES" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="B__J1" reversible="true" fast="false">
+        <listOfReactants>
+          <speciesReference species="B__ES" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B__E" stoichiometry="1" constant="true"/>
+          <speciesReference species="B__D" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
+@endcode
+ * The final model is a concrete realization of the effective
+ * model defined by @c "main.xml", with a single compartment and two
+ * reactions; the species @c "S" can either bind with enzyme @c "E" (from
+ * submodel @c "A") to form @c "D" (from submodel @c "A"), or with enzyme
+ * @c "E" (from submodel @c "B") to form @c "D" (from submodel @c "B").
+ * In the flattened model above, note how the identifiers of components
+ * inside the ModelDefinition objects @c "A" and @c "B" of our file @c
+ * "enzyme_model.xml" have been rewritten as (for example) @c "A__E" @c
+ * "B__E", etc.
  *
  * @copydetails doc_section_using_sbml_converters
  */
