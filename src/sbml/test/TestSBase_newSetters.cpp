@@ -106,6 +106,8 @@ START_TEST (test_SBase_setNotes)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 0);
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
 
@@ -114,6 +116,8 @@ START_TEST (test_SBase_setNotes)
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless(SBase_isSetNotes(S) == 0);
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
@@ -127,7 +131,14 @@ START_TEST (test_SBase_setNotes)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 0);
+
+  XMLToken_free(token);
   XMLNode_free(node);
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(tt);
+  XMLNode_free(n1);
 }
 END_TEST
 
@@ -197,15 +208,18 @@ START_TEST (test_SBase_setNotes1)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
@@ -325,7 +339,6 @@ START_TEST (test_SBase_setAnnotation)
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
 
-
   int i = SBase_setAnnotation(S, node);
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
@@ -342,6 +355,9 @@ START_TEST (test_SBase_setAnnotation)
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetAnnotation(S) == 0 );
+
+  XMLToken_free(token);
+  XMLNode_free(node);
 }
 END_TEST
 
@@ -467,6 +483,19 @@ START_TEST (test_SBase_appendAnnotation)
   fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 1),0)),
     "This is additional"));
 
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token_top);
+  XMLNode_free(node_top);
+  XMLToken_free(token_top1);
+  XMLNode_free(node_top1);
+  XMLTriple_free(triple1);
+  XMLNamespaces_free(ns1);
+  XMLNode_free(node);
+  XMLNode_free(node1);
+  XMLToken_free(token);
+  XMLToken_free(token1);
 }
 END_TEST
 
@@ -514,6 +543,9 @@ START_TEST (test_SBase_appendAnnotation1)
   fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
     "This is additional"));
 
+  XMLToken_free(token1);
+  XMLNode_free(node1);
+  XMLNode_free(node_top1);
   token1 = XMLToken_createWithText("This is a repeat");
   node1 = XMLNode_createFromToken(token1);
   node_top1 = XMLNode_createFromToken(token_top1);
@@ -528,6 +560,19 @@ START_TEST (test_SBase_appendAnnotation1)
   fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
     "This is additional"));
 
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token_top);
+  XMLNode_free(node_top);
+  XMLToken_free(token_top1);
+  XMLNode_free(node_top1);
+  XMLTriple_free(triple1);
+  XMLNamespaces_free(ns1);
+  XMLNode_free(node);
+  XMLNode_free(node1);
+  XMLToken_free(token);
+  XMLToken_free(token1);
 }
 END_TEST
 
@@ -586,6 +631,13 @@ START_TEST (test_SBase_appendAnnotation2)
   fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 2),0)),
     "This is a new annotation"));
 
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token_top);
+  XMLNode_free(node_top);
+  XMLNode_free(node);
+  XMLToken_free(token);
 }
 END_TEST
 
@@ -623,6 +675,14 @@ START_TEST (test_SBase_appendAnnotationString)
 
   fail_unless(XMLNode_getNumChildren(c1) == 0);
   fail_unless(!strcmp(XMLNode_getCharacters(c1), "This is additional"));
+
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token_top);
+  XMLNode_free(node_top);
+  XMLNode_free(node);
+  XMLToken_free(token);
 }
 END_TEST
 
@@ -677,8 +737,17 @@ START_TEST (test_SBase_appendNotes)
   fail_unless(!strcmp(chars1, "This is my text"));
   fail_unless(!strcmp(chars2, "This is additional text"));
 
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token4);
+  XMLNode_free(node4);
+  XMLToken_free(token5);
+  XMLNode_free(node5);
   XMLNode_free(node);
   XMLNode_free(node1);
+  XMLToken_free(token);
+  XMLToken_free(token1);
 }
 END_TEST
 
@@ -774,21 +843,25 @@ START_TEST (test_SBase_appendNotes1)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
   XMLToken_free(text_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -881,10 +954,12 @@ START_TEST (test_SBase_appendNotes2)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -892,6 +967,7 @@ START_TEST (test_SBase_appendNotes2)
   XMLToken_free(body_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
@@ -986,10 +1062,12 @@ START_TEST (test_SBase_appendNotes3)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -997,6 +1075,7 @@ START_TEST (test_SBase_appendNotes3)
   XMLToken_free(p_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
@@ -1092,8 +1171,12 @@ START_TEST (test_SBase_appendNotes4)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -1104,6 +1187,7 @@ START_TEST (test_SBase_appendNotes4)
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -1195,8 +1279,12 @@ START_TEST (test_SBase_appendNotes5)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(p_token1);
@@ -1206,6 +1294,7 @@ START_TEST (test_SBase_appendNotes5)
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -1474,13 +1563,14 @@ START_TEST (test_SBase_appendNotesString)
   fail_unless(SBase_isSetNotes(S) == 1);
 
   i = SBase_appendNotesString(S, badnotes);
-  const char * notes1 = SBase_getNotesString(S);
+  char * notes1 = SBase_getNotesString(S);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednotes, notes1));
 
   i = SBase_appendNotesString(S, newnotes);
+  safe_free(notes1);
 
   notes1 = SBase_getNotesString(S);
 
@@ -1488,6 +1578,7 @@ START_TEST (test_SBase_appendNotesString)
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1526,12 +1617,13 @@ START_TEST (test_SBase_appendNotesString1)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1565,12 +1657,13 @@ START_TEST (test_SBase_appendNotesString2)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1602,12 +1695,13 @@ START_TEST (test_SBase_appendNotesString3)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1641,12 +1735,13 @@ START_TEST (test_SBase_appendNotesString4)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1678,12 +1773,13 @@ START_TEST (test_SBase_appendNotesString5)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1707,12 +1803,13 @@ START_TEST (test_SBase_appendNotesString6)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1734,12 +1831,13 @@ START_TEST (test_SBase_appendNotesString7)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1761,12 +1859,13 @@ START_TEST (test_SBase_appendNotesString8)
   int i = SBase_setNotesString(S, notes);
   i = SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
 
+  safe_free(notes1);
 }
 END_TEST
 
@@ -1991,9 +2090,13 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 5 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000005") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  char* sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:0000005") == 0);
+  safe_free(sboid);
+  char* str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:0000005") == 0);
+  safe_free(str);
 
   i = SBase_unsetSBOTerm(S);
 
@@ -2008,18 +2111,26 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 0 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000000") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:0000000") == 0);
+  safe_free(sboid);
+  str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:0000000") == 0);
+  safe_free(str);
 
   i = SBase_setSBOTerm(S, 9999999);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 9999999 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:9999999") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:9999999") == 0);
+  safe_free(sboid);
+  str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:9999999") == 0);
+  safe_free(str);
 
   /* set an SBOTerm by ID */
 
@@ -2028,9 +2139,13 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 5 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000005") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:0000005") == 0);
+  safe_free(sboid);
+  str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:0000005") == 0);
+  safe_free(str);
 
   i = SBase_unsetSBOTerm(S);
 
@@ -2044,18 +2159,26 @@ START_TEST (test_SBase_setSBOTerm2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 0 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:0000000") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:0000000") == 0);
+  safe_free(sboid);
+  str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:0000000") == 0);
+  safe_free(str);
 
   i = SBase_setSBOTermID(S, "SBO:9999999");
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SBase_isSetSBOTerm(S) );
   fail_unless( SBase_getSBOTerm(S) == 9999999 );
-  fail_unless( strcmp(SBase_getSBOTermID(S), "SBO:9999999") == 0);
-  fail_unless( strcmp(SBase_getSBOTermAsURL(S), 
+  sboid = SBase_getSBOTermID(S);
+  fail_unless( strcmp(sboid, "SBO:9999999") == 0);
+  safe_free(sboid);
+  str = SBase_getSBOTermAsURL(S);
+  fail_unless( strcmp(str, 
                "http://identifiers.org/biomodels.sbo/SBO:9999999") == 0);
+  safe_free(str);
 
   /* check invalid attribute value */
 
@@ -2086,10 +2209,10 @@ END_TEST
 
 START_TEST (test_SBase_setNamespaces)
 {
-  XMLNamespaces *ns = new XMLNamespaces();
-  ns->add("url", "name");
+  XMLNamespaces ns;
+  ns.add("url", "name");
 
-  int i = SBase_setNamespaces(S, ns);
+  int i = SBase_setNamespaces(S, &ns);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( XMLNamespaces_getLength(Model_getNamespaces((Model_t *)(S))) == 1 );
@@ -2104,9 +2227,9 @@ END_TEST
 
 START_TEST (test_SBase_setModelHistory)
 {
-  SBase_t *sb = new Species(2,4);
+  Species sb(2,4);
   ModelHistory_t *mh = ModelHistory_create();
-  int i = SBase_setModelHistory(sb, mh);
+  int i = SBase_setModelHistory(&sb, mh);
 
   fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
 
@@ -2137,14 +2260,16 @@ START_TEST (test_SBase_setModelHistory_Model)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
 
   ModelHistory_free(history);
+  ModelCreator_free(mc);
+  Date_free(date);
 }
 END_TEST
 
 
 START_TEST (test_SBase_setModelHistoryL3)
 {
-  SBase_t *sb = new Species(3,1);
-  sb->setMetaId("_s");
+  Species_t sb(3,1);
+  sb.setMetaId("_s");
   ModelHistory_t *mh = ModelHistory_create();
   ModelCreator_t * mc = ModelCreator_create();
   Date_t * date = 
@@ -2159,22 +2284,24 @@ START_TEST (test_SBase_setModelHistoryL3)
   ModelHistory_setCreatedDate(mh, date);
   ModelHistory_setModifiedDate(mh, date);
 
-  int i = SBase_setModelHistory(sb, mh);
+  int i = SBase_setModelHistory(&sb, mh);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless(SBase_isSetModelHistory(sb)==1);
+  fail_unless(SBase_isSetModelHistory(&sb)==1);
 
-  mh = SBase_getModelHistory(sb);
+  ModelHistory_free(mh);
+  mh = SBase_getModelHistory(&sb);
 
   fail_unless(mh != NULL);
 
-  SBase_unsetModelHistory(sb);
-  mh = SBase_getModelHistory(sb);
+  SBase_unsetModelHistory(&sb);
+  mh = SBase_getModelHistory(&sb);
 
-  fail_unless(SBase_isSetModelHistory(sb)==0);
+  fail_unless(SBase_isSetModelHistory(&sb)==0);
   fail_unless(mh == NULL);
 
-  ModelHistory_free(mh);
+  ModelCreator_free(mc);
+  Date_free(date);
 }
 END_TEST
 

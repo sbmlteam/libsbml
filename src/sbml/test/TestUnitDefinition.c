@@ -728,7 +728,6 @@ START_TEST (test_UnitDefinition_printUnits)
 
   const char * ud_str3 = UnitDefinition_printUnits(ud1, 1);
   fail_unless(!strcmp(ud_str3, "(300 kilogram)^1"));
-
 }
 END_TEST
 

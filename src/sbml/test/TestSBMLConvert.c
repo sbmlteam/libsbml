@@ -522,6 +522,7 @@ START_TEST (test_SBMLConvert_convertFromL3_Comp)
   fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 4) == 0);
   fail_unless(SBMLDocument_setLevelAndVersion(d, 3, 1) == 1);
 
+  SBMLDocument_free(d);
 }
 END_TEST
 

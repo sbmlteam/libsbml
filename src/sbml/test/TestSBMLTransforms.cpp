@@ -559,6 +559,7 @@ START_TEST (test_SBMLTransforms_replaceIA)
   fail_unless( m->getCompartment(0)->getSize() == 25.0);
   fail_unless( m->getParameter(1)->getValue() == 50);
   
+  delete d;
 }
 END_TEST
 
@@ -714,6 +715,7 @@ START_TEST (test_SBMLTransforms_replaceIA_species)
   fail_unless( !(m->getSpecies(2)->isSetInitialAmount()));
   fail_unless( m->getSpecies(2)->getInitialConcentration() == 2);
   
+  delete d;
 }
 END_TEST
 

@@ -113,7 +113,7 @@ END_TEST
 
 START_TEST (test_SBase_setNotes)
 {
-  SBase_t *c = new(std::nothrow) Model(1, 2);
+  Model_t *c = new(std::nothrow) Model(1, 2);
   XMLToken_t *token;
   XMLNode_t *node;
 
@@ -156,6 +156,8 @@ START_TEST (test_SBase_setNotes)
 
   /* test notes with character reference */
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithText("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
   node  = XMLNode_createFromToken(token);
 
@@ -164,13 +166,16 @@ START_TEST (test_SBase_setNotes)
 
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
-  const char * s = XMLNode_toXMLString(XMLNode_getChild(t1,0));
+  char * s = XMLNode_toXMLString(XMLNode_getChild(t1,0));
   const char * expected = "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
 
   fail_unless(!strcmp(s,expected));
+  safe_free(s);
 
   /* test notes with predefined entity */
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithText("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
   node  = XMLNode_createFromToken(token);
 
@@ -179,11 +184,13 @@ START_TEST (test_SBase_setNotes)
 
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
-  const char * s2 = XMLNode_toXMLString(XMLNode_getChild(t1,0));
+  char * s2 = XMLNode_toXMLString(XMLNode_getChild(t1,0));
   const char * expected2 = "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
 
   fail_unless(!strcmp(s2,expected2));
+  safe_free(s2);
 
+  Model_free(c);
   XMLToken_free(token);
   XMLNode_free(node);
 }
@@ -234,6 +241,8 @@ START_TEST (test_SBase_setAnnotation)
 
   /* test annotations with character reference */
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithText("(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &#; &#x; &#00a8; &#0168 &#x00a8");
   node  = XMLNode_createFromToken(token);
 
@@ -242,13 +251,16 @@ START_TEST (test_SBase_setAnnotation)
 
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
-  const char * s = XMLNode_toXMLString(XMLNode_getChild(t1,0));
+  char * s = XMLNode_toXMLString(XMLNode_getChild(t1,0));
   const char * expected = "(CR) &#0168; &#x00a8; &#x00A8; (NOT CR) &amp;#; &amp;#x; &amp;#00a8; &amp;#0168 &amp;#x00a8";
 
   fail_unless(!strcmp(s,expected));
+  safe_free(s);
 
   /* test notes with predefined entity */
 
+  XMLToken_free(token);
+  XMLNode_free(node);
   token = XMLToken_createWithText("& ' > < \" &amp; &apos; &gt; &lt; &quot;");
   node  = XMLNode_createFromToken(token);
 
@@ -257,14 +269,14 @@ START_TEST (test_SBase_setAnnotation)
 
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
-  const char * s2 = XMLNode_toXMLString(XMLNode_getChild(t1,0));
+  char * s2 = XMLNode_toXMLString(XMLNode_getChild(t1,0));
   const char * expected2 = "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
 
   fail_unless(!strcmp(s2,expected2));
 
   XMLToken_free(token);
   XMLNode_free(node);
-
+  safe_free(s2);
 }
 END_TEST
 
@@ -299,7 +311,9 @@ START_TEST (test_SBase_unsetAnnotationWithCVTerms)
 
   SBase_setAnnotationString(S, (char*)annt);
   fail_unless(SBase_isSetAnnotation(S) == 1);
-  fail_unless(!strcmp(SBase_getAnnotationString(S), annt));
+  char* str = SBase_getAnnotationString(S);
+  fail_unless(!strcmp(str, annt));
+  safe_free(str);
 
   SBase_unsetAnnotation(S);
   fail_unless(SBase_isSetAnnotation(S) == 0);
@@ -312,8 +326,10 @@ START_TEST (test_SBase_unsetAnnotationWithCVTerms)
   CVTerm_addResource(cv, "http://www.geneontology.org/#GO:0005895");
   SBase_addCVTerm(S, cv);
 
+  str = SBase_getAnnotationString(S);
   fail_unless(SBase_isSetAnnotation(S) == 1);
-  fail_unless(!strcmp(SBase_getAnnotationString(S), annt_with_cvterm));
+  fail_unless(!strcmp(str, annt_with_cvterm));
+  safe_free(str);
 
   SBase_unsetAnnotation(S);
   fail_unless(SBase_isSetAnnotation(S) == 0);
@@ -368,7 +384,9 @@ START_TEST (test_SBase_unsetAnnotationWithModelHistory)
 
   SBase_setAnnotationString(S, (char*)annt);
   fail_unless(SBase_isSetAnnotation(S) == 1);
-  fail_unless(!strcmp(SBase_getAnnotationString(S), annt));
+  char* str = SBase_getAnnotationString(S);
+  fail_unless(!strcmp(str, annt));
+  safe_free(str);
 
   SBase_unsetAnnotation(S);
   fail_unless(SBase_isSetAnnotation(S) == 0);
@@ -389,12 +407,16 @@ START_TEST (test_SBase_unsetAnnotationWithModelHistory)
   Model_setModelHistory((Model_t*)S, h);
 
   fail_unless(SBase_isSetAnnotation(S) == 1);
-  fail_unless(!strcmp(SBase_getAnnotationString(S), annt_with_modelhistory));
+  str = SBase_getAnnotationString(S);
+  fail_unless(!strcmp(str, annt_with_modelhistory));
+  safe_free(str);
 
   SBase_unsetAnnotation(S);
   fail_unless(SBase_isSetAnnotation(S) == 0);
   fail_unless(SBase_getAnnotation(S) == NULL);
 
+  Date_free(dc);
+  Date_free(dm);
   ModelCreator_free(c);
   ModelHistory_free(h);
 }
@@ -403,7 +425,7 @@ END_TEST
 
 START_TEST (test_SBase_setNotesString)
 {
-  SBase_t *c = new(std::nothrow) Model(1,2);
+  Model_t *c = new(std::nothrow) Model(1,2);
   char * notes = "This is a test note";
   char * taggednotes = "<notes>This is a test note</notes>";
 
@@ -411,10 +433,12 @@ START_TEST (test_SBase_setNotesString)
 
   fail_unless(SBase_isSetNotes(c) == 1);
 
-  if (strcmp(SBase_getNotesString(c), taggednotes))
+  char* str = SBase_getNotesString(c);
+  if (strcmp(str, taggednotes))
   {
     fail("SBase_setNotesString(...) did not make a copy of node.");
   }
+  safe_free(str);
   XMLNode_t *t1 = SBase_getNotes(c);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
@@ -423,11 +447,14 @@ START_TEST (test_SBase_setNotesString)
 
 
   /* Reflexive case (pathological)  */
-  SBase_setNotesString(c, SBase_getNotesString(c));
+  str = SBase_getNotesString(c);
+  SBase_setNotesString(c, str);
+  safe_free(str);
   t1 = SBase_getNotes(c);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
-  const char * chars = SBase_getNotesString(c);
+  char * chars = SBase_getNotesString(c);
   fail_unless(!strcmp(chars, taggednotes));
+  safe_free(chars);
 
   SBase_setNotesString(c, (char *)"");
   fail_unless(SBase_isSetNotes(c) == 0 );
@@ -441,23 +468,25 @@ START_TEST (test_SBase_setNotesString)
 
   fail_unless(SBase_isSetNotes(c) == 1);
 
-  if (strcmp(SBase_getNotesString(c), taggednotes))
+  str = SBase_getNotesString(c);
+  if (strcmp(str, taggednotes))
   {
     fail("SBase_setNotesString(...) did not make a copy of node.");
   }
   t1 = SBase_getNotes(c);
+  safe_free(str);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
   t2 = XMLNode_getChild(t1,0);
   fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
-
+  Model_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBase_setNotesString_l3)
 {
-  SBase_t *c = new(std::nothrow) Model(3, 1);
+  Model_t *c = new(std::nothrow) Model(3, 1);
   const char * notes = "This is a test note";
   //const char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
 
@@ -465,14 +494,14 @@ START_TEST (test_SBase_setNotesString_l3)
   SBase_setNotesString(c, notes);
 
   fail_unless(SBase_isSetNotes(c) == 0);
-
+  Model_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBase_setNotesString_l3_addMarkup)
 {
-  SBase_t *c = new(std::nothrow) Model(3, 1);
+  Model_t *c = new(std::nothrow) Model(3, 1);
   char * notes = "This is a test note";
   char * taggednotes = "<notes>\n  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note</p>\n</notes>";
 
@@ -480,10 +509,12 @@ START_TEST (test_SBase_setNotesString_l3_addMarkup)
 
   fail_unless(SBase_isSetNotes(c) == 1);
 
-  if (strcmp(SBase_getNotesString(c), taggednotes))
+  char* str = SBase_getNotesString(c);
+  if (strcmp(str, taggednotes))
   {
     fail("SBase_setNotesString(...) did not make a copy of node.");
   }
+  safe_free(str);
   XMLNode_t *t1 = SBase_getNotes(c);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
@@ -498,10 +529,12 @@ START_TEST (test_SBase_setNotesString_l3_addMarkup)
 
   fail_unless(SBase_isSetNotes(c) == 1);
 
-  if (strcmp(SBase_getNotesString(c), taggednotes))
+  str = SBase_getNotesString(c);
+  if (strcmp(str, taggednotes))
   {
     fail("SBase_setNotesString(...) did not make a copy of node.");
   }
+  safe_free(str);
   t1 = SBase_getNotes(c);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
@@ -511,6 +544,7 @@ START_TEST (test_SBase_setNotesString_l3_addMarkup)
   t3 = XMLNode_getChild(t2,0);
   fail_unless(!strcmp(XMLNode_getCharacters(t3), "This is a test note"));
 
+  Model_free(c);
 }
 END_TEST
 
@@ -524,10 +558,12 @@ START_TEST (test_SBase_setAnnotationString)
 
   fail_unless(SBase_isSetAnnotation(S) == 1);
 
-  if (strcmp(SBase_getAnnotationString(S), taggedannotation))
+  char* str = SBase_getAnnotationString(S);
+  if (strcmp(str, taggedannotation))
   {
     fail("SBase_setAnnotationString(...) did not make a copy of node.");
   }
+  safe_free(str);
   XMLNode_t *t1 = SBase_getAnnotation(S);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
@@ -535,11 +571,14 @@ START_TEST (test_SBase_setAnnotationString)
 
 
   /* Reflexive case (pathological)  */
-  SBase_setAnnotationString(S, SBase_getAnnotationString(S));
+  str = SBase_getAnnotationString(S);
+  SBase_setAnnotationString(S, str);
+  safe_free(str);
   t1 = SBase_getAnnotation(S);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
-  const char * chars = SBase_getAnnotationString(S);
+  char * chars = SBase_getAnnotationString(S);
   fail_unless(!strcmp(chars, taggedannotation));
+  safe_free(chars);
 
   SBase_setAnnotationString(S, "");
   fail_unless(SBase_isSetAnnotation(S) == 0 );
@@ -553,10 +592,12 @@ START_TEST (test_SBase_setAnnotationString)
 
   fail_unless(SBase_isSetAnnotation(S) == 1);
 
-  if (strcmp(SBase_getAnnotationString(S), taggedannotation))
+  str = SBase_getAnnotationString(S);
+  if (strcmp(str, taggedannotation))
   {
     fail("SBase_setAnnotationString(...) did not make a copy of node.");
   }
+  safe_free(str);
   t1 = SBase_getAnnotation(S);
   fail_unless(XMLNode_getNumChildren(t1) == 1);
 
@@ -616,6 +657,15 @@ START_TEST (test_SBase_appendNotes)
 
   XMLNode_free(node);
   XMLNode_free(node1);
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(ns);
+  XMLToken_free(token4);
+  XMLNode_free(node4);
+  XMLToken_free(token5);
+  XMLNode_free(node5);
+  XMLToken_free(token);
+  XMLToken_free(token1);
 }
 END_TEST
 
@@ -709,21 +759,25 @@ START_TEST (test_SBase_appendNotes1)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
   XMLToken_free(text_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -814,10 +868,12 @@ START_TEST (test_SBase_appendNotes2)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -825,6 +881,7 @@ START_TEST (test_SBase_appendNotes2)
   XMLToken_free(body_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
@@ -917,10 +974,12 @@ START_TEST (test_SBase_appendNotes3)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
   XMLToken_free(html_token);
   XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -928,6 +987,7 @@ START_TEST (test_SBase_appendNotes3)
   XMLToken_free(p_token1);
   XMLNode_free(html_node);
   XMLNode_free(head_node);
+  XMLNode_free(title_node);
   XMLNode_free(body_node);
   XMLNode_free(p_node);
   XMLNode_free(text_node);
@@ -1021,8 +1081,12 @@ START_TEST (test_SBase_appendNotes4)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(text_token);
@@ -1033,6 +1097,7 @@ START_TEST (test_SBase_appendNotes4)
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -1122,8 +1187,12 @@ START_TEST (test_SBase_appendNotes5)
   XMLNamespaces_free(ns);
   XMLTriple_free(html_triple);
   XMLTriple_free(head_triple);
+  XMLTriple_free(title_triple);
   XMLTriple_free(body_triple);
   XMLTriple_free(p_triple);
+  XMLToken_free(html_token);
+  XMLToken_free(head_token);
+  XMLToken_free(title_token);
   XMLToken_free(body_token);
   XMLToken_free(p_token);
   XMLToken_free(p_token1);
@@ -1133,6 +1202,7 @@ START_TEST (test_SBase_appendNotes5)
   XMLNode_free(text_node);
   XMLNode_free(html_node1);
   XMLNode_free(head_node1);
+  XMLNode_free(title_node1);
   XMLNode_free(body_node1);
   XMLNode_free(p_node1);
   XMLNode_free(text_node1);
@@ -1409,7 +1479,7 @@ START_TEST (test_SBase_appendNotesString)
   //
   SBase_appendNotesString(S, newnotes);
 
-  const char * notes1 = SBase_getNotesString(S);
+  char * notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1420,7 +1490,7 @@ START_TEST (test_SBase_appendNotesString)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, newnotes2);
 
-  const char * notes2 = SBase_getNotesString(S);
+  char * notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes2));
@@ -1431,7 +1501,7 @@ START_TEST (test_SBase_appendNotesString)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, newnotes3);
 
-  const char * notes3 = SBase_getNotesString(S);
+  char * notes3 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes3));
@@ -1442,10 +1512,15 @@ START_TEST (test_SBase_appendNotesString)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, newnotes4);
 
-  const char * notes4 = SBase_getNotesString(S);
+  char * notes4 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes4));
+
+  safe_free(notes1);
+  safe_free(notes2);
+  safe_free(notes3);
+  safe_free(notes4);
 }
 END_TEST
 
@@ -1497,7 +1572,7 @@ START_TEST (test_SBase_appendNotesString1)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1507,11 +1582,13 @@ START_TEST (test_SBase_appendNotesString1)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
 
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1553,7 +1630,7 @@ START_TEST (test_SBase_appendNotesString2)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1563,10 +1640,13 @@ START_TEST (test_SBase_appendNotesString2)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
+
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1622,7 +1702,7 @@ START_TEST (test_SBase_appendNotesString3)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1632,7 +1712,7 @@ START_TEST (test_SBase_appendNotesString3)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes2));
@@ -1642,7 +1722,7 @@ START_TEST (test_SBase_appendNotesString3)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes3);
 
-  const char *notes3 = SBase_getNotesString(S);
+  char *notes3 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes3));
@@ -1652,10 +1732,15 @@ START_TEST (test_SBase_appendNotesString3)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes4);
 
-  const char *notes4 = SBase_getNotesString(S);
+  char *notes4 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes4));
+
+  safe_free(notes1);
+  safe_free(notes2);
+  safe_free(notes3);
+  safe_free(notes4);
 }
 END_TEST
 
@@ -1702,7 +1787,7 @@ START_TEST (test_SBase_appendNotesString4)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1712,10 +1797,13 @@ START_TEST (test_SBase_appendNotesString4)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
+
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1760,7 +1848,7 @@ START_TEST (test_SBase_appendNotesString5)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1770,11 +1858,13 @@ START_TEST (test_SBase_appendNotesString5)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
 
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1806,7 +1896,7 @@ START_TEST (test_SBase_appendNotesString6)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1816,11 +1906,13 @@ START_TEST (test_SBase_appendNotesString6)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
 
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1850,7 +1942,7 @@ START_TEST (test_SBase_appendNotesString7)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1860,11 +1952,13 @@ START_TEST (test_SBase_appendNotesString7)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes2));
 
+  safe_free(notes1);
+  safe_free(notes2);
 }
 END_TEST
 
@@ -1907,7 +2001,7 @@ START_TEST (test_SBase_appendNotesString8)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes);
 
-  const char *notes1 = SBase_getNotesString(S);
+  char *notes1 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes1));
@@ -1917,7 +2011,7 @@ START_TEST (test_SBase_appendNotesString8)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes2);
 
-  const char *notes2 = SBase_getNotesString(S);
+  char *notes2 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes2));
@@ -1927,7 +2021,7 @@ START_TEST (test_SBase_appendNotesString8)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes3);
 
-  const char *notes3 = SBase_getNotesString(S);
+  char *notes3 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes, notes3));
@@ -1937,11 +2031,15 @@ START_TEST (test_SBase_appendNotesString8)
   SBase_setNotesString(S, notes);
   SBase_appendNotesString(S, addnotes4);
 
-  const char *notes4 = SBase_getNotesString(S);
+  char *notes4 = SBase_getNotesString(S);
 
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednewnotes2, notes4));
 
+  safe_free(notes1);
+  safe_free(notes2);
+  safe_free(notes3);
+  safe_free(notes4);
 }
 END_TEST
 
@@ -1963,8 +2061,6 @@ START_TEST(test_SBase_CVTerms)
   fail_unless(SBase_getCVTerm(S, 0) != cv);
 
   CVTerm_free(cv);
-
-
 }
 END_TEST
 
@@ -2042,8 +2138,7 @@ START_TEST(test_SBase_addCVTerms)
   CVTerm_free(cv2);
   CVTerm_free(cv1);
   CVTerm_free(cv4);
-
-
+  CVTerm_free(cv5);
 }
 END_TEST
 
@@ -2150,8 +2245,9 @@ START_TEST(test_SBase_appendNotesWithGlobalNamespace)
     setOrAppendNotes(sbmlModel, "<html:p>TAXONOMY: 9606</html:p>");
     
 	SBMLWriter ttt;
-	std::string documentString = ttt.writeToString(&sbmlDoc);	
-	fail_unless(!strcmp(documentString.c_str(), notes));	
+	char* documentString = ttt.writeToString(&sbmlDoc);	
+	fail_unless(!strcmp(documentString, notes));
+    safe_free(documentString);
 }
 END_TEST
 
@@ -2273,129 +2369,121 @@ END_TEST
 
 START_TEST(test_SBase_matchesSBMLNamespaces)
 {
-  SBMLNamespaces *sbmlns1 = new SBMLNamespaces(3,1);
-  SBMLNamespaces *sbmlns2 = new SBMLNamespaces(2,4);
+  SBMLNamespaces sbmlns1(3,1);
+  SBMLNamespaces sbmlns2(2,4);
 
-  Species * s = new Species(sbmlns1);
-  Parameter * p = new Parameter(sbmlns1);
+  Species s(&sbmlns1);
+  Parameter p(&sbmlns1);
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(p)) == true);
-  fail_unless(p->matchesSBMLNamespaces((SBase *)(s)) == true);
+  fail_unless(s.matchesSBMLNamespaces(&(p)) == true);
+  fail_unless(p.matchesSBMLNamespaces(&(s)) == true);
 
-  p = new Parameter(sbmlns2);
+  p = &sbmlns2;
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(p)) == false);
-  fail_unless(p->matchesSBMLNamespaces((SBase *)(s)) == false);
+  fail_unless(s.matchesSBMLNamespaces(&(p)) == false);
+  fail_unless(p.matchesSBMLNamespaces(&(s)) == false);
 
-  sbmlns1->addNamespace("http:foo", "bar");
+  sbmlns1.addNamespace("http:foo", "bar");
 
-  Compartment *c = new Compartment(sbmlns1);
+  Compartment c(&sbmlns1);
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
-  fail_unless(p->matchesSBMLNamespaces((SBase *)(c)) == false);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(p)) == false);
+  fail_unless(s.matchesSBMLNamespaces(&(c)) == false);
+  fail_unless(c.matchesSBMLNamespaces(&(s)) == false);
+  fail_unless(p.matchesSBMLNamespaces(&(c)) == false);
+  fail_unless(c.matchesSBMLNamespaces(&(p)) == false);
 
-  s = new Species(sbmlns1);
+  s = &sbmlns1;
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == true);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == true);
+  fail_unless(s.matchesSBMLNamespaces(&(c)) == true);
+  fail_unless(c.matchesSBMLNamespaces(&(s)) == true);
 
-  sbmlns2 = new SBMLNamespaces(3,1);
-  c = new Compartment(sbmlns2);
+  SBMLNamespaces sbmlns3(3,1);
+  c = &sbmlns3;
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
+  fail_unless(s.matchesSBMLNamespaces(&(c)) == false);
+  fail_unless(c.matchesSBMLNamespaces(&(s)) == false);
 
-  sbmlns2->addNamespace("http:foo1", "bar1");
-  c = new Compartment(sbmlns2);
+  sbmlns3.addNamespace("http:foo1", "bar1");
+  c = &sbmlns3;
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
+  fail_unless(s.matchesSBMLNamespaces(&(c)) == false);
+  fail_unless(c.matchesSBMLNamespaces(&(s)) == false);
 
-  sbmlns2->addNamespace("http:foo", "bar");
-  sbmlns1->addNamespace("http:foo1", "bar1");
-  s = new Species(sbmlns1);
-  c = new Compartment(sbmlns2);
+  sbmlns3.addNamespace("http:foo", "bar");
+  sbmlns1.addNamespace("http:foo1", "bar1");
+  s = &sbmlns1;
+  c = &sbmlns3;
 
-  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == true);
-  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == true);
-
-  delete s;
-  delete p;
-  delete c;
+  fail_unless(s.matchesSBMLNamespaces(&(c)) == true);
+  fail_unless(c.matchesSBMLNamespaces(&(s)) == true);
 }
 END_TEST
 
 START_TEST(test_SBase_matchesRequiredSBMLNamespacesForAddition)
 {
-  SBMLNamespaces *sbmlns1 = new SBMLNamespaces(3,1);
-  SBMLNamespaces *sbmlns2 = new SBMLNamespaces(2,4);
+  SBMLNamespaces sbmlns1(3,1);
+  SBMLNamespaces sbmlns2(2,4);
 
-  Species * s = new Species(sbmlns1);
-  Parameter * p = new Parameter(sbmlns1);
+  Species s(&sbmlns1);
+  Parameter p(&sbmlns1);
 
-  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == true);
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
+  fail_unless(s.matchesRequiredSBMLNamespacesForAddition(&(p)) == true);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(s)) == true);
 
-  p = new Parameter(sbmlns2);
+  p = &sbmlns2;
 
-  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == false);
+  fail_unless(s.matchesRequiredSBMLNamespacesForAddition(&(p)) == false);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(s)) == false);
 
-  sbmlns1->addNamespace("http:foo", "bar");
+  sbmlns1.addNamespace("http:foo", "bar");
 
-  Compartment *c = new Compartment(sbmlns1);
+  Compartment c(&sbmlns1);
 
-  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+  fail_unless(s.matchesRequiredSBMLNamespacesForAddition(&(c)) == true);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(s)) == true);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(c)) == false);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(p)) == false);
 
-  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
-  s = new Species(sbmlns1);
+  sbmlns1.addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  s = &sbmlns1;
 
-  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == false);
+  fail_unless(s.matchesRequiredSBMLNamespacesForAddition(&(c)) == true);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(s)) == false);
 
-  sbmlns2 = new SBMLNamespaces(3,1);
-  sbmlns2->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
-  c = new Compartment(sbmlns2);
+  SBMLNamespaces sbmlns3(3,1);
+  sbmlns3.addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  c = &sbmlns3;
 
-  fail_unless(s->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(s)) == true);
+  fail_unless(s.matchesRequiredSBMLNamespacesForAddition(&(c)) == true);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(s)) == true);
 
-  sbmlns1 = new SBMLNamespaces(3,1);
-  p = new Parameter(sbmlns1);
+  SBMLNamespaces sbmlns4(3,1);
+  p = &sbmlns4;
 
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == true);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(c)) == false);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(p)) == true);
 
-  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version2", "bar2");
-  p = new Parameter(sbmlns1);
+  sbmlns4.addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version2", "bar2");
+  p = &sbmlns4;
 
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(c)) == false);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(p)) == false);
 
-  sbmlns1 = new SBMLNamespaces(3,1);
-  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
-  sbmlns1->removeNamespace(SBMLNamespaces::getSBMLNamespaceURI(3,1));
-  p = new Parameter(sbmlns1);
+  SBMLNamespaces sbmlns5(3,1);
+  sbmlns5.addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  sbmlns5.removeNamespace(SBMLNamespaces::getSBMLNamespaceURI(3,1));
+  p = &sbmlns5;
 
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == false);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(c)) == false);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(p)) == false);
 
-  sbmlns1 = new SBMLNamespaces(3,1);
-  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
-  sbmlns1->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
-  p = new Parameter(sbmlns1);
+  SBMLNamespaces sbmlns6(3,1);
+  sbmlns6.addNamespace("http://www.sbml.org/sbml/level3/version1/qual/version1", "bar1");
+  sbmlns6.addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
+  p = &sbmlns6;
 
-  fail_unless(p->matchesRequiredSBMLNamespacesForAddition((SBase *)(c)) == true);
-  fail_unless(c->matchesRequiredSBMLNamespacesForAddition((SBase *)(p)) == false);
-
-  delete s;
-  delete p;
-  delete c;
+  fail_unless(p.matchesRequiredSBMLNamespacesForAddition(&(c)) == true);
+  fail_unless(c.matchesRequiredSBMLNamespacesForAddition(&(p)) == false);
 }
 END_TEST
 
@@ -2405,22 +2493,22 @@ START_TEST(test_SBase_prefixMetaIdSBO)
   species.setMetaId("meta1");
   species.setSBOTerm(245);
 
-  std::string noPrefix = species.toSBML();
+  char* noPrefixch = species.toSBML();
+  std::string noPrefix(noPrefixch);
+  safe_free(noPrefixch);
   fail_unless (noPrefix.find(" metaid=") != std::string::npos);
   fail_unless (noPrefix.find(" sboTerm=") != std::string::npos);
 
   species.getNamespaces()->remove("");
   species.getNamespaces()->add(SBMLNamespaces::getSBMLNamespaceURI(3, 1), "l3v1");
   
-  std::string prefix = species.toSBML();
+  char* prefixch = species.toSBML();
+  std::string prefix(prefixch);
+  safe_free(prefixch);
   fail_unless (prefix.find(" l3v1:metaid=") != std::string::npos);
   fail_unless (prefix.find(" l3v1:sboTerm=") != std::string::npos);
 
   fail_unless (noPrefix != prefix);
-  
-
-
-
 }
 END_TEST
 

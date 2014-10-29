@@ -107,6 +107,7 @@ START_TEST (test_SyntaxChecker_validXHTML)
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 1 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 1 );
 
+  XMLTriple_free(triple);
   triple = XMLTriple_createWith("html", "", "");
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
@@ -118,6 +119,7 @@ START_TEST (test_SyntaxChecker_validXHTML)
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 0 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 1 );
 
+  XMLTriple_free(triple);
   triple = XMLTriple_createWith("html", "", "");
   XMLNamespaces_clear(ns);
 
@@ -127,6 +129,7 @@ START_TEST (test_SyntaxChecker_validXHTML)
   XMLNode_removeChild(topnode, 0);
   XMLNode_addChild(topnode, node);
 
+  XMLTriple_free(triple);
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 0 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 0 );
   fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 0 );
