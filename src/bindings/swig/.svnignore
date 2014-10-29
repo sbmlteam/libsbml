@@ -11,3 +11,5 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
+libsbml-packages.h
+libsbml-packages.i
