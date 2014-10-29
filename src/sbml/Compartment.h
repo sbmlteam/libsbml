@@ -526,7 +526,9 @@ public:
 
 
   /**
-   * Copy constructor; creates a copy of a Compartment.
+   * Copy constructor.
+   *
+   * This creates a copy of a Compartment object.
    *
    * @param orig the Compartment instance to copy.
    *
