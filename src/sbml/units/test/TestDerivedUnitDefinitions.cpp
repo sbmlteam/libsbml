@@ -61,14 +61,12 @@ static SBMLDocument* d;
 void
 DerivedUnitDefinition_setup (void)
 {
-  d = new SBMLDocument();
- 
   char *filename = safe_strcat(TestDataDirectory, "formula.xml");
-
 
   d = readSBML(filename);
   m = d->getModel();
 
+  safe_free(filename);
 }
 
 

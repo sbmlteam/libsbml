@@ -3252,6 +3252,10 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
     }
   }
 
+
+  variables->clear();
+  delete variables;
+
   return number;
 }
 /** @endcond */

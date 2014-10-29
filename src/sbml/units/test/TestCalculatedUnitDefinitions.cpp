@@ -61,14 +61,12 @@ static SBMLDocument* d;
 void
 CalcUnitDefinition_setup (void)
 {
-  d = new SBMLDocument();
- 
   char *filename = safe_strcat(TestDataDirectory, "calculateUnits.xml");
-
 
   d = readSBML(filename);
   m = d->getModel();
 
+  safe_free(filename);
 }
 
 
@@ -81,7 +79,9 @@ CK_CPPSTART
 
 START_TEST (test_CalcUnitDefinition_parameter)
 {
-  UnitDefinition *fud = m->getParameter("k1")->getDerivedUnitDefinition();
+  UnitDefinition *fud = NULL;
+  
+  fud = m->getParameter("k1")->getDerivedUnitDefinition();
 
   fail_unless(fud->getNumUnits() == 0);
 
@@ -97,6 +97,8 @@ START_TEST (test_CalcUnitDefinition_parameter)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  delete fud;
 }
 END_TEST
 
@@ -119,6 +121,8 @@ START_TEST (test_CalcUnitDefinition_parameter1)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
+
+  delete fud;
 }
 END_TEST
 
@@ -493,6 +497,8 @@ START_TEST (test_CalcUnitDefinition_global_with_local_known)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
+
+  delete fud;
 }
 END_TEST
 
@@ -534,6 +540,8 @@ START_TEST (test_CalcUnitDefinition_local)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  delete fud;
 }
 END_TEST
 
@@ -560,6 +568,8 @@ START_TEST (test_CalcUnitDefinition_local1)
   fail_unless(fud->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  delete fud;
 }
 END_TEST
 

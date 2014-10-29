@@ -62,16 +62,14 @@ static SBMLDocument* d;
 void
 FormulaUnitsData_setup (void)
 {
-  d = new SBMLDocument();
- 
   char *filename = safe_strcat(TestDataDirectory, "formula.xml");
-
 
   d = readSBML(filename);
   m = d->getModel();
 
   m->populateListFormulaUnitsData();
 
+  safe_free(filename);
 }
 
 

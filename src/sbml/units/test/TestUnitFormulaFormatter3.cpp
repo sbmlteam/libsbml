@@ -62,8 +62,6 @@ BEGIN_C_DECLS
 void
 UnitFormulaFormatter3Test_setup (void)
 {
-  d = new SBMLDocument();
- 
   char *filename = safe_strcat(TestDataDirectory, "unitsTest.xml");
 
   d = readSBML(filename);
@@ -72,7 +70,6 @@ UnitFormulaFormatter3Test_setup (void)
   uff = new UnitFormulaFormatter(m);
 
   safe_free(filename);
-
 }
 
 
@@ -420,10 +417,8 @@ create_suite_UnitFormulaFormatter3 (void)
   tcase_add_test(tcase, test_getUnitDefinition_power_three_children );
   tcase_add_test(tcase, test_getUnitDefinition_power_integer_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_neg_integer_exponent );
-//  tcase_add_test(tcase, test_getUnitDefinition_power_minus_integer_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_double_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_neg_double_exponent );
-//  tcase_add_test(tcase, test_getUnitDefinition_power_minus_double_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_dim_param_exponent );
   tcase_add_test(tcase, test_getUnitDefinition_power_nondim_param_exponent );
 

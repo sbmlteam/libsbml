@@ -1391,6 +1391,7 @@ Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
       u->setKind(UNIT_KIND_DIMENSIONLESS);
 
       derivedUD = uff->inferUnitDefinition(dim, math, id);
+      delete dim;
       //found = true;
     }
   }              

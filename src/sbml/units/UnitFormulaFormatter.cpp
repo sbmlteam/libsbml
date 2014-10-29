@@ -519,8 +519,9 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   {
     mContainsUndeclaredUnits = true;
   }
-
+  
   delete exponentUD;
+
   return variableUD;
 
 }
@@ -804,7 +805,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
 { 
   UnitDefinition * ud = NULL;
   const UnitDefinition * tempUd;
-  Unit * unit;
+  Unit * unit = NULL;
 
   unsigned int n, found;
   double exponent;
@@ -983,15 +984,13 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
               unit = new Unit(model->getSBMLNamespaces());
               unit->setKind(UnitKind_forName("mole"));
               unit->initDefaults();
-              ud   = new UnitDefinition(model->getSBMLNamespaces());
 
               ud->addUnit(unit);
               delete unit;
+              unit = NULL;
             }
             else
             {
-              ud   = new UnitDefinition(model->getSBMLNamespaces());
-
               for (n = 0; n < tempUd->getNumUnits(); n++)
               {
                 ud->addUnit(tempUd->getUnit(n));
@@ -1012,6 +1011,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
               ud->addUnit(unit);
 
               delete unit;
+              unit = NULL;
             }
             else
             {
@@ -1540,6 +1540,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     {
       /* compartment units are not defined */
       delete sizeUD;
+      if (subsUD != NULL) delete subsUD;
       return new UnitDefinition(model->getSBMLNamespaces());
     }
   }
@@ -1995,7 +1996,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
   }
   
   UnitDefinition * ud = NULL;
-  const UnitDefinition * tempUd;
+  const UnitDefinition * tempUd = NULL;
   Unit * unit = NULL;
   unsigned int n, p;
 
@@ -2044,6 +2045,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
       }
 
       delete unit;
+      unit = NULL;
     }
     else
     {
@@ -2068,6 +2070,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
       ud->addUnit(unit);
 
       delete unit;
+      unit = NULL;
     }
     else 
     {
@@ -2093,6 +2096,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
             ud->addUnit(unit);
 
             delete unit;
+            unit = NULL;
           }
         }
       }
@@ -2114,6 +2118,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
         ud->addUnit(unit);
 
         delete unit;
+        unit = NULL;
       }
     }
   }
@@ -2264,6 +2269,7 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
   UnitDefinition * resultUD = NULL;
 
   ASTNode * math = LHS->deepCopy();
+  UnitDefinition * tempUD = expectedUD->clone();
   math->reduceToBinary();
 
   bool isolated = false;
@@ -2274,13 +2280,13 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
   if (numChildren == 0 && math->getType() == AST_NAME
     && math->getName() == id)
   {
-    resultUD = new UnitDefinition(*expectedUD);
+    resultUD = new UnitDefinition(*tempUD);
     isolated = true;
   }
 
   while (isolated == false && numChildren > 0)
   {
-    child1 = math->getChild(0);
+    child1 = math->getChild(0)->deepCopy();
     if (numChildren != 2)
     {
       /* dont support this yet */
@@ -2290,23 +2296,29 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
     }
     else
     {
-      child2 = math->getChild(1);
+      child2 = math->getChild(1)->deepCopy();
     }
 
     if (child1->containsVariable(id) == true)
     {
       if (child1->getType() == AST_NAME && child1->getName() == id)
       {
-        resultUD = inverseFunctionOnUnits(expectedUD, child2, math->getType(),
+        resultUD = inverseFunctionOnUnits(tempUD, child2, math->getType(),
                                           inKL, reactNo);
         isolated = true;
         continue;
       }
       else
       {
-        expectedUD = inverseFunctionOnUnits(expectedUD, child2, math->getType(),
-                                            inKL, reactNo);
-        math = child1;
+        UnitDefinition * tempUD1 = inverseFunctionOnUnits(tempUD, child2, 
+                                              math->getType(), inKL, reactNo);
+        delete tempUD;
+        tempUD = tempUD1->clone();
+        delete tempUD1;
+        delete math;
+        math = child1->deepCopy();
+        if (child1 != NULL) delete child1;
+        if (child2 != NULL) delete child2;
         numChildren = math->getNumChildren();
         continue;
       }
@@ -2315,16 +2327,22 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
     {
       if (child2->getType() == AST_NAME && child2->getName() == id)
       {
-        resultUD = inverseFunctionOnUnits(expectedUD, child1, math->getType(),
+        resultUD = inverseFunctionOnUnits(tempUD, child1, math->getType(),
                                           inKL, reactNo, true);
         isolated = true;
         continue;
       }
       else
       {
-        expectedUD = inverseFunctionOnUnits(expectedUD, child1, math->getType(),
-                                            inKL, reactNo, true);
-        math = child2;
+        UnitDefinition * tempUD1 = inverseFunctionOnUnits(tempUD, child1, 
+                                              math->getType(), inKL, reactNo, true);
+        delete tempUD;
+        tempUD = tempUD1->clone();
+        delete tempUD1;
+        delete math;
+        math = child2->deepCopy();
+        if (child1 != NULL) delete child1;
+        if (child2 != NULL) delete child2;
         numChildren = math->getNumChildren();
         continue;
       }
@@ -2336,6 +2354,11 @@ UnitFormulaFormatter::inferUnitDefinition(UnitDefinition* expectedUD,
       break;
     }
   }
+
+  delete math;
+  delete tempUD;
+  if (child1 != NULL) delete child1;
+  if (child2 != NULL) delete child2;
 
   return resultUD;
 }
@@ -2402,6 +2425,7 @@ UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
     break;
   }
 
+  if (mathUD != NULL) delete mathUD;
 
   return resolvedUD;
 }

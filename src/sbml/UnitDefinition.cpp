@@ -1346,7 +1346,7 @@ UnitDefinition::divide(UnitDefinition *ud1, UnitDefinition *ud2)
   bool A = (ud1 == NULL);
   bool B = (ud2 == NULL);
 
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
 
   if (A && B)
   {

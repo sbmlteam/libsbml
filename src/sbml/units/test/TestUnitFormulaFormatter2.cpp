@@ -63,15 +63,14 @@ BEGIN_C_DECLS
 void
 UnitFormulaFormatter2Test_setup (void)
 {
-  d = new SBMLDocument();
- 
   char *filename = safe_strcat(TestDataDirectory, "L3components.xml");
-
 
   d = readSBML(filename);
   m = d->getModel();
 
   uff = new UnitFormulaFormatter(m);
+
+  safe_free(filename);
 
 }
 
@@ -85,7 +84,7 @@ UnitFormulaFormatter2Test_teardown (void)
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
 
   /* compartment with declared standard units */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(0));
@@ -99,6 +98,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
+
+  delete ud;
 
   /* compartment with declared units from unit definition */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(1));
@@ -115,6 +116,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
   /* compartment with spatial dimensions = 3 deduced from model */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(2));
 
@@ -129,6 +132,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
 
 
+  delete ud;
+
   /* compartment with spatial dimensions = 1 derived from model via ud */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(3));
 
@@ -142,6 +147,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
   /* compartment with no declared units */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(4));
 
@@ -150,7 +157,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   Compartment *c = new Compartment(m->getLevel(), m->getVersion());
   c->setId("c");
@@ -167,7 +174,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
   
   /* species with declared standard units for substance and comp with units*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(0));
@@ -188,6 +195,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
+  delete ud;
+
   ud = uff->getSpeciesSubstanceUnitDefinition(m->getSpecies(0));
 
   fail_unless(ud->getNumUnits() == 1);
@@ -199,6 +208,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+
+  delete ud;
 
   /* species with declared standard units for substance 
   and hasOnlySubstanceUnits = 1*/
@@ -214,6 +225,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
 
+  delete ud;
+
   ud = uff->getSpeciesSubstanceUnitDefinition(m->getSpecies(1));
 
   fail_unless(ud->getNumUnits() == 1);
@@ -225,6 +238,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+
+  delete ud;
 
   /* species with units from model substance*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(2));
@@ -245,6 +260,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
+  delete ud;
+
   ud = uff->getSpeciesSubstanceUnitDefinition(m->getSpecies(2));
  
   fail_unless(ud->getNumUnits() == 1);
@@ -257,10 +274,14 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
 
+  delete ud;
+
   /* species with declared standard units for substance and no spatialSizeUnits*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(3));
 
   fail_unless(ud->getNumUnits() == 0);
+
+  delete ud;
 
   ud = uff->getSpeciesSubstanceUnitDefinition(m->getSpecies(3));
  
@@ -277,7 +298,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
 
   ///* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   Species *s = new Species(m->getLevel(), m->getVersion());
   s->setId("s");
@@ -287,15 +308,21 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species)
 
   fail_unless (ud1->getNumUnits() == 0);
 
+  delete ud1;
+
   ud1 = uff->getSpeciesSubstanceUnitDefinition(s);
 
   fail_unless (ud1->getNumUnits() == 0);
 
   s->setUnits("mole"); // here the compartment size will be NULL
 
+  delete ud1;
+
   ud1 = uff->getUnitDefinitionFromSpecies(s);
 
   fail_unless (ud1->getNumUnits() == 1);
+
+  delete ud1;
 
   ud1 = uff->getSpeciesSubstanceUnitDefinition(s);
 
@@ -309,7 +336,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_parameter)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
  
   /* parameter with declared standard units */
   ud = uff->getUnitDefinitionFromParameter(m->getParameter(0));
@@ -323,6 +350,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_parameter)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
 
   /* parameter with declared units from unit definition */
   ud = uff->getUnitDefinitionFromParameter(m->getParameter(1));
@@ -343,6 +372,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_parameter)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
+  delete ud;
+
   /* parameter with no declared units */
   ud = uff->getUnitDefinitionFromParameter(m->getParameter(2));
 
@@ -352,7 +383,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_parameter)
  
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   Parameter *p = new Parameter(m->getLevel(), m->getVersion());
   p->setId("p");
@@ -380,6 +411,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_function)
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
 
+  delete ud;
+
   /* function applied to components */
   uff->resetFlags();
   ud = uff->getUnitDefinition(m->getRule(1)->getMath());
@@ -394,6 +427,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
   /* function with two arguments but only one bvar */
   uff->resetFlags();
   ud = uff->getUnitDefinition(m->getRule(2)->getMath());
@@ -407,6 +442,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getExponent() == 3);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
 
   ///* function with two arguments but only one bvar */
   uff->resetFlags();
@@ -430,7 +467,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_event)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
 
   /* event with no time units */
   ud = uff->getUnitDefinitionFromEventTime(m->getEvent(0));
@@ -448,7 +485,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_event)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   Event *e = new Event(m->getLevel(), m->getVersion());
   e->setId("p");
@@ -467,7 +504,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_model_extent)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
 
   /* model extent units */
   ud = uff->getExtentUnitDefinition();
@@ -485,7 +522,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_model_extent)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   m->unsetExtentUnits();
 
@@ -501,7 +538,7 @@ END_TEST
 
 START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
 {
-  UnitDefinition * ud = new UnitDefinition(3, 1);
+  UnitDefinition * ud = NULL;
 
   /* model extent units + conversion on species*/
   ud = uff->getSpeciesExtentUnitDefinition(m->getSpecies(0));
@@ -522,6 +559,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
+
+  delete ud;
 
   /* model extent units + conversion on model*/
   ud = uff->getSpeciesExtentUnitDefinition(m->getSpecies(1));
@@ -544,7 +583,7 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
 
   /* check deals with invalid nodes */
   delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
+  UnitDefinition * ud1 = NULL;
   
   m->unsetConversionFactor();
 
@@ -554,6 +593,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
   
   m->getSpecies(0)->unsetConversionFactor();
 
+  delete ud1;
+
   ud1 = uff->getSpeciesExtentUnitDefinition(m->getSpecies(0));
 
   fail_unless (ud1->getNumUnits() == 0);
@@ -561,6 +602,8 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_species_extent)
   m->getSpecies(0)->setConversionFactor("cf");
 
   m->unsetExtentUnits();
+
+  delete ud1;
 
   ud1 = uff->getSpeciesExtentUnitDefinition(m->getSpecies(0));
 
