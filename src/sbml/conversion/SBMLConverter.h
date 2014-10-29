@@ -73,22 +73,26 @@ public:
    */
   SBMLConverter ();
 
+
   /**
    * Creates a new SBMLConverter object with a given name.
-   * 
+   *
    * @param name the name for the converter to create
    */
   SBMLConverter (const std::string& name);
 
+
   /**
-   * Copy constructor; creates a copy of an SBMLConverter object.
+   * Copy constructor.
    *
-   * @param c the SBMLConverter object to copy.
+   * This creates a copy of an SBMLConverter object.
+   *
+   * @param orig the SBMLConverter object to copy.
    *
    * @throws SBMLConstructorException
    * Thrown if the argument @p orig is @c NULL.
    */
-  SBMLConverter(const SBMLConverter& c);
+  SBMLConverter(const SBMLConverter& orig);
 
 
   /**
@@ -128,7 +132,7 @@ public:
   /**
    * Returns the SBML document that is the subject of the conversions.
    *
-   * @return the current SBMLDocument object, as a const reference.
+   * @return the current SBMLDocument object.
    */
   virtual const SBMLDocument* getDocument() const;
 
@@ -155,34 +159,37 @@ public:
   /**
    * Returns the target SBML namespaces of the currently set properties.
    *
-   * SBML namespaces are used by libSBML to express the Level+Version of
-   * the SBML document (and, possibly, any SBML Level&nbsp;3 packages in
+   * SBML namespaces are used by libSBML to express the Level+Version of the
+   * SBML document (and, possibly, any SBML Level&nbsp;3 packages in
    * use). Some converters' behavior is affected by the SBML namespace
-   * configured in the converter.  For example, the actions of
-   * SBMLLevelVersionConverter, the converter for converting SBML documents
-   * from one Level+Version combination to another, are fundamentally
-   * dependent on the SBML namespaces being targeted.
+   * configured in the converter.  For example, in SBMLLevelVersionConverter
+   * (the converter for converting SBML documents from one Level+Version
+   * combination to another), the actions are fundamentally dependent on the
+   * SBML namespaces targeted.
    *
    * @return the SBMLNamespaces object that describes the SBML namespaces
-   * in effect.
+   * in effect, or @c NULL if none are set.
    */
   virtual SBMLNamespaces* getTargetNamespaces();
 
 
   /**
-   * Predicate returning @c true if this converter's properties matches a
-   * given set of configuration properties.
+   * Returns @c true if this converter matches the given properties.
    *
-   * @param props the configuration properties to match.
+   * Given a ConversionProperties object @p props, this method checks that @p
+   * props possesses an option value to enable this converter.  If it does,
+   * this method returns @c true.
    *
-   * @return @c true if this converter's properties match, @c false
-   * otherwise.
+   * @param props the properties to match.
+   *
+   * @return @c true if the properties @p props would match the necessary
+   * properties for this type of converter, @c false otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
 
   /**
-   * Sets the current SBML document to the given SBMLDocument object.
+   * Sets the SBML document to be converted.
    *
    * @param doc the document to use for this conversion.
    *
@@ -191,19 +198,21 @@ public:
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
-   * following values:
+   * following:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
+   * @if cpp
    * @warning Even though the argument @p doc is 'const', it is immediately
    * cast to a non-const version, which is then usually changed by the
    * converter upon a successful conversion.  This variant of the
    * setDocument() method is here solely to preserve backwards compatibility.
+   * @endif
    */
   virtual int setDocument(const SBMLDocument* doc);
 
 
   /**
-   * Sets the current SBML document to the given SBMLDocument object.
+   * Sets the SBML document to be converted.
    *
    * @param doc the document to use for this conversion.
    *
@@ -212,7 +221,7 @@ public:
    * #OperationReturnValues_t. @endif@~ The set of possible values that may
    * be returned ultimately depends on the specific subclass of
    * SBMLConverter being used, but the default method can return the
-   * following values:
+   * following:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setDocument(SBMLDocument* doc);
@@ -274,16 +283,13 @@ public:
    */
   virtual int convert();
 
-  /**  
-   * Returns the name of this converter. 
+
+  /**
+   * Returns the name of this converter.
    *
-   * @return a name for this converter
+   * @return a string, the name of this converter.
    */
   const std::string& getName() const;
-  
-#ifndef SWIG
-
-#endif // SWIG
 
 
 protected:
@@ -291,7 +297,7 @@ protected:
 
   SBMLDocument *   mDocument;
   ConversionProperties *mProps;
-  std::string mName;  
+  std::string mName;
 
   friend class SBMLDocument;
   /** @endcond */
