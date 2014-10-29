@@ -2211,7 +2211,7 @@ UnitDefinition_divide(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
 
 
 LIBSBML_EXTERN
-const char *
+char *
 UnitDefinition_printUnits(UnitDefinition_t * ud, int compact)
 {
   return (ud != NULL) ? 

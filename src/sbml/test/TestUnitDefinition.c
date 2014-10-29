@@ -706,11 +706,11 @@ START_TEST (test_UnitDefinition_printUnits)
   Unit_setKind( perTime  , UnitKind_forName("second")   );
   Unit_setExponent( perTime, -1);
 
-  const char * ud_str = UnitDefinition_printUnits(ud, 0);
+  char * ud_str = UnitDefinition_printUnits(ud, 0);
   fail_unless(!strcmp(ud_str, 
                "second (exponent = -1, multiplier = 1, scale = 0)"));
 
-  const char * ud_str1 = UnitDefinition_printUnits(ud, 1);
+  char * ud_str1 = UnitDefinition_printUnits(ud, 1);
   fail_unless(!strcmp(ud_str1, "(1 second)^-1"));
 
   UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
@@ -722,12 +722,17 @@ START_TEST (test_UnitDefinition_printUnits)
   Unit_setScale(u, 2);
   Unit_setMultiplier(u, 3.0);
 
-  const char * ud_str2 = UnitDefinition_printUnits(ud1, 0);
+  char * ud_str2 = UnitDefinition_printUnits(ud1, 0);
   fail_unless(!strcmp(ud_str2, 
                "kilogram (exponent = 1, multiplier = 3, scale = 2)"));
 
-  const char * ud_str3 = UnitDefinition_printUnits(ud1, 1);
+  char * ud_str3 = UnitDefinition_printUnits(ud1, 1);
   fail_unless(!strcmp(ud_str3, "(300 kilogram)^1"));
+
+  safe_free(ud_str);
+  safe_free(ud_str1);
+  safe_free(ud_str2);
+  safe_free(ud_str3);
 }
 END_TEST
 
