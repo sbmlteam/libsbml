@@ -636,7 +636,7 @@ public:
    * @li @sbmlconstant{BQM_IS_DESCRIBED_BY, ModelQualifierType_t}
    * @li @sbmlconstant{BQM_IS_DERIVED_FROM, ModelQualifierType_t}
    * @li @sbmlconstant{BQM_IS_INSTANCE_OF, ModelQualifierType_t}
-   * @li @sbmlconstant{BQM_IS_HAS_INSTANCE, ModelQualifierType_t}
+   * @li @sbmlconstant{BQM_HAS_INSTANCE, ModelQualifierType_t}
    *
    * Any other BioModels.net qualifier found in the model is considered
    * unknown by libSBML and reported as
