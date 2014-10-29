@@ -302,161 +302,23 @@ delete document;
  * What is the result of the above on an actual model?  Suppose we
  * have the following SBML Level&nbsp;3 model stored in a file named
  * @c "enzyme_model.xml":
-@code{.xml}
-<?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
-      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
-
-  <model id="aggregate">
-    <comp:listOfSubmodels>
-      <comp:submodel comp:id="submod1" comp:modelRef="enzyme"/>
-      <comp:submodel comp:id="submod2" comp:modelRef="enzyme"/>
-    </comp:listOfSubmodels>
-  </model>
-  <comp:listOfModelDefinitions>
-    <comp:modelDefinition id="enzyme" name="enzyme">
-      <listOfCompartments>
-        <compartment id="compartment" spatialDimensions="3" size="1" constant="true"/>
-      </listOfCompartments>
-      <listOfSpecies>
-        <species id="S"  compartment="compartment" hasOnlySubstanceUnits="false"
-                         boundaryCondition="false" constant="false"/>
-        <species id="E"  compartment="compartment" hasOnlySubstanceUnits="false" 
-                         boundaryCondition="false" constant="false"/>
-        <species id="D"  compartment="compartment" hasOnlySubstanceUnits="false" 
-                         boundaryCondition="false" constant="false"/>
-        <species id="ES" compartment="compartment" hasOnlySubstanceUnits="false"
-                         boundaryCondition="false" constant="false"/>
-      </listOfSpecies>
-      <listOfReactions>
-        <reaction id="J0" reversible="true" fast="false">
-          <listOfReactants>
-            <speciesReference species="S" stoichiometry="1" constant="true"/>
-            <speciesReference species="E" stoichiometry="1" constant="true"/>
-          </listOfReactants>
-          <listOfProducts>
-            <speciesReference species="ES" stoichiometry="1" constant="true"/>
-          </listOfProducts>
-        </reaction>
-        <reaction id="J1" reversible="true" fast="false">
-          <listOfReactants>
-            <speciesReference species="ES" stoichiometry="1" constant="true"/>
-          </listOfReactants>
-          <listOfProducts>
-            <speciesReference species="E" stoichiometry="1" constant="true"/>
-            <speciesReference species="D" stoichiometry="1" constant="true"/>
-          </listOfProducts>
-        </reaction>
-      </listOfReactions>
-    </comp:modelDefinition>
-  </comp:listOfModelDefinitions>
-</sbml>
-@endcode
+ *
+ * @htmlinclude example-sbml-enzyme-model.html
+ *
  * Also suppose we have the following SBML Level&nbsp;3 model stored
  * in a file called @c "main.xml" in the same directory as the
  * file above.  The model below imports the model @c "enzyme" from
  * the model file above twice; this is used to create two submodels
  * whose identifiers are @c "A" and @c "B".
-@code{.xml}
-<?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
-      xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
-  <model>
-    <listOfCompartments>
-      <compartment id="compartment" spatialDimensions="3" size="1" constant="true">
-        <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="compartment" comp:submodelRef="A"/>
-          <comp:replacedElement comp:idRef="compartment" comp:submodelRef="B"/>
-        </comp:listOfReplacedElements>
-      </compartment>
-    </listOfCompartments>
-    <listOfSpecies>
-      <species id="S" compartment="compartment" hasOnlySubstanceUnits="false"
-                      boundaryCondition="false" constant="false">
-        <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="S" comp:submodelRef="A"/>
-          <comp:replacedElement comp:idRef="S" comp:submodelRef="B"/>
-        </comp:listOfReplacedElements>
-      </species>
-    </listOfSpecies>
-    <comp:listOfSubmodels>
-      <comp:submodel comp:id="A" comp:modelRef="ExtMod1"/>
-      <comp:submodel comp:id="B" comp:modelRef="ExtMod1"/>
-    </comp:listOfSubmodels>
-  </model>
-  <comp:listOfExternalModelDefinitions>
-    <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model.xml"
-                                  comp:modelRef="enzyme"/>
-  </comp:listOfExternalModelDefinitions>
-</sbml>
-@endcode
+ *
+ * @htmlinclude example-sbml-main.html
+ *
  * Finally, invoking the example program developed the previous section on the
  * file @c "main.xml", we would obtain the following XML output as result a
  * result
-@code{.xml}
-<?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-  <model>
-    <listOfCompartments>
-      <compartment id="compartment" spatialDimensions="3" size="1" constant="true"/>
-    </listOfCompartments>
-    <listOfSpecies>
-      <species id="S"     compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="A__E"  compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="A__D"  compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="A__ES" compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="B__E"  compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="B__D"  compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-      <species id="B__ES" compartment="compartment" hasOnlySubstanceUnits="false"
-                          boundaryCondition="false" constant="false"/>
-    </listOfSpecies>
-    <listOfReactions>
-      <reaction id="A__J0" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference species="S" stoichiometry="1" constant="true"/>
-          <speciesReference species="A__E" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="A__ES" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-      </reaction>
-      <reaction id="A__J1" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference species="A__ES" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="A__E" stoichiometry="1" constant="true"/>
-          <speciesReference species="A__D" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-      </reaction>
-      <reaction id="B__J0" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference species="S" stoichiometry="1" constant="true"/>
-          <speciesReference species="B__E" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="B__ES" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-      </reaction>
-      <reaction id="B__J1" reversible="true" fast="false">
-        <listOfReactants>
-          <speciesReference species="B__ES" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="B__E" stoichiometry="1" constant="true"/>
-          <speciesReference species="B__D" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-      </reaction>
-    </listOfReactions>
-  </model>
-</sbml>
-@endcode
+ *
+ * @htmlinclude example-sbml-flattened-output.html
+ *
  * The final model is a concrete realization of the effective
  * model defined by @c "main.xml", with a single compartment and two
  * reactions; the species @c "S" can either bind with enzyme @c "E" (from
