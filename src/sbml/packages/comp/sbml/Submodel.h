@@ -132,6 +132,7 @@ class ReplacedElement;
  */
 typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, SBMLErrorLog* log, void* userdata);  
 
+#ifndef SWIG
 /** 
  * ModelProcessingCallbackData is an internal structure storing callback and userdata
  */
@@ -141,6 +142,7 @@ struct ModelProcessingCallbackData
   void* data;
 };
 
+#endif
 /** @endcond */
 
 class LIBSBML_EXTERN Submodel : public CompBase
@@ -157,7 +159,9 @@ protected:
   Model*        mInstantiatedModel;
   std::string   mInstantiationOriginalURI;
 
+#ifndef SWIG
   static std::vector<ModelProcessingCallbackData*> mProcessingCBs;
+#endif
 
   /** @endcond */
 
