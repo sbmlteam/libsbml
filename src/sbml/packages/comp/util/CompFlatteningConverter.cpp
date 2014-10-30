@@ -97,6 +97,7 @@ CompFlatteningConverter::~CompFlatteningConverter ()
   {
     mPkgsToStrip->clear();
     delete mPkgsToStrip;
+    mPkgsToStrip = NULL;
   }
 }
 
@@ -173,6 +174,15 @@ CompFlatteningConverter::convert()
   {
     Submodel::removeProcessingCallback(index);
   }
+  
+  // clean up PkgsToStrip
+  if (mPkgsToStrip != NULL)
+  {
+    mPkgsToStrip->clear();
+    delete mPkgsToStrip;
+    mPkgsToStrip = NULL;
+  }
+
 
   return result;
 
