@@ -26,6 +26,7 @@ Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
 Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: @CURRENT_DIR@\libsbml\bindings\nodejs\*; DestDir: {app}\bindings\nodejs\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: @CURRENT_DIR@\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: @CURRENT_DIR@\libsbml\bindings\perl\Libsbml.pm; DestDir: {code:GetPerlLibDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl

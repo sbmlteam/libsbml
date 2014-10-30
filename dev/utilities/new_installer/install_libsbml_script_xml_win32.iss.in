@@ -25,6 +25,7 @@ Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
 Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: @CURRENT_DIR@\libsbml\bindings\nodejs\*; DestDir: {app}\bindings\nodejs\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: @CURRENT_DIR@\libsbml\win32\bin\libsbml.dll; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
