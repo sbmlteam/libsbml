@@ -167,7 +167,7 @@ Index::getReferencedAttribute() const
 /*
  * Returns the value of the "arrayDimension" attribute of this Index.
  */
-const unsigned int
+unsigned int
 Index::getArrayDimension() const
 {
   return mArrayDimension;
