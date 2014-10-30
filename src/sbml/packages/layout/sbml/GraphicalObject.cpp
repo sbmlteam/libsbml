@@ -902,7 +902,7 @@ bool isL3RenderNamespaceDeclared(const SBMLDocument* doc, const RenderGraphicalO
   if (doc->getSBMLNamespaces() == NULL) return false;
   if (doc->getSBMLNamespaces()->getNamespaces() == NULL) return false;
 
-  const std::string& prefix = plugin->getPrefix();
+  //const std::string& prefix = plugin->getPrefix();
   const std::string& uri = doc->getSBMLNamespaces()->getNamespaces()->getURI(plugin->getPrefix());
 
   return !uri.empty() && uri != RenderExtension::getXmlnsL2();
