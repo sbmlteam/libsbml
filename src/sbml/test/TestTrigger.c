@@ -214,6 +214,8 @@ START_TEST (test_Trigger_createWithNS )
   fail_unless( XMLNamespaces_getLength(Trigger_getNamespaces(object)) == 2 );
 
   Trigger_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

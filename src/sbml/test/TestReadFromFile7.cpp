@@ -180,7 +180,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless( con         != NULL  , NULL );
 
   ast = con->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);           
+  char* math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "lt(x, 3)"), NULL);           
+  safe_free(math);
 
   //<event id="e1" sboTerm="SBO:0000231">
   //  <trigger sboTerm="SBO:0000231">
@@ -232,7 +234,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(delay->getSBOTermID() == "SBO:0000064");
 
   ast = delay->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "p + 3"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "p + 3"), NULL);
+  safe_free(math);
 
   fail_unless(e->isSetTrigger(), NULL);
   
@@ -243,7 +247,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(trigger->getSBOTermID() == "SBO:0000064");
 
   ast = trigger->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "lt(x, 3)"), NULL);
+  safe_free(math);
 
   loe = m->getListOfEvents();
   e1 = loe->get(0);
@@ -262,7 +268,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(ea->getSBOTermID() == "SBO:0000064");
 
   ast = ea->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "x * p3"), NULL);
+  safe_free(math);
 
   loea = e->getListOfEventAssignments();
   ea1 = loea->get(0);
@@ -299,7 +307,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(fd->getSBOTermID() == "SBO:0000064");
 
   ast = fd->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "lambda(x, pow(x, 3))"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "lambda(x, pow(x, 3))"), NULL);
+  safe_free(math);
 
   lofd = m->getListOfFunctionDefinitions();
   fd1 = lofd->get(0);
@@ -326,7 +336,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(ia->getSymbol() == "p1", NULL);
 
   ast = ia->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "x * p3"), NULL);
+  safe_free(math);
 
   //<listOfRules>
   fail_unless( m->getNumRules() == 3, NULL );
@@ -348,7 +360,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(alg->getSBOTermID() == "SBO:0000064");
 
   ast = alg->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "pow(x, 3)"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "pow(x, 3)"), NULL);
+  safe_free(math);
 
   //  <assignmentRule variable="p2" sboTerm="SBO:0000064">
   //    <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -367,7 +381,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(ar->getSBOTermID() == "SBO:0000064");
 
   ast = ar->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "x * p3"), NULL);
+  safe_free(math);
 
 
   //  <rateRule variable="p3" sboTerm="SBO:0000064">
@@ -387,7 +403,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(rr->getSBOTermID() == "SBO:0000064");
 
   ast = rr->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "p1 / p"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "p1 / p"), NULL);
+  safe_free(math);
 
   //<listOfSpecies>
   //  <species id="s" compartment="a" initialAmount="0" speciesType="gg" sboTerm="SBO:000236"/>
@@ -455,7 +473,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(kl->isSetMath(), NULL);
 
   ast = kl->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "s * k / p"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "s * k / p"), NULL);
+  safe_free(math);
 
   fail_unless(kl->getNumParameters() == 2, NULL);
 
@@ -504,7 +524,9 @@ START_TEST (test_read_l2v3_all)
   fail_unless(stoich->getSBOTermID() == "SBO:0000064", NULL);
 
   ast = stoich->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "s * p"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "s * p"), NULL);
+  safe_free(math);
 
   //<listOfUnitDefinitions>
   //  <unitDefinition id="ud1">

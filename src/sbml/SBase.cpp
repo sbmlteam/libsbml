@@ -6396,6 +6396,8 @@ SBase::removeDuplicateAnnotations()
       newAnnotation->addChild(*(newNode));
       setAnnotation(newAnnotation);
     }
+    delete newNode;
+    delete newAnnotation;
   }
 
 

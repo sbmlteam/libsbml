@@ -157,6 +157,8 @@ START_TEST (test_ModifierSpeciesReference_createWithNS )
   fail_unless( XMLNamespaces_getLength( n ) == 2 );
 
   ModifierSpeciesReference_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

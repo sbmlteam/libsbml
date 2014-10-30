@@ -114,11 +114,8 @@ END_TEST
 START_TEST (test_SBase_setNotes)
 {
   Model_t *c = new(std::nothrow) Model(1, 2);
-  XMLToken_t *token;
-  XMLNode_t *node;
-
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithText("This is a test note");
+  XMLNode* node = XMLNode_createFromToken(token);
 
 
   SBase_setNotes(c, node);
@@ -199,11 +196,8 @@ END_TEST
 
 START_TEST (test_SBase_setAnnotation)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithText("This is a test note");
+  XMLNode* node = XMLNode_createFromToken(token);
 
   SBase_setAnnotation(S, node);
 
@@ -609,11 +603,6 @@ END_TEST
 
 START_TEST (test_SBase_appendNotes)
 { // add a p tag to a p tag
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token1;
-  XMLNode_t *node1;
-  XMLNode_t * node2;
   XMLTriple_t *triple = XMLTriple_createWith("p", "", "");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
@@ -623,23 +612,23 @@ START_TEST (test_SBase_appendNotes)
   XMLToken_t *token5 = XMLToken_createWithText("This is additional text");
   XMLNode_t *node5 = XMLNode_createFromToken(token5);
 
-  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, node4);
 
   SBase_setNotes(S, node);
 
   fail_unless(SBase_isSetNotes(S) == 1);
 
-  token1 = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node1 = XMLNode_createFromToken(token1);
+  XMLToken* token1 = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node1 = XMLNode_createFromToken(token1);
   XMLNode_addChild(node1, node5);
   
   SBase_appendNotes(S, node1);
 
   fail_unless(SBase_isSetNotes(S) == 1);
 
-  node2 = SBase_getNotes(S);
+  XMLNode* node2 = SBase_getNotes(S);
 
   fail_unless(XMLNode_getNumChildren(node2) == 2);
   fail_unless(!strcmp(XMLNode_getName(XMLNode_getChild(node2, 0)), "p"));

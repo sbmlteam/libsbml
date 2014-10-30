@@ -232,7 +232,7 @@ START_TEST(test_Model_setgetModelHistory)
 
   ModelHistory_free(history);
   ModelCreator_free(mc);
-
+  Date_free(date);
 }
 END_TEST
 
@@ -660,8 +660,10 @@ START_TEST (test_Model_add_get_FunctionDefinitions)
   FunctionDefinition_setId(fd1, "fd1");
   FunctionDefinition_setId(fd2, "fd2");
 
-  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
-  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
+  ASTNode_t* math = SBML_parseFormula("2");
+  FunctionDefinition_setMath(fd1, math);
+  FunctionDefinition_setMath(fd2, math);
+  ASTNode_free(math);
 
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
@@ -670,6 +672,9 @@ START_TEST (test_Model_add_get_FunctionDefinitions)
   fail_unless( Model_getFunctionDefinition(M, 0)  != fd1  );
   fail_unless( Model_getFunctionDefinition(M, 1)  != fd2  );
   fail_unless( Model_getFunctionDefinition(M, 2)  == NULL );
+  
+  FunctionDefinition_free(fd1);
+  FunctionDefinition_free(fd2);
 }
 END_TEST
 
@@ -686,14 +691,19 @@ START_TEST (test_Model_add_get_FunctionDefinitions_neg_arg)
   FunctionDefinition_setId(fd1, "fd1");
   FunctionDefinition_setId(fd2, "fd2");
 
-  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
-  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
+  ASTNode_t* math = SBML_parseFormula("2");
+  FunctionDefinition_setMath(fd1, math);
+  FunctionDefinition_setMath(fd2, math);
+  ASTNode_free(math);
 
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
 
   fail_unless( Model_getNumFunctionDefinitions(M) == 2    );
   fail_unless( Model_getFunctionDefinition(M, -2) == NULL );
+  
+  FunctionDefinition_free(fd1);
+  FunctionDefinition_free(fd2);
 }
 END_TEST
 
@@ -716,6 +726,9 @@ START_TEST (test_Model_add_get_UnitDefinitions)
   fail_unless( Model_getUnitDefinition(M, 0)  != ud1  );
   fail_unless( Model_getUnitDefinition(M, 1)  != ud2  );
   fail_unless( Model_getUnitDefinition(M, 2)  == NULL );
+
+  UnitDefinition_free(ud1);
+  UnitDefinition_free(ud2);
 }
 END_TEST
 
@@ -736,6 +749,9 @@ START_TEST (test_Model_add_get_UnitDefinitions_neg_arg)
 
   fail_unless( Model_getNumUnitDefinitions(M) == 2    );
   fail_unless( Model_getUnitDefinition(M, -2) == NULL );
+
+  UnitDefinition_free(ud1);
+  UnitDefinition_free(ud2);
 }
 END_TEST
 
@@ -747,6 +763,7 @@ START_TEST (test_Model_addCompartment)
   Model_addCompartment(M, c);
 
   fail_unless( Model_getNumCompartments(M) == 1 );
+  Compartment_free(c);
 }
 END_TEST
 
@@ -759,6 +776,7 @@ START_TEST (test_Model_addSpecies)
   Model_addSpecies(M, s);
 
   fail_unless( Model_getNumSpecies(M) == 1 );
+  Species_free(s);
 }
 END_TEST
 
@@ -770,6 +788,7 @@ START_TEST (test_Model_addParameter)
   Model_addParameter(M, p);
 
   fail_unless( Model_getNumParameters(M) == 1 );
+  Parameter_free(p);
 }
 END_TEST
 
@@ -783,15 +802,21 @@ START_TEST (test_Model_addRules)
   Rule_setVariable(r2, "r2");
   Rule_setVariable(r3, "r3");
  
-  Rule_setMath(r1, SBML_parseFormula("2"));
-  Rule_setMath(r2, SBML_parseFormula("2"));
-  Rule_setMath(r3, SBML_parseFormula("2"));
+  ASTNode_t* math = SBML_parseFormula("2");
+  Rule_setMath(r1, math);
+  Rule_setMath(r2, math);
+  Rule_setMath(r3, math);
+  ASTNode_free(math);
   
   Model_addRule( M, r1);
   Model_addRule( M, r2);
   Model_addRule( M, r3);
 
   fail_unless( Model_getNumRules(M) == 3 );
+
+  Rule_free(r1);
+  Rule_free(r2);
+  Rule_free(r3);
 }
 END_TEST
 
@@ -803,6 +828,7 @@ START_TEST (test_Model_addReaction)
   Model_addReaction(M, r);
 
   fail_unless( Model_getNumReactions(M) == 1 );
+  Reaction_free(r);
 }
 END_TEST
 
@@ -812,7 +838,9 @@ START_TEST (test_Model_add_get_Event)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);
@@ -825,6 +853,10 @@ START_TEST (test_Model_add_get_Event)
   fail_unless( Model_getEvent(M, 0)  != e1   );
   fail_unless( Model_getEvent(M, 1)  != e2   );
   fail_unless( Model_getEvent(M, 2)  == NULL );
+
+  Event_free(e1);
+  Event_free(e2);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -834,7 +866,9 @@ START_TEST (test_Model_add_get_Event_neg_arg)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);
@@ -845,6 +879,10 @@ START_TEST (test_Model_add_get_Event_neg_arg)
 
   fail_unless( Model_getNumEvents(M) == 2    );
   fail_unless( Model_getEvent(M, -2) == NULL );
+
+  Event_free(e1);
+  Event_free(e2);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -857,8 +895,10 @@ START_TEST (test_Model_getFunctionDefinitionById)
   FunctionDefinition_setId( fd1, "sin" );
   FunctionDefinition_setId( fd2, "cos" );
 
-  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
-  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
+  ASTNode_t* math = SBML_parseFormula("2");
+  FunctionDefinition_setMath(fd1, math);
+  FunctionDefinition_setMath(fd2, math);
+  ASTNode_free(math);
 
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
@@ -868,6 +908,9 @@ START_TEST (test_Model_getFunctionDefinitionById)
   fail_unless( Model_getFunctionDefinitionById(M, "sin" ) != fd1  );
   fail_unless( Model_getFunctionDefinitionById(M, "cos" ) != fd2  );
   fail_unless( Model_getFunctionDefinitionById(M, "tan" ) == NULL );
+
+  FunctionDefinition_free(fd1);
+  FunctionDefinition_free(fd2);
 }
 END_TEST
 
@@ -887,6 +930,9 @@ START_TEST (test_Model_getUnitDefinition)
   Model_addUnitDefinition(M, ud2);
 
   fail_unless( Model_getNumUnitDefinitions(M) == 2 );
+
+  UnitDefinition_free(ud1);
+  UnitDefinition_free(ud2);
 
   ud1 = Model_getUnitDefinition(M, 0);
   ud2 = Model_getUnitDefinition(M, 1);
@@ -916,6 +962,9 @@ START_TEST (test_Model_getUnitDefinitionById)
   fail_unless( Model_getUnitDefinitionById(M, "mmls"       ) != ud1  );
   fail_unless( Model_getUnitDefinitionById(M, "volume"     ) != ud2  );
   fail_unless( Model_getUnitDefinitionById(M, "rototillers") == NULL );
+
+  UnitDefinition_free(ud1);
+  UnitDefinition_free(ud2);
 }
 END_TEST
 
@@ -933,12 +982,14 @@ START_TEST (test_Model_getCompartment)
 
   fail_unless( Model_getNumCompartments(M) == 2 );
 
+  Compartment_free(c1);
+  Compartment_free(c2);
+
   c1 = Model_getCompartment(M, 0);
   c2 = Model_getCompartment(M, 1);
 
   fail_unless( !strcmp(Compartment_getId(c1), "A") );
   fail_unless( !strcmp(Compartment_getId(c2), "B") );
-
 }
 END_TEST
 
@@ -959,6 +1010,9 @@ START_TEST (test_Model_getCompartmentById)
   fail_unless( Model_getCompartmentById(M, "A" ) != c1   );
   fail_unless( Model_getCompartmentById(M, "B" ) != c2   );
   fail_unless( Model_getCompartmentById(M, "C" ) == NULL );
+
+  Compartment_free(c1);
+  Compartment_free(c2);
 }
 END_TEST
 
@@ -978,6 +1032,9 @@ START_TEST (test_Model_getSpecies)
   Model_addSpecies(M, s2);
 
   fail_unless( Model_getNumSpecies(M) == 2 );
+
+  Species_free(s1);
+  Species_free(s2);
 
   s1 = Model_getSpecies(M, 0);
   s2 = Model_getSpecies(M, 1);
@@ -1007,6 +1064,9 @@ START_TEST (test_Model_getSpeciesById)
   fail_unless( Model_getSpeciesById(M, "Glucose"    ) != s1   );
   fail_unless( Model_getSpeciesById(M, "Glucose_6_P") != s2   );
   fail_unless( Model_getSpeciesById(M, "Glucose2"   ) == NULL );
+
+  Species_free(s1);
+  Species_free(s2);
 }
 END_TEST
 
@@ -1023,6 +1083,9 @@ START_TEST (test_Model_getParameter)
   Model_addParameter(M, p2);
 
   fail_unless( Model_getNumParameters(M) == 2 );
+
+  Parameter_free(p1);
+  Parameter_free(p2);
 
   p1 = Model_getParameter(M, 0);
   p2 = Model_getParameter(M, 1);
@@ -1049,6 +1112,9 @@ START_TEST (test_Model_getParameterById)
   fail_unless( Model_getParameterById(M, "Km1" ) != p1   );
   fail_unless( Model_getParameterById(M, "Km2" ) != p2   );
   fail_unless( Model_getParameterById(M, "Km3" ) == NULL );
+
+  Parameter_free(p1);
+  Parameter_free(p2);
 }
 END_TEST
 
@@ -1077,6 +1143,11 @@ START_TEST (test_Model_getRules)
 
   fail_unless( Model_getNumRules(M) == 4 );
 
+  Rule_free(ar);
+  Rule_free(scr);
+  Rule_free(cvr);
+  Rule_free(pr);
+
   ar  = Model_getRule(M, 0);
   scr = Model_getRule(M, 1);
   cvr = Model_getRule(M, 2);
@@ -1103,6 +1174,9 @@ START_TEST (test_Model_getReaction)
 
   fail_unless( Model_getNumReactions(M) == 2 );
 
+  Reaction_free(r1);
+  Reaction_free(r2);
+
   r1 = Model_getReaction(M, 0);
   r2 = Model_getReaction(M, 1);
 
@@ -1128,6 +1202,9 @@ START_TEST (test_Model_getReactionById)
   fail_unless( Model_getReactionById(M, "reaction_1" ) != r1   );
   fail_unless( Model_getReactionById(M, "reaction_2" ) != r2   );
   fail_unless( Model_getReactionById(M, "reaction_3" ) == NULL );
+
+  Reaction_free(r1);
+  Reaction_free(r2);
 }
 END_TEST
 
@@ -1144,6 +1221,8 @@ START_TEST (test_Model_getSpeciesReferenceById)
   fail_unless( Model_getNumReactions(M) == 1 );
 
   fail_unless( Model_getSpeciesReferenceById(M, "s1" ) != sr   );
+
+  Reaction_free(r1);
 }
 END_TEST
 
@@ -1190,6 +1269,13 @@ START_TEST (test_KineticLaw_getParameterById)
   fail_unless( KineticLaw_getParameterById(kl1, "k1" ) != k1   );
   fail_unless( KineticLaw_getParameterById(kl1, "k2" ) != k4   );
   fail_unless( KineticLaw_getParameterById(kl1, "k3" ) == NULL );
+
+  Parameter_free(k1);
+  Parameter_free(k2);
+  Reaction_free(r1);
+  KineticLaw_free(kl);
+  Parameter_free(k3);
+  Parameter_free(k4);
 }
 END_TEST
 
@@ -1199,7 +1285,9 @@ START_TEST (test_Model_getEventById)
   Event_t *e1 = Event_create(2, 4);
   Event_t *e2 = Event_create(2, 4);
   Trigger_t *t = Trigger_create(2, 4);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Event_setTrigger(e1, t);
   Event_setTrigger(e2, t);
   Event_createEventAssignment(e1);
@@ -1216,6 +1304,10 @@ START_TEST (test_Model_getEventById)
   fail_unless( Model_getEventById(M, "e1" ) != e1   );
   fail_unless( Model_getEventById(M, "e2" ) != e2   );
   fail_unless( Model_getEventById(M, "e3" ) == NULL );
+
+  Event_free(e1);
+  Event_free(e2);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -1256,6 +1348,10 @@ START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
 
   fail_unless( Model_getNumSpecies(M) == 3 );
   fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2 );
+
+  Species_free(s1);
+  Species_free(s2);
+  Species_free(s3);
 }
 END_TEST
 
@@ -1283,6 +1379,8 @@ START_TEST (test_Model_createWithNS )
   fail_unless( XMLNamespaces_getLength(Model_getNamespaces(object)) == 2 );
 
   Model_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

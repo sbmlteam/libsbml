@@ -162,6 +162,8 @@ START_TEST (test_AlgebraicRule_createWithNS )
 
 
   Rule_free((Rule_t*)(r));
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

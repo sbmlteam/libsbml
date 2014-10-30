@@ -139,14 +139,6 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mRequiredAttrOfUnknownPkg()
  , mRequiredAttrOfUnknownDisabledPkg()
 {
-
-  mInternalValidator = new SBMLInternalValidator();
-  mInternalValidator->setDocument(this);
-  mInternalValidator->setApplicableValidators(AllChecksON);
-  mInternalValidator->setConversionValidators(AllChecksON);
-
-  mSBML = this;
-
   if (mLevel   == 0 && mVersion == 0)  
   {
     mLevel   = getDefaultLevel  ();
@@ -163,6 +155,13 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
 
+  mInternalValidator = new SBMLInternalValidator();
+  mInternalValidator->setDocument(this);
+  mInternalValidator->setApplicableValidators(AllChecksON);
+  mInternalValidator->setConversionValidators(AllChecksON);
+
+  mSBML = this;
+
   setElementNamespace(mSBMLNamespaces->getURI());
 }
 
@@ -174,6 +173,10 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
  , mRequiredAttrOfUnknownPkg()
  , mRequiredAttrOfUnknownDisabledPkg()
 {
+  if (!hasValidLevelVersionNamespaceCombination())
+  {
+    throw SBMLConstructorException(getElementName(), sbmlns);
+  }
 
   mInternalValidator = new SBMLInternalValidator();
   mInternalValidator->setDocument(this);
@@ -188,11 +191,6 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
   // (TODO) Namespace check for extension packages 
   //        would need to be improved
   //
-  if (!hasValidLevelVersionNamespaceCombination())
-  {
-    throw SBMLConstructorException(getElementName(), sbmlns);
-  }
-
   //
   // (EXTENSION)
   //

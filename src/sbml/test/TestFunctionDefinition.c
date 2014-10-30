@@ -117,6 +117,7 @@ START_TEST (test_FunctionDefinition_createWith)
   fail_unless( FunctionDefinition_isSetId(fd) );
 
   ASTNode_free(math);
+  safe_free(formula);
   FunctionDefinition_free(fd);
 }
 END_TEST
@@ -131,10 +132,11 @@ END_TEST
 
 START_TEST (test_FunctionDefinition_getArguments)
 {
-  const ASTNode_t *math;
+  const ASTNode_t *math; 
 
-
-  FunctionDefinition_setMath(FD, SBML_parseFormula("lambda(x, y, x^y)") );
+  ASTNode* math1 = SBML_parseFormula("lambda(x, y, x^y)");
+  FunctionDefinition_setMath(FD, math1 );
+  ASTNode_free(math1);
 
   fail_unless( FunctionDefinition_getNumArguments(FD) == 2 );
 
@@ -265,6 +267,7 @@ START_TEST (test_FunctionDefinition_setMath)
   math1 = FunctionDefinition_getMath(FD);
   fail_unless( math1 != NULL );
 
+  safe_free(formula);
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
@@ -279,6 +282,8 @@ START_TEST (test_FunctionDefinition_setMath)
     fail("FunctionDefinition_setMath(FD, NULL) did not clear ASTNode.");
   }
 
+  ASTNode_free(math);
+  safe_free(formula);
 }
 END_TEST
 
@@ -307,6 +312,8 @@ START_TEST (test_FunctionDefinition_createWithNS )
                        FunctionDefinition_getNamespaces(object)) == 2 );
 
   FunctionDefinition_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

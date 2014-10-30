@@ -356,7 +356,6 @@ END_TEST
 
 START_TEST (test_create_l1v1_units)
 {
-  SBMLDocument_t     *d;
   Model_t            *m;
   Compartment_t      *c;
   KineticLaw_t       *kl;
@@ -371,11 +370,7 @@ START_TEST (test_create_l1v1_units)
   /**
    * <sbml level="1" version="1">
    */
-  d = SBMLDocument_create();
   m = Model_create(2, 4);
-
-  SBMLDocument_setModel(d, m);
-
 
   /**
    * <unitDefinition name="substance">
@@ -535,7 +530,7 @@ START_TEST (test_create_l1v1_units)
   kl = Model_createKineticLaw(m);
   KineticLaw_setFormula(kl, "(vm * s1)/(km + s1)");
 
-  SBMLDocument_free(d);
+  Model_free(m);
 }
 END_TEST
 

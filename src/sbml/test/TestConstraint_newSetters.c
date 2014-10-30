@@ -140,7 +140,7 @@ START_TEST (test_Constraint_setMessage2)
   //  "  <p xmlns=\"http://www.w3.org/1999/xhtml\"> Some text </p>\n"
   //  "</message>");
 
-  const XMLNode_t *text = XMLNode_convertStringToXMLNode(" Some text ", NULL);
+  XMLNode_t *text = XMLNode_convertStringToXMLNode(" Some text ", NULL);
   XMLTriple_t *triple = XMLTriple_createWith("p", "http://www.w3.org/1999/xhtml", "");
   XMLAttributes_t *att = XMLAttributes_create();
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -175,6 +175,13 @@ START_TEST (test_Constraint_setMessage2)
     fail("Constraint_unsetMessage(C) did not clear XMLNode.");
   }
 
+  XMLNode_free(text);
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(xmlns);
+  XMLNode_free(p);
+  XMLTriple_free(triple1);
+  XMLAttributes_free(att1);
   XMLNode_free(node);
 }
 END_TEST

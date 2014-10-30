@@ -218,6 +218,8 @@ START_TEST (test_Event_setTrigger)
   {
     fail("Event_setTrigger(E, NULL) did not clear trigger.");
   }
+  ASTNode_free(math1);
+  Trigger_free(trigger);
 }
 END_TEST
 
@@ -250,6 +252,8 @@ START_TEST (test_Event_setDelay)
   {
     fail("Event_setDelay(E, NULL) did not clear Delay.");
   }
+  ASTNode_free(math1);
+  Delay_free(Delay);
 }
 END_TEST
 
@@ -310,6 +314,9 @@ START_TEST (test_Event_full)
 
   ASTNode_free(math);
   Event_free(e);
+  ASTNode_free(math1);
+  Trigger_free(trigger);
+  EventAssignment_free(ea);
 }
 END_TEST
 
@@ -355,6 +362,8 @@ START_TEST (test_Event_createWithNS )
   fail_unless( XMLNamespaces_getLength(Event_getNamespaces(object)) == 2 );
 
   Event_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

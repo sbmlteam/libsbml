@@ -236,7 +236,9 @@ START_TEST (test_Model_addFunctionDefinition1)
   
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   
-  FunctionDefinition_setMath(fd, SBML_parseFormula("fd"));
+  ASTNode_t* math = SBML_parseFormula("fd");
+  FunctionDefinition_setMath(fd, math);
+  ASTNode_free(math);
   
   i = Model_addFunctionDefinition(m, fd);
   
@@ -255,7 +257,9 @@ START_TEST (test_Model_addFunctionDefinition2)
   FunctionDefinition_t *fd 
     = FunctionDefinition_create(2, 1);
   FunctionDefinition_setId(fd, "fd");
-  FunctionDefinition_setMath(fd, SBML_parseFormula("fd"));
+  ASTNode_t* math = SBML_parseFormula("fd");
+  FunctionDefinition_setMath(fd, math);
+  ASTNode_free(math);
 
   int i = Model_addFunctionDefinition(m, fd);
 
@@ -289,11 +293,15 @@ START_TEST (test_Model_addFunctionDefinition4)
   FunctionDefinition_t *fd 
     = FunctionDefinition_create(2, 2);
   FunctionDefinition_setId(fd, "fd");
-  FunctionDefinition_setMath(fd, SBML_parseFormula("fd"));
+  ASTNode_t* math = SBML_parseFormula("fd");
+  FunctionDefinition_setMath(fd, math);
+  ASTNode_free(math);
   FunctionDefinition_t *fd1 
     = FunctionDefinition_create(2, 2);
   FunctionDefinition_setId(fd1, "fd");
-  FunctionDefinition_setMath(fd1, SBML_parseFormula("fd"));
+  math = SBML_parseFormula("fd");
+  FunctionDefinition_setMath(fd1, math);
+  ASTNode_free(math);
 
   int i = Model_addFunctionDefinition(m, fd);
 
@@ -496,7 +504,9 @@ START_TEST (test_Model_addInitialAssignment1)
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   
-  InitialAssignment_setMath(ia, SBML_parseFormula("gg"));
+  ASTNode_t* math = SBML_parseFormula("gg");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
   i = Model_addInitialAssignment(m, ia);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
@@ -514,7 +524,9 @@ START_TEST (test_Model_addInitialAssignment2)
   InitialAssignment_t *ia 
     = InitialAssignment_create(2, 3);
   InitialAssignment_setSymbol(ia, "i");
-  InitialAssignment_setMath(ia, SBML_parseFormula("gg"));
+  ASTNode_t* math = SBML_parseFormula("gg");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
 
   int i = Model_addInitialAssignment(m, ia);
 
@@ -548,11 +560,15 @@ START_TEST (test_Model_addInitialAssignment4)
   InitialAssignment_t *ia 
     = InitialAssignment_create(2, 2);
   InitialAssignment_setSymbol(ia, "ia");
-  InitialAssignment_setMath(ia, SBML_parseFormula("a+b"));
+  ASTNode_t* math = SBML_parseFormula("a+b");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
   InitialAssignment_t *ia1 
     = InitialAssignment_create(2, 2);
   InitialAssignment_setSymbol(ia1, "ia");
-  InitialAssignment_setMath(ia1, SBML_parseFormula("a+b"));
+  math = SBML_parseFormula("a+b");
+  InitialAssignment_setMath(ia1, math);
+  ASTNode_free(math);
 
   int i = Model_addInitialAssignment(m, ia);
 
@@ -582,7 +598,9 @@ START_TEST (test_Model_addConstraint1)
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
 
-  Constraint_setMath(c, SBML_parseFormula("a+b"));
+  ASTNode_t* math = SBML_parseFormula("a+b");
+  Constraint_setMath(c, math);
+  ASTNode_free(math);
   i = Model_addConstraint(m, c);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
@@ -599,7 +617,9 @@ START_TEST (test_Model_addConstraint2)
   Model_t *m = Model_create(2, 2);
   Constraint_t *c 
     = Constraint_create(2, 3);
-  Constraint_setMath(c, SBML_parseFormula("a+b"));
+  ASTNode_t* math = SBML_parseFormula("a+b");
+  Constraint_setMath(c, math);
+  ASTNode_free(math);
 
   int i = Model_addConstraint(m, c);
 
@@ -634,7 +654,9 @@ START_TEST (test_Model_addEvent1)
     = Event_create(2, 2);
   Trigger_t *t 
     = Trigger_create(2, 2);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
 
   int i = Model_addEvent(m, e);
 
@@ -664,7 +686,9 @@ START_TEST (test_Model_addEvent2)
     = Event_create(2, 1);
   Trigger_t *t 
     = Trigger_create(2, 1);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Event_setTrigger(e, t);
   Event_createEventAssignment(e);
 
@@ -701,7 +725,9 @@ START_TEST (test_Model_addEvent4)
     = Event_create(2, 2);
   Trigger_t *t 
     = Trigger_create(2, 2);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Event_setId(e, "e");
   Event_setTrigger(e, t);
   Event_createEventAssignment(e);
@@ -1167,7 +1193,9 @@ START_TEST (test_Model_addRule1)
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   
-  Rule_setMath(r, SBML_parseFormula("a-n"));
+  ASTNode_t* math = SBML_parseFormula("a-n");
+  Rule_setMath(r, math);
+  ASTNode_free(math);
   i = Model_addRule(m, r);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
@@ -1185,7 +1213,9 @@ START_TEST (test_Model_addRule2)
   Rule_t *r 
     = Rule_createAssignment(2, 1);
   Rule_setVariable(r, "f");
-  Rule_setMath(r, SBML_parseFormula("a-n"));
+  ASTNode_t* math = SBML_parseFormula("a-n");
+  Rule_setMath(r, math);
+  ASTNode_free(math);
 
   int i = Model_addRule(m, r);
 
@@ -1204,7 +1234,9 @@ START_TEST (test_Model_addRule3)
   Rule_t *r 
     = Rule_createAssignment(1, 2);
   Rule_setVariable(r, "f");
-  Rule_setMath(r, SBML_parseFormula("a-n"));
+  ASTNode_t* math = SBML_parseFormula("a-n");
+  Rule_setMath(r, math);
+  ASTNode_free(math);
 
   int i = Model_addRule(m, r);
 
@@ -1238,11 +1270,15 @@ START_TEST (test_Model_addRule5)
   Rule_t *ar 
     = Rule_createAssignment(2, 2);
   Rule_setVariable(ar, "ar");
-  Rule_setMath(ar, SBML_parseFormula("a-j"));
+  ASTNode_t* math = SBML_parseFormula("a-j");
+  Rule_setMath(ar, math);
+  ASTNode_free(math);
   Rule_t *ar1 
     = Rule_createAssignment(2, 2);
   Rule_setVariable(ar1, "ar");
-  Rule_setMath(ar1, SBML_parseFormula("a-j"));
+  math = SBML_parseFormula("a-j");
+  Rule_setMath(ar1, math);
+  ASTNode_free(math);
 
   int i = Model_addRule(m, ar);
 

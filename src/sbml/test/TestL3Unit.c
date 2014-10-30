@@ -191,6 +191,8 @@ START_TEST (test_L3_Unit_createWithNS )
   fail_unless( !Unit_isSetScale (u) );
 
   Unit_free(u);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -225,8 +227,9 @@ START_TEST (test_L3_Unit_NS)
 {
   fail_unless( Unit_getNamespaces     (U) != NULL );
   fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(U)) == 1 );
-  fail_unless( !strcmp( XMLNamespaces_getURI(Unit_getNamespaces(U), 0),
-    "http://www.sbml.org/sbml/level3/version1/core"));
+  char* uri = XMLNamespaces_getURI(Unit_getNamespaces(U), 0);
+  fail_unless( !strcmp( uri, "http://www.sbml.org/sbml/level3/version1/core"));
+  safe_free(uri);
 }
 END_TEST
 

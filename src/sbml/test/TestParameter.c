@@ -238,6 +238,8 @@ START_TEST (test_Parameter_createWithNS )
                         Parameter_getNamespaces(object)) == 2 );
 
   Parameter_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

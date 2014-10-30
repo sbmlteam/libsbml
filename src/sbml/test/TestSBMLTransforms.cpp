@@ -76,43 +76,59 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
   /* one function definition */
   ast = m->getReaction(2)->getKineticLaw()->getMath();
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "f(S1, p) * compartmentOne / t"), NULL);
+  
+  char* math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "f(S1, p) * compartmentOne / t"), NULL);
+  safe_free(math);
 
   fd = m->getFunctionDefinition(0);
   SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
 
   /* one function definition - nested */
   ast = m->getReaction(1)->getKineticLaw()->getMath();
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "f(f(S1, p), compartmentOne) / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "f(f(S1, p), compartmentOne) / t"), NULL);
+  safe_free(math);
 
   SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
 
   /* two function definitions - nested */
   ast = m->getReaction(0)->getKineticLaw()->getMath();
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "g(f(S1, p), compartmentOne) / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "g(f(S1, p), compartmentOne) / t"), NULL);
+  safe_free(math);
 
   SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "g(S1 * p, compartmentOne) / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "g(S1 * p, compartmentOne) / t"), NULL);
+  safe_free(math);
 
   fd = m->getFunctionDefinition(1);
 
   SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "f(S1 * p, compartmentOne) / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "f(S1 * p, compartmentOne) / t"), NULL);
+  safe_free(math);
 
   ast = m->getReaction(0)->getKineticLaw()->getMath();
   lofd = m->getListOfFunctionDefinitions();
   SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), lofd);
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
 
   d->expandFunctionDefinitions();
 
@@ -120,15 +136,21 @@ START_TEST (test_SBMLTransforms_replaceFD)
   
   ast = d->getModel()->getReaction(0)->getKineticLaw()->getMath();
   
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
-  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
+
   ast = d->getModel()->getReaction(1)->getKineticLaw()->getMath();
   
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
 
   ast = d->getModel()->getReaction(2)->getKineticLaw()->getMath();
-
-  fail_unless (!strcmp(SBML_formulaToString(ast), "S1 * p * compartmentOne / t"), NULL);
+  
+  math = SBML_formulaToString(ast);
+  fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
+  safe_free(math);
 }
 END_TEST
 

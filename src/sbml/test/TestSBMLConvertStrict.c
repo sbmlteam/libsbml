@@ -298,7 +298,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath1)
   SpeciesReference_setConstant(sr, 0);
   Rule_t *rule = Rule_createRate(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
@@ -319,8 +321,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath1)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "parameterId_0"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -352,7 +356,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath2)
   SpeciesReference_setStoichiometry(sr, 1.0);
   Rule_t *rule = Rule_createRate(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
@@ -373,8 +379,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath2)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "parameterId_0"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -455,8 +463,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath4)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "parameterId_0"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -487,7 +497,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath5)
   SpeciesReference_setConstant(sr, 0);
   Rule_t *rule = Rule_createAssignment(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
@@ -501,8 +513,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath5)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "0.001"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -534,7 +548,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath6)
   SpeciesReference_setStoichiometry(sr, 1.0);
   Rule_t *rule = Rule_createAssignment(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
@@ -548,8 +564,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath6)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "0.001"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -580,7 +598,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath7)
   SpeciesReference_setConstant(sr, 0);
   InitialAssignment_t *ia = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia, "XREF");
-  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
 
   
 
@@ -593,8 +613,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath7)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "0.001"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -626,7 +648,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath8)
   SpeciesReference_setStoichiometry(sr, 1.0);
   InitialAssignment_t *ia = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia, "XREF");
-  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
 
   
 
@@ -639,8 +663,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath8)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+  char* mathstr = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(mathstr, "0.001"));
+  safe_free(mathstr);
 
   SBMLDocument_free(d);
 }
@@ -684,8 +710,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath9)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+  char* math = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(!strcmp(math, "parameterId_0"));
+  safe_free(math);
 
   SBMLDocument_free(d);
 }
@@ -1060,7 +1088,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich1)
   SpeciesReference_setSpecies(sr, "s");
   SpeciesReference_setId(sr, "XREF");
   StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
-  StoichiometryMath_setMath(sm, SBML_parseFormula("p"));
+  ASTNode_t* math = SBML_parseFormula("p");
+  StoichiometryMath_setMath(sm, math);
+  ASTNode_free(math);
 
   fail_unless( Model_getNumRules(m) == 0);
 
@@ -1106,7 +1136,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich2)
   SpeciesReference_t *sr = Reaction_createReactant(r);
   SpeciesReference_setSpecies(sr, "s");
   StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
-  StoichiometryMath_setMath(sm, SBML_parseFormula("p"));
+  ASTNode_t* math = SBML_parseFormula("p");
+  StoichiometryMath_setMath(sm, math);
+  ASTNode_free(math);
 
   fail_unless( Model_getNumRules(m) == 0);
   fail_unless( SpeciesReference_isSetId(sr) == 0);
@@ -1153,8 +1185,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL1_L2_stoich)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  fail_unless(strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-    SpeciesReference_getStoichiometryMath(sr))), "(3/2)") == 0);
+  char* math = SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr)));
+  fail_unless(strcmp(math, "(3/2)") == 0);
+  safe_free(math);
   fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
   fail_unless(SpeciesReference_getDenominator(sr) == 1);
 
@@ -1215,8 +1249,11 @@ START_TEST (test_SBMLConvertStrict_convertFromL1_L3_stoich)
   sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
 
   fail_unless(SpeciesReference_isSetId(sr) == 1);
-  fail_unless(strcmp(SBML_formulaToString(InitialAssignment_getMath(
-              Model_getInitialAssignment(m, 0))), "(3/2)") == 0);
+  char* math = SBML_formulaToString(InitialAssignment_getMath(
+              Model_getInitialAssignment(m, 0)));
+  fail_unless(strcmp(math, "(3/2)") == 0);
+  safe_free(math);
+
   fail_unless(strcmp(SpeciesReference_getId(sr), 
               InitialAssignment_getSymbol(Model_getInitialAssignment(m, 0))) == 0);
   fail_unless(SpeciesReference_getDenominator(sr) == 1);
@@ -1394,7 +1431,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich4)
   SpeciesReference_t *sr = Reaction_createReactant(r);
   SpeciesReference_setSpecies(sr, "s");
   StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
-  StoichiometryMath_setMath(sm, SBML_parseFormula("5/2"));
+  ASTNode_t* math = SBML_parseFormula("5/2");
+  StoichiometryMath_setMath(sm, math);
+  ASTNode_free(math);
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
 
@@ -1435,29 +1474,14 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath1)
   SpeciesReference_setConstant(sr, 0);
   Rule_t *rule = Rule_createRate(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
-
-  //m = SBMLDocument_getModel(d);
-
-  //fail_unless(Model_getNumParameters(m) == 1);
-
-  //Parameter_t *p = Model_getParameter(m, 0);
-
-  //fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
-  //fail_unless(Parameter_getConstant(p) == 0);
-
-  //fail_unless(!strcmp(Rule_getVariable(Model_getRule(m, 0)), "parameterId_0"));
-
-  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
-
-  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-  //  SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
 
   SBMLDocument_free(d);
 }
@@ -1489,29 +1513,14 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath2)
   SpeciesReference_setStoichiometry(sr, 1.0);
   Rule_t *rule = Rule_createRate(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
-
-  //m = SBMLDocument_getModel(d);
-
-  //fail_unless(Model_getNumParameters(m) == 1);
-
-  //Parameter_t *p = Model_getParameter(m, 0);
-
-  //fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
-  //fail_unless(Parameter_getConstant(p) == 0);
-
-  //fail_unless(!strcmp(Rule_getVariable(Model_getRule(m, 0)), "parameterId_0"));
-
-  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
-
-  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-  //  SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
 
   SBMLDocument_free(d);
 }
@@ -1617,22 +1626,14 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath5)
   SpeciesReference_setConstant(sr, 0);
   Rule_t *rule = Rule_createAssignment(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
-
-  //m = SBMLDocument_getModel(d);
-
-  //fail_unless(Model_getNumRules(m) == 0);
-
-  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
-
-  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
 
   SBMLDocument_free(d);
 }
@@ -1664,22 +1665,14 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath6)
   SpeciesReference_setStoichiometry(sr, 1.0);
   Rule_t *rule = Rule_createAssignment(3,1);
   Rule_setVariable(rule, "XREF");
-  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  Rule_setMath(rule, math);
+  ASTNode_free(math);
   Model_addRule(m, rule);
 
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
-
-  //m = SBMLDocument_getModel(d);
-
-  //fail_unless(Model_getNumRules(m) == 0);
-
-  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
-
-  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
 
   SBMLDocument_free(d);
 }
@@ -1710,8 +1703,9 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath7)
   SpeciesReference_setConstant(sr, 0);
   InitialAssignment_t *ia = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia, "XREF");
-  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
-
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
@@ -1756,21 +1750,12 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath8)
   SpeciesReference_setStoichiometry(sr, 1.0);
   InitialAssignment_t *ia = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia, "XREF");
-  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
-
+  ASTNode_t* math = SBML_parseFormula("0.001");
+  InitialAssignment_setMath(ia, math);
+  ASTNode_free(math);
   
 
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
-
-  //m = SBMLDocument_getModel(d);
-
-  //fail_unless(Model_getNumInitialAssignments(m) == 0);
-
-  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
-
-  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
-  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
-  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
 
   SBMLDocument_free(d);
 }

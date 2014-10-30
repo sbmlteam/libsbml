@@ -211,6 +211,8 @@ START_TEST (test_CompartmentType_createWithNS )
   fail_unless( XMLNamespaces_getLength(CompartmentType_getNamespaces(object)) == 2 );
 
   CompartmentType_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

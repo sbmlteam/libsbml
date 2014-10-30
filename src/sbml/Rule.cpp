@@ -329,16 +329,15 @@ Rule::setFormula (const std::string& formula)
   }
   else 
   {
-    ASTNode * math = SBML_parseFormula(formula.c_str());
     if (formula == "")
     {
-      delete math;
       mFormula.erase();
       delete mMath;
       mMath = NULL;
       return LIBSBML_OPERATION_SUCCESS;
     }
-    else if (math == NULL || !(math->isWellFormedASTNode()))
+    ASTNode * math = SBML_parseFormula(formula.c_str());
+    if (math == NULL || !(math->isWellFormedASTNode()))
     {
       delete math;
       return LIBSBML_INVALID_OBJECT;

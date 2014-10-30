@@ -265,7 +265,7 @@ START_TEST ( test_Constraint_copyConstructor )
     
     fail_unless(o1->getMetaId() == "c");
 
-    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
     XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
     XMLAttributes att = XMLAttributes();
     XMLNamespaces xmlns = XMLNamespaces();
@@ -305,6 +305,8 @@ START_TEST ( test_Constraint_copyConstructor )
 
     delete o2;
     delete o1;
+    delete text;
+    delete p;
 }
 END_TEST
 
@@ -315,7 +317,7 @@ START_TEST ( test_Constraint_assignmentOperator )
     
     fail_unless(o1->getMetaId() == "c");
     
-    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
     XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
     XMLAttributes att = XMLAttributes();
     XMLNamespaces xmlns = XMLNamespaces();
@@ -356,6 +358,8 @@ START_TEST ( test_Constraint_assignmentOperator )
 
     delete o2;
     delete o1;
+    delete text;
+    delete p;
 }
 END_TEST
 
@@ -367,7 +371,7 @@ START_TEST ( test_Constraint_clone )
     
     fail_unless(o1->getMetaId() == "c");
 
-    const XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
+    XMLNode *text = XMLNode::convertStringToXMLNode(" Some text ");
     XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
     XMLAttributes att = XMLAttributes();
     XMLNamespaces xmlns = XMLNamespaces();
@@ -407,6 +411,8 @@ START_TEST ( test_Constraint_clone )
 
     delete o2;
     delete o1;
+    delete text;
+    delete p;
 }
 END_TEST
 
@@ -1113,7 +1119,9 @@ START_TEST ( test_Reaction_copyConstructor )
     fail_unless(o1->getId() == "c");
 
     KineticLaw *kl = new KineticLaw(2, 4);
-    kl->setMath(SBML_parseFormula("1"));
+    ASTNode* math = SBML_parseFormula("1");
+    kl->setMath(math);
+    delete math;
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1141,7 +1149,9 @@ START_TEST ( test_Reaction_assignmentOperator )
     fail_unless(o1->getId() == "c");
     
     KineticLaw *kl = new KineticLaw(2, 4);
-    kl->setMath(SBML_parseFormula("1"));
+    ASTNode* math = SBML_parseFormula("1");
+    kl->setMath(math);
+    delete math;
     o1->setKineticLaw(kl);
     delete kl;
 
@@ -1171,7 +1181,9 @@ START_TEST ( test_Reaction_clone )
     fail_unless(o1->getId() == "c");
 
     KineticLaw *kl = new KineticLaw(2, 4);
-    kl->setMath(SBML_parseFormula("1"));
+    ASTNode* math = SBML_parseFormula("1");
+    kl->setMath(math);
+    delete math;
 
     o1->setKineticLaw(kl);
     delete kl;
@@ -1654,13 +1666,11 @@ START_TEST ( test_SBMLDocument_assignmentOperator )
     fail_unless(o1->getLevel() == 2);
     fail_unless(o1->getVersion() == 1);
     
-    SBMLDocument* o2 = new SBMLDocument();;
-    (*o2)=*o1;
+    SBMLDocument o2 = *o1;
 
-    fail_unless(o2->getLevel() == 2);
-    fail_unless(o2->getVersion() == 1);
+    fail_unless(o2.getLevel() == 2);
+    fail_unless(o2.getVersion() == 1);
 
-    delete o2;
     delete o1;
 }
 END_TEST
@@ -1696,6 +1706,7 @@ START_TEST ( test_SBMLDocument_clone )
 
     delete o2;
     delete o1;
+    delete m;
 }
 END_TEST
 

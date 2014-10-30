@@ -1226,14 +1226,14 @@ Model::dealWithModelUnits()
     }
     else
     {
-      Unit *u = new Unit(getSBMLNamespaces());
-      u->initDefaults();
-      u->setKind(UnitKind_forName(volume.c_str()));
       ud = new UnitDefinition(getSBMLNamespaces());
       ud->setId("volume");
-      ud->addUnit(u);
+      Unit *u = ud->createUnit();
+      u->initDefaults();
+      u->setKind(UnitKind_forName(volume.c_str()));
     }
     addUnitDefinition(ud);
+    delete ud;
   }
   if (isSetAreaUnits())
   {
@@ -1268,14 +1268,14 @@ Model::dealWithModelUnits()
     }
     else
     {
-      Unit *u = new Unit(getSBMLNamespaces());
-      u->initDefaults();
-      u->setKind(UnitKind_forName(area.c_str()));
       ud = new UnitDefinition(getSBMLNamespaces());
       ud->setId("area");
-      ud->addUnit(u);
+      Unit *u = ud->createUnit();
+      u->initDefaults();
+      u->setKind(UnitKind_forName(area.c_str()));
     }
     addUnitDefinition(ud);
+    delete ud;
   }
   if (isSetLengthUnits())
   {
@@ -1310,14 +1310,14 @@ Model::dealWithModelUnits()
     }
     else
     {
-      Unit *u = new Unit(getSBMLNamespaces());
-      u->initDefaults();
-      u->setKind(UnitKind_forName(length.c_str()));
       ud = new UnitDefinition(getSBMLNamespaces());
       ud->setId("length");
-      ud->addUnit(u);
+      Unit *u = ud->createUnit();
+      u->initDefaults();
+      u->setKind(UnitKind_forName(length.c_str()));
     }
     addUnitDefinition(ud);
+    delete ud;
   }
   if (isSetSubstanceUnits())
   {
@@ -1352,14 +1352,14 @@ Model::dealWithModelUnits()
     }
     else
     {
-      Unit *u = new Unit(getSBMLNamespaces());
-      u->initDefaults();
-      u->setKind(UnitKind_forName(substance.c_str()));
       ud = new UnitDefinition(getSBMLNamespaces());
       ud->setId("substance");
-      ud->addUnit(u);
+      Unit *u = ud->createUnit();
+      u->initDefaults();
+      u->setKind(UnitKind_forName(substance.c_str()));
     }
     addUnitDefinition(ud);
+    delete ud;
   }
   if (isSetTimeUnits())
   {
@@ -1600,6 +1600,7 @@ createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr,
   {
     ASTNode *ast = SBML_parseFormula(id.c_str());
     sm->setMath(ast);
+    delete ast;
   }
 }
 

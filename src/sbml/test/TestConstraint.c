@@ -141,7 +141,7 @@ END_TEST
 
 START_TEST (test_Constraint_setMessage)
 {
-  const XMLNode_t *text = XMLNode_convertStringToXMLNode(" Some text ", NULL);
+  XMLNode_t *text = XMLNode_convertStringToXMLNode(" Some text ", NULL);
   XMLTriple_t *triple = XMLTriple_createWith("p", "http://www.w3.org/1999/xhtml", "");
   XMLAttributes_t *att = XMLAttributes_create();
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -166,7 +166,9 @@ START_TEST (test_Constraint_setMessage)
 
   fail_unless( Constraint_getMessage(C) != node );
 
-  fail_unless( Constraint_getMessageString(C) != NULL );
+  char* str = Constraint_getMessageString(C) ;
+  fail_unless( str != NULL );
+  safe_free(str);
 
   Constraint_unsetMessage(C);
   fail_unless( !Constraint_isSetMessage(C) );
@@ -176,6 +178,13 @@ START_TEST (test_Constraint_setMessage)
     fail("Constraint_unsetMessage(C) did not clear XMLNode.");
   }
 
+  XMLNode_free(text);
+  XMLTriple_free(triple);
+  XMLAttributes_free(att);
+  XMLNamespaces_free(xmlns);
+  XMLNode_free(p);
+  XMLTriple_free(triple1);
+  XMLAttributes_free(att1);
   XMLNode_free(node);
 }
 END_TEST
@@ -204,6 +213,8 @@ START_TEST (test_Constraint_createWithNS )
   fail_unless( XMLNamespaces_getLength(Constraint_getNamespaces(object)) == 2 );
 
   Constraint_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

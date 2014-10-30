@@ -216,6 +216,8 @@ START_TEST (test_Delay_createWithNS )
   fail_unless( XMLNamespaces_getLength(Delay_getNamespaces(object)) == 2 );
 
   Delay_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

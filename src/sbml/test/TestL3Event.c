@@ -205,6 +205,8 @@ START_TEST (test_L3_Event_createWithNS )
   fail_unless( !Event_isSetUseValuesFromTriggerTime(e) );
 
   Event_free(e);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -231,7 +233,9 @@ START_TEST (test_L3_Event_hasRequiredElements )
   fail_unless ( !Event_hasRequiredElements(e));
 
   Trigger_t *t = Trigger_create(3, 1);
-  Trigger_setMath(t, SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  Trigger_setMath(t, math);
+  ASTNode_free(math);
   Trigger_setInitialValue(t, 1);
   Trigger_setPersistent(t, 1);
   Event_setTrigger(e, t);
@@ -239,6 +243,7 @@ START_TEST (test_L3_Event_hasRequiredElements )
   fail_unless ( Event_hasRequiredElements(e));
 
   Event_free(e);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -247,8 +252,9 @@ START_TEST (test_L3_Event_NS)
 {
   fail_unless( Event_getNamespaces     (E) != NULL );
   fail_unless( XMLNamespaces_getLength(Event_getNamespaces(E)) == 1 );
-  fail_unless( !strcmp( XMLNamespaces_getURI(Event_getNamespaces(E), 0),
-    "http://www.sbml.org/sbml/level3/version1/core"));
+  char* uri = XMLNamespaces_getURI(Event_getNamespaces(E), 0);
+  fail_unless( !strcmp( uri, "http://www.sbml.org/sbml/level3/version1/core"));
+  safe_free(uri);
 }
 END_TEST
 
@@ -256,7 +262,7 @@ END_TEST
 START_TEST (test_L3_Event_setPriority1)
 {
   Priority_t   *priority = Priority_create(3, 1);
-  ASTNode_t       *math1 = SBML_parseFormula("0");
+  ASTNode_t    *math1 = SBML_parseFormula("0");
   Priority_setMath(priority, math1);
  
   fail_unless (!Event_isSetPriority(E) );
@@ -272,7 +278,7 @@ START_TEST (test_L3_Event_setPriority1)
   fail_unless( !Event_isSetPriority(E) );
 
   Priority_free(priority);
-
+  ASTNode_free(math1);
 }
 END_TEST
 

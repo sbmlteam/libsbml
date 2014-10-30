@@ -482,7 +482,9 @@ START_TEST (test_WriteSBML_FunctionDefinition)
 
   FunctionDefinition fd(2, 4);
   fd.setId("pow3");
-  fd.setMath(SBML_parseFormula("lambda(x, x^3)"));
+  ASTNode_t* math = SBML_parseFormula("lambda(x, x^3)");
+  fd.setMath(math);
+  delete math;
 
   char* sbml = fd.toSBML();
   fail_unless( equals(expected, sbml) );
@@ -511,7 +513,9 @@ START_TEST (test_WriteSBML_FunctionDefinition_withSBO)
 
   FunctionDefinition fd(2, 4);
   fd.setId("pow3");
-  fd.setMath(SBML_parseFormula("lambda(x, x^3)"));
+  ASTNode_t* math = SBML_parseFormula("lambda(x, x^3)");
+  fd.setMath(math);
+  delete math;
   fd.setSBOTerm(64);
 
   char* sbml = fd.toSBML();
@@ -2778,7 +2782,7 @@ START_TEST (test_WriteSBML_Constraint_full)
   c->setMath(node);
   c->setSBOTerm(64);
 
-  const XMLNode *text = XMLNode::convertStringToXMLNode(" Species P1 is out of range ");
+  XMLNode *text = XMLNode::convertStringToXMLNode(" Species P1 is out of range ");
   XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
   XMLAttributes att = XMLAttributes();
   XMLNamespaces xmlns = XMLNamespaces();
@@ -2798,6 +2802,7 @@ START_TEST (test_WriteSBML_Constraint_full)
   char* sbml = c->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete text;
 }
 END_TEST
 

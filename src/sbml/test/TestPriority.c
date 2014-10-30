@@ -183,6 +183,8 @@ START_TEST (test_Priority_createWithNS )
   fail_unless( XMLNamespaces_getLength(Priority_getNamespaces(object)) == 2 );
 
   Priority_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

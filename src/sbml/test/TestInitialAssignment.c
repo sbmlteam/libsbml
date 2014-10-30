@@ -206,6 +206,8 @@ START_TEST (test_InitialAssignment_createWithNS )
                       InitialAssignment_getNamespaces(object)) == 2 );
 
   InitialAssignment_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

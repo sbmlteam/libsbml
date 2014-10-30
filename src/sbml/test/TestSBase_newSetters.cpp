@@ -82,8 +82,6 @@ SBaseTest_teardown1 (void)
 
 START_TEST (test_SBase_setNotes)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
   XMLTriple_t *triple = XMLTriple_createWith("p", "", "");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
@@ -92,8 +90,8 @@ START_TEST (test_SBase_setNotes)
   XMLNode_t *n1 = XMLNode_createFromToken(tt);
 
 
-  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
 
   int i = SBase_setNotes(S, node);
@@ -333,11 +331,8 @@ END_TEST
 
 START_TEST (test_SBase_setAnnotation)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken_t *token = XMLToken_createWithText("This is a test note");
+  XMLNode_t *node = XMLNode_createFromToken(token);
 
   int i = SBase_setAnnotation(S, node);
 
@@ -429,36 +424,27 @@ END_TEST
 
 START_TEST (test_SBase_appendAnnotation)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token1;
-  XMLNode_t *node1;
-  XMLToken_t *token_top;
-  XMLNode_t *node_top;
   XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
   XMLNamespaces_add(ns, "http://www.any", "pr");
-  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node_top = XMLNode_createFromToken(token_top);
-  XMLToken_t *token_top1;
-  XMLNode_t *node_top1;
+  XMLToken_t* token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode_t* node_top = XMLNode_createFromToken(token_top);
   XMLTriple_t *triple1 = XMLTriple_createWith("anyOther", "", "prOther");
   XMLNamespaces_t *ns1 = XMLNamespaces_create();
   XMLNamespaces_add(ns1, "http://www.any.other", "prOther");
-  token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
-  node_top1 = XMLNode_createFromToken(token_top1);
+  XMLToken_t* token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
+  XMLNode_t* node_top1 = XMLNode_createFromToken(token_top1);
 
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken_t* token = XMLToken_createWithText("This is a test note");
+  XMLNode_t* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node_top, node);
 
- 
   int i = SBase_setAnnotation(S, node_top);
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
-  token1 = XMLToken_createWithText("This is additional");
-  node1 = XMLNode_createFromToken(token1);
+  XMLToken* token1 = XMLToken_createWithText("This is additional");
+  XMLNode* node1 = XMLNode_createFromToken(token1);
   XMLNode_addChild(node_top1, node1);
 
   i = SBase_appendAnnotation(S, node_top1);
@@ -502,36 +488,28 @@ END_TEST
 
 START_TEST (test_SBase_appendAnnotation1)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token1;
-  XMLNode_t *node1;
-  XMLToken_t *token_top;
-  XMLNode_t *node_top;
   XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
   XMLNamespaces_add(ns, "http://www.any", "pr");
-  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node_top = XMLNode_createFromToken(token_top);
-  XMLToken_t *token_top1;
-  XMLNode_t *node_top1;
+  XMLToken* token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node_top = XMLNode_createFromToken(token_top);
   XMLTriple_t *triple1 = XMLTriple_createWith("anyOther", "", "prOther");
   XMLNamespaces_t *ns1 = XMLNamespaces_create();
   XMLNamespaces_add(ns1, "http://www.any.other", "prOther");
-  token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
-  node_top1 = XMLNode_createFromToken(token_top1);
+  XMLToken* token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
+  XMLNode* node_top1 = XMLNode_createFromToken(token_top1);
 
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithText("This is a test note");
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node_top, node);
 
  
   int i = SBase_setAnnotation(S, NULL);
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
-  token1 = XMLToken_createWithText("This is additional");
-  node1 = XMLNode_createFromToken(token1);
+  XMLToken* token1 = XMLToken_createWithText("This is additional");
+  XMLNode* node1 = XMLNode_createFromToken(token1);
   XMLNode_addChild(node_top1, node1);
 
   i = SBase_appendAnnotation(S, node_top1);
@@ -579,19 +557,15 @@ END_TEST
 
 START_TEST (test_SBase_appendAnnotation2)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token_top;
-  XMLNode_t *node_top;
   XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
   XMLNamespaces_add(ns, "http://www.any", "pr");
-  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node_top = XMLNode_createFromToken(token_top);
+  XMLToken* token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node_top = XMLNode_createFromToken(token_top);
 
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithText("This is a test note");
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node_top, node);
 
  
@@ -644,19 +618,15 @@ END_TEST
 
 START_TEST (test_SBase_appendAnnotationString)
 {
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token_top;
-  XMLNode_t *node_top;
   XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
   XMLNamespaces_add(ns, "http://www.any", "pr");
-  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node_top = XMLNode_createFromToken(token_top);
+  XMLToken* token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node_top = XMLNode_createFromToken(token_top);
 
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithText("This is a test note");
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node_top, node);
 
  
@@ -689,11 +659,6 @@ END_TEST
 
 START_TEST (test_SBase_appendNotes)
 { // add a p tag to a p tag
-  XMLToken_t *token;
-  XMLNode_t *node;
-  XMLToken_t *token1;
-  XMLNode_t *node1;
-  XMLNode_t * node2;
   XMLTriple_t *triple = XMLTriple_createWith("p", "", "");
   XMLAttributes_t * att = XMLAttributes_create ();
   XMLNamespaces_t *ns = XMLNamespaces_create();
@@ -703,8 +668,8 @@ START_TEST (test_SBase_appendNotes)
   XMLToken_t *token5 = XMLToken_createWithText("This is additional text");
   XMLNode_t *node5 = XMLNode_createFromToken(token5);
 
-  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node = XMLNode_createFromToken(token);
+  XMLToken* token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, node4);
 
   int i = SBase_setNotes(S, node);
@@ -712,8 +677,8 @@ START_TEST (test_SBase_appendNotes)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
 
-  token1 = XMLToken_createWithTripleAttrNS(triple, att, ns);
-  node1 = XMLNode_createFromToken(token1);
+  XMLToken* token1 = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  XMLNode* node1 = XMLNode_createFromToken(token1);
   XMLNode_addChild(node1, node5);
   
   i = SBase_appendNotes(S, node1);
@@ -721,7 +686,7 @@ START_TEST (test_SBase_appendNotes)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
 
-  node2 = SBase_getNotes(S);
+  XMLNode* node2 = SBase_getNotes(S);
 
   fail_unless(XMLNode_getNumChildren(node2) == 2);
   fail_unless(!strcmp(XMLNode_getName(XMLNode_getChild(node2, 0)), "p"));

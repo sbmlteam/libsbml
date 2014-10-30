@@ -196,6 +196,8 @@ START_TEST (test_AssignmentRule_createWithNS )
   fail_unless( XMLNamespaces_getLength(Rule_getNamespaces((Rule_t*)(object))) == 2 );
 
   Rule_free((Rule_t*)(object));
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

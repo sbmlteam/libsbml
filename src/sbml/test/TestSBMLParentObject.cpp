@@ -89,6 +89,8 @@ START_TEST ( test_Compartment_parent_add )
 
   fail_unless(lo == m->getCompartment(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -106,6 +108,8 @@ START_TEST ( test_CompartmentType_parent_add )
 
   fail_unless(lo == m->getCompartmentType(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -114,7 +118,9 @@ START_TEST ( test_Constraint_parent_add )
 {
   Constraint *ct = new Constraint(2, 4);
   Model *m = new Model(2, 4);
-  ct->setMath(SBML_parseFormula("a-k"));
+  ASTNode_t* math = SBML_parseFormula("a-k");
+  ct->setMath(math);
+  ASTNode_free(math);
   m->addConstraint(ct);
 
   delete ct;
@@ -123,6 +129,8 @@ START_TEST ( test_Constraint_parent_add )
 
   fail_unless(lo == m->getConstraint(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -131,7 +139,9 @@ START_TEST ( test_Delay_parent_add )
 {
   Delay *d = new Delay(2, 4);
   Event *e = new Event(2, 4);
-  d->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  d->setMath(math);
+  ASTNode_free(math);
 
   e->setDelay(d);
 
@@ -148,7 +158,9 @@ START_TEST ( test_Event_parent_add )
 {
   Event *e = new Event(2, 4);
   Trigger *t = new Trigger(2, 4);
-  t->setMath(SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  t->setMath(math);
+  ASTNode_free(math);
   e->setTrigger(t);
   e->createEventAssignment();
   Model *m = new Model(2, 4);
@@ -161,6 +173,8 @@ START_TEST ( test_Event_parent_add )
 
   fail_unless(lo == m->getEvent(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete t;
 }
 END_TEST
 
@@ -170,7 +184,9 @@ START_TEST ( test_EventAssignment_parent_add )
   Event *e = new Event(2, 4);
   EventAssignment *ea = new EventAssignment(2, 4);
   ea->setVariable("c");
-  ea->setMath(SBML_parseFormula("K+L"));
+  ASTNode_t* math = SBML_parseFormula("K+L");
+  ea->setMath(math);
+  ASTNode_free(math);
 
   e->addEventAssignment(ea);
 
@@ -180,6 +196,8 @@ START_TEST ( test_EventAssignment_parent_add )
 
   fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
   fail_unless(e == lo->getParentSBMLObject());
+
+  delete e;
 }
 END_TEST
 
@@ -189,7 +207,9 @@ START_TEST ( test_FunctionDefinition_parent_add )
   FunctionDefinition *fd = new FunctionDefinition(2, 4);
   Model *m = new Model(2, 4);
   fd->setId("fd");
-  fd->setMath(SBML_parseFormula("l"));
+  ASTNode_t* math = SBML_parseFormula("l");
+  fd->setMath(math);
+  ASTNode_free(math);
 
   m->addFunctionDefinition(fd);
 
@@ -199,6 +219,8 @@ START_TEST ( test_FunctionDefinition_parent_add )
 
   fail_unless(lo == m->getFunctionDefinition(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -208,7 +230,9 @@ START_TEST ( test_InitialAssignment_parent_add )
   InitialAssignment *ia = new InitialAssignment(2, 4);
   Model *m = new Model(2, 4);
   ia->setSymbol("c");
-  ia->setMath(SBML_parseFormula("9"));
+  ASTNode_t* math = SBML_parseFormula("9");
+  ia->setMath(math);
+  ASTNode_free(math);
 
   m->addInitialAssignment(ia);
 
@@ -218,6 +242,8 @@ START_TEST ( test_InitialAssignment_parent_add )
 
   fail_unless(lo == m->getInitialAssignment(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -225,7 +251,9 @@ END_TEST
 START_TEST ( test_KineticLaw_parent_add )
 {
   KineticLaw* kl=new KineticLaw(2, 4);
-  kl->setMath(SBML_parseFormula("a"));
+  ASTNode_t* math = SBML_parseFormula("a");
+  kl->setMath(math);
+  ASTNode_free(math);
   
   Reaction * r = new Reaction(2, 4);
 
@@ -234,6 +262,7 @@ START_TEST ( test_KineticLaw_parent_add )
   fail_unless(r == r->getKineticLaw()->getParentSBMLObject());
 
   delete r;
+  delete kl;
 }
 END_TEST
 
@@ -270,6 +299,7 @@ START_TEST ( test_Model_parent_add )
   fail_unless(d == d->getModel()->getParentSBMLObject());
 
   delete d;
+  delete m;
 }
 END_TEST
 
@@ -288,6 +318,8 @@ START_TEST ( test_Parameter_parent_add )
 
   fail_unless(lo == m->getParameter(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -306,6 +338,8 @@ START_TEST ( test_Reaction_parent_add )
 
   fail_unless(lo == m->getReaction(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -315,7 +349,9 @@ START_TEST ( test_Rule_parent_add )
 {
   Rule *ia = new RateRule(2, 4);
   ia->setVariable("a");
-  ia->setMath(SBML_parseFormula("9"));
+  ASTNode_t* math = SBML_parseFormula("9");
+  ia->setMath(math);
+  ASTNode_free(math);
   Model *m = new Model(2, 4);
 
   m->addRule(ia);
@@ -326,6 +362,8 @@ START_TEST ( test_Rule_parent_add )
 
   fail_unless(lo == m->getRule(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -346,6 +384,8 @@ START_TEST ( test_Species_parent_add )
 
   fail_unless(lo == m->getSpecies(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -365,6 +405,8 @@ START_TEST ( test_SpeciesReference_Product_parent_add )
 
   fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -383,6 +425,8 @@ START_TEST ( test_SpeciesReference_Reactant_parent_add )
 
   fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -401,6 +445,8 @@ START_TEST ( test_SpeciesReference_Modifier_parent_add )
 
   fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -419,6 +465,8 @@ START_TEST ( test_SpeciesType_parent_add )
 
   fail_unless(lo == m->getSpeciesType(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -426,7 +474,9 @@ END_TEST
 START_TEST ( test_StoichiometryMath_parent_add )
 {
   StoichiometryMath *m = new StoichiometryMath(2, 4);
-  m->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  m->setMath(math);
+  ASTNode_free(math);
   SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
@@ -443,7 +493,9 @@ END_TEST
 START_TEST ( test_Trigger_parent_add )
 {
   Trigger *d = new Trigger(2, 4);
-  d->setMath(SBML_parseFormula("false"));
+  ASTNode_t* math = SBML_parseFormula("false");
+  d->setMath(math);
+  ASTNode_free(math);
   Event *e = new Event(2, 4);
 
   e->setTrigger(d);
@@ -493,6 +545,8 @@ START_TEST ( test_UnitDefinition_parent_add )
 
   fail_unless(lo == m->getUnitDefinition(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -507,6 +561,8 @@ START_TEST ( test_Compartment_parent_create )
   fail_unless(lo == m->getCompartment(0)->getParentSBMLObject());
   fail_unless(lo == c->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -521,6 +577,8 @@ START_TEST ( test_CompartmentType_parent_create )
   fail_unless(lo == m->getCompartmentType(0)->getParentSBMLObject());
   fail_unless(lo == ct->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -535,6 +593,8 @@ START_TEST ( test_Constraint_parent_create )
   fail_unless(lo == m->getConstraint(0)->getParentSBMLObject());
   fail_unless(lo == ct->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -549,6 +609,8 @@ START_TEST ( test_Event_parent_create )
   fail_unless(lo == m->getEvent(0)->getParentSBMLObject());
   fail_unless(lo == e->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -564,6 +626,8 @@ START_TEST ( test_EventAssignment_parent_create )
   fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
   fail_unless(lo == ea->getParentSBMLObject());
   fail_unless(e == lo->getParentSBMLObject());
+
+  delete e;
 }
 END_TEST
 
@@ -580,6 +644,8 @@ START_TEST ( test_EventAssignment_parent_create_model )
   fail_unless(lo == e->getEventAssignment(0)->getParentSBMLObject());
   fail_unless(lo == ea->getParentSBMLObject());
   fail_unless(e == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -594,6 +660,8 @@ START_TEST ( test_FunctionDefinition_parent_create )
   fail_unless(lo == m->getFunctionDefinition(0)->getParentSBMLObject());
   fail_unless(lo == fd->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -608,6 +676,8 @@ START_TEST ( test_InitialAssignment_parent_create )
   fail_unless(lo == m->getInitialAssignment(0)->getParentSBMLObject());
   fail_unless(lo == ia->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -633,7 +703,7 @@ START_TEST ( test_KineticLaw_parent_create_model )
   fail_unless(r == kl->getParentSBMLObject());
   fail_unless(r == r->getKineticLaw()->getParentSBMLObject());
 
-  delete r;
+  delete m;
 }
 END_TEST
 
@@ -672,7 +742,7 @@ START_TEST ( test_KineticLaw_Parameter_parent_create_model )
   fail_unless(lop == p->getParentSBMLObject());
   fail_unless(lop == kl->getParameter(0)->getParentSBMLObject());
 
-  delete kl;
+  delete m;
 }
 END_TEST
 
@@ -699,6 +769,8 @@ START_TEST ( test_Parameter_parent_create )
   fail_unless(lo == m->getParameter(0)->getParentSBMLObject());
   fail_unless(lo == p->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -713,6 +785,8 @@ START_TEST ( test_Reaction_parent_create )
   fail_unless(lo == m->getReaction(0)->getParentSBMLObject());
   fail_unless(lo == r->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -728,6 +802,8 @@ START_TEST ( test_AlgebraicRule_parent_create )
   fail_unless(lo == m->getRule(0)->getParentSBMLObject());
   fail_unless(lo == r->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -742,6 +818,8 @@ START_TEST ( test_AssignmentRule_parent_create )
   fail_unless(lo == m->getRule(0)->getParentSBMLObject());
   fail_unless(lo == r->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -756,6 +834,8 @@ START_TEST ( test_RateRule_parent_create )
   fail_unless(lo == m->getRule(0)->getParentSBMLObject());
   fail_unless(lo == r->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -770,6 +850,8 @@ START_TEST ( test_Species_parent_create )
   fail_unless(lo == s->getParentSBMLObject());
   fail_unless(lo == m->getSpecies(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -784,6 +866,8 @@ START_TEST ( test_SpeciesReference_Product_parent_create )
   fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -799,6 +883,8 @@ START_TEST ( test_SpeciesReference_Product_parent_create_model )
   fail_unless(lo == r->getProduct(0)->getParentSBMLObject());
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -813,6 +899,8 @@ START_TEST ( test_SpeciesReference_Reactant_parent_create )
   fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -828,6 +916,8 @@ START_TEST ( test_SpeciesReference_Reactant_parent_create_model )
   fail_unless(lo == r->getReactant(0)->getParentSBMLObject());
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -842,6 +932,8 @@ START_TEST ( test_SpeciesReference_Modifier_parent_create )
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete r;
 }
 END_TEST
 
@@ -857,6 +949,8 @@ START_TEST ( test_SpeciesReference_Modifier_parent_create_model )
   fail_unless(lo == sr->getParentSBMLObject());
   fail_unless(lo == r->getModifier(0)->getParentSBMLObject());
   fail_unless(r == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -871,6 +965,8 @@ START_TEST ( test_SpeciesType_parent_create )
   fail_unless(lo == m->getSpeciesType(0)->getParentSBMLObject());
   fail_unless(lo == st->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -907,7 +1003,7 @@ START_TEST ( test_Unit_parent_create_model )
   fail_unless(lo == u->getParentSBMLObject());
   fail_unless(ud == lo->getParentSBMLObject());
 
-  delete ud;
+  delete m;
 }
 END_TEST
 
@@ -922,6 +1018,8 @@ START_TEST ( test_UnitDefinition_parent_create )
   fail_unless(lo == m->getUnitDefinition(0)->getParentSBMLObject());
   fail_unless(lo == ud->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
+
+  delete m;
 }
 END_TEST
 
@@ -1000,6 +1098,8 @@ START_TEST ( test_Event_parent_NULL )
 
   Event *c1 = c->clone();
   delete d;
+  delete t;
+  delete dy;
 
   fail_unless(c1->getAncestorOfType(SBML_MODEL) == NULL);
   fail_unless(c1->getParentSBMLObject() == NULL);
@@ -1078,6 +1178,7 @@ START_TEST ( test_KineticLaw_parent_NULL )
   fail_unless(kl1 == kl1->getParameter(0)->getAncestorOfType(SBML_KINETIC_LAW));
   
   delete r;
+  delete kl1;
 }
 END_TEST
 
@@ -1275,13 +1376,15 @@ END_TEST
 
 START_TEST ( test_EventAssignment_parent_mismatch )
 {
-  SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
-  Event *e = new Event(sbmlns);
+  SBMLNamespaces sbmlns(3, 1);
+  Event *e = new Event(&sbmlns);
   //sbmlns->addPackageNamespace("comp", 1);
-  sbmlns->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
-  EventAssignment *ea = new EventAssignment(sbmlns);
+  sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
+  EventAssignment *ea = new EventAssignment(&sbmlns);
   ea->setVariable("c");
-  ea->setMath(SBML_parseFormula("K+L"));
+  ASTNode_t* math = SBML_parseFormula("K+L");
+  ea->setMath(math);
+  ASTNode_free(math);
 
   int success = e->addEventAssignment(ea);
 
@@ -1296,7 +1399,9 @@ END_TEST
 START_TEST ( test_KineticLaw_parent_mismatch )
 {
   KineticLaw* kl=new KineticLaw(2, 3);
-  kl->setMath(SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  kl->setMath(math);
+  ASTNode_free(math);
   
   Reaction * r = new Reaction(2, 4);
 
@@ -1305,17 +1410,18 @@ START_TEST ( test_KineticLaw_parent_mismatch )
   fail_unless(success == LIBSBML_VERSION_MISMATCH);
 
   delete r;
+  delete kl;
 }
 END_TEST
 
 
 START_TEST ( test_Model_parent_mismatch )
 {
-  SBMLNamespaces * sbmlns = new SBMLNamespaces(3, 1);
-  SBMLDocument *d = new SBMLDocument(sbmlns);
+  SBMLNamespaces sbmlns(3, 1);
+  SBMLDocument *d = new SBMLDocument(&sbmlns);
   //sbmlns->addPackageNamespace("comp", 1);
-  sbmlns->addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
-  Model *m = new Model(sbmlns);
+  sbmlns.addNamespace("http://www.sbml.org/sbml/level3/version1/comp/version1", "comp");
+  Model *m = new Model(&sbmlns);
 
   int success = d->setModel(m);
 
@@ -1345,7 +1451,9 @@ START_TEST ( test_Priority_parent_mismatch )
 {
   Event *e = new Event(3, 1);
   Priority *p= new Priority(3, 1);
-  p->setMath(SBML_parseFormula("K+L"));
+  ASTNode_t* math = SBML_parseFormula("K+L");
+  p->setMath(math);
+  ASTNode_free(math);
 
   int success = e->setPriority(p);
 
@@ -1365,7 +1473,9 @@ START_TEST ( test_Trigger_parent_mismatch )
 {
   Event *e = new Event(3, 1);
   Trigger *t= new Trigger(2, 4);
-  t->setMath(SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  t->setMath(math);
+  ASTNode_free(math);
 
   int success = e->setTrigger(t);
 

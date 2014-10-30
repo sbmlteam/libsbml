@@ -210,6 +210,8 @@ START_TEST (test_EventAssignment_createWithNS )
                         EventAssignment_getNamespaces(object)) == 2 );
 
   EventAssignment_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

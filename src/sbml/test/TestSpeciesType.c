@@ -212,6 +212,8 @@ START_TEST (test_SpeciesType_createWithNS )
   fail_unless( XMLNamespaces_getLength(SpeciesType_getNamespaces(object)) == 2 );
 
   SpeciesType_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

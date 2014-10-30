@@ -366,7 +366,6 @@ KineticLaw::setFormula (const std::string& formula)
   }
   else
   {
-    ASTNode * math = SBML_parseFormula(formula.c_str());
     if (formula == "")
     {
       mFormula.erase();
@@ -374,8 +373,10 @@ KineticLaw::setFormula (const std::string& formula)
       mMath = NULL;
       return LIBSBML_OPERATION_SUCCESS;
     }
-    else if (math == NULL || !(math->isWellFormedASTNode()))
+    ASTNode * math = SBML_parseFormula(formula.c_str());
+    if (math == NULL || !(math->isWellFormedASTNode()))
     {
+      delete math;
       return LIBSBML_INVALID_OBJECT;
     }
     else
@@ -387,6 +388,7 @@ KineticLaw::setFormula (const std::string& formula)
         delete mMath;
         mMath = NULL;
       }
+      delete math;
       return LIBSBML_OPERATION_SUCCESS;
     }
   }

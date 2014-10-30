@@ -280,6 +280,8 @@ START_TEST (test_L3_Compartment_createWithNS )
   fail_unless( !Compartment_isSetConstant(c) );
 
   Compartment_free(c);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -307,8 +309,9 @@ START_TEST (test_L3_Compartment_NS)
 {
   fail_unless( Compartment_getNamespaces     (C) != NULL );
   fail_unless( XMLNamespaces_getLength(Compartment_getNamespaces(C)) == 1 );
-  fail_unless( !strcmp( XMLNamespaces_getURI(Compartment_getNamespaces(C), 0),
-    "http://www.sbml.org/sbml/level3/version1/core"));
+  char* uri = XMLNamespaces_getURI(Compartment_getNamespaces(C), 0);
+  fail_unless( !strcmp( uri, "http://www.sbml.org/sbml/level3/version1/core"));
+  safe_free(uri);
 }
 END_TEST
 

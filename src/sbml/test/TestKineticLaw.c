@@ -407,6 +407,8 @@ START_TEST (test_KineticLaw_createWithNS )
   fail_unless( XMLNamespaces_getLength(KineticLaw_getNamespaces(object)) == 2 );
 
   KineticLaw_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

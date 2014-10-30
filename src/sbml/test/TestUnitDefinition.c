@@ -284,6 +284,7 @@ START_TEST (test_UnitDefinition_isVariantOfArea)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfArea(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
@@ -318,6 +319,7 @@ START_TEST (test_UnitDefinition_isVariantOfLength)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfLength(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
@@ -352,6 +354,7 @@ START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
@@ -385,6 +388,7 @@ START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
@@ -418,6 +422,7 @@ START_TEST (test_UnitDefinition_isVariantOfTime)
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfTime(UD) );
 
+  Unit_free(dim);
 }
 END_TEST
 
@@ -450,7 +455,8 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_1)
   Unit_setExponent(u, 1);
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
-
+  
+  Unit_free(dim);
 }
 END_TEST
 
@@ -484,7 +490,8 @@ START_TEST (test_UnitDefinition_isVariantOfVolume_2)
   Unit_setExponent(u, 3);
   UnitDefinition_addUnit( UD, dim   );
   fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
-
+  
+  Unit_free(dim);
 }
 END_TEST
 
@@ -693,6 +700,8 @@ START_TEST (test_UnitDefinition_createWithNS )
                         UnitDefinition_getNamespaces(object)) == 2 );
 
   UnitDefinition_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -733,6 +742,8 @@ START_TEST (test_UnitDefinition_printUnits)
   safe_free(ud_str1);
   safe_free(ud_str2);
   safe_free(ud_str3);
+  UnitDefinition_free(ud);
+  UnitDefinition_free(ud1);
 }
 END_TEST
 

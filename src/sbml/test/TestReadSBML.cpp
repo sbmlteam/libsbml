@@ -209,6 +209,7 @@ START_TEST (test_ReadSBML_Model_withoutEncoding)
     "</sbml>";
   */
 
+  delete D;
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
@@ -2312,7 +2313,9 @@ START_TEST (test_ReadSBML_notes_xmlns)
   const XMLNamespaces_t * ns = XMLNode_getNamespaces(XMLNode_getChild(SBase_getNotes(M), 0));
 
   fail_unless(XMLNamespaces_getLength(ns) == 1);
-  fail_unless(!strcmp(XMLNamespaces_getURI(ns, 0), "http://www.w3.org/1999/xhtml"));
+  char* uri = XMLNamespaces_getURI(ns, 0);
+  fail_unless(!strcmp(uri, "http://www.w3.org/1999/xhtml"));
+  safe_free(uri);
 
   const char * notes = XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(SBase_getNotes(M), 0), 0));
   fail_unless( strcmp(notes, "Some text.") == 0 );

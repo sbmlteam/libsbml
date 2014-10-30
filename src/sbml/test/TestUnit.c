@@ -306,6 +306,8 @@ START_TEST (test_Unit_createWithNS )
   fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(object)) == 2 );
 
   Unit_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

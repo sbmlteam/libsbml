@@ -240,6 +240,8 @@ START_TEST (test_L3_SpeciesReference_createWithNS )
   fail_unless( !SpeciesReference_isSetConstant(sr)   );
 
   SpeciesReference_free(sr);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -267,8 +269,9 @@ START_TEST (test_L3_SpeciesReference_NS)
 {
   fail_unless( SpeciesReference_getNamespaces     (SR) != NULL );
   fail_unless( XMLNamespaces_getLength(SpeciesReference_getNamespaces(SR)) == 1 );
-  fail_unless( !strcmp( XMLNamespaces_getURI(SpeciesReference_getNamespaces(SR), 0),
-    "http://www.sbml.org/sbml/level3/version1/core"));
+  char* uri = XMLNamespaces_getURI(SpeciesReference_getNamespaces(SR), 0);
+  fail_unless( !strcmp( uri, "http://www.sbml.org/sbml/level3/version1/core"));
+  safe_free(uri);
 }
 END_TEST
 

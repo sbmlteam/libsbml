@@ -372,6 +372,8 @@ START_TEST (test_Compartment_createWithNS )
   fail_unless( Compartment_getConstant(c) == 1   );
 
   Compartment_free(c);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

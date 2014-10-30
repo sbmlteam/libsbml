@@ -408,6 +408,8 @@ START_TEST (test_L3_Model_createWithNS )
   fail_unless( !Model_isSetConversionFactor(m) );
 
   Model_free(m);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 
@@ -416,8 +418,9 @@ START_TEST (test_L3_Model_NS)
 {
   fail_unless( Model_getNamespaces     (M) != NULL );
   fail_unless( XMLNamespaces_getLength(Model_getNamespaces(M)) == 1 );
-  fail_unless( !strcmp( XMLNamespaces_getURI(Model_getNamespaces(M), 0),
-    "http://www.sbml.org/sbml/level3/version1/core"));
+  char* uri = XMLNamespaces_getURI(Model_getNamespaces(M), 0);
+  fail_unless( !strcmp( uri, "http://www.sbml.org/sbml/level3/version1/core"));
+  safe_free(uri);
 }
 END_TEST
 

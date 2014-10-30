@@ -92,6 +92,7 @@ START_TEST ( test_Compartment_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
 
+  delete m;
 }
 END_TEST
 
@@ -113,6 +114,8 @@ START_TEST ( test_CompartmentType_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -122,7 +125,9 @@ START_TEST ( test_Constraint_ancestor_add )
   Constraint *ct = new Constraint(2, 4);
   Model *m = new Model(2, 4);
 
-  ct->setMath(SBML_parseFormula("k+k"));
+  ASTNode_t* math = SBML_parseFormula("k+k");
+  ct->setMath(math);
+  delete math;
   m->addConstraint(ct);
 
   delete ct;
@@ -134,6 +139,8 @@ START_TEST ( test_Constraint_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -141,7 +148,9 @@ END_TEST
 START_TEST ( test_Delay_ancestor_add )
 {
   Delay *d = new Delay(2, 4);
-  d->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  d->setMath(math);
+  delete math;
   Event *e = new Event(2, 4);
 
   e->setDelay(d);
@@ -164,7 +173,9 @@ START_TEST ( test_Event_ancestor_add )
   Event *e = new Event(2, 4);
   Model *m = new Model(2, 4);
   Trigger *t = new Trigger(2, 4);
-  t->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  t->setMath(math);
+  delete math;
   e->setTrigger(t);
   e->createEventAssignment();
 
@@ -179,6 +190,9 @@ START_TEST ( test_Event_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
+  delete t;
 }
 END_TEST
 
@@ -188,7 +202,9 @@ START_TEST ( test_EventAssignment_ancestor_add )
   Event *e = new Event(2, 4);
   EventAssignment *ea = new EventAssignment(2, 4);
   ea->setVariable("c");
-  ea->setMath(SBML_parseFormula("K+L"));
+  ASTNode_t* math = SBML_parseFormula("K+L");
+  ea->setMath(math);
+  delete math;
 
   e->addEventAssignment(ea);
 
@@ -202,6 +218,7 @@ START_TEST ( test_EventAssignment_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
+  delete e;
 }
 END_TEST
 
@@ -211,7 +228,9 @@ START_TEST ( test_FunctionDefinition_ancestor_add )
   FunctionDefinition *fd = new FunctionDefinition(2, 4);
   Model *m = new Model(2, 4);
   fd->setId("fd");
-  fd->setMath(SBML_parseFormula("l"));
+  ASTNode_t* math = SBML_parseFormula("l");
+  fd->setMath(math);
+  delete math;
 
   m->addFunctionDefinition(fd);
 
@@ -224,6 +243,8 @@ START_TEST ( test_FunctionDefinition_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -233,7 +254,9 @@ START_TEST ( test_InitialAssignment_ancestor_add )
   InitialAssignment *ia = new InitialAssignment(2, 4);
   Model *m = new Model(2, 4);
   ia->setSymbol("c");
-  ia->setMath(SBML_parseFormula("9"));
+  ASTNode_t* math = SBML_parseFormula("9");
+  ia->setMath(math);
+  delete math;
 
   m->addInitialAssignment(ia);
 
@@ -246,6 +269,8 @@ START_TEST ( test_InitialAssignment_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -253,7 +278,9 @@ END_TEST
 START_TEST ( test_KineticLaw_ancestor_add )
 {
   KineticLaw* kl=new KineticLaw(2, 4);
-  kl->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  kl->setMath(math);
+  delete math;
   
   Reaction * r = new Reaction(2, 4);
 
@@ -265,6 +292,7 @@ START_TEST ( test_KineticLaw_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
 
   delete r;
+  delete kl;
 }
 END_TEST
 
@@ -301,6 +329,7 @@ START_TEST ( test_Model_ancestor_add )
   fail_unless(d == d->getModel()->getAncestorOfType(SBML_DOCUMENT));
 
   delete d;
+  delete m;
 }
 END_TEST
 
@@ -322,6 +351,8 @@ START_TEST ( test_Parameter_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -343,6 +374,8 @@ START_TEST ( test_Reaction_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -352,7 +385,9 @@ START_TEST ( test_Rule_ancestor_add )
 {
   Rule *ia = new RateRule(2, 4);
   ia->setVariable("a");
-  ia->setMath(SBML_parseFormula("9"));
+  ASTNode_t* math = SBML_parseFormula("9");
+  ia->setMath(math);
+  delete math;
 
   Model *m = new Model(2, 4);
 
@@ -367,6 +402,8 @@ START_TEST ( test_Rule_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -390,6 +427,8 @@ START_TEST ( test_Species_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -412,6 +451,8 @@ START_TEST ( test_SpeciesReference_Product_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete r;
 }
 END_TEST
 
@@ -433,6 +474,8 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete r;
 }
 END_TEST
 
@@ -454,6 +497,8 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete r;
 }
 END_TEST
 
@@ -475,6 +520,8 @@ START_TEST ( test_SpeciesType_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -482,7 +529,9 @@ END_TEST
 START_TEST ( test_StoichiometryMath_ancestor_add )
 {
   StoichiometryMath *m = new StoichiometryMath(2, 4);
-  m->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  m->setMath(math);
+  delete math;
   SpeciesReference *sr = new SpeciesReference(2, 4);
 
   sr->setStoichiometryMath(m);
@@ -503,7 +552,9 @@ END_TEST
 START_TEST ( test_Trigger_ancestor_add )
 {
   Trigger *d = new Trigger(2, 4);
-  d->setMath(SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  d->setMath(math);
+  delete math;
   Event *e = new Event(2, 4);
 
   e->setTrigger(d);
@@ -563,6 +614,8 @@ START_TEST ( test_UnitDefinition_ancestor_add )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -585,6 +638,8 @@ START_TEST ( test_Compartment_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -607,6 +662,8 @@ START_TEST ( test_CompartmentType_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -629,6 +686,8 @@ START_TEST ( test_Constraint_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -648,6 +707,8 @@ START_TEST ( test_Delay_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete e;
 }
 END_TEST
 
@@ -670,6 +731,8 @@ START_TEST ( test_Delay_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -692,6 +755,8 @@ START_TEST ( test_Event_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -715,6 +780,8 @@ START_TEST ( test_EventAssignment_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete e;
 }
 END_TEST
 
@@ -741,6 +808,8 @@ START_TEST ( test_EventAssignment_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -763,6 +832,8 @@ START_TEST ( test_FunctionDefinition_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -785,6 +856,8 @@ START_TEST ( test_InitialAssignment_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -829,8 +902,7 @@ START_TEST ( test_KineticLaw_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_DELAY)    == NULL);
 
-
-  delete r;
+  delete m;
 }
 END_TEST
 
@@ -888,7 +960,7 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  delete kl;
+  delete r;
 }
 END_TEST
 
@@ -927,6 +999,8 @@ START_TEST ( test_Parameter_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -949,6 +1023,8 @@ START_TEST ( test_Reaction_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -971,6 +1047,8 @@ START_TEST ( test_AlgebraicRule_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -993,6 +1071,8 @@ START_TEST ( test_AssignmentRule_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1015,6 +1095,8 @@ START_TEST ( test_RateRule_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1037,6 +1119,8 @@ START_TEST ( test_Species_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1060,6 +1144,7 @@ START_TEST ( test_SpeciesReference_Product_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
+  delete r;
 }
 END_TEST
 
@@ -1085,6 +1170,8 @@ START_TEST ( test_SpeciesReference_Product_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1107,6 +1194,8 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete r;
 }
 END_TEST
 
@@ -1132,6 +1221,8 @@ START_TEST ( test_SpeciesReference_Reactant_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1154,6 +1245,8 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete r;
 }
 END_TEST
 
@@ -1179,6 +1272,8 @@ START_TEST ( test_SpeciesReference_Modifier_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1201,6 +1296,8 @@ START_TEST ( test_SpeciesType_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1220,6 +1317,7 @@ START_TEST ( test_StoichiometryMath_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT) == NULL);
 
+  delete sr;
 }
 END_TEST
 
@@ -1239,6 +1337,8 @@ START_TEST ( test_Trigger_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == e);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete e;
 }
 END_TEST
 
@@ -1261,6 +1361,8 @@ START_TEST ( test_Trigger_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL)    == m);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 
@@ -1315,7 +1417,7 @@ START_TEST ( test_Unit_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_MODEL) == m);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  delete ud;
+  delete m;
 }
 END_TEST
 
@@ -1338,6 +1440,8 @@ START_TEST ( test_UnitDefinition_ancestor_create )
   fail_unless(obj->getAncestorOfType(SBML_LIST_OF)  == lo);
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_EVENT)    == NULL);
+
+  delete m;
 }
 END_TEST
 

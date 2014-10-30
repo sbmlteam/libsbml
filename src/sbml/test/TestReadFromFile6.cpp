@@ -212,7 +212,9 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(con->getSBOTermID() == "SBO:0000064", NULL);
 
   ast = con->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(1, cell)"), NULL);
+  char* math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "lt(1, cell)"), NULL);
+  safe_free(math);
 
   locon = m->getListOfConstraints();
   con1 = locon->get(0);
@@ -238,7 +240,9 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(ia->getSymbol() == "X0", NULL);
 
   ast = ia->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "y * X1"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "y * X1"), NULL);
+  safe_free(math);
 
   loia = m->getListOfInitialAssignments();
   ia1 = loia->get(0);
@@ -296,7 +300,9 @@ START_TEST (test_read_l2v2_newComponents)
   fail_unless(kl->isSetMath(), NULL);
 
   ast = kl->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "v * X0 / t"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "v * X0 / t"), NULL);
+  safe_free(math);
 
   fail_unless(kl->getNumParameters() == 2, NULL);
 

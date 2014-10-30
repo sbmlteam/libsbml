@@ -100,11 +100,13 @@ START_TEST ( test_Constraint )
 
   fail_unless (!(c->hasRequiredElements()));
 
-  c->setMath(SBML_parseFormula("a+b"));
+  ASTNode_t* math = SBML_parseFormula("a+b");
+  c->setMath(math);
   
   fail_unless (c->hasRequiredElements());
 
   delete c;
+  delete math;
 }
 END_TEST
 
@@ -114,7 +116,9 @@ START_TEST ( test_Delay )
   
   fail_unless (!(d->hasRequiredElements()));
 
-  d->setMath(SBML_parseFormula("a+b"));
+  ASTNode_t* math = SBML_parseFormula("a+b");
+  d->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (d->hasRequiredElements());
 
@@ -129,7 +133,9 @@ START_TEST ( test_Event )
   fail_unless (!(e->hasRequiredElements()));
 
   Trigger *t = new Trigger(2, 4);
-  t->setMath(SBML_parseFormula("true"));
+  ASTNode_t* math = SBML_parseFormula("true");
+  t->setMath(math);
+  ASTNode_free(math);
 
   e->setTrigger(t);
 
@@ -149,7 +155,9 @@ START_TEST ( test_EventAssignment )
   
   fail_unless (!(ea->hasRequiredElements()));
 
-  ea->setMath(SBML_parseFormula("fd"));
+  ASTNode_t* math = SBML_parseFormula("fd");
+  ea->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (ea->hasRequiredElements());
 
@@ -163,7 +171,9 @@ START_TEST ( test_FunctionDefinition )
   
   fail_unless (!(fd->hasRequiredElements()));
 
-  fd->setMath(SBML_parseFormula("fd"));
+  ASTNode_t* math = SBML_parseFormula("fd");
+  fd->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (fd->hasRequiredElements());
 
@@ -177,7 +187,9 @@ START_TEST ( test_InitialAssignment )
   
   fail_unless (!(ia->hasRequiredElements()));
 
-  ia->setMath(SBML_parseFormula("ia"));
+  ASTNode_t* math = SBML_parseFormula("ia");
+  ia->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (ia->hasRequiredElements());
 
@@ -191,7 +203,9 @@ START_TEST ( test_KineticLaw )
    
   fail_unless (!(kl->hasRequiredElements()));
 
-  kl->setMath(SBML_parseFormula("kl"));
+  ASTNode_t* math = SBML_parseFormula("kl");
+  kl->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (kl->hasRequiredElements());
 
@@ -271,7 +285,9 @@ START_TEST ( test_AlgebraicRule )
   
   fail_unless (!(ar->hasRequiredElements()));
 
-  ar->setMath(SBML_parseFormula("ar"));
+  ASTNode_t* math = SBML_parseFormula("ar");
+  ar->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (ar->hasRequiredElements());
 
@@ -285,7 +301,9 @@ START_TEST ( test_AssignmentRule )
   
   fail_unless (!(r->hasRequiredElements()));
 
-  r->setMath(SBML_parseFormula("ar"));
+  ASTNode_t* math = SBML_parseFormula("ar");
+  r->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (r->hasRequiredElements());
 
@@ -299,7 +317,9 @@ START_TEST ( test_RateRule )
   
   fail_unless (!(r->hasRequiredElements()));
 
-  r->setMath(SBML_parseFormula("ar"));
+  ASTNode_t* math = SBML_parseFormula("ar");
+  r->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (r->hasRequiredElements());
 
@@ -353,7 +373,9 @@ START_TEST ( test_StoichiometryMath )
 
   fail_unless (!(sm->hasRequiredElements()));
 
-  sm->setMath(SBML_parseFormula("ar"));
+  ASTNode_t* math = SBML_parseFormula("ar");
+  sm->setMath(math);
+  ASTNode_free(math);
   
   fail_unless (sm->hasRequiredElements());
 
@@ -367,7 +389,9 @@ START_TEST ( test_Trigger )
   
   fail_unless (!(t->hasRequiredElements()));
 
-  t->setMath(SBML_parseFormula("ar"));
+  ASTNode_t* math = SBML_parseFormula("ar");
+  t->setMath(math);
+  ASTNode_free(math);
 
   fail_unless (t->hasRequiredElements());
 

@@ -217,6 +217,8 @@ START_TEST (test_StoichiometryMath_createWithNS )
                       StoichiometryMath_getNamespaces(object)) == 2 );
 
   StoichiometryMath_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

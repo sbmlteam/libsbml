@@ -422,7 +422,9 @@ START_TEST (test_SpeciesReference_setStoichiometryMath6)
 {
   StoichiometryMath_t * sm = 
     StoichiometryMath_create(2, 1);
-  StoichiometryMath_setMath(sm, SBML_parseFormula("1"));
+  ASTNode_t* math = SBML_parseFormula("1");
+  StoichiometryMath_setMath(sm, math);
+  ASTNode_free(math);
 
   int i = SpeciesReference_setStoichiometryMath(sr, sm);
 

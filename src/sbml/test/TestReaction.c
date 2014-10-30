@@ -425,6 +425,8 @@ START_TEST (test_Reaction_createWithNS )
   fail_unless( XMLNamespaces_getLength(Reaction_getNamespaces(object)) == 2 );
 
   Reaction_free(object);
+  XMLNamespaces_free(xmlns);
+  SBMLNamespaces_free(sbmlns);
 }
 END_TEST
 

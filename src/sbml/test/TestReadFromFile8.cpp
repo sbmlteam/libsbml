@@ -136,7 +136,9 @@ START_TEST (test_read_l2v4_new)
   fail_unless(trigger != NULL, NULL);
 
   ast = trigger->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "lt(x, 3)"), NULL);
+  char* math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "lt(x, 3)"), NULL);
+  safe_free(math);
 
   fail_unless( e->getNumEventAssignments() == 1, NULL );
 
@@ -146,7 +148,9 @@ START_TEST (test_read_l2v4_new)
   fail_unless(ea->getVariable() == "a", NULL);
 
   ast = ea->getMath();
-  fail_unless(!strcmp(SBML_formulaToString(ast), "x * p3"), NULL);
+  math = SBML_formulaToString(ast);
+  fail_unless(!strcmp(math, "x * p3"), NULL);
+  safe_free(math);
 
 
   delete d;
