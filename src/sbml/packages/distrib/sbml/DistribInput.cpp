@@ -462,7 +462,7 @@ DistribInput::enablePackageInternal(const std::string& pkgURI,
 SBase*
 DistribInput::createObject(XMLInputStream& stream)
 {
-  const string& name = stream.peek().getName();
+  //const string& name = stream.peek().getName();
   SBase* object = NULL;
 
   DISTRIB_CREATE_NS(distribns, getSBMLNamespaces());

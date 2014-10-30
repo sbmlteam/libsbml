@@ -235,6 +235,9 @@ class DistribValidatingVisitor: public SBMLVisitor
 public:
 
   DistribValidatingVisitor (DistribValidator& v, const Model& m) : v(v), m(m) { }
+
+  using SBMLVisitor::visit;
+
   bool visit (const DrawFromDistribution &x)
   {
     v.mDistribConstraints->mDrawFromDistribution.applyTo(m, x);
