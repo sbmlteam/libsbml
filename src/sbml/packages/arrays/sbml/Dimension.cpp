@@ -172,7 +172,7 @@ Dimension::getSize() const
 /*
  * Returns the value of the "arrayDimension" attribute of this Dimension.
  */
-const unsigned int
+unsigned int
 Dimension::getArrayDimension() const
 {
   return mArrayDimension;

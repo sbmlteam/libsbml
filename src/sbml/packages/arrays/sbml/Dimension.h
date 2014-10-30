@@ -151,7 +151,7 @@ public:
    *
    * @return the value of the "arrayDimension" attribute of this Dimension as a unsigned integer.
    */
-  virtual const unsigned int getArrayDimension() const;
+  virtual unsigned int getArrayDimension() const;
 
 
   /**
