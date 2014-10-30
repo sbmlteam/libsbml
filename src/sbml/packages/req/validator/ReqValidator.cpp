@@ -220,6 +220,9 @@ class ReqValidatingVisitor: public SBMLVisitor
 public:
 
   ReqValidatingVisitor (ReqValidator& v, const Model& m) : v(v), m(m) { }
+
+  using SBMLVisitor::visit;
+
   bool visit (const ChangedMath &x)
   {
     v.mReqConstraints->mChangedMath.applyTo(m, x);
