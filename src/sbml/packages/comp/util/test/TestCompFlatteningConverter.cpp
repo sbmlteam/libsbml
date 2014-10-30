@@ -2021,7 +2021,7 @@ START_TEST(test_invalid_layout_disabled)
 }
 END_TEST
 
-int processingCb(Model* m, SBMLErrorLog*, IdList* idlist, void* userdata)
+int processingCb(Model* m, SBMLErrorLog*, void* userdata)
 {
   return 0;
 }
@@ -2032,7 +2032,7 @@ START_TEST(test_submodel_callbacks)
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 0);
 
-  Submodel::addProcessingCallback(&processingCb, NULL, NULL);
+  Submodel::addProcessingCallback(&processingCb);
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 1);
 
@@ -2040,7 +2040,7 @@ START_TEST(test_submodel_callbacks)
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 0);
 
-  Submodel::addProcessingCallback(&processingCb, NULL, NULL);
+  Submodel::addProcessingCallback(&processingCb);
 
   fail_unless(Submodel::getNumProcessingCallbacks() == 1);
 

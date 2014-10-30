@@ -162,7 +162,10 @@ CompFlatteningConverter::convert()
   }
 
   // remove all registered callbacks
-  Submodel::clearProcessingCallbacks();
+  for (int index = Submodel::getNumProcessingCallbacks()-1; index >= numRegisteredCallbacks; --index)
+  {
+    Submodel::removeProcessingCallback(index);
+  }
 
   return result;
 
@@ -177,7 +180,7 @@ struct disable_info {
 };
 
 // simple callback enabling packages on main doc
-int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, IdList* idlist, void* userdata)
+int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 
@@ -364,7 +367,7 @@ CompFlatteningConverter::performConversion()
   mainDoc.stripUnflattenable = getStripUnflattenablePackages();
   mainDoc.abortForRequiredOnly = getAbortForRequired(); 
  
-  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, NULL, &(mainDoc));
+  Submodel::addProcessingCallback(&EnablePackageOnParentDocument, &(mainDoc));
   Model* flatmodel = modelPlugin->flattenModel();
   
 
@@ -1040,11 +1043,11 @@ CompFlatteningConverter::stripUnflattenablePackages()
 /** @endcond */
 
 // simple callback disabling packages on child documents
-int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, IdList* idlist, void*)
+int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
 {
   if (m == NULL) return LIBSBML_OPERATION_FAILED;
 
-  IdList *pkgsToStrip = idlist;
+  IdList *pkgsToStrip = static_cast<IdList*>(userdata);
 
   XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
   for (int i = 0; i < ns->getLength(); i++)
@@ -1104,7 +1107,7 @@ CompFlatteningConverter::stripPackages()
   }
 
   // setup callback that will disable the packages on submodels
-  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip, NULL);
+  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip);
 
   if (num == count)
   {

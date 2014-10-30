@@ -127,11 +127,10 @@ class ReplacedElement;
  * 
  * @param m the newly instantiated Model to be processed
  * @param log an error log to log potential issues to
- * @param idlist a list of IDs (owned by the ModelProcessingCallback object)
- * @param userdata any needed userdata that helps processing the document (non-owning).
+ * @param userdata any needed userdata that helps processing the document.
  *
  */
-typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, SBMLErrorLog* log, IdList* idlist, void* userdata);  
+typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, SBMLErrorLog* log, void* userdata);  
 
 /** 
  * ModelProcessingCallbackData is an internal structure storing callback and userdata
@@ -139,8 +138,7 @@ typedef int LIBSBML_EXTERN (*ModelProcessingCallback)(Model* m, SBMLErrorLog* lo
 struct ModelProcessingCallbackData
 {
   ModelProcessingCallback cb;
-  IdList* idlist; //owning pointer
-  void* userdata; //non-owning pointer
+  void* data;
 };
 
 /** @endcond */
@@ -829,10 +827,9 @@ public:
    * happen before integrating it with the target document. 
    *
    * @param cb the callback
-   * @param idlist An idlist that the processor now owns.
-   * @param userdata any other non-owning user data that the callback needs
+   * @param userdata an optional parameter containing userdata that the callback needs
    */
-  static void addProcessingCallback(ModelProcessingCallback cb, IdList* idlist, void* userdata);
+  static void addProcessingCallback(ModelProcessingCallback cb, void* userdata = NULL);
 
   /** 
    * @return the number of registered callbacks
