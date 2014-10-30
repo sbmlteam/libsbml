@@ -151,7 +151,7 @@ public:
    *
    * @return the value of the "viableWithoutChange" attribute of this ChangedMath as a boolean.
    */
-  virtual const bool getViableWithoutChange() const;
+  virtual bool getViableWithoutChange() const;
 
 
   /**

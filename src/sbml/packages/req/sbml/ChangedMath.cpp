@@ -172,7 +172,7 @@ ChangedMath::getChangedBy() const
 /*
  * Returns the value of the "viableWithoutChange" attribute of this ChangedMath.
  */
-const bool
+bool
 ChangedMath::getViableWithoutChange() const
 {
   return mViableWithoutChange;
