@@ -258,6 +258,7 @@ START_TEST (test_KineticLaw_setMath)
   fail_unless( !strcmp(formula, "k3 / k2") );
   fail_unless( KineticLaw_getMath(kl) != math );
   fail_unless( KineticLaw_isSetMath(kl) );
+  safe_free(formula);
 
   /* Reflexive case (pathological) */
   KineticLaw_setMath(kl, (ASTNode_t *) KineticLaw_getMath(kl));
@@ -268,6 +269,7 @@ START_TEST (test_KineticLaw_setMath)
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "k3 / k2") );
   fail_unless( KineticLaw_getMath(kl) != math );
+  safe_free(formula);
 
   KineticLaw_setMath(kl, NULL);
   fail_unless( !KineticLaw_isSetMath(kl) );

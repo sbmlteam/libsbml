@@ -192,7 +192,12 @@ ListOf::insertAndOwn(int location, SBase* item)
 int
 ListOf::append (const SBase* item)
 {
-  return appendAndOwn( item->clone() );
+  SBase* clone = item->clone();
+  int ret = appendAndOwn( clone );
+  if (ret != LIBSBML_OPERATION_SUCCESS) {
+    delete clone;
+  }
+  return ret;
 }
 
 

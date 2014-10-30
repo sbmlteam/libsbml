@@ -463,8 +463,9 @@ START_TEST (test_L3_Species_ModelHistory)
   fail_unless( !SBase_isSetModelHistory((SBase_t *)(S)) );
   fail_unless( SBase_getModelHistory((SBase_t *)(S)) == NULL );
 
-  
   ModelHistory_free(history);
+  ModelCreator_free(mc);
+  Date_free(date);
 }
 END_TEST
 

@@ -2127,6 +2127,7 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
   char* sbml = sr->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete math;
 }
 END_TEST
 
@@ -2206,6 +2207,7 @@ START_TEST (test_WriteSBML_StoichiometryMath)
   char* sbml = stoich->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete math;
 }
 END_TEST
 
@@ -2233,6 +2235,7 @@ START_TEST (test_WriteSBML_StoichiometryMath_withSBO)
   char* sbml = stoich->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete math;
 }
 END_TEST
 
@@ -2472,6 +2475,7 @@ START_TEST (test_WriteSBML_Event_trigger)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2498,6 +2502,7 @@ START_TEST (test_WriteSBML_Event_delay)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2525,6 +2530,7 @@ START_TEST (test_WriteSBML_Event_delayWithSBO)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2556,6 +2562,7 @@ START_TEST (test_WriteSBML_Event_trigger_withSBO)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2595,6 +2602,8 @@ START_TEST (test_WriteSBML_Event_both)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
+  delete node1;
 }
 END_TEST
 
@@ -2639,6 +2648,8 @@ START_TEST (test_WriteSBML_Event_full)
   char* sbml = e->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
+  delete math;
 }
 END_TEST
 
@@ -2755,6 +2766,7 @@ START_TEST (test_WriteSBML_Constraint_math)
   char* sbml = c->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2802,7 +2814,10 @@ START_TEST (test_WriteSBML_Constraint_full)
   char* sbml = c->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
   delete text;
+  delete message;
+  delete p;
 }
 END_TEST
 
@@ -2845,6 +2860,7 @@ START_TEST (test_WriteSBML_InitialAssignment_math)
   char* sbml = ia->toSBML();
   fail_unless( equals(expected, sbml) );
   safe_free(sbml);
+  delete node;
 }
 END_TEST
 
@@ -2952,7 +2968,11 @@ START_TEST (test_WriteSBML_gzip)
     SBMLDocument* dg = readSBML(gzfile);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;
@@ -3001,7 +3021,11 @@ START_TEST (test_WriteSBML_bzip2)
     SBMLDocument* dg = readSBML(bz2file);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;
@@ -3049,7 +3073,11 @@ START_TEST (test_WriteSBML_zip)
     SBMLDocument* dg = readSBML(zipfile);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;

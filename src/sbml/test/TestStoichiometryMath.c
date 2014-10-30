@@ -137,6 +137,7 @@ START_TEST (test_StoichiometryMath_setMath)
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
   fail_unless( StoichiometryMath_getMath(D) != math );
   fail_unless( StoichiometryMath_isSetMath(D) );
+  safe_free(formula);
 
   /* Reflexive case (pathological) */
   StoichiometryMath_setMath(D, (ASTNode_t *) StoichiometryMath_getMath(D));
@@ -146,6 +147,7 @@ START_TEST (test_StoichiometryMath_setMath)
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  safe_free(formula);
 
   StoichiometryMath_setMath(D, NULL);
   fail_unless( !StoichiometryMath_isSetMath(D) );
@@ -154,6 +156,7 @@ START_TEST (test_StoichiometryMath_setMath)
   {
     fail("StoichiometryMath_setMath(D, NULL) did not clear ASTNode.");
   }
+  ASTNode_free(math);
 }
 END_TEST
 

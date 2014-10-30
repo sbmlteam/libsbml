@@ -74,6 +74,7 @@ START_TEST (test_internal_consistency_check_99901)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -105,6 +106,7 @@ START_TEST (test_internal_consistency_check_99902)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -141,6 +143,7 @@ START_TEST (test_internal_consistency_check_99903)
   fail_unless(errors == 3);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -177,6 +180,7 @@ START_TEST (test_internal_consistency_check_99903_param)
   fail_unless(errors == 2);
 
   delete d;
+  delete p;
 }
 END_TEST
 
@@ -211,6 +215,7 @@ START_TEST (test_internal_consistency_check_99903_localparam)
   fail_unless(errors == 0);
 
   delete d;
+  delete p;
 }
 END_TEST
 
@@ -242,6 +247,7 @@ START_TEST (test_internal_consistency_check_99904)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -274,6 +280,7 @@ START_TEST (test_internal_consistency_check_99904_kl)
   fail_unless(errors == 0);
 
   delete d;
+  delete kl;
 }
 END_TEST
 
@@ -303,6 +310,7 @@ START_TEST (test_internal_consistency_check_99904_model)
   fail_unless(d->getError(0)->getErrorId() == 20201);
 
   delete d;
+  delete m;
 }
 END_TEST
 
@@ -331,6 +339,7 @@ START_TEST (test_internal_consistency_check_99904_param)
   fail_unless(errors == 0);
 
   delete d;
+  delete p;
 }
 END_TEST
 
@@ -359,6 +368,7 @@ START_TEST (test_internal_consistency_check_99904_react)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -389,6 +399,7 @@ START_TEST (test_internal_consistency_check_99904_rule_assign)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -419,6 +430,7 @@ START_TEST (test_internal_consistency_check_99904_rule_rate)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -447,6 +459,7 @@ START_TEST (test_internal_consistency_check_99904_rule_alg)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -476,6 +489,7 @@ START_TEST (test_internal_consistency_check_99904_species)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -511,6 +525,7 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
   fail_unless(d->getError(0)->getErrorId() == 21101);
 
   delete d;
+  delete sr;
 }
 END_TEST
 
@@ -541,6 +556,7 @@ START_TEST (test_internal_consistency_check_99904_unit)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -570,6 +586,7 @@ START_TEST (test_internal_consistency_check_99904_unitdef)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -601,6 +618,7 @@ START_TEST (test_internal_consistency_check_99905)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -627,6 +645,7 @@ START_TEST (test_internal_consistency_check_99905_ct)
   fail_unless(errors == 0);
 
   delete d;
+  delete ct;
 }
 END_TEST
 
@@ -653,6 +672,8 @@ START_TEST (test_internal_consistency_check_99905_delay)
   fail_unless(errors == 0);
 
   delete d;
+  delete delay;
+  delete e;
 }
 END_TEST
 
@@ -682,6 +703,7 @@ START_TEST (test_internal_consistency_check_99905_species)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -708,6 +730,7 @@ START_TEST (test_internal_consistency_check_99905_st)
   fail_unless(errors == 0);
 
   delete d;
+  delete ct;
 }
 END_TEST
 
@@ -742,6 +765,7 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
   fail_unless(errors == 0);
 
   delete d;
+  delete sm;
 }
 END_TEST
 
@@ -768,6 +792,8 @@ START_TEST (test_internal_consistency_check_99905_trigger)
   fail_unless(errors == 0);
 
   delete d;
+  delete trigger;
+  delete e;
 }
 END_TEST
 
@@ -796,6 +822,7 @@ START_TEST (test_internal_consistency_check_99905_unit)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -823,6 +850,7 @@ START_TEST (test_internal_consistency_check_99905_unitdef)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -854,6 +882,7 @@ START_TEST (test_internal_consistency_check_99906)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -884,6 +913,7 @@ START_TEST (test_internal_consistency_check_99907)
   fail_unless(d->getError(0)->getErrorId() == 10103);
 
   delete d;
+  delete c;
 }
 END_TEST
 
@@ -910,6 +940,7 @@ START_TEST (test_internal_consistency_check_99908)
 
 
   delete d;
+  delete ct;
 }
 END_TEST
 
@@ -934,6 +965,7 @@ START_TEST (test_internal_consistency_check_99909)
   fail_unless(errors == 0);
 
   delete d;
+  delete ct;
 }
 END_TEST
 
@@ -960,6 +992,7 @@ START_TEST (test_internal_consistency_check_99910)
   fail_unless(errors == 0);
 
   delete d;
+  delete e;
 }
 END_TEST
 
@@ -985,6 +1018,7 @@ START_TEST (test_internal_consistency_check_99911_event)
   fail_unless(errors == 0);
 
   delete d;
+  delete e;
 }
 END_TEST
 
@@ -1021,6 +1055,8 @@ START_TEST (test_internal_consistency_check_99911_ea)
   fail_unless(d->getError(0)->getErrorId() == 21203);
 
   delete d;
+  delete ast;
+  delete ea;
 }
 END_TEST
 
@@ -1047,6 +1083,7 @@ START_TEST (test_internal_consistency_check_99911_fd)
   fail_unless(errors == 0);
 
   delete d;
+  delete fd;
 }
 END_TEST
 
@@ -1078,6 +1115,7 @@ START_TEST (test_internal_consistency_check_99911_kl)
   fail_unless(errors == 0);
 
   delete d;
+  delete kl;
 }
 END_TEST
 
@@ -1105,6 +1143,7 @@ START_TEST (test_internal_consistency_check_99911_model)
   fail_unless(d->getError(0)->getErrorId() == 20201);
 
   delete d;
+  delete m;
 }
 END_TEST
 
@@ -1131,6 +1170,7 @@ START_TEST (test_internal_consistency_check_99911_param)
   fail_unless(errors == 0);
 
   delete d;
+  delete p;
 }
 END_TEST
 
@@ -1157,6 +1197,7 @@ START_TEST (test_internal_consistency_check_99911_react)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1186,6 +1227,7 @@ START_TEST (test_internal_consistency_check_99911_rule_assign)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1215,6 +1257,7 @@ START_TEST (test_internal_consistency_check_99911_rule_rate)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1240,6 +1283,7 @@ START_TEST (test_internal_consistency_check_99911_rule_alg)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1275,6 +1319,7 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
   fail_unless(d->getError(0)->getErrorId() == 21101);
 
   delete d;
+  delete sr;
 }
 END_TEST
 
@@ -1302,6 +1347,7 @@ START_TEST (test_internal_consistency_check_99912)
   fail_unless(errors == 0);
 
   delete d;
+  delete fd;
 }
 END_TEST
 
@@ -1328,6 +1374,7 @@ START_TEST (test_internal_consistency_check_99913)
   fail_unless(errors == 0);
 
   delete d;
+  delete ia;
 }
 END_TEST
 
@@ -1354,6 +1401,7 @@ START_TEST (test_internal_consistency_check_99914)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1380,6 +1428,7 @@ START_TEST (test_internal_consistency_check_99915_alg)
   fail_unless(errors == 0);
 
   delete d;
+  delete r;
 }
 END_TEST
 
@@ -1480,6 +1529,7 @@ START_TEST (test_internal_consistency_check_99916_rule)
   fail_unless(errors == 2);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -1513,6 +1563,7 @@ START_TEST (test_internal_consistency_check_99916_reaction)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -1542,6 +1593,7 @@ START_TEST (test_internal_consistency_check_99917)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -1571,6 +1623,7 @@ START_TEST (test_internal_consistency_check_99918)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -1600,6 +1653,7 @@ START_TEST (test_internal_consistency_check_99919)
   fail_unless(errors == 0);
 
   delete d;
+  delete s;
 }
 END_TEST
 
@@ -1635,6 +1689,7 @@ START_TEST (test_internal_consistency_check_99920)
   fail_unless(d->getError(0)->getErrorId() == 21101);
 
   delete d;
+  delete sr;
 }
 END_TEST
 
@@ -1669,6 +1724,7 @@ START_TEST (test_internal_consistency_check_99921)
   fail_unless(d->getError(0)->getErrorId() == 21101);
 
   delete d;
+  delete sr;
 }
 END_TEST
 
@@ -1695,6 +1751,7 @@ START_TEST (test_internal_consistency_check_99922)
 
 
   delete d;
+  delete ct;
 }
 END_TEST
 
@@ -1728,6 +1785,7 @@ START_TEST (test_internal_consistency_check_99923)
   fail_unless(errors == 0);
 
   delete d;
+  delete sm;
 }
 END_TEST
 
@@ -1758,6 +1816,7 @@ START_TEST (test_internal_consistency_check_99924)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -1788,6 +1847,7 @@ START_TEST (test_internal_consistency_check_99925)
   fail_unless(errors == 0);
 
   delete d;
+  delete u;
 }
 END_TEST
 
@@ -1813,6 +1873,7 @@ START_TEST (test_internal_consistency_check_20306)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -1839,6 +1900,7 @@ START_TEST (test_internal_consistency_check_20307)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2082,6 +2144,7 @@ START_TEST (test_internal_consistency_check_20804)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2108,6 +2171,7 @@ START_TEST (test_internal_consistency_check_20805)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2134,6 +2198,7 @@ START_TEST (test_internal_consistency_check_20907_assign)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2160,6 +2225,7 @@ START_TEST (test_internal_consistency_check_20907_rate)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2185,6 +2251,7 @@ START_TEST (test_internal_consistency_check_20907_alg)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2211,6 +2278,7 @@ START_TEST (test_internal_consistency_check_20908)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2237,6 +2305,7 @@ START_TEST (test_internal_consistency_check_20909)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2262,6 +2331,7 @@ START_TEST (test_internal_consistency_check_21007)
   fail_unless(errors == 0);
 
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2435,6 +2505,7 @@ START_TEST (test_internal_consistency_check_21130)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2468,6 +2539,7 @@ START_TEST (test_internal_consistency_check_21172)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2501,6 +2573,7 @@ START_TEST (test_internal_consistency_check_21201)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2533,6 +2606,7 @@ START_TEST (test_internal_consistency_check_21203)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2566,6 +2640,7 @@ START_TEST (test_internal_consistency_check_21203_l2v4)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2598,6 +2673,7 @@ START_TEST (test_internal_consistency_check_21209)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2633,6 +2709,7 @@ START_TEST (test_internal_consistency_check_21210)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2665,6 +2742,7 @@ START_TEST (test_internal_consistency_check_21213)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2697,6 +2775,7 @@ START_TEST (test_internal_consistency_check_21214)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2729,6 +2808,7 @@ START_TEST (test_internal_consistency_check_21225)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2770,6 +2850,7 @@ START_TEST (test_internal_consistency_check_21226)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 
@@ -2805,6 +2886,7 @@ START_TEST (test_internal_consistency_check_21231)
 
   fail_unless(errors == 0);
   delete d;
+  delete ast;
 }
 END_TEST
 

@@ -127,6 +127,7 @@ START_TEST (test_AlgebraicRule_createWithMath)
   fail_unless( AlgebraicRule_getMath(ar) != math );
 
   AlgebraicRule_free(ar);
+  ASTNode_free(math);
 }
 END_TEST
 

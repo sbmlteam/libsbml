@@ -180,6 +180,8 @@ START_TEST (test_Model_setName4)
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( !Model_isSetName(m) );
+
+  Model_free(m);
 }
 END_TEST
 
@@ -675,6 +677,7 @@ START_TEST (test_Model_addEvent1)
 
   Event_free(e);
   Model_free(m);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -699,6 +702,7 @@ START_TEST (test_Model_addEvent2)
 
   Event_free(e);
   Model_free(m);
+  Trigger_free(t);
 }
 END_TEST
 
@@ -749,8 +753,8 @@ START_TEST (test_Model_addEvent4)
 
   Event_free(e);
   Event_free(e1);
-
   Model_free(m);
+  Trigger_free(t);
 }
 END_TEST
 

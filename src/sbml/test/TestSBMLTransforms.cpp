@@ -55,7 +55,7 @@ START_TEST (test_SBMLTransforms_replaceFD)
   SBMLReader        reader;
   SBMLDocument*     d;
   Model*            m;
-  const ASTNode*          ast;
+  ASTNode           ast;
   FunctionDefinition*     fd;
   ListOfFunctionDefinitions * lofd;
 
@@ -75,58 +75,58 @@ START_TEST (test_SBMLTransforms_replaceFD)
   fail_unless( m->getNumFunctionDefinitions() == 2 );
 
   /* one function definition */
-  ast = m->getReaction(2)->getKineticLaw()->getMath();
+  ast = *m->getReaction(2)->getKineticLaw()->getMath();
   
-  char* math = SBML_formulaToString(ast);
+  char* math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "f(S1, p) * compartmentOne / t"), NULL);
   safe_free(math);
 
   fd = m->getFunctionDefinition(0);
-  SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
+  SBMLTransforms::replaceFD(&ast, fd);
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
   /* one function definition - nested */
-  ast = m->getReaction(1)->getKineticLaw()->getMath();
+  ast = *m->getReaction(1)->getKineticLaw()->getMath();
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "f(f(S1, p), compartmentOne) / t"), NULL);
   safe_free(math);
 
-  SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
+  SBMLTransforms::replaceFD(&ast, fd);
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
   /* two function definitions - nested */
-  ast = m->getReaction(0)->getKineticLaw()->getMath();
+  ast = *m->getReaction(0)->getKineticLaw()->getMath();
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "g(f(S1, p), compartmentOne) / t"), NULL);
   safe_free(math);
 
-  SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
+  SBMLTransforms::replaceFD(&ast, fd);
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "g(S1 * p, compartmentOne) / t"), NULL);
   safe_free(math);
 
   fd = m->getFunctionDefinition(1);
 
-  SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), fd);
+  SBMLTransforms::replaceFD(&ast, fd);
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "f(S1 * p, compartmentOne) / t"), NULL);
   safe_free(math);
 
-  ast = m->getReaction(0)->getKineticLaw()->getMath();
+  ast = *m->getReaction(0)->getKineticLaw()->getMath();
   lofd = m->getListOfFunctionDefinitions();
-  SBMLTransforms::replaceFD(const_cast<ASTNode *>(ast), lofd);
+  SBMLTransforms::replaceFD(&ast, lofd);
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
@@ -134,23 +134,25 @@ START_TEST (test_SBMLTransforms_replaceFD)
 
   fail_unless( d->getModel()->getNumFunctionDefinitions() == 0 );
   
-  ast = d->getModel()->getReaction(0)->getKineticLaw()->getMath();
+  ast = *d->getModel()->getReaction(0)->getKineticLaw()->getMath();
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
-  ast = d->getModel()->getReaction(1)->getKineticLaw()->getMath();
+  ast = *d->getModel()->getReaction(1)->getKineticLaw()->getMath();
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
 
-  ast = d->getModel()->getReaction(2)->getKineticLaw()->getMath();
+  ast = *d->getModel()->getReaction(2)->getKineticLaw()->getMath();
   
-  math = SBML_formulaToString(ast);
+  math = SBML_formulaToString(&ast);
   fail_unless (!strcmp(math, "S1 * p * compartmentOne / t"), NULL);
   safe_free(math);
+
+  delete d;
 }
 END_TEST
 
@@ -201,314 +203,323 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 4.0*atan(1.0)));
 
   node->setType(AST_CONSTANT_TRUE);
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("2.5 + 6.1");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 8.6));
 
+  delete node;
   node = SBML_parseFormula("-4.3");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), -4.3));
 
+  delete node;
   node = SBML_parseFormula("9.2-4.3");
-
   temp = 9.2-4.3;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("2*3");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 6));
 
+  delete node;
   node = SBML_parseFormula("1/5");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.2));
 
+  delete node;
   node = SBML_parseFormula("pow(2, 3)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 8));
 
+  delete node;
   node = SBML_parseFormula("3^3");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 27));
 
+  delete node;
   node = SBML_parseFormula("abs(-9.456)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 9.456));
 
+  delete node;
   node = SBML_parseFormula("ceil(9.456)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 10));
 
+  delete node;
   node = SBML_parseFormula("exp(2.0)");
-  
   temp = exp(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("floor(2.04567)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 2));
 
+  delete node;
   node = SBML_parseFormula("ln(2.0)");
-
   temp = log(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("log10(100.0)");
-
   temp = log10(100.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("sin(2.0)");
-
   temp = sin(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("cos(4.1)");
-
   temp = cos(4.1);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("tan(0.345)");
-
   temp = tan(0.345);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arcsin(0.456)");
-
   temp = asin(0.456);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arccos(0.41)");
-
   temp = acos(0.41);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arctan(0.345)");
-
   temp = atan(0.345);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("sinh(2.0)");
-
   temp = sinh(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("cosh(4.1)");
-
   temp = cosh(4.1);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("tanh(0.345)");
-
   temp = tanh(0.345);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("and(1, 0)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("or(1, 0)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("not(1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("xor(1, 0)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("xor(1, 1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("eq(1, 2)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("eq(1, 1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("geq(2,1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("geq(2,4)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("geq(2,2)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("gt(2,1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("gt(2,4)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("leq(2,1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("leq(2,4)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("leq(2,2)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("lt(2,1)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("lt(2,4)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
   
+  delete node;
   node = SBML_parseFormula("neq(2,2)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 0.0));
 
+  delete node;
   node = SBML_parseFormula("neq(3,2)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1.0));
 
+  delete node;
   node = SBML_parseFormula("cot(2.0)");
-
   temp = 1.0/tan(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("csc(4.1)");
-
   temp = 1.0/sin(4.1);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("sec(0.345)");
-
   temp = 1.0/cos(0.345);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("coth(2.0)");
-
   temp = cosh(2.0)/sinh(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
   
+  delete node;
   node = SBML_parseFormula("sech(2.0)");
-
   temp = 1.0/cosh(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("csch(2.0)");
-
   temp = 1.0/sinh(2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arccot(2.0)");
-
   temp = atan(1/2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arccsc(2.0)");
-
   temp = asin(1/2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arcsec(2.0)");
-
   temp = acos(1/2.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arccosh(2.0)");
-
   temp = log(2.0 + pow(3.0, 0.5));
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arccoth(2.0)");
-
   temp = 0.5 * log(3.0);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arcsech(0.2)");
-
   temp = log(2*pow(6, 0.5)+5);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
   
+  delete node;
   node = SBML_parseFormula("arccsch(0.2)");
-
   /* temp = log(5 +pow(26, 0.5));
    * only matches to 15 dp and therefore fails !!
    */
   temp = 2.312438341272753;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arcsinh(3.0)");
-
   temp = log(3.0 +pow(10.0, 0.5));
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("arctanh(0.2)");
-
   temp = 0.5 * log(1.5);
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
   node->setType(AST_FUNCTION_DELAY);
-
   fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
 
+  delete node;
   node = SBML_parseFormula("factorial(3)");
-
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 6));
   
+  delete node;
   node= SBML_parseFormula("piecewise()");
-
   fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
 
+  delete node;
   node= SBML_parseFormula("piecewise(1,false)");
   fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
 
+  delete node;
   node= SBML_parseFormula("piecewise(1,true)");
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 1));
 
+  delete node;
   node = SBML_parseFormula("piecewise(1.0, true, 0.0)");
   temp = 1.0;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("piecewise(1.0, false, 0.0)");
   temp = 0.0;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("piecewise(4.5)");
   temp = 4.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("piecewise(4.5, false, 5.5, true)");
   temp = 5.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("piecewise(4.5, true, 5.5, false)");
   temp = 4.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("piecewise(4.5, false, 5.5, false, 6.5)");
   temp = 6.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node= SBML_parseFormula("piecewise(4.5, true, 5.5, true)");
 
   fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node)));
 
+  delete node;
   node = SBML_parseFormula("piecewise(4.5, true, 4.5, true)");
   temp = 4.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
 
+  delete node;
   node = SBML_parseFormula("root(2, 4)");
 
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), 2));
@@ -516,6 +527,7 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
            "<apply><plus/></apply></math>";
   
+  delete node;
   node = readMathMLFromString(mathml);
 
   temp = 0;
@@ -524,6 +536,7 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
            "<apply><plus/><cn>2.3</cn></apply></math>";
   
+  delete node;
   node = readMathMLFromString(mathml);
 
   temp = 2.3;
@@ -532,6 +545,7 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
            "<apply><times/></apply></math>";
   
+  delete node;
   node = readMathMLFromString(mathml);
 
   temp = 1.0;
@@ -540,10 +554,12 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
            "<apply><times/><cn>6.5</cn></apply></math>";
   
+  delete node;
   node = readMathMLFromString(mathml);
 
   temp = 6.5;
   fail_unless(util_isEqual(SBMLTransforms::evaluateASTNode(node), temp));
+  delete node;
 
 }
 END_TEST
@@ -698,6 +714,8 @@ START_TEST(test_SBMLTransforms_evaluateCustomAST)
   fail_unless(util_isNaN(SBMLTransforms::evaluateASTNode(node, values)));
   values["c"] = 1;
   fail_unless(SBMLTransforms::evaluateASTNode(node, values) == 3);
+
+  delete node;
 }
 END_TEST
 

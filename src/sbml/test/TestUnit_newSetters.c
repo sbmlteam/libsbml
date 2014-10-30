@@ -171,6 +171,7 @@ START_TEST (test_Unit_setOffset2)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( Unit_getOffset(U1) == 2 );
+  Unit_free(U1);
 }
 END_TEST
 

@@ -703,6 +703,8 @@ START_TEST (test_WriteL3SBML_Event_full)
   char* sbml = e->toSBML();
   fail_unless( equals(expected,sbml) );
   safe_free(sbml);
+  delete math1;
+  delete math2;
 }
 END_TEST
 
@@ -818,7 +820,11 @@ START_TEST (test_WriteL3SBML_gzip)
     SBMLDocument* dg = readSBML(gzfile);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;
@@ -867,7 +873,11 @@ START_TEST (test_WriteL3SBML_bzip2)
     SBMLDocument* dg = readSBML(bz2file);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;
@@ -915,7 +925,11 @@ START_TEST (test_WriteL3SBML_zip)
     SBMLDocument* dg = readSBML(zipfile);
     fail_unless( dg != NULL);
 
-    fail_unless( strcmp(d->toSBML(), dg->toSBML()) == 0 );
+    char* dtos = d->toSBML();
+    char* dgtos = dg->toSBML();
+    fail_unless( strcmp(dtos, dgtos) == 0 );
+    safe_free(dtos);
+    safe_free(dgtos);
 
     delete d;
     delete dg;

@@ -167,14 +167,14 @@ START_TEST ( test_Event_parent_add )
 
   m->addEvent(e);
 
-  delete e;
-
   ListOf *lo = m->getListOfEvents();
 
   fail_unless(lo == m->getEvent(0)->getParentSBMLObject());
   fail_unless(m == lo->getParentSBMLObject());
 
+  delete e;
   delete t;
+  delete m;
 }
 END_TEST
 
@@ -1085,9 +1085,10 @@ START_TEST ( test_Event_parent_NULL )
   Event *c = m->createEvent();
   EventAssignment *ea = c->createEventAssignment();
   Trigger *t = new Trigger(2, 4);
-  t->setMath(new ASTNode());
+  ASTNode math;
+  t->setMath(&math);
   Delay *dy = new Delay(2, 4);
-  dy->setMath(new ASTNode());
+  dy->setMath(&math);
   c->setTrigger(t);
   c->setDelay(dy);
   
@@ -1428,6 +1429,7 @@ START_TEST ( test_Model_parent_mismatch )
   fail_unless(success == LIBSBML_NAMESPACES_MISMATCH);
 
   delete d;
+  delete m;
 }
 END_TEST
 

@@ -166,7 +166,8 @@ START_TEST (test_Event_setTrigger1)
 
   fail_unless( i == LIBSBML_VERSION_MISMATCH );
   fail_unless( !Event_isSetTrigger(E) );
-
+  
+  Trigger_free(trigger);
 }
 END_TEST
 
@@ -183,7 +184,9 @@ START_TEST (test_Event_setTrigger2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( Event_getTrigger(E) != NULL );
   fail_unless( Event_isSetTrigger(E) );
-
+  
+  ASTNode_free(math1);
+  Trigger_free(trigger);
 }
 END_TEST
 
@@ -205,6 +208,9 @@ START_TEST (test_Event_setDelay1)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS) ;
   fail_unless( !Event_isSetDelay(E) );
+
+  ASTNode_free(math1);
+  Delay_free(Delay);
 }
 END_TEST
 
@@ -225,6 +231,8 @@ START_TEST (test_Event_setDelay2)
   
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
+  ASTNode_free(math1);
+  Delay_free(Delay);
 }
 END_TEST
 

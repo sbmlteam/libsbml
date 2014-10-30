@@ -132,7 +132,8 @@ START_TEST (test_SBMLDocument_setModel)
   fail_unless(mout != m2);
 
   SBMLDocument_free(d);
-  /* m1 is freed by SBMLDocument_setModel(d, m2); */
+  Model_free(m1);
+  Model_free(m2);
 }
 END_TEST
 
@@ -151,6 +152,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion)
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
 }
 END_TEST
 
@@ -170,6 +172,7 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Warning)
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
 }
 END_TEST
 
@@ -200,6 +203,9 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
+  Unit_free(u);
+  UnitDefinition_free(ud);
 }
 END_TEST
 
@@ -216,6 +222,7 @@ START_TEST (test_SBMLDocument_setModel1)
   fail_unless (SBMLDocument_getModel(d) == 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
 }
 END_TEST
 
@@ -233,6 +240,7 @@ START_TEST (test_SBMLDocument_setModel2)
   fail_unless (SBMLDocument_getModel(d) == 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
 }
 END_TEST
 
@@ -249,6 +257,7 @@ START_TEST (test_SBMLDocument_setModel3)
   fail_unless (SBMLDocument_getModel(d) != 0);
 
   SBMLDocument_free(d);
+  Model_free(m1);
 }
 END_TEST
 

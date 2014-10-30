@@ -234,6 +234,8 @@ START_TEST (test_Reaction_addModifier)
   fail_unless( Reaction_getNumReactants(R) == 0 );
   fail_unless( Reaction_getNumProducts (R) == 0 );
   fail_unless( Reaction_getNumModifiers(R) == 1 );
+
+  SpeciesReference_free(msr);
 }
 END_TEST
 

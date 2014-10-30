@@ -559,22 +559,20 @@ KineticLaw::addParameter (const Parameter* p)
     else
     {
       /* hack so this will deal with local parameters */
-      LocalParameter *lp = new LocalParameter(*p);//->getSBMLNamespaces());
+      LocalParameter lp(*p);
 
-      if (!(lp->hasRequiredAttributes()) || !(lp->hasRequiredElements()))
+      if (!(lp.hasRequiredAttributes()) || !(lp.hasRequiredElements()))
       {
         return LIBSBML_INVALID_OBJECT;
       }
-      else if (getLocalParameter(lp->getId()) != NULL)
+      else if (getLocalParameter(lp.getId()) != NULL)
       {
         // an parameter with this id already exists
         return LIBSBML_DUPLICATE_OBJECT_ID;
       }
       else
       {
-
-        mLocalParameters.append(lp);
-
+        mLocalParameters.append(&lp);
         return LIBSBML_OPERATION_SUCCESS;
       }
     }

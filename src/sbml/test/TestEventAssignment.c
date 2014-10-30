@@ -158,6 +158,7 @@ START_TEST (test_EventAssignment_setMath)
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "2 * k") );
+  safe_free(formula);
 
   fail_unless( EventAssignment_getMath(EA) != math);
   fail_unless( EventAssignment_isSetMath(EA) );
@@ -172,6 +173,7 @@ START_TEST (test_EventAssignment_setMath)
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "2 * k") );
   fail_unless( EventAssignment_getMath(EA) != math );
+  safe_free(formula);
 
   EventAssignment_setMath(EA, NULL);
   fail_unless( !EventAssignment_isSetMath(EA) );

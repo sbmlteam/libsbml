@@ -139,21 +139,18 @@ readMathMLFromString (const char *xml)
 
   const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
   const char* xmlstr_c;
-  
+  string xmlwheader;
+
   if (!strncmp(xml, dummy_xml, 14))
   {
     xmlstr_c = xml;
   }
   else
   {
-    std::ostringstream oss;
-    const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-
-    oss << dummy_xml;
-    oss << xml;
-
-
-    xmlstr_c = safe_strdup(oss.str().c_str());
+    xmlwheader = dummy_xml;
+    xmlwheader += xml;
+    
+    xmlstr_c = xmlwheader.c_str();
   }
 
   XMLInputStream stream(xmlstr_c, false);

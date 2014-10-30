@@ -104,6 +104,7 @@ START_TEST (test_Priority_setMath)
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
   fail_unless( Priority_getMath(P) != math );
   fail_unless( Priority_isSetMath(P) );
+  safe_free(formula);
 
   /* Reflexive case (pathological) */
   Priority_setMath(P, (ASTNode_t *) Priority_getMath(P));
@@ -113,6 +114,7 @@ START_TEST (test_Priority_setMath)
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  safe_free(formula);
 
   Priority_setMath(P, NULL);
   fail_unless( !Priority_isSetMath(P) );
@@ -121,6 +123,7 @@ START_TEST (test_Priority_setMath)
   {
     fail("Priority_setMath(P, NULL) did not clear ASTNode.");
   }
+  ASTNode_free(math);
 }
 END_TEST
 

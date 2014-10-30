@@ -169,6 +169,7 @@ START_TEST (test_AssignmentRule_createWithMath)
   fail_unless( AssignmentRule_getMath(ar) != math );
 
   AssignmentRule_free(ar);
+  ASTNode_free(math);
 }
 END_TEST
 

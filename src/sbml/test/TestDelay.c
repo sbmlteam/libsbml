@@ -143,9 +143,11 @@ START_TEST (test_Delay_setMath)
   math1 = Delay_getMath(D);
   fail_unless( math1 != NULL );
 
+  safe_free(formula);
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  safe_free(formula);
 
   Delay_setMath(D, NULL);
   fail_unless( !Delay_isSetMath(D) );
@@ -154,6 +156,7 @@ START_TEST (test_Delay_setMath)
   {
     fail("Delay_setMath(D, NULL) did not clear ASTNode.");
   }
+  ASTNode_free(math);
 }
 END_TEST
 

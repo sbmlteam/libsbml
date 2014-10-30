@@ -328,6 +328,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath1)
   fail_unless( !SpeciesReference_isSetStoichiometryMath(sr)   );
 
   StoichiometryMath_free(sm);
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -351,6 +352,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath2)
   fail_unless( SpeciesReference_isSetStoichiometryMath(sr)   );
 
   StoichiometryMath_free(sm);
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -414,6 +416,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath5)
 
   StoichiometryMath_free(sm);
   SpeciesReference_free(sr1);
+  ASTNode_free(math);
 }
 END_TEST
 

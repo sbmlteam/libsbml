@@ -87,6 +87,7 @@ START_TEST (test_SBMLConvertStrict_convertNonStrictUnits)
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
   SBMLDocument_free(d);
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -270,6 +271,7 @@ START_TEST (test_SBMLConvertStrict_convertL1ParamRule)
   fail_unless (Rule_getUnits(r1) == NULL );
 
   SBMLDocument_free(d);
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -303,8 +305,6 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath1)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
@@ -327,6 +327,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath1)
   safe_free(mathstr);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -361,8 +362,6 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath2)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
@@ -385,6 +384,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath2)
   safe_free(mathstr);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -502,8 +502,6 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath5)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
@@ -519,6 +517,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath5)
   safe_free(mathstr);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -553,8 +552,6 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath6)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
@@ -570,6 +567,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath6)
   safe_free(mathstr);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -874,6 +872,8 @@ START_TEST (test_SBMLConvertStrict_convertFuncDefsToL1)
   fail_unless (!strcmp(Rule_getFormula(ar1), "3 + 2"));
 
   SBMLDocument_free(d);
+  ASTNode_free(math);
+  ASTNode_free(math1);
 }
 END_TEST
 
@@ -960,6 +960,12 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL2)
   fail_unless (Parameter_getValue(Model_getParameter(m1, 5)) == 1);
 
   SBMLDocument_free(d);
+  ASTNode_free(math);
+  ASTNode_free(math1);
+  ASTNode_free(math2);
+  ASTNode_free(math3);
+  ASTNode_free(math4);
+  ASTNode_free(math5);
 }
 END_TEST
 
@@ -997,8 +1003,6 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
   ASTNode_t *math2 = SBML_parseFormula("pow(2,3)");
   InitialAssignment_setMath(ia3, math2);
 
-
-
   fail_unless (Model_getNumInitialAssignments(m) == 3);
 
   fail_unless (Parameter_getValue(Model_getParameter(m, 0)) == 1);
@@ -1020,6 +1024,9 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
   fail_unless (Parameter_getValue(Model_getParameter(m1, 2)) == 8);
 
   SBMLDocument_free(d);
+  ASTNode_free(math);
+  ASTNode_free(math1);
+  ASTNode_free(math2);
 }
 END_TEST
 
@@ -1351,6 +1358,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich1)
   fail_unless(SpeciesReference_getDenominator(sr) == 2);
 
   SBMLDocument_free(d);
+  ASTNode_free(ast);
 }
 END_TEST
 
@@ -1413,6 +1421,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich3)
   fail_unless(SpeciesReference_getDenominator(sr) == 1);
 
   SBMLDocument_free(d);
+  ASTNode_free(ast);
 }
 END_TEST
 
@@ -1479,11 +1488,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath1)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -1518,11 +1526,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath2)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -1631,11 +1638,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath5)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 
@@ -1670,11 +1676,10 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath6)
   ASTNode_free(math);
   Model_addRule(m, rule);
 
-  
-
   fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
 
   SBMLDocument_free(d);
+  Rule_free(rule);
 }
 END_TEST
 

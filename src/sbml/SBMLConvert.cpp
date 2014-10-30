@@ -1642,12 +1642,12 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
       {
         long stoich = static_cast<long>(sr->getStoichiometry());
         int denom = sr->getDenominator();
-        ASTNode *node = new ASTNode();
-        node->setValue(stoich, denom);   
+        ASTNode node;
+        node.setValue(stoich, denom);   
         if (l2 == true)
         {
           StoichiometryMath * sm = sr->createStoichiometryMath();
-          sm->setMath(node);
+          sm->setMath(&node);
         }
         else
         {
@@ -1657,7 +1657,7 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
           sr->setId(id);
           InitialAssignment * ar = m.createInitialAssignment();
           ar->setSymbol(id);
-          ar->setMath(node);
+          ar->setMath(&node);
           sr->unsetStoichiometry();
         }
       }
@@ -1669,12 +1669,12 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
       {
         long stoich = static_cast<long>(sr->getStoichiometry());
         int denom = sr->getDenominator();
-        ASTNode *node = new ASTNode();
-        node->setValue(stoich, denom);   
+        ASTNode node;
+        node.setValue(stoich, denom);   
         if (l2 == true)
         {
           StoichiometryMath * sm = sr->createStoichiometryMath();
-          sm->setMath(node);
+          sm->setMath(&node);
         }
         else
         {
@@ -1684,7 +1684,7 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
           sr->setId(id);
           InitialAssignment * ar = m.createInitialAssignment();
           ar->setSymbol(id);
-          ar->setMath(node);
+          ar->setMath(&node);
           sr->unsetStoichiometry();
         }
       }

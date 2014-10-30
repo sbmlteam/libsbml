@@ -146,6 +146,7 @@ START_TEST ( test_Event )
   fail_unless (e->hasRequiredElements());
 
   delete e;
+  delete t;
 }
 END_TEST
 

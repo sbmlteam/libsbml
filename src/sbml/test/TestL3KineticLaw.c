@@ -148,8 +148,8 @@ START_TEST (test_L3_KineticLaw_addParameter2)
   fail_unless( KineticLaw_getNumParameters(kl) == 2);
   fail_unless( KineticLaw_getNumLocalParameters(kl) == 2);
 
-
   LocalParameter_free(lp);
+  LocalParameter_free(lp1);
   KineticLaw_free(kl);
 }
 END_TEST

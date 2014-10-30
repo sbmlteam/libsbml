@@ -180,6 +180,8 @@ START_TEST (test_Reaction_setFast2)
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( Reaction_getFast(R1) == 0 );
   fail_unless( !Reaction_isSetFast(R1));
+
+  Reaction_free(R1);
 }
 END_TEST
 

@@ -960,7 +960,7 @@ START_TEST ( test_KineticLaw_Parameter_ancestor_create_model )
   fail_unless(obj->getAncestorOfType(SBML_DOCUMENT) == NULL);
   fail_unless(obj->getAncestorOfType(SBML_COMPARTMENT)    == NULL);
 
-  delete r;
+  delete m;
 }
 END_TEST
 

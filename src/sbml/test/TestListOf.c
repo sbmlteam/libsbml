@@ -207,6 +207,7 @@ START_TEST (test_ListOf_append)
   Model_free(m);
   Model_free(m2);
   Species_free((Species_t*)sp);
+  Compartment_free((Compartment_t*)c);
 }
 END_TEST
 

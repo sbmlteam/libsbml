@@ -135,6 +135,7 @@ START_TEST (test_Rule_setMath)
   {
     fail("Rule_setMath(R, NULL) did not clear ASTNode.");
   }
+  ASTNode_free(math);
 }
 END_TEST
 

@@ -132,6 +132,7 @@ START_TEST (test_Rule_setMath1)
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "a * b") );
+  safe_free(formula);
 
   ASTNode_free(math);
 }

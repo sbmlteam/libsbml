@@ -164,10 +164,12 @@ START_TEST (test_InitialAssignment_setMath)
   math1 = InitialAssignment_getMath(IA);
   fail_unless( math1 != NULL );
 
+  safe_free(formula);
   formula = SBML_formulaToString(math1);
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "2 * k") );
   fail_unless( InitialAssignment_getMath(IA) != math );
+  safe_free(formula);
 
   InitialAssignment_setMath(IA, NULL);
   fail_unless( !InitialAssignment_isSetMath(IA) );

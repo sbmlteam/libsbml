@@ -223,6 +223,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
   {
     SBMLErrorLog *log = (const_cast<SBMLDocument *>(d))->getErrorLog();
     log->logError(XMLFileUnwritable);
+    delete stream;
     return false;
   }
 

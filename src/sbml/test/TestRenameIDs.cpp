@@ -234,6 +234,7 @@ START_TEST (test_RenameIDs)
   fail_unless(mod->getExtentUnits() == "coulomb_new");
 
   delete d;
+  delete allelements;
 }
 END_TEST
 

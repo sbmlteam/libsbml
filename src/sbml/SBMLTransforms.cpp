@@ -131,26 +131,28 @@ SBMLTransforms::recurseReplaceFD(ASTNode * node, const FunctionDefinition *fd, c
 void
 SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
 {
-  ASTNode * fdMath = NULL;
+  if (node==NULL) return;
+  if (fd==NULL) return;
+
+  ASTNode fdMath(AST_UNKNOWN);
   unsigned int noBvars;
 
-  if (fd != NULL && fd->isSetMath())
-    {
-      noBvars = fd->getMath()->getNumBvars();
-      fdMath = fd->getMath()->getRightChild()->deepCopy();
+  if (fd->isSetMath() && fd->getMath()->getRightChild() != NULL)
+  {
+    noBvars = fd->getMath()->getNumBvars();
+    fdMath = *fd->getMath()->getRightChild();
 
-      for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    for (unsigned int i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    {
+      if (nodeCount < node->getNumChildren())
       {
-        if (nodeCount < node->getNumChildren())
-        {
-          fdMath->replaceArgument(fd->getArgument(i)->getName(), 
-                                            node->getChild(nodeCount));
-        }
+        fdMath.replaceArgument(fd->getArgument(i)->getName(), 
+          node->getChild(nodeCount));
       }
     }
+    (*node) = fdMath;
+  }
 
-  if (node !=NULL && fdMath != NULL)
-    (*node) = *fdMath;
 }
 
 
