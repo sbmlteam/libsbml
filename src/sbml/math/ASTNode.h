@@ -369,7 +369,7 @@ public:
 
 
   /**
-   * Replaces the nth child of this ASTNode with the given ASTNode.
+   * Replaces and deletes the nth child of this ASTNode with the given ASTNode.
    *
    * @param n unsigned int the index of the child to replace
    * @param newChild ASTNode to replace the nth child
@@ -2229,7 +2229,7 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n);
 
 
 /**
- * Replaces the nth child of a given node.
+ * Replaces and deletes the nth child of a given node.
  *
  * @param node the ASTNode_t node to modify
  * @param n unsigned int the index of the child to replace
