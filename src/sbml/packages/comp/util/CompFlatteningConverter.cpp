@@ -67,6 +67,7 @@ void CompFlatteningConverter::init()
 
 CompFlatteningConverter::CompFlatteningConverter() 
   : SBMLConverter("SBML Comp Flattening Converter")
+  , mPkgsToStrip (NULL)
 {
   mDisabledPackages.clear();
 }
@@ -76,6 +77,7 @@ CompFlatteningConverter::CompFlatteningConverter
                          (const CompFlatteningConverter& orig) :
 SBMLConverter(orig)
   , mDisabledPackages(orig.mDisabledPackages)
+  , mPkgsToStrip (orig.mPkgsToStrip)
 {
 }
 
@@ -91,6 +93,11 @@ CompFlatteningConverter::clone() const
  */
 CompFlatteningConverter::~CompFlatteningConverter ()
 {
+  if (mPkgsToStrip != NULL)
+  {
+    mPkgsToStrip->clear();
+    delete mPkgsToStrip;
+  }
 }
 
 
@@ -1071,13 +1078,12 @@ int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
 int
 CompFlatteningConverter::stripPackages()
 {
-  IdList *pkgsToStrip = new IdList(getPackagesToStrip());
+  mPkgsToStrip = new IdList(getPackagesToStrip());
 
-  unsigned int num = pkgsToStrip->size();
+  unsigned int num = mPkgsToStrip->size();
 
   if (num == 0)
   {
-    delete pkgsToStrip;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -1090,7 +1096,7 @@ CompFlatteningConverter::stripPackages()
     {
       continue;
     }
-    else if (pkgsToStrip->contains(package) == true)
+    else if (mPkgsToStrip->contains(package) == true)
     {
       mDocument->enablePackage(nsURI, package, false);
       mDisabledPackages.insert(make_pair(nsURI, package));
@@ -1100,14 +1106,14 @@ CompFlatteningConverter::stripPackages()
   unsigned int count = 0;
   for (unsigned int i = 0; i < num; i++)
   {
-    if (mDocument->isPackageEnabled(pkgsToStrip->at(i)) == false)
+    if (mDocument->isPackageEnabled(mPkgsToStrip->at(i)) == false)
     {
       count++;
     }
   }
 
   // setup callback that will disable the packages on submodels
-  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, pkgsToStrip);
+  Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, mPkgsToStrip);
 
   if (num == count)
   {

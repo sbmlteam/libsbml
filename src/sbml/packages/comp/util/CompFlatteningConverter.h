@@ -567,6 +567,7 @@ private:
 #endif
 
   PackageValueMap mPackageValues;
+  IdList * mPkgsToStrip;
 
   void analyseDocument();
 
