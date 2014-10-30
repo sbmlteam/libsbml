@@ -488,7 +488,7 @@ InteriorPoint::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
+  //bool assigned = false;
 
   //
   // coord1 double   ( use = "required" )

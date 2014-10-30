@@ -120,7 +120,7 @@ SpatialReactionPlugin::createObject (XMLInputStream& stream)
 {
   SBase* object = NULL; 
 
-  const std::string&      name   = stream.peek().getName(); 
+  //const std::string&      name   = stream.peek().getName();
   const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
   const std::string&      prefix = stream.peek().getPrefix(); 
 
@@ -218,7 +218,7 @@ SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
+  //bool assigned = false;
 
   //
   // isLocal bool   ( use = "required" )
@@ -281,7 +281,7 @@ List*
 SpatialReactionPlugin::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
-  List* sublist = NULL;
+  //List* sublist = NULL;
 
 
   return ret;

@@ -120,7 +120,7 @@ SpatialSpeciesPlugin::createObject (XMLInputStream& stream)
 {
   SBase* object = NULL; 
 
-  const std::string&      name   = stream.peek().getName(); 
+  //const std::string&      name   = stream.peek().getName();
   const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
   const std::string&      prefix = stream.peek().getPrefix(); 
 
@@ -218,7 +218,7 @@ SpatialSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
+  //bool assigned = false;
 
   //
   // isSpatial bool   ( use = "optional" )
@@ -275,7 +275,7 @@ List*
 SpatialSpeciesPlugin::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
-  List* sublist = NULL;
+  //List* sublist = NULL;
 
 
   return ret;

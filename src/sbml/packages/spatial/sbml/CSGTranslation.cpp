@@ -478,7 +478,7 @@ CSGTranslation::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
+  //bool assigned = false;
 
   //
   // translateX double   ( use = "required" )

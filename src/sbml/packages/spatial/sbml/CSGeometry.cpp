@@ -541,7 +541,7 @@ CSGeometry::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  bool assigned = false;
+  //bool assigned = false;
 
 }
 

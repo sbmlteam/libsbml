@@ -470,6 +470,9 @@ class SpatialValidatingVisitor: public SBMLVisitor
 public:
 
   SpatialValidatingVisitor (SpatialValidator& v, const Model& m) : v(v), m(m) { }
+
+  using SBMLVisitor::visit;
+
   bool visit (const DomainType &x)
   {
     v.mSpatialConstraints->mDomainType.applyTo(m, x);
