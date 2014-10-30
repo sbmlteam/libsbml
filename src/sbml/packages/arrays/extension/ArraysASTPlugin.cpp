@@ -272,7 +272,7 @@ ArraysASTPlugin::readVector(XMLInputStream& stream, const std::string& reqd_pref
   
   stream.skipText();
   const XMLToken nextElement = stream.peek();
-  const string&  nextName = nextElement.getName();
+  //const string&  nextName = nextElement.getName();
   
   unsigned int numChildren = determineNumChildren(stream, "vector");
     
@@ -1076,8 +1076,8 @@ ArraysASTPlugin::isPackageInfixFunction() const
     return false;
   }
 
-  unsigned int numChildren = newAST->getNumChildren();
-  unsigned int child = 0;
+  //unsigned int numChildren = newAST->getNumChildren();
+  //unsigned int child = 0;
   const ArraysASTPlugin* aap = static_cast<const ArraysASTPlugin*>(newAST->getPlugin("arrays"));
   switch(aap->getASTType()) {
   case AST_LINEAR_ALGEBRA_SELECTOR:
@@ -1308,8 +1308,8 @@ int ArraysASTPlugin::checkNumArguments(const ASTNode* function, std::stringstrea
   if (function->getPackageName() != "arrays") return 0;
   const ArraysASTPlugin* aap = static_cast<const ArraysASTPlugin*>(function->getPlugin("arrays"));
   string product = "";
-  unsigned int c=0;
-  unsigned int firstrow=0;
+  //unsigned int c=0;
+  //unsigned int firstrow=0;
 
   switch(aap->getASTType()) {
   case AST_LINEAR_ALGEBRA_SELECTOR:

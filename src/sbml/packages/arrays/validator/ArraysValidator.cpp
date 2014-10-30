@@ -228,6 +228,9 @@ class ArraysValidatingVisitor: public SBMLVisitor
 public:
 
   ArraysValidatingVisitor (ArraysValidator& v, const Model& m) : v(v), m(m) { }
+
+  using SBMLVisitor::visit;
+
   bool visit (const Dimension &x)
   {
     v.mArraysConstraints->mDimension.applyTo(m, x);
