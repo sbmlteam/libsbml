@@ -248,7 +248,7 @@ ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild)
   unsigned int size = ASTFunctionBase::getNumChildren();
   if (n < size)
   {
-    //delete mChildren[n];
+    delete mChildren[n];
     mChildren.erase(mChildren.begin() + n);
     if (ASTFunctionBase::insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
     {

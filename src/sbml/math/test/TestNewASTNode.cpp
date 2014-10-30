@@ -4195,13 +4195,16 @@ START_TEST (test_ASTNode_replaceChild)
   ASTNode *c1 = new ASTNode();
   ASTNode *c2 = new ASTNode();
   ASTNode *c3 = new ASTNode();
-  ASTNode *newc = new ASTNode();
+  ASTNode *c4 = new ASTNode();
+  ASTNode *c5 = new ASTNode();
   int i = 0;
 
   node->setType(AST_LOGICAL_AND);
   c1->setName("a");
   c2->setName("b");
   c3->setName("c");
+  c4->setName("d");
+  c5->setName("e");
   node->addChild(c1);
   node->addChild(c2);
   node->addChild(c3);
@@ -4211,27 +4214,25 @@ START_TEST (test_ASTNode_replaceChild)
   fail_unless( !strcmp(node->getChild(1)->getName(), "b"));
 //  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
 
-  newc->setName("d");
-
-  i = node->replaceChild(0, newc);
+  i = node->replaceChild(0, c4);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( node->getNumChildren() == 3); 
   fail_unless( !strcmp(node->getChild(0)->getName(), "d"));
 //  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
-  i = node->replaceChild(3, newc);
+  i = node->replaceChild(3, c4);
 
   fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( node->getNumChildren() == 3); 
  // fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
-  i = node->replaceChild(1, c1);
+  i = node->replaceChild(1, c5);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( node->getNumChildren() == 3); 
-  fail_unless( !strcmp(node->getChild(1)->getName(), "a"));
-//  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, a, c)"));
+  fail_unless( !strcmp(node->getChild(1)->getName(), "e"));
+//  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, e, c)"));
 
   delete node;
 }
@@ -6832,8 +6833,8 @@ END_TEST
 Suite *
 create_suite_NewASTNode (void) 
 { 
-  Suite *suite = suite_create("ASTNode");
-  TCase *tcase = tcase_create("ASTNode");
+  Suite *suite = suite_create("NewASTNode");
+  TCase *tcase = tcase_create("NewASTNode");
 
 
   tcase_add_test( tcase, test_ASTNode_replace                  );

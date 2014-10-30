@@ -2174,8 +2174,11 @@ START_CONSTRAINT (99129, AssignmentRule, ar)
     }
 
     inv (fail == false);
+    Token_free(t);
     t = FormulaTokenizer_nextToken(ft);
   }
+  FormulaTokenizer_free(ft);
+  Token_free(t);
 }
 END_CONSTRAINT
 

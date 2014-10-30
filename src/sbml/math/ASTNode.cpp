@@ -3023,7 +3023,6 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
         child->getName() == id) 
     {
       replaceChild(i, function->deepCopy());
-      delete child;
     }
     else 
     {
