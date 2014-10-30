@@ -172,7 +172,7 @@ DistribInput::getName() const
 /*
  * Returns the value of the "index" attribute of this DistribInput.
  */
-const unsigned int
+unsigned int
 DistribInput::getIndex() const
 {
   return mIndex;

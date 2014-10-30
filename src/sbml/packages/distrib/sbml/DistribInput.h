@@ -142,7 +142,7 @@ public:
    *
    * @return the value of the "index" attribute of this DistribInput as a unsigned integer.
    */
-  virtual const unsigned int getIndex() const;
+  virtual unsigned int getIndex() const;
 
 
   /**
