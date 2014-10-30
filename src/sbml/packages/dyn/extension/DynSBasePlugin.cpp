@@ -117,7 +117,7 @@ DynSBasePlugin::createObject (XMLInputStream& stream)
 {
   SBase* object = NULL; 
 
-  const std::string&      name   = stream.peek().getName(); 
+  //const std::string&      name   = stream.peek().getName();
   const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
   const std::string&      prefix = stream.peek().getPrefix(); 
 
@@ -267,7 +267,7 @@ List*
 DynSBasePlugin::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
-  List* sublist = NULL;
+  //List* sublist = NULL;
 
 
   return ret;

@@ -225,6 +225,9 @@ class DynValidatingVisitor: public SBMLVisitor
 public:
 
   DynValidatingVisitor (DynValidator& v, const Model& m) : v(v), m(m) { }
+
+  using SBMLVisitor::visit;
+
   bool visit (const DynElement &x)
   {
     v.mDynConstraints->mDynElement.applyTo(m, x);
