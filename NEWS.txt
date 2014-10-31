@@ -14,6 +14,9 @@ STABLE RELEASE
     and depends on node-gyp.  Feedback on this would be greatly
     appreciated.
 	
+  - We have made a source package for the libSBML R interface
+    available for Linux and OSX users.    
+
   - The facility of using the data members of objects as attributes
     in python has been extended to work with Python version 3.
     
@@ -30,6 +33,8 @@ STABLE RELEASE
     
   - Support for the MIRIAM qualifiers hasTaxon, isInstanceOf and 
     hasInstance has been added.
+    
+  - More information has been added to error messages.
   
   - 'comp' package-specific updates:
   
@@ -41,10 +46,7 @@ STABLE RELEASE
       when it comes to specifying users options on models declared
       as ExternalModelDefinitions.
       
-  - 'fbc' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
-  
+ 
 * Bug fixes
 
   - There was an issue with using the libsbml namespace and the
@@ -86,9 +88,6 @@ STABLE RELEASE
       had been used on a Port object and indeed this situation caused
       validation to crash in some cases.  This has now been sorted.
       
-  - 'fbc' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
@@ -109,7 +108,7 @@ STABLE RELEASE
 
   - Sourceforge libsbml Tracker #372: Documentation has been corrected. 
     Thanks to Gerard Weatherby for reporting the issues.
-
+    
 
 EXPERIMENTAL RELEASE
 
@@ -120,18 +119,11 @@ EXPERIMENTAL RELEASE
   October 1 2014.
   
 
-  - 'arrays' package-specific updates:
-
   - 'distrib' package-specific updates:
 
     - The UncertMLNode now uses a std::vector to save child members
       rather than the List class.
       
-  - 'groups' package-specific updates:
-  - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-
   - 'spatial' package-specific updates:
   
     - The spatial code has been updated in line with the specification
@@ -139,7 +131,6 @@ EXPERIMENTAL RELEASE
 
  * Bug fixes
  
-  - 'arrays' package-specific bug fixes:
   - 'distrib' package-specific bug fixes:
   
     - A number of memory leaks have been plugged. 
@@ -151,9 +142,6 @@ EXPERIMENTAL RELEASE
       with the values used by the comp enumeration.  The ones in
       the groups package have been changed.
       
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  
   - 'req' package-specific bug fixes:
 
     - Sourceforge libsbml Tracker #373: The code was not keeping
@@ -161,8 +149,7 @@ EXPERIMENTAL RELEASE
       lead to incorrect namespaces being used.  This is now sorted.
       Thanks to Gerard Weatherby for reporting it.
 
-  - 'spatial' package-specific bug fixes:
-		   
+	   
 ====================================================================
 5.10.2 (2014-07-17)
 ====================================================================
