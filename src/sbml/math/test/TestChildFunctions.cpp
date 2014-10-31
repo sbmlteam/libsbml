@@ -139,9 +139,6 @@ START_TEST (test_ChildFunctions_addToPiecewise_1)
   ASTNode * newChild = new ASTNode(AST_NAME);
   newChild->setName("newChild");
   
-  ASTNode * newChild1 = new ASTNode(AST_NAME);
-  newChild1->setName("newChild1");
-
   int i = N->addChild(newChild);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
@@ -1608,17 +1605,17 @@ START_TEST (test_ChildFunctions_replace)
   fail_unless(N->getNumChildren() == 2);
 
   /* check we fail nicely if we try to access more children */
-  int i = N->replaceChild(3, newChild);
+  int i = N->replaceChild(3, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 2);
 
-  i = N->replaceChild(2, newChild);
+  i = N->replaceChild(2, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 2);
 
-  i = N->replaceChild(1, newChild);
+  i = N->replaceChild(1, newChild, true);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 2);
@@ -1666,17 +1663,17 @@ START_TEST (test_ChildFunctions_replaceInPiecewise_1)
   newChild->setName("newChild");
 
   /* check we fail nicely if we try to access more children */
-  int i = N->replaceChild(3, newChild);
+  int i = N->replaceChild(3, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 2);
 
-  i = N->replaceChild(2, newChild);
+  i = N->replaceChild(2, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 2);
 
-  i = N->replaceChild(0, newChild);
+  i = N->replaceChild(0, newChild, true);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 2);
@@ -1733,17 +1730,17 @@ START_TEST (test_ChildFunctions_replaceInPiecewise_2)
   newChild->setName("newChild");
 
   /* check we fail nicely if we try to access more children */
-  int i = N->replaceChild(4, newChild);
+  int i = N->replaceChild(4, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 3);
 
-  i = N->replaceChild(3, newChild);
+  i = N->replaceChild(3, newChild, true);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless(N->getNumChildren() == 3);
 
-  i = N->replaceChild(2, newChild);
+  i = N->replaceChild(2, newChild, true);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
@@ -1798,7 +1795,7 @@ START_TEST (test_ChildFunctions_replaceInPiecewise_3)
 
   ASTNode * newChild = SBML_parseFormula("a + b");
 
-  int i = N->replaceChild(1, newChild);
+  int i = N->replaceChild(1, newChild, true);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
@@ -1876,7 +1873,7 @@ START_TEST (test_ChildFunctions_replaceInPiecewise_4)
 
   ASTNode * newChild = SBML_parseFormula("3");
 
-  int i = N->replaceChild(4, newChild);
+  int i = N->replaceChild(4, newChild, true);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
 
@@ -1922,13 +1919,17 @@ START_TEST (test_ChildFunctions_insert)
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
-  fail_unless(strcmp(SBML_formulaToString(N), "c1 * c2 * newChild") == 0);
+  char* math = SBML_formulaToString(N);
+  fail_unless(strcmp(math, "c1 * c2 * newChild") == 0);
+  safe_free(math);
 
   i = N->insertChild(1, newChild1);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 4);
-  fail_unless(strcmp(SBML_formulaToString(N), "c1 * newChild1 * c2 * newChild") == 0);
+  math = SBML_formulaToString(N);
+  fail_unless(strcmp(math, "c1 * newChild1 * c2 * newChild") == 0);
+  safe_free(math);
 
   ASTNode *child = N->getChild(1);
 

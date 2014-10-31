@@ -277,7 +277,7 @@ ASTCSymbol::removeChild(unsigned int n)
 
 
 int 
-ASTCSymbol::replaceChild(unsigned int n, ASTBase* newChild)
+ASTCSymbol::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 {
   if (newChild == NULL)
   {
@@ -286,7 +286,7 @@ ASTCSymbol::replaceChild(unsigned int n, ASTBase* newChild)
 
   if (mDelay != NULL)
   {
-    return mDelay->replaceChild(n, newChild);
+    return mDelay->replaceChild(n, newChild, delreplaced);
   }
   else
   {

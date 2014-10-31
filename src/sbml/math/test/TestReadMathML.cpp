@@ -2034,7 +2034,7 @@ START_TEST (test_element_child_func)
   ASTNode * c1 = new ASTNode(AST_NAME);
   c1->setName("y");
 
-  child->replaceChild(0, c1);
+  child->replaceChild(0, c1, true);
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cos(pow(y, 2))") );
@@ -2068,7 +2068,7 @@ START_TEST (test_element_child_func1)
   ASTNode * c1 = new ASTNode(AST_NAME);
   c1->setName("y");
 
-  child->replaceChild(0, c1);
+  child->replaceChild(0, c1, true);
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cos(pow(y, 2))") );

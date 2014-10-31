@@ -239,7 +239,7 @@ ASTFunctionBase::prependChild(ASTBase* child)
 
 
 int
-ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild)
+ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 {
   if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
 
@@ -248,7 +248,9 @@ ASTFunctionBase::replaceChild(unsigned int n, ASTBase* newChild)
   unsigned int size = ASTFunctionBase::getNumChildren();
   if (n < size)
   {
-    delete mChildren[n];
+    if (delreplaced) {
+      delete mChildren[n];
+    }
     mChildren.erase(mChildren.begin() + n);
     if (ASTFunctionBase::insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
     {

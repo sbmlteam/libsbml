@@ -113,7 +113,7 @@ public:
 
   virtual int prependChild(ASTBase* child);
 
-  virtual int replaceChild(unsigned int n, ASTBase* newChild);
+  virtual int replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced);
 
   virtual int insertChild(unsigned int n, ASTBase* newChild);
 

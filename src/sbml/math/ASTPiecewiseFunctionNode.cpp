@@ -232,6 +232,8 @@ ASTPiecewiseFunctionNode::addChild(ASTBase* child, bool inRead)
           }
           else
           {
+            otherwise->removeChild(0);
+            delete otherwise;
             if (piece->addChild((ASTNode*)(child)) == LIBSBML_OPERATION_SUCCESS)
             {
               this->removeChild(currentNum-1);
@@ -508,7 +510,7 @@ ASTPiecewiseFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
 
 
 int 
-ASTPiecewiseFunctionNode::replaceChild(unsigned int n, ASTBase* newChild)
+ASTPiecewiseFunctionNode::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 {
   int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
   
@@ -574,7 +576,7 @@ ASTPiecewiseFunctionNode::insertChildForReplace(unsigned int n, ASTBase* newChil
       if (otherwise != NULL)
       {
         inserted = otherwise->replaceChild(0, 
-                                            static_cast<ASTNode*>(newChild));
+                                            static_cast<ASTNode*>(newChild), true);
       }
       else
       {
@@ -583,7 +585,7 @@ ASTPiecewiseFunctionNode::insertChildForReplace(unsigned int n, ASTBase* newChil
     }
     else
     {
-      inserted = ASTFunctionBase::replaceChild(childNo, newChild);
+      inserted = ASTFunctionBase::replaceChild(childNo, newChild, true);
     }
   }
   else if (base != NULL && base->getType() == AST_CONSTRUCTOR_PIECE)
@@ -594,7 +596,7 @@ ASTPiecewiseFunctionNode::insertChildForReplace(unsigned int n, ASTBase* newChil
     {
       if (piece->getNumChildren() > pieceIndex)
       {
-        inserted = piece->replaceChild(pieceIndex, static_cast<ASTNode*>(newChild));
+        inserted = piece->replaceChild(pieceIndex, static_cast<ASTNode*>(newChild), true);
       }
       else
       {
@@ -608,7 +610,7 @@ ASTPiecewiseFunctionNode::insertChildForReplace(unsigned int n, ASTBase* newChil
   }
   else if (n < numChildren)
   {
-    return ASTFunctionBase::replaceChild(n, newChild);
+    return ASTFunctionBase::replaceChild(n, newChild, true);
   }
   else
   {

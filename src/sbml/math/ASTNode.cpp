@@ -604,11 +604,9 @@ ASTNode::getDefinitionURL() const
 }
 
 
-const std::string& 
+std::string 
 ASTNode::getDefinitionURLString() const
 {
-  static std::string emptyString = "";
-  
   if (mNumber != NULL)
   {
     return mNumber->getDefinitionURL();
@@ -619,7 +617,7 @@ ASTNode::getDefinitionURLString() const
   }
   else
   {
-    return emptyString;
+    return "";
   }
 }
 
@@ -2610,7 +2608,7 @@ ASTNode::prependChild(ASTNode* child)
 
 
 int
-ASTNode::replaceChild(unsigned int n, ASTNode* newChild)
+ASTNode::replaceChild(unsigned int n, ASTNode* newChild, bool delreplaced)
 {
   int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
   
@@ -2623,7 +2621,7 @@ ASTNode::replaceChild(unsigned int n, ASTNode* newChild)
     unsigned int size = mFunction->getNumChildren();
     if (n < size)
     {
-      replaced = mFunction->replaceChild(n, newChild);
+      replaced = mFunction->replaceChild(n, newChild, delreplaced);
     }
   }
 
@@ -2937,7 +2935,7 @@ ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
               syncMembersAndTypeFrom(arg->getFunction(), arg->getType());
           }
 
-          this->replaceChild(i, newChild->deepCopy());
+          this->replaceChild(i, newChild->deepCopy(), true);
 
           delete newChild;
         }
@@ -3022,7 +3020,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     if (child->getType() == AST_NAME &&
         child->getName() == id) 
     {
-      replaceChild(i, function->deepCopy());
+      replaceChild(i, function->deepCopy(), true);
     }
     else 
     {
@@ -4404,7 +4402,16 @@ int
 ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
 {
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
-  return node->replaceChild(n, newChild);
+  return node->replaceChild(n, newChild, false);
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->replaceChild(n, newChild, true);
 }
 
 

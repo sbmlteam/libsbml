@@ -4214,20 +4214,20 @@ START_TEST (test_ASTNode_replaceChild)
   fail_unless( !strcmp(node->getChild(1)->getName(), "b"));
 //  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
 
-  i = node->replaceChild(0, c4);
+  i = node->replaceChild(0, c4, true);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( node->getNumChildren() == 3); 
   fail_unless( !strcmp(node->getChild(0)->getName(), "d"));
 //  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
-  i = node->replaceChild(3, c4);
+  i = node->replaceChild(3, c4, true);
 
   fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( node->getNumChildren() == 3); 
  // fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
 
-  i = node->replaceChild(1, c5);
+  i = node->replaceChild(1, c5, true);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( node->getNumChildren() == 3); 
@@ -6574,7 +6574,7 @@ START_TEST (test_ASTNode_csymbol_1)
   fail_unless( n->getNumChildren() == 2);
   fail_unless( strcmp(n->getChild(0)->getName(), "c3") == 0);
 
-  i = n->replaceChild(0, c1);
+  i = n->replaceChild(0, c1, true);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( n->getNumChildren() == 2);
@@ -6631,7 +6631,7 @@ START_TEST (test_ASTNode_csymbol_2)
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless( n->getNumChildren() == 0);
 
-  i = n->replaceChild(0, c1);
+  i = n->replaceChild(0, c1, true);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless( n->getNumChildren() == 0);
@@ -6686,7 +6686,7 @@ START_TEST (test_ASTNode_csymbol_3)
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless( n->getNumChildren() == 0);
 
-  i = n->replaceChild(0, c1);
+  i = n->replaceChild(0, c1, true);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless( n->getNumChildren() == 0);

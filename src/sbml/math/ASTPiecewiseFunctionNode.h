@@ -98,7 +98,7 @@ public:
 
   virtual int insertChild(unsigned int n, ASTBase* newChild);
 
-  virtual int replaceChild(unsigned int n, ASTBase* newChild);
+  virtual int replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced);
 
   virtual void write(XMLOutputStream& stream) const;
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");

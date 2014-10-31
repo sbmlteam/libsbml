@@ -453,10 +453,11 @@ public:
 
 
   /**
-   * Replaces the nth child of this ASTNode with the given ASTNode.
+   * Replaces and optionally deletes the nth child of this ASTNode with the given ASTNode.
    *
    * @param n unsigned int the index of the child to replace
    * @param newChild ASTNode to replace the nth child
+   * @param delreplaced boolean indicating whether to delete the replaced child.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -472,7 +473,7 @@ public:
    * @see removeChild(unsigned int n)
    */
   LIBSBML_EXTERN
-  int replaceChild(unsigned int n, ASTNode *newChild);
+  int replaceChild(unsigned int n, ASTNode *newChild, bool delreplaced=false);
 
 
   /**
@@ -1825,7 +1826,7 @@ setValue(value, 0);
    * @see setDefinitionURL(XMLAttributes url)
    */
   LIBSBML_EXTERN
-  const std::string& getDefinitionURLString() const;
+  std::string getDefinitionURLString() const;
 
 
   /** @cond doxygenLibsbmlInternal */
@@ -2169,12 +2170,41 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n);
  * @see ASTNode_prependChild()
  * @see ASTNode_insertChild()
  * @see ASTNode_removeChild()
+ * @see ASTNode_replaceAndDeleteChild()
  *
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
 int
 ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+
+
+/**
+ * Replaces and deletes the nth child of a given node.
+ *
+ * @param node the ASTNode_t node to modify
+ * @param n unsigned int the index of the child to replace
+ * @param newChild ASTNode_t structure to replace the nth child
+ *
+ * @return integer value indicating success/failure of the
+ * function.  The possible values returned by this function are:
+ * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ *
+ * @copydetails doc_warning_modifying_structure
+ *
+ * @see ASTNode_addChild()
+ * @see ASTNode_prependChild()
+ * @see ASTNode_insertChild()
+ * @see ASTNode_removeChild()
+ * @see ASTNode_replaceChild()
+ *
+ * @memberof ASTNode_t
+ */
+LIBSBML_EXTERN
+int
+ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
 
 
 /**

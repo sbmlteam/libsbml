@@ -943,7 +943,8 @@ START_TEST (test_SBML_parseL3Formula_modulo)
   ASTNode_t *r = SBML_parseL3Formula("x % y");
   fail_unless(r != NULL);
   //Instead of trying to go through everything individually, we'll just test the round-tripping:
-  fail_unless( !strcmp(SBML_formulaToString(r), "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
+  char* math = SBML_formulaToString(r);
+  fail_unless( !strcmp(math, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
   ASTNode_free(r);
 }
 END_TEST

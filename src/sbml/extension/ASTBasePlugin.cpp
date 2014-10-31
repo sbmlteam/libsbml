@@ -276,7 +276,7 @@ ASTBasePlugin::removeChild(unsigned int n)
 
 
 int 
-ASTBasePlugin::replaceChild(unsigned int n, ASTBase* newChild)
+ASTBasePlugin::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }

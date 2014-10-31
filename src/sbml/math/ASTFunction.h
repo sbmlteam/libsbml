@@ -176,7 +176,7 @@ public:
 
   int removeChild(unsigned int n);
 
-  int replaceChild(unsigned int n, ASTBase* newChild);
+  int replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced);
 
   int swapChildren(ASTFunction* that);
 

@@ -93,7 +93,9 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (fd_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd_math->getNumChildren() == 1, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(fd_math), "lambda()"), NULL);
+  char* math = SBML_formulaToString(fd_math);
+  fail_unless (!strcmp(math, "lambda()"), NULL);
+  safe_free(math);
   //fail_unless (fd_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( fd_math->containsVariable("c") == false );
   //fail_unless( fd_math->containsVariable("x") == false );
@@ -102,7 +104,9 @@ START_TEST (test_read_MathML_2)
   ASTNode *child = fd_math->getChild(0);
   fail_unless (child->getType() == AST_UNKNOWN, NULL);
   fail_unless (child->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child), ""), NULL);
+  math = SBML_formulaToString(child);
+  fail_unless (!strcmp(math, ""), NULL);
+  safe_free(math);
   //fail_unless( child->containsVariable("c") == false );
   //fail_unless( child->containsVariable("x") == false );
   //fail_unless( child->containsVariable("p") == false );
@@ -131,8 +135,10 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (fd1_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd1_math->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(fd1_math), 
+  math = SBML_formulaToString(fd1_math);
+  fail_unless (!strcmp(math, 
                           "lambda(x, piecewise(p, leq(x, 4)))"), NULL);
+  safe_free(math);
   //fail_unless (fd1_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( fd1_math->containsVariable("c") == false );
   //fail_unless( fd1_math->containsVariable("x") == true );
@@ -141,8 +147,9 @@ START_TEST (test_read_MathML_2)
   ASTNode *child1 = fd1_math->getRightChild();
   fail_unless (child1->getType() == AST_FUNCTION_PIECEWISE, NULL);
   fail_unless (child1->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child1), 
-                                    "piecewise(p, leq(x, 4))"), NULL);
+  math = SBML_formulaToString(child1);
+  fail_unless (!strcmp(math, "piecewise(p, leq(x, 4))"), NULL);
+  safe_free(math);
   //fail_unless( child1->containsVariable("c") == false );
   //fail_unless( child1->containsVariable("x") == true );
   //fail_unless( child1->containsVariable("p") == true );
@@ -150,7 +157,9 @@ START_TEST (test_read_MathML_2)
   ASTNode *c1 = child1->getChild(0);
   fail_unless (c1->getType() == AST_NAME, NULL);
   fail_unless (c1->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(c1), "p"), NULL);
+  math = SBML_formulaToString(c1);
+  fail_unless (!strcmp(math, "p"), NULL);
+  safe_free(math);
   //fail_unless( c1->containsVariable("c") == false );
   //fail_unless( c1->containsVariable("x") == false );
   //fail_unless( c1->containsVariable("p") == true );
@@ -158,7 +167,9 @@ START_TEST (test_read_MathML_2)
   ASTNode *c2 = child1->getChild(1);
   fail_unless (c2->getType() == AST_RELATIONAL_LEQ, NULL);
   fail_unless (c2->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(c2), "leq(x, 4)"), NULL);
+  math = SBML_formulaToString(c2);
+  fail_unless (!strcmp(math, "leq(x, 4)"), NULL);
+  safe_free(math);
   //fail_unless( c2->containsVariable("c") == false );
   //fail_unless( c2->containsVariable("x") == true );
   //fail_unless( c2->containsVariable("p") == false );
@@ -184,8 +195,10 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (ia_math->getType() == AST_FUNCTION_PIECEWISE, NULL);
   fail_unless (ia_math->getNumChildren() == 4, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(ia_math), 
+  math = SBML_formulaToString(ia_math);
+  fail_unless (!strcmp(math, 
                     "piecewise(-x, lt(x, 0), 0, eq(x, 0))"), NULL);
+  safe_free(math);
   //fail_unless (ia_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( ia_math->containsVariable("c") == false );
   //fail_unless( ia_math->containsVariable("x") == true );
@@ -198,28 +211,36 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (child1->getType() == AST_MINUS, NULL);
   fail_unless (child1->getNumChildren() == 1, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child1), "-x"), NULL);
+  math = SBML_formulaToString(child1);
+  fail_unless (!strcmp(math, "-x"), NULL);
+  safe_free(math);
   //fail_unless( child1->containsVariable("c") == false );
   //fail_unless( child1->containsVariable("x") == true );
   //fail_unless( child1->containsVariable("p") == false );
 
   fail_unless (child2->getType() == AST_RELATIONAL_LT, NULL);
   fail_unless (child2->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child2), "lt(x, 0)"), NULL);
+  math = SBML_formulaToString(child2);
+  fail_unless (!strcmp(math, "lt(x, 0)"), NULL);
+  safe_free(math);
   //fail_unless( child2->containsVariable("c") == false );
   //fail_unless( child2->containsVariable("x") == true );
   //fail_unless( child2->containsVariable("p") == false );
 
   fail_unless (child3->getType() == AST_REAL, NULL);
   fail_unless (child3->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child3), "0"), NULL);
+  math = SBML_formulaToString(child3);
+  fail_unless (!strcmp(math, "0"), NULL);
+  safe_free(math);
   //fail_unless( child3->containsVariable("c") == false );
   //fail_unless( child3->containsVariable("x") == false );
   //fail_unless( child3->containsVariable("p") == false );
 
   fail_unless (child4->getType() == AST_RELATIONAL_EQ, NULL);
   fail_unless (child4->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child4), "eq(x, 0)"), NULL);
+  math = SBML_formulaToString(child4);
+  fail_unless (!strcmp(math, "eq(x, 0)"), NULL);
+  safe_free(math);
   //fail_unless( child4->containsVariable("c") == false );
   //fail_unless( child4->containsVariable("x") == true );
   //fail_unless( child4->containsVariable("p") == false );
@@ -261,7 +282,9 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (r1_math->getType() == AST_FUNCTION_LOG, NULL);
   fail_unless (r1_math->getNumChildren() == 2, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(r1_math), "log(3, x)"), NULL);
+  math = SBML_formulaToString(r1_math);
+  fail_unless (!strcmp(math, "log(3, x)"), NULL);
+  safe_free(math);
   //fail_unless (r1_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( r1_math->containsVariable("c") == false );
   //fail_unless( r1_math->containsVariable("x") == true );
@@ -272,11 +295,15 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (child1->getType() == AST_REAL, NULL);
   fail_unless (child1->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child1), "3"), NULL);
+  math = SBML_formulaToString(child1);
+  fail_unless (!strcmp(math, "3"), NULL);
+  safe_free(math);
 
   fail_unless (child2->getType() == AST_NAME, NULL);
   fail_unless (child2->getNumChildren() == 0, NULL);
-  fail_unless (!strcmp(SBML_formulaToString(child2), "x"), NULL);
+  math = SBML_formulaToString(child2);
+  fail_unless (!strcmp(math, "x"), NULL);
+  safe_free(math);
 
 
 

@@ -786,49 +786,49 @@ ASTFunction::prependChild(ASTBase* newChild)
 
 
 int
-ASTFunction::replaceChild(unsigned int n, ASTBase* newChild)
+ASTFunction::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 {
   if (mUnaryFunction != NULL)
   {
-    return mUnaryFunction->replaceChild(n, newChild);
+    return mUnaryFunction->replaceChild(n, newChild, delreplaced);
   }
   else if (mBinaryFunction != NULL)
   {
-    return mBinaryFunction->replaceChild(n, newChild);
+    return mBinaryFunction->replaceChild(n, newChild, delreplaced);
   }
   else if (mNaryFunction != NULL)
   {
-    return mNaryFunction->replaceChild(n, newChild);
+    return mNaryFunction->replaceChild(n, newChild, delreplaced);
   }
   else if (mUserFunction != NULL)
   {
-    return mUserFunction->replaceChild(n, newChild);
+    return mUserFunction->replaceChild(n, newChild, delreplaced);
   }
   else if (mLambda != NULL)
   {
-    return mLambda->replaceChild(n, newChild);
+    return mLambda->replaceChild(n, newChild, delreplaced);
   }
   else if (mPiecewise != NULL)
   {
-    return mPiecewise->replaceChild(n, newChild);
+    return mPiecewise->replaceChild(n, newChild, delreplaced);
   }
   else if (mCSymbol != NULL)
   {
-    return mCSymbol->replaceChild(n, newChild);
+    return mCSymbol->replaceChild(n, newChild, delreplaced);
   }
   else if (mQualifier != NULL)
   {
-    return mQualifier->replaceChild(n, newChild);
+    return mQualifier->replaceChild(n, newChild, delreplaced);
   }
   else if (mSemantics != NULL)
   {
-    return mSemantics->replaceChild(n, newChild);
+    return mSemantics->replaceChild(n, newChild, delreplaced);
   }
   else if (mIsOther == true)
   {
     if (mPackageName.empty() == false && mPackageName != "core")
     {
-      return getPlugin(mPackageName)->replaceChild(n, newChild);
+      return getPlugin(mPackageName)->replaceChild(n, newChild, delreplaced);
     }
     else
     {
@@ -837,7 +837,7 @@ ASTFunction::replaceChild(unsigned int n, ASTBase* newChild)
       {
         if (getPlugin(i)->isSetMath() == true)
         {
-          return getPlugin(i)->replaceChild(n, newChild);
+          return getPlugin(i)->replaceChild(n, newChild, delreplaced);
         }
         i++;
       }
@@ -3898,7 +3898,7 @@ ASTFunction::readFunctionNode(XMLInputStream& stream, const std::string& reqd_pr
     {
       if (numChildren > 2 && (type == AST_TIMES || type == AST_PLUS))
       {
-        /* HACK to repliacte old behaviour */
+        /* HACK to replicate old behaviour */
         mNaryFunction->reduceOperatorsToBinary();
       }
         

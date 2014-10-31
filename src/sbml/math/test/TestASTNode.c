@@ -3785,13 +3785,17 @@ START_TEST (test_ASTNode_replaceArgument1)
   ASTNode_setName(c2, "y");
   ASTNode_addChild(user, c1);
   ASTNode_addChild(user, c2);
-
-  fail_unless( !strcmp(SBML_formulaToString(user), "f(x, y)")); 
+  
+  char* math = SBML_formulaToString(user);
+  fail_unless( !strcmp(math, "f(x, y)")); 
+  safe_free(math);
 
 
   ASTNode_replaceArgument(node, bvar, user);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "f(x, y) * y")); 
+  
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "f(x, y) * y")); 
+  safe_free(math);
 
   ASTNode_free(node);
   ASTNode_free(user);
@@ -3808,8 +3812,10 @@ START_TEST (test_ASTNode_replaceArgument2)
   const char* bvar = "x";
 
   ASTNode_replaceArgument(node, bvar, user);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "f * y")); 
+  
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "f * y")); 
+  safe_free(math);
   ASTNode_t * child = ASTNode_getChild(node, 0);
 
   fail_unless (ASTNode_getType(child) == AST_NAME_TIME);
@@ -3829,12 +3835,16 @@ START_TEST (test_ASTNode_replaceArgument3)
   const char* bvar = "x";
 
   ASTNode_replaceArgument(node, bvar, repl2);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, y), 2)")); 
+  
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(2, gt(2, y), 2)")); 
+  safe_free(math);
 
   ASTNode_replaceArgument(node, "y", repl1);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, a / b), 2)")); 
+  
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(2, gt(2, a / b), 2)")); 
+  safe_free(math);
   ASTNode_free(node);
 }
 END_TEST
@@ -3849,12 +3859,16 @@ START_TEST (test_ASTNode_replaceArgument4)
   const char* bvar = "x";
 
   ASTNode_replaceArgument(node, bvar, repl2);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, y), y)")); 
+  
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(2, gt(2, y), y)")); 
+  safe_free(math);
 
   ASTNode_replaceArgument(node, "y", repl1);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(2, gt(2, a / b), a / b)")); 
+  
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(2, gt(2, a / b), a / b)")); 
+  safe_free(math);
   ASTNode_free(node);
 }
 END_TEST
@@ -3869,12 +3883,16 @@ START_TEST (test_ASTNode_replaceArgument5)
   const char* bvar = "x";
 
   ASTNode_replaceArgument(node, bvar, repl2);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(y, gt(2, y), 2)")); 
+  
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(y, gt(2, y), 2)")); 
+  safe_free(math);
 
   ASTNode_replaceArgument(node, "y", repl1);
-
-  fail_unless( !strcmp(SBML_formulaToString(node), "piecewise(a / b, gt(2, a / b), 2)")); 
+  
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "piecewise(a / b, gt(2, a / b), 2)")); 
+  safe_free(math);
   ASTNode_free(node);
 }
 END_TEST
@@ -3937,25 +3955,33 @@ START_TEST (test_ASTNode_replaceChild)
   ASTNode_addChild(node, c3);
 
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b, c)"));
+  safe_free(math);
 
   i = ASTNode_replaceChild(node, 0, c4);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
+  fail_unless( ASTNode_getNumChildren(node) == 3);
+  math = SBML_formulaToString(node); 
+  fail_unless( !strcmp(math, "and(d, b, c)"));
+  safe_free(math);
 
   i = ASTNode_replaceChild(node, 3, c4);
 
   fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, b, c)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(d, b, c)"));
+  safe_free(math);
 
   i = ASTNode_replaceChild(node, 1, c5);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, e, c)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(d, e, c)"));
+  safe_free(math);
 
   ASTNode_free(node);
 }
@@ -3981,7 +4007,9 @@ START_TEST (test_ASTNode_insertChild)
   ASTNode_addChild(node, c3);
 
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, c)"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b, c)"));
+  safe_free(math);
 
   ASTNode_setName(newc, "d");
   ASTNode_setName(newc1, "e");
@@ -3990,19 +4018,25 @@ START_TEST (test_ASTNode_insertChild)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 4); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, d, b, c)"));
+  safe_free(math);
 
   i = ASTNode_insertChild(node, 5, newc);
 
   fail_unless( i == LIBSBML_INDEX_EXCEEDS_SIZE);
   fail_unless( ASTNode_getNumChildren(node) == 4); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, b, c)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, d, b, c)"));
+  safe_free(math);
 
   i = ASTNode_insertChild(node, 2, newc1);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 5); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, d, e, b, c)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, d, e, b, c)"));
+  safe_free(math);
 
   ASTNode_free(node);
 }
@@ -4026,7 +4060,9 @@ START_TEST (test_ASTNode_swapChildren)
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getNumChildren(node) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b)"));
+  safe_free(math);
 
   ASTNode_setType(node_1, AST_LOGICAL_AND);
   ASTNode_setName(c1_1, "d");
@@ -4035,15 +4071,21 @@ START_TEST (test_ASTNode_swapChildren)
   ASTNode_addChild(node_1, c2_1);
 
   fail_unless( ASTNode_getNumChildren(node_1) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node_1), "and(d, f)"));
+  math = SBML_formulaToString(node_1);
+  fail_unless( !strcmp(math, "and(d, f)"));
+  safe_free(math);
 
   i = ASTNode_swapChildren(node, node_1);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, f)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(d, f)"));
+  safe_free(math);
   fail_unless( ASTNode_getNumChildren(node_1) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node_1), "and(a, b)"));
+  math = SBML_formulaToString(node_1);
+  fail_unless( !strcmp(math, "and(a, b)"));
+  safe_free(math);
 
   ASTNode_free(node_1);
   ASTNode_free(node);
@@ -4066,7 +4108,9 @@ START_TEST (test_ASTNode_addChild1)
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getNumChildren(node) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b)"));
+  safe_free(math);
 
   ASTNode_setName(c1_1, "d");
 
@@ -4074,7 +4118,9 @@ START_TEST (test_ASTNode_addChild1)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b, d)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b, d)"));
+  safe_free(math);
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "a") );
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 1)), "b") );
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 2)), "d") );
@@ -4099,7 +4145,9 @@ START_TEST (test_ASTNode_prependChild1)
   ASTNode_addChild(node, c2);
 
   fail_unless( ASTNode_getNumChildren(node) == 2); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(a, b)"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(a, b)"));
+  safe_free(math);
 
   ASTNode_setName(c1_1, "d");
 
@@ -4107,7 +4155,9 @@ START_TEST (test_ASTNode_prependChild1)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( ASTNode_getNumChildren(node) == 3); 
-  fail_unless( !strcmp(SBML_formulaToString(node), "and(d, a, b)"));
+  math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "and(d, a, b)"));
+  safe_free(math);
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 0)), "d") );
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 1)), "a") );
   fail_unless( !strcmp(ASTNode_getName(ASTNode_getChild(node, 2)), "b") );
@@ -4125,7 +4175,9 @@ START_TEST (test_ASTNode_freeName)
   i = ASTNode_setName(node, "a");
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless( !strcmp(SBML_formulaToString(node), "a"));
+  char* math = SBML_formulaToString(node);
+  fail_unless( !strcmp(math, "a"));
+  safe_free(math);
   fail_unless( !strcmp(ASTNode_getName(node), "a") );
 
   i = ASTNode_freeName(node);

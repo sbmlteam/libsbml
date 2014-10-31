@@ -822,7 +822,7 @@ ASTNode::removeChild(unsigned int n)
 
 LIBSBML_EXTERN
 int 
-ASTNode::replaceChild(unsigned int n, ASTNode *newChild)
+ASTNode::replaceChild(unsigned int n, ASTNode *newChild, bool delreplaced)
 {
   if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
 
@@ -831,7 +831,11 @@ ASTNode::replaceChild(unsigned int n, ASTNode *newChild)
   unsigned int size = getNumChildren();
   if (n < size)
   {
-    mChildren->remove(n);
+    ASTNode* rep = static_cast<ASTNode*>(mChildren->remove(n));
+    if (delreplaced) 
+    {
+      delete rep;
+    }
     if (insertChild(n, newChild) == LIBSBML_OPERATION_SUCCESS)
       replaced = LIBSBML_OPERATION_SUCCESS;    
   }
@@ -2083,7 +2087,7 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     ASTNode* child = getChild(i);
     if (child->getType() == AST_NAME &&
         child->getName() == id) {
-      replaceChild(i, function->deepCopy());
+      replaceChild(i, function->deepCopy(), true);
     }
     else {
       child->replaceIDWithFunction(id, function);
@@ -2590,13 +2594,12 @@ ASTNode::getDefinitionURL() const
 
 
 LIBSBML_EXTERN
-const std::string &
+std::string
 ASTNode::getDefinitionURLString() const
 {
-  static std::string emptyString = "";
   if (mDefinitionURL == NULL)
   {
-    return emptyString;
+    return "";
   }
   else
   {
@@ -3575,7 +3578,16 @@ int
 ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
 {
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
-  return node->replaceChild(n, newChild);
+  return node->replaceChild(n, newChild, false);
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
+{
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
+  return node->replaceChild(n, newChild, true);
 }
 
 
