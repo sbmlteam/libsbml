@@ -76,6 +76,28 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 
 /** @endcond */
 
+/**
+ * Writes the given ASTNode (and its children) to a string as MathML, and
+ * returns the string.
+ *
+ * @param node the root of an AST to write out to the stream.
+ *
+ * @return a string containing the written-out MathML representation
+ * of the given AST.
+ *
+ * @note The string is owned by the caller and should be freed (with
+ * free()) when no longer needed.  @c NULL is returned if the given
+ * argument is @c NULL.
+ *
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+std::string
+writeMathMLToStdString (const ASTNode_t* node);
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */

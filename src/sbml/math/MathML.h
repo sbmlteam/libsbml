@@ -78,6 +78,25 @@ void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NULL);
 /** @endcond */
 
+#ifndef SWIG
+
+/**
+ * Writes the given ASTNode to an in-memory string that is returned.
+ *
+ * @param node the root of an AST to write out to the string.
+ *
+ * @return the string containing the written-out MathML representation
+ * of the given AST on success or an empty string, 
+ *         if one of the underlying parser
+ *         components fail.
+ * 
+ */
+LIBSBML_EXTERN
+std::string 
+writeMathMLToStdString(const ASTNode* node);
+
+#endif
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
@@ -147,6 +166,7 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns);
 LIBSBML_EXTERN
 char *
 writeMathMLToString (const ASTNode_t* node);
+
 
 
 END_C_DECLS

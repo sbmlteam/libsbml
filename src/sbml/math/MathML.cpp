@@ -262,6 +262,22 @@ writeMathMLToString (const ASTNode* node)
   return result;
 }
 
+LIBSBML_EXTERN
+std::string
+writeMathMLToStdString (const ASTNode* node)
+{
+  if (node == NULL) return "";
+  
+  ostringstream   os;
+  XMLOutputStream stream(os);
+  SBMLNamespaces sbmlns;
+  stream.setSBMLNamespaces(&sbmlns);
+
+  writeMathML(node, stream);
+
+  return os.str();
+}
+
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
