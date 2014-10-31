@@ -263,7 +263,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  *
  *  <li> Define an enum type for representing the typecode of elements (SBase extended classes) defined in the package extension
  *
- *   <p>  For example, #SBMLGroupsTypeCode_t for groups package is
+ *   <p>  For example, <code>SBMLGroupsTypeCode_t</code> for groups package is
  *  defined in GroupsExtension.h as follows: </p>
 @verbatim
       typedef enum
