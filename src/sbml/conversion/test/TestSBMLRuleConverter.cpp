@@ -94,6 +94,8 @@ START_TEST (test_conversion_ruleconverter_sort)
   fail_unless (model->getNumRules() == 2);
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
+
+  delete converter;
 }
 END_TEST
 
@@ -140,6 +142,8 @@ START_TEST (test_conversion_ruleconverter_dontSort)
   fail_unless (model->getNumRules() == 2);
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
+
+  delete converter;
 }
 END_TEST
 
@@ -167,12 +171,16 @@ START_TEST (test_conversion_ruleconverter_sortIA)
 
   InitialAssignment* ia1 = model->createInitialAssignment();
   ia1->setSymbol("s");
-  ia1->setMath(SBML_parseFormula("p + 1"));
+  ASTNode * math = SBML_parseFormula("p + 1");
+  ia1->setMath(math);
+  delete math;
   ia1->setMetaId("m1");
 
   InitialAssignment* ia2 = model->createInitialAssignment();
   ia2->setSymbol("p");
-  ia2->setMath(SBML_parseFormula("1"));
+  math = SBML_parseFormula("1");
+  ia2->setMath(math);
+  delete math;
   ia2->setMetaId("m2");
 
   ConversionProperties props;
@@ -186,6 +194,8 @@ START_TEST (test_conversion_ruleconverter_sortIA)
   fail_unless (model->getNumInitialAssignments() == 2);
   fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
   fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
+
+  delete converter;
 }
 END_TEST
 
@@ -212,12 +222,16 @@ START_TEST (test_conversion_ruleconverter_dontSortIA)
 
   InitialAssignment* ia2 = model->createInitialAssignment();
   ia2->setSymbol("p");
-  ia2->setMath(SBML_parseFormula("1"));
+  ASTNode * math = SBML_parseFormula("1");
+  ia2->setMath(math);
+  delete math;
   ia2->setMetaId("m2");
   
   InitialAssignment* ia1 = model->createInitialAssignment();
   ia1->setSymbol("s");
-  ia1->setMath(SBML_parseFormula("p + 1"));
+  math = SBML_parseFormula("p + 1");
+  ia1->setMath(math);
+  delete math;
   ia1->setMetaId("m1");
 
   ConversionProperties props;
@@ -231,6 +245,8 @@ START_TEST (test_conversion_ruleconverter_dontSortIA)
   fail_unless (model->getNumInitialAssignments() == 2);
   fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
   fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
+
+  delete converter;
 }
 END_TEST
 
@@ -285,6 +301,8 @@ START_TEST (test_conversion_ruleconverter_with_alg)
   fail_unless (model->getRule(0)->getMetaId() == "m2");
   fail_unless (model->getRule(1)->getMetaId() == "m1");
   fail_unless (model->getRule(2)->getMetaId() == "m0");
+
+  delete converter;
 }
 END_TEST
 
@@ -309,9 +327,11 @@ START_TEST (test_conversion_inlineFD_bug)
 #ifndef LIBSBML_USE_LEGACY_MATH
   fail_unless(node->ASTBase::isChild() == false);
 #endif
-  std::string math = writeMathMLToString(node);
+  std::string math = writeMathMLToStdString(node);
   ASTNode* test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
+
+  delete test;
 
   // additional test where the node being converted is the top-level
   fail_unless(doc->getModel()->getNumRules() == 1);
@@ -322,7 +342,7 @@ START_TEST (test_conversion_inlineFD_bug)
 #ifndef LIBSBML_USE_LEGACY_MATH
   fail_unless(node->ASTBase::isChild() == false);
 #endif
-  math = writeMathMLToString(node);
+  math = writeMathMLToStdString(node);
   test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
 

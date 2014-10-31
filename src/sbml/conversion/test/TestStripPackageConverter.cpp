@@ -71,12 +71,12 @@ START_TEST (test_strip_unknownreq)
 
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
-  std::string newModel = writeSBMLToString(d);
+  std::string newModel = writeSBMLToStdString(d);
   
   
   std::string fileOut = filename + "package1-unknownreq_stripped.xml";
   SBMLDocument* fdoc = readSBMLFromFile(fileOut.c_str());
-  string stripped = writeSBMLToString(fdoc);
+  string stripped = writeSBMLToStdString(fdoc);
   
   fail_unless(stripped == newModel);
 
@@ -105,12 +105,12 @@ START_TEST (test_strip_comp)
 
   fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
-  std::string newModel = writeSBMLToString(d);
+  std::string newModel = writeSBMLToStdString(d);
   
   
   std::string fileOut = filename + "package1-comp_stripped.xml";
   SBMLDocument* fdoc = readSBMLFromFile(fileOut.c_str());
-  string stripped = writeSBMLToString(fdoc);
+  string stripped = writeSBMLToStdString(fdoc);
   
   fail_unless(stripped == newModel);
 

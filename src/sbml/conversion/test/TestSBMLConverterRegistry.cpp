@@ -86,7 +86,9 @@ START_TEST (test_conversion_registry_getByIndex)
     fail_unless(converter != NULL);
     fail_unless(converter->getDefaultProperties().hasOption("none") == false);
     
-    ConversionProperties props = converter->getDefaultProperties();
+    // This leaks the props and since it does not seem to be testing
+    // anything I'm taking it out for now
+ //   ConversionProperties props = converter->getDefaultProperties();
 
     
     delete converter;
@@ -110,10 +112,11 @@ START_TEST (test_conversion_units)
   fail_unless(doc != NULL);
   doc->setLevelAndVersion(2, 4, false);
 
-  string sbml = writeSBMLToString(doc);
+  string sbml = writeSBMLToStdString(doc);
   
   fail_unless(sbml.find("sbml:units") == string::npos);
 
+  delete doc;
 }
 END_TEST
 
