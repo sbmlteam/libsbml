@@ -52,16 +52,15 @@ def check(value, message):
   libSBML explaining the meaning of the code, and exits with status code 1.
   """
   if value == None:
-    msg = 'LibSBML returned a null value trying to ' + message + '.'
-    raise SystemExit(msg)
+    raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
   elif type(value) is int:
     if value == LIBSBML_OPERATION_SUCCESS:
       return
     else:
-      msg = 'Error encountered trying to ' + message + '.' \
-            + 'LibSBML returned error code ' + str(value) + ': "' \
-            + OperationReturnValue_toString(value).strip() + '"'
-      raise SystemExit(msg)
+      err_msg = 'Error encountered trying to ' + message + '.' \
+                + 'LibSBML returned error code ' + str(value) + ': "' \
+                + OperationReturnValue_toString(value).strip() + '"'
+      raise SystemExit(err_msg)
   else:
     return
 
