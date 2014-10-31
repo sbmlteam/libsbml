@@ -196,21 +196,21 @@
  * an SBML model containing Level&nbsp;3 Hierarchical %Model Composition
  * constructs and flatten it to a plain SBML Level&nbsp;3 model.
  * A version of this program is available in the libSBML distribution's
- * @if cpp <code>examples/c++/comp</code>@endif
- * @if python <code>examples/python/comp</code>@endif
- * @if java <code>examples/java/comp</code>@endif
- * @if javascript <code>examples/javascript/comp</code>@endif
- * @if csharp <code>examples/csharp/comp</code>@endif
- * @if ruby  <code>examples/ruby/comp</code>@endif
- * @if perl  <code>examples/perl/comp</code>@endif@~ directory as the
+ * @if cpp <code>examples/c++/comp</code>@endif@if python
+ * <code>examples/python/comp</code>@endif@if java
+ * <code>examples/java/comp</code>@endif@if JavaScript
+ * <code>examples/javascript/comp</code>@endif@if csharp
+ * <code>examples/csharp/comp</code>@endif@if ruby
+ * <code>examples/ruby/comp</code>@endif@if perl
+ * <code>examples/perl/comp</code>@endif@~ directory as the
  * program named
- * @if cpp @ref flattenModel.cpp "flattenModel.cpp"@endif
- * @if python  @ref flattenModel.py "flattenModel.py"@endif
- * @if java  @ref flattenModel.java "flattenModel.java"@endif
- * @if javascript  @ref flattenModel.js "flattenModel.js"@endif
- * @if csharp  @ref FlattenModel.cs "FlattenModel.cs"@endif
- * @if ruby @ref flattenModel.rb "flattenModel.rb"@endif
- * @if perl @ref flattenModel.pl "flattenModel.pl"@endif.  The example
+ * @if cpp @ref flattenModel.cpp "flattenModel.cpp"@endif@if python
+ * @ref flattenModel.py "flattenModel.py"@endif@if java
+ * <code>"flattenModel.java"</code>@endif@if JavaScript
+ * @ref flattenModel.js "flattenModel.js"@endif@if csharp
+ * @ref FlattenModel.cs "FlattenModel.cs"@endif@if ruby
+ * @ref flattenModel.rb "flattenModel.rb"@endif@if perl
+ * @ref flattenModel.pl "flattenModel.pl"@endif.  The example
  * XML models shown below are the same models as given in sections
  * 4.1&ndash;4.2 in the specification document for SBML Level&nbsp;3
  * Hierarchical %Model Composition.
@@ -219,27 +219,36 @@
  *
  * For brevity, we do not give the general scaffolding that a real program
  * would have (such as inclusion of header files, command-line argument
- * checks and so on), and focus instead on the parts relevant to an
- * application of "comp".
+ * checks, additional error checks throughout the code, and so on), and focus
+ * instead on the parts relevant to an application using the libSBML "comp"
+ * extension.
  *
  * First, our program checks that this copy of libSBML has the "comp"
  * extension available.  The process for doing that simply involves a call to
  * the extension registry in libSBML:
- * @if cpp
+@if cpp
 @code{.cpp}
 if (SBMLExtensionRegistry::isPackageEnabled("comp") == false)
 {
     cerr << "The version of libsbml being used does not have the comp"
-         << " package code enabled" << endl;
+         << " package extension enabled" << endl;
     return 1;
 }
+@endcode
+@endif
+@if python
+@code{.py}
+if not SBMLExtensionRegistry.isPackageEnabled("comp"):
+    err_msg = 'This copy of libSBML does not contain the "comp" extension.'
+    raise SystemExit(err_msg)
 @endcode
 @endif
  *
  * Next, we read the SBML input file.  For this example, we simply
  * assume that the path to the file is given as the first argument
- * to the program.
- * @if cpp
+ * to the program; a real program would perform more sophisticated
+ * command-line argument processing and error checking.
+@if cpp
 @code{.cpp}
 const char* inputFile  = argv[1];
 SBMLDocument* document = readSBML(inputFile);
@@ -252,13 +261,22 @@ if (document->getNumErrors() > 0)
 }
 @endcode
 @endif
+@if python
+@code{.py}
+reader  = SBMLReader()
+sbmldoc = reader.readSBML(args[1])
+if sbmldoc.getNumErrors() > 0:
+    sbmldoc.printErrors()
+    raise SystemExit(2)
+@endcode
+@endif
  * Continuing, we set up options for the call to the converter.
  * The use of ConversionProperties and the general scheme behind
  * conversion options is explained further below; for the purposes
  * of this example, it is enough to know that the following are the
  * basic lines of code needed to obtain a copy of a libSBML
  * converter object that will invoke CompFlatteningConverter:
- * @if cpp
+@if cpp
 @code{.cpp}
 ConversionProperties* props = new ConversionProperties();
 props->addOption("flatten comp");
@@ -266,11 +284,17 @@ SBMLConverter* converter =
     SBMLConverterRegistry::getInstance().getConverterFor(*props);
 @endcode
 @endif
+@if python
+@code{.py}
+props = ConversionProperties()
+props.addOption("flatten comp", True)       # Invokes CompFlatteningConverter
+@endcode
+@endif
  * Now comes the actual invocation of CompFlatteningConverter.
  * As always, it is critical to check for possible errors by
  * checking the status code returned by the call; we do this
  * in the code below too.
- * @if cpp
+@if cpp
 @code{.cpp}
 converter->setDocument(document);
 int result = converter->convert();
@@ -282,18 +306,34 @@ if (result != LIBSBML_OPERATION_SUCCESS)
 }
 @endcode
 @endif
+@if python
+@code{.py}
+result = sbmldoc.convert(props)
+if (result != LIBSBML_OPERATION_SUCCESS):
+    sbmldoc.printErrors()
+    raise SystemExit("Conversion failed... ("+ str(result) + ")")
+@endcode
+@endif
  * If successful, we simply write out the resulting flattened model
  * to an output file which, for the purposes of this simple example,
  * we assume is indicated by the second argument handed to the program
- * on the command line by the user.  We also clean up the objects
- * we allocated, to avoid leaking memory.
- * @if cpp
+ * on the command line by the user.  @if cpp We also clean up the objects
+ * we allocated, to avoid leaking memory.@endif@~
+@if cpp
 @code{.cpp}
 const char* outputFile  = argv[2];
 writeSBML(document, outputFile);
 
 delete converter;
 delete document;
+@endcode
+@endif
+@if python
+@code{.py}
+writer  = SBMLWriter()
+check(writer, 'create an SBMLWriter object.')
+writer.writeSBML(sbmldoc, output_file)
+print("Flattened model written to %s" % (output_file))
 @endcode
 @endif
  *
@@ -348,35 +388,36 @@ delete document;
  * ConversionProperties@endif).  The CompFlatteningConverter converter
  * accepts numerous options influencing its behavior.  The following list
  * briefly summarizes the options:
- *
- * @li <em>"flatten comp"</em>: Possible values are @c "true" or @c "false".
+ * <ul>
+ * <li> <em>"flatten comp"</em>: Possible values are @c "true" or @c "false".
  * Setting the option to @c true (the default) means enable the flattening
  * converter.
  *
- * @li @em "abortIfUnflattenable": Possible values are @c "all", @c
+ * <li> @em "abortIfUnflattenable": Possible values are @c "all", @c
  * "requiredOnly" (the default), or @c "none".  Controls what happens upon
  * encountering an SBML Level&nbsp;3 package with no flattener
  * implementation.
  *
- * @li @em "stripUnflattenablePackages": Possible values are @c "true" or @c
+ * <li> @em "stripUnflattenablePackages": Possible values are @c "true" or @c
  * "false" (the default).  Controls whether the constructs of Level&nbsp;3
  * packages with no flattener implementation are stripped from the output.
  *
- * @li @em "basePath": The value must be a string representing the path where
+ * <li> @em "basePath": The value must be a string representing the path where
  * the converter should search for any ExternalModelDefinition objects.
  * (Default value: ".", meaning, the current directory.)
  *
- * @li @em "leavePorts": Possible values are @c "true" or @c "false" (the
+ * <li> @em "leavePorts": Possible values are @c "true" or @c "false" (the
  * default).  Controls what happens to Port constructs in the output.
  *
- * @li @em "listModelDefinitions": Possible values are @c "true" or @c
+ * <li> @em "listModelDefinitions": Possible values are @c "true" or @c
  * "false" (the default).  Controls what happens to ModelDefinition and
  * ExternalModelDefinition objects in the final output.
  *
- * @li @em "performValidation": Possible values are @c "true" (the default)
+ * <li> @em "performValidation": Possible values are @c "true" (the default)
  * or @c "false".  Controls whether whether libSBML validates the model
  * before attempting to flatten it.
- */ 
+ * </ul>
+ */
 
 
 
