@@ -2649,7 +2649,7 @@ ASTNode_getType (const ASTNode_t *node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getId(const ASTNode_t * node);
 
 
@@ -2663,7 +2663,7 @@ ASTNode_getId(const ASTNode_t * node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getClass(const ASTNode_t * node);
 
 
@@ -2678,7 +2678,7 @@ ASTNode_getClass(const ASTNode_t * node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getStyle(const ASTNode_t * node);
 
 
@@ -2700,7 +2700,7 @@ ASTNode_getStyle(const ASTNode_t * node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getUnits(const ASTNode_t * node);
 
 
@@ -3932,7 +3932,7 @@ ASTNode_getDefinitionURL(ASTNode_t* node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getDefinitionURLString(ASTNode_t* node);
 
 

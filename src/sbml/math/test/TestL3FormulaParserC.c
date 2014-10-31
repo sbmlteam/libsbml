@@ -694,10 +694,12 @@ START_TEST (test_SBML_C_parseL3Formula_rational2)
   fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
   fail_unless( ASTNode_getNumerator  (r) ==   3, NULL );
   fail_unless( ASTNode_getDenominator(r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 }
 END_TEST
 
@@ -795,10 +797,12 @@ START_TEST (test_SBML_C_parseL3Formula_rational6)
 
   fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (c) == 4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(c), "ml"), NULL );
+  char* units = ASTNode_getUnits(c);
+  fail_unless( !strcmp(units, "ml"), NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 }
 END_TEST
 
@@ -1822,9 +1826,11 @@ START_TEST (test_SBML_C_parseL3Formula_unitssettings)
 
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  safe_free(units);
 
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setParseUnits(settings, 0);
@@ -1839,9 +1845,11 @@ START_TEST (test_SBML_C_parseL3Formula_unitssettings)
   r = SBML_parseL3FormulaWithSettings("4 mL", settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  safe_free(units);
 
   L3ParserSettings_free(settings);
 }

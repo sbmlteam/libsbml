@@ -688,10 +688,12 @@ START_TEST (test_SBML_parseL3Formula_rational2)
   fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
   fail_unless( ASTNode_getNumerator  (r) ==   3, NULL );
   fail_unless( ASTNode_getDenominator(r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 }
 END_TEST
 
@@ -789,10 +791,12 @@ START_TEST (test_SBML_parseL3Formula_rational6)
 
   fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (c) == 4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(c), "ml"), NULL );
+  char* units = ASTNode_getUnits(c);
+  fail_unless( !strcmp(units, "ml"), NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 }
 END_TEST
 
@@ -1780,9 +1784,11 @@ START_TEST (test_SBML_parseL3Formula_unitssettings)
 
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  safe_free(units);
 
   L3ParserSettings settings;
   settings.setParseUnits(L3P_NO_UNITS);
@@ -1794,9 +1800,11 @@ START_TEST (test_SBML_parseL3Formula_unitssettings)
   r = SBML_parseL3FormulaWithSettings("4 mL", &settings);
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "mL"), NULL );
+  units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2060,9 +2068,11 @@ START_TEST (test_SBML_parseL3Formula_easunit)
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 1.01, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "e"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2075,9 +2085,11 @@ START_TEST (test_SBML_parseL3Formula_easunitparen)
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 1.01, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "e"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2090,9 +2102,11 @@ START_TEST (test_SBML_parseL3Formula_easunitint)
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) == 101, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "e"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "e"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2105,9 +2119,11 @@ START_TEST (test_SBML_parseL3Formula_ergunit)
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) == 101, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "erg"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2120,9 +2136,11 @@ START_TEST (test_SBML_parseL3Formula_longinterg)
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 166112956810631.0, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "erg"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2135,9 +2153,11 @@ START_TEST (test_SBML_parseL3Formula_longdecimalerg)
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "erg"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2150,9 +2170,11 @@ START_TEST (test_SBML_parseL3Formula_longnumberparenerg)
   fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
   fail_unless( ASTNode_getReal       (r) == 0.00166112956810631, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
-  fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+  char* units = ASTNode_getUnits(r);
+  fail_unless( !strcmp(units, "erg"), NULL );
 
   ASTNode_free(r);
+  safe_free(units);
 
 }
 END_TEST
@@ -2169,9 +2191,11 @@ START_TEST (test_SBML_parseL3Formula_crazylongerg)
     fail_unless( ASTNode_getType(r)             == AST_REAL, NULL );
     fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
     fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
-    fail_unless( !strcmp(ASTNode_getUnits(r), "erg"), NULL );
+  char* units = ASTNode_getUnits(r);
+    fail_unless( !strcmp(units, "erg"), NULL );
 
     ASTNode_free(r);
+    safe_free(units);
   }
 }
 END_TEST
@@ -2423,7 +2447,7 @@ START_TEST (test_SBML_parseL3Formula_brackets_0args_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'a[]' at position 3:  No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -2440,7 +2464,7 @@ START_TEST (test_SBML_parseL3Formula_brackets_1args_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'a[x]' at position 4:  No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -2457,7 +2481,7 @@ START_TEST (test_SBML_parseL3Formula_doublebrackets_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'a[x][y]' at position 4:  No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -2474,7 +2498,7 @@ START_TEST (test_SBML_parseL3Formula_curlybraces_0args_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '{}' at position 2:  No package is enabled that can interpret empty curly braces, so formulas of the form '{}' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -2491,7 +2515,7 @@ START_TEST (test_SBML_parseL3Formula_curlybraces_1args_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '{x}' at position 3:  No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -2508,7 +2532,7 @@ START_TEST (test_SBML_parseL3Formula_curlybraces_semicolons_short_noarrays)
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '{x; p}' at position 6:  No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed."));
 
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
