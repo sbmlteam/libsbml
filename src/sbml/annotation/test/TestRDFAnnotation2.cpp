@@ -213,6 +213,12 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
   {
     fail("parseModelHistory failed");
   }
+
+  delete c;
+  delete d;
+  delete h;
+  delete cv;
+  delete ann;
 }
 END_TEST
 
@@ -265,6 +271,11 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates)
     "</annotation>";
 
   fail_unless( equals(expected, ann->toXMLString().c_str()) );
+  
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
 }
 END_TEST
 
@@ -313,6 +324,11 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryWithCharacterReference)
     "</annotation>";
 
   fail_unless( equals(expected, ann->toXMLString().c_str()) );
+
+  delete c;
+  delete d;
+  delete h;
+  delete ann;
 }
 END_TEST
 
@@ -327,8 +343,6 @@ create_suite_RDFAnnotation2 (void)
                             RDFAnnotation2_teardown);
 
   tcase_add_test(tcase, test_RDFAnnotation2_getModelHistory );
-  
-  // // memory leaks unresolved
   tcase_add_test(tcase, test_RDFAnnotation2_modelWithHistoryAndCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation2_modelWithHistoryAndMultipleModifiedDates );
   tcase_add_test(tcase, test_RDFAnnotation2_modelWithHistoryWithCharacterReference);

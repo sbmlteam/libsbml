@@ -299,6 +299,7 @@ START_TEST (test_RDFAnnotation_C_delete)
   fail_unless(!strcmp(XMLNode_getName(n1), "annotation"));
 
   XMLNode_free(node);
+  XMLNode_free(n1);
 }
 END_TEST
 
@@ -332,8 +333,6 @@ create_suite_RDFAnnotation_C (void)
   tcase_add_test(tcase, test_RDFAnnotation_C_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_C_parseCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_C_accessWithNULL    );
-
-  // // memory leaks unresolved
   tcase_add_test(tcase, test_RDFAnnotation_C_delete );
 
   suite_add_tcase(suite, tcase);

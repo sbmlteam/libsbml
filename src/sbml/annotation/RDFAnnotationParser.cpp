@@ -216,7 +216,10 @@ RDFAnnotationParser::deriveCVTermsFromAnnotation(
       {
         term = new CVTerm(RDFDesc->getChild(n));
         if (term->getResources()->getLength() > 0)
-          CVTerms->add((void *)term);
+        {
+          CVTerms->add((void *)term->clone());
+        }
+        delete term;
       }
       n++;
     }
@@ -569,7 +572,10 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
         const char* term = ModelQualifierType_toString(
           current->getModelQualifierType());
         if (term == NULL) 
+        {
+          delete description;
           return NULL;
+        }
 
         name = term;
         
@@ -627,6 +633,7 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
   // if all cvterms were bad then the description will contain nothing
   if (description->getNumChildren() == 0)
   {
+    delete description;
     return NULL;
   }
 
@@ -971,6 +978,7 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
   XMLNode * halfAnnotation = deleteRDFHistoryAnnotation(annotation);
   XMLNode * newAnnotation = deleteRDFCVTermAnnotation(halfAnnotation);
 
+  delete halfAnnotation;
 
   return newAnnotation;
 }
@@ -1326,7 +1334,11 @@ RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
   if (tempCVTerms)
   {
     unsigned int size = tempCVTerms->getSize();
-    while (size--) delete static_cast<CVTerm*>( tempCVTerms->remove(0) );
+    for (unsigned int i = size; i > 0; i--)
+    {
+      delete static_cast<CVTerm*>( tempCVTerms->remove(0) );
+    }
+    //while (size--) delete static_cast<CVTerm*>( tempCVTerms->remove(0) );
   }
   delete tempCVTerms;
 

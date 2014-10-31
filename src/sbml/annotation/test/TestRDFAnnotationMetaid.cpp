@@ -265,10 +265,10 @@ create_suite_RDFAnnotationMetaid (void)
                             RDFAnnotationMetaid_setup,
                             RDFAnnotationMetaid_teardown);
 
-  // // memory leaks unresolved
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation2 );
   tcase_add_test(tcase, test_RDFAnnotationMetaid_setAnnotation3 );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

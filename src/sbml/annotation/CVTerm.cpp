@@ -118,6 +118,7 @@ CVTerm::CVTerm(const XMLNode node) :
 CVTerm::~CVTerm()
 {
   delete mResources;
+  mResources = NULL;
 }
 
 /*

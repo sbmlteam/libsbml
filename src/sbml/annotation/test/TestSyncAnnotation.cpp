@@ -225,6 +225,7 @@ START_TEST (test_SyncAnnotation_deleteModelOnly)
 
   fail_unless( equals(expected, xml->toXMLString().c_str()) );
 
+  delete xml;
 }
 END_TEST
 
@@ -248,14 +249,21 @@ START_TEST (test_SyncAnnotation_deleteModelOnly_1)
 
   fail_unless( equals(expected, xml->toXMLString().c_str()) );
 
+  delete xml;
+
   xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(NULL);
 
   fail_unless (xml == NULL);
 
-  xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(
-    XMLNode::convertStringToXMLNode("<notannotatio/>"));
+  delete xml;
+
+  XMLNode * temp = XMLNode::convertStringToXMLNode("<notannotatio/>");
+  xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(temp);
 
   fail_unless (xml == NULL);
+
+  delete xml;
+  delete temp;
 }
 END_TEST
 
@@ -306,6 +314,7 @@ START_TEST (test_SyncAnnotation_deleteCVTerms)
 
   fail_unless( equals(expected, xml->toXMLString().c_str()) );
 
+  delete xml;
 }
 END_TEST
 
@@ -353,6 +362,7 @@ START_TEST (test_SyncAnnotation_modifyHistory_1)
 
   free(sbml);
 
+  delete mh;
 }
 END_TEST
 
@@ -422,6 +432,7 @@ START_TEST (test_SyncAnnotation_modifyHistory_3)
 
   fail_unless( equals(expected, m->getAnnotation()->toXMLString().c_str()) );
 
+  delete mh;
 }
 END_TEST
 
@@ -468,6 +479,7 @@ START_TEST (test_SyncAnnotation_modifyHistory_4)
 
   free(sbml);
 
+  delete mh;
 }
 END_TEST
 
@@ -516,6 +528,7 @@ START_TEST (test_SyncAnnotation_modifyHistory_5)
 
   free(sbml);
 
+  delete mh;
 }
 END_TEST
 
@@ -548,6 +561,7 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_1)
 
   free(sbml);
 
+  delete cv;
 }
 END_TEST
 
@@ -633,6 +647,7 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_3)
 
   fail_unless( equals(expected, m->getAnnotation()->toXMLString().c_str()) );
 
+  delete cv;
 }
 END_TEST
 
@@ -665,6 +680,7 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_4)
 
   free(sbml);
 
+  delete cv;
 }
 END_TEST
 
@@ -698,6 +714,7 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_5)
 
   free(sbml);
 
+  delete cv;
 }
 END_TEST
 
@@ -820,6 +837,8 @@ START_TEST (test_SyncAnnotation_modifyBoth_1)
 
   free(sbml);
 
+  delete mh;
+  delete cv;
 }
 END_TEST
 
@@ -856,6 +875,9 @@ START_TEST (test_SyncAnnotation_modifyBoth_2)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+
+  delete mh;
+  delete cv;
 }
 END_TEST
 
@@ -911,6 +933,9 @@ START_TEST (test_SyncAnnotation_modifyBoth_3)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+
+  delete mh;
+  delete cv;
 }
 END_TEST
 
@@ -1088,6 +1113,9 @@ START_TEST (test_SyncAnnotation_modifyBoth_4)
   fail_unless( equals(expected3, sbml) );
 
   free(sbml);
+
+  delete mh;
+  delete cv;
 }
 END_TEST
 
@@ -1175,6 +1203,7 @@ START_TEST (test_SyncAnnotation_stringHistoryWhenNotValid)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+  delete c;
 }
 END_TEST
 
@@ -1260,6 +1289,7 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+  delete c;
 }
 END_TEST
 
@@ -1345,6 +1375,7 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid1)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+  delete c;
 }
 END_TEST
 
@@ -1390,6 +1421,7 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid2)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+  delete c;
 }
 END_TEST
 
@@ -1475,6 +1507,7 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid3)
   fail_unless( equals(expected, sbml) );
 
   free(sbml);
+  delete c;
 }
 END_TEST
 
@@ -1491,9 +1524,6 @@ create_suite_SyncAnnotation (void)
 
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_1 );
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_2 );
- 
-  // // memory leaks unresolved
-
   tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly );
   tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly_1 );
   tcase_add_test(tcase, test_SyncAnnotation_deleteCVTerms );

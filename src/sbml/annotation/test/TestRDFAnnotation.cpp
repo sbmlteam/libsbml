@@ -350,6 +350,8 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
 
   fail_unless(node1 == NULL);
 
+  delete node1;
+
   node1 = RDFAnnotationParser::createCVTerms(NULL);
 
   fail_unless(node1 == NULL);  
@@ -395,6 +397,8 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
   fail_unless(node1 == NULL);
 
   delete c;
+  delete cv;
+  delete node1;
 
   Model *m1 = new Model(3,1);
   m1->setMetaId("_002");
@@ -410,6 +414,9 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
   fail_unless(node1 == NULL);
 
 
+  delete m1;
+  delete cv;
+  delete node1;
 }
 END_TEST
 
@@ -427,6 +434,7 @@ START_TEST (test_RDFAnnotation_delete)
   fail_unless( equals(expected, n1->toXMLString().c_str()) );
 
   delete node;
+  delete n1;
 }
 END_TEST
 
@@ -448,6 +456,7 @@ START_TEST (test_RDFAnnotation_deleteWithOther)
 
   fail_unless( equals(expected,node->toXMLString().c_str()) );
 
+  delete node;
 }
 END_TEST
 
@@ -469,7 +478,6 @@ START_TEST (test_RDFAnnotation_deleteWithOutOther)
 
 
   fail_unless( equals(expected, node->toXMLString().c_str()) );
-
 }
 END_TEST
 
@@ -496,7 +504,6 @@ START_TEST (test_RDFAnnotation_deleteWithOtherRDF)
 
 
   fail_unless( equals(expected, node->toXMLString().c_str()) );
-
 }
 END_TEST
 
@@ -577,26 +584,61 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
 		"    </rdf:RDF>\n"
     "  </annotation>";
 
- List *cvTerms = new List();
- XMLInputStream stream(withAbout,false);
- XMLNode node(stream);
- RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms );
+  // regular parsing
+  List *cvTerms = new List();
+  XMLInputStream stream(withAbout,false);
+  XMLNode node(stream);
+  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms );
 
- // regular parsing
- fail_unless( cvTerms->getSize() == 1 );
+  fail_unless( cvTerms->getSize() == 1 );
+
+  if (cvTerms != NULL)
+  {
+    unsigned int size = cvTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( cvTerms->remove(0) );
+      size--;
+    }
+    delete cvTerms;
+    cvTerms = NULL;
+  }
  
- // test parsing for specific meta id
+ //// test parsing for specific meta id
  cvTerms = new List();
  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, "_000004" );
  fail_unless( cvTerms->getSize() == 1 );
 
- // test parsing for a non-existing meta id
+  if (cvTerms != NULL)
+  {
+    unsigned int size = cvTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( cvTerms->remove(0) );
+      size--;
+    }
+    delete cvTerms;
+    cvTerms = NULL;
+  }
+
+ //// test parsing for a non-existing meta id
  cvTerms = new List();
  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, "badMetaId" );
  fail_unless( cvTerms->getSize() == 0 );
 
+  if (cvTerms != NULL)
+  {
+    unsigned int size = cvTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( cvTerms->remove(0) );
+      size--;
+    }
+    delete cvTerms;
+    cvTerms = NULL;
+  }
 
- // now the test with empty about 
+ //// now the test with empty about 
  cvTerms = new List();
 
  XMLInputStream stream1(emptyAbout,false);
@@ -605,6 +647,18 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
 
  fail_unless( cvTerms->getSize() == 0 );
  
+  if (cvTerms != NULL)
+  {
+    unsigned int size = cvTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( cvTerms->remove(0) );
+      size--;
+    }
+    delete cvTerms;
+    cvTerms = NULL;
+  }
+
  // now the test with empty about 
  cvTerms = new List();
 
@@ -614,6 +668,17 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
 
  fail_unless( cvTerms->getSize() == 0 );
 
+  if (cvTerms != NULL)
+  {
+    unsigned int size = cvTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( cvTerms->remove(0) );
+      size--;
+    }
+    delete cvTerms;
+    cvTerms = NULL;
+  }
 }
 END_TEST
 
@@ -1813,6 +1878,8 @@ START_TEST (test_RDFAnnotation_deleteCVTerms)
 
   fail_unless (n1 == NULL);
 
+  delete n1;
+
   n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
 
   fail_unless(n1->getNumChildren() == 0);
@@ -1820,25 +1887,36 @@ START_TEST (test_RDFAnnotation_deleteCVTerms)
 
   fail_unless( equals(empty, n1->toXMLString().c_str()) );
 
+  delete n1;
+
   node = m->getCompartment(2)->getAnnotation();
   n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
 
   fail_unless( equals(noRDF, n1->toXMLString().c_str()) );
+
+  delete n1;
 
   node = m->getCompartment(1)->getAnnotation();
   n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
 
   fail_unless( equals(noRDF, n1->toXMLString().c_str()) );
 
+  delete n1;
+
   node = m->getCompartment(4)->getAnnotation();
   n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
 
   fail_unless( equals(otherRDF, n1->toXMLString().c_str()) );
   
+  delete n1;
+
   node = XMLNode::convertStringToXMLNode("<notannotatio/>");
   n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
 
   fail_unless (n1 == NULL);
+  
+  delete n1;
+  delete node;
 }
 END_TEST
 
@@ -2079,16 +2157,14 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_removeSingleAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotation_removeAnnotation );
-  
-  // // memory leaks unresolved
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_delete );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOther );
-  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
   tcase_add_test(tcase, test_RDFAnnotation_deleteCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation1 );
   tcase_add_test(tcase, test_RDFAnnotation_replaceAnnotation2 );
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
 
 
   suite_add_tcase(suite, tcase);

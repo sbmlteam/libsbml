@@ -279,6 +279,8 @@ START_TEST (test_L3ModelHistory_deleteWithOther)
 
   fail_unless( equals(expected,node->toXMLString().c_str()) );
 
+  delete node;
+
 }
 END_TEST
 
@@ -593,6 +595,7 @@ START_TEST (test_L3ModelHistory_delete_Model)
   fail_unless( equals(expected, n1->toXMLString().c_str()) );
 
   delete node;
+  delete n1;
 }
 END_TEST
 
@@ -662,7 +665,6 @@ create_suite_L3ModelHistory (void)
                             L3ModelHistory_setup,
                             L3ModelHistory_teardown);
 
-  // libxml leaks these but expat does not
   tcase_add_test(tcase, test_L3ModelHistory_getModelHistory );
   tcase_add_test(tcase, test_L3ModelHistory_parseModelHistory );
   tcase_add_test(tcase, test_L3ModelHistory_deleteWithOutOther );
@@ -670,8 +672,6 @@ create_suite_L3ModelHistory (void)
   tcase_add_test(tcase, test_L3ModelHistory_getModelHistory_Model );
   tcase_add_test(tcase, test_L3ModelHistory_parseModelHistory_Model );
 
-  // // memory leaks unresolved
-  // leaks XMLNodes removeChild
   tcase_add_test(tcase, test_L3ModelHistory_delete );
   tcase_add_test(tcase, test_L3ModelHistory_deleteWithOther );
   tcase_add_test(tcase, test_L3ModelHistory_delete_Model );
