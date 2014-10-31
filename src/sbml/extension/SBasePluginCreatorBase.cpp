@@ -167,6 +167,16 @@ SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator,
 }
 
 LIBSBML_EXTERN
+int
+SBasePluginCreator_free(SBasePluginCreatorBase_t* creator)
+{
+  if (creator == NULL) return LIBSBML_INVALID_OBJECT;
+  delete creator;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+LIBSBML_EXTERN
 SBasePluginCreatorBase_t*
 SBasePluginCreator_clone(SBasePluginCreatorBase_t* creator)
 {

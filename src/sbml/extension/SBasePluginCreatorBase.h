@@ -175,6 +175,26 @@ SBasePlugin_t*
 SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator, 
   const char* uri, const char* prefix, const XMLNamespaces_t* xmlns);
 
+
+/**
+ * Frees the given SBasePluginCreatorBase_t structure
+ * 
+ * @param plugin the SBasePluginCreatorBase_t structure to be freed
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SBasePlugin_t
+ */
+LIBSBML_EXTERN
+int
+SBasePluginCreator_free(SBasePluginCreatorBase_t* creator);
+
+
 /**
  * Creates a deep copy of the given SBasePluginCreatorBase_t structure
  * 

@@ -125,6 +125,8 @@ START_TEST (test_SBMLDocumentPlugin_c_api)
   SBMLDocumentPlugin_unsetRequired(plugin);
   fail_unless(SBMLDocumentPlugin_isSetRequired(plugin) == (int)false);
 
+  fail_unless(SBMLDocumentPlugin_free(plugin) == LIBSBML_OPERATION_SUCCESS);
+
   fail_unless(SBMLDocumentPlugin_create(NULL, NULL, NULL) == NULL);
   fail_unless(SBMLDocumentPlugin_getRequired(NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless(SBMLDocumentPlugin_setRequired(NULL, 0) == LIBSBML_INVALID_OBJECT);

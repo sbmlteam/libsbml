@@ -85,15 +85,22 @@ END_TEST
 
 START_TEST (test_SBaseExtensionPoint_c_api)
 {
-  SBaseExtensionPoint_t *ext = SBaseExtensionPoint_create("test", 10);
+  SBaseExtensionPoint_t *ext = SBaseExtensionPoint_create("test", 10); 
   fail_unless(ext != NULL);
-  fail_unless(strcmp(SBaseExtensionPoint_getPackageName(ext), "test") == 0);
+  
+  char * name = SBaseExtensionPoint_getPackageName(ext);  
+  fail_unless(strcmp(name, "test") == 0);
   fail_unless(SBaseExtensionPoint_getTypeCode(ext) == 10);
+  safe_free(name);
+
 
   SBaseExtensionPoint_t *ext2 = SBaseExtensionPoint_clone(ext);
   fail_unless(ext2 != NULL);
-  fail_unless(strcmp(SBaseExtensionPoint_getPackageName(ext2), "test") == 0);
+
+  name = SBaseExtensionPoint_getPackageName(ext2);
+  fail_unless(strcmp(name, "test") == 0);
   fail_unless(SBaseExtensionPoint_getTypeCode(ext2) == 10);
+  safe_free(name);
 
   SBaseExtensionPoint_free(ext);
   SBaseExtensionPoint_free(ext2);
@@ -103,7 +110,6 @@ START_TEST (test_SBaseExtensionPoint_c_api)
   fail_unless(SBaseExtensionPoint_free(NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless(SBaseExtensionPoint_getPackageName(NULL) == NULL);
   fail_unless(SBaseExtensionPoint_getTypeCode(NULL) == LIBSBML_INVALID_OBJECT);
-
 }
 END_TEST
 

@@ -133,6 +133,7 @@ START_TEST (test_SBMLExtension_c_api)
   fail_unless(SBMLExtension_getPackageVersion(ext, uri) == SBMLExtension_getPackageVersion(ext2, uri));
 
   fail_unless(SBMLExtension_free(ext2) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBMLExtension_free(ext) == LIBSBML_OPERATION_SUCCESS);
 }
 END_TEST
 

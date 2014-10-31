@@ -75,7 +75,7 @@ START_TEST (test_readwrite_unknown)
   fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_WARNING) == 1);
   fail_unless(doc->getError(0)->getErrorId() == UnrequiredPackagePresent);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   fail_unless(newModel==origModel);
 
@@ -103,7 +103,7 @@ START_TEST (test_readwrite_unknown2)
   fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 1);
   fail_unless(doc->getError(0)->getErrorId() == RequiredPackagePresent);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   fail_unless(newModel==origModel);
 
@@ -131,7 +131,7 @@ START_TEST (test_readwrite_unknown3)
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", false);
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", true);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   fail_unless(newModel==origModel);
 
@@ -159,7 +159,7 @@ START_TEST (test_readwrite_unknown4)
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", false);
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", true);
 
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   fail_unless(newModel==origModel);
 
@@ -181,15 +181,16 @@ START_TEST (test_copy_unknown1)
   fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
 
   //Write this model to a string.
-  string origModel = writeSBMLToString(doc);
+  string origModel = writeSBMLToStdString(doc);
 
   //Now make a copy and write *that* to a string:
   SBMLDocument* dcopy = doc->clone();
-  string newModel = writeSBMLToString(dcopy);
+  string newModel = writeSBMLToStdString(dcopy);
 
   fail_unless(newModel==origModel);
 
   delete doc;
+  delete dcopy;
 }
 END_TEST
   
@@ -210,15 +211,16 @@ START_TEST (test_copy_unknown2)
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", false);
 
   //Write this model to a string.
-  string origModel = writeSBMLToString(doc);
+  string origModel = writeSBMLToStdString(doc);
 
   //Now make a copy and write *that* to a string:
   SBMLDocument* dcopy = doc->clone();
-  string newModel = writeSBMLToString(dcopy);
+  string newModel = writeSBMLToStdString(dcopy);
 
   fail_unless(newModel==origModel);
 
   delete doc;
+  delete dcopy;
 }
 END_TEST
   
@@ -236,7 +238,7 @@ START_TEST (test_copy_unknown3)
   fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
 
   //Write this model to a string.
-  string origModel = writeSBMLToString(doc);
+  string origModel = writeSBMLToStdString(doc);
 
   //disable the package
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", false);
@@ -244,11 +246,12 @@ START_TEST (test_copy_unknown3)
   //Now make a copy, re-enable the package, and write *that* to a string:
   SBMLDocument* dcopy = doc->clone();
   dcopy->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", true);
-  string newModel = writeSBMLToString(dcopy);
+  string newModel = writeSBMLToStdString(dcopy);
 
   fail_unless(newModel==origModel);
 
   delete doc;
+  delete dcopy;
 }
 END_TEST
   
@@ -277,7 +280,7 @@ START_TEST (test_disable_unknown)
   doc->enablePackageInternal("http://www.sbml.org/sbml/level3/version1/extra/version1", "extra", false);
 
   //write it to a string
-  string newModel = writeSBMLToString(doc);
+  string newModel = writeSBMLToStdString(doc);
 
   fail_unless(newModel==disabledModel);
 

@@ -259,6 +259,25 @@ SBMLDocumentPlugin_create(const char* uri, const char* prefix,
       SBMLNamespaces_t* sbmlns);
 
 /**
+ * Frees the given SBMLDocumentPlugin_t structure
+ *
+ * @param plugin the SBMLDocumentPlugin_t structure to be freed
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ *
+ * @memberof SBMLDocumentPlugin_t
+ */
+LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_free(SBMLDocumentPlugin_t* plugin);
+
+/**
  * Creates a deep copy of the given SBMLDocumentPlugin_t structure
  *
  * @param plugin the SBMLDocumentPlugin_t structure to be copied

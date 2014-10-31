@@ -259,6 +259,16 @@ SBMLDocumentPlugin_create(const char* uri, const char* prefix,
 }
 
 LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_free(SBMLDocumentPlugin_t* plugin)
+{
+  if (plugin == NULL) return LIBSBML_INVALID_OBJECT;
+  delete plugin;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin)
 {

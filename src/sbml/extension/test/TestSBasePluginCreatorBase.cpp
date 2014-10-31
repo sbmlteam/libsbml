@@ -95,15 +95,26 @@ START_TEST (test_SBasePluginCreatorBase_c_api)
   SBasePluginCreatorBase_t* base = SBasePluginCreator_clone(&modelPluginCreator);
   fail_unless(base != NULL);
 
- 	fail_unless(SBasePluginCreator_getNumOfSupportedPackageURI(base) == 1);		
-  fail_unless(strcmp(SBasePluginCreator_getSupportedPackageURI(base, 0), uri.c_str()) == 0);		
-  fail_unless(strcmp(SBasePluginCreator_getSupportedPackageURI(base, 1000), "") == 0);		
-  fail_unless(strcmp(SBasePluginCreator_getTargetPackageName(base), 
-    SBaseExtensionPoint_getPackageName(&modelExtPoint) ) == 0);		
+ 	fail_unless(SBasePluginCreator_getNumOfSupportedPackageURI(base) == 1);
+
+  char * pkgURI = SBasePluginCreator_getSupportedPackageURI(base, 0); 
+  fail_unless(strcmp(pkgURI, uri.c_str()) == 0);		
+  safe_free(pkgURI);
+
+  pkgURI = SBasePluginCreator_getSupportedPackageURI(base, 1000); 
+  fail_unless(strcmp(pkgURI, "") == 0);		
+  safe_free(pkgURI);
+
+  char * name = SBaseExtensionPoint_getPackageName(&modelExtPoint);
+  fail_unless(strcmp(SBasePluginCreator_getTargetPackageName(base), name ) == 0);	
+  safe_free(name);
+
   fail_unless(SBasePluginCreator_getTargetSBMLTypeCode(base) == 
     SBaseExtensionPoint_getTypeCode(&modelExtPoint) );		
 	
   fail_unless(SBasePluginCreator_isSupported(base, uri.c_str()) == 1);		
+
+  fail_unless(SBasePluginCreator_free(base) == LIBSBML_OPERATION_SUCCESS);
 	
 }
 END_TEST

@@ -73,12 +73,14 @@ START_TEST (test_SBMLExtensionNamespaces_c_api)
   TestPkgNamespaces ns;
   SBMLExtensionNamespaces_t* extNs = SBMLExtensionNamespaces_clone(&ns);
   fail_unless( extNs != NULL);
-  fail_unless(strcmp(SBMLExtensionNamespaces_getPackageName(extNs), 
-    TestExtension::getPackageName().c_str()) == 0);
+  char * name = SBMLExtensionNamespaces_getPackageName(extNs);
+  fail_unless(strcmp(name, TestExtension::getPackageName().c_str()) == 0);
   fail_unless(SBMLExtensionNamespaces_getPackageVersion(extNs) ==  
     TestExtension::getDefaultPackageVersion());
 
   fail_unless(SBMLExtensionNamespaces_free(extNs) == LIBSBML_OPERATION_SUCCESS);
+
+  safe_free(name);
 }
 END_TEST
 

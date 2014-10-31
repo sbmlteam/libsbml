@@ -78,7 +78,7 @@ void
 setTestDataDirectory (void)
 {
   char *srcdir = getenv("srcdir");
-  int  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+  size_t  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
 
 
   /**
@@ -120,6 +120,8 @@ main (void)
   num_failed = srunner_ntests_failed(runner);
 
   srunner_free(runner);
+
+  safe_free(TestDataDirectory);
 
   return num_failed;
 }
