@@ -3,7 +3,7 @@
 ## @file    flattenModel.py
 ## @brief   Flattens the comp code from the given SBML file.
 ## @author  Frank T. Bergmann
-##
+## @author  Michael Hucka
 ##
 ## <!--------------------------------------------------------------------------
 ## This sample program is distributed under a different license than the rest
@@ -39,69 +39,107 @@
 ## written permission.
 ## ------------------------------------------------------------------------ -->
 
-import sys
-import os.path
-import libsbml
+import sys, getopt, os.path
+from libsbml import *
 
-def main (args):
-  """usage: flattenModel.py [-p] input-filename output-filename
-      -p : list unused ports
+
+# Utility function to make it easier to check the return values from
+# libSBML calls.
+
+def check(value, message):
+  """If 'value' is None, prints an error message constructed using
+  'message' and then exits with status code 1.  If 'value' is an integer,
+  it assumes it is a libSBML return status code.  If the code value is
+  LIBSBML_OPERATION_SUCCESS, returns without further action; if it is not,
+  prints an error message constructed using 'message' along with text from
+  libSBML explaining the meaning of the code, and exits with status code 1.
   """
-  if len(args) != 4 and len(args) != 3 :
-    print(main.__doc__)
-    sys.exit(1)
-
-  leavePorts = False
-
-  if len(args) == 3:
-    infile  = args[1]
-    outfile = args[2]
-  elif len(args) == 4:
-    if args[1] != "-p":
-      print(main.__doc__)
-      sys.exit(1)
+  if value == None:
+    raise SystemExit('LibSBML returned a null value trying to ' + message + '.')
+  elif type(value) is int:
+    if value == LIBSBML_OPERATION_SUCCESS:
+      return
     else:
-      leavePorts = True
-      infile  = args[2]
-      outfile = args[3]
+      err_msg = 'Error encountered trying to ' + message + '.' \
+                + 'LibSBML returned error code ' + str(value) + ': "' \
+                + OperationReturnValue_toString(value).strip() + '"'
+      raise SystemExit(err_msg)
+  else:
+    return
 
 
+# The actual program.
 
-  if not os.path.exists(infile):
-    print("[Error] %s : No such file." % (infile))
-    sys.exit(1)
+def main (argv):
+  """Usage: flattenModel.py [-p] MODEL_FILE OUTPUT_FILE
+Arguments:
+ -p    (Optional) list unused ports
+  """
 
-  reader  = libsbml.SBMLReader()
-  writer  = libsbml.SBMLWriter()
-  sbmldoc = reader.readSBML(infile)
+  # Before we begin, check that this copy of libSBML has the 'comp' package
+  # extension compiled in.
+
+  if not SBMLExtensionRegistry.isPackageEnabled("comp"):
+    err_msg = 'This copy of libSBML does not contain the "comp" extension.' \
+              + 'Unable to proceed with flattening the model.'
+    raise SystemExit(err_msg)
+
+  # Read and verify command line arguments.
+
+  try:
+    opts, args = getopt.getopt(argv[1:], "p")
+  except:
+    raise SystemExit(main.__doc__)
+
+  if len(args) < 2:
+    raise SystemExit(main.__doc__)
+
+  leave_ports = '-p' in opts
+  input_file  = args[0]
+  output_file = args[1]
+
+  if not os.path.exists(input_file):
+    raise SystemExit('%s : No such file.' % (input_file))
+
+  # Read the SBML input file.
+
+  reader  = SBMLReader()
+  check(reader, 'create an SBMLReader object.')
+  sbmldoc = reader.readSBML(input_file)
+  check(sbmldoc, 'create an SBMLDocument object from file input')
 
   if sbmldoc.getNumErrors() > 0:
-    if sbmldoc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+    if sbmldoc.getError(0).getErrorId() == XMLFileUnreadable:
       # Handle case of unreadable file here.
       sbmldoc.printErrors()
-    elif sbmldoc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+    elif sbmldoc.getError(0).getErrorId() == XMLFileOperationError:
       # Handle case of other file error here.
       sbmldoc.printErrors()
     else:
       # Handle other error cases here.
       sbmldoc.printErrors()
 
-    sys.exit(1)
+    raise SystemExit(2)
 
   # Create the converter options
-  props = libsbml.ConversionProperties()
-  props.addOption("flatten comp", True, "flatten comp")
-  props.addOption("leavePorts", leavePorts, "unused ports should be listed in the flattened model")
 
-  # do conversion
+  props = ConversionProperties()
+  props.addOption("flatten comp", True)       # Invokes CompFlatteningConverter
+  props.addOption("leave_ports", leave_ports) # Indicates whether to leave ports
+
+  # Do the conversion.
+
   result = sbmldoc.convert(props)
-  if (result != libsbml.LIBSBML_OPERATION_SUCCESS):
+  if (result != LIBSBML_OPERATION_SUCCESS):
     sbmldoc.printErrors()
-    print("[Error] Conversion failed... ("+ str(result) + ")")
-    sys.exit(1)
+    raise SystemExit("Conversion failed... ("+ str(result) + ")")
 
-  writer.writeSBML(sbmldoc, outfile)
-  print("Flat model written to %s" % (outfile))
+  # Write the results to the output file.
+
+  writer  = SBMLWriter()
+  check(writer, 'create an SBMLWriter object.')
+  writer.writeSBML(sbmldoc, output_file)
+  print("Flattened model written to %s" % (output_file))
 
 if __name__ == '__main__':
   main(sys.argv)
