@@ -3064,38 +3064,38 @@ ASTNode_getType (const ASTNode_t *node)
 }
 
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getId(const ASTNode_t * node)
 {
   if (node == NULL)
     return NULL;
 
-  return node->getId().empty() ? "" : safe_strdup(node->getId().c_str());
+  return safe_strdup(node->getId().c_str());
 }
 
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getClass(const ASTNode_t * node)
 {
   if (node == NULL)
     return NULL;
 
-  return node->getClass().empty() ? "" : safe_strdup(node->getClass().c_str());
+  return safe_strdup(node->getClass().c_str());
 }
 
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getStyle(const ASTNode_t * node)
 {
   if (node == NULL)
     return NULL;
 
-  return node->getStyle().empty() ? "" : safe_strdup(node->getStyle().c_str());
+  return safe_strdup(node->getStyle().c_str());
 }
 
 
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getUnits(const ASTNode_t * node)
 {
   if (node == NULL) return NULL;
@@ -3698,12 +3698,11 @@ ASTNode_setDefinitionURL(ASTNode_t* node, XMLAttributes_t defnURL)
 
 
 LIBSBML_EXTERN
-const char * 
+char * 
 ASTNode_getDefinitionURLString(ASTNode_t* node)
 {
-  if (node == NULL) return "";
-  XMLAttributes *att = node->getDefinitionURL();
-  return (att != NULL) ? safe_strdup(att->getValue("definitionURL").c_str()) : "";
+  if (node == NULL) return safe_strdup("");
+  return safe_strdup(node->getDefinitionURLString().c_str());
 }
 
 
@@ -3715,7 +3714,9 @@ ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL)
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
   XMLAttributes_t *att = XMLAttributes_create();
   XMLAttributes_add(att, "definitionURL", defnURL);
-  return node->setDefinitionURL(*(att));
+  int ret = node->setDefinitionURL(*(att));
+  XMLAttributes_free(att);
+  return ret;
 }
 
 

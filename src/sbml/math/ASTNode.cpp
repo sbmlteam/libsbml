@@ -3056,6 +3056,11 @@ ASTNode::reduceToBinary()
   swapChildren(op2);
 
   reduceToBinary();
+  //op2 is unneeded at this point, but we need to make sure we don't delete our own children:
+  while (op2->getNumChildren() > 0) {
+    op2->removeChild(0);
+  }
+  delete op2;
 }
 
 
@@ -4526,8 +4531,7 @@ char *
 ASTNode_getDefinitionURLString(ASTNode_t* node)
 {
   if (node == NULL) return safe_strdup("");
-  XMLAttributes *att = node->getDefinitionURL();
-  return safe_strdup((att != NULL) ? att->getValue("definitionURL").c_str() : "");
+  return safe_strdup(node->getDefinitionURLString().c_str());
 }
 
 

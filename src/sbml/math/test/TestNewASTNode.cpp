@@ -1815,6 +1815,7 @@ START_TEST (test_ASTNode_setInteger)
   fail_unless( node->getDenominator() == 1      );
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2033,6 +2034,7 @@ START_TEST (test_ASTNode_setType_2)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2073,6 +2075,7 @@ START_TEST (test_ASTNode_setType_3)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2108,7 +2111,7 @@ START_TEST (test_ASTNode_setType_4)
   //fail_unless( node->getEncoding() == "text");
 
 
-
+  delete m;
   delete node;
 }
 END_TEST
@@ -2136,6 +2139,7 @@ START_TEST (test_ASTNode_setType_5)
   fail_unless( node->getInteger() == 0);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2168,6 +2172,7 @@ START_TEST (test_ASTNode_setType_6)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2199,6 +2204,7 @@ START_TEST (test_ASTNode_setType_7)
   fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2240,6 +2246,7 @@ START_TEST (test_ASTNode_setType_8)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2280,6 +2287,7 @@ START_TEST (test_ASTNode_setType_9)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2320,6 +2328,7 @@ START_TEST (test_ASTNode_setType_10)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2360,6 +2369,7 @@ START_TEST (test_ASTNode_setType_11)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2400,6 +2410,7 @@ START_TEST (test_ASTNode_setType_12)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2431,6 +2442,7 @@ START_TEST (test_ASTNode_setType_13)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2462,6 +2474,7 @@ START_TEST (test_ASTNode_setType_14)
   fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2493,6 +2506,7 @@ START_TEST (test_ASTNode_setType_15)
   fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2526,6 +2540,7 @@ START_TEST (test_ASTNode_setType_16)
   fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2569,6 +2584,7 @@ START_TEST (test_ASTNode_setType_17)
 
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2605,6 +2621,7 @@ START_TEST (test_ASTNode_setType_18)
   fail_unless( node->getParentSBMLObject() == m);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2641,6 +2658,7 @@ START_TEST (test_ASTNode_setType_19)
   fail_unless( node->getParentSBMLObject() == m);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2677,6 +2695,7 @@ START_TEST (test_ASTNode_setType_20)
   fail_unless( node->getParentSBMLObject() == m);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2713,6 +2732,7 @@ START_TEST (test_ASTNode_setType_21)
   fail_unless( node->getParentSBMLObject() == m);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2753,6 +2773,7 @@ START_TEST (test_ASTNode_setType_22)
   fail_unless( node->getName() == NULL);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2791,6 +2812,7 @@ START_TEST (test_ASTNode_setType_23)
   fail_unless( node->isConstant() == true);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2836,6 +2858,7 @@ START_TEST (test_ASTNode_setType_24)
   fail_unless( node->isConstant() == true);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2879,6 +2902,7 @@ START_TEST (test_ASTNode_setType_25)
     "http://www.sbml.org/sbml/symbols/time");
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2923,6 +2947,7 @@ START_TEST (test_ASTNode_setType_26)
     "http://www.sbml.org/sbml/symbols/time");
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -2990,6 +3015,7 @@ START_TEST (test_ASTNode_setType_27)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3057,6 +3083,7 @@ START_TEST (test_ASTNode_setType_28)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3124,6 +3151,7 @@ START_TEST (test_ASTNode_setType_29)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3193,6 +3221,7 @@ START_TEST (test_ASTNode_setType_30)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3268,6 +3297,7 @@ START_TEST (test_ASTNode_setType_31)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3337,6 +3367,7 @@ START_TEST (test_ASTNode_setType_32)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3406,6 +3437,7 @@ START_TEST (test_ASTNode_setType_33)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3484,6 +3516,7 @@ START_TEST (test_ASTNode_setType_34)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3562,6 +3595,7 @@ START_TEST (test_ASTNode_setType_35)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3604,6 +3638,7 @@ START_TEST (test_ASTNode_setNewTypes_1)
   fail_unless( node->isQualifier() == true);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3639,6 +3674,7 @@ START_TEST (test_ASTNode_setNewTypes_2)
   fail_unless( util_isEqual(node->getReal(), 0));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3681,6 +3717,7 @@ START_TEST (test_ASTNode_setNewTypes_3)
   fail_unless( node->isSemantics() == true);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3716,6 +3753,7 @@ START_TEST (test_ASTNode_setNewTypes_4)
   fail_unless( node->isSemantics() == true);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3796,6 +3834,7 @@ START_TEST (test_ASTNode_setNewTypes_5)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -3867,6 +3906,7 @@ START_TEST (test_ASTNode_setNewTypes_6)
   fail_unless( util_isEqual(child->getReal(), 3.2));
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -4089,7 +4129,6 @@ END_TEST
 
 START_TEST (test_ASTNode_getListOfNodes1)
 {
-  ASTNode *node1 = new ASTNode();
   ASTNode *node = new ASTNode();
   ASTNode *c1 = new ASTNode();
   ASTNode *c2 = new ASTNode();
@@ -4106,7 +4145,7 @@ START_TEST (test_ASTNode_getListOfNodes1)
   fail_unless( list->getSize() == 2 );
 
 
-  node1 = (ASTNode *) list->get(0);
+  ASTNode* node1 = (ASTNode *) list->get(0);
 
   fail_unless( node1->isName() == true );
   fail_unless( !strcmp(node1->getName(), "foo") );
@@ -4185,6 +4224,8 @@ START_TEST (test_ASTNode_removeChild)
   fail_unless( node->getNumChildren() == 0); 
 
   delete node;
+  delete c1;
+  delete c2;
 }
 END_TEST
 
@@ -4600,6 +4641,7 @@ START_TEST (test_ASTNode_swapChildren5)
 
   delete node;
   delete node_1;
+  delete n1;
 }
 END_TEST
 
@@ -5269,11 +5311,15 @@ START_TEST (test_ASTNode_returnsBoolean)
   fail_unless(ASTNode_returnsBoolean(math) == 0);
 
   // func with model func returns boolean
-  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, true)"));
+  ASTNode* m = SBML_parseFormula("lambda(x, true)");
+  FunctionDefinition_setMath(fd, m);
+  delete m;
   fail_unless(ASTNode_returnsBoolean(math) == 1);
 
   // func with model func returns number
-  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, 6)"));
+  m = SBML_parseFormula("lambda(x, 6)");
+  FunctionDefinition_setMath(fd, m);
+  delete m;
   fail_unless(ASTNode_returnsBoolean(math) == 0);
   delete n;
   SBMLDocument_free(doc);
@@ -6297,6 +6343,7 @@ START_TEST (test_ASTNode_hasUnits)
   n->setUnits("litre");
   fail_unless( n->hasUnits() == true);
 
+  delete n;
   n = new ASTNode(AST_PLUS);
   c->setValue(2.0);
   n->addChild(c);
@@ -6355,6 +6402,7 @@ START_TEST (test_ASTNode_renameUnitSIdRefs)
 
   fail_unless (n->getUnits() == "me");
 
+  delete n;
   n = new ASTNode(AST_PLUS);
   c->setValue(2.0);
   c->setUnits("a");
@@ -6401,6 +6449,7 @@ START_TEST (test_ASTNode_replaceIDWithFunction_2)
   fail_unless(child->getNumChildren() == 1);
 
   delete n;
+  delete replaced;
 }
 END_TEST
 
@@ -6462,6 +6511,7 @@ START_TEST (test_ASTNode_userData_1)
   fail_unless(n->isSetUserData() == false);
 
   delete n;
+  delete m;
 }
 END_TEST
 
@@ -6487,6 +6537,7 @@ START_TEST (test_ASTNode_userData_2)
   fail_unless(n->isSetUserData() == false);
 
   delete n;
+  delete m;
 }
 END_TEST
 
@@ -6509,6 +6560,7 @@ START_TEST (test_ASTNode_userData_3)
   fail_unless(n->getUserData() == NULL);
 
   delete n;
+  delete m;
 }
 END_TEST
 
@@ -6531,6 +6583,7 @@ START_TEST (test_ASTNode_userData_4)
   fail_unless(n->getUserData() == NULL);
 
   delete n;
+  delete m;
 }
 END_TEST
 
@@ -6652,6 +6705,7 @@ START_TEST (test_ASTNode_csymbol_2)
   fail_unless( n->getNumChildren() == 0);
 
   delete n;
+  delete c1;
   delete cc1;
 }
 END_TEST
@@ -6707,6 +6761,7 @@ START_TEST (test_ASTNode_csymbol_3)
   fail_unless( n->getNumChildren() == 0);
 
   delete n;
+  delete c1;
   delete cc1;
 }
 END_TEST
@@ -6726,6 +6781,7 @@ START_TEST (test_ASTNode_csymbol_4)
   fail_unless( util_isEqual(n->getReal(), 6e23));
   fail_unless( n->getType() == AST_REAL);
 
+  delete n;
   n = new ASTNode(AST_NAME_TIME);
 
   i = n->setValue(6e23);
@@ -6760,34 +6816,44 @@ START_TEST (test_ASTNode_replace)
   node->addChild(temp);
   node->addChild(function->deepCopy());
 
-  std::string formula = SBML_formulaToString(node);
-  fail_unless(formula == "time / X");
+  char* formula = SBML_formulaToString(node);
+  fail_unless(strcmp(formula, "time / X")==0);
+  safe_free(formula);
 
   node->replaceIDWithFunction("X", function1);
   formula = SBML_formulaToString(node);
-  fail_unless(formula == "time / Y");
+  fail_unless(strcmp(formula, "time / Y")==0);
+  safe_free(formula);
 
   ASTNode* ast1 = new ASTNode(AST_TIMES);
   ast1->addChild(function->deepCopy());
   ast1->addChild(node->deepCopy());
   
   formula = SBML_formulaToString(ast1);
-  fail_unless(formula == "X * (time / Y)");
+  fail_unless(strcmp(formula, "X * (time / Y)")==0);
+  safe_free(formula);
 
   ASTNode* divTemplate = new ASTNode(AST_DIVIDE);
-  divTemplate->addChild(function1->deepCopy());
+  ASTNode* function3 = function1->deepCopy();
+  divTemplate->addChild(function3);
 
   divTemplate->insertChild(0, function->deepCopy());
   formula = SBML_formulaToString(divTemplate);
-  fail_unless(formula == "X / Y");
+  fail_unless(strcmp(formula, "X / Y")==0);
+  safe_free(formula);
 
   fail_unless(divTemplate->removeChild(1) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(divTemplate->insertChild(1, function1->deepCopy()) == LIBSBML_OPERATION_SUCCESS);
   formula = SBML_formulaToString(divTemplate);
-  fail_unless(formula == "X / Y");
+  fail_unless(strcmp(formula, "X / Y")==0);
+  safe_free(formula);
 
   delete node;
-
+  delete ast1;
+  delete function;
+  delete function1;
+  delete function3;
+  delete divTemplate;
 }
 END_TEST
 
@@ -6802,7 +6868,7 @@ START_TEST (test_ASTNode_representsBvar)
     "</lambda>"
   );
 
-  ASTNode * N = readMathMLFromString(original);
+  ASTNode* N = readMathMLFromString(original);
 
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
@@ -6822,6 +6888,7 @@ START_TEST (test_ASTNode_representsBvar)
   fail_unless(N->getChild(1)->representsBvar() == true);
   fail_unless(N->getChild(2)->representsBvar() == false);
 
+  delete N;
 }
 END_TEST
 
