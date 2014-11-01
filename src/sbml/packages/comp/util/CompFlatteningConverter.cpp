@@ -298,7 +298,7 @@ int EnablePackageOnParentDocument(Model* m, SBMLErrorLog *, void* userdata)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-
+/** @cond doxygenLibsbmlInternal */
 int 
 CompFlatteningConverter::performConversion()
 {  
@@ -425,6 +425,7 @@ CompFlatteningConverter::performConversion()
   delete flatmodel;
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 int

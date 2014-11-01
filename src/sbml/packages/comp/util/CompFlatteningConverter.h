@@ -560,6 +560,7 @@ public:
   virtual int convert();
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Performs the conversion.
    *
@@ -577,6 +578,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int performConversion();
+  /** @endcond */
 
 
   /**
