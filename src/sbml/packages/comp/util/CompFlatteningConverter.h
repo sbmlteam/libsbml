@@ -243,6 +243,16 @@ if not SBMLExtensionRegistry.isPackageEnabled("comp"):
     raise SystemExit(err_msg)
 @endcode
 @endif
+@if java
+@code{.java}
+if (! SBMLExtensionRegistry.isPackageEnabled("comp"))
+{
+    System.out.println("This copy of libSBML does not contain the 'comp' extension");
+    System.out.println("Unable to proceed with flattening the model.");
+    System.exit(1);
+}
+@endcode
+@endif
  *
  * Next, we read the SBML input file.  For this example, we simply
  * assume that the path to the file is given as the first argument
@@ -270,6 +280,17 @@ if sbmldoc.getNumErrors() > 0:
     raise SystemExit(2)
 @endcode
 @endif
+@if java
+@code{.java}
+SBMLReader reader = new SBMLReader();
+SBMLDocument doc  = reader.readSBML(args[0]);
+if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
+{
+    doc.printErrors();
+    System.exit(1);
+}
+@endcode
+@endif
  * Continuing, we set up options for the call to the converter.
  * The use of ConversionProperties and the general scheme behind
  * conversion options is explained further below; for the purposes
@@ -288,6 +309,12 @@ SBMLConverter* converter =
 @code{.py}
 props = ConversionProperties()
 props.addOption("flatten comp", True)       # Invokes CompFlatteningConverter
+@endcode
+@endif
+@if java
+@code{.java}
+ConversionProperties props = new ConversionProperties();
+props.addOption("flatten comp", true);
 @endcode
 @endif
  * Now comes the actual invocation of CompFlatteningConverter.
@@ -314,6 +341,15 @@ if (result != LIBSBML_OPERATION_SUCCESS):
     raise SystemExit("Conversion failed... ("+ str(result) + ")")
 @endcode
 @endif
+@if java
+@code{.java}
+if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
+{
+    doc.printErrors();
+    System.exit(1);
+}
+@endcode
+@endif
  * If successful, we simply write out the resulting flattened model
  * to an output file which, for the purposes of this simple example,
  * we assume is indicated by the second argument handed to the program
@@ -334,6 +370,12 @@ writer  = SBMLWriter()
 check(writer, 'create an SBMLWriter object.')
 writer.writeSBML(sbmldoc, output_file)
 print("Flattened model written to %s" % (output_file))
+@endcode
+@endif
+@if java
+@code{.java}
+SBMLWriter writer = new SBMLWriter();
+writer.writeSBML(doc, args[1]);
 @endcode
 @endif
  *
