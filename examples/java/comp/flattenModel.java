@@ -44,15 +44,22 @@ public class flattenModel
 {
   public static void main (String[] args)
   {
+    if (! SBMLExtensionRegistry.isPackageEnabled("comp"))
+    {
+      println("This copy of libSBML does not contain the 'comp' extension");
+      println("Unable to proceed with flattening the model.");
+      System.exit(2);
+    }
+
     if (args.length < 2 || args.length > 3)
     {
       println("Usage: java flattenModel [-p] input-filename output-filename");
       println(" -p : list unused ports");
-      System.exit(2);
+      System.exit(3);
     }
 
-    SBMLReader reader     = new SBMLReader();
-    SBMLWriter writer     = new SBMLWriter();
+    SBMLReader reader  = new SBMLReader();
+    SBMLWriter writer  = new SBMLWriter();
     boolean leavePorts = false;
 
     SBMLDocument doc;
@@ -66,7 +73,6 @@ public class flattenModel
       leavePorts = true;
     }
 
-
     if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
     {
       doc.printErrors();
@@ -77,16 +83,17 @@ public class flattenModel
       ConversionProperties props = new ConversionProperties();
 
       /* add an option that we want to flatten */
-      props.addOption("flatten comp", true, "flatten comp");
+      props.addOption("flatten comp", true);
 
       /* add an option to leave ports if the user has requested this */
-      props.addOption("leavePorts", leavePorts, "unused ports should be listed in the flattened model");
+      props.addOption("leavePorts", leavePorts);
 
       /* perform the conversion */
       if (doc.convert(props) != libsbml.LIBSBML_OPERATION_SUCCESS)
       {
-        println ("conversion failed ... ");
-        System.exit(3);
+        println("Conversion failed.");
+        doc.printErrors();
+        System.exit(4);
       }
 
       if (args.length == 2)
