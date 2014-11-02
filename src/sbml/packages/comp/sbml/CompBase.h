@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    CompBase.h
  * @brief   Definition of CompBase, the base class of extension entities
  *          plugged in SBase derived classes in the SBML Core package.
@@ -264,3 +266,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* CompBase_h */
+
+/** @endcond */
