@@ -35,7 +35,7 @@
 # and also available online as http://sbml.org/software/libsbml/license.html
 #----------------------------------------------------------------------- -->*/
 
-import sys, string, os.path, re, argparse, libsbmlutils
+import sys, string, os.path, re, argparse, libsbmlutils, pdb
 
 #
 # Hardwired values.  These need to be updated manually.
@@ -183,13 +183,22 @@ class CHeader:
   def header_line_parser(self, line):
     stripped = line.strip()
 
-    # Track things that we flag as internal, so that we can
-    # remove them from the documentation.
+    # Track things that we flag as internal, so that we can remove them from
+    # the documentation. The test for @endcond is later below, after some
+    # other tests are done, to get actions to take place in the right order.
+
+    # Things that are marked internal still get emitted in the output, but
+    # are flagged with @internal so that downstream tools do the right thing.
 
     if '@cond doxygenLibsbmlInternal' in stripped: self.isInternal = True
-    if '@endcond' in stripped:                     self.isInternal = False
 
-    if stripped.startswith('private:'): self.inPrivate = True
+    # We track private/protected separately because we have to watch for
+    # different things in the input.  (E.g., for internal, we have a start and
+    # stop markers, but for private/protected, there's only a start marker.)
+
+    if stripped.startswith('private:'):   self.inPrivate = True
+    if stripped.startswith('protected:'): self.inPrivate = True
+    if stripped.startswith('public:'):    self.inPrivate = False
 
     # Watch for class description, usually at top of file.
 
@@ -266,6 +275,8 @@ class CHeader:
       self.lines      = ''
       self.ignoreThis = False
       self.inDocs     = not self.isInternal
+
+    if '@endcond' in stripped: self.isInternal = False
 
     if self.inComment and stripped.endswith('*/'):
       self.inComment  = False
