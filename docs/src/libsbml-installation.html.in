@@ -1203,7 +1203,8 @@ table below lists the pathnames where those files will be installed.
   <td><code>libsbmlj.jnilib</code><br><code> libsbmlj.jar</code></td>
   <td><code>sbmlj.dll</code><br><code> libsbmlj.jar</code></td>
 </tr><tr style="background: #f3f3f3">
-  <td colspan="2">JavaScript (for Node.js)</td>
+  <td>JavaScript</td>
+  <td><em>(Node.js module)</em></td>
   <td><code>sbml.node</code></td>
   <td><code>sbml.node</code></td>
   <td><code>sbml.node</code></td>
