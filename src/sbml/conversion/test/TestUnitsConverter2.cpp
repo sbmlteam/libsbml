@@ -1586,10 +1586,12 @@ START_TEST (test_convert_cn_units)
   ar->setVariable("p");
 
   ASTNode *ast = SBML_parseFormula("2*1.5");
+
   ast->getChild(0)->setUnits("gram");
   ast->getChild(1)->setUnits("dimensionless");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1637,6 +1639,7 @@ START_TEST (test_convert_cn_units1)
   ast->getChild(1)->setUnits("dimensionless");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1684,6 +1687,7 @@ START_TEST (test_convert_cn_units2)
   ast->getChild(1)->setUnits("dimensionless");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1748,6 +1752,7 @@ START_TEST (test_convert_cn_units3)
   ast->getChild(1)->setUnits("second");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1827,6 +1832,7 @@ START_TEST (test_convert_cn_units4)
   ast->getChild(1)->setUnits("dimensionless");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1880,6 +1886,7 @@ START_TEST (test_convert_cn_units5)
   ast->getChild(1)->setUnits("second");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 
@@ -1950,6 +1957,7 @@ START_TEST (test_convert_cn_units6)
   ast->getChild(1)->setUnits("second");
 
   ar->setMath(ast);
+  delete ast;
 
   units->setDocument(d);
 

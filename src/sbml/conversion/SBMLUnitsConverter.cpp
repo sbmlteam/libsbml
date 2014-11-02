@@ -373,6 +373,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
    * until after the conversion is complete
    */
   bool conversion = false;
+  bool deleteUD = false;
 
   int tc = sb.getTypeCode();
 
@@ -486,6 +487,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
           Unit * u = ud->createUnit();
           u->initDefaults();
           u->setKind(UnitKind_forName(units.c_str()));
+          deleteUD = true;
         }
         else
         {
@@ -542,8 +544,14 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
       /* we are dealing in concentration 
       * but the unit of the species must be substance
       */
-      ud = UnitDefinition::combine(ud, ud_vol);
-      siud = UnitDefinition::convertToSI(ud);
+      UnitDefinition * tempud = UnitDefinition::combine(ud, ud_vol);
+      if (siud != NULL)
+      {
+        delete siud;
+        siud = NULL;
+      }
+      siud = UnitDefinition::convertToSI(tempud);
+      delete tempud;
     }
 
 
@@ -787,6 +795,9 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
 
   if (i == LIBSBML_OPERATION_SUCCESS)
     conversion = true;
+
+  if (siud != NULL) delete siud;
+  if (deleteUD == true) delete ud;
 
   return conversion;
 }

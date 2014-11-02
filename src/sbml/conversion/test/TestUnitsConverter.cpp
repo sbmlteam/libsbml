@@ -2275,7 +2275,7 @@ START_TEST( test_convert_extend_to_l2 )
   fail_unless(doc->setLevelAndVersion(2, 4, true) == true);
   fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
 
-  
+  delete doc;
 }
 END_TEST
 

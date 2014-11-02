@@ -208,6 +208,8 @@ SBMLInferUnitsConverter::convert()
               newId = UnitKind_toString(u->getKind());
               baseUnit = true;
             }
+            delete defaultU;
+            defaultU = NULL;
           }
         }
 
@@ -234,6 +236,9 @@ SBMLInferUnitsConverter::convert()
         }
 
         mModel->getParameter(i)->setUnits(newId);
+
+        delete inferred;
+        inferred = NULL;
       }
     }
   }

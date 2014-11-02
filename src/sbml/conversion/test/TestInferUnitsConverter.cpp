@@ -361,6 +361,8 @@ START_TEST (test_infer_localParam_fromReaction)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
 
+  delete ud;
+
   // TO DO make the units converter do local parameters;
   //fail_unless(d->getModel()->getNumUnitDefinitions() == 3);
   //
