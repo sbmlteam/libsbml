@@ -644,7 +644,8 @@ isMathMLNodeTag(const string& name)
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
-readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
+readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
+            bool inRead)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -785,7 +786,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
        */
       if (elem.isEnd()) return;
 
-      readMathML(node, stream, reqd_prefix);
+      readMathML(node, stream, reqd_prefix, inRead);
 
       if (node.isName()) node.setType(AST_FUNCTION);
 
@@ -869,7 +870,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
         logError(stream, elem, BadMathMLNodeType, message);
         addChild = false;
       }
-      readMathML(*child, stream, reqd_prefix);
+      readMathML(*child, stream, reqd_prefix, inRead);
 
       stream.skipText();
        /* look to see whether a lambda is followed by an
@@ -903,7 +904,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
       }
       if (addChild == true)
       {
-        node.addChild(child);
+        node.addChild(child, true);
       }
 
       if (stream.peek().getName() == "piece" && stream.isGood()) 
@@ -914,13 +915,13 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
   else if (name == "bvar")
   {
     node.setBvar();
-    readMathML(node, stream, reqd_prefix);
+    readMathML(node, stream, reqd_prefix, inRead);
   }
 
   else if (name == "degree" || name == "logbase" ||
            name == "piece" || name == "otherwise" )
   {
-    readMathML(node, stream, reqd_prefix);
+    readMathML(node, stream, reqd_prefix, inRead);
     if (name == "piece") return;
   }
 
@@ -929,7 +930,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
     /* read in attributes */
     XMLAttributes tempAtt = elem.getAttributes();
     //node.setDefinitionURL(elem.getAttributes());
-    readMathML(node, stream, reqd_prefix);
+    readMathML(node, stream, reqd_prefix, inRead);
     node.setSemanticsFlag();
     if (tempAtt.hasAttribute("definitionURL") == true)
     {
@@ -1614,7 +1615,7 @@ writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 ASTNode*
-readMathML (XMLInputStream& stream, std::string reqd_prefix)
+readMathML (XMLInputStream& stream, std::string reqd_prefix, bool inRead)
 {
   if (&stream == NULL) return NULL;
 
@@ -1673,7 +1674,7 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix)
     }
     if ( isMathMLNodeTag(name1) || name1 == "lambda")
     {
-      readMathML(*node, stream, reqd_prefix);
+      readMathML(*node, stream, reqd_prefix, inRead);
     }
     else
     {
@@ -1693,12 +1694,12 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix)
       
     if (elem.isStart() && elem.isEnd()) return node;
 
-    readMathML(*node, stream, reqd_prefix);
+    readMathML(*node, stream, reqd_prefix, inRead);
     stream.skipPastEnd(elem);
   }
   else
   {
-    readMathML(*node, stream, reqd_prefix);
+    readMathML(*node, stream, reqd_prefix, inRead);
   }
 
   return node;

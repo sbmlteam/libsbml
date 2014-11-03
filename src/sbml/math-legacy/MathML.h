@@ -62,7 +62,7 @@ class XMLOutputStream;
  */
 LIBSBML_EXTERN
 ASTNode*
-readMathML (XMLInputStream& stream, std::string reqd_prefix="");
+readMathML (XMLInputStream& stream, std::string reqd_prefix="", bool inRead = true);
 
 
 /**

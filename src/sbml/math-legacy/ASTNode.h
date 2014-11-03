@@ -406,7 +406,7 @@ public:
    * @see isWellFormedASTNode()
    */
   LIBSBML_EXTERN
-  int addChild (ASTNode* child);
+  int addChild (ASTNode* child, bool inRead = false);
 
 
   /**

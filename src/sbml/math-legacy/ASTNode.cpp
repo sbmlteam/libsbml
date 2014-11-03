@@ -755,10 +755,18 @@ ASTNode::canonicalizeRelational ()
  */
 LIBSBML_EXTERN
 int
-ASTNode::addChild (ASTNode* child)
+ASTNode::addChild (ASTNode* child, bool inRead)
 {
+
   unsigned int numBefore = getNumChildren();
   mChildren->add(child);
+
+  /* HACK to allow representsBVar function to be correct */
+  if (inRead == false && this->getType() == AST_LAMBDA
+    && numBefore > 0)
+  {
+    getChild(numBefore-1)->setBvar();
+  }
 
   if (getNumChildren() == numBefore + 1)
   {
@@ -882,6 +890,17 @@ ASTNode::insertChild(unsigned int n, ASTNode *newChild)
 
     if (getNumChildren() == size + 1)
       inserted = LIBSBML_OPERATION_SUCCESS;
+  }
+
+  /* HACK TO Make representBvar work */
+  // mark all but last child as bvar
+  // unless we have only inserted one
+  if (size > 1)
+  {
+    for (unsigned int c = 0; c < getNumChildren() - 1; c++)
+    {
+      getChild(c)->setBvar();
+    }
   }
 
   return inserted;
