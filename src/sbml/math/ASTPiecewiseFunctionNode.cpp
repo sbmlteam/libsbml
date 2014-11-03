@@ -423,7 +423,7 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
        * BUT only free the memory of the parent after the child has
        * been removed
        */
-        ASTBase * base = this->ASTFunctionBase::getChild(childNo);
+      ASTBase * base = this->ASTFunctionBase::getChild(childNo);
       if (ASTFunctionBase::getChild(childNo)->getType() 
                                                  == AST_CONSTRUCTOR_OTHERWISE)
       {
@@ -500,6 +500,39 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
     else
     {
       removed = LIBSBML_OPERATION_FAILED;
+    }
+  }
+
+  /* HACK TO REPLICATE OLD AST */
+  // if we now have an odd number of children the last one
+  // should be otherwise NOT a piece with one child
+  if (removed == LIBSBML_OPERATION_SUCCESS)
+  {
+    size = getNumChildren();
+    numChildren = ASTFunctionBase::getNumChildren();
+    if ((unsigned int)(size%2) == 1)
+    {
+      ASTBase * child = ASTFunctionBase::getChild(numChildren-1);
+      if (child->getType() == AST_CONSTRUCTOR_PIECE)
+      {
+        ASTNode * piece = dynamic_cast<ASTNode *>(child);
+        if (piece != NULL && piece->getNumChildren() == 1)
+        {
+          ASTNode *pChild = piece->getChild(0);
+          piece->removeChild(0);
+          
+          ASTBase * temp = this->ASTFunctionBase::getChild(numChildren-1);
+          this->ASTFunctionBase::removeChild(numChildren-1);
+          delete temp;
+          mNumPiece = mNumPiece - 1;
+
+          ASTNode * otherwise = new ASTNode(AST_CONSTRUCTOR_OTHERWISE);
+          otherwise->addChild(pChild);
+
+          this->addChild(otherwise);
+
+        }
+      }
     }
   }
 

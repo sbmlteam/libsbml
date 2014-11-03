@@ -287,8 +287,7 @@ START_TEST (test_ChildFunctions_addToLambda_1)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getChild(0)->representsBvar() == true);
-  //DEBUG:  different behavior in two systems:
-  //fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
   fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
@@ -716,9 +715,8 @@ START_TEST (test_ChildFunctions_getChildFromLambda_2)
   child = N->getChild(0);
 
   fail_unless ( child->getType() == AST_NAME);
-  fail_unless( strcmp(child->getName(), "y") == 0);
-  //DEBUG:  different behavior in two systems:
-  //fail_unless( child->representsBvar() == true);
+  fail_unless( strcmp(child->getName(), "y") == 0); 
+  fail_unless( child->representsBvar() == true);
 
   child = N->getChild(1);
 
@@ -790,39 +788,42 @@ START_TEST (test_ChildFunctions_getChildFromLog_2)
 END_TEST
 
 
+#if (0)
 
-//START_TEST (test_ChildFunctions_getChildFromLog_3)
-//{
-//  N = new ASTNode(AST_FUNCTION_LOG);
-//
-//  ASTNode * c = new ASTNode(AST_QUALIFIER_LOGBASE);
-//  ASTNode * c1 = new ASTNode(AST_INTEGER);
-//  c1->setValue(2);
-//
-//  c->addChild(c1);
-//  N->addChild(c);
-//
-//  ASTNode * c3 = new ASTNode(AST_NAME);
-//  c3->setName("x");
-//  N->addChild(c3);
-//
-//
-//  /* old behaviour - we should have 2 children */
-//  fail_unless(N->getNumChildren() == 2);
-//
-//  ASTNode * child = N->getChild(0);
-//
-//  fail_unless(child->getType() == AST_INTEGER);
-//  fail_unless(child->getInteger() == 2);
-//
-//  child = N->getChild(1);
-//
-//  fail_unless(child->getType() == AST_NAME);
-//  fail_unless( strcmp(child->getName(), "x") == 0); 
-//
-//}
-//END_TEST
+// not applicable to math-legacy
+START_TEST (test_ChildFunctions_getChildFromLog_3)
+{
+  N = new ASTNode(AST_FUNCTION_LOG);
 
+  ASTNode * c = new ASTNode(AST_QUALIFIER_LOGBASE);
+  ASTNode * c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(2);
+
+  c->addChild(c1);
+  N->addChild(c);
+
+  ASTNode * c3 = new ASTNode(AST_NAME);
+  c3->setName("x");
+  N->addChild(c3);
+
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 2);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+#endif
 
 START_TEST (test_ChildFunctions_getChildFromRoot_1)
 {
@@ -880,38 +881,42 @@ START_TEST (test_ChildFunctions_getChildFromRoot_2)
 END_TEST
 
 
-//START_TEST (test_ChildFunctions_getChildFromRoot_3)
-//{
-//  N = new ASTNode(AST_FUNCTION_ROOT);
-//
-//  ASTNode * c = new ASTNode(AST_QUALIFIER_DEGREE);
-//  ASTNode * c1 = new ASTNode(AST_INTEGER);
-//  c1->setValue(2);
-//
-//  c->addChild(c1);
-//  N->addChild(c);
-//
-//  ASTNode * c3 = new ASTNode(AST_NAME);
-//  c3->setName("x");
-//  N->addChild(c3);
-//
-//
-//  /* old behaviour - we should have 2 children */
-//  fail_unless(N->getNumChildren() == 2);
-//
-//  ASTNode * child = N->getChild(0);
-//
-//  fail_unless(child->getType() == AST_INTEGER);
-//  fail_unless(child->getInteger() == 2);
-//
-//  child = N->getChild(1);
-//
-//  fail_unless(child->getType() == AST_NAME);
-//  fail_unless( strcmp(child->getName(), "x") == 0); 
-//
-//}
-//END_TEST
+#if (0)
 
+// not applicable to math-legacy
+START_TEST (test_ChildFunctions_getChildFromRoot_3)
+{
+  N = new ASTNode(AST_FUNCTION_ROOT);
+
+  ASTNode * c = new ASTNode(AST_QUALIFIER_DEGREE);
+  ASTNode * c1 = new ASTNode(AST_INTEGER);
+  c1->setValue(2);
+
+  c->addChild(c1);
+  N->addChild(c);
+
+  ASTNode * c3 = new ASTNode(AST_NAME);
+  c3->setName("x");
+  N->addChild(c3);
+
+
+  /* old behaviour - we should have 2 children */
+  fail_unless(N->getNumChildren() == 2);
+
+  ASTNode * child = N->getChild(0);
+
+  fail_unless(child->getType() == AST_INTEGER);
+  fail_unless(child->getInteger() == 2);
+
+  child = N->getChild(1);
+
+  fail_unless(child->getType() == AST_NAME);
+  fail_unless( strcmp(child->getName(), "x") == 0); 
+
+}
+END_TEST
+
+#endif
 
 START_TEST (test_ChildFunctions_remove)
 {
@@ -1088,9 +1093,9 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   const char* expected = wrapMathML
   (
     "  <piecewise>\n"
-    "    <piece>\n"
+    "    <otherwise>\n"
     "      <cn> 0 </cn>\n"
-    "    </piece>\n"
+    "    </otherwise>\n"
     "  </piecewise>\n"
   );
 
@@ -1109,7 +1114,9 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
 
+  ASTNode* removed = N->getChild(1);
   int i = N->removeChild(1);
+  delete removed;
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
 
@@ -1122,8 +1129,7 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   /* lets look at the bad piecewise */
   S = writeMathMLToString(N);
 
-  //DEBUG:  different behavior in two systems:
-  //fail_unless( equals(expected, S) );
+  fail_unless( equals(expected, S) );
 
 }
 END_TEST
@@ -1456,9 +1462,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_1)
   (
     "  <apply>\n"
     "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 3 </cn>\n"
-    "    </degree>\n"
+    "    <cn type=\"integer\"> 3 </cn>\n"
     "  </apply>\n"
   );
 
@@ -1490,8 +1494,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_1)
   
   S = writeMathMLToString(N);
 
-  //DEBUG:  different behavior in two systems:
-  //fail_unless( equals(expected, S) );
+  fail_unless( equals(expected, S) );
 
 }
 END_TEST
@@ -1503,9 +1506,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_2)
   (
     "  <apply>\n"
     "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 2 </cn>\n"
-    "    </degree>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
     "  </apply>\n"
   );
 
@@ -1537,8 +1538,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_2)
    
   S = writeMathMLToString(N);
 
-  //DEBUG:  different behavior in two systems:
-  //fail_unless( equals(expected, S) );
+  fail_unless( equals(expected, S) );
 
 }
 END_TEST
@@ -2237,8 +2237,7 @@ START_TEST (test_ChildFunctions_insertIntoLambda_1)
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
   fail_unless(N->getChild(0)->representsBvar() == true);
-  //DEBUG:  different behavior in two systems:
-  //fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
   fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
@@ -2292,8 +2291,7 @@ START_TEST (test_ChildFunctions_insertIntoLambda_2)
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
   fail_unless(N->getChild(0)->representsBvar() == true);
-  //DEBUG:  different behavior in two systems:
-  //fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
   fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
@@ -2346,9 +2344,8 @@ START_TEST (test_ChildFunctions_insertIntoLambda_3)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(N->getNumChildren() == 3);
   fail_unless(N->getNumBvars() == 2);
-  //DEBUG:  different behavior in two systems:
-  //fail_unless(N->getChild(0)->representsBvar() == true);
-  //fail_unless(N->getChild(1)->representsBvar() == true);
+  fail_unless(N->getChild(0)->representsBvar() == true);
+  fail_unless(N->getChild(1)->representsBvar() == true);
   fail_unless(N->getChild(2)->representsBvar() == false);
 
   S = writeMathMLToString(N);
@@ -2654,10 +2651,8 @@ create_suite_TestChildFunctions ()
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_2  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_1  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_2  );
-  //tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_3  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_1  );
   tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_2  );
-  //tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_3  );
   tcase_add_test( tcase, test_ChildFunctions_remove               );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_1  );
   tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_2  );

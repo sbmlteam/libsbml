@@ -1085,9 +1085,9 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   const char* expected = wrapMathML
   (
     "  <piecewise>\n"
-    "    <piece>\n"
+    "    <otherwise>\n"
     "      <cn> 0 </cn>\n"
-    "    </piece>\n"
+    "    </otherwise>\n"
     "  </piecewise>\n"
   );
 
@@ -1454,9 +1454,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_1)
   (
     "  <apply>\n"
     "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 3 </cn>\n"
-    "    </degree>\n"
+    "    <cn type=\"integer\"> 3 </cn>\n"
     "  </apply>\n"
   );
 
@@ -1500,9 +1498,7 @@ START_TEST (test_ChildFunctions_removeFromRoot_2)
   (
     "  <apply>\n"
     "    <root/>\n"
-    "    <degree>\n"
-    "      <cn type=\"integer\"> 2 </cn>\n"
-    "    </degree>\n"
+    "    <cn type=\"integer\"> 2 </cn>\n"
     "  </apply>\n"
   );
 

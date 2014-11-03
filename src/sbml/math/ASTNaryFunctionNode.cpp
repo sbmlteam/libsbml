@@ -231,6 +231,35 @@ ASTNaryFunctionNode::removeChild (unsigned int n)
     }
   }
 
+  /* HACK TO REPLICATE OLD AST */
+  // if we now have an odd number of children the last one
+  // should be subject NOT the degree
+  if (removed == LIBSBML_OPERATION_SUCCESS)
+  {
+    unsigned int size = getNumChildren();
+    unsigned int numChildren = ASTFunctionBase::getNumChildren();
+    if ((unsigned int)(size%2) == 1)
+    {
+      ASTBase * child = ASTFunctionBase::getChild(numChildren-1);
+      if (child->getType() == AST_QUALIFIER_DEGREE)
+      {
+        ASTNode * degree = dynamic_cast<ASTNode *>(child);
+        if (degree != NULL && degree->getNumChildren() == 1)
+        {
+          ASTNode *pChild = degree->getChild(0);
+          degree->removeChild(0);
+          
+          ASTBase * temp = this->ASTFunctionBase::getChild(numChildren-1);
+          this->ASTFunctionBase::removeChild(numChildren-1);
+          delete temp;
+
+          this->addChild(pChild);
+
+        }
+      }
+    }
+  }
+
   return removed;
 }
 
