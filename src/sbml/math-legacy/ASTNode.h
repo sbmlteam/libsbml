@@ -3823,7 +3823,7 @@ ASTNode_getDefinitionURL(ASTNode_t* node);
  * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
-const char *
+char *
 ASTNode_getDefinitionURLString(ASTNode_t* node);
 
 
