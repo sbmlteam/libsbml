@@ -82,6 +82,8 @@ public:
 
   virtual ASTBase* getChild (unsigned int n) const;
 
+  virtual int removeChild(unsigned int n);
+
   virtual void write(XMLOutputStream& stream) const;
 
   virtual bool read(XMLInputStream& stream, const std::string& reqd_prefix="");

@@ -85,6 +85,8 @@ public:
 
   virtual ASTBase* getChild (unsigned int n) const;
 
+  virtual int removeChild(unsigned int n);
+
   bool isUMinus() const;
 
   bool isUPlus() const;

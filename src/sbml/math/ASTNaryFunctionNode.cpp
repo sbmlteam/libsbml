@@ -190,6 +190,50 @@ ASTNaryFunctionNode::getChild (unsigned int n) const
 }
 
 
+int 
+ASTNaryFunctionNode::removeChild (unsigned int n)
+{
+  int removed = LIBSBML_OPERATION_FAILED;
+  if (this->getType() != AST_FUNCTION_ROOT)
+  {
+    removed = ASTFunctionBase::removeChild(n);
+  }
+  else
+  {
+   /* HACK TO REPLICATE OLD AST */
+   /* Hack to remove memory since the overall
+     * remove does not remove memory
+     * but the  old api does not give access to the new
+     * intermediate parents so these can never
+     * be explicilty deleted by the user
+     *
+     * in this case the first remove is accessible
+     */
+    if (ASTFunctionBase::getChild(n)->getType() == AST_QUALIFIER_DEGREE)
+    {
+      ASTBase * base = ASTFunctionBase::getChild(n);
+      ASTNode * degree = dynamic_cast<ASTNode*>(base);
+      if (degree != NULL && degree->getNumChildren() == 1)
+      {
+        removed = degree->removeChild(0);
+        if (removed == LIBSBML_OPERATION_SUCCESS)
+        {    
+          ASTBase * removedAST = NULL;
+          removedAST = this->ASTFunctionBase::getChild(n);
+          removed = ASTFunctionBase::removeChild(n);
+          if (removedAST != NULL) delete removedAST;
+        }
+      }
+    }
+    else
+    {
+      removed = ASTFunctionBase::removeChild(n);
+    }
+  }
+
+  return removed;
+}
+
 
 bool
 ASTNaryFunctionNode::isUMinus() const

@@ -191,6 +191,53 @@ ASTBinaryFunctionNode::getChild (unsigned int n) const
 }
 
 
+
+
+int 
+ASTBinaryFunctionNode::removeChild (unsigned int n)
+{
+  int removed = LIBSBML_OPERATION_FAILED;
+  if (this->getType() != AST_FUNCTION_LOG)
+  {
+    removed = ASTFunctionBase::removeChild(n);
+  }
+  else
+  {
+   /* HACK TO REPLICATE OLD AST */
+   /* Hack to remove memory since the overall
+     * remove does not remove memory
+     * but the  old api does not give access to the new
+     * intermediate parents so these can never
+     * be explicilty deleted by the user
+     *
+     * in this case the first remove is accessible
+     */
+    if (ASTFunctionBase::getChild(n)->getType() == AST_QUALIFIER_LOGBASE)
+    {
+      ASTBase * base = ASTFunctionBase::getChild(n);
+      ASTNode * logbase = dynamic_cast<ASTNode*>(base);
+      if (logbase != NULL && logbase->getNumChildren() == 1)
+      {
+        removed = logbase->removeChild(0);
+        if (removed == LIBSBML_OPERATION_SUCCESS)
+        {    
+          ASTBase * removedAST = NULL;
+          removedAST = this->ASTFunctionBase::getChild(n);
+          removed = ASTFunctionBase::removeChild(n);
+          if (removedAST != NULL) delete removedAST;
+        }
+      }
+    }
+    else
+    {
+      removed = ASTFunctionBase::removeChild(n);
+    }
+  }
+
+  return removed;
+}
+
+
 bool
 ASTBinaryFunctionNode::isLog10() const
 {

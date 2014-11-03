@@ -232,8 +232,6 @@ ASTPiecewiseFunctionNode::addChild(ASTBase* child, bool inRead)
           }
           else
           {
-            otherwise->removeChild(0);
-            delete otherwise;
             if (piece->addChild((ASTNode*)(child)) == LIBSBML_OPERATION_SUCCESS)
             {
               this->removeChild(currentNum-1);
@@ -412,8 +410,48 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
   {
     if (getHasOtherwise() == true && childNo == numChildren - 1)
     {
-      removed = ASTFunctionBase::removeChild(childNo);
-      mHasOtherwise = false;
+     /* HACK TO REPLICATE OLD AST */
+     /* Hack to remove memory since the overall
+       * remove does not remove memory
+       * but the  old api does not give access to the new
+       * intermediate parents so these can never
+       * be explicilty deleted by the user
+       *
+       * this one is especially nasty as we could remove the
+       * parent and child but then the user freeing the memory
+       * would crash - so we need to remove the whole thing
+       * BUT only free the memory of the parent after the child has
+       * been removed
+       */
+        ASTBase * base = this->ASTFunctionBase::getChild(childNo);
+      if (ASTFunctionBase::getChild(childNo)->getType() 
+                                                 == AST_CONSTRUCTOR_OTHERWISE)
+      {
+        ASTBase * base = ASTFunctionBase::getChild(childNo);
+        ASTNode * otherwise = dynamic_cast<ASTNode*>(base);
+
+        if (otherwise != NULL && otherwise->getNumChildren() == 1)
+        {
+          removed = otherwise->removeChild(0);
+          if (removed == LIBSBML_OPERATION_SUCCESS)
+          {    
+            ASTBase * removedAST = NULL;
+            removedAST = this->ASTFunctionBase::getChild(childNo);
+            removed = ASTFunctionBase::removeChild(childNo);
+            mHasOtherwise = false;
+            if (removedAST != NULL) delete removedAST;
+          }
+        }
+        else
+        {
+          removed = LIBSBML_OPERATION_FAILED;
+        }
+      }
+      else
+      {
+        removed = ASTFunctionBase::removeChild(childNo);
+        mHasOtherwise = false;      
+      }
     }
     else if (ASTFunctionBase::getChild(childNo)->getType() 
                                                  == AST_CONSTRUCTOR_PIECE)
@@ -425,12 +463,24 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
       {
         if (piece->getNumChildren() > pieceIndex)
         {
+         /* HACK TO REPLICATE OLD AST */
+         /* Hack to remove memory since the overall
+           * remove does not remove memory
+           * but the  old api does not give access to the new
+           * intermediate parents so these can never
+           * be explicilty deleted by the user
+           *
+           * in this case the first remove is accessible
+           */
           removed = piece->removeChild(pieceIndex);
           if (removed == LIBSBML_OPERATION_SUCCESS &&
             piece->getNumChildren() == 0)
           {
+            ASTBase * removedAST = NULL;
+            removedAST = this->ASTFunctionBase::getChild(childNo);
             removed = this->ASTFunctionBase::removeChild(childNo);
             mNumPiece = mNumPiece - 1;
+            if (removedAST != NULL) delete removedAST;
           }
         }
         else

@@ -1106,7 +1106,9 @@ START_TEST (test_ChildFunctions_removeFromPiecewise_3)
   /* old behaviour - we should have 2 children */
   fail_unless(N->getNumChildren() == 2);
 
+  ASTNode* removed = N->getChild(1);
   int i = N->removeChild(1);
+  delete removed;
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
 

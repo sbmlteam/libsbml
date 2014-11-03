@@ -250,6 +250,7 @@ ASTLambdaFunctionNode::getChild (unsigned int n) const
 int 
 ASTLambdaFunctionNode::removeChild(unsigned int n)
 {
+  int removed = LIBSBML_OPERATION_FAILED;
   /* need to keep track of whether we have removed a bvar */
 
   unsigned int numBvars = getNumBvars();
@@ -261,10 +262,40 @@ ASTLambdaFunctionNode::removeChild(unsigned int n)
 
   if (n < numBvars)
   {
+    // we are removing a bvar
     setNumBvars(numBvars - 1);
+
+   /* HACK TO REPLICATE OLD AST */
+   /* Hack to remove memory since the overall
+     * remove does not remove memory
+     * but the  old api does not give access to the new
+     * intermediate parents so these can never
+     * be explicilty deleted by the user
+     *
+     * in this case the first remove is accessible
+     */
+    ASTBase * base = ASTFunctionBase::getChild(n);
+    ASTNode * bvar = dynamic_cast<ASTNode*>(base);
+   
+    if (bvar != NULL && bvar->getNumChildren() == 1)
+    {
+      removed = bvar->removeChild(0);
+      if (removed == LIBSBML_OPERATION_SUCCESS)
+      {    
+        ASTBase * removedAST = NULL;
+        removedAST = this->ASTFunctionBase::getChild(n);
+        removed = ASTFunctionBase::removeChild(n);
+        if (removedAST != NULL) delete removedAST;
+      }
+    }
+  }
+  else
+  {
+    // we are removing the body
+    removed = ASTFunctionBase::removeChild(n);
   }
 
-  return ASTFunctionBase::removeChild(n);
+  return removed;
 }
 
 
