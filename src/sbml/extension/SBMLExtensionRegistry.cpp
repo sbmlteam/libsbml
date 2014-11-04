@@ -489,18 +489,18 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
   const SBMLExtensionRegistry& instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
   std::vector<std::string> present;
-  int count = 0;
+  unsigned int count = 0;
   while (it != instance.mSBMLExtensionMap.end())
   {    
     const std::string& temp = (*it).second->getName();
     if (std::find(present.begin(), present.end(), temp) == present.end())
     {
-      if (index == count) 
-	 {
-	   return temp;
-	 }
+      if (index == count)
+      {
+        return temp;
+      }
       present.push_back(temp);
-	 ++count;
+      ++count;
     }
     ++it;
   }

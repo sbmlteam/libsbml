@@ -3567,7 +3567,7 @@ LIBSBML_EXTERN
 int 
 ASTNode_unsetParentSBMLObject(ASTNode_t* node)
 {
-  if (node == NULL) return NULL;
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->unsetParentSBMLObject();
 }
 
@@ -3666,7 +3666,7 @@ LIBSBML_EXTERN
 int
 ASTNode_unsetUserData(ASTNode_t* node)
 {
-  if (node == NULL) return NULL;
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->unsetUserData();
 }
 
