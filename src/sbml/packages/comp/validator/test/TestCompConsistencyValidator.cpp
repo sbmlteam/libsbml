@@ -37,6 +37,10 @@
 #include <sbml/packages/comp/validator/CompConsistencyValidator.h>
 #include <sbml/packages/comp/validator/CompUnitConsistencyValidator.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;

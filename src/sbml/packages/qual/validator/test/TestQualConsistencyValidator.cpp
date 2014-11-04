@@ -44,6 +44,10 @@
 #include <sbml/packages/qual/validator/QualIdentifierConsistencyValidator.h>
 #include <sbml/packages/qual/validator/QualMathConsistencyValidator.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;

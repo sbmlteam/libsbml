@@ -43,6 +43,10 @@
 #include <sbml/packages/layout/validator/LayoutIdentifierConsistencyValidator.h>
 #include <sbml/packages/layout/validator/LayoutConsistencyValidator.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;

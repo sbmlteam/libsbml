@@ -30,6 +30,9 @@
 #include <sbml/util/memory.h>
 #include <sbml/common/extern.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
 
 /* START: workaround for VS2013 bug */
 /* from https://connect.microsoft.com/VisualStudio/feedback/details/806362/ */

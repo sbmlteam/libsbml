@@ -36,6 +36,10 @@
 #include <sbml/packages/fbc/validator/FbcConsistencyValidator.h>
 #include <sbml/packages/fbc/validator/FbcIdentifierConsistencyValidator.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;

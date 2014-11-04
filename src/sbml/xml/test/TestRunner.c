@@ -33,6 +33,10 @@
 #include <string.h>
 #include <check.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 #if defined(__cplusplus)
 CK_CPPSTART
 #endif

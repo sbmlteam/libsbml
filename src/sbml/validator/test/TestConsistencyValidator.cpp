@@ -55,6 +55,10 @@
 #include <sbml/validator/ModelingPracticeValidator.h>
 #include <sbml/SBase.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;

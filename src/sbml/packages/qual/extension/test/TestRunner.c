@@ -40,6 +40,10 @@
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
