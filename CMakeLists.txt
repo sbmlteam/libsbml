@@ -841,6 +841,24 @@ else(UNIX)
         add_definitions( -D_MT)
         endif(WITH_STATIC_RUNTIME)
 
+        # Provide an easy way to use Visual Leak Detector (https://vld.codeplex.com)
+		option(WITH_LIBSBML_USE_VLD "When running debug builds with MSVC use Visual Leak Detector." OFF)
+		if (WITH_LIBSBML_USE_VLD)
+          find_path(VLD_INCLUDE_DIR
+            NAMES vld.h
+            PATHS ${LIBSBML_DEPENDENCY_DIR}/include
+			      "$ENV{PROGRAMFILES}/Visual Leak Detector/include"
+				  "$ENV{PROGRAMFILES(X86)}/Visual Leak Detector/include"
+            DOC "Directory containing VLD files."
+          )
+          if (NOT VLD_INCLUDE_DIR)
+            message(WARNING "VLD is not found on your system, please ensure you installed it correctly.")
+		  endif()
+		  
+		  add_definitions( -DLIBSBML_USE_VLD)
+		  
+		endif (WITH_LIBSBML_USE_VLD)
+
 		# CMake no longer creates PDB files for static libraries after 2.8.11
 		# so we store debug information in the object files instead
 		if (${CMAKE_VERSION} VERSION_GREATER "2.8.11")
