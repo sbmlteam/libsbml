@@ -2770,7 +2770,7 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
   {    
     // should we look for reactions or speciesreferences in the math
     bool allowReactionId = true;
-    bool allowSpeciesRef = false;
+    //bool allowSpeciesRef = false;
 
     if ( (m->getLevel() < 2) 
      || ((m->getLevel() == 2) && (m->getVersion() == 1)) )
@@ -2778,12 +2778,12 @@ unsigned int ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
       allowReactionId = false;
     }
 
-    if (m->getLevel() > 2)
-    {
-      allowSpeciesRef = true;
-    }
+    //if (m->getLevel() > 2)
+    //{
+    //  allowSpeciesRef = true;
+    //}
 
-    // loop thru the list and check the unit status of each variable
+    // loop through the list and check the unit status of each variable
     for (unsigned int v = 0; v < variables->size(); v++)
     {
       string id = variables->at(v);
