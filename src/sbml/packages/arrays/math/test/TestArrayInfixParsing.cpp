@@ -224,7 +224,7 @@ END_TEST
 START_TEST (test_parse_curlybraces_0args)
 {
   ASTNode_t *r = SBML_parseL3Formula("{}");
-  ASTNode_t *c = NULL;
+  //ASTNode_t *c = NULL;
 
   fail_unless(r != NULL);
   fail_unless( ASTNode_getType(r) == AST_ORIGINATES_IN_PACKAGE);
@@ -552,7 +552,7 @@ END_TEST
 START_TEST (test_parse_function_selector_5args)
 {
   ASTNode_t *r = SBML_parseL3Formula("selector(a,x,y,z,q)");
-  ASTNode_t *c = NULL;
+  //ASTNode_t *c = NULL;
 
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
