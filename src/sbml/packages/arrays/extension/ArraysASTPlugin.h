@@ -192,7 +192,7 @@ public:
 
   virtual int removeChild(unsigned int n);
 
-  virtual int replaceChild(unsigned int n, ASTBase* newChild);
+  virtual int replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced);
 
   virtual int swapChildren(ASTFunction* that);
 

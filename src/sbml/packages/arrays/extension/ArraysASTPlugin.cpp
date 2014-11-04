@@ -572,16 +572,16 @@ ArraysASTPlugin::removeChild(unsigned int n)
 
 
 int 
-ArraysASTPlugin::replaceChild(unsigned int n, ASTBase* newChild)
+ArraysASTPlugin::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
 { 
   if (mVector != NULL)
   {
-    return mVector->replaceChild(n, newChild);
+    return mVector->replaceChild(n, newChild, delreplaced);
   }
 #if (0)
   else if (mMatrix != NULL)
   {
-    return mMatrix->replaceChild(n, newChild);
+    return mMatrix->replaceChild(n, newChild, delreplaced);
   }
 #endif
   else
