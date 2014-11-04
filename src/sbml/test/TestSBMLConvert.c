@@ -1270,38 +1270,38 @@ END_TEST
 START_TEST (test_SBMLConvert_convertFromL1V1)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  Model_t        *m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 1);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
  
   SBMLDocument_free(d);
   d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
  
   SBMLDocument_free(d);
   d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
  
   SBMLDocument_free(d);
   d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
  
   SBMLDocument_free(d);
   d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
  
   SBMLDocument_free(d);
   d = SBMLDocument_createWithLevelAndVersion(1, 1);
-  m = SBMLDocument_createModel(d);
+  SBMLDocument_createModel(d);
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 

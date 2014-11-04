@@ -2429,7 +2429,7 @@ START_TEST(test_LayoutWriting_multipleTimes)
   
   // however, writing it again should not create multiple annotation
   string model2 = writeSBMLToString(&doc);
-  fail_unless(numAnnotation == model->getAnnotation()->getNumChildren());
+  fail_unless(numAnnotation == (int)model->getAnnotation()->getNumChildren());
   
 }
 END_TEST

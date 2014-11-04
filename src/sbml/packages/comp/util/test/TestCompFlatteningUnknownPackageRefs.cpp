@@ -1030,7 +1030,7 @@ START_TEST (test_comp_flatten_unknown_withValidation_nostrip_8)
 { 
   SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown8.xml", "unknown8_flat_stay.xml");
 
-  SBMLErrorLog* errors = doc->getErrorLog();
+  //SBMLErrorLog* errors = doc->getErrorLog();
   //fail_unless(errors->getNumErrors() == 6);
   //fail_unless(errors->contains(RequiredPackagePresent) == true);
   //fail_unless(errors->contains(CompFlatteningNotRecognisedReqd) == true);
@@ -1045,7 +1045,7 @@ START_TEST (test_comp_flatten_unknown_withValidation_nostrip_9)
 { 
   SBMLDocument* doc = TestFlattenedUnknownValidateNoStrip("unknown9.xml", "unknown9_flat_stay.xml");
 
-  SBMLErrorLog* errors = doc->getErrorLog();
+  //SBMLErrorLog* errors = doc->getErrorLog();
   //fail_unless(errors->getNumErrors() == 0);
   //fail_unless(errors->contains(UnrequiredPackagePresent) == true);
   //fail_unless(errors->contains(CompFlatteningNotRecognisedNotReqd) == true);

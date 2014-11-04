@@ -1409,6 +1409,7 @@ START_TEST (test_ReadSBML_KineticLaw_L2)
 
   fail_unless( KineticLaw_isSetMath(kl) );
   math = KineticLaw_getMath(kl);
+  fail_unless( math != NULL );
 
   formula = KineticLaw_getFormula(kl);
   fail_unless( formula != NULL );
@@ -1489,6 +1490,7 @@ START_TEST (test_ReadSBML_AssignmentRule)
 
   fail_unless( Rule_isSetMath(ar) );
   math = Rule_getMath(ar);
+  fail_unless( math != NULL );
 
   formula = Rule_getFormula(ar);
   fail_unless( formula != NULL );
@@ -1537,6 +1539,7 @@ START_TEST (test_ReadSBML_RateRule)
 
   fail_unless( Rule_isSetMath(rr) );
   math = Rule_getMath(rr);
+  fail_unless( math != NULL );
 
   formula = Rule_getFormula(rr);
   fail_unless( formula != NULL );
@@ -1609,6 +1612,7 @@ START_TEST (test_ReadSBML_AlgebraicRule_L2)
 
   fail_unless( Rule_isSetMath(ar) );
   math = Rule_getMath(ar);
+  fail_unless( math != NULL );
 
   formula = Rule_getFormula(ar);
   fail_unless( formula != NULL );
