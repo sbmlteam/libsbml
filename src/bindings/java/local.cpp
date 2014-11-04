@@ -53,9 +53,14 @@
 #ifdef WIN32
 
 // do not include MFC
+#ifndef define WIN32_LEAN_AND_MEAN 
 #define WIN32_LEAN_AND_MEAN 
+#endif
+
 // do not include GDI by default
+#ifndef NOGDI
 #define NOGDI
+#endif
 
 #include <windows.h>
 #include <winnls.h>
