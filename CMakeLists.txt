@@ -690,6 +690,16 @@ invalid. It should contain the file check.h, but it does not.")
         message(WARNING "Libcheck is not compatible with Visual Studio 2003 (or earlier versions).")
     endif()
 
+	if (UNIX)
+      # setup valgrind
+      set(CMAKE_MEMORYCHECK_COMMAND valgrind)
+      set(CMAKE_MEMORYCHECK_COMMAND_OPTIONS
+         "--error-exitcode=1 --trace-children=yes --leak-check=full --show-reachable=yes --leak-resolution=high --track-origins=yes --error-limit=no -q")
+
+      set(MEMCHECK_COMMAND
+         "${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS}")
+      separate_arguments(MEMCHECK_COMMAND)
+	endif()
 
 endif(WITH_CHECK)
 
