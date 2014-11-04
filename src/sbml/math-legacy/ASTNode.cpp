@@ -2668,8 +2668,7 @@ LIBSBML_EXTERN
 int
 ASTNode::unsetUserData()
 {
-  delete mUserData;
-	mUserData = NULL;
+  mUserData = NULL;
  
   if (mUserData == NULL)
   {

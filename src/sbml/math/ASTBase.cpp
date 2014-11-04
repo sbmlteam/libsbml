@@ -1180,7 +1180,7 @@ ASTBase::isTopLevelMathMLNumberNodeTag(const std::string& name) const
 int
 ASTBase::setUserData(void *userData)
 {
-	mUserData = userData;
+  mUserData = userData;
   if (userData == NULL)
   {
     if (mUserData == NULL)
@@ -1220,7 +1220,7 @@ ASTBase::isSetUserData() const
 int
 ASTBase::unsetUserData()
 {
-	mUserData = NULL;
+  mUserData = NULL;
   if (mUserData == NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;
