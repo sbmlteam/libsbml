@@ -415,7 +415,7 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
        * remove does not remove memory
        * but the  old api does not give access to the new
        * intermediate parents so these can never
-       * be explicilty deleted by the user
+       * be explicitly deleted by the user
        *
        * this one is especially nasty as we could remove the
        * parent and child but then the user freeing the memory
@@ -423,7 +423,8 @@ ASTPiecewiseFunctionNode::removeChild(unsigned int n)
        * BUT only free the memory of the parent after the child has
        * been removed
        */
-      ASTBase * base = this->ASTFunctionBase::getChild(childNo);
+      
+	  //ASTBase * base = this->ASTFunctionBase::getChild(childNo);
       if (ASTFunctionBase::getChild(childNo)->getType() 
                                                  == AST_CONSTRUCTOR_OTHERWISE)
       {
