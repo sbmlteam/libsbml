@@ -1487,6 +1487,11 @@ public:
    * function.  The possible values returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_ANNOTATION_NS, OperationReturnValues_t}
+   * With 'unexpected attribute' returned if the parent element does not have 
+   * the 'metaid' attribute set, and 'duplicate annotation' set if the parent 
+   * was already annotated with the annotation in question.
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -1528,6 +1533,11 @@ public:
    * function.  The possible values returned by this function are:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_ANNOTATION_NS, OperationReturnValues_t}
+   * With 'unexpected attribute' returned if the parent element does not have 
+   * the 'metaid' attribute set, and 'duplicate annotation' set if the parent 
+   * was already annotated with the annotation in question.
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
