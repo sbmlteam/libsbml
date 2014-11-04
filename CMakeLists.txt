@@ -667,6 +667,7 @@ if(WITH_CHECK)
     cmake_minimum_required(VERSION 2.8.4)
 
     enable_testing()
+	include(CTest)
 
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
@@ -694,7 +695,7 @@ invalid. It should contain the file check.h, but it does not.")
       # setup valgrind
       set(CMAKE_MEMORYCHECK_COMMAND valgrind)
       set(CMAKE_MEMORYCHECK_COMMAND_OPTIONS
-         "--error-exitcode=1 --trace-children=yes --leak-check=full --show-reachable=yes --leak-resolution=high --track-origins=yes --error-limit=no -q")
+         "--error-exitcode=1 --trace-children=yes --leak-check=full --show-reachable=yes --leak-resolution=high --track-origins=yes --error-limit=no ")
 
       set(MEMCHECK_COMMAND
          "${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS}")
