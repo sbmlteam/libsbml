@@ -26688,6 +26688,8 @@ ac_config_files="$ac_config_files docs/Makefile"
 
 ac_config_files="$ac_config_files docs/index.html"
 
+ac_config_files="$ac_config_files docs/src/Makefile"
+
 ac_config_files="$ac_config_files docs/src/doxygen-config-c.txt"
 
 ac_config_files="$ac_config_files docs/src/doxygen-config-cpp.txt"
@@ -26702,25 +26704,25 @@ ac_config_files="$ac_config_files docs/src/doxygen-config-perl.txt"
 
 ac_config_files="$ac_config_files docs/src/doxygen-config-matlab.txt"
 
-ac_config_files="$ac_config_files docs/src/java-substitutions/libsbmlConstants.java"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-accessing.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-accessing.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-downloading.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-installation.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-group-comp-intro.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-group-core-intro.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-group-fbc-intro.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-group-comp-intro.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-group-layout-intro.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-group-fbc-intro.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-group-qual-intro.html"
 
-ac_config_files="$ac_config_files docs/src/libsbml-group-layout-intro.html"
-
-ac_config_files="$ac_config_files docs/src/libsbml-group-qual-intro.html"
+ac_config_files="$ac_config_files docs/src/common-text/libsbml-installation.html"
 
 ac_config_files="$ac_config_files docs/src/common-text/libsbml-version.html"
 
-ac_config_files="$ac_config_files docs/src/Makefile"
+ac_config_files="$ac_config_files docs/src/common-text/sbml-specifications-table.html"
+
+ac_config_files="$ac_config_files docs/src/java-substitutions/libsbmlConstants.java"
 
 
 ac_config_files="$ac_config_files examples/c/Makefile"
@@ -27675,6 +27677,7 @@ do
     "examples/c++/qual/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c++/qual/Makefile" ;;
     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
     "docs/index.html") CONFIG_FILES="$CONFIG_FILES docs/index.html" ;;
+    "docs/src/Makefile") CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
     "docs/src/doxygen-config-c.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
     "docs/src/doxygen-config-cpp.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-cpp.txt" ;;
     "docs/src/doxygen-config-csharp.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-csharp.txt" ;;
@@ -27682,16 +27685,16 @@ do
     "docs/src/doxygen-config-python.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-python.txt" ;;
     "docs/src/doxygen-config-perl.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-perl.txt" ;;
     "docs/src/doxygen-config-matlab.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-matlab.txt" ;;
-    "docs/src/java-substitutions/libsbmlConstants.java") CONFIG_FILES="$CONFIG_FILES docs/src/java-substitutions/libsbmlConstants.java" ;;
-    "docs/src/libsbml-accessing.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-accessing.html" ;;
-    "docs/src/libsbml-installation.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-installation.html" ;;
-    "docs/src/libsbml-group-core-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-core-intro.html" ;;
-    "docs/src/libsbml-group-comp-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-comp-intro.html" ;;
-    "docs/src/libsbml-group-fbc-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-fbc-intro.html" ;;
-    "docs/src/libsbml-group-layout-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-layout-intro.html" ;;
-    "docs/src/libsbml-group-qual-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/libsbml-group-qual-intro.html" ;;
+    "docs/src/common-text/libsbml-accessing.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-accessing.html" ;;
+    "docs/src/common-text/libsbml-downloading.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-downloading.html" ;;
+    "docs/src/common-text/libsbml-group-comp-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-group-comp-intro.html" ;;
+    "docs/src/common-text/libsbml-group-fbc-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-group-fbc-intro.html" ;;
+    "docs/src/common-text/libsbml-group-layout-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-group-layout-intro.html" ;;
+    "docs/src/common-text/libsbml-group-qual-intro.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-group-qual-intro.html" ;;
+    "docs/src/common-text/libsbml-installation.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-installation.html" ;;
     "docs/src/common-text/libsbml-version.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-version.html" ;;
-    "docs/src/Makefile") CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
+    "docs/src/common-text/sbml-specifications-table.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/sbml-specifications-table.html" ;;
+    "docs/src/java-substitutions/libsbmlConstants.java") CONFIG_FILES="$CONFIG_FILES docs/src/java-substitutions/libsbmlConstants.java" ;;
     "examples/c/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c/Makefile" ;;
     "examples/c++/Makefile") CONFIG_FILES="$CONFIG_FILES examples/c++/Makefile" ;;
     "examples/java/Makefile") CONFIG_FILES="$CONFIG_FILES examples/java/Makefile" ;;
