@@ -87,29 +87,29 @@ BRIEF_MEMBER_DESC      = YES
 
 INPUT = \
   libsbml-accessing.txt                 \
-  libsbml-changes.txt                   \
+  libsbml-api-guide.txt                 \
   libsbml-coding.txt                    \
   libsbml-communications.txt            \
   libsbml-converters.txt                \
-  libsbml-core-versus-packages.txt      \
+  libsbml-downloading.txt               \
   libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
   libsbml-groups.txt                    \
+  libsbml-help.txt                      \
   libsbml-howto-implement-extension.txt \
+  libsbml-installation-guide.txt        \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
   libsbml-license.txt                   \
   libsbml-mainpage.txt                  \
   libsbml-math.txt                      \
   libsbml-news.txt                      \
-  libsbml-old-news.txt                  \
   libsbml-other.txt                     \
-  libsbml-programming.txt               \
   libsbml-python-creating-model.txt     \
   libsbml-python-example-files.txt      \
   libsbml-python-reading-files.txt      \
-  libsbml-release-info.txt              \
+  libsbml-sbml-specifications.txt       \
   libsbml.py                            \
   ../../src/sbml/SBMLReader.h           \
   ../../src/sbml/SBMLWriter.h           \

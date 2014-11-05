@@ -580,28 +580,26 @@ the libSBML directory.
 
 <h3><a class="anchor" name="accessing-python">Python</a></h3>
 
-<p> As described in the <a
-href="libsbml-installation.html#quick">installation instructions</a>, we
-provide two ways for you to get the libSBML Python language interfaces easily
-without having to configure and build libSBML manually from the source
-distribution.  You can use
-<a target="_blank" href="https://pypi.python.org/pypi">PyPI</a>,
-the Python Package Index, or alternatively (for Linux), binary
-distributions together with the standard operating system installation
-tools such as <code>yum</code> and <code>apt-get</code>.
+<p> As described in the <a href="libsbml-download.html#dl-python">downloading
+instructions</a>, we provide three ways for you to get the libSBML Python
+language interface easily without having to configure and build libSBML
+manually from sources.  You can use (1) <a target="_blank"
+href="https://pypi.python.org/pypi">PyPI</a>, the Python Package Index; (2)
+binary packages for use with standard Linux installation tools such as
+<code>yum</code> and <code>apt-get</code>; or (3) executable installers for
+Windows.
 
-<p> <strong><em>If you used one of the two approaches mentioned above</em></strong>
-and followed the <a
-href="libsbml-installation.html#quick">installation instructions</a>, you
-should not need to do anything more: you should be able to accessing libSBML
-from your Python interpreter by importing it like any other Python module.
-In other words, the following should work:
+<p> <strong><em>If you downloaded an installer</em></strong> based on the <a
+href="libsbml-downloading.html#dl-python">downloading instructions for the
+Python case</a>, you should not need to do anything more: you should be able
+to access libSBML from your Python interpreter by importing it like any other
+Python module.  In other words, the following should work:
 
 <pre class="fragment">
 from libsbml import *
 </pre>
 
-<p> <strong><em>If you did not use one of the approaches above</em></strong>,
+<p> <strong><em>If you did not use an installer</em></strong>,
 then libSBML must first be configured, compiled and installed as
 described in the <a href="libsbml-installation.html">building instructions</a>.
 Once that is done, your Python interpreter will need one more thing to find
@@ -655,32 +653,21 @@ permissions yourself.
 
 <h3><a class="anchor" name="accessing-r">R</a></h3>
 
-<p> As described in the <a
-href="libsbml-installation.html#quick">installation instructions</a>, we
-provide ready-built installers for the libSBML R language interface that you
-can download from our <a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">SourceForge 
-download page</a>.  Alternatively, you can also build the R bindings
-yourself following the
-<a href="libsbml-installation.html">compilation instructions</a>.  (In the
-latter case, make sure to configure your CMake or GNU make build with the
-option to enable the libSBML R interface.) Either way, you will have in your
-possession an archive file containing the libSBML R interface.  This file
-will have the name
-<code>libSBML_@PACKAGE_VERSION@.tgz</code> on 
-Mac&nbsp;OS&nbsp;X, 
-<code>libSBML_@PACKAGE_VERSION@.zip</code> on 
-Windows, and
-<code>libSBML_@PACKAGE_VERSION@_R_i686-pc-linux-gnu.tar.gz</code>
-or
-<code>libSBML_@PACKAGE_VERSION@_R_x86_64-pc-linux-gnu.tar.gz</code>
-on Linux systems.
+<p> As described in the <a href="libsbml-download.html#dl-r">downloading
+instructions</a>, we provide ready-built installers for the libSBML R
+language interface that you can download from our <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
+page</a>.  If you use one of the installers, you do not need to do anything
+more to set up and use libSBML for R on your system.
 
-<p> <strong>One more step is required to make your R
-installation find the libSBML interface</strong>: you must invoke a command
-in R, supplying it with the path to this archive file.  You can do this in
-one of two ways: either using the R graphical interface, or a shell
-command.
+<p> Alternatively, you can also build the R bindings yourself following the
+<a href="libsbml-installation.html">compilation instructions</a>.  If you do,
+make sure to configure your CMake or GNU make build with the option to enable
+the libSBML R interface.  Following the build, <strong>one more step is
+required to make your R installation find the libSBML interface</strong>: you
+must invoke a command in R, supplying it with the path to this archive file.
+You can do this in one of two ways: either using the R graphical interface,
+or a shell command.
 <ul>
 <li><em style="padding-right: 1px">Using the R GUI</em>: In the R menu
 "<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
@@ -699,15 +686,16 @@ interpreter!):
 <pre class="fragment">
 R CMD INSTALL <span class="placeholder">archive</span>
 </pre>
-</ul>
 
 <p> In the command above, <code>R</code> is the executable for the
 command-line version of R; we assume it is accessible from your shell's
-command line, but if it is not accessible by simply typing<code>R</code>, you
-may need to supply the full path to <code>R</code>.  From this point forward,
-you should be able to call on libSBML functions from within your copy of R.
-You can test whether the installation was successful by trying the following
-command in R:
+command line, but if it is not accessible by simply typing <code>R</code>, you
+may need to supply the full path to <code>R</code>.
+</ul>
+
+<p> From this point forward, you should be able to call on libSBML functions
+from within your copy of R.  You can test whether the installation was
+successful by trying the following command in R:
 
 <pre class="fragment">
 library('libSBML')

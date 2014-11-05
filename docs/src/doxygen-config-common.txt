@@ -515,29 +515,29 @@ INPUT_ENCODING         = UTF-8
 
 INPUT =                                    \
   libsbml-accessing.txt                    \
-  libsbml-changes.txt                      \
+  libsbml-api-guide.txt                    \
   libsbml-coding.txt                       \
   libsbml-communications.txt               \
   libsbml-converters.txt                   \
-  libsbml-core-versus-packages.txt         \
-  libsbml-example.txt                      \
+  libsbml-downloading.txt                  \
   libsbml-example-files.txt                \
+  libsbml-example.txt                      \
   libsbml-extending.txt                    \
   libsbml-extension-support-classes.txt    \
   libsbml-features.txt                     \
-  libsbml-groups.txt             \
+  libsbml-groups.txt                       \
+  libsbml-help.txt                         \
   libsbml-howto-implement-extension.txt    \
+  libsbml-installation-guide.txt           \
   libsbml-installation.txt                 \
   libsbml-issues.txt                       \
   libsbml-license.txt                      \
   libsbml-mainpage.txt                     \
   libsbml-math.txt                         \
   libsbml-news.txt                         \
-  libsbml-old-news.txt                     \
   libsbml-other.txt                        \
-  libsbml-release-info.txt                 \
-  libsbml-programming.txt                  \
   libsbml-reading-files.txt                \
+  libsbml-sbml-specifications.txt          \
   ../../src/sbml/annotation                \
   ../../src/sbml/common                    \
   ../../src/sbml/conversion                \
@@ -888,7 +888,7 @@ GENERATE_TREEVIEW      = YES
 # used to set the initial width (in pixels) of the frame in which the tree 
 # is shown.
 
-TREEVIEW_WIDTH         = 260
+TREEVIEW_WIDTH         = 240
 
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output

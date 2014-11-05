@@ -1,4 +1,4 @@
-/** @page changes Changes between releases
+/** @page libsbml-changes Version history
 
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-news

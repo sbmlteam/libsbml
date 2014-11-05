@@ -1,4 +1,7 @@
-/** @page libsbml-extending Extending libSBML to support SBML packages
+/** @page libsbml-extending How to extend libSBML to support SBML packages
+
+<p> This advanced section is directed at authors of SBML Level&nbsp;3 package
+extensions for libSBML.
 
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-extension-support-classes

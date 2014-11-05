@@ -46,27 +46,30 @@ OPTIMIZE_OUTPUT_JAVA   = YES
 
 INPUT =                                 \
   libsbml-accessing.txt                 \
-  libsbml-changes.txt                   \
+  libsbml-api-guide.txt                 \
   libsbml-coding.txt                    \
   libsbml-communications.txt            \
-  libsbml-core-versus-packages.txt      \
+  libsbml-converters.txt                \
+  libsbml-csharp-example-files.txt      \
+  libsbml-csharp-math.txt               \
+  libsbml-csharp-reading-files.txt      \
+  libsbml-downloading.txt               \
   libsbml-extending.txt                 \
   libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
   libsbml-groups.txt                    \
+  libsbml-help.txt                      \
   libsbml-howto-implement-extension.txt \
+  libsbml-installation-guide.txt        \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
   libsbml-license.txt                   \
+  libsbml-mainpage.txt                  \
+  libsbml-math.txt                      \
   libsbml-news.txt                      \
-  libsbml-old-news.txt                  \
   libsbml-other.txt                     \
   libsbml-programming-csharp.txt        \
-  libsbml-csharp-example-files.txt      \
-  libsbml-csharp-mainpage.txt           \
-  libsbml-csharp-math.txt               \
-  libsbml-csharp-reading-files.txt      \
-  libsbml-release-info.txt              \
+  libsbml-sbml-specifications.txt       \
   ../../src/bindings/csharp/csharp-files
 
 LAYOUT_FILE = doxygen-layout-csharp.xml

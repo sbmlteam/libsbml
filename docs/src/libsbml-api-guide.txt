@@ -20,6 +20,11 @@ the table of contents on the left side.
 - @subpage libsbml-python-creating-model
 - @subpage libsbml-python-example-files
 @endif
+@if csharp
+- @subpage libsbml-csharp-reading-files
+- @subpage libsbml-csharp-math
+- @subpage libsbml-csharp-example-files
+@endif
 @if conly
 - @subpage libsbml-reading-files
 - @subpage libsbml-math

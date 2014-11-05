@@ -34,22 +34,22 @@ both Doxygen and Javadoc.
 beginning with two asterisks (@c *) characters, as in the following example:
 @verbatim
 /**
- * Comments that start with two asterisks within which commands understood by
- * Doxygen will begin with the character @.
+ * Comments that start with two asterisks within which commands
+ * understood by Doxygen will begin with the character @.
  */ 
 @endverbatim
 Another type of Doxygen comment, used to document enumeration members, begins
 with @htmlonly <code>/*!&lt;</code> @endhtmlonly.  If your code documentation 
 does @em not appear inside a comment block that begins with
-@htmlonly <code>/**</code> @endhtmlonly (or the more
-rarely-needed @htmlonly <code>/*!&lt;</code> @endhtmlonly), then it will be
+@htmlonly <code>/**</code> @endhtmlonly or the more
+rarely-needed @htmlonly <code>/*!&lt;</code> @endhtmlonly, then it will be
 ignored by Doxygen.  This may or may not be what you want, depending on the
 intention behind the comment.
 @li Comments that begin with one asterisk (i.e.,
 @htmlonly <code>/* ...</code> @endhtmlonly, or two
-forward slashes (i.e., <code>// ...</code>) are not processed by Doxygen and
-not entered in the formatted user guide.  You can use such comments normally
-to comment the code for other developers.
+forward slashes (i.e., <code>// ...</code>) are @em not processed by Doxygen
+and not entered in the formatted user guide.  You can use such comments
+normally to comment the code for other developers.
 @li Doxygen comment blocks can appear at the beginning of a file, in front of
 a class declaration, in front of method declarations, in front of function
 declarations, and in front of data structure definitions.
@@ -906,7 +906,8 @@ they are illustrated in the other sections above, and the complete details
 of their definitions and use can be found online at the <a
 href="http://www.doxygen.org">Doxygen</a> website.
 
-<table border="0" class="centered text-table width80 normal-font alt-row-colors">
+<table border="0" class="centered text-table normal-font alt-row-colors"
+       style="margin-left: 1em; margin-right: 1em">
 <tr>
     <th align="left">Command</th>
     <th>Meaning</th>

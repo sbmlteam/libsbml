@@ -2,213 +2,56 @@
 
 <h2>Table of contents</h2>
 
-<table class="text-table borderless centered"><tr><td>
-<a href="#quick">1. Quick start: use ready-to-install binaries to avoid work</a>
+<table class="text-table borderless centered">
 
-</td></tr>
 <tr><td>
-<a href="#detailed-unix">2. Building libSBML under Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a>
-<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
-<li><a href="#unix-cmake">2.1 Configuring using CMake</a></li>
-<li><a href="#unix-gnumake">2.2 Configuring using GNU make</a></li>
-<ul class="tight-list" style="margin-top: 0; margin-bottom: 0">
-<li><a href="#unix-basics">2.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></li>
-<li><a href="#unix-bindings">2.2.b Interfaces for C#, Java, JavaScript, MATLAB, Octave, Perl, Python, R and Ruby</a></li>
-<li><a href="#unix-32-64">2.2.c Creating 32- and/or 64-bit binaries</a></li>
-<li><a href="#unix-universal">2.2.d Creating universal binaries on Mac OS X</a></li>
-<li><a href="#unix-swig">2.2.e Configuring for SWIG</a></li>
-<li><a href="#unix-compression">2.2.f Configuring support for compression</a></li>
-<li><a href="#unix-docs">2.2.g Configuring for generating documentation</a></li>
-<li><a href="#unix-unit-testing">2.2.h Configuring for software unit testing</a></li>
+<a href="#detailed-unix">1. Building libSBML under Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a>
+<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
+<li><a href="#unix-cmake">1.1 Configuring using CMake</a></li>
+<li><a href="#unix-gnumake">1.2 Configuring using GNU make</a></li>
+<ul class="tight-list" style="margin-top: 0; margin-bottom: 0; list-style-type: none">
+<li><a href="#unix-basics">1.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></li>
+<li><a href="#unix-bindings">1.2.b Interfaces for C#, Java, JavaScript, MATLAB, Octave, Perl, Python, R and Ruby</a></li>
+<li><a href="#unix-32-64">1.2.c Creating 32- and/or 64-bit binaries</a></li>
+<li><a href="#unix-universal">1.2.d Creating universal binaries on Mac OS X</a></li>
+<li><a href="#unix-swig">1.2.e Configuring for SWIG</a></li>
+<li><a href="#unix-compression">1.2.f Configuring support for compression</a></li>
+<li><a href="#unix-docs">1.2.g Configuring for generating documentation</a></li>
+<li><a href="#unix-unit-testing">1.2.h Configuring for software unit testing</a></li>
 </ul>
-<li><a href="#unix-compiling">2.3 Compiling and installing</a></li>
-<ul class="tight-list" style="margin-top: 0; margin-bottom: 0">
-<li><a href="#compiling-cmake">2.3.a Using CMake</a></li>
-<li><a href="#compiling-gnumake">2.3.b Using GNU make</a></li>
-</ul>
-
-<li><a href="#unix-advanced">2.4 Advanced configuration options</a></li>
+<li><a href="#unix-compiling">1.3 Compiling and installing</a></li>
+<ul class="tight-list" style="margin-top: 0; margin-bottom: 0; list-style-type: none">
+<li><a href="#compiling-cmake">1.3.a Using CMake</a></li>
+<li><a href="#compiling-gnumake">1.3.b Using GNU make</a></li>
 </ul>
 
-</td></tr><tr><td>
-<a href="#detailed-windows">3. Building libSBML under Windows</a>
-<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
-<li><a href="#windows-configuring">3.1 Configuring using CMake</a></li>
-<li><a href="#windows-compiling">3.2 Compiling and installing using MSVC</a></li>
-
+<li><a href="#unix-advanced">1.4 Advanced configuration options</a></li>
 </ul>
 
 </td></tr><tr><td>
-<a href="#locations">4. Files installed by libSBML, and their locations</a>
+<a href="#detailed-windows">2. Building libSBML under Windows</a>
+<ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
+<li><a href="#windows-configuring">2.1 Configuring using CMake</a></li>
+<li><a href="#windows-compiling">2.2 Compiling and installing using MSVC</a></li>
+
+</ul>
 
 </td></tr><tr><td>
-<a href="#problems">5. What to do if problems arise</a>
+<a href="#locations">3. Files installed by libSBML, and their locations</a>
+
+</td></tr><tr><td>
+<a href="#problems">4. What to do if problems arise</a>
 
 </td></tr>
 </table>
 
 <!-- ====================================================================== -->
 
-
-
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="quick">1. Quick start: use ready-to-install binaries to avoid work</a></h2>
+<h2><a class="anchor" name="detailed-unix">1. Procedures for Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> We supply libSBML installers for many operating systems and some
-language interfaces.  Using them, you may be able to save yourself the time
-and trouble of following the configuration and build instructions on the rest
-of this page.
-
-<p> <em><strong>If you are using Python</strong></em>, we provide two
-options: (1) a software package available from the Python Package Index
-(<a target="_blank" href="https://pypi.python.org/pypi">PyPI</a>),
-to be used with <code>pip</code>, and (2) for Linux only, binary
-installers for use with the standard operating system installation
-tools such as <code>yum</code> and <code>apt-get</code>.
-
-<ul>
-<li><em>Using <a style="margin-right: 1px"
-target="_blank" href="https://pypi.python.org/pypi">PyPI</a></em>: 
-If you have <a target="_blank"
-href="https://pip.pypa.io/en/latest/installing.html">pip</a> installed on
-your Windows, Mac&nbsp;OS&nbsp;X or Linux system, you can use it to install
-the latest releases of libSBML.  First, make sure you have installed the
-following prerequisite software packages on your operating system: 
-<code style="padding-right: 0">python-dev</code>, 
-<code style="padding-right: 0">libxml2-dev</code>, 
-<code style="padding-right: 0">libz-dev</code>, 
-and <code style="padding-right: 0">libbz2-dev</code>.  Then, to get the
-<em>stable</em> release of libSBML, execute the following command:
-
-<pre class="fragment">
-sudo pip install python-libsbml
-</pre>
-
-<p> For the <em>experimental</em> release of libSBML, use the following command instead:
-
-<pre class="fragment">
-sudo pip install python-libsbml-experimental
-</pre>
-
-<p> If all goes well, the command above should result in <code>pip</code> 
-printing many messages while it builds libSBML on your computer, ultimately
-ending in the following message to tell you it finished successfully:
-
-<pre class="fragment">
-<em><span style="font-weight: normal; font-family: Helvetica, Arial, Sans; color: #999">[... much text omitted ...]</span></em>
-Successfully installed python-libsbml
-Cleaning up...
-</pre>
-
-<li><em>Using the operating system's software installation tools</em>: If you
-are running Linux, and you prefer to use the standard over-the-air installation
-tools provided by your operating system (e.g., <code>yum</code>
-and <code>apt-get</code>), you can take advantage of binary installers we
-provide using the <a target="_blank"
-href="https://build.opensuse.org">OpenSUSE Build System</a> (OBS). You can find
-the instructions for many different flavors of Linux including CentOS, Fedora,
-Ubuntu, and others, at the following URLs:
-
-<ul>
-<li><em>For the stable release</em>: 
-<code><a target="_blank" 
-href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml">
-python-libsbml</a></code>.
-
-<li><em>For the experimental release</em>:
-<code><a target="_blank" 
-href="http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental">
-python-libsbml-experimental</a></code>.
-
-</ul>
-</ul>
-
-<p> After using either approach above, you should be able to access the
-Python language interface for libSBML on you computer directly from your
-Python interpreter.
-
-<p>
-<em><strong>If you are using R</strong></em>, we provide installers for the
-libSBML R language interface for Linux, Mac&nbsp;OS&nbsp;X and Windows.  You
-can download the installer archive file from the
-<a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">SourceForge 
-download page</a> mentioned below.  This
-file will have a name of the form
-<code>libSBML_@PACKAGE_VERSION@.tgz</code> on 
-Mac&nbsp;OS&nbsp;X, 
-<code>libSBML_@PACKAGE_VERSION@.zip</code> on 
-Windows, and
-<code>libSBML_@PACKAGE_VERSION@_R_i686-pc-linux-gnu.tar.gz</code>
-or
-<code>libSBML_@PACKAGE_VERSION@_R_x86_64-pc-linux-gnu.tar.gz</code>
-on Linux systems.
-
-<p> Once you have downloaded the appropriate version of the installer for
-your operating system, one more step is required to install the libSBML R
-interface.  You can do this step in one of two ways: either using the R
-graphical interface, or using a terminal/shell command.
-
-<ul>
-<li><em style="padding-right: 1px">Using the R GUI</em>: From the R menu
-"<strong>Packages</strong>" or "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>"
-(depending on your operating system), select the "<strong>Package 
-Installer</strong>" item.  You will be presented with an interface that lets
-you install a local binary package.  Use that interface to navigate to the
-directory where you copied the libSBML archive file, and select the archive
-file for installation.
-
-<li><em style="padding-right: 1px">Using a shell command</em>: 
-Suppose that the path to the libSBML R archive on your computer is
-<span class="placeholder">archive</span>.  Execute the following command
-in a terminal/shell window (note: <em>not</em> in the R command line
-interpreter!):
-
-<pre class="fragment">
-R CMD INSTALL <span class="placeholder">archive</span>
-</pre>
-
-<p> If all goes well, you should see R print messages such as the following
-(the paths on your computer may differ):
-<pre class="fragment">
-* installing to library ‘/Library/Frameworks/R.framework/Versions/3.1/Resources/library’
-* installing *binary* package ‘libSBML’ ...
-* DONE (libSBML) 
-</pre>
-</ul>
-
-<p> <em><strong>If you are not using Python nor R</strong></em>, then the next step
-is to check the <a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">download
-site for libSBML on SourceForge.net</a> for possible installation packages
-for your operating system.  As shown in the screenshot below, there you will
-find two subdirectories: one for stable releases, and one for experimental
-releases.  Within each of those in turn, you will find subdirectories for
-Mac&nbsp;OX&nbsp;X, Linux and Windows.
-
-<center style="width: 500px;
-margin: 1em auto">
-  <a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">
-<img class="screenshot" style="border: 1px solid #ccc" src="sourceforge-download.png" alt="Image of SourceForge download page for libSBML" width="500px"></a>
-<p style="font-style: italic"> Screenshot of the <a target="_blank"
-href="http://sf.net/projects/sbml/files/libsbml">SourceForge download page</a> for libSBML.  The "stable" directory contains downloads for the main release, while the "experimental" directory contains beta-test code for such things as SBML Level&nbsp;3 packages.
-</center>
-
-<p> Note that the plain libSBML binary distributions <strong>do not include
-the MATLAB, Octave, Python, or R language interfaces</strong>, because these
-programming languages require special treatment.  If an installer is not
-available for your system, it will be necessary to build libSBML from the
-source distribution.  The rest of this document explains the procedure for
-doing this.
-    
-
-<!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="detailed-unix">2. Procedures for Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a></h2>
-<!-- ---------------------------------------------------------------------- -->
-
-<p> If there is no installer for your system, or you prefer to build
+<p> If there is no binary installer for your system, or you prefer to build
 libSBML from the source distribution, you can use one of two build systems:
 <a target="_blank" href="http://www.cmake.org/">CMake</a>, or GNU make.
 They are described separately below.
@@ -224,7 +67,7 @@ it.  Xerces versions 2.2 &#150; 2.5, and
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="unix-cmake">2.1 Configuring using CMake</a></h3>
+<h3><a class="anchor" name="unix-cmake">1.1 Configuring using CMake</a></h3>
 
 <p> If you do not already have CMake installed on your system, please make
 sure to download and install a copy of CMake version 2.8.4 or later from <a
@@ -351,13 +194,13 @@ selected in the beginning (e.g., Visual Studio under Windows, or regular Unix
 makefiles under Mac&nbsp;OS or Linux, and so on).  The files will be placed in
 the "build" directory you indicated in the second line of the CMake GUI.
 
-<p> Now please proceed to Section 2.3, <a
+<p> Now please proceed to Section 1.3, <a
 href="#unix-compiling"><i>Compiling and installing LibSBML</i></a>.
 
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="unix-gnumake">2.2 Configuring using GNU Make</a></h3>
+<h3><a class="anchor" name="unix-gnumake">1.2 Configuring using GNU Make</a></h3>
 
 <p> First, please download and unpack the libSBML source code archive
 somewhere on your file system, and in a shell (terminal), <code>cd</code>
@@ -366,7 +209,7 @@ into the directory thereby created (e.g.,
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-basics">2.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></h4>
+<h4><a class="anchor" name="unix-basics">1.2.a Basic configuration for Linux, Mac OS X, Solaris, and Cygwin</a></h4>
 
 <p> If you <em>only</em> want to build the C and C++ interfaces and install
 libSBML into <code>/usr/local</code> (the default), then configuring
@@ -466,7 +309,7 @@ options.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-bindings">2.2.b Interfaces 
+<h4><a class="anchor" name="unix-bindings">1.2.b Interfaces 
 for C#, Java, JavaScript, MATLAB, Octave, Perl, Python, R and Ruby</a></h4>
 
 <p> LibSBML's core is written in C and C++, but libSBML comes with APIs for
@@ -544,7 +387,7 @@ libSBML for this reason.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-32-64">2.2.c Creating 32- and/or 64-bit binaries</a></h4>
+<h4><a class="anchor" name="unix-32-64">1.2.c Creating 32- and/or 64-bit binaries</a></h4>
 
 <p> On some hardware and operating system combinations, it is possible to
 compile 64-bit as well as 32-bit versions of programs.  Normally, the most
@@ -577,13 +420,13 @@ the next section.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-universal">2.2.d Creating universal binaries on Mac OS X</a></h4>
+<h4><a class="anchor" name="unix-universal">1.2.d Creating universal binaries on Mac OS X</a></h4>
 
-<p> Apple Macintosh operating systems after 2005 have provided the option
-of building binaries that can run natively on either PowerPC or x86 (Intel)
-architectures, as well as in either 32-bit or 64-bit versions.  Compiling a
-library to be a so-called <em>universal binary</em> containing multiple
-versions of the object code requires the use of special options at
+<p> Apple Macintosh operating systems versions 10.4&ndash;10.6 provide the
+option of building binaries that can run natively on either PowerPC or x86
+(Intel) architectures, as well as in either 32-bit or 64-bit versions.
+Compiling a library to be a so-called <em>universal binary</em> containing
+multiple versions of the object code requires the use of special options at
 compilation time.  To configure libSBML to be built as a universal binary,
 specify the optional argument
 <nobr><code>--enable-universal-binary</code></nobr> to
@@ -622,7 +465,7 @@ accomplish the same goals as the two other individual options.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-swig">2.2.e Configuring for SWIG</a></h4>
+<h4><a class="anchor" name="unix-swig">1.2.e Configuring for SWIG</a></h4>
 
 <p> <strong>Important</strong>: libSBML is known to work with SWIG version 2.0.0
 or later; earlier versions are known <em>not</em> to work.  You <em>must</em> use
@@ -646,7 +489,7 @@ example:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-compression">2.2.f Configuring support for compression</a></h4>
+<h4><a class="anchor" name="unix-compression">1.2.f Configuring support for compression</a></h4>
 
 <p> LibSBML provides built-in support for reading and writing compressed
 SBML files.  This facility works transparently: if a given SBML filename
@@ -688,7 +531,7 @@ option to configure:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-docs">2.2.g Configuring for generating documentation</a></h4>
+<h4><a class="anchor" name="unix-docs">1.2.g Configuring for generating documentation</a></h4>
 
 <p> LibSBML comes with extensive documentation, and the document you are
 currently reading is part of it.  Because the documentation is large and
@@ -768,7 +611,7 @@ to recreate just the Python documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="unix-unit-testing">2.2.h Configuring for software unit testing</a></h4>
+<h4><a class="anchor" name="unix-unit-testing">1.2.h Configuring for software unit testing</a></h4>
 
 <p> libSBML provides built-in facilities for testing itself.  To run the
 unit tests, a second library is required, <code>libcheck</code> (version
@@ -821,19 +664,19 @@ Lists, and Related Topics" elsewhere in this manual.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="unix-compiling">2.3 Compiling and installing libSBML</a></h3>
+<h3><a class="anchor" name="unix-compiling">1.3 Compiling and installing libSBML</a></h3>
 
 <p> After the configuration step (and if you are using CMake, the
 generation of the makefiles), the final steps are to run the compilation
 process followed by a command to install libSBML on your system.  
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="compiling-cmake">2.3.a Using CMake</a></h4>
+<h4><a class="anchor" name="compiling-cmake">1.3.a Using CMake</a></h4>
 
 <p> If you are using CMake, then in a terminal/shell window, first
 <code>cd</code> into the "build" directory that you indicated to CMake in the
 second line of the CMake GUI during the configuration step described in
-Section 2.1, <a href="#unix-cmake"><i>Configuring using CMake</i></a> above.
+Section 1.1, <a href="#unix-cmake"><i>Configuring using CMake</i></a> above.
 For instance, if your "build" directory is simply named <code>build</code> and
 you placed it in a subdirectory of the libSBML source directory (let 
 <span class="placeholder">SRC</span> stand for that directory), you would simply
@@ -850,15 +693,15 @@ make                # Note: use 'gmake' on FreeBSD
 sudo make install   # Note: use 'sudo gmake install' on FreeBSD
 </pre>
 
-<p> Once the libSBML files are installed as described in the sections
-above, you may need to perform additional steps so that software can find
-the libSBML library files at <em>run</em> time.  Please see the
-instructions on <a href="libsbml-accessing.html"><i>Making libSBML accessible
-to your software</i></a> provided on a separate page of this documentation.
+<p> Once the libSBML files are installed as described above, you may need to
+perform additional steps so that software can find the libSBML library files
+at <em>run</em> time.  Please see the instructions on <a
+href="libsbml-accessing.html"><i>Making libSBML accessible to your
+software</i></a> provided on a separate page of this documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h4><a class="anchor" name="compiling-gnumake">2.3.a Using GNU make</a></h4>
+<h4><a class="anchor" name="compiling-gnumake">1.3.a Using GNU make</a></h4>
 
 <p> If you are using GNU make and <i>not</i> using CMake, in a terminal/shell
 window, <code>cd</code> to the top level of the libSBML source directory.  
@@ -884,7 +727,7 @@ to your software</i></a> provided on a separate page of this documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="unix-advanced">2.4 Advanced configuration options</a></h3>
+<h3><a class="anchor" name="unix-advanced">1.4 Advanced configuration options</a></h3>
 
 <p> Whether you use CMake or GNU make, there are some additional advanced
 options that are uncommonly used, but still worth explaining.  We list the
@@ -917,7 +760,7 @@ no advantage for regular user code to enable this option.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="detailed-windows">3. Procedures for Windows</a></h2>
+<h2><a class="anchor" name="detailed-windows">2. Procedures for Windows</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> There are two ways to compile libSBML under Windows: using the
@@ -931,7 +774,7 @@ above.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="windows-configuring">3.1 Configuring using CMake</a></h3>
+<h3><a class="anchor" name="windows-configuring">2.1 Configuring using CMake</a></h3>
 
 <p> To create configurations suitable for compiling libSBML using the
 native Windows build tools, we recommend using CMake to generate them.  (If
@@ -1023,7 +866,7 @@ environment you selected in the beginning (e.g., Visual Studio 2010).
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="windows-compiling">3.2 Compiling and installing using MSVC</a></h3>
+<h3><a class="anchor" name="windows-compiling">2.2 Compiling and installing using MSVC</a></h3>
 
 <p> The MSVC Solution will contain a number of projects files, depending on
 the configuration selected.  The following screenshot illustrates what you
@@ -1127,7 +970,7 @@ to your software</i></a> provided on a separate page of this documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="locations">4. Files installed by libSBML, and their locations</a></h2>
+<h2><a class="anchor" name="locations">3. Files installed by libSBML, and their locations</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> If all went as it should, the libSBML object files should end up
@@ -1507,7 +1350,7 @@ x86-64).
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="problems">5. What to do if problems arise</a></h2>
+<h2><a class="anchor" name="problems">4. What to do if problems arise</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p>

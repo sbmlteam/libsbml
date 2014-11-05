@@ -1,4 +1,7 @@
-/** @page libsbml-other Extending the libSBML API
+/** @page libsbml-other Contributing to libSBML
+
+<p> The following sections are directed at people who would like to hack
+libSBML itself, to add extensions or make other improvements.
 
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-coding

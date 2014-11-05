@@ -3,30 +3,9 @@
 This section describes the summary of extension support 
 classes which are used for implementing a package extension in libSBML-5.
 
-<center>
-<table border="0">
+@tableofcontents
 
-<tr><td>
-<a href="#Overview">1. Overview of extension support classes </a>
-</td></tr>
-
-<tr><td>
-<a href="#ExtensionSupport"> 2. Extension support classes </a>
-<ol> 
-<li> <a href="#SBMLExtension"> SBMLExtension class</a> </li>
-<li> <a href="#SBasePlugin"> SBasePlugin class</a> </li>
-<li> <a href="#SBaseExtensionPoint"> SBaseExtensionPoint</a>  </li>
-<li> <a href="#SBasePluginCreatorBase"> SBasePluginCreator</a> </li>
-<li> <a href="#SBMLExtensionNamespaces"> SBMLExtensionNamespaces</a> </li>
-<li> <a href="#SBMLExtensionRegistry"> SBMLExtensionRegistry</a> </li>
-<li> <a href="#SBMLExtensionRegister"> SBMLExtensionRegister</a>  </li>
-<li> <a href="#SBMLExtensionException"> SBMLExtensionException</a> </li>
-</ol>
-</td></tr>
-</table>
-</center>
-
-<h2><a class="anchor" name="Overview">1. Overview of extension support classes </a></h2>
+@section ext-overview 1. Overview of extension support classes
 
 The package architecture of SBML Level 3 enables it to develop a package extension 
 which defines additional attributes and/or elements to each pre-defined element 
@@ -94,7 +73,7 @@ which can be thrown when an exception about pacakge extension occurs.
 </li>
 </ul>
 
-<h2><a class="anchor" name="ExtensionSupport">2. Extension support classes </a></h2>
+@section ext-support-classes 2. Extension support classes
 
 <h3><a class="anchor" name="SBMLExtension">1. SBMLExtension class</a></h3>
 

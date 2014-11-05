@@ -1,4 +1,4 @@
-/** @page libsbml-license Licensing and distribution terms for libSBML
+/** @page libsbml-license LibSBML license
 @n
 
 <!-- LICENSE.html is located in ../../.  The include search path for

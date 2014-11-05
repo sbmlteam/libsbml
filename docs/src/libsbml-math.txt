@@ -1,4 +1,4 @@
-/** @page libsbml-math Working with mathematical expressions
+/** @page libsbml-math Working with math
 
 @tableofcontents
 
