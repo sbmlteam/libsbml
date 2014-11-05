@@ -165,6 +165,7 @@ distfiles =                                                  \
         common-graphics/simple-ast.svg                       \
         common-graphics/solution-explorer-windows.png        \
         common-graphics/sourceforge-download.png             \
+        common-graphics/sourceforge-download-windows.png     \
         common-graphics/tab_a.png                            \
         common-graphics/tab_b.png                            \
         common-graphics/tab_h.png                            \
@@ -177,16 +178,38 @@ distfiles =                                                  \
         common-text/comment-set-methods.html                 \
         common-text/doxygen-regular-text-end.html            \
         common-text/doxygen-regular-text-start.html          \
+        common-text/enzymatic-reaction-equation.html         \
+        common-text/example-sbml-enzyme-model.html           \
+        common-text/example-sbml-enzyme-model.xml            \
+        common-text/example-sbml-flattened-output.html       \
+        common-text/example-sbml-flattened-output.xml        \
+        common-text/example-sbml-main.html                   \
+        common-text/example-sbml-main.xml                    \
         common-text/force-serif-font-off.html                \
         common-text/force-serif-font-on.html                 \
         common-text/level-1-uses-text-string-math.html       \
-        common-text/enzymatic-reaction-equation.html         \
-        common-text/libsbml-facility-only-warning.html       \
+        common-text/libsbml-accessing.html.in                \
+        common-text/libsbml-authors.html                     \
         common-text/libsbml-coding-copydetails-example.html  \
         common-text/libsbml-coding-copydoc-example.html      \
         common-text/libsbml-coding-enum-text-example.html    \
         common-text/libsbml-coding-link-example.html         \
+        common-text/libsbml-communications.html              \
+        common-text/libsbml-downloading.html.in              \
+        common-text/libsbml-downloading.txt                  \
+        common-text/libsbml-doxygen.html                     \
+        common-text/libsbml-doxygen.html                     \
+        common-text/libsbml-facility-only-warning.html       \
+        common-text/libsbml-features.html                    \
+        common-text/libsbml-group-comp-intro.html.in         \
+        common-text/libsbml-group-core-intro.html            \
+        common-text/libsbml-group-fbc-intro.html.in          \
+        common-text/libsbml-group-layout-intro.html.in       \
+        common-text/libsbml-group-qual-intro.html.in         \
+        common-text/libsbml-installation.html.in             \
+        common-text/libsbml-issues.html                      \
         common-text/libsbml-version.html.in                  \
+        common-text/listof-illustration.html                 \
         common-text/listof-illustration.txt                  \
         common-text/math-functions.html                      \
         common-text/math-precedence-table-l3.html            \
@@ -195,15 +218,15 @@ distfiles =                                                  \
         common-text/note-reading-zipped-files.html           \
         common-text/note-writing-zipped-files.html           \
         common-text/parameter-addition-overrides-values.html \
-        common-text/listof-illustration.html                 \
-        common-text/plain-font-off.html                      \
-        common-text/plain-font-on.html                       \
-        common-text/pkg-marker-core.html                     \
         common-text/pkg-marker-comp.html                     \
+        common-text/pkg-marker-core.html                     \
         common-text/pkg-marker-fbc.html                      \
         common-text/pkg-marker-layout.html                   \
         common-text/pkg-marker-qual.html                     \
+        common-text/plain-font-off.html                      \
+        common-text/plain-font-on.html                       \
         common-text/predefined-units.html                    \
+        common-text/sbml-specifications-table.html.in        \
         common-text/species-boundarycondition.html           \
         common-text/species-hasonlysubstance.html            \
         common-text/string-functions-table-l3.html           \
@@ -261,41 +284,26 @@ distfiles =                                                  \
         java-substitutions/SBaseList.java                    \
         java-substitutions/XMLConstructorException.java      \
         java-substitutions/libsbmlConstants.java.in          \
-        libsbml-doxygen.html                                 \
-        libsbml-extending.txt                                \
-        libsbml-accessing.html.in                            \
         libsbml-accessing.txt                                \
-        libsbml-authors.html                                 \
+        libsbml-api-guide.txt                                \
+        libsbml-extending.txt                                \
         libsbml-blurb.html                                   \
-        libsbml-changes.txt                                  \
         libsbml-coding.txt                                   \
-        libsbml-communications.html                          \
         libsbml-communications.txt                           \
-        libsbml-conversion-warnings.html                     \
-        libsbml-core-versus-packages.html                    \
-        libsbml-core-versus-packages.txt                     \
         libsbml-csharp-example-files.txt                     \
-        libsbml-csharp-mainpage.txt                          \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
-        libsbml-doxygen.html                                 \
         libsbml-example.txt                                  \
         libsbml-example-c.txt                                \
         libsbml-example-files.txt                            \
         libsbml-example-files-c.txt                          \
         libsbml-extension-support-classes.txt                \
-        libsbml-features.html                                \
+        libsbml-help.txt                                     \
+        libsbml-installation-guide.txt                       \
         libsbml-features.txt                                 \
-        libsbml-group-comp-intro.html.in                     \
-        libsbml-group-core-intro.html.in                     \
-        libsbml-group-fbc-intro.html.in                      \
-        libsbml-group-layout-intro.html.in                   \
-        libsbml-group-qual-intro.html.in                     \
         libsbml-groups.txt                                   \
         libsbml-howto-implement-extension.txt                \
-        libsbml-installation.html.in                         \
         libsbml-installation.txt                             \
-        libsbml-issues.html                                  \
         libsbml-issues.txt                                   \
         libsbml-java-bottom.html                             \
         libsbml-java-example-bottom.html                     \
@@ -319,10 +327,8 @@ distfiles =                                                  \
         libsbml-news.txt                                     \
         libsbml-octave-mainpage.txt                          \
         libsbml-octave-reading-files.txt                     \
-        libsbml-old-news.txt                                 \
         libsbml-other.txt                                    \
         libsbml-papers.html                                  \
-        libsbml-programming.txt                              \
         libsbml-programming-csharp.txt                       \
         libsbml-python-creating-model.txt                    \
         libsbml-python-example-files.txt                     \
@@ -448,14 +454,14 @@ doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 %.html: %.html.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
-expanded-html-files =		  \
-  libsbml-accessing.html          \
-  libsbml-group-comp-intro.html	  \
-  libsbml-group-core-intro.html	  \
-  libsbml-group-fbc-intro.html	  \
-  libsbml-group-layout-intro.html \
-  libsbml-group-qual-intro.html   \
-  libsbml-installation.html
+expanded-html-files = \
+  common-text/libsbml-accessing.html          \
+  common-text/libsbml-downloading.html        \
+  common-text/libsbml-group-comp-intro.html   \
+  common-text/libsbml-group-fbc-intro.html    \
+  common-text/libsbml-group-layout-intro.html \
+  common-text/libsbml-group-qual-intro.html   \
+  common-text/libsbml-installation.html
 
 other-generated-files = \
   libsbml-converters.txt
@@ -536,8 +542,9 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
-#  $(call doxygen_indexing_pass,$(1),$(2),$(3))
+#
 define run_doxygen
+  $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 
@@ -781,7 +788,7 @@ endef
 
 define create_extensions_page
   utilities/generate-extensions-summary.py $(1) > java-extensions-list.html
-  $(call merge_html,java-extensions-list.html,extensions-summary.html,extensions for SBML Level 3 packages)
+  $(call merge_html,java-extensions-list.html,extensions-summary.html,LibSBML extensions for SBML Level 3 packages)
   rm -f java-extensions-list.html
 endef
 
@@ -859,20 +866,22 @@ java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
 	cp -f common-graphics/*.jpg $(java-manual)/$(java-class-path)/class-use
 	cp -f sbml.js $(java-manual)
 	cp -f sbml.js $(java-manual)/$(java-class-path)/
-	$(call merge_html,libsbml-java-overview.html,overview-summary.html,Java 5.11.0 API)
-	$(call merge_html,libsbml-installation.html,libsbml-installation.html,installation)
-	$(call merge_html,libsbml-accessing.html,libsbml-accessing.html,accessibility for your software)
-	$(call merge_html,libsbml-features.html,libsbml-features.html,features)
-	$(call merge_html,libsbml-communications.html,libsbml-communications.html,bug reports and other communications)
-	$(call merge_html,libsbml-java-reading.html,libsbml-java-reading.html,basic facilities for reading and writing SBML content)
-	$(call merge_html,libsbml-java-math.html,libsbml-java-math.html,facilities for manipulating mathematical expressions)
-	$(call merge_html,libsbml-issues.html,libsbml-issues.html,known issues and pitfalls)
-	$(call merge_html,libsbml-java-misc.html,libsbml-java-misc.html,miscellaneous Java-specific information)
-	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,example programs in Java)
-	$(call merge_html,libsbml-core-versus-packages.html,libsbml-core-versus-packages.html,&ldquo;core&rdquo; and libSBML extensions)
-	$(call merge_html,../../LICENSE.html,libsbml-license.html,license)
-	$(call merge_html_verb,../../NEWS.txt,libsbml-news.html,news)
-	$(call merge_html_verb,../../OLD_NEWS.txt,libsbml-old-news.html,old-news)
+	$(call merge_html,libsbml-java-overview.html,overview-summary.html,LibSBML Java 5.11.0 API)
+	$(call merge_html,libsbml-java-installation-guide.html,libsbml-java-installation-guide.html,LibSBML installation)
+	$(call merge_html,libsbml-java-reading.html,libsbml-java-reading.html,Reading and writing SBML content)
+	$(call merge_html,libsbml-java-math.html,libsbml-java-math.html,Manipulating mathematical expressions)
+	$(call merge_html,libsbml-java-misc.html,libsbml-java-misc.html,Miscellaneous Java-specific information)
+	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,Example libSBML programs in Java)
+	$(call merge_html,libsbml-core-versus-packages.html,libsbml-core-versus-packages.html,LibSBML &ldquo;core&rdquo; and extensions)
+	$(call merge_html,common-text/libsbml-installation.html,libsbml-installation.html,LibSBML installation)
+	$(call merge_html,common-text/libsbml-accessing.html,libsbml-accessing.html,LibSBML accessibility for your software)
+	$(call merge_html,common-text/libsbml-downloading.html,libsbml-downloading.html,LibSBML downloads)
+	$(call merge_html,common-text/libsbml-features.html,libsbml-features.html,LibSBML features)
+	$(call merge_html,common-text/libsbml-communications.html,libsbml-communications.html,Bug reports and other communications)
+	$(call merge_html,common-text/libsbml-issues.html,libsbml-issues.html,Known issues and pitfalls)
+	$(call merge_html,common-text/sbml-specifications-table.html,libsbml-specifications.html,SBML specifications)
+	$(call merge_html,../../LICENSE.html,libsbml-license.html,LibSBML license)
+	$(call merge_html_verb,../../NEWS.txt,libsbml-news.html,LibSBML news)
 	mkdir -p $(java-manual)/examples
 	${MAKE} postprocess_javadoc
 	${MAKE} create_java_examples
