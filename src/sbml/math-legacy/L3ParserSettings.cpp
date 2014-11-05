@@ -143,7 +143,7 @@ LIBSBML_EXTERN
 void
 L3ParserSettings_free (L3ParserSettings_t * settings)
 {
-  settings = NULL;
+  delete settings;
 }
 
 

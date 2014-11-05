@@ -2562,6 +2562,19 @@ ASTNode::reduceToBinary()
 
   swapChildren(op2);
 
+  // need to clean up memory but the children of op2
+  // are now the children of this ASTNode
+  // so remove them from op2 before deleting it
+  // this is why removeChild does not delete the child
+  unsigned int num = op2->getNumChildren();
+  unsigned int i = 0;
+  while(i < num)
+  {
+    op2->removeChild(0);
+    i++;
+  }
+  delete op2;
+
   reduceToBinary();
 }
 

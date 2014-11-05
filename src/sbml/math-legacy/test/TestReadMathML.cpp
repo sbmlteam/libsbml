@@ -1995,9 +1995,12 @@ START_TEST (test_convert_unary_plus)
 
   fail_unless( result != NULL );
 
+  delete N;
   N = SBML_parseFormula(result);
 
   fail_unless( N != NULL );
+
+  safe_free(result);
   
 }
 END_TEST

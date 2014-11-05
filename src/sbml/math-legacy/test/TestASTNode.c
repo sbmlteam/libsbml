@@ -5147,6 +5147,7 @@ START_TEST (test_ASTNode_userData_1)
   fail_unless(ASTNode_getUserData(n) == NULL);
 
   ASTNode_free(n);
+  Model_free(m);
 }
 END_TEST
 

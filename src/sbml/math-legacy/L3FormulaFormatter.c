@@ -60,13 +60,14 @@ char *
 SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSettings_t *settings)
 {
   char           *s;
-  StringBuffer_t *sb = StringBuffer_create(128);
+  StringBuffer_t *sb;
 
   if (tree == NULL)
   {
     return NULL;
   }
 
+  sb = StringBuffer_create(128);
   L3FormulaFormatter_visit(NULL, tree, sb, settings);
   s = StringBuffer_getBuffer(sb);
   safe_free(sb);
@@ -446,6 +447,7 @@ L3FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 void
 L3FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node, const L3ParserSettings_t *settings)
 {
+  char * units;
   StringBuffer_appendChar( sb, '(');
   StringBuffer_appendInt ( sb, ASTNode_getNumerator(node)   );
   StringBuffer_appendChar( sb, '/');
@@ -455,7 +457,9 @@ L3FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node, co
   if (L3ParserSettings_getParseUnits(settings)) {
     if (ASTNode_hasUnits(node)) {
       StringBuffer_appendChar( sb, ' ');
-      StringBuffer_append( sb, ASTNode_getUnits(node));
+      units = ASTNode_getUnits(node);
+      StringBuffer_append( sb, units);
+      safe_free(units);
     }
   }
 }
@@ -470,6 +474,7 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
 {
   double value = ASTNode_getReal(node);
   int    sign;
+  char * units;
 
   if (ASTNode_isInteger(node)) {
     value = ASTNode_getInteger(node);
@@ -506,7 +511,9 @@ L3FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node, const 
   if (L3ParserSettings_getParseUnits(settings)) {
     if (ASTNode_hasUnits(node)) {
       StringBuffer_appendChar( sb, ' ');
-      StringBuffer_append( sb, ASTNode_getUnits(node));
+      units = ASTNode_getUnits(node);
+      StringBuffer_append( sb, units);
+      safe_free(units);
     }
   }
 }

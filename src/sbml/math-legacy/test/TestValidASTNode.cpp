@@ -72,6 +72,7 @@ START_TEST (test_ValidASTNode_infix_nary_plus0)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -96,6 +97,7 @@ START_TEST (test_ValidASTNode_infix_nary_plus1)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -119,6 +121,7 @@ START_TEST (test_ValidASTNode_infix_nary_times0)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -144,6 +147,7 @@ START_TEST (test_ValidASTNode_infix_nary_times1)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -240,6 +244,7 @@ START_TEST (test_ValidASTNode_nary)
   n->addChild(c->deepCopy());
   fail_unless( !(n->isWellFormedASTNode()) );
 
+  delete n;
   n = new ASTNode(AST_TIMES);
   fail_unless( (n->isWellFormedASTNode()) );
 

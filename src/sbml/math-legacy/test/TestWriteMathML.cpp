@@ -859,6 +859,8 @@ START_TEST (test_MathMLFormatter_semantics_url)
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
+
+  delete xa;
 }
 END_TEST
 

@@ -934,7 +934,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
     node.setSemanticsFlag();
     if (tempAtt.hasAttribute("definitionURL") == true)
     {
-      node.setDefinitionURL(*(tempAtt).clone());
+      node.setDefinitionURL(tempAtt);
     }
     /* need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
@@ -1751,6 +1751,8 @@ readMathMLFromString (const char *xml)
 {
   if (xml == NULL) return NULL;
 
+  bool needDelete = false;
+
   const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
   const char* xmlstr_c;
   
@@ -1768,6 +1770,7 @@ readMathMLFromString (const char *xml)
 
 
     xmlstr_c = safe_strdup(oss.str().c_str());
+    needDelete = true;
   }
 
   XMLInputStream stream(xmlstr_c, false);
@@ -1778,6 +1781,11 @@ readMathMLFromString (const char *xml)
   stream.setSBMLNamespaces(&sbmlns);
 
   ASTNode_t* ast = readMathML(stream);
+  
+  if (needDelete == true)
+  {
+    safe_free((void *)(xmlstr_c));
+  }
   if (log.getNumErrors() > 0)
   {
     delete ast;
