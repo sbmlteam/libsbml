@@ -99,7 +99,9 @@ h3, h3 a
 
 h3 code
 {
-    font-size: 14px;
+    font-size: 14pt;
+/* Margin adjustment bc the font is italic and the letters get too close. */
+    margin-left: 1pt;
 }
 
 h4, h4 a
@@ -112,7 +114,9 @@ h4, h4 a
 
 h4 code
 {
-    font-size: 12px;
+    font-size: 12pt;
+/* Margin adjustment bc the font is italic and the letters get too close. */
+    margin-left: 1pt;
 }
 
 /* The margin-right adjustment is because Noto Sans doesn't seem to
@@ -296,6 +300,20 @@ a:hover
 {
     margin-top: 0;
     margin-bottom: 0.25em;
+}
+
+.regular-text,
+.regular-text p,
+.regular-text a.el {
+    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-size: 12px;
+}
+
+.small-text,
+.small-text p,
+.small-text a.el {
+    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
+    font-size: 10px;
 }
 
 ul ul {
@@ -486,7 +504,7 @@ object.centered
     padding: 4px;
     margin: 1em 4em 1em 4em;
     text-align: left;
-    background-color: #edd;
+    background-color: #fee;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;

@@ -110,11 +110,6 @@ a.code, a.code:visited {
     color: #4665A2; 
 }
 
-.regular-text a.el {
-    font-family: 'Noto Sans', Verdana, Helvetica, Arial, Sans, sans-serif;
-    font-size: 12px;
-}
-
 a.elRef {
 }
 
