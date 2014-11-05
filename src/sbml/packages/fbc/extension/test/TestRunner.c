@@ -83,6 +83,7 @@ main (int argc, char* argv[])
 
   srunner_free(runner);
 
+  safe_free(TestDataDirectory);
   return num_failed;
 }
 
