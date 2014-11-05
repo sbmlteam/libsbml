@@ -434,4 +434,3 @@ LIBSBML_CPP_NAMESPACE_END
 #undef CLASS_OR_STRUCT
 
 #endif  /* sbmlfwd_h  */
-
