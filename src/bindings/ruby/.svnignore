@@ -12,6 +12,7 @@ CTAGS
 libsbml.pc
 *.o
 libsbml_wrap.cpp
+libsbml_wrap.h
 .libs
 libSBML.bundle
 local-downcast-converters.cpp
