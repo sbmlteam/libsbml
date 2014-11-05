@@ -60,6 +60,7 @@ START_TEST (test_read_MathML_2)
   FunctionDefinition* fd;
   InitialAssignment* ia;
   Rule*              r;
+  char * math;
 
 
   std::string filename(TestDataDirectory);
@@ -93,7 +94,7 @@ START_TEST (test_read_MathML_2)
 
   fail_unless (fd_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd_math->getNumChildren() == 1, NULL);
-  char* math = SBML_formulaToString(fd_math);
+  math = SBML_formulaToString(fd_math);
   fail_unless (!strcmp(math, "lambda()"), NULL);
   safe_free(math);
   //fail_unless (fd_math->getNumVariablesWithUndeclaredUnits() == 0);
@@ -136,8 +137,7 @@ START_TEST (test_read_MathML_2)
   fail_unless (fd1_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd1_math->getNumChildren() == 2, NULL);
   math = SBML_formulaToString(fd1_math);
-  fail_unless (!strcmp(math, 
-                          "lambda(x, piecewise(p, leq(x, 4)))"), NULL);
+  fail_unless (!strcmp(math, "lambda(x, piecewise(p, leq(x, 4)))"), NULL);
   safe_free(math);
   //fail_unless (fd1_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( fd1_math->containsVariable("c") == false );
@@ -196,8 +196,7 @@ START_TEST (test_read_MathML_2)
   fail_unless (ia_math->getType() == AST_FUNCTION_PIECEWISE, NULL);
   fail_unless (ia_math->getNumChildren() == 4, NULL);
   math = SBML_formulaToString(ia_math);
-  fail_unless (!strcmp(math, 
-                    "piecewise(-x, lt(x, 0), 0, eq(x, 0))"), NULL);
+  fail_unless (!strcmp(math, "piecewise(-x, lt(x, 0), 0, eq(x, 0))"), NULL);
   safe_free(math);
   //fail_unless (ia_math->getNumVariablesWithUndeclaredUnits() == 0);
   //fail_unless( ia_math->containsVariable("c") == false );

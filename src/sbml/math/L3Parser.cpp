@@ -729,9 +729,9 @@ static const yytype_uint16 yyrline[] =
 {
        0,   338,   338,   339,   340,   341,   344,   345,   371,   372,
      373,   384,   395,   396,   397,   398,   399,   400,   433,   434,
-     435,   436,   437,   438,   439,   450,   461,   462,   473,   527,
-     538,   548,   558,   568,   578,   579,   580,   581,   582,   596,
-     597,   600,   601
+     435,   436,   437,   438,   439,   450,   461,   462,   473,   529,
+     542,   553,   564,   575,   585,   586,   587,   588,   589,   605,
+     606,   609,   610
 };
 #endif
 
@@ -1963,6 +1963,7 @@ yyreduce:
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
                        if ((yyval.astnode)->getNumChildren() != 1) {
                          l3p->setError("The function 'sqrt' takes exactly one argument.");
+                         delete (yyval.astnode);
                          YYABORT;
                        }
                        //Add a '2' node before the existing child.
@@ -1997,6 +1998,7 @@ yyreduce:
                            break;
                          case L3P_PARSE_LOG_AS_ERROR:
                            l3p->setError("Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'.");
+                           delete (yyval.astnode);
                            YYABORT;
                          }
                        }
@@ -2008,7 +2010,7 @@ yyreduce:
 
   case 29:
 /* Line 1787 of yacc.c  */
-#line 527 "L3Parser.ypp"
+#line 529 "L3Parser.ypp"
     {
                   vector<ASTNode*> allnodes;
                   allnodes.push_back((yyvsp[(1) - (4)].astnode));
@@ -2016,6 +2018,8 @@ yyreduce:
                   (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
                   if ((yyval.astnode) == NULL) {
                     l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed.");
+                    delete((yyvsp[(1) - (4)].astnode));
+                    delete((yyvsp[(3) - (4)].astnode));
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
@@ -2024,13 +2028,14 @@ yyreduce:
 
   case 30:
 /* Line 1787 of yacc.c  */
-#line 538 "L3Parser.ypp"
+#line 542 "L3Parser.ypp"
     {
                   vector<ASTNode*> allnodes;
                   allnodes.push_back((yyvsp[(1) - (3)].astnode));
                   (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
                   if ((yyval.astnode) == NULL) {
                     l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed.");
+                    delete ((yyvsp[(1) - (3)].astnode));
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
@@ -2039,13 +2044,14 @@ yyreduce:
 
   case 31:
 /* Line 1787 of yacc.c  */
-#line 548 "L3Parser.ypp"
+#line 553 "L3Parser.ypp"
     {
                   vector<ASTNode*> allnodes;
                   allnodes.push_back((yyvsp[(2) - (3)].astnode));
                   (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES, &allnodes);
                   if ((yyval.astnode) == NULL) {
                     l3p->setError("No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed.");
+                    delete((yyvsp[(2) - (3)].astnode));
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
@@ -2054,13 +2060,14 @@ yyreduce:
 
   case 32:
 /* Line 1787 of yacc.c  */
-#line 558 "L3Parser.ypp"
+#line 564 "L3Parser.ypp"
     {
                   vector<ASTNode*> allnodes;
                   allnodes.push_back((yyvsp[(2) - (3)].astnode));
                   (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES_SEMICOLON, &allnodes);
                   if ((yyval.astnode) == NULL) {
                     l3p->setError("No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed.");
+                    delete((yyvsp[(2) - (3)].astnode));
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
@@ -2069,7 +2076,7 @@ yyreduce:
 
   case 33:
 /* Line 1787 of yacc.c  */
-#line 568 "L3Parser.ypp"
+#line 575 "L3Parser.ypp"
     {
                   (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES);
                   if ((yyval.astnode) == NULL) {
@@ -2082,39 +2089,41 @@ yyreduce:
 
   case 34:
 /* Line 1787 of yacc.c  */
-#line 578 "L3Parser.ypp"
+#line 585 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));}
     break;
 
   case 35:
 /* Line 1787 of yacc.c  */
-#line 579 "L3Parser.ypp"
+#line 586 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);}
     break;
 
   case 36:
 /* Line 1787 of yacc.c  */
-#line 580 "L3Parser.ypp"
+#line 587 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));}
     break;
 
   case 37:
 /* Line 1787 of yacc.c  */
-#line 581 "L3Parser.ypp"
+#line 588 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);}
     break;
 
   case 38:
 /* Line 1787 of yacc.c  */
-#line 582 "L3Parser.ypp"
+#line 589 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
                     l3p->setError("Can't use " + *(yyvsp[(2) - (2)].word) + " as a unit, because the unit is already set for this number.");
+                    delete (yyval.astnode);
                     YYERROR;
                   }
                   if (!l3p->parseunits) {
                     l3p->setError("The ability to associate units with numbers has been disabled.");
+                    delete (yyval.astnode);
                     YYERROR;
                   }
                   (yyval.astnode)->setUnits(*(yyvsp[(2) - (2)].word));
@@ -2123,31 +2132,31 @@ yyreduce:
 
   case 39:
 /* Line 1787 of yacc.c  */
-#line 596 "L3Parser.ypp"
+#line 605 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));}
     break;
 
   case 40:
 /* Line 1787 of yacc.c  */
-#line 597 "L3Parser.ypp"
+#line 606 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 41:
 /* Line 1787 of yacc.c  */
-#line 600 "L3Parser.ypp"
+#line 609 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 42:
 /* Line 1787 of yacc.c  */
-#line 601 "L3Parser.ypp"
+#line 610 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 2151 "L3Parser.cpp"
+#line 2160 "L3Parser.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2379,7 +2388,7 @@ yyreturn:
 
 
 /* Line 2050 of yacc.c  */
-#line 604 "L3Parser.ypp"
+#line 613 "L3Parser.ypp"
 
 
 
@@ -2886,6 +2895,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children != 1) {
       error << "exactly one argument, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -2899,6 +2909,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children != 2) {
       error << "exactly two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -2911,6 +2922,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children <= 1) {
       error << "at least two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -2920,6 +2932,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children == 0) {
       error << "at least one argument, but none were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -2929,6 +2942,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children < 1 || children > 2) {
       error << "exactly one or two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -2951,6 +2965,7 @@ bool L3Parser::checkNumArgumentsForPackage(const ASTNode* function)
   bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
   if (ret) {
     l3p->setError(error.str());
+    delete function;
   }
   return ret;
 }
@@ -3071,6 +3086,23 @@ SBML_getLastParseL3Error()
   }
   return safe_strdup(l3p->getError().c_str());
 }
+
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+void
+SBML_freeL3Parser()
+{
+  if (l3p!=NULL) 
+  {
+    delete l3p;
+    l3p = NULL;
+  }
+}
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

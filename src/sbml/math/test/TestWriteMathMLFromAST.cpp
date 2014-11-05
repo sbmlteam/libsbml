@@ -999,6 +999,8 @@ START_TEST (test_MathMLFromAST_semantics_url)
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
+
+  delete xa;
 }
 END_TEST
 

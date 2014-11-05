@@ -190,6 +190,8 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 {
   if (xml == NULL) return NULL;
 
+  bool needDelete = false;
+
   const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
   const char* xmlstr_c;
   
@@ -207,6 +209,7 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 
 
     xmlstr_c = safe_strdup(oss.str().c_str());
+    needDelete = true;
   }
 
   XMLInputStream stream(xmlstr_c, false);
@@ -226,6 +229,11 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
   
   bool read = ast->read(stream);
   
+  if (needDelete == true)
+  {
+    safe_free((void *)(xmlstr_c));
+  }
+
   if (read == false 
     || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
   {

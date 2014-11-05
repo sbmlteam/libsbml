@@ -304,6 +304,8 @@ START_TEST (test_L3FormulaFormatter_isGrouped)
   fail_unless( L3FormulaFormatter_isGrouped(p, c, NULL) == 0, NULL );
 
   ASTNode_free(p);
+  
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -395,6 +397,8 @@ START_TEST (test_SBML_formulaToL3String)
     ASTNode_free(n);
     safe_free(s);
   }
+  
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -498,10 +502,15 @@ START_TEST (test_SBML_formulaToL3String_L1toL3)
 
   fail_unless( !strcmp(s, "sqrt(x)"), NULL );
 
+  safe_free(s);
+  ASTNode_free(n);
 
   n = SBML_parseL3Formula("x + (y + z)");
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "x + (y + z)"), NULL );
+
+  safe_free(s);
+  ASTNode_free(n);
 
   n = SBML_parseL3Formula("(x + y) + z");
   s = SBML_formulaToL3String(n);
@@ -509,6 +518,8 @@ START_TEST (test_SBML_formulaToL3String_L1toL3)
 
   safe_free(s);
   ASTNode_free(n);
+  
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -605,13 +616,14 @@ START_TEST (test_SBML_formulaToL3String_L2toL3)
 
   safe_free(s);
   ASTNode_free(n);
+  
+  SBML_freeL3Parser();
 }
 END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiPlusTimes)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
@@ -627,6 +639,7 @@ START_TEST (test_L3FormulaFormatter_multiPlusTimes)
   s = SBML_formulaToL3String(n);
 
   fail_unless( !strcmp(s, "x + y + z"), NULL );
+  safe_free(s);
 
   ASTNode_setType(n, AST_TIMES); 
   s = SBML_formulaToL3String(n);
@@ -639,8 +652,7 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_collapseMinus)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
   ASTNode_t      *c2 = ASTNode_create();
@@ -682,8 +694,7 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_parseUnits)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   L3ParserSettings_t* l3ps = L3ParserSettings_create();
 
@@ -714,14 +725,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiEq)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_RELATIONAL_EQ);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "eq()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -749,14 +760,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiNEq)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_RELATIONAL_NEQ);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "neq()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -784,14 +795,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiGT)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_RELATIONAL_GT);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "gt()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -819,14 +830,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiPlus)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_PLUS);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "plus()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -854,14 +865,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiDivide)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_DIVIDE);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "divide()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -889,14 +900,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiAnd)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_LOGICAL_AND);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "and()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -924,14 +935,14 @@ END_TEST
 
 START_TEST (test_L3FormulaFormatter_multiOr)
 {
-  StringBuffer_t *sb = StringBuffer_create(42);
-  char           *s  = StringBuffer_getBuffer(sb);
+  char           *s;
   ASTNode_t      *n  = ASTNode_create();
   ASTNode_t      *c  = ASTNode_create();
 
   ASTNode_setType(n, AST_LOGICAL_OR);
   s = SBML_formulaToL3String(n);
   fail_unless( !strcmp(s, "or()"), NULL );
+  safe_free(s);
 
   ASTNode_setName(c, "x");
   ASTNode_addChild(n, c);
@@ -973,7 +984,8 @@ START_TEST (test_L3FormulaFormatter_accessWithNULL)
 
   fail_unless( L3FormulaFormatter_isFunction(NULL, NULL) == 0 );
   fail_unless( L3FormulaFormatter_isGrouped(NULL, NULL, NULL) == 0 );
-  fail_unless( SBML_formulaToL3String(NULL) == NULL );
+  char * s = SBML_formulaToL3String(NULL);
+  fail_unless( s == NULL );
   
 }
 END_TEST

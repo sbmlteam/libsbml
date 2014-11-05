@@ -59,6 +59,7 @@ START_TEST (test_SBML_C_parseL3Formula_1)
   fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -73,6 +74,7 @@ START_TEST (test_SBML_C_parseL3Formula_2)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -88,6 +90,7 @@ START_TEST (test_SBML_C_parseL3Formula_3)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -102,6 +105,7 @@ START_TEST (test_SBML_C_parseL3Formula_4)
   fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -130,6 +134,7 @@ START_TEST (test_SBML_C_parseL3Formula_5)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -158,6 +163,7 @@ START_TEST (test_SBML_C_parseL3Formula_6)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -198,6 +204,7 @@ START_TEST (test_SBML_C_parseL3Formula_7)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -237,6 +244,7 @@ START_TEST (test_SBML_C_parseL3Formula_8)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -282,6 +290,7 @@ START_TEST (test_SBML_C_parseL3Formula_9)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -328,6 +337,7 @@ START_TEST (test_SBML_C_parseL3Formula_10)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -374,6 +384,7 @@ START_TEST (test_SBML_C_parseL3Formula_11)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -425,6 +436,7 @@ START_TEST (test_SBML_C_parseL3Formula_12)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -439,6 +451,7 @@ START_TEST (test_SBML_C_parseL3Formula_13)
   fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -460,6 +473,7 @@ START_TEST (test_SBML_C_parseL3Formula_14)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -487,6 +501,7 @@ START_TEST (test_SBML_C_parseL3Formula_15)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -538,6 +553,7 @@ START_TEST (test_SBML_C_parseL3Formula_16)
   fail_unless( ASTNode_getNumChildren(c) == 0 , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -545,9 +561,13 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_17)
 {
   ASTNode_t *r = SBML_parseL3Formula("1//1");
+  char * error;
 
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '1//1' at position 3:  syntax error, unexpected '/'"), NULL);
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input '1//1' at position 3:  syntax error, unexpected '/'"), NULL);
+  safe_free(error);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -555,9 +575,13 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_18)
 {
   ASTNode_t *r = SBML_parseL3Formula("1+2*3 4");
+  char * error;
 
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '1+2*3 4' at position 7:  syntax error, unexpected integer"), NULL);
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input '1+2*3 4' at position 7:  syntax error, unexpected integer"), NULL);
+  safe_free(error);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -578,6 +602,7 @@ START_TEST (test_SBML_C_parseL3Formula_negInf)
   fail_unless( ASTNode_getNumChildren(c)      ==  0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -598,6 +623,7 @@ START_TEST (test_SBML_C_parseL3Formula_negZero)
   fail_unless( ASTNode_getNumChildren(c)          == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -612,6 +638,7 @@ START_TEST (test_SBML_C_parseL3Formula_e1)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -627,6 +654,7 @@ START_TEST (test_SBML_C_parseL3Formula_e2)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -642,6 +670,7 @@ START_TEST (test_SBML_C_parseL3Formula_e3)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -657,6 +686,7 @@ START_TEST (test_SBML_C_parseL3Formula_e4)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -664,11 +694,15 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_e5)
 {
   ASTNode_t *r = SBML_parseL3Formula(".e+5");
+  char * error;
 
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '.e+5' at position 1:  syntax error, unexpected $undefined"), NULL);
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input '.e+5' at position 1:  syntax error, unexpected $undefined"), NULL);
 
   ASTNode_free(r);
+  safe_free(error);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -683,6 +717,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational1)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -690,16 +725,17 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_rational2)
 {
   ASTNode_t *r = SBML_parseL3Formula("(3/4) mL");
+  char * units = ASTNode_getUnits(r);
 
   fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
   fail_unless( ASTNode_getNumerator  (r) ==   3, NULL );
   fail_unless( ASTNode_getDenominator(r) ==   4, NULL );
-  char* units = ASTNode_getUnits(r);
   fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
   safe_free(units);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -725,6 +761,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational3)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -750,6 +787,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational4)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -775,6 +813,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational5)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -782,6 +821,7 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_rational6)
 {
   ASTNode_t *r = SBML_parseL3Formula("3/4 ml");
+  char * units;
 
   fail_unless( ASTNode_getType       (r) == AST_DIVIDE, NULL );
   fail_unless( ASTNode_getCharacter  (r) == '/', NULL );
@@ -795,14 +835,15 @@ START_TEST (test_SBML_C_parseL3Formula_rational6)
 
   c = ASTNode_getRightChild(r);
 
+  units = ASTNode_getUnits(c);
   fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (c) == 4, NULL );
-  char* units = ASTNode_getUnits(c);
   fail_unless( !strcmp(units, "ml"), NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
   safe_free(units);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -811,9 +852,13 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_rational7)
 {
   ASTNode_t *r = SBML_parseL3Formula("(3/4.4) ml");
+  char * error;
 
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '(3/4.4) ml' at position 10:  syntax error, unexpected element name"), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input '(3/4.4) ml' at position 10:  syntax error, unexpected element name"), NULL );
+  safe_free(error);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -824,6 +869,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants1)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_TRUE, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -834,6 +880,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants2)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_FALSE, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -844,6 +891,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants3)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_PI, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -854,6 +902,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants4)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_E, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -864,6 +913,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants5)
   fail_unless( ASTNode_getType       (r) == AST_NAME_AVOGADRO, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -874,6 +924,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants6)
   fail_unless( ASTNode_getType       (r) == AST_NAME_TIME, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -885,6 +936,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants7)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -896,6 +948,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants8)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -907,6 +960,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants9)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -918,6 +972,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants10)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -929,6 +984,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants11)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -940,6 +996,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants12)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -947,12 +1004,12 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_modulo)
 {
   ASTNode_t *r = SBML_parseL3Formula("x % y");
-  fail_unless(r != NULL);
-  char* formula = SBML_formulaToString(r);
-  fail_unless(formula != NULL);
-  int result = strcmp(formula, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))");
-  fail_unless( result == 0 );
+  char * s = SBML_formulaToString(r);
+  //Instead of trying to go through everything individually, we'll just test the round-tripping:
+  fail_unless( !strcmp(s, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
   ASTNode_free(r);
+  safe_free(s);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -977,6 +1034,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML1)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1001,6 +1059,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML2)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1025,6 +1084,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML3)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1049,6 +1109,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML4)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1073,6 +1134,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML5)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1089,6 +1151,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent1)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1105,6 +1169,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent2)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1121,6 +1187,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent3)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1137,6 +1205,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent4)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1154,6 +1224,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent5)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1171,6 +1243,8 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent6)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
@@ -1187,39 +1261,58 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent7)
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
+  Model_free(model);
 }
 END_TEST
 
 
 START_TEST (test_SBML_C_parseL3Formula_arguments)
 {
+  char * error;
   ASTNode_t *r = SBML_parseL3Formula("sin(x,y)");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'sin(x,y)' at position 8:  The function 'sin' takes exactly one argument, but 2 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'sin(x,y)' at position 8:  The function 'sin' takes exactly one argument, but 2 were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("delay(x)");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'delay(x)' at position 8:  The function 'delay' takes exactly two arguments, but 1 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'delay(x)' at position 8:  The function 'delay' takes exactly two arguments, but 1 were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("piecewise()");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'piecewise()' at position 11:  The function 'piecewise' takes at least one argument, but none were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'piecewise()' at position 11:  The function 'piecewise' takes at least one argument, but none were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("gt(x)");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'gt(x)' at position 5:  The function 'gt' takes at least two arguments, but 1 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'gt(x)' at position 5:  The function 'gt' takes at least two arguments, but 1 were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("minus()");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'minus()' at position 7:  The function 'minus' takes exactly one or two arguments, but 0 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'minus()' at position 7:  The function 'minus' takes exactly one or two arguments, but 0 were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("root(x, y, z)");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'root(x, y, z)' at position 13:  The function 'root' takes exactly one or two arguments, but 3 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'root(x, y, z)' at position 13:  The function 'root' takes exactly one or two arguments, but 3 were found."), NULL );
+  safe_free(error);
 
   r = SBML_parseL3Formula("power()");
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'power()' at position 7:  The function 'power' takes exactly two arguments, but 0 were found."), NULL );
+  error = SBML_getLastParseL3Error();
+  fail_unless( !strcmp(error, "Error when parsing input 'power()' at position 7:  The function 'power' takes exactly two arguments, but 0 were found."), NULL );
+  safe_free(error);
+
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1260,6 +1353,7 @@ START_TEST (test_SBML_C_parseL3Formula_logic1)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1299,6 +1393,7 @@ START_TEST (test_SBML_C_parseL3Formula_logic2)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1386,6 +1481,7 @@ START_TEST (test_SBML_C_parseL3Formula_precedence)
   fail_unless( ASTNode_getNumChildren(left) == 0, NULL );
 
   ASTNode_free(root);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1395,6 +1491,7 @@ START_TEST (test_SBML_C_parseL3Formula_parselogsettings)
   //Default:
   ASTNode_t *r = SBML_parseL3Formula("log(4.4)");
   ASTNode_t *c;
+  char * error;
 
   fail_unless( ASTNode_getType       (r) == AST_FUNCTION_LOG, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
@@ -1454,10 +1551,13 @@ START_TEST (test_SBML_C_parseL3Formula_parselogsettings)
 
   r = SBML_parseL3FormulaWithSettings("log(4.4)", settings);
 
+  error = SBML_getLastParseL3Error();
   fail_unless( r == NULL, NULL );
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input 'log(4.4)' at position 8:  Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'."), NULL);
+  fail_unless( !strcmp(error, "Error when parsing input 'log(4.4)' at position 8:  Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'."), NULL);
 
+  safe_free(error);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1514,6 +1614,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings1)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1570,6 +1671,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings2)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1653,6 +1755,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings3)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1736,6 +1839,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings4)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1787,6 +1891,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings5)
   ASTNode_free(r);
 
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1816,6 +1921,7 @@ START_TEST (test_SBML_C_parseL3Formula_avogadrosettings)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 
@@ -1823,22 +1929,26 @@ END_TEST
 START_TEST (test_SBML_C_parseL3Formula_unitssettings)
 {
   ASTNode_t *r = SBML_parseL3Formula("4 mL");
+  char * error;
+  char * units;
 
   fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
-  char* units = ASTNode_getUnits(r);
+  units = ASTNode_getUnits(r);
   fail_unless( !strcmp(units, "mL"), NULL );
+  safe_free(units);
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  safe_free(units);
 
   L3ParserSettings_t *settings = SBML_getDefaultL3ParserSettings();
   L3ParserSettings_setParseUnits(settings, 0);
   fail_unless(L3ParserSettings_getParseUnits(settings) == 0);
 
   r = SBML_parseL3FormulaWithSettings("4 mL", settings);
+  error = SBML_getLastParseL3Error();
   fail_unless(r == NULL, NULL);
-  fail_unless( !strcmp(SBML_getLastParseL3Error(), "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled."), NULL );
+  fail_unless( !strcmp(error, "Error when parsing input '4 mL' at position 4:  The ability to associate units with numbers has been disabled."), NULL );
+  safe_free(error);
 
   L3ParserSettings_setParseUnits(settings, 1);
   fail_unless(L3ParserSettings_getParseUnits(settings) == 1);
@@ -1847,11 +1957,12 @@ START_TEST (test_SBML_C_parseL3Formula_unitssettings)
   fail_unless( ASTNode_getInteger    (r) ==   4, NULL );
   units = ASTNode_getUnits(r);
   fail_unless( !strcmp(units, "mL"), NULL );
+  safe_free(units);
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  safe_free(units);
 
   L3ParserSettings_free(settings);
+  SBML_freeL3Parser();
 }
 END_TEST
 

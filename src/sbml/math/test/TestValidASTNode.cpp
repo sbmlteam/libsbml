@@ -73,6 +73,7 @@ START_TEST (test_ValidASTNode_infix_nary_plus0)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -97,6 +98,7 @@ START_TEST (test_ValidASTNode_infix_nary_plus1)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -120,6 +122,7 @@ START_TEST (test_ValidASTNode_infix_nary_times0)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -145,6 +148,7 @@ START_TEST (test_ValidASTNode_infix_nary_times1)
 
   fail_unless( node != NULL );
 
+  safe_free(formula);
   delete n;
   delete node;
 }
@@ -164,6 +168,7 @@ START_TEST (test_ValidASTNode_Number)
 //  fail_unless( !(n->isWellFormedASTNode()) );
   fail_unless( i == LIBSBML_INVALID_OBJECT);
 
+  delete d;
   delete n;
 }
 END_TEST
@@ -182,6 +187,7 @@ START_TEST (test_ValidASTNode_Name)
 //  fail_unless( !(n->isWellFormedASTNode()) );
   fail_unless( i == LIBSBML_INVALID_OBJECT);
 
+  delete d;
   delete n;
 }
 END_TEST
@@ -245,6 +251,7 @@ START_TEST (test_ValidASTNode_nary)
   n->addChild(c->deepCopy());
   fail_unless( !(n->isWellFormedASTNode()) );
 
+  delete n;
   n = new ASTNode(AST_TIMES);
   fail_unless( (n->isWellFormedASTNode()) );
 

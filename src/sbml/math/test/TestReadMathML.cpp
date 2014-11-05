@@ -1388,13 +1388,18 @@ START_TEST (test_element_semantics_URL)
   );
 
 
-
   N = readMathMLFromString(s);
 
   fail_unless( N != NULL );
 
+  XMLAttributes* xa = N->getDefinitionURL();
+
   fail_unless( N->isSemantics() == true );
-  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "xor(a, b, b, a)") );
@@ -1507,8 +1512,15 @@ START_TEST (test_element_semantics_URL_lambda)
 
   fail_unless( N != NULL );
 
+  XMLAttributes* xa = N->getDefinitionURL();
+
   fail_unless( N->isSemantics() == true );
-  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
+
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "lambda(a, xor(a, b, b, a))") );
@@ -1998,9 +2010,12 @@ START_TEST (test_convert_unary_plus)
 
   fail_unless( result != NULL );
 
+  delete N;
   N = SBML_parseFormula(result);
 
   fail_unless( N != NULL );
+
+  safe_free(result);
   
 }
 END_TEST
@@ -2029,6 +2044,7 @@ START_TEST (test_element_child_func)
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cos(pow(x, 2))") );
 
+  safe_free(F);
   ASTNode * child = N->getChild(0);
 
   ASTNode * c1 = new ASTNode(AST_NAME);
@@ -2062,6 +2078,8 @@ START_TEST (test_element_child_func1)
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cos(pow(x, 2))") );
+
+  safe_free(F);
 
   ASTNode * child = N->getChild(0);
 

@@ -483,6 +483,7 @@ node:           number {$$ = $1;}
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
                        if ($$->getNumChildren() != 1) {
                          l3p->setError("The function 'sqrt' takes exactly one argument.");
+                         delete $$;
                          YYABORT;
                        }
                        //Add a '2' node before the existing child.
@@ -517,6 +518,7 @@ node:           number {$$ = $1;}
                            break;
                          case L3P_PARSE_LOG_AS_ERROR:
                            l3p->setError("Writing a function as 'log(x)' was legal in the L1 parser, but translated as the natural log, not the base-10 log.  This construct is disallowed entirely as being ambiguous, and you are encouraged instead to use 'ln(x)', 'log10(x)', or 'log(base, x)'.");
+                           delete $$;
                            YYABORT;
                          }
                        }
@@ -531,6 +533,8 @@ node:           number {$$ = $1;}
                   $$ = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
                   if ($$ == NULL) {
                     l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed.");
+                    delete($1);
+                    delete($3);
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
@@ -541,6 +545,7 @@ node:           number {$$ = $1;}
                   $$ = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
                   if ($$ == NULL) {
                     l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed.");
+                    delete ($1);
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
@@ -551,6 +556,7 @@ node:           number {$$ = $1;}
                   $$ = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES, &allnodes);
                   if ($$ == NULL) {
                     l3p->setError("No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed.");
+                    delete($2);
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
@@ -561,6 +567,7 @@ node:           number {$$ = $1;}
                   $$ = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES_SEMICOLON, &allnodes);
                   if ($$ == NULL) {
                     l3p->setError("No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed.");
+                    delete($2);
                     YYERROR;
                   }
                   if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
@@ -583,10 +590,12 @@ number:         DOUBLE {$$ = new ASTNode(); $$->setValue($1);}
                   $$ = $1;
                   if ($$->getUnits() != "") {
                     l3p->setError("Can't use " + *$2 + " as a unit, because the unit is already set for this number.");
+                    delete $$;
                     YYERROR;
                   }
                   if (!l3p->parseunits) {
                     l3p->setError("The ability to associate units with numbers has been disabled.");
+                    delete $$;
                     YYERROR;
                   }
                   $$->setUnits(*$2);
@@ -1107,6 +1116,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children != 1) {
       error << "exactly one argument, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -1120,6 +1130,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children != 2) {
       error << "exactly two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -1132,6 +1143,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children <= 1) {
       error << "at least two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -1141,6 +1153,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children == 0) {
       error << "at least one argument, but none were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -1150,6 +1163,7 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     if (children < 1 || children > 2) {
       error << "exactly one or two arguments, but " << children << " were found.";
       l3p->setError(error.str());
+      delete function;
       return true;
     }
     return false;
@@ -1172,6 +1186,7 @@ bool L3Parser::checkNumArgumentsForPackage(const ASTNode* function)
   bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
   if (ret) {
     l3p->setError(error.str());
+    delete function;
   }
   return ret;
 }
@@ -1292,6 +1307,23 @@ SBML_getLastParseL3Error()
   }
   return safe_strdup(l3p->getError().c_str());
 }
+
+/**
+ * @if conly
+ * @memberof ASTNode_t
+ * @endif
+ */
+LIBSBML_EXTERN
+void
+SBML_freeL3Parser()
+{
+  if (l3p!=NULL) 
+  {
+    delete l3p;
+    l3p = NULL;
+  }
+}
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

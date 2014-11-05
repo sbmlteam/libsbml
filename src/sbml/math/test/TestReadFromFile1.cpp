@@ -60,6 +60,7 @@ START_TEST (test_read_MathML_1)
   InitialAssignment* ia;
   Rule*              r;
   KineticLaw*        kl;
+  char * math;
 
 
   std::string filename(TestDataDirectory);
@@ -97,7 +98,7 @@ START_TEST (test_read_MathML_1)
 
   fail_unless (fd_math->getType() == AST_LAMBDA, NULL);
   fail_unless (fd_math->getNumChildren() == 2, NULL);
-  char* math = SBML_formulaToString(fd_math);
+  math = SBML_formulaToString(fd_math);
   fail_unless (!strcmp(math, "lambda(x, )"), NULL);
   safe_free(math);
   fail_unless (fd_math->getParentSBMLObject() == fd, NULL);

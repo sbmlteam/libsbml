@@ -2019,7 +2019,12 @@ START_TEST (test_element_semantics_URL)
   fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_SEMANTICS );
-  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
 
   //F = SBML_formulaToString(N);
   //fail_unless( !strcmp(F, "xor(a, b, b, a)") );
@@ -2133,7 +2138,12 @@ START_TEST (test_element_semantics_URL_lambda)
   fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_SEMANTICS );
-  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
 
   //F = SBML_formulaToString(N);
   //fail_unless( !strcmp(F, "lambda(a, xor(a, b, b, a))") );
@@ -2693,7 +2703,12 @@ START_TEST (test_element_ci_definitionURL)
    fail_unless( N->getType() == AST_NAME   );
    fail_unless( !strcmp(N->getName(), "x") );
    fail_unless( N->getNumChildren() == 0   );
-   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
    fail_unless( N->getDefinitionURLString() == "foobar");
 }
 END_TEST
@@ -2710,7 +2725,12 @@ START_TEST (test_element_ci_definitionURL_1)
    fail_unless( N->getType() == AST_NAME   );
    fail_unless( !strcmp(N->getName(), "x") );
    fail_unless( N->getNumChildren() == 0   );
-   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
    fail_unless( N->getDefinitionURLString() == "foobar");
    fail_unless( N->getClass() == "ss");
 }
@@ -2719,17 +2739,22 @@ END_TEST
 
 START_TEST (test_element_ci_definitionURL_2)
 {
-   const char* s = wrapMathML("<apply><ci definitionURL=\"foobar\"> x </ci><cn> 5 </cn></apply>");
+  const char* s = wrapMathML("<apply><ci definitionURL=\"foobar\"> x </ci><cn> 5 </cn></apply>");
 
-   N = readMathMLFromString(s);
+  N = readMathMLFromString(s);
 
-   fail_unless( N != NULL );
+  fail_unless( N != NULL );
 
-   fail_unless( N->getType() == AST_FUNCTION   );
-   fail_unless( !strcmp(N->getName(), "x") );
-   fail_unless( N->getNumChildren() == 1   );
-   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
-   fail_unless( N->getDefinitionURLString() == "foobar");
+  fail_unless( N->getType() == AST_FUNCTION   );
+  fail_unless( !strcmp(N->getName(), "x") );
+  fail_unless( N->getNumChildren() == 1   );
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
+  fail_unless( N->getDefinitionURLString() == "foobar");
 }
 END_TEST
 
@@ -2745,7 +2770,12 @@ START_TEST (test_element_ci_definitionURL_3)
    fail_unless( N->getType() == AST_FUNCTION   );
    fail_unless( !strcmp(N->getName(), "x") );
    fail_unless( N->getNumChildren() == 1   );
-   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+  XMLAttributes* xa = N->getDefinitionURL();
+  if (xa != NULL)
+  {
+    fail_unless( xa->getValue(0) == "foobar");
+    delete xa;
+  }
    fail_unless( N->getDefinitionURLString() == "foobar");
    fail_unless( N->getClass() == "sss" );
 }
