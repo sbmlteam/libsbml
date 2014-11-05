@@ -1,0 +1,31 @@
+/** @page libsbml-api-guide Getting started
+
+<p> This section describes the basics of working with libSBML.  To find
+specific information about individual classes and methods in the libSBML API,
+please use the navigation bar above, the search box in the upper right, or
+the table of contents on the left side.
+
+@htmlinclude doxygen-regular-text-start.html
+- @subpage libsbml-sbml-specifications
+- @subpage libsbml-features
+@if cpp
+- @subpage libsbml-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-example
+- @subpage libsbml-example-files
+@endif
+@if python
+- @subpage libsbml-python-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-python-creating-model
+- @subpage libsbml-python-example-files
+@endif
+@if conly
+- @subpage libsbml-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-example
+- @subpage libsbml-example-files-c
+@endif
+@htmlinclude doxygen-regular-text-end.html
+
+*/
