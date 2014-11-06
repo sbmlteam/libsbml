@@ -305,6 +305,8 @@ public:
    */
   static char* getLastParseL3Error();
 };
+
+
 #endif //The entire class should be invisible to SWIG, too.
 
 LIBSBML_CPP_NAMESPACE_END
@@ -313,6 +315,20 @@ LIBSBML_CPP_NAMESPACE_END
 
   int sbml_yylex(void);
   L3Parser* l3p = NULL;
+
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+L3Parser* L3Parser_getInstance()
+{
+  if (l3p == NULL)
+  {
+    l3p = new L3Parser();
+    std::atexit(SBML_freeL3Parser);
+  }
+  return l3p;
+}
+LIBSBML_CPP_NAMESPACE_END
+
   void sbml_yyerror(char const *);
   int sbml_yylloc_first_position = 1;
   int sbml_yylloc_last_position = 1;
@@ -320,6 +336,7 @@ LIBSBML_CPP_NAMESPACE_END
 #ifdef __BORLANDC__
 #undef DOUBLE
 #endif
+
 
 
 /* Line 371 of yacc.c  */
@@ -3001,10 +3018,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3Formula (const char *formula)
 {
-  if (l3p==NULL) {
-    l3p = new L3Parser();
-  }
-  L3ParserSettings l3ps = l3p->getDefaultL3ParserSettings();
+  L3ParserSettings l3ps = L3Parser_getInstance()->getDefaultL3ParserSettings();
   return SBML_parseL3FormulaWithSettings(formula, &l3ps);
 }
 
@@ -3018,10 +3032,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3FormulaWithModel (const char *formula, const Model_t * model)
 {
-  if (l3p==NULL) {
-    l3p = new L3Parser();
-  }
-  L3ParserSettings l3ps = l3p->getDefaultL3ParserSettings();
+  L3ParserSettings l3ps = L3Parser_getInstance()->getDefaultL3ParserSettings();
   l3ps.setModel(model);
   return SBML_parseL3FormulaWithSettings(formula, &l3ps);
 }
@@ -3036,9 +3047,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t * settings)
 {
-  if (l3p==NULL) {
-    l3p = new L3Parser();
-  }
+  l3p = L3Parser_getInstance();
   if (settings == NULL) {
     L3ParserSettings l3ps = l3p->getDefaultL3ParserSettings();
     return SBML_parseL3FormulaWithSettings(formula, &l3ps);
@@ -3066,10 +3075,7 @@ LIBSBML_EXTERN
 L3ParserSettings_t* 
 SBML_getDefaultL3ParserSettings ()
 {
-  if (l3p==NULL) {
-    l3p = new L3Parser();
-  }
-  return new L3ParserSettings(l3p->getDefaultL3ParserSettings());
+  return new L3ParserSettings(L3Parser_getInstance()->getDefaultL3ParserSettings());
 }
 
 /**
@@ -3081,10 +3087,7 @@ LIBSBML_EXTERN
 char*
 SBML_getLastParseL3Error()
 {
-  if (l3p==NULL) {
-    l3p = new L3Parser();
-  }
-  return safe_strdup(l3p->getError().c_str());
+  return safe_strdup(L3Parser_getInstance()->getError().c_str());
 }
 
 /**
