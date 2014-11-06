@@ -525,80 +525,58 @@ Date::parseDateStringToNumbers()
     char block[3];
     block[2] = '\0';
     
-    if (length > 0)
-    year[0] = cdate[0];
-    if (length > 1)
-    year[1] = cdate[1];
-    if (length > 2)
-    year[2] = cdate[2];
-    if (length > 3)
-    year[3] = cdate[3];
+    year[0] = (length > 0) ? cdate[0] : 0;
+    year[1] = (length > 1) ? cdate[1] : 0;    
+    year[2] = (length > 2) ? cdate[2] : 0;
+    year[3] = (length > 3) ? cdate[3] : 0;
 
     mYear = (int)strtol(year, NULL, 10);
-
-    if (length > 5)
-    block[0] = cdate[5];
-    if (length > 6)
-    block[1] = cdate[6];
+    
+    block[0] = (length > 5) ? cdate[5] : 0;
+    block[1] = (length > 6) ? cdate[6] : 0;
     
     mMonth = (int)strtol(block, NULL, 10);
 
-    if (length > 8)
-    block[0] = cdate[8];
-    if (length > 9)
-    block[1] = cdate[9];
+    block[0] = (length > 8) ? cdate[8] : 0;
+    block[1] = (length > 9) ? cdate[9] : 0;
     
     mDay = (int)strtol(block, NULL, 10);
 
-    if (length > 11)
-    block[0] = cdate[11];
-    if (length > 12)
-    block[1] = cdate[12];
+    block[0] = (length > 11) ? cdate[11] : 0;
+    block[1] = (length > 12) ? cdate[12] : 0;
     
     mHour = (int)strtol(block, NULL, 10);
 
-    if (length > 14)
-    block[0] = cdate[14];
-    if (length > 15)
-    block[1] = cdate[15];
+    block[0] = (length > 14) ? cdate[14] : 0;
+    block[1] = (length > 15) ? cdate[15] : 0;
     
     mMinute = (int)strtol(block, NULL, 10);
 
-    if (length > 17)
-    block[0] = cdate[17];
-    if (length > 18)
-    block[1] = cdate[18];
+    block[0] = (length > 17) ? cdate[17] : 0;
+    block[1] = (length > 18) ? cdate[18] : 0;
     
     mSecond = (int)strtol(block, NULL, 10);
 
     if (length > 19 && cdate[19] == '+')
     {
       mSignOffset = 1;
-      if (length > 20)
-      block[0] = cdate[20];
-      if (length > 21)
-      block[1] = cdate[21];
+      block[0] = (length > 20) ? cdate[20] : 0;
+      block[1] = (length > 21) ? cdate[21] : 0;
       mHoursOffset = (int)strtol(block, NULL, 10);
 
-      if (length > 23)
-      block[0] = cdate[23];
-      if (length > 24)
-      block[1] = cdate[24];
+      block[0] = (length > 23) ? cdate[23] : 0;
+      block[1] = (length > 24) ? cdate[24] : 0;
       mMinutesOffset = (int)strtol(block, NULL, 10);
     }
     else if (length > 19 && cdate[19] == '-')
     {
       mSignOffset = 0;
-      if (length > 20)
-      block[0] = cdate[20];
-      if (length > 21)
-      block[1] = cdate[21];
+      block[0] = (length > 20) ? cdate[20] : 0;
+      block[1] = (length > 21) ? cdate[21] : 0;
       mHoursOffset = (int)strtol(block, NULL, 10);
 
-      if (length > 23)
-      block[0] = cdate[23];
-      if (length > 24)
-      block[1] = cdate[24];
+      block[0] = (length > 23) ? cdate[23] : 0;
+      block[1] = (length > 24) ? cdate[24] : 0;
       mMinutesOffset = (int)strtol(block, NULL, 10);
     }
     else
