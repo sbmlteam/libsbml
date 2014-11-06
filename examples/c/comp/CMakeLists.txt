@@ -47,7 +47,6 @@ foreach(example
 	add_executable(example_comp_c_${example} ${example}.c ../util.c)
 	set_target_properties(example_comp_c_${example} PROPERTIES  OUTPUT_NAME ${example})
 	target_link_libraries(example_comp_c_${example} ${LIBSBML_LIBRARY}-static)
-	install(TARGETS example_comp_c_${example} DESTINATION bin)
 
 endforeach()
 
