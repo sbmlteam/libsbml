@@ -919,6 +919,12 @@ SBMLDocument::getError (unsigned int n) const
   return mErrorLog.getError(n);
 }
 
+const SBMLError*
+SBMLDocument::getErrorWithSeverity(unsigned int n, unsigned int severity) const
+{
+  return mErrorLog.getErrorWithSeverity(n, severity);
+}
+
 
 /*
  * @return the number of errors encountered during the parse of this
@@ -951,6 +957,13 @@ SBMLDocument::printErrors (std::ostream& stream) const
 {
   getErrorLog()->printErrors(stream);
 }
+
+void
+SBMLDocument::printErrors(std::ostream& stream, unsigned int severity) const
+{
+  getErrorLog()->printErrors(stream, severity);
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 
@@ -2169,6 +2182,13 @@ const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
   return (d != NULL) ? d->getError(n) : NULL;
+}
+
+LIBSBML_EXTERN
+const SBMLError_t *
+SBMLDocument_getErrorWithSeverity(SBMLDocument_t *d, unsigned int n, unsigned int severity)
+{
+  return (d != NULL) ? d->getErrorWithSeverity(n, severity) : NULL;
 }
 
 

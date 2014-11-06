@@ -136,6 +136,28 @@ public:
 
 
   /**
+   * Returns the <i>n</i>th SBMLError object with given severity in this log.
+   *
+   * Index @p n is counted from 0.  Callers should first inquire about the
+   * number of items in the log by using the
+   * @if java XMLErrorLog::getNumFailsWithSeverity()@else getNumFailsWithSeverity()@endif@~ method.
+   * Attempts to use an error index number that exceeds the actual number
+   * of errors in the log will result in a @c NULL being returned.
+   *
+   * @param n the index number of the error to retrieve (with 0 being the
+   * first error).
+   * @param severity the severity of the error to retrieve 
+   *
+   * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
+   * greater than or equal to
+   * @if java XMLErrorLog::getNumFailsWithSeverity()@else getNumFailsWithSeverity()@endif.
+   *
+   * @see getNumFailsWithSeverity(unsigned int severity)
+   */
+  const SBMLError* getErrorWithSeverity(unsigned int n, unsigned int severity) const;
+
+
+  /**
    * Returns the number of errors that have been logged with the given
    * severity code.
    *

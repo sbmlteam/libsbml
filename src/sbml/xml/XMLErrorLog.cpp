@@ -309,6 +309,17 @@ XMLErrorLog::printErrors (std::ostream& stream /*= std::cerr*/) const
     stream << *(*iter);
 }
 
+void 
+XMLErrorLog::printErrors(std::ostream& stream, unsigned int severity) const
+{
+  vector<XMLError*>::const_iterator iter;
+
+  for (iter = mErrors.begin(); iter != mErrors.end(); ++iter)
+    if ((*iter)->getSeverity() == severity)
+      stream << *(*iter);
+
+}
+
 
 void 
 XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,

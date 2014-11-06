@@ -341,6 +341,31 @@ SBMLErrorLog::getError (unsigned int n) const
   return static_cast<const SBMLError*>(XMLErrorLog::getError(n));
 }
 
+/*
+ * Returns the nth SBMLError with severity in this log.
+ *
+ * @param n unsigned int number of the error to retrieve.
+ * @param severity the severity sought
+ *
+ * @return the nth SBMLError in this log.
+ */
+const SBMLError*
+SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
+{
+  unsigned int count = 0;
+  MatchSeverity matcher(severity);
+  std::vector<XMLError*>::const_iterator it = mErrors.begin();
+  for (; it != mErrors.end(); ++it)
+  {
+    if (matcher(*it))
+    {
+      if (count == n) return dynamic_cast<const SBMLError*>(*it);
+      ++count;
+    }
+  }
+  return NULL;
+}
+
 #endif /* __cplusplus */
 
 

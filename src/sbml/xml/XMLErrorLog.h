@@ -258,6 +258,26 @@ public:
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
+  /**
+   * Prints the errors or warnings with given severity stored in this error log.
+   *
+   * This method prints the text to the stream given by the optional
+   * parameter @p stream.  If no stream is given, the method prints the
+   * output to the standard error stream.
+   *
+   * The format of the output is:
+   * @verbatim
+   N error(s):
+     line NNN: (id) message
+@endverbatim
+   * If no errors with that severity was found, then no output will be produced.
+   *
+   * @param stream the ostream or ostringstream object indicating where
+   * the output should be printed.
+   * @param severity the severity of the errors sought.
+   *
+   */
+  void printErrors(std::ostream& stream, unsigned int severity) const;
 
   /**
    * Returns a boolean indicating whether or not the severity has been
