@@ -155,7 +155,7 @@ public:
   bool strCmpIsCaseSensitive;
 
   L3Parser();
-  ~L3Parser();
+  virtual ~L3Parser();
 
   //Functions needed for the parser and the lexer:
   /**
