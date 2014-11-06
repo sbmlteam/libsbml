@@ -1308,11 +1308,8 @@ SBML_getLastParseL3Error()
   return safe_strdup(L3Parser_getInstance()->getError().c_str());
 }
 
-/**
- * @if conly
- * @memberof ASTNode_t
- * @endif
- */
+/** @cond doxygenLibsbmlInternal */
+
 LIBSBML_EXTERN
 void
 SBML_freeL3Parser()
@@ -1324,6 +1321,7 @@ SBML_freeL3Parser()
   }
 }
 
+/** @endcond */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
