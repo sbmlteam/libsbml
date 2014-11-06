@@ -362,9 +362,12 @@ START_CONSTRAINT (91017, Model, x)
       u->setExponent(ud->getUnit(i)->getExponent());
       u->setMultiplier(ud->getUnit(i)->getMultiplier());
       ud1->addUnit(u);
+      delete u;
     }
+    bool isSubs = ud1->isVariantOfSubstance();
+    delete ud1;
   
-    inv( ud1->isVariantOfSubstance());
+    inv( isSubs);
   }
   else
   {
@@ -532,8 +535,9 @@ START_CONSTRAINT (91020, Reaction, r)
   List * names = r.getKineticLaw()->getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -545,8 +549,9 @@ START_CONSTRAINT (91020, AssignmentRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -558,8 +563,9 @@ START_CONSTRAINT (91020, RateRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -571,8 +577,9 @@ START_CONSTRAINT (91020, AlgebraicRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -584,8 +591,9 @@ START_CONSTRAINT (91020, InitialAssignment, ia)
   List * names = ia.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
