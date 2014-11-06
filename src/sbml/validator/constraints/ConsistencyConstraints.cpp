@@ -2007,6 +2007,7 @@ START_CONSTRAINT (99129, KineticLaw, kl)
    * need to check whether it is defined
    */
   bool fail = false;
+  bool logFailure = false;
   while (t->type != TT_END)
   {
     if (t->type == TT_NAME)
@@ -2075,9 +2076,17 @@ START_CONSTRAINT (99129, KineticLaw, kl)
       }
     }
 
-    inv (fail == false);
+    if (fail == true)
+    {
+      logFailure = true;
+    }
+    Token_free(t);
     t = FormulaTokenizer_nextToken(ft);
   }
+
+  Token_free(t);
+  FormulaTokenizer_free(ft);
+  inv (logFailure == false);
 }
 END_CONSTRAINT
 
