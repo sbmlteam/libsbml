@@ -386,8 +386,9 @@ START_CONSTRAINT (91020, Reaction, r)
   List * names = r.getKineticLaw()->getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -399,8 +400,9 @@ START_CONSTRAINT (91020, AssignmentRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -412,8 +414,9 @@ START_CONSTRAINT (91020, RateRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -425,8 +428,9 @@ START_CONSTRAINT (91020, AlgebraicRule, r)
   List * names = r.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -438,8 +442,9 @@ START_CONSTRAINT (91020, EventAssignment, ea)
   List * names = ea.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -451,8 +456,9 @@ START_CONSTRAINT (91020, Trigger, t)
   List * names = t.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -464,8 +470,9 @@ START_CONSTRAINT (91020, Delay, d)
   List * names = d.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -477,8 +484,9 @@ START_CONSTRAINT (91020, InitialAssignment, ia)
   List * names = ia.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 
@@ -490,8 +498,9 @@ START_CONSTRAINT (91020, Constraint, c)
   List * names = c.getMath()
                      ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
 
-  inv( names->getSize() == 0 );
+  unsigned int size = names->getSize();
   delete names;
+  inv( size == 0 );
 }
 END_CONSTRAINT
 

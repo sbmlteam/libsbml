@@ -455,6 +455,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 
   checkUnits(m, *node.getLeftChild(), sb, inKL, reactNo);
 
+  if (tempUD != NULL) delete tempUD;
   delete unitFormat;
   delete unitsArg1;
   delete unitsArgPower;
