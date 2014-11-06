@@ -70,7 +70,7 @@ L3ModelHistory_setup (void)
   m = d->getModel();
   c = m->getCompartment(0);
 
-  delete filename;
+  free(filename);
 }
 
 
@@ -406,28 +406,28 @@ START_TEST (test_L3ModelHistory_deleteWithOutOther)
 END_TEST
 
 
-START_TEST (test_L3ModelHistory_recreateWithOutOther)
+START_TEST(test_L3ModelHistory_recreateWithOutOther)
 {
   Compartment* c = m->getCompartment(2);
 
   const char * expected =
     "<compartment id=\"B\" constant=\"true\">\n"
     "  <annotation>\n"
-		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
-		"      <jd2:header>\n"
-		"        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
-		"        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
-		"        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
-		"      </jd2:header>\n"
-		"    </jd2:JDesignerLayout>\n"
+    "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+    "      <jd2:header>\n"
+    "        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+    "        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+    "        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+    "      </jd2:header>\n"
+    "    </jd2:JDesignerLayout>\n"
     "  </annotation>\n"
     "</compartment>";
 
   char * sbml = c->toSBML();
 
-  fail_unless( equals(expected, sbml) );
+  fail_unless(equals(expected, sbml));
 
-  delete sbml;
+  free(sbml);
 }
 END_TEST
 
