@@ -604,6 +604,8 @@ ASTNaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefix
       }
       else
       {
+        delete child;
+        child = NULL;
         read = false;
         break;
       }

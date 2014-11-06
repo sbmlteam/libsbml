@@ -279,6 +279,8 @@ ASTUnaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_prefi
       }
       else
       {
+        delete child;
+        child = NULL;
         read = false;
         break;
       }

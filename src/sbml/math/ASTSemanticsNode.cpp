@@ -317,7 +317,7 @@ ASTSemanticsNode::readAttributes(const XMLAttributes& attributes,
 bool 
 ASTSemanticsNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 {
-  //bool read = false;
+  bool read = false;
   ASTBase * child = NULL;
   const XMLToken element = stream.peek ();
 
@@ -339,11 +339,16 @@ ASTSemanticsNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
       child = new ASTFunction();
     }
 
-    child->read(stream, reqd_prefix);
+    read = child->read(stream, reqd_prefix);
 
     stream.skipText();
 
-    addChild(child);
+    if (read == false || addChild(child) != LIBSBML_OPERATION_SUCCESS)
+    {
+      delete child;
+      child = NULL;
+      read = false;
+    }
   }
 
   unsigned int i = 0;

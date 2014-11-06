@@ -874,6 +874,8 @@ ASTPiecewiseFunctionNode::read(XMLInputStream& stream, const std::string& reqd_p
     }
     else
     {
+      delete child;
+      child = NULL;
       read = false;
       break;
     }
@@ -897,6 +899,8 @@ ASTPiecewiseFunctionNode::read(XMLInputStream& stream, const std::string& reqd_p
     }
     else
     {
+      delete child;
+      child = NULL;
       read = false;
     }
   }

@@ -486,6 +486,8 @@ ASTBinaryFunctionNode::read(XMLInputStream& stream, const std::string& reqd_pref
       }
       else
       {
+        delete child;
+        child = NULL;
         read = false;
         break;
       }
