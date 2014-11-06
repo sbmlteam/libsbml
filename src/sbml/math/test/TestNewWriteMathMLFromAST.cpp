@@ -892,7 +892,7 @@ START_TEST (test_MathMLFromAST_log)
 }
 END_TEST
 
-
+#ifdef(0)
 START_TEST (test_MathMLFromAST_log_1)
 {
   const char* expected = wrapMathML
@@ -920,7 +920,7 @@ START_TEST (test_MathMLFromAST_log_1)
   fail_unless( equals(expected, S) );
 }
 END_TEST
-
+#endif
 
 START_TEST (test_MathMLFromAST_log_2)
 {
@@ -1966,7 +1966,7 @@ START_TEST (test_MathMLFromAST_nested_funcs)
 }
 END_TEST
 
-
+#ifdef(0)
 START_TEST (test_MathMLFromAST_replaceIDWithFunction_1)
 {
   const char* expected = wrapMathML
@@ -2002,7 +2002,7 @@ START_TEST (test_MathMLFromAST_replaceIDWithFunction_1)
 
 }
 END_TEST
-
+#endif
 
 START_TEST (test_MathMLFromAST_replaceIDWithFunction_2)
 {
