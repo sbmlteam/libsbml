@@ -79,6 +79,7 @@ Date::Date (const std::string& date) :
 
   parseDateStringToNumbers();
   parseDateNumbersToString();
+
 }
 
 Date::~Date() {}
@@ -503,7 +504,7 @@ Date::parseDateStringToNumbers()
 {
   std::string::size_type length = mDate.length();
 
-  if (length < 20 )
+  if (length == 0 )
   {
     mYear   = 2000;
     mMonth  = 1;
@@ -524,57 +525,79 @@ Date::parseDateStringToNumbers()
     char block[3];
     block[2] = '\0';
     
+    if (length > 0)
     year[0] = cdate[0];
+    if (length > 1)
     year[1] = cdate[1];
+    if (length > 2)
     year[2] = cdate[2];
+    if (length > 3)
     year[3] = cdate[3];
 
     mYear = (int)strtol(year, NULL, 10);
 
+    if (length > 5)
     block[0] = cdate[5];
+    if (length > 6)
     block[1] = cdate[6];
     
     mMonth = (int)strtol(block, NULL, 10);
 
+    if (length > 8)
     block[0] = cdate[8];
+    if (length > 9)
     block[1] = cdate[9];
     
     mDay = (int)strtol(block, NULL, 10);
 
+    if (length > 11)
     block[0] = cdate[11];
+    if (length > 12)
     block[1] = cdate[12];
     
     mHour = (int)strtol(block, NULL, 10);
 
+    if (length > 14)
     block[0] = cdate[14];
+    if (length > 15)
     block[1] = cdate[15];
     
     mMinute = (int)strtol(block, NULL, 10);
 
+    if (length > 17)
     block[0] = cdate[17];
+    if (length > 18)
     block[1] = cdate[18];
     
     mSecond = (int)strtol(block, NULL, 10);
 
-    if (cdate[19] == '+' && length == 25)
+    if (length > 19 && cdate[19] == '+')
     {
       mSignOffset = 1;
+      if (length > 20)
       block[0] = cdate[20];
+      if (length > 21)
       block[1] = cdate[21];
       mHoursOffset = (int)strtol(block, NULL, 10);
 
+      if (length > 23)
       block[0] = cdate[23];
+      if (length > 24)
       block[1] = cdate[24];
       mMinutesOffset = (int)strtol(block, NULL, 10);
     }
-    else if (cdate[19] == '-' && length == 25)
+    else if (length > 19 && cdate[19] == '-')
     {
       mSignOffset = 0;
+      if (length > 20)
       block[0] = cdate[20];
+      if (length > 21)
       block[1] = cdate[21];
       mHoursOffset = (int)strtol(block, NULL, 10);
 
+      if (length > 23)
       block[0] = cdate[23];
+      if (length > 24)
       block[1] = cdate[24];
       mMinutesOffset = (int)strtol(block, NULL, 10);
     }
