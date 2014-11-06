@@ -501,7 +501,9 @@ Date::parseDateNumbersToString()
 void
 Date::parseDateStringToNumbers()
 {
-  if (mDate.length() == 0)
+  std::string::size_type length = mDate.length();
+
+  if (length < 20 )
   {
     mYear   = 2000;
     mMonth  = 1;
@@ -554,7 +556,7 @@ Date::parseDateStringToNumbers()
     
     mSecond = (int)strtol(block, NULL, 10);
 
-    if (cdate[19] == '+')
+    if (cdate[19] == '+' && length == 25)
     {
       mSignOffset = 1;
       block[0] = cdate[20];
@@ -565,7 +567,7 @@ Date::parseDateStringToNumbers()
       block[1] = cdate[24];
       mMinutesOffset = (int)strtol(block, NULL, 10);
     }
-    else if (cdate[19] == '-')
+    else if (cdate[19] == '-' && length == 25)
     {
       mSignOffset = 0;
       block[0] = cdate[20];
