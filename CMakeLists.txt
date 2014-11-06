@@ -667,7 +667,6 @@ if(WITH_CHECK)
     cmake_minimum_required(VERSION 2.8.4)
 
     enable_testing()
-	include(CTest)
 
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
@@ -701,6 +700,8 @@ invalid. It should contain the file check.h, but it does not.")
          "${CMAKE_MEMORYCHECK_COMMAND} ${CMAKE_MEMORYCHECK_COMMAND_OPTIONS}")
       separate_arguments(MEMCHECK_COMMAND)
 	endif()
+
+    include(CTest)
 
 endif(WITH_CHECK)
 
@@ -864,6 +865,8 @@ else(UNIX)
           )
           if (NOT VLD_INCLUDE_DIR)
             message(WARNING "VLD is not found on your system, please ensure you installed it correctly.")
+		  else()
+		    include_directories(${VLD_INCLUDE_DIR})
 		  endif()
 		  
 		  add_definitions( -DLIBSBML_USE_VLD)
