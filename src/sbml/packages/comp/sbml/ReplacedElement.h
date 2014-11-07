@@ -208,8 +208,7 @@ public:
   /**
    * Sets the value of the "conversionFactor" attribute of this ReplacedElement.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -219,8 +218,7 @@ public:
   /**
    * Unsets the value of the "conversionFactor" attribute of this ReplacedElement.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -253,8 +251,7 @@ public:
    * one method to point to a submodel element: deletion, port, idRef,
    * unitRef, or metaIdRef.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
@@ -265,8 +262,7 @@ public:
   /**
    * Unsets the value of the "deletion" attribute of this ReplacedElement.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -558,10 +554,7 @@ ReplacedElement_isSetConversionFactor(ReplacedElement_t * re);
  * @param re the ReplacedElement_t structure to set
  * @param submodelRef the submodelRef to assign to the given ReplacedElement_t's "submodelRef" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -581,10 +574,7 @@ ReplacedElement_setSubmodelRef(ReplacedElement_t * re, const char * submodelRef)
  * @param re the ReplacedElement_t structure to set
  * @param deletion the deletion to assign to the given ReplacedElement_t's "deletion" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -604,10 +594,7 @@ ReplacedElement_setDeletion(ReplacedElement_t * re, const char * deletion);
  * @param re the ReplacedElement_t structure to set
  * @param conversionFactor the conversionFactor to assign to the given ReplacedElement_t's "conversionFactor" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -626,10 +613,7 @@ ReplacedElement_setConversionFactor(ReplacedElement_t * re, const char * convers
  *
  * @param re the ReplacedElement_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
@@ -645,10 +629,7 @@ ReplacedElement_unsetSubmodelRef(ReplacedElement_t * re);
  *
  * @param re the ReplacedElement_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
@@ -664,10 +645,7 @@ ReplacedElement_unsetDeletion(ReplacedElement_t * re);
  *
  * @param re the ReplacedElement_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *

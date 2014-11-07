@@ -139,8 +139,7 @@ public:
    * Finds this ReplacedBy's SBase parent, gets the &ldquo;comp&rdquo; plugin from it,
    * and tells that to remove this.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -158,8 +157,7 @@ public:
    * @param newnames the object that should now be referenced instead, to which 
    * any references to @p oldnames should now point.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
@@ -290,10 +288,7 @@ ReplacedBy_isSetSubmodelRef(ReplacedBy_t * rb);
  * @param rb the ReplacedBy_t structure to set
  * @param submodelRef the submodelRef to assign to the given ReplacedBy_t's "submodelRef" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -312,10 +307,7 @@ ReplacedBy_setSubmodelRef(ReplacedBy_t * rb, const char * submodelRef);
  *
  * @param rb the ReplacedBy_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *

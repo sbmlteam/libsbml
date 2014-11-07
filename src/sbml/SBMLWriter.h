@@ -140,9 +140,7 @@ public:
    * @param name the name of this program (where "this program" refers to
    * program in which libSBML is embedded, not libSBML itself!)
    *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * 
    * @see setProgramVersion(const std::string& version)
@@ -169,9 +167,7 @@ public:
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
    *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setProgramName(const std::string& name)
@@ -395,10 +391,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t
@@ -416,10 +409,7 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  *   <!-- Created by <program name> version <program version>
  *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof SBMLWriter_t

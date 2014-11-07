@@ -263,10 +263,7 @@ public:
   /**
    * Sets the XMLErrorLog this stream will use to log errors.
    *
-   * @return integer value indicating success/failure of the
-   * operation.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this method are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -600,10 +597,7 @@ XMLInputStream_skipText (XMLInputStream_t *stream);
  *
  * @param log the XMLErrorLog_t structure to attach to the @p stream.
  *
- * @return integer value indicating success/failure of the operation.  The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this method are:
- *
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *

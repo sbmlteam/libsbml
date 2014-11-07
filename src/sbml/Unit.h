@@ -765,9 +765,7 @@ public:
    * names begin with <code>UNIT_KIND_</code> in @link libsbml libsbml@endlink.
    * @endif@~
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -779,9 +777,7 @@ public:
    *
    * @param value the integer to which the attribute "exponent" should be set
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
@@ -793,9 +789,7 @@ public:
    *
    * @param value the double to which the attribute "exponent" should be set
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setExponent (double value);
@@ -806,9 +800,7 @@ public:
    *
    * @param value the integer to which the attribute "scale" should be set
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setScale (int value);
@@ -820,9 +812,7 @@ public:
    * @param value the floating-point value to which the attribute
    * "multiplier" should be set
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    */
@@ -835,9 +825,7 @@ public:
    * @param value the float-point value to which the attribute "offset"
    * should set
    *
-   * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
    *
@@ -994,8 +982,7 @@ public:
    *
    * @param unit the Unit object to manipulate.
    *
-   * @return integer value indicating success/failure of the function.  The
-   * possible values returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @copydetails doc_note_static_methods
@@ -2168,10 +2155,7 @@ Unit_isSetScale (const Unit_t *u);
  * @param u the Unit_t structure whose value is to be set
  * @param kind a value from the UnitKind_t enumeration 
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -2188,10 +2172,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind);
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "exponent" should be set
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Unit_t
@@ -2207,10 +2188,7 @@ Unit_setExponent (Unit_t *u, int value);
  * @param u the Unit_t structure whose value is to be set
  * @param value the double to which the attribute "exponent" should be set
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Unit_t
@@ -2226,10 +2204,7 @@ Unit_setExponentAsDouble (Unit_t *u, double value);
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "scale" should be set
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @memberof Unit_t
@@ -2245,10 +2220,7 @@ Unit_setScale (Unit_t *u, int value);
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "multiplier" should be set
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
@@ -2265,10 +2237,7 @@ Unit_setMultiplier (Unit_t *u, double value);
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "offset" should be set
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
@@ -2389,8 +2358,7 @@ Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2);
  *
  * @param unit the Unit_t structure to manipulate.
  *
- * @return integer value indicating success/failure of the function.  The
- * possible values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  *
  * @see Unit_convertToSI()

@@ -239,8 +239,7 @@ public:
    * @param submodel the Submodel object to be added to the list of
    * submodels.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
@@ -340,8 +339,7 @@ public:
    * the added port is @c NULL, does not match the level/version/package of the
    * parent object, or cannot be added to the list of ports.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
@@ -390,8 +388,7 @@ public:
    * with an empty @p divider, or a @p divider that cannot be used internally as part
    * of a valid SBML SId.
    * 
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
@@ -540,8 +537,7 @@ protected:
    * in the Submodel objects, and available from
    * 'Submodel::getInstantiation()'
    *
-   * @return an integer value indicating success/failure of the operation.
-   * Possible return values from this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}

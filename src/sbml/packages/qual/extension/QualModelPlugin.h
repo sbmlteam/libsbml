@@ -230,8 +230,7 @@ public:
    *
    * @param qualitativeSpecies the QualitativeSpecies object to be added to the list of qual.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addQualitativeSpecies (const QualitativeSpecies* qualitativeSpecies);
@@ -358,8 +357,7 @@ public:
    *
    * @param transition the Transition object to be added to the list of qual.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addTransition (const Transition* transition);

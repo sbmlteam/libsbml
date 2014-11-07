@@ -1023,9 +1023,7 @@ public:
    * 
    * @param line an unsigned int, the line number to set.
    *
-   * @return integer value indicating success/failure of the
-   * function.   The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setColumn(unsigned int column)
@@ -1038,9 +1036,7 @@ public:
    * 
    * @param column an unsigned int, the column number to set.
    *
-   * @return integer value indicating success/failure of the
-   * function.   The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see setLine(unsigned int line)

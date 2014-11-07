@@ -155,10 +155,7 @@ public:
    * 
    * @param doc the document to use for this validation
    * 
-   * @return an integer value indicating the success/failure of the
-   * validation.  @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif@~ The possible values returned by this
-   * function are
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see getDocument()

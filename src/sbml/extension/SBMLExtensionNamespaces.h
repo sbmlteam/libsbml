@@ -249,10 +249,7 @@ SBMLExtensionNamespaces_clone(SBMLExtensionNamespaces_t* extns);
  * 
  * @param extns the SBMLExtensionNamespaces_t structure to be freed
  * 
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
@@ -311,10 +308,7 @@ SBMLExtensionNamespaces_getPackageName(SBMLExtensionNamespaces_t* extns);
  * @param extns the SBMLExtensionNamespaces_t structure 
  * @param pkgVersion the package version to use
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *

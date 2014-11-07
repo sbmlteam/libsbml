@@ -146,9 +146,7 @@ public:
    * with the configuration options set by
    * SBMLConverter::setProperties(@if java ConversionProperties@endif).
    *
-   * @return  integer value indicating the success/failure of the operation.
-   * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif@~ The possible values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -182,12 +180,7 @@ public:
    * converter upon a successful conversion.  This function is here
    * solely to preserve backwards compatibility.
    *
-   * @return integer value indicating the success/failure of the operation.
-   * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif@~ The set of possible values that may
-   * be returned ultimately depends on the specific subclass of
-   * SBMLConverter being used, but the default method can return the
-   * following values:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setDocument(const SBMLDocument* doc);
@@ -198,12 +191,7 @@ public:
    *
    * @param doc the document to use for this conversion.
    *
-   * @return integer value indicating the success/failure of the operation.
-   * @if clike The value is drawn from the enumeration
-   * #OperationReturnValues_t. @endif@~ The set of possible values that may
-   * be returned ultimately depends on the specific subclass of
-   * SBMLConverter being used, but the default method can return the
-   * following values:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setDocument(SBMLDocument* doc);

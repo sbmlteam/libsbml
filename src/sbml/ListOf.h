@@ -190,10 +190,7 @@ public:
    *
    * @param item the item to be added to the list.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
@@ -213,10 +210,7 @@ public:
    *
    * @param item the item to be added to the list.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
@@ -234,10 +228,7 @@ public:
    *
    * @param list a list of items to be added.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
@@ -257,10 +248,7 @@ public:
    * @param location the location in the list where to insert the item.
    * @param item the item to be inserted to the list.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
@@ -279,10 +267,7 @@ public:
    * @param location the location where to insert the item
    * @param item the item to be inserted to the list
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
@@ -416,10 +401,7 @@ public:
    * @if cpp Implementations of subclasses of ListOf may need to override
    * this method if different handling of child objects is needed.@endif@~
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif@~ The possible values
-   * returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int removeFromParentAndDelete();
@@ -676,9 +658,7 @@ ListOf_clone (const ListOf_t *lo);
  * @param lo the ListOf_t structure to which the @p item should be appended.
  * @param item the item to append to the list.
  *
- * @return integer value indicating success/failure of the function. The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
@@ -700,9 +680,7 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
  * Unlike ListOf_append(), this function does not copy the @p item.
  * The given @p lo list will contain the original item.
  *
- * @return integer value indicating success/failure of the function. The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
@@ -721,9 +699,7 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
  * @param lo the ListOf_t list to which @p list will be appended.
  * @param list the list of items to append to @p lo.
  *
- * @return integer value indicating success/failure of the function. The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
@@ -741,9 +717,7 @@ ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
  * @param location the starting index for the @p item in the @p lo list.
  * @param item the item to append to insert into @p lo.
  *
- * @return integer value indicating success/failure of the function. The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
@@ -764,9 +738,7 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
  * @param location the starting index for the @p item in the @p lo list.
  * @param item the item to append to insert into @p lo.
  *
- * @return integer value indicating success/failure of the function. The
- * value is drawn from the enumeration #OperationReturnValues_t. The possible
- * values returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *

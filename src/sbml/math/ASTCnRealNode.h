@@ -100,8 +100,7 @@ public:
    *
    * @param type the type to which this node should be set
    *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */

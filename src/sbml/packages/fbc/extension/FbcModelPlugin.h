@@ -262,8 +262,7 @@ public:
    *
    * @param bound the FluxBound object to be added to the list of FluxBounds.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addFluxBound (const FluxBound* bound);
@@ -392,8 +391,7 @@ public:
    *
    * @param bound the Objective object to be added to the list of Objectives.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addObjective (const Objective* bound);
@@ -544,8 +542,7 @@ public:
    *
    * @param association the GeneAssociation object to be added to the list of GeneAssociations.
    *
-   * @return integer value indicating success/failure of the
-   * operation. The possible return values are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addGeneAssociation (const GeneAssociation* association);
@@ -719,10 +716,7 @@ BEGIN_C_DECLS
  *
  * @param fb a FluxBound_t structure to add
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
@@ -777,10 +771,7 @@ FbcModelPlugin_getNumFluxBounds(SBasePlugin_t * fmp);
  *
  * @param obj an Objective_t structure to add
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
@@ -846,10 +837,7 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fmp);
  * @param fmp the FbcModelPlugin_t structure to set
  * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *

@@ -213,8 +213,7 @@ public:
    *
    * @param p XMLParser, the parser to use
    *
-   * @return integer value indicating success/failure of the
-   * function.   The possible values returned by this function are:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */

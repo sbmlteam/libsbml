@@ -99,10 +99,7 @@ public:
   /**
    * Sets the value of the "charge" attribute of this FbcSpeciesPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The only possible value
-   * returned by this function is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setCharge(int charge);
@@ -117,10 +114,7 @@ public:
   /**
    * Unsets the value of the "charge" attribute of this FbcSpeciesPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The only possible value
-   * returned by this function is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int unsetCharge();
@@ -138,10 +132,7 @@ public:
    * Sets the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
    * The format of chemicalFormula must consist only of atomic names (as in the Periodic Table) or user defined compounds either of which take the form of a single capital letter followed by zero or more lowercase letters. Where there is more than a single atom present, this is indicated with an integer. With regards to order (and enhance inter-operability) it is recommended to use the Hill system order.  (However, no error-checking is performed by this routine.)
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The only possible value
-   * returned by this function is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int setChemicalFormula(const std::string& chemicalFormula);
@@ -156,10 +147,7 @@ public:
   /**
    * Unsets the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
    *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The only possible value
-   * returned by this function is:
+   * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   virtual int unsetChemicalFormula();
@@ -319,10 +307,7 @@ FbcSpeciesPlugin_isSetCharge(SBasePlugin_t * fbc);
  * 
  * @param charge the value of charge to assign to the "charge" attribute
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
  *
@@ -338,10 +323,7 @@ FbcSpeciesPlugin_setCharge(SBasePlugin_t * fbc, int charge);
  *
  * @param fbc the FbcSpeciesPlugin_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
@@ -388,10 +370,7 @@ FbcSpeciesPlugin_isSetChemicalFormula(SBasePlugin_t * fbc);
  * @param fbc the FbcSpeciesPlugin_t structure to set
  * @param chemicalFormula the chemicalFormula to assign to the given FbcSpeciesPlugin_t's "chemicalFormula" attribute.
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
@@ -410,10 +389,7 @@ FbcSpeciesPlugin_setChemicalFormula(SBasePlugin_t * fbc, const char * chemicalFo
  *
  * @param fbc the FbcSpeciesPlugin_t structure to unset
  *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible values
- * returned by this function are:
+ * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
