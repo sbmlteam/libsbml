@@ -1,5 +1,7 @@
 <!-- ====================================================================== -->
 
+<p> This section explains how to build libSBML from the source distribution.
+
 <h2>Table of contents</h2>
 
 <table class="text-table borderless centered">
@@ -51,26 +53,20 @@
 <h2><a class="anchor" name="detailed-unix">1. Procedures for Linux, Mac OS X, FreeBSD, Solaris and Cygwin</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> If there is no binary installer for your system, or you prefer to build
-libSBML from the source distribution, you can use one of two build systems:
-<a target="_blank" href="http://www.cmake.org/">CMake</a>, or GNU make.
-They are described separately below.
-
-<p class="warning"> <em>Compatibility warning</em>: The default XML parser
-library used by libSBML is <a target="_blank"
-href="http://xmlsoft.org">libxml2</a>.  If you chose to use another XML
-parser library instead, beware there is a known bug in Xerces 2.6.0 that
-cannot be worked around at this time and causes errors in software using
-it.  Xerces versions 2.2 &#150; 2.5, and
-2.7.0 and above, are known to work properly, and all Expat versions above
-1.95.8 are also known to work.
+<p> LibSBML supports two build systems: <a target="_blank"
+href="http://www.cmake.org/">CMake</a>, and <a target="_blank"
+href="http://www.gnu.org/software/make/">GNU make</a>.  CMake is preferred
+and is the only one supported for building SBML Level&nbsp;3 package
+extensions; GNU make is an alternative for building core libSBML and
+currently is also the only build system supported for generating the
+documentation.
 
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="unix-cmake">1.1 Configuring using CMake</a></h3>
 
 <p> If you do not already have CMake installed on your system, please make
-sure to download and install a copy of CMake version 2.8.4 or later from <a
+sure to download and install a copy of CMake version&nbsp;2.8.4 or later from <a
 target="_blank" href="http://www.cmake.org/">cmake.org</a> on your computer
 system.  Also download and unzip the libSBML source code archive from the
 <a target="_blank"
@@ -147,6 +143,7 @@ libSBML libraries.  After clicking on this field, you can type a directory path
 directly into the field or click on the square 
 <span style="background-color: #bbb; border:1px solid #777">...</span> icon to
 invoke a file/open dialog.
+</li>
 
 <li><code>WITH_JAVA</code>, <code>WITH_PYTHON</code>, etc.: toggle whether to
 build the language bindings for programming languages supported by libSBML,
@@ -156,17 +153,27 @@ Python), click the "<b>Advanced</b>" checkbox in the upper part of the
 CMake GUI to gain access to additional configuration options.
 (For Python, they are <code style="padding-right:0">PYTHON_EXECUTABLE</code>,
 <code>PYTHON_INCLUDE_DIR</code> and <code style="padding-right:0">PYTHON_LIBRARY</code>.)
+</li>
 
 <li><code>ENABLE_COMP</code>, <code>ENABLE_QUAL</code>, etc.: toggle whether
 support for various SBML Level&nbsp;3 packages is included.  The names
 following the <code>ENABLE_</code> part are the package nicknames:
 &ldquo;comp&rdquo; for the Hierarchical Model Composition package,
-&ldquo;qual&rdquo; for the Qualitative Models package, and so on.
+&ldquo;qual&rdquo; for the Qualitative Models package, and so on. 
+</li>
 
 <li><code>WITH_EXPAT</code>, <code>WITH_XERCES</code>: by default, libSBML will
 use the  <a
 target="_blank" href="http://xmlsoft.org">libxml2</a> XML library.  If you
 prefer to use Expat or Xerces, select one of these options instead.
+
+<p class="warning" style="margin-top: 1em"> <em>Compatibility warning</em>:
+The default XML parser library used by libSBML is <a target="_blank"
+href="http://xmlsoft.org">libxml2</a>.  If you chose to use another XML
+parser library instead, beware there is a known bug in Xerces 2.6.0 that
+cannot be worked around at this time and causes errors in software using it.
+Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work
+properly, and all Expat versions above 1.95.8 are also known to work.  </li>
 
 </ul>
 
@@ -251,10 +258,13 @@ And for Xerces, use
 ./configure --with-xerces
 </pre>
 
-<p> As already noted, there is a bug in Xerces 2.6.0 that cannot be worked
-around.  Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to
-work properly.  Expat version 1.95.8 and above, and libxml2 version 2.6.16
-and above, are all known to work.
+<p class="warning"> <em>Compatibility warning</em>: The default XML parser
+library used by libSBML is <a target="_blank"
+href="http://xmlsoft.org">libxml2</a>.  If you chose to use another XML
+parser library instead, beware there is a known bug in Xerces 2.6.0 that
+cannot be worked around at this time and causes errors in software using it.
+Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work
+properly, and all Expat versions above 1.95.8 are also known to work.  </li>
 
 <p> If your copy of libxml2, Expat, or Xerces is installed in a
 non-standard location on your computer system (e.g., a private home

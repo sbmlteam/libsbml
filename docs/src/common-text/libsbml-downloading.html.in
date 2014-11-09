@@ -5,7 +5,7 @@ instructions for your situation:
 
 <table class="text-table borderless centered"><tr><td>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
-<li><a href="#dl-not-python-not-r">1. If you do <em>not</em> use Python or R</a></li>
+<li><a href="#dl-not-python-not-r">1. If you use C, C++, C#, Java, MATLAB, Perl or Ruby</a></li>
 <li><a href="#dl-python">2. If you use Python</a>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
 <li><a href="#dl-python-pipy">2.1 Using PiPI</li>
@@ -22,16 +22,18 @@ instructions for your situation:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-not-python-not-r">1. If you do <em>not</em> use Python or R</a></h2>
+<h2><a class="anchor" name="dl-not-python-not-r">1. If you use C, C++, C#, Java, MATLAB, Perl or Ruby</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> Installers and binary packages are located in the libSBML <a
-target="_blank" href="http://sf.net/projects/sbml/files/libsbml">SourceForge
-download site</a>. There are two subdirectories there: one for stable
-releases of libSBML, and one for experimental releases.  The <em>stable</em>
-releases contain support for only the accepted parts of SBML, while the <span
-style="font-style: normal">experimental</span> directory contains beta-test
-code for such things as SBML Level&nbsp;3 packages in development.
+<p> The installation packages in the libSBML <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
+site</a> contain interfaces for C, C++, C#, Java, MATLAB, Perl, Python, and
+Ruby in the same package. (However, there are better ways to get the Python
+interface, as explained below.) The download area has two subdirectories: one
+for stable releases of libSBML, and one for experimental releases.  The
+<em>stable</em> releases contain support for only the accepted parts of SBML,
+while the <em>experimental</em> releases contain code for SBML Level&nbsp;3
+packages still in development.
 
 <center style="width: 500px; margin: 1em auto">
   <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml">
@@ -51,21 +53,13 @@ downloaded a Mac <code>.dmg</code> file, double-click the file in the Mac
 Finder to mount the disk image, open the image contents in the Finder,
 and finally, double-click the <code>.pkg</code> file contained inside.)
 
-<p> Note: the plain libSBML binary distributions <strong>do not include the
-Python or R language interfaces</strong>, because these languages require
-special treatment. (The rest of this page describes better alternatives for
-them.) If an installer is not available for your platform in our SourceForge
-download area and you are not using Python or R, it will be necessary to
-build libSBML from the source distribution. For information about how to do
-that, see the <a href="#dl-src">last section</a>.
-
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-python">2. If you use Python</a></h2>
+<h2><a class="anchor" name="dl-python">2. If you only use Python</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> We provide three options for obtaining the libSBML Python interface: (1)
-packages available from the Python Package Index (<a target="_blank"
+<p> We provide three easy options for obtaining the libSBML Python interface:
+(1) packages available from the Python Package Index (<a target="_blank"
 href="https://pypi.python.org/pypi">PyPI</a>), to be used with
 <code>pip</code>, (2) for Linux only, installers for use with the standard
 operating system installation tools such as <code>yum</code> and
@@ -192,7 +186,7 @@ process.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-r">3. If you use R</a></h2>
+<h2><a class="anchor" name="dl-r">3. If you only use R</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> We provide installers for the libSBML R language interface for Linux,
@@ -239,8 +233,8 @@ R CMD INSTALL <span class="placeholder">archive</span>
 <p> If all goes well, you should see R print messages such as the following
 (the paths on your computer may differ):
 <pre class="fragment">
-* installing to library ‘/Library/Frameworks/R.framework/Versions/3.1/Resources/library’
-* installing *binary* package ‘libSBML’ ...
+* installing to library '/Library/Frameworks/R.framework/Versions/3.1/Resources/library'
+* installing *binary* package 'libSBML' ...
 * DONE (libSBML) 
 </pre>
 </ul>
@@ -255,7 +249,8 @@ may need to supply the full path to <code>R</code>.
 <h2><a class="anchor" name="dl-src">4. If you want to build from sources</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
-<p> If no other option is available for your system, or you have special
-requirements for libSBML's configuration, you can always build libSBML from
-sources.  The process for doing that is the topic a separate section, <a
+<p> If you need to use Octave, or no installation package is available for
+your particular platform, or you have special requirements for libSBML's
+configuration, you can always build libSBML from sources.  The process for
+doing that is the topic a separate section, <a
 href="libsbml-installation.html">Building and installing libSBML </a>.

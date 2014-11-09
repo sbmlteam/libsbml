@@ -206,8 +206,16 @@ distfiles =                                                  \
         common-text/libsbml-group-fbc-intro.html.in          \
         common-text/libsbml-group-layout-intro.html.in       \
         common-text/libsbml-group-qual-intro.html.in         \
+        common-text/libsbml-import-for-c-cpp.html	     \
+        common-text/libsbml-import-for-csharp.html	     \
+        common-text/libsbml-import-for-java.html	     \
+        common-text/libsbml-import-for-javascript.html	     \
+        common-text/libsbml-import-for-matlab.html	     \
+        common-text/libsbml-import-for-python.html	     \
+        common-text/libsbml-import-for-r.html		     \
         common-text/libsbml-installation.html.in             \
         common-text/libsbml-issues.html                      \
+	common-text/libsbml-setting-library-path.html        \
         common-text/libsbml-version.html.in                  \
         common-text/listof-illustration.html                 \
         common-text/listof-illustration.txt                  \
@@ -542,9 +550,8 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
-#
+#  $(call doxygen_indexing_pass,$(1),$(2),$(3))
 define run_doxygen
-  $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 
@@ -877,6 +884,8 @@ java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
 	$(call merge_html,common-text/libsbml-accessing.html,libsbml-accessing.html,LibSBML accessibility for your software)
 	$(call merge_html,common-text/libsbml-downloading.html,libsbml-downloading.html,LibSBML downloads)
 	$(call merge_html,common-text/libsbml-features.html,libsbml-features.html,LibSBML features)
+	$(call merge_html,common-text/libsbml-setting-library-path.html,libsbml-setting-library-path.html,Setting your library search path)
+	$(call merge_html,common-text/libsbml-import-for-java.html,libsbml-import-for-java.html,Accessing libSBML from Java software)
 	$(call merge_html,common-text/libsbml-communications.html,libsbml-communications.html,Bug reports and other communications)
 	$(call merge_html,common-text/libsbml-issues.html,libsbml-issues.html,Known issues and pitfalls)
 	$(call merge_html,common-text/sbml-specifications-table.html,libsbml-specifications.html,SBML specifications)

@@ -1,12 +1,6 @@
-<p> Once the libSBML files are installed as described in the <a
-href="libsbml-installation.html">installation instructions</a>, you may need
-to take additional steps so that software applications can find the libSBML
-library files at <em>run</em> time.  This section provides
-information about how to do that.
-
 <ol class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
- <li><a href="#common">Run-time environment configuration</a></li>
- <li><a href="#languages">Compiling software to use libSBML</a><br>
+ <li><a href="#common">Setting your library search path</a></li>
+ <li><a href="#languages">Importing libSBML into your software</a><br>
      <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0">
       <li><a href="#accessing-c">C++ and C</a></li>
       <li><a href="#accessing-csharp">C#</a></li>
@@ -24,51 +18,47 @@ information about how to do that.
 </ol>
 
 
-<h2><a class="anchor" name="common">1. Run-time environment configuration</a></h2>
+<h2><a class="anchor" name="common">1. Setting your library search path</a></h2>
 
-<p>
-Whether you downloaded a ready-built libSBML installation, or you followed
-the <a href="libsbml-installation.html">instructions for building and 
-installing libSBML manually</a>, copies
-of the libSBML files will end up in appropriate destination directories on
-your computer.  On Mac&nbsp;OS&nbsp;X, this should be enough; a given
-software application should be able to find the libSBML library file(s) when
-it runs.  On Linux and Windows, it <em>may</em> not be sufficient not
-guarantee that a given software application will be able to find the libSBML
-library file(s) when it runs&mdash;you may need to do additional steps to enable
-software to find libSBML.  
+<p> Installing libSBML puts copies of the libSBML files in appropriate
+destinations on your computer.  On Mac&nbsp;OS&nbsp;X, this should be enough;
+a given software application should be able to find the libSBML library
+file(s) when it runs.  On Linux and Windows, that may not be enough to let a
+software application find the libSBML library files&mdash;you may need to
+take additional steps.
 
-<h3>On most Linux platforms</h3>
+<p> If your run-time environment and the run-time environment for your
+software applications do not know to look in the directory where libSBML was
+installed, programs that require libSBML will fail to run and report errors
+about being unable to find libSBML.
+
+<h3>How to configure most Linux platforms</h3>
 
 <p>There are two common approaches to solving the problem under Linux.
 
 <ol>
-<li><em>Use <code>ldconfig</code></em>: Run the program
-<code>ldconfig</code> as user 'root'.  (Please consult the man page for
-<code>ldconfig</code> if this is unfamiliar.)</li>
 
-<li><em>Set environment variables</em>: Ensure that each user sets the
+<li><em>Using <code>ldconfig</code></em>: Run the program <code>ldconfig</code>
+as user 'root' on your computer.  (Please consult the man page for
+<code>ldconfig</code> if this is unfamiliar.)  This will configure the system
+for all users.</li>
+
+<li><em>Setting environment variables</em>: Ensure that each user sets the
 environment variable <code>LD_LIBRARY_PATH</code> in their terminal shells.
-The value of <code>LD_LIBRARY_PATH</code> depends on
-the installation directory used during the
-<a href="libsbml-installation.html">libSBML
-configuration step</a>.  If you downloaded a ready-to-run libSBML
-installer, the default where the libSBML library is installed is 
-<nobr><code>/usr/local/lib</code></nobr>.  If you built libSBML yourself using CMake,
-the path is <code>/lib</code> appended to the value used
-for the <nobr><code>CMAKE_INSTALL_PREFIX</code></nobr>
-configuration variable.  If you built libSBML using GNU make, 
-the path is <nobr><span class="placeholder">DIR</span><code>/lib</code></nobr>, 
-where <span class="placeholder">DIR</span> is the value used for the
-configuration option
+If you downloaded a ready-to-run libSBML installer, the default where the
+libSBML library is installed is <nobr><code>/usr/local/lib</code></nobr>.  If
+you built libSBML yourself using CMake, the path consists of
+<code>/lib</code> appended to the value used for the
+<nobr><code>CMAKE_INSTALL_PREFIX</code></nobr> configuration variable.  If
+you built libSBML using GNU make, the path is <nobr><span
+class="placeholder">DIR</span><code>/lib</code></nobr>, where <span
+class="placeholder">DIR</span> is the value used for the configuration option
 <nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr>.
 
-<p> For example, suppose that you configured
-libSBML to use the default installation prefix
+<p> For example, suppose you used the default installation prefix
 <code><nobr>/usr/local/</nobr></code>.  Then in csh-based command shells
-under Linux, if the <code>ldconfig</code> step is not performed, you may
-have to set the variable as follows (perhaps in your <code>.cshrc</code>
-file):
+under Linux, you may have to set the variable as follows (perhaps in your
+<code>.cshrc</code> file):
 
 <pre class="fragment">
 setenv LD_LIBRARY_PATH /usr/local/lib
@@ -78,7 +68,7 @@ setenv LD_LIBRARY_PATH /usr/local/lib
 </ol>
 
 
-<h3>On Microsoft Windows platforms:</h3>
+<h3>How to configure Microsoft Windows platforms:</h3>
 
 <p>Set the <code>PATH</code> environment variable to include the
 directory of the libSBML native library.  To set an environmental variable
@@ -88,23 +78,15 @@ Panel</em>.
 </dt>
 </dl>
 
-<p> If your run-time environment and the run-time environment for your
-software applications do not know to look in the installation directory for
-libSBML, programs that require libSBML will fail to run and report errors
-about being unable to find libSBML.
 
+<h2><a class="anchor" name="languages">2. Importing libSBML into your software</a></h2>
 
-
-<h2><a class="anchor" name="languages">2. Compiling software to use
-libSBML</a></h2>
-
-If you configured libSBML to provide additional language interfaces (such
+<p> If you configured libSBML to provide additional language interfaces (such
 as Java, Python, etc.), then you may also need to perform the following
 steps to make the language bindings available to software on your computer.
 
 
-<h3><a class="anchor" name="accessing-c">C++
-and C</a></h3>
+<h3><a class="anchor" name="accessing-c">C++ and C</a></h3>
 
 <p> Compiling C++ or C software to use libSBML is usually a matter of
 supplying certain compilation and linking options.  Once again,
