@@ -108,7 +108,18 @@ STABLE RELEASE
 
   - Sourceforge libsbml Tracker #372: Documentation has been corrected. 
     Thanks to Gerard Weatherby for reporting the issues.
+
+  - The sample Java programs and configuration/importing instructions
+    for Java now use a shortened and simplified static loading block
+    (i.e., the part that explains how to use System.loadLibrary() to
+    load libSBML).
     
+  - We've made efforts to simplify the instructions for downloading,
+    configuring and accessing libSBML.  Among the changes are that the
+    API language manuals for Java, Python and C# now focus their
+    instructions more just those languages, rather than giving long
+    generic instructions for all possible languages.
+
 
 EXPERIMENTAL RELEASE
 
