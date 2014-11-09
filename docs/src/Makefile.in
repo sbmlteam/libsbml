@@ -188,7 +188,6 @@ distfiles =                                                  \
         common-text/force-serif-font-off.html                \
         common-text/force-serif-font-on.html                 \
         common-text/level-1-uses-text-string-math.html       \
-        common-text/libsbml-accessing.html.in                \
         common-text/libsbml-authors.html                     \
         common-text/libsbml-coding-copydetails-example.html  \
         common-text/libsbml-coding-copydoc-example.html      \
@@ -463,7 +462,6 @@ doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
 expanded-html-files = \
-  common-text/libsbml-accessing.html          \
   common-text/libsbml-downloading.html        \
   common-text/libsbml-group-comp-intro.html   \
   common-text/libsbml-group-fbc-intro.html    \
@@ -881,7 +879,6 @@ java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
 	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,Example libSBML programs in Java)
 	$(call merge_html,libsbml-core-versus-packages.html,libsbml-core-versus-packages.html,LibSBML &ldquo;core&rdquo; and extensions)
 	$(call merge_html,common-text/libsbml-installation.html,libsbml-installation.html,LibSBML installation)
-	$(call merge_html,common-text/libsbml-accessing.html,libsbml-accessing.html,LibSBML accessibility for your software)
 	$(call merge_html,common-text/libsbml-downloading.html,libsbml-downloading.html,LibSBML downloads)
 	$(call merge_html,common-text/libsbml-features.html,libsbml-features.html,LibSBML features)
 	$(call merge_html,common-text/libsbml-setting-library-path.html,libsbml-setting-library-path.html,Setting your library search path)

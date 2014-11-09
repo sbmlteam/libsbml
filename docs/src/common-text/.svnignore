@@ -1,7 +1,6 @@
 # WARNING: This .svnignore file is not understood by SVN directly.
 # WARNING: It is meant to be used in conjunction with our script in 
 # WARNING: sbml/trunk/project/scripts/svn-update-from-svnignore.sh
-libsbml-accessing.html
 libsbml-downloading.html
 libsbml-group-comp-intro.html
 libsbml-group-core-intro.html
