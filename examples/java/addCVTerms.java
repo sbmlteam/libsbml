@@ -122,20 +122,6 @@ public class addCVTerms
    */
   static
   {
-    String varname;
-    String shlibname;
-
-    if (System.getProperty("os.name").startsWith("Mac OS"))
-    {
-      varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
-      shlibname = "'libsbmlj.jnilib'";
-    }
-    else
-    {
-      varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
-      shlibname = "'libsbmlj.so' and/or 'libsbml.so'";
-    }
-
     try
     {
       System.loadLibrary("sbmlj");
@@ -145,13 +131,14 @@ public class addCVTerms
     catch (UnsatisfiedLinkError e)
     {
       System.err.println("Error encountered while attempting to load libSBML:");
-      e.printStackTrace();
-      System.err.println("Please check the value of your " + varname +
-                         " environment variable and/or" +
-                         " your 'java.library.path' system property" +
-                         " (depending on which one you are using) to" +
-                         " make sure it list the directories needed to" +
-                         " find the " + shlibname + " library file and the" +
+      System.err.println("Please check the value of your "
+                         + (System.getProperty("os.name").startsWith("Mac OS")
+                            ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH") +
+                         " environment variable and/or your" +
+                         " 'java.library.path' system property (depending on" +
+                         " which one you are using) to make sure it list the" +
+                         " directories needed to find the " +
+                         System.mapLibraryName("sbmlj") + " library file and" +
                          " libraries it depends upon (e.g., the XML parser).");
       System.exit(1);
     }
@@ -161,6 +148,8 @@ public class addCVTerms
                          " It is likely that your -classpath command line " +
                          " setting or your CLASSPATH environment variable " +
                          " do not include the file 'libsbmlj.jar'.");
+      e.printStackTrace();
+
       System.exit(1);
     }
     catch (SecurityException e)
@@ -173,4 +162,3 @@ public class addCVTerms
     }
   }
 }
-
