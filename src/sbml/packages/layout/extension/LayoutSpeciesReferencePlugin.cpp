@@ -143,6 +143,7 @@ LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream&
       }
 
       parentObject->setAnnotation(pAnnotation);
+      delete pAnnotation;
 
       readAnnotationFromStream = true;
     }

@@ -2422,15 +2422,16 @@ START_TEST(test_LayoutWriting_multipleTimes)
   layout->setId("layout1");
   
   // whenever getannotation is called, the layout will be synchronized
-  string model1 = writeSBMLToString(&doc);
+  string model1 = writeSBMLToStdString(&doc);
   
   // writing should create that annotation ...
-  int numAnnotation = model->getAnnotation()->getNumChildren();
+  XMLNode* annot = model->getAnnotation();
+  int numAnnotation = annot->getNumChildren();
   
   // however, writing it again should not create multiple annotation
-  string model2 = writeSBMLToString(&doc);
-  fail_unless(numAnnotation == (int)model->getAnnotation()->getNumChildren());
-  
+  string model2 = writeSBMLToStdString(&doc);
+  annot = model->getAnnotation();
+  fail_unless(numAnnotation == (int)annot->getNumChildren());
 }
 END_TEST
 

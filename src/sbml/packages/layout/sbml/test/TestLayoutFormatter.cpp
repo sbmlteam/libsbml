@@ -199,7 +199,7 @@ START_TEST (test_LayoutFormatter_Layout_annotation)
   
   
   fail_unless( node.equals(l.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -330,7 +330,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
   cg.setBoundingBox(&box);
   
   fail_unless( node.equals(cg.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -468,7 +468,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
   sg.setBoundingBox(&box);
   
   fail_unless( node.equals(sg.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -643,7 +643,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
   rg.setBoundingBox(&box);
   
   fail_unless( node.equals(rg.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -823,7 +823,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
   srg.setBoundingBox(&box);
   
   fail_unless( node.equals(srg.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -999,7 +999,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_annotation)
   
   
   fail_unless( node.equals(tg.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1138,7 +1138,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
   go.setBoundingBox(&box);
   
   fail_unless( node.equals(go.toXML(), true) );
-  
+  delete annotation;
   
 }
 END_TEST
@@ -1251,7 +1251,7 @@ START_TEST (test_LayoutFormatter_Curve_annotation)
   ls->setEnd(20.0,10.0);
   
   fail_unless( node.getChild(0).equals(c.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1365,7 +1365,7 @@ START_TEST (test_LayoutFormatter_LineSegment_annotation)
   
   
   fail_unless( node.getChild(0).equals(ls.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1472,7 +1472,7 @@ START_TEST (test_LayoutFormatter_CubicBezier_annotation)
   
   
   fail_unless( node.getChild(0).equals(cb.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1548,7 +1548,7 @@ START_TEST (test_LayoutFormatter_Point_annotation)
   
   
   fail_unless( node.equals(p.toXML("point"), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1642,7 +1642,7 @@ START_TEST (test_LayoutFormatter_Dimensions_annotation)
   
   
   fail_unless( node.equals(dim.toXML(), true) );
-  
+  delete annotation;
 }
 END_TEST
 
@@ -1753,7 +1753,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_annotation)
   
   
   fail_unless( node.equals(box.toXML(), true) );
-  
+  delete annotation;
   
 }
 END_TEST

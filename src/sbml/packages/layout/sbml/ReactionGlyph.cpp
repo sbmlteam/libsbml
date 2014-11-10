@@ -207,8 +207,8 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node, unsigned int l2version)
                 this->mCurve.addCurveSegment(pTmpCurve->getCurveSegment(i));
             }
             // we also have to copy mAnnotations, mNotes, mCVTerms and mHistory
-            if(pTmpCurve->isSetNotes()) this->mCurve.setNotes(new XMLNode(*pTmpCurve->getNotes()));
-            if(pTmpCurve->isSetAnnotation()) this->mCurve.setAnnotation(new XMLNode(*pTmpCurve->getAnnotation()));
+            if(pTmpCurve->isSetNotes()) this->mCurve.setNotes(pTmpCurve->getNotes());
+            if(pTmpCurve->isSetAnnotation()) this->mCurve.setAnnotation(pTmpCurve->getAnnotation());
             if(pTmpCurve->getCVTerms()!=NULL)
             {
               iMax=pTmpCurve->getCVTerms()->getSize(); 

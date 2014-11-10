@@ -122,12 +122,12 @@ START_TEST (test_LayoutCreation_Layout)
 	fail_unless(stream->isError() == false);
 	fail_unless(stream->isGood() == true);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation( &node , *pListOfLayouts );
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node, pListOfLayouts );
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -212,7 +212,7 @@ START_TEST (test_LayoutCreation_Layout)
 	fail_unless(dimensions->getWidth()==0.0);
 	fail_unless(dimensions->getHeight()==0.0);
 	fail_unless(dimensions->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -240,12 +240,12 @@ START_TEST (test_LayoutCreation_Layout_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -258,7 +258,7 @@ START_TEST (test_LayoutCreation_Layout_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(l->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -293,12 +293,12 @@ START_TEST (test_LayoutCreation_Layout_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -312,7 +312,7 @@ START_TEST (test_LayoutCreation_Layout_annotation)
 	XMLNode aNode=XMLNode(stream2);
 	fail_unless(l->getAnnotation()->equals(aNode, true));
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -333,12 +333,12 @@ START_TEST (test_LayoutCreation_Layout_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -353,7 +353,7 @@ START_TEST (test_LayoutCreation_Layout_skipOptional)
 	fail_unless(l->getNumTextGlyphs()==0);
 	fail_unless(l->getNumAdditionalGraphicalObjects()==0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -383,12 +383,12 @@ START_TEST (test_LayoutCreation_CompartmentGlyph)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -414,7 +414,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph)
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -448,12 +448,12 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
   
 	XMLInputStream *stream= new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -484,7 +484,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(cg->getNotes()->equals(notes, true));
   
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -527,12 +527,12 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -562,7 +562,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(cg->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -593,12 +593,12 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -624,7 +624,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_skipOptional)
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -653,12 +653,12 @@ START_TEST (test_LayoutCreation_SpeciesGlyph)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -684,7 +684,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph)
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -718,12 +718,12 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -753,7 +753,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(sg->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -797,12 +797,12 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -832,7 +832,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(sg->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -862,12 +862,12 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -893,7 +893,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_skipOptional)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -927,12 +927,12 @@ START_TEST (test_LayoutCreation_ReactionGlyph_Curve)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -962,7 +962,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_Curve)
 	fail_unless(end->getYOffset()==30.0);
 	fail_unless(end->getZOffset()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -991,12 +991,12 @@ START_TEST (test_LayoutCreation_ReactionGlyph_BoundingBox)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1021,7 +1021,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_BoundingBox)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -1056,12 +1056,12 @@ START_TEST (test_LayoutCreation_ReactionGlyph_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1090,7 +1090,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(rg->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -1133,12 +1133,12 @@ START_TEST (test_LayoutCreation_ReactionGlyph_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1168,7 +1168,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(rg->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -1198,12 +1198,12 @@ START_TEST (test_LayoutCreation_ReactionGlyph_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1229,7 +1229,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_skipOptional)
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -1270,12 +1270,12 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_Curve)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1322,7 +1322,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_Curve)
 	fail_unless(end->getYOffset()==30.0);
 	fail_unless(end->getZOffset()==0.0);
   
-	delete pListOfLayouts;
+    delete stream;
 }
 END_TEST
 
@@ -1358,12 +1358,12 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_BoundingBox)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1405,7 +1405,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_BoundingBox)
 	fail_unless(dimensions2->getWidth()==20.5);
 	fail_unless(dimensions2->getHeight()==40.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -1447,12 +1447,12 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1499,7 +1499,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(srg->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -1550,12 +1550,12 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1602,7 +1602,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(srg->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -1640,12 +1640,12 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1687,7 +1687,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_skipOptional)
 	fail_unless(dimensions2->getWidth()==20.5);
 	fail_unless(dimensions2->getHeight()==40.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
 }
 END_TEST
@@ -1716,12 +1716,12 @@ START_TEST (test_LayoutCreation_TextGlyph_text)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1748,7 +1748,7 @@ START_TEST (test_LayoutCreation_TextGlyph_text)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -1778,12 +1778,12 @@ START_TEST (test_LayoutCreation_TextGlyph_originOfText)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1810,7 +1810,7 @@ START_TEST (test_LayoutCreation_TextGlyph_originOfText)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -1845,12 +1845,12 @@ START_TEST (test_LayoutCreation_TextGlyph_notes)
   
 	XMLInputStream *stream= new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1882,7 +1882,7 @@ START_TEST (test_LayoutCreation_TextGlyph_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(tg->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -1926,12 +1926,12 @@ START_TEST (test_LayoutCreation_TextGlyph_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -1963,7 +1963,7 @@ START_TEST (test_LayoutCreation_TextGlyph_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(tg->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -1994,12 +1994,12 @@ START_TEST (test_LayoutCreation_TextGlyph_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2027,7 +2027,7 @@ START_TEST (test_LayoutCreation_TextGlyph_skipOptional)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -2057,12 +2057,12 @@ START_TEST (test_LayoutCreation_GraphicalObject)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2085,7 +2085,7 @@ START_TEST (test_LayoutCreation_GraphicalObject)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -2120,12 +2120,12 @@ START_TEST (test_LayoutCreation_GraphicalObject_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2153,7 +2153,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_notes)
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(go->getNotes()->equals(notes, true));
   
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -2198,12 +2198,12 @@ START_TEST (test_LayoutCreation_GraphicalObject_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2231,7 +2231,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(go->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -2266,12 +2266,12 @@ START_TEST (test_LayoutCreation_Curve)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2300,7 +2300,7 @@ START_TEST (test_LayoutCreation_Curve)
 	fail_unless(end->getXOffset()==20.0);
 	fail_unless(end->getYOffset()==30.0);
 	fail_unless(end->getZOffset()==0.0);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -2339,12 +2339,12 @@ START_TEST (test_LayoutCreation_Curve_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2378,7 +2378,6 @@ START_TEST (test_LayoutCreation_Curve_notes)
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(curve->getNotes()->equals(notes, true));
   
-	delete pListOfLayouts;
 	delete stream;
 	delete stream2;
   
@@ -2426,12 +2425,12 @@ START_TEST (test_LayoutCreation_Curve_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2463,7 +2462,7 @@ START_TEST (test_LayoutCreation_Curve_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(curve->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
 }
@@ -2491,12 +2490,12 @@ START_TEST (test_LayoutCreation_Curve_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2513,7 +2512,6 @@ START_TEST (test_LayoutCreation_Curve_skipOptional)
 	fail_unless(!rg->isSetReactionId());
   
 	fail_unless(!rg->isSetCurve());
-	delete pListOfLayouts;
 	delete stream;
 }
 END_TEST
@@ -2546,12 +2544,12 @@ START_TEST (test_LayoutCreation_LineSegment)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2578,7 +2576,6 @@ START_TEST (test_LayoutCreation_LineSegment)
 	Point* end=ls->getEnd();
 	fail_unless(end->getXOffset()==20.0);
 	fail_unless(end->getYOffset()==30.0);
-	delete pListOfLayouts;
 	delete stream;
 }
 END_TEST
@@ -2616,12 +2613,12 @@ START_TEST (test_LayoutCreation_LineSegment_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2652,7 +2649,6 @@ START_TEST (test_LayoutCreation_LineSegment_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(ls->getNotes()->equals(notes, true));
-	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
   
@@ -2700,12 +2696,12 @@ START_TEST (test_LayoutCreation_LineSegment_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2737,7 +2733,6 @@ START_TEST (test_LayoutCreation_LineSegment_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(ls->getAnnotation()->equals(aNode, true));
-	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
 }
@@ -2773,12 +2768,12 @@ START_TEST (test_LayoutCreation_CubicBezier)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2818,10 +2813,7 @@ START_TEST (test_LayoutCreation_CubicBezier)
 	fail_unless(base2->getYOffset()==17.0);
 	fail_unless(base2->getZOffset()==0.0);
   
-	delete pListOfLayouts;
 	delete stream;
-  
-  
 }
 END_TEST
 
@@ -2860,12 +2852,12 @@ START_TEST (test_LayoutCreation_CubicBezier_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -2908,10 +2900,8 @@ START_TEST (test_LayoutCreation_CubicBezier_notes)
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(cb->getNotes()->equals(notes, true)==true);
   
-	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
-  
 }
 END_TEST
 
@@ -2958,12 +2948,12 @@ START_TEST (test_LayoutCreation_CubicBezier_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3006,7 +2996,6 @@ START_TEST (test_LayoutCreation_CubicBezier_annotation)
 	XMLInputStream *stream2= new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(cb->getAnnotation()->equals(aNode, true)==true);
-	delete pListOfLayouts;
 	delete stream2;
 	delete stream;
 }
@@ -3028,12 +3017,12 @@ START_TEST (test_LayoutCreation_Dimensions)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3044,9 +3033,7 @@ START_TEST (test_LayoutCreation_Dimensions)
 	fail_unless(dimensions->getHeight()==400.5);
 	fail_unless(dimensions->getDepth()==455.2);
   
-	delete pListOfLayouts;
 	delete stream;
-  
 }
 END_TEST
 
@@ -3073,12 +3060,12 @@ START_TEST (test_LayoutCreation_Dimensions_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3093,7 +3080,7 @@ START_TEST (test_LayoutCreation_Dimensions_notes)
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(dimensions->getNotes()->equals(notes, true)==true);
   
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -3131,12 +3118,12 @@ START_TEST (test_LayoutCreation_Dimensions_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3151,7 +3138,7 @@ START_TEST (test_LayoutCreation_Dimensions_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(dimensions->getAnnotation()->equals(aNode, true)==true);
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -3176,12 +3163,12 @@ START_TEST (test_LayoutCreation_Dimensions_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3192,7 +3179,7 @@ START_TEST (test_LayoutCreation_Dimensions_skipOptional)
 	fail_unless(dimensions->getHeight()==400.5);
 	fail_unless(dimensions->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -3223,12 +3210,12 @@ START_TEST (test_LayoutCreation_BoundingBox)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3255,7 +3242,7 @@ START_TEST (test_LayoutCreation_BoundingBox)
 	fail_unless(dimensions2->getWidth()==200.5);
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==100.2);
-	delete pListOfLayouts;
+
 	delete stream;
   
 }
@@ -3290,12 +3277,12 @@ START_TEST (test_LayoutCreation_BoundingBox_notes)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3324,7 +3311,7 @@ START_TEST (test_LayoutCreation_BoundingBox_notes)
 	XMLInputStream *stream2 = new XMLInputStream(NOTES.c_str(),false);
 	XMLNode notes=XMLNode(*stream2);
 	fail_unless(bb->getNotes()->equals(notes, true)==true);
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -3368,12 +3355,12 @@ START_TEST (test_LayoutCreation_BoundingBox_annotation)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3403,7 +3390,7 @@ START_TEST (test_LayoutCreation_BoundingBox_annotation)
 	XMLInputStream *stream2 = new XMLInputStream(a,false);
 	XMLNode aNode=XMLNode(*stream2);
 	fail_unless(bb->getAnnotation()->equals(aNode, true)==true);
-	delete pListOfLayouts;
+
 	delete stream2;
 	delete stream;
   
@@ -3434,12 +3421,12 @@ START_TEST (test_LayoutCreation_BoundingBox_skipOptional)
   
 	XMLInputStream *stream=new XMLInputStream(content,false);
 	XMLNode node=XMLNode(*stream);
-	ListOfLayouts* pListOfLayouts=new ListOfLayouts();
-	parseLayoutAnnotation(&node,*pListOfLayouts);
+	ListOfLayouts pListOfLayouts;
+	parseLayoutAnnotation(&node,pListOfLayouts);
   
-	fail_unless(pListOfLayouts->size()==1);
+	fail_unless(pListOfLayouts.size()==1);
   
-	Layout* l=(Layout*)pListOfLayouts->get(0);
+	Layout* l=(Layout*)pListOfLayouts.get(0);
   
 	fail_unless(l!=NULL);
   
@@ -3465,7 +3452,7 @@ START_TEST (test_LayoutCreation_BoundingBox_skipOptional)
 	fail_unless(dimensions2->getHeight()==400.5);
 	fail_unless(dimensions2->getDepth()==0.0);
   
-	delete pListOfLayouts;
+
 	delete stream;
   
 }

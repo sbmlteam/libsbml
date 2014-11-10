@@ -402,10 +402,10 @@ START_TEST(test_GraphicalObject_readL2FileWithRenderAnnotation)
 
   free(xml);
 
-  char* saved = writeSBMLToString(doc);
+  std::string saved = writeSBMLToStdString(doc);
 
   delete doc;
-  doc = readSBMLFromString(saved);
+  doc = readSBMLFromString(saved.c_str());
   fail_unless(doc->getModel() != NULL);
   fail_unless(doc->getErrorLog()->getNumErrors() == 0);
 

@@ -6050,17 +6050,19 @@ SBase::toXMLNode()
 {
   char* rawsbml = toSBML();
   SBMLNamespaces *sbmlns = getSBMLNamespaces();
-  XMLNamespaces* xmlns = sbmlns->getNamespaces()->clone();
+  XMLNamespaces xmlns(*sbmlns->getNamespaces());
   // in rare cases the above returns a package element with default namespace, however the
   // XMLNamespaces would then assign the actual default namespace, which is in most cases
   // the SBML namespace. In that case we adjust the default namespace here
   ISBMLExtensionNamespaces *extns = dynamic_cast<ISBMLExtensionNamespaces*>(sbmlns);
   if (extns != NULL)
   {
-    xmlns->remove("");
-    xmlns->add(xmlns->getURI(extns->getPackageName()), "");
+    xmlns.remove("");
+    xmlns.add(xmlns.getURI(extns->getPackageName()), "");
   }
-  return XMLNode::convertStringToXMLNode(rawsbml, xmlns);
+  XMLNode* ret = XMLNode::convertStringToXMLNode(rawsbml, &xmlns);
+  safe_free(rawsbml);
+  return ret;
 }
 
 
