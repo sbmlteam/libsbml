@@ -438,7 +438,7 @@ main (int argc, char* argv[])
 
   testThisDataDir = testDataDir + "/" + "sbml-unit-constraints";
   failed += runTests( "Testing Unit Consistency Constraints (10500 - 10599)",
-		      testThisDataDir, 0, 0, runUnitTest, library);
+		      testThisDataDir, 10500, 10599, runUnitTest, library);
 
   testThisDataDir = testDataDir + "/" + "sbml-modeldefinition-constraints";
   failed += runTests( "Testing Overdetermined Constraints (10600 - 10699)",
