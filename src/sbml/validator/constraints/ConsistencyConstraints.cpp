@@ -2096,11 +2096,6 @@ START_CONSTRAINT (99129, AssignmentRule, ar)
   pre (m.getLevel() == 1);
   pre (ar.isSetFormula() == 1);
 
-  //msg =
-  //  "In a Level 1 model only predefined functions are permitted "
-  //   "within the KineticLaw formula. (L1V2 Appendix C)";
-
-
   FormulaTokenizer_t * ft = 
     FormulaTokenizer_createFromFormula (ar.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);
@@ -2115,6 +2110,7 @@ START_CONSTRAINT (99129, AssignmentRule, ar)
    * need to check whether it is defined
    */
   bool fail = false;
+  bool logFailure = false;
   while (t->type != TT_END)
   {
     if (t->type == TT_NAME)
@@ -2182,12 +2178,16 @@ START_CONSTRAINT (99129, AssignmentRule, ar)
       }
     }
 
-    inv (fail == false);
+    if (fail == true)
+    {
+      logFailure = true;
+    }
     Token_free(t);
     t = FormulaTokenizer_nextToken(ft);
   }
-  FormulaTokenizer_free(ft);
   Token_free(t);
+  FormulaTokenizer_free(ft);
+  inv (logFailure == false);
 }
 END_CONSTRAINT
 
@@ -2196,11 +2196,6 @@ START_CONSTRAINT (99129, RateRule, rr)
 {
   pre (m.getLevel() == 1);
   pre (rr.isSetFormula() == 1);
-
-  //msg =
-  //  "In a Level 1 model only predefined functions are permitted "
-  //   "within the KineticLaw formula. (L1V2 Appendix C)";
-
 
   FormulaTokenizer_t * ft = 
     FormulaTokenizer_createFromFormula (rr.getFormula().c_str());
@@ -2216,6 +2211,7 @@ START_CONSTRAINT (99129, RateRule, rr)
    * need to check whether it is defined
    */
   bool fail = false;
+  bool logFailure = false;
   while (t->type != TT_END)
   {
     if (t->type == TT_NAME)
@@ -2283,9 +2279,16 @@ START_CONSTRAINT (99129, RateRule, rr)
       }
     }
 
-    inv (fail == false);
+    if (fail == true)
+    {
+      logFailure = true;
+    }
+    Token_free(t);
     t = FormulaTokenizer_nextToken(ft);
   }
+  Token_free(t);
+  FormulaTokenizer_free(ft);
+  inv (logFailure == false);
 }
 END_CONSTRAINT
 
