@@ -375,6 +375,7 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     mStyle                = rhs.mStyle;
     mIsBvar               = rhs.mIsBvar;
     mUserData             = rhs.mUserData;
+    freeName();
     if (rhs.mName)
     {
       mName = safe_strdup(rhs.mName);
