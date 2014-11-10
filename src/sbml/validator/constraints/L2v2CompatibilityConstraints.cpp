@@ -276,18 +276,18 @@ START_CONSTRAINT (91017, Model, x)
   const UnitDefinition * ud = m.getUnitDefinition(extent);
   if (ud != NULL)
   {
-    UnitDefinition *ud1 = new UnitDefinition(m.getSBMLNamespaces());
+    UnitDefinition ud1(m.getSBMLNamespaces());
     for (unsigned int i = 0; i < ud->getNumUnits(); i++)
     {
-      Unit * u = new Unit(m.getSBMLNamespaces());
-      u->setKind(ud->getUnit(i)->getKind());
-      u->setScale(ud->getUnit(i)->getScale());
-      u->setExponent(ud->getUnit(i)->getExponent());
-      u->setMultiplier(ud->getUnit(i)->getMultiplier());
-      ud1->addUnit(u);
+      Unit u(m.getSBMLNamespaces());
+      u.setKind(ud->getUnit(i)->getKind());
+      u.setScale(ud->getUnit(i)->getScale());
+      u.setExponent(ud->getUnit(i)->getExponent());
+      u.setMultiplier(ud->getUnit(i)->getMultiplier());
+      ud1.addUnit(&u);
     }
   
-    inv( ud1->isVariantOfSubstance());
+    inv( ud1.isVariantOfSubstance());
   }
   else
   {
