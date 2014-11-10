@@ -397,6 +397,11 @@ main (int argc, char* argv[])
 
   string prefix(".");
 
+  char *srcdir = getenv("srcdir");
+  if (srcdir != NULL) 
+  {
+    prefix = srcdir;
+  }
   if (argc == 2)
   {
     prefix = argv[1];
