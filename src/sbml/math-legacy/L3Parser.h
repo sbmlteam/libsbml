@@ -205,7 +205,7 @@ SBML_getLastParseL3Error();
 
 LIBSBML_EXTERN
 void
-SBML_freeL3Parser();
+SBML_deleteL3Parser();
 
 /** @endcond */
 

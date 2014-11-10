@@ -293,7 +293,7 @@ L3Parser* L3Parser_getInstance()
   if (l3p == NULL)
   {
     l3p = new L3Parser();
-    std::atexit(SBML_freeL3Parser);
+    std::atexit(SBML_deleteL3Parser);
   }
   return l3p;
 }
@@ -2912,7 +2912,7 @@ SBML_getLastParseL3Error()
 
 LIBSBML_EXTERN
 void
-SBML_freeL3Parser()
+SBML_deleteL3Parser()
 {
   if (l3p!=NULL) 
   {

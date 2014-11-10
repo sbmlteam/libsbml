@@ -305,7 +305,7 @@ START_TEST (test_L3FormulaFormatter_isGrouped)
 
   ASTNode_free(p);
   
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -398,7 +398,7 @@ START_TEST (test_SBML_formulaToL3String)
     safe_free(s);
   }
   
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -519,7 +519,7 @@ START_TEST (test_SBML_formulaToL3String_L1toL3)
   safe_free(s);
   ASTNode_free(n);
   
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -617,7 +617,7 @@ START_TEST (test_SBML_formulaToL3String_L2toL3)
   safe_free(s);
   ASTNode_free(n);
   
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 

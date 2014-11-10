@@ -983,7 +983,7 @@ START_TEST (test_MathMLFormatter_apply_cn_units)
 
   fail_unless( equals(expected, S) );
 
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 

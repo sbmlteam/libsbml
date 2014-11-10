@@ -58,7 +58,7 @@ START_TEST (test_SBML_C_parseL3Formula_1)
   fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -73,7 +73,7 @@ START_TEST (test_SBML_C_parseL3Formula_2)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -89,7 +89,7 @@ START_TEST (test_SBML_C_parseL3Formula_3)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -104,7 +104,7 @@ START_TEST (test_SBML_C_parseL3Formula_4)
   fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -133,7 +133,7 @@ START_TEST (test_SBML_C_parseL3Formula_5)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -162,7 +162,7 @@ START_TEST (test_SBML_C_parseL3Formula_6)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -203,7 +203,7 @@ START_TEST (test_SBML_C_parseL3Formula_7)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -243,7 +243,7 @@ START_TEST (test_SBML_C_parseL3Formula_8)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -289,7 +289,7 @@ START_TEST (test_SBML_C_parseL3Formula_9)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -336,7 +336,7 @@ START_TEST (test_SBML_C_parseL3Formula_10)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -383,7 +383,7 @@ START_TEST (test_SBML_C_parseL3Formula_11)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -435,7 +435,7 @@ START_TEST (test_SBML_C_parseL3Formula_12)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -450,7 +450,7 @@ START_TEST (test_SBML_C_parseL3Formula_13)
   fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -472,7 +472,7 @@ START_TEST (test_SBML_C_parseL3Formula_14)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -500,7 +500,7 @@ START_TEST (test_SBML_C_parseL3Formula_15)
   fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -552,7 +552,7 @@ START_TEST (test_SBML_C_parseL3Formula_16)
   fail_unless( ASTNode_getNumChildren(c) == 0 , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -566,7 +566,7 @@ START_TEST (test_SBML_C_parseL3Formula_17)
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input '1//1' at position 3:  syntax error, unexpected '/'"), NULL);
   safe_free(error);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -580,7 +580,7 @@ START_TEST (test_SBML_C_parseL3Formula_18)
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input '1+2*3 4' at position 7:  syntax error, unexpected integer"), NULL);
   safe_free(error);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -601,7 +601,7 @@ START_TEST (test_SBML_C_parseL3Formula_negInf)
   fail_unless( ASTNode_getNumChildren(c)      ==  0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -622,7 +622,7 @@ START_TEST (test_SBML_C_parseL3Formula_negZero)
   fail_unless( ASTNode_getNumChildren(c)          == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -637,7 +637,7 @@ START_TEST (test_SBML_C_parseL3Formula_e1)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -653,7 +653,7 @@ START_TEST (test_SBML_C_parseL3Formula_e2)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -669,7 +669,7 @@ START_TEST (test_SBML_C_parseL3Formula_e3)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -685,7 +685,7 @@ START_TEST (test_SBML_C_parseL3Formula_e4)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -701,7 +701,7 @@ START_TEST (test_SBML_C_parseL3Formula_e5)
 
   ASTNode_free(r);
   safe_free(error);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -716,7 +716,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational1)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -734,7 +734,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational2)
 
   ASTNode_free(r);
   safe_free(units);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -760,7 +760,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational3)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -786,7 +786,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational4)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -812,7 +812,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational5)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -842,7 +842,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational6)
 
   ASTNode_free(r);
   safe_free(units);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -857,7 +857,7 @@ START_TEST (test_SBML_C_parseL3Formula_rational7)
   error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input '(3/4.4) ml' at position 10:  syntax error, unexpected element name"), NULL );
   safe_free(error);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -868,7 +868,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants1)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_TRUE, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -879,7 +879,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants2)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_FALSE, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -890,7 +890,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants3)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_PI, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -901,7 +901,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants4)
   fail_unless( ASTNode_getType       (r) == AST_CONSTANT_E, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -912,7 +912,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants5)
   fail_unless( ASTNode_getType       (r) == AST_NAME_AVOGADRO, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -923,7 +923,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants6)
   fail_unless( ASTNode_getType       (r) == AST_NAME_TIME, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -935,7 +935,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants7)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -947,7 +947,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants8)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -959,7 +959,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants9)
   fail_unless( util_isInf(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -971,7 +971,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants10)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -983,7 +983,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants11)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -995,7 +995,7 @@ START_TEST (test_SBML_C_parseL3Formula_constants12)
   fail_unless( util_isNaN(ASTNode_getReal(r)) ==  1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1008,7 +1008,7 @@ START_TEST (test_SBML_C_parseL3Formula_modulo)
   fail_unless( !strcmp(s, "piecewise(x - y * ceil(x / y), xor(lt(x, 0), lt(y, 0)), x - y * floor(x / y))"), NULL );
   ASTNode_free(r);
   safe_free(s);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1033,7 +1033,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML1)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1058,7 +1058,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML2)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1083,7 +1083,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML3)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1108,7 +1108,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML4)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1133,7 +1133,7 @@ START_TEST (test_SBML_C_parseL3Formula_oddMathML5)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1150,7 +1150,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent1)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1168,7 +1168,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent2)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1186,7 +1186,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent3)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1204,7 +1204,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent4)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1223,7 +1223,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent5)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1242,7 +1242,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent6)
   fail_unless( ASTNode_getNumChildren(r) == 0  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1260,7 +1260,7 @@ START_TEST (test_SBML_C_parseL3Formula_modelPresent7)
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
   Model_free(model);
 }
 END_TEST
@@ -1311,7 +1311,7 @@ START_TEST (test_SBML_C_parseL3Formula_arguments)
   fail_unless( !strcmp(error, "Error when parsing input 'power()' at position 7:  The function 'power' takes exactly two arguments, but 0 were found."), NULL );
   safe_free(error);
 
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1352,7 +1352,7 @@ START_TEST (test_SBML_C_parseL3Formula_logic1)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1392,7 +1392,7 @@ START_TEST (test_SBML_C_parseL3Formula_logic2)
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1480,7 +1480,7 @@ START_TEST (test_SBML_C_parseL3Formula_precedence)
   fail_unless( ASTNode_getNumChildren(left) == 0, NULL );
 
   ASTNode_free(root);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1556,7 +1556,7 @@ START_TEST (test_SBML_C_parseL3Formula_parselogsettings)
 
   safe_free(error);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1613,7 +1613,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings1)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1670,7 +1670,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings2)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1754,7 +1754,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings3)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1838,7 +1838,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings4)
 
   ASTNode_free(r);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1890,7 +1890,7 @@ START_TEST (test_SBML_C_parseL3Formula_collapseminussettings5)
   ASTNode_free(r);
 
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1920,7 +1920,7 @@ START_TEST (test_SBML_C_parseL3Formula_avogadrosettings)
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
   ASTNode_free(r);
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
@@ -1961,7 +1961,7 @@ START_TEST (test_SBML_C_parseL3Formula_unitssettings)
   ASTNode_free(r);
 
   L3ParserSettings_free(settings);
-  // SBML_freeL3Parser();
+  // SBML_deleteL3Parser();
 }
 END_TEST
 
