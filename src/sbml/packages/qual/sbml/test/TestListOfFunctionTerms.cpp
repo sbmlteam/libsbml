@@ -176,6 +176,7 @@ START_TEST(test_ListOfFunctionTerms_clone)
   fail_unless(g2->size()   == 1);
   
   delete g2;
+  delete ast;
 }
 END_TEST
 
