@@ -1243,6 +1243,8 @@ UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1,
 
       if (util_isEqual(multiplier1, multiplier2) == false)
       {
+        delete ud1Temp;
+        delete ud2Temp;
         return identical;
       }
     }

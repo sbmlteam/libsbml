@@ -1021,6 +1021,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
                 exponent = unit->getExponent();
                 unit->setExponentUnitChecking(exponent * -1);
                 ud->addUnit(unit);
+                delete unit;
               }
             }
           }

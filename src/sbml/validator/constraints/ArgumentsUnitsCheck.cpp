@@ -284,7 +284,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   }
 
   UnitDefinition * ud;
-  UnitDefinition * tempUD;
+  UnitDefinition * tempUD = NULL;
   unsigned int n;
   unsigned int i = 0;
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
