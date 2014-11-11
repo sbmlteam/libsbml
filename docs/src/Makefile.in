@@ -294,24 +294,23 @@ distfiles =                                                  \
         libsbml-accessing.txt                                \
         libsbml-api-guide.txt                                \
         libsbml-basics-of-extensions.txt                     \
-        libsbml-extending.txt                                \
-        libsbml-blurb.html                                   \
         libsbml-coding.txt                                   \
         libsbml-communications.txt                           \
         libsbml-csharp-example-files.txt                     \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
         libsbml-downloading.txt                              \
-        libsbml-example.txt                                  \
         libsbml-example-c.txt                                \
-        libsbml-example-files.txt                            \
         libsbml-example-files-c.txt                          \
+        libsbml-example-files.txt                            \
+        libsbml-example.txt                                  \
+        libsbml-extending.txt                                \
         libsbml-extension-support-classes.txt                \
-        libsbml-help.txt                                     \
-        libsbml-installation-guide.txt                       \
         libsbml-features.txt                                 \
         libsbml-groups.txt                                   \
+        libsbml-help.txt                                     \
         libsbml-howto-implement-extension.txt                \
+        libsbml-installation-guide.txt                       \
         libsbml-installation.txt                             \
         libsbml-issues.txt                                   \
         libsbml-java-bottom.html                             \
@@ -321,6 +320,7 @@ distfiles =                                                  \
         libsbml-java-example-top.html                        \
         libsbml-java-fake-overview.html                      \
         libsbml-java-footer.html                             \
+        libsbml-java-installation-guide.html                 \
         libsbml-java-math.html                               \
         libsbml-java-misc.html                               \
         libsbml-java-overview.html                           \
@@ -337,13 +337,13 @@ distfiles =                                                  \
         libsbml-octave-mainpage.txt                          \
         libsbml-octave-reading-files.txt                     \
         libsbml-other.txt                                    \
-        libsbml-papers.html                                  \
-        libsbml-programming-csharp.txt                       \
+        libsbml-programming.txt                              \
         libsbml-python-creating-model.txt                    \
         libsbml-python-example-files.txt                     \
         libsbml-python-reading-files.txt                     \
         libsbml-reading-files.txt                            \
         libsbml-release-info.txt                             \
+        libsbml-sbml-specifications.txt                      \
         python-substitutions/ASTNodeList.py                  \
         python-substitutions/SBaseList.py                    \
         python-substitutions/CVTermList.py                   \
@@ -550,8 +550,8 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
-#  $(call doxygen_indexing_pass,$(1),$(2),$(3))
 define run_doxygen
+  $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 
