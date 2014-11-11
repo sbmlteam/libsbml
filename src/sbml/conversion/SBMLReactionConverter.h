@@ -200,7 +200,7 @@ public:
 private:
 
   ASTNode * createRateRuleMathForSpecies(const std::string& spId,
-                                         Reaction * rn);
+                                         Reaction * rn, bool isReactant);
 
 
   ASTNode* determineStoichiometryNode(SpeciesReference * sr,

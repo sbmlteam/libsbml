@@ -218,7 +218,7 @@ SBMLReactionConverter::convert()
     for (unsigned int prod = 0; prod < rn->getNumProducts(); prod++)
     {
       const std::string speciesId = rn->getProduct(prod)->getSpecies();
-      ASTNode * math = createRateRuleMathForSpecies(speciesId, rn);
+      ASTNode * math = createRateRuleMathForSpecies(speciesId, rn, false);
       if (math != NULL)
       {
         mRateRulesMap.push_back(make_pair(speciesId, math));
@@ -232,7 +232,7 @@ SBMLReactionConverter::convert()
     for (unsigned int react = 0; react < rn->getNumReactants(); react++)
     {
       const std::string speciesId = rn->getReactant(react)->getSpecies();
-      ASTNode * math = createRateRuleMathForSpecies(speciesId, rn);
+      ASTNode * math = createRateRuleMathForSpecies(speciesId, rn, true);
       if (math != NULL)
       {
         mRateRulesMap.push_back(make_pair(speciesId, math));
@@ -272,7 +272,7 @@ SBMLReactionConverter::convert()
 
 ASTNode *
 SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId, 
-                                                    Reaction *rn)
+                                               Reaction *rn, bool isReactant)
 {
   ASTNode * math = NULL;
 
@@ -286,13 +286,10 @@ SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId,
 
   // need to work out stoichiometry
   ASTNode * stoich;
-  bool isReactant = true;
-   
-  SpeciesReference * sr = rn->getProduct(spId);
-  if (sr == NULL)
+  
+  if (isReactant == true)
   {
-    sr = rn->getReactant(spId);
-
+    SpeciesReference * sr = rn->getReactant(spId);
     if (sr == NULL)
     {
       // this should not happen but lets catch it if we can
@@ -305,9 +302,17 @@ SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId,
   }
   else
   {
-    isReactant = false;
-    stoich = determineStoichiometryNode(sr, isReactant);
-  }
+    SpeciesReference * sr = rn->getProduct(spId);
+    if (sr == NULL)
+    {
+      // this should not happen but lets catch it if we can
+      return NULL;
+    }
+    else
+    {
+      stoich = determineStoichiometryNode(sr, isReactant);
+    }
+  }   
 
   ASTNode* conc_per_time = NULL;
 
