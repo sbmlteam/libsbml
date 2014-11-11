@@ -516,6 +516,7 @@ INPUT_ENCODING         = UTF-8
 INPUT =                                    \
   libsbml-accessing.txt                    \
   libsbml-api-guide.txt                    \
+  libsbml-basics-of-extensions.txt         \
   libsbml-coding.txt                       \
   libsbml-communications.txt               \
   libsbml-converters.txt                   \
