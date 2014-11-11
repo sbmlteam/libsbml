@@ -333,7 +333,6 @@ distfiles =                                                  \
         libsbml-math.txt                                     \
         libsbml-matlab-reading-files.txt                     \
         libsbml-news.txt                                     \
-        libsbml-octave-mainpage.txt                          \
         libsbml-octave-reading-files.txt                     \
         libsbml-other.txt                                    \
         libsbml-programming.txt                              \

@@ -34,6 +34,9 @@ the table of contents on the left side.
 @if matlab
 - @subpage libsbml-matlab-reading-files
 @endif
+@if octave
+- @subpage libsbml-octave-reading-files
+@endif
 @htmlinclude doxygen-regular-text-end.html
 
 */

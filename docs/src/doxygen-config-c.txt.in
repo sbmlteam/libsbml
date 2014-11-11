@@ -51,6 +51,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 #   conly:     only C
 #   clike:     C, C++
 #   matlab:    only MATLAB
+#   octave:   only Octave
 
 ENABLED_SECTIONS       = clike conly doxygenCOnly doxygenCLikeOnly
 

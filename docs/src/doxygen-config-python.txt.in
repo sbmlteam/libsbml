@@ -69,6 +69,7 @@ PREDEFINED             = __cplusplus  \
 #   conly:    only C
 #   clike:    C, C++
 #   matlab:   only MATLAB
+#   octave:   only Octave
 
 ENABLED_SECTIONS       = python doxygenPythonOnly hasDefaultArgs
 
