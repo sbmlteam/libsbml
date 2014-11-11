@@ -197,7 +197,6 @@ distfiles =                                                  \
         common-text/libsbml-communications.html              \
         common-text/libsbml-downloading.html.in              \
         common-text/libsbml-doxygen.html                     \
-        common-text/libsbml-doxygen.html                     \
         common-text/libsbml-facility-only-warning.html       \
         common-text/libsbml-features.html                    \
         common-text/libsbml-group-comp-intro.html.in         \
@@ -214,6 +213,7 @@ distfiles =                                                  \
         common-text/libsbml-import-for-r.html		     \
         common-text/libsbml-installation.html.in             \
         common-text/libsbml-issues.html                      \
+        common-text/libsbml-papers.html                      \
 	common-text/libsbml-setting-library-path.html        \
         common-text/libsbml-version.html.in                  \
         common-text/listof-illustration.html                 \
