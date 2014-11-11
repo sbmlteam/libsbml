@@ -48,8 +48,8 @@ if (WITH_DOXYGEN)
   
       "${CUR_BIN_DIRECTORY}/generate-class-name-list.py"
       "${SRC_DIRECTORY}/src"
-      >
-      "${CUR_BIN_DIRECTORY}/class-list.txt"
+
+      OUTPUT_FILE "${CUR_BIN_DIRECTORY}/class-list.txt"
   )
 
   message("Creating libsbml-converters.txt")
@@ -58,7 +58,8 @@ if (WITH_DOXYGEN)
 
       "${CUR_BIN_DIRECTORY}/generate-converters-list.py"
       "${CUR_BIN_DIRECTORY}/class-list.txt"
-      >
+    
+    OUTPUT_FILE 
       "${CUR_BIN_DIRECTORY}/libsbml-converters.txt"
   )
 
