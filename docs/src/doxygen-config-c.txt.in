@@ -50,6 +50,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 #   csharp:    only C#
 #   conly:     only C
 #   clike:     C, C++
+#   matlab:    only MATLAB
 
 ENABLED_SECTIONS       = clike conly doxygenCOnly doxygenCLikeOnly
 
