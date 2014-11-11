@@ -23,8 +23,8 @@ STABLE RELEASE
   - The SBMLDocument class now has an 'isSetModel()' function.
   
   - There is a new writSBMLToStdString() function that returns a 
-    std::string rather than a const char *. This facilitates cleaner
-    memory management.
+    std::string rather than a char * that has to be freed by the caller. 
+    This facilitates cleaner memory management.
     
   - The errors reported by OutputSBML in the MATLAB binding have been
     extended to provide more information about the specific field
@@ -77,7 +77,7 @@ STABLE RELEASE
     
   - The getDerivedUnitDefinition function returns a pointer to an
     existing unitDefinition object maintained by the model.  However
-    in teh case of a Parameter a new unitDefinition object was being
+    in the case of a Parameter a new unitDefinition object was being
     created, thus causing an inconsistency when it comes to freeing
     memory. This has now been corrected and 
     Parameter::getDerivedUnitDefinition now returns an existing pointer.
