@@ -52,18 +52,11 @@ else()
 file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-version-specific.txt "")
 endif()
 
-# configure installation html file
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-installation.html.in
-	${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-installation.html
-)
-
 # configure java documentation file
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/src/java-substitutions/libsbmlConstants.java.in
 	${CMAKE_CURRENT_SOURCE_DIR}/src/java-substitutions/libsbmlConstants.java
 )
-
 
 # disable dot if we don't have it
 set(HAVE_DOT)
@@ -77,6 +70,12 @@ else()
 endif()
 
 set(PACKAGE_NAME "libSBML")
+
+set(LOGO_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-32.jpg
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-40.jpg
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-70.png
+)
 
 # replace variables as needed
 foreach( lang "common" "c" "cpp" "perl" "python" "csharp")
@@ -102,11 +101,11 @@ macro(createManual lang)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api output_path)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api/search search_path)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/official-sbml-supported-40.jpg logo_file)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/common-graphics/right-arrow.gif right_arrow)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/right-arrow-2x.png right_arrow)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/sbml.js sbml_js)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-tabs.css tabs_css)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/search.png search_png)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/search.css search_css)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.png search_png)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/css/search.css search_css)
 
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/doxygen-config-${lang}.txt api_doc)
 
