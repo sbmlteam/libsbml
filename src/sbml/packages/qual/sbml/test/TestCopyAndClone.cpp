@@ -54,7 +54,19 @@ LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 
-static QualPkgNamespaces* GNS = new QualPkgNamespaces();
+static QualPkgNamespaces* GNS;
+
+void
+QualCopyClone_setup()
+{
+  GNS = new QualPkgNamespaces();
+}
+
+void
+QualCopyClone_teardown()
+{
+  delete GNS;
+}
 
 START_TEST ( test_Input_copyConstructor )
 {
@@ -491,6 +503,10 @@ create_suite_CopyAndClone (void)
 {
   Suite *suite = suite_create("CopyAndClone");
   TCase *tcase = tcase_create("CopyAndClone");
+
+  tcase_add_checked_fixture(tcase,
+                            QualCopyClone_setup,
+                            QualCopyClone_teardown);
 
   tcase_add_test( tcase, test_Input_copyConstructor );
   tcase_add_test( tcase, test_Input_assignmentOperator );
