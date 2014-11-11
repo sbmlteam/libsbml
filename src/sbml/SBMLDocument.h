@@ -1104,9 +1104,10 @@ public:
    */
   const SBMLError* getError (unsigned int n) const;
 
+
   /**
-   * Returns the nth error or warning with the given severity 
-   * encountered during parsing, consistency checking, or attempted 
+   * Returns the nth error or warning with the given severity
+   * encountered during parsing, consistency checking, or attempted
    * translation of this model.
    *
    * @return the error or warning indexed by integer @p n, or return @c
@@ -1118,6 +1119,7 @@ public:
    * @see SBMLDocument::getNumErrors()
    */
   const SBMLError* getErrorWithSeverity(unsigned int n, unsigned int severity) const;
+
 
   /**
    * Returns the number of errors or warnings encountered during parsing,
@@ -1172,6 +1174,7 @@ public:
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
+
   /**
     * Prints all the errors or warnings with the given severity encountered 
     * trying to parse, check, or translate this SBML document.
@@ -1197,6 +1200,7 @@ public:
     * @see SBMLDocument::getErrorWithSeverity(unsigned int n, unsigned int severity)
     */
   void printErrors(std::ostream& stream, unsigned int severity) const;
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
