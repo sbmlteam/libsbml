@@ -189,13 +189,13 @@ distfiles =                                                  \
         common-text/force-serif-font-on.html                 \
         common-text/level-1-uses-text-string-math.html       \
         common-text/libsbml-authors.html                     \
+        common-text/libsbml-blurb.html                       \
         common-text/libsbml-coding-copydetails-example.html  \
         common-text/libsbml-coding-copydoc-example.html      \
         common-text/libsbml-coding-enum-text-example.html    \
         common-text/libsbml-coding-link-example.html         \
         common-text/libsbml-communications.html              \
         common-text/libsbml-downloading.html.in              \
-        common-text/libsbml-downloading.txt                  \
         common-text/libsbml-doxygen.html                     \
         common-text/libsbml-doxygen.html                     \
         common-text/libsbml-facility-only-warning.html       \
@@ -293,6 +293,7 @@ distfiles =                                                  \
         java-substitutions/libsbmlConstants.java.in          \
         libsbml-accessing.txt                                \
         libsbml-api-guide.txt                                \
+        libsbml-basics-of-extensions.txt                     \
         libsbml-extending.txt                                \
         libsbml-blurb.html                                   \
         libsbml-coding.txt                                   \
@@ -300,6 +301,7 @@ distfiles =                                                  \
         libsbml-csharp-example-files.txt                     \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
+        libsbml-downloading.txt                              \
         libsbml-example.txt                                  \
         libsbml-example-c.txt                                \
         libsbml-example-files.txt                            \

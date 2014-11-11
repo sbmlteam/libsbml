@@ -1,8 +1,0 @@
-/** @page libsbml-changes Version history
-
-@htmlinclude doxygen-regular-text-start.html
-- @subpage libsbml-news
-- @subpage libsbml-old-news
-@htmlinclude doxygen-regular-text-end.html
-
-*/

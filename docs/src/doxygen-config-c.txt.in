@@ -91,7 +91,6 @@ EXAMPLE_PATH           = common-text . ../.. ../../examples/c \
 
 INPUT =                                    \
   libsbml-accessing.txt                    \
-  libsbml-changes.txt                      \
   libsbml-coding.txt                       \
   libsbml-communications.txt               \
   libsbml-core-versus-packages.txt         \
@@ -108,7 +107,6 @@ INPUT =                                    \
   libsbml-mainpage.txt                     \
   libsbml-math.txt                         \
   libsbml-news.txt                         \
-  libsbml-old-news.txt                     \
   libsbml-other.txt                        \
   libsbml-release-info.txt                 \
   libsbml-programming.txt                  \
