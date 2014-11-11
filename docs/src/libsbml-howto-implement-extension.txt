@@ -1,4 +1,4 @@
-/** @page libsbml-howto-implement-extension.html How to implement a package extension
+/** @page libsbml-howto-implement-extension.html Step by step summary of the implementation of an extension
 
 This section describes the summary of how to implement a package extension for libSBML-5.
 (Note that since libSBML-5 is currently in development stage the API described in this
