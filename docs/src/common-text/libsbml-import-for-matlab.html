@@ -1,16 +1,12 @@
 <h4>MATLAB on Linux, Mac&nbsp;OS X and similar Unix-like systems</h4>
 
-<p> The first configuration step necessary is to make sure that your
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> environment
-variable (see the <a href="libsbml-installation.html#accessing">relevant
-section in the installation instructions</a>) is set to the directory where
-the libSBML shared library object is installed.  When the MATLAB bindings are
-enabled in libSBML, this directory is also the same one where the additional
+<p> The installation directory is also the same one where the additional
 files <code>TranslateSBML</code>.<em>extension</em>,
 <code>OutputSBML</code>.<em>extension</em> and <code>CheckAndConvert.m</code>
 will have been placed.  These files implement the MATLAB interface to
-libSBML.  The <code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>
-environment variable must be set in the terminal shell from which MATLAB is
+libSBML.  On Linux and Unix-based systems including Mac&nbsp;OS&nbsp;X, the
+<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code> environment
+variable may need to be set in the terminal shell from which MATLAB is
 started prior to starting MATLAB.  (Otherwise, MATLAB itself will not "see"
 the value of the variable.)
 
