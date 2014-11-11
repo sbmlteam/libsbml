@@ -128,10 +128,10 @@ macro(createManual lang)
 		ARGS -E copy
 			${sbml_js}
 			${output_path}
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			${tabs_css}
-			${output_path}
+#		COMMAND "${CMAKE_COMMAND}"
+#		ARGS -E copy
+#			${tabs_css}
+#			${output_path}
 		COMMAND "${CMAKE_COMMAND}"
 		ARGS -E copy
 			${search_png}
@@ -167,7 +167,7 @@ if (WITH_PYTHON)
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml.py
 		COMMAND ${PYTHON_EXECUTABLE}
-		ARGS    pythondocpreprocessor.py
+		ARGS    ${CMAKE_CURRENT_SOURCE_DIR}/src/utilities/pythondocpreprocessor.py
 				${CMAKE_CURRENT_BINARY_DIR}/../src/bindings/python/libsbml-doxygen.py  
 				libsbml.py
 				${PYTHON_SUBSTITUTIONS}
@@ -244,20 +244,18 @@ if (WITH_JAVA)
 		COMMAND ${Java_JAVA_EXECUTABLE}
 		ARGS  -cp "${Java_JAVADOC_JAR}${FILE_SEP}${current_dir}"
 		      SBMLDoclet
+			  -use -public -version -author -sourcetab 4 -keywords -nohelp
+			  -link http://docs.oracle.com/javase/1.6.0/docs/api
+			  -tag note:a:"Note:"
+			  -tag warning:a:"Warning:"
 			  -excludefile java-skip.txt
-			  -use -public -version -author -sourcetab 4 -keywords
-			  -link http://java.sun.com/j2se/1.5.0/docs/api
-			  -nodeprecated
 			  -header "${LIBSBML_JAVADOC_HEADER}"
 			  -bottom "${LIBSBML_JAVADOC_FOOTER}"
 			  -windowtitle ${LIBSBML_JAVADOC_WINDOWTITLE}
 			  -doctitle ${LIBSBML_JAVADOC_DOCTITLE}
 			  -overview libsbml-java-fake-overview.html
-			  -stylesheetfile doxygen-base-stylesheet.css
+			  -stylesheetfile css/libsbml-javadoc-stylesheet.css
 			  -d ${output_dir}
-			  -tag note:a:"Note:"
-	          -tag warning:a:"Warning:"
-	          -tag docnote:a:"Documentation note:"
 	          -sourcepath ${java_dir} org.sbml.libsbml
 		COMMENT "Generate Java-API Documentation"
 		VERBATIM
@@ -273,10 +271,10 @@ if (WITH_JAVA)
 			"${sbml_js}"
 			"${output_dir}"
 
-		COMMAND "${CMAKE_COMMAND}"
-		ARGS -E copy
-			"${tabs_css}"
-			"${output_dir}"
+#		COMMAND "${CMAKE_COMMAND}"
+#		ARGS -E copy
+#			"${tabs_css}"
+#			"${output_dir}"
 
 #		COMMAND "${CMAKE_COMMAND}"
 #		ARGS -E copy

@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# File name         : doxyfile-cpp.txt
+# File name         : doxyfile-config-c.txt
 # Description       : Doxygen config for C libSBML API manual 
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
@@ -49,10 +49,8 @@ OPTIMIZE_OUTPUT_FOR_C  = YES
 #   csharp:   only C#
 #   conly:    only C
 #   clike:    C, C++
-#   notcpp:   not C++
-#   notclike: not C or C++
 
-ENABLED_SECTIONS       = clike doxygenCOnly doxygenCLikeOnly notcpp
+ENABLED_SECTIONS       = clike conly doxygenCOnly doxygenCLikeOnly
 
 # When TYPEDEF_HIDES_STRUCT is enabled, a typedef of a struct, union, or enum
 # is documented as struct, union, or enum with the name of the typedef. So
@@ -87,8 +85,80 @@ PREDEFINED             = LIBSBML_EXTERN:="" \
 			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
 			 LIBSBML_CPP_NAMESPACE_END:="" 
 
-EXAMPLE_PATH           = common-text examples . ../.. ../../examples/c \
+EXAMPLE_PATH           = common-text . ../.. ../../examples/c \
                          ../../examples/c/comp
+
+INPUT =                                    \
+  libsbml-accessing.txt                    \
+  libsbml-changes.txt                      \
+  libsbml-coding.txt                       \
+  libsbml-communications.txt               \
+  libsbml-core-versus-packages.txt         \
+  libsbml-example-c.txt                    \
+  libsbml-example-files-c.txt              \
+  libsbml-extending.txt                    \
+  libsbml-extension-support-classes.txt    \
+  libsbml-features.txt                     \
+  libsbml-groups.txt                       \
+  libsbml-howto-implement-extension.txt    \
+  libsbml-installation.txt                 \
+  libsbml-issues.txt                       \
+  libsbml-license.txt                      \
+  libsbml-mainpage.txt                     \
+  libsbml-math.txt                         \
+  libsbml-news.txt                         \
+  libsbml-old-news.txt                     \
+  libsbml-other.txt                        \
+  libsbml-release-info.txt                 \
+  libsbml-programming.txt                  \
+  libsbml-reading-files.txt                \
+  ../../src/sbml/annotation                \
+  ../../src/sbml/common                    \
+  ../../src/sbml/conversion                \
+  ../../src/sbml/extension                 \
+  ../../src/sbml/math                      \
+  ../../src/sbml/util                      \
+  ../../src/sbml/validator                 \
+  ../../src/sbml                           \
+  ../../src/sbml/xml                       \
+  ../../src/sbml/packages/comp/common      \
+  ../../src/sbml/packages/comp/extension   \
+  ../../src/sbml/packages/comp/sbml        \
+  ../../src/sbml/packages/comp/util        \ 
+  ../../src/sbml/packages/comp/validator   \
+  ../../src/sbml/packages/fbc/common       \
+  ../../src/sbml/packages/fbc/extension    \
+  ../../src/sbml/packages/fbc/sbml         \
+  ../../src/sbml/packages/fbc/util         \ 
+  ../../src/sbml/packages/fbc/validator    \
+  ../../src/sbml/packages/layout/common    \
+  ../../src/sbml/packages/layout/extension \
+  ../../src/sbml/packages/layout/sbml      \
+  ../../src/sbml/packages/layout/util      \ 
+  ../../src/sbml/packages/layout/validator \
+  ../../src/sbml/packages/qual/common      \
+  ../../src/sbml/packages/qual/extension   \
+  ../../src/sbml/packages/qual/sbml        \
+  ../../src/sbml/packages/qual/validator
+
+EXCLUDE += ../../src/sbml/common/sbmlfwd.h \
+           ../../src/sbml/packages/comp/common/compfwd.h
+
+# The INPUT_FILTER tag can be used to specify a program that doxygen should 
+# invoke to filter for each input file. Doxygen will invoke the filter program 
+# by executing (via popen()) the command <filter> <input-file>, where <filter> 
+# is the value of the INPUT_FILTER tag, and <input-file> is the name of an 
+# input file. Doxygen will then use the output that the filter program writes 
+# to standard output.
+
+INPUT_FILTER = ./filters/doc-filter-c.py
+
+# If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
+# INPUT_FILTER ) will also be used to filter the input files that are used for
+# producing the source files to browse (i.e. when SOURCE_BROWSER is set to
+# YES).
+
+FILTER_SOURCE_FILES = YES
 
 LAYOUT_FILE = doxygen-layout-c.xml
 
@@ -97,9 +167,3 @@ COLLABORATION_GRAPH = NO
 GROUP_GRAPHS = YES
 
 INLINE_SIMPLE_STRUCTS = YES
-
-ALIASES += sbmldefgroup{2}="@defgroup \1 \2"
-ALIASES += sbmlingroup{1}="@ingroup \1 \n\
-@{"
-ALIASES += sbmlendgroup="@}"
-

@@ -48,20 +48,33 @@ BUILTIN_STL_SUPPORT    = YES
 # omitted =1 is assumed.
 
 PREDEFINED             = __cplusplus  \
-		         LIBSBML_EXTERN:="" \
-			 BEGIN_C_DECLS:="" \
-			 END_C_DECLS:="" \
-			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
-			 LIBSBML_CPP_NAMESPACE_END:="" \
-			 SWIG=1 \
+		         LIBSBML_EXTERN= \
+			 BEGIN_C_DECLS= \
+			 END_C_DECLS= \
+			 LIBSBML_CPP_NAMESPACE_BEGIN= \
+			 LIBSBML_CPP_NAMESPACE_END= \
+                         SWIG \
 			 doxygen_ignore
 
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       = cpp clike doxygenCppOnly
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
+
+ENABLED_SECTIONS       = cpp clike doxygenCppOnly hasDefaultArgs
 
 # Use this opportunity to generate man pages too.
 # Note: The output has a lot of errors.  Can't enable just yet.
 # GENERATE_MAN           = YES
 
+EXAMPLE_PATH           = common-text . ../.. ../../examples/c++ \
+                         ../../examples/c++/comp ../../examples/c++/layout \
+                         ../../examples/c++/fbc ../../examples/c++/qual 

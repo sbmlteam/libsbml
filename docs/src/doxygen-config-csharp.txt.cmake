@@ -5,7 +5,7 @@
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Original author(s): Frank T. Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
-# -----------------------------------------------------------------------------
+# 
 
 # Include libSBML's common Doxygen settings:
 
@@ -46,21 +46,32 @@ OPTIMIZE_OUTPUT_JAVA   = YES
 
 INPUT =                            \
   libsbml-accessing.txt            \
+  libsbml-changes.txt                   \
   libsbml-coding.txt               \
   libsbml-communications.txt       \
-  libsbml-example.txt              \
+  libsbml-core-versus-packages.txt      \
+  libsbml-extending.txt                 \
+  libsbml-extension-support-classes.txt \
   libsbml-features.txt             \
+  libsbml-groups.txt                    \
+  libsbml-howto-implement-extension.txt \
   libsbml-installation.txt         \
   libsbml-issues.txt               \
   libsbml-license.txt              \
   libsbml-mainpage.txt             \
   libsbml-math.txt                 \
   libsbml-news.txt                 \
-  libsbml-reading-files.txt        \
-  libsbml-uninstallation.txt       \
-  libsbml-extension-support-classes.txt \
-  libsbml-howto-implement-extension.txt \
-  @LIBSBML_ROOT_BINARY_DIR@/src/bindings/csharp/csharp-files/
+  libsbml-old-news.txt                  \
+  libsbml-other.txt                     \
+  libsbml-programming-csharp.txt        \
+  libsbml-csharp-example-files.txt      \
+  libsbml-csharp-mainpage.txt           \
+  libsbml-csharp-math.txt               \
+  libsbml-csharp-reading-files.txt      \
+  libsbml-release-info.txt              \
+  ../../src/bindings/csharp/csharp-files
+
+LAYOUT_FILE = doxygen-layout-csharp.xml
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
@@ -87,13 +98,29 @@ INPUT_FILTER           = ./filters/doc-filter-csharp.py
 
 RECURSIVE              = NO
 
-ENABLED_SECTIONS       = csharp notclike doxygenCsharpOnly
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
 
-# Blank definitions for some constructs used only for some languages.
+ENABLED_SECTIONS       = csharp doxygenCsharpOnly
 
-ALIASES += sbmldefgroup{2}=""
-ALIASES += sbmlingroup{1}=""
-ALIASES += sbmlendgroup=""
+# Ignore some symbols from the output
+#
+# 2011-04-12 <mhucka@caltech.edu> Using this to hide some classes that we
+# don't expose outside of the core.
+
+EXCLUDE_SYMBOLS         +=  \
+  ElementFilter \
+  ISBMLExtensionNamespaces \
+  SBMLExtension            \
+  SBMLTransforms           \
+  SBaseExtensionPoint
 
 EXCLUDE +=  \
   ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs                                   \
@@ -102,3 +129,8 @@ EXCLUDE +=  \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs                          \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
   ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
+
+EXAMPLE_PATH           = common-text . ../.. ../../examples/csharp \
+                         ../../examples/csharp/comp ../../examples/csharp/layout \
+                         ../../examples/csharp/fbc ../../examples/csharp/qual 
+
