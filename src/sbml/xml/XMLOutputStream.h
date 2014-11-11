@@ -852,8 +852,27 @@ protected:
 
 /** @endcond */
 
-
 /** @cond doxygenLibsbmlInternal */
+
+class LIBLAX_EXTERN XMLOwningOutputStringStream : public XMLOutputStringStream
+{
+public:
+
+  /**
+   * Creates a new XMLOutputStream that wraps stream.
+   *
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+   */
+  XMLOwningOutputStringStream (  const std::string&  encoding     = "UTF-8"
+                               , bool                writeXMLDecl = true
+                               , const std::string&  programName  = ""
+                               , const std::string&  programVersion = "");
+
+  virtual ~XMLOwningOutputStringStream();
+
+};
+
+/** @endcond */
 
 class LIBLAX_EXTERN XMLOutputFileStream : public XMLOutputStream
 {
@@ -874,6 +893,32 @@ public:
 
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+
+class LIBLAX_EXTERN XMLOwningOutputFileStream : public XMLOutputFileStream
+{
+public:
+
+  /**
+   * Creates a new XMLOutputStream that wraps stream.
+   *
+   * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
+   */
+  XMLOwningOutputFileStream (  const std::string&  filename
+                             , const std::string&  encoding     = "UTF-8"
+                             , bool                writeXMLDecl = true
+                             , const std::string&  programName  = ""
+                             , const std::string&  programVersion = "");
+
+  virtual ~XMLOwningOutputFileStream();
+
+};
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_END
 

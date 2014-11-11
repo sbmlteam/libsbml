@@ -1092,17 +1092,46 @@ XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
   setStringStream();
 }
 
+XMLOwningOutputStringStream::XMLOwningOutputStringStream (  const std::string&  encoding
+                               , bool                writeXMLDecl
+                               , const std::string&  programName
+                               , const std::string&  programVersion)
+  : XMLOutputStringStream(*(new std::ostringstream), encoding, writeXMLDecl, programName, programVersion)
+{
+  
+}
+
+XMLOwningOutputStringStream::~XMLOwningOutputStringStream()
+{
+  delete &mStream;
+}
+
 
 XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
                    , const std::string&  encoding
                    , bool                writeXMLDecl
                    , const std::string&  programName
-                   , const std::string&  programVersion):
-  XMLOutputStream(stream, encoding, writeXMLDecl, 
+                   , const std::string&  programVersion)
+  : XMLOutputStream(stream, encoding, writeXMLDecl, 
                     programName, programVersion)
 {
 }
 
+XMLOwningOutputFileStream::XMLOwningOutputFileStream (  
+                               const std::string&  filename
+                             , const std::string&  encoding
+                             , bool                writeXMLDecl
+                             , const std::string&  programName
+                             , const std::string&  programVersion)
+  : XMLOutputFileStream( *(new std::ofstream(filename.c_str(), std::ios::out)), 
+                         encoding, writeXMLDecl, programName, programVersion)
+{
+}
+
+XMLOwningOutputFileStream::~XMLOwningOutputFileStream()
+{
+  delete &mStream;
+}
 
 #endif /* __cplusplus */
 
@@ -1133,9 +1162,7 @@ XMLOutputStream_createAsString (const char * encoding, int writeXMLDecl)
 {
   if (encoding == NULL) return NULL;
 
-  std::ostringstream *out = new std::ostringstream();
-
-  return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl);
+  return new(nothrow) XMLOwningOutputStringStream(encoding, writeXMLDecl);
 }
 
 
@@ -1146,9 +1173,7 @@ XMLOutputStream_createAsStringWithProgramInfo (const char * encoding,
 {
   if (encoding == NULL) return NULL;
 
-  std::ostringstream *out = new std::ostringstream();
-
-  return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl,
+  return new(nothrow) XMLOwningOutputStringStream(encoding, writeXMLDecl,
                              programName, programVersion);
 }
 
@@ -1160,12 +1185,8 @@ XMLOutputStream_createFile (const char * filename, const char * encoding,
 {
   if (filename == NULL || encoding == NULL) return NULL;
 
-  std::ofstream *fout = new std::ofstream(filename, std::ios::out);
-  
   XMLOutputStream_t * out = new(nothrow) 
-                           XMLOutputFileStream(*fout, encoding, writeXMLDecl);
-
-  delete fout;
+                           XMLOwningOutputFileStream(filename, encoding, writeXMLDecl);
 
   return out;
 }
@@ -1179,14 +1200,10 @@ XMLOutputStream_createFileWithProgramInfo (const char * filename,
 {
   if (filename == NULL || encoding == NULL) return NULL;
 
-  std::ofstream *fout = new std::ofstream(filename, std::ios::out);
-
   XMLOutputStream_t * out = new(nothrow) 
-                           XMLOutputFileStream(*fout, encoding, writeXMLDecl,
+                           XMLOwningOutputFileStream(filename, encoding, writeXMLDecl,
                            programName, programVersion);
-
-  delete fout;
-
+  
   return out;
 }
 
