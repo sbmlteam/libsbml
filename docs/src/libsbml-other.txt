@@ -5,7 +5,9 @@ libSBML itself, to add extensions or make other improvements.
 
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-coding
+@if clike
 - @subpage libsbml-extending
+@endif
 @htmlinclude doxygen-regular-text-end.html
 
 */
