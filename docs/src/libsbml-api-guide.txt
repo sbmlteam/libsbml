@@ -14,6 +14,12 @@ the table of contents on the left side.
 - @subpage libsbml-example
 - @subpage libsbml-example-files
 @endif
+@if conly
+- @subpage libsbml-reading-files
+- @subpage libsbml-math
+- @subpage libsbml-example
+- @subpage libsbml-example-files-c
+@endif
 @if python
 - @subpage libsbml-python-reading-files
 - @subpage libsbml-math
@@ -25,11 +31,8 @@ the table of contents on the left side.
 - @subpage libsbml-csharp-math
 - @subpage libsbml-csharp-example-files
 @endif
-@if conly
-- @subpage libsbml-reading-files
-- @subpage libsbml-math
-- @subpage libsbml-example
-- @subpage libsbml-example-files-c
+@if matlab
+- @subpage libsbml-matlab-reading-files
 @endif
 @htmlinclude doxygen-regular-text-end.html
 

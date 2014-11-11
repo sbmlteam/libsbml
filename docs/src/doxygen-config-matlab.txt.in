@@ -33,20 +33,28 @@ HTML_OUTPUT            = ../formatted/matlab-api
 
 ALPHABETICAL_INDEX = NO
 
+ENABLED_SECTIONS = matlab
+
 SOURCE_BROWSER = NO
 
 LAYOUT_FILE = doxygen-layout-notcpp.xml
 
 INPUT =                            \
   libsbml-accessing.txt            \
+  libsbml-api-guide.txt            \
+  libsbml-downloading.txt          \
+  libsbml-other.txt                \
+  libsbml-coding.txt               \
+  libsbml-help.txt                 \
   libsbml-communications.txt       \
   libsbml-features.txt             \
+  libsbml-installation-guide.txt   \
   libsbml-installation.txt         \
   libsbml-issues.txt               \
   libsbml-license.txt              \
-  libsbml-matlab-mainpage.txt      \
+  libsbml-mainpage.txt             \
   libsbml-matlab-reading-files.txt \
-  libsbml-release-info.txt         \
+  libsbml-sbml-specifications.txt  \
   libsbml-news.txt
 
 SEARCHENGINE = NO

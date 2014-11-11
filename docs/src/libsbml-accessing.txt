@@ -52,6 +52,11 @@ apply to different interface languages.
 @htmlinclude libsbml-import-for-csharp.html
 
 @endif
+@if matlab
 
+@section config-software 2. Importing libSBML
+@htmlinclude libsbml-import-for-matlab.html
+
+@endif
 
 */
