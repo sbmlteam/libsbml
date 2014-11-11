@@ -331,7 +331,6 @@ distfiles =                                                  \
         libsbml-license.txt                                  \
         libsbml-mainpage.txt                                 \
         libsbml-math.txt                                     \
-        libsbml-matlab-mainpage.txt                          \
         libsbml-matlab-reading-files.txt                     \
         libsbml-news.txt                                     \
         libsbml-octave-mainpage.txt                          \
