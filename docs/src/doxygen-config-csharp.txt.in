@@ -54,18 +54,14 @@ INPUT =                                 \
   libsbml-csharp-math.txt               \
   libsbml-csharp-reading-files.txt      \
   libsbml-downloading.txt               \
-  libsbml-extending.txt                 \
-  libsbml-extension-support-classes.txt \
   libsbml-features.txt                  \
   libsbml-groups.txt                    \
   libsbml-help.txt                      \
-  libsbml-howto-implement-extension.txt \
   libsbml-installation-guide.txt        \
   libsbml-installation.txt              \
   libsbml-issues.txt                    \
   libsbml-license.txt                   \
   libsbml-mainpage.txt                  \
-  libsbml-math.txt                      \
   libsbml-news.txt                      \
   libsbml-other.txt                     \
   libsbml-programming-csharp.txt        \
