@@ -68,6 +68,7 @@ PREDEFINED             = __cplusplus  \
 #   csharp:   only C#
 #   conly:    only C
 #   clike:    C, C++
+#   matlab:   only MATLAB
 
 ENABLED_SECTIONS       = python doxygenPythonOnly hasDefaultArgs
 
