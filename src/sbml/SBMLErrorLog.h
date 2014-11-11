@@ -140,7 +140,7 @@ public:
    *
    * Index @p n is counted from 0.  Callers should first inquire about the
    * number of items in the log by using the
-   * @if java XMLErrorLog::getNumFailsWithSeverity()@else getNumFailsWithSeverity()@endif@~ method.
+   * @if java SBMLErrorLog::getNumFailsWithSeverity(long severity)@else getNumFailsWithSeverity()@endif@~ method.
    * Attempts to use an error index number that exceeds the actual number
    * of errors in the log will result in a @c NULL being returned.
    *
@@ -150,7 +150,7 @@ public:
    *
    * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
    * greater than or equal to
-   * @if java XMLErrorLog::getNumFailsWithSeverity()@else getNumFailsWithSeverity()@endif.
+   * @if java SBMLErrorLog::getNumFailsWithSeverity(long severity)@else getNumFailsWithSeverity()@endif.
    *
    * @see getNumFailsWithSeverity(unsigned int severity)
    */
