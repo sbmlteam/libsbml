@@ -371,10 +371,11 @@ SBMLError::SBMLError (  const unsigned int errorId
         mShortMessage = sbext->getShortMessage(index);
         mPackage = package;
         mErrorIdOffset = sbext->getErrorIdOffset();
-        delete sbext;
       }
       mSeverityString = stringForSeverity(mSeverity);
       mCategoryString = stringForCategory(mCategory);
+      
+      delete sbext;
 
       return;
     }
