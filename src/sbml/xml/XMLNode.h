@@ -306,6 +306,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_XML_OPERATION, OperationReturnValues_t}
    *
    * @note The given node is added at the end of the children list.
