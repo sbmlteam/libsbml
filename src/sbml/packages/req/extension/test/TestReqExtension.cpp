@@ -101,6 +101,8 @@ START_TEST (test_ReqExtension_getSBMLExtensionNamespaces)
   fail_unless(reqns->getVersion()        == 1);
   fail_unless(reqns->getPackageVersion() == 1);
 
+  delete reqns;
+
   reqns = static_cast<ReqPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
 
   fail_unless(reqns == NULL);
@@ -218,6 +220,8 @@ START_TEST(test_ReqExtension_registry)
   fail_unless(sbext->getPackageVersion(REQ_XMLNS_L3V1V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
+
+  delete sbext;
 }
 END_TEST
 
@@ -230,6 +234,8 @@ START_TEST(test_ReqExtension_typecode)
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_REQ_CHANGED_MATH), "ChangedMath") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_REQ_CHANGED_MATH-1), "(Unknown SBML Req Type)") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_REQ_CHANGED_MATH+1), "(Unknown SBML Req Type)") == 0);
+
+  delete sbext;
 }
 END_TEST
 

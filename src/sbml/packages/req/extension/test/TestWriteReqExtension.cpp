@@ -59,11 +59,11 @@ START_TEST (test_ReqExtension_create_and_write_L3V1V1)
 
   // create the document
 
-  SBMLDocument *document = new SBMLDocument(sbmlns);
+  SBMLDocument document = SBMLDocument(sbmlns);
 
   // create the Model
 
-  Model* model=document->createModel();
+  Model* model=document.createModel();
 
   // create the Compartment
 
@@ -77,7 +77,9 @@ START_TEST (test_ReqExtension_create_and_write_L3V1V1)
 
   AssignmentRule* rule = model->createAssignmentRule();
   rule->setVariable("compartment");
-  rule->setMath(SBML_parseFormula("3"));
+  ASTNode * math = SBML_parseFormula("3");
+  rule->setMath(math);
+  delete math;
 
 
   // get the required plugin
@@ -89,27 +91,23 @@ START_TEST (test_ReqExtension_create_and_write_L3V1V1)
   changed->setChangedBy("http://www.sbml.org/sbml/level3/version1/spatial/version1");
   changed->setViableWithoutChange(false);
 
-  char *s1 = writeSBMLToString(document);
+  std::string s1 = writeSBMLToStdString(&document);
 
   // check clone()
 
-  SBMLDocument* document2 = document->clone();
-  char *s2 = writeSBMLToString(document2);
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  SBMLDocument document2 = document;
+  std::string s2 = writeSBMLToStdString(&document2);
+  fail_unless(s1 == s2); 
 
   // check operator=
 
-  Model *m = new Model(document->getSBMLNamespaces()); 
-  m = document->getModel();
-  document2->setModel(m);
-  s2 = writeSBMLToString(document2);
+  Model m = *(document.getModel());
+  document2.setModel(&m);
+  s2 = writeSBMLToStdString(&document2);
+  fail_unless(s1==s2);
+ 
+  delete sbmlns;
 
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
-  delete document2;
-
-  delete document;  
 }
 END_TEST
 

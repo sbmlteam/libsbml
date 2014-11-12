@@ -58,6 +58,7 @@ START_TEST (test_ReqExtension_read_L3V1V1)
   fail_unless(change->getViableWithoutChange() == false);
 
   delete document;  
+  safe_free(filename);
 }
 END_TEST
 
@@ -93,6 +94,8 @@ START_TEST (test_ReqExtension_read_L3V1V1_defaultNS)
   fail_unless(change->getViableWithoutChange() == false);
 
   delete document;  
+  safe_free(filename);
+
 }
 END_TEST
 
