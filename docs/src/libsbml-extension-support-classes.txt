@@ -12,6 +12,7 @@ package extension.  These classes are found in the directory
 @section ext-sbaseextensionpoint SBaseExtensionPoint
 
 @section ext-sbaseplugin SBasePlugin
+@copydetails doc_extension_sbaseplugin
 
 @section ext-sbaseplugincreator SBasePluginCreator
 

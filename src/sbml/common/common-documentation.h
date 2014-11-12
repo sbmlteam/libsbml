@@ -2463,4 +2463,151 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * @li SBMLExtensionException: As its name implies, this is an exception
  * class.  It is the class of exceptions thrown when package extensions
  * encounter exceptions.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbaseplugin
+ *
+ * @par
+ * LibSBML package extensions can extend core objects such as Model using
+ * SBasePlugin as a base class, to hold attributes and/or subcomponents
+ * necessary for the SBML package being implemented.  Package developers must
+ * implement an SBasePlugin extended class for each element to be extended
+ * (e.g., Model, Reaction, and others) where additional attributes and/or
+ * top-level objects of the package extension are directly contained.  The
+ * following subsections detail the basic steps necessary to use SBasePlugin
+ * for the implementation of a class extension.
+ *
+ * @subsection sbp-identify 1. Identify the core SBML components that need to be extended
+ *
+ * The specification for a SBML Level&nbsp;3 package will define the
+ * attributes and subojects that make up the package constructs.  Those
+ * constructs that modify existing SBML core components such as Model,
+ * Reaction, etc., will be the ones that need to be extended using SBasePlugin.
+ *
+ * For example, the Layout package makes additions to Model,
+ * SpeciesReference, and the <code>&lt;sbml&gt;</code> element (which is
+ * represented in libSBML by SBMLDocument).  This means that the Layout
+ * package extension in libSBML needs to define extended versions of Model,
+ * SpeciesReference and SBMLDocument.  Core elements @em other than the SBML
+ * document need to be implemented using SBasePlugin; the document component
+ * must be implemented using SBMLDocumentPlugin instead.
+ *
+ *
+ * @subsection sbp-implement 2. Create a SBasePlugin subclass for each extended SBML component
+ *
+ * A new class definition that subclasses SBasePlugin needs to be created for
+ * each SBML component to be extended by the package.  For instance, the
+ * Layout package needs LayoutModelPlugin and LayoutSpeciesReferencePlugin.
+ * (As mentioned above, the Layout class also needs LayoutSBMLDocumentPlugin,
+ * but this one is implemented using SBMLDocumentPlugin instead of
+ * SBasePlugin.)  Below, we describe in detail the different parts of an
+ * SBasePlugin subclass definition.
+ *
+ * @subsubsection sbp-protected 2.1 Define protected data members
+ *
+ * Data attributes on each extended class in an SBML package will have one of
+ * the data types <code>std::string</code>, <code>double</code>,
+ * <code>int</code>, or <code>bool</code>.  Subelements/subobjects will normally
+ * be derived from the ListOf class or from SBase.
+ *
+ * The additional data members must be properly initialized in the class
+ * constructor, and must be properly copied in the copy constructor and
+ * assignment operator.  For example, the following data member is defined in
+ * the <code>GroupsModelPlugin</code> class (in the file
+ * <code>GroupsModelPlugin.h</code>):
+ * @code
+ListOfGroups mGroups;
+@endcode
+ *
+ * @subsubsection sbp-class-methods 2.2 Override SBasePlugin class-related methods
+ *
+ * The derived class must override the constructor, copy constructor, assignment
+ * operator (<code>operator=</code>) and <code>clone()</code> methods from
+ * SBasePlugin.
+ *
+ *
+ * @subsubsection sbp-methods-attribs 2.3 Override SBasePlugin virtual methods for attributes
+ *
+ * If the extended component is defined by the SBML Level&nbsp;3 package to have
+ * attributes, then the extended class definition needs to override the
+ * following internal methods on SBasePlugin and provide appropriate
+ * implementations:
+ *
+ * @li <code>addExpectedAttributes(ExpectedAttributes& attributes)</code>: This
+ * method should add the attributes that are expected to be found on this kind
+ * of extended component in an SBML file or data stream.
+ *
+ * @li <code>readAttributes(XMLAttributes& attributes, ExpectedAttributes&
+ * expectedAttributes)</code>: This method should read the attributes
+ * expected to be found on this kind of extended component in an SBML file or
+ * data stream.
+ *
+ * @li <code>hasRequiredAttributes()</code>: This method should return @c true
+ * if all of the required attribute for this extended component are present on
+ * instance of the object.
+ *
+ * @li <code>writeAttributes(XMLOutputStream& stream)</code>: This method should
+ * write out the attributes of an extended component.  The implementation should
+ * use the different kinds of <code>writeAttribute</code> methods defined by
+ * XMLOutputStream to achieve this.
+ *
+ *
+ * @subsubsection sbp-methods-elem 2.4 Override SBasePlugin virtual methods for subcomponents
+ *
+ * If the extended component is defined by the Level&nbsp;3 package to have
+ * subcomponents (i.e., full XML elements rather than mere attributes), then the
+ * extended class definition needs to override the following internal
+ * SBasePlugin methods and provide appropriate implementations:
+ *
+ * @li <code>createObject(XMLInputStream& stream)</code>: Subclasses must
+ * override this method to create, store, and then return an SBML object
+ * corresponding to the next XMLToken in the XMLInputStream.  To do this,
+ * implementations can use methods like <code>peek()</code> on XMLInputStream to
+ * test if the next object in the stream is something expected for the package.
+ * For example, LayoutModelPlugin uses <code>peek()</code> to examine the next
+ * element in the input stream, then tests that element against the Layout
+ * namespace and the element name <code>"listOfLayouts"</code> to see if it's
+ * the single subcomponent (ListOfLayouts) permitted on a Model object using the
+ * Layout package.  If it is, it returns the appropriate object.
+ *
+ * @li <code>connectToParent(SBase *sbase)</code>: This creates a parent-child
+ * relationship between a given extended component and its subcomponent(s).
+ *
+ * @li <code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the
+ * parent SBMLDocument object on the subcomponent object instances, so that the
+ * subcomponent instances know which SBMLDocument contains them.
+ *
+ * @li <code>enablePackageInternal(std::string& pkgURI, std::string& pkgPrefix,
+ * bool flag)</code>: This method should enable or disable the subcomponent
+ * based on whether a given XML namespace is active.
+ *
+ * @li <code>writeElements(XMLOutputStream& stream)</code>: This method must be
+ * overridden to provide an implementation that will write out the expected
+ * subcomponents/subelements to the XML output stream.
+ *
+ * @li <code>readOtherXML(SBase* parentObject, XMLInputStream& stream)</code>:
+ * This function should be overridden if elements of annotation, notes, MathML
+ * content, etc., need to be directly parsed from the given XMLInputStream
+ * object.
+ *
+ * @li <code>hasRequiredElements()</code>: This method should return @c true if
+ * a given object contains all the required subcomponents defined by the
+ * specification for that SBML Level&nbsp;3 package.
+ *
+ *
+ * @subsubsection sbp-methods-xmlns 2.5 Override SBasePlugin virtual methods for XML namespaces
+ *
+ * If the package needs to add additional <code>xmlns</code> attributes to
+ * declare additional XML namespace URIs, the extended class should override the
+ * following method:
+ *
+ * @li <code>writeXMLNS(XMLOutputStream& stream)</code>: This method should
+ * write out any additional XML namespaces that might be needed by a package
+ * implementation.
+ *
+ *
+ * @subsubsection sbp-methods-hooks 2.6 Implement additional methods as needed
+ *
+ * Extended component implementations can add whatever additional utility
+ * methods are useful for their implementation.
  */
