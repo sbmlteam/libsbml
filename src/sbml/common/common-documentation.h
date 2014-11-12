@@ -91,6 +91,22 @@
  * all of the functionality available. @endif@~
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_are_xmlnamespaces
+ *
+ * @par
+ * In the XML representation of an SBML document, XML namespaces are used to
+ * identify the origin of each XML construct used.  XML namespaces are
+ * identified by their unique resource identifiers (URIs).  The core SBML
+ * specifications stipulate the namespaces that must be used for core SBML
+ * constructs; for example, all XML elements that belong to SBML Level&nbsp;3
+ * Version&nbsp;1 Core must be placed in the XML namespace identified by the URI
+ * <code>"http://www.sbml.org/sbml/level3/version1/core"</code>.  Individual
+ * SBML Level&nbsp;3 packages define their own XML namespaces; for example,
+ * all elements belonging to the SBML Level&nbsp;3 %Layout Version&nbsp;1
+ * package must be placed in the XML namespace
+ * <code>"http://www.sbml.org/sbml/level3/version1/layout/version1/"</code>.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_sbmlnamespaces
  *
  * @par
