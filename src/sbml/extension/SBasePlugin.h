@@ -42,7 +42,7 @@
  * features of an extended SBML object.
  *
  * Perhaps the easiest way to explain and motivate the role of SBasePlugin is
- * through an example.  The SBML Layout package specifies the existence of an
+ * through an example.  The SBML %Layout package specifies the existence of an
  * element, <code>&lt;listOfLayouts&gt;</code>, contained inside an SBML
  * <code>&lt;model&gt;</code> element.  In terms of libSBML components, this
  * means a new ListOfLayouts class of objects must be defined, and this
@@ -78,38 +78,46 @@ class LIBSBML_EXTERN SBasePlugin
 public:
 
   /**
-   * Destroy this object.
+   * Destroy this SBasePlugin object.
    */
   virtual ~SBasePlugin ();
 
 
   /**
    * Assignment operator for SBasePlugin.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
    */
   SBasePlugin& operator=(const SBasePlugin& orig);
 
 
   /**
-   * Returns the XML namespace (URI) of the package extension
-   * of this plugin object.
+   * Returns the namespace URI of the package to which this plugin object
+   * belongs.
    *
-   * @return the URI of the package extension of this plugin object.
+   * @return the XML namespace URI of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
    */
   const std::string& getElementNamespace() const;
 
 
   /**
-   * Returns the prefix of the package extension of this plugin object.
+   * Returns the XML namespace prefix of the package to which this plugin
+   * object belongs.
    *
-   * @return the prefix of the package extension of this plugin object.
+   * @return the XML namespace prefix of the SBML Level&nbsp;3 package
+   * implemented by this libSBML package extension.
    */
   const std::string& getPrefix() const;
 
 
   /**
-   * Returns the package name of this plugin object.
+   * Returns the short-form name of the package to which this plugin
+   * object belongs.
    *
-   * @return the package name of this plugin object.
+   * @return the short-form package name (or nickname) of the SBML package
+   * implemented by this package extension.
    */
   const std::string& getPackageName() const;
 
@@ -123,26 +131,43 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
+   * Return the first child object found with a given identifier.
    *
-   * @param id string representing the id of objects to find
+   * This method searches all the subobjects under this one, compares their
+   * identifiers to @p id, and returns the first one that machines.  It uses
+   * SBasePlugin::getAllElements(ElementFilter* filter) to get the list of
+   * identifiers, so the order in which identifiers are searched is the order
+   * in which they appear in the results returned by that method.
    *
-   * @return pointer to the first element found with the given @p id.
+   * @param id string representing the identifier of the object to find
+   *
+   * @return pointer to the first object with the given @p id.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
 
   /**
-   * Returns the first child element it can find with the given @p metaid, or @c NULL if no such object is found.
+   * Return the first child object found with a given meta identifier.
    *
-   * @param metaid string representing the metaid of objects to find
+   * This method searches all the subobjects under this one, compares their
+   * meta identifiers to @p metaid, and returns the first one that machines.
    *
-   * @return pointer to the first element found with the given @p metaid.
+   * @param metaid string, the metaid of the object to find.
+   *
+   * @return pointer to the first object found with the given @p metaid.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
+
   /**
-   * Returns a List of all child SBase objects, including those nested to an arbitrary depth
+   * Returns all child objects of this object.
+   *
+   * This returns a List object containing all child SBase objects of this
+   * one, at any nesting depth.  Optionally, callers can supply a filter
+   * that will establish the search criteria for matching objects.
+   *
+   * @param filter an ElementFilter to use for determining the properties
+   * of the objects to be returned.
    *
    * @return a List of pointers to all children objects.
    */
@@ -159,7 +184,10 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Only called from Model::appendFrom, and is intended to be extended for packages that add new things to the Model object.
+   * Takes the contents of the passed-in Model, makes copies of everything,
+   * and appends those copies to the appropriate places in this Model.  Only
+   * called from Model::appendFrom, and is intended to be extended for
+   * packages that add new things to the Model object.
    *
    * @param The Model to merge with this one.
    *
@@ -377,38 +405,50 @@ public:
   virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
+
   // ----------------------------------------------------------
 
 
   /**
-   * Returns the parent SBMLDocument of this plugin object.
+   * Returns the SBMLDocument object containing this object instance.
+   *
+   * @copydetails doc_what_is_SBMLDocument
+   *
+   * This method allows the caller to obtain the SBMLDocument for the
+   * current object.
    *
    * @return the parent SBMLDocument object of this plugin object.
+   *
+   * @see getParentSBMLObject()
    */
   SBMLDocument* getSBMLDocument ();
 
 
   /**
-   * Returns the parent SBMLDocument of this plugin object.
+   * Returns the SBMLDocument object containing this object instance.
+   *
+   * @copydetails doc_what_is_SBMLDocument
+   *
+   * This method allows the caller to obtain the SBMLDocument for the
+   * current object.
    *
    * @return the parent SBMLDocument object of this plugin object.
+   *
+   * @see getParentSBMLObject()
    */
   const SBMLDocument* getSBMLDocument () const;
 
+
   /**
-   * Gets the URI to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core";
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
-   * Version 1 Core must would have the URI
-   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   * Returns the XML namespace URI for the package to which this object belongs.
    *
-   * Unlike getElementNamespace, this function first returns the URI for this
-   * element by looking into the SBMLNamespaces object of the document with
-   * the its package name. if not found it will return the result of
-   * getElementNamespace
+   * @copydetails doc_what_are_xmlnamespaces
    *
-   * @return the URI this elements
+   * This method first looks into the SBMLNamespaces object possessed by the
+   * parent SBMLDocument object of the current object.  If this cannot be
+   * found, this method returns the result of getElementNamespace().
+   *
+   * @return a string, the URI of the XML namespace to which this object belongs.
    *
    * @see getPackageName()
    * @see getElementNamespace()
@@ -419,72 +459,76 @@ public:
 
 
   /**
-   * Returns the parent SBase object to which this plugin
-   * object connected.
+   * Returns the parent object to which this plugin object is connected.
    *
-   * @return the parent SBase object to which this plugin
-   * object connected.
+   * @return the parent object of this object.
    */
   SBase* getParentSBMLObject ();
 
 
   /**
-   * Returns the parent SBase object to which this plugin
-   * object connected.
+   * Returns the parent object to which this plugin object is connected.
    *
-   * @return the parent SBase object to which this plugin
-   * object connected.
+   * @return the parent object of this object.
    */
   const SBase* getParentSBMLObject () const;
 
 
   /**
-   * Sets the XML namespace to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
-   * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core";
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
-   * Version 1 Core must set the namespace to
-   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   * Sets the XML namespace to which this object belongs.
+   *
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @param uri the URI to assign to this object.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   *
+   * @see getElementNamespace()
    */
   int setElementNamespace(const std::string &uri);
 
+
   /**
-   * Returns the SBML level of the package extension of
-   * this plugin object.
+   * Returns the SBML Level of the package extension of this plugin object.
    *
-   * @return the SBML level of the package extension of
-   * this plugin object.
+   * @return the SBML Level.
+   *
+   * @see getVersion()
    */
   unsigned int getLevel() const;
 
 
   /**
-   * Returns the SBML version of the package extension of
+   * Returns the Version within the SBML Level of the package extension of
    * this plugin object.
    *
-   * @return the SBML version of the package extension of
-   * this plugin object.
+   * @return the SBML Version.
+   *
+   * @see getLevel()
    */
   unsigned int getVersion() const;
 
 
   /**
-   * Returns the package version of the package extension of
-   * this plugin object.
+   * Returns the package version of the package extension of this plugin
+   * object.
    *
-   * @return the package version of the package extension of
-   * this plugin object.
+   * @return the package version of the package extension of this plugin
+   * object.
+   *
+   * @see getLevel()
+   * @see getVersion()
    */
   unsigned int getPackageVersion() const;
 
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * If this object has a child 'math' object (or anything with ASTNodes in general), replace all nodes with the name 'id' with the provided function.
+   * If this object has a child 'math' object (or anything with ASTNodes in
+   * general), replace all nodes with the name 'id' with the provided
+   * function.
    *
    * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
    */
@@ -494,37 +538,50 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * If the function of this object is to assign a value has a child 'math' object (or anything with ASTNodes in general), replace  the 'math' object with the function (existing/function).
+   * If the function of this object is to assign a value has a child 'math'
+   * object (or anything with ASTNodes in general), replace the 'math' object
+   * with the function (existing/function).
    *
    * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
    */
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
-   * If this assignment assigns a value to the 'id' element, replace the 'math' object with the function (existing*function).
+   * If this assignment assigns a value to the 'id' element, replace the
+   * 'math' object with the function (existing*function).
    */
   virtual void multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Check to see if the given prefix is used by any of the IDs defined by extension elements.  A package that defines its own 'id' attribute for a core element would check that attribute here.
+   * Check to see if the given prefix is used by any of the IDs defined by
+   * extension elements.  A package that defines its own 'id' attribute for a
+   * core element would check that attribute here.
    */
   virtual bool hasIdentifierBeginningWith(const std::string& prefix);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Add the given string to all identifiers in the object.  If the string is added to anything other than an id or a metaid, this code is responsible for tracking down and renaming all *idRefs in the package extention that identifier comes from.
+   * Add the given string to all identifiers in the object.  If the string is
+   * added to anything other than an id or a metaid, this code is responsible
+   * for tracking down and renaming all *idRefs in the package extention that
+   * identifier comes from.
    */
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   virtual int transformIdentifiers(IdentifierTransformer* sidTransformer);
   /** @endcond */
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -553,6 +610,7 @@ public:
   unsigned int getLine() const;
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Returns the column number on which this object first appears in the XML
@@ -580,10 +638,12 @@ public:
   unsigned int getColumn() const;
   /** @endcond */
 
+
   /** @cond doxygenLibsbmlInternal */
   /* gets the SBMLnamespaces - internal use only*/
   virtual SBMLNamespaces * getSBMLNamespaces() const;
   /** @endcond */
+
 
   // -----------------------------------------------
   //
@@ -599,7 +659,6 @@ public:
                                  const unsigned int sbmlLevel,
  			         const unsigned int sbmlVersion,
 			         const unsigned int pkgVersion );
-
   /** @endcond */
 
 
