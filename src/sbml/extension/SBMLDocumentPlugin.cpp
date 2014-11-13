@@ -53,7 +53,7 @@ SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string &uri,
 }
 
 
-/**
+/*
  * Copy constructor. Creates a copy of this SBase object.
  */
 SBMLDocumentPlugin::SBMLDocumentPlugin(const SBMLDocumentPlugin& orig)
@@ -64,12 +64,12 @@ SBMLDocumentPlugin::SBMLDocumentPlugin(const SBMLDocumentPlugin& orig)
 }
 
 
-/**
+/*
  * Destroy this object.
  */
 SBMLDocumentPlugin::~SBMLDocumentPlugin () {}
 
-/**
+/*
  * Assignment operator for SBMLDocumentPlugin.
  */
 SBMLDocumentPlugin&
@@ -86,7 +86,7 @@ SBMLDocumentPlugin::operator=(const SBMLDocumentPlugin& orig)
 }
 
 
-/**
+/*
  * Creates and returns a deep copy of this SBMLDocumentPlugin object.
  *
  * @return a (deep) copy of this SBase object
@@ -107,7 +107,7 @@ SBMLDocumentPlugin::clone () const
 
 /** @cond doxygenLibsbmlInternal */
 
-/**
+/*
  * Subclasses should override this method to get the list of
  * expected attributes.
  * This function is invoked from corresponding readAttributes()
@@ -201,7 +201,7 @@ SBMLDocumentPlugin::checkConsistency()
 /** @endcond */
 
 
-/**
+/*
  *
  *  (EXTENSION) Additional public functions
  *
