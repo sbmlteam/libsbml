@@ -2820,4 +2820,16 @@ ListOfGroups mGroups;
  *
  * Extended SBMLDocumentPlugin implementations can add whatever additional
  * utility methods are useful for their implementation.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbmlextensionexception
+ *
+ * @par
+ * Certain situations can result in an exception being thrown by libSBML
+ * package extensions.  A prominent example involves the constructor for
+ * SBMLNamespaces (and its subclasses), which will throw
+ * SBMLExtensionException if the arguments it is given refer to an unknown
+ * SBML Level&nbsp;3 package.  The situation can arise for legitimate SBML
+ * files if the necessary package extension has not been registered with
+ * a given copy of libSBML.
  */

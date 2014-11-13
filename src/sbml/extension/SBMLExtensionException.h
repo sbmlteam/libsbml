@@ -1,8 +1,8 @@
 /**
  * @file    SBMLExtensionException.h
- * @brief   SBMLExtensionExceptions class, the exception class for package extension
+ * @brief   Class of exceptions thrown in some situations.
  * @author  Akiya Jouraku
- * 
+ *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -12,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -31,7 +31,11 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtensionException
- * @sbmlbrief{core} Exceptions thrown by SBML Level 3 package plug-ins.
+ * @sbmlbrief{core} Exception used by package extensions
+ *
+ * @copydetails doc_extension_sbmlextensionexception
+ *
+ * @see SBMLNamespaces
  */
 
 #ifndef SBMLExtensionException_h
@@ -46,19 +50,23 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- * An exception class for SBMLExtensionException.
- */
 class LIBSBML_EXTERN SBMLExtensionException : public std::invalid_argument
 {
 public:
 
-  /** 
-   * constructor 
+  /**
+   * Creates a new SBMLExtensionException object with a given message.
+   *
+   * @param errmsg a string, the text of the error message to store
+   * with this exception
    */
   SBMLExtensionException (const std::string& errmsg) throw();
 
+
 #ifndef SWIG
+  /**
+   * Destroys this object.
+   */
   virtual ~SBMLExtensionException () throw();
 #endif
 };
