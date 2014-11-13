@@ -2194,7 +2194,7 @@ END_TEST
 
 START_TEST (test_convert_henry_litre_8)
 {
-  SBMLUnitsConverter units();
+  SBMLUnitsConverter units;
   SBMLDocument d(3, 1);
   Model * m = d.createModel();
   Parameter *p = m->createParameter();
