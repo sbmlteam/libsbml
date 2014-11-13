@@ -229,7 +229,10 @@ void
 ConversionProperties::addOption(const ConversionOption &option)
 {
   if (&option == NULL) return;
-  mOptions.insert(pair<string, ConversionOption*>( option.getKey(), option.clone()));
+  ConversionOption *old = removeOption(option.getKey());
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(option.getKey(), option.clone()));
 }
 
 void 
@@ -237,37 +240,55 @@ ConversionProperties::addOption(const std::string& key, const std::string& value
     ConversionOptionType_t type, 
     const std::string& description)
 {
-  mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, type, description) ));
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(key, new ConversionOption(key, value, type, description)));
 }
 void 
 ConversionProperties::addOption(const std::string& key, const char* value, 
     const std::string& description)
 {
-  mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(key, new ConversionOption(key, value, description)));
 }
 void 
 ConversionProperties::addOption(const std::string& key, bool value, 
     const std::string& description)
 {
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
   mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
 }
 void 
 ConversionProperties::addOption(const std::string& key, double value, 
     const std::string& description)
 {
-  mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(key, new ConversionOption(key, value, description)));
 }
 void 
 ConversionProperties::addOption(const std::string& key, float value, 
     const std::string& description)
 {
-  mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(key, new ConversionOption(key, value, description)));
 }
 void 
 ConversionProperties::addOption(const std::string& key, int value, 
     const std::string& description)
 {
-  mOptions.insert(pair<string, ConversionOption*>( key, new ConversionOption(key, value, description) ));
+  ConversionOption *old = removeOption(key);
+  if (old != NULL) delete old;
+
+  mOptions.insert(pair<string, ConversionOption*>(key, new ConversionOption(key, value, description)));
 }
 
 ConversionOption* 
