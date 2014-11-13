@@ -103,7 +103,7 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    */
-  SBMLDocumentPlugin& operator=(const SBMLDocumentPlugin& orig);
+  SBMLDocumentPlugin& operator=(const SBMLDocumentPlugin& rhs);
 
 
   /**
