@@ -2194,9 +2194,9 @@ END_TEST
 
 START_TEST (test_convert_henry_litre_8)
 {
-  SBMLUnitsConverter * units = new SBMLUnitsConverter();
-  SBMLDocument *d = new SBMLDocument(3, 1);
-  Model * m = d->createModel();
+  SBMLUnitsConverter units();
+  SBMLDocument d(3, 1);
+  Model * m = d.createModel();
   Parameter *p = m->createParameter();
   p->setId("c");
   p->setValue(3.0);
@@ -2215,19 +2215,19 @@ START_TEST (test_convert_henry_litre_8)
   u1->setMultiplier(0.5);
   u1->setExponent(-2.0);
 
-  units->setDocument(d);
+  units.setDocument(&d);
 
   /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
   /* 1 litre = 0.001 m^3*/
   /* 3 ((2.3H)^2) ((0.5l)^-2) = 63480000 m^-2 kg^2 s^-4 A^-4 */
-  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (units.convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 63480000) == true);
-  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+      equalDouble(d.getModel()->getParameter(0)->getValue(), 63480000) == true);
+  fail_unless (d.getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
-  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+  fail_unless (d.getModel()->getNumUnitDefinitions() == 1);
 
-  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  UnitDefinition *ud = d.getModel()->getUnitDefinition(0);
   fail_unless(ud->getId() == "unitSid_0");
   fail_unless(ud->getNumUnits() == 4);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
@@ -2247,8 +2247,6 @@ START_TEST (test_convert_henry_litre_8)
   fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
   fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -4.0) == true);
 
-  delete units;
-  delete d;
 }
 END_TEST
 
