@@ -375,6 +375,7 @@ examples =                                                          \
 
 rbindings =                                           \
   src/bindings/r/CMakeLists.txt                       \
+  src/bindings/r/swig-binding.cmake                   \
   src/bindings/r/DESCRIPTION.in                       \
   src/bindings/r/NAMESPACE                            \
   src/bindings/r/libsbml.i                            \
