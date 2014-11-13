@@ -353,7 +353,8 @@ ArraysExtension::init()
 
   arraysExtension.addSBasePluginCreator(&sbmldocPluginCreator);
   arraysExtension.addSBasePluginCreator(&sbasePluginCreator);
-  arraysExtension.setASTBasePlugin(new ArraysASTPlugin(getXmlnsL3V1V1()));
+  ArraysASTPlugin arrays(getXmlnsL3V1V1());
+  arraysExtension.setASTBasePlugin(&arrays);
 
   //----------------------------------------------------------------
   //
