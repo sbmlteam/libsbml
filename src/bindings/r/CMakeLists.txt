@@ -202,37 +202,35 @@ update_cfile(
    "${DOWNCAST_EXTENSION}"
 )
 
-#
-# Remove SWIG wrappers if requested
-#
-if (LIBSBML_REMOVE_WRAPPERS)
-  foreach(file 
-    ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
-  )
-    if (EXISTS ${file})
-      FILE(REMOVE ${file})
-    endif()
-  endforeach()
-endif(LIBSBML_REMOVE_WRAPPERS)
 
-ADD_CUSTOM_COMMAND(	
+# munge argument lists to string, so that they can safely passed along
+SET(SWIG_ARGS)
+foreach(arg ${SWIG_EXTRA_ARGS} ${SWIG_EXTRA_FLAGS})
+if (NOT UNIX)
+  set(SWIG_ARGS "${SWIG_ARGS} ${arg}")
+else()
+  list(APPEND SWIG_ARGS ${arg})
+endif()
+endforeach()
+
+add_custom_command(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	       ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
-    COMMAND "${SWIG_EXECUTABLE}"
-    ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-			-I${CMAKE_CURRENT_SOURCE_DIR} 
-			-I${LIBSBML_ROOT_BINARY_DIR}/src
-			-I${LIBSBML_ROOT_SOURCE_DIR}/src
-			-I${LIBSBML_ROOT_SOURCE_DIR}/include
-			-c++
-			-r
-			${SWIG_EXTRA_ARGS}		 
-			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+    COMMAND "${CMAKE_COMMAND}"
+    ARGS	-DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		 -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		 -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		 -DSRC_DIRECTORY=\"${LIBSBML_ROOT_SOURCE_DIR}\"
+		 -DCMAKE_COMMAND=\"${CMAKE_COMMAND}\"
+		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		 -DSWIG_SWIGDOCDEFINES=\"${DOC_ARGS}\"
+		 -DSWIG_ARGS=\"${SWIG_ARGS}\"
+		 -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
+		 -DLIBSBML_REMOVE_WRAPPERS=${LIBSBML_REMOVE_WRAPPERS}
+		 -P "${CMAKE_CURRENT_SOURCE_DIR}/swig-binding.cmake"
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${SWIG_DEPENDENCIES}
-    COMMENT "Swig R source") 
+    COMMENT "Swig: R Bindings") 
 
 add_custom_target(binding_r_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 
