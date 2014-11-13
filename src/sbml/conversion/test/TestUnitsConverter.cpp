@@ -57,7 +57,12 @@ extern char *TestDataDirectory;
 static bool
 equalDouble (double a, double b)
 {
-  return (fabs(a-b) < sqrt(util_epsilon()));
+  bool result = fabs(a-b) < 1e-6;// sqrt(util_epsilon());
+  if (!result)
+    cerr << "not equal: " << a << " vs " << b 
+         << " difference: " << fabs(a-b)
+         << endl;
+  return result;
 }
 
 
