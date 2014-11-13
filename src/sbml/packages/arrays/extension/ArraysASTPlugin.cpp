@@ -968,11 +968,25 @@ ArraysASTPlugin::getASTType() const
   }
 }
 
+#define GET_NUM_CHILDREN(result,node) \
+{\
+  ASTFunctionBase* tmp = dynamic_cast<ASTFunctionBase*>(node);\
+  if (tmp != NULL) result= tmp->getNumChildren(); \
+  else\
+  {\
+    ASTNode* tmp2 = dynamic_cast<ASTNode*>(node);\
+    if (tmp2 != NULL)\
+      result= tmp2->getNumChildren(); \
+    else result = 0;\
+  }\
+}
+
 
 bool
 ArraysASTPlugin::hasCorrectNumberArguments(int type) const
 {
   bool correctNumArgs = true;
+  unsigned int numChildren;
 
   ASTBase* function = const_cast<ASTBase*>(getMath());
 
@@ -987,21 +1001,11 @@ ArraysASTPlugin::hasCorrectNumberArguments(int type) const
     }
   }
 
-      // cast the function to an ASTNode
-  ASTNode * newAST = dynamic_cast<ASTNode*>(function);
-
-  // double check we are working with the right thing
-  if (newAST == NULL)
-  {
+  if (function->getExtendedType() != type)
     return false;
-  }
-  else if (newAST->getExtendedType() != type)
-  {
-    return false;
-  }
 
-  unsigned int numChildren = newAST->getNumChildren();
-  
+  GET_NUM_CHILDREN(numChildren, function);
+
   switch (type)
   {
   case AST_LINEAR_ALGEBRA_SELECTOR:
