@@ -135,7 +135,7 @@
  *
  * @par
  * SBML Level&nbsp;3 requires that every package defines an attribute named
- * "required" on the root <code>&lg;sbml&gt;</code> element in an SBML file
+ * "required" on the root <code>&lt;sbml&gt;</code> element in an SBML file
  * or data stream.  The attribute, being in the namespace of the Level&nbsp;3
  * package in question, must be prefixed by the XML namespace prefix
  * associated with the package.  The value of the "required" attribute
