@@ -371,20 +371,23 @@ CoordinateReference::readAttributes (const XMLAttributes& attributes,
   // coordinate enum  ( use = "required" )
   //
   mCoordinate = COORDINATEKIND_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("coordinate", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinate", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mCoordinate = CoordinateKind_parse(stringValue.c_str());
+    mCoordinate = CoordinateKind_parse(stringValue.c_str());
+    if(mCoordinate == COORDINATEKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'coordinate' in 'coordinateReference' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mCoordinate == COORDINATEKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'coordinate' is missing.";
+    std::string message = "Spatial attribute 'coordinate' is missing from 'coordinateReference' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

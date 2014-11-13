@@ -378,7 +378,7 @@ SpatialSymbolReference::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'spatialRef' is missing.";
+    std::string message = "Spatial attribute 'spatialRef' is missing from 'spatialSymbolReference' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

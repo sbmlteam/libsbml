@@ -446,7 +446,7 @@ DomainType::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'domainType' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -470,7 +470,7 @@ DomainType::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'spatialDimensions' is missing.";
+        std::string message = "Spatial attribute 'spatialDimensions' is missing from 'domainType' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }

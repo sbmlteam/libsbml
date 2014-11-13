@@ -651,7 +651,7 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'spatialPoint' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -675,7 +675,7 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'coord1' is missing.";
+        std::string message = "Spatial attribute 'coord1' is missing from 'spatialPoint' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
@@ -743,7 +743,7 @@ SpatialPoint::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'domain' is missing.";
+    std::string message = "Spatial attribute 'domain' is missing from 'spatialPoint' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

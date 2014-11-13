@@ -563,7 +563,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'rotateX' is missing.";
+        std::string message = "Spatial attribute 'rotateX' is missing from 'csgRotation' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
@@ -629,7 +629,7 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'rotateAngleInRadians' is missing.";
+        std::string message = "Spatial attribute 'rotateAngleInRadians' is missing from 'csgRotation' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

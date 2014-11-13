@@ -539,7 +539,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'adjacentDomains' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -565,7 +565,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'domain1' is missing.";
+    std::string message = "Spatial attribute 'domain1' is missing from 'adjacentDomains' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -591,7 +591,7 @@ AdjacentDomains::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'domain2' is missing.";
+    std::string message = "Spatial attribute 'domain2' is missing from 'adjacentDomains' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

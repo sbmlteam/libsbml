@@ -495,7 +495,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'geometryDefinition' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -519,7 +519,7 @@ GeometryDefinition::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'isActive' is missing.";
+        std::string message = "Spatial attribute 'isActive' is missing from 'geometryDefinition' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

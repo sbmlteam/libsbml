@@ -429,7 +429,7 @@ Boundary::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'boundary' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -453,7 +453,7 @@ Boundary::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'value' is missing.";
+        std::string message = "Spatial attribute 'value' is missing from 'boundary' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

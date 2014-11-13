@@ -361,20 +361,23 @@ CSGPrimitive::readAttributes (const XMLAttributes& attributes,
   // primitiveType enum  ( use = "required" )
   //
   mPrimitiveType = PRIMITIVEKIND_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("primitiveType", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("primitiveType", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mPrimitiveType = PrimitiveKind_parse(stringValue.c_str());
+    mPrimitiveType = PrimitiveKind_parse(stringValue.c_str());
+    if(mPrimitiveType == PRIMITIVEKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'primitiveType' in 'csgPrimitive' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mPrimitiveType == PRIMITIVEKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'primitiveType' is missing.";
+    std::string message = "Spatial attribute 'primitiveType' is missing from 'csgPrimitive' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

@@ -398,7 +398,7 @@ CSGPseudoPrimitive::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'csgObjectRef' is missing.";
+    std::string message = "Spatial attribute 'csgObjectRef' is missing from 'csgPseudoPrimitive' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

@@ -499,7 +499,7 @@ CSGScale::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'scaleX' is missing.";
+        std::string message = "Spatial attribute 'scaleX' is missing from 'csgScale' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

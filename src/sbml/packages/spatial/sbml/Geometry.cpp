@@ -1779,7 +1779,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'geometry' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -1788,20 +1788,23 @@ Geometry::readAttributes (const XMLAttributes& attributes,
   // coordinateSystem enum  ( use = "required" )
   //
   mCoordinateSystem = GEOMETRYKIND_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("coordinateSystem", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinateSystem", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mCoordinateSystem = GeometryKind_parse(stringValue.c_str());
+    mCoordinateSystem = GeometryKind_parse(stringValue.c_str());
+    if(mCoordinateSystem == GEOMETRYKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'coordinateSystem' in 'geometry' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mCoordinateSystem == GEOMETRYKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'coordinateSystem' is missing.";
+    std::string message = "Spatial attribute 'coordinateSystem' is missing from 'geometry' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

@@ -470,7 +470,7 @@ CSGeometry::createObject(XMLInputStream& stream)
 
   const string& name = stream.peek().getName();
 
-  if (name == "listOfCsgObjects")
+  if (name == "listOfCSGObjects")
   {
     object = &mCsgObjects;
   }

@@ -987,7 +987,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'sampledField' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -996,20 +996,24 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   // dataType enum  ( use = "required" )
   //
   mDataType = DATAKIND_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("dataType", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("dataType", stringValue);
+    // parse enum
 
-    if (assigned == true)
+    mDataType = DataKind_parse(stringValue.c_str());
+    if(mDataType == DATAKIND_UNKNOWN)
     {
-      // parse enum
-
-      mDataType = DataKind_parse(stringValue.c_str());
+      std::string message = "Unknown value for spatial attribute 'dataType' in 'sampledField' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
-  if(mDataType == DATAKIND_UNKNOWN)
+  else if(mDataType == DATAKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'dataType' is missing.";
+    std::string message = "Spatial attribute 'dataType' is missing from 'sampledField' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -1033,7 +1037,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'numSamples1' is missing.";
+        std::string message = "Spatial attribute 'numSamples1' is missing from 'sampledField' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
@@ -1084,35 +1088,39 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   // interpolationType enum  ( use = "optional" )
   //
   mInterpolationType = INTERPOLATIONKIND_UNKNOWN;
+  assigned = attributes.readInto("interpolationType", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("interpolationType", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mInterpolationType = InterpolationKind_parse(stringValue.c_str());
+    mInterpolationType = InterpolationKind_parse(stringValue.c_str());
+    if(mInterpolationType == INTERPOLATIONKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'interpoloationType' in 'sampledField' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   //
   // compression enum  ( use = "required" )
   //
   mCompression = COMPRESSIONKIND_UNKNOWN;
+  assigned = attributes.readInto("compression", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("compression", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mCompression = CompressionKind_parse(stringValue.c_str());
+    mCompression = CompressionKind_parse(stringValue.c_str());
+    if(mCompression == COMPRESSIONKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'compression' in 'sampledField' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mCompression == COMPRESSIONKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'compression' is missing.";
+    std::string message = "Spatial attribute 'compression' is missing from 'sampledField' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -1136,7 +1144,7 @@ SampledField::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'samplesLength' is missing.";
+        std::string message = "Spatial attribute 'samplesLength' is missing from 'sampledField' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }

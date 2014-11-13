@@ -642,7 +642,7 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'variable' is missing.";
+    std::string message = "Spatial attribute 'variable' is missing from 'diffusionCoefficient' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -651,20 +651,23 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   // type enum  ( use = "required" )
   //
   mType = DIFFUSIONKIND_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("type", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("type", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mType = DiffusionKind_parse(stringValue.c_str());
+    mType = DiffusionKind_parse(stringValue.c_str());
+    if(mType == DIFFUSIONKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'type' in 'diffusionCoefficient' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mType == DIFFUSIONKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'type' is missing.";
+    std::string message = "Spatial attribute 'type' is missing from 'diffusionCoefficient' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -673,15 +676,17 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   // coordinateReference1 enum  ( use = "optional" )
   //
   mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
+  assigned = attributes.readInto("coordinateReference1", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("coordinateReference1", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
+    mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
+    if(mCoordinateReference1 == COORDINATEKIND_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'coordinateReference1' in 'diffusionCoefficient' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   //
@@ -697,6 +702,11 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
       // parse enum
 
       mCoordinateReference2 = CoordinateKind_parse(stringValue.c_str());
+      if(mCoordinateReference2 == COORDINATEKIND_UNKNOWN) {
+        std::string message = "Unknown value for spatial attribute 'coordinateReference2' in 'diffusionCoefficient' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
 }

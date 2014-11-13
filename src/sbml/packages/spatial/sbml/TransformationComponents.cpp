@@ -448,7 +448,7 @@ TransformationComponents::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'componentsLength' is missing.";
+        std::string message = "Spatial attribute 'componentsLength' is missing from 'transformationComponents' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }

@@ -868,7 +868,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'csgObject' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -894,7 +894,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'domainType' is missing.";
+    std::string message = "Spatial attribute 'domainType' is missing from 'csgObject' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -918,7 +918,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'ordinal' is missing.";
+        std::string message = "Spatial attribute 'ordinal' is missing from 'csgObject' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
@@ -1159,7 +1159,7 @@ ListOfCSGObjects::remove(const std::string& sid)
 const std::string&
 ListOfCSGObjects::getElementName () const
 {
-  static const string name = "listOfCsgObjects";
+  static const string name = "listOfCSGObjects";
   return name;
 }
 

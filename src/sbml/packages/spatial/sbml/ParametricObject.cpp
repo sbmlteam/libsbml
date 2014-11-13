@@ -738,7 +738,7 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'id' is missing.";
+    std::string message = "Spatial attribute 'id' is missing from 'parametricObject' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -746,21 +746,24 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
   //
   // polygonType enum  ( use = "required" )
   //
-  mPolygonType = POLYGONKIND_UNKNOWN;
-  {
-    std::string stringValue;
-    assigned = attributes.readInto("polygonType", stringValue);
+   mPolygonType = POLYGONKIND_UNKNOWN;
+   std::string stringValue;
+   assigned = attributes.readInto("polygonType", stringValue);
 
-    if (assigned == true)
-    {
-      // parse enum
+   if (assigned == true)
+   {
+     // parse enum
 
-      mPolygonType = PolygonKind_parse(stringValue.c_str());
-    }
-  }
-  if(mPolygonType == POLYGONKIND_UNKNOWN)
+     mPolygonType = PolygonKind_parse(stringValue.c_str());
+     if(mPolygonType == POLYGONKIND_UNKNOWN) {
+       std::string message = "Unknown value for spatial attribute 'polygonType' in 'parametricObject' object: " + stringValue;
+       getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+         getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+     }
+   }
+   else if(mPolygonType == POLYGONKIND_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'polygonType' is missing.";
+    std::string message = "Spatial attribute 'polygonType' is missing from 'parametricObject' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -786,7 +789,7 @@ ParametricObject::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'domainType' is missing.";
+    std::string message = "Spatial attribute 'domainType' is missing from 'parametricObject' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

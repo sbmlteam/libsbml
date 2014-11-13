@@ -239,7 +239,7 @@ SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'isLocal' is missing.";
+        std::string message = "Spatial attribute 'isLocal' is missing from 'reaction' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

@@ -992,20 +992,23 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
   // operationType enum  ( use = "required" )
   //
   mOperationType = SETOPERATION_UNKNOWN;
+  std::string stringValue;
+  assigned = attributes.readInto("operationType", stringValue);
+
+  if (assigned == true)
   {
-    std::string stringValue;
-    assigned = attributes.readInto("operationType", stringValue);
+    // parse enum
 
-    if (assigned == true)
-    {
-      // parse enum
-
-      mOperationType = SetOperation_parse(stringValue.c_str());
+    mOperationType = SetOperation_parse(stringValue.c_str());
+    if(mOperationType == SETOPERATION_UNKNOWN) {
+      std::string message = "Unknown value for spatial attribute 'operationType' in 'csgSetOperator' object: " + stringValue;
+      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
   }
   if(mOperationType == SETOPERATION_UNKNOWN)
   {
-    std::string message = "Spatial attribute 'operationType' is missing.";
+    std::string message = "Spatial attribute 'operationType' is missing from 'csgSetOperator' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }

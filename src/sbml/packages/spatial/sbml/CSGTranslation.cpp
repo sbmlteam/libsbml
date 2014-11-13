@@ -499,7 +499,7 @@ CSGTranslation::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'translateX' is missing.";
+        std::string message = "Spatial attribute 'translateX' is missing from 'csgTranslation' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }

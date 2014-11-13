@@ -472,7 +472,7 @@ OrdinalMapping::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    std::string message = "Spatial attribute 'geometryDefinition' is missing.";
+    std::string message = "Spatial attribute 'geometryDefinition' is missing from 'ordinalMapping' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
@@ -496,7 +496,7 @@ OrdinalMapping::readAttributes (const XMLAttributes& attributes,
       }
       else
       {
-        std::string message = "Spatial attribute 'ordinal' is missing.";
+        std::string message = "Spatial attribute 'ordinal' is missing from 'ordinalMapping' object.";
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
