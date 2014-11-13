@@ -110,7 +110,7 @@ START_TEST (test_uncertml_read_normalDistribution)
   fail_unless (child->getAttributes().getValue(0) == "sigma");
   fail_unless (child->getNumChildren() == 0);
 
-
+  delete document;
 }
 END_TEST
  
@@ -146,6 +146,8 @@ START_TEST ( test_uncertml_write_normalDistribution)
   std::string xml = uncert->toXMLString();
 
   fail_unless( equals(expected, xml.c_str()) );
+
+  delete document;
 }
 END_TEST
 
@@ -219,7 +221,7 @@ START_TEST (test_uncertml_read_statistics)
   fail_unless (child1->getAttributes().getValue(0) == "V_omega");
   fail_unless (child1->getNumChildren() == 0);
 
-
+  delete document;
 }
 END_TEST
  
@@ -259,6 +261,8 @@ START_TEST ( test_uncertml_write_statistics)
   std::string xml = uncert->toXMLString();
 
   fail_unless( equals(expected, xml.c_str()) );
+
+  delete document;
 }
 END_TEST
 

@@ -32,6 +32,9 @@
 #include <sbml/util/memory.h>
 #include <sbml/common/extern.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
 
 /**
  * Test suite creation function prototypes.
@@ -94,8 +97,6 @@ main (void)
   SRunner *runner = srunner_create( create_suite_TestUncertMLNodeAttributes() );
   srunner_add_suite( runner, create_suite_TestUncertMLNodeParsing() );
   srunner_add_suite( runner, create_suite_TestUncertMLNodeCreateFunctions() );
-  //srunner_add_suite( runner, create_suite_TestFlatteningConverter() );
-  //srunner_add_suite( runner, create_suite_TestExternalModelResolving() );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
@@ -103,6 +104,8 @@ main (void)
   num_failed = srunner_ntests_failed(runner);
 
   srunner_free(runner);
+
+  safe_free(TestDataDirectory);
 
   return num_failed;
 }
