@@ -139,6 +139,11 @@ public:
    * identifiers, so the order in which identifiers are searched is the order
    * in which they appear in the results returned by that method.
    *
+   * Normally, <code>SId</code> type identifier values are unique across
+   * a model in SBML.  However, in some circumstances they may not be, such
+   * as if a model is invalid because of multiple objects having the same
+   * identifier.
+   *
    * @param id string representing the identifier of the object to find
    *
    * @return pointer to the first object with the given @p id.
