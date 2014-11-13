@@ -1369,7 +1369,7 @@ body div.contents ol li {
   margin-bottom: 0.5em;
 }
 
-#doc-content td[align="right"] {
+#doc-content :not(table.mlabels) td[align="right"] {
   background-color: #fafafa;
 }
 
