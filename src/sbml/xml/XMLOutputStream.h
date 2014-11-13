@@ -918,8 +918,6 @@ public:
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
