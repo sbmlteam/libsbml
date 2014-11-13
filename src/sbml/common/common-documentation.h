@@ -2389,6 +2389,7 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  *
  * @section ext-basics Basic principles of SBML package extensions in libSBML
  *
+ * @par
  * SBML Level&nbsp;3's package structure permits modular extensions to the
  * core SBML format.  In libSBML, support for SBML Level&nbsp;3 packages is
  * provided through <em>package extensions</em>.  LibSBML defines a number of
@@ -2655,6 +2656,7 @@ ListOfGroups mGroups;
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbmldocumentplugin
  *
+ * @par
  * The following subsections detail the basic steps necessary to use
  * SBMLDocumentPlugin to extend SBMLDocument for a given package extension.
  *
@@ -2832,4 +2834,81 @@ ListOfGroups mGroups;
  * SBML Level&nbsp;3 package.  The situation can arise for legitimate SBML
  * files if the necessary package extension has not been registered with
  * a given copy of libSBML.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbmlextensionnamespaces
+ *
+ * @par
+ * Each package extension in libSBML needs to extend and instantiate the
+ * template class SBMLExtensionNamespaces, as well as declare a specific
+ * <code>typedef</code>.  The following sections explain these steps in detail.
+ *
+ *
+ * @subsection sen-identify 1. Define the typedef
+ *
+ * Each package needs to declare a package-specific version of the
+ * SBMLExtensionNamespaces class using a <code>typedef</code>.  The following
+ * example code demonstrates how this is done in the case of the Layout package:
+ *
+ * @code
+ * typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces;
+ * @endcode
+ *
+ * This creates a new type called LayoutPkgNamespaces.  The code above is
+ * usually placed in the same file that contains the SBMLExtension-derived
+ * definition of the package extension base class.  In the case of the Layout
+ * package, this is in the file
+ * <code>src/packages/layout/extension/LayoutExtension.h</code> in the libSBML
+ * source distribution.
+ *
+ *
+ * @subsection sen-instantiate 2. Instantiate a template instance
+ *
+ * Each package needs to instantiate a template instance of the
+ * SBMLExtensionNamespaces class.  The following
+ * example code demonstrates how this is done in the case of the Layout package:
+ *
+ * @code
+ * template class LIBSBML_EXTERN SBMLExtensionNamespaces<LayoutExtension>;
+ * @endcode
+ *
+ * In the case of the Layout package, the code above is located in the file
+ * <code>src/packages/layout/extension/LayoutExtension.cpp</code> in the libSBML
+ * source distribution.
+ *
+ *
+ * @subsection sen-derive 3. Create constructors that accept the class
+ *
+ * Each SBase-derived class in the package extension should implement a
+ * constructor that accepts the SBMLExtensionNamespaces-derived class as an
+ * argument.  For example, in the Layout package, the class BoundBox has a
+ * constructor declared as follows
+ *
+ * @code
+ * BoundingBox(LayoutPkgNamespaces* layoutns);
+ * @endcode
+ *
+ * The implementation of this constructor must, among other things, take the
+ * argument namespace object and use it to set the XML namespace URI for the
+ * object.  Again, for the BoundingBox example:
+ *
+ * @code
+ * BoundingBox::BoundingBox(LayoutPkgNamespaces* layoutns)
+ *  : SBase(layoutns)
+ *   ,mPosition(layoutns)
+ *   ,mDimensions(layoutns)
+ *   ,mPositionExplicitlySet (false)
+ *   ,mDimensionsExplicitlySet (false)
+ * {
+ *   // Standard extension actions.
+ *   setElementNamespace(layoutns->getURI());
+ *   connectToChild();
+ *
+ *   // Package-specific actions.
+ *   mPosition.setElementName("position");
+ *
+ *   // Load package extensions bound with this object (if any).
+ *   loadPlugins(layoutns);
+ * }
+ * @endcode
  */
