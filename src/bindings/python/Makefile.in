@@ -432,7 +432,7 @@ libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) \
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	mv pydoc-doxygen.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
-		-c++ -python -o libsbml_wrap.cpp libsbml.i
+		 -DGENERATING_DOCS -c++ -python -o libsbml_wrap.cpp libsbml.i
 	mv pydoc.i pydoc-doxygen.i
 	mv libsbml.py libsbml-doxygen.py
 	mv pydoc-normal.i pydoc.i

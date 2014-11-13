@@ -174,7 +174,8 @@ ADD_CUSTOM_COMMAND(
 			-I${LIBSBML_ROOT_BINARY_DIR}/src
 			-I${LIBSBML_ROOT_SOURCE_DIR}/src
 			-I${LIBSBML_ROOT_SOURCE_DIR}/include
-			-c++
+			-DGENERATING_DOCS
+                        -c++
 			-python		
 			${SWIG_EXTRA_ARGS}		 
 			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
