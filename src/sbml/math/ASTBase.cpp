@@ -52,14 +52,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /* open doxygen comment */
 
-///*
-// * Used by the Destructor to delete each item in mPlugins.
-// */
-//struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
-//{
-//  void operator() (ASTBasePlugin* ast) { delete ast;}
-//};
-//
+/*
+ * Used by the Destructor to delete each item in mPlugins.
+ */
+struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
+{
+  void operator() (ASTBasePlugin* ast) { delete ast;}
+};
+
 
 /*
  * Used by the Copy Constructor to clone each item in mPlugins.
@@ -69,14 +69,6 @@ struct CloneASTPluginEntity : public unary_function<ASTBasePlugin*, ASTBasePlugi
   ASTBasePlugin* operator() (ASTBasePlugin* ast) { 
     if (!ast) return 0;
     return ast->clone(); 
-  }
-};
-
-struct AssignASTPluginEntity : public unary_function<ASTBasePlugin*, ASTBasePlugin*>
-{
-  ASTBasePlugin* operator() (ASTBasePlugin* ast) { 
-    if (!ast) return 0;
-    return ast; 
   }
 };
 
@@ -190,7 +182,7 @@ ASTBase::operator=(const ASTBase& rhs)
     mEmptyString          = rhs.mEmptyString;
     mIsBvar               = rhs.mIsBvar;
 
-    mPlugins.clear();
+    clearPlugins();
     mPlugins.resize( rhs.mPlugins.size() );
     transform( rhs.mPlugins.begin(), rhs.mPlugins.end(), 
                mPlugins.begin(), CloneASTPluginEntity() );
@@ -204,10 +196,15 @@ ASTBase::operator=(const ASTBase& rhs)
  */
 ASTBase::~ASTBase ()
 {
-  //for_each( mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity() );
+  clearPlugins();
 }
 
   
+void ASTBase::clearPlugins()
+{
+  for_each( mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity() );
+  mPlugins.clear();
+}
 int
 ASTBase::getTypeCode () const
 {
@@ -1772,7 +1769,7 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
 
   // deal with plugins
 
-  mPlugins.clear();
+  clearPlugins();
   mPlugins.resize( rhs->mPlugins.size() );
   transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
              mPlugins.begin(), CloneASTPluginEntity() );
@@ -1800,10 +1797,10 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
 
   // deal with plugins
 
-  mPlugins.clear();
+  clearPlugins();
   mPlugins.resize( rhs->mPlugins.size() );
   transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
-             mPlugins.begin(), AssignASTPluginEntity() );
+             mPlugins.begin(), CloneASTPluginEntity() );
 }
 
 
@@ -1844,7 +1841,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
   }
   if (identicalPlugins == false)
   {
-    mPlugins.clear();
+    clearPlugins();
     mPlugins.resize( rhs->mPlugins.size() );
     transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
                mPlugins.begin(), CloneASTPluginEntityNoParent() );

@@ -135,15 +135,6 @@ static const char *AST_OPERATOR_STRINGS[] =
   , "power"
 };
 
-/*
- * Used by the Destructor to delete each item in mPlugins.
- */
-struct DeleteASTPluginEntity : public unary_function<ASTBasePlugin*, void>
-{
-  void operator() (ASTBasePlugin* ast) { delete ast;}
-};
-
-
 #ifdef __cplusplus
 
 ASTNode::ASTNode (ASTNodeType_t type) :
@@ -493,7 +484,7 @@ ASTNode::~ASTNode ()
 {
   if (mFunction != NULL) delete mFunction;
   if (mNumber != NULL) delete mNumber;
-  for_each( mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity() );
+  //for_each( mPlugins.begin(), mPlugins.end(), DeleteASTPluginEntity() );
 
 }
 

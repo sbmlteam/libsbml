@@ -431,6 +431,9 @@ protected:
   friend class ASTFunction;
   friend class ASTCSymbol;
   friend class ASTNode;
+
+private:
+  void clearPlugins();
 };
 
 LIBSBML_CPP_NAMESPACE_END
