@@ -1,9 +1,7 @@
 /**
  * @file    SBMLDocumentPlugin.h
- * @brief   Definition of SBMLDocumentPlugin, the derived class of
- *          SBasePlugin.
+ * @brief   Definition of SBMLDocumentPlugin, the derived class of SBasePlugin.
  * @author  Akiya Jouraku
- *
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -14,17 +12,17 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *  
+ *
  * Copyright (C) 2006-2008 by the California Institute of Technology,
- *     Pasadena, CA, USA 
- *  
- * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     Pasadena, CA, USA
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. Japan Science and Technology Agency, Japan
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
@@ -33,14 +31,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLDocumentPlugin
- * @sbmlbrief{core} Base class for SBML Level 3 package plug-ins.
+ * @sbmlbrief{core} Base class for extending SBMLDocument in packages.
  *
- * Plug-in objects for the SBMLDocument element must be this class or a
- * derived class of this class.  Package developers should use this class
- * as-is if only "required" attribute is added in the SBMLDocument element by
- * their packages.  Otherwise, developers must implement a derived class of
- * this class and use that class as the plugin object for the SBMLDocument
- * element.
+ * The SBMLDocumentPlugin class is a specialization of SBasePlugin
+ * designed specifically for extending SBMLDocument.  All package
+ * extensions must extend SBMLDocument to implement support for SBML
+ * Level&nbsp;3 packages; these extensions can be subclasses of this
+ * class or from a derived class of this class.
+ *
+ * @section sbmldocumentplugin-howto How to extend SBMLDocumentPlugin for a package implementation
+ * @copydetails doc_extension_sbmldocumentplugin
  */
 
 #ifndef SBMLDocumentPlugin_h
@@ -64,29 +64,44 @@ class LIBSBML_EXTERN SBMLDocumentPlugin : public SBasePlugin
 public:
 
   /**
-   *  Constructor
+   * Creates a new SBMLDocumentPlugin object using the given parameters.
    *
-   * @param uri the URI of package 
-   * @param prefix the prefix for the given package
-   * @param sbmlns the SBMLNamespaces object for the package
+   * @copydetails doc_what_are_xmlnamespaces
+   *
+   * @copydetails doc_what_are_sbmlnamespaces
+   *
+   * @param uri the URI of the SBML Level&nbsp;3 package implemented by
+   * this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix being used for the package.
+   *
+   * @param sbmlns the SBMLNamespaces object for the package.
    */
   SBMLDocumentPlugin (const std::string &uri, const std::string &prefix,
                       SBMLNamespaces *sbmlns);
 
 
   /**
-   * Copy constructor. Creates a copy of this object.
+   * Copy constructor.
+   *
+   * This creates a copy of this object.
+   *
+   * @param orig the Compartment instance to copy.
    */
   SBMLDocumentPlugin(const SBMLDocumentPlugin& orig);
 
 
   /**
-   * Destroy this object.
+   * Destroy this SBMLDocumentPlugin object.
    */
   virtual ~SBMLDocumentPlugin ();
 
+
   /**
    * Assignment operator for SBMLDocumentPlugin.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
    */
   SBMLDocumentPlugin& operator=(const SBMLDocumentPlugin& orig);
 
@@ -141,44 +156,53 @@ public:
 
   // -----------------------------------------------------------
   //
-  // Additional public functions for manipulating attributes of 
+  // Additional public functions for manipulating attributes of
   // corresponding package in SBMLDocument element.
   //
   // -----------------------------------------------------------
 
 
   /**
+   * Sets the SBML "required" attribute value.
    *
-   * Sets the bool value of "required" attribute of corresponding package
-   * in SBMLDocument element.
+   * @copydetails doc_what_is_required_attribute
    *
-   * @param value the bool value of "required" attribute of corresponding 
-   * package in SBMLDocument element.
+   * @param value the value to be assigned to the "required" attribute.
+   * The "required" attribute takes a Boolean value, either @c true or
+   * @c false.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   *
+   * @see getRequired()
+   * @see isSetRequired()
+   * @see unsetRequired()
    */
   virtual int setRequired(bool value);
 
 
   /**
+   * Returns the value of the "required" attribute.
    *
-   * Returns the bool value of "required" attribute of corresponding 
-   * package in SBMLDocument element.
+   * @copydetails doc_what_is_required_attribute
    *
-   * @return the bool value of "required" attribute of corresponding
-   * package in SBMLDocument element.
+   * @return the bool value of "required" attribute for the SBML package.
+   *
+   * @see setRequired(bool value)
+   * @see isSetRequired()
+   * @see unsetRequired()
    */
   virtual bool getRequired() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * SBMLDocumentPlugin's "required" attribute has been set.
+   * Returns the value of the "required" attribute.
    *
-   * @return @c true if the "required" attribute of this SBMLDocument has been
-   * set, @c false otherwise.
+   * @copydetails doc_what_is_required_attribute
+   *
+   * @return @c true if the "required" attribute of this SBMLDocument
+   * has been set to @c true, @c false otherwise.
    */
   virtual bool isSetRequired() const;
 
@@ -188,13 +212,10 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetRequired();
 
-  /** @cond doxygenLibsbmlInternal */
 
-  
   /** @cond doxygenLibsbmlInternal */
   virtual bool isCompFlatteningImplemented() const;
   /** @endcond */
@@ -208,20 +229,11 @@ public:
   /** @endcond */
 
 
-  /** @endcond */
-
-
 protected:
-  /** @cond doxygenLibsbmlInternal */
-
-
   /*-- data members --*/
 
   bool mRequired;
   bool mIsSetRequired;
-
-  /** @endcond */
-
 };
 
 LIBSBML_CPP_NAMESPACE_END
@@ -250,7 +262,7 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
-SBMLDocumentPlugin_create(const char* uri, const char* prefix, 
+SBMLDocumentPlugin_create(const char* uri, const char* prefix,
       SBMLNamespaces_t* sbmlns);
 
 /**
@@ -299,7 +311,7 @@ SBMLDocumentPlugin_clone(SBMLDocumentPlugin_t* plugin);
  */
 LIBSBML_EXTERN
 int
-SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin, 
+SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin,
       ExpectedAttributes_t* attributes);
 
 /**
@@ -318,8 +330,8 @@ SBMLDocumentPlugin_addExpectedAttributes(SBMLDocumentPlugin_t* plugin,
  */
 LIBSBML_EXTERN
 int
-SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin, 
-      const XMLAttributes_t* attributes, 
+SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
+      const XMLAttributes_t* attributes,
       const ExpectedAttributes_t* expectedAttributes);
 
 /**
@@ -337,7 +349,7 @@ SBMLDocumentPlugin_readAttributes(SBMLDocumentPlugin_t* plugin,
  */
 LIBSBML_EXTERN
 int
-SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin, 
+SBMLDocumentPlugin_writeAttributes(SBMLDocumentPlugin_t* plugin,
       XMLOutputStream_t* stream);
 
 
@@ -385,7 +397,7 @@ SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required);
  * SBMLDocumentPlugin_t structure's "required" attribute is set.
  *
  * @param plugin the SBMLDocumentPlugin_t structure to query
- * 
+ *
  * @return @c non-zero (true) if the "required" attribute of the given
  * SBMLDocumentPlugin_t structure is set, zero (false) otherwise.
  *
@@ -398,7 +410,7 @@ SBMLDocumentPlugin_isSetRequired(SBMLDocumentPlugin_t* plugin);
 
 /**
  * Unsets the "required" attribute of this SBMLDocumentPlugin_t structure.
- * 
+ *
  * @param plugin the SBMLDocumentPlugin_t structure whose "required" attribute is to be unset.
  *
  * @copydetails doc_returns_success_code

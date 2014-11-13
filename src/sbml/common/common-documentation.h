@@ -131,6 +131,31 @@
  * model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_is_required_attribute
+ *
+ * @par
+ * SBML Level&nbsp;3 requires that every package defines an attribute named
+ * "required" on the root <code>&lg;sbml&gt;</code> element in an SBML file
+ * or data stream.  The attribute, being in the namespace of the Level&nbsp;3
+ * package in question, must be prefixed by the XML namespace prefix
+ * associated with the package.  The value of the "required" attribute
+ * indicates whether constructs in that package may change the mathematical
+ * interpretation of constructs defined in SBML Level&nbsp;3 Core.  A
+ * "required" value of @c true indicates that the package may do so.  The
+ * value of the attribute is set by the Level&nbsp;3 package specification,
+ * and does @em not depend on the actual presence or absence of particular
+ * package constructs in a given SBML document: in other words, if the
+ * package specification defines any construct that can change the model's
+ * meaning, the value of the "required" attribute must always be set to @c
+ * true in any SBML document that uses the package.
+ *
+ * The XML namespace declaration for an SBML Level&nbsp;3 package is an
+ * indication that a model makes use of features defined by that package,
+ * while the "required" attribute indicates whether the features may be
+ * ignored without compromising the mathematical meaning of the model.  Both
+ * are necessary for a complete reference to an SBML Level&nbsp;3 package.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_is_metaid
  *
  * @par
@@ -2429,8 +2454,8 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  *
  * @li SBMLDocumentPlugin: This is a base class that a package
  * implementation can either use directly if it adds no attribute other
- * than <code>required</code> to the <code>&lt;sbml&gt;</code> element, or
- * else must subclass if the SBML package defines more attributes.
+ * than the "required" attribute to the <code>&lt;sbml&gt;</code> element,
+ * or else must subclass if the SBML package defines more attributes.
  *
  *
  * @subsection ext-to-be-instantiated Classes to be instantiated
@@ -2626,4 +2651,173 @@ ListOfGroups mGroups;
  *
  * Extended component implementations can add whatever additional utility
  * methods are useful for their implementation.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbmldocumentplugin
+ *
+ * The following subsections detail the basic steps necessary to use
+ * SBMLDocumentPlugin to extend SBMLDocument for a given package extension.
+ *
+ *
+ * @subsection sdp-identify 1. Identify the changes necessary to SBMLDocument
+ *
+ * The specification for a SBML Level&nbsp;3 package will define the
+ * changes to the SBML <code>&lt;sbml&gt;</code> element.  Packages
+ * typically do not make any changes beyond adding an attribute named
+ * "required" (discussed below), so in most cases, the extension of
+ * SBMLDocument is very simple.  However, some packages do more.  For
+ * instance, the Hierarchical %Model Composition package adds subobjects
+ * for lists of model definitions.  SBMLDocumentPlugin supports all these
+ * cases.
+ *
+ *
+ * @subsection sdp-implement 2. Create the SBMLDocumentPlugin subclass
+ *
+ * A package extension will only define one subclass of SBMLDocumentPlugin.
+ * Below, we describe in detail the different parts of a subclass
+ * definition.
+ *
+ *
+ * @subsubsection sdp-class  2.1 Override SBasePlugin class-related methods
+ *
+ * The derived class must override the constructor, copy constructor, assignment
+ * operator (<code>operator=</code>) and <code>clone()</code> methods from
+ * SBasePlugin.
+ *
+ *
+ * @subsubsection sdp-required 2.2 Determine the necessary value of the "required" attribute
+ *
+ * At minimum, it is necessary for a package implementation to add the
+ * "required" attribute to the SBML <code>&lt;sbml&gt;</code> element
+ * mandated by SBML for all Level&nbsp;3 packages, and this is done using
+ * this class as a base.  If the 'required' attribute is the @em only
+ * addition necessary for a particular SBML Level&nbsp;3 package, then the
+ * subclass of SBMLDocumentPlugin for the package can have a very simple
+ * implementation.  Some Level&nbsp;3 packages add additional attributes or
+ * elements to <code>&lt;sbml&gt;</code>, and their implementations would
+ * go into the subclassed SBMLDocumentPlugin.
+ *
+ * SBMLDocumentPlugin provides methods with default implementations that
+ * support managing the "required" attribute, so package extension code
+ * does not need to provide implementations&mdash;they only need to set the
+ * correct value for the SBML Level&nbsp;3 package based on its
+ * specification.  The following are the virtual methods for working with
+ * the "required" attribute.  Package extensions would only need to
+ * override them in special circumstances:
+ *
+ * @li <code>setRequired(bool value)</code>: This method sets the value
+ * of the flag.
+ *
+ * @li <code>getRequired()</code>: This method gets the value of the
+ * "required" flag.
+ *
+ * @li <code>isSetRequired()</code>: This method tests if the value has
+ * been set.
+ *
+ * @li <code>unsetRequired()</code>: This method unsets the value of the
+ * "required" flag.
+ *
+ *
+ * @subsubsection sdp-protected 2.3 Define protected data members
+ *
+ * An extended SBMLDocument object may need more than just the "required"
+ * attribute, depending on what is defined in the specification for the
+ * package being implemented.  Data attributes on the extended
+ * <code>&lt;sbml&gt;</code> object in an SBML package will have one of the
+ * data types <code>std::string</code>, <code>double</code>,
+ * <code>int</code>, or <code>bool</code>.  Subelements/subobjects will
+ * normally be derived from the ListOf class or from SBase.
+ *
+ * The additional data members must be properly initialized in the class
+ * constructor, and must be properly copied in the copy constructor and
+ * assignment operator.
+ *
+ *
+ * @subsubsection sdp-methods-attribs 2.4 Override virtual methods for attributes
+ *
+ * If the extended component is defined by the SBML Level&nbsp;3 package to
+ * have attributes, then the extended SBMLDocumentPlugin class definition
+ * needs to override the following internal methods that come from
+ * SBasePlugin (the base class of SBMLDocumentPlugin) and provide
+ * appropriate implementations:
+ *
+ * @li <code>addExpectedAttributes(ExpectedAttributes& attributes)</code>: This
+ * method should add the attributes that are expected to be found on this kind
+ * of extended component in an SBML file or data stream.
+ *
+ * @li <code>readAttributes(XMLAttributes& attributes, ExpectedAttributes&
+ * expectedAttributes)</code>: This method should read the attributes
+ * expected to be found on this kind of extended component in an SBML file or
+ * data stream.
+ *
+ * @li <code>hasRequiredAttributes()</code>: This method should return @c true
+ * if all of the required attribute for this extended component are present on
+ * instance of the object.
+ *
+ * @li <code>writeAttributes(XMLOutputStream& stream)</code>: This method should
+ * write out the attributes of an extended component.  The implementation should
+ * use the different kinds of <code>writeAttribute</code> methods defined by
+ * XMLOutputStream to achieve this.
+ *
+ *
+ * @subsubsection sdp-methods-elem 2.5 Override virtual methods for subcomponents
+ *
+ * If the extended component is defined by the Level&nbsp;3 package to have
+ * subcomponents (i.e., full XML elements rather than mere attributes),
+ * then the extended class definition needs to override the following
+ * internal methods on SBasePlugin (the base class of SBMLDocumentPlugin)
+ * and provide appropriate implementations:
+ *
+ * @li <code>createObject(XMLInputStream& stream)</code>: Subclasses must
+ * override this method to create, store, and then return an SBML object
+ * corresponding to the next XMLToken in the XMLInputStream.  To do this,
+ * implementations can use methods like <code>peek()</code> on XMLInputStream to
+ * test if the next object in the stream is something expected for the package.
+ * For example, LayoutModelPlugin uses <code>peek()</code> to examine the next
+ * element in the input stream, then tests that element against the Layout
+ * namespace and the element name <code>"listOfLayouts"</code> to see if it's
+ * the single subcomponent (ListOfLayouts) permitted on a Model object using the
+ * Layout package.  If it is, it returns the appropriate object.
+ *
+ * @li <code>connectToParent(SBase *sbase)</code>: This creates a parent-child
+ * relationship between a given extended component and its subcomponent(s).
+ *
+ * @li <code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the
+ * parent SBMLDocument object on the subcomponent object instances, so that the
+ * subcomponent instances know which SBMLDocument contains them.
+ *
+ * @li <code>enablePackageInternal(std::string& pkgURI, std::string& pkgPrefix,
+ * bool flag)</code>: This method should enable or disable the subcomponent
+ * based on whether a given XML namespace is active.
+ *
+ * @li <code>writeElements(XMLOutputStream& stream)</code>: This method must be
+ * overridden to provide an implementation that will write out the expected
+ * subcomponents/subelements to the XML output stream.
+ *
+ * @li <code>readOtherXML(SBase* parentObject, XMLInputStream& stream)</code>:
+ * This function should be overridden if elements of annotation, notes, MathML
+ * content, etc., need to be directly parsed from the given XMLInputStream
+ * object.
+ *
+ * @li <code>hasRequiredElements()</code>: This method should return @c true if
+ * a given object contains all the required subcomponents defined by the
+ * specification for that SBML Level&nbsp;3 package.
+ *
+ *
+ * @subsubsection sdp-methods-xmlns 2.6 Override virtual methods for XML namespaces
+ *
+ * If the package needs to add additional <code>xmlns</code> attributes to
+ * declare additional XML namespace URIs, the extended class should
+ * override the following method coming from SBasePlugin (the parent class
+ * of SBMLDocumentPlugin):
+ *
+ * @li <code>writeXMLNS(XMLOutputStream& stream)</code>: This method should
+ * write out any additional XML namespaces that might be needed by a package
+ * implementation.
+ *
+ *
+ * @subsubsection sdp-methods-hooks 2.7 Implement additional methods as needed
+ *
+ * Extended SBMLDocumentPlugin implementations can add whatever additional
+ * utility methods are useful for their implementation.
  */
