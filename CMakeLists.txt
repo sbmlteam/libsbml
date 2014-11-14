@@ -766,7 +766,7 @@ if(UNIX)
         # Since we are encountering errors with the use of libc++ on OSX
         # this option allows to override which stdlib to use
         if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-          option(CLANG_USE_STDLIB "Use libstdc++ rather than libc++" ON)
+          option(CLANG_USE_STDLIB "Use libstdc++ rather than libc++" OFF)
           if (CLANG_USE_STDLIB)
             SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++" )
           endif()
