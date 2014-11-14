@@ -56,8 +56,8 @@ START_TEST (test_parse_brackets_0args)
   fail_unless( !strcmp(oldroundtrip, "selector(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -71,8 +71,8 @@ START_TEST (test_parse_brackets_1args)
   fail_unless( !strcmp(oldroundtrip, "selector(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -86,8 +86,8 @@ START_TEST (test_parse_brackets_2args)
   fail_unless( !strcmp(oldroundtrip, "selector(a, x, y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -101,8 +101,8 @@ START_TEST (test_parse_function_selector_0args)
   fail_unless( !strcmp(oldroundtrip, "selector()") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -116,8 +116,8 @@ START_TEST (test_parse_function_selector_1args)
   fail_unless( !strcmp(oldroundtrip, "selector(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -131,8 +131,8 @@ START_TEST (test_parse_function_selector_2args)
   fail_unless( !strcmp(oldroundtrip, "selector(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -146,8 +146,8 @@ START_TEST (test_parse_function_selector_3args)
   fail_unless( !strcmp(oldroundtrip, "selector(a, x, y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -161,8 +161,8 @@ START_TEST (test_parse_function_selector_needParens)
   fail_unless( !strcmp(oldroundtrip, "selector(a + b, x, y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -176,8 +176,8 @@ START_TEST (test_parse_function_selector_needNoParens1)
   fail_unless( !strcmp(oldroundtrip, "selector(f(a), x, y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -191,8 +191,8 @@ START_TEST (test_parse_function_selector_needNoParens2)
   fail_unless( !strcmp(oldroundtrip, "selector(vector(1, 2, 3, 4), x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -206,8 +206,8 @@ START_TEST (test_parse_function_selector_needNoParens3)
   fail_unless( !strcmp(oldroundtrip, "selector(matrix(matrixrow(1, 2), matrixrow(3, 4)), x, y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 #endif
@@ -221,8 +221,8 @@ START_TEST (test_parse_curlybraces_0args)
   fail_unless( !strcmp(oldroundtrip, "vector()") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -236,8 +236,8 @@ START_TEST (test_parse_curlybraces_1args)
   fail_unless( !strcmp(oldroundtrip, "vector(x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -251,8 +251,8 @@ START_TEST (test_parse_curlybraces_2args)
   fail_unless( !strcmp(oldroundtrip, "vector(x, a^b)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -266,8 +266,8 @@ START_TEST (test_parse_curlybraces_nested)
   fail_unless( !strcmp(oldroundtrip, "vector(vector(x, y, z), vector(p, d, q))") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -281,8 +281,8 @@ START_TEST (test_parse_curlybraces_semicolons)
   fail_unless( !strcmp(oldroundtrip, "matrix(matrixrow(x, y, z), matrixrow(p, d, q))") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -296,8 +296,8 @@ START_TEST (test_parse_curlybraces_semicolons_short)
   fail_unless( !strcmp(oldroundtrip, "matrix(matrixrow(x), matrixrow(p))") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -311,8 +311,8 @@ START_TEST (test_parse_function_determinant)
   fail_unless( !strcmp(oldroundtrip, "determinant(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -326,8 +326,8 @@ START_TEST (test_parse_function_det)
   fail_unless( !strcmp(oldroundtrip, "determinant(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -341,8 +341,8 @@ START_TEST (test_parse_function_transpose)
   fail_unless( !strcmp(oldroundtrip, "transpose(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -356,8 +356,8 @@ START_TEST (test_parse_function_trans)
   fail_unless( !strcmp(oldroundtrip, "transpose(a)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -371,8 +371,8 @@ START_TEST (test_parse_function_vectorproduct)
   fail_unless( !strcmp(oldroundtrip, "vectorproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -386,8 +386,8 @@ START_TEST (test_parse_function_vectorprod)
   fail_unless( !strcmp(oldroundtrip, "vectorproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -401,8 +401,8 @@ START_TEST (test_parse_function_cross)
   fail_unless( !strcmp(oldroundtrip, "vectorproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -416,8 +416,8 @@ START_TEST (test_parse_function_scalarproduct)
   fail_unless( !strcmp(oldroundtrip, "scalarproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -431,8 +431,8 @@ START_TEST (test_parse_function_scalarprod)
   fail_unless( !strcmp(oldroundtrip, "scalarproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -446,8 +446,8 @@ START_TEST (test_parse_function_dot)
   fail_unless( !strcmp(oldroundtrip, "scalarproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -461,8 +461,8 @@ START_TEST (test_parse_function_outerproduct)
   fail_unless( !strcmp(oldroundtrip, "outerproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -476,8 +476,8 @@ START_TEST (test_parse_function_outerprod)
   fail_unless( !strcmp(oldroundtrip, "outerproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -491,8 +491,8 @@ START_TEST (test_parse_function_outer)
   fail_unless( !strcmp(oldroundtrip, "outerproduct(a, x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 #endif
@@ -506,8 +506,8 @@ START_TEST (test_parse_function_vector_0args)
   fail_unless( !strcmp(oldroundtrip, "vector()") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -521,8 +521,8 @@ START_TEST (test_parse_function_vector_1args)
   fail_unless( !strcmp(oldroundtrip, "vector(x)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -536,8 +536,8 @@ START_TEST (test_parse_function_vector_2args)
   fail_unless( !strcmp(oldroundtrip, "vector(a + b, x^y)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -551,8 +551,8 @@ START_TEST (test_parse_function_matrix_empty)
   fail_unless( !strcmp(oldroundtrip, "matrix()") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -566,8 +566,8 @@ START_TEST (test_parse_function_matrix_1row)
   fail_unless( !strcmp(oldroundtrip, "matrix(matrixrow(x, y))") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -581,8 +581,8 @@ START_TEST (test_parse_function_matrix_2rows)
   fail_unless( !strcmp(oldroundtrip, "matrix(matrixrow(x, y), matrixrow(y, x))") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 
@@ -596,8 +596,8 @@ START_TEST (test_parse_function_matrix_emptyrows)
   fail_unless( !strcmp(oldroundtrip, "matrix(matrixrow(), matrixrow())") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 #endif
@@ -612,8 +612,8 @@ START_TEST (test_parse_function_sum)
   fail_unless( !strcmp(oldroundtrip, "sum(a, b, c)") );
 
   delete r;
-  delete roundtrip;
-  delete oldroundtrip;
+  safe_free(roundtrip);
+  safe_free(oldroundtrip);
 }
 END_TEST
 

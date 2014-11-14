@@ -152,15 +152,13 @@ ArraysASTPlugin::ArraysASTPlugin(const ArraysASTPlugin& orig)
 {
   if ( orig.mVector  != NULL)
   {
-    mVector = static_cast<ASTArraysVectorFunctionNode*>
-                                 ( orig.mVector->deepCopy() );
+    mVector = orig.mVector->deepCopy();
   }
   
 #if (0)
   if ( orig.mMatrix  != NULL)
   {
-    mMatrix = static_cast<ASTArraysMatrixFunctionNode*>
-                                 ( orig.mMatrix->deepCopy() );
+    mMatrix = orig.mMatrix->deepCopy();
   }
 #endif
 }
@@ -171,6 +169,7 @@ ArraysASTPlugin::ArraysASTPlugin(const ArraysASTPlugin& orig)
  */
 ArraysASTPlugin::~ArraysASTPlugin () 
 {
+  delete mVector;
 }
 
 /*

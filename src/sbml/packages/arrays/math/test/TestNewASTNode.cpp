@@ -181,6 +181,7 @@ START_TEST (test_ASTNode_setNewTypes_1)
   fail_unless( node->getParentSBMLObject() == m);
 
   delete node;
+  delete m;
 }
 END_TEST
 
@@ -246,6 +247,8 @@ START_TEST (test_ASTNode_removeChild)
   fail_unless( node->getNumChildren() == 0); 
 
   delete node;
+  delete c1;
+  delete c2;
 }
 END_TEST
 
@@ -290,6 +293,7 @@ START_TEST (test_ASTNode_replaceChild)
   fail_unless( !strcmp(node->getChild(1)->getName(), "a"));
 
   delete node;
+  delete c2;
 }
 END_TEST
 

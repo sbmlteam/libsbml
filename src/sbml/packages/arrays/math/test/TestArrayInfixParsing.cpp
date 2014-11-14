@@ -127,7 +127,7 @@ START_TEST (test_parse_brackets_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'a[x,y,z]' at position 8:  The 'selector' function may not have more than three arguments ('selector(a, x, y)'):  the first for the vector or matrix from which to select, the second for the index of the vector or the matrixrow of the matrix, and an optional third, which only applies to matrices, for the index of the selected matrixrow of the matrix.  Similarly, the bracketed form may have no more than two ('a[x, y]'), for the same reason."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -445,7 +445,7 @@ START_TEST (test_parse_curlybraces_semicolons_ragged)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input '{x, y, z; p}' at position 12:  All rows of matrices must have the same number of arguments:  In this matrix, the first row has 3 children, but row 2 has 1 child(ren)."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 #endif
@@ -457,7 +457,7 @@ START_TEST (test_parse_function_selector_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'selector()' at position 10:  The 'selector' function must have at least one argument: the vector or matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -544,7 +544,7 @@ START_TEST (test_parse_function_selector_4args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'selector(a,x,y,z)' at position 17:  The 'selector' function may not have more than three arguments ('selector(a, x, y)'):  the first for the vector or matrix from which to select, the second for the index of the vector or the matrixrow of the matrix, and an optional third, which only applies to matrices, for the index of the selected matrixrow of the matrix.  Similarly, the bracketed form may have no more than two ('a[x, y]'), for the same reason."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -557,7 +557,7 @@ START_TEST (test_parse_function_selector_5args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'selector(a,x,y,z,q)' at position 19:  The 'selector' function may not have more than three arguments ('selector(a, x, y)'):  the first for the vector or matrix from which to select, the second for the index of the vector or the matrixrow of the matrix, and an optional third, which only applies to matrices, for the index of the selected matrixrow of the matrix.  Similarly, the bracketed form may have no more than two ('a[x, y]'), for the same reason."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -570,7 +570,7 @@ START_TEST (test_parse_function_determinant_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'determinant()' at position 13:  The 'determinant' function must have exactly one argument: the matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -623,7 +623,7 @@ START_TEST (test_parse_function_determinant_2args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'determinant(a,x)' at position 16:  The 'determinant' function must have exactly one argument: the matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -636,7 +636,7 @@ START_TEST (test_parse_function_determinant_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'determinant(a,x,y)' at position 18:  The 'determinant' function must have exactly one argument: the matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -649,7 +649,7 @@ START_TEST (test_parse_function_transpose_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'transpose()' at position 11:  The 'transpose' function must have exactly one argument: the vector or matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -702,7 +702,7 @@ START_TEST (test_parse_function_transpose_2args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'transpose(a,x)' at position 14:  The 'transpose' function must have exactly one argument: the vector or matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -715,7 +715,7 @@ START_TEST (test_parse_function_transpose_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'transpose(a,x,y)' at position 16:  The 'transpose' function must have exactly one argument: the vector or matrix in question."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -728,7 +728,7 @@ START_TEST (test_parse_function_vectorproduct_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'vectorproduct()' at position 15:  The vector product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -741,7 +741,7 @@ START_TEST (test_parse_function_vectorproduct_1args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'vectorproduct(a)' at position 16:  The vector product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -830,7 +830,7 @@ START_TEST (test_parse_function_vectorproduct_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'vectorproduct(a,x,y)' at position 20:  The vector product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -843,7 +843,7 @@ START_TEST (test_parse_function_scalarproduct_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'scalarproduct()' at position 15:  The scalar product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -856,7 +856,7 @@ START_TEST (test_parse_function_scalarproduct_1args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'scalarproduct(a)' at position 16:  The scalar product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -944,7 +944,7 @@ START_TEST (test_parse_function_scalarproduct_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'scalarproduct(a,x,y)' at position 20:  The scalar product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -957,7 +957,7 @@ START_TEST (test_parse_function_outerproduct_0args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'outerproduct()' at position 14:  The outer product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -970,7 +970,7 @@ START_TEST (test_parse_function_outerproduct_1args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'outerproduct(a)' at position 15:  The outer product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 
@@ -1058,7 +1058,7 @@ START_TEST (test_parse_function_outerproduct_3args)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'outerproduct(a,x,y)' at position 19:  The outer product function must have exactly two vector arguments."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 #endif
@@ -1194,7 +1194,7 @@ START_TEST (test_parse_function_matrix_1arg_error)
   fail_unless(r == NULL);
   char* error = SBML_getLastParseL3Error();
   fail_unless( !strcmp(error, "Error when parsing input 'matrix(a)' at position 9:  All children of matrices must be matrix rows created with 'matrixrow()', or the entire matrix may be constructed with curly braces and semicolon-delimited lists: '{a, b; x, y}'."));
-  delete error;
+  safe_free(error);
 }
 END_TEST
 

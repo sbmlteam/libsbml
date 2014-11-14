@@ -79,6 +79,7 @@ static void
 NewReadMathML_teardown ()
 {
   delete N;
+  delete NS;
   free(F);
 }
 
