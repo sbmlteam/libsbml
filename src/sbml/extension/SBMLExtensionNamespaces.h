@@ -131,11 +131,11 @@ public:
   SBMLExtensionNamespaces& operator=(const SBMLExtensionNamespaces& rhs)
 #ifndef SWIG
   {
-    if (this == &orig) return *this;
+    if (this == &rhs) return *this;
 
-    SBMLNamespaces::operator=(orig);
-    mPackageVersion = orig.mPackageVersion;
-    mPackageName = orig.mPackageName;
+    SBMLNamespaces::operator=(rhs);
+    mPackageVersion = rhs.mPackageVersion;
+    mPackageName = rhs.mPackageName;
 
     return *this;
   }
