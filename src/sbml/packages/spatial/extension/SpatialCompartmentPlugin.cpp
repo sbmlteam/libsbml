@@ -346,6 +346,7 @@ SpatialCompartmentPlugin::setCompartmentMapping(const CompartmentMapping* compar
 CompartmentMapping*
 SpatialCompartmentPlugin::createCompartmentMapping()
 {
+  delete mCompartmentMapping;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mCompartmentMapping = new CompartmentMapping(spatialns);
 

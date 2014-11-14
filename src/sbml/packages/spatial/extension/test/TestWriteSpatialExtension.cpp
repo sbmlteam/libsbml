@@ -503,7 +503,7 @@ START_TEST (test_SpatialExtension_create_add_and_write_L3V1V1)
   SpatialCompartmentPlugin* cplugin;
   cplugin = static_cast<SpatialCompartmentPlugin*>(compartment.getPlugin("spatial"));
   fail_unless(cplugin != NULL);
-  CompartmentMapping* compMapping = cplugin->createCompartmentMapping();
+  compMapping = cplugin->createCompartmentMapping();
   fail_unless(compMapping->setId("compMap1") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setDomainType(domainType.getId()) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(compMapping->setUnitSize(1.0) == LIBSBML_OPERATION_SUCCESS);

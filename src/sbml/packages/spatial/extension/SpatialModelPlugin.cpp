@@ -346,6 +346,7 @@ SpatialModelPlugin::setGeometry(const Geometry* geometry)
 Geometry*
 SpatialModelPlugin::createGeometry()
 {
+  delete mGeometry;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mGeometry = new Geometry(spatialns);
 

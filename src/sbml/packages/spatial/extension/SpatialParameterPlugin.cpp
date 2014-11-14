@@ -415,6 +415,7 @@ SpatialParameterPlugin::setSpatialSymbolReference(const SpatialSymbolReference* 
 SpatialSymbolReference*
 SpatialParameterPlugin::createSpatialSymbolReference()
 {
+  delete mSpatialSymbolReference;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mSpatialSymbolReference = new SpatialSymbolReference(spatialns);
 
@@ -497,6 +498,7 @@ SpatialParameterPlugin::setAdvectionCoefficient(const AdvectionCoefficient* adve
 AdvectionCoefficient*
 SpatialParameterPlugin::createAdvectionCoefficient()
 {
+  delete mAdvectionCoefficient;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mAdvectionCoefficient = new AdvectionCoefficient(spatialns);
 
@@ -579,6 +581,7 @@ SpatialParameterPlugin::setBoundaryCondition(const BoundaryCondition* boundaryCo
 BoundaryCondition*
 SpatialParameterPlugin::createBoundaryCondition()
 {
+  delete mBoundaryCondition;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mBoundaryCondition = new BoundaryCondition(spatialns);
 
@@ -661,6 +664,7 @@ SpatialParameterPlugin::setDiffusionCoefficient(const DiffusionCoefficient* diff
 DiffusionCoefficient*
 SpatialParameterPlugin::createDiffusionCoefficient()
 {
+  delete mDiffusionCoefficient;
   SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
   mDiffusionCoefficient = new DiffusionCoefficient(spatialns);
 
