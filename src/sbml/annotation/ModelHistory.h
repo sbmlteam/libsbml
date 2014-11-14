@@ -560,6 +560,7 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh);
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ModelHistory_t
  */
@@ -600,6 +601,11 @@ int ModelHistory_isSetModifiedDate(ModelHistory_t * mh);
  *
  * @param mh the ModelHistory_t structure
  * @param date the Date_t structure to add.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
  *
  * @memberof ModelHistory_t
  */
