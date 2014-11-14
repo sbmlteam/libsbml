@@ -54,9 +54,9 @@ SpatialParameterPlugin::SpatialParameterPlugin(const std::string& uri,
                                  const std::string& prefix, 
                                SpatialPkgNamespaces* spatialns) :
     SBasePlugin(uri, prefix, spatialns)
-  , mSpatialSymbolReference  ( NULL )
+  , mSpatialSymbolReference( NULL )
   , mAdvectionCoefficient  ( NULL )
-  , mBoundaryCondition  ( NULL )
+  , mBoundaryCondition     ( NULL )
   , mDiffusionCoefficient  ( NULL )
 {
 }
@@ -67,11 +67,23 @@ SpatialParameterPlugin::SpatialParameterPlugin(const std::string& uri,
  */
 SpatialParameterPlugin::SpatialParameterPlugin(const SpatialParameterPlugin& orig) :
     SBasePlugin(orig)
-  , mSpatialSymbolReference ( orig.mSpatialSymbolReference )
-  , mAdvectionCoefficient ( orig.mAdvectionCoefficient )
-  , mBoundaryCondition ( orig.mBoundaryCondition )
-  , mDiffusionCoefficient ( orig.mDiffusionCoefficient )
+  , mSpatialSymbolReference( NULL )
+  , mAdvectionCoefficient  ( NULL )
+  , mBoundaryCondition     ( NULL )
+  , mDiffusionCoefficient  ( NULL )
 {
+  if (orig.mSpatialSymbolReference != NULL) {
+    mSpatialSymbolReference = orig.mSpatialSymbolReference->clone();
+  }
+  if (orig.mAdvectionCoefficient != NULL) {
+    mAdvectionCoefficient = orig.mAdvectionCoefficient->clone();
+  }
+  if (orig.mBoundaryCondition != NULL) {
+    mBoundaryCondition = orig.mBoundaryCondition->clone();
+  }
+  if (orig.mDiffusionCoefficient != NULL) {
+    mDiffusionCoefficient = orig.mDiffusionCoefficient->clone();
+  }
 }
 
 
@@ -84,10 +96,19 @@ SpatialParameterPlugin::operator=(const SpatialParameterPlugin& rhs)
   if (&rhs != this)
   {
     this->SBasePlugin::operator=(rhs);
-    mSpatialSymbolReference = rhs.mSpatialSymbolReference;
-    mAdvectionCoefficient = rhs.mAdvectionCoefficient;
-    mBoundaryCondition = rhs.mBoundaryCondition;
-    mDiffusionCoefficient = rhs.mDiffusionCoefficient;
+    deleteChildren();
+    if (rhs.mSpatialSymbolReference != NULL) {
+      mSpatialSymbolReference = rhs.mSpatialSymbolReference->clone();
+    }
+    if (rhs.mAdvectionCoefficient != NULL) {
+      mAdvectionCoefficient = rhs.mAdvectionCoefficient->clone();
+    }
+    if (rhs.mBoundaryCondition != NULL) {
+      mBoundaryCondition = rhs.mBoundaryCondition->clone();
+    }
+    if (rhs.mDiffusionCoefficient != NULL) {
+      mDiffusionCoefficient = rhs.mDiffusionCoefficient->clone();
+    }
   }
 
   return *this;
@@ -109,9 +130,20 @@ SpatialParameterPlugin::clone () const
  */
 SpatialParameterPlugin::~SpatialParameterPlugin()
 {
+  deleteChildren();
 }
 
-
+void SpatialParameterPlugin::deleteChildren()
+{
+  delete mSpatialSymbolReference;
+  delete mAdvectionCoefficient;
+  delete mBoundaryCondition;
+  delete mDiffusionCoefficient;
+  mSpatialSymbolReference = NULL;
+  mAdvectionCoefficient = NULL;
+  mBoundaryCondition = NULL;
+  mDiffusionCoefficient = NULL;
+}
 //---------------------------------------------------------------
 //
 // overridden virtual functions for read/write/check

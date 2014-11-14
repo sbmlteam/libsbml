@@ -193,9 +193,7 @@ SampledField::~SampledField ()
     delete[] mSamples;
   mSamples = NULL;
   
-  if (mUncompressedSamples != NULL)
-    delete[] mUncompressedSamples;
-  mUncompressedSamples = NULL;
+  freeUncompressed();
 }
 
 
@@ -518,7 +516,7 @@ SampledField::setCompression(const std::string& compression)
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-SampledField::setSamples(int* inArray, int arrayLength)
+SampledField::setSamples(int* inArray, size_t arrayLength)
 {
   if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
@@ -1225,17 +1223,10 @@ SampledField::setElementText(const std::string &text)
   }
 
   // convert the vector to an array
-  unsigned int length = (unsigned int)valuesVector.size();
+  size_t length = valuesVector.size();
   if (length > 0)
   {
-
-    int* data = new int[length];
-    for (unsigned int i = 0; i < length; ++i)
-    {
-      data[i] = valuesVector.at(i);
-    }
-
-    setSamples(data, length);
+    setSamples(&valuesVector[0], length);
   }
 }
 #include <sbml/compress/CompressCommon.h>

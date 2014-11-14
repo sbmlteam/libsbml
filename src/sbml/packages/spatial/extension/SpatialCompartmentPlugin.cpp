@@ -64,8 +64,11 @@ SpatialCompartmentPlugin::SpatialCompartmentPlugin(const std::string& uri,
  */
 SpatialCompartmentPlugin::SpatialCompartmentPlugin(const SpatialCompartmentPlugin& orig) :
     SBasePlugin(orig)
-  , mCompartmentMapping ( orig.mCompartmentMapping )
+  , mCompartmentMapping ( NULL )
 {
+    if (orig.mCompartmentMapping != NULL) {
+      mCompartmentMapping = orig.mCompartmentMapping->clone();
+    }
 }
 
 
@@ -78,7 +81,11 @@ SpatialCompartmentPlugin::operator=(const SpatialCompartmentPlugin& rhs)
   if (&rhs != this)
   {
     this->SBasePlugin::operator=(rhs);
-    mCompartmentMapping = rhs.mCompartmentMapping;
+    delete mCompartmentMapping;
+    mCompartmentMapping = NULL;
+    if (rhs.mCompartmentMapping != NULL) {
+      mCompartmentMapping = rhs.mCompartmentMapping->clone();
+    }
   }
 
   return *this;
@@ -100,6 +107,7 @@ SpatialCompartmentPlugin::clone () const
  */
 SpatialCompartmentPlugin::~SpatialCompartmentPlugin()
 {
+  delete mCompartmentMapping;
 }
 
 

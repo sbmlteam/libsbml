@@ -459,7 +459,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSamples(int* inArray, int arrayLength);
+  virtual int setSamples(int* inArray, size_t arrayLength);
 
 
   /**

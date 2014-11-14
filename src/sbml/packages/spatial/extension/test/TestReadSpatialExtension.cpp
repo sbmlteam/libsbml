@@ -49,7 +49,7 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   file += "/read_l3v1v1.xml";
 
   SBMLDocument *document = readSBMLFromFile(file.c_str());
-  char *sbmlDoc = writeSBMLToString(document);
+  string sbmlDoc = writeSBMLToStdString(document);
   fail_unless(document->getPackageName() == "core");
 
   Model *model = document->getModel();
@@ -299,13 +299,12 @@ START_TEST (test_SpatialExtension_read_L3V1V1)
   fail_unless(samples[0] == 0);
 
 
-  char* s2 = writeSBMLToString(document);
+  string s2 = writeSBMLToStdString(document);
 
-  fail_unless(strcmp(sbmlDoc,s2) == 0);
+  fail_unless(sbmlDoc==s2);
 
-  free(sbmlDoc);
-  free(s2);
-  delete document;  
+  delete document;
+  delete[] samples;
 }
 END_TEST
 
@@ -316,7 +315,7 @@ END_TEST
   file += "/read_L3V1V1_defaultNS.xml";
 
   SBMLDocument *document = readSBMLFromFile(file.c_str());
-  char* sbmlDoc = writeSBMLToString(document);
+  string sbmlDoc = writeSBMLToStdString(document);
   Model *model = document->getModel();
 
   //document->printErrors();
@@ -547,12 +546,12 @@ END_TEST
   sf->getSamples(samples);
   fail_unless(samples[0] == 0);
 
-  char* s2 = writeSBMLToString(document);
+  string s2 = writeSBMLToStdString(document);
 
-  fail_unless(strcmp(sbmlDoc,s2) == 0);
+  fail_unless(sbmlDoc==s2);
 
-  free(s2);
   delete document;  
+  delete[] samples;
 }
 END_TEST
 
@@ -686,6 +685,10 @@ END_TEST
   resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 
+  delete doc;
+  delete[] array1;
+  free(result);
+  delete[] more;
 }
 END_TEST
 #endif
@@ -800,15 +803,101 @@ END_TEST
   resultString = dataToString(more, field->getNumSamples1(), resultLength);
   fail_unless(resultString == expected);
 
+  delete doc;
+  delete[] array1;
+  free(result);
+  delete[] more;
 }
 END_TEST
 
 
-  Suite *
+START_TEST (test_SpatialExtension_readwrite_meshonly)
+{
+
+  string file = TestDataDirectory;
+  file += "/MeshOnly.xml";
+
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
+  SBMLErrorLog* errors = document->getErrorLog();
+  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
+    fail_unless(false);
+    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
+      const SBMLError* error = errors->getError(e);
+      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
+        cout << error->getMessage() << endl;
+      }
+    }
+  }
+  file = TestDataDirectory;
+  file += "/MeshOnly_rt.xml";
+  writeSBMLToFile(document, file.c_str());
+
+  delete document;
+}
+END_TEST
+
+
+START_TEST (test_SpatialExtension_readwrite_mixedonly)
+{
+
+  string file = TestDataDirectory;
+  file += "/MixedOnly.xml";
+
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
+  SBMLErrorLog* errors = document->getErrorLog();
+  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
+    fail_unless(false);
+    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
+      const SBMLError* error = errors->getError(e);
+      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
+        cout << error->getMessage() << endl;
+      }
+    }
+  }
+  file = TestDataDirectory;
+  file += "/MixedOnly_rt.xml";
+  writeSBMLToFile(document, file.c_str());
+
+  delete document;
+}
+END_TEST
+
+
+START_TEST (test_SpatialExtension_readwrite_csgonly)
+{
+
+  string file = TestDataDirectory;
+  file += "/CSGOnly.xml";
+
+  SBMLDocument *document = readSBMLFromFile(file.c_str());
+  SBMLErrorLog* errors = document->getErrorLog();
+  if (errors->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
+    fail_unless(false);
+    for (unsigned long e=0; e<errors->getNumErrors(); e++) {
+      const SBMLError* error = errors->getError(e);
+      if (error->getSeverity() == LIBSBML_SEV_ERROR) {
+        cout << error->getMessage() << endl;
+      }
+    }
+  }
+  file = TestDataDirectory;
+  file += "/CSGOnly_rt.xml";
+  writeSBMLToFile(document, file.c_str());
+
+  delete document;
+}
+END_TEST
+
+
+Suite *
   create_suite_ReadSpatialExtension (void)
 {
   Suite *suite = suite_create("ReadSpatialExtension");
   TCase *tcase = tcase_create("ReadSpatialExtension");
+
+  //tcase_add_test( tcase, test_SpatialExtension_readwrite_meshonly);
+  //tcase_add_test( tcase, test_SpatialExtension_readwrite_csgonly);
+  //tcase_add_test( tcase, test_SpatialExtension_readwrite_mixedonly);
 
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1);
   tcase_add_test( tcase, test_SpatialExtension_read_L3V1V1_defaultNS);

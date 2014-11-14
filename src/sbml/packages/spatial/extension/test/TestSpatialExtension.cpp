@@ -103,6 +103,7 @@ END_TEST
   fail_unless(spatialns->getVersion()        == 1);
   fail_unless(spatialns->getPackageVersion() == 1);
 
+  delete spatialns;
   spatialns = static_cast<SpatialPkgNamespaces*>(S->getSBMLExtensionNamespaces(""));
 
   fail_unless(spatialns == NULL);
@@ -220,6 +221,8 @@ END_TEST
   fail_unless(sbext->getPackageVersion(SPATIAL_XMLNS_L3V1V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
+
+  delete sbext;
 }
 END_TEST
 
@@ -274,6 +277,8 @@ END_TEST
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_COORDINATEREFERENCE, "spatial"), "CoordinateReference") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_DOMAINTYPE-1, "spatial")            , "(Unknown SBML Spatial Type)") == 0);
   fail_unless(strcmp(SBMLTypeCode_toString(SBML_SPATIAL_ORDINALMAPPING + 1, "spatial"), "(Unknown SBML Spatial Type)") == 0);
+
+  delete sbext;
 }
 END_TEST
 

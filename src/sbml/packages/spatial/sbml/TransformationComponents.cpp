@@ -519,6 +519,7 @@ TransformationComponents::setElementText(const std::string &text)
     }
 
     setComponents(data, length);
+    delete[] data;
   }
 }
 LIBSBML_EXTERN
