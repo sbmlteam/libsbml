@@ -424,25 +424,6 @@ ASTFunction::~ASTFunction ()
   if (mCSymbol        != NULL) delete mCSymbol;
   if (mQualifier      != NULL) delete mQualifier;
   if (mSemantics      != NULL) delete mSemantics;
-  if (mIsOther == true)
-  {
-    if (mPackageName.empty() == false && mPackageName != "core")
-    {
-      delete getPlugin(mPackageName)->getMath();
-    }
-    else
-    {
-      unsigned int i = 0;
-      while (i < getNumPlugins())
-      {
-        if (getPlugin(i)->isSetMath() == true)
-        {
-          delete getPlugin(i)->getMath();
-        }
-        i++;
-      }
-    }
-  }
 }
 
 int
@@ -4429,7 +4410,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
     ASTBase * node = NULL;
     if (mPackageName.empty() == false && mPackageName != "core")
     {
-      node = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath());
+      node = getPlugin(mPackageName)->getMath()->deepCopy();
     }
     else
     {
@@ -4439,7 +4420,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       {
         if (getPlugin(i)->isSetMath() == true)
         {
-          node = const_cast<ASTBase*>(getPlugin(i)->getMath());
+          node = getPlugin(i)->getMath()->deepCopy();
           found = true;
         }
         i++;
@@ -4457,6 +4438,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       {
         copyChildren = false;
       }
+      delete node;
     }
   }
 

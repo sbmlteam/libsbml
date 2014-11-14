@@ -1751,7 +1751,7 @@ ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
 void
 ASTBase::syncMembersFrom(ASTBase* rhs)
 {
-  if (rhs == NULL)
+  if (rhs == NULL || rhs==this)
   {
     return;
   }
@@ -1768,18 +1768,17 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
   mIsBvar               = rhs->mIsBvar;
 
   // deal with plugins
-
   clearPlugins();
   mPlugins.resize( rhs->mPlugins.size() );
   transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
-             mPlugins.begin(), CloneASTPluginEntity() );
+    mPlugins.begin(), CloneASTPluginEntity() );
 }
 
 
 void
 ASTBase::syncPluginsFrom(ASTBase* rhs)
 {
-  if (rhs == NULL)
+  if (rhs == NULL || rhs==this)
   {
     return;
   }
@@ -1807,7 +1806,7 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
 void
 ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
 {
-  if (rhs == NULL)
+  if (rhs == NULL || rhs==this)
   {
     return;
   }
@@ -1825,27 +1824,10 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
 
   // deal with plugins
 
-  // if they are not the same delete and replace
-  bool identicalPlugins = true;
-  if (mPlugins.size() == rhs->mPlugins.size())
-  {
-    for (unsigned int i = 0; i < mPlugins.size(); i++)
-    {
-      if (rhs->mPlugins[i] != mPlugins[i])
-        identicalPlugins = false;
-    }
-  }
-  else
-  {
-    identicalPlugins = false;
-  }
-  if (identicalPlugins == false)
-  {
-    clearPlugins();
-    mPlugins.resize( rhs->mPlugins.size() );
-    transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
-               mPlugins.begin(), CloneASTPluginEntityNoParent() );
-  }
+  clearPlugins();
+  mPlugins.resize( rhs->mPlugins.size() );
+  transform( rhs->mPlugins.begin(), rhs->mPlugins.end(), 
+             mPlugins.begin(), CloneASTPluginEntityNoParent() );
 
   // reset parents
   for (unsigned int i = 0; i < getNumPlugins(); i++)
@@ -1858,7 +1840,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
 void
 ASTBase::syncMembersOnlyFrom(ASTBase* rhs)
 {
-  if (rhs == NULL)
+  if (rhs == NULL || rhs==this)
   {
     return;
   }
