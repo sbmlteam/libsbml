@@ -2,7 +2,7 @@
 
 	
 ====================================================================
-5.11.0 (Anticipated 2014-11-13)
+5.11.0 (2014-11-27)
 ====================================================================
 
 STABLE RELEASE
@@ -24,7 +24,8 @@ STABLE RELEASE
   
   - There is a new writSBMLToStdString() function that returns a 
     std::string rather than a char * that has to be freed by the caller. 
-    This facilitates cleaner memory management.
+    This facilitates cleaner memory management. Similarly there is
+    a writeMathMLToStdString() function.
     
   - The errors reported by OutputSBML in the MATLAB binding have been
     extended to provide more information about the specific field
@@ -35,11 +36,18 @@ STABLE RELEASE
     hasInstance has been added.
     
   - More information has been added to error messages.
+
+  - There are new functions to allow users to retrieve and print errors
+    from the ErrorLog based on the severity of the error.  These are
+    SBMLError* getErrorWithSeverity(unsigned int n, unsigned int severity)
+    and printErrors(std::ostream& stream, unsigned int severity).
+
+
   
   - 'comp' package-specific updates:
   
     - A new flag has been added to the CompFlatteningConverter to 
-      allow a user to specify a comment seperated list of packages
+      allow a user to specify a comment separated list of packages
       that should be stripped before flattening is attempted.
       
     - The CompFlatteningConverter has been made more rigorous
@@ -104,7 +112,10 @@ STABLE RELEASE
 
   - We have continued our review of code and many more memory leaks 
     have been plugged.  Thanks to people, in particular Andy Somogyi, 
-    for reporting these.
+    for reporting these.  Stable code has been rigorously tested using
+    both Valgrind (http://valgrind.org/) and Visual Leak Detector for
+    Visual C++ (https://vld.codeplex.com/). Experimental code is
+    currently being reviewed.
 
   - Sourceforge libsbml Tracker #372: Documentation has been corrected. 
     Thanks to Gerard Weatherby for reporting the issues.
