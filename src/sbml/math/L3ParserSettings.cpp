@@ -72,6 +72,38 @@ L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool c
   setPlugins(sbmlns);
 }
 
+L3ParserSettings::L3ParserSettings(const L3ParserSettings& source)
+{
+  mModel = source.mModel;
+  mParselog = source.mParselog;
+  mCollapseminus = source.mCollapseminus;
+  mParseunits = source.mParseunits;
+  mAvoCsymbol = source.mAvoCsymbol;
+  mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+  for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
+  {
+    mPlugins.push_back(source.mPlugins[mp]->clone());
+  }
+}
+
+L3ParserSettings& L3ParserSettings::operator=(const L3ParserSettings& source)
+{
+  mModel = source.mModel;
+  mParselog = source.mParselog;
+  mCollapseminus = source.mCollapseminus;
+  mParseunits = source.mParseunits;
+  mAvoCsymbol = source.mAvoCsymbol;
+  mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+  deletePlugins();
+  for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
+  {
+    mPlugins.push_back(source.mPlugins[mp]->clone());
+  }
+
+  return *this;
+}
+
+
 L3ParserSettings::~L3ParserSettings()
 {
   deletePlugins();
@@ -97,7 +129,7 @@ L3ParserSettings::setPlugins(const SBMLNamespaces * sbmlns)
         const ASTBasePlugin* l3psPlugin = sbmlext->getASTBasePlugin();
         if (l3psPlugin != NULL)
         {
-          //// need to give the plugin infomrtaion about itself
+          //// need to give the plugin information about itself
           //l3psPlugin->setSBMLExtension(sbmlext);
           //l3psPlugin->connectToParent(this);
           mPlugins.push_back(l3psPlugin->clone());
@@ -139,7 +171,7 @@ L3ParserSettings::setPlugins(const SBMLNamespaces * sbmlns)
 void L3ParserSettings::deletePlugins()
 {
   for (size_t p=0; p<mPlugins.size(); p++) {
-    //delete mPlugins[p];
+    delete mPlugins[p];
   }
   mPlugins.clear();
 }

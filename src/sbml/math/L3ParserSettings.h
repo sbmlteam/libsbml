@@ -448,6 +448,16 @@ public:
 
 
   /**
+   * Copy constructor.
+   */
+   L3ParserSettings(const L3ParserSettings& source);
+
+  /**
+   * Assignment operator.
+   */
+   L3ParserSettings& operator=(const L3ParserSettings& source);
+
+  /**
    * Destroys this L3ParserSettings object.
    */
   virtual ~L3ParserSettings();
