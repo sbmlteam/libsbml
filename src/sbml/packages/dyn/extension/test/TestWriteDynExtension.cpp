@@ -55,11 +55,11 @@ WriteDynExtensionTest_teardown (void)
 
 START_TEST (test_DynExtension_create_and_write_L3V1V1)
 {
-  DynPkgNamespaces *sbmlns = new DynPkgNamespaces(3,1,1);
+  DynPkgNamespaces sbmlns(3,1,1);
 
   // create the document
 
-  SBMLDocument *document = new SBMLDocument(sbmlns);
+  SBMLDocument *document = new SBMLDocument(&sbmlns);
 
   // mark dyn as required
 
@@ -100,26 +100,23 @@ START_TEST (test_DynExtension_create_and_write_L3V1V1)
   param->setValue(1);
 
 
-  char *s1 = writeSBMLToString(document);
+  string s1 = writeSBMLToStdString(document);
 
   // check clone()
 
   SBMLDocument* document2 = document->clone();
-  char *s2 = writeSBMLToString(document2);
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  string s2 = writeSBMLToStdString(document2);
+  fail_unless(s1==s2); 
 
   // check operator=
 
-  Model *m = new Model(document->getSBMLNamespaces()); 
-  m = document->getModel();
+  Model *m = document->getModel();
   document2->setModel(m);
-  s2 = writeSBMLToString(document2);
+  s2 = writeSBMLToStdString(document2);
 
-  fail_unless(strcmp(s1,s2) == 0); 
-  free(s2);
+  fail_unless(s1==s2); 
+
   delete document2;
-
   delete document;  
 }
 END_TEST

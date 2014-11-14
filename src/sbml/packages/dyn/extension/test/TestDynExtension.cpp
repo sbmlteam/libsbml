@@ -101,6 +101,7 @@ START_TEST (test_DynExtension_getSBMLExtensionNamespaces)
   fail_unless(dynns->getVersion()        == 1);
   fail_unless(dynns->getPackageVersion() == 1);
 
+  delete dynns;
   dynns = static_cast<DynPkgNamespaces*>(G->getSBMLExtensionNamespaces(""));
 
   fail_unless(dynns == NULL);
@@ -196,7 +197,7 @@ END_TEST
 
 START_TEST(test_DynExtension_registry)
 {
-  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("dyn");
+  SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("dyn");
 
   fail_unless(sbext != NULL);
 
@@ -218,19 +219,23 @@ START_TEST(test_DynExtension_registry)
   fail_unless(sbext->getPackageVersion(DYN_XMLNS_L3V1V1) == 1);
   fail_unless(sbext->getPackageVersion(CORE_XMLNS_L2V4)             == 0);
   fail_unless(sbext->getPackageVersion("")                          == 0);
+
+  delete sbext;
 }
 END_TEST
 
 
 START_TEST(test_DynExtension_typecode)
 {
-  const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("dyn");
+  SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtension("dyn");
 
   fail_unless(sbext != NULL);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DYN_ELEMENT), "DynElement") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DYN_SPATIALCOMPONENT), "SpatialComponent") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DYN_ELEMENT-1), "(Unknown SBML Dyn Type)") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_DYN_SPATIALCOMPONENT+1), "(Unknown SBML Dyn Type)") == 0);
+
+  delete sbext;
 }
 END_TEST
 

@@ -30,8 +30,8 @@ extern char *TestDataDirectory;
 
 START_TEST (test_DynExtension_read_L3V1V1)
 {
-  char *filename = safe_strcat(TestDataDirectory, "dyn_example1.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "dyn_example1.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   fail_unless(document->getPackageName() == "core");
   
@@ -79,8 +79,8 @@ END_TEST
 
 START_TEST (test_DynExtension_read_L3V1V1_2)
 {
-  char *filename = safe_strcat(TestDataDirectory, "dyn_example2.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "dyn_example2.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   fail_unless(document->getPackageName() == "core");
   
@@ -124,8 +124,8 @@ END_TEST
 
 START_TEST (test_DynExtension_read_L3V1V1_defaultNS)
 {
-  char *filename = safe_strcat(TestDataDirectory, "dyn_example2_defaultNS.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
+  string filename = string(TestDataDirectory) + "dyn_example2_defaultNS.xml";
+  SBMLDocument *document = readSBMLFromFile(filename.c_str());
   
   fail_unless(document->getPackageName() == "core");
   
