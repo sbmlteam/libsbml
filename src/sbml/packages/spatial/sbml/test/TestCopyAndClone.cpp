@@ -153,8 +153,9 @@ START_TEST ( test_ParametricObject_copyConstructor )
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
-  delete o2;
   delete o1;
+  delete o2;
+  delete obj;
 }
 END_TEST
 
@@ -183,6 +184,7 @@ START_TEST ( test_ParametricObject_assignmentOperator )
 
   delete o2;
   delete o1;
+  delete obj;
 }
 END_TEST
 
@@ -210,6 +212,7 @@ START_TEST ( test_ParametricObject_clone )
 
   delete o2;
   delete o1;
+  delete obj;
 }
 END_TEST
 

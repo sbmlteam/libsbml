@@ -155,6 +155,8 @@ START_TEST (test_ParametricObject_polygonObject)
 
   fail_unless(G->unsetPolygonObject() == LIBSBML_OPERATION_SUCCESS);
   fail_unless(G->isSetPolygonObject() == false);
+
+  delete obj;
 }
 END_TEST
 
@@ -178,6 +180,8 @@ START_TEST (test_ParametricObject_output)
   S = G->toSBML();
 
   fail_unless( equals(expected, S) );
+
+  delete obj;
 }
 END_TEST
 
