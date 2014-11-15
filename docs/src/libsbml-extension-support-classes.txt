@@ -32,7 +32,7 @@ package extension.  These classes are found in the directory
 @copydetails doc_extension_sbmlextensionregister
 
 @section ext-sbmlextensionregistry SBMLExtensionRegistry
-
+@copydetails doc_extension_sbmlextensionregistry
 
 */
 

@@ -2496,11 +2496,11 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  *
  * @li SBMLExtensionRegistry: This class provides a central registry of all
  * extensions known to libSBML.  Each package extension is registered with
- * the registry.  The registry class is acessed by various classes (e.g.,
- * SBase-extended classes) to retrieve the information about known package
- * extensions and to create additional attributes and/or elements by
- * factory objects of package extensions.  LibSBML cannot parse package
- * extensions which are not registered with the registry.
+ * the registry.  The registry class is accessed by various classes to
+ * retrieve information about known package extensions and to create
+ * additional attributes and/or elements by factory objects of the package
+ * extensions.  LibSBML cannot parse package extensions which are not
+ * registered with the registry.
  *
  * @li SBMLExtensionException: As its name implies, this is an exception
  * class.  It is the class of exceptions thrown when package extensions
@@ -2944,4 +2944,14 @@ ListOfGroups mGroups;
  * <code>LayoutExtension</code> will be automatically invoked when the
  * "register" object is instantiated.  This results in initialization and
  * registration of the package extension with libSBML.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbmlextensionregistry
+ *
+ * @par
+ * The package extension registry is implemented as a singleton instance of
+ * SBMLExtensionRegistry.  The class provides only utility functionality;
+ * implementations of SBML packages do not need to implement any subclasses or
+ * methods of this class.  SBMLExtensionRegistry is useful for its facilities
+ * to query the known packages, and to enable or disable packages selectively.
  */
