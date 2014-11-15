@@ -1938,7 +1938,7 @@ if (config != None) {
  * Define a method named <code>getPackageName()</code> that returns the
  * name of the package as a string.  The following is an example from the
  * implementation of the Groups package extension:
-@code
+@code{.cpp}
 const std::string& GroupsExtension::getPackageName ()
 {
       static const std::string pkgName = "groups";
@@ -1954,7 +1954,7 @@ const std::string& GroupsExtension::getPackageName ()
  * <code>getDefaultLevel()</code>, <code>getDefaultVersion()</code> and
  * <code>getDefaultPackageVersion()</code>, respectively.  The following
  * are examples drawn from the Groups package implementation:
-@code
+@code{.cpp}
 unsigned int GroupsExtension::getDefaultLevel()
 {
       return 3;
@@ -1978,7 +1978,7 @@ unsigned int GroupsExtension::getDefaultPackageVersion()
  * is only usable in SBML Level&nbsp;3 Version&nbsp;1, and the libSBML
  * extension for the package implements version&nbsp;1 of the package, the
  * necessary method is <code>getXmlnsL3V1V1()</code>.  
-@code
+@code{.cpp}
 const std::string& GroupsExtension::getXmlnsL3V1V1 ()
 {
       static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/groups/version1";
@@ -2022,7 +2022,7 @@ const std::string& GroupsExtension::getXmlnsL3V1V1 ()
  *
  * As an example, the following are the versions of these methods for
  * the Groups package:
- * @code
+ * @code{.cpp}
 const std::string&
 GroupsExtension::getName() const
 {
@@ -2092,7 +2092,7 @@ GroupsExtension::clone() const
  * <li> Define a typedef.  For example, the typedef for
  * <code>GroupsExtension</code> is implemented in the file
  * <code>GroupsExtension.h</code> as follows:
-@code
+@code{.cpp}
 // GroupsPkgNamespaces is derived from the SBMLNamespaces class.
 // It is used when creating a Groups package object of a class
 // derived from SBase.
@@ -2103,7 +2103,7 @@ typedef SBMLExtensionNamespaces<GroupsExtension> GroupsPkgNamespaces;
  * <li> Define a template instantiation for the typedef.  For example, the
  * template instantiation code for <code>GroupsExtension is</code> implemented
  * in the file <code>GroupsExtension.cpp</code> as follows:
-@code
+@code{.cpp}
 template class LIBSBML_EXTERN SBMLExtensionNamespaces<GroupsExtension>;
 @endcode
  * </li>
@@ -2114,7 +2114,7 @@ template class LIBSBML_EXTERN SBMLExtensionNamespaces<GroupsExtension>;
  * allow a <code>GroupsPkgNamespaces</code> object to be used when creating a
  * new <code>Group</code> object.  The <code>GroupsPkgNamespaces</code> is
  * handed to the constructor as an argument, as shown below:
-@code
+@code{.cpp}
 GroupPkgNamespaces gpns(3, 1, 1);  // SBML Level, Version, & pkg version.
 Group g = new Group(&gpns);        // Creates a Group object.
 @endcode
@@ -2122,7 +2122,7 @@ Group g = new Group(&gpns);        // Creates a Group object.
  * The <code>GroupsPkgNamespaces</code> object can also be used when creating
  * an SBMLDocument object with the Groups package.  The code fragment
  * below shows an example of this:
-@code
+@code{.cpp}
    GroupsPkgNamespaces gpns(3, 1, 1);
    SBMLDocument* doc;
    doc  = new SBMLDocument(&gnps);
@@ -2134,7 +2134,7 @@ Group g = new Group(&gpns);        // Creates a Group object.
  * Override the pure virtual method <code>getSBMLExtensionNamespaces()</code>,
  * which returns an SBMLNamespaces derived object.  For example, the method
  * is overridden in the class <code>GroupsExtension</code> as follows:
-@code
+@code{.cpp}
 SBMLNamespaces*
 GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
@@ -2154,7 +2154,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
  * in the package extension.  For example, the enumeration
  * <code>SBMLGroupsTypeCode_t</code> for the Groups package is defined in
  * <code>GroupsExtension.h</code> as follows:
-@code
+@code{.cpp}
 typedef enum
 {
    SBML_GROUPS_GROUP  = 200
@@ -2172,7 +2172,7 @@ typedef enum
  * Similarly, #SBMLLayoutTypeCode_t for the Layout package is defined in
  * the file <code>LayoutExtension.h</code> as follows:
  *
-@code
+@code{.cpp}
 typedef enum
 {
    SBML_LAYOUT_BOUNDINGBOX           = 100
@@ -2204,7 +2204,7 @@ typedef enum
  * type codes of different packages, callers much check not only the return
  * value of the method <code>getTypeCode()</code> method but also that of the
  * method <code>getPackageName()</code>.  Here is an example of doing that:
-@code
+@code{.cpp}
 void example (const SBase *sb)
 {
   const std::string pkgName = sb->getPackageName();
@@ -2250,13 +2250,13 @@ void example (const SBase *sb)
  * Override the pure virtual method <code>getStringFromTypeCode()</code>,
  * which returns a string corresponding to the given type code.  Here is an
  * example, again drawn from the implementation of the Groups package:
-@code
+@code{.cpp}
 virtual const char* SBMLExtension::(int typeCode) const;
 @endcode
  *
  * For example, the method for the Groups extension is implemented as
  * shown below:
-@code
+@code{.cpp}
 static
 const char* SBML_GROUPS_TYPECODE_STRINGS[] =
 {
@@ -2289,7 +2289,7 @@ GroupsExtension::getStringFromTypeCode(int typeCode) const
  *
  * For example, the <code>init()</code> method for the Groups package is
  * implemented as follows:
-@code
+@code{.cpp}
 void
 GroupsExtension::init()
 {
@@ -2354,16 +2354,16 @@ GroupsExtension::init()
  *
  * @subsection ext-extensionregister 10. Instantiate a SBMLExtensionRegister variable
  *
- * Instantiate a global SBMLExtensionRegister variable using the
- * class derived from SBMLExtension.  Here is an example for the Groups
- * package extension, for the object <code>GroupsExtension</code>.  This
- * could is placed in the <code>GroupsExtension.cpp</code>:
-@code
+ * Instantiate a global SBMLExtensionRegister object using the
+ * class derived from SBMLExtension (discussed above).  Here is an example for
+ * the Groups package extension, for the object <code>GroupsExtension</code>.
+ * This could is placed in the <code>GroupsExtension.cpp</code>:
+@code{.cpp}
 static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
 @endcode
  *
  * The <code>init()</code> method on <code>GroupsExtension</code> is
- * automatically invoked when the global variable is instantiated.  This
+ * automatically invoked when the "register" object is instantiated.  This
  * results in initialization and registration of the package extension
  * with libSBML.
  *
@@ -2477,10 +2477,10 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * template class.
  *
  * @li SBMLExtensionRegister: This is a registration template class.  It is
- * used to register a package extension with the SBMLExtensionRegistry (see
- * below) when libSBML starts up.  An instance of this class needs to be
- * created by each package extension and used in a call to a method on
- * SBMLExtensionRegistry.
+ * used by package extensions to register themselves with the
+ * SBMLExtensionRegistry (see below) when libSBML starts up.  An instance of
+ * this class needs to be created by each package extension and used in a
+ * call to a method on SBMLExtensionRegistry.
  *
  *
  * @subsection ext-additional-helpers Additional helper classes
@@ -2557,7 +2557,7 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * assignment operator.  For example, the following data member is defined in
  * the <code>GroupsModelPlugin</code> class (in the file
  * <code>GroupsModelPlugin.h</code>):
- * @code
+ * @code{.cpp}
 ListOfGroups mGroups;
 @endcode
  *
@@ -2850,7 +2850,7 @@ ListOfGroups mGroups;
  * SBMLExtensionNamespaces class using a <code>typedef</code>.  The following
  * example code demonstrates how this is done in the case of the Layout package:
  *
- * @code
+ * @code{.cpp}
  * typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces;
  * @endcode
  *
@@ -2868,7 +2868,7 @@ ListOfGroups mGroups;
  * SBMLExtensionNamespaces class.  The following
  * example code demonstrates how this is done in the case of the Layout package:
  *
- * @code
+ * @code{.cpp}
  * template class LIBSBML_EXTERN SBMLExtensionNamespaces<LayoutExtension>;
  * @endcode
  *
@@ -2884,7 +2884,7 @@ ListOfGroups mGroups;
  * argument.  For example, in the Layout package, the class BoundBox has a
  * constructor declared as follows
  *
- * @code
+ * @code{.cpp}
  * BoundingBox(LayoutPkgNamespaces* layoutns);
  * @endcode
  *
@@ -2892,7 +2892,7 @@ ListOfGroups mGroups;
  * argument namespace object and use it to set the XML namespace URI for the
  * object.  Again, for the BoundingBox example:
  *
- * @code
+ * @code{.cpp}
  * BoundingBox::BoundingBox(LayoutPkgNamespaces* layoutns)
  *  : SBase(layoutns)
  *   ,mPosition(layoutns)
@@ -2911,4 +2911,37 @@ ListOfGroups mGroups;
  *   loadPlugins(layoutns);
  * }
  * @endcode
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbmlextensionregister
+ *
+ * @par
+ * When a package extension is first loaded, it must register itself with
+ * the registry of extensions maintained by the cleverly-named
+ * SBMLExtensionRegistry class.  That registry is how other classes in
+ * libSBML access information about the packages recognized by a particular
+ * copy of libSML; a corollary is that libSBML can't parse or even
+ * recognize SBML Level&nbsp;3 packages that have no corresponding
+ * extension registered with SBMLExtensionRegistry.
+ *
+ * The SBMLExtensionRegister class is a template class for automatically
+ * registering each package extension to the SBMLExtensionRegistry class at
+ * startup time.  The class and its use are very simple.  An implementation
+ * of a package extension merely needs to use it to instantiate one object.
+ * The class used in the template invocation should be the extension
+ * derived from SBMLExtension (e.g., LayoutExtension for the %Layout
+ * package).  The following is an example:
+ *
+ * @code{.cpp}
+ * static SBMLExtensionRegister<LayoutExtension> layoutExtensionRegistry;
+ * @endcode
+ *
+ * The line above is typically be placed in the <code>.cpp</code> file
+ * associated with the definition of the SBMLExtension-derived class; in
+ * the case of the %Layout package, this is <code>LayoutExtension.cpp</code>.
+ *
+ * The result of doing the above is that the <code>init()</code> method on
+ * <code>LayoutExtension</code> will be automatically invoked when the
+ * "register" object is instantiated.  This results in initialization and
+ * registration of the package extension with libSBML.
  */

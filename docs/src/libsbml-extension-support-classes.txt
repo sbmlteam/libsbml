@@ -29,6 +29,7 @@ package extension.  These classes are found in the directory
 @copydetails doc_extension_sbmlextensionnamespaces
 
 @section ext-sbmlextensionregister SBMLExtensionRegister
+@copydetails doc_extension_sbmlextensionregister
 
 @section ext-sbmlextensionregistry SBMLExtensionRegistry
 
