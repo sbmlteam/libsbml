@@ -378,7 +378,7 @@ SBMLExtensionRegistry::removeL2Namespaces(XMLNamespaces *xmlns)  const
   }
 }
 
-/**
+/*
  * adds all L2 Extension namespaces to the namespace list. This will call all 
  * overriden SBMLExtension::addL2Namespaces methods.
  */
@@ -393,7 +393,7 @@ SBMLExtensionRegistry::addL2Namespaces(XMLNamespaces *xmlns) const
   }
 }
 
-/**
+/*
  * Enables all extensions that support serialization / deserialization with
  * SBML Annotations.
  */
@@ -522,7 +522,7 @@ SBMLExtensionRegistry::disableUnusedPackages(SBMLDocument *doc)
 }
 
 
-/**
+/*
  * Disables the package with the given URI / name.
  */
 void
@@ -534,7 +534,7 @@ SBMLExtensionRegistry::disablePackage(const std::string& package)
 }
 
 /** @cond doxygenLibsbmlInternal */
-/**
+/*
  * Disables all packages with the given URI / name.
  */
 void
@@ -549,7 +549,7 @@ SBMLExtensionRegistry::disablePackages(const std::vector<std::string>& packages)
 }
 /** @endcond */
 
-/**
+/*
  * Enables the package with the given URI / name.
  */
 void
@@ -560,7 +560,7 @@ SBMLExtensionRegistry::enablePackage(const std::string& package)
     ext->setEnabled(true);  
 }
 
-/**
+/*
  * @returns the status (enabled = <b>true</b>, disabled = <b>false</b> of the given package.
  */
 bool
@@ -573,7 +573,7 @@ SBMLExtensionRegistry::isPackageEnabled(const std::string& package)
 }
 
 /** @cond doxygenLibsbmlInternal */
-/**
+/*
  * Enables all packages with the given URI / name.
  */
 void
