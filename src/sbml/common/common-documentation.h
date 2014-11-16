@@ -2332,7 +2332,7 @@ GroupsExtension::init()
   SBaseExtensionPoint docExtPoint("core", SBML_DOCUMENT);
   SBaseExtensionPoint modelExtPoint("core", SBML_MODEL);
 
-  SBasePluginCreator<SBMLDocumentPluginNotRequired, GroupsExtension> docPluginCreator(docExtPoint, pkgURIs);
+  SBasePluginCreator<GroupsSBMLDocumentPlugin, GroupsExtension> docPluginCreator(docExtPoint, pkgURIs);
   SBasePluginCreator<GroupsModelPlugin, GroupsExtension> modelPluginCreator(modelExtPoint, pkgURIs);
 
   // 4. Add the above objects to the SBMLExtension-derived object.
@@ -2490,9 +2490,14 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * implementation to accomplish bookkeeping or other tasks necessary to
  * make the extension work in libSBML:
  *
- * @li SBaseExtensionPoint: This class is used to implement an SBML object
- * that is extended.  For instance, an implementation of an extended
- * version of Model would involve this class.
+ * @li SBaseExtensionPoint: This class is used as part of the mechanism that
+ * connects plugin objects (implemented using SBasePlugin or
+ * SBMLDocumentPlugin) to a package extension.  For instance, an
+ * implementation of an extended version of Model (e.g., LayoutModelPlugin in
+ * the %Layout package) would involve the creation of an extension point
+ * using SBaseExtensionPoint and a mediator object created with
+ * SBasePluginCreator, to "plug" the extended Model object
+ * (LayoutModelPlugin) into the overall LayoutExtension object.
  *
  * @li SBMLExtensionRegistry: This class provides a central registry of all
  * extensions known to libSBML.  Each package extension is registered with
@@ -2954,4 +2959,48 @@ ListOfGroups mGroups;
  * implementations of SBML packages do not need to implement any subclasses or
  * methods of this class.  SBMLExtensionRegistry is useful for its facilities
  * to query the known packages, and to enable or disable packages selectively.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbaseextensionpoint
+ *
+ * @par
+ * The use of SBaseExtensionPoint is relatively straightforward.  The
+ * class needs to be used for each extended SBML object implemented using
+ * SBMLDocumentPlugin or SBasePlugin.  Doing so requires knowing just two
+ * things:
+ *
+ * @li The short-form name of the @em parent package being extended.  The
+ * parent package is often simply core SBML, identified in libSBML by the
+ * nickname <code>"core"</code>, but a SBML Level&nbsp;3 package could
+ * conceivably extend another Level&nbsp;3 package.
+ *
+ * @li The libSBML type code assigned to the object being extended.  For
+ * example, if an extension of Model is implemented, the relevant type code
+ * is SBMLTypeCode_t#SBML_MODEL, found in #SBMLTypeCode_t.
+ *
+ * The typical use of SBaseExtensionPoint is illustrated by the following
+ * code fragment:
+ *
+ * @code{.cpp}
+ * SBaseExtensionPoint docExtPoint("core", SBML_DOCUMENT);
+ * SBaseExtensionPoint modelExtPoint("core", SBML_MODEL);
+ *
+ * SBasePluginCreator<GroupsSBMLDocumentPlugin, GroupsExtension> docPluginCreator(docExtPoint, pkgURIs);
+ * SBasePluginCreator<GroupsModelPlugin, GroupsExtension> modelPluginCreator(modelExtPoint, pkgURIs);
+ * @endcode
+ *
+ * The code above shows two core SBML components being extended: the
+ * document object, and the Model object.  These extended objects are
+ * created elsewhere (not shown) as the
+ * <code>GroupsSBMLDocumentPlugin</code> and <code>GroupsModelPlugin</code>
+ * objects.  The corresponding SBaseExtensionPoint objects are handed as
+ * arguments to the constructor for SBasePluginCreator to create the
+ * connection between the extended core components and the overall package
+ * extension (here, for the Groups package, with the
+ * <code>GroupsExtension</code> object).
+ *
+ * The code above is typically placed in the implementation of the
+ * <code>init()</code> method of the package class derived from
+ * SBMLExtension.  (For the example above, it would be in the
+ * <code>GroupsExtension.cpp</code> file.)
  */

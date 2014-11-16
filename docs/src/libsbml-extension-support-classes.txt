@@ -7,9 +7,17 @@ explanation of how it is meant to be used in the implementation of a
 package extension.  These classes are found in the directory
 <code>src/sbml/extension/</code> in the libSBML source code distribution.
 
+The classes are listed in alphabetical order on this page, but this is not
+necessarily the most easily digestible order in which to read about the
+different classes.  The introductory section, @ref
+libsbml-basics-of-extensions, may be a better starting point for learning
+more about the libSBML package extension system.
+
+
 @tableofcontents
 
 @section ext-sbaseextensionpoint SBaseExtensionPoint
+@copydetails doc_extension_sbaseextensionpoint
 
 @section ext-sbaseplugin SBasePlugin
 @copydetails doc_extension_sbaseplugin
