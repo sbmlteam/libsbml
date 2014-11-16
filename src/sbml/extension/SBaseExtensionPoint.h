@@ -35,15 +35,6 @@
  *
  * @ifnot clike @internal @endif@~
  *
- * This class is used as part of the mechanism that connects plugin objects
- * (implemented using SBasePlugin or SBMLDocumentPlugin) to a given package
- * extension.  For instance, an implementation of an extended version of
- * Model (e.g., LayoutModelPlugin in the %Layout package) would involve the
- * creation of an extension point using SBaseExtensionPoint and a mediator
- * object created using SBasePluginCreator, to "plug" the extended Model
- * object (LayoutModelPlugin) into the overall LayoutExtension object.
- *
- * @section sbaseextensionpoint-howto How to use SBaseExtensionPoint
  * @copydetails doc_extension_sbaseextensionpoint
  */
 
