@@ -217,6 +217,10 @@ public:
    *
    * @param astPlugin the ASTBasePlugin object
    * of this package extension.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   int setASTBasePlugin(const ASTBasePlugin* astPlugin);
 

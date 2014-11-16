@@ -86,7 +86,7 @@ public:
   /**
    * Assignment operator for SBasePlugin.
    *
-   * @param rhs The object whose values are used as the basis of the
+   * @param orig The object whose values are used as the basis of the
    * assignment.
    */
   SBasePlugin& operator=(const SBasePlugin& orig);
@@ -488,7 +488,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
    * @see getElementNamespace()
    */
