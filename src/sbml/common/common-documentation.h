@@ -2464,10 +2464,15 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * Some classes in the libSBML package extension facilities are not meant
  * to be subclassed, but rather are designed to be instantiated.
  *
- * @li SBasePluginCreator: This is a factory object used to create
- * SBasePlugin objects.  Package need to instantiate the template class for
- * each subclass of SBasePlugin, and have to register the instantiated
- * objects to their SBMLExtension-derived class for the package extension.
+ * @li SBasePluginCreator: This is a template class used to create factory
+ * objects that in turn construct new instances of package plugin objects
+ * when necessary.  These factory objects are invoked when, for example,
+ * libSBML encounters an SBML Level&nbsp;3 package in an SBML document and
+ * needs to activate the corresponding libSBML package extension.  Package
+ * implementations need to use SBasePluginCreator to create factory objects
+ * for each class derived from SBasePlugin, and then they have to register
+ * these factory objects with the SBMLExtension derived class for the package
+ * extension.
  *
  * @li SBMLExtensionNamespaces: This is a template class; it is itself an
  * extension of SBMLNamespaces, and adds information specific to each
@@ -2964,6 +2969,14 @@ ListOfGroups mGroups;
  * @class doc_extension_sbaseextensionpoint
  *
  * @par
+ * This class is used as part of the mechanism that connects plugin objects
+ * (implemented using SBasePlugin or SBMLDocumentPlugin) to a given package
+ * extension.  For instance, an implementation of an extended version of
+ * Model (e.g., LayoutModelPlugin in the %Layout package) would involve the
+ * creation of an extension point using SBaseExtensionPoint and a mediator
+ * object created using SBasePluginCreator, to "plug" the extended Model
+ * object (LayoutModelPlugin) into the overall LayoutExtension object.
+ *
  * The use of SBaseExtensionPoint is relatively straightforward.  The
  * class needs to be used for each extended SBML object implemented using
  * SBMLDocumentPlugin or SBasePlugin.  Doing so requires knowing just two
