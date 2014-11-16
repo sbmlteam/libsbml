@@ -139,8 +139,8 @@ public:
    * This will call all overridden
    * <code>SBMLExtension::addL2Namespaces()</code> methods.
    *
-   * @param an XMLNamespaces object providing one or more namespaces
-   * to be added.
+   * @param xmlns an XMLNamespaces object providing one or more namespaces to
+   * be added.
    */
   void addL2Namespaces(XMLNamespaces *xmlns) const;
 
