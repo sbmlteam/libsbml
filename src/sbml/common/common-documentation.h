@@ -2395,7 +2395,7 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * provided through <em>package extensions</em>.  LibSBML defines a number of
  * classes that developers of package extensions can use to implement support
  * for an SBML Level&nbsp;3 package.  These classes make it easier to extend
- * core libSBML objects with new attributes and/or subobjects as needed by a
+ * libSBML objects with new attributes and/or subobjects as needed by a
  * particular Level&nbsp;3 package.  Users of the libSBML library can also
  * choose which extensions are enabled in their software applications.
  *
@@ -2409,7 +2409,7 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * using these and other libSBML classes, placed in a subdirectory of
  * <code>src/sbml/packages/</code>.  Examples already exist in the libSBML
  * distribution; the Level&nbsp;3 packages <em>Flux Balance Constraints</em>
- * ("fbc"), <em>Hierarchical %Model Composition</em> ("comp'), @em %Layout
+ * ("fbc"), <em>Hierarchical %Model Composition</em> ("comp"), <em>%Layout</em>
  * ("layout"), and <em>Qualitative Models</em> ("qual") are now standard with
  * libSBML and can be found in that directory.  They can serve as working
  * examples for developers working to implement other packages.
@@ -2520,8 +2520,8 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * @class doc_extension_sbaseplugin
  *
  * @par
- * LibSBML package extensions can extend core objects such as Model using
- * SBasePlugin as a base class, to hold attributes and/or subcomponents
+ * LibSBML package extensions can extend existing libSBML objects such as Model
+ * using SBasePlugin as a base class, to hold attributes and/or subcomponents
  * necessary for the SBML package being implemented.  Package developers must
  * implement an SBasePlugin extended class for each element to be extended
  * (e.g., Model, Reaction, and others) where additional attributes and/or
@@ -2529,18 +2529,18 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * following subsections detail the basic steps necessary to use SBasePlugin
  * for the implementation of a class extension.
  *
- * @subsection sbp-identify 1. Identify the core SBML components that need to be extended
+ * @subsection sbp-identify 1. Identify the SBML components that need to be extended
  *
  * The specification for a SBML Level&nbsp;3 package will define the
  * attributes and subojects that make up the package constructs.  Those
- * constructs that modify existing SBML core components such as Model,
+ * constructs that modify existing SBML components such as Model,
  * Reaction, etc., will be the ones that need to be extended using SBasePlugin.
  *
  * For example, the Layout package makes additions to Model,
  * SpeciesReference, and the <code>&lt;sbml&gt;</code> element (which is
  * represented in libSBML by SBMLDocument).  This means that the Layout
  * package extension in libSBML needs to define extended versions of Model,
- * SpeciesReference and SBMLDocument.  Core elements @em other than the SBML
+ * SpeciesReference and SBMLDocument.  Elements @em other than the SBML
  * document need to be implemented using SBasePlugin; the document component
  * must be implemented using SBMLDocumentPlugin instead.
  *
