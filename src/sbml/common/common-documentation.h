@@ -3016,4 +3016,34 @@ ListOfGroups mGroups;
  * <code>init()</code> method of the package class derived from
  * SBMLExtension.  (For the example above, it would be in the
  * <code>GroupsExtension.cpp</code> file.)
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_sbaseplugincreator
+ *
+ * @par
+ * This is a template class that constitutes another piece of glue used to
+ * connect package extension objects to the overall package support
+ * framework in libSBML.  This particular template class is used to create
+ * factory objects that in turn construct new instances of package plugin
+ * objects when necessary.  These factories are invoked when, for example,
+ * libSBML encounters an SBML Level&nbsp;3 package in an SBML document and
+ * needs to activate the corresponding libSBML package extension.
+ *
+ * The use of SBasePluginCreator is a simple matter of invoking it on every
+ * object derived from SBasePlugin or SBMLDocumentPlugin (which is itself
+ * derived from SBasePlugin).  The typical use is illustrated by the
+ * following code fragment:
+ *
+ * @code{.cpp}
+ * SBaseExtensionPoint docExtPoint("core", SBML_DOCUMENT);
+ * SBaseExtensionPoint modelExtPoint("core", SBML_MODEL);
+ *
+ * SBasePluginCreator<GroupsSBMLDocumentPlugin, GroupsExtension> docPluginCreator(docExtPoint, pkgURIs);
+ * SBasePluginCreator<GroupsModelPlugin, GroupsExtension> modelPluginCreator(modelExtPoint, pkgURIs);
+ * @endcode
+ *
+ * The code above is typically placed in the implementation of the
+ * <code>init()</code> method of the package class derived from
+ * SBMLExtension.  (For the example above, it would be in the
+ * <code>GroupsExtension.cpp</code> file.)
  */

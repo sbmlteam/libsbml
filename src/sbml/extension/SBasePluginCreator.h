@@ -1,9 +1,7 @@
 /**
  * @file    SBasePluginCreator.h
- * @brief   Definition of SBasePluginCreator, the template class of
- *          SBasePlugin creator classes.
+ * @brief   Template class for SBasePlugin-based classes.
  * @author  Akiya Jouraku
- *
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,7 +31,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBasePluginCreator
- * @sbmlbrief{core} Template for SBasePlugin creator classes.
+ * @sbmlbrief{core} Template for SBasePlugin factory objects.
+ *
+ * @copydetails doc_extension_sbaseplugincreator
  */
 
 #ifndef SBasePluginCreator_h
@@ -53,27 +53,49 @@ class LIBSBML_EXTERN SBasePluginCreator : public SBasePluginCreatorBase
 {
 public:
 
+  /**
+   * Constructor for SBasePluginCreator.
+   *
+   * @param extPoint the SBaseExtensionPoint object that defines the
+   * extension point.
+   *
+   * @param packageURIs a vector of XML namespace URIs that identifies
+   * the SBML package namespaces to which this extension applies.
+   */
+
   SBasePluginCreator (const SBaseExtensionPoint& extPoint,
-                      const std::vector<std::string>& packageURIs) 
+                      const std::vector<std::string>& packageURIs)
     : SBasePluginCreatorBase(extPoint, packageURIs) {}
 
+
   /**
-   * Copy constructor.
+   * Copy constructor for SBasePluginCreator.
+   *
+   * @param orig the object to copy.
    */
   SBasePluginCreator(const SBasePluginCreator& orig)
    : SBasePluginCreatorBase(orig) {}
 
 
   /**
-   * Destroy this object.
+   * Destroys this object.
    */
   virtual ~SBasePluginCreator () {}
 
 
   /**
-   * Creats a SBasePlugin with the given uri and prefix.
+   * Creats an SBasePlugin object with a given URI and namespace prefix.
+   *
+   * @param uri the XML namespace URI for the SBML package implemented
+   * by this libSBML package extension.
+   *
+   * @param prefix the XML namespace prefix of the package (e.g.,
+   * <code>"layout"</code>, <code>"multi"</code>).
+   *
+   * @param xmlns an XMLNamespaces object that identifies namespaces in
+   * use by this package extension
    */
-  virtual SBasePluginType* createPlugin(const std::string& uri, 
+  virtual SBasePluginType* createPlugin(const std::string& uri,
                                         const std::string& prefix,
                                         const XMLNamespaces *xmlns) const
   {

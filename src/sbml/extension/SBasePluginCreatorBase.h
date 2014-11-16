@@ -34,6 +34,9 @@
  *
  * @class SBasePluginCreatorBase
  * @sbmlbrief{core} Base class of %SBasePluginCreator.
+ *
+ * This is the base class of the SBasePluginCreator template class.  This
+ * contains virtual methods that need to be overridden by subclasses.
  */
 
 #ifndef SBasePluginCreatorBase_h
@@ -58,62 +61,91 @@ public:
   typedef std::vector<std::string>::iterator SupportedPackageURIListIter;
 
   /**
-   * Destructor
+   * Destroys this SBasePluginCreatorBase object.
    */
   virtual ~SBasePluginCreatorBase ();
 
 
   /**
-   * Creates an SBasePlugin with the given uri and the prefix
-   * of the target package extension.
+   * Creates an SBasePlugin object with a URI and package prefix.
+   *
+   * @param uri the XML namespace URI for the SBML package
+   *
+   * @param prefix the namespace prefix
+   *
+   * @param xmlns an XMLNamespaces object that identifies namespaces in
+   * use by this package extension
    */
-  virtual SBasePlugin* createPlugin(const std::string& uri, 
+  virtual SBasePlugin* createPlugin(const std::string& uri,
                                     const std::string& prefix,
                                     const XMLNamespaces *xmlns) const = 0;
 
 
   /**
-   * Creates and returns a deep copy of this SBasePluginCreatorBase.  Must be overridden by child classes.
-   * 
+   * Creates and returns a deep copy of this SBasePluginCreatorBase.
+   *
    * @return a (deep) copy of this SBasePluginCreatorBase.
    */
   virtual SBasePluginCreatorBase* clone() const = 0;
 
 
   /**
-   * Returns the number of supported packages by this creator object.
+   * Returns the number of package URIs supported by this creator object.
+   *
+   * @return the number of package URIs supported.
+   *
+   * @see getSupportedPackageURI()
    */
   unsigned int getNumOfSupportedPackageURI() const;
 
 
   /**
-   * Returns the supported package to the given index.
+   * Returns the URI of the ith package supported by this creator object.
+   *
+   * @param i the index of the URI being sought.
+   *
+   * @return the URI being sought, in the form of a string.  If no such
+   * URI exists, this method will return an empty string.
+   *
+   * @see getNumOfSupportedPackageURI()
    */
-  std::string getSupportedPackageURI(unsigned int) const;
+  std::string getSupportedPackageURI(unsigned int i) const;
 
 
   /**
-   * Returns an SBMLTypeCode tied to this creator object.
+   * Returns a libSBML type code tied to this creator object.
+   *
+   * @return the integer type code.
    */
   int getTargetSBMLTypeCode() const;
 
 
   /**
    * Returns the target package name of this creator object.
+   *
+   * @return a string, the package name
    */
   const std::string& getTargetPackageName() const;
 
 
   /**
-   * Returns an SBaseExtensionPoint tied to this creator object.
+   * Returns an SBaseExtensionPoint object tied to this creator object.
+   *
+   * @return the extension point associated with this creator object.
    */
   const SBaseExtensionPoint& getTargetExtensionPoint() const;
 
 
   /**
-   * Returns true if a package with the given namespace is supported.
+   * Returns @c true if a package with the given namespace URI is supported.
+   *
+   * @param uri the XML namespace URI to test.
+   *
+   * @return @c true if the URI applies to this package extension, @c false
+   * otherwise.
    */
   bool isSupported(const std::string& uri) const;
+
 
 protected:
 
