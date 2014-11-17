@@ -129,7 +129,6 @@ public:
 
 protected:
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
@@ -137,10 +136,8 @@ protected:
    */
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write their XML attributes
    * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -151,37 +148,29 @@ protected:
    *   ...
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error for elements.
    */
   virtual void logUnknownElement(const std::string &element );
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error.
    */
   virtual void logUnknownAttribute(const std::string &attribute,
                                    const std::string& element);
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error.
    */
   virtual void logEmptyString(const std::string &attribute,
                               const std::string& element);
 
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error.
    */
@@ -189,20 +178,16 @@ protected:
                             const std::string& wrongattribute,
                             const std::string& object = "");
 
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Helper to log a common type of error.
    */
   virtual void logMissingAttribute(const std::string& attribute,
                                    const std::string& element);
 
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Predicate returning @c true if this
    * object's level/version and namespace values correspond to a valid
@@ -224,10 +209,9 @@ protected:
    * SBML object correspond to a valid set of values, @c false otherwise.
    */
   bool hasValidLevelVersionNamespaceCombination();
-  /** @endcond */
+
 
 protected:
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Remove the given SBase object, and any Ports that point to it.
    * A static function for removing elements--it is illegal to reference
@@ -238,9 +222,7 @@ protected:
   static int removeFromParentAndPorts(SBase* todelete, std::set<SBase*>* removed);
   friend class CompModelPlugin;
 
-  /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * DEPRECATED FUNCTION:  DO NOT USE
    *
@@ -249,17 +231,13 @@ protected:
    */
   int removeFromParentAndPorts(SBase* todelete);
 
-  /** @endcond */
-
 private:
-  /** @cond doxygenLibsbmlInternal */
+
   //
   // An SBMLExtension derived object of corresponding package extension
   // The owner of this object is SBMLExtensionRegistry class.
   //
   const SBMLExtension  *mSBMLExt;
-
-  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

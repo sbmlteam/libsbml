@@ -1,4 +1,6 @@
 /**
+ * @cond doxygenLibsbmlInternal
+ *
  * @file    CompBase.cpp
  * @brief   Implementation of CompBase, the base class of extension 
  *          entities plugged in SBase derived classes in the SBML Core package.
@@ -151,7 +153,6 @@ CompBase::getParentModel(SBase* child)
   return NULL;
 }
 
-/** @cond doxygenLibsbmlInternal */
 void
 CompBase::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
@@ -181,9 +182,7 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     }      
   }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 void
 CompBase::writeAttributes (XMLOutputStream& stream) const
 {
@@ -193,9 +192,7 @@ CompBase::writeAttributes (XMLOutputStream& stream) const
   //
   writeExtensionAttributes(stream);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -217,10 +214,8 @@ CompBase::logUnknownElement(const std::string &element)
     errlog->logError(UnrecognizedElement, getLevel(), getVersion(), msg.str());
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -252,10 +247,8 @@ CompBase::logUnknownAttribute(const std::string &attribute,
     }
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
  * Helper to log a common type of error.
  */
@@ -278,10 +271,8 @@ CompBase::logEmptyString(const std::string &attribute,
     errlog->logError(NotSchemaConformant, getLevel(), getVersion(), msg.str());
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 void 
 CompBase::logInvalidId(const std::string& attribute,
                        const std::string& wrongattribute,
@@ -378,9 +369,7 @@ CompBase::logInvalidId(const std::string& attribute,
     }
   }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
 void 
 CompBase::logMissingAttribute(const std::string& attribute,
                               const std::string& element)
@@ -417,10 +406,8 @@ CompBase::logMissingAttribute(const std::string& attribute,
     }
   }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 bool 
 CompBase::hasValidLevelVersionNamespaceCombination()
 {  
@@ -432,10 +419,8 @@ CompBase::hasValidLevelVersionNamespaceCombination()
   if (xmlns->hasURI("http://www.sbml.org/sbml/level3/version1/comp/version1")) return true;
   return false;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
 {
   //First remove from ports:
@@ -473,10 +458,8 @@ int CompBase::removeFromParentAndPorts(SBase* todelete, set<SBase*>* removed)
   }
   return todelete->removeFromParentAndDelete();
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 //Deprecated function
 int CompBase::removeFromParentAndPorts(SBase* todelete)
 {
@@ -525,7 +508,6 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
   //And secondly, remove from parent
   return todelete->removeFromParentAndDelete();
 }
-/** @endcond */
 
 #endif  /* __cplusplus */
 
@@ -533,3 +515,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
+/** @endcond */
