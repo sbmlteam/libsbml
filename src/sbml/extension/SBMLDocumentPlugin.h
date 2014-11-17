@@ -86,7 +86,7 @@ public:
    *
    * This creates a copy of this object.
    *
-   * @param orig the Compartment instance to copy.
+   * @param orig the SBMLDocumentPlugin instance to copy.
    */
   SBMLDocumentPlugin(const SBMLDocumentPlugin& orig);
 
