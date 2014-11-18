@@ -2023,14 +2023,12 @@ const std::string& GroupsExtension::getXmlnsL3V1V1 ()
  * As an example, the following are the versions of these methods for
  * the Groups package:
  * @code{.cpp}
-const std::string&
-GroupsExtension::getName() const
+const std::string& GroupsExtension::getName() const
 {
   return getPackageName();
 }
 
-unsigned int
-GroupsExtension::getLevel(const std::string &uri) const
+unsigned int GroupsExtension::getLevel(const std::string &uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 3;
@@ -2038,8 +2036,7 @@ GroupsExtension::getLevel(const std::string &uri) const
     return 0;
 }
 
-unsigned int
-GroupsExtension::getVersion(const std::string &uri) const
+unsigned int GroupsExtension::getVersion(const std::string &uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2047,8 +2044,7 @@ GroupsExtension::getVersion(const std::string &uri) const
     return 0;
 }
 
-unsigned int
-GroupsExtension::getPackageVersion(const std::string &uri) const
+unsigned int GroupsExtension::getPackageVersion(const std::string &uri) const
 {
   if (uri == getXmlnsL3V1V1())
     return 1;
@@ -2056,10 +2052,9 @@ GroupsExtension::getPackageVersion(const std::string &uri) const
     return 0;
 }
 
-const std::string&
-GroupsExtension::getURI(unsigned int sbmlLevel,
-                        unsigned int sbmlVersion,
-                        unsigned int pkgVersion) const
+const std::string& GroupsExtension::getURI(unsigned int sbmlLevel,
+                                           unsigned int sbmlVersion,
+                                           unsigned int pkgVersion) const
 {
   if (sbmlLevel == 3 && sbmlVersion == 1 && pkgVersion == 1)
     return getXmlnsL3V1V1();
@@ -2068,8 +2063,7 @@ GroupsExtension::getURI(unsigned int sbmlLevel,
   return empty;
 }
 
-GroupsExtension*
-GroupsExtension::clone() const
+GroupsExtension* GroupsExtension::clone() const
 {
   return new GroupsExtension(*this);
 }
@@ -2141,7 +2135,7 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
   GroupsPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())
   {
-    pkgns = new GroupsPkgNamespaces(3,1,1);
+    pkgns = new GroupsPkgNamespaces(3, 1, 1);
   }
   return pkgns;
 }
@@ -2257,15 +2251,13 @@ virtual const char* SBMLExtension::(int typeCode) const;
  * For example, the method for the Groups extension is implemented as
  * shown below:
 @code{.cpp}
-static
-const char* SBML_GROUPS_TYPECODE_STRINGS[] =
+static const char* SBML_GROUPS_TYPECODE_STRINGS[] =
 {
     "Group"
   , "Member"
 };
 
-const char*
-GroupsExtension::getStringFromTypeCode(int typeCode) const
+const char* GroupsExtension::getStringFromTypeCode(int typeCode) const
 {
   int min = SBML_GROUPS_GROUP;
   int max = SBML_GROUPS_MEMBER;
@@ -2290,8 +2282,7 @@ GroupsExtension::getStringFromTypeCode(int typeCode) const
  * For example, the <code>init()</code> method for the Groups package is
  * implemented as follows:
 @code{.cpp}
-void
-GroupsExtension::init()
+void GroupsExtension::init()
 {
   // 1. Check if the Groups package has already been registered.
 
@@ -3055,7 +3046,7 @@ ListOfGroups mGroups;
  * implements special behavior for that package: it @em always creates a
  * %Layout plugin object for any SBML Level&nbsp;2 document it reads in,
  * regardless of whether that document actually uses %Layout constructs.  This
- * is unlike the case for SBML Level&nbsp;3 documents that use %Layout&mdash;for
+ * is unlike the case for SBML Level&nbsp;3 documents that use %Layout; for
  * them, libSBML will @em not create a plugin object unless the document
  * actually declares the use of the %Layout package (via the usual Level&nbsp;3
  * namespace declaration for Level&nbsp;3 packages).
@@ -3072,8 +3063,11 @@ ListOfGroups mGroups;
 @code{.cpp}
 // Assume "m" below is a Model object.
 LayoutModelPlugin* lmp = static_cast<LayoutModelPlugin*>(m->getPlugin("layout"));
-unsigned int numLayouts = lmp->getNumLayouts();
-// If numLayouts is greater than zero, then the model uses Layout.
+if (lmp != NULL)
+{
+  unsigned int numLayouts = lmp->getNumLayouts();
+  // If numLayouts is greater than zero, then the model uses Layout.
+}
 @endcode
 @endif
 @if python
@@ -3089,10 +3083,26 @@ if m != None:
 @endif
 @if java
 @code{.java}
+// Assume "doc" below is an SBMLDocument object.
+Model m = doc.getModel();
+LayoutModelPlugin lmp = (LayoutModelPlugin) m.getPlugin("layout");
+if (lmp != null)
+{
+  int numLayouts = lmp.getNumLayouts();
+  // If numLayouts is greater than zero, then the model uses Layout.
+}
 @endcode
 @endif
 @if csharp
 @code{.cs}
+// Assume "doc" below is an SBMLDocument object.
+Model m = doc.getModel();
+LayoutModelPlugin lmp = (LayoutModelPlugin) m.getPlugin("layout");
+if (lmp != null)
+{
+  int numLayouts = lmp.getNumLayouts();
+  // If numLayouts is greater than zero, then the model uses Layout.
+}
 @endcode
 @endif
  *
@@ -3120,9 +3130,12 @@ if m != None:
  * Level&nbsp;2 model, thereby making the APIs available to legacy
  * applications without further work on their part.
  *
+ * @if clike
  * The mechanisms for triggering this Level&nbsp;2-specific behavior
- * involves a set of methods on the SBMLExtension class:
+ * involves a set of virtual methods on the SBMLExtension class that must
+ * be implemented by individual package extensions.  These methods are
  * SBMLExtension::addL2Namespaces(),
  * SBMLExtension::removeL2Namespaces(), and
  * SBMLExtension::enableL2NamespaceForDocument().
+ * @endif
  */
