@@ -113,6 +113,7 @@ main (void)
   num_failed = srunner_ntests_failed(runner);
 
   srunner_free(runner);
+  safe_free(TestDataDirectory);
 
   return num_failed;
 }
