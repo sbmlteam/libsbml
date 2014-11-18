@@ -234,25 +234,17 @@ public class SBMLExtension {
 
 
   /**
-   * Returns an {@link SBMLExtensionNamespaces} object corresponding to a given
+   * Returns a specialized SBMLNamespaces object corresponding to a given
    * namespace URI.
    <p>
-   * LibSBML package extensions each define a type of object derived from
-   * the template class {@link SBMLExtensionNamespaces}.  This object has the form
-   * <pre class='fragment'>
-   {@link SBMLExtensionNamespaces}&lt;class SBMLExtensionType&gt;
-   </pre>
-   * For example, this kind of object for the {@link Layout} package is
-   * <pre class='fragment'>
-   {@link SBMLExtensionNamespaces}&lt;{@link LayoutExtension}&gt;
-   </pre>
+   * LibSBML package extensions each define a subclass of  {@link SBMLNamespaces}.
    * The present method returns the appropriate object corresponding
    * to the given XML namespace URI in argument <code>uri</code>.
    <p>
    * @param uri the namespace URI that represents one of versions of the
    * package implemented in this extension.
    <p>
-   * @return an {@link SBMLExtensionNamespaces} object, or <code>null</code> if the given
+   * @return an {@link SBMLNamespaces} object, or <code>null</code> if the given
    * <code>uri</code> is not defined in the corresponding package.
    */ public
    SBMLNamespaces getSBMLExtensionNamespaces(String uri) {
