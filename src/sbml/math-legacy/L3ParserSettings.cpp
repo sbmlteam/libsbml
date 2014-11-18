@@ -33,12 +33,16 @@
 
 #include <sbml/math/L3ParserSettings.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
-#include <sbml/extension/ASTBasePlugin.h>
 #include <sbml/util/StringBuffer.h>
 #include <sbml/math/L3FormulaFormatter.h>
 #include <cstddef>
 #include <string>
 #include <new>
+
+#ifndef LIBSBML_USE_LEGACY_MATH
+#include <sbml/extension/ASTBasePlugin.h>
+#endif
+
 
 /** @cond doxygenIgnored */
 
@@ -55,7 +59,9 @@ L3ParserSettings::L3ParserSettings()
   , mParseunits(L3P_PARSE_UNITS)
   , mAvoCsymbol(L3P_AVOGADRO_IS_CSYMBOL)
   , mStrCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_INSENSITIVE)
+#ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
+#endif
 {
   setPlugins(NULL);
 }
@@ -67,7 +73,9 @@ L3ParserSettings::L3ParserSettings(Model* model, ParseLogType_t parselog, bool c
   , mParseunits(parseunits)
   , mAvoCsymbol(avocsymbol)
   , mStrCmpIsCaseSensitive(caseSensitive)
+#ifndef LIBSBML_USE_LEGACY_MATH
   , mPlugins()
+#endif
 {
   setPlugins(sbmlns);
 }
@@ -80,10 +88,13 @@ L3ParserSettings::L3ParserSettings(const L3ParserSettings& source)
   mParseunits = source.mParseunits;
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
   {
     mPlugins.push_back(source.mPlugins[mp]->clone());
   }
+#endif
 }
 
 L3ParserSettings& L3ParserSettings::operator=(const L3ParserSettings& source)
@@ -94,12 +105,14 @@ L3ParserSettings& L3ParserSettings::operator=(const L3ParserSettings& source)
   mParseunits = source.mParseunits;
   mAvoCsymbol = source.mAvoCsymbol;
   mStrCmpIsCaseSensitive = source.mStrCmpIsCaseSensitive;
+
+#ifndef LIBSBML_USE_LEGACY_MATH
   deletePlugins();
   for (size_t mp=0; mp<source.mPlugins.size(); mp++) 
   {
     mPlugins.push_back(source.mPlugins[mp]->clone());
   }
-
+#endif 
   return *this;
 }
 
@@ -112,6 +125,7 @@ L3ParserSettings::~L3ParserSettings()
 void
 L3ParserSettings::setPlugins(const SBMLNamespaces * sbmlns)
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   deletePlugins();
   if (sbmlns == NULL)
   {
@@ -164,16 +178,19 @@ L3ParserSettings::setPlugins(const SBMLNamespaces * sbmlns)
       }
     }
   }
+#endif
 }
 
 
 /** @cond doxygenLibsbmlInternal */
 void L3ParserSettings::deletePlugins()
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t p=0; p<mPlugins.size(); p++) {
     delete mPlugins[p];
   }
   mPlugins.clear();
+#endif
 }
 /** @endcond */
 
@@ -239,6 +256,7 @@ bool L3ParserSettings::getParseAvogadroCsymbol() const
 /** @cond doxygenLibsbmlInternal */
 bool L3ParserSettings::checkNumArgumentsForPackage(const ASTNode* function, stringstream& error) const
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t p=0; p<mPlugins.size(); p++) {
     switch(mPlugins[p]->checkNumArguments(function, error)) {
     case -1:
@@ -256,6 +274,7 @@ bool L3ParserSettings::checkNumArgumentsForPackage(const ASTNode* function, stri
 
   //None of the plugins knew about the function!  This should never happen!
   assert(false);
+#endif
   //However, we might as well assume that it got it right...
   return false;
 }
@@ -266,11 +285,13 @@ ASTNode* L3ParserSettings::parsePackageInfix(L3ParserGrammarLineType_t type,
     vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
     vector<double> *doubleList) const
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t p=0; p<mPlugins.size(); p++) {
     ASTNode* ret = mPlugins[p]->parsePackageInfix(
                          type, nodeList, stringList, doubleList);
     if (ret != NULL) return ret;
   }
+#endif
   return NULL;
 }
 /** @endcond */
@@ -278,10 +299,12 @@ ASTNode* L3ParserSettings::parsePackageInfix(L3ParserGrammarLineType_t type,
 /** @cond doxygenLibsbmlInternal */
 int L3ParserSettings::getPackageFunctionFor(const std::string& name) const
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t p=0; p<mPlugins.size(); p++) {
     int ret = mPlugins[p]->getPackageFunctionFor(name);
     if (ret != AST_UNKNOWN) return ret;
   }
+#endif
   return AST_UNKNOWN;
 }
 /** @endcond */
@@ -291,9 +314,11 @@ void L3ParserSettings::visitPackageInfixSyntax(const ASTNode_t *parent,
                                           const ASTNode_t *node,
                                           StringBuffer_t  *sb) const
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
   for (size_t p=0; p<mPlugins.size(); p++) {
     mPlugins[p]->visitPackageInfixSyntax(parent, node, sb, this);
   }
+#endif
 }
 /** @endcond */
 
