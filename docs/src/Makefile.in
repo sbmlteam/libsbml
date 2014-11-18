@@ -345,6 +345,7 @@ distfiles =                                                  \
         libsbml-sbml-specifications.txt                      \
         python-substitutions/ASTNodeList.py                  \
         python-substitutions/SBaseList.py                    \
+        python-substitutions/SBMLExtension.py                \
         python-substitutions/CVTermList.py                   \
         python-substitutions/CompPkgNamespaces.py            \
         python-substitutions/DateList.py                     \
