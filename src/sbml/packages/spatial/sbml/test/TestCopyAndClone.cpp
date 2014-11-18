@@ -48,7 +48,21 @@ LIBSBML_CPP_NAMESPACE_USE
 
 CK_CPPSTART
 
-static SpatialPkgNamespaces* GNS = new SpatialPkgNamespaces();
+static SpatialPkgNamespaces* GNS = NULL;
+
+
+void
+SpatialCopyAndClone_setup (void)
+{
+  GNS = new SpatialPkgNamespaces();
+}
+
+void 
+SpatialCopyAndClone_teardown (void)
+{
+  delete GNS;
+}
+
 
 START_TEST ( test_PolygonObject_copyConstructor )
 {
@@ -386,6 +400,10 @@ create_suite_CopyAndClone (void)
 {
   Suite *suite = suite_create("CopyAndClone");
   TCase *tcase = tcase_create("CopyAndClone");
+
+   tcase_add_checked_fixture( tcase,
+                             SpatialCopyAndClone_setup,
+                             SpatialCopyAndClone_teardown );
 
   tcase_add_test( tcase, test_PolygonObject_copyConstructor );
   tcase_add_test( tcase, test_PolygonObject_assignmentOperator );
