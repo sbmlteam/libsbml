@@ -287,6 +287,7 @@ distfiles =                                                  \
         java-substitutions/ModelCreatorList.java             \
         java-substitutions/QualPkgNamespaces.java            \
         java-substitutions/SBMLConstructorException.java     \
+        java-substitutions/SBMLExtension.java                \
         java-substitutions/SBMLNamespacesList.java           \
         java-substitutions/SBaseList.java                    \
         java-substitutions/XMLConstructorException.java      \
