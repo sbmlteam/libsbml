@@ -45,6 +45,46 @@
  *
  * @section sbmlextension-howto How to extend SBMLExtension for a package implementation
  * @copydetails doc_extension_sbmlextension
+ *
+ * @section sbmlextension-l2-special Special handling for SBML Level&nbsp;2
+ * @copydetails doc_extension_layout_plugin_is_special
+ */
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_virtual_method_for_l2namespaces
+ *
+ * @par
+ * This method is related to special facilities designed to support
+ * legacy behaviors surrounding SBML Level&nbsp;2 models.  Due to the
+ * historical background of the SBML %Layout package, libSBML implements
+ * special behavior for that package: it @em always creates a %Layout
+ * plugin object for any SBML Level&nbsp;2 document it reads in,
+ * regardless of whether that document actually uses %Layout constructs.
+ * Since Level&nbsp;2 does not use namespaces on the top level of the
+ * SBML document object, libSBML simply keys off the fact that the model
+ * is a Level&nbsp;2 model.  To allow the extensions for the %Layout and
+ * %Render (and possibly other) packages to support this behavior, the
+ * SBMLExtension class contains special methods to allow packages to
+ * hook themselves into the Level&nbsp;2 parsing apparatus when necessary.
+ *
+ * This virtual method should be overridden by all package extensions
+ * that want to serialize to an SBML Level&nbsp;2 annotation.  In
+ * Level&nbsp;2, the XML namespace declaration for the package is not
+ * placed on the top-level SBML document object but rather inside
+ * individual annotations.  addL2Namespaces() is invoked automatically
+ * for Level&nbsp;2 documents when an SBMLExtensionNamespace object is
+ * created; removeL2Namespaces() is automatically invoked by
+ * SBMLDocument to prevent the namespace(s) from being put on the
+ * top-level SBML Level&nbsp;2 element (because Level&nbsp;2 doesn't
+ * support namespaces there); and enableL2NamespaceForDocument() is
+ * called automatically when any SBML document (of any Level/Version) is
+ * read in.
  */
 
 #ifndef SBMLExtension_h
@@ -437,28 +477,55 @@ SBMLExtensionNamespaces<LayoutExtension>
 
 
   /**
-   * Removes the L2 Namespaces.
+   * Removes the package's Level&nbsp;2 namespace(s).
    *
-   * This method should be overridden by all extensions that want to serialize
-   * to an L2 annotation.
+   * @copydetails doc_virtual_method_for_l2namespaces
+   *
+   * @param xmlns an XMLNamespaces object that will be used for the annotation.
+   * Implementations should override this method with something that removes
+   * the package's namespace(s) from the set of namespaces in @p xmlns.  For
+   * instance, here is the code from the %Layout package extension:
+   * @code{.cpp}
+for (int n = 0; n < xmlns->getNumNamespaces(); n++)
+{
+  if (xmlns->getURI(n) == LayoutExtension::getXmlnsL2())
+    xmlns->remove(n);
+}
+@endcode
    */
   virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
 
 
   /**
-   * Adds all L2 Extension namespaces to the namespace list.
+   * Adds the package's Level&nbsp;2 namespace(s).
    *
-   * This method should be overridden by all extensions that want to serialize
-   * to an L2 annotation.
+   * @copydetails doc_virtual_method_for_l2namespaces
+   *
+   * @param xmlns an XMLNamespaces object that will be used for the annotation.
+   * Implementation should override this method with something that adds
+   * the package's namespace(s) to the set of namespaces in @p xmlns.  For
+   * instance, here is the code from the %Layout package extension:
+   * @code{.cpp}
+if (!xmlns->containsUri( LayoutExtension::getXmlnsL2()))
+  xmlns->add(LayoutExtension::getXmlnsL2(), "layout");
+@endcode
    */
   virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
 
 
   /**
-   * Adds the L2 Namespace to the document and enables the extension.
+   * Called to enable the package on the SBMLDocument object.
    *
-   * If the extension supports serialization to SBML L2 Annotations, this
-   * method should be overrridden, so it will be activated.
+   * @copydetails doc_virtual_method_for_l2namespaces
+   *
+   * @param doc the SBMLDocument object for the model.
+   * Implementations should override this method with something that
+   * enables the package based on the package's namespace(s). For example,
+   * here is the code from the %Layout package extension:
+   * @code{.cpp}
+if (doc->getLevel() == 2)
+  doc->enablePackage(LayoutExtension::getXmlnsL2(), "layout", true);
+@endcode
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 

@@ -3046,4 +3046,83 @@ ListOfGroups mGroups;
  * <code>init()</code> method of the package class derived from
  * SBMLExtension.  (For the example above, it would be in the
  * <code>GroupsExtension.cpp</code> file.)
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_extension_layout_plugin_is_special
+ *
+ * @par
+ * Due to the historical background of the SBML %Layout package, libSBML
+ * implements special behavior for that package: it @em always creates a
+ * %Layout plugin object for any SBML Level&nbsp;2 document it reads in,
+ * regardless of whether that document actually uses %Layout constructs.  This
+ * is unlike the case for SBML Level&nbsp;3 documents that use %Layout&mdash;for
+ * them, libSBML will @em not create a plugin object unless the document
+ * actually declares the use of the %Layout package (via the usual Level&nbsp;3
+ * namespace declaration for Level&nbsp;3 packages).
+ *
+ * This has the following consequence.  If an application queries for the
+ * presence of %Layout in an SBML Level&nbsp;2 document by testing only for
+ * the existence of the plugin object, <strong>it will always get a positive
+ * result</strong>; in other words, the presence of a %Layout extension
+ * object is not an indication of whether a read-in Level&nbsp;2 document
+ * does or does not use SBML %Layout.  Instead, callers have to query
+ * explicitly for the existence of layout information.  An example of such a
+ * query is the following code:
+ * @if cpp
+@code{.cpp}
+// Assume "m" below is a Model object.
+LayoutModelPlugin* lmp = static_cast<LayoutModelPlugin*>(m->getPlugin("layout"));
+unsigned int numLayouts = lmp->getNumLayouts();
+// If numLayouts is greater than zero, then the model uses Layout.
+@endcode
+@endif
+@if python
+@code{.py}
+# Assume "doc" below is an SBMLDocument object.
+m = doc.getModel()
+if m != None:
+    layoutPlugin = m.getPlugin('layout')
+    if layoutPlugin != None:
+        numLayouts = layoutPlugin.getNumLayouts()
+        # If numLayouts is greater than zero, then the model uses Layout.
+@endcode
+@endif
+@if java
+@code{.java}
+@endcode
+@endif
+@if csharp
+@code{.cs}
+@endcode
+@endif
+ *
+ * The special, always-available Level&nbsp;2 %Layout behavior was motivated
+ * by a desire to support legacy applications.  In SBML Level&nbsp;3, the
+ * %Layout package uses the normal SBML Level&nbsp;3 scheme of requiring
+ * declarations on the SBML document element.  This means that upon reading a
+ * model, libSBML knows right away whether it contains layout information.
+ * In SBML Level&nbsp;2, there is no top-level declaration because layout is
+ * stored as annotations in the body of the model.  Detecting the presence of
+ * layout information when reading a Level&nbsp;2 model requires parsing the
+ * annotations.  For efficiency reasons, libSBML normally does not parse
+ * annotations automatically when reading a model.  However, applications
+ * that predated the introduction of Level&nbsp;3 %Layout and the updated
+ * version of libSBML never had to do anything special to enable parsing
+ * layout; the facilities were always available for every Level&nbsp;2 model
+ * as long as libSBML was compiled with %Layout support.  To avoid burdening
+ * developers of legacy applications with the need to modify their software,
+ * libSBML provides backward compatibility by always preloading the %Layout
+ * package extension when reading Level&nbsp;2 models.  The same applies to
+ * the creation of Level&nbsp;2 models: with the plugin-oriented libSBML,
+ * applications normally would have to take deliberate steps to activate
+ * package code, instantiate objects, manage namespaces, and so on.  LibSBML
+ * again loads the %Layout package plugin automatically when creating a
+ * Level&nbsp;2 model, thereby making the APIs available to legacy
+ * applications without further work on their part.
+ *
+ * The mechanisms for triggering this Level&nbsp;2-specific behavior
+ * involves a set of methods on the SBMLExtension class:
+ * SBMLExtension::addL2Namespaces(),
+ * SBMLExtension::removeL2Namespaces(), and
+ * SBMLExtension::enableL2NamespaceForDocument().
  */
