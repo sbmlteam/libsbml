@@ -178,6 +178,8 @@ distfiles =                                                  \
         common-text/comment-set-methods.html                 \
         common-text/doxygen-regular-text-end.html            \
         common-text/doxygen-regular-text-start.html          \
+        common-text/doxygen-small-text-end.html              \
+        common-text/doxygen-small-text-start.html            \
         common-text/enzymatic-reaction-equation.html         \
         common-text/example-sbml-enzyme-model.html           \
         common-text/example-sbml-enzyme-model.xml            \
