@@ -90,6 +90,103 @@ namespace must be used for layout annotations in Level&nbsp;2 models:
 &lt;/sbml&gt;
 </pre>
 
+<h3>Special libSBML behavior for Level&nbsp;2 Layout</h3>
+
+<p> Due to the way that the encoding difference discussed above affects
+legacy applications, libSBML implements special behavior for the Layout
+package: it <em>always</em> creates a Layout plugin object for any SBML
+Level&nbsp;2 document it reads in, regardless of whether that document
+actually uses Layout constructs.  This is unlike the case for SBML
+Level&nbsp;3 documents that use Layout&mdash;for them, libSBML will
+<em>not</em> create a plugin object unless the document actually declares the
+use of the Layout package (via the usual Level&nbsp;3 namespace declaration
+for Level&nbsp;3 packages).
+
+<p>
+This has the following consequence.  If an application queries for the
+presence of Layout in an SBML Level&nbsp;2 document by testing only for
+the existence of the plugin object, <strong>it will always get a positive
+result</strong>; in other words, the presence of a Layout extension
+object is not an indication of whether a read-in Level&nbsp;2 document
+does or does not use SBML Layout.  Instead, callers have to query
+explicitly for the existence of layout information.
+
+<p> The special, always-available Level&nbsp;2 Layout behavior was motivated
+by a desire to support legacy applications.  In SBML Level&nbsp;3, the Layout
+package uses the normal SBML Level&nbsp;3 scheme of requiring declarations on
+the SBML document element.  This means that upon reading a model, libSBML
+knows right away whether it contains layout information.  In SBML
+Level&nbsp;2, there is no top-level declaration because layout is stored as
+annotations in the body of the model.  Detecting the presence of layout
+information when reading a Level&nbsp;2 model requires parsing the
+annotations.  For efficiency reasons, libSBML normally does not parse
+annotations automatically when reading a model.  However, applications that
+predated the introduction of Level&nbsp;3 Layout and the updated version of
+libSBML never had to do anything special to enable parsing layout; the
+facilities were always available for every Level&nbsp;2 model as long as
+libSBML was compiled with Layout support.  To avoid burdening developers of
+legacy applications with the need to modify their software, libSBML provides
+backward compatibility by always preloading the Layout package extension when
+reading Level&nbsp;2 models.  The same applies to the creation of
+Level&nbsp;2 models: with the plugin-oriented libSBML, applications normally
+would have to take deliberate steps to activate package code, instantiate
+objects, manage namespaces, and so on.  LibSBML again loads the Layout
+package plugin automatically when creating a Level&nbsp;2 model, thereby
+making the APIs available to legacy applications without further work on
+their part.
+
+<h3>Testing for Level&nbsp;2 Layout</h3>
+
+The following are examples of code fragments that could be used to test for
+the presence of layout data in a Level&nbsp;2 model.
+
+<ul>
+
+<li><em>For the case of C++</em>:
+<div class="fragment" style="margin-top: 0.5em">
+<div class="line"><span class="comment">// Assume &quot;m&quot; below is a Model object.</span></div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>* lmp = <span class="keyword">static_cast&lt;</span><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>*<span class="keyword">&gt;</span>(m-&gt;getPlugin(<span class="stringliteral">&quot;layout&quot;</span>));</div>
+<div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> numLayouts = lmp-&gt;<a class="code" href="class_layout_model_plugin.html#af4f263428d5587079194ac093187c9d2">getNumLayouts</a>();</div>
+<div class="line"><span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+</div>
+</li>
+
+<li><em>For the case of Python</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment"># Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;m = doc.getModel()</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keywordflow">if</span> m != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    layoutPlugin = m.getPlugin(<span class="stringliteral">&#39;layout&#39;</span>)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keywordflow">if</span> layoutPlugin != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        numLayouts = layoutPlugin.getNumLayouts()</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="comment"># If numLayouts is greater than zero, then the model uses Layout.</span></div>
+</div>
+</li>
+
+<li><em>For the case of Java</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><span class="comment">// Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a class="code" href="class_model.html">Model</a> m = doc.getModel();</div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a> lmp = (<a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>) m.getPlugin(<span class="stringliteral">&quot;layout&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (lmp != null)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordtype">int</span> numLayouts = lmp.getNumLayouts();</div>
+<div class="line">  <span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+<div class="line">}</div>
+</div>
+</li>
+
+<li><em>For the case of C#</em>:
+<div class="fragment" style="margin-top: 0.5em"><div class="line"><span class="comment">// Assume &quot;doc&quot; below is an SBMLDocument object.</span></div>
+<div class="line"><a class="code" href="class_model.html">Model</a> m = doc.getModel();</div>
+<div class="line"><a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a> lmp = (<a class="code" href="class_layout_model_plugin.html">LayoutModelPlugin</a>) m.getPlugin(<span class="stringliteral">&quot;layout&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (lmp != null)</div>
+<div class="line">{</div>
+<div class="line">  <span class="keywordtype">int</span> numLayouts = lmp.getNumLayouts();</div>
+<div class="line">  <span class="comment">// If numLayouts is greater than zero, then the model uses Layout.</span></div>
+<div class="line">}</div>
+</div></li>
+
+</ul>
+
 
 <h2>The specification for this SBML package</h2>
 
