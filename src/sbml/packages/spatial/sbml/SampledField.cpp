@@ -1364,7 +1364,7 @@ SampledField::uncompress_data(void *data, size_t length, int*& result, int& outL
  }
 
  buffer.insert(buffer.end(), temp_buffer, temp_buffer + BUFSIZE - strm.avail_out);
- deflateEnd(&strm);
+ inflateEnd(&strm);
 
  outLength = buffer.size();
  result = (int*) malloc(sizeof(int)*outLength);
