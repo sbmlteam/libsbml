@@ -115,7 +115,6 @@ ENABLED_SECTIONS       = csharp doxygenCsharpOnly
 EXCLUDE_SYMBOLS         +=  \
   ElementFilter \
   ISBMLExtensionNamespaces \
-  SBMLExtension            \
   SBMLTransforms           \
   SBaseExtensionPoint
 
