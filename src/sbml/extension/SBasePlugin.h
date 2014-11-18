@@ -35,6 +35,8 @@
  * @class SBasePlugin
  * @sbmlbrief{core} Base class for extending SBML objects in packages.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * The SBasePlugin class is libSBML's base class for extensions of core SBML
  * component objects.  SBasePlugin defines basic virtual methods for
  * reading/writing/checking additional attributes and/or subobjects; these
@@ -134,10 +136,11 @@ public:
    * Return the first child object found with a given identifier.
    *
    * This method searches all the subobjects under this one, compares their
-   * identifiers to @p id, and returns the first one that machines.  It uses
-   * SBasePlugin::getAllElements(ElementFilter* filter) to get the list of
-   * identifiers, so the order in which identifiers are searched is the order
-   * in which they appear in the results returned by that method.
+   * identifiers to @p id, and returns the first one that machines.
+   * @if clike It uses SBasePlugin::getAllElements(ElementFilter* filter) to
+   * get the list of identifiers, so the order in which identifiers are
+   * searched is the order in which they appear in the results returned by
+   * that method.@endif@~
    *
    * Normally, <code>SId</code> type identifier values are unique across
    * a model in SBML.  However, in some circumstances they may not be, such

@@ -31,20 +31,22 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLExtension
- * @sbmlbrief{core} Core class for SBML Level 3 package plug-ins.
+ * @sbmlbrief{core} Base class for SBML Level 3 package plug-ins.
  *
- * @ifnot clike @internal @endif@~
+ * @htmlinclude not-sbml-warning.html
  *
- * The SBMLExtension class is a core component of the libSBML package
- * extension mechanism.  It is an abstract class that needs to be extended as
- * part of the implementation of a package in libSBML.  The SBMLExtension
- * class provides methods for managing common attributes of package
- * extensions (e.g., package name, package version), registration of
- * instantiated SBasePluginCreator objects, and initialization/registration
- * of package extensions when the library code for the package is loaded.
+ * The SBMLExtension class is a component of the libSBML package extension
+ * mechanism.  It is an abstract class that is extended by each package
+ * extension implementation. @if clike The SBMLExtension class provides
+ * methods for managing common attributes of package extensions (e.g.,
+ * package name, package version), registration of instantiated
+ * SBasePluginCreator objects, and initialization/registration of package
+ * extensions when the library code for the package is loaded. @endif@~
  *
+ * @if clike
  * @section sbmlextension-howto How to extend SBMLExtension for a package implementation
  * @copydetails doc_extension_sbmlextension
+ * @endif@~
  *
  * @section sbmlextension-l2-special Special handling for SBML Level&nbsp;2
  * @copydetails doc_extension_layout_plugin_is_special
@@ -73,6 +75,7 @@
  * SBMLExtension class contains special methods to allow packages to
  * hook themselves into the Level&nbsp;2 parsing apparatus when necessary.
  *
+ * @if clike
  * This virtual method should be overridden by all package extensions
  * that want to serialize to an SBML Level&nbsp;2 annotation.  In
  * Level&nbsp;2, the XML namespace declaration for the package is not
@@ -85,6 +88,7 @@
  * support namespaces there); and enableL2NamespaceForDocument() is
  * called automatically when any SBML document (of any Level/Version) is
  * read in.
+ * @endif@~
  */
 
 #ifndef SBMLExtension_h
@@ -431,11 +435,12 @@ public:
 
 
   /**
-   * Returns an SBMLExtensionNamespaces object corresponding to a given
+   * Returns a specialized SBMLNamespaces object corresponding to a given
    * namespace URI.
    *
-   * LibSBML package extensions each define a type of object derived from
-   * the template class SBMLExtensionNamespaces.  This object has the form
+   * LibSBML package extensions each define a subclass of
+   * @if clike SBMLExtensionNamespaces @else SBMLNamespaces@endif@~.
+   * @if clike This object has the form
    * @verbatim
 SBMLExtensionNamespaces<class SBMLExtensionType>
 @endverbatim
@@ -443,14 +448,16 @@ SBMLExtensionNamespaces<class SBMLExtensionType>
    * @verbatim
 SBMLExtensionNamespaces<LayoutExtension>
 @endverbatim
+@endif@~
    * The present method returns the appropriate object corresponding
    * to the given XML namespace URI in argument @p uri.
    *
    * @param uri the namespace URI that represents one of versions of the
    * package implemented in this extension.
    *
-   * @return an SBMLExtensionNamespaces object, or @c NULL if the given @p
-   * uri is not defined in the corresponding package.
+   * @return an @if clike SBMLExtensionNamespaces @else SBMLNamespaces @endif@~ 
+   * object, or @c NULL if the given @p uri is not defined in the
+   * corresponding package.
    *
    * @copydetails doc_note_override_in_extensions
    */

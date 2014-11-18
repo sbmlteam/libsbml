@@ -33,6 +33,8 @@
  * @class SBMLExtensionException
  * @sbmlbrief{core} Exception used by package extensions
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * @copydetails doc_extension_sbmlextensionexception
  *
  * @see SBMLNamespaces

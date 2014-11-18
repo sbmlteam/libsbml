@@ -33,6 +33,8 @@
  * @class SBMLExtensionNamespaces
  * @sbmlbrief{core} Set of SBML Level + Version + namespace triples.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * SBMLExtensionNamespaces is a template class.  It is extended from
  * SBMLNamespaces and is meant to be used by package extensions to store the
  * SBML Level, Version within a Level, and package version of the SBML

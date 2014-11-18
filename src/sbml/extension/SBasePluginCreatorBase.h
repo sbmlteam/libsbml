@@ -35,6 +35,8 @@
  * @class SBasePluginCreatorBase
  * @sbmlbrief{core} Base class of %SBasePluginCreator.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * This is the base class of the SBasePluginCreator template class.  This
  * contains virtual methods that need to be overridden by subclasses.
  */

@@ -35,6 +35,8 @@
  * @class SBMLDocumentPluginNotRequired
  * @sbmlbrief{core} Base class for non-required Level 3 packages plug-ins.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * The SBMLDocumentPluginNotRequired class extends the SBMLDocumentPlugin
  * class, adding a validation test such that it reports an error if an SBML
  * document read in has a "required" flag set to @c true.  The purpose of

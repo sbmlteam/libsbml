@@ -33,6 +33,8 @@
  * @class SBMLDocumentPlugin
  * @sbmlbrief{core} Base class for extending SBMLDocument in packages.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * The SBMLDocumentPlugin class is a specialization of SBasePlugin
  * designed specifically for extending SBMLDocument.  All package
  * extensions must extend SBMLDocument to implement support for SBML

@@ -33,6 +33,8 @@
  * @class SBasePluginCreator
  * @sbmlbrief{core} Template for SBasePlugin factory objects.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * @copydetails doc_extension_sbaseplugincreator
  */
 

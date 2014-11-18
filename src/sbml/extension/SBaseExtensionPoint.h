@@ -33,6 +33,8 @@
  * @class SBaseExtensionPoint
  * @sbmlbrief{core} Base class for extending SBML components
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * @ifnot clike @internal @endif@~
  *
  * @copydetails doc_extension_sbaseextensionpoint

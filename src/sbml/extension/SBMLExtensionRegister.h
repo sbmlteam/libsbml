@@ -33,6 +33,8 @@
  * @class SBMLExtensionRegister
  * @sbmlbrief{core} Template class for extension package registration
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * This is the registration template class for SBML package extensions in
  * libSBML.  It is used by package extensions to register themselves with the
  * SBMLExtensionRegistry when libSBML starts up.  An instance of this class

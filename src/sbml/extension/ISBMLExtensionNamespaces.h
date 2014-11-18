@@ -35,6 +35,7 @@
  * @class ISBMLExtensionNamespaces
  * @sbmlbrief{core}
  *
+ * @htmlinclude not-sbml-warning.html
  */
 
 #ifndef ISBMLExtensionNamespaces_h

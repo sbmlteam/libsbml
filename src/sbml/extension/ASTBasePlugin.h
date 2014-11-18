@@ -36,6 +36,8 @@
  *
  * @class ASTBasePlugin
  * @sbmlbrief{core} Base class for extensions that plug into AST classes.
+ *
+ * @htmlinclude not-sbml-warning.html
  */
 
 #ifndef ASTBasePlugin_h

@@ -33,6 +33,8 @@
  * @class SBMLExtensionRegistry
  * @sbmlbrief{core} Registry where package extensions are registered.
  *
+ * @htmlinclude not-sbml-warning.html
+ *
  * This class provides a central registry of all extensions known to libSBML.
  * Each package extension must be registered with the registry.  The registry
  * class is accessed by various classes to retrieve information about known
@@ -124,8 +126,10 @@ public:
   /**
    * Removes SBML Level&nbsp;2 namespaces from the namespace list.
    *
+   * @if clike 
    * This will call all overridden
    * <code>SBMLExtension::removeL2Namespaces()</code> methods.
+   * @endif@~
    *
    * @param xmlns an XMLNamespaces object listing one or more namespaces
    * to be removed.
@@ -136,8 +140,10 @@ public:
   /**
    * Adds SBML Level&nbsp;2 namespaces to the namespace list.
    *
+   * @if clike
    * This will call all overridden
    * <code>SBMLExtension::addL2Namespaces()</code> methods.
+   * @endif@~
    *
    * @param xmlns an XMLNamespaces object providing one or more namespaces to
    * be added.
@@ -351,7 +357,9 @@ public:
    *
    * @return a count of the registered package extensions.
    *
-   * @see getRegisteredPackageName()
+   * @if clike
+   * @see getRegisteredPackageNames()
+   * @endif@~
    */
   static unsigned int getNumRegisteredPackages();
 
