@@ -128,7 +128,7 @@ STABLE RELEASE
   - We've made efforts to simplify the instructions for downloading,
     configuring and accessing libSBML.  Among the changes are that the
     API language manuals for Java, Python and C# now focus their
-    instructions more just those languages, rather than giving long
+    instructions more on just those languages, rather than giving long
     generic instructions for all possible languages.
 
   - The SBML package extension mechanisms are now more thoroughly
