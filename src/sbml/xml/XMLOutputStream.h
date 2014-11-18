@@ -874,6 +874,8 @@ public:
 
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
 class LIBLAX_EXTERN XMLOutputFileStream : public XMLOutputStream
 {
 public:
