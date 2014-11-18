@@ -64,7 +64,6 @@ INPUT =                                 \
   libsbml-mainpage.txt                  \
   libsbml-news.txt                      \
   libsbml-other.txt                     \
-  libsbml-programming-csharp.txt        \
   libsbml-sbml-specifications.txt       \
   ../../src/bindings/csharp/csharp-files
 

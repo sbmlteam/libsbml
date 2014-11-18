@@ -24,6 +24,11 @@ use the navigation bar or the table of contents to visit the relevant pages.
 - @subpage libsbml-example
 - @subpage libsbml-example-files-c
 @endif
+@if csharp
+- @subpage libsbml-csharp-reading-files
+- @subpage libsbml-csharp-math
+- @subpage libsbml-csharp-example-files
+@endif
 - @subpage libsbml-core-versus-packages
 @htmlinclude doxygen-regular-text-end.html
 
