@@ -405,7 +405,7 @@ LayoutExtension::init()
   SBaseExtensionPoint sprExtPoint("core",SBML_SPECIES_REFERENCE);
   SBaseExtensionPoint msprExtPoint("core",SBML_MODIFIER_SPECIES_REFERENCE);
 
-	SBasePluginCreator<LayoutSBMLDocumentPlugin, LayoutExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
+  SBasePluginCreator<LayoutSBMLDocumentPlugin, LayoutExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
   SBasePluginCreator<LayoutModelPlugin,  LayoutExtension>           modelPluginCreator(modelExtPoint,packageURIs);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> sprPluginCreator(sprExtPoint,L2packageURI);
   SBasePluginCreator<LayoutSpeciesReferencePlugin, LayoutExtension> msprPluginCreator(msprExtPoint,L2packageURI);
