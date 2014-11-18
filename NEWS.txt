@@ -131,6 +131,9 @@ STABLE RELEASE
     instructions more just those languages, rather than giving long
     generic instructions for all possible languages.
 
+  - The SBML package extension mechanisms are now more thoroughly
+    documented.
+
 
 EXPERIMENTAL RELEASE
 
