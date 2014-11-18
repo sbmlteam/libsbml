@@ -273,4 +273,22 @@ public class SBMLExtension {
    boolean isEnabled() {
      return libsbmlJNI.SBMLExtension_isEnabled(swigCPtr, this);
    }
+
+  /**
+   * Indicates whether this extension is being used by the given {@link SBMLDocument}.
+   <p>
+   * The default implementation returns <code>true.</code>  This means that when a
+   * document had this extension enabled, it will not be possible to convert
+   * it to SBML Level&nbsp;2 as we cannot make sure that the extension can be
+   * converted.
+   <p>
+   * @param doc the SBML document to test.
+   <p>
+   * @return a boolean indicating whether the extension is actually being
+   * used by the document.
+   */ public
+  boolean isInUse(SBMLDocument doc) {
+    return libsbmlJNI.SBMLExtension_isInUse(swigCPtr, this, SBMLDocument.getCPtr(doc), doc);
+  }
+
 }
