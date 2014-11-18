@@ -83,31 +83,29 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\
 mkdir src\bindings
 mkdir src\bindings\csharp
 mkdir src\bindings\java
-mkdir src\bindings\matlab
-mkdir src\bindings\matlab\test
-mkdir src\bindings\matlab\test\test-data
+mkdir src\bindings\javascript
 mkdir src\bindings\perl
 mkdir src\bindings\python
 mkdir src\bindings\r
 mkdir src\bindings\ruby
 mkdir src\bindings\swig
 
-copy /y %PACKAGE_DIR%\src\bindings\csharp\*-%PACKAGE_NAME%.i    src\bindings\csharp
-copy /y %PACKAGE_DIR%\src\bindings\java\*-%PACKAGE_NAME%.i      src\bindings\java
-copy /y %PACKAGE_DIR%\src\bindings\matlab\*.c                    src\bindings\matlab
-copy /y %PACKAGE_DIR%\src\bindings\matlab\*.m                    src\bindings\matlab
-copy /y %PACKAGE_DIR%\src\bindings\matlab\test\*.m               src\bindings\matlab\test
-copy /y %PACKAGE_DIR%\src\bindings\matlab\test\test-data\*.xml   src\bindings\matlab\test\test-data
-copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.cpp    src\bindings\perl
-copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.i      src\bindings\perl
-copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.cpp  src\bindings\python
-copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.i    src\bindings\python
-copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.cpp       src\bindings\r
-copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.i         src\bindings\r
-copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.cpp    src\bindings\ruby
-copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.i      src\bindings\ruby
-copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.i      src\bindings\swig
-copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.h      src\bindings\swig
+copy /y %PACKAGE_DIR%\src\bindings\csharp\*-%PACKAGE_NAME%.i        src\bindings\csharp
+copy /y %PACKAGE_DIR%\src\bindings\java\*-%PACKAGE_NAME%.i          src\bindings\java
+copy /y %PACKAGE_DIR%\src\bindings\javascript\*-%PACKAGE_NAME%.cpp  src\bindings\javascript
+copy /y %PACKAGE_DIR%\src\bindings\javascript\*-%PACKAGE_NAME%.i    src\bindings\javascript
+copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.cpp        src\bindings\perl
+copy /y %PACKAGE_DIR%\src\bindings\perl\*-%PACKAGE_NAME%.i          src\bindings\perl
+copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.cpp      src\bindings\python
+copy /y %PACKAGE_DIR%\src\bindings\python\*-%PACKAGE_NAME%.i        src\bindings\python
+copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.cpp           src\bindings\r
+copy /y %PACKAGE_DIR%\src\bindings\r\*-%PACKAGE_NAME%.i             src\bindings\r
+copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.cpp        src\bindings\ruby
+copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.i          src\bindings\ruby
+copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.i          src\bindings\swig
+copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.h          src\bindings\swig
+
+
 
 mkdir examples
 mkdir examples\sample-models
