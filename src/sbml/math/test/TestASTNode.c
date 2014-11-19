@@ -4770,7 +4770,7 @@ START_TEST (test_ASTNode_returnsBoolean)
   const ASTNode_t *math;
 
   // boolean function
-  ASTNode* n = SBML_parseFormula("geq(a,b)");
+  ASTNode_t* n = SBML_parseFormula("geq(a,b)");
   fail_unless(ASTNode_returnsBoolean(n) == 1);
   ASTNode_free(n);
 
@@ -4808,7 +4808,7 @@ START_TEST (test_ASTNode_returnsBoolean)
   fail_unless(ASTNode_returnsBoolean(math) == 0);
 
   // func with model func returns boolean
-  ASTNode* m = SBML_parseFormula("lambda(x, true)");
+  ASTNode_t* m = SBML_parseFormula("lambda(x, true)");
   FunctionDefinition_setMath(fd, m);
   ASTNode_free(m);
   fail_unless(ASTNode_returnsBoolean(math) == 1);
@@ -5102,10 +5102,12 @@ START_TEST (test_ASTNode_reduceToBinary)
   ASTNode_setInteger(c1, 2);
   ASTNode_t *c2 = ASTNode_create();
   ASTNode_setInteger(c2, 2);
+  ASTNode_t *c3 = ASTNode_create();
+  ASTNode_setInteger(c3, 2);
 
   ASTNode_addChild(n, c1);
   ASTNode_addChild(n, c2);
-  ASTNode_addChild(n, c2->deepCopy());
+  ASTNode_addChild(n, c3);
 
   fail_unless( ASTNode_getNumChildren(n) == 3);
 
