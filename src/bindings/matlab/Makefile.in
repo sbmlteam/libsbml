@@ -74,6 +74,7 @@ distfiles =                      \
         isSBML_Model.m           \
         installSBML.m            \
         isoctave.m               \
+		isFbcEnabled.m           \
         matlab-tags-regexp.txt   \
         mexopts-R2007.sh         \
         mexopts-R2008.sh         \
