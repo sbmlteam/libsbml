@@ -157,10 +157,12 @@ distfiles =                                                  \
         common-graphics/listof-illustration.svg              \
         common-graphics/model-qualifiers.png                 \
         common-graphics/model-qualifiers.txt                 \
+        common-graphics/obs-download-python-libsbml.png      \
         common-graphics/official-sbml-supported-32.jpg       \
         common-graphics/official-sbml-supported-40.jpg       \
         common-graphics/official-sbml-supported-70.png       \
         common-graphics/right-arrow.gif                      \
+        common-graphics/right-arrow-2x.png                   \
         common-graphics/simple-ast.graffle                   \
         common-graphics/simple-ast.svg                       \
         common-graphics/solution-explorer-windows.png        \
@@ -228,10 +230,15 @@ distfiles =                                                  \
         common-text/note-writing-zipped-files.html           \
         common-text/parameter-addition-overrides-values.html \
         common-text/pkg-marker-comp.html                     \
+        common-text/pkg-marker-comp.txt                      \
         common-text/pkg-marker-core.html                     \
+        common-text/pkg-marker-core.txt                      \
         common-text/pkg-marker-fbc.html                      \
+        common-text/pkg-marker-fbc.txt                       \
         common-text/pkg-marker-layout.html                   \
+        common-text/pkg-marker-layout.txt                    \
         common-text/pkg-marker-qual.html                     \
+        common-text/pkg-marker-qual.txt                      \
         common-text/plain-font-off.html                      \
         common-text/plain-font-on.html                       \
         common-text/predefined-units.html                    \
