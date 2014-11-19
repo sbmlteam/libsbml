@@ -134,7 +134,7 @@ START_TEST (test_FunctionDefinition_getArguments)
 {
   const ASTNode_t *math; 
 
-  ASTNode* math1 = SBML_parseFormula("lambda(x, y, x^y)");
+  ASTNode_t* math1 = SBML_parseFormula("lambda(x, y, x^y)");
   FunctionDefinition_setMath(FD, math1 );
   ASTNode_free(math1);
 
