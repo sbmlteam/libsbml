@@ -32,11 +32,11 @@ mkdir src\sbml\packages\%PACKAGE_NAME%\extension\test
 mkdir src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\sbml
 mkdir src\sbml\packages\%PACKAGE_NAME%\sbml\test
-mkdir src\sbml\packages\%PACKAGE_NAME%\sbml\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\util
 mkdir src\sbml\packages\%PACKAGE_NAME%\util\test
 mkdir src\sbml\packages\%PACKAGE_NAME%\util\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir
+mkdir src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\test_external_flat_strip
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\constraints
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test
@@ -75,7 +75,6 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.h            
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.c             src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.cpp           src\sbml\packages\%PACKAGE_NAME%\sbml\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\sbml\test\
-copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\test-data\*.xml src\sbml\packages\%PACKAGE_NAME%\sbml\test\test-data
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\*.in             src\sbml\packages\%PACKAGE_NAME%\util\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\*.h             src\sbml\packages\%PACKAGE_NAME%\util\test\
@@ -85,6 +84,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\*.txt          
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\*.xml src\sbml\packages\%PACKAGE_NAME%\util\test\test-data
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir\*.xml src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir\*.txt src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\subdir
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\test_external_flat_strip\*.xml src\sbml\packages\%PACKAGE_NAME%\util\test\test-data\test_external_flat_strip
 
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.in             src\sbml\packages\%PACKAGE_NAME%\extension\test\
