@@ -96,8 +96,8 @@ swig_extras =                \
   swig/ASTNodes.i            \
   swig/argparse.py           \
   swig/libsbmlutils.py       \
+  swig/README.txt            \
   CMakeLists.txt
-  
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
