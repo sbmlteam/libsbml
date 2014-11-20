@@ -102,7 +102,7 @@ SubmodelReferenceCycles::addAllReferences(const Model* m)
     return;
   }
 
-  std::string modelId = m->isSetId() ? m->getId() : "tempId";
+  std::string modelId = m->isSetId() ? m->getId() : std::string("tempId");
 
   addModelReferences(modelId, modelPlug);
     

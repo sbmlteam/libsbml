@@ -30,11 +30,11 @@
 
 #ifdef __cplusplus
 
-#include <algorithm>
 #include <cctype>
 #include <functional>
 #include <iterator>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -151,10 +151,17 @@ SBMLUri::parse(const std::string& uri)
       return;
     }    
   }
+  
   mScheme.reserve(distance(constUri.begin(), prot_i));
+#ifdef __BORLANDC__
+  transform(constUri.begin(), prot_i,
+    back_inserter(mScheme),
+    (int(*)(int))(tolower)); // scheme is icase
+#else
   transform(constUri.begin(), prot_i,
     back_inserter(mScheme),
     ptr_fun<int,int>(tolower)); // scheme is icase
+#endif
   if( prot_i == constUri.end() )
     return;
   advance(prot_i, prot_end.length());
@@ -165,7 +172,11 @@ SBMLUri::parse(const std::string& uri)
     // file:drive:/ ... this is just plain wrong but needs to be parsed correctly
     // 
     mPath.reserve(distance(prot_i, constUri.end()));
+#ifdef __BORLANDC__
+    mPath.assign(prot_i, (size_t)constUri.end());
+#else
     mPath.assign(prot_i, constUri.end());
+#endif
     // but we ought to fix the URI!
     mUri = mScheme + ":///" + mPath;
     return;
@@ -176,9 +187,15 @@ SBMLUri::parse(const std::string& uri)
   {
     // file won't have a host (or could assume localhost)
     mHost.reserve(distance(prot_i, path_i));
+#ifdef __BORLANDC__
+    transform(prot_i, path_i,
+     back_inserter(mHost),
+     (int(*)(int))(tolower)); // host is icase
+#else
     transform(prot_i, path_i,
      back_inserter(mHost),
      ptr_fun<int,int>(tolower)); // host is icase
+#endif
   }  
   else if (mScheme == "urn")
   {
@@ -191,19 +208,39 @@ SBMLUri::parse(const std::string& uri)
   }
   else
   {
+#ifdef __BORLANDC__
+    mPath.assign(prot_i, (size_t)path_i);
+#else
     mPath.assign(prot_i, path_i);
+#endif
     if (mPath.size() > 0 && mPath[0] == '/')
+#ifdef __BORLANDC__
+      mPath.assign(mPath.begin() +1, (size_t)mPath.end());
+#else
       mPath.assign(mPath.begin() +1, mPath.end());
+#endif
   }
   if (path_i == constUri.end())
     return;    
   string::const_iterator query_i = find(path_i, constUri.end(), '?');
+#ifdef __BORLANDC__
+  mPath.assign(path_i, (size_t)query_i);
+#else
   mPath.assign(path_i, query_i);
+#endif
   if (mPath.size() > 0 && mPath[0] == '/')
+#ifdef __BORLANDC__
+        mPath.assign(mPath.begin() +1, (size_t)mPath.end());
+#else
         mPath.assign(mPath.begin() +1, mPath.end());
+#endif
   if( query_i != constUri.end() )
     ++query_i;
+#ifdef __BORLANDC__
+  mQuery.assign(query_i, (size_t)constUri.end());
+#else
   mQuery.assign(query_i, constUri.end());
+#endif
 }
 
 SBMLUri 

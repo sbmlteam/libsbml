@@ -717,7 +717,8 @@ LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp)
 {
-  return new(std::nothrow) LineSegment(temp ? *temp : LineSegment());
+  LineSegment empty;
+  return new(std::nothrow) LineSegment(temp ? *temp : empty);
 }
 
 

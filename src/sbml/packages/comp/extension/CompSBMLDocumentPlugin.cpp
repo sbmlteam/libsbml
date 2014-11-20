@@ -254,7 +254,7 @@ CompSBMLDocumentPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 /** @cond doxygenLibsbmlInternal */
 void 
 CompSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
-                                        const ExpectedAttributes& expectedAttributes)
+                                        const ExpectedAttributes& /*expectedAttributes*/)
 {
   // for now don't read the required flag for L2 models 
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3) return;
@@ -681,7 +681,7 @@ std::string
     baseUri = mSBML->getLocationURI();
 
   SBMLUri* uri = SBMLResolverRegistry::getInstance().resolveUri(sUri, baseUri);
-  const std::string resolvedUri = (uri == NULL ? "" : uri->getUri());
+  const std::string resolvedUri = (uri == NULL ? std::string("") : uri->getUri());
   delete uri;
   
   return resolvedUri;

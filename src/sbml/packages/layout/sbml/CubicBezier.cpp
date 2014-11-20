@@ -736,7 +736,8 @@ LIBSBML_EXTERN
 CubicBezier_t *
 CubicBezier_createFrom (const CubicBezier_t *temp)
 {
-  return new(std::nothrow) CubicBezier(temp ? *temp : CubicBezier());
+  CubicBezier empty;
+  return new(std::nothrow) CubicBezier(temp ? *temp : empty);
 }
 
 

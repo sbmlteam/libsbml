@@ -1,3 +1,4 @@
+
 /**
  * @file    SBaseRef.cpp
  * @brief   Implementation of SBaseRef, the SBase-derived class of the comp package.
@@ -981,10 +982,10 @@ int SBaseRef::collectDeletions(set<SBase*>* removed, set<SBase*>* toremove)
   CompSBasePlugin* todplug = static_cast<CompSBasePlugin*>(todelete->getPlugin(getPrefix()));
   if (todplug != NULL) {
     for (unsigned long re=0; re<todplug->getNumReplacedElements(); re++) {
-      todplug->getReplacedElement((unsigned int)re)->collectDeletions(removed, toremove);
+      static_cast<SBaseRef*>(todplug->getReplacedElement((unsigned int)re))->collectDeletions(removed, toremove);
     }
     if (todplug->isSetReplacedBy()) {
-      todplug->getReplacedBy()->collectDeletions(removed, toremove);
+      static_cast<SBaseRef*>(todplug->getReplacedBy())->collectDeletions(removed, toremove);
     }
   }
   return LIBSBML_OPERATION_SUCCESS;

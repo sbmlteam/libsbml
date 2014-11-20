@@ -685,7 +685,8 @@ LIBSBML_EXTERN
 Curve_t *
 Curve_createFrom (const Curve_t *temp)
 {
-  return new(std::nothrow) Curve(temp ? *temp : Curve());
+  Curve empty;
+  return new(std::nothrow) Curve(temp ? *temp : empty);
 }
 
 
