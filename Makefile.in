@@ -375,6 +375,12 @@ examples =                                                          \
 
 rbindings =                                           \
   src/bindings/r/CMakeLists.txt                       \
+  src/bindings/r/create_package.cmake                 \
+  src/bindings/r/configure                            \
+  src/bindings/r/configure.in                         \
+  src/bindings/r/configure.win                        \
+  src/bindings/r/Makevars.in                          \
+  src/bindings/r/Makevars.win                         \
   src/bindings/r/swig-binding.cmake                   \
   src/bindings/r/DESCRIPTION.in                       \
   src/bindings/r/NAMESPACE                            \
