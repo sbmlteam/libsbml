@@ -62,6 +62,7 @@ try
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
+    Totalfail = Totalfail + testVersionInformation();
   end;
 
 catch exception
@@ -99,6 +100,7 @@ try
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0, FbcEnabled);
+    Totalfail = Totalfail + testVersionInformation();
   end;
 
 catch 

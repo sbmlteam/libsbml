@@ -1055,7 +1055,7 @@ GetNamespaces (mxArray * mxNamespaces,
 
 	mxArray * mxURI, * mxPrefix;
 	
-	int i;
+	size_t i;
 
   xmlns = XMLNamespaces_create();
 	for (i = 0; i < nNoNamespaces; i++) {
@@ -1144,7 +1144,7 @@ GetCompartment ( mxArray * mxCompartments,
 
 
   Compartment_t *pCompartment;
-  int i;
+  size_t i;
 
   for (i = 0; i < nNoCompartments; i++) {
 
@@ -1363,7 +1363,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
   mxArray * mxSBOTerm, * mxUnits;
 
   UnitDefinition_t *pUnitDefinition;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoUnitDefinitions; i++) 
@@ -1463,7 +1463,7 @@ GetUnit ( mxArray * mxUnits,
   mxArray * mxScale, * mxMultiplier, * mxOffset, * mxSBOTerm;
 
   Unit_t *pUnit;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoUnits; i++) 
@@ -1627,7 +1627,7 @@ GetUnit ( mxArray * mxUnits,
 
    Species_t *pSpecies;
 
-   int i;
+   size_t i;
 
    for (i = 0; i < nNoSpecies; i++) 
    {
@@ -1918,7 +1918,7 @@ GetUnit ( mxArray * mxUnits,
 
    Parameter_t *pParameter;
 
-   int i;
+   size_t i;
 
    for (i = 0; i < nNoParameters; i++) 
    {
@@ -2076,7 +2076,7 @@ GetUnit ( mxArray * mxUnits,
    Rule_t *pParameterRule;
    ASTNode_t *ast;
 
-   int i;
+   size_t i;
 
    for (i = 0; i < nNoRules; i++) 
    {
@@ -2362,7 +2362,7 @@ GetUnit ( mxArray * mxUnits,
   int nSBOTerm;
 
 
-	int i;
+	size_t i;
       
 	char * pacMetaid;
 
@@ -2576,7 +2576,7 @@ GetUnit ( mxArray * mxUnits,
 	char * pacMetaid;
   int nConstant;
   unsigned int unIsSetStoichiometry;
-  char * type;
+  const char * type;
 
   mxArray * mxInput[1];
   mxArray * mxOutput[1];
@@ -2588,7 +2588,7 @@ GetUnit ( mxArray * mxUnits,
   mxArray * mxDenominator, * mxStoichiometryMath, * mxSBOTerm;
   mxArray * mxIsSetStoichiometry;
 
-  int i;
+  size_t i;
 
   if (mxReactant)
   {
@@ -2825,7 +2825,7 @@ GetUnit ( mxArray * mxUnits,
  
   mxArray * mxSBOTerm;
 
-	int i;
+	size_t i;
 
   if (mxModifier)
   {
@@ -3161,7 +3161,7 @@ GetUnit ( mxArray * mxUnits,
    Parameter_t *pParameter;
    LocalParameter_t *pLocalParameter;
 
-   int i;
+   size_t i;
 
    for (i = 0; i < nNoParameters; i++) 
    {
@@ -3351,7 +3351,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
   FunctionDefinition_t *pFuncDefinition;
   ASTNode_t *ast;
 
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoFunctions; i++) 
@@ -3475,7 +3475,7 @@ GetEvent ( mxArray * mxEvents,
   mxArray * mxOutput[1];
 
   Event_t *pEvent;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoEvents; i++) 
@@ -3704,7 +3704,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 
   EventAssignment_t *pEventAssignment;
   ASTNode_t *ast;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoEventAssigns; i++) 
@@ -3818,7 +3818,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
   mxArray * mxSBOTerm;
 
   CompartmentType_t *pCompartmentType;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoCompTypes; i++) 
@@ -3897,7 +3897,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
   mxArray * mxSBOTerm;
 
   SpeciesType_t *pSpeciesType;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoSpeciesTypes; i++) 
@@ -3982,7 +3982,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 
 	InitialAssignment_t *pInitialAssignment;
   ASTNode_t *ast;
-	int i;
+	size_t i;
 
 
 	for (i = 0; i < nNoInitialAssignments; i++) 
@@ -4092,7 +4092,7 @@ GetConstraint ( mxArray * mxConstraint,
 
   Constraint_t *pConstraint;
   ASTNode_t * ast;
-  int i;
+  size_t i;
 
 
   for (i = 0; i < nNoConstraints; i++) 
@@ -4630,7 +4630,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 	mxArray * mxValue, *mxIsSetValue;
 
 	FluxBound_t *pFluxBound;
-	int i;
+	size_t i;
 
   SBasePlugin_t *plugin = SBase_getPlugin((SBase_t *)(sbmlModel), "fbc");
 
@@ -4732,7 +4732,7 @@ GetObjective ( mxArray * mxObjective,
   mxArray * mxFluxObjectives;
 
   Objective_t *pObjective;
-  int i;
+  size_t i;
 
   SBasePlugin_t *plugin = SBase_getPlugin((SBase_t *)(sbmlModel), "fbc");
 
@@ -4823,7 +4823,7 @@ GetFluxObjective ( mxArray * mxFluxObjective,
 	mxArray * mxCoefficient, *mxIsSetCoefficient;
 
 	FluxObjective_t *pFluxObjective;
-	int i;
+	size_t i;
 
 	for (i = 0; i < nNoFluxObjectives; i++) 
 	{

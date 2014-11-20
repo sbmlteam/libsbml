@@ -141,6 +141,7 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     copyfile('compareFiles.m', new_dir);
     copyfile('testIsSBMLModel.m', new_dir);
     copyfile('testReadFlags.m', new_dir);
+	copyfile('testVersionInformation.m', new_dir);
 	
 	if (exist('testReadFromFileFbc1.m') ~= 0)
 		copyfile('testReadFromFileFbc1.m', new_dir);

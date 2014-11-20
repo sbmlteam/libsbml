@@ -263,6 +263,55 @@ int endsWith(const wchar_t* fileName, const char* ext)
 }
 
 #endif
+
+void
+OutputVersionInformation(mxArray *plhs[])
+{
+  const char *version_struct[] =
+  {
+    "libSBML_version",
+    "libSBML_version_string",
+    "XML_parser",
+    "XML_parser_version",
+    "isFBCEnabled"
+  };
+
+  const char *xml_parsers[] =
+  {
+    "libxml2" ,
+    "expat" ,
+    "xerces",
+    "not found"
+  };
+
+  mwSize dims[2] = {1, 1};
+
+  const char * parser = xml_parsers[0];
+  unsigned int i = 0;
+
+
+  plhs[2] = mxCreateStructArray(2, dims, 5, version_struct);
+
+  mxSetField(plhs[2], 0, "libSBML_version", CreateIntScalar(getLibSBMLVersion()));
+  mxSetField(plhs[2], 0, "libSBML_version_string", mxCreateString(getLibSBMLDottedVersion()));
+
+  while (isLibSBMLCompiledWith(parser) == 0 && i < 3)
+  {
+    i++;
+    parser = xml_parsers[i];
+  }
+
+  mxSetField(plhs[2], 0, "XML_parser", mxCreateString(parser));
+  mxSetField(plhs[2], 0, "XML_parser_version", mxCreateString(getLibSBMLDependencyVersionOf(parser)));
+
+#ifdef USE_FBC
+  mxSetField(plhs[2], 0, "isFBCEnabled", mxCreateString("enabled"));
+
+#else
+  mxSetField(plhs[2], 0, "isFBCEnabled", mxCreateString("disabled"));
+
+#endif
+}
 /**
  * NAME:    mexFunction
  *
@@ -280,6 +329,14 @@ void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
   /* variables */
+  const char *version_struct[] =
+  {
+    "libSBML_version",
+    "XML_parser",
+    "XML_parser_version",
+    "isFBCEnabled"
+  };
+
   FILE_CHAR pacFilename = NULL;
   char *pacTempString1;
   size_t nBufferLen, nBuflen;
@@ -546,6 +603,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   char * msgTxt = NULL;
   const char *pacL3packages = "Level 3 packages detected. Information WILL be lost.";
   int packages = 0;
+  unsigned int outputVersion = 0;
 
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
@@ -576,16 +634,25 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   /**
   * check number and type of arguments
   * cannot write to more than two output argument
+  * added a third output argument to give version data
   */
-  if (nlhs > 2)
+  switch (nlhs)
   {
+  case 3:
+    outputErrors = 1;
+    outputVersion = 1;
+    break;
+  case 2:
+    outputErrors = 1;
+    break;
+  case 1:
+  case 0:
+    break;
+  default:
     mexErrMsgTxt("Too many output arguments.");
+    break;
   }
 
-  if (nlhs > 1)
-  {
-    outputErrors = 1;
-  }
   /** 
   * need the name of the sbml file to translate
   * can supply by name
@@ -758,6 +825,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 #endif
   
   /*mxFree(pacFilename);*/
+
+  if (outputVersion == 1)
+  {
+    OutputVersionInformation(plhs);
+  }
 
 
   /* at this point - if there have been fatal errors 

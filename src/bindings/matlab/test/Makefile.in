@@ -85,6 +85,7 @@ distfiles =                  \
         compareFiles.m       \
         testOutput.m         \
 		testReadFromFileFbc1.m  \
+		testVersionInformation.m \
         $(test_data_files)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
