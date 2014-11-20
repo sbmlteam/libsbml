@@ -113,7 +113,7 @@ main (int argc, char* argv[])
     {
       SpeciesReference* rt = re->getReactant(j);
       if (rt->isSetAnnotation()) cout << "   ";
-      printAnnotation(rt, (rt->isSetSpecies() ? rt->getSpecies() : "") );
+      printAnnotation(rt, (rt->isSetSpecies() ? rt->getSpecies() : std::string("")) );
     }
 
     /* SpeciesReference (Product) */
@@ -122,7 +122,7 @@ main (int argc, char* argv[])
     {
       SpeciesReference* rt = re->getProduct(j);
       if (rt->isSetAnnotation()) cout << "   ";
-      printAnnotation(rt, (rt->isSetSpecies() ? rt->getSpecies() : "") );
+      printAnnotation(rt, (rt->isSetSpecies() ? rt->getSpecies() : std::string("")) );
     }
 
     /* ModifierSpeciesReference (Modifiers) */
@@ -131,7 +131,7 @@ main (int argc, char* argv[])
     {
       ModifierSpeciesReference* md = re->getModifier(j);
       if (md->isSetAnnotation()) cout << "   ";
-      printAnnotation(md, (md->isSetSpecies() ? md->getSpecies() : "") );
+      printAnnotation(md, (md->isSetSpecies() ? md->getSpecies() : std::string("")) );
     }
 
     /* KineticLaw */

@@ -64,7 +64,11 @@ main (int argc, char* argv[])
   const char* filename   = argv[1];
   SBMLDocument* document;
   SBMLReader reader;
+#ifdef __BORLANDC__
+  unsigned long start, stop;
+#else
   unsigned long long start, stop;
+#endif
 
   start    = getCurrentMillis();
   document = reader.readSBML(filename);

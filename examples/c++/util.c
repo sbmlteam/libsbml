@@ -42,7 +42,7 @@
 #include <stddef.h>
 #include <sys/stat.h>
 
-#if WIN32 && !defined(CYGWIN)
+#if defined(WIN32) && !defined(CYGWIN)
 #  include <windows.h>
 #else
 #  include <sys/time.h>
@@ -56,12 +56,22 @@ BEGIN_C_DECLS
 /**
  * @return the number of milliseconds elapsed since the Epoch.
  */
+#ifdef __BORLANDC__
+unsigned long
+#else 
 unsigned long long
+#endif
 getCurrentMillis (void)
 {
+#ifdef __BORLANDC__
+  unsigned long result = 0;
+#else
   unsigned long long result = 0;
+#endif
 
-
+#ifdef __BORLANDC__
+  result = (unsigned long) GetTickCount();
+#else
 #if WIN32 && !defined(CYGWIN)
 
   result = (unsigned long long) GetTickCount();
@@ -79,6 +89,7 @@ getCurrentMillis (void)
   }
 
 #endif /* WIN32 && !CYGWIN */
+#endif
 
   return result;
 }

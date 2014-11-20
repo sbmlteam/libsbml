@@ -52,8 +52,12 @@ int
 main()
 {  
   char               *line;
+#ifdef __BORLANDC__
+  unsigned long  start, stop;
+#else
   unsigned long long  start, stop;
-     
+#endif 
+    
   ASTNode_t *n;
   double result;    
     

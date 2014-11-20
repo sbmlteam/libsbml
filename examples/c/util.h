@@ -43,7 +43,11 @@
 /**
  * @return the number of milliseconds elapsed since the Epoch.
  */
+#ifdef __BORLANDC__
+unsigned long
+#else
 unsigned long long
+#endif
 getCurrentMillis (void);
 
 /**

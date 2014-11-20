@@ -84,7 +84,7 @@ main (int argc, char* argv[])
 
   cout << "               "
        << (level == 1 ? "name: " : "  id: ")
-       << (model->isSetId() ? model->getId() : "(empty)") << endl;
+       << (model->isSetId() ? model->getId() : std::string("(empty)")) << endl;
 
   if (model->isSetSBOTerm())
     cout << "      model sboTerm: " << model->getSBOTerm() << endl;

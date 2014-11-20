@@ -49,7 +49,11 @@ main (int argc, char *argv[])
 {
   const char *filename;
 
+#ifdef __BORLANDC__
+  unsigned long start, stop, size;
+#else
   unsigned long long start, stop, size;
+#endif
   unsigned int       errors;
 
   SBMLDocument_t *d;

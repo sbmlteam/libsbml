@@ -109,7 +109,11 @@ bool validateSBML(const string& filename, bool enableUnitCheck)
 {
   SBMLDocument* document;
   SBMLReader reader;
+#ifdef __BORLANDC__
+  unsigned long start, stop;
+#else
   unsigned long long start, stop;
+#endif
 
   start    = getCurrentMillis();
   document = reader.readSBML(filename);

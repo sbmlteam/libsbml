@@ -229,7 +229,11 @@ main (int argc, char* argv[])
         
     SBMLDocument* document;
     SBMLReader reader;
+#ifdef __BORLANDC__
+    unsigned long start, stop;
+#else
     unsigned long long start, stop;
+#endif
     
     start    = getCurrentMillis();
     document = reader.readSBML(filename);

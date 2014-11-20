@@ -49,7 +49,11 @@ main (int argc, char *argv[])
 {
   const char *filename;
 
+#ifdef __BORLANDC__
+  unsigned long start, stop;
+#else
   unsigned long long start, stop;
+#endif
   unsigned long      size;
   unsigned int       errors = 0;
 
