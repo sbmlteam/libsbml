@@ -129,6 +129,7 @@ SBMLUri::parse(const std::string& uri)
   mQuery = "";
   mPath = "";
   mUri = uri;
+  
   std::for_each( mUri.begin(), mUri.end(), replace_back_slash() );
 
   const std::string constUri(mUri);
@@ -162,8 +163,12 @@ SBMLUri::parse(const std::string& uri)
     back_inserter(mScheme),
     ptr_fun<int,int>(tolower)); // scheme is icase
 #endif
+
   if( prot_i == constUri.end() )
+  {
     return;
+  }
+
   advance(prot_i, prot_end.length());
 
   if ((prot_i + 1) != constUri.end() && *(prot_i + 1) == ':')
@@ -173,7 +178,7 @@ SBMLUri::parse(const std::string& uri)
     // 
     mPath.reserve(distance(prot_i, constUri.end()));
 #ifdef __BORLANDC__
-    mPath.assign(prot_i, (size_t)constUri.end());
+    mPath = std::string(prot_i, constUri.end());
 #else
     mPath.assign(prot_i, constUri.end());
 #endif
@@ -209,35 +214,46 @@ SBMLUri::parse(const std::string& uri)
   else
   {
 #ifdef __BORLANDC__
-    mPath.assign(prot_i, (size_t)path_i);
+    mPath = std::string(prot_i, path_i);
 #else
     mPath.assign(prot_i, path_i);
 #endif
     if (mPath.size() > 0 && mPath[0] == '/')
+    {
 #ifdef __BORLANDC__
-      mPath.assign(mPath.begin() +1, (size_t)mPath.end());
+      mPath = std::string(mPath.begin() +1, mPath.end());
+#else
+      mPath.assign(mPath.begin() +1, mPath.end());
+#endif
+    } 
+  }
+
+  if (path_i == constUri.end())
+  {
+    return;
+  }
+
+  string::const_iterator query_i = find(path_i, constUri.end(), '?');
+#ifdef __BORLANDC__
+  mPath = std::string(path_i, query_i);
+#else
+  mPath.assign(path_i, query_i);
+#endif
+
+  if (mPath.size() > 0 && mPath[0] == '/')
+  {
+#ifdef __BORLANDC__
+	 mPath = std::string(mPath.begin() +1, mPath.end());
 #else
       mPath.assign(mPath.begin() +1, mPath.end());
 #endif
   }
-  if (path_i == constUri.end())
-    return;    
-  string::const_iterator query_i = find(path_i, constUri.end(), '?');
-#ifdef __BORLANDC__
-  mPath.assign(path_i, (size_t)query_i);
-#else
-  mPath.assign(path_i, query_i);
-#endif
-  if (mPath.size() > 0 && mPath[0] == '/')
-#ifdef __BORLANDC__
-        mPath.assign(mPath.begin() +1, (size_t)mPath.end());
-#else
-        mPath.assign(mPath.begin() +1, mPath.end());
-#endif
+
   if( query_i != constUri.end() )
     ++query_i;
+
 #ifdef __BORLANDC__
-  mQuery.assign(query_i, (size_t)constUri.end());
+  mQuery = std::string(query_i, constUri.end());
 #else
   mQuery.assign(query_i, constUri.end());
 #endif
@@ -252,15 +268,18 @@ SBMLUri::relativeTo(const std::string& uri) const
   bool slashNeeded = ((!other.mPath.empty() && other.mPath[0] != '/') || 
 		(!mPath.empty() && !other.mPath.empty() && other.mPath[0] != '/' && mPath[mPath.length() -1 ] != '/') ||
 		(!mPath.empty() && other.mPath.empty() && mPath[mPath.length() -1 ] != '/') );
+
   if (slashNeeded && other.mPath.length() > 2 && other.mPath[1] == ':')
   {
 	// the uri is a full path with drive letter
 	return other;
   }
+
   other.mPath = mPath + (slashNeeded  ? "/" : "") + other.mPath;
   other.mUri = mScheme + "://" + mHost + (slashNeeded  ? "/" : "") + other.mPath;
   if (!other.mQuery.empty())
     other.mUri += "?" + other.mQuery;
+
   return other;
 }
 
