@@ -1,20 +1,26 @@
-##libSBML @PACKAGE_VERSION@ 
-###R interface installer for Mac OS X
+## **libSBML @PACKAGE_VERSION@ installers for R for Mac OS X operating systems**
 
-This directory contains the release of the libSBML @PACKAGE_VERSION@
-R bindings generated for R 2.15.2 on Mac OS X systems. 
+This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3 on a Mac OS X operating system.  
 
-Install with: 
+### **_How to install libSBML for R_**
 
-	R CMD INSTALL <archivename>
+After downloading the installer archive file, you can use one of two approaches to installing the libSBML R interface in your environment:
 
-For more information about libSBML, please visit the libSBML website at
-                 [http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+* **_Using the R GUI_**: In the R menu **"Packages"** or **"Packages & Data"** (depending on your operating system), select the item **"Package Installer"**.  You will be presented with an interface that lets you install a local binary package.  Use the interface to navigate to the directory where you copied the libSBML archive file, and select the archive file for installation.
 
+* **_Using a terminal/shell command_**: Suppose that the path to the libSBML R archive on your computer is _path_to_archive_. Execute the following command in a terminal/shell window (note: _not_ in the R command line interpreter!): **`R CMD INSTALL path_to_archive`**.  Here, **`R`** is the executable for the command-line version of R; we assume it is accessible from your shell's command line, but if it is not accessible by simply typing `R`, you may need to supply the full path to the R executable on your computer.
+
+Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
+
+
+### **_Additional information_**
+
+For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
+
+Please report problems using our tracker: [http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
 
 Thank you for your interest in libSBML!
 
 The LibSBML Team.
-
 
 ![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

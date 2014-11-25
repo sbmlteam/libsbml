@@ -1,67 +1,54 @@
-##libSBML @PACKAGE_VERSION@
-###Installers for 64-bit Linux operating systems
+## **libSBML @PACKAGE_VERSION@ installers for 64-bit Linux operating systems**
 
-IMPORTANT: Please uninstall any existing copy of libSBML located in
-the same destination on your computer before you install libSBML using
-these installers, or you may end up with mixed versions of different
-libSBML components on your system.
+**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
-This directory contains installers for precompiled versions of libSBML
-for 64-bit Linux systems.  All copies were built using the libxml2 XML
-parser library and contain code for libSBML core plus any accepted SBML L3
-packages.  The following language interfaces are also contained:
 
+### **_C, C++, C#, Java, Javascript, Perl, R and Ruby installers_**
+
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Linux systems.  They were built with the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
+
+* C
+* C++
 * C# (Mono)
 * Java
+* Javascript
 * Perl
 * Ruby
 	
-Here you will find the following files:
+[The directory named "R interface"](R interface) contains the standalone installer for the R libSBML library, without the other languages.  For the remaining languages listed above, download one of the following installer files and run it:
 
-  * [libSBML-@PACKAGE_VERSION@-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-Linux-x64.rpm)
-       -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
+* [libSBML-@PACKAGE_VERSION@-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-Linux-x64.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
+* [libSBML-@PACKAGE_VERSION@-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-Linux-x64.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
+* [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
+* [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
 
-  * [libSBML-@PACKAGE_VERSION@-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-Linux-x64.deb)
-       -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
+By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
-  * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz)
-       -- an archive containing just the binary files built for centos
 
-  * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz)
-       -- an archive containing just the binary files built for ubuntu
+### **_Python installers_**
 
-  * [R interface](R%20interface)
-       -- This folder contains installer for the R libSBML interface ONLY.
-     
-By default, the installer will put the contents in `/usr`.
+If you are primarily interested in Python, we provide two better options for installing libSBML for Python:
 
-For detailed information about how to make libSBML accessible to your
-software, please visit the following URL:
+* **_Using PiPI_**: First, make sure you have the following prerequisite software packages installed on your operating system: `python-dev`, `libxml2-dev`, `libz-dev`, and `libbz2-dev`.  Then, you can use the following command to install libSBML for Python: `sudo pip install python-libsbml`
 
-[http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html)
+* **_Using `apt-get` or `yum`_**: Python installers for use with `apt-get` or `yum` for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml "Open Build Service").
 
-####Python installers
-Python installers for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml "Open Build Service").
+After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
 
-If you need the MATLAB/Octave language interfaces, or need to use a
-different XML parser library, it will be necessary to build libSBML yourself
-from the source distribution using suitable configuration flags.  The
-procedure is described in the libSBML documentation.  The source and
-documentation are available from the top-level download directory,
-[http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@)
 
-For additional information about this version of libSBML, please see
-the documentation or visit the libSBML website at
+### **_MATLAB and Octave_**
 
-[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+If you need the MATLAB/Octave language interfaces, or need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
 
-Please report any problems with libSBML using the tracker at
 
-[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+### **_Additional information_**
+
+For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
+
+Please report problems using our tracker: [http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
 
 Thank you for your interest in libSBML!
 
 The LibSBML Team.
-
 
 ![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)

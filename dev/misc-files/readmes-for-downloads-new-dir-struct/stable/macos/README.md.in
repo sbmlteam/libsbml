@@ -1,54 +1,62 @@
-##libSBML @PACKAGE_VERSION@
-###Installers for Mac OS X operating systems
+## **libSBML @PACKAGE_VERSION@ installers for Mac OS X operating systems**
 
-IMPORTANT: Please uninstall any existing copy of libSBML located in
-the same destination on your computer before you install libSBML using
-these installers, or you may end up with mixed versions of different
-libSBML components on your system.
+**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
-This directory contains installers for precompiled versions of libSBML for
-Mac OS X systems.  All were built with the Apple-supplied libxml2 XML parser
-library and contain code for libSBML core plus any accepted SBML L3 packages.
-The following language interfaces are also contained:
 
+### **_C, C++, C#, Java, Javascript, Perl, Python, and R installers_**
+
+This directory contains installers for precompiled versions of libSBML for Mac OS X systems.  They were built with the Apple-supplied version of the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
+
+* C
+* C++
 * C# (Mono)
 * Java
+* Javascript
 * MATLAB
 * Perl
-* Python
+* Python (but see below for a better option)
 * Ruby
 
-If you need the Octave language interface, or need to use a different 
-XML parser library, it will be necessary to build libSBML yourself 
-from the source distribution using suitable configuration flags.  
-The procedure is described in the libSBML documentation.  The source 
-and documentation are available from the top-level download directory, 
-[http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@)
+[The directory named "R interface"](R interface) contains the standalone installer for the R libSBML library, without the other languages.
 
-By default, the installer will put the contents in `/usr/local`, but
-this location can be changed from the installer interface.
+By default, the installer will put libSBML into /usr.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
-To uninstall libSBML, please run the following command in your
-terminal:
 
-	sudo /usr/local/bin/uninstall-libsbml-pkg.sh
+### **_Python installer_**
 
-(If you chose to install libSBML into a directory tree other than
-`/usr/local`, then please look for the `uninstall-libsbml-pkg.sh` script
-in the `bin` directory of that alternate location.)
+If you are primarily interested in Python, we provide a simpler solution for installing libSBML using PiPI.  First, make sure you have the following prerequisite software packages installed on your operating system: `python-dev`, `libxml2-dev`, `libz-dev`, and `libbz2-dev` (or their equivalents for your specific environment).  Then, you can use the following command to install libSBML for Python:
 
-For additional information about this version of libSBML, please see
-the documentation or visit the libSBML website at
+```
+sudo pip install python-libsbml
+```
 
-[http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML)
+After you have installed the Python libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
 
-Please report problems with libSBML using the tracker at
 
-[http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
+### **_MATLAB and Octave_**
+
+If you need the MATLAB/Octave language interfaces, or need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
+
+
+### **_How to uninstall libSBML_**
+
+To uninstall libSBML, please run the following command in your terminal:
+
+```
+sudo /usr/local/bin/uninstall-libsbml-pkg.sh
+```
+
+(If you chose to install libSBML into a directory tree other than `/usr/local`, then please look for the `uninstall-libsbml-pkg.sh` script in the `bin` directory of that alternate location.)
+
+
+### **_Additional information_**
+
+For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
+
+Please report problems using our tracker: [http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
 
 Thank you for your interest in libSBML!
 
 The LibSBML Team.
-
 
 ![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)
