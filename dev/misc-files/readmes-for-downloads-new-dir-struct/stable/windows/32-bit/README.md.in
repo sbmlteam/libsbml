@@ -3,7 +3,7 @@
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, MATLAB, Perl, and Ruby installers_**
+### **_C, C++, C#, Java, Javascript, MATLAB, Octave, Perl, and Ruby installers_**
 
 This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 32-bit Microsoft Windows systems.  They were built with the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 
@@ -13,6 +13,7 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * Java
 * Javascript
 * MATLAB
+* Octave
 * Perl
 * Ruby
 	
@@ -29,7 +30,7 @@ To use these installers, download the appropriate file to your computer, then ru
 
 The [Python folder](Python) contains installers for the Python libSBML interface **only**.  Download and use one of these installers if you **only** need the Python interface.  (The interface is also included within [libSBML-@PACKAGE_VERSION@-win-x86.exe](libSBML-@PACKAGE_VERSION@-win-x86.exe), so if you downloaded that one, you do _not_ need this one too.)
 
-### **_R installer_***
+### **_R installer_**
 
 The [R interface](R%20interface) folder contains installer for the R libSBML interface **only**.
 

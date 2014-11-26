@@ -15,7 +15,7 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * Perl
 * Ruby
 	
-[The directory named "R interface"](R interface) contains the standalone installer for the R libSBML library, without the other languages.  For the remaining languages listed above, download one of the following installer files and run it:
+[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.  For the remaining languages listed above, download one of the following installer files and run it:
 
 * [libSBML-@PACKAGE_VERSION@-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-Linux-x64.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
 * [libSBML-@PACKAGE_VERSION@-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-Linux-x64.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)

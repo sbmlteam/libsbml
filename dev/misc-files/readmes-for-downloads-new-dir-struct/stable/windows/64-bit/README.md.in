@@ -29,7 +29,7 @@ To use these installers, download the appropriate file to your computer, then ru
 
 The [Python folder](Python) contains installers for the Python libSBML interface **only**.  Download and use one of these installers if you **only** need the Python interface.  (The interface is also included within [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe), so if you downloaded that one, you do _not_ need this one too.)
 
-### **_R installer_***
+### **_R installer_**
 
 The [R interface](R%20interface) folder contains installer for the R libSBML interface **only**.
 
