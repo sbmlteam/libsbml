@@ -1,9 +1,6 @@
-function Totalfail = testVersionInformation
+function Totalfail = testVersionInformation(FbcEnabled)
 
 Totalfail = 0;
-cd ..;
-FbcEnabled = isFbcEnabled();
-cd test;
 
 filename = fullfile(pwd,'test-data', 'errors.xml');
 
