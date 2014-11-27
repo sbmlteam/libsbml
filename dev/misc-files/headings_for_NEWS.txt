@@ -46,6 +46,7 @@ EXPERIMENTAL RELEASE
 
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
   - 'groups' package-specific updates:
   - 'multi' package-specific updates:
   - 'render' package-specific updates:
@@ -56,6 +57,7 @@ EXPERIMENTAL RELEASE
  
   - 'arrays' package-specific bug fixes:
   - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
   - 'multi' package-specific bug fixes:
   - 'render' package-specific bug fixes:
