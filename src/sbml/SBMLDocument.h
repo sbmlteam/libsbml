@@ -1572,6 +1572,12 @@ public:
 
   bool hasUnknownPackage(const std::string& pkgURI);
 
+  int getNumUnknownPackages() const;
+
+  std::string getUnknownPackageURI(int index) const;
+  
+  std::string getUnknownPackagePrefix(int index) const;
+
   /** @endcond */
 
 protected:

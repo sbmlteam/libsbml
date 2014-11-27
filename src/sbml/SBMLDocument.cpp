@@ -1351,6 +1351,52 @@ SBMLDocument::hasUnknownPackage(const std::string& pkgURI)
 
   return false;
 }
+
+
+int 
+SBMLDocument::getNumUnknownPackages() const
+{
+  int count = 0;
+  for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); ++i)
+  {
+    if (mRequiredAttrOfUnknownPkg.getName(i) == "required")
+      ++count;
+  }
+  return count;
+}
+
+std::string 
+SBMLDocument::getUnknownPackageURI(int index) const
+{
+  std::string result;
+  int count = 0;
+  for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); ++i)
+  {
+    if (mRequiredAttrOfUnknownPkg.getName(i) != "required")
+      continue;
+    if (i == count)
+      return mRequiredAttrOfUnknownPkg.getURI(i);
+    ++count;
+  }
+  return result;
+}
+
+std::string
+SBMLDocument::getUnknownPackagePrefix(int index) const
+{
+  std::string result;
+  int count = 0;
+  for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); ++i)
+  {
+    if (mRequiredAttrOfUnknownPkg.getName(i) != "required")
+      continue;
+    if (i == count)
+      return mRequiredAttrOfUnknownPkg.getPrefix(i);
+    ++count;
+  }
+  return result;
+}
+
 /** @endcond */
 
 

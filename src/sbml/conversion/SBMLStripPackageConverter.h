@@ -175,23 +175,33 @@ public:
    */
   virtual ConversionProperties getDefaultProperties() const;
 
+  /** 
+   * @return the package to be stripped 
+   */
+  std::string getPackageToStrip() const;
+
+  /** 
+   * @return whether all unrecognized packages should be removed
+   */
+  bool isStripAllUnrecognizedPackages() const;
 
 
 #ifndef SWIG
 
 #endif // SWIG
 
+protected:
 
-
-private:
   /** @cond doxygenLibsbmlInternal */
-
-  std::string getPackageToStrip();
-
-
+  
+  /**
+   * This function strips the packge with given prefix
+   *
+   * @return true, if the conversion succeeded, false otherwise.
+   */
+  bool stripPackage(const std::string& packageToStrip);
+  
   /** @endcond */
-
-
 };
 
 LIBSBML_CPP_NAMESPACE_END

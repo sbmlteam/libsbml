@@ -117,6 +117,7 @@ SBMLStripPackageConverter::getDefaultProperties() const
   {
     prop.addOption("stripPackage", true,
                    "Strip SBML Level 3 package constructs from the model");
+    prop.addOption("stripAllUnrecognized", false, "If set, all unsupported packages will be removed.");
     prop.addOption("package", "",
                    "Name of the SBML Level 3 package to be stripped");
     init = true;
@@ -133,6 +134,36 @@ SBMLStripPackageConverter::matchesProperties(const ConversionProperties &props) 
   return true;
 }
 
+/** @cond doxygenLibsbmlInternal */
+
+bool 
+SBMLStripPackageConverter::stripPackage(const std::string& packageToStrip)
+{
+  bool conversion = false;
+  const std::string& pkgURI =
+    mDocument->getSBMLNamespaces()->getNamespaces()->getURI(packageToStrip);
+
+  // TO DO - SK Comment
+  // pass control to package code to see if needs to do more 
+  // additional boolean flag is to do with preseving info
+  // not yet used but I think it will need to be passed
+  // conversion = mDocument->getModel()->getPlugin(packageToStrip)
+  //                                       ->stripPackage(packageToStrip, false);
+
+
+  if (pkgURI.empty() == false)
+  {
+    // disabling the package will literally strip the pkg info
+    mDocument->enablePackage(pkgURI, packageToStrip, false);
+
+    // check it is disabled
+    if (mDocument->isPkgEnabled(packageToStrip) == false)
+      conversion = true;
+  }
+
+  return conversion;
+}
+/** @endcond */
 
 int
 SBMLStripPackageConverter::convert()
@@ -141,13 +172,24 @@ SBMLStripPackageConverter::convert()
   // would like an option that put the extension classes somewhere were I 
   // could get at them later
 
-  bool conversion = false;
+  if (isStripAllUnrecognizedPackages())
+  {
+    int numPackages = mDocument->getNumUnknownPackages();
+    bool result = true;
+    for (int i = 0; i < numPackages; ++i)
+    {
+      const std::string& current = mDocument->getUnknownPackagePrefix(i);
+      result &= stripPackage(current);
+      if (!result)
+        return LIBSBML_OPERATION_FAILED;
+    }
+  }
 
   std::string packageToStrip = getPackageToStrip();
 
   if (packageToStrip.empty())
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    return LIBSBML_OPERATION_SUCCESS;
   }
   
   if (mDocument->isPkgEnabled(packageToStrip) == false)
@@ -160,27 +202,7 @@ SBMLStripPackageConverter::convert()
     }
   }
 
-// TO DO - SK Comment
-  // pass control to package code to see if needs to do more 
-  // additional boolean flag is to do with preseving info
-  // not yet used but I think it will need to be passed
-  //conversion = mDocument->getModel()->getPlugin(packageToStrip)
-  //                                       ->stripPackage(packageToStrip, false);
-
-
-  std::string pkgURI = 
-    mDocument->getSBMLNamespaces()->getNamespaces()->getURI(packageToStrip);
-  if (pkgURI.empty() == false)
-  {
-    // disabling the package will literally strip the pkg info
-    mDocument->enablePackage(pkgURI, packageToStrip, false);
-
-    // check it is disabled
-    if (mDocument->isPkgEnabled(packageToStrip) == false)
-      conversion = true;
-  }
-
-
+  bool conversion = stripPackage(packageToStrip);
 
 // TO DO - SK Comment
   // test that package is stripped
@@ -193,9 +215,8 @@ SBMLStripPackageConverter::convert()
 }
   
 
-/** @cond doxygenLibsbmlInternal */
-std::string 
-SBMLStripPackageConverter::getPackageToStrip()
+std::string
+SBMLStripPackageConverter::getPackageToStrip() const
 {
   if (getProperties()->getOption("package") != NULL)
   {
@@ -206,8 +227,19 @@ SBMLStripPackageConverter::getPackageToStrip()
     return "";
   }
 }
-/** @endcond */
 
+bool 
+SBMLStripPackageConverter::isStripAllUnrecognizedPackages() const
+{
+  if (getProperties()->getOption("stripAllUnrecognized") != NULL)
+  {
+    return getProperties()->getOption("stripAllUnrecognized")->getBoolValue();
+  }
+  else
+  {
+    return false;
+  }
+}
 
 /** @cond doxygenIgnored */
 
