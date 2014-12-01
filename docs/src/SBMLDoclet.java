@@ -103,7 +103,7 @@
  * this file, then hooked them together through the main() method.
  *
  * - 2011-11-08 Changed @exclude to @internal, which is what Doxygen uses
- * for the purse we're using this for.
+ * for the purpose we're using this for.
  */
 
 import java.io.*;
