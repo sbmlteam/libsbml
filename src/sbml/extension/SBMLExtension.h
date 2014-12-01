@@ -46,6 +46,8 @@
  * @if clike
  * @section sbmlextension-howto How to extend SBMLExtension for a package implementation
  * @copydetails doc_extension_sbmlextension
+ * @else
+ * @copydetails doc_basics_of_extensions
  * @endif@~
  *
  * @section sbmlextension-l2-special Special handling for SBML Level&nbsp;2
@@ -155,7 +157,7 @@ public:
 /** @endcond */
 
   /**
-   * Constructor.
+   * Constructor; creates a new SBMLExtension object.
    */
   SBMLExtension ();
 
@@ -486,6 +488,8 @@ SBMLExtensionNamespaces<LayoutExtension>
   /**
    * Removes the package's Level&nbsp;2 namespace(s).
    *
+   * @ifnot clike @internal @endif@~
+   *
    * @copydetails doc_virtual_method_for_l2namespaces
    *
    * @param xmlns an XMLNamespaces object that will be used for the annotation.
@@ -506,6 +510,8 @@ for (int n = 0; n < xmlns->getNumNamespaces(); n++)
   /**
    * Adds the package's Level&nbsp;2 namespace(s).
    *
+   * @ifnot clike @internal @endif@~
+   *
    * @copydetails doc_virtual_method_for_l2namespaces
    *
    * @param xmlns an XMLNamespaces object that will be used for the annotation.
@@ -522,6 +528,8 @@ if (!xmlns->containsUri( LayoutExtension::getXmlnsL2()))
 
   /**
    * Called to enable the package on the SBMLDocument object.
+   *
+   * @ifnot clike @internal @endif@~
    *
    * @copydetails doc_virtual_method_for_l2namespaces
    *
@@ -556,25 +564,44 @@ if (doc->getLevel() == 2)
   /** @cond doxygenLibsbmlInternal */
   /*
    * functions for use with error logging
+   *
+   */
+  /**
+   * @ifnot clike @internal @endif@~
    */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
 
 #ifndef SWIG
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
 #endif
+  /**
+   * @ifnot clike @internal @endif@~
+   */
   virtual unsigned int getErrorIdOffset() const;
 
+  /**
+   * @ifnot clike @internal @endif@~
+   */
   unsigned int getSeverity(unsigned int index, unsigned int pkgVersion) const;
 
+  /**
+   * @ifnot clike @internal @endif@~
+   */
   unsigned int getCategory(unsigned int index) const;
 
+  /**
+   * @ifnot clike @internal @endif@~
+   */
   std::string getMessage(unsigned int index, unsigned int pkgVersion,
                          const std::string& details) const;
 
+  /**
+   * @ifnot clike @internal @endif@~
+   */
   std::string getShortMessage(unsigned int index) const;
 
-
   /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */

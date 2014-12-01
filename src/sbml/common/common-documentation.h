@@ -2151,8 +2151,8 @@ GroupsExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 @code{.cpp}
 typedef enum
 {
-   SBML_GROUPS_GROUP  = 200
- , SBML_GROUPS_MEMBER = 201
+   SBML_GROUPS_GROUP  = 500
+ , SBML_GROUPS_MEMBER = 501
 } SBMLGroupsTypeCode_t;
 @endcode
  *
@@ -2343,7 +2343,7 @@ void GroupsExtension::init()
 @endcode
  *
  *
- * @subsection ext-extensionregister 10. Instantiate a SBMLExtensionRegister variable
+ * @subsection ext-extensionregister 10. Instantiate a SBMLExtensionRegister object
  *
  * Instantiate a global SBMLExtensionRegister object using the
  * class derived from SBMLExtension (discussed above).  Here is an example for
@@ -2383,31 +2383,36 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * @par
  * SBML Level&nbsp;3's package structure permits modular extensions to the
  * core SBML format.  In libSBML, support for SBML Level&nbsp;3 packages is
- * provided through <em>package extensions</em>.  LibSBML defines a number of
- * classes that developers of package extensions can use to implement support
- * for an SBML Level&nbsp;3 package.  These classes make it easier to extend
- * libSBML objects with new attributes and/or subobjects as needed by a
- * particular Level&nbsp;3 package.  Users of the libSBML library can also
+ * provided through optional <em>package extensions</em> that can be plugged
+ * into libSBML at the time it is built/compiled.  Users of libSBML can thus
  * choose which extensions are enabled in their software applications.
  *
+ * LibSBML defines a number of classes that developers of package extensions
+ * can use to implement support for an SBML Level&nbsp;3 package.  These
+ * classes make it easier to extend libSBML objects with new attributes
+ * and/or subobjects as needed by a particular Level&nbsp;3 package.
  * Three overall categories of classes make up libSBML's facilities for
- * implementing package extensions.  There are (1) classes that serve as
- * base classes meant to be subclassed, (2) template classes meant to be
- * instantiated rather than subclassed, and (3) support classes that
- * provide utility features.  These are summarized further below.
+ * implementing package extensions.  There are (1) classes that serve as base
+ * classes meant to be subclassed, (2) template classes meant to be
+ * instantiated rather than subclassed, and (3) support classes that provide
+ * utility features. A given package implementation for libSBML will take
+ * the form of code using these and other libSBML classes, placed in a
+ * subdirectory of <code>src/sbml/packages/</code>.
  *
- * A given package implementation for libSBML will take the form of code
- * using these and other libSBML classes, placed in a subdirectory of
- * <code>src/sbml/packages/</code>.  Examples already exist in the libSBML
- * distribution; the Level&nbsp;3 packages <em>Flux Balance Constraints</em>
- * ("fbc"), <em>Hierarchical %Model Composition</em> ("comp"), <em>%Layout</em>
- * ("layout"), and <em>Qualitative Models</em> ("qual") are now standard with
- * libSBML and can be found in that directory.  They can serve as working
- * examples for developers working to implement other packages.
+ * The basic libSBML distribution includes a number of package extensions
+ * implementing support for officially-endorsed SBML Level&nbsp;3 packages;
+ * among these are <em>Flux Balance Constraints</em> ("fbc"),
+ * <em>Hierarchical %Model Composition</em> ("comp"), <em>%Layout</em>
+ * ("layout"), and <em>Qualitative Models</em> ("qual").  They can serve as
+ * working examples for developers working to implement other packages.
  *
  * Extensions in libSBML can currently only be implemented in C++ or C;
- * there is no mechanism to implement them in language bindings such as
- * Java or Python.
+ * there is no mechanism to implement them first in languages such as
+ * Java or Python.  However, once implemented in C++ or C, language
+ * interfaces can be generated semi-automatically using the framework in
+ * place in libSBML.  (The approach is based on using <a target="_blank"
+ * href="http://www.swig.org">SWIG</a> and facilities in libSBML's build
+ * system.)
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_summary_of_extension_classes
@@ -2506,6 +2511,7 @@ static SBMLExtensionRegister<GroupsExtension> groupsExtensionRegister;
  * @li SBMLExtensionException: As its name implies, this is an exception
  * class.  It is the class of exceptions thrown when package extensions
  * encounter exceptions.
+ *
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbaseplugin
@@ -3138,4 +3144,15 @@ if (lmp != null)
  * SBMLExtension::removeL2Namespaces(), and
  * SBMLExtension::enableL2NamespaceForDocument().
  * @endif
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_common_prefixes
+ *
+ * @par
+ * SBML Level&nbsp;3 packages are often identified by their nicknames or
+ * short-form names (e.g., "comp" for the Hierarchical %Model Composition
+ * package).  The same text string is often used as the XML namespace
+ * prefix when writing out the package constructs to an XML file.  Since
+ * this convention is so common, the libSBML API often uses the prefix
+ * as a convenient way to refer to the package.
  */

@@ -41,8 +41,12 @@
  * needs to be created by each package extension and used in a call to a
  * method on SBMLExtensionRegistry.
  *
+ * @if clike
  * @section sbmlextensionregister-howto How to use SBMLExtensionRegister in a package extension
  * @copydetails doc_extension_sbmlextensionregister
+ * @else
+ * @copydetails doc_basics_of_extensions
+ * @endif@~
  */
 
 #ifndef SBMLExtensionRegister_h

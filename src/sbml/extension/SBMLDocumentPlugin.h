@@ -41,8 +41,12 @@
  * Level&nbsp;3 packages; these extensions can be subclasses of this
  * class or from a derived class of this class.
  *
+ * @if clike
  * @section sbmldocumentplugin-howto How to extend SBMLDocumentPlugin for a package implementation
  * @copydetails doc_extension_sbmldocumentplugin
+ * @else
+ * @copydetails doc_basics_of_extensions
+ * @endif@~
  */
 
 #ifndef SBMLDocumentPlugin_h

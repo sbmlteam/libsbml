@@ -730,7 +730,7 @@ public:
 
 
   /**
-   * Returns the SBMLDocument object containing @em this object instance.
+   * Returns the SBMLDocument object containing this object instance.
    *
    * @copydetails doc_what_is_SBMLDocument
    *
@@ -746,7 +746,7 @@ public:
 
 
   /**
-   * Returns the SBMLDocument object containing @em this object instance.
+   * Returns the SBMLDocument object containing this object instance.
    *
    * @copydetails doc_what_is_SBMLDocument
    *
@@ -1482,10 +1482,9 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * (if the parent element does not have the 'metaid' attribute set)
    * @li @sbmlconstant{LIBSBML_DUPLICATE_ANNOTATION_NS, OperationReturnValues_t}
-   * With 'unexpected attribute' returned if the parent element does not have 
-   * the 'metaid' attribute set, and 'duplicate annotation' set if the parent 
-   * was already annotated with the annotation in question.
+   * (if the parent was already annotated with the annotation in question)
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -1527,10 +1526,9 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * (if the parent element does not have the 'metaid' attribute set)
    * @li @sbmlconstant{LIBSBML_DUPLICATE_ANNOTATION_NS, OperationReturnValues_t}
-   * With 'unexpected attribute' returned if the parent element does not have 
-   * the 'metaid' attribute set, and 'duplicate annotation' set if the parent 
-   * was already annotated with the annotation in question.
+   * (if the parent was already annotated with the annotation in question)
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -2499,12 +2497,12 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * The valid combinations of SBML Level, Version and Namespace as of this
    * release of libSBML are the following:
    * <ul>
-   * <li> Level&nbsp;1 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level1"</code>
-   * <li> Level&nbsp;2 Version&nbsp;1: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2"</code>
-   * <li> Level&nbsp;2 Version&nbsp;2: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version2"</code>
-   * <li> Level&nbsp;2 Version&nbsp;3: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version3"</code>
-   * <li> Level&nbsp;2 Version&nbsp;4: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version4"</code>
-   * <li> Level&nbsp;3 Version&nbsp;1 Core: <code style='margin-right:0; padding-right:0'>"http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level3/version1/core"</code>
+   * <li> Level&nbsp;1 Version&nbsp;2: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level1</code>&quot;
+   * <li> Level&nbsp;2 Version&nbsp;1: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2</code>&quot;
+   * <li> Level&nbsp;2 Version&nbsp;2: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version2</code>&quot;
+   * <li> Level&nbsp;2 Version&nbsp;3: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version3</code>&quot;
+   * <li> Level&nbsp;2 Version&nbsp;4: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version4</code>&quot;
+   * <li> Level&nbsp;3 Version&nbsp;1 Core: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level3/version1/core</code>&quot;
    * </ul>
    *
    * @return @c true if the level, version and namespace values of this 
@@ -2700,7 +2698,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */
   unsigned int getNumDisabledPlugins() const;
 
-  /** 
+
+  /**
    * Deletes all information stored in disabled plugins. 
    *
    * @param recursive if @c true, the disabled information will be deleted
@@ -2709,6 +2708,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @see getNumDisabledPlugins()
    */
   void deleteDisabledPlugins(bool recursive=true);
+
 
   /**
    * Enables or disables the given SBML Level&nbsp;3 package on this object.
@@ -3203,7 +3203,16 @@ newModel.addSpecies(s1);
 
 
   /**
-   * Returns the namespace prefix of this element.
+   * Returns the XML namespace prefix of this element.
+   *
+   * This reports the XML namespace prefix chosen for this class of object in
+   * the current SBML document.  This may be an empty string if the component
+   * has no explicit prefix (for instance, if it is a core SBML object placed
+   * in the default SBML namespace of the document).  If it is not empty, then
+   * it corresponds to the XML namespace prefix used set the object, whatever
+   * that may be in a given SBML document.
+   *
+   * @return a text string representing the XML namespace prefix
    */
   std::string getPrefix() const;
 
@@ -3607,11 +3616,14 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
 
 
   /**
-   * Return the SBML prefix of this element. This will be the same as getPrefix()
-   * unless the element in question is an element of an SBML extension class.
+   * Return the SBML XML namespace prefix of this element.
+   *
+   * This will be the same as getPrefix() unless the element in question is
+   * an element of an SBML extension class.
+   *
+   * @return the XML namespace prefix
    */
   std::string getSBMLPrefix() const;
-
 
 
   /**

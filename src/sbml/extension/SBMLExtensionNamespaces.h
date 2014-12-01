@@ -40,8 +40,12 @@
  * SBML Level, Version within a Level, and package version of the SBML
  * Level&nbsp;3 package implemented by a libSBML package extension.
  *
+ * @if clike
  * @section sbmlextensionnamespaces-howto How to use SBMLExtensionNamespaces for a package implementation
  * @copydetails doc_extension_sbmlextensionnamespaces
+ * @else
+ * @copydetails doc_basics_of_extensions
+ * @endif@~
  */
 
 #ifndef SBMLExtensionNamespaces_h

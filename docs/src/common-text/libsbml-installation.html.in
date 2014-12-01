@@ -490,14 +490,13 @@ or later; earlier versions are known <em>not</em> to work.  You <em>must</em> us
   the use of version 2.0.4.
 
   <p> <a target="_blank" href="http://www.swig.org">SWIG</a> is the
-<em>Simplified Wrapper and Interface Generator</em> and in libSBML it is
-used to create the bindings for C#, Java, Python, and other programming
-languages.  To configure libSBML to use SWIG, use the
+<em>Simplified Wrapper and Interface Generator</em> and in libSBML it is used
+to create the bindings for C#, Java, JavaScript, Python, and other
+programming languages.  To configure libSBML to use SWIG, use the
 <nobr><code>--with-swig</code></nobr> option to <code>configure</code>.  If
 your copy of SWIG is installed in a location where <code>configure</code>
-cannot find it on its own, you can specify it as an optional argument to
-the <nobr><code>--with-swig</code></nobr> option as in the following
-example:
+cannot find it on its own, you can specify it as an optional argument to the
+<nobr><code>--with-swig</code></nobr> option as in the following example:
 
 <pre class="fragment">
 ./configure --with-swig="<span class="placeholder-nospace">DIR</span>"

@@ -520,7 +520,7 @@ public:
 
 
   /**
-   * Destroys this Compartment.
+   * Destroys this Compartment object.
    */
   virtual ~Compartment ();
 

@@ -20,13 +20,13 @@ possible pitfalls in using libSBML:
 
 <h2><a class="anchor" name="link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></h2>
 
-<p> At application run-time, the language bindings for C#, Java, Python, Perl
-and others must be able to dynamically link the core libSBML library file
-(i.e., <code>libsbml.so</code>, <code>libsbml.dylib</code> or
+<p> At application run-time, the language bindings for C#, Java, JavaScript,
+Python, Perl and others must be able to dynamically link the core libSBML
+library file (i.e., <code>libsbml.so</code>, <code>libsbml.dylib</code> or
 <code>libsbml.dll</code>, depending on your operating system).  If a user's
-environment includes an old version of this library file, and it is picked
-up at run-time instead of the correct library version, linking may fail
-with mysterious errors about undefined symbols.  Users and developers are
+environment includes an old version of this library file, and it is picked up
+at run-time instead of the correct library version, linking may fail with
+mysterious errors about undefined symbols.  Users and developers are
 cautioned to make sure that their installations have matched versions of
 libSBML components and are free of older versions that may be picked up
 inadvertently.

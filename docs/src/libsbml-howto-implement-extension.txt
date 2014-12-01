@@ -1,864 +1,713 @@
 /** @page libsbml-howto-implement-extension.html Step by step summary of the implementation of an extension
 
-This section describes the summary of how to implement a package extension for libSBML-5.
-(Note that since libSBML-5 is currently in development stage the API described in this
-documentation may be changed in the future.)
+@tableofcontents
 
-<tr><td>
+<p> This section describes the steps necessary to implement a <em>package
+extension</em> (also known as a <em>package plugin</em>) for libSBML by hand.
+The purpose of this section is to document the process.  In practice, the
+libSBML developers no longer write package extensions by hand, but instead,
+use a code generation system under development by the libSBML Team (a system
+called DEVISER, short for <em>Design Explorer and Viewer for Iterative SBML
+Enhancement of Representations</em>).  This code generator embodies the steps
+below.
+
+
+@section implem-dir 1. Create the directory structure
+
+The conventional structure for a libSBML package extension involves two main
+directories, one for the implementation sources and one for example code.
+The following illustrates this structure:
+
+<pre style="margin-left: 20px; line-height: 100%">
+<span class="placeholder">package_root</span>
+│
+├── examples
+│   ├── c
+│   ├── c++
+│   ├── csharp
+│   ├── java
+│   ├── javascript
+│   ├── perl
+│   ├── python
+│   ├── r
+│   └── ruby
+│
+└── src
+    ├── bindings
+    │   ├── csharp
+    │   ├── java
+    │   ├── javascript
+    │   ├── perl
+    │   ├── python
+    │   ├── r
+    │   ├── ruby
+    │   └── swig
+    │
+    └── sbml
+        └── packages
+            │
+            └── <span class="placeholder">package_name</span>
+                │
+                ├── common
+                │   └── test
+                ├── extension
+                │   └── test
+                ├── sbml
+                │   └── test
+                ├── util
+                │   └── test
+                └── validator
+                    └── test
+</pre>
+
+The top-level directory, <span class="placeholder">package_root</span>, can
+be named anything, although by convention it's named after the SBML
+Level&nbsp;3 package being implemented.  The directory <span
+class="placeholder">package_name</span> should be the nickname or short-form
+name of the package (e.g., "comp" for the Hierarchical %Model Composition
+package).
+
+The directory structure for the implementation of the package (the tree root
+at <code>src</code>) is separated into two main branches:
+<code>bindings</code> for the programming language interfaces (known as the
+<em>language bindings</em> in libSBML-speak) generated with the help of SWIG,
+and <code>sbml</code> for actual package code.  The subdirectories under
+<span class="placeholder">package_name</span> have the following purposes:
+
+@li <code>common</code>: This contains header files that provide forward
+declarations for all the object classes defined by the package, plus any
+other common headers and/or code.
+
+@li <code>extension</code>: This contains the code for the all of the
+extensions of libSBML classes defined by the package.  For example, if a
+package extends the Model object, this is where the extension class code is
+placed.
+
+@li <code>sbml</code>: This contains all the new SBML object classes
+defined by the package.
+
+@li <code>util</code>: As its name implies, this contains any utility
+classes or other code that a package might need in its implementation.
+
+@li <code>validator</code>: This contains code for SBML validation of the
+package constructs.
+
+Examples of real package extensions employing the directory structure
+described above can be found in the libSBML source distribution, in the
+<code>src/sbml/packages</code> subdirectory.
+
+
+@section implem-sbaseplugin 2. Derive classes from SBasePlugin
+
+Certain classes in an SBML Level&nbsp;3 package will be subclasses of
+existing core SBML constructs, and other classes will be entirely ones
+introduced by the package.  Existing SBML classes can be extended through the
+use of the special-purpose classes SBasePlugin and SBMLDocumentPlugin, while
+new classes are implemented as objects derived from the basic SBase class.
+We discuss SBasePlugin in this section, SBMLDocumentPlugin in the next
+section, and the implementation of entirely new classes in the section after
+that.
+
+The SBasePlugin class is libSBML's base class for extensions of core SBML
+component objects.  It defines basic virtual methods for
+reading/writing/checking additional attributes and/or subobjects; and these
+methods should be overridden by subclasses to implement the necessary
+features of an extended SBML object.  The documentation for the SBasePlugin
+class describes the steps necessary to use it to extend existing object
+classes.  Here we summarize the steps:
+
 <ol>
-<li>
-<a href="#i1">Implement an SBMLExtension derived class</a>
-</li>
-<li>
-<a href="#i2">Implement SBase derived classes of the package extension</a>
-</li>
-<li>
-<a href="#i3">Implement SBasePlugin derived classes</a>
-</li>
-<li>
-<a href="#i4">Implement a forward declaration file</a>
-</li>
-<li>
-<a href="#i5">Implement a header file which includes all SBML types defined in the extension</a>
-</li>
-<li>
-<a href="#i6">Defines a macro value of the package extension</a>
-</li>
-<li>
-<a href="#i7">How to import a source tree of a package extension into the source tree of libSBML-5</a>
-</li>
+
+<li> <em>Identify the SBML objects that need to be extended</em>.  Any
+existing SBML object that gets new attributes or subobjects falls into
+this category.  For instance, a package may need to extend Model to add new
+list of entities (as the SBML Level&nbsp;3 %Layout package does with
+ListOfLayouts).
+
+<li> <em>Create a SBasePlugin subclass for each extended SBML
+object class</em>.  This involves several substeps, summarized briefly here:
+
+<ol style="list-style-type: lower-latin">
+
+<li>Define protected data members and implement their initialization as well
+as their handling by assignment operators, copy operators, and other
+necessary operators or fields.
+
+<li>Override SBasePlugin class-related methods such as the class constructor,
+copy constructor, and others.
+
+<li>Override SBasePlugin virtual methods for attributes on the SBML object.
+
+<li>Override SBasePlugin virtual methods for subobjects, if the object
+class contains other classes of objects.
+
+<li>Override SBasePlugin virtual methods for XML namespaces, if the SBML
+package uses extra XML namespaces beyond the default SBML namespace.
+
+<li>Implement additional methods as needed.
+
 </ol>
-</td>
-</tr>
+
+</ol>
+
+A subclass of SBasePlugin, SBMLDocumentPlugin, is designed specifically for
+extending the top-level SBML container object.  It should be used instead of
+SBasePlugin to add attributes or subobjects to the <code>&lt;sbml&gt;</code>
+XML element, if an SBML package calls for it.  The next section discusses this
+further.
+
+In the directory structure for packages (@ref implem-dir), the code for
+extensions of existing libSBML classes is placed in the subdirectory named
+<code>extension</code>.
 
 
-<h2><a class="anchor" name="i1">1. Implement an SBMLExtension derived class</a></h2>
+@section implem-sbmldocument 3. Derive a class from SBMLDocumentPlugin if necessary
 
-Firstly, an SBMLExtension derived class for your package needs to be implemented 
-based on the steps described in SBMLExtension class.
-
-
-<h2><a class="anchor" name="i2">2. Implement SBase derived classes of the package extension</a></h2>
-
-  Secondly, SBase derived classes for your package need to be implemented
-  based on the following steps:
-  
-  <h3><a class="anchor" name="i2-1">2-1. Identify elements defined in the package extension</a></h3>
-  
-  <p>
-     For example, the following elements are defined in the groups package:
-  </p>
-  
-  <ol>
-   <li> Group
-   <li> Member
-   <li> ListOfMembers
-  </ol>
-  
-  
-  <h3><a class="anchor" name="i2-2">2-2. Identify which subelements and/or attributes are defined in each element</a></h3>
-  
-  <p>
-     For example, the following subelements and attributes are defined in 
-     the Group element in the groups package.
-  </p>   
-  
-  <ul>
-   <li> <p>subelements</p>
-        <ol>
-         <li> ListOfMembers  mMembers  ('listOfMembers' element)
-        </ol>
-   <li> <p>attributes</p>
-        <ol>
-         <li> std::string         mId  ('id'   attribute)
-         <li> std::string       mName  ('name' attribute) 
-        </ol>
-  </ul>
-
-  <h3><a class="anchor" name="i2-3">2-3. Implement each SBase derived class</a></h3>
-
-  <h4><a class="anchor" name="i2-3-1">2-3-1. Define protected data members that store identified subelements and/or attributes </a></h4>
-
-  <p>
-       For example, the following protected data members are defined in
-       Group class ('src/packages/groups/sbml/Group.h'):
-  </p>
-@code{.cpp}
-          class LIBSBML_EXTERN Group : public SBase
-          {
-          protected:
-            std::string   mId;
-            std::string   mName;
-            ListOfMembers mMembers;
-
-            ....
-                             
-          };    
-@endcode
-
-  <p>
-     Basically, the attribute data will have one of the types "std::string", 
-     "double", "int", or "bool", and the type of the element data will be 
-     ListOf derived classes or SBase derived classes.
-
-     The data members must be properly initialized in the constructor, and must 
-     be properly copied in the copy constructor and assignment operator.
-  </p>
-
-  <h4><a class="anchor" name="i2-3-2">2-3-2. Define the following two constructors</a></h4>
+SBML Level&nbsp;3 packages typically do not make any changes to the top-level
+<code>&lt;sbml&gt;</code> XML element beyond adding an attribute named
+"required", so in most cases, the extension of SBMLDocument is very simple.
+Here follows a summary of the basic steps; the documentation for the
+SBMLDocumentPlugin class explains the steps in more detail.
 
 <ol>
-  <li> <p> a constructor that accepts three arguments: </p>
-    <ol>
-      <li>SBML Level</li>
-      <li>SBML Version</li>
-      <li>Package Version</li>
-    </ol>     
+<li><em>Identify the changes necessary to SBMLDocument</em>.
 
-  <p>
-     For example, this type of constructor of Group class is implemented 
-     in 'src/packages/groups/sbml/Group.cpp' as follows:
-  </p>     
+<li><em>Create the SBMLDocumentPlugin subclass</em>.  This involves several
+substeps:
+
+    <ol style="list-style-type: lower-latin">
+
+    <li>Override class-related methods derived from SBasePlugin, the parent
+    class of SBMLDocumentPlugin.
+
+    <li>Determine the necessary value of the "required" attribute and set up the
+    class implementation to set/test/manage the value accordingly.
+
+    <li>Define protected data members, if the package definition requires any.
+
+    <li>Override virtual methods for new attributes, if any.
+
+    <li>Override virtual methods for subobjects, if the package defines any
+    new objects under the top-level <code>&lt;sbml&gt;</code> XML element.
+
+    <li>Override virtual methods for XML namespaces.
+
+    <li>Implement additional methods as needed.
+
+</ol>
+</ol>
+
+In the directory structure for packages (Section @ref implem-dir), the code
+using SBMLDocumentPlugin is placed in the subdirectory named
+<code>extension</code>, grouped together with the classes derived from
+SBasePlugin.
+
+
+@section implem-sbase 4. Derive classes from SBase
+
+As mentioned above, some classes in SBML Level&nbsp;3 package specifications
+typically are defined as subclasses of existing core SBML objects such as
+Model, Reaction, Parameter, and so forth, while others are defined as
+entirely new classes.  If the package specification calls for @em new SBML
+objects derived from SBML's abstract <em><strong>%SBase</strong></em> class,
+the libSBML package extension should implemented them by deriving them from
+the libSBML SBase class.
+
+The following are the basic steps to subclassing SBase for the implementation
+of each new SBML object class:
+
+<ol>
+  
+<li><em>Identify the attributes of the class</em>.  Objects will have
+attributes, subobjects (usually either for a mathematical formula or a list
+of subobjects inside a ListOf), or a mixture of both.  When an object has
+attributes, each attribute will have a data type; this data type will be
+either one of the core SBML primitive types or a new type defined in the
+specification for the package.  The first step is to gather the requirements
+for these attributes.
+
+<li><em>Identify the subobjects of each object class</em>.  Another necessary
+requirements analysis step is determining if any subobjects need to be
+defined and contained withing other objects.  Any that are subclassed from
+SBase will be their own separate class, and will be contained inside another
+class derived from ListOf.  (For example, ListOfLayouts in the SBML
+Level&nbsp;3 %Layout package.)
+
+<li><em>Write the implementation of each class</em>.
+
+<ol style="list-style-type: lower-latin">
+
+<li>Define protected data members that store identified subobjects and/or
+attributes.  For example, the the <code>Groups</code> class in the Groups
+package needs protected data members for the object identifier ("id")
+attribute, object name ("name") attribute, a list of <code>Member</code>
+objects (stored in a <code>ListOfMembers</code> class object derived from
+ListOf), and more.
+</li>
+
+<li>Define the following two class constructors: (i) a constructor that
+accepts three arguments for the SBML Level, SBML Version, and package
+version; and (ii) a constructor that accepts an object derived from
+SBMLNamespaces.  Make sure that the implementation of the constructor calls
+the parent's constructor, and that the default SBML Level, Version and
+package version are given as default arguments.  The implementation also has
+to call the method <code>setSBMLNamespacesAndOwn()</code> with the 
+package-specific SBMLExtensionNamespaces object, as well as the method
+<code>connectToChild()</code>. Here is an example from the Groups package:
+@code{.cpp}
+Group::Group (unsigned int level, unsigned int version, unsigned int pkgVersion) 
+  : SBase (level, version)
+   ,mId("")
+   ,mName("")
+   ,mKind(GROUP_KIND_UNKNOWN)
+   ,mMembers(level, version, pkgVersion)
+   ,mMemberConstraints (level, version, pkgVersion)
+{
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new GroupsPkgNamespaces(level, version, pkgVersion));
+
+  // connect to child objects
+  connectToChild();
+}
+@endcode
+</li>
+
+<li>Define a constructor that accepts an SBMLNamespaces object.  This
+constructor needs to call three methods, as illustrated in the body of this
+example from the Groups package:
+@code{.cpp}
+Group::Group(GroupsPkgNamespaces* groupsns)
+ : SBase(groupsns)
+  ,mId("")
+  ,mName("")
+  ,mKind(GROUP_KIND_UNKNOWN)
+  ,mMembers(groupsns)
+   ,mMemberConstraints (groupsns)
+{
+  // set the element namespace of this object
+  setElementNamespace(groupsns->getURI());
+
+  // connect to child objects
+  connectToChild();
+
+  // load package extensions bound with this object (if any) 
+  loadPlugins(groupsns);
+}
+@endcode
+<p>The call to <code>loadPlugins(...)</code> is necessary to allow the
+  package to be extended by @em other package extensions.  It is also worth
+  noting that the constructor for SBMLNamespaces and its derived class
+  SBMLExtensionNamespaces throw an SBMLExtensionException if the argument it
+  is given is invalid.  Callers will have to create the object using code
+  such as the following example from the %Layout package:
+@code{.cpp}
+try
+{
+  LayputPkgNamespaces layoutns(3, 1, 1);
+  Layout              layout(&layoutns); 
+}
+catch (SBMLExtensionException e)
+{
+  cerr << "Caught " << e.what() << endl;
+}
+@endcode
+</li>
+
+<li>Override the copy constructor, assignment operator, and
+<code>clone()</code> methods from SBase and implement appropriate versions
+for the package.</li>
+
+<li>Override the following virtual methods if the object defines "id" and
+"name" attributes: <code>setId(...)</code>, <code>setName(...)</code>,
+<code>isSetId(...)</code>, <code>isSetName(...)</code>,
+<code>unsetId(...)</code>, <code>unsetName(...)</code>.
+
+<li>If the SBML object defines any other attributes, then for every attribute
+defined by the class, implement new methods to set, get, unset, and query the
+attribute value.  For an attribute named <span
+class="placeholder">ATTRIB</span>, this will lead to methods named
+<code>set<span class="placeholder-nospace">ATTRIB</span></code>,
+<code>get<span class="placeholder-nospace">ATTRIB</span></code>,
+<code>isSet<span class="placeholder-nospace">ATTRIB</span></code>, and
+<code>unset<span class="placeholder-nospace">ATTRIB</span></code>.
+
+<li>Override the following virtual methods if the object defines any
+attributes:
+
+<ul>
+
+<li> <code>addExpectedAttributes(ExpectedAttributes& attributes)</code>: This
+method should add the attributes that are expected to be found on this kind
+of extended object in an SBML file or data stream.
+
+<li> <code>readAttributes(XMLAttributes& attributes, ExpectedAttributes&
+expectedAttributes)</code>: This method should read the attributes
+expected to be found on this kind of extended object in an SBML file or
+data stream.
+
+<li> <code>hasRequiredAttributes()</code>: This method should return @c true
+if all of the required attribute for this extended object are present on
+instance of the object.
+
+<li> <code>writeAttributes(XMLOutputStream& stream)</code>: This method should
+write out the attributes of an extended object.  The implementation should
+use the different kinds of <code>writeAttribute</code> methods defined by
+XMLOutputStream to achieve this.
+
+</ul>
+</li>
+
+<li>Override the following virtual methods if the object defines one or more
+subobjects:
+
+<ul>
+<li> <code>createObject(XMLInputStream& stream)</code>: Subclasses must
+override this method to create, store, and then return an SBML object
+corresponding to the next XMLToken in the XMLInputStream.
+
+<li> <code>connectToParent(SBase *sbase)</code>: This creates a parent-child
+relationship between a given extended object and its subcomponent(s).
+
+<li> <code>setSBMLDocument(SBMLDocument* d)</code>: This method should set the
+parent SBMLDocument object on the subcomponent object instances, so that the
+subcomponent instances know which SBMLDocument contains them.
+
+<li> <code>enablePackageInternal(std::string& pkgURI, std::string& pkgPrefix,
+bool flag)</code>: This method should enable or disable the subcomponent
+based on whether a given XML namespace is active.
+
+<li> <code>writeElements(XMLOutputStream& stream)</code>: This method must be
+overridden to provide an implementation that will write out the expected
+subcomponents/subelements to the XML output stream.
+
+<li> <code>readOtherXML(SBase* parentObject, XMLInputStream& stream)</code>:
+This function should be overridden if XML elements containing annotations, 
+notes, MathML content, etc., need to be directly parsed from the
+given XMLInputStream object.
+
+<li> <code>hasRequiredElements()</code>: This method should return @c true if
+a given object contains all the required subcomponents defined by the
+specification for that SBML Level&nbsp;3 package.
+</ul>
+</li>
+
+<li>Override the virtual method <code>writeXMLNS(XMLOutputStream&
+stream)</code> if the package needs to add additional <code>xmlns</code>
+attributes to declare additional XML namespace URIs.
+</li>
+
+<li>Define any additional methods needed by the class, for example to add and
+remove subobjects.
+
+</ol>
+</ol>
+
+In the directory structure for packages (Section @ref implem-dir), the code
+for new object classes is placed in the subdirectory named <code>sbml</code>.
+
+Developers can take advantage of the many package implementations available
+for libSBML to see real-life examples of objects derived from SBase.
+
+
+@section implem-sbmlext 5. Derive a class from SBMLExtension
+
+The SBMLExtension class is an abstract class that must be extended by each
+package extension implementation.  The class provides methods for managing
+common attributes of package extensions (e.g., the SBML package name, the
+package version, and more), registration of instantiated SBasePluginCreator
+objects, and initialization/registration of package extensions when the
+library code for the package is loaded by libSBML.
+
+The documentation for SBMLExtension explains in detail the process of
+extending the class as part of the implementation of a package extension.
+The following is a summary of the steps:
+
+<ol>
+
+<li>Define a <code>getPackageName()</code> method that returns the name of
+the package as a string.
+
+<li>Define a set of methods that return the default SBML Level, SBML Version
+and version of the package.
+
+<li>Define methods returning the package namespace URIs
+
+<li>Override basic pure virtual methods on SBMLExtension.
+
+<li>Create definitions derived from SBMLExtensionNamespaces.
+
+<li>Override the SBMLExtension method <code>getSBMLExtensionNamespaces()</code>.
+
+<li>Define an enumeration for the package object type codes.
+
+<li>Override the SBMLExtension method <code>getStringFromTypeCode()</code>.
+
+<li>Implement an <code>init()</code> method.
+
+<li>Instantiate a global SBMLExtensionRegister object.
+
+</ol>
+
+
+@section forward-decl 6. Implement a forward declaration file
+
+Create a file that provides forward declarations for all classes defined by
+the package extension.  In the directory structure for packages (Section @ref
+implem-dir), this file should be placed in the subdirectory named
+<code>common</code>.  Here is an example from the %Layout package; this can
+be found in the file <code>src/packages/layout/common/layoutfwd.h</code>.
+The definition of <code>CLASS_OR_STRUCT</code> is to permit this code to work
+for both C and C++:
 
 @code{.cpp}
-               Group::Group (unsigned int level, unsigned int version, 
-                             unsigned int pkgVersion)
-                 : SBase (level,version)   // <-- invokes parent's constructor
-                  ,mId("")
-                  ,mName("")
-                  ,mMembers(level,version,pkgVersion)
-               {
-                 // set an SBMLNamespaces derived object (GroupsPkgNamespaces) of 
-                 //this package.
-                 setSBMLNamespacesAndOwn(new GroupsPkgNamespaces(level,version,
-                                                                 pkgVersion));
-                  
-                 // connects child elements to this element.
-                 connectToChild(); 
-               }
+#ifndef layoutfwd_h__
+#define layoutfwd_h__
+
+#ifdef __cplusplus
+#  define CLASS_OR_STRUCT class
+#else
+#  define CLASS_OR_STRUCT struct
+#endif  /* __cplusplus */
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+typedef CLASS_OR_STRUCT BoundingBox                     BoundingBox_t;
+typedef CLASS_OR_STRUCT CompartmentGlyph                CompartmentGlyph_t;
+typedef CLASS_OR_STRUCT CubicBezier                     CubicBezier_t;
+typedef CLASS_OR_STRUCT Curve                           Curve_t;
+typedef CLASS_OR_STRUCT Dimensions                      Dimensions_t;
+typedef CLASS_OR_STRUCT GeneralGlyph                    GeneralGlyph_t;
+typedef CLASS_OR_STRUCT GraphicalObject                 GraphicalObject_t;
+typedef CLASS_OR_STRUCT Layout                          Layout_t;
+typedef CLASS_OR_STRUCT LineSegment                     LineSegment_t;
+typedef CLASS_OR_STRUCT Point                           Point_t;
+typedef CLASS_OR_STRUCT ReactionGlyph                   ReactionGlyph_t;
+typedef CLASS_OR_STRUCT ReferenceGlyph                  ReferenceGlyph_t;
+typedef CLASS_OR_STRUCT SpeciesGlyph                    SpeciesGlyph_t;
+typedef CLASS_OR_STRUCT SpeciesReferenceGlyph           SpeciesReferenceGlyph_t;
+typedef CLASS_OR_STRUCT TextGlyph                       TextGlyph_t;
+
+LIBSBML_CPP_NAMESPACE_END
+
+#undef CLASS_OR_STRUCT
+
+#endif  /* layoutfwd_h__ */
 @endcode
 
-   <p><em>NOTE</em></p>
-   <ul>
-      <li>
-             default level, default version, and default pacakge version
-             should be given as default arguments.
-             (This may change in the future release).
 
-      <li>  the corresponding constructor of the parent class must be properly 
-            invoked by using initializer of the constructor.
-         
-      <li>  setSBMLNamespacesAndOwn() function must be invoked with a newly
-	    created SBMLNamespaces derived object with the given level, version,
-            and package version.
+@section header-file 7. Implement a package header file
 
-      <li>  connectToChild() function must be invoked if the element has one
-            or more child elements.
-    </ul>	       
-
-    <p>
-           For example, an instance of the SBase derived object is created by this
-           constructor as follows:
-    </p>
-
-@code{.cpp}   
-               Layout layout(3,1,1);
-@endcode
-
-   <li><p> a constructor that accepts an SBMLNamespaces derived object </p>
-
-     <p>
-           For example, this type of constructor of Group class is implemented 
-           in 'src/packages/groups/sbml/Group.cpp' as follows:
-           (GroupsPkgNamespaces is the type of SBMLNamespaces derived class for
-            groups package)
-     </p>
+Create a single header file that includes all other package header files
+necessary to declare the types defined by the package extension.  In the
+directory structure for packages (Section @ref implem-dir), this file should
+be placed in the subdirectory named <code>common</code>.  Here is an example
+from the %Layout package; this can be found in the file
+<code>src/packages/layout/common/LayoutExtensionTypes.h</code>:
 
 @code{.cpp}
-               Group::Group(GroupsPkgNamespaces* groupsns)
-                : SBase(groupsns)
-                 ,mId("")
-                 ,mName("")
-                 ,mMembers(groupsns)
-               {
-                 // set the element namespace of this object
-                 setElementNamespace(groupsns->getURI());
+#ifndef LayoutExtensionTypes_h
+#define LayoutExtensionTypes_h
 
-                 // connect child elements to this element
-                 connectToChild();
+#include <sbml/packages/layout/common/layoutfwd.h>
 
-                 // load pacakge extensions bound with this object (if any)
-                 loadPlugins(groupsns);
-               }
+#include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/extension/LayoutModelPlugin.h>
+#include <sbml/packages/layout/extension/LayoutSBMLDocumentPlugin.h>
+
+#include <sbml/packages/layout/sbml/BoundingBox.h>
+#include <sbml/packages/layout/sbml/CompartmentGlyph.h>
+#include <sbml/packages/layout/sbml/CubicBezier.h>
+#include <sbml/packages/layout/sbml/Curve.h>
+#include <sbml/packages/layout/sbml/Dimensions.h>
+#include <sbml/packages/layout/sbml/GraphicalObject.h>
+#include <sbml/packages/layout/sbml/Layout.h>
+#include <sbml/packages/layout/sbml/LineSegment.h>
+#include <sbml/packages/layout/sbml/Point.h>
+#include <sbml/packages/layout/sbml/ReactionGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesReferenceRole.h>
+#include <sbml/packages/layout/sbml/TextGlyph.h>
+#include <sbml/packages/layout/sbml/ReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/GeneralGlyph.h>
+
+#endif  /* LayoutExtensionTypes_h */
 @endcode
 
-   <p><em>NOTE</em></p>
-   <ul>
-      <li>
-             SBMLNamespaces and its derived class throws an SBMLExtensionException
-             if the given combination is invalid (undefined).
 
-      <li>
-             the corresponding constructor of the parent class must be properly 
-             invoked by initializer.
-         
-      <li>
-             setElementNamespace() function must be invoked with the URI
-             of the package in the constructor.
+@section config-macros 8. Define files for package registration
 
-      <li>
-             connectToChild() function must be invoked if the element has one
-             or more child elements.
-
-      <li>
-             loadPlugins() function should be invoked if the element can be
-             extended by other package extensions.
-   </ul>
-
-   <p>
-           For example, an instance of the SBase derived object is created by 
-           this constructor as follows:
-   </p>
-   
-@code{.cpp}   
-               try
-               {
-                 LayputPkgNamespaces layoutns(3,1,1);
-                 Layout              layout(&layoutns); 
-               }
-               catch (SBMLExtensionException e)
-               {
-                 cerr << "Caught " << e.what() << endl;
-               }
-@endcode
-
-  </ol> 
-
-
-  <p>
-       <em>NOTE</em>
- 
-       In the layout extension, additional constructors that accept one or more 
-       attributes of the element have been implemented for backward compatibility
-       (support for L2 model).
-       (validation check of the given arguments of attributes are not performed.)
-  </p>
-
-
-
-  <h4><a class="anchor" name="i2-3-3">2-3-3. Override the following functions in the SBase class</a></h4>
-    <ul>
-      <li>
-          Copy Constructor
-      <li>
-          Assignment operator (operator=)
-      <li>
-          clone() function
-          (basically implemented by using the copy constructor)
-    </ul>
-
-  <h4><a class="anchor" name="i2-3-4">2-3-4. Override the following virtual functions if one or more attributes (except for those defined in its ancestors) are defined in this element
-</a></h4>
-
-    <ul>
-      <li>
-          addExpectedAttributes()
-      <li>	  
-          readAttributes()
-      <li>	  
-          hasRequiredAttributes()
-    </ul>	  
-
-    <p>
-          <em>NOTE</em>
-
-	  <ul>
-	    <li>
-	      <p>
-                corresponding function of the parent class must be invoked
-	        in  addExpectedAttributes() and readAttributes() functions
-                as follows:
-	      </p>
-	      
-@code{.cpp}
-                Group::addExpectedAttributes(ExpectedAttributes& attributes)
-                {
-                   SBase::addExpectedAttributes(attributes);
-                   ....
-                }
-@endcode
+Two files need to be created in <code>src/sbml/packages</code> as part of the
+libSBML scheme for including packages at compilation time.  The first file
+should be named <code><span
+class="placeholder">name</span>-register.h</code>, where <code><span
+class="placeholder">name</span></code> is the name of the package extension.
+Here is an example from the Groups package, in the file
+<code>src/sbml/packages/groups-register.h</code>:
 
 @code{.cpp}
-               void
-               Group::readAttributes (const XMLAttributes& attributes,
-                                      const ExpectedAttributes& expectedAttributes)
-               {
-                 SBase::readAttributes(attributes,expectedAttributes);
-                  ...
-               }
+#ifdef USE_GROUPS
+#include <sbml/packages/groups/extension/GroupsExtension.h>
+#endif	
 @endcode
-         
-                (SBase class is a parent of Group class.)
 
+Note the contents in the file above: it includes the extension file in the
+package source directory (<code>GroupExtension.h</code>), and it uses a
+<code>ifdef</code> condition on a variable named <code>USE_<span
+class="placeholder">NAME</span></code>, where <code><span
+class="placeholder">NAME</span></code> is the package name.
 
-            <li>
-	      <p>
-	      the following attributes don't need to be added in 
-              the addExpectedAttributes() function because they are added
-              in SBase::addExpectedAttributes() function.
-	      </p>
-	      
-	      <ol>
-                <li>metaid  (L2V1 or later)
-                <li>sboTerm (L2V3 or later)
-	      </ol>
-
-
-            <li> "src/packages/groups/sbml/{Group,Member}.{h,cpp}" are simple example
-                 files in which these functions are implemented.
-          </ul> 		 
-
-
-  <h4><a class="anchor" name="i2-3-5">2.3.5. Override the following virtual functions if one or more subelements are defined in this element</a></h4>
-    <ul>
-          <li> createObject()
-
-          <li> writeElements()
-
-          <li> hasRequiredElements()
-
-          <li> setSBMLDocument()
-
-          <li> enablePackageInternal()
-	   
-          <li> connectToChild()
-    </ul>	  
-
-
-      <p><em>NOTE</em></p>
-      <ul>          
-
-            <li> corresponding function of the parent class must be invoked
-	         in writeElements(), setSBMLDocument(), and enablePackageInternal()
-                 functions
-
-            <li> "src/packages/groups/sbml/{Group,Member}.{h,cpp}" are simple example
-                 files in which these functions are implemented.
-
-      </ul>          
-
-
-  <h4><a class="anchor" name="i2-3-6">2.3.6. Override the following virtual functions if the element is a top-level element of the package</a></h4>
-
-  <ul>
-      <li>writeXMLNS()
-  </ul>      
-      
-	  <p><em>NOTE</em></p> 
-
-	  <p>
-           For example, this function is implemented in the following top-level
-              elements:
-	  </p>
-
-	  <ol>
-             <li> SBMLDocument   (SBML Core)
-             <li> ListOfLayouts  (Layout extension)
-             <li> ListOfGroups   (Groups extension)
-	  </ol>
-
-
-
-	  <ul>
-            <li> In package extensions, writeXMLNS() function writes an xmlns="..."
-                 attribute if the top-level element of the package extension 
-                 belongs to default XML namespace.
-                 This behaviour can be enabled/disabled by the following function:
-@code{.cpp}
-    SBMLDocument::enableDefaultNS(const std::string& package, bool flag)
-@endcode
-	  </ul>
-
-
-  <h4><a class="anchor" name="i2-3-7">2.3.7. Override the following virtual functions if 'id' attribute is defined in the element</a></h4>
-
-      <ol>
-           <li> setId()
-
-           <li> getId()
-
-           <li> isSetId()
-
-           <li> unsetId()
-      </ol>
-
-
-	  <p><em>NOTE</em></p> 
-
-      <ul>	  
-           <li> Basically, implementation of these functions are almost the same
-                between elements defining the 'id' attribute
-
-           </li> setId() function can be easily implemented as follows (one line):
-      </ul>	  
+The second file should be named <code><span
+class="placeholder">name</span>-register.cxx</code>.  It will be used as an
+inclusion by another part of libSBML to invoke the <code>init()</code> method
+of the class created in step&nbsp;4 above (@ref implem-sbmlext).  This file
+should have content as shown in the next example taken from
+<code>src/sbml/packages/groups-register.cxx</code>:
 
 @code{.cpp}
-                 return SyntaxChecker::checkAndSetSId(id,mId);
+#ifdef USE_GROUPS
+GroupsExtension::init();
+#endif	
 @endcode
 
-  <h4><a class="anchor" name="i2-3-8">2.3.8. Override the following virtual functions if 'name' attribute is defined in the element</a></h4>
 
-    <ol>
-          <li> setName()
+@section hook-bindings 9. Hook into the language bindings
 
-          <li> getName()
+This part of the process is unfortunately one of the most complex to perform
+and to describe.  The simplest approach is to copy the files from an existing
+package implementation and modify them to work with the names and objects
+defined in the new package.  The following are the relevant language binding
+files for C#, Java, Perl, Python, R and Ruby for a package such as Groups:
 
-          <li> isSetName()
+@verbatim
+src/bindings/csharp/local-downcast-extension-groups.i
+src/bindings/csharp/local-downcast-namespaces-groups.i
+src/bindings/csharp/local-packages-groups.i
 
-          <li> unsetName()
-    </ol>
+src/bindings/java/local-downcast-extension-groups.i
+src/bindings/java/local-downcast-namespaces-groups.i
+src/bindings/java/local-packages-groups.i
+
+src/bindings/perl/local-downcast-extension-groups.cpp
+src/bindings/perl/local-downcast-namespaces-groups.cpp
+src/bindings/perl/local-downcast-packages-groups.cpp
+src/bindings/perl/local-downcast-plugins-groups.cpp
+src/bindings/perl/local-groups.i
+
+src/bindings/python/local-downcast-extension-groups.cpp
+src/bindings/python/local-downcast-namespaces-groups.cpp
+src/bindings/python/local-downcast-packages-groups.cpp
+src/bindings/python/local-downcast-plugins-groups.cpp
+src/bindings/python/local-groups.i
+
+src/bindings/r/local-downcast-extension-groups.cpp
+src/bindings/r/local-downcast-namespaces-groups.cpp
+src/bindings/r/local-downcast-packages-groups.cpp
+src/bindings/r/local-downcast-plugins-groups.cpp
+src/bindings/r/local-groups.i
+
+src/bindings/ruby/local-downcast-extension-groups.cpp
+src/bindings/ruby/local-downcast-namespaces-groups.cpp
+src/bindings/ruby/local-downcast-packages-groups.cpp
+src/bindings/ruby/local-downcast-plugins-groups.cpp
+src/bindings/ruby/local-groups.i
+
+src/bindings/swig/groups-package.h
+src/bindings/swig/groups-package.i
+@endverbatim
+
+
+@section hook-build 10. Hook into the libSBML build system
+
+Inclusion and compilation of packages in libSBML is supported through the use
+of the CMake system.  To connect a new package extension to the rest of the
+libSBML build system, two CMake files have to be created: (1) a CMake file to
+compile the various parts of the package implementation, and (2) a CMake file
+that connects the package to the rest of the libSBML build system.
+
+<ol>
+
+<li><em>CMake file to compile the package code</em>.  Create a <code><span
+class="placeholder">name</span>-package.cmake</code> file at the top level of
+the libSBML source tree, <code>/src</code>, where <span
+class="placeholder">name</span> is the name of the package.  Here is an
+example of the <code>groups-package.cmake</code> file from the Groups
+package:
+@code{.py}
+if(ENABLE_GROUPS)
+  include(${LIBSBML_ROOT_SOURCE_DIR}/groups-package.cmake)
+
+  # Go through all the Groups directories and build a list of files.
+  set(GROUPS_SOURCES)
+  foreach(dir common extension sbml validator)
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/groups/${dir})
+
+    file(GLOB current ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/groups/${dir}/*.cpp
+                      ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/groups/${dir}/*.c
+                      ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/groups/${dir}/*.h)
     
+    # Special handling for the validator: set the *Constraints.cpp files to be
+    # 'header' files so they won't be compiled. They are #included directly instead.
 
-	  <p><em>NOTE</em></p> 
+    if ("${dir}" STREQUAL "validator/constraints")
+      foreach(tempFile ${current})
+        if ("${tempFile}" MATCHES ".*Constraints.cpp")
+          set_source_files_properties(
+            ${tempFile}
+            PROPERTIES HEADER_FILE_ONLY true
+            )
+        endif()
+      endforeach()
+    endif()
 
-      <ul>
-           <li> Basically, implementation of these functions are almost the same
-                between elements defining the 'id' attribute
-      </ul>
-
-
-  <h4><a class="anchor" name="i2-3-9">2.3.9. Add function calls of loadPlugins() in the constructor which accepts an SBMLNamespaces derived class for supporting package extensions.</a></h4>
-
-    <p>
-          loadPlugins() doesn't need to be invoked in an abstract class.
-    </p>
-
-  <h4><a class="anchor" name="i2-3-10">2.3.10. Add function calls of connectToChild() in constructor, copy constructor, and assignment operator.</a></h4>
-
-  <h4><a class="anchor" name="i2-3-11">2.3.11. Implement additional (package developer-defined) functions for manipulating the attributes and/or subelements.</a></h4>
-
-    <p>
-        For example, getMember(), addMember(), getNumMembers(), createMember(),
-        removeMember() and etc. are implemented in Group class of the groups package.
-    </p>
-
-	  <p><em>NOTE</em></p> 
-
-	  <ul>
-
-           <li><p> when implementing setXXXX(const XXXX&) / addXXXX(const XXXX&) 
-             functions that set/add the given SBase derived object, the following
-             check should be done for the given object:
-	     </p>
-
-	     <ol>
-
-	       <li> check if the given object is not NULL
-
-               <li> check if the SBML Level, Version, and Package Version 
-                    of the given object matches those of target element
-
-               <li> check if an object with the id of the given object
-                    already exists (i.e. checks an error of duplicated object id
-	     </ol>
-
-           <li> <p>one of status codes, which is defined in "src/common/operationReturnValues.h"
-                should be returned based on the result of functions except for
-	        getter functions and functions returning a bool value
-
-
-           <li> <p>In setXXXX(const XXXX&) function,  connectToParent() function 
-                must be invoked if the given object is valid.
-
-               (for detail, please check existing implementation such as
-                setKineticLaw() function in  "src/sbml/Reaction.cpp")
-
-	  </ul>
-
-
-  <h3><a class="anchor" name="i3">3. Implement SBasePlugin derived classes</a></h3>
-
-  <p>
-Thirdly, SBasePlugin derived classes for the pacakge needs to be implemented.
-
-  <h4><a class="anchor" name="i3-1">3-1. Identify which core SBML elements (e.g. Model, Reaction,..) to be extended (i.e. adding attributes and/or elements) for your package extensions.</a></h4>
-  <p>
-    For example, the following SBML elementes are extended by groups and layout
-    packages, respectively:
-  </p>
-
-  <ol>
-      <li> groups package
-
-        <ol>
-          <li> SBMLDocument
-	    <ul>
-              <li> Add 'required' attribute
-	    </ul>
-          <li>  Model
-	    <ul>
-              <li> Add 'listOfGroups' element 
-	    </ul>
-        </ol>
-      </li>
-
-      <li> layout package
-        <ol>
-          <li> SBMLDocument
-	    <ul>
-              <li> Add 'required' attribute
-	    </ul>
-
-          <li> Model
-	    <ul>
-              <li> Add 'listOfLayouts' element 
-	    </ul>
-
-          <li> SpeciesReferences (only for L2V1 for backward compatibility)
-	    <ul>
-              <li> Add 'id' attribute
-	    </ul>
-        </ol>
-      </li>
-     
-  </ol>
-
-    <h4><a class="anchor" name="i3-2">3-2. Implement SBasePlugin derived objects for each identified core SBML element based on the following policy:</a></h4>
-
-    <p>
-       For example, to extend the identified classes, the following SBasePlugin 
-       derived classes are newly implemnted in the groups and layout packages:
-    </p>
-
-    <ol>
-          <li> groups
-
-	    <ul>
-              <li> LayoutModelPlugin 
-              <li> LayoutSpeciesReferencesPlugin
-	    </ul>
-	    
-          <li> groups
-            <ul>	  
-              <li> GroupsModelPlugin
-            </ul>
-    </ol>
+    set(GROUPS_SOURCES ${GROUPS_SOURCES} ${current})
     
+    # Mark header files for installation.
+    file(GLOB groups_headers ${CMAKE_CURRENT_SOURCE_DIR}/sbml/packages/groups/${dir}/*.h)
+    install(FILES ${groups_headers} DESTINATION include/sbml/packages/groups/${dir} )
+  endforeach()
 
-         <p><em>NOTE</em></p>
+  # Create source group files for IDEs.
+  source_group(groups_package FILES ${GROUPS_SOURCES})
 
-	 <p>
-	        Package developers can use existing SBMLDocumentPlugin class
-                as-is for extending the SBMLDocument class if only 'required' 
-                attribute is added the class in their packages, otherwise package 
-                developers must implement a new SBMLDocumentPlugin derived class 
-                for extending the SBMLDocument class.
+  # Add the Groups package sources to libSBML sources.
+  SET(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${GROUPS_SOURCES})
 
-                Since the both of groups and layout packages require only 
-                'required' attribute for extending the SBMLDocument class, 
-                the SBMLDocumentPlugin is used as-is for the packages.
-	 </p>
+  # Add unit test files.
+  if(WITH_CHECK)
+    add_subdirectory(sbml/packages/groups/extension/test)
+  endif()
 
+endif()
+@endcode
+</li>
 
-    <h4><a class="anchor" name="i3-2-1">3-2-1. Define additional protected data members that store additional elements and/or attributes if one ore more elemnets and/or attributes are added to the target core element.</a></h4>
-
-      <p>
-         
-         Basically, the attribute data will have one of the types "std::string", 
-         "double", "int", or "bool", and the type of the element data will be 
-         ListOf derived classes or SBase derived classes.
- 
-         The additional data members must be properly initialized in the constructor,
-         and must be properly copied in the copy constructor and assignment operator.
-      </p>
-
-      <p>
-         For example, the following data member is defined in the GroupsModelPlugin 
-         class (in GroupsModelPlugin.h):
-      </p>
+<li><em>CMake file to connect the package to the rest of libSBML's build
+system</em>. In the libSBML top-level, create another (different) file named
+<code><span class="placeholder">name</span>-package.cmake</code>, where <span
+class="placeholder">name</span> is the name of the package.  The file should
+contain code that looks like the following, where this example is drawn from
+the %Layout package:
 
 @code{.cpp}
-             ListOfGroups mGroups;
+option(ENABLE_GROUPS
+"Enable libSBML support for the SBML Level 3 Groups ('groups') package." OFF)
+
+# Provide summary status                                    =
+list(APPEND LIBSBML_PACKAGE_SUMMARY "SBML 'groups' package  = ${ENABLE_GROUPS}")
+
+if(ENABLE_GROUPS)
+  add_definitions(-DUSE_GROUPS)
+  set(LIBSBML_PACKAGE_INCLUDES ${LIBSBML_PACKAGE_INCLUDES} "LIBSBML_HAS_PACKAGE_GROUPS")
+  list(APPEND SWIG_EXTRA_ARGS -DUSE_GROUPS)
+  list(APPEND SWIG_SWIGDOCDEFINES --define USE_GROUPS)
+endif()
 @endcode
 
-  <h4><a class="anchor" name="i3-2-2">3-2-2. Override the following functions in the SBasePlugin class</a></h4>
-
-    <ul>
-           <li> Constructor
-
-	     <p>
-                SBasePlugin(const std::string& uri, const std::string &prefix)
-	     </p>
-
-           <li> Copy Constructor
-
-	     <p>
-                SBasePlugin(const SBasePlugin&)
-	     </p>
-
-           <li> Assignment operator 
-
-           <li> clone() function
-	     <p>
-                Basically, clone() function is implemented by using the copy constructor.
-	     </p>
-    </ul>
-
-
-          <p><em>NOTE</em></p>
-
-	  <p>
-	  'src/extension/SBMLDocumentPlugin.{h,cpp} is a simple example
-           files in which these functions are implemented.
-	   </p>
-
-  <h4><a class="anchor" name="i3-2-3">3-2-3. Override the following virtual functions if one or more attributes are added to the target core element</a></h4>
-
-    <ul>
-        <li> addExpectedAttributes()
-        <li> readAttributes()
-        <li> hasRequiredAttributes()
-    </ul>
-
-  <h4><a class="anchor" name="i3-2-4">3-2-4. Override the following virtual functions if one or more top-level elements are added to the target core element</a></h4>    
-
-    <ul>
-      <li> createObject()
-      <li> writeElements()
-      <li> hasRequiredElements()
-      <li> setSBMLDocument()
-      <li> connectToParent() 
-      <li> enablePackageInternal()
-    </ul>
-
-
-        <p><em>NOTE</em></p>
-	<p>
-	'src/packages/groups/extension/GroupsModelPlugin.{h,cpp}' and
-        'src/packages/layout/extension/LayoutModelPlugin.{h,cpp}'
-         are example files in which the functions are implemented.
-	</p>
-
-  <h4><a class="anchor" name="i3-2-5">3-2-5. The following virtual functions must be overridden if one or more additional xmlns attributes need to be added to the target element</a></h4>
-
-    <ul>
-      <li> writeXMLNS() </li>
-    </ul>          
-      
-
-	  <p><em>NOTE</em></p>
-	  <p>
-          Currently, no example files implementing this function
-	  </p>
-
-  <h4><a class="anchor" name="i3-2-6">3-2-6. Implement additional (package developer-defined) functions for manipulating the additional attributes and/or top-level elements</a></h4>
-
-    <p>
-          For example, the following manipulation functions are implemented in 
-          LayoutModelPlugin class (a class for the extension of the model element 
-          in layout package) for manipulating the additional &lt;listOfLayouts&gt; element
-          in the list element:
-    </p>
-
-    <ol>
-              <li>const ListOfLayouts* getListOfLayouts() const
-	      </li>
-              <li>ListOfLayouts*       getListOfLayouts()
-	      </li>
-              <li>Layout*              getLayout(unsigned int index)
-	      </li>
-              <li>Layout*              getLayout(const std::string &sid)
-	      </li>
-              <li>int                  addLayout(const Layout* layout)
-	      </li>
-              <li>Layout*              createLayout()
-	      </li>
-              <li>Layout*              removeLayout(unsigned int n)
-	      </li>
-              <li>int                  getNumLayouts() const
-	      </li>
-    </ol>
-
-    <p>
-          Similarly, the following manipulation functions are implemented in 
-          GroupsModelPlugin class (a class for the extension of the model element 
-          in groups package) for manipulating the additional &lt;listOfGroups&gt; element
-          in the list element:
-    </p>
-
-    <ol>
-              <li> const ListOfGroups* getListOfGroups() const
-	      </li>
-              <li> ListOfGroups*       getListOfGroups()
-	      </li>
-              <li> Group*              getGroup(unsigned int index)
-	      </li>
-              <li> Group*              getGroup(const std::string &sid)
-	      </li>
-              <li> int                 addGroup(const Group* group)
-	      </li>
-              <li> Group*              createGroup()
-	      </li>
-              <li> Group*              removeGroup(unsigned int n)
-	      </li>
-              <li> int                 getNumGroups() const
-	      </li>
-    </ol>
-
-<h2><a class="anchor" name="i4">4. Implement a forward declaration file</a></h2>    
-
-<p>
-A header file in which forward declarations for all classes defined in the
-package extension should be implemented.
-</p>
-
-<p>
-For example, please see "src/common/sbmlfwd.h" (forward declaration of SBML Core),  
-"src/packages/groups/common/groupsfwd.h" (forward declaration of Groups package), 
-and "src/packages/layout/common/layoutfwd.h" (forward declaration of Layout package)
-</p>
-
-
-<h2><a class="anchor" name="i5">5. Implement a header file which includes all SBML types defined in the extension</a></h2>    
-
-<p>
-A header file in which all SBML types defined in the extension should be implemented.
-For example, please see "src/packages/groups/common/GroupsExtensionTypes.h" of the
-groups extension and "src/packages/layout/common/LayoutExtensionTypes.h" of the
-layout extension.
-</p>
-
-<h2><a class="anchor" name="i6">6. Defines a macro vaule of the package extension</a></h2>    
-
-   <p><em>NOTE</em></p> 
-
-   <p>
-       A new package extension can be implemented and built outside the 
-       source tree of libSBML. So, this step is not mandatory if you don't
-       want to import your package extension into the source tree of libSBML.
-   </p>
-
-   <p>
-USE_\%%PACKAGE_NAME%% macro variable needs to be defined in the following files:
-   </p>
-
-   <ol>
-    <li> "src/common/libsbml-config-unix.h.in"
-    <li> "src/common/libsbml-config-win.h"
-   </ol>
-   
-   <p>
-       (\%%PACKAGE_NAME%% is a place holder of the package name.
-        For example, USE_LAYOUT is defined for the layout package.)
-   </p>	
-
-
-<h2><a class="anchor" name="i7">7. How to import a source tree of a package extension into the source tree of libSBML-5</a></h2>    
-
-   <p><em>NOTE</em></p>
-
-   <p>
-   A new package extension can be implemented and built outside the 
-   source tree of libSBML. So, this step is not mandatory if you don't 
-   want to import your package extension into the source tree of libSBML.
-   </p>	  
-
-  <h3><a class="anchor" name="i7-1">7-1. Override the following virtual functions if one or more top-level elements are added to the target core element</a></h3>
-
-    (The following example configuration is that of groups extension)
-
-      <h4><a class="anchor" name="i7-1-1">7-1-1. configure.ac</a></h4>
-
-      <ol>
-        <li> Add --enable-XXXX 
-
-@code{.m4}
-          dnl -------------------------------------------------------
-          dnl Groups extension
-          dnl -------------------------------------------------------
-  
-          AC_ARG_ENABLE([groups],
-          AC_HELP_STRING([--enable-groups@<:@=ARG@:>@],
-                         [Build the SBML groups extension (default=no)]),
-            [enable_groups=$enableval],
-            [enable_groups=no])
-  
-          if test "$enable_group" != no; then
-            AC_DEFINE([USE_GROUPS], 1, [Define to 1 to build the SBML groups extension.])
-            AC_SUBST(USE_GROUPS, 1)
-          fi
-@endcode
-
-
-        <li> Add AC_CONFIG_FILES for additional Makefile.in files
-
-
-@code{.m4}
-          AC_CONFIG_FILES([src/packages/groups/Makefile])
-          AC_CONFIG_FILES([src/packages/groups/common/Makefile])
-          AC_CONFIG_FILES([src/packages/groups/extension/Makefile])
-          AC_CONFIG_FILES([src/packages/groups/sbml/Makefile])
-@endcode
-
-  
-        <li> Add the code for noticing the enabled package
-
-@code{.m4}
-           if test "$enable_groups" != "no" ; then
-             echo "  Using groups extension  = yes"
-           fi
-@endcode
-
-
-        <li> Run a shell script "autogen.sh" in the top directory of the libsbml-5
-             as follows (for updating configure script):
-
-@code{.sh}
-              % ./autogen.sh
-@endcode
-      </ol>
-
-      <h4><a class="anchor" name="i7-1-2">7-1-2. src/packages/Makefile.in</a></h4>
-
-        Add the name of package to 'subdirs' variable based on existing code.
-
-  <h3><a class="anchor" name="i7-2">7-2. Create a directory tree of the package</a></h3>
-
-      <h4><a class="anchor" name="i7-2-1">7-2-1. Create a top directory of the package in "src/packages/"</a></h4>
-
-        <p>
-        Currently, "src/packages/groups" (groups package) and 
-        "src/packages/layout" (layout package) exist in the directory.
-        </p>
-
-      <h4><a class="anchor" name="i7-2-2">7-2-2. Create the following sub directories in the "src/packages/PKGNAME"</a></h4>
-
-      <ol>
-
-        <li> common
-
-           <p>common header and/or class files (e.g. sbmlfwd.h) are located
-
-        <li> extension
-
-           <p>SBMLExtension and SBasePlugin derived classes of the package 
-           extension are located
-
-        <li> sbml
-
-           <p>SBase derived classes of the package extension are located.
-
-        <li> util (if needed)
-
-           <p>Utility class files are located (e.g. LayoutAnnotation.{h,cpp} in
-           layout package).
-
-        <li> <p>other directories (if needed)
-
-      </ol>
-
-  <h3><a class="anchor" name="i7-3">7-3. Create Makefile.in in each sub directory based on existing 
-  Makefile.in in layout or groups extensions
-  </a></h3>
+An implementation starting with the code above could simply replace the
+string <code>GROUPS</code> with the appropriate name of the package.
+</li>
+
+</ol>
 
 */

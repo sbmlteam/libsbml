@@ -5,7 +5,7 @@ instructions for your situation:
 
 <table class="text-table borderless centered"><tr><td>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
-<li><a href="#dl-not-python-not-r">1. If you use C, C++, C#, Java, MATLAB, Perl or Ruby</a></li>
+<li><a href="#dl-not-python-not-r">1. If you use C, C++, C#, Java, JavaScript, MATLAB, Perl or Ruby</a></li>
 <li><a href="#dl-python">2. If you use Python</a>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
 <li><a href="#dl-python-pipy">2.1 Using PiPI</li>
@@ -22,18 +22,18 @@ instructions for your situation:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-not-python-not-r">1. If you use C, C++, C#, Java, MATLAB, Perl or Ruby</a></h2>
+<h2><a class="anchor" name="dl-not-python-not-r">1. If you use C, C++, C#, Java, JavaScript, MATLAB, Perl or Ruby</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> The installation packages in the libSBML <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
-site</a> contain interfaces for C, C++, C#, Java, MATLAB, Perl, Python, and
-Ruby in the same package. (However, there are better ways to get the Python
-interface, as explained below.) The download area has two subdirectories: one
-for stable releases of libSBML, and one for experimental releases.  The
-<em>stable</em> releases contain support for only the accepted parts of SBML,
-while the <em>experimental</em> releases contain code for SBML Level&nbsp;3
-packages still in development.
+site</a> contain interfaces for C, C++, C#, Java, JavaScript, MATLAB, Perl,
+Python, and Ruby in the same package. (However, there are better ways to get
+the Python interface, as explained below.) The download area has two
+subdirectories: one for stable releases of libSBML, and one for experimental
+releases.  The <em>stable</em> releases contain support for only the accepted
+parts of SBML, while the <em>experimental</em> releases contain code for SBML
+Level&nbsp;3 packages still in development.
 
 <center style="width: 500px; margin: 1em auto">
   <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml">
@@ -112,8 +112,7 @@ Python interpreter.
 
 <!-- ---------------------------------------------------------------------- -->
 <h3><a class="anchor" name="dl-python-linux">2.2 Using Linux's
-<code>apt-get</code> and <code>yum</code> together with online
-repositories</a></h3>
+<code>apt-get</code> or <code>yum</code></a></h3>
 
 <p> If you are running Linux, and you prefer to use the standard over-the-air
 installation tools provided by your operating system (e.g., <code>yum</code>

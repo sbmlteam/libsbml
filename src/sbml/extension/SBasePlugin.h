@@ -43,18 +43,12 @@
  * methods should be overridden by subclasses to implement the necessary
  * features of an extended SBML object.
  *
- * Perhaps the easiest way to explain and motivate the role of SBasePlugin is
- * through an example.  The SBML %Layout package specifies the existence of an
- * element, <code>&lt;listOfLayouts&gt;</code>, contained inside an SBML
- * <code>&lt;model&gt;</code> element.  In terms of libSBML components, this
- * means a new ListOfLayouts class of objects must be defined, and this
- * object placed in an @em extended class of Model (because Model in
- * plain/core SBML does not allow the inclusion of a ListOfLayouts
- * subobject).  This extended class of Model is LayoutModelPlugin, and it is
- * derived from SBasePlugin.
- *
+ * @if clike
  * @section sbaseplugin-howto How to extend SBasePlugin for a package implementation
  * @copydetails doc_extension_sbaseplugin
+ * @else
+ * @copydetails doc_basics_of_extensions
+ * @endif@~
  */
 
 #ifndef SBasePlugin_h
