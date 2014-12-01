@@ -431,6 +431,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 %{
   /**
    * SBMLExtension derived classes must override this method
+   * @internal
    */
   public SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
   {
@@ -442,6 +443,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 
   /**
    * SBMLExtension derived classes must override this method
+   * @internal
    */
   public SBase DowncastSBase(long cPtr, boolean owner)
   {
@@ -741,6 +743,9 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 
 %pragma(java) modulecode =
 %{ 
+  /**
+   * @internal
+   */
   public static ASTBase DowncastASTBase(long cPtr, boolean owner)
   {
     if (cPtr == 0) return null;

@@ -5,6 +5,9 @@
  */
 %typemap(javacode) LayoutExtension
 %{
+	/**
+         * @internal
+         */
 	public SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
 	{
 		if (cPtr == 0) return null;
@@ -33,6 +36,8 @@
 	 * SBMLExtension derived classes must override this method
 	 *
 	 * @return the most specific Java object possible for the given SBase
+	 *
+	 * @internal
 	 */
 	public SBase DowncastSBase(long cPtr, boolean owner)
 	{

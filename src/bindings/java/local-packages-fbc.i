@@ -5,6 +5,9 @@
  */
 %typemap(javacode) FbcExtension
 %{
+	/**
+         * @internal
+         */
 	public SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
 	{
 		if (cPtr == 0) return null;
@@ -23,6 +26,9 @@
 		}
 	}
 	
+	/**
+         * @internal
+         */
 	public SBase DowncastSBase(long cPtr, boolean owner)
 	{
 		if (cPtr == 0) return null;
