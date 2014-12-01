@@ -87,7 +87,7 @@
  * The following sections examine in detail the options understood by
  * CompFlatteningConverter and their effects on the flattening process.
  *
- * @subsection behavior-if-unflattenable Options for handling Level&nbsp;3 packages that lack flattening algorithms
+ * @subsection behavior-if-unflattenable Options for handling Level&nbsp;3 packages
  *
  * If other SBML Level&nbsp;3 packages are used in the SBMLDocument, the same
  * rules apply to each package's constructs if an implementation of the
@@ -131,7 +131,7 @@
  * <ul style="list-style-type: circle">
  *
  * <li> If the option @em "stripUnflattenablePackages" is set to @c "true", and
- *      the option @em "abortIfUnflattenable" has the value @c "requireOnly"
+ *      the option @em "abortIfUnflattenable" has the value @c "requiredOnly"
  *      or @c "none", then CompFlatteningConverter will remove all constructs
  *      belonging to packages that lack a flattening converter.  The XML
  *      namespace declaration for unflattenable SBML Level&nbsp;3 packages
@@ -147,6 +147,15 @@
  *     located was removed from the final, flattened model).
  *
  * </ul>
+ *
+ * <li> The option @em "stripPackages" controls whether SBML Level&nbsp;3
+ * package information is stripped from a model before conversion.
+ * Regardless of the above options, if an SBML package is listed in this
+ * comma-separated list, all constructs from that package will be removed
+ * from the model before the flattening algorithm is applied.  This happens
+ * whether a flattening algorithm exists for that package or not, and applies
+ * to all referenced models, both local and external.  In addition, the
+ * removal takes place before any validation is performed by libSBML.
  *
  * </ul>
  *
@@ -299,10 +308,10 @@ if (doc.getErrorLog().getNumFailsWithSeverity(libsbml.LIBSBML_SEV_ERROR) > 0)
  * converter object that will invoke CompFlatteningConverter:
 @if cpp
 @code{.cpp}
-ConversionProperties* props = new ConversionProperties();
+ConversionProperties props;
 props->addOption("flatten comp");
 SBMLConverter* converter =
-    SBMLConverterRegistry::getInstance().getConverterFor(*props);
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
 @endcode
 @endif
 @if python
@@ -443,6 +452,10 @@ writer.writeSBML(doc, args[1]);
  * <li> @em "stripUnflattenablePackages": Possible values are @c "true" or @c
  * "false" (the default).  Controls whether the constructs of Level&nbsp;3
  * packages with no flattener implementation are stripped from the output.
+ *
+ * <li> @em "stripPackages": The value must be a string representing a
+ * comma-separated list of SBML Level&nbsp;3 packages to be stripped before
+ * conversion.  (Default value: empty string, meaning, no packages.)
  *
  * <li> @em "basePath": The value must be a string representing the path where
  * the converter should search for any ExternalModelDefinition objects.
