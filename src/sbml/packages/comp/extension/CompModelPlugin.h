@@ -539,9 +539,9 @@ protected:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t} (to indicate
+   * that this Submodel itself is invalid, and no Model can be instantiated from it)
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   * In this case, 'invalid object' means that this Submodel itself is invalid, and no Model can be instantiated from it.
    */
   virtual int instantiateSubmodels();
 

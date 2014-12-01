@@ -303,10 +303,10 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}.
-   * This value is returned if any of the arguments are @c NULL.  To set an
-   * empty @p prefix and/or @p name value, use an empty string rather than @c
-   * NULL.
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * &ndash; this value is returned if any of the arguments are @c NULL.  To
+   * set an empty @p prefix and/or @p name value, use an empty string rather
+   * than @c NULL.
    *
    * @copydetails doc_note_overwrites_existing_values
    *
@@ -334,9 +334,10 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}. 
-   * This value is returned if any of the arguments are @c NULL.  To set an
-   * empty value for the attribute, use an empty string rather than @c NULL.
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * &ndash; this value is returned if any of the arguments are @c NULL.  To
+   * set an empty value for the attribute, use an empty string rather than @c
+   * NULL.
    *
    * @copydetails doc_note_overwrites_existing_values
    *
