@@ -296,7 +296,6 @@ distfiles =                                                  \
         java-substitutions/ModelCreatorList.java             \
         java-substitutions/QualPkgNamespaces.java            \
         java-substitutions/SBMLConstructorException.java     \
-        java-substitutions/SBMLExtension.java                \
         java-substitutions/SBMLNamespacesList.java           \
         java-substitutions/SBaseList.java                    \
         java-substitutions/XMLConstructorException.java      \
@@ -354,7 +353,6 @@ distfiles =                                                  \
         libsbml-sbml-specifications.txt                      \
         python-substitutions/ASTNodeList.py                  \
         python-substitutions/SBaseList.py                    \
-        python-substitutions/SBMLExtension.py                \
         python-substitutions/CVTermList.py                   \
         python-substitutions/CompPkgNamespaces.py            \
         python-substitutions/DateList.py                     \
