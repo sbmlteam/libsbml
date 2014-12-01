@@ -990,7 +990,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    *
    * SBML Levels&nbsp;2 and&nbsp;3 provides <code>&lt;csymbol&gt;</code>
    * definitions for "time" and "avogadro", which can be used to represent
-   * simulation time and Avogadro's constant in MathML.
+   * simulation time and Avogadro's constant in MathML.  Note that this
+   * method does @em not return @c true for the other <code>csymbol</code>
+   * values defined by SBML, "delay", because the "delay" is a function
+   * and not a constant or variable.
    *
    * @return @c true if this ASTNode is a user-defined variable name in SBML
    * or the special symbols for time or Avogadro's constant. It returns @c
