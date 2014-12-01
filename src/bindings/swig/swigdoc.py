@@ -1249,22 +1249,35 @@ def rewriteDocstringForCSharp (docstring):
   # this rewriting affects only the documentation comments inside classes &
   # methods, not the actual method signatures.)
 
-  docstring = docstring.replace(r'const char *', 'string ')
-  docstring = docstring.replace(r'const char* ', 'string ')
-  docstring = docstring.replace(r'an unsigned int', 'a long integer')
-  docstring = docstring.replace(r'unsigned int', 'long')
-  docstring = docstring.replace(r'const std::string&', 'string')
-  docstring = docstring.replace(r'const std::string &', 'string ')
-  docstring = docstring.replace(r'const std::string', 'string')
-  docstring = docstring.replace(r'std::string', 'string')
+  docstring = re.sub(r'const\s+char\s+\*',    'string ',        docstring)
+  docstring = re.sub(r'char\s+const\s+\*',    'string ',        docstring)
+  docstring = re.sub(r'const\s+char\* ',      'string ',        docstring)
+  docstring = re.sub(r'const\s+std::string&', 'string',         docstring)
+  docstring = re.sub(r'const\s+std::string',  'string',         docstring)
+  docstring = re.sub(r'std::string',          'string',         docstring)
+  docstring = re.sub(r'bool\s+const\s+&',     'bool',           docstring)
+  docstring = re.sub(r'float\s+const\s+&',    'float',          docstring)
+  docstring = re.sub(r'double\s+const\s+&',   'float',          docstring)
+  docstring = re.sub(r'long\s+const\s+&',     'long',           docstring)
+  docstring = re.sub(r'an unsigned int',      'a long integer', docstring)
+  docstring = re.sub(r'unsigned int const &', 'long integer',   docstring)
+
   docstring = docstring.replace(r'const ', '')
   docstring = docstring.replace(r'NULL', 'null')
-  docstring = docstring.replace(r'boolean', 'bool')
 
   # Use C# syntax instead of "const XMLNode*" etc.
 
   p = re.compile(r'(const )?(|%)?(' + '|'.join(libsbml_classes) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRef, docstring)
+
+  # Remove other cases of "const", with special attention to trailing "const"
+  # in method references.  We sometimes have to write "blah blah blah foo(x)
+  # const blah blah" (i.e., include the trailing const when referring to a
+  # function) because otherwise Doxygen won't match up the method.  We don't
+  # want to over-match the string "const", and we don't want to eat the
+  # following character either.  Thus:
+
+  docstring = re.sub(r'const(\W)', r'\1', docstring)
 
   # Do replacements on some documentation text we sometimes use.
 
@@ -1669,11 +1682,19 @@ def postProcessOutput(istream, ostream):
 
   if language == 'python':
     contents = postProcessOutputForPython(contents)
-  elif language == 'java':
+
+  if language == 'java':
     # Javadoc doesn't have an @htmlinclude command, so we process the file
     # inclusion directly here.
     p = re.compile('@htmlinclude\s+(\*\s+)*([-\w."\']+)', re.DOTALL)   #'
     contents = p.sub(translateInclude, contents)
+
+  if language == 'csharp':
+    # Some weird glitches in the code elsewhere I haven't figured out.
+    p = re.compile('^([ \t]*\*)[ \t]+\*[ \t]*$', re.MULTILINE)
+    contents = p.sub(r'\1', contents)
+    p = re.compile('^([ \t]*\*[ \t]*)\n[ \t]*\*[ \t]*\n[ \t]*\*[ \t]*@li', re.MULTILINE)
+    contents = p.sub(r'\1 @li', contents)
 
   ostream.write(contents)
 
