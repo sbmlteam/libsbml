@@ -136,7 +136,7 @@ dl.el {
 }
 
 .memdoc div.fragment {
-    margin: 0.5em 1.75em 0px 1.75em;
+    margin: 0.5em 1.75em 0.5em 1.75em;
 }
 
 div.contents :not(div.memdoc)  div.fragment div.line:first-child {
@@ -1406,7 +1406,7 @@ a[href="#details"] {
 }
 
 img.big-icon {
-    vertical-align: -40%;
+    vertical-align: middle;
     margin: auto 5px;
     border: none;
 }
