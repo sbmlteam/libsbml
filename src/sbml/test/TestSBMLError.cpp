@@ -36,12 +36,13 @@
 
 #endif
 
-
 #include <limits>
 
-#include <check.h>
 #include <SBMLError.h>
 #include <SBMLErrorLog.h>
+
+#undef fail
+#include <check.h>
 
 /** @cond doxygenIgnored */
 
