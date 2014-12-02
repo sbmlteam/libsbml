@@ -41,6 +41,7 @@
 
 #include <check.h>
 #include <SBMLError.h>
+#include <SBMLErrorLog.h>
 
 /** @cond doxygenIgnored */
 
@@ -132,6 +133,25 @@ START_TEST (test_SBMLError_create)
 }
 END_TEST
 
+START_TEST(test_SBMLErrorLog_removeAll)
+{
+  SBMLErrorLog log;
+
+  // add errors 
+  log.add(SBMLError(1234, 2, 4));
+  log.add(SBMLError(1234, 2, 4));
+  log.add(SBMLError(1234, 2, 4));
+  log.add(SBMLError(1234, 2, 4));
+
+  fail_unless(log.contains(1234) == true);
+  log.remove(1234);
+  
+  fail_unless(log.contains(1234) == true);
+  log.removeAll(1234);
+
+  fail_unless(log.contains(1234) == false);
+}
+END_TEST
 
 Suite *
 create_suite_SBMLError (void)
@@ -140,6 +160,7 @@ create_suite_SBMLError (void)
   TCase *tcase = tcase_create("SBMLError");
 
   tcase_add_test( tcase, test_SBMLError_create  );
+  tcase_add_test( tcase, test_SBMLErrorLog_removeAll  );
   suite_add_tcase(suite, tcase);
 
   return suite;

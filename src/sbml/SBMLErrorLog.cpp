@@ -251,6 +251,28 @@ SBMLErrorLog::remove (const unsigned int errorId)
   }
 }
 
+void
+SBMLErrorLog::removeAll (const unsigned int errorId)
+{
+  vector<XMLError*>::iterator delIter;
+
+  // finds an item with the given errorId (the first item will be found if
+  // there are two or more items with the same Id)
+  delIter = find_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+
+  while ( delIter != mErrors.end() )
+  {
+    // deletes (invoke delete operator for the matched item) and erases (removes
+    // the pointer from mErrors) the matched item (if any)
+    delete *delIter;
+    mErrors.erase(delIter);
+
+    delIter = find_if(mErrors.begin(), mErrors.end(), MatchErrorId(errorId));
+  }
+}
+
+
+
 
 bool
 SBMLErrorLog::contains (const unsigned int errorId)

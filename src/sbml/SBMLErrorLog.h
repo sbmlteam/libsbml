@@ -322,6 +322,13 @@ public:
 
 
   /**
+   * Removes all errors having errorId from the SBMLError list.
+   *
+   * @param errorId the error identifier of the error to be removed.
+   */
+  void removeAll(const unsigned int errorId);
+
+  /**
    * Returns true if SBMLErrorLog contains an errorId
    *
    * @param errorId the error identifier of the error to be found.
