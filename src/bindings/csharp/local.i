@@ -185,6 +185,14 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 %csmethodmodifiers  _CNAME_ ## ::_METHOD_  "public new"
 %enddef
 
+// generic definition for all types, that allows to specify any method as 
+// public new. Used by comp and other packages
+
+%define COVARIANT_RTYPE_FUNCTION(_CNAME_, _FNAME_)
+%typemap(cstype) _CNAME_* _CNAME_::_FNAME_  "_CNAME_"
+%csmethodmodifiers _CNAME_::_FNAME_  "public new"
+%enddef
+
 //////////////////////////////////////////////////////////////////////
 
 
