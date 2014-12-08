@@ -4,7 +4,7 @@ This directory contains the libSBML @PACKAGE_VERSION@ package files for R.
 
 Please navigate to either the [Source Package](Source%20Package) or [Binary Package](Binary%20Package) folder to select your preferred installation method.  
 
-
+The binary installation will provide a faster installation but will only work if the version of R being used matches the version used to create the installer (R v3.0 in this instance).  The source package will invoke a build within R and create the appropriate package for whichever R version is being used.
 
 ### **_Additional information_**
 
