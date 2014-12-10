@@ -73,11 +73,13 @@ headers =		   \
   ResultBecomesNegative.h  \
   ResultExceedsMaximum.h
 
+constraints_files = $(wildcard ./*.cxx) 
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) $(other_headers) Makefile.in
+distfiles = $(sources) $(headers) $(other_headers) $(constraints_files) Makefile.in
 
 ifeq "$(HOST_TYPE)" "cygwin"
 
