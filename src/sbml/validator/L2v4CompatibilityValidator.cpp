@@ -51,7 +51,7 @@ void
 L2v4CompatibilityValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/L2v4CompatibilityConstraints.cpp"
+#include "constraints/L2v4CompatibilityConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

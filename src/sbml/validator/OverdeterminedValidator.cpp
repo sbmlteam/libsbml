@@ -53,7 +53,7 @@ void
 OverdeterminedValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/OverdeterminedConstraints.cpp"
+#include "constraints/OverdeterminedConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

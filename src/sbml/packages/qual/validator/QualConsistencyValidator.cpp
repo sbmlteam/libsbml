@@ -51,7 +51,7 @@ void
 QualConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/QualConsistencyConstraints.cpp"
+#include "constraints/QualConsistencyConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

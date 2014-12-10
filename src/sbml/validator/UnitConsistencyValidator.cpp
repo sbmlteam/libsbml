@@ -53,7 +53,7 @@ void
 UnitConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/UnitConsistencyConstraints.cpp"
+#include "constraints/UnitConsistencyConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

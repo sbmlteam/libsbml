@@ -51,7 +51,7 @@ void
 L1CompatibilityValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/L1CompatibilityConstraints.cpp"
+#include "constraints/L1CompatibilityConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

@@ -45,7 +45,7 @@ void
 CompIdentifierConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/CompIdentifierConsistencyConstraints.cpp"
+#include "constraints/CompIdentifierConsistencyConstraintsDeclared.cxx"
 }
 
 #endif /* __cplusplus */

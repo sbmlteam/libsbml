@@ -53,7 +53,7 @@ void
 SBOConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/SBOConsistencyConstraints.cpp"
+#include "constraints/SBOConsistencyConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

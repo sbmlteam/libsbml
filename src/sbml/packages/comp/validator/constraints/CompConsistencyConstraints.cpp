@@ -837,8 +837,7 @@ START_CONSTRAINT (CompSubmodelCannotReferenceSelf, Submodel, s)
 END_CONSTRAINT
 
 // 20617 
-EXTERN_CONSTRAINT( CompModCannotCircularlyReferenceSelf, 
-                                                SubmodelReferenceCycles)
+EXTERN_CONSTRAINT( CompModCannotCircularlyReferenceSelf, SubmodelReferenceCycles)
 
 // 20618 - 20621 non existant
 

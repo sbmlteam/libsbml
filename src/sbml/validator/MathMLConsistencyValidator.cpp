@@ -53,7 +53,7 @@ void
 MathMLConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/MathMLConsistencyConstraints.cpp"
+#include "constraints/MathMLConsistencyConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

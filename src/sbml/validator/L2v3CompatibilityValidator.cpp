@@ -51,7 +51,7 @@ void
 L2v3CompatibilityValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/L2v3CompatibilityConstraints.cpp"
+#include "constraints/L2v3CompatibilityConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

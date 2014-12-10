@@ -53,7 +53,7 @@ void
 ModelingPracticeValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/ModelingPracticeConstraints.cpp"
+#include "constraints/ModelingPracticeConstraintsDeclared.cxx"
 }
 
 LIBSBML_CPP_NAMESPACE_END

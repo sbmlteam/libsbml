@@ -607,8 +607,7 @@ START_CONSTRAINT (LayoutSRGAllowedElements, SpeciesReferenceGlyph, glyph)
 END_CONSTRAINT
 
 //21006
-START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject, 
-                                        SpeciesReferenceGlyph, glyph)
+START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject, SpeciesReferenceGlyph, glyph)
 {
   pre(glyph.isSetMetaIdRef() == true);
 
@@ -628,8 +627,7 @@ START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject,
 END_CONSTRAINT
 
 //21008
-START_CONSTRAINT (LayoutSRGSpeciesRefMustRefObject, 
-                                             SpeciesReferenceGlyph, glyph)
+START_CONSTRAINT (LayoutSRGSpeciesRefMustRefObject, SpeciesReferenceGlyph, glyph)
 {
   pre(glyph.isSetSpeciesReferenceId() == true);
 
@@ -685,8 +683,7 @@ START_CONSTRAINT (LayoutSRGNoDuplicateReferences, SpeciesReferenceGlyph, glyph)
 END_CONSTRAINT
 
 //20911
-START_CONSTRAINT (LayoutSRGSpeciesGlyphMustRefObject, 
-                                  SpeciesReferenceGlyph, glyph)
+START_CONSTRAINT (LayoutSRGSpeciesGlyphMustRefObject, SpeciesReferenceGlyph, glyph)
 {
   pre(glyph.isSetSpeciesGlyphId() == true);
 

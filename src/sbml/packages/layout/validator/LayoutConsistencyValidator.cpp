@@ -47,7 +47,7 @@ void
 LayoutConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/LayoutConsistencyConstraints.cpp"
+#include "constraints/LayoutConsistencyConstraintsDeclared.cxx"
 }
 
 #endif /* __cplusplus */

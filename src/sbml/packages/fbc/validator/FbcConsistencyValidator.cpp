@@ -45,7 +45,7 @@ void
 FbcConsistencyValidator::init ()
 {
 #define  AddingConstraintsToValidator 1
-#include "constraints/FbcConsistencyConstraints.cpp"
+#include "constraints/FbcConsistencyConstraintsDeclared.cxx"
 }
 
 #endif /* __cplusplus */
