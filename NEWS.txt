@@ -8,6 +8,21 @@
 STABLE RELEASE
 
 * New features
+
+  - Functions have been added to allow users to determine the
+    number of SBML L3 packages within a document that the build
+    of libSBML does not support.
+
+  - The StripPackageConverter has a new option 'stripAllUnrecognized'
+    which is set to true will strip all SBML L3 packages that are
+    not supported by the build of libSBML being used.
+
+  - The XMLErrorLog::remove(unsigned int errorId) function only removes
+    the first instance of the error with the matching identifier. A new
+    function removeAll(unsigned int errorId) has been added that will 
+    remove all instances of the error with the given id.
+
+
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
@@ -15,6 +30,11 @@ STABLE RELEASE
   - 'qual' package-specific updates:
 
 * Bug fixes
+
+  - A stack overflow could occur when libSBML was built with certain 
+    compilers on certain platforms. We have eliminated this problem
+    from the situations in which we can replicate it. The issue 
+    occurred when performing intensive validation.
 
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
@@ -39,6 +59,10 @@ EXPERIMENTAL RELEASE
   - 'render' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
+
+    - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
+      were not working as expected. These have been fixed. Thanks to 
+      Harold Gómez for reporting this.
 
  * Bug fixes
  
