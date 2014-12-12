@@ -1,4 +1,5 @@
-#!/usr/bin/env python                        # -*- python-indent-offset: 2 -*-
+#!/usr/bin/env python
+# -*- python-indent-offset: 2 -*-
 #
 # @file    doc-filter-python.py
 # @brief   Post-process libSBML's Python doc strings for use by Doxygen.
