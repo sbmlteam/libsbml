@@ -290,7 +290,7 @@ STABLE RELEASE
     
   - LibSBML incorrectly reported the units of 'pi' as radians. This
     has been corrected to report 'dimensionless'.  Thanks to Matthias
-    König for reporting this.
+    KÃ¶nig for reporting this.
 
   - The L3 parser did not recognize 'arcsinh' or 'asinh' as valid
     built-in functions.  This has been fixed.
@@ -1687,16 +1687,16 @@ STABLE RELEASE
     Line numbers were not being reported as accurately for L2 models 
     as for L3 models. We have overviewed all the code relating
     to line numbers and improved the accuracy and consistency
-    of line numbers reported. Thanks to Raimund Rönn for the report.  
+    of line numbers reported. Thanks to Raimund RÃ¶nn for the report.  
 
   - Tracker issue #3471902
     The documentation for the readSBMLFromString function claimed it
     prepend the xml encoding if it was not present. In fact, the 
     function did not do this. This has been corrected. Thanks to
-    Raimund Rönn for reporting it.  
+    Raimund RÃ¶nn for reporting it.  
     
   - Tracker issue #3466104
-    Fixed inaccuracies in the documentation. Thanks to Raimund Rönn
+    Fixed inaccuracies in the documentation. Thanks to Raimund RÃ¶nn
     for his careful reading and taking the time to report the errors.
     
   - Validation failed to notice that csymbol avogadro was not valid
@@ -1873,10 +1873,10 @@ STABLE RELEASE
   - Tracker issue #3461400
     Writing out an L2 model with Layout annotation caused duplicate
     annotations to be written out.  This has been fixed.  Thanks to
-    Raimund Rönn for reporting the problem.
+    Raimund RÃ¶nn for reporting the problem.
 
   - Tracker issue #3462055  
-    A couple of typos have been corrected.  Thanks to Raimund Rönn 
+    A couple of typos have been corrected.  Thanks to Raimund RÃ¶nn 
     for taking the time to report these.
        
   - The documentation for Python did not omit internal libSBML
