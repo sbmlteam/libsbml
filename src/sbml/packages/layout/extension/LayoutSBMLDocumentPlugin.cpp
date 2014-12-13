@@ -266,8 +266,15 @@ LayoutSBMLDocumentPlugin::populateValidationLists()
 
   MetaIdFilter metaidFilter;
 
-  List* allElementsWithMetaid = doc->getModel()->getAllElements(&metaidFilter);
-  
+  Model* mod = doc->getModel();
+  List* allElementsWithMetaid;
+  if (mod==NULL) {
+    allElementsWithMetaid = new List();
+  }
+  else {
+    allElementsWithMetaid = doc->getModel()->getAllElements(&metaidFilter);
+  }  
+
   for (unsigned int i = 0; i < allElementsWithMetaid->getSize(); i++)
   {
     mMetaIdList.append(static_cast<SBase*>
@@ -278,7 +285,12 @@ LayoutSBMLDocumentPlugin::populateValidationLists()
   
   IdFilter idFilter;
 
-  mElementsWithId = doc->getModel()->getAllElements(&idFilter);
+  if (mod==NULL) {
+    mElementsWithId = new List();
+  }
+  else {
+    mElementsWithId = doc->getModel()->getAllElements(&idFilter);
+  }  
   
   for (unsigned int i = 0; i < mElementsWithId->getSize(); i++)
   {
