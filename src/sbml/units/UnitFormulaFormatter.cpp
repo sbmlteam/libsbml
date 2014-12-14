@@ -2464,7 +2464,7 @@ UnitFormulaFormatter::inverseFunctionOnUnits(UnitDefinition* expectedUD,
     {
       try
       {
-        resolvedUD = new UnitDefinition(model->getSBMLNamespaces());
+        resolvedUD = new UnitDefinition(expectedUD->getSBMLNamespaces());
       }
       catch ( ... )
       {
