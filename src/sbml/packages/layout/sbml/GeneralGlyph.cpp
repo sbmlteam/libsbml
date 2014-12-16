@@ -777,7 +777,7 @@ GeneralGlyph::createObject (XMLInputStream& stream)
     if (mReferenceGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mReferenceGlyphs;
@@ -787,7 +787,7 @@ GeneralGlyph::createObject (XMLInputStream& stream)
     if (mSubGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mSubGlyphs;
@@ -797,7 +797,7 @@ GeneralGlyph::createObject (XMLInputStream& stream)
     if (getCurveExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutGGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mCurve;
@@ -858,13 +858,13 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOAddGOAllowedAttribut,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -876,13 +876,13 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOAddGOAllowedAttribut,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}
@@ -902,7 +902,7 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -910,7 +910,7 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutGGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -928,12 +928,12 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mReference.empty() == true)
 		{
-			logEmptyString(mReference, getLevel(), getVersion(), "<GeneralGlyph>");
+      logEmptyString(mReference, getLevel(), getVersion(), "<GeneralGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
 		{
 			getErrorLog()->logPackageError("layout", LayoutGGReferenceSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 

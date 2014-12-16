@@ -380,13 +380,13 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOTextGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -398,13 +398,13 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOTextGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}
@@ -424,7 +424,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -432,7 +432,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutTGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -450,12 +450,12 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mGraphicalObject.empty() == true)
 		{
-			logEmptyString(mGraphicalObject, getLevel(), getVersion(), "<TextGlyph>");
+      logEmptyString(mGraphicalObject, getLevel(), getVersion(), "<TextGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mGraphicalObject) == false)
 		{
 			getErrorLog()->logPackageError("layout", LayoutTGGraphicalObjectSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 
@@ -470,7 +470,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mText.empty() == true)
 		{
-			logEmptyString(mText, getLevel(), getVersion(), "<TextGlyph>");
+      logEmptyString(mText, getLevel(), getVersion(), "<TextGlyph>");
 		}
 	}
 
@@ -485,12 +485,12 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mOriginOfText.empty() == true)
 		{
-			logEmptyString(mOriginOfText, getLevel(), getVersion(), "<TextGlyph>");
+      logEmptyString(mOriginOfText, getLevel(), getVersion(), "<TextGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mOriginOfText) == false)
 		{
 			getErrorLog()->logPackageError("layout", LayoutTGOriginOfTextSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 

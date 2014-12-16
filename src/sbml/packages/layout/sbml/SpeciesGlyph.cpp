@@ -297,13 +297,13 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSpeciesGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -315,13 +315,13 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSpeciesGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}
@@ -341,7 +341,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -349,7 +349,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutSGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -367,12 +367,12 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mSpecies.empty() == true)
 		{
-			logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
+      logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
 		{
 			getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 

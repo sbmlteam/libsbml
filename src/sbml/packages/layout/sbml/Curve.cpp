@@ -415,7 +415,7 @@ Curve::createObject (XMLInputStream& stream)
     if (mCurveSegments.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutCurveAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mCurveSegments;
@@ -456,7 +456,7 @@ void Curve::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutCurveAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -465,7 +465,7 @@ void Curve::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutCurveAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -603,7 +603,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
       //              Failed to read xsi:type" << std::endl;
 			getErrorLog()->logPackageError("layout", 
                      LayoutXsiTypeAllowedLocations,
-			               getPackageVersion(), getLevel(), getVersion());
+			               getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
 
       return object;
     }
@@ -623,7 +623,7 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
     else
     {
 			getErrorLog()->logPackageError("layout", LayoutXsiTypeSyntax,
-			               getPackageVersion(), getLevel(), getVersion());
+			               getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     delete layoutns;
   }

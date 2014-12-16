@@ -385,13 +385,13 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOCompGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -403,7 +403,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
@@ -429,7 +429,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -437,7 +437,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutCGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -458,12 +458,12 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 		  if (mCompartment.empty() == true)
 		  {
 			  logEmptyString(mCompartment, getLevel(), getVersion(), 
-                                     "<CompartmentGlyph>");
+          "<CompartmentGlyph>");
 		  }
 		  else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
 		  {
 			  getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
-				               getPackageVersion(), sbmlLevel, sbmlVersion);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		  }
     }
 	}
@@ -483,7 +483,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
 			{
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", LayoutCGOrderMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 		}
 	}

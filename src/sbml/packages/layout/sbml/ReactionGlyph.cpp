@@ -589,7 +589,7 @@ ReactionGlyph::createObject (XMLInputStream& stream)
     if (mSpeciesReferenceGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mSpeciesReferenceGlyphs;
@@ -599,7 +599,7 @@ ReactionGlyph::createObject (XMLInputStream& stream)
     if (getCurveExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutRGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mCurve;
@@ -660,13 +660,13 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLORnGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -678,13 +678,13 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLORnGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}
@@ -704,7 +704,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -712,7 +712,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutRGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -730,12 +730,12 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mReaction.empty() == true)
 		{
-			logEmptyString(mReaction, getLevel(), getVersion(), "<ReactionGlyph>");
+      logEmptyString(mReaction, getLevel(), getVersion(), "<ReactionGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mReaction) == false)
 		{
 			getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 

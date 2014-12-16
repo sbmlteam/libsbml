@@ -437,7 +437,7 @@ LineSegment::createObject (XMLInputStream& stream)
     if (getStartExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutLSegAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mStartPoint;
@@ -448,7 +448,7 @@ LineSegment::createObject (XMLInputStream& stream)
     if (getEndExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutLSegAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mEndPoint;
@@ -496,7 +496,7 @@ void LineSegment::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", 
                   LayoutLOCurveSegsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -505,7 +505,7 @@ void LineSegment::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                   LayoutLOCurveSegsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -526,12 +526,12 @@ void LineSegment::readAttributes (const XMLAttributes& attributes,
         if (this->getTypeCode() == SBML_LAYOUT_LINESEGMENT)
         {
 				  getErrorLog()->logPackageError("layout", LayoutLSegAllowedAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
  				  getErrorLog()->logPackageError("layout", LayoutCBezAllowedAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
        }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -543,13 +543,13 @@ void LineSegment::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                          LayoutLSegAllowedCoreAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                          LayoutCBezAllowedCoreAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}

@@ -405,7 +405,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -414,7 +414,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutDimsAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -432,12 +432,12 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 
 		if (mId.empty() == true)
 		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Dimensions>");
+      logEmptyString(mId, getLevel(), getVersion(), "<Dimensions>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
 		{
       getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 
@@ -457,13 +457,13 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 			else
 			{
 				std::string message = "Layout attribute 'width' is missing.";
 				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 			}
 		}
 	}
@@ -484,13 +484,13 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 			else
 			{
 				std::string message = "Layout attribute 'height' is missing.";
 				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 			}
 		}
 	}
@@ -512,7 +512,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 		}
 	}

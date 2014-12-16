@@ -622,7 +622,7 @@ BoundingBox::createObject (XMLInputStream& stream)
     if (getDimensionsExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutBBoxAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
     object = &mDimensions;
     mDimensionsExplicitlySet = true;
@@ -633,7 +633,7 @@ BoundingBox::createObject (XMLInputStream& stream)
     if (getPositionExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutBBoxAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       object = &mPosition;
       mPositionExplicitlySet = true;
@@ -676,7 +676,7 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutBBoxAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -685,7 +685,7 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutBBoxAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}

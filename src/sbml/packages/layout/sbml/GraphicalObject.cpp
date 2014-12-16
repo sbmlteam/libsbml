@@ -524,35 +524,35 @@ GraphicalObject::createObject(XMLInputStream& stream)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutCGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
         getErrorLog()->logPackageError("layout", LayoutRGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       default:
         getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
         break;
       }
     }
@@ -610,7 +610,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("layout",
           LayoutLOSubGlyphAllowedAttribs,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
       else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
@@ -619,7 +619,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("layout",
           LayoutLOSubGlyphAllowedAttribs,
-          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
   }
@@ -645,35 +645,35 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         {
         case SBML_LAYOUT_COMPARTMENTGLYPH:
           getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_REACTIONGLYPH:
           getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_SPECIESGLYPH:
           getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
           getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_TEXTGLYPH:
           getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_REFERENCEGLYPH:
           getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         case SBML_LAYOUT_GENERALGLYPH:
           getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         default:
           getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
           break;
         }
       }
@@ -702,42 +702,42 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
           case SBML_LAYOUT_COMPARTMENTGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutCGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_REACTIONGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutRGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_SPECIESGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutSGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutSRGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_TEXTGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutTGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_REFERENCEGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutREFGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           case SBML_LAYOUT_GENERALGLYPH:
             getErrorLog()->logPackageError("layout",
               LayoutGGAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
           default:
             getErrorLog()->logPackageError("layout",
               LayoutGOAllowedCoreAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, details);
+              getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
             break;
         }
       }
@@ -768,7 +768,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         // conform to the SBML type SId.
         //
         getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
     }
     else
@@ -779,35 +779,35 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
         getErrorLog()->logPackageError("layout", LayoutRGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSRGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       default:
         getErrorLog()->logPackageError("layout", LayoutGOAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       }
     }
@@ -823,35 +823,35 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutCGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
         getErrorLog()->logPackageError("layout", LayoutRGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSRGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutREFGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       default:
         getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion);
+          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
         break;
       }
     }

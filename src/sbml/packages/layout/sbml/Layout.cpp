@@ -1453,7 +1453,7 @@ Layout::createObject (XMLInputStream& stream)
     if (mCompartmentGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mCompartmentGlyphs;
@@ -1464,7 +1464,7 @@ Layout::createObject (XMLInputStream& stream)
     if (mSpeciesGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mSpeciesGlyphs;
@@ -1474,7 +1474,7 @@ Layout::createObject (XMLInputStream& stream)
     if (mReactionGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mReactionGlyphs;
@@ -1484,7 +1484,7 @@ Layout::createObject (XMLInputStream& stream)
     if (mTextGlyphs.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mTextGlyphs;
@@ -1494,7 +1494,7 @@ Layout::createObject (XMLInputStream& stream)
     if (mAdditionalGraphicalObjects.size() != 0)
     {
       getErrorLog()->logPackageError("layout", LayoutOnlyOneEachListOf, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mAdditionalGraphicalObjects;
@@ -1504,7 +1504,7 @@ Layout::createObject (XMLInputStream& stream)
     if (getDimensionsExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutLayoutMustHaveDimensions, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
       
     object = &mDimensions;
@@ -1554,7 +1554,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutLOLayoutsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -1563,7 +1563,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                   LayoutLOLayoutsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -1582,7 +1582,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -1590,7 +1590,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", LayoutLayoutAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -1610,19 +1610,19 @@ Layout::readAttributes (const XMLAttributes& attributes,
 
 		  if (mId.empty() == true)
 		  {
-			  logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
+        logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
 		  }
 		  else if (SyntaxChecker::isValidSBMLSId(mId) == false)
 		  {
 		    getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
-		                   getPackageVersion(), sbmlLevel, sbmlVersion);
+		                   getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		  }
 	  }
 	  else
 	  {
 		  std::string message = "Layout attribute 'id' is missing.";
 		  getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+		                 getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 	  }
   }
 

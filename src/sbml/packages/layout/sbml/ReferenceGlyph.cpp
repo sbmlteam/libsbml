@@ -451,7 +451,7 @@ ReferenceGlyph::createObject (XMLInputStream& stream)
     if (getCurveExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements, 
-        getPackageVersion(), getLevel(), getVersion());
+        getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mCurve;
@@ -514,13 +514,13 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOReferenceGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
@@ -532,13 +532,13 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
 				  getErrorLog()->logPackageError("layout", 
                                     LayoutLOReferenceGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
 			}
 		}
@@ -558,7 +558,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -567,7 +567,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutREFGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -592,14 +592,14 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 		  else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
 		  {
 		    getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
-		                   getPackageVersion(), sbmlLevel, sbmlVersion);
+		                   getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		  }
 	  }
 	  else
 	  {
 		  std::string message = "Layout attribute 'glyph' is missing.";
 		  getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+		                 getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 	  }
   }
 
@@ -614,12 +614,12 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (mReference.empty() == true)
 		{
-			logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
+      logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
 		{
 		  getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion);
+		                 getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 
@@ -635,7 +635,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 
 		if (role.empty() == true  && getErrorLog() != NULL)
 		{
-			logEmptyString(role, getLevel(), getVersion(), "<ReferenceGlyph>");
+      logEmptyString(role, getLevel(), getVersion(), "<ReferenceGlyph>");
 		}
 
     this->setRole(role);

@@ -522,7 +522,7 @@ CubicBezier::createObject (XMLInputStream& stream)
     if (getBasePt1ExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutCBezAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mBasePoint1;
@@ -533,7 +533,7 @@ CubicBezier::createObject (XMLInputStream& stream)
     if (getBasePt2ExplicitlySet() == true)
     {
       getErrorLog()->logPackageError("layout", LayoutCBezAllowedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
     }
 
     object = &mBasePoint2;

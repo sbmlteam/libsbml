@@ -474,7 +474,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
 				                  getErrorLog()->getError(n)->getMessage();
 				getErrorLog()->remove(UnknownPackageAttribute);
 				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
 			{
@@ -483,7 +483,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(UnknownCoreAttribute);
 				getErrorLog()->logPackageError("layout", 
                        LayoutPointAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
 			}
 		}
 	}
@@ -501,12 +501,12 @@ void Point::readAttributes (const XMLAttributes& attributes,
 
 		if (mId.empty() == true)
 		{
-			logEmptyString(mId, getLevel(), getVersion(), "<Point>");
+      logEmptyString(mId, getLevel(), getVersion(), "<Point>");
 		}
 		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
 		{
       getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion);
+        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 		}
 	}
 
@@ -526,13 +526,13 @@ void Point::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 			else
 			{
 				std::string message = "Layout attribute 'x' is missing.";
 				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 			}
 		}
 	}
@@ -553,13 +553,13 @@ void Point::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 			else
 			{
 				std::string message = "Layout attribute 'y' is missing.";
 				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message);
+				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
 			}
 		}
 	}
@@ -581,7 +581,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
 				getErrorLog()->remove(XMLAttributeTypeMismatch);
 				getErrorLog()->logPackageError("layout", 
                      LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion);
+				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
 			}
 		}
 	}
