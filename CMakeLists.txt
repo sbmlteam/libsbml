@@ -1127,7 +1127,6 @@ endif()
 
 if(WITH_CHECK)
     message(STATUS "     Using libcheck                  = ${LIBCHECK_LIBRARY}")
-
 endif()
 
 if(WITH_CPP_NAMESPACE)
@@ -1152,14 +1151,21 @@ if(APPLE)
     endif()
 endif()
 
-if (LIBSBML_PACKAGE_SUMMARY)
 message(STATUS "")
-message(STATUS "   Support for SBML Level 3 Packages: ")
-foreach(summary ${LIBSBML_PACKAGE_SUMMARY})
-  message(STATUS "     ${summary}")
-endforeach()
+if(WITH_EXAMPLES)
+  message(STATUS "     Build examples                  = yes")
+else()
+  message(STATUS "     Build examples                  = no")
+endif()
 
 
+
+if (LIBSBML_PACKAGE_SUMMARY)
+  message(STATUS "")
+  message(STATUS "   Support for SBML Level 3 Packages: ")
+  foreach(summary ${LIBSBML_PACKAGE_SUMMARY})
+    message(STATUS "     ${summary}")
+  endforeach()
 endif(LIBSBML_PACKAGE_SUMMARY)
 
 message(STATUS "
