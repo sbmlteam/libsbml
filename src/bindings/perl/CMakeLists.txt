@@ -166,6 +166,13 @@ set(PERL_PACKAGE_INSTALL_BIN_DIR)
 if (UNIX OR CYGWIN) 
   execute_process(COMMAND "${PERL_EXECUTABLE}" -V:version
     OUTPUT_VARIABLE PERL_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
+  if (NOT PERL_VERSION)
+    message(FATAL_ERROR
+"
+Could not determine Perl version, please check the variable:
+  PERL_EXECUTABLE = ${PERL_EXECUTABLE}
+")
+  endif()
   string(REPLACE "'" "" PERL_VERSION ${PERL_VERSION})
   string(REPLACE ";" "" PERL_VERSION ${PERL_VERSION})
   string(REPLACE "version=" "" PERL_VERSION ${PERL_VERSION})
