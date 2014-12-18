@@ -203,6 +203,7 @@ examples =                                                          \
   examples/java/evaluateCustomMath.java                             \
   examples/java/layout/CMakeLists.txt                               \
   examples/java/layout/layout_example1.java                         \
+  examples/java/layout/SimpleLayoutConverter.java                   \
   examples/java/layout/layout_example1_L3.java                      \
   examples/javascript/addCVTerms.js                                 \
   examples/javascript/addingEvidenceCodes_1.js                      \
