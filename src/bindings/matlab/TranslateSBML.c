@@ -1144,6 +1144,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       case 2:
       case 3:
       case 4:
+      case 5:
         if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
           nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
         }
@@ -1243,7 +1244,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     {
       plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
-    else if (unSBMLLevel == 2 && unSBMLVersion == 4)
+    else if (unSBMLLevel == 2 && (unSBMLVersion == 4 || unSBMLVersion == 5))
     {
       plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
@@ -1872,6 +1873,10 @@ GetSpecies ( Model_t      *pModel,
     {
       mxSpeciesReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
+    else if (unSBMLVersion == 5) 
+    {
+      mxSpeciesReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
+    }
   }
   else if (unSBMLLevel == 3) 
   {
@@ -1937,6 +1942,7 @@ GetSpecies ( Model_t      *pModel,
         break;
       case 3:
       case 4:
+      case 5:
         pacSpeciesType      = Species_getSpeciesType(pSpecies);
         if (SBase_isSetSBOTerm((SBase_t*) pSpecies)) 
         {
@@ -3732,6 +3738,7 @@ GetReactants ( Reaction_t   *pReaction,
         break;
       case 3:
       case 4:
+      case 5:
         dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
         GetStoichiometryMath(pReactant, unSBMLLevel, unSBMLVersion);
         pacId       = SpeciesReference_getId(pReactant);
@@ -4048,6 +4055,7 @@ GetProducts ( Reaction_t   *pReaction,
         break;
       case 3:
       case 4:
+      case 5:
         dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
         GetStoichiometryMath(pProduct, unSBMLLevel, unSBMLVersion);
         pacId       = SpeciesReference_getId(pProduct);
@@ -6003,7 +6011,7 @@ GetEvent ( Model_t      *pModel,
     {
       mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
-    else if (unSBMLVersion == 4) 
+    else if (unSBMLVersion > 3) 
     {
       mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
@@ -6043,7 +6051,7 @@ GetEvent ( Model_t      *pModel,
         nSBO = -1;
       }
     }
-    if ((unSBMLLevel == 2 && unSBMLVersion ==4) || unSBMLLevel > 2)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 3) || unSBMLLevel > 2)
     {
       nUseValuesFromTriggerTime = Event_getUseValuesFromTriggerTime(pEvent);
     }
@@ -6181,7 +6189,7 @@ GetEvent ( Model_t      *pModel,
     }
     mxSetField(mxEventReturn,i,"name",mxCreateString(pacName)); 
     mxSetField(mxEventReturn,i,"id",mxCreateString(pacId)); 
-    if ((unSBMLLevel == 2 && unSBMLVersion == 4) || unSBMLLevel > 2)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 3) || unSBMLLevel > 2)
     {
       mxSetField(mxEventReturn,i,"useValuesFromTriggerTime",CreateIntScalar(nUseValuesFromTriggerTime)); 
     }

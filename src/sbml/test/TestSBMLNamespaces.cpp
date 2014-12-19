@@ -238,7 +238,7 @@ END_TEST
 
 START_TEST (test_SBMLNamespaces_invalid)
 {
-  SBMLNamespaces *sbml = new SBMLNamespaces(3, 2);
+  SBMLNamespaces *sbml = new SBMLNamespaces(3, 3);
 
   fail_unless( sbml->getLevel() == (unsigned int) SBML_INT_MAX );
   fail_unless( sbml->getVersion() == (unsigned int) SBML_INT_MAX );

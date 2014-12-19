@@ -1005,6 +1005,7 @@ Model::unsetSubstanceUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mSubstanceUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1030,6 +1031,7 @@ Model::unsetTimeUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mTimeUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1055,6 +1057,7 @@ Model::unsetVolumeUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mVolumeUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1080,6 +1083,7 @@ Model::unsetAreaUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mAreaUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1105,6 +1109,7 @@ Model::unsetLengthUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mLengthUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1130,6 +1135,7 @@ Model::unsetExtentUnits ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mExtentUnits.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   
@@ -1155,6 +1161,7 @@ Model::unsetConversionFactor ()
   /* only in L3 */
   if (getLevel() < 3)
   {
+    mConversionFactor.erase();
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   

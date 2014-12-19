@@ -452,6 +452,12 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           doConversion = true;
         }
         break;
+      case 5:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
       default:
         mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
         break;
@@ -681,6 +687,19 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
           }
         }
         break;
+      case 5:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility()))
+        {
+          doConversion = true;
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                            == DuplicateAnnotationInvalidInL2v4)
+              duplicateAnn = true;
+          }
+        }
+        break;
       default:
         mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
         break;
@@ -734,7 +753,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         currentModel->convertParametersToLocals(targetLevel, targetVersion);
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-        currentModel->convertL2ToL3();
+        currentModel->convertL2ToL3(strict);
         conversion = true;
       }
       break;
@@ -777,7 +796,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
             mDocument->expandFunctionDefinitions();
             mDocument->expandInitialAssignments();
             mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-            currentModel->convertL3ToL1();
+            currentModel->convertL3ToL1(strict);
             conversion = true;
           }
         }
@@ -884,6 +903,12 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         break;
       case 4:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility(), strictUnits))
+        {
+          doConversion = true;
+        }
+        break;
+      case 5:
         if (!conversion_errors(mDocument->checkL2v4Compatibility(), strictUnits))
         {
           doConversion = true;

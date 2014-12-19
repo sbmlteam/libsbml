@@ -108,6 +108,7 @@ namespace LIBSBML_CPP_NAMESPACE {
   const char* const SBML_XMLNS_L2V2 = "http://www.sbml.org/sbml/level2/version2";
   const char* const SBML_XMLNS_L2V3 = "http://www.sbml.org/sbml/level2/version3";
   const char* const SBML_XMLNS_L2V4 = "http://www.sbml.org/sbml/level2/version4";
+  const char* const SBML_XMLNS_L2V5 = "http://www.sbml.org/sbml/level2/version5";
   const char* const SBML_XMLNS_L3V1 = "http://www.sbml.org/sbml/level3/version1/core";
 }
 #else
@@ -118,6 +119,7 @@ static const char* const SBML_XMLNS_L2V1 = "http://www.sbml.org/sbml/level2";
 static const char* const SBML_XMLNS_L2V2 = "http://www.sbml.org/sbml/level2/version2";
 static const char* const SBML_XMLNS_L2V3 = "http://www.sbml.org/sbml/level2/version3";
 static const char* const SBML_XMLNS_L2V4 = "http://www.sbml.org/sbml/level2/version4";
+static const char* const SBML_XMLNS_L2V5 = "http://www.sbml.org/sbml/level2/version5";
 static const char* const SBML_XMLNS_L3V1 = "http://www.sbml.org/sbml/level3/version1/core";
 #endif
 

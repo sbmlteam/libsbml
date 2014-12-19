@@ -58,6 +58,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 CVTerm::CVTerm(QualifierType_t type) :
     mHasBeenModified (false)
+  , mNestedCVTerms (NULL)
 
 {
   mResources = new XMLAttributes();
@@ -78,6 +79,7 @@ CVTerm::CVTerm(QualifierType_t type) :
  */
 CVTerm::CVTerm(const XMLNode node) :
     mHasBeenModified (false)
+  , mNestedCVTerms(NULL)
 {
   const string& name = node.getName();
   const string& prefix = node.getPrefix();
@@ -103,9 +105,25 @@ CVTerm::CVTerm(const XMLNode node) :
 
   for (unsigned int n = 0; n < Bag.getNumChildren(); n++)
   {
-    for (int b = 0; b < Bag.getChild(n).getAttributes().getLength(); b++)
+    // need to look to see if we have a nested annotation
+    XMLNode child = Bag.getChild(n);
+
+    if (child.getNumChildren() == 0)
     {
-      addResource(Bag.getChild(n).getAttributes().getValue(b));
+      for (int b = 0; b < child.getAttributes().getLength(); b++)
+      {
+        addResource(child.getAttributes().getValue(b));
+      }
+    }
+    else
+    {
+      // check we have a correct node
+      if (mNestedCVTerms == NULL)
+      {
+        mNestedCVTerms = new List();
+      }
+      CVTerm *term = new CVTerm(child);
+      mNestedCVTerms->add((void *)(term));
     }
   }
 
@@ -119,6 +137,17 @@ CVTerm::~CVTerm()
 {
   delete mResources;
   mResources = NULL;
+
+  if (mNestedCVTerms != NULL)
+  {
+    unsigned int size = mNestedCVTerms->getSize();
+    while (size > 0) 
+    {
+      delete static_cast<CVTerm*>( mNestedCVTerms->remove(0) );
+      size--;
+    }
+    delete mNestedCVTerms;
+  }
 }
 
 /*
@@ -139,6 +168,21 @@ CVTerm::CVTerm(const CVTerm& orig)
     mBiolQualifier  = orig.mBiolQualifier;
     mResources      = new XMLAttributes(*orig.mResources);
     mHasBeenModified = orig.mHasBeenModified;
+
+    if(orig.mNestedCVTerms != NULL)
+    {
+      this->mNestedCVTerms  = new List();
+      unsigned int i,iMax = orig.mNestedCVTerms->getSize();
+      for(i = 0; i < iMax; ++i)
+      {
+        this->mNestedCVTerms
+          ->add(static_cast<CVTerm*>(orig.mNestedCVTerms->get(i))->clone());
+      }
+    }
+    else
+    {
+      this->mNestedCVTerms = NULL;
+    }
   }
 }
 
@@ -162,6 +206,28 @@ CVTerm::operator=(const CVTerm& rhs)
     mResources=new XMLAttributes(*rhs.mResources);
 
     mHasBeenModified = rhs.mHasBeenModified;
+
+    if(this->mNestedCVTerms != NULL)
+    {
+      unsigned int size = this->mNestedCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( this->mNestedCVTerms->remove(0) );
+      delete this->mNestedCVTerms;
+    }
+
+    if(rhs.mNestedCVTerms != NULL)
+    {
+      this->mNestedCVTerms  = new List();
+      unsigned int i,iMax = rhs.mNestedCVTerms->getSize();
+      for(i = 0; i < iMax; ++i)
+      {
+        this->mNestedCVTerms
+          ->add(static_cast<CVTerm*>(rhs.mNestedCVTerms->get(i))->clone());
+      }
+    }
+    else
+    {
+      this->mNestedCVTerms = NULL;
+    }
   }
 
   return *this;
@@ -519,6 +585,103 @@ CVTerm::resetModifiedFlags()
   mHasBeenModified = false;
 }
 
+void
+CVTerm::setHasBeenModifiedFlag()
+{
+  mHasBeenModified = true;
+}
+
+unsigned int
+CVTerm::getNumNestedCVTerms() const
+{
+  if (mNestedCVTerms != NULL)
+  {
+    return mNestedCVTerms->getSize();
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+const CVTerm *
+CVTerm::getNestedCVTerm(unsigned int n) const
+{
+  return (mNestedCVTerms) ? static_cast <const CVTerm*> (mNestedCVTerms->get(n)) : NULL;
+}
+
+
+CVTerm *
+CVTerm::getNestedCVTerm(unsigned int n)
+{
+  return (mNestedCVTerms) ? static_cast <CVTerm*> (mNestedCVTerms->get(n)) : NULL;
+}
+
+
+List*
+CVTerm::getListNestedCVTerms()
+{
+  return mNestedCVTerms;
+}
+
+const List*
+CVTerm::getListNestedCVTerms() const
+{
+  return const_cast<const List*>(mNestedCVTerms);
+}
+
+
+int
+CVTerm::addNestedCVTerm(const CVTerm* term)
+{
+  if (term == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!term->hasRequiredAttributes())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  if (mNestedCVTerms == NULL)
+  {
+    mNestedCVTerms = new List();
+  }
+
+  unsigned int num = mNestedCVTerms->getSize();
+  
+  mNestedCVTerms->add((void *) term->clone());
+  
+  if (mNestedCVTerms->getSize() == num+1)
+  {
+    mHasBeenModified = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+CVTerm*
+CVTerm::removeNestedCVTerm(unsigned int n)
+{
+  CVTerm* removed = NULL;
+
+  unsigned int num = mNestedCVTerms->getSize();
+
+  if (n >= num)
+  {
+    return NULL;
+  }
+
+  removed = static_cast<CVTerm*>(mNestedCVTerms->remove(n));
+  mHasBeenModified = true;
+
+  return removed;
+}
+
 /** @endcond */
 #endif /* __cplusplus */
 
@@ -684,6 +847,54 @@ CVTerm_hasRequiredAttributes(CVTerm_t *cvt)
 }
 
 
+LIBSBML_EXTERN
+unsigned int
+CVTerm_getNumNestedCVTerms(const CVTerm_t *cvt)
+{
+  if (cvt == NULL) return SBML_INT_MAX;
+  return cvt->getNumNestedCVTerms();
+}
+
+
+LIBSBML_EXTERN
+const CVTerm_t*
+CVTerm_getNestedCVTerm(const CVTerm_t *cvt, unsigned int n)
+{
+  if (cvt == NULL) return NULL;
+  return cvt->getNestedCVTerm(n);
+}
+
+
+
+LIBSBML_EXTERN
+int
+CVTerm_addNestedCVTerm(CVTerm_t *cvt, const CVTerm_t* term)
+{
+  if (cvt == NULL) return LIBSBML_INVALID_OBJECT;
+  return cvt->addNestedCVTerm(term);
+}
+
+
+
+LIBSBML_EXTERN
+CVTerm_t*
+CVTerm_removeNestedCVTerm(CVTerm_t *cvt, unsigned int n)
+{
+  if (cvt == NULL) return NULL;
+  return (CVTerm_t *)(cvt->removeNestedCVTerm(n));
+}
+
+
+
+LIBSBML_EXTERN
+const List_t*
+CVTerm_getListNestedCVTerms(const CVTerm_t *cvt)
+{
+  if (cvt == NULL) return NULL;
+  return cvt->getListNestedCVTerms();
+}
+
+
 
 static
 const char* MODEL_QUALIFIER_STRINGS[] =
@@ -709,7 +920,7 @@ const char* BIOL_QUALIFIER_STRINGS[] =
   , "encodes"
   , "occursIn"
   , "hasProperty"
-  , "isPropertyOf"    
+  , "isPropertyOf"
   , "hasTaxon"
 };
 

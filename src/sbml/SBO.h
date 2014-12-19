@@ -508,6 +508,17 @@ public:
 
 
   /**
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
+   *
+   * @return @c true if @p term is-a %SBO <em>"quantiative systems description parameter"</em>, @c false
+   * otherwise.
+   *
+   * @copydetails doc_note_static_methods
+   */
+  static bool isQuantitativeSystemsDescriptionParameter  (unsigned int term);
+
+
+  /**
    * Predicate for checking whether the given term is obsolete.
    *
    * @return @c true if @p term is-a %SBO <em>"obsolete"</em> term, @c false otherwise.

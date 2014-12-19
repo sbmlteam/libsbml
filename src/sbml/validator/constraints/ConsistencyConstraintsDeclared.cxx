@@ -44,7 +44,7 @@ addConstraint(new VConstraintFunctionDefinition20301(*this));
 
 addConstraint(new FunctionReferredToExists(20302, *this));
 
-addConstraint(new VConstraintFunctionDefinition20303(*this));
+addConstraint(new FunctionDefinitionRecursion(20303, *this));
 
 addConstraint(new FunctionDefinitionVars(20304, *this));
 
@@ -138,6 +138,7 @@ addConstraint(new UniqueVarsInInitialAssignmentsAndRules(20803, *this));
 
 addConstraint(new VConstraintInitialAssignment20804(*this));
 
+addConstraint(new VConstraintInitialAssignment20806(*this));
 addConstraint(new VConstraintAssignmentRule20901(*this));
 
 addConstraint(new VConstraintRateRule20902(*this));
@@ -155,6 +156,10 @@ addConstraint(new VConstraintAssignmentRule20907(*this));
 addConstraint(new VConstraintRateRule20907(*this));
 
 addConstraint(new VConstraintAlgebraicRule20907(*this));
+
+addConstraint(new VConstraintAssignmentRule20911(*this));
+
+addConstraint(new VConstraintRateRule20911(*this));
 
 addConstraint(new VConstraintConstraint21001(*this));
 

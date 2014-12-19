@@ -50,6 +50,7 @@
 #include "NumberArgsMathCheck.h"
 #include "FunctionNoArgsMathCheck.h"
 #include "ValidCnUnitsValue.h"
+#include "CiElementNot0DComp.h"
 
 
 #endif
@@ -95,6 +96,7 @@ EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 // 10220: units only on cn - caught at read
 
 EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
+EXTERN_CONSTRAINT( 10222, CiElementNot0DComp    )
 
 
 /** @endcond */

@@ -87,8 +87,11 @@ getSeverityForEntry(unsigned int index,
       return errorTable[index].l2v3_severity;
 
     case 4:
-    default:
       return errorTable[index].l2v4_severity;
+
+    case 5:
+    default:
+      return errorTable[index].l2v5_severity;
     }
   }
   else
@@ -299,7 +302,7 @@ SBMLError::SBMLError (  const unsigned int errorId
     // look for individual references
     // if the code for this error does not yet exist skip
 
-    if (errorTable[index].reference.ref_l3v1 != NULL)
+    if (errorTable[index].reference.ref_l3v2 != NULL)
     {
 
       std::string ref;

@@ -514,6 +514,130 @@ START_TEST ( test_CVTerm_ConstructorException )
 END_TEST
 
 
+START_TEST ( test_NestedCVTerm_copyConstructor )
+{
+
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTerm1, BQB_IS);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  fail_unless(CVTerm1->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  CVTerm * CVTermN = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTermN, BQB_IS);
+  CVTermN->addResource("nested resource");
+
+  fail_unless(CVTermN->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTermN->getResources()->getLength() == 1);
+  fail_unless(CVTermN->getResources()->getValue(0) == "nested resource");
+
+  CVTerm1->addNestedCVTerm(CVTermN);
+
+  fail_unless(CVTerm1->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  CVTerm* CVTerm2=new CVTerm(*CVTerm1);
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+  fail_unless(CVTerm2->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  delete CVTerm2;
+  delete CVTerm1;
+  delete CVTermN;
+}
+END_TEST
+
+
+START_TEST ( test_NestedCVTerm_assignmentOperator )
+{
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTerm1, BQB_IS);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  CVTerm * CVTermN = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTermN, BQB_IS);
+  CVTermN->addResource("nested resource");
+
+  fail_unless(CVTermN->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTermN->getResources()->getLength() == 1);
+  fail_unless(CVTermN->getResources()->getValue(0) == "nested resource");
+
+  CVTerm1->addNestedCVTerm(CVTermN);
+
+  fail_unless(CVTerm1->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  CVTerm* CVTerm2=new CVTerm();
+  (*CVTerm2) = *CVTerm1;
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+  fail_unless(CVTerm2->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  delete CVTerm2;
+  delete CVTerm1;
+  delete CVTermN;
+}
+END_TEST
+
+
+START_TEST ( test_NestedCVTerm_clone )
+{
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTerm1, BQB_IS);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  fail_unless(CVTerm1->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  CVTerm * CVTermN = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(CVTermN, BQB_IS);
+  CVTermN->addResource("nested resource");
+
+  fail_unless(CVTermN->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTermN->getResources()->getLength() == 1);
+  fail_unless(CVTermN->getResources()->getValue(0) == "nested resource");
+
+  CVTerm1->addNestedCVTerm(CVTermN);
+
+  fail_unless(CVTerm1->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  CVTerm* CVTerm2 = static_cast<CVTerm*>(CVTerm1->clone());
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+  fail_unless(CVTerm2->getNumNestedCVTerms() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getNestedCVTerm(0)->getResources()->getValue(0) == "nested resource");
+
+  delete CVTerm2;
+  delete CVTerm1;
+  delete CVTermN;
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -536,6 +660,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_CVTerm_assignmentOperator );
   tcase_add_test( tcase, test_CVTerm_clone );
   tcase_add_test( tcase, test_CVTerm_ConstructorException );
+  tcase_add_test( tcase, test_NestedCVTerm_copyConstructor );
+  tcase_add_test( tcase, test_NestedCVTerm_assignmentOperator );
+  tcase_add_test( tcase, test_NestedCVTerm_clone );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -73,6 +73,7 @@ sources =                                     \
   AssignmentCycles.cpp                        \
   AssignmentRuleOrdering.cpp                  \
   CiElementMathCheck.cpp                      \
+  CiElementNot0DComp.cpp                      \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
   DuplicateTopLevelAnnotation.cpp             \
@@ -80,6 +81,7 @@ sources =                                     \
   ExponentUnitsCheck.cpp		          			  \
   FunctionApplyMathCheck.cpp                  \
   FunctionDefinitionVars.cpp                  \
+  FunctionDefinitionRecursion.cpp             \
   FunctionNoArgsMathCheck.cpp                 \
   FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
@@ -142,12 +144,14 @@ other_headers = \
   AssignmentCycles.h                       \
   AssignmentRuleOrdering.h                 \
   CiElementMathCheck.h                     \
+  CiElementNot0DComp.h                     \
   CompartmentOutsideCycles.h               \
   DuplicateTopLevelAnnotation.h            \
   EqualityArgsMathCheck.h                  \
   ExponentUnitsCheck.h                     \
   FunctionApplyMathCheck.h                 \
   FunctionDefinitionVars.h                 \
+  FunctionDefinitionRecursion.h            \
   FunctionNoArgsMathCheck.h                \
   FunctionReferredToExists.h               \
   KineticLawUnitsCheck.h                   \

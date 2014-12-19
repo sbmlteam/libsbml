@@ -1061,9 +1061,25 @@ public:
   void resetModifiedFlags();
    
   bool hasRequiredAttributes() const;
+
   
   /** @endcond */
+  /** @cond doxygenLibsbmlInternal */
+  unsigned int getNumNestedCVTerms() const;
 
+  const CVTerm * getNestedCVTerm(unsigned int n) const;
+
+  CVTerm * getNestedCVTerm(unsigned int n);
+
+  List* getListNestedCVTerms();
+
+  const List* getListNestedCVTerms() const;
+
+  int addNestedCVTerm(const CVTerm* term);
+
+  CVTerm* removeNestedCVTerm(unsigned int n);
+
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -1074,8 +1090,13 @@ protected:
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
 
+  List* mNestedCVTerms;
+
   bool mHasBeenModified;
 
+  void setHasBeenModifiedFlag();
+
+  friend class SBase;
   /** @endcond */
 };
 
@@ -1488,6 +1509,28 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 BiolQualifierType_fromString(const char* s);
 
+/** @cond doxygenLibsbmlInternal */
+LIBSBML_EXTERN
+unsigned int 
+CVTerm_getNumNestedCVTerms(const CVTerm_t* cvt);
+
+LIBSBML_EXTERN
+const CVTerm_t * 
+CVTerm_getNestedCVTerm(const CVTerm_t* cvt, unsigned int n);
+
+LIBSBML_EXTERN
+int 
+CVTerm_addNestedCVTerm(CVTerm_t* cvt, const CVTerm_t* term);
+
+LIBSBML_EXTERN
+CVTerm_t * 
+CVTerm_removeNestedCVTerm(CVTerm_t* cvt, unsigned int n);
+
+LIBSBML_EXTERN
+const List_t * 
+CVTerm_getListNestedCVTerms(const CVTerm_t* cvt);
+
+/** @endcond */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

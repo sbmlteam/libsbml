@@ -81,6 +81,7 @@ distfiles =                  \
         testReadFromFile13.m \
         testReadFromFile14.m \
         testReadFromFile15.m \
+		testReadFromFile16.m \
         testReadFlags.m      \
         compareFiles.m       \
         testOutput.m         \

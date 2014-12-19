@@ -144,6 +144,7 @@ START_TEST (test_RDFAnnotation_getModelHistory)
 {
   fail_if(m == NULL);
 
+
   ModelHistory * history = m->getModelHistory();
 
   fail_unless(history != NULL);

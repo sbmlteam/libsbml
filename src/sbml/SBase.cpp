@@ -3646,6 +3646,13 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
       declaredURI.assign(SBML_XMLNS_L3V1);
     }
 
+    if (xmlns->hasURI(SBML_XMLNS_L2V5))
+    {
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V5);
+    }
+
     if (xmlns->hasURI(SBML_XMLNS_L2V4))
     {
       if (numNS > 0) return false;
@@ -3803,6 +3810,17 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
             if (sbmlDeclared)
             {
               if (declaredURI != string(SBML_XMLNS_L2V4))
+              {
+                valid = false;
+              }
+            }
+            break;
+          case 5:
+            // the namespaces contains the sbml namespaces
+            // check it is the correct ns for the level/version
+            if (sbmlDeclared)
+            {
+              if (declaredURI != string(SBML_XMLNS_L2V5))
               {
                 valid = false;
               }
@@ -4280,13 +4298,15 @@ SBase::readAnnotation (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
 
+  unsigned int level = getLevel();
+
   if (name == "annotation"
-    || (getLevel() == 1 && getVersion() == 1 && name == "annotations"))
+    || (level == 1 && getVersion() == 1 && name == "annotations"))
   {
 //    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
-    if (getLevel() == 1 && getTypeCode() == SBML_DOCUMENT)
+    if (level == 1 && getTypeCode() == SBML_DOCUMENT)
     {
       logError(AnnotationNotesNotAllowedLevel1);
     }
@@ -4340,15 +4360,44 @@ SBase::readAnnotation (XMLInputStream& stream)
       }
     }
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
+    {
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms,
                                               getMetaId().c_str(), &(stream));
-//    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-//    delete mAnnotation;
-//    mAnnotation = new_annotation;
-      for (size_t i=0; i < mPlugins.size(); i++)
+
+      bool hasNestedTerms = false;
+      // look at cvterms to see if we have a nested term
+      for (unsigned int cv = 0; cv < mCVTerms->getSize(); cv++)
       {
-        mPlugins[i]->parseAnnotation(this, mAnnotation);
+        CVTerm * term = (CVTerm *)(mCVTerms->get(cv));
+        if (term->getNumNestedCVTerms() > 0)
+        {
+          hasNestedTerms = true;
+          /* this essentially tells the code that rewrites the annotation to
+           * reconstruct the node and should leave out the nested bit
+           * if it not allowed
+           */
+          term->setHasBeenModifiedFlag();
+        }
       }
+
+      if (hasNestedTerms == true)
+      {
+        unsigned int version = getVersion();
+        if (level < 2 || 
+            (level == 2 && version < 5) || 
+            (level == 3 && version < 2) )
+        {
+          logError(NestedAnnotationNotAllowed, level, version,
+            "The nested annotation has been stored but will not be written out.");
+        }
+      }
+      
+    }
+
+    for (size_t i=0; i < mPlugins.size(); i++)
+    {
+      mPlugins[i]->parseAnnotation(this, mAnnotation);
+    }
     return true;
   }
 
@@ -5466,6 +5515,33 @@ SBase::reconstructRDFAnnotation()
         hasAdditionalRDF = true;
       }
     }
+
+    if ((getLevel() == 2 && getVersion() < 5)
+      || (getLevel() == 3 && getVersion() < 2))
+    {
+    // now look for case where the original has nested annotations
+    // in a level/version where it is strictly speaking invalid
+    // preserve this annotation as an additional RDF annotation
+      bool hasNestedAnnotations = false;
+    
+      for (unsigned int i = 0; i < getNumCVTerms(); i++)
+      {
+        if (getCVTerm(i)->getNumNestedCVTerms() > 0)
+        {
+          hasNestedAnnotations = true;
+          break;
+        }
+      }
+      if (hasRDF == true && hasNestedAnnotations == true)
+      {
+        hasAdditionalRDF = true;
+        // add a copy of the annotation to the RDF as a second RDF element
+        XMLNode RDF = mAnnotation->getChild("RDF");
+        XMLNode * desr = RDF.getChild("Description").clone();
+        mAnnotation->getChild("RDF").addChild(*desr);
+        delete desr;
+      }
+    }
   }
 
   // look at whether the user has changed the RDF elements
@@ -6164,6 +6240,8 @@ SBase::checkAnnotation()
                                 "http://www.sbml.org/sbml/level2/version3");
       match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
                                 "http://www.sbml.org/sbml/level2/version4");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
+                                "http://www.sbml.org/sbml/level2/version5");
       match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(),
                                 "http://www.sbml.org/sbml/level3/version1/core");
       n++;

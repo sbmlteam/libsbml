@@ -1512,6 +1512,70 @@ START_TEST (test_SyncAnnotation_stringChangesMetaid3)
 END_TEST
 
 
+START_TEST (test_SyncAnnotation_nestedCV_invalid)
+{
+  Compartment* c = new Compartment(3,1);
+  c->setMetaId("_000012");
+  c->setId("cc");
+  c->setConstant(true);
+
+  const char * annot =
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000012\">\n"
+    "        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+    "            <bqbiol:is>\n"
+		"              <rdf:Bag>\n"
+		"                <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"              </rdf:Bag>\n"
+    "            </bqbiol:is>\n"
+		"          </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n";
+
+  const char * expected =
+    "<compartment metaid=\"_000012\" id=\"cc\" constant=\"true\">\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000012\">\n"
+    "        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description rdf:about=\"#_000012\">\n"
+    "        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+    "            <bqbiol:is>\n"
+		"              <rdf:Bag>\n"
+		"                <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"              </rdf:Bag>\n"
+    "            </bqbiol:is>\n"
+		"          </rdf:Bag>\n"
+    "        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</compartment>";
+
+  c->setAnnotation(annot);
+
+  char * sbml = c->toSBML();
+
+  fail_unless( equals(expected, sbml) );
+
+  free(sbml);
+
+  delete c;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_SyncAnnotation (void)
 {
@@ -1546,6 +1610,9 @@ create_suite_SyncAnnotation (void)
   tcase_add_test(tcase, test_SyncAnnotation_stringChangesMetaid1 );
   tcase_add_test(tcase, test_SyncAnnotation_stringChangesMetaid2 );
   tcase_add_test(tcase, test_SyncAnnotation_stringChangesMetaid3 );
+
+  tcase_add_test(tcase, test_SyncAnnotation_nestedCV_invalid );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

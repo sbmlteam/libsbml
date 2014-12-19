@@ -495,6 +495,7 @@ typedef enum
 , InvalidNoArgsPassedToFunctionDef      = 10219 /*!< Incorrect number of arguments given to function invocation. */
 , DisallowedMathUnitsUse                = 10220 /*!< Attribute 'units' is only permitted on <code>&lt;cn&gt;</code> elements. */
 , InvalidUnitsValue                     = 10221 /*!< Invalid value given for the 'units' attribute. */
+, CiCannotReference0DCompartment        = 10222
 , DuplicateComponentId                  = 10301 /*!< Duplicate 'id' attribute value. */
 , DuplicateUnitDefinitionId             = 10302 /*!< Duplicate unit definition 'id' attribute value. */
 , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter 'id' attribute value. */
@@ -552,6 +553,7 @@ typedef enum
 , InvalidSpeciesTypeSBOTerm             = 10715 /*!< Invalid 'sboTerm' attribute value for a SpeciesType object. */
 , InvalidTriggerSBOTerm                 = 10716 /*!< Invalid 'sboTerm' attribute value for an Event Trigger object. */
 , InvalidDelaySBOTerm                   = 10717 /*!< Invalid 'sboTerm' attribute value for an Event Delay object. */
+, InvalidLocalParameterSBOTerm          = 10718 /*!< Invalid 'sboTerm' attribute value for aLocal Parameter object. */
 , NotesNotInXHTMLNamespace              = 10801 /*!< Notes must be placed in the XHTML XML namespace. */
 , NotesContainsXMLDecl                  = 10802 /*!< XML declarations are not permitted in Notes objects. */
 , NotesContainsDOCTYPE                  = 10803 /*!< XML DOCTYPE elements are not permitted in Notes objects. */
@@ -597,6 +599,7 @@ typedef enum
 , AllowedAttributesOnListOfConstraints  = 20230 /*!< Invalid attribute found on the ListOfConstraints object. */
 , AllowedAttributesOnListOfReactions    = 20231 /*!< Invalid attribute found on the ListOfReactions object. */
 , AllowedAttributesOnListOfEvents       = 20232 /*!< Invalid attribute found on the ListOfEvents object. */
+, L3V2SubstanceUnitsOnModel             = 20233 /*!< Invalid 'substanceUnits' attribute value. */
 , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression found in the function definition. */
 , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in the MathML <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> expression. */
 , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definitions are not permitted. */
@@ -664,6 +667,7 @@ typedef enum
 , InitAssignmentAndRuleForSameId        = 20803 /*!< Cannot set a value using both an initial assignment and an assignment rule simultaneously. */
 , OneMathElementPerInitialAssign        = 20804 /*!< An InitialAssignment object must contain one <code>&lt;math&gt;</code> element. */
 , AllowedAttributesOnInitialAssign      = 20805 /*!< Invalid attribute found on an InitialAssignment object. */
+, InitAssignmentCannotRef0DComp         = 20806
 , InvalidAssignRuleVariable             = 20901 /*!< Invalid value for the 'variable' attribute of an AssignmentRule object. */
 , InvalidRateRuleVariable               = 20902 /*!< Invalid value for the 'variable' attribute of a RateRule object. */
 , AssignmentToConstantEntity            = 20903 /*!< An assignment rule cannot assign an entity declared to be constant. */
@@ -674,6 +678,7 @@ typedef enum
 , AllowedAttributesOnAssignRule         = 20908 /*!< Invalid attribute found on an AssignmentRule object. */
 , AllowedAttributesOnRateRule           = 20909 /*!< Invalid attribute found on a RateRule object. */
 , AllowedAttributesOnAlgRule            = 20910 /*!< Invalid attribute found on an AlgebraicRule object. */
+, RuleCannotRef0DComp                   = 20911
 , ConstraintMathNotBoolean              = 21001 /*!< A Constraint object's <code>&lt;math&gt;</code> must evaluate to a Boolean value. */
 , IncorrectOrderInConstraint            = 21002 /*!< Subobjects inside the Constraint object are not in the prescribed order. */
 , ConstraintNotInXHTMLNamespace         = 21003 /*!< A Constraint's Message subobject must be in the XHTML XML namespace. */
@@ -710,6 +715,7 @@ typedef enum
 , AllowedAttributesOnKineticLaw         = 21132 /*!< Invalid attribute found on the KineticLaw object. */
 , AllowedAttributesOnListOfSpeciesRef   = 21150 /*!< Invalid attribute found on the ListOfSpeciesReferences object. */
 , AllowedAttributesOnListOfMods         = 21151 /*!< Invalid attribute found on the ListOfModifiers object. */
+, L3V2FastDeprecated                    = 21152 /*!< Fast deprecated. */
 , AllowedAttributesOnLocalParameter     = 21172 /*!< Invalid attribute found on the LocalParameter object. */
 , MissingTriggerInEvent                 = 21201 /*!< The Event object is missing a Trigger subobject. */
 , TriggerMathNotBoolean                 = 21202 /*!< A Trigger object's <code>&lt;math&gt;</code> expression must evaluate to a Boolean value. */
@@ -840,6 +846,7 @@ typedef enum
 , RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory. */
 , RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory. */
 , AnnotationNotElement                  = 99406 /*!< Annotation must contain element. */
+, NestedAnnotationNotAllowed            = 99407 /*!< Nested annotations not allowed. */
 , InconsistentArgUnitsWarnings          = 99502 /*!< This is an internal error that reverts to 10501. */
 , InconsistentPowerUnitsWarnings        = 99503 /*!< This is an internal error that reverts to 10501. */
 , InconsistentExponUnitsWarnings        = 99504 /*!< This is an internal error that reverts to 10501. */

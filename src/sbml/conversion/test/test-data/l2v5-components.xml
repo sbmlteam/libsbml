@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model id="l2v5_all">
+    
+    
+    <listOfCompartmentTypes>
+      <compartmentType id="hh"/>
+    </listOfCompartmentTypes>
+    <listOfSpeciesTypes>
+      <speciesType id="gg" name="dd"/>
+    </listOfSpeciesTypes>
+    <listOfCompartments>
+      <compartment id="a" compartmentType="hh" size="2.3" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s" speciesType="gg" compartment="a" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="x" units="dimensionless" constant="false" value="4"/>
+      <parameter id="p" units="dimensionless" constant="false" value="4"/>
+      <parameter id="p3" units="litre" constant="false"/>
+</listOfParameters>      
+    
+    
+    
+    
+    <listOfEvents>
+      <event metaid="ggggg" id="e1" useValuesFromTriggerTime="true">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <lt/>
+              <ci> x </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <ci> p </ci>
+              <ci> x </ci>
+             </apply>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="a">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <ci> x </ci>
+                <ci> p3 </ci>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

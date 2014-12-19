@@ -645,6 +645,17 @@ SBO::isSystemsDescriptionParameter  (unsigned int sboTerm)
 }
 
 
+/**
+  * functions for checking the SBO term is from correct part of SBO
+  * returns true if the term is-a QuantitativeSystemsDescriptionParameter, false otherwise
+  */
+bool
+SBO::isQuantitativeSystemsDescriptionParameter  (unsigned int sboTerm)
+{
+  return SBO::isQuantitativeParameter(sboTerm);
+}
+
+
 /*
  * Function for checking the SBO term is Obselete
  *

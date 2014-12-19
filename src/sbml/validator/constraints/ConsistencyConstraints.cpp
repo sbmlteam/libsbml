@@ -91,6 +91,8 @@
 
 #include "OverDeterminedCheck.h"
 
+#include "FunctionDefinitionRecursion.h"
+
 #endif
 
 #include <sbml/validator/ConstraintMacros.h>
@@ -242,46 +244,47 @@ END_CONSTRAINT
 
 EXTERN_CONSTRAINT(20302, FunctionReferredToExists)
 
+EXTERN_CONSTRAINT(20303, FunctionDefinitionRecursion)
 
-START_CONSTRAINT (20303, FunctionDefinition, fd)
-{
-  //only applies to level 2
-  pre( fd.getLevel() > 1        );
-  pre( fd.isSetMath()            );
-  pre( fd.isSetBody() == true      );
-  pre( fd.getNumArguments() != 0 );
-  
-  const string  id = fd.getId();
-
-  msg = "The <functionDefinition> with id '" + id + "' must not refer to itself.";
-
-  List* variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
-
-  std::list<ASTNode*> astlist;
-  for (unsigned int n = 0; n < variables->getSize(); ++n)
-  {
-    astlist.push_back(static_cast<ASTNode*>(variables->get(n)));
-  }
-
-  // To avoid memory leak, the List object (variables) needs to be
-  // deleted before invoking the inv macro below
-  delete variables;
-
-  std::list<ASTNode*>::iterator it = astlist.begin();
-
-  while (it != astlist.end())
-  {
-    const char* name = (*it)->getName() ? (*it)->getName() : "";
-
-    inv(strcmp(name, id.c_str()));
-
-    ++it;
-  }
-
-}
-END_CONSTRAINT
-
-
+//START_CONSTRAINT (20303, FunctionDefinition, fd)
+//{
+//  //only applies to level 2
+//  pre( fd.getLevel() > 1        );
+//  pre( fd.isSetMath()            );
+//  pre( fd.isSetBody() == true      );
+//  pre( fd.getNumArguments() != 0 );
+//  
+//  const string  id = fd.getId();
+//
+//  msg = "The <functionDefinition> with id '" + id + "' must not refer to itself.";
+//
+//  List* variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
+//
+//  std::list<ASTNode*> astlist;
+//  for (unsigned int n = 0; n < variables->getSize(); ++n)
+//  {
+//    astlist.push_back(static_cast<ASTNode*>(variables->get(n)));
+//  }
+//
+//  // To avoid memory leak, the List object (variables) needs to be
+//  // deleted before invoking the inv macro below
+//  delete variables;
+//
+//  std::list<ASTNode*>::iterator it = astlist.begin();
+//
+//  while (it != astlist.end())
+//  {
+//    const char* name = (*it)->getName() ? (*it)->getName() : "";
+//
+//    inv(strcmp(name, id.c_str()));
+//
+//    ++it;
+//  }
+//
+//}
+//END_CONSTRAINT
+//
+//
 EXTERN_CONSTRAINT(20304, FunctionDefinitionVars)
 
 
@@ -352,8 +355,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20306, FunctionDefinition, fd)
 {
-  //only applies to level 3
-  pre( fd.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( fd.getLevel() == 3   );
+  pre( fd.getVersion() == 1 );
 
   msg = "The <functionDefinition> with id '" + fd.getId() + "' does not "
     "contain a <math> element.";
@@ -1495,14 +1499,35 @@ EXTERN_CONSTRAINT(20803, UniqueVarsInInitialAssignmentsAndRules)
 
 START_CONSTRAINT (20804, InitialAssignment, ia)
 {
-  //only applies to level 3
-  pre( ia.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( ia.getLevel() == 3   );
+  pre( ia.getVersion() == 1 );
 
   msg = "The <initialAssignment> with symbol '" + ia.getSymbol() + 
     "' does not contain a <math> element.";
 
   // ia must have exactly one math
   inv( ia.isSetMath() );
+}
+END_CONSTRAINT
+
+
+
+START_CONSTRAINT (20806, InitialAssignment, ia)
+{
+  //only applies to level 2 version 5
+  pre( ia.getLevel() == 2        );
+  pre( ia.getVersion() == 5 );
+  pre (ia.isSetSymbol() == true );
+
+  // cannot be 0d compartment
+  std::string sym = ia.getSymbol();
+  const Compartment* c = m.getCompartment(sym);
+
+  pre (c != NULL);
+
+  inv( c->getSpatialDimensions() != 0  );
+
 }
 END_CONSTRAINT
 
@@ -1719,8 +1744,9 @@ EXTERN_CONSTRAINT(99106, AssignmentRuleOrdering)
 
 START_CONSTRAINT (20907, AssignmentRule, r)
 {
-  //only applies to level 3
-  pre( r.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( r.getLevel() == 3   );
+  pre( r.getVersion() == 1 );
 
   msg = "The <assignmentRule> with variable '" + r.getVariable() + 
     "' does not contain a <math> element.";
@@ -1733,8 +1759,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20907, RateRule, r)
 {
-  //only applies to level 3
-  pre( r.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( r.getLevel() == 3   );
+  pre( r.getVersion() == 1 );
 
   msg = "The <rateRule> with variable '" + r.getVariable() + 
     "' does not contain a <math> element.";
@@ -1747,8 +1774,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20907, AlgebraicRule, r)
 {
-  //only applies to level 3
-  pre( r.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( r.getLevel() == 3   );
+  pre( r.getVersion() == 1 );
 
   msg = "The <algebraicRule> does not contain a <math> element.";
 
@@ -1757,6 +1785,44 @@ START_CONSTRAINT (20907, AlgebraicRule, r)
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (20911, AssignmentRule, r)
+{
+  //only applies to level 2 version 5
+  pre( r.getLevel() == 2        );
+  pre( r.getVersion() == 5 );
+  pre (r.isSetVariable() == true );
+
+  // cannot be 0d compartment
+  std::string var = r.getVariable();
+  const Compartment* c = m.getCompartment(var);
+
+  pre (c != NULL);
+
+  inv( c->getSpatialDimensions() != 0  );
+
+}
+END_CONSTRAINT
+
+
+
+START_CONSTRAINT (20911, RateRule, r)
+{
+  //only applies to level 2 version 5
+  pre( r.getLevel() == 2        );
+  pre( r.getVersion() == 5 );
+  pre (r.isSetVariable() == true );
+
+  // cannot be 0d compartment
+  std::string var = r.getVariable();
+  const Compartment* c = m.getCompartment(var);
+
+  pre (c != NULL);
+
+  inv( c->getSpatialDimensions() != 0  );
+
+}
+END_CONSTRAINT
 
 
 
@@ -1787,8 +1853,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21007, Constraint, c)
 {
-  //only applies to level 3
-  pre( c.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( c.getLevel() == 3   );
+  pre( c.getVersion() == 1 );
 
   msg = "The <constraint> does not contain a <math> element.";
 
@@ -1932,6 +1999,10 @@ END_CONSTRAINT
 START_CONSTRAINT (21130, KineticLaw, kl)
 {
   pre( kl.getLevel() > 1        );
+  if (kl.getLevel() == 3)
+  {
+    pre (kl.getVersion() == 1);
+  }
 
   std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
     kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
@@ -2431,8 +2502,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21209, Trigger, t)
 {
-  //only applies to level 3
-  pre( t.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( t.getLevel() == 3   );
+  pre( t.getVersion() == 1 );
 
   std::string id = (t.getAncestorOfType(SBML_EVENT) != NULL) ?
     t.getAncestorOfType(SBML_EVENT)->getId() : std::string("");
@@ -2448,8 +2520,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21210, Delay, d)
 {
-  //only applies to level 3
-  pre( d.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( d.getLevel() == 3   );
+  pre( d.getVersion() == 1 );
 
   std::string id = (d.getAncestorOfType(SBML_EVENT) != NULL) ?
     d.getAncestorOfType(SBML_EVENT)->getId() : std::string("");
@@ -2523,8 +2596,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21213, EventAssignment, ea)
 {
-  //only applies to level 3
-  pre( ea.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( ea.getLevel() == 3   );
+  pre( ea.getVersion() == 1 );
 
   std::string id = (ea.getAncestorOfType(SBML_EVENT) != NULL) ?
     ea.getAncestorOfType(SBML_EVENT)->getId() : std::string("");
@@ -2540,8 +2614,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21231, Priority, p)
 {
-  //only applies to level 3
-  pre( p.getLevel() > 2        );
+  //only applies to level 3 version 1
+  pre( p.getLevel() == 3   );
+  pre( p.getVersion() == 1 );
 
   std::string id = (p.getAncestorOfType(SBML_EVENT) != NULL) ?
     p.getAncestorOfType(SBML_EVENT)->getId() : std::string("");

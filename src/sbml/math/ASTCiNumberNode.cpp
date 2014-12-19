@@ -210,10 +210,17 @@ ASTCiNumberNode::addExpectedAttributes(ExpectedAttributes& attributes,
 {
   ASTBase::addExpectedAttributes(attributes, stream);
 
-  if (stream.getSBMLNamespaces() != NULL
-    && stream.getSBMLNamespaces()->getLevel() > 2)
+  SBMLNamespaces * sbmlns = stream.getSBMLNamespaces();
+  if (sbmlns != NULL)
   {
-    attributes.add("definitionURL");
+    if (sbmlns->getLevel() > 2)
+    {
+      attributes.add("definitionURL");
+    }
+    else if (sbmlns->getLevel() == 2 && sbmlns->getVersion() == 5)
+    {
+      attributes.add("definitionURL");
+    }
   }
 }
 

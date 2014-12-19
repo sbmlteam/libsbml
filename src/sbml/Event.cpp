@@ -1394,7 +1394,7 @@ Event::addExpectedAttributes(ExpectedAttributes& attributes)
     {
       attributes.add("sboTerm");
     }
-    if (version == 4)
+    if (version > 3)
     {
       attributes.add("useValuesFromTriggerTime");
     }
@@ -1496,7 +1496,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
   // useValuesFromTriggerTime: bool {use="optional" } (L3 ->)
   //
-  if (version  == 4)
+  if (version  > 3)
   {
     mExplicitlySetUVFTT = attributes.readInto("useValuesFromTriggerTime", 
                                                 mUseValuesFromTriggerTime, getErrorLog(), false, getLine(), getColumn());
@@ -1610,7 +1610,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
   // useValuesFromTriggerTime: bool {use="required"} (L3 ->)
   //
-  if (level == 2 && version == 4)
+  if (level == 2 && version > 3)
   {
     if (isExplicitlySetUVFTT() || !mUseValuesFromTriggerTime)
       stream.writeAttribute("useValuesFromTriggerTime", 

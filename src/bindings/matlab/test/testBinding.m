@@ -52,6 +52,7 @@ try
   Totalfail = Totalfail + testReadFromFile13(install);
   Totalfail = Totalfail + testReadFromFile14(install);
   Totalfail = Totalfail + testReadFromFile15(install);
+  Totalfail = Totalfail + testReadFromFile16(install);
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
   end;
@@ -92,6 +93,7 @@ try
   Totalfail = Totalfail + testReadFromFile13(install);
   Totalfail = Totalfail + testReadFromFile14(install);
   Totalfail = Totalfail + testReadFromFile15(install);
+  Totalfail = Totalfail + testReadFromFile16(install);
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
   end;

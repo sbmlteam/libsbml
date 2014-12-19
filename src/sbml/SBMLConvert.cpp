@@ -155,7 +155,7 @@ Model::convertL1ToL3 ()
 
 /* convert from L2 to L3 */
 void 
-Model::convertL2ToL3 ()
+Model::convertL2ToL3 (bool strict)
 {
   addDefinitionsForDefaultUnits();
 
@@ -164,6 +164,12 @@ Model::convertL2ToL3 ()
   convertStoichiometryMath();
 
   assignRequiredValues();
+
+  if (strict)
+  {
+    removeSpeciesTypes();
+    removeCompartmentTypes();
+  }
 }
 
 
@@ -199,7 +205,7 @@ Model::convertL2ToL1 (bool strict)
 
 /* convert from L1 to L3 */
 void 
-Model::convertL3ToL1 ()
+Model::convertL3ToL1 (bool strict)
 {
   //
   // Level 3 allows a model to be specified without a Compartment.  However
@@ -211,7 +217,7 @@ Model::convertL3ToL1 ()
     createCompartment()->setId(ASSIGNED_COMPARTMENT);
 
   }
-  dealWithModelUnits();
+  dealWithModelUnits(strict);
   
   dealWithAssigningL1Stoichiometry(*this, false);
   for (unsigned int i = 0; i < getNumReactions(); i++)
@@ -237,7 +243,7 @@ Model::convertL3ToL1 ()
 void 
 Model::convertL3ToL2 (bool strict)
 {
-  dealWithModelUnits();
+  dealWithModelUnits(strict);
 
   dealWithStoichiometry();
 
@@ -259,6 +265,37 @@ Model::convertL3ToL2 (bool strict)
       }
     }
   }
+}
+
+
+void
+Model::removeCompartmentTypes()
+{
+    for (unsigned int i = getNumCompartmentTypes(); i > 0; i--)
+    {
+      CompartmentType * ct = removeCompartmentType(i-1);
+      delete ct;
+    }
+
+    for (unsigned int i = 0; i < getNumCompartments(); i++)
+    {
+      getCompartment(i)->unsetCompartmentType();
+    }
+}
+
+void
+  Model::removeSpeciesTypes()
+{
+    for (unsigned int i = getNumSpeciesTypes(); i > 0; i--)
+    {
+      SpeciesType *st = removeSpeciesType(i-1);
+      delete st;
+    }
+    
+    for (unsigned int i = 0; i < getNumSpecies(); i++)
+    {
+      getSpecies(i)->unsetSpeciesType();
+    }
 }
 
 
@@ -1186,7 +1223,7 @@ Model::dealWithEvents(bool strict)
 }
 
 void
-Model::dealWithModelUnits()
+Model::dealWithModelUnits(bool strict)
 {
   UnitRefsFilter filter;
   List * elements = getAllElements(&filter);
@@ -1234,6 +1271,7 @@ Model::dealWithModelUnits()
     }
     addUnitDefinition(ud);
     delete ud;
+    if (strict) unsetVolumeUnits();
   }
   if (isSetAreaUnits())
   {
@@ -1276,6 +1314,7 @@ Model::dealWithModelUnits()
     }
     addUnitDefinition(ud);
     delete ud;
+    if (strict) unsetAreaUnits();
   }
   if (isSetLengthUnits())
   {
@@ -1318,6 +1357,7 @@ Model::dealWithModelUnits()
     }
     addUnitDefinition(ud);
     delete ud;
+    if (strict) unsetLengthUnits();
   }
   if (isSetSubstanceUnits())
   {
@@ -1360,6 +1400,7 @@ Model::dealWithModelUnits()
     }
     addUnitDefinition(ud);
     delete ud;
+    if (strict) unsetSubstanceUnits();
   }
   if (isSetTimeUnits())
   {
@@ -1398,7 +1439,11 @@ Model::dealWithModelUnits()
     ud->setId("time");
     addUnitDefinition(ud);
     delete ud;
+    if (strict) unsetTimeUnits();
   }
+
+  if (strict) unsetExtentUnits();
+
 
   delete elements;
 }

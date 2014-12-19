@@ -104,7 +104,24 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
       }
     }
   }
-  
+
+  if ((m.getLevel() == 2 && m.getVersion() == 5)
+    || (m.getLevel() == 3 && m.getVersion() > 1))
+  { // check we dont use delay csymbol
+    delete variables;
+    variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
+    
+    for (unsigned int n = 0; n < variables->getSize(); ++n)
+    {
+      ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
+
+      if (node->getType() == AST_FUNCTION_DELAY)
+      {
+        logUndefined(fd, node->getName());
+      }
+    }
+  }
+ 
   delete variables;
 }
 

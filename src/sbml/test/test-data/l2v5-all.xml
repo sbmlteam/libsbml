@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model id="l2v5_all">
+    <listOfFunctionDefinitions>
+      <functionDefinition sboTerm="SBO:0000064" id="fd">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <power/>
+              <ci> x </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="ud1">
+        <listOfUnits>
+          <unit kind="mole"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartmentTypes>
+      <compartmentType sboTerm="SBO:0000236" id="hh"/>
+    </listOfCompartmentTypes>
+    <listOfSpeciesTypes>
+      <speciesType sboTerm="SBO:0000236" id="gg" name="dd"/>
+    </listOfSpeciesTypes>
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000236" id="a" compartmentType="hh" size="2.3" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species sboTerm="SBO:0000236" id="s" speciesType="gg" compartment="a" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="p" value="2" units="second" constant="false"/>
+      <parameter id="p1" value="2" units="litre" constant="false"/>
+      <parameter id="p2" value="2" units="litre" constant="false"/>
+      <parameter id="p3" value="2" units="litre" constant="false"/>
+      <parameter id="x" value="2" units="dimensionless" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> x </ci>
+            <ci> p3 </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <algebraicRule sboTerm="SBO:0000064">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <power/>
+            <ci> x </ci>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </math>
+      </algebraicRule>
+      <assignmentRule sboTerm="SBO:0000064" variable="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> x </ci>
+            <ci> p3 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      <rateRule sboTerm="SBO:0000064" variable="p3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <ci> p1 </ci>
+            <ci> p </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+    <listOfConstraints>
+      <constraint>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <lt/>
+            <ci> x </ci>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </math>
+      </constraint>
+    </listOfConstraints>
+    <listOfReactions>
+      <reaction id="r" reversible="false" fast="true">
+        <listOfReactants>
+          <speciesReference sboTerm="SBO:0000011" species="s">
+            <stoichiometryMath sboTerm="SBO:0000064">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <times/>
+                  <ci> s </ci>
+                  <ci> p </ci>
+                </apply>
+              </math>
+            </stoichiometryMath>
+          </speciesReference>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> s </ci>
+                <ci> k </ci>
+              </apply>
+              <ci> p </ci>
+            </apply>
+          </math>
+          <listOfParameters>
+            <parameter id="k" value="9" units="litre"/>
+            <parameter id="k1" value="9" units="ud1"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event metaid="ggggg" sboTerm="SBO:0000231" id="e1" useValuesFromTriggerTime="true">
+        <trigger sboTerm="SBO:0000064">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <lt/>
+              <ci> x </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay sboTerm="SBO:0000064">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <ci> p </ci>
+              <cn type="integer"> 3 </cn>
+            </apply>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment sboTerm="SBO:0000064" variable="a">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <ci> x </ci>
+                <ci> p3 </ci>
+              </apply>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

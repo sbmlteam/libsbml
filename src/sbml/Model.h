@@ -2898,7 +2898,7 @@ public:
    * writeAttributes() methods, however there are some difference between
    * L2 and L3 that require the underlying Model to be changed.
    */
-  void convertL2ToL3 ();
+  void convertL2ToL3 (bool strict = false);
 
   
   /*
@@ -2918,7 +2918,7 @@ public:
    * writeAttributes() methods, however there are some difference between
    * L1 and L3 that require the underlying Model to be changed.
    */
-  void convertL3ToL1 ();
+  void convertL3ToL1 (bool strict = false);
 
 
   /*
@@ -3009,13 +3009,17 @@ public:
 
   /* deal with units values on L3 model
    */
-  void dealWithModelUnits ();
+  void dealWithModelUnits (bool strict = false);
 
   
   void dealWithStoichiometry ();
 
   
   void dealWithEvents (bool strict);
+
+  void removeSpeciesTypes();
+
+  void removeCompartmentTypes();
 
 
   /* declares constant = false for any L1 compartment/parameter

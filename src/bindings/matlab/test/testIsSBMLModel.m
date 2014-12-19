@@ -470,6 +470,71 @@ function y = testIsSBMLModel(silent, FbcEnabled)
   end;
   
   
+  m = TranslateSBML('test-data/l2v5-all.xml');
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('l2v5-all Model failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('l2v5-all Model exclusive failed:');
+      disp(message);
+  end;
+
+
+  m.reaction(1).reactant(1).stochiometryMath.extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('l2v5-all stochiometryMath extra failed');
+      disp(message);
+  end;
+
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('l2v5-all stochiometryMath extra exclusive failed');
+      disp(message);
+  end;
+
+  m = TranslateSBML('test-data/l2v5-all.xml');
+  m.event(1).trigger.extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('l2v5-all trigger extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('l2v5-all trigger extra exclusive failed');
+      disp(message);
+  end;
+  
+  m = TranslateSBML('test-data/l2v5-all.xml');
+  m.event(1).eventAssignment(1).extra = 'extra';
+
+  [pass, message] = isSBML_Model(m);
+  if (pass == 0)
+      fail = fail + 1;
+      disp('l2v5-all eventAssignment extra failed');
+      disp(message);
+  end;
+  [pass, message] = isSBML_Model(m, 0);
+  if (pass == 1)
+      fail = fail + 1;
+      disp('l2v5-all eventAssignment extra exclusive failed');
+      disp(message);
+  end;
+  
+  
   m = TranslateSBML('test-data/l3v1core.xml');
 
   [pass, message] = isSBML_Model(m);

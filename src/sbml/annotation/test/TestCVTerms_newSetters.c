@@ -30,6 +30,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
+#include <vld.h>
 #include <sbml/common/common.h>
 #include <sbml/annotation/CVTerm.h>
 #include <sbml/xml/XMLNode.h>

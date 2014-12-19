@@ -558,8 +558,11 @@ SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level
         uri = SBML_XMLNS_L2V3;
         break;
       case 4:
-      default:
         uri = SBML_XMLNS_L2V4;
+        break;
+      case 5:
+      default:
+        uri = SBML_XMLNS_L2V5;
         break;
       }
       break;
@@ -1060,13 +1063,19 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
   if (name == "model")
   {
-    // check that we do not already have a model
-    if (isSetModel() == true)
+    if (mModel != NULL)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(), 
-        "Only one <model> element is allowed within an SBMLDocument.");
+      if (getLevel() < 3 || (getLevel() == 3 && getVersion() < 2)) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <model> element is permitted inside a "
+	        "document.");
+      }
+      else
+      {
+        logError(MissingModel, getLevel(), getVersion());
+      }
     }
-
     delete mModel;
 
     try
@@ -1566,7 +1575,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   }
   else if (mLevel == 2)
   {
-    if (mVersion > 4)
+    if (mVersion > 5)
     {
       logError(InvalidSBMLLevelVersion);
     }
@@ -1660,6 +1669,20 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
           logError(MissingOrInconsistentLevel);
         }
         if (mVersion != 4 || !versionRead)
+        {
+          logError(MissingOrInconsistentVersion);
+        }
+        break;
+      }
+      else if (!strcmp(ns->getURI(n).c_str(), 
+                "http://www.sbml.org/sbml/level2/version5"))
+      {
+        match = 1;
+        if (mLevel != 2 || !levelRead)
+        {
+          logError(MissingOrInconsistentLevel);
+        }
+        if (mVersion != 5 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }

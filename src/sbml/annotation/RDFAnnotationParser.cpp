@@ -420,12 +420,16 @@ RDFAnnotationParser::createAnnotation()
 }
 
 XMLNode * 
-RDFAnnotationParser::createRDFAnnotation()
+RDFAnnotationParser::createRDFAnnotation(unsigned int level, 
+                                         unsigned int version)
 {
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();
   xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
-  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
+  if ((level == 2 && version < 5) || (level == 3 && version < 2))
+  {
+    xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
+  }
   xmlns.add("http://purl.org/dc/terms/", "dcterms");
   xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
@@ -506,7 +510,7 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 
   XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
 
-  XMLNode * RDF = createRDFAnnotation();
+  XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
   RDF->addChild(*CVTerms);
 
   delete CVTerms;
@@ -533,26 +537,6 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
     return NULL;
   }
 
-  /* create the basic triples */
-  XMLTriple li_triple = XMLTriple("li", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple bag_triple = XMLTriple("Bag", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  
-  /* attributes */
-  XMLAttributes blank_att = XMLAttributes();
- 
-  /* tokens */
-  XMLToken bag_token = XMLToken(bag_triple, blank_att);
-
-  std::string prefix;
-  std::string name;
-  std::string uri;
-
-  XMLAttributes *resources;
-
   XMLNode *description = createRDFDescription(object);
 
   /* loop through the cv terms and add */
@@ -564,68 +548,12 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
       CVTerm* current = static_cast <CVTerm *> (object->getCVTerms()->get(n));
       if (current == NULL) continue;
 
-      if (current->getQualifierType() == MODEL_QUALIFIER)
+      XMLNode   * type = createQualifierElement(current, object->getLevel(),
+                                                object->getVersion());
+      if (type != NULL)
       {
-        prefix = "bqmodel";
-        uri = "http://biomodels.net/model-qualifiers/";
-       
-        const char* term = ModelQualifierType_toString(
-          current->getModelQualifierType());
-        if (term == NULL) 
-        {
-          delete description;
-          return NULL;
-        }
-
-        name = term;
-        
-      }
-      else if (current
-        ->getQualifierType() == BIOLOGICAL_QUALIFIER)
-      {
-        prefix = "bqbiol";
-        uri = "http://biomodels.net/biological-qualifiers/";
-
-        const char* term = BiolQualifierType_toString(
-            current->getBiologicalQualifierType());
-        if (term == NULL) 
-        {
-          name = "";
-        }
-        else
-        {
-          name = term;
-        }
-      }
-      else
-      {
-        continue;
-      }
-      
-
-      if (name.empty() == false)
-      {
-        resources = current->getResources();
-        XMLNode   bag(bag_token);
-
-        for (int r = 0; r < resources->getLength(); r++)
-        {
-          XMLAttributes att;
-          att.add(resources->getName(r), resources->getValue(r)); 
-          
-          XMLToken li_token(li_triple, att);
-          li_token.setEnd();
-          XMLNode li(li_token);
-
-          bag.addChild(li);
-        }
-
-        XMLTriple type_triple(name, uri, prefix);
-        XMLToken  type_token(type_triple, blank_att);
-        XMLNode   type(type_token);
-
-        type.addChild(bag);
-        description->addChild(type);
+        description->addChild(*(type));
+        delete type;
       }
     }
 
@@ -641,6 +569,129 @@ RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
 }
 
 /** @endcond */
+
+
+
+/** @cond doxygenLibsbmlInternal */
+
+XMLNode * 
+RDFAnnotationParser::createBagElement(const CVTerm * term,
+                                      unsigned int level, unsigned int version)
+{
+  if (term->getNumResources() == 0)
+  {
+    return NULL;
+  }
+
+   /* create the basic triples */
+  XMLTriple li_triple = XMLTriple("li", 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdf");
+  XMLTriple bag_triple = XMLTriple("Bag", 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdf");
+  /* attributes */
+  XMLAttributes blank_att = XMLAttributes();
+ 
+  /* tokens */
+  XMLToken bag_token = XMLToken(bag_triple, blank_att);
+
+  XMLNode *bag = new XMLNode(bag_token);
+    
+  const XMLAttributes *resources = term->getResources();
+
+  for (int r = 0; r < resources->getLength(); r++)
+  {
+    XMLAttributes att;
+    att.add(resources->getName(r), resources->getValue(r)); 
+    
+    XMLToken li_token(li_triple, att);
+    li_token.setEnd();
+    XMLNode li(li_token);
+
+    bag->addChild(li);
+  }
+
+  if ((level == 2 && version > 4) || (level == 3 && version > 1))
+  {
+    // only write out nested annotations in allowed levels
+    for (unsigned int n = 0; n < term->getNumNestedCVTerms(); n++)
+    {
+      XMLNode *nest = createQualifierElement(term->getNestedCVTerm(n),
+                                             level, version);
+      if (nest != NULL)
+      {
+        bag->addChild(*(nest));
+        delete nest;
+      }
+    }
+  }
+
+  return bag;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+XMLNode * 
+RDFAnnotationParser::createQualifierElement(const CVTerm * term, 
+                                      unsigned int level, unsigned int version)
+{
+  std::string prefix;
+  std::string name;
+  std::string uri;
+
+  /* attributes */
+  XMLAttributes blank_att = XMLAttributes();
+
+  if (term->getQualifierType() == MODEL_QUALIFIER)
+  {
+    prefix = "bqmodel";
+    uri = "http://biomodels.net/model-qualifiers/";
+   
+    const char* term_name = ModelQualifierType_toString(
+      term->getModelQualifierType());
+    if (term_name == NULL) 
+      return NULL;
+
+    name = term_name;   
+  }
+  else if (term
+    ->getQualifierType() == BIOLOGICAL_QUALIFIER)
+  {
+    prefix = "bqbiol";
+    uri = "http://biomodels.net/biological-qualifiers/";
+
+    const char* term_name = BiolQualifierType_toString(
+        term->getBiologicalQualifierType());
+    if (term_name == NULL)
+      return NULL;
+
+    name = term_name;
+  }
+  else
+  {
+    return NULL;
+  }
+
+  XMLTriple type_triple(name, uri, prefix);
+  XMLToken  type_token(type_triple, blank_att);
+  XMLNode * type = new XMLNode(type_token);
+
+  XMLNode * bag = createBagElement(term, level, version);
+  if (bag != NULL)
+  {
+    type->addChild(*(bag));
+    delete bag;
+  }
+
+  return type;
+}
+
+/** @endcond */
+
 
 /*
  * takes a Model creator information
@@ -675,7 +726,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
     delete CVTerms;
   }
 
-  XMLNode * RDF = createRDFAnnotation();
+  XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
   RDF->addChild(*description);
   delete description;
 
@@ -705,7 +756,7 @@ RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
 
   XMLNode *description = createRDFDescriptionWithHistory(object);
 
-  XMLNode * RDF = createRDFAnnotation();
+  XMLNode * RDF = createRDFAnnotation(object->getLevel(), object->getVersion());
   RDF->addChild(*description);
   delete description;
 
@@ -743,9 +794,20 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
   XMLTriple bag_triple = XMLTriple("Bag", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
-  XMLTriple creator_triple = XMLTriple("creator",
-    "http://purl.org/dc/elements/1.1/",
-    "dc");
+  XMLTriple creator_triple;
+  if ((object->getLevel() == 2 && object->getVersion() > 4) || 
+    (object->getLevel() == 3 && object->getVersion() > 1))
+  {
+    creator_triple = XMLTriple("creator",
+    "http://purl.org/dc/terms/",
+    "dcterms");
+  }
+  else
+  {
+    creator_triple = XMLTriple("creator",
+      "http://purl.org/dc/elements/1.1/",
+      "dc");
+  }
   XMLTriple N_triple = XMLTriple("N",
     "http://www.w3.org/2001/vcard-rdf/3.0#",
     "vCard");
@@ -1409,6 +1471,13 @@ XMLNode_t *
 RDFAnnotationParser_createRDFAnnotation()
 {
   return RDFAnnotationParser::createRDFAnnotation();
+}
+
+XMLNode_t *
+RDFAnnotationParser_createRDFAnnotationForLevelAndVersion(unsigned int level,
+                                                         unsigned int version)
+{
+  return RDFAnnotationParser::createRDFAnnotation(level, version);
 }
 
 XMLNode_t *

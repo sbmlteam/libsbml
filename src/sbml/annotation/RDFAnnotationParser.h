@@ -228,7 +228,8 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
    *
    * @see @if clike createAnnotation() @else RDFAnnotationParser::createAnnotation() @endif@~
    */
-  static XMLNode * createRDFAnnotation();
+  static XMLNode * createRDFAnnotation(unsigned int level = 3, 
+                                       unsigned int version = 1);
 
 
   /**
@@ -432,7 +433,16 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
   static XMLNode * createRDFDescriptionWithHistory(const SBase *obj);
 
 
-  static void deriveCVTermsFromAnnotation(const XMLNode *annotation, List *CVTerms);
+  static XMLNode * createBagElement(const CVTerm * term, unsigned int level,
+                                    unsigned int version);
+
+
+  static XMLNode * createQualifierElement(const CVTerm * term,
+                                   unsigned int level, unsigned int version);
+
+
+  static void deriveCVTermsFromAnnotation(const XMLNode *annotation, 
+                                          List *CVTerms);
 
   
   static ModelHistory* deriveHistoryFromAnnotation(const XMLNode *annotation);
@@ -524,6 +534,27 @@ RDFAnnotationParser_createAnnotation();
   */
 XMLNode_t *
 RDFAnnotationParser_createRDFAnnotation();
+
+/**
+  * Creates blank RDF annotation content organized in the form defined in
+  * Section 6 of the SBML Level 2 Version 4 specification .
+  *
+  * The annotation created by this method has namespace declarations for
+  * all the relevant XML namespaces used in RDF annotations and also has
+  * an empty RDF element.  Note that this is not the containing
+  * <code>&lt;annotation&gt;</code> element; the method createAnnotation()
+  * is available for that purpose.
+  *
+  * @param level unsigned int giving the SBML level to target.
+  * @param version unsigned int giving the SBML version to target.
+  *
+  * @return a pointer to an XMLNode_t represting the annotation.
+  *
+  * @memberof RDFAnnotationParser_t
+  */
+XMLNode_t *
+RDFAnnotationParser_createRDFAnnotationForLevelAndVersion(unsigned int level,
+                                                         unsigned int version);
 
 /**
   * Deletes any RDF annotation found in the given XMLNode_t tree and returns
