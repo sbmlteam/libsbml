@@ -1090,9 +1090,9 @@ protected:
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
 
-  List* mNestedCVTerms;
-
   bool mHasBeenModified;
+
+  List* mNestedCVTerms;
 
   void setHasBeenModifiedFlag();
 
