@@ -324,8 +324,11 @@ SBMLError::SBMLError (  const unsigned int errorId
           ref = errorTable[index].reference.ref_l2v3;
           break;
         case 4:
-        default:
           ref = errorTable[index].reference.ref_l2v4;
+          break;
+        case 5:
+        default:
+          ref = errorTable[index].reference.ref_l2v5;
           break;
         }
         break;

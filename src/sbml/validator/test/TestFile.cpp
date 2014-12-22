@@ -213,6 +213,7 @@ TestFile::getFilesIn ( const string& directory,
         case 2:
         case 3:
         case 7:
+        case 9:
           if (file.getNumFailures() > 0)
             continue;
           break;
@@ -223,6 +224,8 @@ TestFile::getFilesIn ( const string& directory,
       else if (id == 10201)
       {
         if (num == 7 && file.getNumFailures() > 0) 
+          continue;
+        else if (num == 13 && file.getNumFailures() > 0) 
           continue;
       }
 
