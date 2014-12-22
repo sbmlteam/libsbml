@@ -51,6 +51,20 @@ EXPERIMENTAL RELEASE
 
 * New features
 
+ - Support for the SBML Level 2 Version 5 Release 1 (Release Candidate)
+   specification has been added.  Additions to libSBML include:
+     - new API for adding Nested Annotations used on 
+       the existing CVTerm object:
+         int addNestedCVTerm(const CVTerm* term)
+         CVTerm* removeNestedCVTerm(unsigned int n)
+         unsigned int getNumNestedCVTerms()
+         CVTerm* getNestedCVTerm(unsigned int n)
+         List* getListNestdCVTerms()
+     - new and changed validation rules as in the specification
+     - the ability to convert core SBML to and from L2V5
+
+
+
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
