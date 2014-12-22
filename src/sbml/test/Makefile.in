@@ -112,6 +112,7 @@ test_sources =                   \
   TestReadFromFile7.cpp          \
   TestReadFromFile8.cpp          \
   TestReadFromFile9.cpp          \
+  TestReadFromFileL2V5.cpp       \
   TestReadSBML.cpp               \
   TestRemoveFromParent.cpp       \
   TestRenameIDs.cpp              \

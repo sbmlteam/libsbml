@@ -54,6 +54,7 @@ test_sources =                       \
   TestConversionOption.cpp           \
   TestConversionProperties.cpp       \
   TestInferUnitsConverter.cpp      \
+  TestLevelVersionConverter.cpp      \
   TestSBMLConverterRegistry.cpp      \
   TestSBMLRuleConverter.cpp          \
   TestStripPackageConverter.cpp      \

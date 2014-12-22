@@ -68,6 +68,7 @@ test_sources =                   \
   TestL3ModelHistory.cpp         \
   TestSyncAnnotation.cpp         \
   TestRDFAnnotationMetaid.cpp    \
+  TestRDFAnnotationNestedCVTerms.cpp \
   TestRunner.c
 
 test_data_files = \
