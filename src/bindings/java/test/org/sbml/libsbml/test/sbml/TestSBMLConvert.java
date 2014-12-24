@@ -576,8 +576,8 @@ public class TestSBMLConvert {
     c.setSize(1.2);
     c.setUnits( "volume");
     assertTrue( d.setLevelAndVersion(1,3,true) == false );
-    assertTrue( d.setLevelAndVersion(2,5,true) == false );
-    assertTrue( d.setLevelAndVersion(3,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,7,true) == false );
+    assertTrue( d.setLevelAndVersion(3,5,true) == false );
     assertTrue( d.setLevelAndVersion(4,1,true) == false );
   }
 

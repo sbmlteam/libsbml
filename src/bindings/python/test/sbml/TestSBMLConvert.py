@@ -458,8 +458,8 @@ class TestSBMLConvert(unittest.TestCase):
     c.setSize(1.2)
     c.setUnits( "volume")
     self.assert_( d.setLevelAndVersion(1,3,True) == False )
-    self.assert_( d.setLevelAndVersion(2,5,True) == False )
-    self.assert_( d.setLevelAndVersion(3,2,True) == False )
+    self.assert_( d.setLevelAndVersion(2,7,True) == False )
+    self.assert_( d.setLevelAndVersion(3,5,True) == False )
     self.assert_( d.setLevelAndVersion(4,1,True) == False )
     pass  
 

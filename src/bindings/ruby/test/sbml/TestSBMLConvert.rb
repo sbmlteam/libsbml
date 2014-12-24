@@ -454,8 +454,8 @@ class TestSBMLConvert < Test::Unit::TestCase
     c.setSize(1.2)
     c.setUnits( "volume")
     assert( d.setLevelAndVersion(1,3,true) == false )
-    assert( d.setLevelAndVersion(2,5,true) == false )
-    assert( d.setLevelAndVersion(3,2,true) == false )
+    assert( d.setLevelAndVersion(2,7,true) == false )
+    assert( d.setLevelAndVersion(3,5,true) == false )
     assert( d.setLevelAndVersion(4,1,true) == false )
   end
 
