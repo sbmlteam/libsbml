@@ -855,9 +855,11 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
        * OR a function with no arguments
        */
       stream.skipText();
-      if (elem.getName() == "piecewise" 
-        && stream.peek().getName() == "piecewise") continue;
-      else if (stream.peek().isEndFor(elem)) continue;
+      
+      //if (elem.getName() == "piecewise" 
+      //  && stream.peek().getName() == "piecewise") continue;
+      
+      if (stream.peek().isEndFor(elem)) continue;
 
       ASTNodeType_t type = node.getType();
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
