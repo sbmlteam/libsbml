@@ -483,7 +483,9 @@ csdoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*
 
 patch-swig-output:
 	@list='$(wildcard $(outpath)/*.cs)'; for file in $$list; do \
-	  echo 'using System;\nusing System.Runtime.InteropServices;\n\n' > $(outpath)/.tmpfile; \
+	  echo 'using System;' > $(outpath)/.tmpfile; \
+	  echo 'using System.Runtime.InteropServices;' >> $(outpath)/.tmpfile; \
+	  echo ' ' >> $(outpath)/.tmpfile; \
 	  cat $$file >> $(outpath)/.tmpfile; \
 	  mv -f $(outpath)/.tmpfile $$file; \
 	done
