@@ -58,6 +58,7 @@ SET(PERL_LIBRARY)
 foreach (dir ${PERL_INCLUDE_PATH})
 if (EXISTS "${dir}/CORE/libperl.dylib")
  set(PERL_LIBRARY "${dir}/CORE/libperl.dylib")
+ list(INSERT PERL_INCLUDE_PATH 0 "${dir}/CORE")
 endif()
 endforeach()
 
