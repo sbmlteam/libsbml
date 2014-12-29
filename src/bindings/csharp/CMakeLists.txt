@@ -32,7 +32,7 @@
 
 
 find_package(SWIG REQUIRED)
-include(FindPythonInterp)
+find_package(PythonInterp)
 
 include(${SWIG_USE_FILE})
 

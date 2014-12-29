@@ -33,9 +33,7 @@
 
 find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
-include(FindPerlLibs)
-include(FindPythonInterp)
-
+find_package(PythonInterp)
 
 ####################################################################
 #

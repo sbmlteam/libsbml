@@ -32,8 +32,8 @@
 ###############################################################################
 
 find_package(SWIG REQUIRED)
-include(FindPythonInterp)
 include(${SWIG_USE_FILE})
+find_package(PythonInterp)
 
 if (NOT NODE_GYP_EXECUTABLE)
   message(FATAL_ERROR 

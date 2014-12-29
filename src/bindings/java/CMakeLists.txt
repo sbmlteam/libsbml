@@ -34,7 +34,7 @@
 find_package(SWIG REQUIRED)
 find_package(JNI)
 find_package(Java COMPONENTS Development REQUIRED)
-include(FindPythonInterp)
+find_package(PythonInterp)
 include(${SWIG_USE_FILE})
 
 
