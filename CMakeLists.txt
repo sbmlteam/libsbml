@@ -1158,7 +1158,12 @@ else()
   message(STATUS "     Build examples                  = no")
 endif()
 
-
+message(STATUS "")
+if(LIBSBML_USE_LEGACY_MATH)
+  message(STATUS "     Use Legacy Math                 = yes")
+else()
+  message(STATUS "     Use Legacy Math                 = no")
+endif()
 
 if (LIBSBML_PACKAGE_SUMMARY)
   message(STATUS "")
