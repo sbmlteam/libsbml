@@ -35,7 +35,47 @@ find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
 find_package(PythonInterp)
 find_package(Perl)
+
+if (APPLE AND PERL_EXECUTABLE)
+# cmake does not find the perl library on its own on OSX
+# so lets try and help it out:
+
+execute_process(
+COMMAND
+${PERL_EXECUTABLE} -e "print qq(@INC)"
+OUTPUT_VARIABLE
+PERL_INCLUDE_PATH
+RESULT_VARIABLE
+PERL_INCLUDE_PATH_RESULT_VARIABLE
+)
+
+
+if(PERL_INCLUDE_PATH)
+separate_arguments(PERL_INCLUDE_PATH)
+#message(" PERL_INCLUDE_PATH = ${PERL_INCLUDE_PATH}")
+
+SET(PERL_LIBRARY)
+foreach (dir ${PERL_INCLUDE_PATH})
+if (EXISTS "${dir}/CORE/libperl.dylib")
+ set(PERL_LIBRARY "${dir}/CORE/libperl.dylib")
+endif()
+endforeach()
+
+if(PERL_LIBRARY)
+#message(" PERL_LIBRARY = ${PERL_LIBRARY}")
+else()
+# something went wrong fall back to the original way
 find_package(PerlLibs)
+endif()
+
+else()
+# something went wrong fall back to the original way
+find_package(PerlLibs)
+endif()
+
+else()
+find_package(PerlLibs)
+endif()
 
 ####################################################################
 #
