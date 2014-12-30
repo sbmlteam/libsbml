@@ -68,6 +68,7 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.cpp      src\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.in        src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.h        src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.cpp      src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.cxx      src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
 
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\sbml\test\*.in             src\sbml\packages\%PACKAGE_NAME%\sbml\test\
