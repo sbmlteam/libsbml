@@ -3808,7 +3808,7 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
 
   // if we are not done look at plugins for function name
   // but only if we are allowed to read from that plugin
-  if (stream.getSBMLNamespaces()->getLevel() > 2)
+  if (stream.getSBMLNamespaces() != NULL && stream.getSBMLNamespaces()->getLevel() > 2)
   {
     while (done == false && i < numPlugins)
     {
