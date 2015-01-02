@@ -345,6 +345,34 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
   /* calls each specified validator in turn 
    * - stopping when errors are encountered */
 
+  /* look to see if we have serious errors from the read
+   * these may cause other validators to crash
+   * although hopefully not it is probably best to guard
+   * against trying
+   */
+  unsigned int errors = doc->getNumErrors();
+  bool  seriousErrors = false;
+
+  if (errors > 0)
+  {
+    for (unsigned int i = 0; i < errors; i++)
+    {
+      if (doc->getError(i)->isFatal() || doc->getError(i)->isError())
+      {
+        seriousErrors = true;
+        break;
+      }
+    }
+  }
+
+  // do not try and go further but do not report the errors as these
+  // will have been recorded elsewhere and do not come from the validators
+  if (seriousErrors == true)
+  {
+    return 0;
+  }
+
+
   if (id)
   {
     IdentifierConsistencyValidator id_validator;
