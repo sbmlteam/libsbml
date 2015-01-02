@@ -350,20 +350,9 @@ SBMLInternalValidator::checkConsistency (bool writeDocument)
    * although hopefully not it is probably best to guard
    * against trying
    */
-  unsigned int errors = doc->getNumErrors();
-  bool  seriousErrors = false;
+  bool seriousErrors = doc->getNumErrors(LIBSBML_SEV_FATAL) > 0
+    || doc->getNumErrors(LIBSBML_SEV_ERROR) > 0;
 
-  if (errors > 0)
-  {
-    for (unsigned int i = 0; i < errors; i++)
-    {
-      if (doc->getError(i)->isFatal() || doc->getError(i)->isError())
-      {
-        seriousErrors = true;
-        break;
-      }
-    }
-  }
 
   // do not try and go further but do not report the errors as these
   // will have been recorded elsewhere and do not come from the validators

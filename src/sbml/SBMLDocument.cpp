@@ -943,7 +943,8 @@ SBMLDocument::getNumErrors () const
 unsigned int 
 SBMLDocument::getNumErrors (unsigned int severity) const
 {
-  return getErrorLog()->getNumFailsWithSeverity(severity);
+  return ((getErrorLog() != NULL) ? 
+      getErrorLog()->getNumFailsWithSeverity(severity) : 0);
 }
 
 
