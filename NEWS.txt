@@ -13,16 +13,16 @@ STABLE RELEASE
     number of SBML L3 packages within a document that the build
     of libSBML does not support.
 
-  - The StripPackageConverter has a new option 'stripAllUnrecognized'
-    which is set to true will strip all SBML L3 packages that are
-    not supported by the build of libSBML being used.
+  - The StripPackageConverter has a new option 
+    'stripAllUnrecognized' which if set to true will strip all SBML 
+    L3 packages that are not supported by the build of libSBML 
+    being used.
 
-  - The XMLErrorLog::remove(unsigned int errorId) function only removes
-    the first instance of the error with the matching identifier. A new
-    function removeAll(unsigned int errorId) has been added that will 
-    remove all instances of the error with the given id.
-
-
+  - The XMLErrorLog::remove(unsigned int errorId) function only 
+    removes the first instance of the error with the matching 
+    identifier. A new function removeAll(unsigned int errorId) 
+    has been added that will remove all instances of the error 
+    with the given id.
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
@@ -36,13 +36,35 @@ STABLE RELEASE
     from the situations in which we can replicate it. The issue 
     occurred when performing intensive validation.
 
+  - The math-legacy code was being caught in an endless loop when 
+    trying to read a nested piecewise function.  
+    This has been fixed.
+    
+  - Validation was failing to recognize some cases when the 
+    conditional part of a piecewise function returned a boolean and 
+    incorrectly indicated that such a model was incorrect.  We have 
+    fixed this as robustly as possible but encourage reports of 
+    situations where we have missed something.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
+
+    - Validation of layout was not correctly reporting line
+      and column numbers. This has been corrected.
+
   - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
+  - The CMake configuration has been improved to clearly
+    report failure to find files necessary to work with
+    particular language bindings.
+
+  - Sourceforge libSBML Tracker #394: The '\n' symbol
+    was not being correctly expanded on some systems. This
+    has been made more robust.  Thanks to Antonio Trande 
+    for reporting this.
 
 * Miscellaneous
 
@@ -51,8 +73,9 @@ EXPERIMENTAL RELEASE
 
 * New features
 
- - Support for the SBML Level 2 Version 5 Release 1 (Release Candidate)
-   specification has been added.  Additions to libSBML include:
+ - Support for the SBML Level 2 Version 5 Release 1 
+   (Release Candidate) specification has been added.  
+   Additions to libSBML include:
      - new API for adding Nested Annotations used on 
        the existing CVTerm object:
          int addNestedCVTerm(const CVTerm* term)
@@ -63,8 +86,6 @@ EXPERIMENTAL RELEASE
      - new and changed validation rules as in the specification
      - the ability to convert core SBML to and from L2V5
 
-
-
   - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
@@ -73,10 +94,6 @@ EXPERIMENTAL RELEASE
   - 'render' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
-
-    - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
-      were not working as expected. These have been fixed. Thanks to 
-      Harold Gómez for reporting this.
 
  * Bug fixes
  
@@ -88,6 +105,11 @@ EXPERIMENTAL RELEASE
   - 'render' package-specific bug fixes:
   - 'req' package-specific bug fixes:
   - 'spatial' package-specific bug fixes:
+
+    - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
+      were not working as expected. These have been fixed. Thanks to 
+      Harold Gómez for reporting this.
+
 		   
 ====================================================================
 5.11.0 (2014-11-27)
