@@ -82,11 +82,13 @@ MATH(EXPR LIBSBML_VERSION_NUMERIC "${LIBSBML_VERSION_MAJOR} * 10000 + ${LIBSBML_
 set(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
 set(PACKAGE_NAME "libSBML")
 
-# configure the version for documentation / bindings
-configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html.in
-    ${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html
-)
+if (WITH_DOXYGEN)
+  # configure the version for documentation / bindings
+  configure_file(
+      ${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html.in
+      ${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html
+  )
+endif()
 
 # add make dist and make check target as they are already familiar for
 # everyone using the gnumake build
