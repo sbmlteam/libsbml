@@ -1042,6 +1042,9 @@ install(FILES ${DOCUMENTATION_FILES} DESTINATION ${MISC_PREFIX}.)
 #
 # Print Summary
 #
+if (NOT HOSTNAME)
+ site_name(HOSTNAME)
+endif()
 
 message(STATUS "
 ----------------------------------------------------------------------
@@ -1056,7 +1059,7 @@ libSBML version ${PACKAGE_VERSION}
 
    To contact the developers directly, email libsbml-team@caltech.edu
 
-   Configured on host '$ENV{COMPUTERNAME}' ${HOSTNAME}
+   Configured on host '${HOSTNAME}'
      host type                       = ${CMAKE_SYSTEM_NAME}
      host operating system           = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
      host CPU architecture           = ${CMAKE_SYSTEM_PROCESSOR}
