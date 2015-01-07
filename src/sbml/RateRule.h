@@ -474,6 +474,25 @@ RateRule_setFormula (RateRule_t *r, const char *formula);
 
 
 /**
+ * Unsets the value of the "variable" attribute of the given 
+ * RateRule_t structure.
+ *
+ * @param ar the RateRule_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof RateRule_t
+ */
+LIBSBML_EXTERN
+int
+RateRule_unsetVariable(RateRule_t * ar);
+
+
+/**
  * Predicate returning @c 1 or *c 0 depending on whether all the required
  * attributes of the given RateRule_t structure have been set.
  *

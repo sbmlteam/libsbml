@@ -233,6 +233,32 @@ START_TEST (test_Species_setCompartment)
 END_TEST
 
 
+START_TEST (test_Species_unsetCompartment)
+{
+  const char *compartment = "cell";
+
+
+  Species_setCompartment(S, compartment);
+
+  fail_unless( !strcmp(Species_getCompartment(S), compartment) );
+  fail_unless( Species_isSetCompartment(S) );
+
+  if (Species_getCompartment(S) == compartment)
+  {
+    fail("Species_setCompartment(...) did not make a copy of string.");
+  }
+
+  Species_unsetCompartment(S);
+  fail_unless( !Species_isSetCompartment(S) );
+
+  if (Species_getCompartment(S) != NULL)
+  {
+    fail("Species_unsetComartment(S) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Species_setInitialAmount)
 {
   fail_unless( !Species_isSetInitialAmount       (S) );
@@ -356,6 +382,83 @@ START_TEST (test_Species_setUnits)
 }
 END_TEST
 
+START_TEST (test_Species_getsetConstant)
+{
+  Species_setConstant(S, 1);
+
+  fail_unless( Species_getConstant(S) == 1);
+  fail_unless( Species_isSetConstant(S) == 1);
+
+  Species_unsetConstant(S);
+
+  fail_unless( Species_getConstant(S) == 0);
+  fail_unless( Species_isSetConstant(S) == 0);
+
+  Species_setConstant(S, 0);
+
+  fail_unless( Species_getConstant(S) == 0);
+  fail_unless( Species_isSetConstant(S) == 1);
+
+  Species_unsetConstant(S);
+
+  fail_unless( Species_getConstant(S) == 0);
+  fail_unless( Species_isSetConstant(S) == 0);
+
+}
+END_TEST
+
+
+START_TEST (test_Species_getsetBoundaryCondition)
+{
+  Species_setBoundaryCondition(S, 1);
+
+  fail_unless( Species_getBoundaryCondition(S) == 1);
+  fail_unless( Species_isSetBoundaryCondition(S) == 1);
+
+  Species_unsetBoundaryCondition(S);
+
+  fail_unless( Species_getBoundaryCondition(S) == 0);
+  fail_unless( Species_isSetBoundaryCondition(S) == 0);
+
+  Species_setBoundaryCondition(S, 0);
+
+  fail_unless( Species_getBoundaryCondition(S) == 0);
+  fail_unless( Species_isSetBoundaryCondition(S) == 1);
+
+  Species_unsetBoundaryCondition(S);
+
+  fail_unless( Species_getBoundaryCondition(S) == 0);
+  fail_unless( Species_isSetBoundaryCondition(S) == 0);
+
+}
+END_TEST
+
+
+START_TEST (test_Species_getsetHasOnlySubstanceUnits)
+{
+  Species_setHasOnlySubstanceUnits(S, 1);
+
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 1);
+  fail_unless( Species_isSetHasOnlySubstanceUnits(S) == 1);
+
+  Species_unsetHasOnlySubstanceUnits(S);
+
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0);
+  fail_unless( Species_isSetHasOnlySubstanceUnits(S) == 0);
+
+  Species_setHasOnlySubstanceUnits(S, 0);
+
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0);
+  fail_unless( Species_isSetHasOnlySubstanceUnits(S) == 1);
+
+  Species_unsetHasOnlySubstanceUnits(S);
+
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0);
+  fail_unless( Species_isSetHasOnlySubstanceUnits(S) == 0);
+
+}
+END_TEST
+
 
 START_TEST (test_Species_createWithNS )
 {
@@ -412,11 +515,15 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setId                   );
   tcase_add_test( tcase, test_Species_setName                 );
   tcase_add_test( tcase, test_Species_setCompartment          );
+  tcase_add_test( tcase, test_Species_unsetCompartment        );
   tcase_add_test( tcase, test_Species_setInitialAmount        );
   tcase_add_test( tcase, test_Species_setInitialConcentration );
   tcase_add_test( tcase, test_Species_setSubstanceUnits       );
   tcase_add_test( tcase, test_Species_setSpatialSizeUnits     );
   tcase_add_test( tcase, test_Species_setUnits                );
+  tcase_add_test( tcase, test_Species_getsetConstant          );
+  tcase_add_test( tcase, test_Species_getsetBoundaryCondition );
+  tcase_add_test( tcase, test_Species_getsetHasOnlySubstanceUnits );
   tcase_add_test( tcase, test_Species_createWithNS         );
   tcase_add_test( tcase, test_Species_conversionFactor        );
 

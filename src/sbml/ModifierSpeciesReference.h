@@ -484,6 +484,24 @@ ModifierSpeciesReference_unsetName(ModifierSpeciesReference_t * msr);
 
 
 /**
+ * Unsets the value of the "species" attribute of the given 
+ *ModifierSpeciesReference_t structure.
+ *
+ * @param msr the ModifierSpeciesReference_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof ModifierSpeciesReference_t
+ */
+LIBSBML_EXTERN
+int
+ModifierSpeciesReference_unsetSpecies(ModifierSpeciesReference_t * msr);
+
+
+/**
  * Predicate returning @c 1 or *c 0 depending on whether all the required
  * attributes of the given ModifierSpeciesReference_t structure have been set.
  *

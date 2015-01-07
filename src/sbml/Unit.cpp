@@ -730,6 +730,17 @@ Unit::isSetMultiplier () const
 
   
 /*
+ * @return @c true if the "multiplier" attribute of this Unit is set, 
+ * @c false otherwise.
+ */
+bool 
+Unit::isSetOffset () const
+{
+  return mExplicitlySetOffset;
+}
+
+  
+/*
  * Sets the kind of this Unit to the given UnitKind.
  */
 int
@@ -840,6 +851,109 @@ Unit::setOffset (double value)
   {
     mOffset = value;
     mExplicitlySetOffset = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the kind of this Unit to the given UnitKind.
+ */
+int
+Unit::unsetKind ()
+{
+  mKind = UNIT_KIND_INVALID;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the exponent of this Unit to the given value.
+ */
+int
+Unit::unsetExponent ()
+{
+  if (getLevel() < 3)
+  {
+    // reset defaults
+    mExponentDouble = 1.0;
+    mExponent = 1;
+  }
+  else
+  {
+    mExponentDouble = numeric_limits<double>::quiet_NaN();
+  }
+
+  mIsSetExponent = false;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the scale of this Unit to the given value.
+ */
+int
+Unit::unsetScale ()
+{
+  if (getLevel() < 3)
+  {
+    // reset default
+    mScale = 0;
+  }
+  else
+  {
+    mScale = SBML_INT_MAX;
+  }
+  mIsSetScale = false;
+  mExplicitlySetScale = false;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Unsets the multiplier of this Unit to the given value.
+ */
+int
+Unit::unsetMultiplier ()
+{
+  if (getLevel() < 2)
+  {
+    mMultiplier = 1.0;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    if (getLevel() < 3)
+    {
+      // reset default
+      mMultiplier = 1.0;
+    }
+    else
+    {
+      mMultiplier = numeric_limits<double>::quiet_NaN();
+    }
+    mIsSetMultiplier = false;
+    mExplicitlySetMultiplier = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * unsets the offset of this Unit to the given value.
+ */
+int
+Unit::unsetOffset ()
+{
+  if (!(getLevel() == 2 && getVersion() == 1))
+  {
+    mOffset = 0.0;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mOffset = 0.0;
+    mExplicitlySetOffset = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -2618,6 +2732,14 @@ Unit_isSetScale (const Unit_t *u)
 
 LIBSBML_EXTERN
 int
+Unit_isSetOffset (const Unit_t *u)
+{
+  return (u != NULL) ? static_cast<int>( u->isSetOffset() ) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
 Unit_setKind (Unit_t *u, UnitKind_t kind)
 {
   return (u != NULL) ? u->setKind(kind) : LIBSBML_INVALID_OBJECT;
@@ -2661,6 +2783,46 @@ int
 Unit_setOffset (Unit_t *u, double value)
 {
   return (u != NULL) ? u->setOffset(value) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Unit_unsetKind (Unit_t *u)
+{
+  return (u != NULL) ? u->unsetKind() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Unit_unsetExponent (Unit_t *u)
+{
+  return (u != NULL) ? u->unsetExponent() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Unit_unsetScale (Unit_t *u)
+{
+  return (u != NULL) ? u->unsetScale() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Unit_unsetMultiplier (Unit_t *u)
+{
+  return (u != NULL) ? u->unsetMultiplier() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Unit_unsetOffset (Unit_t *u)
+{
+  return (u != NULL) ? u->unsetOffset() : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -339,6 +339,36 @@ START_TEST (test_Event_setUseValuesFromTriggerTime)
 END_TEST
 
 
+START_TEST (test_Event_unsetUseValuesFromTriggerTime)
+{
+  Event_t *object = 
+    Event_create(2, 4);
+
+  Event_setUseValuesFromTriggerTime(object, 1);
+
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 1 );
+  fail_unless( Event_isSetUseValuesFromTriggerTime(object) == 1);
+
+  Event_unsetUseValuesFromTriggerTime(object);
+
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 1 );
+  fail_unless( Event_isSetUseValuesFromTriggerTime(object) == 0);
+
+  Event_setUseValuesFromTriggerTime(object, 0);
+
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 0 );
+  fail_unless( Event_isSetUseValuesFromTriggerTime(object) == 1);
+
+  Event_unsetUseValuesFromTriggerTime(object);
+
+  fail_unless( Event_getUseValuesFromTriggerTime(object) == 1 );
+  fail_unless( Event_isSetUseValuesFromTriggerTime(object) == 0);
+
+  Event_free(object);
+}
+END_TEST
+
+
 START_TEST (test_Event_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -412,6 +442,7 @@ create_suite_Event (void)
   tcase_add_test( tcase, test_Event_setTimeUnits );
   tcase_add_test( tcase, test_Event_full         );
   tcase_add_test( tcase, test_Event_setUseValuesFromTriggerTime );
+  tcase_add_test( tcase, test_Event_unsetUseValuesFromTriggerTime );
   tcase_add_test( tcase, test_Event_createWithNS         );
   tcase_add_test( tcase, test_Event_removeEventAssignment  );
 

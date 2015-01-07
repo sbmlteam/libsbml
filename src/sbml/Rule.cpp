@@ -449,6 +449,30 @@ Rule::setUnits (const std::string& sname)
 
 
 /*
+ * Unsets the variable for this Rule.
+ */
+int
+Rule::unsetVariable ()
+{
+  if (isAlgebraic())
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  mVariable.erase();
+
+  if (mVariable.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
  * Unsets the units for this Rule (L1 ParameterRules only).
  */
 int

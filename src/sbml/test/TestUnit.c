@@ -283,6 +283,48 @@ START_TEST (test_Unit_set_get)
 END_TEST
 
 
+START_TEST (test_Unit_unset)
+{
+  Unit_t *u = Unit_create(2, 4);
+
+
+  Unit_setKind(u, UNIT_KIND_WATT);
+  Unit_setExponent(u, 3);
+  Unit_setScale(u, 4);
+  Unit_setMultiplier(u, 3.2);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_WATT );
+  fail_unless( Unit_getExponent  (u) == 3   );
+  fail_unless( Unit_getScale     (u) == 4  );
+  fail_unless( Unit_getMultiplier(u) == 3.2 );
+
+  fail_unless (Unit_isSetKind(u) == 1);
+  fail_unless (Unit_isSetExponent(u) == 1);
+  fail_unless (Unit_isSetScale(u) == 1);
+  fail_unless (Unit_isSetMultiplier(u) == 1);
+  fail_unless (Unit_isSetOffset(u) == 0);
+
+  Unit_unsetKind(u);
+  Unit_unsetExponent(u);
+  Unit_unsetScale(u);
+  Unit_unsetMultiplier(u);
+
+  fail_unless (Unit_isSetKind(u) == 0);
+  fail_unless (Unit_isSetExponent(u) == 0);
+  fail_unless (Unit_isSetScale(u) == 0);
+  fail_unless (Unit_isSetMultiplier(u) == 0);
+  fail_unless (Unit_isSetOffset(u) == 0);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_INVALID );
+  fail_unless( Unit_getExponent  (u) == 1   );
+  fail_unless( Unit_getScale     (u) == 0  );
+  fail_unless( Unit_getMultiplier(u) == 1.0 );
+
+  Unit_free(u);
+}
+END_TEST
+
+
 START_TEST (test_Unit_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();

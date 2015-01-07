@@ -751,6 +751,18 @@ public:
 
 
   /**
+   * Predicate to test whether the "offset" attribute of this Unit 
+   * is set.
+   * 
+   * @return @c true if the "offset" attribute of this Unit is set, 
+   * @c false otherwise.
+   *
+   * @copydetails doc_warning_unit_offset_only_l2v1
+   */
+  bool isSetOffset () const;
+
+
+  /**
    * Sets the "kind" attribute value of this Unit.
    *
    * @if clike
@@ -832,6 +844,57 @@ public:
    * @copydetails doc_warning_unit_offset_only_l2v1
    */
   int setOffset (double value);
+
+
+  /**
+   * Unsets the "kind" attribute value of this Unit.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  int unsetKind ();
+
+
+  /**
+   * Unsets the "exponent" attribute value of this Unit.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  int unsetExponent ();
+
+
+  /**
+   * Unsets the "scale" attribute value of this Unit.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   */
+  int unsetScale ();
+
+
+  /**
+   * Unsets the "multipler" attribute value of this Unit.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   */
+  int unsetMultiplier ();
+
+
+  /**
+   * Unsets the "offset" attribute value of this Unit.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   *
+   * @copydetails doc_warning_unit_offset_only_l2v1
+   */
+  int unsetOffset ();
 
 
   /**
@@ -2149,6 +2212,31 @@ Unit_isSetScale (const Unit_t *u);
 
 
 /**
+ * Predicate to test whether the "scale" attribute of the given Unit_t
+ * structure @p u is set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "scale" attribute of the given
+ * Unit_t structure is set, zero (0) otherwise.
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetOffset (Unit_t *u);
+
+
+/**
  * Sets the kind of the given Unit_t structure @p u to the given
  * UnitKind_t value.
  *
@@ -2255,6 +2343,93 @@ Unit_setMultiplier (Unit_t *u, double value);
 LIBSBML_EXTERN
 int
 Unit_setOffset (Unit_t *u, double value);
+
+
+/**
+ * Unsets the kind of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetKind (Unit_t *u);
+
+
+/**
+ * Unsets the "exponent" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetExponent (Unit_t *u);
+
+
+/**
+ * Unsets the "scale" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetScale (Unit_t *u);
+
+
+/**
+ * Unsets the "multiplier" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetMultiplier (Unit_t *u);
+
+
+/**
+ * Unsets the "offset" attribute value of the given Unit_t structure @p u.
+ * 
+ * @param u the Unit_t structure whose value is to be set
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
+ *
+ * @memberof Unit_t
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetOffset (Unit_t *u);
 
 
 /**

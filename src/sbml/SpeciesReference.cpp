@@ -501,6 +501,27 @@ SpeciesReference::unsetStoichiometry ()
 
 
 /*
+ * Sets the constant field of this SpeciesReference to value.
+ */
+int
+SpeciesReference::unsetConstant ()
+{
+  if ( getLevel() < 3 )
+  {
+    mConstant = false;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    // no default
+    //mConstant = false;
+    mIsSetConstant = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Creates a new StoichiometryMath, adds it to this SpeciesReference
  * and returns it.
  */
@@ -1810,6 +1831,24 @@ SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
   return (sr != NULL) ? sr->unsetName() : LIBSBML_INVALID_OBJECT;
 }
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetSpecies (SpeciesReference_t *sr)
+{
+  return (sr != NULL) ? sr->unsetSpecies() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetConstant (SpeciesReference_t *sr)
+{
+  return (sr != NULL) ? static_cast<SpeciesReference*>(sr)->unsetConstant() 
+                      : LIBSBML_INVALID_OBJECT;
+}
+
 
 LIBSBML_EXTERN
 int

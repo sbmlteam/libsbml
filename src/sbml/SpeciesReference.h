@@ -696,6 +696,16 @@ public:
 
 
   /**
+   * Unsets the "constant" attribute of this SpeciesReference.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   */
+  int unsetConstant ();
+
+
+  /**
    * Creates a new, empty StoichiometryMath object, adds it to this
    * SpeciesReference, and returns it.
    *
@@ -1790,6 +1800,40 @@ SpeciesReference_unsetId (SpeciesReference_t *sr);
 LIBSBML_EXTERN
 int
 SpeciesReference_unsetName (SpeciesReference_t *sr);
+
+
+/**
+ * Unsets the value of the "species" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof SpeciesReference_t
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetSpecies (SpeciesReference_t *sr);
+
+
+/**
+ * Unsets the value of the "constant" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof SpeciesReference_t
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetConstant (SpeciesReference_t *sr);
 
 
 /**

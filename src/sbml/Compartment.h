@@ -1153,6 +1153,20 @@ public:
 
 
   /**
+   * Unsets the value of the "constant" attribute of this Compartment object.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see isSetConstant()
+   * @see setConstant(@if java String@endif)
+   * @see getConstant()
+   */
+  int unsetConstant ();
+
+
+  /**
    * Unsets the value of the "size" attribute of this Compartment object.
    *
    * In SBML Level&nbsp;1, a compartment's volume has a default value (@c
@@ -2377,6 +2391,24 @@ Compartment_unsetName (Compartment_t *c);
 LIBSBML_EXTERN
 int
 Compartment_unsetCompartmentType (Compartment_t *c);
+
+
+/**
+ * Unsets the value of the "constant" attribute of the given Compartment_t
+ * structure.
+ *
+ * @param c the Compartment_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Compartment_t
+ */
+LIBSBML_EXTERN
+int
+Compartment_unsetConstant (Compartment_t *c);
 
 
 /**

@@ -527,6 +527,20 @@ public:
 
 
   /**
+   * Unsets the value of the "constant" attribute of this Parameter object.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @see isSetConstant()
+   * @see setConstant(@if java String@endif)
+   * @see getConstant()
+   */
+  int unsetConstant ();
+
+
+  /**
    * Unsets the "value" attribute of this Parameter instance.
    *
    * @copydetails doc_returns_success_code
@@ -1383,6 +1397,24 @@ Parameter_setConstant (Parameter_t *p, int value);
 LIBSBML_EXTERN
 int
 Parameter_unsetName (Parameter_t *p);
+
+
+/**
+ * Unsets the value of the "constant" attribute of the given Parameter_t
+ * structure.
+ *
+ * @param c the Parameter_t structure.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Parameter_t
+ */
+LIBSBML_EXTERN
+int
+Parameter_unsetConstant (Parameter_t *c);
 
 
 /**

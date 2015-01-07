@@ -406,6 +406,21 @@ public:
 
 
   /**
+   * Unsets the value of the "variable" attribute of this Rule object.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   *
+   * @see setVariable(const std::string& sid)
+   * @see isSetVariable()
+   * @see getVariable()
+   */
+  int unsetVariable ();
+
+
+  /**
    * Unsets the "units" for this Rule.
    *
    * @copydetails doc_returns_success_code

@@ -329,6 +329,22 @@ START_TEST (test_Compartment_getsetConstant)
   Compartment_setConstant(C, 1);
 
   fail_unless( Compartment_getConstant(C) == 1);
+  fail_unless( Compartment_isSetConstant(C) == 1);
+
+  Compartment_unsetConstant(C);
+
+  fail_unless( Compartment_getConstant(C) == 1);
+  fail_unless( Compartment_isSetConstant(C) == 0);
+
+  Compartment_setConstant(C, 0);
+
+  fail_unless( Compartment_getConstant(C) == 0);
+  fail_unless( Compartment_isSetConstant(C) == 1);
+
+  Compartment_unsetConstant(C);
+
+  fail_unless( Compartment_getConstant(C) == 1);
+  fail_unless( Compartment_isSetConstant(C) == 0);
 
 }
 END_TEST

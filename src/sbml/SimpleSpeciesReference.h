@@ -270,6 +270,16 @@ public:
 
 
   /**
+   * Unsets the value of the "species" attribute of this SimpleSpeciesReference.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  virtual int unsetSpecies ();
+
+
+  /**
    * Predicate returning @c true if this
    * is a ModifierSpeciesReference.
    * 
