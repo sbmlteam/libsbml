@@ -254,15 +254,17 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setUnsetStoichiometry)
 {
-  SpeciesReference_unsetStoichiometryMath(SR);
+  SpeciesReference_free(SR);
+  SR = SpeciesReference_create(2, 4);
+  fail_unless( !SpeciesReference_isSetStoichiometry(SR) );
+
   SpeciesReference_setStoichiometry(SR, 2);
-
-  double math = SpeciesReference_getStoichiometry(SR);
-  fail_unless( math == 2 );
+  fail_unless( SpeciesReference_getStoichiometry(SR) == 2 );
 
   fail_unless( SpeciesReference_isSetStoichiometry(SR) );
-  fail_unless( SpeciesReference_unsetStoichiometry(SR) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( SpeciesReference_unsetStoichiometry(SR) == LIBSBML_OPERATION_SUCCESS );
   fail_unless( SpeciesReference_isSetStoichiometry(SR) );
+  fail_unless( SpeciesReference_getStoichiometry(SR) == 1 );
 }
 END_TEST
 
