@@ -561,7 +561,7 @@ AdvectionCoefficient_setCoordinate(AdvectionCoefficient_t * ac, CoordinateKind_t
 
 /**
  * Unsets the value of the "variable" attribute of the given 
- *AdvectionCoefficient_t structure.
+ * AdvectionCoefficient_t structure.
  *
  * @param ac the AdvectionCoefficient_t structure.
  *
@@ -582,7 +582,7 @@ AdvectionCoefficient_unsetVariable(AdvectionCoefficient_t * ac);
 
 /**
  * Unsets the value of the "coordinate" attribute of the given 
- *AdvectionCoefficient_t structure.
+ * AdvectionCoefficient_t structure.
  *
  * @param ac the AdvectionCoefficient_t structure.
  *

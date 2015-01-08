@@ -50,3 +50,4 @@ target_link_libraries(test_sbml_objects_package_spatial ${LIBSBML_LIBRARY}-stati
 add_test(test_sbml_objects_package_spatial ${CMAKE_CURRENT_BINARY_DIR}/test_sbml_objects_package_spatial )
 set_tests_properties(test_sbml_objects_package_spatial  PROPERTIES ENVIRONMENT 
 	"srcdir=${CMAKE_CURRENT_SOURCE_DIR}")
+

@@ -537,7 +537,7 @@ Boundary_setValue(Boundary_t * b, double value);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *Boundary_t structure.
+ * Boundary_t structure.
  *
  * @param b the Boundary_t structure.
  *
@@ -558,7 +558,7 @@ Boundary_unsetId(Boundary_t * b);
 
 /**
  * Unsets the value of the "value" attribute of the given 
- *Boundary_t structure.
+ * Boundary_t structure.
  *
  * @param b the Boundary_t structure.
  *

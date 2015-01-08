@@ -65,8 +65,6 @@ typedef CLASS_OR_STRUCT AnalyticGeometry    AnalyticGeometry_t;
 typedef CLASS_OR_STRUCT AnalyticVolume    AnalyticVolume_t;
 typedef CLASS_OR_STRUCT ParametricGeometry    ParametricGeometry_t;
 typedef CLASS_OR_STRUCT ParametricObject    ParametricObject_t;
-typedef CLASS_OR_STRUCT PolygonObject    PolygonObject_t;
-typedef CLASS_OR_STRUCT SpatialPoint    SpatialPoint_t;
 typedef CLASS_OR_STRUCT CSGeometry    CSGeometry_t;
 typedef CLASS_OR_STRUCT CSGObject    CSGObject_t;
 typedef CLASS_OR_STRUCT CSGNode    CSGNode_t;
@@ -87,6 +85,7 @@ typedef CLASS_OR_STRUCT Geometry    Geometry_t;
 typedef CLASS_OR_STRUCT CoordinateReference    CoordinateReference_t;
 typedef CLASS_OR_STRUCT MixedGeometry    MixedGeometry_t;
 typedef CLASS_OR_STRUCT OrdinalMapping    OrdinalMapping_t;
+typedef CLASS_OR_STRUCT SpatialPoints    SpatialPoints_t;
 
 LIBSBML_CPP_NAMESPACE_END
 

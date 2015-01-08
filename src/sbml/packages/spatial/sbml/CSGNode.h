@@ -283,7 +283,6 @@ public:
    * for this CSGNode object have been set.
    *
    * @note The required attributes for a CSGNode object are:
-   * @li "id"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -831,7 +830,7 @@ CSGNode_setId(CSGNode_t * csgn, const char * id);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *CSGNode_t structure.
+ * CSGNode_t structure.
  *
  * @param csgn the CSGNode_t structure.
  *

@@ -629,7 +629,7 @@ SampledFieldGeometry_setSampledField(SampledFieldGeometry_t * sfg, const char * 
 
 /**
  * Unsets the value of the "sampledField" attribute of the given 
- *SampledFieldGeometry_t structure.
+ * SampledFieldGeometry_t structure.
  *
  * @param sfg the SampledFieldGeometry_t structure.
  *

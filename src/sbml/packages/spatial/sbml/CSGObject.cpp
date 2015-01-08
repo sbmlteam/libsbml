@@ -579,9 +579,6 @@ CSGObject::hasRequiredAttributes () const
   if (isSetDomainType() == false)
     allPresent = false;
 
-  if (isSetOrdinal() == false)
-    allPresent = false;
-
   return allPresent;
 }
 
@@ -900,7 +897,7 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
   }
 
   //
-  // ordinal int   ( use = "required" )
+  // ordinal int   ( use = "optional" )
   //
   numErrs = getErrorLog()->getNumErrors();
   mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
@@ -915,12 +912,6 @@ CSGObject::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                      getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'ordinal' is missing from 'csgObject' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
     }
   }

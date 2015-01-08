@@ -393,6 +393,7 @@ SampledFieldGeometry::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mSampledVolumes, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 

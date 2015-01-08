@@ -995,7 +995,7 @@ Domain_setDomainType(Domain_t * d, const char * domainType);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *Domain_t structure.
+ * Domain_t structure.
  *
  * @param d the Domain_t structure.
  *
@@ -1016,7 +1016,7 @@ Domain_unsetId(Domain_t * d);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *Domain_t structure.
+ * Domain_t structure.
  *
  * @param d the Domain_t structure.
  *

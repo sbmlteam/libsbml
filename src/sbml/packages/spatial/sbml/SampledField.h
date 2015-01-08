@@ -459,7 +459,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setSamples(int* inArray, size_t arrayLength);
+  virtual int setSamples(int* inArray, int arrayLength);
 
 
   /**
@@ -653,6 +653,7 @@ public:
    * @li "id"
    * @li "dataType"
    * @li "numSamples1"
+   * @li "interpolationType"
    * @li "compression"
    * @li "samples"
    * @li "samplesLength"
@@ -1648,7 +1649,7 @@ SampledField_setSamplesLength(SampledField_t * sf, int samplesLength);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1669,7 +1670,7 @@ SampledField_unsetId(SampledField_t * sf);
 
 /**
  * Unsets the value of the "dataType" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1690,7 +1691,7 @@ SampledField_unsetDataType(SampledField_t * sf);
 
 /**
  * Unsets the value of the "numSamples1" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1711,7 +1712,7 @@ SampledField_unsetNumSamples1(SampledField_t * sf);
 
 /**
  * Unsets the value of the "numSamples2" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1732,7 +1733,7 @@ SampledField_unsetNumSamples2(SampledField_t * sf);
 
 /**
  * Unsets the value of the "numSamples3" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1753,7 +1754,7 @@ SampledField_unsetNumSamples3(SampledField_t * sf);
 
 /**
  * Unsets the value of the "interpolationType" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1774,7 +1775,7 @@ SampledField_unsetInterpolationType(SampledField_t * sf);
 
 /**
  * Unsets the value of the "compression" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1795,7 +1796,7 @@ SampledField_unsetCompression(SampledField_t * sf);
 
 /**
  * Unsets the value of the "samples" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *
@@ -1816,7 +1817,7 @@ SampledField_unsetSamples(SampledField_t * sf);
 
 /**
  * Unsets the value of the "samplesLength" attribute of the given 
- *SampledField_t structure.
+ * SampledField_t structure.
  *
  * @param sf the SampledField_t structure.
  *

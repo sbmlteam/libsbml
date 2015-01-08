@@ -1,6 +1,6 @@
 /**
- * @file:   BoundaryCondition.h
- * @brief:  Implementation of the BoundaryCondition class
+ * @file:   SpatialPoints.h
+ * @brief:  Implementation of the SpatialPoints class
  * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
@@ -32,8 +32,8 @@
  */
 
 
-#ifndef BoundaryCondition_H__
-#define BoundaryCondition_H__
+#ifndef SpatialPoints_H__
+#define SpatialPoints_H__
 
 
 #include <sbml/common/extern.h>
@@ -56,148 +56,171 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 
-class LIBSBML_EXTERN BoundaryCondition : public SBase
+class LIBSBML_EXTERN SpatialPoints : public SBase
 {
 
 protected:
 
-  std::string   mVariable;
-  BoundaryConditionKind_t   mType;
-  std::string   mCoordinateBoundary;
-  std::string   mBoundaryDomainType;
+  std::string   mId;
+  CompressionKind_t   mCompression;
+  double*         mArrayData;
+  int           mArrayDataLength;
+  bool          mIsSetArrayDataLength;
+  DataKind_t   mDataType;
 
 
 public:
 
   /**
-   * Creates a new BoundaryCondition with the given level, version, and package version.
+   * Creates a new SpatialPoints with the given level, version, and package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this BoundaryCondition
+   * @param level an unsigned int, the SBML Level to assign to this SpatialPoints
    *
-   * @param version an unsigned int, the SBML Version to assign to this BoundaryCondition
+   * @param version an unsigned int, the SBML Version to assign to this SpatialPoints
    *
-   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this BoundaryCondition
+   * @param pkgVersion an unsigned int, the SBML Spatial Version to assign to this SpatialPoints
    */
-  BoundaryCondition(unsigned int level      = SpatialExtension::getDefaultLevel(),
-                    unsigned int version    = SpatialExtension::getDefaultVersion(),
-                    unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
+  SpatialPoints(unsigned int level      = SpatialExtension::getDefaultLevel(),
+                unsigned int version    = SpatialExtension::getDefaultVersion(),
+                unsigned int pkgVersion = SpatialExtension::getDefaultPackageVersion());
 
 
   /**
-   * Creates a new BoundaryCondition with the given SpatialPkgNamespaces object.
+   * Creates a new SpatialPoints with the given SpatialPkgNamespaces object.
    *
    * @param spatialns the SpatialPkgNamespaces object
    */
-  BoundaryCondition(SpatialPkgNamespaces* spatialns);
+  SpatialPoints(SpatialPkgNamespaces* spatialns);
 
 
    /**
-   * Copy constructor for BoundaryCondition.
+   * Copy constructor for SpatialPoints.
    *
-   * @param orig; the BoundaryCondition instance to copy.
+   * @param orig; the SpatialPoints instance to copy.
    */
-  BoundaryCondition(const BoundaryCondition& orig);
+  SpatialPoints(const SpatialPoints& orig);
 
 
    /**
-   * Assignment operator for BoundaryCondition.
+   * Assignment operator for SpatialPoints.
    *
    * @param rhs; the object whose values are used as the basis
    * of the assignment
    */
-  BoundaryCondition& operator=(const BoundaryCondition& rhs);
+  SpatialPoints& operator=(const SpatialPoints& rhs);
 
 
    /**
-   * Creates and returns a deep copy of this BoundaryCondition object.
+   * Creates and returns a deep copy of this SpatialPoints object.
    *
-   * @return a (deep) copy of this BoundaryCondition object.
+   * @return a (deep) copy of this SpatialPoints object.
    */
-  virtual BoundaryCondition* clone () const;
+  virtual SpatialPoints* clone () const;
 
 
    /**
-   * Destructor for BoundaryCondition.
+   * Destructor for SpatialPoints.
    */
-  virtual ~BoundaryCondition();
+  virtual ~SpatialPoints();
 
 
    /**
-   * Returns the value of the "variable" attribute of this BoundaryCondition.
+   * Returns the value of the "id" attribute of this SpatialPoints.
    *
-   * @return the value of the "variable" attribute of this BoundaryCondition as a string.
+   * @return the value of the "id" attribute of this SpatialPoints as a string.
    */
-  virtual const std::string& getVariable() const;
+  virtual const std::string& getId() const;
 
 
   /**
-   * Returns the value of the "type" attribute of this BoundaryCondition.
+   * Returns the value of the "compression" attribute of this SpatialPoints.
    *
-   * @return the value of the "type" attribute of this BoundaryCondition as a BoundaryConditionKind_t.
+   * @return the value of the "compression" attribute of this SpatialPoints as a CompressionKind_t.
    */
-  virtual BoundaryConditionKind_t getType() const;
+  virtual CompressionKind_t getCompression() const;
 
 
   /**
-   * Returns the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * The "arrayData" attribute of this SpatialPoints is returned in an double* array (pointer)
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). The method itself has a return type void.
    *
-   * @return the value of the "coordinateBoundary" attribute of this BoundaryCondition as a string.
+   * NOTE: you have to pre-allocate the array with the correct length!   *
+   * @return void.
    */
-  virtual const std::string& getCoordinateBoundary() const;
+  void getArrayData(double* outArray) const;
 
 
   /**
-   * Returns the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Returns the value of the "arrayDataLength" attribute of this SpatialPoints.
    *
-   * @return the value of the "boundaryDomainType" attribute of this BoundaryCondition as a string.
+   * @return the value of the "arrayDataLength" attribute of this SpatialPoints as a integer.
    */
-  virtual const std::string& getBoundaryDomainType() const;
+  virtual int getArrayDataLength() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "variable" attribute has been set.
+   * Returns the value of the "dataType" attribute of this SpatialPoints.
    *
-   * @return @c true if this BoundaryCondition's "variable" attribute has been set,
-   * otherwise @c false is returned.
+   * @return the value of the "dataType" attribute of this SpatialPoints as a DataKind_t.
    */
-  virtual bool isSetVariable() const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "type" attribute has been set.
-   *
-   * @return @c true if this BoundaryCondition's "type" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetType() const;
+  virtual DataKind_t getDataType() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "coordinateBoundary" attribute has been set.
+   * SpatialPoints's "id" attribute has been set.
    *
-   * @return @c true if this BoundaryCondition's "coordinateBoundary" attribute has been set,
+   * @return @c true if this SpatialPoints's "id" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetCoordinateBoundary() const;
+  virtual bool isSetId() const;
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * BoundaryCondition's "boundaryDomainType" attribute has been set.
+   * SpatialPoints's "compression" attribute has been set.
    *
-   * @return @c true if this BoundaryCondition's "boundaryDomainType" attribute has been set,
+   * @return @c true if this SpatialPoints's "compression" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetBoundaryDomainType() const;
+  virtual bool isSetCompression() const;
 
 
   /**
-   * Sets the value of the "variable" attribute of this BoundaryCondition.
+   * Predicate returning @c true or @c false depending on whether this
+   * SpatialPoints's "arrayData" attribute has been set.
    *
-   * @param variable; const std::string& value of the "variable" attribute to be set
+   * @return @c true if this SpatialPoints's "arrayData" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetArrayData() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpatialPoints's "arrayDataLength" attribute has been set.
+   *
+   * @return @c true if this SpatialPoints's "arrayDataLength" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetArrayDataLength() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpatialPoints's "dataType" attribute has been set.
+   *
+   * @return @c true if this SpatialPoints's "dataType" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetDataType() const;
+
+
+  /**
+   * Sets the value of the "id" attribute of this SpatialPoints.
+   *
+   * @param id; const std::string& value of the "id" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -206,13 +229,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setVariable(const std::string& variable);
+  virtual int setId(const std::string& id);
 
 
   /**
-   * Sets the value of the "type" attribute of this BoundaryCondition.
+   * Sets the value of the "compression" attribute of this SpatialPoints.
    *
-   * @param type; BoundaryConditionKind_t value of the "type" attribute to be set
+   * @param compression; CompressionKind_t value of the "compression" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -221,13 +244,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setType(BoundaryConditionKind_t type);
+  virtual int setCompression(CompressionKind_t compression);
 
 
   /**
-   * Sets the value of the "type" attribute of this BoundaryCondition.
+   * Sets the value of the "compression" attribute of this SpatialPoints.
    *
-   * @param type; string value of the "type" attribute to be set
+   * @param compression; string value of the "compression" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -236,13 +259,14 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setType(const std::string& type);
+  virtual int setCompression(const std::string& compression);
 
 
   /**
-   * Sets the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * Sets the "arrayData" element of this SpatialPoints.
    *
-   * @param coordinateBoundary; const std::string& value of the "coordinateBoundary" attribute to be set
+   * @param inArray; double* array to be set (it will be copied).
+   * @param arrayLength; the length of the array.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -251,13 +275,13 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setCoordinateBoundary(const std::string& coordinateBoundary);
+  virtual int setArrayData(double* inArray, int arrayLength);
 
 
   /**
-   * Sets the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Sets the value of the "arrayDataLength" attribute of this SpatialPoints.
    *
-   * @param boundaryDomainType; const std::string& value of the "boundaryDomainType" attribute to be set
+   * @param arrayDataLength; int value of the "arrayDataLength" attribute to be set
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -266,11 +290,41 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setBoundaryDomainType(const std::string& boundaryDomainType);
+  virtual int setArrayDataLength(int arrayDataLength);
 
 
   /**
-   * Unsets the value of the "variable" attribute of this BoundaryCondition.
+   * Sets the value of the "dataType" attribute of this SpatialPoints.
+   *
+   * @param dataType; DataKind_t value of the "dataType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDataType(DataKind_t dataType);
+
+
+  /**
+   * Sets the value of the "dataType" attribute of this SpatialPoints.
+   *
+   * @param dataType; string value of the "dataType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDataType(const std::string& dataType);
+
+
+  /**
+   * Unsets the value of the "id" attribute of this SpatialPoints.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -279,11 +333,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetVariable();
+  virtual int unsetId();
 
 
   /**
-   * Unsets the value of the "type" attribute of this BoundaryCondition.
+   * Unsets the value of the "compression" attribute of this SpatialPoints.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -292,11 +346,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetType();
+  virtual int unsetCompression();
 
 
   /**
-   * Unsets the value of the "coordinateBoundary" attribute of this BoundaryCondition.
+   * Unsets the value of the "arrayData" attribute of this SpatialPoints.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -305,11 +359,11 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetCoordinateBoundary();
+  virtual int unsetArrayData();
 
 
   /**
-   * Unsets the value of the "boundaryDomainType" attribute of this BoundaryCondition.
+   * Unsets the value of the "arrayDataLength" attribute of this SpatialPoints.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -318,29 +372,27 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetBoundaryDomainType();
+  virtual int unsetArrayDataLength();
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
+   * Unsets the value of the "dataType" attribute of this SpatialPoints.
    *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+  virtual int unsetDataType();
 
 
   /**
-   * Returns the XML element name of this object, which for BoundaryCondition, is
-   * always @c "boundaryCondition".
+   * Returns the XML element name of this object, which for SpatialPoints, is
+   * always @c "spatialPoints".
    *
-   * @return the name of this element, i.e. @c "boundaryCondition".
+   * @return the name of this element, i.e. @c "spatialPoints".
    */
   virtual const std::string& getElementName () const;
 
@@ -380,11 +432,13 @@ public:
 
   /**
    * Predicate returning @c true if all the required attributes
-   * for this BoundaryCondition object have been set.
+   * for this SpatialPoints object have been set.
    *
-   * @note The required attributes for a BoundaryCondition object are:
-   * @li "variable"
-   * @li "type"
+   * @note The required attributes for a SpatialPoints object are:
+   * @li "id"
+   * @li "compression"
+   * @li "arrayData"
+   * @li "arrayDataLength"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -439,6 +493,9 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
+  virtual void write(XMLOutputStream& stream) const;
+
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -475,6 +532,9 @@ protected:
   /** @endcond doxygenLibsbmlInternal */
 
 
+  virtual void setElementText(const std::string &text);
+
+
 
 };
 
@@ -490,188 +550,219 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Creates a new BoundaryCondition_t structure using the given SBML @p level and
+ * Creates a new SpatialPoints_t structure using the given SBML @p level and
  * @p version values.
  *
  * @param level an unsigned int, the SBML level to assign to this
- * BoundaryCondition_t structure.
+ * SpatialPoints_t structure.
  *
  * @param version an unsigned int, the SBML version to assign to this
- * BoundaryCondition_t structure.
+ * SpatialPoints_t structure.
  *
- * @returns the newly-created BoundaryCondition_t structure, or a null pointer if
+ * @returns the newly-created SpatialPoints_t structure, or a null pointer if
  * an error occurred during construction.
  *
  * @copydetails doc_note_setting_lv
  *
- * @memberof BoundaryCondition_t
+ * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
-BoundaryCondition_t *
-BoundaryCondition_create(unsigned int level, unsigned int version,
-                         unsigned int pkgVersion);
+SpatialPoints_t *
+SpatialPoints_create(unsigned int level, unsigned int version,
+                     unsigned int pkgVersion);
 
 
 /**
- * Frees the given BoundaryCondition_t structure.
+ * Frees the given SpatialPoints_t structure.
  * 
- * @param bc the BoundaryCondition_t structure to be freed.
+ * @param sp the SpatialPoints_t structure to be freed.
  *
- * @memberof BoundaryCondition_t
+ * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
 void
-BoundaryCondition_free(BoundaryCondition_t * bc);
+SpatialPoints_free(SpatialPoints_t * sp);
 
 
 /**
- * Creates a deep copy of the given BoundaryCondition_t structure.
+ * Creates a deep copy of the given SpatialPoints_t structure.
  * 
- * @param bc the BoundaryCondition_t structure to be copied.
+ * @param sp the SpatialPoints_t structure to be copied.
  *
- * @returns a (deep) copy of the given BoundaryCondition_t structure, or a null
+ * @returns a (deep) copy of the given SpatialPoints_t structure, or a null
  * pointer if a failure occurred.
  *
- * @memberof BoundaryCondition_t
+ * @memberof SpatialPoints_t
  */
 LIBSBML_EXTERN
-BoundaryCondition_t *
-BoundaryCondition_clone(BoundaryCondition_t * bc);
+SpatialPoints_t *
+SpatialPoints_clone(SpatialPoints_t * sp);
 
 
 /**
- * Returns the value of the "variable" attribute of the given BoundaryCondition_t
+ * Returns the value of the "id" attribute of the given SpatialPoints_t
  * structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return the variable of this structure.
+ * @return the id of this structure.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 const char *
-BoundaryCondition_getVariable(const BoundaryCondition_t * bc);
+SpatialPoints_getId(const SpatialPoints_t * sp);
 
 
 /**
- * Returns the value of the "type" attribute of the given BoundaryCondition_t
+ * Returns the value of the "compression" attribute of the given SpatialPoints_t
  * structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return the type of this structure.
+ * @return the compression of this structure.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
-BoundaryConditionKind_t
-BoundaryCondition_getType(const BoundaryCondition_t * bc);
+CompressionKind_t
+SpatialPoints_getCompression(const SpatialPoints_t * sp);
 
 
 /**
- * Returns the value of the "coordinateBoundary" attribute of the given BoundaryCondition_t
+ * Returns the value of the "arrayData" attribute of the given SpatialPoints_t
  * structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return the coordinateBoundary of this structure.
+ * @return the arrayData of this structure.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
-const char *
-BoundaryCondition_getCoordinateBoundary(const BoundaryCondition_t * bc);
+double*
+SpatialPoints_getArrayData(const SpatialPoints_t * sp);
 
 
 /**
- * Returns the value of the "boundaryDomainType" attribute of the given BoundaryCondition_t
+ * Returns the value of the "arrayDataLength" attribute of the given SpatialPoints_t
  * structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return the boundaryDomainType of this structure.
+ * @return the arrayDataLength of this structure.
  *
- * @member of BoundaryCondition_t
- */
-LIBSBML_EXTERN
-const char *
-BoundaryCondition_getBoundaryDomainType(const BoundaryCondition_t * bc);
-
-
-/**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "variable"
- * is set.
- *
- * @param bc the BoundaryCondition_t structure.
- *
- * @return @c 1 if the "variable" of this BoundaryCondition_t structure is
- * set, @c 0 otherwise.
- *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_isSetVariable(const BoundaryCondition_t * bc);
+SpatialPoints_getArrayDataLength(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "type"
+ * Returns the value of the "dataType" attribute of the given SpatialPoints_t
+ * structure.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return the dataType of this structure.
+ *
+ * @member of SpatialPoints_t
+ */
+LIBSBML_EXTERN
+DataKind_t
+SpatialPoints_getDataType(const SpatialPoints_t * sp);
+
+
+/**
+ * Predicate returning @c 1 if the given SpatialPoints_t structure's "id"
  * is set.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if the "type" of this BoundaryCondition_t structure is
+ * @return @c 1 if the "id" of this SpatialPoints_t structure is
  * set, @c 0 otherwise.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_isSetType(const BoundaryCondition_t * bc);
+SpatialPoints_isSetId(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "coordinateBoundary"
+ * Predicate returning @c 1 if the given SpatialPoints_t structure's "compression"
  * is set.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if the "coordinateBoundary" of this BoundaryCondition_t structure is
+ * @return @c 1 if the "compression" of this SpatialPoints_t structure is
  * set, @c 0 otherwise.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_isSetCoordinateBoundary(const BoundaryCondition_t * bc);
+SpatialPoints_isSetCompression(const SpatialPoints_t * sp);
 
 
 /**
- * Predicate returning @c 1 if the given BoundaryCondition_t structure's "boundaryDomainType"
+ * Predicate returning @c 1 if the given SpatialPoints_t structure's "arrayData"
  * is set.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @return @c 1 if the "boundaryDomainType" of this BoundaryCondition_t structure is
+ * @return @c 1 if the "arrayData" of this SpatialPoints_t structure is
  * set, @c 0 otherwise.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_isSetBoundaryDomainType(const BoundaryCondition_t * bc);
+SpatialPoints_isSetArrayData(const SpatialPoints_t * sp);
 
 
 /**
- * Sets the "variable" attribute of the given BoundaryCondition_t structure.
+ * Predicate returning @c 1 if the given SpatialPoints_t structure's "arrayDataLength"
+ * is set.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return @c 1 if the "arrayDataLength" of this SpatialPoints_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetArrayDataLength(const SpatialPoints_t * sp);
+
+
+/**
+ * Predicate returning @c 1 if the given SpatialPoints_t structure's "dataType"
+ * is set.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return @c 1 if the "dataType" of this SpatialPoints_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_isSetDataType(const SpatialPoints_t * sp);
+
+
+/**
+ * Sets the "id" attribute of the given SpatialPoints_t structure.
  *
  * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetVariable() instead.
+ * a null pointer, this function performs SpatialPoints_unsetId() instead.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @param variable the string to which the structures "variable" attribute should be
+ * @param id the string to which the structures "id" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -685,19 +776,19 @@ BoundaryCondition_isSetBoundaryDomainType(const BoundaryCondition_t * bc);
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
  * 
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setVariable(BoundaryCondition_t * bc, const char * variable);
+SpatialPoints_setId(SpatialPoints_t * sp, const char * id);
 
 
 /**
- * Sets the "type" attribute of the given BoundaryCondition_t structure.
+ * Sets the "compression" attribute of the given SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
- * @param type the string to which the structures "type" attribute should be
+ * @param compression the string to which the structures "compression" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -708,22 +799,19 @@ BoundaryCondition_setVariable(BoundaryCondition_t * bc, const char * variable);
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryConditionKind_t type);
+SpatialPoints_setCompression(SpatialPoints_t * sp, CompressionKind_t compression);
 
 
 /**
- * Sets the "coordinateBoundary" attribute of the given BoundaryCondition_t structure.
+ * Sets the "arrayData" attribute of the given SpatialPoints_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetCoordinateBoundary() instead.
+ * @param sp the SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
- *
- * @param coordinateBoundary the string to which the structures "coordinateBoundary" attribute should be
+ * @param arrayData the string to which the structures "arrayData" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -734,25 +822,19 @@ BoundaryCondition_setType(BoundaryCondition_t * bc, BoundaryConditionKind_t type
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setCoordinateBoundary(BoundaryCondition_t * bc, const char * coordinateBoundary);
+SpatialPoints_setArrayData(SpatialPoints_t * sp, double* arrayData);
 
 
 /**
- * Sets the "boundaryDomainType" attribute of the given BoundaryCondition_t structure.
+ * Sets the "arrayDataLength" attribute of the given SpatialPoints_t structure.
  *
- * This function copies the string given in @p string.  If the string is
- * a null pointer, this function performs BoundaryCondition_unsetBoundaryDomainType() instead.
+ * @param sp the SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
- *
- * @param boundaryDomainType the string to which the structures "boundaryDomainType" attribute should be
+ * @param arrayDataLength the string to which the structures "arrayDataLength" attribute should be
  * set.
  *
  * @return integer value indicating success/failure of the
@@ -763,21 +845,41 @@ BoundaryCondition_setCoordinateBoundary(BoundaryCondition_t * bc, const char * c
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @note Using this function with a null pointer for @p name is equivalent to
- * unsetting the value of the "name" attribute.
- * 
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_setBoundaryDomainType(BoundaryCondition_t * bc, const char * boundaryDomainType);
+SpatialPoints_setArrayDataLength(SpatialPoints_t * sp, int arrayDataLength);
 
 
 /**
- * Unsets the value of the "variable" attribute of the given 
- * BoundaryCondition_t structure.
+ * Sets the "dataType" attribute of the given SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @param dataType the string to which the structures "dataType" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_setDataType(SpatialPoints_t * sp, DataKind_t dataType);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ * SpatialPoints_t structure.
+ *
+ * @param sp the SpatialPoints_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -787,18 +889,18 @@ BoundaryCondition_setBoundaryDomainType(BoundaryCondition_t * bc, const char * b
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_unsetVariable(BoundaryCondition_t * bc);
+SpatialPoints_unsetId(SpatialPoints_t * sp);
 
 
 /**
- * Unsets the value of the "type" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "compression" attribute of the given 
+ * SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -808,18 +910,18 @@ BoundaryCondition_unsetVariable(BoundaryCondition_t * bc);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_unsetType(BoundaryCondition_t * bc);
+SpatialPoints_unsetCompression(SpatialPoints_t * sp);
 
 
 /**
- * Unsets the value of the "coordinateBoundary" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "arrayData" attribute of the given 
+ * SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -829,18 +931,18 @@ BoundaryCondition_unsetType(BoundaryCondition_t * bc);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_unsetCoordinateBoundary(BoundaryCondition_t * bc);
+SpatialPoints_unsetArrayData(SpatialPoints_t * sp);
 
 
 /**
- * Unsets the value of the "boundaryDomainType" attribute of the given 
- * BoundaryCondition_t structure.
+ * Unsets the value of the "arrayDataLength" attribute of the given 
+ * SpatialPoints_t structure.
  *
- * @param bc the BoundaryCondition_t structure.
+ * @param sp the SpatialPoints_t structure.
  *
  * @return integer value indicating success/failure of the
  * function.  @if clike The value is drawn from the
@@ -850,27 +952,48 @@ BoundaryCondition_unsetCoordinateBoundary(BoundaryCondition_t * bc);
  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
  * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_unsetBoundaryDomainType(BoundaryCondition_t * bc);
+SpatialPoints_unsetArrayDataLength(SpatialPoints_t * sp);
+
+
+/**
+ * Unsets the value of the "dataType" attribute of the given 
+ * SpatialPoints_t structure.
+ *
+ * @param sp the SpatialPoints_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of SpatialPoints_t
+ */
+LIBSBML_EXTERN
+int
+SpatialPoints_unsetDataType(SpatialPoints_t * sp);
 
 
 /**
  * Predicate returning @c 1 or *c 0 depending on whether all the required
- * attributes of the given BoundaryCondition_t structure have been set.
+ * attributes of the given SpatialPoints_t structure have been set.
  *
- * @param bc the BoundaryCondition_t structure to check.
+ * @param sp the SpatialPoints_t structure to check.
  *
  * @return @c 1 if all the required attributes for this
  * structure have been defined, @c 0 otherwise.
  *
- * @member of BoundaryCondition_t
+ * @member of SpatialPoints_t
  */
 LIBSBML_EXTERN
 int
-BoundaryCondition_hasRequiredAttributes(const BoundaryCondition_t * bc);
+SpatialPoints_hasRequiredAttributes(const SpatialPoints_t * sp);
 
 
 
@@ -880,5 +1003,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /*  !SWIG  */
 
-#endif /*  BoundaryCondition_H__  */
+#endif /*  SpatialPoints_H__  */
 

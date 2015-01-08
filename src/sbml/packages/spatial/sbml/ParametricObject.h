@@ -51,7 +51,6 @@
 #include <sbml/ListOf.h>
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 
-#include <sbml/packages/spatial/sbml/PolygonObject.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -65,7 +64,11 @@ protected:
   std::string   mId;
   PolygonKind_t   mPolygonType;
   std::string   mDomainType;
-  PolygonObject*      mPolygonObject;
+  int*         mPointIndex;
+  int           mPointIndexLength;
+  bool          mIsSetPointIndexLength;
+  CompressionKind_t   mCompression;
+  DataKind_t   mDataType;
 
 
 public:
@@ -148,27 +151,38 @@ public:
 
 
   /**
-   * Returns the "polygonObject" element of this ParametricObject.
+   * The "pointIndex" attribute of this ParametricObject is returned in an int* array (pointer)
+   * that is passed as argument to the method (this is needed while using SWIG to
+   * convert int[] from C++ to Java). The method itself has a return type void.
    *
-   * @return the "polygonObject" element of this ParametricObject.
+   * NOTE: you have to pre-allocate the array with the correct length!   *
+   * @return void.
    */
-  virtual const PolygonObject* getPolygonObject() const;
+  void getPointIndex(int* outArray) const;
 
 
   /**
-   * Returns the "polygonObject" element of this ParametricObject.
+   * Returns the value of the "pointIndexLength" attribute of this ParametricObject.
    *
-   * @return the "polygonObject" element of this ParametricObject.
+   * @return the value of the "pointIndexLength" attribute of this ParametricObject as a integer.
    */
-  virtual PolygonObject* getPolygonObject();
+  virtual int getPointIndexLength() const;
 
 
   /**
-   * Creates a new "PolygonObject" and sets it for this ParametricObject.
+   * Returns the value of the "compression" attribute of this ParametricObject.
    *
-   * @return the created "PolygonObject" element of this ParametricObject.
+   * @return the value of the "compression" attribute of this ParametricObject as a CompressionKind_t.
    */
-  virtual PolygonObject* createPolygonObject();
+  virtual CompressionKind_t getCompression() const;
+
+
+  /**
+   * Returns the value of the "dataType" attribute of this ParametricObject.
+   *
+   * @return the value of the "dataType" attribute of this ParametricObject as a DataKind_t.
+   */
+  virtual DataKind_t getDataType() const;
 
 
   /**
@@ -203,12 +217,42 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ParametricObject's "polygonObject" element has been set.
+   * ParametricObject's "pointIndex" attribute has been set.
    *
-   * @return @c true if this ParametricObject's "polygonObject" element has been set,
+   * @return @c true if this ParametricObject's "pointIndex" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetPolygonObject() const;
+  virtual bool isSetPointIndex() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ParametricObject's "pointIndexLength" attribute has been set.
+   *
+   * @return @c true if this ParametricObject's "pointIndexLength" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetPointIndexLength() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ParametricObject's "compression" attribute has been set.
+   *
+   * @return @c true if this ParametricObject's "compression" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetCompression() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * ParametricObject's "dataType" attribute has been set.
+   *
+   * @return @c true if this ParametricObject's "dataType" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetDataType() const;
 
 
   /**
@@ -272,9 +316,10 @@ public:
 
 
   /**
-   * Sets the "polygonObject" element of this ParametricObject.
+   * Sets the "pointIndex" element of this ParametricObject.
    *
-   * @param polygonObject; PolygonObject* to be set.
+   * @param inArray; int* array to be set (it will be copied).
+   * @param arrayLength; the length of the array.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -283,7 +328,82 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setPolygonObject(PolygonObject* polygonObject);
+  virtual int setPointIndex(int* inArray, int arrayLength);
+
+
+  /**
+   * Sets the value of the "pointIndexLength" attribute of this ParametricObject.
+   *
+   * @param pointIndexLength; int value of the "pointIndexLength" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setPointIndexLength(int pointIndexLength);
+
+
+  /**
+   * Sets the value of the "compression" attribute of this ParametricObject.
+   *
+   * @param compression; CompressionKind_t value of the "compression" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCompression(CompressionKind_t compression);
+
+
+  /**
+   * Sets the value of the "compression" attribute of this ParametricObject.
+   *
+   * @param compression; string value of the "compression" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setCompression(const std::string& compression);
+
+
+  /**
+   * Sets the value of the "dataType" attribute of this ParametricObject.
+   *
+   * @param dataType; DataKind_t value of the "dataType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDataType(DataKind_t dataType);
+
+
+  /**
+   * Sets the value of the "dataType" attribute of this ParametricObject.
+   *
+   * @param dataType; string value of the "dataType" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setDataType(const std::string& dataType);
 
 
   /**
@@ -326,7 +446,7 @@ public:
 
 
   /**
-   * Unsets the "polygonObject" element of this ParametricObject.
+   * Unsets the value of the "pointIndex" attribute of this ParametricObject.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -335,7 +455,46 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetPolygonObject();
+  virtual int unsetPointIndex();
+
+
+  /**
+   * Unsets the value of the "pointIndexLength" attribute of this ParametricObject.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetPointIndexLength();
+
+
+  /**
+   * Unsets the value of the "compression" attribute of this ParametricObject.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetCompression();
+
+
+  /**
+   * Unsets the value of the "dataType" attribute of this ParametricObject.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetDataType();
 
 
   /**
@@ -412,7 +571,9 @@ public:
    * @li "id"
    * @li "polygonType"
    * @li "domainType"
-   * @li "polygonObject"
+   * @li "pointIndex"
+   * @li "pointIndexLength"
+   * @li "compression"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -425,7 +586,6 @@ public:
    * for this ParametricObject object have been set.
    *
    * @note The required elements for a ParametricObject object are:
-   * @li "polygonObject"
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -491,6 +651,9 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
+  virtual void write(XMLOutputStream& stream) const;
+
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -536,6 +699,9 @@ protected:
 
 
   /** @endcond doxygenLibsbmlInternal */
+
+
+  virtual void setElementText(const std::string &text);
 
 
 
@@ -906,14 +1072,64 @@ const char *
 ParametricObject_getDomainType(const ParametricObject_t * po);
 
 
+/**
+ * Returns the value of the "pointIndex" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the pointIndex of this structure.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
-PolygonObject_t*
-ParametricObject_getPolygonObject(ParametricObject_t * po);
+int*
+ParametricObject_getPointIndex(const ParametricObject_t * po);
 
 
+/**
+ * Returns the value of the "pointIndexLength" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the pointIndexLength of this structure.
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
-PolygonObject_t*
-ParametricObject_createPolygonObject(ParametricObject_t * po);
+int
+ParametricObject_getPointIndexLength(const ParametricObject_t * po);
+
+
+/**
+ * Returns the value of the "compression" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the compression of this structure.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+CompressionKind_t
+ParametricObject_getCompression(const ParametricObject_t * po);
+
+
+/**
+ * Returns the value of the "dataType" attribute of the given ParametricObject_t
+ * structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return the dataType of this structure.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+DataKind_t
+ParametricObject_getDataType(const ParametricObject_t * po);
 
 
 /**
@@ -965,19 +1181,67 @@ ParametricObject_isSetDomainType(const ParametricObject_t * po);
 
 
 /**
- * Predicate returning @c 1 if the given ParametricObject_t structure's "polygonObject"
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "pointIndex"
  * is set.
  *
  * @param po the ParametricObject_t structure.
  *
- * @return @c 1 if the "polygonObject" of this ParametricObject_t structure is
+ * @return @c 1 if the "pointIndex" of this ParametricObject_t structure is
  * set, @c 0 otherwise.
  *
  * @member of ParametricObject_t
  */
 LIBSBML_EXTERN
 int
-ParametricObject_isSetPolygonObject(const ParametricObject_t * po);
+ParametricObject_isSetPointIndex(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "pointIndexLength"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "pointIndexLength" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetPointIndexLength(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "compression"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "compression" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetCompression(const ParametricObject_t * po);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricObject_t structure's "dataType"
+ * is set.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return @c 1 if the "dataType" of this ParametricObject_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_isSetDataType(const ParametricObject_t * po);
 
 
 /**
@@ -1061,14 +1325,101 @@ int
 ParametricObject_setDomainType(ParametricObject_t * po, const char * domainType);
 
 
+/**
+ * Sets the "pointIndex" attribute of the given ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param pointIndex the string to which the structures "pointIndex" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
 LIBSBML_EXTERN
 int
-ParametricObject_setPolygonObject(ParametricObject_t * po, PolygonObject_t* polygonObject);
+ParametricObject_setPointIndex(ParametricObject_t * po, int* pointIndex);
+
+
+/**
+ * Sets the "pointIndexLength" attribute of the given ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param pointIndexLength the string to which the structures "pointIndexLength" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setPointIndexLength(ParametricObject_t * po, int pointIndexLength);
+
+
+/**
+ * Sets the "compression" attribute of the given ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param compression the string to which the structures "compression" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setCompression(ParametricObject_t * po, CompressionKind_t compression);
+
+
+/**
+ * Sets the "dataType" attribute of the given ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @param dataType the string to which the structures "dataType" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_setDataType(ParametricObject_t * po, DataKind_t dataType);
 
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *ParametricObject_t structure.
+ * ParametricObject_t structure.
  *
  * @param po the ParametricObject_t structure.
  *
@@ -1089,7 +1440,7 @@ ParametricObject_unsetId(ParametricObject_t * po);
 
 /**
  * Unsets the value of the "polygonType" attribute of the given 
- *ParametricObject_t structure.
+ * ParametricObject_t structure.
  *
  * @param po the ParametricObject_t structure.
  *
@@ -1110,7 +1461,7 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *ParametricObject_t structure.
+ * ParametricObject_t structure.
  *
  * @param po the ParametricObject_t structure.
  *
@@ -1127,6 +1478,90 @@ ParametricObject_unsetPolygonType(ParametricObject_t * po);
 LIBSBML_EXTERN
 int
 ParametricObject_unsetDomainType(ParametricObject_t * po);
+
+
+/**
+ * Unsets the value of the "pointIndex" attribute of the given 
+ * ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_unsetPointIndex(ParametricObject_t * po);
+
+
+/**
+ * Unsets the value of the "pointIndexLength" attribute of the given 
+ * ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_unsetPointIndexLength(ParametricObject_t * po);
+
+
+/**
+ * Unsets the value of the "compression" attribute of the given 
+ * ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_unsetCompression(ParametricObject_t * po);
+
+
+/**
+ * Unsets the value of the "dataType" attribute of the given 
+ * ParametricObject_t structure.
+ *
+ * @param po the ParametricObject_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of ParametricObject_t
+ */
+LIBSBML_EXTERN
+int
+ParametricObject_unsetDataType(ParametricObject_t * po);
 
 
 /**

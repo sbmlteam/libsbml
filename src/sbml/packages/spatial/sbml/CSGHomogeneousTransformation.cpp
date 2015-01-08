@@ -612,8 +612,6 @@ CSGHomogeneousTransformation::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  //bool assigned = false;
-
 }
 
 

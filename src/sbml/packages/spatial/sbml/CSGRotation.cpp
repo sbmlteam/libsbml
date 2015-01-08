@@ -542,8 +542,6 @@ CSGRotation::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  //bool assigned = false;
-
   //
   // rotateX double   ( use = "required" )
   //

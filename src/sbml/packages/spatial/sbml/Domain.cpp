@@ -446,6 +446,7 @@ Domain::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mInteriorPoints, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 

@@ -918,7 +918,7 @@ CSGSetOperator_setComplementB(CSGSetOperator_t * csgso, const char * complementB
 
 /**
  * Unsets the value of the "operationType" attribute of the given 
- *CSGSetOperator_t structure.
+ * CSGSetOperator_t structure.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
@@ -939,7 +939,7 @@ CSGSetOperator_unsetOperationType(CSGSetOperator_t * csgso);
 
 /**
  * Unsets the value of the "complementA" attribute of the given 
- *CSGSetOperator_t structure.
+ * CSGSetOperator_t structure.
  *
  * @param csgso the CSGSetOperator_t structure.
  *
@@ -960,7 +960,7 @@ CSGSetOperator_unsetComplementA(CSGSetOperator_t * csgso);
 
 /**
  * Unsets the value of the "complementB" attribute of the given 
- *CSGSetOperator_t structure.
+ * CSGSetOperator_t structure.
  *
  * @param csgso the CSGSetOperator_t structure.
  *

@@ -743,7 +743,7 @@ CSGRotation_setRotateAngleInRadians(CSGRotation_t * csgr, double rotateAngleInRa
 
 /**
  * Unsets the value of the "rotateX" attribute of the given 
- *CSGRotation_t structure.
+ * CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
@@ -764,7 +764,7 @@ CSGRotation_unsetRotateX(CSGRotation_t * csgr);
 
 /**
  * Unsets the value of the "rotateY" attribute of the given 
- *CSGRotation_t structure.
+ * CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
@@ -785,7 +785,7 @@ CSGRotation_unsetRotateY(CSGRotation_t * csgr);
 
 /**
  * Unsets the value of the "rotateZ" attribute of the given 
- *CSGRotation_t structure.
+ * CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *
@@ -806,7 +806,7 @@ CSGRotation_unsetRotateZ(CSGRotation_t * csgr);
 
 /**
  * Unsets the value of the "rotateAngleInRadians" attribute of the given 
- *CSGRotation_t structure.
+ * CSGRotation_t structure.
  *
  * @param csgr the CSGRotation_t structure.
  *

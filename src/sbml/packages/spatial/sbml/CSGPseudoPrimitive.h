@@ -456,7 +456,7 @@ CSGPseudoPrimitive_setCsgObjectRef(CSGPseudoPrimitive_t * csgpp, const char * cs
 
 /**
  * Unsets the value of the "csgObjectRef" attribute of the given 
- *CSGPseudoPrimitive_t structure.
+ * CSGPseudoPrimitive_t structure.
  *
  * @param csgpp the CSGPseudoPrimitive_t structure.
  *

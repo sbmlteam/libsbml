@@ -919,7 +919,7 @@ AdjacentDomains_setDomain2(AdjacentDomains_t * ad, const char * domain2);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *AdjacentDomains_t structure.
+ * AdjacentDomains_t structure.
  *
  * @param ad the AdjacentDomains_t structure.
  *
@@ -940,7 +940,7 @@ AdjacentDomains_unsetId(AdjacentDomains_t * ad);
 
 /**
  * Unsets the value of the "domain1" attribute of the given 
- *AdjacentDomains_t structure.
+ * AdjacentDomains_t structure.
  *
  * @param ad the AdjacentDomains_t structure.
  *
@@ -961,7 +961,7 @@ AdjacentDomains_unsetDomain1(AdjacentDomains_t * ad);
 
 /**
  * Unsets the value of the "domain2" attribute of the given 
- *AdjacentDomains_t structure.
+ * AdjacentDomains_t structure.
  *
  * @param ad the AdjacentDomains_t structure.
  *

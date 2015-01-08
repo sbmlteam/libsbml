@@ -52,7 +52,7 @@
 #include <sbml/packages/spatial/extension/SpatialExtension.h>
 #include <sbml/packages/spatial/sbml/GeometryDefinition.h>
 
-#include <sbml/packages/spatial/sbml/SpatialPoint.h>
+#include <sbml/packages/spatial/sbml/SpatialPoints.h>
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -64,7 +64,7 @@ class LIBSBML_EXTERN ParametricGeometry : public GeometryDefinition
 
 protected:
 
-  ListOfSpatialPoints   mSpatialPoints;
+  SpatialPoints*      mSpatialPoints;
   ListOfParametricObjects   mParametricObjects;
 
 
@@ -124,85 +124,43 @@ public:
 
 
    /**
-   * Returns the  "ListOfSpatialPoints" in this ParametricGeometry object.
+   * Returns the "spatialPoints" element of this ParametricGeometry.
    *
-   * @return the "ListOfSpatialPoints" attribute of this ParametricGeometry.
+   * @return the "spatialPoints" element of this ParametricGeometry.
    */
-  const ListOfSpatialPoints* getListOfSpatialPoints() const;
+  virtual const SpatialPoints* getSpatialPoints() const;
 
 
   /**
-   * Returns the  "ListOfSpatialPoints" in this ParametricGeometry object.
+   * Returns the "spatialPoints" element of this ParametricGeometry.
    *
-   * @return the "ListOfSpatialPoints" attribute of this ParametricGeometry.
+   * @return the "spatialPoints" element of this ParametricGeometry.
    */
-  ListOfSpatialPoints* getListOfSpatialPoints();
+  virtual SpatialPoints* getSpatialPoints();
 
 
   /**
-   * Get a SpatialPoint from the ListOfSpatialPoints.
+   * Creates a new "SpatialPoints" and sets it for this ParametricGeometry.
    *
-   * @param n the index number of the SpatialPoint to get.
-   *
-   * @return the nth SpatialPoint in the ListOfSpatialPoints within this ParametricGeometry.
-   *
-   * @see getNumSpatialPoints()
+   * @return the created "SpatialPoints" element of this ParametricGeometry.
    */
-	SpatialPoint* getSpatialPoint(unsigned int n);
+  virtual SpatialPoints* createSpatialPoints();
 
 
   /**
-   * Get a SpatialPoint from the ListOfSpatialPoints.
+   * Predicate returning @c true or @c false depending on whether this
+   * ParametricGeometry's "spatialPoints" element has been set.
    *
-   * @param n the index number of the SpatialPoint to get.
-   *
-   * @return the nth SpatialPoint in the ListOfSpatialPoints within this ParametricGeometry.
-   *
-   * @see getNumSpatialPoints()
+   * @return @c true if this ParametricGeometry's "spatialPoints" element has been set,
+   * otherwise @c false is returned.
    */
-	const SpatialPoint* getSpatialPoint(unsigned int n) const;
+  virtual bool isSetSpatialPoints() const;
 
 
   /**
-   * Get a SpatialPoint from the ListOfSpatialPoints
-   * based on its identifier.
+   * Sets the "spatialPoints" element of this ParametricGeometry.
    *
-   * @param sid a string representing the identifier
-   * of the SpatialPoint to get.
-   *
-   * @return the SpatialPoint in the ListOfSpatialPoints
-   * with the given id or NULL if no such
-   * SpatialPoint exists.
-   *
-   * @see getSpatialPoint(unsigned int n)
-   *
-   * @see getNumSpatialPoints()
-   */
-	SpatialPoint* getSpatialPoint(const std::string& sid);
-
-
-  /**
-   * Get a SpatialPoint from the ListOfSpatialPoints
-   * based on its identifier.
-   *
-   * @param sid a string representing the identifier
-   * of the SpatialPoint to get.
-   *
-   * @return the SpatialPoint in the ListOfSpatialPoints
-   * with the given id or NULL if no such
-   * SpatialPoint exists.
-   *
-   * @see getSpatialPoint(unsigned int n)
-   *
-   * @see getNumSpatialPoints()
-   */
-	const SpatialPoint* getSpatialPoint(const std::string& sid) const;
-
-
-  /**
-   * Adds a copy the given "SpatialPoint" to this ParametricGeometry.
-   *
-   * @param sp; the SpatialPoint object to add
+   * @param spatialPoints; SpatialPoints* to be set.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -211,55 +169,20 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  int addSpatialPoint(const SpatialPoint* sp);
+  virtual int setSpatialPoints(SpatialPoints* spatialPoints);
 
 
   /**
-   * Get the number of SpatialPoint objects in this ParametricGeometry.
+   * Unsets the "spatialPoints" element of this ParametricGeometry.
    *
-   * @return the number of SpatialPoint objects in this ParametricGeometry
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  unsigned int getNumSpatialPoints() const;
-
-
-  /**
-   * Creates a new SpatialPoint object, adds it to this ParametricGeometrys
-   * ListOfSpatialPoints and returns the SpatialPoint object created. 
-   *
-   * @return a new SpatialPoint object instance
-   *
-   * @see addSpatialPoint(const SpatialPoint* sp)
-   */
-  SpatialPoint* createSpatialPoint();
-
-
-  /**
-   * Removes the nth SpatialPoint from the ListOfSpatialPoints within this ParametricGeometry.
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   *
-   * @param n the index of the SpatialPoint to remove.
-   *
-   * @see getNumSpatialPoints()
-   */
-	SpatialPoint* removeSpatialPoint(unsigned int n);
-
-
-  /**
-   * Removes the SpatialPoint with the given identifier from the ListOfSpatialPoints within this ParametricGeometry
-   * and returns a pointer to it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
-   *
-   * @param sid the identifier of the SpatialPoint to remove.
-   *
-   * @return the SpatialPoint removed. As mentioned above, the caller owns the
-   * returned item.
-   */
-	SpatialPoint* removeSpatialPoint(const std::string& sid);
+  virtual int unsetSpatialPoints();
 
 
   /**
@@ -646,43 +569,34 @@ ParametricGeometry_clone(ParametricGeometry_t * pg);
 
 
 LIBSBML_EXTERN
+SpatialPoints_t*
+ParametricGeometry_getSpatialPoints(ParametricGeometry_t * pg);
+
+
+LIBSBML_EXTERN
+SpatialPoints_t*
+ParametricGeometry_createSpatialPoints(ParametricGeometry_t * pg);
+
+
+/**
+ * Predicate returning @c 1 if the given ParametricGeometry_t structure's "spatialPoints"
+ * is set.
+ *
+ * @param pg the ParametricGeometry_t structure.
+ *
+ * @return @c 1 if the "spatialPoints" of this ParametricGeometry_t structure is
+ * set, @c 0 otherwise.
+ *
+ * @member of ParametricGeometry_t
+ */
+LIBSBML_EXTERN
 int
-ParametricGeometry_addSpatialPoint(ParametricGeometry_t * pg, SpatialPoint_t * sp);
+ParametricGeometry_isSetSpatialPoints(const ParametricGeometry_t * pg);
 
 
 LIBSBML_EXTERN
-SpatialPoint_t *
-ParametricGeometry_createSpatialPoint(ParametricGeometry_t * pg);
-
-
-LIBSBML_EXTERN
-ListOf_t *
-ParametricGeometry_getListOfSpatialPoints(ParametricGeometry_t * pg) ;
-
-
-LIBSBML_EXTERN
-SpatialPoint_t *
-ParametricGeometry_getSpatialPoint(ParametricGeometry_t * pg, unsigned int n);
-
-
-LIBSBML_EXTERN
-SpatialPoint_t *
-ParametricGeometry_getSpatialPointById(ParametricGeometry_t * pg, const char * sid);
-
-
-LIBSBML_EXTERN
-unsigned int
-ParametricGeometry_getNumSpatialPoints(ParametricGeometry_t * pg);
-
-
-LIBSBML_EXTERN
-SpatialPoint_t *
-ParametricGeometry_removeSpatialPoint(ParametricGeometry_t * pg, unsigned int n);
-
-
-LIBSBML_EXTERN
-SpatialPoint_t *
-ParametricGeometry_removeSpatialPointById(ParametricGeometry_t * pg, const char * sid);
+int
+ParametricGeometry_setSpatialPoints(ParametricGeometry_t * pg, SpatialPoints_t* spatialPoints);
 
 
 LIBSBML_EXTERN

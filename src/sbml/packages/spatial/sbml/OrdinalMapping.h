@@ -806,7 +806,7 @@ OrdinalMapping_setOrdinal(OrdinalMapping_t * om, int ordinal);
 
 /**
  * Unsets the value of the "geometryDefinition" attribute of the given 
- *OrdinalMapping_t structure.
+ * OrdinalMapping_t structure.
  *
  * @param om the OrdinalMapping_t structure.
  *
@@ -827,7 +827,7 @@ OrdinalMapping_unsetGeometryDefinition(OrdinalMapping_t * om);
 
 /**
  * Unsets the value of the "ordinal" attribute of the given 
- *OrdinalMapping_t structure.
+ * OrdinalMapping_t structure.
  *
  * @param om the OrdinalMapping_t structure.
  *

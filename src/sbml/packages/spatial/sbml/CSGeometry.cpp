@@ -314,6 +314,7 @@ CSGeometry::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mCsgObjects, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -470,7 +471,7 @@ CSGeometry::createObject(XMLInputStream& stream)
 
   const string& name = stream.peek().getName();
 
-  if (name == "listOfCSGObjects")
+  if (name == "listOfCsgObjects")
   {
     object = &mCsgObjects;
   }
@@ -540,8 +541,6 @@ CSGeometry::readAttributes (const XMLAttributes& attributes,
       }
     }
   }
-
-  //bool assigned = false;
 
 }
 

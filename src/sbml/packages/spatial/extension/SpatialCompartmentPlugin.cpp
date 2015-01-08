@@ -66,9 +66,10 @@ SpatialCompartmentPlugin::SpatialCompartmentPlugin(const SpatialCompartmentPlugi
     SBasePlugin(orig)
   , mCompartmentMapping ( NULL )
 {
-    if (orig.mCompartmentMapping != NULL) {
-      mCompartmentMapping = orig.mCompartmentMapping->clone();
-    }
+  if (orig.mCompartmentMapping != NULL)
+  {
+    mCompartmentMapping = orig.mCompartmentMapping->clone();
+  }
 }
 
 
@@ -83,9 +84,8 @@ SpatialCompartmentPlugin::operator=(const SpatialCompartmentPlugin& rhs)
     this->SBasePlugin::operator=(rhs);
     delete mCompartmentMapping;
     mCompartmentMapping = NULL;
-    if (rhs.mCompartmentMapping != NULL) {
+    if (rhs.mCompartmentMapping != NULL)
       mCompartmentMapping = rhs.mCompartmentMapping->clone();
-    }
   }
 
   return *this;
@@ -108,6 +108,7 @@ SpatialCompartmentPlugin::clone () const
 SpatialCompartmentPlugin::~SpatialCompartmentPlugin()
 {
   delete mCompartmentMapping;
+  mCompartmentMapping = NULL;
 }
 
 
@@ -232,8 +233,6 @@ SpatialCompartmentPlugin::readAttributes (const XMLAttributes& attributes,
       }
     }
   }
-
-  //bool assigned = false;
 
 }
 

@@ -501,9 +501,6 @@ AnalyticVolume::hasRequiredAttributes () const
   if (isSetFunctionType() == false)
     allPresent = false;
 
-  if (isSetOrdinal() == false)
-    allPresent = false;
-
   if (isSetDomainType() == false)
     allPresent = false;
 
@@ -712,30 +709,33 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
   //
   // functionType enum  ( use = "required" )
   //
-   mFunctionType = FUNCTIONKIND_UNKNOWN;
-   std::string stringValue;
-   assigned = attributes.readInto("functionType", stringValue);
+  mFunctionType = FUNCTIONKIND_UNKNOWN;
+  {
+    std::string stringValue;
+    assigned = attributes.readInto("functionType", stringValue);
 
-   if (assigned == true)
-   {
-     // parse enum
+    if (assigned == true)
+    {
+      // parse enum
 
-     mFunctionType = FunctionKind_parse(stringValue.c_str());
-     if(mFunctionType == FUNCTIONKIND_UNKNOWN) {
-       std::string message = "Unknown value for spatial attribute 'functionType' in 'analyticVolume' object: " + stringValue;
-       getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-         getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-     }
-   }
-   if(mFunctionType == FUNCTIONKIND_UNKNOWN)
-   {
+      mFunctionType = FunctionKind_parse(stringValue.c_str());
+      if(mFunctionType == FUNCTIONKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'functionType' in 'analyticVolume' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
+    }
+  }
+  if(mFunctionType == FUNCTIONKIND_UNKNOWN)
+  {
     std::string message = "Spatial attribute 'functionType' is missing from 'analyticVolume' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                    getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // ordinal int   ( use = "required" )
+  // ordinal int   ( use = "optional" )
   //
   numErrs = getErrorLog()->getNumErrors();
   mIsSetOrdinal = attributes.readInto("ordinal", mOrdinal);
@@ -750,12 +750,6 @@ AnalyticVolume::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->remove(XMLAttributeTypeMismatch);
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
                      getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-      }
-      else
-      {
-        std::string message = "Spatial attribute 'ordinal' is missing from 'analyticVolume' object.";
-        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                       getPackageVersion(), sbmlLevel, sbmlVersion, message);
       }
     }
   }

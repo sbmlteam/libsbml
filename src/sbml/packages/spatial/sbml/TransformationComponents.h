@@ -541,7 +541,7 @@ TransformationComponents_setComponentsLength(TransformationComponents_t * tc, in
 
 /**
  * Unsets the value of the "components" attribute of the given 
- *TransformationComponents_t structure.
+ * TransformationComponents_t structure.
  *
  * @param tc the TransformationComponents_t structure.
  *
@@ -562,7 +562,7 @@ TransformationComponents_unsetComponents(TransformationComponents_t * tc);
 
 /**
  * Unsets the value of the "componentsLength" attribute of the given 
- *TransformationComponents_t structure.
+ * TransformationComponents_t structure.
  *
  * @param tc the TransformationComponents_t structure.
  *

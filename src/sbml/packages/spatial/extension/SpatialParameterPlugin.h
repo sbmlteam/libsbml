@@ -430,8 +430,6 @@ protected:
 
   /** @endcond doxygenLibsbmlInternal */
 
-private:
-  void deleteChildren();
 
 public:
    /** 

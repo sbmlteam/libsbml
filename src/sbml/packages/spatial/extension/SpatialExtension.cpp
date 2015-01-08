@@ -144,8 +144,6 @@ const char * SBML_SPATIAL_TYPECODE_STRINGS[] =
   , "AnalyticVolume"
   , "ParametricGeometry"
   , "ParametricObject"
-  , "PolygonObject"
-  , "SpatialPoint"
   , "CSGeometry"
   , "CSGObject"
   , "CSGNode"
@@ -166,6 +164,7 @@ const char * SBML_SPATIAL_TYPECODE_STRINGS[] =
   , "CoordinateReference"
   , "MixedGeometry"
   , "OrdinalMapping"
+  , "SpatialPoints"
 };
 
 
@@ -330,7 +329,7 @@ const char*
 SpatialExtension::getStringFromTypeCode(int typeCode) const
 {
   int min = SBML_SPATIAL_DOMAINTYPE;
-  int max = SBML_SPATIAL_ORDINALMAPPING;
+  int max = SBML_SPATIAL_SPATIALPOINTS;
 
   if ( typeCode < min || typeCode > max)
   {

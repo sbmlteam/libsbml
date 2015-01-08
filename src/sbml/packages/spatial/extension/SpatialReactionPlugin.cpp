@@ -118,22 +118,7 @@ SpatialReactionPlugin::~SpatialReactionPlugin()
 SBase*
 SpatialReactionPlugin::createObject (XMLInputStream& stream)
 {
-  SBase* object = NULL; 
-
-  //const std::string&      name   = stream.peek().getName();
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
-  const std::string&      prefix = stream.peek().getPrefix(); 
-
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
-
-  if (prefix == targetPrefix) 
-  { 
-    SPATIAL_CREATE_NS(spatialns, getSBMLNamespaces());
-
-    delete spatialns;
-  } 
-
-  return object; 
+  return NULL; 
 }
 
 
@@ -218,8 +203,6 @@ SpatialReactionPlugin::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  //bool assigned = false;
-
   //
   // isLocal bool   ( use = "required" )
   //
@@ -281,8 +264,6 @@ List*
 SpatialReactionPlugin::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
-  //List* sublist = NULL;
-
 
   return ret;
 }

@@ -314,6 +314,7 @@ AnalyticGeometry::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mAnalyticVolumes, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -540,8 +541,6 @@ AnalyticGeometry::readAttributes (const XMLAttributes& attributes,
       }
     }
   }
-
-  //bool assigned = false;
 
 }
 

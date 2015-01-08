@@ -640,7 +640,7 @@ CSGTranslation_setTranslateZ(CSGTranslation_t * csgt, double translateZ);
 
 /**
  * Unsets the value of the "translateX" attribute of the given 
- *CSGTranslation_t structure.
+ * CSGTranslation_t structure.
  *
  * @param csgt the CSGTranslation_t structure.
  *
@@ -661,7 +661,7 @@ CSGTranslation_unsetTranslateX(CSGTranslation_t * csgt);
 
 /**
  * Unsets the value of the "translateY" attribute of the given 
- *CSGTranslation_t structure.
+ * CSGTranslation_t structure.
  *
  * @param csgt the CSGTranslation_t structure.
  *
@@ -682,7 +682,7 @@ CSGTranslation_unsetTranslateY(CSGTranslation_t * csgt);
 
 /**
  * Unsets the value of the "translateZ" attribute of the given 
- *CSGTranslation_t structure.
+ * CSGTranslation_t structure.
  *
  * @param csgt the CSGTranslation_t structure.
  *

@@ -444,7 +444,7 @@ SpatialSymbolReference_setSpatialRef(SpatialSymbolReference_t * ssr, const char 
 
 /**
  * Unsets the value of the "spatialRef" attribute of the given 
- *SpatialSymbolReference_t structure.
+ * SpatialSymbolReference_t structure.
  *
  * @param ssr the SpatialSymbolReference_t structure.
  *

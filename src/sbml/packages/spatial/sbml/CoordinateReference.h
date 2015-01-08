@@ -697,7 +697,7 @@ CoordinateReference_setCoordinate(CoordinateReference_t * cr, CoordinateKind_t c
 
 /**
  * Unsets the value of the "coordinate" attribute of the given 
- *CoordinateReference_t structure.
+ * CoordinateReference_t structure.
  *
  * @param cr the CoordinateReference_t structure.
  *

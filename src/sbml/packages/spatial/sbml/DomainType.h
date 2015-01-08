@@ -791,7 +791,7 @@ DomainType_setSpatialDimensions(DomainType_t * dt, int spatialDimensions);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *DomainType_t structure.
+ * DomainType_t structure.
  *
  * @param dt the DomainType_t structure.
  *
@@ -812,7 +812,7 @@ DomainType_unsetId(DomainType_t * dt);
 
 /**
  * Unsets the value of the "spatialDimensions" attribute of the given 
- *DomainType_t structure.
+ * DomainType_t structure.
  *
  * @param dt the DomainType_t structure.
  *

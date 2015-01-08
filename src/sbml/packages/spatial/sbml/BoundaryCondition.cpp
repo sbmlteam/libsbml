@@ -592,18 +592,21 @@ BoundaryCondition::readAttributes (const XMLAttributes& attributes,
   // type enum  ( use = "required" )
   //
   mType = BOUNDARYCONDITIONKIND_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("type", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("type", stringValue);
 
-    mType = BoundaryConditionKind_parse(stringValue.c_str());
-    if(mType == BOUNDARYCONDITIONKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'type' in 'boundaryCondition' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mType = BoundaryConditionKind_parse(stringValue.c_str());
+      if(mType == BOUNDARYCONDITIONKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'type' in 'boundaryCondition' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mType == BOUNDARYCONDITIONKIND_UNKNOWN)

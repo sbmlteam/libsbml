@@ -655,7 +655,7 @@ CompartmentMapping_setUnitSize(CompartmentMapping_t * cm, double unitSize);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *CompartmentMapping_t structure.
+ * CompartmentMapping_t structure.
  *
  * @param cm the CompartmentMapping_t structure.
  *
@@ -676,7 +676,7 @@ CompartmentMapping_unsetId(CompartmentMapping_t * cm);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *CompartmentMapping_t structure.
+ * CompartmentMapping_t structure.
  *
  * @param cm the CompartmentMapping_t structure.
  *
@@ -697,7 +697,7 @@ CompartmentMapping_unsetDomainType(CompartmentMapping_t * cm);
 
 /**
  * Unsets the value of the "unitSize" attribute of the given 
- *CompartmentMapping_t structure.
+ * CompartmentMapping_t structure.
  *
  * @param cm the CompartmentMapping_t structure.
  *

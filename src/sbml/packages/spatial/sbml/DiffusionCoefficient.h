@@ -367,15 +367,6 @@ public:
 
 
   /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth.
-   *
-   * @return a List* of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
-
-  /**
    * Returns the XML element name of this object, which for DiffusionCoefficient, is
    * always @c "diffusionCoefficient".
    *
@@ -431,18 +422,6 @@ public:
   virtual bool hasRequiredAttributes() const;
 
 
-  /**
-   * Predicate returning @c true if all the required elements
-   * for this DiffusionCoefficient object have been set.
-   *
-   * @note The required elements for a DiffusionCoefficient object are:
-   *
-   * @return a boolean value indicating whether all the required
-   * elements for this object have been defined.
-   */
-  virtual bool hasRequiredElements() const;
-
-
   /** @cond doxygenLibsbmlInternal */
 
   /**
@@ -481,17 +460,6 @@ public:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Connects to child elements.
-   */
-  virtual void connectToChild ();
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
    * Enables/Disables the given package with this element.
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
@@ -502,17 +470,6 @@ public:
 
 
 protected:
-
-  /** @cond doxygenLibsbmlInternal */
-
-  /**
-   * return the SBML object corresponding to next XMLToken.
-   */
-  virtual SBase* createObject(XMLInputStream& stream);
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -836,7 +793,7 @@ DiffusionCoefficient_setCoordinateReference2(DiffusionCoefficient_t * dc, Coordi
 
 /**
  * Unsets the value of the "variable" attribute of the given 
- *DiffusionCoefficient_t structure.
+ * DiffusionCoefficient_t structure.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
@@ -857,7 +814,7 @@ DiffusionCoefficient_unsetVariable(DiffusionCoefficient_t * dc);
 
 /**
  * Unsets the value of the "type" attribute of the given 
- *DiffusionCoefficient_t structure.
+ * DiffusionCoefficient_t structure.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
@@ -878,7 +835,7 @@ DiffusionCoefficient_unsetType(DiffusionCoefficient_t * dc);
 
 /**
  * Unsets the value of the "coordinateReference1" attribute of the given 
- *DiffusionCoefficient_t structure.
+ * DiffusionCoefficient_t structure.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
@@ -899,7 +856,7 @@ DiffusionCoefficient_unsetCoordinateReference1(DiffusionCoefficient_t * dc);
 
 /**
  * Unsets the value of the "coordinateReference2" attribute of the given 
- *DiffusionCoefficient_t structure.
+ * DiffusionCoefficient_t structure.
  *
  * @param dc the DiffusionCoefficient_t structure.
  *
@@ -932,22 +889,6 @@ DiffusionCoefficient_unsetCoordinateReference2(DiffusionCoefficient_t * dc);
 LIBSBML_EXTERN
 int
 DiffusionCoefficient_hasRequiredAttributes(const DiffusionCoefficient_t * dc);
-
-
-/**
- * Predicate returning @c 1 or *c 0 depending on whether all the required
- * sub-elements of the given DiffusionCoefficient_t structure have been set.
- *
- * @param dc the DiffusionCoefficient_t structure to check.
- *
- * @return @c 1 if all the required sub-elements for this
- * structure have been defined, @c 0 otherwise.
- *
- * @member of DiffusionCoefficient_t
- */
-LIBSBML_EXTERN
-int
-DiffusionCoefficient_hasRequiredElements(const DiffusionCoefficient_t * dc);
 
 
 

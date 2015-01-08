@@ -1461,6 +1461,12 @@ Geometry::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mCoordinateComponents, filter);
+  ADD_FILTERED_LIST(ret, sublist, mDomainTypes, filter);
+  ADD_FILTERED_LIST(ret, sublist, mDomains, filter);
+  ADD_FILTERED_LIST(ret, sublist, mAdjacentDomains, filter);
+  ADD_FILTERED_LIST(ret, sublist, mGeometryDefinitions, filter);
+  ADD_FILTERED_LIST(ret, sublist, mSampledFields, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -1496,9 +1502,6 @@ bool
 Geometry::hasRequiredAttributes () const
 {
   bool allPresent = true;
-
-  if (isSetId() == false)
-    allPresent = false;
 
   if (isSetCoordinateSystem() == false)
     allPresent = false;
@@ -1759,7 +1762,7 @@ Geometry::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // id SId  ( use = "required" )
+  // id SId  ( use = "optional" )
   //
   assigned = attributes.readInto("id", mId);
 
@@ -1777,29 +1780,26 @@ Geometry::readAttributes (const XMLAttributes& attributes,
         "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
   }
-  else
-  {
-    std::string message = "Spatial attribute 'id' is missing from 'geometry' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-  }
 
   //
   // coordinateSystem enum  ( use = "required" )
   //
   mCoordinateSystem = GEOMETRYKIND_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("coordinateSystem", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("coordinateSystem", stringValue);
 
-    mCoordinateSystem = GeometryKind_parse(stringValue.c_str());
-    if(mCoordinateSystem == GEOMETRYKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'coordinateSystem' in 'geometry' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mCoordinateSystem = GeometryKind_parse(stringValue.c_str());
+      if(mCoordinateSystem == GEOMETRYKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'coordinateSystem' in 'geometry' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mCoordinateSystem == GEOMETRYKIND_UNKNOWN)

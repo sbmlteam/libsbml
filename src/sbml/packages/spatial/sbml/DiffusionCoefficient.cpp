@@ -55,9 +55,6 @@ DiffusionCoefficient::DiffusionCoefficient (unsigned int level, unsigned int ver
 {
   // set an SBMLNamespaces derived object of this package
   setSBMLNamespacesAndOwn(new SpatialPkgNamespaces(level, version, pkgVersion));
-
-  // connect to child objects
-  connectToChild();
 }
 
 
@@ -73,9 +70,6 @@ DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
 {
   // set the element namespace of this object
   setElementNamespace(spatialns->getURI());
-
-  // connect to child objects
-  connectToChild();
 
   // load package extensions bound with this object (if any) 
   loadPlugins(spatialns);
@@ -98,9 +92,6 @@ DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
     mType  = orig.mType;
     mCoordinateReference1  = orig.mCoordinateReference1;
     mCoordinateReference2  = orig.mCoordinateReference2;
-
-    // connect to child objects
-    connectToChild();
   }
 }
 
@@ -122,9 +113,6 @@ DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
     mType  = rhs.mType;
     mCoordinateReference1  = rhs.mCoordinateReference1;
     mCoordinateReference2  = rhs.mCoordinateReference2;
-
-    // connect to child objects
-    connectToChild();
   }
   return *this;
 }
@@ -388,19 +376,6 @@ DiffusionCoefficient::renameSIdRefs(const std::string& oldid, const std::string&
 }
 
 
-List*
-DiffusionCoefficient::getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
-}
-
-
 /*
  * Returns the XML element name of this object
  */
@@ -440,18 +415,6 @@ DiffusionCoefficient::hasRequiredAttributes () const
 }
 
 
-/*
- * check if all the required elements are set
- */
-bool
-DiffusionCoefficient::hasRequiredElements () const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
   /** @cond doxygenLibsbmlInternal */
 
 /*
@@ -476,13 +439,7 @@ DiffusionCoefficient::writeElements (XMLOutputStream& stream) const
 bool
 DiffusionCoefficient::accept (SBMLVisitor& v) const
 {
-  v.visit(*this);
-
-/* VISIT CHILDREN */
-
-  v.leave(*this);
-
-  return true;
+  return v.visit(*this);
 }
 
 
@@ -507,22 +464,6 @@ DiffusionCoefficient::setSBMLDocument (SBMLDocument* d)
   /** @cond doxygenLibsbmlInternal */
 
 /*
-   * Connects to child elements.
- */
-void
-DiffusionCoefficient::connectToChild()
-{
-  SBase::connectToChild();
-
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
  * Enables/Disables the given package with this element.
  */
 void
@@ -530,28 +471,6 @@ DiffusionCoefficient::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-}
-
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * creates object.
- */
-SBase*
-DiffusionCoefficient::createObject(XMLInputStream& stream)
-{
-  SBase* object = NULL;
-
-  //const string& name = stream.peek().getName();
-
-  connectToChild();
-
-
-  return object;
 }
 
 
@@ -651,18 +570,21 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   // type enum  ( use = "required" )
   //
   mType = DIFFUSIONKIND_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("type", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("type", stringValue);
 
-    mType = DiffusionKind_parse(stringValue.c_str());
-    if(mType == DIFFUSIONKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'type' in 'diffusionCoefficient' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mType = DiffusionKind_parse(stringValue.c_str());
+      if(mType == DIFFUSIONKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'type' in 'diffusionCoefficient' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mType == DIFFUSIONKIND_UNKNOWN)
@@ -676,17 +598,21 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
   // coordinateReference1 enum  ( use = "optional" )
   //
   mCoordinateReference1 = COORDINATEKIND_UNKNOWN;
-  assigned = attributes.readInto("coordinateReference1", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("coordinateReference1", stringValue);
 
-    mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
-    if(mCoordinateReference1 == COORDINATEKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'coordinateReference1' in 'diffusionCoefficient' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mCoordinateReference1 = CoordinateKind_parse(stringValue.c_str());
+      if(mCoordinateReference1 == COORDINATEKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'coordinateReference1' in 'diffusionCoefficient' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   //
@@ -702,10 +628,11 @@ DiffusionCoefficient::readAttributes (const XMLAttributes& attributes,
       // parse enum
 
       mCoordinateReference2 = CoordinateKind_parse(stringValue.c_str());
-      if(mCoordinateReference2 == COORDINATEKIND_UNKNOWN) {
-        std::string message = "Unknown value for spatial attribute 'coordinateReference2' in 'diffusionCoefficient' object: " + stringValue;
+      if(mCoordinateReference2 == COORDINATEKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'coordinateReference2' in 'diffusionCoefficient' object: " + stringValue;
         getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
   }
@@ -921,14 +848,6 @@ int
 DiffusionCoefficient_hasRequiredAttributes(const DiffusionCoefficient_t * dc)
 {
   return (dc != NULL) ? static_cast<int>(dc->hasRequiredAttributes()) : 0;
-}
-
-
-LIBSBML_EXTERN
-int
-DiffusionCoefficient_hasRequiredElements(const DiffusionCoefficient_t * dc)
-{
-	return (dc != NULL) ? static_cast<int>(dc->hasRequiredElements()) : 0;
 }
 
 

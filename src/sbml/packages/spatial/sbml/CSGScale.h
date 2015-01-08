@@ -640,7 +640,7 @@ CSGScale_setScaleZ(CSGScale_t * csgs, double scaleZ);
 
 /**
  * Unsets the value of the "scaleX" attribute of the given 
- *CSGScale_t structure.
+ * CSGScale_t structure.
  *
  * @param csgs the CSGScale_t structure.
  *
@@ -661,7 +661,7 @@ CSGScale_unsetScaleX(CSGScale_t * csgs);
 
 /**
  * Unsets the value of the "scaleY" attribute of the given 
- *CSGScale_t structure.
+ * CSGScale_t structure.
  *
  * @param csgs the CSGScale_t structure.
  *
@@ -682,7 +682,7 @@ CSGScale_unsetScaleY(CSGScale_t * csgs);
 
 /**
  * Unsets the value of the "scaleZ" attribute of the given 
- *CSGScale_t structure.
+ * CSGScale_t structure.
  *
  * @param csgs the CSGScale_t structure.
  *

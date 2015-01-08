@@ -153,8 +153,6 @@ struct SpatialValidatorConstraints
   ConstraintSet<AnalyticVolume>      mAnalyticVolume;
   ConstraintSet<ParametricGeometry>      mParametricGeometry;
   ConstraintSet<ParametricObject>      mParametricObject;
-  ConstraintSet<PolygonObject>      mPolygonObject;
-  ConstraintSet<SpatialPoint>      mSpatialPoint;
   ConstraintSet<CSGeometry>      mCSGeometry;
   ConstraintSet<CSGObject>      mCSGObject;
   ConstraintSet<CSGNode>      mCSGNode;
@@ -175,6 +173,7 @@ struct SpatialValidatorConstraints
   ConstraintSet<CoordinateReference>      mCoordinateReference;
   ConstraintSet<MixedGeometry>      mMixedGeometry;
   ConstraintSet<OrdinalMapping>      mOrdinalMapping;
+  ConstraintSet<SpatialPoints>      mSpatialPoints;
   map<VConstraint*,bool> ptrMap;
 
   ~SpatialValidatorConstraints ();
@@ -314,18 +313,6 @@ SpatialValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<PolygonObject>* >(c) != NULL)
-  {
-    mPolygonObject.add( static_cast< TConstraint<PolygonObject>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< TConstraint<SpatialPoint>* >(c) != NULL)
-  {
-    mSpatialPoint.add( static_cast< TConstraint<SpatialPoint>* >(c) );
-    return;
-  }
-
   if (dynamic_cast< TConstraint<CSGeometry>* >(c) != NULL)
   {
     mCSGeometry.add( static_cast< TConstraint<CSGeometry>* >(c) );
@@ -446,6 +433,12 @@ SpatialValidatorConstraints::add (VConstraint* c)
     return;
   }
 
+  if (dynamic_cast< TConstraint<SpatialPoints>* >(c) != NULL)
+  {
+    mSpatialPoints.add( static_cast< TConstraint<SpatialPoints>* >(c) );
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -561,18 +554,6 @@ public:
   {
     v.mSpatialConstraints->mParametricObject.applyTo(m, x);
     return !v.mSpatialConstraints->mParametricObject.empty();
-  }
-
-  bool visit (const PolygonObject &x)
-  {
-    v.mSpatialConstraints->mPolygonObject.applyTo(m, x);
-    return !v.mSpatialConstraints->mPolygonObject.empty();
-  }
-
-  bool visit (const SpatialPoint &x)
-  {
-    v.mSpatialConstraints->mSpatialPoint.applyTo(m, x);
-    return !v.mSpatialConstraints->mSpatialPoint.empty();
   }
 
   bool visit (const CSGeometry &x)
@@ -695,6 +676,12 @@ public:
     return !v.mSpatialConstraints->mOrdinalMapping.empty();
   }
 
+  bool visit (const SpatialPoints &x)
+  {
+    v.mSpatialConstraints->mSpatialPoints.applyTo(m, x);
+    return !v.mSpatialConstraints->mSpatialPoints.empty();
+  }
+
   virtual bool visit(const SBase &x)
   {
     if (&x == NULL || x.getPackageName() != "spatial")
@@ -771,14 +758,6 @@ public:
       else if (code == SBML_SPATIAL_PARAMETRICOBJECT)
       {
         return visit((const ParametricObject&)x);
-      }
-      else if (code == SBML_SPATIAL_POLYGONOBJECT)
-      {
-        return visit((const PolygonObject&)x);
-      }
-      else if (code == SBML_SPATIAL_SPATIALPOINT)
-      {
-        return visit((const SpatialPoint&)x);
       }
       else if (code == SBML_SPATIAL_CSGEOMETRY)
       {
@@ -859,6 +838,10 @@ public:
       else if (code == SBML_SPATIAL_ORDINALMAPPING)
       {
         return visit((const OrdinalMapping&)x);
+      }
+      else if (code == SBML_SPATIAL_SPATIALPOINTS)
+      {
+        return visit((const SpatialPoints&)x);
       }
       else 
       {

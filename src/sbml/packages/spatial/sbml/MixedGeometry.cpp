@@ -645,6 +645,8 @@ MixedGeometry::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mGeometryDefinitions, filter);
+  ADD_FILTERED_LIST(ret, sublist, mOrdinalMappings, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -883,8 +885,6 @@ MixedGeometry::readAttributes (const XMLAttributes& attributes,
       }
     }
   }
-
-  //bool assigned = false;
 
 }
 

@@ -51,8 +51,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new SpatialModelPlugin
  */
 SpatialModelPlugin::SpatialModelPlugin(const std::string& uri,  
-                                       const std::string& prefix, 
-                                       SpatialPkgNamespaces* spatialns):
+                                 const std::string& prefix, 
+                               SpatialPkgNamespaces* spatialns) :
     SBasePlugin(uri, prefix, spatialns)
   , mGeometry  ( NULL )
 {
@@ -66,7 +66,8 @@ SpatialModelPlugin::SpatialModelPlugin(const SpatialModelPlugin& orig) :
     SBasePlugin(orig)
   , mGeometry ( NULL )
 {
-  if (orig.mGeometry != NULL) {
+  if (orig.mGeometry != NULL)
+  {
     mGeometry = orig.mGeometry->clone();
   }
 }
@@ -83,9 +84,8 @@ SpatialModelPlugin::operator=(const SpatialModelPlugin& rhs)
     this->SBasePlugin::operator=(rhs);
     delete mGeometry;
     mGeometry = NULL;
-    if (rhs.mGeometry != NULL) {
+    if (rhs.mGeometry != NULL)
       mGeometry = rhs.mGeometry->clone();
-    }
   }
 
   return *this;
@@ -108,6 +108,7 @@ SpatialModelPlugin::clone () const
 SpatialModelPlugin::~SpatialModelPlugin()
 {
   delete mGeometry;
+  mGeometry = NULL;
 }
 
 
@@ -232,8 +233,6 @@ SpatialModelPlugin::readAttributes (const XMLAttributes& attributes,
       }
     }
   }
-
-  //bool assigned = false;
 
 }
 

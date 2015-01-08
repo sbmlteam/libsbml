@@ -433,7 +433,6 @@ public:
    * @note The required attributes for a AnalyticVolume object are:
    * @li "id"
    * @li "functionType"
-   * @li "ordinal"
    * @li "domainType"
    *
    * @return a boolean value indicating whether all the required
@@ -1156,7 +1155,7 @@ AnalyticVolume_setMath(AnalyticVolume_t * av, const ASTNode_t* math);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *AnalyticVolume_t structure.
+ * AnalyticVolume_t structure.
  *
  * @param av the AnalyticVolume_t structure.
  *
@@ -1177,7 +1176,7 @@ AnalyticVolume_unsetId(AnalyticVolume_t * av);
 
 /**
  * Unsets the value of the "functionType" attribute of the given 
- *AnalyticVolume_t structure.
+ * AnalyticVolume_t structure.
  *
  * @param av the AnalyticVolume_t structure.
  *
@@ -1198,7 +1197,7 @@ AnalyticVolume_unsetFunctionType(AnalyticVolume_t * av);
 
 /**
  * Unsets the value of the "ordinal" attribute of the given 
- *AnalyticVolume_t structure.
+ * AnalyticVolume_t structure.
  *
  * @param av the AnalyticVolume_t structure.
  *
@@ -1219,7 +1218,7 @@ AnalyticVolume_unsetOrdinal(AnalyticVolume_t * av);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *AnalyticVolume_t structure.
+ * AnalyticVolume_t structure.
  *
  * @param av the AnalyticVolume_t structure.
  *

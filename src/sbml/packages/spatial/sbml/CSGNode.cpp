@@ -281,9 +281,6 @@ CSGNode::hasRequiredAttributes () const
 {
   bool allPresent = true;
 
-  if (isSetId() == false)
-    allPresent = false;
-
   return allPresent;
 }
 
@@ -441,7 +438,7 @@ CSGNode::readAttributes (const XMLAttributes& attributes,
   bool assigned = false;
 
   //
-  // id SId  ( use = "required" )
+  // id SId  ( use = "optional" )
   //
   assigned = attributes.readInto("id", mId);
 
@@ -458,12 +455,6 @@ CSGNode::readAttributes (const XMLAttributes& attributes,
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
         "The syntax of the attribute id='" + mId + "' does not conform.", getLine(), getColumn());
     }
-  }
-  else
-  {
-    std::string message = "Spatial attribute 'id' is missing from 'csgNode' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }

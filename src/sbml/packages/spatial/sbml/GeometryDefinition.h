@@ -892,7 +892,7 @@ GeometryDefinition_setIsActive(GeometryDefinition_t * gd, int isActive);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *GeometryDefinition_t structure.
+ * GeometryDefinition_t structure.
  *
  * @param gd the GeometryDefinition_t structure.
  *
@@ -913,7 +913,7 @@ GeometryDefinition_unsetId(GeometryDefinition_t * gd);
 
 /**
  * Unsets the value of the "isActive" attribute of the given 
- *GeometryDefinition_t structure.
+ * GeometryDefinition_t structure.
  *
  * @param gd the GeometryDefinition_t structure.
  *

@@ -450,7 +450,7 @@ CSGPrimitive_setPrimitiveType(CSGPrimitive_t * csgp, PrimitiveKind_t primitiveTy
 
 /**
  * Unsets the value of the "primitiveType" attribute of the given 
- *CSGPrimitive_t structure.
+ * CSGPrimitive_t structure.
  *
  * @param csgp the CSGPrimitive_t structure.
  *

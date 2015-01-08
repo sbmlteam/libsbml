@@ -887,7 +887,7 @@ InteriorPoint_setCoord3(InteriorPoint_t * ip, double coord3);
 
 /**
  * Unsets the value of the "coord1" attribute of the given 
- *InteriorPoint_t structure.
+ * InteriorPoint_t structure.
  *
  * @param ip the InteriorPoint_t structure.
  *
@@ -908,7 +908,7 @@ InteriorPoint_unsetCoord1(InteriorPoint_t * ip);
 
 /**
  * Unsets the value of the "coord2" attribute of the given 
- *InteriorPoint_t structure.
+ * InteriorPoint_t structure.
  *
  * @param ip the InteriorPoint_t structure.
  *
@@ -929,7 +929,7 @@ InteriorPoint_unsetCoord2(InteriorPoint_t * ip);
 
 /**
  * Unsets the value of the "coord3" attribute of the given 
- *InteriorPoint_t structure.
+ * InteriorPoint_t structure.
  *
  * @param ip the InteriorPoint_t structure.
  *

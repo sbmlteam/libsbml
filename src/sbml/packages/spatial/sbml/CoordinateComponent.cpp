@@ -591,9 +591,6 @@ CoordinateComponent::hasRequiredAttributes () const
   if (isSetType() == false)
     allPresent = false;
 
-  if (isSetUnit() == false)
-    allPresent = false;
-
   return allPresent;
 }
 
@@ -852,7 +849,7 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
   //
   assigned = attributes.readInto("id", mId);
 
-  if (assigned == true)
+   if (assigned == true)
   {
     // check string is not empty and correct syntax
 
@@ -877,29 +874,32 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
   // type enum  ( use = "required" )
   //
   mType = COORDINATEKIND_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("type", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("type", stringValue);
 
-    mType = CoordinateKind_parse(stringValue.c_str());
-    if(mType == COORDINATEKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'type' in 'coordinateComponent' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mType = CoordinateKind_parse(stringValue.c_str());
+      if(mType == COORDINATEKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'type' in 'coordinateComponent' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mType == COORDINATEKIND_UNKNOWN)
   {
     std::string message = "Spatial attribute 'type' is missing from 'coordinateComponent' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-      getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
   //
-  // unit SIdRef   ( use = "required" )
+  // unit SIdRef   ( use = "optional" )
   //
   assigned = attributes.readInto("unit", mUnit);
 
@@ -916,12 +916,6 @@ CoordinateComponent::readAttributes (const XMLAttributes& attributes,
       getErrorLog()->logError(InvalidIdSyntax, getLevel(), getVersion(), 
         "The syntax of the attribute unit='" + mUnit + "' does not conform.");
     }
-  }
-  else
-  {
-    std::string message = "Spatial attribute 'unit' is missing from 'coordinateComponent' object.";
-    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
   }
 
 }

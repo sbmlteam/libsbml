@@ -1173,7 +1173,6 @@ public:
    * for this Geometry object have been set.
    *
    * @note The required attributes for a Geometry object are:
-   * @li "id"
    * @li "coordinateSystem"
    *
    * @return a boolean value indicating whether all the required
@@ -1479,7 +1478,7 @@ Geometry_setCoordinateSystem(Geometry_t * g, GeometryKind_t coordinateSystem);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *Geometry_t structure.
+ * Geometry_t structure.
  *
  * @param g the Geometry_t structure.
  *
@@ -1500,7 +1499,7 @@ Geometry_unsetId(Geometry_t * g);
 
 /**
  * Unsets the value of the "coordinateSystem" attribute of the given 
- *Geometry_t structure.
+ * Geometry_t structure.
  *
  * @param g the Geometry_t structure.
  *

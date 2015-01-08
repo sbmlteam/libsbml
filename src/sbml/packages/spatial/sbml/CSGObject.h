@@ -431,7 +431,6 @@ public:
    * @note The required attributes for a CSGObject object are:
    * @li "id"
    * @li "domainType"
-   * @li "ordinal"
    * @li "csgNode"
    *
    * @return a boolean value indicating whether all the required
@@ -1118,7 +1117,7 @@ CSGObject_setCsgNode(CSGObject_t * csgo, CSGNode_t* csgNode);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *CSGObject_t structure.
+ * CSGObject_t structure.
  *
  * @param csgo the CSGObject_t structure.
  *
@@ -1139,7 +1138,7 @@ CSGObject_unsetId(CSGObject_t * csgo);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *CSGObject_t structure.
+ * CSGObject_t structure.
  *
  * @param csgo the CSGObject_t structure.
  *
@@ -1160,7 +1159,7 @@ CSGObject_unsetDomainType(CSGObject_t * csgo);
 
 /**
  * Unsets the value of the "ordinal" attribute of the given 
- *CSGObject_t structure.
+ * CSGObject_t structure.
  *
  * @param csgo the CSGObject_t structure.
  *

@@ -90,7 +90,7 @@ main (int argc, char* argv[])
 
   setTestDataDirectory();
 
-  SRunner *runner = srunner_create(create_suite_PolygonObject());
+  SRunner *runner = srunner_create(create_suite_ParametricObject());
   srunner_add_suite(runner, create_suite_ParametricObject());
   srunner_add_suite(runner, create_suite_SampledField());
   srunner_add_suite(runner, create_suite_TransformationComponents());

@@ -753,6 +753,7 @@ CSGSetOperator::getAllElements(ElementFilter* filter)
   List* ret = new List();
   List* sublist = NULL;
 
+  ADD_FILTERED_LIST(ret, sublist, mCsgNodes, filter);
 
   ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
 
@@ -992,18 +993,21 @@ CSGSetOperator::readAttributes (const XMLAttributes& attributes,
   // operationType enum  ( use = "required" )
   //
   mOperationType = SETOPERATION_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("operationType", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("operationType", stringValue);
 
-    mOperationType = SetOperation_parse(stringValue.c_str());
-    if(mOperationType == SETOPERATION_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'operationType' in 'csgSetOperator' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mOperationType = SetOperation_parse(stringValue.c_str());
+      if(mOperationType == SETOPERATION_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'operationType' in 'csgSetOperator' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mOperationType == SETOPERATION_UNKNOWN)

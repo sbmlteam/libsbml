@@ -1118,7 +1118,7 @@ SampledVolume_setMaxValue(SampledVolume_t * sv, double maxValue);
 
 /**
  * Unsets the value of the "id" attribute of the given 
- *SampledVolume_t structure.
+ * SampledVolume_t structure.
  *
  * @param sv the SampledVolume_t structure.
  *
@@ -1139,7 +1139,7 @@ SampledVolume_unsetId(SampledVolume_t * sv);
 
 /**
  * Unsets the value of the "domainType" attribute of the given 
- *SampledVolume_t structure.
+ * SampledVolume_t structure.
  *
  * @param sv the SampledVolume_t structure.
  *
@@ -1160,7 +1160,7 @@ SampledVolume_unsetDomainType(SampledVolume_t * sv);
 
 /**
  * Unsets the value of the "sampledValue" attribute of the given 
- *SampledVolume_t structure.
+ * SampledVolume_t structure.
  *
  * @param sv the SampledVolume_t structure.
  *
@@ -1181,7 +1181,7 @@ SampledVolume_unsetSampledValue(SampledVolume_t * sv);
 
 /**
  * Unsets the value of the "minValue" attribute of the given 
- *SampledVolume_t structure.
+ * SampledVolume_t structure.
  *
  * @param sv the SampledVolume_t structure.
  *
@@ -1202,7 +1202,7 @@ SampledVolume_unsetMinValue(SampledVolume_t * sv);
 
 /**
  * Unsets the value of the "maxValue" attribute of the given 
- *SampledVolume_t structure.
+ * SampledVolume_t structure.
  *
  * @param sv the SampledVolume_t structure.
  *

@@ -58,8 +58,6 @@
 #include <sbml/packages/spatial/sbml/AnalyticVolume.h>
 #include <sbml/packages/spatial/sbml/ParametricGeometry.h>
 #include <sbml/packages/spatial/sbml/ParametricObject.h>
-#include <sbml/packages/spatial/sbml/PolygonObject.h>
-#include <sbml/packages/spatial/sbml/SpatialPoint.h>
 #include <sbml/packages/spatial/sbml/CSGeometry.h>
 #include <sbml/packages/spatial/sbml/CSGObject.h>
 #include <sbml/packages/spatial/sbml/CSGNode.h>
@@ -80,6 +78,7 @@
 #include <sbml/packages/spatial/sbml/CoordinateReference.h>
 #include <sbml/packages/spatial/sbml/MixedGeometry.h>
 #include <sbml/packages/spatial/sbml/OrdinalMapping.h>
+#include <sbml/packages/spatial/sbml/SpatialPoints.h>
 
 #endif  /* SpatialExtensionTypes_H */
 

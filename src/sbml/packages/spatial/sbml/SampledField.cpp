@@ -516,7 +516,7 @@ SampledField::setCompression(const std::string& compression)
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-SampledField::setSamples(int* inArray, size_t arrayLength)
+SampledField::setSamples(int* inArray, int arrayLength)
 {
   if (inArray == NULL) return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
@@ -689,11 +689,6 @@ List*
 SampledField::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
-  List* sublist = NULL;
-
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
   return ret;
 }
 
@@ -734,6 +729,9 @@ SampledField::hasRequiredAttributes () const
     allPresent = false;
 
   if (isSetNumSamples1() == false)
+    allPresent = false;
+
+  if (isSetInterpolationType() == false)
     allPresent = false;
 
   if (isSetCompression() == false)
@@ -994,22 +992,24 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   // dataType enum  ( use = "required" )
   //
   mDataType = DATAKIND_UNKNOWN;
-  std::string stringValue;
-  assigned = attributes.readInto("dataType", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("dataType", stringValue);
 
-    mDataType = DataKind_parse(stringValue.c_str());
-    if(mDataType == DATAKIND_UNKNOWN)
+    if (assigned == true)
     {
-      std::string message = "Unknown value for spatial attribute 'dataType' in 'sampledField' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      // parse enum
+
+      mDataType = DataKind_parse(stringValue.c_str());
+      if(mDataType == DATAKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'dataType' in 'sampledField' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
-  else if(mDataType == DATAKIND_UNKNOWN)
+  if(mDataType == DATAKIND_UNKNOWN)
   {
     std::string message = "Spatial attribute 'dataType' is missing from 'sampledField' object.";
     getErrorLog()->logPackageError("spatial", SpatialUnknownError,
@@ -1083,37 +1083,52 @@ SampledField::readAttributes (const XMLAttributes& attributes,
   }
 
   //
-  // interpolationType enum  ( use = "optional" )
+  // interpolationType enum  ( use = "required" )
   //
   mInterpolationType = INTERPOLATIONKIND_UNKNOWN;
-  assigned = attributes.readInto("interpolationType", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("interpolationType", stringValue);
 
-    mInterpolationType = InterpolationKind_parse(stringValue.c_str());
-    if(mInterpolationType == INTERPOLATIONKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'interpoloationType' in 'sampledField' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mInterpolationType = InterpolationKind_parse(stringValue.c_str());
+      if(mInterpolationType == INTERPOLATIONKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'interpolationType' in 'sampledField' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
+  if(mInterpolationType == INTERPOLATIONKIND_UNKNOWN)
+  {
+    std::string message = "Spatial attribute 'interpolationType' is missing from 'sampledField' object.";
+    getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                   getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+  }
+
   //
   // compression enum  ( use = "required" )
   //
   mCompression = COMPRESSIONKIND_UNKNOWN;
-  assigned = attributes.readInto("compression", stringValue);
-
-  if (assigned == true)
   {
-    // parse enum
+    std::string stringValue;
+    assigned = attributes.readInto("compression", stringValue);
 
-    mCompression = CompressionKind_parse(stringValue.c_str());
-    if(mCompression == COMPRESSIONKIND_UNKNOWN) {
-      std::string message = "Unknown value for spatial attribute 'compression' in 'sampledField' object: " + stringValue;
-      getErrorLog()->logPackageError("spatial", SpatialUnknownError,
-        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    if (assigned == true)
+    {
+      // parse enum
+
+      mCompression = CompressionKind_parse(stringValue.c_str());
+      if(mCompression == COMPRESSIONKIND_UNKNOWN)
+      {
+        std::string message = "Unknown value for Spatial attribute 'compression' in 'sampledField' object: " + stringValue;
+        getErrorLog()->logPackageError("spatial", SpatialUnknownError,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
     }
   }
   if(mCompression == COMPRESSIONKIND_UNKNOWN)
@@ -1223,10 +1238,18 @@ SampledField::setElementText(const std::string &text)
   }
 
   // convert the vector to an array
-  size_t length = valuesVector.size();
+  unsigned int length = (unsigned int)valuesVector.size();
   if (length > 0)
   {
-    setSamples(&valuesVector[0], length);
+
+    int* data = new int[length];
+    for (unsigned int i = 0; i < length; ++i)
+    {
+      data[i] = valuesVector.at(i);
+    }
+
+    setSamples(data, length);
+    delete[] data;
   }
 }
 #include <sbml/compress/CompressCommon.h>
@@ -1263,7 +1286,7 @@ SampledField::uncompress()
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     char* csamples = (char*)malloc(sizeof(char)*mSamplesLength);
-    for (int i = 0 ; i < mSamplesLength; ++i)
+    for (unsigned int i = 0 ; i < mSamplesLength; ++i)
       csamples[i] = mSamples[i];
     SampledField::uncompress_data(csamples, mSamplesLength, mUncompressedSamples, mUncompressedLength);
     free(csamples);

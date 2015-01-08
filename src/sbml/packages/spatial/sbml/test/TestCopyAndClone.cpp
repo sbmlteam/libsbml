@@ -64,88 +64,6 @@ SpatialCopyAndClone_teardown (void)
 }
 
 
-START_TEST ( test_PolygonObject_copyConstructor )
-{
-  PolygonObject* o1=new PolygonObject(GNS);
-  int points [] = {1,2,3};
-  o1->setPointIndex(points, 3);
-  
-  fail_unless(o1->getPointIndexLength() == 3);
-
-  PolygonObject* o2=new PolygonObject(*o1);
-
-  fail_unless(o2->getPointIndexLength() == 3);
-
-  int pointsRet [] = {0, 0, 0};
-  o2->getPointIndex(pointsRet);
-  
-  fail_unless(pointsRet[0] == 1);
-  fail_unless(pointsRet[1] == 2);
-  fail_unless(pointsRet[2] == 3);
-
-  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
-
-  delete o2;
-  delete o1;
-}
-END_TEST
-
-
-START_TEST ( test_PolygonObject_assignmentOperator )
-{
-  PolygonObject* o1=new PolygonObject(GNS);
-  int points [] = {1,2,3};
-  o1->setPointIndex(points, 3);
-  
-  fail_unless(o1->getPointIndexLength() == 3);
-  
-  PolygonObject* o2 = new PolygonObject(GNS);;
-  (*o2)=*o1;
-
-  fail_unless(o2->getPointIndexLength() == 3);
-
-  int pointsRet [] = {0, 0, 0};
-  o2->getPointIndex(pointsRet);
-  
-  fail_unless(pointsRet[0] == 1);
-  fail_unless(pointsRet[1] == 2);
-  fail_unless(pointsRet[2] == 3);
-
-  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
-
-  delete o2;
-  delete o1;
-}
-END_TEST
-
-
-START_TEST ( test_PolygonObject_clone )
-{
-  PolygonObject* o1=new PolygonObject(GNS);
-  int points [] = {1,2,3};
-  o1->setPointIndex(points, 3);
-  
-  fail_unless(o1->getPointIndexLength() == 3);
-
-  PolygonObject* o2=o1->clone();
- 
-  fail_unless(o2->getPointIndexLength() == 3);
-
-  int pointsRet [] = {0, 0, 0};
-  o2->getPointIndex(pointsRet);
-  
-  fail_unless(pointsRet[0] == 1);
-  fail_unless(pointsRet[1] == 2);
-  fail_unless(pointsRet[2] == 3);
-
-  fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
-
-  delete o2;
-  delete o1;
-}
-END_TEST
-
-
 START_TEST ( test_ParametricObject_copyConstructor )
 {
   ParametricObject* o1=new ParametricObject(GNS);
@@ -153,23 +71,14 @@ START_TEST ( test_ParametricObject_copyConstructor )
   
   fail_unless(o1->getId() == "s");
 
-  PolygonObject* obj=new PolygonObject(GNS);
-  o1->setPolygonObject(obj);
-
-  fail_unless(o1->isSetPolygonObject() == true);
-
   ParametricObject* o2=new ParametricObject(*o1);
 
   fail_unless(o2->getId() == "s");
-  fail_unless(o2->isSetPolygonObject() == true);
-
-  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
   delete o1;
   delete o2;
-  delete obj;
 }
 END_TEST
 
@@ -181,24 +90,16 @@ START_TEST ( test_ParametricObject_assignmentOperator )
   
   fail_unless(o1->getId() == "s");
  
-  PolygonObject* obj=new PolygonObject(GNS);
-  o1->setPolygonObject(obj);
-
-  fail_unless(o1->isSetPolygonObject() == true);
 
   ParametricObject* o2 = new ParametricObject(GNS);;
   (*o2)=*o1;
 
   fail_unless(o2->getId() == "s");
-  fail_unless(o2->isSetPolygonObject() == true);
-
-  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
   delete o2;
   delete o1;
-  delete obj;
 }
 END_TEST
 
@@ -210,23 +111,14 @@ START_TEST ( test_ParametricObject_clone )
   
   fail_unless(o1->getId() == "s");
 
-  PolygonObject* obj=new PolygonObject(GNS);
-  o1->setPolygonObject(obj);
-
-  fail_unless(o1->isSetPolygonObject() == true);
-
   ParametricObject* o2=o1->clone();
  
   fail_unless(o2->getId() == "s");
-  fail_unless(o2->isSetPolygonObject() == true);
-
-  fail_unless(o2->getPolygonObject() != o1->getPolygonObject());
 
   fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
   delete o2;
   delete o1;
-  delete obj;
 }
 END_TEST
 
@@ -405,9 +297,6 @@ create_suite_CopyAndClone (void)
                              SpatialCopyAndClone_setup,
                              SpatialCopyAndClone_teardown );
 
-  tcase_add_test( tcase, test_PolygonObject_copyConstructor );
-  tcase_add_test( tcase, test_PolygonObject_assignmentOperator );
-  tcase_add_test( tcase, test_PolygonObject_clone );
   tcase_add_test( tcase, test_ParametricObject_copyConstructor );
   tcase_add_test( tcase, test_ParametricObject_assignmentOperator );
   tcase_add_test( tcase, test_ParametricObject_clone );

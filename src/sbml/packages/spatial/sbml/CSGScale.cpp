@@ -478,8 +478,6 @@ CSGScale::readAttributes (const XMLAttributes& attributes,
     }
   }
 
-  //bool assigned = false;
-
   //
   // scaleX double   ( use = "required" )
   //
