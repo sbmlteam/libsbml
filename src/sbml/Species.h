@@ -1054,20 +1054,6 @@ public:
 
 
   /**
-   * Unsets the value of the "constant" attribute of this Species object.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   *
-   * @see isSetConstant()
-   * @see setConstant(@if java String@endif)
-   * @see getConstant()
-   */
-  int unsetConstant ();
-
-
-  /**
    * Unsets the "speciesType" attribute value of this Species object.
    *
    * @copydetails doc_returns_success_code
@@ -1162,36 +1148,6 @@ public:
    * and&nbsp;2.
    */
   int unsetConversionFactor ();
-
-
-  /**
-   * Unsets the "compartment" attribute value of this Species object.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetCompartment ();
-
-
-  /**
-   * Unsets the "boundaryCondition" attribute value of this Species object.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetBoundaryCondition ();
-
-
-  /**
-   * Unsets the "hasOnlySubstanceUnits" attribute value of this Species object.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int unsetHasOnlySubstanceUnits ();
 
 
   /**
@@ -2580,24 +2536,6 @@ Species_unsetName (Species_t *s);
 
 
 /**
- * Unsets the value of the "constant" attribute of the given Species_t
- * structure.
- *
- * @param c the Species_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- *
- * @memberof Species_t
- */
-LIBSBML_EXTERN
-int
-Species_unsetConstant (Species_t *c);
-
-
-/**
  * Unsets the "speciesType" attribute of the given Species_t structure.
  *
  * @param s the Species_t structure whose attribute is to be unset.
@@ -2744,54 +2682,6 @@ Species_unsetCharge (Species_t *s);
 LIBSBML_EXTERN
 int
 Species_unsetConversionFactor (Species_t *s);
-
-
-/**
- * Unsets the "compartment" attribute of the given Species_t structure.
- *
- * @param s the Species_t structure whose attribute is to be unset.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Species_t
- */
-LIBSBML_EXTERN
-int
-Species_unsetCompartment (Species_t *s);
-
-
-/**
- * Unsets the "boundaryCondition" attribute of the given Species_t structure.
- *
- * @param s the Species_t structure whose attribute is to be unset.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Species_t
- */
-LIBSBML_EXTERN
-int
-Species_unsetBoundaryCondition (Species_t *s);
-
-
-/**
- * Unsets the "hasOnlySubstanceUnits" attribute of the given Species_t structure.
- *
- * @param s the Species_t structure whose attribute is to be unset.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Species_t
- */
-LIBSBML_EXTERN
-int
-Species_unsetHasOnlySubstanceUnits (Species_t *s);
 
 
 /**

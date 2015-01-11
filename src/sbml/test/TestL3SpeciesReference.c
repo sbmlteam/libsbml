@@ -162,10 +162,6 @@ START_TEST (test_L3_SpeciesReference_species)
     fail("SpeciesReference_setSpecies(...) did not make a copy of string.");
   }
 
-  SpeciesReference_unsetSpecies(SR);
-
-  fail_unless( !SpeciesReference_isSetSpecies(SR) );
-
 }
 END_TEST
 
@@ -199,20 +195,10 @@ START_TEST (test_L3_SpeciesReference_constant)
   fail_unless(SpeciesReference_getConstant(SR) == 1);
   fail_unless(SpeciesReference_isSetConstant(SR) == 1);
 
-  SpeciesReference_unsetConstant(SR);
-
-  fail_unless(SpeciesReference_getConstant(SR) == 1);
-  fail_unless(SpeciesReference_isSetConstant(SR) == 0);
-
   SpeciesReference_setConstant(SR, 0);
 
   fail_unless(SpeciesReference_getConstant(SR) == 0);
   fail_unless(SpeciesReference_isSetConstant(SR) == 1);
-
-  SpeciesReference_unsetConstant(SR);
-
-  fail_unless(SpeciesReference_getConstant(SR) == 0);
-  fail_unless(SpeciesReference_isSetConstant(SR) == 0);
 
 }
 END_TEST

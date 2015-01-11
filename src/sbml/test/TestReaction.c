@@ -194,89 +194,6 @@ START_TEST (test_Reaction_setName)
 END_TEST
 
 
-START_TEST(test_Reaction_reversible)
-{
-  Reaction_setReversible(R, 1);
-
-  fail_unless(Reaction_isSetReversible(R) == 1);
-  fail_unless(Reaction_getReversible(R) == 1);
-
-  Reaction_unsetReversible(R);
-
-  fail_unless(Reaction_isSetReversible(R) == 0);
-  fail_unless(Reaction_getReversible(R) == 1);
-
-  Reaction_setReversible(R, 0);
-
-  fail_unless(Reaction_isSetReversible(R) == 1);
-  fail_unless(Reaction_getReversible(R) == 0);
-
-  Reaction_unsetReversible(R);
-
-  fail_unless(Reaction_isSetReversible(R) == 0);
-  fail_unless(Reaction_getReversible(R) == 1);
-}
-END_TEST
-
-
-START_TEST(test_Reaction_fast)
-{
-  Reaction_setFast(R, 1);
-
-  fail_unless(Reaction_isSetFast(R) == 1);
-  fail_unless(Reaction_getFast(R) == 1);
-
-  Reaction_unsetFast(R);
-
-  fail_unless(Reaction_isSetFast(R) == 0);
-  fail_unless(Reaction_getFast(R) == 1);
-
-  Reaction_setFast(R, 0);
-
-  fail_unless(Reaction_isSetFast(R) == 1);
-  fail_unless(Reaction_getFast(R) == 0);
-
-  Reaction_unsetFast(R);
-
-  fail_unless(Reaction_isSetFast(R) == 0);
-  fail_unless(Reaction_getFast(R) == 0);
-}
-END_TEST
-
-
-START_TEST (test_Reaction_compartment)
-{
-  const char *name = "Cell";
-
-  Reaction_t * r = Reaction_create(3, 1);
-
-  Reaction_setCompartment(r, name);
-
-  fail_unless( !strcmp(Reaction_getCompartment(r), name) );
-  fail_unless( Reaction_isSetCompartment(r) );
-
-  if (Reaction_getCompartment(r) == name)
-  {
-    fail("Reaction_setCompartment(...) did not make a copy of string.");
-  }
-
-  /* Reflexive case (pathological) */
-  Reaction_setCompartment(r, Reaction_getCompartment(r));
-  fail_unless( !strcmp(Reaction_getCompartment(r), name) );
-
-  Reaction_unsetCompartment(r);
-  fail_unless( !Reaction_isSetCompartment(r) );
-
-  if (Reaction_getCompartment(r) != NULL)
-  {
-    fail("Reaction_unsetCompartment(r) did not clear string.");
-  }
-
-  Reaction_free(r);
-}
-END_TEST
-
-
 START_TEST (test_Reaction_addReactant)
 {
   SpeciesReference_t *sr = SpeciesReference_create(2, 4);
@@ -599,9 +516,6 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_free_NULL       );
   tcase_add_test( tcase, test_Reaction_setId           );
   tcase_add_test( tcase, test_Reaction_setName         );
-  tcase_add_test( tcase, test_Reaction_reversible      );
-  tcase_add_test( tcase, test_Reaction_fast            );
-  tcase_add_test( tcase, test_Reaction_compartment     );
   tcase_add_test( tcase, test_Reaction_addReactant     );
   tcase_add_test( tcase, test_Reaction_addProduct      );
   tcase_add_test( tcase, test_Reaction_addModifier     );

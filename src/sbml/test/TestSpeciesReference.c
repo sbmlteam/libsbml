@@ -168,32 +168,6 @@ START_TEST (test_SpeciesReference_setSpecies)
 END_TEST
 
 
-START_TEST (test_SpeciesReference_unsetSpecies)
-{
-  const char *species = "X0";
-
-
-  SpeciesReference_setSpecies(SR, species);
-
-  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species) );
-  fail_unless( SpeciesReference_isSetSpecies(SR) );
-
-  if (SpeciesReference_getSpecies(SR) == species)
-  {
-    fail("SpeciesReference_setSpecies(...) did not make a copy of string.");
-  }
-
-  SpeciesReference_unsetSpecies(SR);
-  fail_unless( !SpeciesReference_isSetSpecies(SR) );
-
-  if (SpeciesReference_getSpecies(SR) != NULL)
-  {
-    fail("SpeciesReference_unsetSpecies(SR) did not clear string.");
-  }
-}
-END_TEST
-
-
 START_TEST (test_SpeciesReference_setId)
 {
   const char *species = "X0";
@@ -252,23 +226,6 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 END_TEST
 
 
-START_TEST (test_SpeciesReference_setUnsetStoichiometry)
-{
-  SpeciesReference_free(SR);
-  SR = SpeciesReference_create(2, 4);
-  fail_unless( !SpeciesReference_isSetStoichiometry(SR) );
-
-  SpeciesReference_setStoichiometry(SR, 2);
-  fail_unless( SpeciesReference_getStoichiometry(SR) == 2 );
-
-  fail_unless( SpeciesReference_isSetStoichiometry(SR) );
-  fail_unless( SpeciesReference_unsetStoichiometry(SR) == LIBSBML_OPERATION_SUCCESS );
-  fail_unless( SpeciesReference_isSetStoichiometry(SR) );
-  fail_unless( SpeciesReference_getStoichiometry(SR) == 1 );
-}
-END_TEST
-
-
 START_TEST (test_SpeciesReference_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -315,10 +272,8 @@ create_suite_SpeciesReference (void)
   tcase_add_test( tcase, test_SpeciesReference_createModifier           );
   tcase_add_test( tcase, test_SpeciesReference_free_NULL            );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies           );
-  tcase_add_test( tcase, test_SpeciesReference_unsetSpecies           );
   tcase_add_test( tcase, test_SpeciesReference_setId           );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath );
-  tcase_add_test( tcase, test_SpeciesReference_setUnsetStoichiometry );
   tcase_add_test( tcase, test_SpeciesReference_createWithNS         );
 
   suite_add_tcase(suite, tcase);

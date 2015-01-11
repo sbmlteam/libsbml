@@ -937,28 +937,6 @@ Species::unsetName ()
 }
 
 
-int
-Species::unsetConstant ()
-{
-  if ( getLevel() < 2 )
-  {
-    mConstant = false;
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else
-  {
-    mIsSetConstant = false;
-    if (getLevel() < 3)
-    {
-      // reset default
-      mConstant = false;
-      mExplicitlySetConstant = false;
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
 /*
  * Unsets the speciesType of this Species.
  */
@@ -1107,61 +1085,6 @@ Species::unsetConversionFactor ()
   mConversionFactor.erase();
 
   if (mConversionFactor.empty()) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the hasOnlySubstanceUnits field of this Species to value.
- */
-int
-Species::unsetHasOnlySubstanceUnits ()
-{
-  if (getLevel() < 2)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else
-  {
-    if (getLevel() < 3)
-    {
-      // reset defaults
-      mHasOnlySubstanceUnits = false;
-    }
-    mIsSetHasOnlySubstanceUnits = false;
-    mExplicitlySetHasOnlySubsUnits = false;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-int
-Species::unsetBoundaryCondition ()
-{
-  if (getLevel() < 3)
-  {
-    // reset default
-    mBoundaryCondition = false;
-  }
-
-  mIsSetBoundaryCondition = false;
-  mExplicitlySetBoundaryCondition = false;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-int
-Species::unsetCompartment ()
-{
-  mCompartment.erase();
-
-  if (mCompartment.empty()) 
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -2571,17 +2494,6 @@ Species_unsetName (Species_t *s)
 }
 
 
-
-LIBSBML_EXTERN
-int
-Species_unsetConstant (Species_t *c)
-{
-  if (c != NULL)
-    return c->unsetConstant();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
 LIBSBML_EXTERN
 int
 Species_unsetSpeciesType (Species_t *s)
@@ -2665,39 +2577,6 @@ Species_unsetConversionFactor (Species_t *s)
 {
   if (s != NULL)
     return s->unsetConversionFactor();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Species_unsetCompartment (Species_t *s)
-{
-  if (s != NULL)
-    return s->unsetCompartment();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Species_unsetHasOnlySubstanceUnits (Species_t *s)
-{
-  if (s != NULL)
-    return s->unsetHasOnlySubstanceUnits();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Species_unsetBoundaryCondition (Species_t *s)
-{
-  if (s != NULL)
-    return s->unsetBoundaryCondition();
   else
     return LIBSBML_INVALID_OBJECT;
 }

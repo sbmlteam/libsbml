@@ -164,20 +164,10 @@ START_TEST (test_L3_Event_useValuesFromTriggerTime)
   fail_unless(Event_getUseValuesFromTriggerTime(E) == 1);
   fail_unless(Event_isSetUseValuesFromTriggerTime(E) == 1);
 
-  Event_unsetUseValuesFromTriggerTime(E);
-
-  fail_unless(Event_getUseValuesFromTriggerTime(E) == 1);
-  fail_unless(Event_isSetUseValuesFromTriggerTime(E) == 0);
-
   Event_setUseValuesFromTriggerTime(E, 0);
 
   fail_unless(Event_getUseValuesFromTriggerTime(E) == 0);
   fail_unless(Event_isSetUseValuesFromTriggerTime(E) == 1);
-
-  Event_unsetUseValuesFromTriggerTime(E);
-
-  fail_unless(Event_getUseValuesFromTriggerTime(E) == 0);
-  fail_unless(Event_isSetUseValuesFromTriggerTime(E) == 0);
 
 }
 END_TEST

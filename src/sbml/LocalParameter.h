@@ -355,9 +355,6 @@ public:
   virtual bool isSetConstant () const;
 
   virtual int setConstant (bool flag);
-
-  virtual int unsetConstant();
-
   /** @endcond */
 
 protected:
@@ -1023,25 +1020,6 @@ LocalParameter_unsetValue (LocalParameter_t *p);
 LIBSBML_EXTERN
 int
 LocalParameter_unsetUnits (LocalParameter_t *p);
-
-
-/**
- * Because LocalParameter_t structures don't have a 'constant' attribute, this function always
- * returns @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}.
- *
- * @param p the LocalParameter_t structure to leave unchanged.
- *
- * @return integer value indicating success/failure of the
- * function.  @if clike The value is drawn from the
- * enumeration #OperationReturnValues_t. @endif@~ The possible value
- * returned by this function is:
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @memberof LocalParameter_t
- */
-LIBSBML_EXTERN
-int
-LocalParameter_unsetConstant (LocalParameter_t *p);
 
 
 /**

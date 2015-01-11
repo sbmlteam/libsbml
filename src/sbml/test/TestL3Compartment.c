@@ -211,20 +211,10 @@ START_TEST (test_L3_Compartment_constant)
   fail_unless(Compartment_getConstant(C) == 1);
   fail_unless(Compartment_isSetConstant(C) == 1);
 
-  Compartment_unsetConstant(C);
-
-  fail_unless(Compartment_getConstant(C) == 1);
-  fail_unless(Compartment_isSetConstant(C) == 0);
-
   Compartment_setConstant(C, 0);
 
   fail_unless(Compartment_getConstant(C) == 0);
   fail_unless(Compartment_isSetConstant(C) == 1);
-
-  Compartment_unsetConstant(C);
-
-  fail_unless(Compartment_getConstant(C) == 0);
-  fail_unless(Compartment_isSetConstant(C) == 0);
 
 }
 END_TEST

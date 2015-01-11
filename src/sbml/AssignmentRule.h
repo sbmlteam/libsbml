@@ -506,25 +506,6 @@ AssignmentRule_setFormula (AssignmentRule_t *r, const char *formula);
 
 
 /**
- * Unsets the value of the "variable" attribute of the given 
- * AssignmentRule_t structure.
- *
- * @param ar the AssignmentRule_t structure.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof AssignmentRule_t
- */
-LIBSBML_EXTERN
-int
-AssignmentRule_unsetVariable(AssignmentRule_t * ar);
-
-
-/**
  * Predicate returning @c 1 or *c 0 depending on whether all the required
  * attributes of the given AssignmentRule_t structure have been set.
  *

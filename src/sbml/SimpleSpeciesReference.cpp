@@ -370,23 +370,6 @@ SimpleSpeciesReference::unsetName ()
 
 
 /*
- * Unsets the id of this SBML object.
- */
-int
-SimpleSpeciesReference::unsetSpecies ()
-{
-  mSpecies.erase();
-
-  if (mSpecies.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-/*
  * @return true if this SpeciesReference is a ModiferSpeciesReference,
  * false otherwise.
  */

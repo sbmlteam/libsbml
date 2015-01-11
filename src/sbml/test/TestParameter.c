@@ -214,32 +214,6 @@ START_TEST (test_Parameter_setUnits)
 END_TEST
 
 
-START_TEST (test_Parameter_getsetConstant)
-{
-  Parameter_setConstant(P, 1);
-
-  fail_unless( Parameter_getConstant(P) == 1);
-  fail_unless( Parameter_isSetConstant(P) == 1);
-
-  Parameter_unsetConstant(P);
-
-  fail_unless( Parameter_getConstant(P) == 1);
-  fail_unless( Parameter_isSetConstant(P) == 0);
-
-  Parameter_setConstant(P, 0);
-
-  fail_unless( Parameter_getConstant(P) == 0);
-  fail_unless( Parameter_isSetConstant(P) == 1);
-
-  Parameter_unsetConstant(P);
-
-  fail_unless( Parameter_getConstant(P) == 1);
-  fail_unless( Parameter_isSetConstant(P) == 0);
-
-}
-END_TEST
-
-
 START_TEST (test_Parameter_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -287,7 +261,6 @@ create_suite_Parameter (void)
   tcase_add_test( tcase, test_Parameter_setId      );
   tcase_add_test( tcase, test_Parameter_setName    );
   tcase_add_test( tcase, test_Parameter_setUnits   );
-  tcase_add_test( tcase, test_Parameter_getsetConstant      );
   tcase_add_test( tcase, test_Parameter_createWithNS         );
 
   suite_add_tcase(suite, tcase);

@@ -357,38 +357,6 @@ public:
    */
   int setPersistent (bool persistent);
 
-
-  /**
-   * (SBML Level&nbsp;3 only) Unsets the "initialValue" attribute of this 
-   * Trigger instance.
-   *
-   * @param initialValue a boolean representing the initialValue to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
-   * 
-   * @note The attribute "initialValue" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
-   */
-  int unsetInitialValue ();
-
-
-  /**
-   * (SBML Level&nbsp;3 only) Unsets the "persistent" attribute of this 
-   * Trigger instance.
-   *
-   * @param persistent a boolean representing the persistent value to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
-   * 
-   * @note The attribute "persistent" is available in SBML Level&nbsp;3
-   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
-   */
-  int unsetPersistent ();
-
 #if (0)
   /** @cond doxygenLibsbmlInternal */
 
@@ -818,38 +786,6 @@ Trigger_setInitialValue (Trigger_t *t, int initialValue);
 LIBSBML_EXTERN
 int
 Trigger_setPersistent (Trigger_t *t, int persistent);
-
-
-/**
- * Unsets the "initialValue" attribute of this Trigger_t instance.
- *
- * @param t the Trigger_t structure
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
- *
- * @memberof Trigger_t
- */
-LIBSBML_EXTERN
-int
-Trigger_unsetInitialValue (Trigger_t *t);
-
-
-/**
- * Unsets the "persistent" attribute of this Trigger_t instance.
- *
- * @param t the Trigger_t structure
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
- *
- * @memberof Trigger_t
- */
-LIBSBML_EXTERN
-int
-Trigger_unsetPersistent (Trigger_t *t);
 
 
 /**

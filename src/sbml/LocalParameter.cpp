@@ -201,13 +201,6 @@ LocalParameter::setConstant (bool flag)
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-int
-LocalParameter::unsetConstant ()
-{
-  return LIBSBML_UNEXPECTED_ATTRIBUTE;
-}
-/** @endcond */
 /*
   * Constructs and returns a UnitDefinition that expresses the units of this 
   * LocalParameter.
@@ -745,17 +738,6 @@ LocalParameter_unsetUnits (LocalParameter_t *p)
 {
   if (p != NULL)
     return p->unsetUnits();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-LocalParameter_unsetConstant (LocalParameter_t *p)
-{
-  if (p != NULL)
-    return p->unsetConstant();
   else
     return LIBSBML_INVALID_OBJECT;
 }

@@ -329,41 +329,17 @@ START_TEST (test_Compartment_getsetConstant)
   Compartment_setConstant(C, 1);
 
   fail_unless( Compartment_getConstant(C) == 1);
-  fail_unless( Compartment_isSetConstant(C) == 1);
-
-  Compartment_unsetConstant(C);
-
-  fail_unless( Compartment_getConstant(C) == 1);
-  fail_unless( Compartment_isSetConstant(C) == 0);
-
-  Compartment_setConstant(C, 0);
-
-  fail_unless( Compartment_getConstant(C) == 0);
-  fail_unless( Compartment_isSetConstant(C) == 1);
-
-  Compartment_unsetConstant(C);
-
-  fail_unless( Compartment_getConstant(C) == 1);
-  fail_unless( Compartment_isSetConstant(C) == 0);
 
 }
 END_TEST
 
 
-START_TEST (test_Compartment_setGetUnsetSpatialDimensions)
+START_TEST (test_Compartment_getSpatialDimensions)
 {
-  Compartment_free(C);
-  C = Compartment_create(2, 4);
-  fail_unless( Compartment_isSetSpatialDimensions(C) );
-  fail_unless( Compartment_getSpatialDimensions(C) == 3);
-
   Compartment_setSpatialDimensions(C, 1);
-  fail_unless( Compartment_getSpatialDimensions(C) == 1);
-  fail_unless( Compartment_isSetSpatialDimensions(C) );
 
-  fail_unless( Compartment_unsetSpatialDimensions(C) == LIBSBML_UNEXPECTED_ATTRIBUTE);
-  fail_unless( Compartment_getSpatialDimensions(C) == 3);
-  fail_unless( Compartment_isSetSpatialDimensions(C) );
+  fail_unless( Compartment_getSpatialDimensions(C) == 1);
+
 }
 END_TEST
 
@@ -424,7 +400,7 @@ create_suite_Compartment (void)
   tcase_add_test( tcase, test_Compartment_unsetVolume         );
   tcase_add_test( tcase, test_Compartment_getsetType          );
   tcase_add_test( tcase, test_Compartment_getsetConstant      );
-  tcase_add_test( tcase, test_Compartment_setGetUnsetSpatialDimensions);
+  tcase_add_test( tcase, test_Compartment_getSpatialDimensions);
   tcase_add_test( tcase, test_Compartment_initDefaults        );
   tcase_add_test( tcase, test_Compartment_createWithNS         );
 

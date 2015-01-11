@@ -178,10 +178,6 @@ START_TEST (test_L3_Species_compartment)
     fail("Species_setCompartment(...) did not make a copy of string.");
   }
 
-  Species_unsetCompartment(S);
-
-  fail_unless( Species_getCompartment(S) == NULL);
-  fail_unless( !Species_isSetCompartment(S) );
 }
 END_TEST
 
@@ -264,20 +260,11 @@ START_TEST (test_L3_Species_hasOnlySubstanceUnits)
   fail_unless(Species_getHasOnlySubstanceUnits(S) == 1);
   fail_unless(Species_isSetHasOnlySubstanceUnits(S) == 1);
 
-  Species_unsetHasOnlySubstanceUnits(S);
-
-  fail_unless(Species_getHasOnlySubstanceUnits(S) == 1);
-  fail_unless(Species_isSetHasOnlySubstanceUnits(S) == 0);
-
   Species_setHasOnlySubstanceUnits(S, 0);
 
   fail_unless(Species_getHasOnlySubstanceUnits(S) == 0);
   fail_unless(Species_isSetHasOnlySubstanceUnits(S) == 1);
 
-  Species_unsetHasOnlySubstanceUnits(S);
-
-  fail_unless(Species_getHasOnlySubstanceUnits(S) == 0);
-  fail_unless(Species_isSetHasOnlySubstanceUnits(S) == 0);
 }
 END_TEST
 
@@ -291,20 +278,10 @@ START_TEST (test_L3_Species_boundaryCondition)
   fail_unless(Species_getBoundaryCondition(S) == 1);
   fail_unless(Species_isSetBoundaryCondition(S) == 1);
 
-  Species_unsetBoundaryCondition(S);
-
-  fail_unless(Species_getBoundaryCondition(S) == 1);
-  fail_unless(Species_isSetBoundaryCondition(S) == 0);
-
   Species_setBoundaryCondition(S, 0);
 
   fail_unless(Species_getBoundaryCondition(S) == 0);
   fail_unless(Species_isSetBoundaryCondition(S) == 1);
-
-  Species_unsetBoundaryCondition(S);
-
-  fail_unless(Species_getBoundaryCondition(S) == 0);
-  fail_unless(Species_isSetBoundaryCondition(S) == 0);
 
 }
 END_TEST
@@ -321,20 +298,10 @@ START_TEST (test_L3_Species_constant)
   fail_unless(Species_getConstant(S) == 1);
   fail_unless(Species_isSetConstant(S) == 1);
 
-  Species_unsetConstant(S);
-
-  fail_unless(Species_getConstant(S) == 1);
-  fail_unless(Species_isSetConstant(S) == 0);
-
   Species_setConstant(S, 0);
 
   fail_unless(Species_getConstant(S) == 0);
   fail_unless(Species_isSetConstant(S) == 1);
-
-  Species_unsetConstant(S);
-
-  fail_unless(Species_getConstant(S) == 0);
-  fail_unless(Species_isSetConstant(S) == 0);
 
 }
 END_TEST

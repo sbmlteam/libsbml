@@ -232,22 +232,6 @@ EventAssignment::setVariable (const std::string& sid)
 }
 
 
-int
-EventAssignment::unsetVariable ()
-{
-  mVariable.erase();
-
-  if (mVariable.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
 /*
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
@@ -1091,17 +1075,6 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 {
   if (ea != NULL)  
     return ea->setVariable((sid != NULL) ? sid : "");
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-EventAssignment_unsetVariable (EventAssignment_t *ea)
-{
-  if (ea != NULL)  
-    return ea->unsetVariable();
   else
     return LIBSBML_INVALID_OBJECT;
 }

@@ -377,16 +377,6 @@ public:
 
 
   /**
-   * Unsets the "symbol" attribute value of this InitialAssignment.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   */
-  int unsetSymbol ();
-
-
-  /**
    * Sets the "math" subelement of this InitialAssignment.
    *
    * The AST passed in @p math is copied.
@@ -1038,22 +1028,6 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
 LIBSBML_EXTERN
 int
 InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid);
-
-
-/**
- * Unsets the "symbol" attribute value of this InitialAssignment_t
- *
- * @param ia the InitialAssignment_t structure
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @memberof InitialAssignment_t
- */
-LIBSBML_EXTERN
-int
-InitialAssignment_unsetSymbol (InitialAssignment_t *ia);
 
 
 /**

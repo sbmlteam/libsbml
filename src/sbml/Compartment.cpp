@@ -775,28 +775,6 @@ Compartment::unsetName ()
 }
 
 
-int
-Compartment::unsetConstant ()
-{
-  if ( getLevel() < 2 )
-  {
-    mConstant = false;
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else
-  {
-    mIsSetConstant = false;
-    if (getLevel() < 3)
-    {
-      // reset default
-      mConstant = true;
-      mExplicitlySetConstant = false;
-    }
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
 /*
  * Unsets the compartmentType of this Compartment.
  */
@@ -2011,17 +1989,6 @@ Compartment_unsetCompartmentType (Compartment_t *c)
 {
   if (c != NULL)
     return c->unsetCompartmentType();
-  else
-    return LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Compartment_unsetConstant (Compartment_t *c)
-{
-  if (c != NULL)
-    return c->unsetConstant();
   else
     return LIBSBML_INVALID_OBJECT;
 }

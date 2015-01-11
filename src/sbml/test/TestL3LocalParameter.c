@@ -207,13 +207,6 @@ START_TEST (test_L3_LocalParameter_constant)
   fail_unless ( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
   
   fail_unless(LocalParameter_getConstant(P) == 1);
-
-  i = LocalParameter_unsetConstant(P);
-
-  fail_unless ( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
-  
-  fail_unless(LocalParameter_getConstant(P) == 1);
-
 }
 END_TEST
 

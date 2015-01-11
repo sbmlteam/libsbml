@@ -97,26 +97,12 @@ START_TEST (test_L3Trigger_setInitialValue)
   fail_unless( Trigger_getInitialValue(T) == 0 );
   fail_unless( Trigger_isSetInitialValue(T) == 1 );
 
-  i = Trigger_unsetInitialValue(T);
-
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
- 
-  fail_unless( Trigger_getInitialValue(T) == 0 );
-  fail_unless( Trigger_isSetInitialValue(T) == 0 );
-
   i = Trigger_setInitialValue(T, 1);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
  
   fail_unless( Trigger_getInitialValue(T) == 1 );
   fail_unless( Trigger_isSetInitialValue(T) == 1 );
-
-  i = Trigger_unsetInitialValue(T);
-
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
- 
-  fail_unless( Trigger_getInitialValue(T) == 1 );
-  fail_unless( Trigger_isSetInitialValue(T) == 0 );
 
 }
 END_TEST
@@ -127,13 +113,6 @@ START_TEST (test_L3Trigger_setInitialValue1)
   Trigger_t *t = Trigger_create(2, 4);
 
   int i = Trigger_setInitialValue(t, 0);
-
-  fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
- 
-  fail_unless( Trigger_getInitialValue(T) == 1 );
-  fail_unless( Trigger_isSetInitialValue(T) == 0 );
-
-  i = Trigger_unsetInitialValue(t);
 
   fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
  
@@ -154,26 +133,12 @@ START_TEST (test_L3Trigger_setPersistent)
   fail_unless( Trigger_getPersistent(T) == 0 );
   fail_unless( Trigger_isSetPersistent(T) == 1 );
 
-  i = Trigger_unsetPersistent(T);
-
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
- 
-  fail_unless( Trigger_getPersistent(T) == 0 );
-  fail_unless( Trigger_isSetPersistent(T) == 0 );
-
   i = Trigger_setPersistent(T, 1);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
  
   fail_unless( Trigger_getPersistent(T) == 1 );
   fail_unless( Trigger_isSetPersistent(T) == 1 );
-
-  i = Trigger_unsetPersistent(T);
-
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
- 
-  fail_unless( Trigger_getPersistent(T) == 1 );
-  fail_unless( Trigger_isSetPersistent(T) == 0 );
 
 }
 END_TEST
@@ -184,13 +149,6 @@ START_TEST (test_L3Trigger_setPersistent1)
   Trigger_t *t = Trigger_create(2, 4);
 
   int i = Trigger_setPersistent(t, 0);
-
-  fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
- 
-  fail_unless( Trigger_getPersistent(T) == 1 );
-  fail_unless( Trigger_isSetPersistent(T) == 0 );
-
-  i = Trigger_unsetPersistent(t);
 
   fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
  

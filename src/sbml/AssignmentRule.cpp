@@ -281,15 +281,6 @@ AssignmentRule_setFormula (AssignmentRule_t *r, const char *formula)
 
 LIBSBML_EXTERN
 int
-AssignmentRule_unsetVariable(AssignmentRule_t * ar)
-{
-  return (ar != NULL) ? static_cast<int>(ar->unsetVariable()) 
-                      : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
 AssignmentRule_hasRequiredAttributes(const AssignmentRule_t * ar)
 {
   return (ar != NULL) ? static_cast<int>(ar->hasRequiredAttributes()) : 0;

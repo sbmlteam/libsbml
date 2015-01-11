@@ -306,36 +306,6 @@ Trigger::setPersistent (bool persistent)
 }
 
 
-int
-Trigger::unsetInitialValue ()
-{
-  if (getLevel() < 3)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else
-  {
-    mIsSetInitialValue = false;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-int
-Trigger::unsetPersistent ()
-{
-  if (getLevel() < 3)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else
-  {
-    mIsSetPersistent = false;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
 /*
  * @return the typecode (int) of this SBML object or SBML_UNKNOWN
  * (default).
@@ -815,22 +785,6 @@ Trigger_setPersistent (Trigger_t *t, int persistent)
 {
   return (t != NULL) ? t->setPersistent( static_cast<bool>(persistent) )
     : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Trigger_unsetInitialValue (Trigger_t *t)
-{
-  return (t != NULL) ? t->unsetInitialValue() : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Trigger_unsetPersistent (Trigger_t *t)
-{
-  return (t != NULL) ? t->unsetPersistent() : LIBSBML_INVALID_OBJECT;
 }
 
 

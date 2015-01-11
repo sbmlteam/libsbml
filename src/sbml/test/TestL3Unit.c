@@ -108,11 +108,6 @@ START_TEST (test_L3_Unit_kind)
 
   fail_unless( Unit_getKind(U) == UNIT_KIND_MOLE );
   fail_unless( Unit_isSetKind(U) );
-
-  Unit_unsetKind(U);
-
-  fail_unless( Unit_getKind(U) == UNIT_KIND_INVALID );
-  fail_unless( !Unit_isSetKind(U) );
 }
 END_TEST
 
@@ -128,12 +123,6 @@ START_TEST (test_L3_Unit_exponent)
 
   fail_unless( Unit_getExponentAsDouble(U) == exponent );
   fail_unless( Unit_isSetExponent(U) );
-
-  Unit_unsetExponent(U);
-
-  fail_unless( !Unit_isSetExponent(U));
-  fail_unless( util_isNaN(Unit_getExponentAsDouble(U)));
-
 }
 END_TEST
 
@@ -149,11 +138,6 @@ START_TEST (test_L3_Unit_multiplier)
 
   fail_unless( Unit_getMultiplier(U) == multiplier );
   fail_unless( Unit_isSetMultiplier(U) );
-
-  Unit_unsetMultiplier(U);
-
-  fail_unless( !Unit_isSetMultiplier(U));
-  fail_unless( util_isNaN(Unit_getMultiplier(U)));
 }
 END_TEST
 
@@ -169,11 +153,6 @@ START_TEST (test_L3_Unit_scale)
 
   fail_unless( Unit_getScale(U) == scale );
   fail_unless( Unit_isSetScale(U) );
-
-  Unit_unsetScale(U);
-
-  fail_unless( !Unit_isSetScale(U));
-  fail_unless( Unit_getScale (U) == SBML_INT_MAX );
 }
 END_TEST
 

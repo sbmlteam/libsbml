@@ -281,15 +281,6 @@ RateRule_setFormula (RateRule_t *r, const char *formula)
 
 LIBSBML_EXTERN
 int
-RateRule_unsetVariable(RateRule_t * ar)
-{
-  return (ar != NULL) ? static_cast<int>(ar->unsetVariable()) 
-                      : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
 RateRule_hasRequiredAttributes(const RateRule_t * rr)
 {
   return (rr != NULL) ? static_cast<int>(rr->hasRequiredAttributes()) : 0;

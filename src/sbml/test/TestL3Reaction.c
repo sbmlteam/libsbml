@@ -191,11 +191,6 @@ START_TEST (test_L3_Reaction_fast)
   fail_unless(Reaction_getFast(R) == 0);
   fail_unless(Reaction_isSetFast(R) == 1);
 
-  Reaction_unsetFast(R);
-
-  fail_unless(Reaction_getFast(R) == 0);
-  fail_unless(Reaction_isSetFast(R) == 0);
-
 }
 END_TEST
 
@@ -209,20 +204,10 @@ START_TEST (test_L3_Reaction_reversible)
   fail_unless(Reaction_getReversible(R) == 1);
   fail_unless(Reaction_isSetReversible(R) == 1);
 
-  Reaction_unsetReversible(R);
-
-  fail_unless(Reaction_getReversible(R) == 1);
-  fail_unless(Reaction_isSetReversible(R) == 0);
-
   Reaction_setReversible(R, 0);
 
   fail_unless(Reaction_getReversible(R) == 0);
   fail_unless(Reaction_isSetReversible(R) == 1);
-
-  Reaction_unsetReversible(R);
-
-  fail_unless(Reaction_getReversible(R) == 0);
-  fail_unless(Reaction_isSetReversible(R) == 0);
 
 }
 END_TEST
