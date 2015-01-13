@@ -1037,6 +1037,57 @@ set(DOCUMENTATION_FILES
 
 install(FILES ${DOCUMENTATION_FILES} DESTINATION ${MISC_PREFIX}.)
 
+###############################################################################
+#
+# Write libsbml.pc
+#
+
+set (PRIVATE_LIBS "-lstdc++ -lm")
+if (WITH_ZLIB)
+set (PRIVATE_LIBS "${LIBZ_LIBRARY} ${PRIVATE_LIBS}")
+endif()
+if (WITH_BZIP2)
+set (PRIVATE_LIBS "${LIBBZ_LIBRARY} ${PRIVATE_LIBS}")
+endif()
+if (WITH_LIBXML)
+set (PRIVATE_LIBS "${LIBXML_LIBRARY} ${PRIVATE_LIBS}")
+endif()
+if (WITH_EXPAT)
+set (PRIVATE_LIBS "${LIBEXPAT_LIBRARY} ${PRIVATE_LIBS}")
+endif()
+if (WITH_XERCES)
+set (PRIVATE_LIBS "${XERCES_LIBRARY} ${PRIVATE_LIBS}")
+endif()
+
+SET (PC_LIBDIR ${CMAKE_INSTALL_LIBDIR})
+if (${CMAKE_INSTALL_LIBDIR} STREQUAL "lib")
+SET (PC_LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+endif()
+
+file(WRITE  "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Name: ${PACKAGE_NAME}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Description: A library for reading/writing/manipulating SBML\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "URL: http://sbml.org/Software/libSBML\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Version: ${PACKAGE_VERSION}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "prefix=${CMAKE_INSTALL_PREFIX}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "libdir=${PC_LIBDIR}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "includedir=${CMAKE_INSTALL_PREFIX}/include\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Libs: -L\${libdir} -lsbml\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Libs.private:        ${PRIVATE_LIBS}\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Cflags: -I\${includedir}\n")
+if (WITH_XERCES)
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Conflicts: xerces-c = 2.6.0\n")
+endif()
+
+if (WITH_LIBXML)
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" "Requires.private: libxml-2.0 >= 2.6.22\n")
+endif()
+
+if (UNIX)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pc" 
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+endif()
 
 ###############################################################################
 #
