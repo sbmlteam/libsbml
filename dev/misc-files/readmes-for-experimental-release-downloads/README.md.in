@@ -1,0 +1,42 @@
+## **libSBML @PACKAGE_VERSION@ (experimental)**
+
+**LibSBML** is a free, open-source programming library to help you read, write, manipulate, translate, and validate [SBML](http://sbml.org) files and data streams. It is not an application itself (though it does come with example programs), but rather a library you can embed in your own applications.
+
+----------
+
+### Experimental only release ###
+
+An experimental only release updates those files usually located in the experimental directory of a full release. 
+
+This includes updates to all the SBML L3 packages including those that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes of either core, accepted packages or experimental code may change before the next full release.
+
+
+----------
+
+
+
+This is the top-level directory of **release @PACKAGE_VERSION@ (experimental)** of libSBML.  Here you will find the following:
+
+*  **[source](source)**   -- subdirectory for source code
+
+*  **[binaries](binaries)** -- subdirectory for prebuilt binaries
+
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied 'as-is' for experimental development only.
+
+For more information about libSBML, please visit the libSBML website at [http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML).
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)

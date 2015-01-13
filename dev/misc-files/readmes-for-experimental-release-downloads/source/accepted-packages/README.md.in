@@ -1,0 +1,33 @@
+## **libSBML @PACKAGE_VERSION@ (experimental)**
+###Source code for accepted packages
+
+This directory contains source code for libSBML plug-ins supporting accepted SBML Level 3 package specifications.
+
+To integrate one of these packages into your copy of libSBML 5, simply
+extract the package archive into the existing libSBML source
+directory. Alternatively, download the [libSBML-@PACKAGE_VERSION@-Source](libSBML-@PACKAGE_VERSION@-Source.zip)
+archive, which contains all the necessary code in the appropriate
+locations.  Then, rerun CMake, and enable the package you just added using
+the appropriate check-box in the list of options presented by CMake.  For
+example, to enable the `groups` package, select `ENABLE_GROUPS` in the CMake
+GUI.  (Alternatively, you can run the command line version of CMake with the
+flag `-DENABLE_GROUPS=ON`.)
+
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied
+'as-is' for experimental development only.
+
+We would greatly appreciate any feedback you have about this software.
+
+For more information about libSBML, please [visit the libSBML website](http://sbml.org/Software/libSBML).
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)

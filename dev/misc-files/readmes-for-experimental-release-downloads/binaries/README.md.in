@@ -1,0 +1,29 @@
+## **libSBML @PACKAGE_VERSION@ (experimental)**
+###Installers for experimental code
+
+This directory contains binary versions of libSBML compiled with plug-ins
+supporting draft SBML Level 3 package specifications.
+
+Here you will find:
+
+*  [Mac OS X](Mac%20OS%20X) -- folder of binary installers for Mac OS X systems
+*  [Windows](Windows)  -- folder of binary installers for Microsoft Windows systems
+*  [Linux](Linux)    -- folder of binary installers for Linux systems
+
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied 'as-is' for experimental development only.
+
+We would greatly appreciate any feedback you have about this software.
+
+For more information about libSBML, please visit the libSBML website at [http://sbml.org/Software/libSBML](http://sbml.org/Software/libSBML).
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)

@@ -1,0 +1,40 @@
+## **libSBML @PACKAGE_VERSION@ (experimental)**
+###Python installers for Microsoft Windows Operating Systems
+
+**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
+
+
+### **_Python installers_**
+
+This directory contains the Python-only installers for libSBML.  Each file contains **only** the precompiled Python interface plus the core libSBML native library.  Download this if you only need to use libSBML from Python and do not need to use other programming languages with libSBML.
+
+To use the installers, download the appropriate file for your particular environment, then run the file, and follow the instructions presented.
+
+After you have installed the Python libSBML library on your computer, you should be able to access the libSBML library without further effort.  For example, the following should work from Python:
+
+```
+from libsbml import *
+```
+
+If that fails, please check the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/python-api/libsbml-accessing.html).
+
+
+
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied
+'as-is' for experimental development only.
+
+We would greatly appreciate any feedback you have about this software.
+
+For more information about libSBML, please [visit the libSBML website](http://sbml.org/Software/libSBML).
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)

@@ -26802,6 +26802,38 @@ if test -d dev; then
 
   ac_config_files="$ac_config_files dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.md"
 
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/source/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/source/accepted-packages/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/source/beta-packages/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/R_interface/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/python/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/binary-package/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/source-package/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/binary-package/README.md"
+
+  ac_config_files="$ac_config_files dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/source-package/README.md"
+
 fi
 
 
@@ -27741,6 +27773,22 @@ do
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/python/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/64-bit/R_interface/README.md" ;;
     "dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-downloads-new-dir-struct/stable/windows/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/source/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/source/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/source/accepted-packages/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/source/accepted-packages/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/source/beta-packages/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/source/beta-packages/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/python/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/python/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/R_interface/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/binary-package/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/binary-package/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/source-package/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/source-package/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/binary-package/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/binary-package/README.md" ;;
+    "dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/source-package/README.md") CONFIG_FILES="$CONFIG_FILES dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/source-package/README.md" ;;
     "src/bindings/csharp/local-downcast-extension.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-extension.i" ;;
     "src/bindings/csharp/local-downcast-namespaces.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-namespaces.i" ;;
     "src/bindings/csharp/local-downcast-converters.i") CONFIG_FILES="$CONFIG_FILES src/bindings/csharp/local-downcast-converters.i" ;;
