@@ -629,7 +629,7 @@ tags: etags-recursive ctags-recursive
 # libsbml.pc.
 # -----------------------------------------------------------------------------
 
-base-libs = -lsbml -lstdc++ -lm
+base-libs = -lstdc++ -lm
 
 COMPRESS_CPFLAGS    = ${ZLIB_CPPFLAGS} ${BZ2_CPPFLAGS}
 COMPRESS_LDFLAGS    = ${ZLIB_LDFLAGS} ${BZ2_LDFLAGS}
@@ -644,31 +644,24 @@ DEPENDENCY_LIBFLAGS = ${XML_LDFLAGS} ${COMPRESS_LDFLAGS} ${XML_LIBS} ${COMPRESS_
 
 libsbml.pc: Makefile
 	@rm -f libsbml.pc
-	@echo "Name: @PACKAGE_NAME@"                   > libsbml.pc
-	@echo "Description: An API library for reading/writing/manipulating SBML" >> libsbml.pc
-	@echo "URL: http://sbml.org/Software/libSBML" >> libsbml.pc
-	@echo "Version: @PACKAGE_VERSION@"            >> libsbml.pc
-	@echo ""                                      >> libsbml.pc
-	@echo "prefix=@prefix@"                       >> libsbml.pc
-	@echo "exec_prefix=@exec_prefix@"             >> libsbml.pc
-	@echo "libdir=@libdir@"                       >> libsbml.pc
-	@echo "includedir=@includedir@"               >> libsbml.pc
-	@echo ""                                      >> libsbml.pc
+	@echo "Name: @PACKAGE_NAME@"                                         > libsbml.pc
+	@echo "Description: A library for reading/writing/manipulating SBML" >> libsbml.pc
+	@echo "URL: http://sbml.org/Software/libSBML"                        >> libsbml.pc
+	@echo "Version: @PACKAGE_VERSION@"                                   >> libsbml.pc
+	@echo ""                                                             >> libsbml.pc
+	@echo "prefix=@prefix@"                                              >> libsbml.pc
+	@echo "libdir=@libdir@"                                              >> libsbml.pc
+	@echo "includedir=@includedir@"                                      >> libsbml.pc
+	@echo ""                                                             >> libsbml.pc
+	@echo "Libs: -L\$${libdir} -lsbml"                                   >> libsbml.pc
+	@echo "Libs.private: ${DEPENDENCY_LIBFLAGS} ${base-libs}"            >> libsbml.pc
+	@echo "Cflags: -I\$${includedir}"                                    >> libsbml.pc
 ifdef USE_XERCES
-	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
-	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}" >> libsbml.pc
-	@echo "Conflicts: xerces-c = 2.6.0" >> libsbml.pc
-endif
-ifdef USE_EXPAT
-	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
-	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}"  >> libsbml.pc
+	@echo "Conflicts: xerces-c = 2.6.0"                                  >> libsbml.pc
 endif
 ifdef USE_LIBXML
-	@echo "Libs: -L\$${libdir} ${DEPENDENCY_LIBFLAGS} ${base-libs}" >> libsbml.pc
-	@echo "Cflags: -I\$${includedir} ${DEPENDENCY_CPPFLAGS}"        >> libsbml.pc
-	@echo "Requires: libxml-2.0 >= 2.6.22" >> libsbml.pc
+	@echo "Requires.private: libxml-2.0 >= 2.6.22" 	                     >> libsbml.pc
 endif
-
 
 # -----------------------------------------------------------------------------
 # Installation.
