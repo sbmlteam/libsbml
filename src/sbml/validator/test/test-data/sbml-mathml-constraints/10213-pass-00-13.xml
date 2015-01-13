@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created by libAntimony version v2.6.1 on 2014-12-22 15:51 with libSBML version 5.11.0. -->
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="case01199" name="case01199">
     <listOfParameters>
       <parameter id="x" value="0" constant="false"/>
