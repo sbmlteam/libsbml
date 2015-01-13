@@ -87,7 +87,7 @@ functionCall = sprintf('TranslateSBML(''%s'', 1, 0)', filename);
 [m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(functionCall, ~isempty(m));
 Totalfail = Totalfail + fail_unless(functionCall, ~isempty(e));
-Totalfail = Totalfail + fail_unless(functionCall, length(e)==4);
+Totalfail = Totalfail + fail_unless(functionCall, length(e)==1);
 
 disp('EXPECTED FAIL 2 Reports: Error encountered during read.');
 disp('List error 21103')
