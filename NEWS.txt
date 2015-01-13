@@ -2,8 +2,24 @@
 
 
 ====================================================================
-5.11.1 (Current SVN)
+5.11.2-experimental (2015-01-15)
 ====================================================================
+
+********************************************************************
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
+
+********************************************************************
 
 STABLE RELEASE
 
@@ -23,11 +39,6 @@ STABLE RELEASE
     identifier. A new function removeAll(unsigned int errorId) 
     has been added that will remove all instances of the error 
     with the given id.
-	
-  - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
 
 * Bug fixes
 
@@ -46,14 +57,10 @@ STABLE RELEASE
     fixed this as robustly as possible but encourage reports of 
     situations where we have missed something.
 
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
 
     - Validation of layout was not correctly reporting line
       and column numbers. This has been corrected.
-
-  - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
 
@@ -65,9 +72,6 @@ STABLE RELEASE
     was not being correctly expanded on some systems. This
     has been made more robust.  Thanks to Antonio Trande 
     for reporting this.
-
-* Miscellaneous
-
 
 EXPERIMENTAL RELEASE
 
@@ -86,24 +90,19 @@ EXPERIMENTAL RELEASE
      - new and changed validation rules as in the specification
      - the ability to convert core SBML to and from L2V5
 
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'groups' package-specific updates:
   - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
+
+    - The multi code has been updated in line with the specification
+      Release 1.02 dated November 2014.
+
+    
   - 'spatial' package-specific updates:
+
+    - The spatial code has been updated in line with the specification
+      Release 0.89 dated November 2014.
 
  * Bug fixes
  
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
   - 'spatial' package-specific bug fixes:
 
     - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
