@@ -69,12 +69,6 @@ protected:
   bool mCurveExplicitlySet;
   /** @endcond */
 
-private:
-  
-#ifndef SWIG
-  static const std::string SPECIES_REFERENCE_ROLE_STRING[];
-#endif //SWIG
-
 public:
 
   /**

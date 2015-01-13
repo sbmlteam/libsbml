@@ -49,6 +49,11 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
+
+/** @cond doxygenLibsbmlInternal */
+static std::vector<ModelProcessingCallbackData*> mProcessingCBs = std::vector<ModelProcessingCallbackData*>();
+/** @endcond */
+
 Submodel::Submodel (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : CompBase (level,version, pkgVersion)
   , mId("")
@@ -1362,9 +1367,6 @@ void Submodel::createNewConversionFactor(string& cf, const ASTNode* newcf, strin
   delete mathnode;
 }
 
-/** @cond doxygenLibsbmlInternal */
-std::vector<ModelProcessingCallbackData*> Submodel::mProcessingCBs = std::vector<ModelProcessingCallbackData*>();
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void 

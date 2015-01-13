@@ -159,10 +159,6 @@ protected:
   Model*        mInstantiatedModel;
   std::string   mInstantiationOriginalURI;
 
-#ifndef SWIG
-  static std::vector<ModelProcessingCallbackData*> mProcessingCBs;
-#endif
-
   /** @endcond */
 
 public:

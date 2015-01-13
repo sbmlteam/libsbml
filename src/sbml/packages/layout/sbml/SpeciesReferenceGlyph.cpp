@@ -45,7 +45,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
-const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
+static const std::string SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
    ,"substrate"
    ,"product"
@@ -315,7 +315,7 @@ SpeciesReferenceGlyph::getRole() const
  * Returns a string representation for the role
  */
 const std::string& SpeciesReferenceGlyph::getRoleString() const{
-    return SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[this->mRole];
+    return SPECIES_REFERENCE_ROLE_STRING[this->mRole];
 }
 
 /*
