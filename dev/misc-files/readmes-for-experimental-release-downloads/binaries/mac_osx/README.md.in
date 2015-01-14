@@ -4,7 +4,7 @@
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, Perl, Python, and Ruby installers_**
+### **_C, C++, C#, Java, Javascript, Perl, Python and Ruby installers_**
 
 This directory contains installers for precompiled versions of libSBML for Mac OS X systems.  They were built with the Apple-supplied version of the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 

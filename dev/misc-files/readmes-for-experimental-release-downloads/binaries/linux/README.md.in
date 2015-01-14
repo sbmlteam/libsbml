@@ -7,9 +7,9 @@ supporting all SBML Level 3 package specifications for Linux systems.
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, Perl, and Ruby installers_**
+### **_C, C++, C#, Java, Javascript, Perl and Ruby installers_**
 
-This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for Linux systems.  They were built with the libxml2 parser library, and include all SBML Level 3 packages plus interfaces for the following programming languages:
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ (experimental) for Linux systems.  They were built with the libxml2 parser library, and include all SBML Level 3 packages plus interfaces for the following programming languages:
 
 * C
 * C++
