@@ -1,7 +1,7 @@
 ## **libSBML @PACKAGE_VERSION@ (experimental)**
 ###R interface for Linux operating systems
 
-This directory contains the libSBML @PACKAGE_VERSION@ package files for R.  
+This directory contains the libSBML @PACKAGE_VERSION@ (experimental) package files for R.  
 
 Please navigate to either the [Source Package](Source%20Package) or [Binary Package](Binary%20Package) folder to select your preferred installation method.  
 

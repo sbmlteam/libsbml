@@ -1,47 +1,34 @@
-## **libSBML @PACKAGE_VERSION@ installers for 64-bit Microsoft Windows operating systems**
+## **libSBML @PACKAGE_VERSION@ (experimental)**
+###R interface for  Microsoft Windows operating systems
 
-**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
+This directory contains the libSBML @PACKAGE_VERSION@ (experimental) package files for R.  
 
+### **_How to install libSBML for R_**
 
-### **_C, C++, C#, Java, Javascript, MATLAB, Perl, and Ruby installers_**
+After downloading the installer archive file, you can use one of two approaches to installing the libSBML R interface in your environment:
 
-This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 64-bit Microsoft Windows systems.  They were built with the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
+* **_Using the R GUI_**: In the R menu **"Packages"** or **"Packages & Data"** (depending on your operating system), select the item **"Package Installer"**.  You will be presented with an interface that lets you install a local binary package.  Use the interface to navigate to the directory where you copied the libSBML archive file, and select the archive file for installation.
 
-* C
-* C++
-* C# (Mono)
-* Java
-* Javascript
-* MATLAB
-* Perl
-* Ruby
-	
-Here you will find the following files:
+* **_Using a terminal/shell command_**: Suppose that the path to the libSBML R archive on your computer is _path_to_archive_. Execute the following command in a terminal/shell window (note: _not_ in the R command line interpreter!): **`R CMD INSTALL path_to_archive`**.  Here, **`R`** is the executable for the command-line version of R; we assume it is accessible from your shell's command line, but if it is not accessible by simply typing `R`, you may need to supply the full path to the R executable on your computer.
 
-* [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe) -- Complete libSBML binary distribution.
-
-* [libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe](libSBML-@PACKAGE_VERSION@-win-matlab-fbc-x64.exe) -- Installer for the MATLAB libSBML interface **only**.  Download this if you **only** need to use libSBML from MATLAB.  (This installer is also contained within [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe), so if you downloaded that one, you do _not_ need this one too.) This MATLAB interface supports SBML core and the SBML Level 3 FBC package only.
-
-To use these installers, download the appropriate file to your computer, then run the file, and follow the instructions displayed by the installer program on your screen.
+Once you have installed the R libSBML library, follow the instructions for [how to access libSBML](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
 
-### **_Python installer_**
+---
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied
+'as-is' for experimental development only.
 
-The [Python folder](Python) contains installers for the Python libSBML interface **only**.  Download and use one of these installers if you **only** need the Python interface.  (The interface is also included within [libSBML-@PACKAGE_VERSION@-win-x64.exe](libSBML-@PACKAGE_VERSION@-win-x64.exe), so if you downloaded that one, you do _not_ need this one too.)
+We would greatly appreciate any feedback you have about this software.
 
-### **_R installer_**
+For more information about libSBML, please [visit the libSBML website](http://sbml.org/Software/libSBML).
 
-The [R interface](R%20interface) folder contains installer for the R libSBML interface **only**.
-
-
-### **_Additional information_**
-
-For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
-
-Please report problems using our tracker: [http://sbml.org/Software/libSBML/issue-tracker](http://sbml.org/Software/libSBML/issue-tracker)
 
 Thank you for your interest in libSBML!
 
 The LibSBML Team.
 
-![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)

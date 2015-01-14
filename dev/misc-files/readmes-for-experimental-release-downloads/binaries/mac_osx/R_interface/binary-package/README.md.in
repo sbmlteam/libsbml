@@ -1,7 +1,7 @@
 ## **libSBML @PACKAGE_VERSION@ (experimental)**
-###R installer
+###R installer for Mac OS X operating systems
 
-This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3 on a Mac OS X operating system.  
+This directory contains the libSBML @PACKAGE_VERSION@ (experimental) installer for R, generated for R version 3 on a Mac OS X operating system.  
 
 ### **_How to install libSBML for R_**
 

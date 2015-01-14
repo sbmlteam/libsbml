@@ -2,10 +2,18 @@
 ###Experimental installers for Microsoft Windows operating systems
 
 This directory contains binary versions of libSBML compiled with plug-ins
-supporting draft SBML Level 3 package specifications for Microsoft Windows
+supporting all SBML Level 3 package specifications for Microsoft Windows
 systems.
 
 We do not supply a windows installer, *per se*. The archives supplied include all the necessary library and include files as well as the relevant binaries for each of the language bindings. 
+
+### **_Python installer_**
+
+The [Python folder](Python) contains installers for the Python libSBML interface **only**.  Download and use one of these installers if you **only** need the Python interface.
+
+### **_R installer_**
+
+The [R interface](R%20interface) folder contains installer for the R libSBML interface **only**.
 
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plug-ins for the

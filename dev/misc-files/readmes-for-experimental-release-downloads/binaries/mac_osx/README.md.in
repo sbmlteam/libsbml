@@ -1,10 +1,10 @@
 ## **libSBML @PACKAGE_VERSION@ (experimental)**
-###Installers for Mac OS X
+###Installers for Mac OS X operating systems
 
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, Perl, Python, and R installers_**
+### **_C, C++, C#, Java, Javascript, Perl, Python, and Ruby installers_**
 
 This directory contains installers for precompiled versions of libSBML for Mac OS X systems.  They were built with the Apple-supplied version of the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
 
@@ -13,15 +13,15 @@ This directory contains installers for precompiled versions of libSBML for Mac O
 * C# (Mono)
 * Java
 * Javascript
-* MATLAB
 * Perl
 * Python (but see below for a better option)
 * Ruby
 
-[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.
-
 By default, the installer will put libSBML into /usr.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
+### **_R interface_**
+
+[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.
 
 ### **_Python installer_**
 
@@ -49,7 +49,7 @@ sudo /usr/local/bin/uninstall-libsbml-pkg.sh
 
 (If you chose to install libSBML into a directory tree other than `/usr/local`, then please look for the `uninstall-libsbml-pkg.sh` script in the `bin` directory of that alternate location.)
 
-
+---
 
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plug-ins for the

@@ -1,25 +1,38 @@
-## **libSBML @PACKAGE_VERSION@ installers for 64-bit Linux operating systems**
+## **libSBML @PACKAGE_VERSION@ (experimental)**
 ###Experimental installers for Linux operating systems
 
 This directory contains binary versions of libSBML compiled with plug-ins
-supporting draft SBML Level 3 package specifications for Linux systems.
+supporting all SBML Level 3 package specifications for Linux systems.
 
-Please note: the code in these directories reflects the current state of
-development of SBML Level 3 packages and the libSBML plug-ins for the
-packages. Many of the SBML Level 3 package specifications have not yet been
-finalized, and the package implementations are themselves in a state of
-development.  The binaries available may be untested and are supplied
-'as-is' for experimental development only.
+**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
-[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.  For the remaining languages listed above, download one of the following installer files and run it:
+
+### **_C, C++, C#, Java, Javascript, Perl, and Ruby installers_**
+
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for Linux systems.  They were built with the libxml2 parser library, and include all SBML Level 3 packages plus interfaces for the following programming languages:
+
+* C
+* C++
+* C# (Mono)
+* Java
+* Javascript
+* Perl
+* Ruby
 
 * [libSBML-@PACKAGE_VERSION@-Linux-x64.rpm](libSBML-@PACKAGE_VERSION@-Linux-x64.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
 * [libSBML-@PACKAGE_VERSION@-Linux-x64.deb](libSBML-@PACKAGE_VERSION@-Linux-x64.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
 * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
 * [libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x64-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
+* [libSBML-@PACKAGE_VERSION@-Linux-x86.rpm](libSBML-@PACKAGE_VERSION@-Linux-x86.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
+* [libSBML-@PACKAGE_VERSION@-Linux-x86.deb](libSBML-@PACKAGE_VERSION@-Linux-x86.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
+* [libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-centos.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-centos.tar.gz) -- an archive containing just the binary files built for CentOS
+* [libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz](libSBML-@PACKAGE_VERSION@-Linux-x86-binaries-ubuntu.tar.gz) -- an archive containing just the binary files built for Ubuntu
 
 By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
+### **_R interface_**
+
+[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.
 
 ### **_Python installers_**
 
@@ -35,6 +48,14 @@ After you have installed the Python libSBML library, follow the instructions for
 ### **_MATLAB and Octave_**
 
 If you need the MATLAB/Octave language interfaces, or need to use a different XML parser library, it will be necessary to build libSBML yourself from the source distribution using suitable configuration flags.  The procedure is described in [the libSBML documentation](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-installation.html).  The source and documentation are available from the top-level download directory, [http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@](http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@).
+
+---
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plug-ins for the
+packages. Many of the SBML Level 3 package specifications have not yet been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied
+'as-is' for experimental development only.
 
 We would greatly appreciate any feedback you have about this software.
 
