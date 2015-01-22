@@ -297,7 +297,7 @@ SBMLError::SBMLError (  const unsigned int errorId
 
     // Finish updating the (full) error message.
 
-    newMsg << errorTable[index].message;
+    newMsg << errorTable[index].message << endl;
     
     // look for individual references
     // if the code for this error does not yet exist skip
@@ -340,14 +340,13 @@ SBMLError::SBMLError (  const unsigned int errorId
 
       if (!ref.empty())
       {
-        newMsg << "\nReference: " << ref << endl;
+        newMsg << "Reference: " << ref << endl;
       }
     }
     if (!details.empty())
     {
-      newMsg << " " << details;
+      newMsg << " " << details << endl;
     }      
-    newMsg << endl;
     mMessage  = newMsg.str();
 
     // We mucked around with the severity code and (maybe) category code

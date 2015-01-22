@@ -168,7 +168,7 @@ NumericReturnMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
 
   char * formula = SBML_formulaToString(&node);
-  msg << "\nThe formula '" << formula;
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " does not return a numeric result.";
   safe_free(formula);

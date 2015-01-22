@@ -167,7 +167,7 @@ CiElementNot0DComp::getMessage (const ASTNode& node, const SBase& object)
 
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "\nThe formula '" << formula;
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " uses '" << node.getName() << "' that is the id of a 0D compartment.";
   safe_free(formula);

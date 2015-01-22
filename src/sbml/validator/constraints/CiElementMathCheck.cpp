@@ -198,7 +198,7 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
-  msg << "\nThe formula '" << formula;
+  msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
   if (object.getLevel() == 2 && object.getVersion() == 1)
     msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";

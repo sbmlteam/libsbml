@@ -2742,7 +2742,7 @@ public:
 
 
   /**
-   * Get the number of Specie objects in this Model.
+   * Get the number of Species objects in this Model.
    *
    * @return the number of Species in this Model.
    */

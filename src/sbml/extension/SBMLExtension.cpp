@@ -446,9 +446,8 @@ SBMLExtension::getMessage(unsigned int index,
       
   ostringstream newMsg;
   std::string ref;
-  std::string message;
 
-  newMsg << pkgErr.message;
+  newMsg << pkgErr.message << endl;
 
   switch (pkgVersion)
   {
@@ -460,17 +459,15 @@ SBMLExtension::getMessage(unsigned int index,
 
   if (!ref.empty())
   {
-    newMsg << "\nReference: " << ref << endl;
+    newMsg << "Reference: " << ref << endl;
   }
 
   if (!details.empty())
   {
-    newMsg << " " << details;
-  }      
-  newMsg << endl;
-  message =  newMsg.str();
+    newMsg << " " << details << endl;
+  }
 
-  return message;
+  return newMsg.str();
 }
 /** @endcond */
 

@@ -79,7 +79,7 @@ START_CONSTRAINT (99303, Parameter, p)
 
   msg = "The units '";
   msg += units;
-  msg+= "'of the <parameter> '";
+  msg+= "' of the <parameter> '";
   msg += p.getId() ;
   msg += "' do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
@@ -106,9 +106,9 @@ START_CONSTRAINT (99303, Species, s)
       && Unit::isBuiltIn(units, s.getLevel()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe subtanceUnits '";
+      msg += "The subtanceUnits '";
       msg += units;
-      msg += "'of the <species> do not refer to a valid unit kind ";
+      msg += "' of the <species> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -123,9 +123,9 @@ START_CONSTRAINT (99303, Species, s)
       && Unit::isBuiltIn(units, s.getLevel()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe spatialSizeUnits '";
+      msg += "The spatialSizeUnits '";
       msg += units;
-      msg += "'of the <species> do not refer to a valid unit kind ";
+      msg += "' of the <species> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -144,7 +144,7 @@ START_CONSTRAINT (99303, Compartment, c)
 
   msg = "The units '";
   msg += units;
-  msg+= "'of the <compartment> '";
+  msg+= "' of the <compartment> '";
   msg += c.getId() ;
   msg += "' do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
@@ -171,9 +171,9 @@ START_CONSTRAINT (99303, KineticLaw, kl)
       && Unit::isBuiltIn(units, kl.getLevel()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe subtanceUnits '";
+      msg += "The subtanceUnits '";
       msg += units;
-      msg += "'of the <kineticLaw> do not refer to a valid unit kind ";
+      msg += "' of the <kineticLaw> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -188,9 +188,9 @@ START_CONSTRAINT (99303, KineticLaw, kl)
       && Unit::isBuiltIn(units, kl.getLevel()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe timeUnits '";
+      msg += "The timeUnits '";
       msg += units;
-      msg += "'of the <kineticLaw> do not refer to a valid unit kind ";
+      msg += "' of the <kineticLaw> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -209,7 +209,7 @@ START_CONSTRAINT (99303, Event, e)
 
   msg = "The timeUnits '";
   msg += units;
-  msg+= "'of the <event> '";
+  msg+= "' of the <event> '";
   msg += e.getId() ;
   msg += "' do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
@@ -236,9 +236,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe subtanceUnits '";
+      msg += "The subtanceUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -250,9 +250,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe extentUnits '";
+      msg += "The extentUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -264,9 +264,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe timeUnits '";
+      msg += "The timeUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -278,9 +278,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe volumeUnits '";
+      msg += "The volumeUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -292,9 +292,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe areaUnits '";
+      msg += "The areaUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -306,9 +306,9 @@ START_CONSTRAINT (99303, Model, x)
     if (Unit::isUnitKind(units, m.getLevel(), m.getVersion()) == false
       && m.getUnitDefinition(units) == NULL)
     {
-      msg += "\nThe lengthUnits '";
+      msg += "The lengthUnits '";
       msg += units;
-      msg += "'of the <model> do not refer to a valid unit kind ";
+      msg += "' of the <model> do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }

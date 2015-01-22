@@ -381,7 +381,7 @@ ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node,
                                           const SBase & sb)
 {
   char * formula = SBML_formulaToString(&node);
-  msg = "The formula ";
+  msg = "The formula '";
   msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
@@ -401,7 +401,7 @@ ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node,
                                           const SBase & sb)
 {
   char * formula = SBML_formulaToString(&node);
-  msg = "The formula ";
+  msg = "The formula '";
   msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);

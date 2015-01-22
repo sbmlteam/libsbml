@@ -173,7 +173,7 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
 
   char * left = SBML_formulaToString(node.getLeftChild());
-  msg << "\nThe piecewise formula ";
+  msg << "The piecewise formula ";
   msg << "in the " << getFieldname() << " element of the " << getTypename(object);
   msg << " returns arguments" ;
   msg << " which have different value types from the first element '";
