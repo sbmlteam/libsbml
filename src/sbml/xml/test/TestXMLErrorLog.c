@@ -116,7 +116,7 @@ START_TEST (test_XMLErrorLog_toString)
   XMLError_t* error = XMLError_create();
   XMLErrorLog_add( log, error );
 
-  const char* output = "line 1: (00000 [Fatal]) Unrecognized error encountered internally.\n\n";
+  const char* output = "line 1: (00000 [Fatal]) Unrecognized error encountered internally.\n";
   test = XMLErrorLog_toString(log);
   fail_unless( strcmp(test, output ) != 0 );
   free(test);
