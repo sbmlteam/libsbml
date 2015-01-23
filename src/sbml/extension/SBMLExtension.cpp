@@ -464,7 +464,10 @@ SBMLExtension::getMessage(unsigned int index,
 
   if (!details.empty())
   {
-    newMsg << " " << details << endl;
+    newMsg << " " << details;
+    if (details[details.size()-1] != '\n') {
+      newMsg << endl;
+    }
   }
 
   return newMsg.str();

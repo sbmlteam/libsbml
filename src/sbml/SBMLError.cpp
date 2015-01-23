@@ -297,8 +297,10 @@ SBMLError::SBMLError (  const unsigned int errorId
 
     // Finish updating the (full) error message.
 
-    newMsg << errorTable[index].message << endl;
-    
+    if (!((string)errorTable[index].message).empty()) {
+      newMsg << errorTable[index].message << endl;
+    }
+
     // look for individual references
     // if the code for this error does not yet exist skip
 
@@ -345,7 +347,10 @@ SBMLError::SBMLError (  const unsigned int errorId
     }
     if (!details.empty())
     {
-      newMsg << " " << details << endl;
+      newMsg << " " << details;
+      if (details[details.size()-1] != '\n') {
+        newMsg << endl;
+      }
     }      
     mMessage  = newMsg.str();
 

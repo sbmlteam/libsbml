@@ -3651,7 +3651,7 @@ START_CONSTRAINT (CompReplacedElementConvFactorRef, ReplacedElement, repE)
     msg += mod->getId();
     msg += "'";
   }
-  msg = " is set to '";
+  msg += " is set to '";
   msg += repE.getConversionFactor();
   msg += "' which is not a <parameter> within the model.";
 
