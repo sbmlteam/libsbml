@@ -835,7 +835,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(MultipleAnnotations, getLevel(), getVersion());
+        string msg = "An SBML <speciesReference> element ";
+        if (isSetId()) {
+          msg += "with the id '" + getId() + "' ";
+        }
+        msg += "has multiple <annotation> children.";
+        logError(MultipleAnnotations, getLevel(), getVersion(), msg);
       }
     }
     delete mAnnotation;

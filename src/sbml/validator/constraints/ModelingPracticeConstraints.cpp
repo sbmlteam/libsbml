@@ -62,6 +62,10 @@ START_CONSTRAINT (80501, Compartment, c)
   {
     fail = false;
   }
+  else if (c.isSetSpatialDimensions() && c.getSpatialDimensions()==0) {
+    //Compartments with spatialDimensions of 0 should (and, for some levels/versions, *must*) not have a 'size'.
+    fail = false;
+  }
   else
   {
     pre (c.isSetId() == true);
@@ -73,6 +77,24 @@ START_CONSTRAINT (80501, Compartment, c)
     else if (m.getAssignmentRuleByVariable(c.getId()) != NULL)
     {
       fail = false;
+    }
+    // Need something like the following to check if the initial value is set by an algebraic rule.  However, there is no 'hasVariable' function for an ASTNode yet.
+    /*
+    else if (!c.getConstant())
+    {
+      for (unsigned int alg=0; alg<m.getNumRules(); alg++)
+      {
+        const Rule* rule = m.getRule(alg);
+        if (rule->isAlgebraic() && rule->getMath()->hasVariable(c.getId()))
+        {
+          fail = false;
+        }
+      }
+    }
+    */
+    else 
+    {
+      msg = "The <compartment> '" + c.getId() + "' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.";
     }
   }
 
@@ -101,6 +123,24 @@ START_CONSTRAINT (80601, Species, s)
     {
       fail = false;
     }
+    // Need something like the following to check if the initial value is set by an algebraic rule.  However, there is no 'hasVariable' function for an ASTNode yet.
+    /*
+    else if (!s.getConstant())
+    {
+      for (unsigned int alg=0; alg<m.getNumRules(); alg++)
+      {
+        const Rule* rule = m.getRule(alg);
+        if (rule->isAlgebraic() && rule->getMath()->hasVariable(s.getId()))
+        {
+          fail = false;
+        }
+      }
+    }
+    */
+    else 
+    {
+      msg = "The <species> '" + s.getId() + "' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.";
+    }
   }
 
   inv (fail == false);
@@ -114,6 +154,10 @@ EXTERN_CONSTRAINT( 81121, LocalParameterShadowsIdInModel             )
 
 START_CONSTRAINT (80701, Parameter, p)
 {
+  if(p.isSetId())
+  {
+    msg = "Parameter '" + p.getId() + "' does not have a 'units' attribute.";
+  }
   inv(p.isSetUnits() == true);
 }
 END_CONSTRAINT

@@ -242,7 +242,7 @@ ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node,
   msg += formula;
   msg += "' in the math element of the ";
   msg += getTypename(sb);
-  msg += " uses a function ";
+  msg += " uses a function";
   msg += " which can only act on dimensionless variables.";
   safe_free(formula);
 

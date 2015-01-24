@@ -79,7 +79,7 @@ START_CONSTRAINT (99303, Parameter, p)
 
   msg = "The units '";
   msg += units;
-  msg+= "' of the <parameter> '";
+  msg+= "' of the <parameter> with id '";
   msg += p.getId() ;
   msg += "' do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
@@ -108,7 +108,9 @@ START_CONSTRAINT (99303, Species, s)
     {
       msg += "The subtanceUnits '";
       msg += units;
-      msg += "' of the <species> do not refer to a valid unit kind ";
+      msg += "' of the <species> with id '";
+      msg += s.getId(); 
+      msg += "' do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -125,7 +127,9 @@ START_CONSTRAINT (99303, Species, s)
     {
       msg += "The spatialSizeUnits '";
       msg += units;
-      msg += "' of the <species> do not refer to a valid unit kind ";
+      msg += "' of the <species> with id '";
+      msg += s.getId(); 
+      msg += "' do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -144,7 +148,7 @@ START_CONSTRAINT (99303, Compartment, c)
 
   msg = "The units '";
   msg += units;
-  msg+= "' of the <compartment> '";
+  msg+= "' of the <compartment> with id '";
   msg += c.getId() ;
   msg += "' do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
@@ -173,7 +177,13 @@ START_CONSTRAINT (99303, KineticLaw, kl)
     {
       msg += "The subtanceUnits '";
       msg += units;
-      msg += "' of the <kineticLaw> do not refer to a valid unit kind ";
+      msg += "' of the <kineticLaw> ";
+      const SBase* rxn = kl.getParentSBMLObject();
+      if (rxn && rxn->isSetId())
+      {
+        msg += "in the <reaction> with id '" + rxn->getId() + "' ";
+      }
+      msg += "do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -190,7 +200,13 @@ START_CONSTRAINT (99303, KineticLaw, kl)
     {
       msg += "The timeUnits '";
       msg += units;
-      msg += "' of the <kineticLaw> do not refer to a valid unit kind ";
+      msg += "' of the <kineticLaw> ";
+      const SBase* rxn = kl.getParentSBMLObject();
+      if (rxn && rxn->isSetId())
+      {
+        msg += "in the <reaction> with id '" + rxn->getId() + "' ";
+      }
+      msg += "do not refer to a valid unit kind ";
       msg += "or the identifier of an existing <unitDefinition>. ";
       failed = true;
     }
@@ -209,9 +225,12 @@ START_CONSTRAINT (99303, Event, e)
 
   msg = "The timeUnits '";
   msg += units;
-  msg+= "' of the <event> '";
-  msg += e.getId() ;
-  msg += "' do not refer to a valid unit kind/built-in unit ";
+  msg+= "' of the <event> ";
+  if (e.isSetId()) 
+  {
+    msg += "with id '" + e.getId() + "' ";
+  }
+  msg += "do not refer to a valid unit kind/built-in unit ";
   msg += "or the identifier of an existing <unitDefinition>. ";
  
   inv_or( Unit::isUnitKind(units, e.getLevel(), e.getVersion())    );

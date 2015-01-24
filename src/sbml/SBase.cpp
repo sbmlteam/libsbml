@@ -4317,15 +4317,20 @@ SBase::readAnnotation (XMLInputStream& stream)
 
     if (mAnnotation != NULL)
     {
+        string msg = "An SBML <" + getElementName() + "> element ";
+        if (isSetId()) {
+          msg += "with the id '" + getId() + "' ";
+        }
+        msg += "has multiple <annotation> children.";
       if (getLevel() < 3)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
 	        "Only one <annotation> element is permitted inside a "
-	        "particular containing element.");
+	        "particular containing element.  " + msg);
       }
       else
       {
-        logError(MultipleAnnotations, getLevel(), getVersion());
+        logError(MultipleAnnotations, getLevel(), getVersion(), msg);
       }
     }
 
@@ -4524,8 +4529,8 @@ SBase::logUnknownAttribute( const string& attribute,
       msg << "Attribute '" << attribute << "' is not part of the "
           << "definition of an SBML Level " << level
           << " Version " << version << " Package "
-          << getPackageName() << " Version " << getPackageVersion() << " "
-          << element << " element.";
+          << getPackageName() << " Version " << getPackageVersion() << " <"
+          << element << "> element.";
       if (mSBML != NULL)
       {
         getErrorLog()->logError(UnknownPackageAttribute,
@@ -4536,8 +4541,8 @@ SBase::logUnknownAttribute( const string& attribute,
     {
       msg << "Attribute '" << attribute << "' is not part of the "
           << "definition of an SBML Level " << level
-          << " Version " << version << " "
-          << element << " element.";
+          << " Version " << version << " <"
+          << element << "> element.";
       if (mSBML != NULL)
       {
         getErrorLog()->logError(UnknownCoreAttribute,
@@ -4550,7 +4555,7 @@ SBase::logUnknownAttribute( const string& attribute,
   {
     msg << "Attribute '" << attribute << "' is not part of the "
         << "definition of an SBML Level " << level
-        << " Version " << version << " " << element << " element.";
+        << " Version " << version << " <" << element << "> element.";
   }
   /* Akiya made this note - so it needs checking BUT if it can crash due to no
    * SBMLDocument object then it can crash whatever level - so I put the catch outside
@@ -4801,8 +4806,8 @@ SBase::logUnknownElement( const string& element,
   if (level > 2 && getTypeCode() == SBML_LIST_OF)
   {
     int tc = static_cast<ListOf*>(this)->getItemTypeCode();
-    msg << "Element '" << element << "' is not part of the definition of "
-      << this->getElementName() << ".";
+    msg << "Element '" << element << "' is not part of the definition of <"
+      << this->getElementName() << ">.";
     switch (tc)
     {
     case SBML_UNIT:
@@ -6194,7 +6199,13 @@ SBase::checkAnnotation()
       if (find(uri_list.begin(), uri_list.end(), uri)
                                                != uri_list.end())
       {
-        logError(DuplicateAnnotationNamespaces);
+        string msg = "An SBML <" + getElementName() + "> element ";
+        if (isSetId()) 
+        {
+          msg += "with the id '" + getId() + "' ";
+        }
+        msg += "has an <annotation> child with multiple children with the same namespace.";
+        logError(DuplicateAnnotationNamespaces, getLevel(), getVersion(), msg);
       }
       uri_list.push_back(uri);
     }
@@ -6246,9 +6257,14 @@ SBase::checkAnnotation()
                                 "http://www.sbml.org/sbml/level3/version1/core");
       n++;
     }
+    string msg = "An SBML <" + getElementName() + "> element ";
+    if (isSetId()) {
+      msg += "with the id '" + getId() + "' ";
+    }
     if (match > 0)
     {
-      logError(SBMLNamespaceInAnnotation);
+      msg += "uses a restricted namespace on an element in its child <annotation>.";
+      logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);
       break;
     }
 
@@ -6259,9 +6275,10 @@ SBase::checkAnnotation()
        */
       if (getLevel() < 3)
       {
-        logError(MissingAnnotationNamespace);
+        logError(MissingAnnotationNamespace, getLevel(), getVersion(), msg + "is missing a namespace on an element in its child <annotation>.");
       }
-      logError(SBMLNamespaceInAnnotation);
+      msg += "uses a restricted namespace on an element in its child <annotation>.";
+      logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);
     }
     nNodes++;
   }

@@ -3903,7 +3903,7 @@ Model::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        logError(MultipleAnnotations, getLevel(), getVersion());
+        logError(MultipleAnnotations, getLevel(), getVersion(), "The SBML <model> element has multiple <annotation> children.");
       }
     }
 

@@ -296,7 +296,7 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   pre( fd.isSetBody() == true      );
 
   msg = "The <functionDefinition> with id '" + fd.getId() + "' returns "
-    " a value that is neither boolean nor numeric.";
+    "a value that is neither boolean nor numeric.";
 
   /*
    * need to look at the special case where the body of the lambda function
@@ -895,7 +895,7 @@ START_CONSTRAINT (20501, Compartment, c)
   
   msg = "The <compartment> with id '" + c.getId() + "' should not have a "
     "'size' attribute OR should have a 'spatialDimensions' attribute "
-    " that is not set to '0'.";
+    "that is not set to '0'.";
 
   inv( c.isSetSize() == false );
 }
@@ -916,7 +916,7 @@ START_CONSTRAINT (20502, Compartment, c)
 
   msg = "The <compartment> with id '" + c.getId() + "' should not have a "
     "'units' attribute OR should have a 'spatialDimensions' attribute "
-    " that is not set to '0'.";
+    "that is not set to '0'.";
   
   inv( c.isSetUnits() == false       );
 }
@@ -1442,9 +1442,9 @@ START_CONSTRAINT (20705, Species, s)
   const Parameter* p  = m.getParameter(factor);
   pre(p != NULL);
 
-  msg = "The <parameter> with id '" + p->getId() + "' should have"
-    " the 'constant' attribute set to 'true' as it is referred to as "
-    " a 'conversionFactor by <species> with id '" + s.getId() + ".";
+  msg = "The <parameter> with id '" + p->getId() + "' should have "
+    "the 'constant' attribute set to 'true' as it is referred to as "
+    "a 'conversionFactor by <species> with id '" + s.getId() + ".";
 
   inv( p->getConstant() == true );
 }
@@ -2031,10 +2031,15 @@ START_CONSTRAINT (99127, KineticLaw, kl)
   const string&         units = kl.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-    inv_or( units == "substance" );
-    inv_or( units == "item"      );
-    inv_or( units == "mole"      );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
+    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
+  msg = "The substanceUnits of the <kineticLaw> in the <reaction> '" + rnId;
+  msg += "' are '" + units + "', which are not a variant of 'item' or 'mole'.";
+
+  inv_or( units == "substance" );
+  inv_or( units == "item"      );
+  inv_or( units == "mole"      );
+  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
 }
 END_CONSTRAINT
 
@@ -2053,6 +2058,11 @@ START_CONSTRAINT (99128, KineticLaw, kl)
   const string&         units = kl.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
+  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
+    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
+  msg = "The timeUnits of the <kineticLaw> in the <reaction> '" + rnId;
+  msg += "' are '" + units + "', which are not a variant of 'second'.";
+
   inv_or( units == "time"   );
   inv_or( units == "second" );
   inv_or( defn  != NULL && defn->isVariantOfTime() );
@@ -2067,6 +2077,8 @@ START_CONSTRAINT (99129, KineticLaw, kl)
   FormulaTokenizer_t * ft = 
                  FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);
+
+  msg = "The <kineticLaw> with the formula '" + kl.getFormula() + "' uses one or more undefined functions.";
 
   const Compartment * c;
   const Species * s;
@@ -2550,7 +2562,7 @@ START_CONSTRAINT (21211, EventAssignment, ea)
 
   msg = "In the <event> with id '" + eId + "' the <eventAssignment> "
     "with variable '" + id + "' does not refer "
-      " to an existing <compartment>, <species> or <parameter>.";
+    "to an existing <compartment>, <species> or <parameter>.";
   
   if (ea.getLevel() == 2)
   {

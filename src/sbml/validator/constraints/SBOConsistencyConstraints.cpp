@@ -108,6 +108,7 @@ START_CONSTRAINT(99701, Model, m1)
     pre( m1.getVersion() > 1);
   }
   pre(m1.isSetSBOTerm());
+  msg = "Unknown SBO term '" + m1.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (m1.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (m1.getSBOTerm()));
@@ -128,6 +129,7 @@ START_CONSTRAINT(99701, FunctionDefinition, fd)
     pre( fd.getVersion() > 1);
   }
   pre(fd.isSetSBOTerm());
+  msg = "Unknown SBO term '" + fd.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (fd.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (fd.getSBOTerm()));
@@ -149,6 +151,7 @@ START_CONSTRAINT(99701, Parameter, p)
     pre( p.getVersion() > 1);
   }
   pre(p.isSetSBOTerm());
+  msg = "Unknown SBO term '" + p.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (p.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (p.getSBOTerm()));
@@ -169,6 +172,7 @@ START_CONSTRAINT(99701, InitialAssignment, ia)
     pre( ia.getVersion() > 1);
   }
   pre(ia.isSetSBOTerm());
+  msg = "Unknown SBO term '" + ia.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (ia.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (ia.getSBOTerm()));
@@ -189,6 +193,7 @@ START_CONSTRAINT(99701, AssignmentRule, ar)
     pre( ar.getVersion() > 1);
   }
   pre(ar.isSetSBOTerm());
+  msg = "Unknown SBO term '" + ar.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (ar.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (ar.getSBOTerm()));
@@ -209,6 +214,7 @@ START_CONSTRAINT(99701, RateRule, rr)
     pre( rr.getVersion() > 1);
   }
   pre(rr.isSetSBOTerm());
+  msg = "Unknown SBO term '" + rr.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (rr.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (rr.getSBOTerm()));
@@ -229,6 +235,7 @@ START_CONSTRAINT(99701, AlgebraicRule, ar)
     pre( ar.getVersion() > 1);
   }
   pre(ar.isSetSBOTerm());
+  msg = "Unknown SBO term '" + ar.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (ar.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (ar.getSBOTerm()));
@@ -249,6 +256,7 @@ START_CONSTRAINT(99701, Constraint, c)
     pre( c.getVersion() > 1);
   }
   pre(c.isSetSBOTerm());
+  msg = "Unknown SBO term '" + c.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (c.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (c.getSBOTerm()));
@@ -269,6 +277,7 @@ START_CONSTRAINT(99701, Reaction, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "Unknown SBO term '" + r.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (r.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (r.getSBOTerm()));
@@ -289,6 +298,7 @@ START_CONSTRAINT(99701, SpeciesReference, sr)
     pre( sr.getVersion() > 1);
   }
   pre(sr.isSetSBOTerm());
+  msg = "Unknown SBO term '" + sr.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (sr.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (sr.getSBOTerm()));
@@ -309,6 +319,7 @@ START_CONSTRAINT(99701, KineticLaw, kl)
     pre( kl.getVersion() > 1);
   }
   pre(kl.isSetSBOTerm());
+  msg = "Unknown SBO term '" + kl.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (kl.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (kl.getSBOTerm()));
@@ -329,6 +340,7 @@ START_CONSTRAINT(99701, Event, e)
     pre( e.getVersion() > 1);
   }
   pre(e.isSetSBOTerm());
+  msg = "Unknown SBO term '" + e.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (e.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (e.getSBOTerm()));
@@ -349,6 +361,7 @@ START_CONSTRAINT(99701, EventAssignment, ea)
     pre( ea.getVersion() > 1);
   }
   pre(ea.isSetSBOTerm());
+  msg = "Unknown SBO term '" + ea.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (ea.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (ea.getSBOTerm()));
@@ -369,6 +382,7 @@ START_CONSTRAINT(99701, Compartment, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
+  msg = "Unknown SBO term '" + c.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (c.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (c.getSBOTerm()));
@@ -389,6 +403,7 @@ START_CONSTRAINT(99701, Species, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
+  msg = "Unknown SBO term '" + s.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (s.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (s.getSBOTerm()));
@@ -409,6 +424,7 @@ START_CONSTRAINT(99701, CompartmentType, ct)
     pre( ct.getVersion() > 2);
   }
   pre(ct.isSetSBOTerm());
+  msg = "Unknown SBO term '" + ct.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (ct.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (ct.getSBOTerm()));
@@ -429,6 +445,7 @@ START_CONSTRAINT(99701, SpeciesType, st)
     pre( st.getVersion() > 2);
   }
   pre(st.isSetSBOTerm());
+  msg = "Unknown SBO term '" + st.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (st.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (st.getSBOTerm()));
@@ -449,6 +466,7 @@ START_CONSTRAINT(99701, Trigger, t)
     pre( t.getVersion() > 2);
   }
   pre(t.isSetSBOTerm());
+  msg = "Unknown SBO term '" + t.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (t.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (t.getSBOTerm()));
@@ -469,6 +487,7 @@ START_CONSTRAINT(99701, Delay, d)
     pre( d.getVersion() > 2);
   }
   pre(d.isSetSBOTerm());
+  msg = "Unknown SBO term '" + d.getSBOTermID() + "'.";
 
   inv_or(SBO::isModellingFramework           (d.getSBOTerm()));
   inv_or(SBO::isMathematicalExpression       (d.getSBOTerm()));
@@ -489,6 +508,7 @@ START_CONSTRAINT(10701, Model, m1)
     pre( m1.getVersion() > 1);
   }
   pre(m1.isSetSBOTerm());
+  msg = "SBO term '" + m1.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <model> must be an SBO "
@@ -518,6 +538,7 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
     pre( fd.getVersion() > 1);
   }
   pre(fd.isSetSBOTerm());
+  msg = "SBO term '" + fd.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <functionDefinition> must be "
@@ -540,6 +561,7 @@ START_CONSTRAINT(10703, Parameter, p)
   }
   pre(p.isSetSBOTerm());
   pre(p.getTypeCode() == SBML_PARAMETER);
+  msg = "SBO term '" + p.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <parameter> must be an "
@@ -561,6 +583,7 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
     pre( ia.getVersion() > 1);
   }
   pre(ia.isSetSBOTerm());
+  msg = "SBO term '" + ia.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <initialAssignment> must "
@@ -582,6 +605,7 @@ START_CONSTRAINT(10705, AssignmentRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -603,6 +627,7 @@ START_CONSTRAINT(10705, RateRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
     //"The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -624,6 +649,7 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -645,6 +671,7 @@ START_CONSTRAINT(10706, Constraint, c)
     pre( c.getVersion() > 1);
   }
   pre(c.isSetSBOTerm());
+  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <constraint> must be an SBO "
@@ -666,6 +693,7 @@ START_CONSTRAINT(10707, Reaction, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <reaction> must be an SBO "
@@ -693,6 +721,7 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
     pre( sr.getVersion() > 1);
   }
   pre(sr.isSetSBOTerm());
+  msg = "SBO term '" + sr.getSBOTermID() + "' is not in the appropriate branch.";
 
    //msg = 
    //  "The value of the 'sboTerm' attribute on a <speciesReference> "
@@ -726,6 +755,7 @@ START_CONSTRAINT(10709, KineticLaw, kl)
     pre( kl.getVersion() > 1);
   }
   pre(kl.isSetSBOTerm());
+  msg = "SBO term '" + kl.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO "
@@ -746,6 +776,7 @@ START_CONSTRAINT(10710, Event, e)
     pre( e.getVersion() > 1);
   }
   pre(e.isSetSBOTerm());
+  msg = "SBO term '" + e.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <event> must be an SBO "
@@ -773,6 +804,7 @@ START_CONSTRAINT(10711, EventAssignment, ea)
     pre( ea.getVersion() > 1);
   }
   pre(ea.isSetSBOTerm());
+  msg = "SBO term '" + ea.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <eventAssignment> must be an "
@@ -794,6 +826,7 @@ START_CONSTRAINT(10712, Compartment, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
+  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
@@ -821,6 +854,7 @@ START_CONSTRAINT(10713, Species, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
+  msg = "SBO term '" + s.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <species> must be an SBO "
@@ -848,6 +882,7 @@ START_CONSTRAINT(10714, CompartmentType, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
+  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
@@ -875,6 +910,7 @@ START_CONSTRAINT(10715, SpeciesType, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
+  msg = "SBO term '" + s.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
@@ -902,6 +938,7 @@ START_CONSTRAINT(10716, Trigger, t)
     pre( t.getVersion() > 2);
   }
   pre(t.isSetSBOTerm());
+  msg = "SBO term '" + t.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
@@ -922,6 +959,7 @@ START_CONSTRAINT(10717, Delay, d)
     pre( d.getVersion() > 2);
   }
   pre(d.isSetSBOTerm());
+  msg = "SBO term '" + d.getSBOTermID() + "' is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
@@ -941,6 +979,7 @@ START_CONSTRAINT(99702, Model, m1)
     pre( m1.getVersion() > 1);
   }
   pre(m1.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + m1.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (m1.getSBOTerm()));
 }
@@ -954,6 +993,7 @@ START_CONSTRAINT(99702, FunctionDefinition, fd)
     pre( fd.getVersion() > 1);
   }
   pre(fd.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + fd.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (fd.getSBOTerm()));
 
@@ -968,6 +1008,7 @@ START_CONSTRAINT(99702, Parameter, p)
     pre( p.getVersion() > 1);
   }
   pre(p.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + p.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (p.getSBOTerm()));
 
@@ -982,6 +1023,7 @@ START_CONSTRAINT(99702, InitialAssignment, ia)
     pre( ia.getVersion() > 1);
   }
   pre(ia.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + ia.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (ia.getSBOTerm()));
 
@@ -996,6 +1038,7 @@ START_CONSTRAINT(99702, AssignmentRule, ar)
     pre( ar.getVersion() > 1);
   }
   pre(ar.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + ar.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (ar.getSBOTerm()));
 
@@ -1010,6 +1053,7 @@ START_CONSTRAINT(99702, RateRule, rr)
     pre( rr.getVersion() > 1);
   }
   pre(rr.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + rr.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (rr.getSBOTerm()));
 
@@ -1024,6 +1068,7 @@ START_CONSTRAINT(99702, AlgebraicRule, ar)
     pre( ar.getVersion() > 1);
   }
   pre(ar.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + ar.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (ar.getSBOTerm()));
 
@@ -1038,6 +1083,7 @@ START_CONSTRAINT(99702, Constraint, c)
     pre( c.getVersion() > 1);
   }
   pre(c.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + c.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (c.getSBOTerm()));
 
@@ -1052,6 +1098,7 @@ START_CONSTRAINT(99702, Reaction, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + r.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (r.getSBOTerm()));
 
@@ -1066,6 +1113,7 @@ START_CONSTRAINT(99702, SpeciesReference, sr)
     pre( sr.getVersion() > 1);
   }
   pre(sr.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + sr.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (sr.getSBOTerm()));
 
@@ -1080,6 +1128,7 @@ START_CONSTRAINT(99702, KineticLaw, kl)
     pre( kl.getVersion() > 1);
   }
   pre(kl.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + kl.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (kl.getSBOTerm()));
 
@@ -1094,6 +1143,7 @@ START_CONSTRAINT(99702, Event, e)
     pre( e.getVersion() > 1);
   }
   pre(e.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + e.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (e.getSBOTerm()));
 
@@ -1108,6 +1158,7 @@ START_CONSTRAINT(99702, EventAssignment, ea)
     pre( ea.getVersion() > 1);
   }
   pre(ea.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + ea.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (ea.getSBOTerm()));
 
@@ -1122,6 +1173,7 @@ START_CONSTRAINT(99702, Compartment, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + c.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (c.getSBOTerm()));
 
@@ -1136,6 +1188,7 @@ START_CONSTRAINT(99702, Species, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + s.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (s.getSBOTerm()));
 
@@ -1150,6 +1203,7 @@ START_CONSTRAINT(99702, CompartmentType, ct)
     pre( ct.getVersion() > 2);
   }
   pre(ct.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + ct.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (ct.getSBOTerm()));
 
@@ -1164,6 +1218,7 @@ START_CONSTRAINT(99702, SpeciesType, st)
     pre( st.getVersion() > 2);
   }
   pre(st.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + st.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (st.getSBOTerm()));
 
@@ -1178,6 +1233,7 @@ START_CONSTRAINT(99702, Trigger, t)
     pre( t.getVersion() > 2);
   }
   pre(t.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + t.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (t.getSBOTerm()));
 
@@ -1192,6 +1248,7 @@ START_CONSTRAINT(99702, Delay, d)
     pre( d.getVersion() > 2);
   }
   pre(d.isSetSBOTerm());
+  msg = "Obsolete SBO term '" + d.getSBOTermID() + "'.";
 
   inv(! SBO::isObselete               (d.getSBOTerm()));
 

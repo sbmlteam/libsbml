@@ -1743,6 +1743,10 @@ END_CONSTRAINT
 START_CONSTRAINT (20518, Compartment, c)
 {
   pre( c.getLevel() > 2);
+  if (c.isSetId())
+  {
+    msg = "The <compartment> '" + c.getId() + "' has no discernable units.";
+  }
 
   inv( !(!(c.isSetUnits()) && !(c.isSetSpatialDimensions())));
 }

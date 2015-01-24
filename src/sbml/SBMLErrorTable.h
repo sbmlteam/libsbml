@@ -1212,7 +1212,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"http://www.sbml.org/sbml/level2/version2\", or "
     "\"http://www.sbml.org/sbml/level2/version3\", or "
     "\"http://www.sbml.org/sbml/level2/version4\", or "
-    "\"http://www.sbml.org/sbml/level2/version5\", or implicitly (by failing "
+    "\"http://www.sbml.org/sbml/level2/version5\" or "
+    "\"http://www.sbml.org/sbml/level3/version1/core\"), or implicitly (by failing "
     "to declare any namespace).",
     {"",
      "",
@@ -5536,9 +5537,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The identifier given as the value of a 'symbol'attribute "
-    "in any <InitialAssignment> definition cannot be the identifier "
-    "of a <Compartment> with a 'spatialDimensions' value of 0.",
+    "The identifier given as the value of a 'symbol' attribute "
+    "in any <initialAssignment> definition cannot be the identifier "
+    "of a <compartment> with a 'spatialDimensions' value of 0.",
     {"",
      "",
      "",
@@ -5831,8 +5832,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The value of a <RateRule> or <AssignmentRule>'s 'variable' attribute "
-    "must not be the identifier of a <Compartment> with a "
+    "The value of a <rateRule> or <assignmentRule>'s 'variable' attribute "
+    "must not be the identifier of a <compartment> with a "
     "'spatialDimensions' value of 0.",
     {"",
      "",
@@ -6035,7 +6036,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21008
   {
     OneMessageElementPerConstraint,
-    "A Constraint object must contain one Message subobject",
+    "A Constraint object can only have one Message subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -9406,7 +9407,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The level and version specified for the document must be "
     "consistent with a valid published SBML specification.  These are "
-    "Level 1, Versions 1 and 2 and Level 2, Versions 1, 2, 3 and 4."
+    "Level 1, Versions 1 and 2; Level 2, Versions 1, 2, 3 and 4; "
+    "and Level 3, Version 1.  If newer levels or versions of SBML "
+    "now exist, you must update your version of libSBML."
   },
 
   //99104

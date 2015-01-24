@@ -87,7 +87,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "FunctionTerm should return boolean",
     LIBSBML_CAT_MATHML_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "The MathML <math> element in a <FunctionTerm> object should "
+    "The MathML <math> element in a <functionTerm> object should "
     "evaluate to a value of type boolean.", 
     { "L3V1 Qual V1 Section 3.6.5"
     }
@@ -98,7 +98,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "CSymbol time or delay not allowed",
     LIBSBML_CAT_MATHML_CONSISTENCY, 
     LIBSBML_SEV_WARNING,
-    "The MathML <math> element in a <FunctionTerm> object should not use "
+    "The MathML <math> element in a <functionTerm> object should not use "
     "the <csymbol> elements 'time' and 'delay' as these explicitly introduce "
     "time into the model. As yet time is not considered within the Qualitative "
     "Models package specification.", 
@@ -112,14 +112,14 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-    "specification.) Within a <Model> the values of the attributes "
+    "specification.) Within a <model> the values of the attributes "
     "'id' and 'qual:id' on every instance of the following "
     "classes of objects must be unique across the set of all 'id' and "
     "'qual:id' attribute values of all such objects in a model: the "
-    "<Model> itself, plus all contained <FunctionDefinition>, <Compartment>, "
-    "<Species>, <Reaction>, <SpeciesReference>, <ModifierSpeciesReference>, "
-    "<Event>, and <Parameter> objects, plus the <QualitativeSpecies>, "
-    "<Transition>, <Input> and <Output> objects defined by the Qualitative "
+    "<model> itself, plus all contained <functionDefinition>, <compartment>, "
+    "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
+    "<event>, and <parameter> objects, plus the <qualitativeSpecies>, "
+    "<transition>, <input> and <output> objects defined by the Qualitative "
     "Models package.", 
     { "L3V1 Qual V1 Section 3.7"
     }
@@ -154,7 +154,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of attribute 'qual:required' on the SBML object must "
-    "be set to 'true' if if the model contains any <Transition> objects.",
+    "be set to 'true' if if the model contains any <transition> objects.",
     { "L3V1 Qual V1 Section 3.1"
     }
   },
@@ -165,8 +165,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "There may be at most one instance of each of the following kinds "
-    "of objects within a <Model> object using Qualitative Models: "
-    "<ListOfTransitions> and <ListOfQualitativeSpecies>.",
+    "of objects within a <model> object using Qualitative Models: "
+    "<listOfTransitions> and <listOfQualitativeSpecies>.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -176,10 +176,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Empty <listOfTransitions> or <listOfQualitativeSpecies> not allowed.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The various ListOf subobjects with a <Model> object are optional, "
+    "The various ListOf subobjects with a <model> object are optional, "
     "but if present, these container object must not be empty.  Specifically, "
-    "if any of the following classes of objects are present on the <Model>, "
-    "it must not be empty: <ListOfQualitativeSpecies> and <ListOfTransitions>.",
+    "if any of the following classes of objects are present on the <model>, "
+    "it must not be empty: <listOfQualitativeSpecies> and <listOfTransitions>.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -190,8 +190,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on "
-    "all SBML objects, a <ListOfTransitions> container object may only "
-    "contain <Transition> objects.",
+    "all SBML objects, a <listOfTransitions> container object may only "
+    "contain <transition> objects.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -202,8 +202,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on "
-    "all SBML objects, a <ListOfQualitativeSpecies> container object may only "
-    "contain <QualitativeSpecies> objects.",
+    "all SBML objects, a <listOfQualitativeSpecies> container object may only "
+    "contain <qualitativeSpecies> objects.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -213,10 +213,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <listOfQualitativeSpecies>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <ListOfQualitativeSpecies> object may have the optional 'metaid' "
+    "A <listOfQualitativeSpecies> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <ListOfQualitativeSpecies> object.",
+    "are permitted on a <listOfQualitativeSpecies> object.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -226,10 +226,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <listOfTransitions>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <ListOfTransitions> object may have the optional 'metaid' "
+    "A <listOfTransitions> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <ListOfTransitions> object.",
+    "are permitted on a <listOfTransitions> object.",
     { "L3V1 Qual V1 Section 3.4"
     }
   },
@@ -239,10 +239,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <qualitativeSpecies>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <QualitativeSpecies> object may have the optional 'metaid' "
+    "A <qualitativeSpecies> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <QualitativeSpecies> object.",
+    "are permitted on a <qualitativeSpecies> object.",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -252,9 +252,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <qualitativeSpecies>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <QualitativeSpecies> object may have the optional SBML Level 3 Core "
+    "A <qualitativeSpecies> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <QualitativeSpecies>.",
+    "Level 3 Core namespaces are permitted on a <qualitativeSpecies>.",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -264,11 +264,11 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <qualitativeSpecies>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <QualitativeSpecies> object must have the required attributes "
+    "A <qualitativeSpecies> object must have the required attributes "
     "'qual:id', 'qual:compartment' and 'qual:constant', and may have "
     "the optional attributes 'qual:name', 'qual:initialLevel' and "
     "'qual:maxLevel'.  No other attributes from the SBML Level~3 Qualitative "
-    "Models namespace are permitted on a <QualitativeSpecies> object. ",
+    "Models namespace are permitted on a <qualitativeSpecies> object. ",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -278,7 +278,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'constant' on <qualitativeSpecies> must be boolean.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:constant' in <QualitativeSpecies> must be of "
+    "The attribute 'qual:constant' in <qualitativeSpecies> must be of "
     "the data type boolean.",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -289,7 +289,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'name' on <qualitativeSpecies> must be string.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:name' in <QualitativeSpecies> must be of "
+    "The attribute 'qual:name' in <qualitativeSpecies> must be of "
     "the data type string.",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -300,7 +300,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'initialLevel' on <qualitativeSpecies> must be integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:initialLevel' in <QualitativeSpecies> must be of "
+    "The attribute 'qual:initialLevel' in <qualitativeSpecies> must be of "
     "the data type integer.",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -311,7 +311,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'maxLevel' on <qualitativeSpecies> must be integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:maxLevel' in <QualitativeSpecies> must be of "
+    "The attribute 'qual:maxLevel' in <qualitativeSpecies> must be of "
     "the data type integer.",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -322,9 +322,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'compartment' on <qualitativeSpecies> must reference compartment.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:compartment' in a <QualitativeSpecies> "
-    "object must be the identifier of an existing <Compartment> object "
-    "defined in the enclosing <Model> object.",
+    "The value of the attribute 'qual:compartment' in a <qualitativeSpecies> "
+    "object must be the identifier of an existing <compartment> object "
+    "defined in the enclosing <model> object.",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -334,9 +334,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'initialLevel' on <qualitativeSpecies> cannot exceed maxLevel.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:initialLevel' in a <QualitativeSpecies> "
+    "The value of the attribute 'qual:initialLevel' in a <qualitativeSpecies> "
     "object cannot be greater than the value of the 'qual:maxLevel' attribute "
-    "for the given <QualitativeSpecies> object. ",
+    "for the given <qualitativeSpecies> object. ",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -346,9 +346,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Constant <qualitativeSpecies> cannot be an Output.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <QualitativeSpecies> with attribute 'qual:constant' set to 'true' can "
-    "only be referred to by an <Input>. It cannot be the subject of an "
-    "<Output> in a <Transition>. ",
+    "A <qualitativeSpecies> with attribute 'qual:constant' set to 'true' can "
+    "only be referred to by an <input>. It cannot be the subject of an "
+    "<output> in a <transition>. ",
     { "L3V1 Qual V1 Section 3.5"
     }
   },
@@ -358,9 +358,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "A <qualitativeSpecies> can only be assigned once.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <QualitativeSpecies> that is referenced by an <Output> with the "
+    "A <qualitativeSpecies> that is referenced by an <output> with the "
     "'qual:transitionEffect' attribute set to 'assignmentLevel' should not be "
-    "referenced by any other <Output> with the same 'transitionEffect' "
+    "referenced by any other <output> with the same 'transitionEffect' "
     "throughout the set of transitions for the containing model. ",
     { "L3V1 Qual V1 Section 3.6.2"
     }
@@ -371,7 +371,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'initialLevel' on <qualitativeSpecies> cannot be negative.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:initialLevel' in <QualitativeSpecies> must not "
+    "The attribute 'qual:initialLevel' in <qualitativeSpecies> must not "
     "be negative. ",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -382,7 +382,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'maxLevel' on <qualitativeSpecies> cannot be negative.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:maxLevel' in <QualitativeSpecies> must not "
+    "The attribute 'qual:maxLevel' in <qualitativeSpecies> must not "
     "be negative. ",
     { "L3V1 Qual V1 Section 3.5"
     }
@@ -393,10 +393,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <transition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Transition> object may have the optional 'metaid' "
+    "A <transition> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <Transition> object.",
+    "are permitted on a <transition> object.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -406,9 +406,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <transition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Transition> object may have the optional SBML Level 3 Core "
+    "A <transition> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <Transition>.",
+    "Level 3 Core namespaces are permitted on a <transition>.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -418,9 +418,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <transition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Transition> object may have the optional attributes 'qual:name' "
+    "A <transition> object may have the optional attributes 'qual:name' "
     "and 'qual:id'.  No other attributes from the SBML Level~3 Qualitative "
-    "Models namespace are permitted on a <Transition> object. ",
+    "Models namespace are permitted on a <transition> object. ",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -430,7 +430,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'name' on <transition> must be string.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:name' in <Transition> must be of "
+    "The attribute 'qual:name' in <transition> must be of "
     "the data type string.",
     { "L3V1 Qual V1 Section 3.6"
     }
@@ -441,9 +441,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "ListOf elements on <transition>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Transition> must have one and only one instance of the "
-    "<ListOfFunctionTerms> objects and may have at most one instance of the "
-    "<ListOfInputs> and <ListOfOutputs> objects from the Qualitative Models "
+    "A <transition> must have one and only one instance of the "
+    "<listOfFunctionTerms> objects and may have at most one instance of the "
+    "<listOfInputs> and <listOfOutputs> objects from the Qualitative Models "
     "namespace.",
     { "L3V1 Qual V1 Section 3.6"
     }
@@ -454,7 +454,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "ListOf elements on <transition> not empty.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The <ListOfInputs> and <ListOfOutputs> subobjects on a <Transition> "
+    "The <listOfInputs> and <listOfOutputs> subobjects on a <transition> "
     "object are optional, but if present, these container object must not "
     "be empty.",
     { "L3V1 Qual V1 Section 3.6"
@@ -467,8 +467,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on "
-    "all SBML objects, a <ListOfInputs> container object may only "
-    "contain <Input> objects.",
+    "all SBML objects, a <listOfInputs> container object may only "
+    "contain <input> objects.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -479,8 +479,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on "
-    "all SBML objects, a <ListOfOutputs> container object may only "
-    "contain <Output> objects.",
+    "all SBML objects, a <listOfOutputs> container object may only "
+    "contain <output> objects.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -491,9 +491,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Apart from the general notes and annotation subobjects permitted on "
-    "all SBML objects, a <ListOfFunctionTerms> container object must "
-    "contain one and only one <DefaultTerm> object and then may only "
-    "contain <FunctionTerm> objects.",
+    "all SBML objects, a <listOfFunctionTerms> container object must "
+    "contain one and only one <defaultTerm> object and then may only "
+    "contain <functionTerm> objects.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -503,10 +503,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <listOfInputs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <ListOfInputs> object may have the optional 'metaid' "
+    "A <listOfInputs> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <ListOfInputs> object.",
+    "are permitted on a <listOfInputs> object.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -516,10 +516,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <listOfOutputs>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <ListOfOutputs> object may have the optional 'metaid' "
+    "A <listOfOutputs> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <ListOfOutputs> object.",
+    "are permitted on a <listOfOutputs> object.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -529,10 +529,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <listOfFunctionTerms>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <ListOfFunctionTerms> object may have the optional 'metaid' "
+    "A <listOfFunctionTerms> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <ListOfFunctionTerms> object.",
+    "are permitted on a <listOfFunctionTerms> object.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -542,8 +542,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     "<listOfFunctionTerms> cannot make qualitativeSpecies exceed maxLevel.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "No element of the <ListOfFunctionTerms> object may cause the level "
-    "of a <QualitativeSpecies> to exceed the value 'qual:maxLevel' attribute.",
+    "No element of the <listOfFunctionTerms> object may cause the level "
+    "of a <qualitativeSpecies> to exceed the value 'qual:maxLevel' attribute.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -553,8 +553,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     "<listOfFunctionTerms> cannot make qualitativeSpecies negative.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "No element of the <ListOfFunctionTerms> object may cause the level "
-    "of a <QualitativeSpecies> to become negative.",
+    "No element of the <listOfFunctionTerms> object may cause the level "
+    "of a <qualitativeSpecies> to become negative.",
     { "L3V1 Qual V1 Section 3.6"
     }
   },
@@ -564,10 +564,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <input>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Input> object may have the optional 'metaid' "
+    "An <input> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <Input> object.",
+    "are permitted on an <input> object.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -577,9 +577,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <input>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Input> object may have the optional SBML Level 3 Core "
+    "An <input> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <Input>.",
+    "Level 3 Core namespaces are permitted on an <input>.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -589,11 +589,11 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <input>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Input> object must have the required attributes "
+    "An <input> object must have the required attributes "
     "'qual:qualitativeSpecies' as well as 'qual:transitionEffect' and "
     "may have the optional attributes 'qual:id', 'qual:name', 'qual:sign' "
     "and 'qual:thresholdLevel'.  No other attributes from the SBML Level~3 "
-    "Qualitative Models namespace are permitted on a <Input> object. ",
+    "Qualitative Models namespace are permitted on an <input> object. ",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -603,7 +603,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'name' on <input> must be string.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:name' in <Input> must be of "
+    "The attribute 'qual:name' in <input> must be of "
     "the data type string.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
@@ -614,7 +614,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'sign' on <input> must be enum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:sign' of a <Input> object must conform "
+    "The value of the attribute 'qual:sign' of an <input> object must conform "
     "to the syntax of the SBML data type 'sign' and may only take on "
     "the allowed values of 'sign' defined in SBML; that is, the value "
     "must be one of the following: 'positive', 'negative', 'dual' or "
@@ -628,7 +628,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'transitionEffect' on <input> must be enum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:transitionEffect' of a <Input> object "
+    "The value of the attribute 'qual:transitionEffect' of an <input> object "
     "must conform to the syntax of the SBML data type 'transitionInputEffect' "
     "and may only take on the allowed values of 'transitionInputEffect' "
     "defined in SBML; that is, the value must be one of the following: 'none' "
@@ -642,7 +642,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'thresholdLevel' on <input> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:thresholdLevel' in <Input> must be of the data "
+    "The attribute 'qual:thresholdLevel' in <input> must be of the data "
     "type 'integer'.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
@@ -653,9 +653,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'qualitativeSpecies' on <input> must refer to existing",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:qualitativeSpecies' in a <Input> "
-    "object must be the identifier of an existing <QualitativeSpecies> object "
-    "defined in the enclosing <Model> object.",
+    "The value of the attribute 'qual:qualitativeSpecies' in an <input> "
+    "object must be the identifier of an existing <qualitativeSpecies> object "
+    "defined in the enclosing <model> object.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -665,7 +665,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Constant <input> cannot be consumed.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "An <Input> that refers to a <QualitativeSpecies> that has a "
+    "An <input> that refers to a <qualitativeSpecies> that has a "
     "'qual:constant' attribute set to 'true' cannot have the attribute "
     "'qual:transitionEffect' set to 'consumption'.",
     { "L3V1 Qual V1 Section 3.6.1"
@@ -677,7 +677,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'thresholdLevel' on <input> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:thresholdLevel' in <Input> must not be negative.",
+    "The attribute 'qual:thresholdLevel' in <input> must not be negative.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -687,10 +687,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <output>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Output> object may have the optional 'metaid' "
+    "An <output> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <Output> object.",
+    "are permitted on an <output> object.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
   },
@@ -700,9 +700,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <output>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Output> object may have the optional SBML Level 3 Core "
+    "An <output> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <Output>.",
+    "Level 3 Core namespaces are permitted on an <output>.",
     { "L3V1 Qual V1 Section 3.6.1"
     }
   },
@@ -712,11 +712,11 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <output>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <Output> object must have the required attributes "
+    "An <output> object must have the required attributes "
     "'qual:qualitativeSpecies' as well as 'qual:transitionEffect' and "
     "may have the optional attributes 'qual:id', 'qual:name' "
     "and 'qual:outputLevel'.  No other attributes from the SBML Level~3 "
-    "Qualitative Models namespace are permitted on a <Output> object. ",
+    "Qualitative Models namespace are permitted on an <output> object. ",
     { "L3V1 Qual V1 Section 3.6.2"
     }
   },
@@ -726,7 +726,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'name' on <output> must be string.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:name' in <Output> must be of "
+    "The attribute 'qual:name' in <output> must be of "
     "the data type string.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
@@ -737,7 +737,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'transitionEffect' on <output> must be enum.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:transitionEffect' of a <Output> object "
+    "The value of the attribute 'qual:transitionEffect' of an <output> object "
     "must conform to the syntax of the SBML data type 'transitionOutputEffect' "
     "and may only take on the allowed values of 'transitionOutputEffect' "
     "defined in SBML; that is, the value must be one of the following: "
@@ -751,7 +751,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'outputLevel' on <output> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:outputLevel' in <Output> must be of the data "
+    "The attribute 'qual:outputLevel' in <output> must be of the data "
     "type 'integer'.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
@@ -762,9 +762,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'qualitativeSpecies' on <output> must refer to existing",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'qual:qualitativeSpecies' in a <Output> "
-    "object must be the identifier of an existing <QualitativeSpecies> object "
-    "defined in the enclosing <Model> object.",
+    "The value of the attribute 'qual:qualitativeSpecies' in an <output> "
+    "object must be the identifier of an existing <qualitativeSpecies> object "
+    "defined in the enclosing <model> object.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
   },
@@ -774,8 +774,8 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Constant 'qualitativeSpecies' cannot be <output>",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The <QualitativeSpecies> referred to by the attribute "
-    "'qual:qualitativeSpecies' in an <Output> object must have the value of "
+    "The <qualitativeSpecies> referred to by the attribute "
+    "'qual:qualitativeSpecies' in an <output> object must have the value of "
     "its 'qual:constant' attribute set to 'false'.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
@@ -786,9 +786,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "<output> being produced must have level",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "When the value of the attribute 'qual:transitionEffect' of a <Output> "
+    "When the value of the attribute 'qual:transitionEffect' of an <output> "
     "object is set to the value 'production' the attribute 'qual:outputLevel' "
-    "for that particular <Output> object must have a value set.",
+    "for that particular <output> object must have a value set.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
   },
@@ -798,7 +798,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'outputLevel' on <output> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:outputLevel' in <Output> must not be negative.",
+    "The attribute 'qual:outputLevel' in <output> must not be negative.",
     { "L3V1 Qual V1 Section 3.6.2"
     }
   },
@@ -808,10 +808,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <defaultTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <DefaultTerm> object may have the optional 'metaid' "
+    "A <defaultTerm> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <DefaultTerm> object.",
+    "are permitted on a <defaultTerm> object.",
     { "L3V1 Qual V1 Section 3.6.4"
     }
   },
@@ -821,9 +821,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <defaultTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <DefaultTerm> object may have the optional SBML Level 3 Core "
+    "A <defaultTerm> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <DefaultTerm>.",
+    "Level 3 Core namespaces are permitted on a <defaultTerm>.",
     { "L3V1 Qual V1 Section 3.6.4"
     }
   },
@@ -833,9 +833,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <defaultTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <DefaultTerm> object must have the required attributes "
+    "A <defaultTerm> object must have the required attributes "
     "'qual:resultLevel'.  No other attributes from the SBML Level~3 "
-    "Qualitative Models namespace are permitted on a <DefaultTerm> object. ",
+    "Qualitative Models namespace are permitted on a <defaultTerm> object. ",
     { "L3V1 Qual V1 Section 3.6.4"
     }
   },
@@ -845,7 +845,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'resultLevel' on <defaultTerm> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:resultLevel' in <DefaultTerm> must be of the data "
+    "The attribute 'qual:resultLevel' in <defaultTerm> must be of the data "
     "type 'integer'.",
     { "L3V1 Qual V1 Section 3.6.4"
     }
@@ -856,7 +856,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'resultLevel' on <defaultTerm> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:resultLevel' in <DefaultTerm> must not be negative.",
+    "The attribute 'qual:resultLevel' in <defaultTerm> must not be negative.",
     { "L3V1 Qual V1 Section 3.6.4"
     }
   },
@@ -866,10 +866,10 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Core attributes allowed on <functionTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <FunctionTerm> object may have the optional 'metaid' "
+    "A <functionTerm> object may have the optional 'metaid' "
     "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes from "
     "the SBML Level~3 Core namespace or the Qualitative Models namespace "
-    "are permitted on a <FunctionTerm> object.",
+    "are permitted on a <functionTerm> object.",
     { "L3V1 Qual V1 Section 3.6.5"
     }
   },
@@ -879,9 +879,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Elements allowed on <functionTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <FunctionTerm> object may have the optional SBML Level 3 Core "
+    "A <functionTerm> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespaces are permitted on a <FunctionTerm>.",
+    "Level 3 Core namespaces are permitted on a <functionTerm>.",
     { "L3V1 Qual V1 Section 3.6.5"
     }
   },
@@ -891,9 +891,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attributes allowed on <functionTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <FunctionTerm> object must have the required attributes "
+    "A <functionTerm> object must have the required attributes "
     "'qual:resultLevel'.  No other attributes from the SBML Level~3 "
-    "Qualitative Models namespace are permitted on a <FunctionTerm> object. ",
+    "Qualitative Models namespace are permitted on a <functionTerm> object. ",
     { "L3V1 Qual V1 Section 3.6.5"
     }
   },
@@ -903,9 +903,9 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Only one <math> on <functionTerm>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <FunctionTerm> object may contain exactly one  MathML <math> element. "
+    "A <functionTerm> object may contain exactly one  MathML <math> element. "
     "No other elements from the SBML Level~3 Qualitative Models namespace "
-    "are permitted on a <FunctionTerm> object.",
+    "are permitted on a <functionTerm> object.",
     { "L3V1 Qual V1 Section 3.6.5"
     }
   },
@@ -915,7 +915,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'resultLevel' on <functionTerm> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:resultLevel' in <FunctionTerm> must be of the data "
+    "The attribute 'qual:resultLevel' in <functionTerm> must be of the data "
     "type 'integer'.",
     { "L3V1 Qual V1 Section 3.6.5"
     }
@@ -926,7 +926,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     "Attribute 'resultLevel' on <functionTerm> must be non negative integer.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'qual:resultLevel' in <FunctionTerm> must not be negative.",
+    "The attribute 'qual:resultLevel' in <functionTerm> must not be negative.",
     { "L3V1 Qual V1 Section 3.6.5"
     }
   }
