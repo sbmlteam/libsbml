@@ -6275,7 +6275,8 @@ SBase::checkAnnotation()
        */
       if (getLevel() < 3)
       {
-        logError(MissingAnnotationNamespace, getLevel(), getVersion(), msg + "is missing a namespace on an element in its child <annotation>.");
+        logError(MissingAnnotationNamespace, getLevel(), getVersion(), 
+          msg + "is missing a namespace on an element in its child <annotation>.");
       }
       msg += "uses a restricted namespace on an element in its child <annotation>.";
       logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);

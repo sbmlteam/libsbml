@@ -63,7 +63,8 @@ START_CONSTRAINT (80501, Compartment, c)
     fail = false;
   }
   else if (c.isSetSpatialDimensions() && c.getSpatialDimensions()==0) {
-    //Compartments with spatialDimensions of 0 should (and, for some levels/versions, *must*) not have a 'size'.
+    //Compartments with spatialDimensions of 0 should 
+    //(and, for some levels/versions, *must*) not have a 'size'.
     fail = false;
   }
   else
@@ -78,7 +79,9 @@ START_CONSTRAINT (80501, Compartment, c)
     {
       fail = false;
     }
-    // Need something like the following to check if the initial value is set by an algebraic rule.  However, there is no 'hasVariable' function for an ASTNode yet.
+    // Need something like the following to check if the initial value is 
+    // set by an algebraic rule.  However, there is no 'hasVariable' 
+    // function for an ASTNode yet.
     /*
     else if (!c.getConstant())
     {
@@ -94,7 +97,9 @@ START_CONSTRAINT (80501, Compartment, c)
     */
     else 
     {
-      msg = "The <compartment> '" + c.getId() + "' does not have a 'size' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.";
+      msg = "The <compartment> '" + c.getId();
+      msg += "' does not have a 'size' attribute, nor is its initial value ";
+      msg += "set by an <initialAssignment> or <assignmentRule>.";
     }
   }
 
@@ -123,7 +128,9 @@ START_CONSTRAINT (80601, Species, s)
     {
       fail = false;
     }
-    // Need something like the following to check if the initial value is set by an algebraic rule.  However, there is no 'hasVariable' function for an ASTNode yet.
+    // Need something like the following to check if the initial value is 
+    // set by an algebraic rule.  However, there is no 'hasVariable' function 
+    // for an ASTNode yet.
     /*
     else if (!s.getConstant())
     {
@@ -139,7 +146,10 @@ START_CONSTRAINT (80601, Species, s)
     */
     else 
     {
-      msg = "The <species> '" + s.getId() + "' does not have an 'initialSize' or 'initialAmount' attribute, nor is its initial value set by an <initialAssignment> or <assignmentRule>.";
+      msg = "The <species> '" + s.getId();
+      msg += "' does not have an 'initialSize' or 'initialAmount' ";
+      msg += "attribute, nor is its initial value set by an <initialAssignment>";
+      msg += "or <assignmentRule>.";
     }
   }
 

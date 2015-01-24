@@ -2078,7 +2078,8 @@ START_CONSTRAINT (99129, KineticLaw, kl)
                  FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);
 
-  msg = "The <kineticLaw> with the formula '" + kl.getFormula() + "' uses one or more undefined functions.";
+  msg = "The <kineticLaw> with the formula '" + kl.getFormula();
+  msg += "' uses one or more undefined functions.";
 
   const Compartment * c;
   const Species * s;
