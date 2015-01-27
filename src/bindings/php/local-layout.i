@@ -75,7 +75,7 @@ SBMLCONSTRUCTOR_EXCEPTION(GeneralGlyph)
  */
 %typemap(out) LineSegment*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
+  SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);  
 }
 
 /**
@@ -83,7 +83,7 @@ SBMLCONSTRUCTOR_EXCEPTION(GeneralGlyph)
  */
 %typemap(out) GraphicalObject*
 {
-  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), $owner | %newpointer_flags);
+  SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);    
 }
 
 #endif

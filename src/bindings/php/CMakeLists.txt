@@ -44,6 +44,16 @@ find_path(PHP_INCLUDE_DIR main/php.h
   /usr/local/apache/php  
 )
 
+if (WIN32)
+find_library(PHP_LIBRARY
+  NAMES libphp5ts.lib php5 php4 libphp
+  PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
+        /usr/lib /usr/local/lib
+        /usr/lib/i386-linux-gnu
+  DOC "The file name of the PHP library."
+)
+endif()
+
 find_program(PHP_EXECUTABLE NAMES php4 php5 php )
 
 ####################################################################
@@ -171,15 +181,21 @@ if (EXTRA_INCLUDE_DIRS)
  include_directories(${EXTRA_INCLUDE_DIRS})
 endif(EXTRA_INCLUDE_DIRS)
 
+if (WIN32)
+  add_definitions(-DZEND_WIN32 -DPHP_WIN32 -DZEND_WIN32_FORCE_INLINE -DZEND_DEBUG=0 -DZTS=1 -D_USE_32BIT_TIME_T=1)
+endif()
 
 add_library(binding_php_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 add_dependencies(binding_php_lib binding_php_swig)
 
 if (NOT UNIX)
-set_target_properties (binding_php_lib PROPERTIES OUTPUT_NAME "libSBML")
+set_target_properties (binding_php_lib PROPERTIES OUTPUT_NAME "php_libSBML")
 else()
 set_target_properties (binding_php_lib PROPERTIES OUTPUT_NAME "SBML")
 endif()
 target_link_libraries(binding_php_lib ${LIBSBML_LIBRARY}-static)
+if (WIN32)
+  target_link_libraries(binding_php_lib ${PHP_LIBRARY})
+endif()
 INSTALL(TARGETS binding_php_lib DESTINATION ${CMAKE_INSTALL_LIBDIR}/php )
 
