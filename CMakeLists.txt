@@ -152,11 +152,12 @@ mark_as_advanced(LIBSBML_USE_LEGACY_MATH)
 # Whether to compile examples
 option(WITH_EXAMPLES "Compile the libSBML example programs."  OFF)
 
-# Which language bindings should be built
+# Which language bindings should be built 
 option(WITH_CSHARP   "Generate the C# language interface for libSBML."     OFF)
 option(WITH_JAVA     "Generate the Java language interface for libSBML."   OFF)
 option(WITH_PYTHON   "Generate the Python language interface for libSBML." OFF)
 option(WITH_PERL     "Generate the Perl language interface for libSBML."   OFF)
+option(WITH_PHP      "Generate the PHP language interface for libSBML."    OFF)
 option(WITH_RUBY     "Generate the Ruby language interface for libSBML"    OFF)
 option(WITH_R        "Generate the R language interface for libSBML"       OFF)
 option(WITH_OCTAVE   "Generate the Octave language interface for libSBML." OFF)
@@ -1183,6 +1184,10 @@ endif()
 
 if(WITH_R)
     message(STATUS "     Using R                         = ${R_INTERPRETER}")
+endif()
+
+if(WITH_PHP)
+    message(STATUS "     Using PHP                       = yes")
 endif()
 
 if(WITH_CHECK)
