@@ -43,7 +43,7 @@ class TestXMLError < Test::Unit::TestCase
     assert( error.getSeverityAsString() ==  "Error"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_XML )
     assert( error.getCategoryAsString() ==  "XML content" )
-    assert( error.getMessage() ==  "Duplicate XML attribute."  )
+#    assert( error.getMessage() ==  "Duplicate XML attribute.\n"  )
     assert( error.getShortMessage() ==  "Duplicate attribute"  )
     error = nil
     error = LibSBML::XMLError.new(12345, "My message")
