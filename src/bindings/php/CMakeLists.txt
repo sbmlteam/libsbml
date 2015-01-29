@@ -185,8 +185,81 @@ if (WIN32)
   add_definitions(-DZEND_WIN32 -DPHP_WIN32 -DZEND_WIN32_FORCE_INLINE -DZEND_DEBUG=0 -DZTS=1 -D_USE_32BIT_TIME_T=1)
 endif()
 
-add_library(binding_php_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+
+set(PHP_BUILD_TYPE SHARED)
+if(APPLE)
+set(PHP_BUILD_TYPE MODULE)
+endif()
+
+
+
+add_library(binding_php_lib ${PHP_BUILD_TYPE} ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 add_dependencies(binding_php_lib binding_php_swig)
+
+
+if(APPLE)
+# this is a hack for now
+set(MORE_FLAGS "-Wl,-flat_namespace")
+foreach(symbol
+__efree
+__emalloc
+__estrdup
+__object_init_ex
+__zend_get_parameters_array_ex
+__zend_list_find
+__zval_copy_ctor
+_add_property_zval_ex
+_alloc_globals
+_compiler_globals
+_convert_to_double
+_convert_to_long
+_zend_error
+_zend_hash_find
+_zend_register_internal_class_ex
+_zend_register_list_destructors_ex
+_zend_register_resource
+_zend_rsrc_list_get_rsrc_type
+_zend_wrong_param_count
+_zval_used_for_init
+_zval_used_for_init
+_zval_is_true
+_zend_wrong_param_count
+_zend_rsrc_list_get_rsrc_type
+_zend_register_stringl_constant
+_zend_register_resource
+_zend_register_long_constant
+_zend_register_list_destructors_ex
+_zend_lookup_class
+_zend_hash_find
+_zend_get_constant
+_zend_error
+_gc_remove_zval_from_buffer
+_executor_globals
+_convert_to_long
+_convert_to_boolean
+_compiler_globals
+_call_user_function
+__zval_copy_ctor_func
+__zend_list_find
+__zend_hash_add_or_update
+__zend_get_parameters_array_ex
+__object_init_ex
+__object_init
+__estrndup
+__emalloc
+__efree
+__convert_to_string
+
+)
+set(MORE_FLAGS
+"${MORE_FLAGS},-U,${symbol}")
+endforeach()
+endif()
+if (APPLE)
+SET_TARGET_PROPERTIES(binding_php_lib
+PROPERTIES LINK_FLAGS "${MORE_FLAGS} ${wl}-flat_namespace ${wl}-undefined ${wl}suppress")
+
+endif()
 
 if (NOT UNIX)
 set_target_properties (binding_php_lib PROPERTIES OUTPUT_NAME "php_libSBML")

@@ -43,6 +43,8 @@
 %ignore std::basic_string<char>::capacity;
 %ignore std::basic_string<char>::reserve;
 
+%rename(sbmlClone) *::clone;
+
 %include <std_string.i>
 
 /**
@@ -50,7 +52,7 @@
  */
 %typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*
 {
-  SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);  
+  SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);
 }
 
 
@@ -115,19 +117,6 @@
 /**
  * Wraps the SBMLConstructorException
  *
- * The SBMLConstructorException (C++ class) is wrapped as the 
- * SBMLConsturctorException (Ruby class) which is derived from
- * the built-in ArgumentError class (Ruby class).
- *
- * For example, the exception can be catched in Ruby code as follows:
- *
- * -------------------------------------------------
- *  begin
- *    s = LibSBML::Compartment.new(level,version)
- *  rescue SBMLConstructorException
- *    errmsg = $! 
- *  end
- * -------------------------------------------------
  */
 
 %exceptionclass SBMLConstructorException;
@@ -196,19 +185,6 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfUnits)
 /**
  * Wraps the XMLConstructorException
  *
- * The XMLConstructorException (C++ class) is wrapped as the 
- * SBMLConsturctorException (Ruby class) which is derived from
- * the built-in ArgumentError class (Ruby class).
- *
- * For example, the exception can be catched in Ruby code as follows:
- *
- * -------------------------------------------------
- *  begin
- *    s = LibSBML::XMLAttributes.new(invalid arguments)
- *  rescue XMLConstructorException
- *    errmsg = $! 
- *  end
- * -------------------------------------------------
  */
 
 %exceptionclass XMLConstructorException;
