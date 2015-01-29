@@ -203,6 +203,7 @@ SBMLNamespaces::getSupportedNamespaces()
   result->add(new SBMLNamespaces(2,2));
   result->add(new SBMLNamespaces(2,3));
   result->add(new SBMLNamespaces(2,4));
+  result->add(new SBMLNamespaces(2,5));
   result->add(new SBMLNamespaces(3,1));
   return result;
 }
