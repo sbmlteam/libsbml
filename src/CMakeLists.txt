@@ -246,6 +246,7 @@ macro(ADD_FUNCTION directory)
 
     file(GLOB temp
             ${prefix}${directory}/*.cpp
+            ${prefix}${directory}/*.cxx
             ${prefix}${directory}/*.c
             ${prefix}${directory}/*.h)
 
@@ -253,17 +254,23 @@ macro(ADD_FUNCTION directory)
     # since they don't contain symbols but rather are included directly.  Could
     # remove them, but that keeps their content from being found in searches, etc.
     # in IDEs such as VisualStudio.
-    if ("${directory}" STREQUAL "validator/constraints")
-      foreach(tempFile ${temp})
-        if ("${tempFile}" MATCHES ".*Constraints.cpp")
+    foreach(tempFile ${temp})
+        if ("${directory}" STREQUAL "validator/constraints")
+            if ("${tempFile}" MATCHES ".*Constraints.cpp")
+              set_source_files_properties(
+                  ${tempFile}
+                  PROPERTIES HEADER_FILE_ONLY true
+                  )
+#              list(REMOVE_ITEM temp "${tempFile}")
+            endif()
+        endif()
+        if ("${tempFile}" MATCHES ".*.cxx")
           set_source_files_properties(
               ${tempFile}
               PROPERTIES HEADER_FILE_ONLY true
               )
-#          list(REMOVE_ITEM temp "${tempFile}")
         endif()
-      endforeach()
-    endif()
+    endforeach()
 
     # create source group for IDEs
     source_group(${directory} FILES ${temp})
