@@ -52,7 +52,7 @@
         </rateRule>
       </listOfRules>
       <comp:listOfPorts>
-        <comp:port comp:id="C_port" comp:metaIdRef="CD"/>
+        <comp:port comp:id="C_port" comp:metaIdRef="p80_m"/>
       </comp:listOfPorts>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>

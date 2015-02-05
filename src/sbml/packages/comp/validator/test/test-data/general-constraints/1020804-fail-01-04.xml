@@ -27,8 +27,8 @@
       </species>
     </listOfSpecies>
     <comp:listOfPorts>
-      <comp:port comp:id="C_port"  comp:unitRef="xyz"/>
-      <comp:port comp:id="C_port"  comp:metaIdRef="__xyz"/>
+      <comp:port comp:id="C_port1"  comp:unitRef="xyz"/>
+      <comp:port comp:id="C_port2"  comp:metaIdRef="__xyz"/>
     </comp:listOfPorts>
     <comp:listOfSubmodels>
       <comp:submodel comp:id="B" comp:modelRef="simple">

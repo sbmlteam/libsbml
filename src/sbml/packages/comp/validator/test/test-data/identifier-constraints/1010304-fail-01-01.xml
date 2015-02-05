@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
   <model>
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="10" constant="false" metaid="CD"/>
+    </listOfCompartments>
     <comp:listOfPorts>
       <comp:port comp:idRef="C" comp:id="1C_port"/>
       </comp:listOfPorts>

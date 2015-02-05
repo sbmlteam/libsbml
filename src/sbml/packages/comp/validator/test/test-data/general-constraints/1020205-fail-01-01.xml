@@ -20,7 +20,7 @@
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>
   <comp:listOfModelDefinitions>
-    <comp:modelDefinition id="Mod1">
+    <comp:modelDefinition id="Mod2">
       <listOfParameters>
         <parameter id="subparam1" constant="true"/>
       </listOfParameters>

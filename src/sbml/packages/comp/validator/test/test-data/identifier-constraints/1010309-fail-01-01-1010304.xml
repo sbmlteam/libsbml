@@ -4,14 +4,14 @@
     <listOfParameters>
       <parameter id="p8" value="8" constant="false">
         <comp:listOfReplacedElements>
-          <comp:replacedElement comp:idRef="p80" comp:submodelRef="sub1" comp:deletion="56DD"/>
+          <comp:replacedElement comp:submodelRef="sub1" comp:deletion="56DD"/>
         </comp:listOfReplacedElements>
       </parameter>
     </listOfParameters>
     <comp:listOfSubmodels>
       <comp:submodel comp:id="sub1" comp:modelRef="moddef1">
         <comp:listOfDeletions>
-          <comp:deletion comp:id="d" comp:metaIdRef="p80_raterule"/>
+          <comp:deletion comp:id="56DD" comp:metaIdRef="p80_raterule"/>
         </comp:listOfDeletions>
       </comp:submodel>
     </comp:listOfSubmodels>

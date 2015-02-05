@@ -37,7 +37,7 @@
         </rateRule>
       </listOfRules>
     <comp:listOfPorts>
-      <comp:port comp:id="port1" comp:metaIdRef="CD"/>
+      <comp:port comp:id="port1" comp:metaIdRef="p80_raterule"/>
     </comp:listOfPorts>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>

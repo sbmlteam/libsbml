@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
   <model>
     <listOfParameters>
-      <parameter id="p8" value="8" constant="false">
+      <parameter id="p8" metaid="p8_m" value="8" constant="false">
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:metaIdRef="p80_m" comp:submodelRef="sub1"/>
         </comp:listOfReplacedElements>

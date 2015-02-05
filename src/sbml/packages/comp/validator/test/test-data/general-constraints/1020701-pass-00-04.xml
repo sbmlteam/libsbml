@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
       xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
-  <model id="complexified">
+  <model id="complexified" substanceUnits="mole" timeUnits="second">
     <listOfCompartments>
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         
       </compartment>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="comp" hasOnlySubstanceUnits="false"
+      <species id="S" compartment="comp" hasOnlySubstanceUnits="false" initialAmount="1"
                boundaryCondition="false" constant="false">
         
       </species>
-      <species id="D" compartment="comp" hasOnlySubstanceUnits="false"
+      <species id="D" compartment="comp" hasOnlySubstanceUnits="false" initialAmount="1"
                boundaryCondition="false" constant="false">
         
       </species>
@@ -88,7 +88,7 @@
         </reaction>
       </listOfReactions>
       <comp:listOfPorts>
-        <comp:port comp:idRef="C1" comp:id="moddef1_C_port"/>
+        <comp:port comp:idRef="J0" comp:id="moddef1_C_port"/>
       </comp:listOfPorts>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>  

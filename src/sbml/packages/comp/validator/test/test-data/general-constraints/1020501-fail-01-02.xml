@@ -12,10 +12,10 @@
       <comp:submodel comp:id="submod1" comp:modelRef="Mod1"/>
     </comp:listOfSubmodels>
     <comp:listOfPorts>
-      <comp:port comp:id="C_port"  comp:idRef="param1"/>
+      <comp:port comp:id="C_port1"  comp:idRef="param1"/>
     </comp:listOfPorts>
     <comp:listOfPorts>
-      <comp:port comp:id="C_port"  comp:idRef="submod1"/>
+      <comp:port comp:id="C_port2"  comp:idRef="submod1"/>
     </comp:listOfPorts>
   </model>
   <comp:listOfModelDefinitions>

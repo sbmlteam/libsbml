@@ -23,6 +23,6 @@
     <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model.xml" comp:modelRef="enzyme"/>
   </comp:listOfExternalModelDefinitions>
   <comp:listOfExternalModelDefinitions>
-    <comp:externalModelDefinition comp:id="ExtMod1" comp:source="enzyme_model.xml" comp:modelRef="enzyme"/>
+    <comp:externalModelDefinition comp:id="ExtMod2" comp:source="enzyme_model.xml" comp:modelRef="enzyme"/>
   </comp:listOfExternalModelDefinitions>
 </sbml>

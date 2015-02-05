@@ -11,7 +11,7 @@
     <comp:listOfSubmodels>
       <comp:submodel comp:id="sub1" comp:modelRef="moddef1">
         <comp:listOfDeletions>
-          <comp:deletion comp:id="d" comp:idRef="p80"/>
+          <comp:deletion comp:id="d" comp:metaIdRef="p80_raterule"/>
         </comp:listOfDeletions>
       </comp:submodel>
     </comp:listOfSubmodels>

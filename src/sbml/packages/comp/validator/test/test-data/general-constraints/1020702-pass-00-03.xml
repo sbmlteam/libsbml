@@ -20,7 +20,7 @@
     <comp:listOfSubmodels>
       <comp:submodel comp:id="B" comp:modelRef="simple">
         <comp:listOfDeletions>
-          <comp:deletion comp:idRef="D"/>
+          <comp:deletion comp:idRef="J0"/>
         </comp:listOfDeletions>
       </comp:submodel>
     </comp:listOfSubmodels>
