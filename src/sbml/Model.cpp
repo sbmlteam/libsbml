@@ -4294,7 +4294,8 @@ Model::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<model>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
 }
 /** @endcond */
@@ -4320,7 +4321,8 @@ Model::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<model>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -4358,7 +4360,8 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<model>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
 
   //
@@ -4376,7 +4379,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The substanceUnits attribute '" + mSubstanceUnits + "' does not conform.");
   }
 
   //
@@ -4389,7 +4392,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mTimeUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The timeUnits attribute '" + mTimeUnits + "' does not conform.");
   }
 
   //
@@ -4402,7 +4405,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mVolumeUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The volumeUnits attribute '" + mVolumeUnits + "' does not conform.");
   }
 
   //
@@ -4415,7 +4418,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mAreaUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The areaUnits attribute '" + mAreaUnits + "' does not conform.");
   }
 
   //
@@ -4428,7 +4431,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mLengthUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The lengthUnits attribute '" + mLengthUnits + "' does not conform.");
   }
 
   //
@@ -4441,7 +4444,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mExtentUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The extentUnits attribute '" + mExtentUnits + "' does not conform.");
   }
 
   //

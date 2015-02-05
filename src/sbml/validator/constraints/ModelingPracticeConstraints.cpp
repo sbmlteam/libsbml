@@ -97,7 +97,7 @@ START_CONSTRAINT (80501, Compartment, c)
     */
     else 
     {
-      msg = "The <compartment> '" + c.getId();
+      msg = "The <compartment> with the id '" + c.getId();
       msg += "' does not have a 'size' attribute, nor is its initial value ";
       msg += "set by an <initialAssignment> or <assignmentRule>.";
     }
@@ -146,9 +146,9 @@ START_CONSTRAINT (80601, Species, s)
     */
     else 
     {
-      msg = "The <species> '" + s.getId();
+      msg = "The <species> with the id '" + s.getId();
       msg += "' does not have an 'initialSize' or 'initialAmount' ";
-      msg += "attribute, nor is its initial value set by an <initialAssignment>";
+      msg += "attribute, nor is its initial value set by an <initialAssignment> ";
       msg += "or <assignmentRule>.";
     }
   }
@@ -166,7 +166,7 @@ START_CONSTRAINT (80701, Parameter, p)
 {
   if(p.isSetId())
   {
-    msg = "Parameter '" + p.getId() + "' does not have a 'units' attribute.";
+    msg = "The <parameter> with the id '" + p.getId() + "' does not have a 'units' attribute.";
   }
   inv(p.isSetUnits() == true);
 }

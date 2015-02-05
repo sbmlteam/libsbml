@@ -1121,7 +1121,8 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -1138,7 +1139,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
   }
 
   //
@@ -1169,7 +1170,8 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // size    { use="optional" }              (L2v1 ->)
@@ -1186,7 +1188,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
   }
 
   //
@@ -1260,8 +1262,13 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
+  string elplusid = "<compartment>";
+  if (!mId.empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
   //
   // size    { use="optional" }              (L2v1 ->)
   //
@@ -1277,7 +1284,9 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, level, version, "The " + elplusid + 
+      " has a substanceUnits with a value of '" + mUnits 
+      + "' which does not conform .");
   }
 
 
@@ -1306,7 +1315,8 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnCompartment, level, version, 
-      "The required attribute 'constant' is missing.");
+      "The required attribute 'constant' is missing from the "
+      + elplusid + ".");
   }
 }
 /** @endcond */

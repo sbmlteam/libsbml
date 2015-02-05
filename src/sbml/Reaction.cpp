@@ -1564,7 +1564,8 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1602,7 +1603,8 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1658,8 +1660,13 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
+  string elplusid = "<reaction>";
+  if (!mId.empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
   //
   // reversible: boolean  { use="required"} (L3v1->)
   //
@@ -1668,7 +1675,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetReversible)
   {
     logError(AllowedAttributesOnReaction, level, version, 
-                "The required attribute 'reversible' is missing.");
+                "The required attribute 'reversible' is missing from the "
+                + elplusid + ".");
   }
 
   //
@@ -1679,7 +1687,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetFast)
   {
     logError(AllowedAttributesOnReaction, level, version, 
-      "The required attribute 'fast' is missing.");
+      "The required attribute 'fast' is missing from the "
+                + elplusid + ".");
   }
 
   //
@@ -1697,7 +1706,8 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalSId(mCompartment)) 
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute compartment='" + mCompartment + "' does not conform.");
+      "The " + elplusid + " has a 'compartment' with a value of '" + mCompartment 
+      + "' which does not conform .");
 }
 /** @endcond */
 

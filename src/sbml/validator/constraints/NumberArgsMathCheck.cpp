@@ -308,8 +308,12 @@ NumberArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " has an inappropriate number of arguments.";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "has an inappropriate number of arguments.";
   safe_free(formula);
 
   return msg.str();

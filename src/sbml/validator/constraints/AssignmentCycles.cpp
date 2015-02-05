@@ -486,21 +486,42 @@ AssignmentCycles::logCycle (const Model& m, std::string id,
 
 void
 AssignmentCycles::logCycle ( const SBase* object,
-                                       const SBase* conflict )
+                             const SBase* conflict )
 {
-  msg = "The ";
-  msg += SBMLTypeCode_toString( object->getTypeCode(), object->getPackageName().c_str());
-  msg += " with id '";
+  msg = "The <";
+  msg += object->getElementName();
+  msg += "> with ";
+  msg += getFieldname(object->getTypeCode());
+  msg += " '";
   msg += object->getId();
-  msg += "' creates a cycle with the ";
-  msg += SBMLTypeCode_toString( conflict->getTypeCode(), object->getPackageName().c_str());
-  msg += " with id '";
+  msg += "' creates a cycle with the <";
+  msg += conflict->getElementName();
+  msg += "> with ";
+  msg += getFieldname(conflict->getTypeCode());
+  msg += " '";
   msg += conflict->getId();
   msg += "'.";
 
   
   logFailure(*object);
 }
+
+const char*
+AssignmentCycles::getFieldname (int typecode)
+{
+  switch(typecode) {
+  case SBML_INITIAL_ASSIGNMENT:
+    return "symbol";
+  case SBML_ASSIGNMENT_RULE:
+  case SBML_RATE_RULE:
+  case SBML_EVENT_ASSIGNMENT:
+    return "variable";
+  default:
+    return "id";
+  }
+}
+
+
 
 void
 AssignmentCycles::logMathRefersToSelf (const Model& m, std::string id)

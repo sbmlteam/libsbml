@@ -136,8 +136,8 @@ QualCSymbolMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the math element of the " << getTypename(object);
-  msg << " uses a csymbol.";
+  msg << "' in the math element of the <" << object.getElementName();
+  msg << "> uses a csymbol.";
   safe_free(formula);
 
   return msg.str();

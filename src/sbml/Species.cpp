@@ -1360,7 +1360,8 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
@@ -1383,7 +1384,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mSubstanceUnits + "' does not conform.");
   }
 
   //
@@ -1420,7 +1421,8 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // compartment: SId    { use="required" }  (L2v1->)
@@ -1442,7 +1444,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The substanceUnits attribute '" + mSubstanceUnits + "' does not conform.");
   }
 
   //
@@ -1489,7 +1491,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
     }
     if (!SyntaxChecker::isValidInternalUnitSId(mSpatialSizeUnits))
     {
-      logError(InvalidUnitIdSyntax);
+      logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The spatialSizeUnits attribute '" + mSpatialSizeUnits + "' does not conform.");
     }
   }
 
@@ -1534,8 +1536,13 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
+  string spplusid = "<species>";
+  if (!mId.empty()) {
+    spplusid += " with the id '" + mId + "'";
+  }
   //
   // compartment: SId    { use="required" }  (L2v1->)
   //
@@ -1544,8 +1551,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   if (!assigned)
   {
     logError(MissingSpeciesCompartment, level, version,
-      "The <species> with id '" + mId + 
-      "' is missing the 'compartment' attribute.");
+      "The " + spplusid + " is missing the 'compartment' attribute.");
   }
 
   //
@@ -1564,7 +1570,9 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, level, version, "The " + spplusid + 
+      " has a substanceUnits with a value of '" + mSubstanceUnits 
+      + "' which does not conform .");
   }
 
   //
@@ -1576,7 +1584,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetBoundaryCondition)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
-             "The required attribute 'boundaryCondition' is missing.");
+             "The required attribute 'boundaryCondition' is missing from the "
+             + spplusid + ".");
   }
 
   //
@@ -1599,7 +1608,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetHasOnlySubstanceUnits)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
-             "The required attribute 'hasOnlySubstanceUnits' is missing.");
+             "The required attribute 'hasOnlySubstanceUnits' is missing from the "
+             + spplusid + ".");
   }
 
   //
@@ -1609,7 +1619,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnSpecies, level, version, 
-             "The required attribute 'constant' is missing.");
+             "The required attribute 'constant' is missing from the "
+             + spplusid + ".");
   }
 
   //
@@ -1623,8 +1634,8 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   if (!SyntaxChecker::isValidInternalSId(mConversionFactor))
   {
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
-      "The syntax of the attribute conversionFactor='" + mConversionFactor 
-      + "' does not conform.");
+      "The " + spplusid + " has a conversionFactor with a value of '" + mConversionFactor 
+      + "' which does not conform .");
   }
 }
 /** @endcond */

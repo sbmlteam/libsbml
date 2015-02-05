@@ -482,7 +482,8 @@ GeneAssociation::readAttributes (const XMLAttributes& attributes,
   {
     logEmptyString(mId, sbmlLevel, sbmlVersion, "<geneAssociation>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidSBMLSId(mId)) 
+    logError(InvalidIdSyntax, sbmlLevel, sbmlVersion, "The id '" + mId + "' does not conform.");
 
   assigned = attributes.readInto("reaction", mReaction, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mReaction.empty())

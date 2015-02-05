@@ -4994,8 +4994,8 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V3 Section 4.8.5",
      "L2V4 Section 4.8.5",
      "L2V5 Section 4.8.5",
-     "L3V1 Section 4.6.5",
-     "L3V2 Section 4.6.5"}
+     "L3V1 Section 4.6.4",
+     "L3V2 Section 4.6.4"}
   },
 
   //20609
@@ -5991,7 +5991,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The XHTML content inside a <constraint>s message element can only take one "
+    "The XHTML content inside a <constraint>'s message element can only take one "
     "of the following general forms: (1) a complete XHTML document beginning "
     "with the element <html> and ending with </html>; (2) the \"body\" portion "
     "of a document beginning with the element <body> and ending with </body>; "
@@ -7598,7 +7598,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "As a principle of best modeling practice, the <species> "
-    "should set an initial value(amount or concentration) rather than be left undefined. Doing so "
+    "should set an initial value (amount or concentration) rather than be left undefined. Doing so "
     "improves the portability of models between different simulation and "
     "analysis systems, and helps make it easier to detect potential errors "
     "in models."

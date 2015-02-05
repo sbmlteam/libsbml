@@ -431,7 +431,8 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
       "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
       "'coulomb' 'hertz' 'litre' 'liter' 'ohm' 'steradian' 'dimensionless' "
       "'item' "
-      "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
+      "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'.  "
+      "A <unitDefinition> with the id '" + ud.getId() + "' is not allowed.";
   }
   else
   {
@@ -444,7 +445,8 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
         "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
         "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+        "A <unitDefinition> with the id '" + ud.getId() + "' is not allowed.";
     }
     else if (ud.getLevel() == 3)
     {
@@ -455,7 +457,8 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
         "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
         "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+        "A <unitDefinition> with the id '" + ud.getId() + "' is not allowed.";
     }
     else
     {
@@ -465,7 +468,8 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
         "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
         "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+        "A <unitDefinition> with the id '" + ud.getId() + "' is not allowed.";
     }
   }
    
@@ -802,12 +806,8 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20410, UnitDefinition, ud)
 {
-  //msg =
-  //  "The value of the 'kind' attribute of a <unit> can only be one of the "
-  //  "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
-  //  "system is not hierarchical and user-defined units cannot be defined "
-  //  "using other user-defined units. (References: L2V2 Section 4.4.2; L2V3 "
-  //  "Section 4.4.2.)";
+  msg = "A <unit> in the <unitDefinition> with the id '"
+    + ud.getId() + "' has a 'kind' attribute not on the list of base units.";
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
@@ -1526,6 +1526,9 @@ START_CONSTRAINT (20806, InitialAssignment, ia)
 
   pre (c != NULL);
 
+  msg = "The <initialAssignment> with symbol '" + ia.getSymbol() +
+    "' references a compartment which has spatialDimensions of 0.";
+
   inv( c->getSpatialDimensions() != 0  );
 
 }
@@ -1799,6 +1802,9 @@ START_CONSTRAINT (20911, AssignmentRule, r)
 
   pre (c != NULL);
 
+  msg = "The <assignmentRule> with variable '" + r.getVariable() +
+    "' references a compartment which has spatialDimensions of 0.";
+
   inv( c->getSpatialDimensions() != 0  );
 
 }
@@ -1819,6 +1825,9 @@ START_CONSTRAINT (20911, RateRule, r)
 
   pre (c != NULL);
 
+  msg = "The <rateRule> with variable '" + r.getVariable() +
+    "' references a compartment which has spatialDimensions of 0.";
+
   inv( c->getSpatialDimensions() != 0  );
 
 }
@@ -1837,7 +1846,11 @@ START_CONSTRAINT (21001, Constraint, c)
   }
   pre( c.isSetMath() );
 
-  msg = "The <constraint> returns a value that is not boolean.";
+  char* formula = SBML_formulaToString(c.getMath());
+  msg = "The <constraint> with the formula '";
+  msg += formula;
+  msg += "' returns a value that is not boolean.";
+  safe_free(formula);
 
   inv( m.isBoolean( c.getMath() ) );
 }
@@ -1901,8 +1914,15 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21111, SpeciesReference, sr)
 {
-  msg =
-    "Species '" + sr.getSpecies() + "' is undefined. ";
+  const SBase* rxn = sr.getAncestorOfType(SBML_REACTION);
+  msg = "The <" + sr.getElementName() + "> ";
+  if (sr.isSetId()) {
+    msg += "with id '" + sr.getId() + "' ";
+  }
+  if (rxn && rxn->isSetId()) {
+    msg += "in the <reaction> with id '" + rxn->getId() + "' ";
+  }
+  msg += "references species '" + sr.getSpecies() + "', which is undefined. ";
 
   inv( m.getSpecies( sr.getSpecies() ) != NULL );
 }

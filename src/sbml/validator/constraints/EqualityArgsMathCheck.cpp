@@ -176,8 +176,12 @@ EqualityArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " uses arguments that should be either both numeric or both boolean.";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "uses arguments that should be either both numeric or both boolean.";
   safe_free(formula);
 
   return msg.str();

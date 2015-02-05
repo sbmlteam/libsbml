@@ -74,6 +74,39 @@ protected:
    * Reactions, and Events.
    */
   virtual void doCheck (const Model& m);
+
+  /**
+   * Returns the error message to use when logging constraint violations.
+   * This method is called by logFailure.
+   *
+   * Returns a message that the given @p id and its corresponding object are
+   * in conflict with an object previously defined.
+   */
+  virtual const std::string
+  getMessage (const std::string& id, const SBase& object);
+
+
+  /**
+   * Returns the fieldname to use when logging constraint violations
+   * ("variable or symbol")
+   *
+   * Should not actually be called, as this constraint has two different 
+   * attributes that could be used.
+   *
+   * @return the fieldname ("variable or symbol") to use when logging constraint
+   * violations.
+   */
+  virtual const char* getFieldname ();
+
+  /**
+   * Returns the fieldname to use when logging constraint violations
+   * ("variable" or "symbol", depending on the type)
+   *
+   * @return the fieldname ("variable" or "symbol") to use when logging constraint
+   * violations, depending on the typecode passed in.  If an unknown code 
+   * is passed in, "variable or symbol" is returned.
+   */
+  virtual const char* getFieldname (int typecode);
 };
 
 LIBSBML_CPP_NAMESPACE_END

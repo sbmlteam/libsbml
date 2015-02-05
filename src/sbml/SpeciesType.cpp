@@ -416,7 +416,8 @@ SpeciesType::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<speciesType>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // name: string  { use="optional" }  (L2v2 ->)

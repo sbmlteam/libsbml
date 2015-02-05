@@ -196,9 +196,9 @@ KineticLawUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the KineticLaw element of the Reaction with id " << object.getId();
-  msg << " produces units that are inconsistent with units of earlier KineticLaw";
-  msg << " elements.";
+  msg << "' in the <kineticLaw> element of the <reaction> with id '" << object.getId();
+  msg << "' produces units that are inconsistent with units of earlier KineticLaw ";
+  msg << "elements.";
   safe_free(formula);
 
   return msg.str();

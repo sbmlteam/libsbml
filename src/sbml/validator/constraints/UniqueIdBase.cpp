@@ -120,9 +120,9 @@ UniqueIdBase::getMessage (const string& id, const SBase& object)
   // Parameter id 'cell' at line 10.
   //
 
-  msg << "  The " << getTypename(object) << " " << getFieldname()
-      << " '" << id << "' conflicts with the previously defined "
-      << getTypename(previous) << ' ' << getFieldname()
+  msg << "  The <" << object.getElementName() << "> " << getFieldname()
+      << " '" << id << "' conflicts with the previously defined <"
+      << previous.getElementName() << "> " << getFieldname()
       << " '" << id << "'";
 
   if (previous.getLine() != 0)

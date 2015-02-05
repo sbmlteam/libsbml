@@ -4318,7 +4318,7 @@ SBase::readAnnotation (XMLInputStream& stream)
     if (mAnnotation != NULL)
     {
         string msg = "An SBML <" + getElementName() + "> element ";
-        if (isSetId()) {
+        if (isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
           msg += "with the id '" + getId() + "' ";
         }
         msg += "has multiple <annotation> children.";
@@ -5088,7 +5088,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
     {
       if (!SyntaxChecker::isValidXMLID(mMetaId))
       {
-        logError(InvalidMetaidSyntax, getLevel(), getVersion());
+        logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform.");
       }
     }
   }
@@ -6054,7 +6054,7 @@ SBase::checkMathMLNamespace(const XMLToken elem)
   }
   if (match == 0)
   {
-    logError(InvalidMathElement);
+    logError(InvalidMathElement, getLevel(), getVersion(), "The MathML namespace 'http://www.w3.org/1998/Math/MathML' was not found.");
   }
 
   return prefix;
@@ -6200,7 +6200,7 @@ SBase::checkAnnotation()
                                                != uri_list.end())
       {
         string msg = "An SBML <" + getElementName() + "> element ";
-        if (isSetId()) 
+        if (isSetId())  //LS DEBUG:  need 'isSetActualId' or something.
         {
           msg += "with the id '" + getId() + "' ";
         }
@@ -6258,7 +6258,7 @@ SBase::checkAnnotation()
       n++;
     }
     string msg = "An SBML <" + getElementName() + "> element ";
-    if (isSetId()) {
+    if (isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
       msg += "with the id '" + getId() + "' ";
     }
     if (match > 0)

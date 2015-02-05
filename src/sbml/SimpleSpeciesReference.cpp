@@ -495,7 +495,8 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("id", level, version, "<speciesReference>");
     }
-    if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+    if (!SyntaxChecker::isValidInternalSId(mId)) 
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
     //
     // name: string  { use="optional" }  (L2v2->)
@@ -520,29 +521,43 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
   //
-  // species: SName   { use="required" }  (L1v2, L2v1->)
-  //
-  bool assigned = attributes.readInto("species" , mSpecies, getErrorLog(), false, getLine(), getColumn());
-  if (!assigned)
-  {
-    if (isModifier())
-      logError(AllowedAttributesOnModifier, 
-                     level, version, "The required attribute 'species' is missing.");
-    else
-      logError(AllowedAttributesOnSpeciesReference, 
-                     level, version, "The required attribute 'species' is missing.");
-  }
- 
-  //
   // id: SId  { use="optional" }  (L2v2->)
   //
-  assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<speciesReference>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+  {
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+  }
 
+  //
+  // species: SName   { use="required" }  (L1v2, L2v1->)
+  //
+  string elplusid = "<" + getElementName() + ">";
+  if (!mId.empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+  SBase* rxn = getAncestorOfType(SBML_REACTION);
+  if (rxn && rxn->isSetId()) 
+  {
+    elplusid += " from the <reaction> with the id '" + rxn->getId() + "'";
+  }
+  assigned = attributes.readInto("species" , mSpecies, getErrorLog(), false, getLine(), getColumn());
+  if (!assigned)
+  {
+    if (isModifier())
+      logError(AllowedAttributesOnModifier, 
+                     level, version, "The required attribute 'species' is missing from the "
+                     + elplusid + ".");
+    else
+      logError(AllowedAttributesOnSpeciesReference, 
+                     level, version, "The required attribute 'species' is missing from the "
+                     + elplusid + ".");
+  }
+ 
   //
   // name: string  { use="optional" }  (L2v2->)
   //

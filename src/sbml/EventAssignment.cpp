@@ -725,7 +725,8 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mVariable)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform.");
 }
 /** @endcond */
 

@@ -1015,6 +1015,15 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
 
+  string elplusid = "<" + getElementName() + ">";
+  if (!mId.empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
+  SBase* rxn = getAncestorOfType(SBML_REACTION);
+  if (rxn && rxn->isSetId()) 
+  {
+    elplusid += " from the <reaction> with the id '" + rxn->getId() + "'";
+  }
   //
   // constant: bool { use="required" } (L3v1 -> )
   //
@@ -1022,7 +1031,8 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   if (!mIsSetConstant && !isModifier())
   {
     logError(AllowedAttributesOnSpeciesReference, level, version, 
-             "The required attribute 'constant' is missing.");
+             "The required attribute 'constant' is missing from the "
+             + elplusid + ".");
   }
 
 }

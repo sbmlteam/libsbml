@@ -74,6 +74,16 @@ protected:
    * Reactions, and Events.
    */
   virtual void doCheck (const Model& m);
+
+  /**
+   * Returns the fieldname to use when logging constraint violations
+   * ("variable")
+   *
+   * @return the fieldname ("variable") to use when logging constraint
+   * violations.
+   */
+  virtual const char* getFieldname ();
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

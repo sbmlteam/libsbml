@@ -173,9 +173,12 @@ FunctionNoArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the ";
-  msg << getTypename(object);
-  msg << " uses the function '" << node.getName() << "' which requires ";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "uses the function '" << node.getName() << "' which requires ";
   msg << "a different number of arguments than the number supplied.";
   safe_free(formula);
 

@@ -1284,7 +1284,8 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
             this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
           }
         }
-        logError(stream, element, BadCsymbolDefinitionURLValue);      
+        logError(stream, element, BadCsymbolDefinitionURLValue, "The <csymbol> definitionURL '" 
+          + url +"' is not allowed for this level and version of SBML.");
       }
     }
     else if (url == URL_TIME)
@@ -1328,7 +1329,8 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
           this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
         }
       }
-      logError(stream, element, BadCsymbolDefinitionURLValue);      
+      logError(stream, element, BadCsymbolDefinitionURLValue, "The <csymbol> definitionURL '" 
+          + url +"' is not allowed for this level and version of SBML.");      
     }
   }
 

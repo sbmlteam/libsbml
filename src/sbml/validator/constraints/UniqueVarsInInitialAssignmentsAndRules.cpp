@@ -107,6 +107,72 @@ UniqueVarsInInitialAssignmentsAndRules::doCheck (const Model& m)
   }  
 }
 
+
+const string
+UniqueVarsInInitialAssignmentsAndRules::getMessage (const string& id, const SBase& object)
+{
+  IdObjectMap::iterator iter = mIdObjectMap.find(id);
+
+
+  if (iter == mIdObjectMap.end())
+  {
+    return
+      "Internal (but non-fatal) Validator error in "
+      "UniqueVarsInInitialAssignmentsAndRules::getMessage().  The SBML object with duplicate id was "
+      "not found when it came time to construct a descriptive error message.";
+  }
+
+
+  ostringstream msg;
+  const SBase&  previous = *(iter->second);
+
+
+  //msg << getPreamble();
+
+  //
+  // Example message: 
+  //
+  // The Compartment id 'cell' conflicts with the previously defined
+  // Parameter id 'cell' at line 10.
+  //
+
+  msg << "  The <" << object.getElementName() << "> " << getFieldname(object.getTypeCode())
+      << " '" << id << "' conflicts with the previously defined <"
+      << previous.getElementName() << "> " << getFieldname(previous.getTypeCode())
+      << " '" << id << "'";
+
+  if (previous.getLine() != 0)
+  {
+    msg << " at line " << previous.getLine();
+  }
+
+  msg << '.';
+
+  return msg.str();
+}
+
+const char*
+UniqueVarsInInitialAssignmentsAndRules::getFieldname ()
+{
+  return "variable or symbol";
+}
+
+
+const char*
+UniqueVarsInInitialAssignmentsAndRules::getFieldname (int typecode)
+{
+  switch(typecode) {
+  case SBML_INITIAL_ASSIGNMENT:
+    return "symbol";
+  case SBML_ASSIGNMENT_RULE:
+    return "variable";
+  default:
+    return "variable or symbol";
+  }
+}
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

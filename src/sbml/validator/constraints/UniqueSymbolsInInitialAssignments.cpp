@@ -92,6 +92,19 @@ UniqueSymbolsInInitialAssignments::doCheck (const Model& m)
   for (n = 0; n < size; ++n) checkId( *m.getInitialAssignment(n) );
 }
 
+/*
+ * @return the fieldname to use logging constraint violations.  If not
+ * overridden, "id" is returned.
+ */
+const char*
+UniqueSymbolsInInitialAssignments::getFieldname ()
+{
+  return "symbol";
+}
+
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

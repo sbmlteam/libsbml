@@ -107,6 +107,9 @@ START_CONSTRAINT (20217, Model, x)
   pre( m.getLevel() > 2);
   pre( m.isSetTimeUnits());
 
+  msg = "The 'timeUnits' attribute of the <model> is '" + m.getTimeUnits()
+    + "', which does not comply.";
+
   const string&         units = m.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
@@ -123,6 +126,9 @@ START_CONSTRAINT (20218, Model, x)
   // level 3
   pre( m.getLevel() > 2);
   pre( m.isSetVolumeUnits());
+
+  msg = "The 'volumeUnits' attribute of the <model> is '" + m.getVolumeUnits()
+    + "', which does not comply.";
 
   const string&         units = m.getVolumeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -141,6 +147,9 @@ START_CONSTRAINT (20219, Model, x)
   pre( m.getLevel() > 2);
   pre( m.isSetAreaUnits());
 
+  msg = "The 'areaUnits' attribute of the <model> is '" + m.getAreaUnits()
+    + "', which does not comply.";
+
   const string&         units = m.getAreaUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
@@ -156,6 +165,9 @@ START_CONSTRAINT (20220, Model, x)
   // level 3
   pre( m.getLevel() > 2);
   pre( m.isSetLengthUnits());
+
+  msg = "The 'lengthUnits' attribute of the <model> is '" + m.getLengthUnits()
+    + "', which does not comply.";
 
   const string&         units = m.getLengthUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -173,6 +185,9 @@ START_CONSTRAINT (20221, Model, x)
   // level 3
   pre( m.getLevel() > 2);
   pre( m.isSetExtentUnits());
+
+  msg = "The 'extentUnits' attribute of the <model> is '" + m.getExtentUnits()
+    + "', which does not comply.";
 
   const string&         units = m.getExtentUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -263,7 +278,8 @@ START_CONSTRAINT (20608, Species, s)
       "of the following: 'substance', "
       "or the identifier of a <unitDefinition> derived from "
       "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-      "of '1').";
+      "of '1').  The current value ('" + s.getSubstanceUnits() + "') is "
+      "not allowed.";
   }
   else if (s.getLevel() == 2)
   {
@@ -274,7 +290,8 @@ START_CONSTRAINT (20608, Species, s)
         "of the following: 'substance', 'mole' or 'item' "
         "or the identifier of a <unitDefinition> derived from "
         "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-        "of '1').";
+        "of '1').  The current value ('" + s.getSubstanceUnits() + "') is "
+      "not allowed.";
     }
     else
     {
@@ -284,18 +301,21 @@ START_CONSTRAINT (20608, Species, s)
         "'dimensionless', or the identifier of a <unitDefinition> derived from "
         "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
         ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
-        "of '1'), or 'dimensionless'.";
+        "of '1'), or 'dimensionless'.  The current value ('" + s.getSubstanceUnits() 
+        + "') is not allowed.";
     }
   }
   else
   {
     msg =
       "The value of a <species>'s 'substanceUnits' attribute can only be one "
-      "of the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
+      "of the following: 'mole', 'item', 'gram', 'kilogram', "
       "'dimensionless', 'avogadro' or the identifier of a <unitDefinition> derived from "
       "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
       ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
-      "of '1'), 'avogadro' (with an 'exponent' of '1') or 'dimensionless'.";
+      "of '1'), 'avogadro' (with an 'exponent' of '1') or 'dimensionless'.  The "
+      "current value ('" + s.getSubstanceUnits() + "') is "
+      "not allowed.";
   }
 
   const string&         units = s.getSubstanceUnits();
@@ -342,6 +362,8 @@ START_CONSTRAINT (20701, Parameter, p)
 {
   pre( p.isSetUnits() );
 
+  msg = "The 'units' attribute of the <parameter> is '" + p.getUnits() 
+    + "', which does not comply.";
   //msg =
   //  "The 'units' in a <parameter> definition must be a value chosen from "
   //  "among the following: a value from the 'UnitKind' enumeration (e.g., "
@@ -364,6 +386,8 @@ START_CONSTRAINT (99130, Model, x)
   pre( m.getLevel() > 2);
   pre( m.isSetSubstanceUnits());
 
+  msg = "The 'substanceUnits' attribute of the <model> is '" + m.getSubstanceUnits() 
+    + "', which does not comply.";
   const string&         units = m.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
@@ -719,7 +743,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
       "the units of the rule's right-hand side must be consistent with the "
       "units of that <compartment>'s volume. Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
+    msg += " but the units returned by the <compartmentVolumeRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -727,7 +752,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += " but the units returned by the <assignmentRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -788,7 +814,8 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
       "the units of the rule's right-hand side must be consistent with the "
       "units of that <species> quantity. Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
+    msg += " but the units returned by the <speciesConcentrationRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -796,7 +823,8 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += " but the units returned by the <assignmentRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -867,7 +895,8 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
       "the units of the rule's right-hand side must be consistent with the "
       "units declared for that <parameter>. Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <parameterRule>'s formula are ";
+    msg += " but the units returned by the <parameterRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -875,7 +904,8 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+    msg += " but the units returned by the <assignmentRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -913,7 +943,8 @@ START_CONSTRAINT (10514, AssignmentRule, ar)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <assignmentRule>'s <math> expression are ";
+  msg += " but the units returned by the <assignmentRule> with variable '";
+    msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -956,7 +987,8 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <initialAssignment> with symbol '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1000,7 +1032,8 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <initialAssignment> with symbol '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1042,7 +1075,8 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <initialAssignment> with symbol '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1079,7 +1113,8 @@ START_CONSTRAINT (10524, InitialAssignment, ia)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <initialAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <initialAssignment> with symbol '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -1151,7 +1186,8 @@ START_CONSTRAINT (10531, RateRule, rr)
     "for the compartment volume) the default units for that compartment, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
+    msg += " but the units returned by the <compartmentVolumeRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1159,7 +1195,8 @@ START_CONSTRAINT (10531, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += " but the units returned by the <rateRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1227,7 +1264,8 @@ START_CONSTRAINT (10532, RateRule, rr)
     "time_, where _x_ is the units of that species' quantity, and _time_ "
     "refers to the units of time for the model. Expected units are ";    
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
+    msg += " but the units returned by the <speciesConcentrationRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1235,7 +1273,8 @@ START_CONSTRAINT (10532, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += " but the units returned by the <rateRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1314,7 +1353,8 @@ START_CONSTRAINT (10533, RateRule, rr)
     "time_, where _x_ is the 'units' in that <parameter> definition, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <parameterRule>'s formula are ";
+    msg += " but the units returned by the <parameterRule> with variable '";
+    msg += variable + "'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1322,7 +1362,8 @@ START_CONSTRAINT (10533, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule>'s <math> expression are ";
+    msg += " but the units returned by the <rateRule> with variable '";
+    msg += variable + "'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1365,7 +1406,8 @@ START_CONSTRAINT (10534, RateRule, rr)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless per time";
-  msg += " but the units returned by the <rateRule>'s <math> expression are ";
+  msg += " but the units returned by the <rateRule> with variable '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -1405,6 +1447,7 @@ START_CONSTRAINT (10541, KineticLaw, kl)
     || (variableUnits->getContainsUndeclaredUnits() &&
         variableUnits->getCanIgnoreUndeclaredUnits()));
 
+  const SBase* rxn = kl.getAncestorOfType(SBML_REACTION);
   if (m.getLevel() > 2)
   {
   msg =
@@ -1416,7 +1459,11 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   msg =  "Expected units are ";
   }
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <kineticLaw>'s <math> expression are ";
+  msg += " but the units returned by the <kineticLaw>'s <math> expression ";
+  if (rxn && rxn->isSetId()) {
+    msg += "(from the <reaction> with id '" + rxn->getId() + "') ";
+  }
+  msg += "are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1496,7 +1543,11 @@ START_CONSTRAINT (10551, Event, e)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(formulaUnits->getEventTimeUnitDefinition());
-  msg += " but the units returned by the <event>'s <delay> are ";
+  msg += " but the units returned by the <event>";
+  if (e.isSetId()) {
+    msg += " with id '" + e.getId();
+  }
+  msg += "'s <delay> are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1541,9 +1592,15 @@ START_CONSTRAINT (10561, EventAssignment, ea)
     || (formulaUnits->getContainsUndeclaredUnits() &&
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
+  const SBase* e = ea.getAncestorOfType(SBML_EVENT);
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <eventAssignment> with variable '";
+  msg += variable;
+  if (e && e->isSetId()) {
+    msg += "' from the <event> with id '" + e->getId();
+  }
+  msg += "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1590,7 +1647,8 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <eventAssignment> with variable '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1635,7 +1693,8 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <eventAssignment> with variable '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1674,7 +1733,8 @@ START_CONSTRAINT (10564, EventAssignment, ea)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <eventAssignment>'s <math> expression are ";
+  msg += " but the units returned by the <eventAssignment> with variable '";
+  msg += variable + "'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -1758,6 +1818,11 @@ START_CONSTRAINT (20616, Species, s)
   pre( s.getLevel() > 2);
   pre( !(s.isSetSubstanceUnits()));
 
+  msg = "The <species> ";
+  if (s.isSetId()) {
+    msg += "with id '" + s.getId() + "' ";
+  }
+  msg += "does not have a substanceUnits attribute, nor does its enclosing <model>.";
   inv( m.isSetSubstanceUnits());
 }
 END_CONSTRAINT
@@ -1767,6 +1832,11 @@ START_CONSTRAINT (20702, Parameter, p)
 {
   pre( p.getLevel() > 2 );
 
+  msg = "The <parameter> ";
+  if (p.isSetId()) {
+    msg += "with id '" + p.getId() + "' ";
+  }
+  msg += "does not have a 'units' attribute.";
   inv( p.isSetUnits() );
 }
 END_CONSTRAINT

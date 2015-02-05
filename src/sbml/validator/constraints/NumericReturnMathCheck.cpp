@@ -169,8 +169,12 @@ NumericReturnMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " does not return a numeric result.";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "does not return a numeric result.";
   safe_free(formula);
 
   return msg.str();

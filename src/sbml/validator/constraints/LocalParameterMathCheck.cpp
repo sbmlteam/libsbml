@@ -184,9 +184,12 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   //msg << getPreamble();
 
-  msg << "The formula '";
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " uses '" << node.getName() << "' that is the id of a local parameter.";
+  msg << "The <" << getFieldname() << "> element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "uses '" << node.getName() << "' that is the id of a local parameter.";
 
   return msg.str();
 }

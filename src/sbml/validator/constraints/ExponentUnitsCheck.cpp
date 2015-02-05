@@ -284,8 +284,12 @@ ExponentUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " produces an exponent that is not an integer and thus may produce ";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "produces an exponent that is not an integer and thus may produce ";
   msg << "invalid units.";
   safe_free(formula);
 
@@ -301,9 +305,12 @@ ExponentUnitsCheck::logRationalPowerConflict (const ASTNode & node,
   msg += formula;
   msg += "' in the ";
   msg += getFieldname();
-  msg += " element of the " ;
-  msg += getTypename(sb);
-  msg += " contains a rational power that is inconsistent and thus may produce ";
+  msg += " element of the <" + sb.getElementName();
+  msg += "> ";
+  if (sb.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg + "with id '" + sb.getId() + "' ";
+  }
+  msg += "contains a rational power that is inconsistent and thus may produce ";
   msg += "invalid units.";
   safe_free(formula);
 
@@ -320,9 +327,12 @@ ExponentUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node,
   msg += formula;
   msg += "' in the ";
   msg += getFieldname();
-  msg += " element of the " ;
-  msg += getTypename(sb);
-  msg += " contains a root that is not an integer and thus may produce ";
+  msg += " element of the <" + sb.getElementName();
+  msg += "> ";
+  if (sb.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg + "with id '" + sb.getId() + "' ";
+  }
+  msg += "contains a root that is not an integer and thus may produce ";
   msg += "invalid units.";
   safe_free(formula);
 

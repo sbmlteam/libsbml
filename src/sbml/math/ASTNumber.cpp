@@ -2548,7 +2548,8 @@ ASTNumber::read(XMLInputStream& stream, const std::string& reqd_prefix)
     }
     else
     {
-      logError(stream, element, DisallowedMathTypeAttributeValue);      
+      logError(stream, element, DisallowedMathTypeAttributeValue, "The <cn> type '" 
+          + type +"' is not allowed for this level and version of SBML."); 
       //for (unsigned int i = 0; i < getNumPlugins(); i++)
       //{
       //  read = getPlugin(i)->read(stream, reqd_prefix);

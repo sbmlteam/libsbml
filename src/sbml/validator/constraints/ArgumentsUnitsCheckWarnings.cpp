@@ -221,8 +221,12 @@ ArgumentsUnitsCheckWarnings::getMessage (const ASTNode& node, const SBase& objec
 
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " produces an exponent that is not an integer and thus may produce ";
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "produces an exponent that is not an integer and thus may produce ";
   msg << "invalid units.";
   safe_free(formula);
 
@@ -240,8 +244,11 @@ ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node,
   char * formula = SBML_formulaToString(&node);
   msg = "The formula '";
   msg += formula;
-  msg += "' in the math element of the ";
-  msg += getTypename(sb);
+  msg += "' in the math element of the <" + sb.getElementName();
+  msg += "> ";
+  if (sb.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg + "with id '" + sb.getId() + "' ";
+  }
   msg += " uses a function";
   msg += " which can only act on dimensionless variables.";
   safe_free(formula);

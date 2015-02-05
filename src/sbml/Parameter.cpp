@@ -809,7 +809,8 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // value: double  { use="required" }  (L1v2)
@@ -834,7 +835,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
   }
 }
 /** @endcond */
@@ -861,7 +862,8 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // value: double  { use="optional" }  (L1v2->)
@@ -878,7 +880,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
   }
 
   //
@@ -936,8 +938,13 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
+  string elplusid = "<" + getElementName() + ">";
+  if (!mId.empty()) {
+    elplusid += " with the id '" + mId + "'";
+  }
   //
   // value: double  { use="optional" }  (L1v2->)
   //
@@ -953,7 +960,9 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax);
+    logError(InvalidUnitIdSyntax, level, version, "The " + elplusid + 
+      " has a substanceUnits with a value of '" + mUnits 
+      + "' which does not conform .");
   }
 
   //
@@ -968,7 +977,8 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
     if (!mIsSetConstant)
     {
       logError(AllowedAttributesOnParameter, level, version, 
-        "The required attribute 'constant' is missing.");
+        "The required attribute 'constant' is missing from the "
+             + elplusid + ".");
     }
   }
 }

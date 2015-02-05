@@ -109,6 +109,16 @@ protected:
   void logCycle (const Model& m, std::string id, std::string id1);
   
   
+  /**
+   * Returns the fieldname to use when logging constraint violations
+   * ("variable" or "symbol", depending on the type)
+   *
+   * @return the fieldname ("variable" or "symbol") to use when logging constraint
+   * violations, depending on the typecode passed in.  If an unknown code 
+   * is passed in, "variable or symbol" is returned.
+   */
+  virtual const char* getFieldname (int typecode);
+
   void logMathRefersToSelf (const ASTNode * node,
                                              const SBase* object);
   

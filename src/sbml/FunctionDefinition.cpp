@@ -798,7 +798,8 @@ FunctionDefinition::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<functionDefinition>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -842,7 +843,8 @@ FunctionDefinition::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<functionDefinition>");
   }
-  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) 
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)

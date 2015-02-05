@@ -174,9 +174,13 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
 
   char * left = SBML_formulaToString(node.getLeftChild());
   msg << "The piecewise formula ";
-  msg << "in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " returns arguments" ;
-  msg << " which have different value types from the first element '";
+  msg << "in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
+  msg << "returns arguments " ;
+  msg << "which have different value types from the first element '";
   msg << left << "'."; 
   safe_free(left);
 

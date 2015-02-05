@@ -199,11 +199,17 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
   //msg << getPreamble();
   char * formula = SBML_formulaToString(&node);
   msg << "The formula '" << formula;
-  msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
+  msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
+  msg << "> ";
+  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
+    msg << "with id '" << object.getId() << "' ";
+  }
   if (object.getLevel() == 2 && object.getVersion() == 1)
-    msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";
+    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter.";
+  else if (object.getLevel() < 3)
+    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
   else
-    msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
+    msg << "uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction/speciesReference.";
   safe_free(formula);
 
   return msg.str();

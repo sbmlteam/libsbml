@@ -116,6 +116,13 @@ UniqueVarsInEventsAndRules::doCheck (const Model& m)
   }  
 }
 
+const char*
+UniqueVarsInEventsAndRules::getFieldname ()
+{
+  return "variable";
+}
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 /** @endcond */

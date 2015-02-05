@@ -508,7 +508,7 @@ START_CONSTRAINT(10701, Model, m1)
     pre( m1.getVersion() > 1);
   }
   pre(m1.isSetSBOTerm());
-  msg = "SBO term '" + m1.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + m1.getSBOTermID() + "' on the <model> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <model> must be an SBO "
@@ -538,7 +538,7 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
     pre( fd.getVersion() > 1);
   }
   pre(fd.isSetSBOTerm());
-  msg = "SBO term '" + fd.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + fd.getSBOTermID() + "' on the <functionDefinition> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <functionDefinition> must be "
@@ -561,7 +561,7 @@ START_CONSTRAINT(10703, Parameter, p)
   }
   pre(p.isSetSBOTerm());
   pre(p.getTypeCode() == SBML_PARAMETER);
-  msg = "SBO term '" + p.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + p.getSBOTermID() + "' on the <parameter> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <parameter> must be an "
@@ -583,7 +583,7 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
     pre( ia.getVersion() > 1);
   }
   pre(ia.isSetSBOTerm());
-  msg = "SBO term '" + ia.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + ia.getSBOTermID() + "' on the <initialAssignment> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <initialAssignment> must "
@@ -605,7 +605,7 @@ START_CONSTRAINT(10705, AssignmentRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
-  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + r.getSBOTermID() + "' on the <assignmentRule> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -627,7 +627,7 @@ START_CONSTRAINT(10705, RateRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
-  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + r.getSBOTermID() + "' on the <rateRule> is not in the appropriate branch.";
 
   //msg = 
     //"The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -649,7 +649,7 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
-  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + r.getSBOTermID() + "' on the <algebraicRule> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a rule must be an SBO identifier "
@@ -671,7 +671,7 @@ START_CONSTRAINT(10706, Constraint, c)
     pre( c.getVersion() > 1);
   }
   pre(c.isSetSBOTerm());
-  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + c.getSBOTermID() + "' on the <constraint> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <constraint> must be an SBO "
@@ -693,7 +693,7 @@ START_CONSTRAINT(10707, Reaction, r)
     pre( r.getVersion() > 1);
   }
   pre(r.isSetSBOTerm());
-  msg = "SBO term '" + r.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + r.getSBOTermID() + "' on the <reaction> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <reaction> must be an SBO "
@@ -721,7 +721,7 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
     pre( sr.getVersion() > 1);
   }
   pre(sr.isSetSBOTerm());
-  msg = "SBO term '" + sr.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + sr.getSBOTermID() + "' on the <speciesReference> is not in the appropriate branch.";
 
    //msg = 
    //  "The value of the 'sboTerm' attribute on a <speciesReference> "
@@ -755,7 +755,7 @@ START_CONSTRAINT(10709, KineticLaw, kl)
     pre( kl.getVersion() > 1);
   }
   pre(kl.isSetSBOTerm());
-  msg = "SBO term '" + kl.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + kl.getSBOTermID() + "' on the <kineticLaw> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <kineticLaw> must be an SBO "
@@ -776,7 +776,7 @@ START_CONSTRAINT(10710, Event, e)
     pre( e.getVersion() > 1);
   }
   pre(e.isSetSBOTerm());
-  msg = "SBO term '" + e.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + e.getSBOTermID() + "' on the <event> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <event> must be an SBO "
@@ -804,7 +804,7 @@ START_CONSTRAINT(10711, EventAssignment, ea)
     pre( ea.getVersion() > 1);
   }
   pre(ea.isSetSBOTerm());
-  msg = "SBO term '" + ea.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + ea.getSBOTermID() + "' on the <eventAssignment> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on an <eventAssignment> must be an "
@@ -826,7 +826,7 @@ START_CONSTRAINT(10712, Compartment, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
-  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + c.getSBOTermID() + "' on the <compartment> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <compartment> must be an SBO "
@@ -854,7 +854,7 @@ START_CONSTRAINT(10713, Species, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
-  msg = "SBO term '" + s.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + s.getSBOTermID() + "' on the <species> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <species> must be an SBO "
@@ -882,7 +882,7 @@ START_CONSTRAINT(10714, CompartmentType, c)
     pre( c.getVersion() > 2);
   }
   pre(c.isSetSBOTerm());
-  msg = "SBO term '" + c.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + c.getSBOTermID() + "' on the <compartmentType> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <compartmentType> must be an SBO "
@@ -910,7 +910,7 @@ START_CONSTRAINT(10715, SpeciesType, s)
     pre( s.getVersion() > 2);
   }
   pre(s.isSetSBOTerm());
-  msg = "SBO term '" + s.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + s.getSBOTermID() + "' on the <speciesType> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <speciesType> must be an SBO "
@@ -938,7 +938,7 @@ START_CONSTRAINT(10716, Trigger, t)
     pre( t.getVersion() > 2);
   }
   pre(t.isSetSBOTerm());
-  msg = "SBO term '" + t.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + t.getSBOTermID() + "' on the <trigger> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <trigger> must be an SBO "
@@ -959,7 +959,7 @@ START_CONSTRAINT(10717, Delay, d)
     pre( d.getVersion() > 2);
   }
   pre(d.isSetSBOTerm());
-  msg = "SBO term '" + d.getSBOTermID() + "' is not in the appropriate branch.";
+  msg = "SBO term '" + d.getSBOTermID() + "' on the <delay> is not in the appropriate branch.";
 
   //msg = 
   //  "The value of the 'sboTerm' attribute on a <delay> must be an SBO "
