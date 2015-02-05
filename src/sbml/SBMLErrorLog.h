@@ -333,7 +333,7 @@ public:
    *
    * @param errorId the error identifier of the error to be found.
    */
-  bool contains (const unsigned int errorId);
+  bool contains (const unsigned int errorId) const;
 
 
   /** @endcond */

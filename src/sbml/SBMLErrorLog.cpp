@@ -275,9 +275,9 @@ SBMLErrorLog::removeAll (const unsigned int errorId)
 
 
 bool
-SBMLErrorLog::contains (const unsigned int errorId)
+SBMLErrorLog::contains (const unsigned int errorId) const
 {
-  vector<XMLError*>::iterator iter;
+  vector<XMLError*>::const_iterator iter;
 
   // finds an item with the given errorId (the first item will be found if
   // there are two or more items with the same Id)
