@@ -97,7 +97,10 @@ static XMLErrorCode_t expatErrorTable[] = {
   XMLUnknownError,          // ERROR_NOT_SUSPENDED
   XMLUnknownError,          // ERROR_ABORTED
   XMLUnknownError,          // ERROR_FINISHED
-  XMLUnknownError           // ERROR_SUSPEND_PE
+  XMLUnknownError,          // ERROR_SUSPEND_PE
+  BadXMLPrefixValue,        // XML_ERROR_RESERVED_PREFIX_XML
+  BadXMLPrefixValue,        // XML_ERROR_RESERVED_PREFIX_XMLNS
+  BadXMLPrefixValue         // XML_ERROR_RESERVED_NAMESPACE_URI
 };
 
 
