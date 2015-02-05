@@ -3,7 +3,7 @@
       xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" comp:required="true">
   <model id="complexified">
     <listOfCompartments>
-      <compartment id="comp" spatialDimensions="3" size="1" constant="true">
+      <compartment id="comp" metaid="comp_m" spatialDimensions="3" size="1" constant="true">
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:metaIdRef="_C" comp:submodelRef="B"/>
         </comp:listOfReplacedElements>

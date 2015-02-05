@@ -21,7 +21,7 @@
       <comp:submodel comp:id="B" comp:modelRef="simple">
         <comp:listOfDeletions>
           <comp:deletion comp:idRef="sub1">
-            <comp:sBaseRef comp:metaIdRef="_CC"/>
+            <comp:sBaseRef comp:portRef="moddef1_J0_port"/>
           </comp:deletion>
         </comp:listOfDeletions>
       </comp:submodel>
@@ -88,7 +88,7 @@
         </reaction>
       </listOfReactions>
       <comp:listOfPorts>
-        <comp:port comp:idRef="J0" comp:id="moddef1_C_port"/>
+        <comp:port comp:idRef="J0" comp:id="moddef1_J0_port"/>
       </comp:listOfPorts>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>  

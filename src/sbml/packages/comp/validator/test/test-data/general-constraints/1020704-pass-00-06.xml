@@ -11,7 +11,7 @@
       </compartment>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S1" compartment="C" initialAmount="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+      <species id="S1" metaid="S1_m" compartment="C" initialAmount="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
         <comp:listOfReplacedElements>
           <comp:replacedElement comp:idRef="moddef3_sub2" comp:submodelRef="sub3">
             <comp:sBaseRef comp:idRef="moddef2_sub1">
