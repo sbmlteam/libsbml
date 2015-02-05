@@ -142,7 +142,7 @@ TestValidator::test (const TestFile& file)
       unsigned int match = 0;
       for (unsigned int i = 0; i < ids.size(); i++)
       {
-        if (ids.at(i) == others)
+        if (others != 0 && ids.at(i) == others)
         {
           match = 1;
         }
