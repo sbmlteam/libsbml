@@ -69,19 +69,22 @@ SBMLExtension::SBMLExtension ()
  * Copy constructor.
  */
 SBMLExtension::SBMLExtension(const SBMLExtension& orig)
- : mIsEnabled(orig.mIsEnabled)
- , mSupportedPackageURI(orig.mSupportedPackageURI)
-#ifndef LIBSBML_USE_LEGACY_MATH
- , mASTBasePlugin(NULL)
-#endif
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  if (orig.mASTBasePlugin != NULL) {
-    mASTBasePlugin = orig.mASTBasePlugin->clone();
+  if (&orig != NULL)
+  {
+    mIsEnabled = orig.mIsEnabled;
+    mSupportedPackageURI = orig.mSupportedPackageURI;
+
+  #ifndef LIBSBML_USE_LEGACY_MATH
+    mASTBasePlugin = NULL;
+    if (orig.mASTBasePlugin != NULL) 
+    {
+      mASTBasePlugin = orig.mASTBasePlugin->clone();
+    }
+  #endif
+    for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
+      mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
   }
-#endif
-  for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
-    mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
 }
 
 
@@ -104,22 +107,25 @@ SBMLExtension::~SBMLExtension ()
 SBMLExtension& 
 SBMLExtension::operator=(const SBMLExtension& orig)
 {  
-  mIsEnabled = orig.mIsEnabled; 
-  mSupportedPackageURI = orig.mSupportedPackageURI; 
+  if (&orig != NULL && &orig != this)
+  {
+    mIsEnabled = orig.mIsEnabled; 
+    mSupportedPackageURI = orig.mSupportedPackageURI; 
 
-#ifndef LIBSBML_USE_LEGACY_MATH
-  mASTBasePlugin = NULL;
-  if (orig.mASTBasePlugin != NULL) {
-    mASTBasePlugin = orig.mASTBasePlugin->clone();
+  #ifndef LIBSBML_USE_LEGACY_MATH
+    mASTBasePlugin = NULL;
+    if (orig.mASTBasePlugin != NULL) {
+      mASTBasePlugin = orig.mASTBasePlugin->clone();
+    }
+  #endif /* LIBSBML_USE_LEGACY_MATH */
+
+    for (size_t i=0; i < mSBasePluginCreators.size(); i++)
+      delete mSBasePluginCreators[i];
+
+    for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
+      mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
+
   }
-#endif /* LIBSBML_USE_LEGACY_MATH */
-
-  for (size_t i=0; i < mSBasePluginCreators.size(); i++)
-    delete mSBasePluginCreators[i];
-
-  for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
-    mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
-
   return *this;
 }
 

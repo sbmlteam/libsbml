@@ -176,6 +176,44 @@ START_TEST(test_SBMLExtension_reenable)
 }
 END_TEST
 
+START_TEST (test_SBMLExtension_copy)
+{
+	string uri = TestExtension::getXmlnsL3V1V1();
+	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+	fail_unless(ext != NULL );
+	fail_unless(ext->getURI(3, 1, 1) == uri);
+	fail_unless(ext->getURI(300, 100, 100) == "");
+
+	// test copy
+  TestExtension *copy = new TestExtension(*ext);
+	fail_unless(copy != NULL );
+	fail_unless(copy->getURI(3, 1, 1) == uri);
+
+  // test assignment
+  TestExtension *assign = new TestExtension();
+  (*assign) = *ext;
+	fail_unless(assign != NULL );
+	fail_unless(assign->getURI(3, 1, 1) == uri);
+
+  // test NULL copy
+  TestExtension *ext1 = NULL;
+  TestExtension *copy1 = new TestExtension(*ext1);
+	fail_unless(copy1->getNumOfSupportedPackageURI() == 0 );
+
+  // test NULL assign
+  TestExtension *assign1 = new TestExtension();
+  (*assign1) = *ext1;
+	fail_unless(assign1->getNumOfSupportedPackageURI() == 0 );
+
+	delete ext;
+  delete copy;
+  delete assign;
+  delete copy1;
+  delete assign1;
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLExtension (void)
 {
@@ -185,6 +223,7 @@ create_suite_SBMLExtension (void)
   tcase_add_test( tcase, test_SBMLExtension );
   tcase_add_test( tcase, test_SBMLExtension_c_api );
   tcase_add_test( tcase, test_SBMLExtension_reenable );
+  tcase_add_test( tcase, test_SBMLExtension_copy );
   
   suite_add_tcase(suite, tcase);
 
