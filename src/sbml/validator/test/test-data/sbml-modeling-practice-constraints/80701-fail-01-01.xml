@@ -10,7 +10,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p1" value="2" units="metre"/>
-      <parameter id="p2" constant="false"/>
+      <parameter id="p2" constant="false" value="2"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="S2">

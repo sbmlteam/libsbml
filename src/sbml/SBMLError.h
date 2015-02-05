@@ -746,6 +746,7 @@ typedef enum
 , CompartmentShouldHaveSize             = 80501 /*!< It's best to define a size for every compartment in a model. */
 , SpeciesShouldHaveValue                = 80601 /*!< It's best to define an initial amount or initial concentration for every species in a model. */
 , ParameterShouldHaveUnits              = 80701 /*!< It's best to declare units for every parameter in a model. */
+, ParameterShouldHaveValue              = 80702 /*!< It's best to declare units for every parameter in a model. */
 , LocalParameterShadowsId               = 81121 /*!< Local parameters defined within a kinetic law shadow global object symbols. */
 , LibSBMLAdditionalCodesLowerBound      = 90000 /*!< Lower boundary of libSBML-specific diagnostic codes. */
 , CannotConvertToL1V1                   = 90001 /*!< Cannot convert to SBML Level 1 Version 1. */

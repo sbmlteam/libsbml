@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+	<model volumeUnits="litre" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+		<listOfParameters>
+			<parameter id="Keq" value="2.5" constant="true" units="dimensionless"/>
+			<parameter id="S1" constant="true" units="dimensionless"/>
+			<parameter id="p" constant="false" units="dimensionless"/>
+		</listOfParameters>
+		<listOfRules>
+			
+			<assignmentRule variable="p">
+				<math xmlns="http://www.w3.org/1998/Math/MathML">
+					<apply>
+						<times/>
+						<ci> Keq </ci>
+						<ci> S1 </ci>
+					</apply>
+				</math>
+			</assignmentRule>
+		</listOfRules>
+		
+	</model>
+</sbml>
+

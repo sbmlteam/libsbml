@@ -7626,6 +7626,28 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
 
+  // 80702
+  {
+    ParameterShouldHaveValue,
+    "It's best to declare values for every parameter in a model",
+    LIBSBML_CAT_MODELING_PRACTICE,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "As a principle of best modeling practice, the <parameter> "
+    "should set an initial value rather than be left undefined. Doing so "
+    "improves the portability of models between different simulation and "
+    "analysis systems, and helps make it easier to detect potential errors "
+    "in models."
+  },
+
+
   // 81121
   {
     LocalParameterShadowsId,

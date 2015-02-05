@@ -173,6 +173,56 @@ START_CONSTRAINT (80701, Parameter, p)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (80702, Parameter, p)
+{
+  bool fail = true;
+
+  if (p.isSetValue() == true)
+  {
+    fail = false;
+  }
+  else
+  {
+    pre (p.isSetId() == true);
+    // is there an initial assignment/assignment rule that would set the value
+    if (m.getInitialAssignmentBySymbol(p.getId()) != NULL)
+    {
+      fail = false;
+    }
+    else if (m.getAssignmentRuleByVariable(p.getId()) != NULL)
+    {
+      fail = false;
+    }
+    // Need something like the following to check if the initial value is 
+    // set by an algebraic rule.  However, there is no 'hasVariable' function 
+    // for an ASTNode yet.
+    /*
+    else if (!p.getConstant())
+    {
+      for (unsigned int alg=0; alg<m.getNumRules(); alg++)
+      {
+        const Rule* rule = m.getRule(alg);
+        if (rule->isAlgebraic() && rule->getMath()->hasVariable(p.getId()))
+        {
+          fail = false;
+        }
+      }
+    }
+    */
+    else 
+    {
+      msg = "The <parameter> with the id '" + p.getId();
+      msg += "' does not have 'value' ";
+      msg += "attribute, nor is its initial value set by an <initialAssignment> ";
+      msg += "or <assignmentRule>.";
+    }
+  }
+
+  inv (fail == false);
+}
+END_CONSTRAINT
+
+
 
 /** @endcond */
 

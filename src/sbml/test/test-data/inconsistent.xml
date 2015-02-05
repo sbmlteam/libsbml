@@ -35,12 +35,12 @@
 		</listOfSpecies>
 		<listOfParameters>
 		  <parameter id="p" value="2" constant="false" units="litre"/>
-			<parameter id="c" constant="false" units="litre"/>
-			<parameter id="c1" constant="false" units="litre"/>
-			<parameter id="x" constant="false" units="litre"/>
+			<parameter id="c" constant="false" units="litre" value="1"/>
+			<parameter id="c1" constant="false" units="litre" value="2"/>
+			<parameter id="x" constant="false" units="litre" value="2"/>
 			<parameter id="x1" constant="false" units="dimensionless" value="3"/>
-			<parameter id="t" constant="false" units="second"/>
-			<parameter id="k_s" constant="false"/>
+			<parameter id="t" constant="false" units="second" value="0"/>
+			<parameter id="k_s" constant="false" value="0"/>
 		</listOfParameters>
 		<listOfInitialAssignments>
 		  <initialAssignment symbol="c">
