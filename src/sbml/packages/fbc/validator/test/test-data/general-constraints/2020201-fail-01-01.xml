@@ -10,14 +10,14 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" size="1" constant="true"/>
+      <compartment id="comp1" spatialDimensions="3" size="1" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="S" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S1" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S2" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="S3" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
-      <species id="S4" compartment="c" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S1" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S2" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S3" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S4" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="R1" reversible="false" fast="false">
@@ -63,11 +63,9 @@
     </listOfReactions>
     <fbc:listOfFluxBounds>
       <fbc:fluxBound fbc:id="s" fbc:reaction="R1" fbc:operation="equal" fbc:value="10"/>
-      <fbc:fluxBound fbc:reaction="R2" fbc:id="s1" fbc:operation="equal" fbc:value="23"/>
     </fbc:listOfFluxBounds>
     
     <fbc:listOfFluxBounds>
-      <fbc:fluxBound fbc:id="s" fbc:reaction="R1" fbc:operation="lessEqual" fbc:value="10"/>
       <fbc:fluxBound fbc:reaction="R2" fbc:id="s1" fbc:operation="lessEqual" fbc:value="23"/>
     </fbc:listOfFluxBounds>
     

@@ -108,8 +108,8 @@
     </listOfReactions>
     <fbc:listOfFluxBounds>
       <fbc:fluxBound fbc:id="bound1" fbc:reaction="J0" fbc:operation="greaterEqual" fbc:value="0"/>
-      <fbc:fluxBound fbc:id="bound1" fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="10"/>
-      <fbc:fluxBound fbc:id="bound1" fbc:reaction="J0" fbc:operation="greaterEqual" fbc:value="1"/>
+      <fbc:fluxBound fbc:id="bound2" fbc:reaction="J0" fbc:operation="lessEqual" fbc:value="10"/>
+      <fbc:fluxBound fbc:id="bound3" fbc:reaction="J0" fbc:operation="greaterEqual" fbc:value="1"/>
     </fbc:listOfFluxBounds>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">

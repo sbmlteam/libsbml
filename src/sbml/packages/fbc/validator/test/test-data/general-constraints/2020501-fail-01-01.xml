@@ -110,7 +110,7 @@
       <fbc:fluxBound fbc:id="bound1" fbc:reaction="J0" fbc:operation="equal" fbc:value="10"/>
     </fbc:listOfFluxBounds>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
-      <fbc:objective fbc:id="obj1" fbc:type="maximize"  compartment="c">
+      <fbc:objective fbc:id="obj1" fbc:type="maximize"  compartment="comp1">
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:reaction="J1" fbc:coefficient="1"/>
         </fbc:listOfFluxObjectives>
