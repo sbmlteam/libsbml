@@ -114,8 +114,8 @@ State| Id  Num  (   )   ^   *   /   +   -   ,   $  | Expr  Stmt  Args  OptArgs
 
 typedef struct
 {
-  char state;
-  char action;
+  signed char state;
+  signed char action;
 } StateActionPair_t;
 
 
