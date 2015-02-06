@@ -641,13 +641,15 @@ START_TEST (test_SBML_parseFormula_19)
 {
   ASTNode_t *r = SBML_parseFormula("2.1e5-");
 
+  fail_unless (r == NULL);
 
-  fail_unless( ASTNode_getType       (r) == AST_REAL_E, NULL );
-  fail_unless( ASTNode_getMantissa   (r) == 2.1, NULL );
-  fail_unless( ASTNode_getExponent   (r) ==   5, NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
-  ASTNode_free(r);
+  //fail_unless( ASTNode_getType       (r) == AST_REAL_E, NULL );
+  //fail_unless( ASTNode_getMantissa   (r) == 2.1, NULL );
+  //fail_unless( ASTNode_getExponent   (r) ==   5, NULL );
+  //fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
+
+  //ASTNode_free(r);
 }
 END_TEST
 

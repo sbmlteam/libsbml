@@ -156,7 +156,9 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
       seenexp = 1;
       exppos  = ft->pos;
     }
-    else if ((c == '+' || c == '-') && seenexp == 1 && seensgn == 0)
+    else if ((c == '+' || c == '-') 
+      && seenexp == 1 && seensgn == 0
+      && exppos == ft->pos-1)
     {
       seensgn = 1;
     }

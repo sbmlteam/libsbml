@@ -442,6 +442,38 @@ START_TEST (test_FormulaTokenizer_accessWithNULL)
 }
 END_TEST
 
+START_TEST (test_FormulaTokenizer_numbers_exp_bug)
+{
+  /* we were failing to correctly parse an exponentional followed 
+  * by a sign with no space
+  */
+  const char         *formula = "12.3e1+.314E1";
+  FormulaTokenizer_t *ft      = FormulaTokenizer_createFromFormula(formula);
+  Token_t            *t;
+
+
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == 12.3      );
+  fail_unless( t->exponent   == 1         );
+  Token_free(t);
+
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type     == TT_PLUS );
+  fail_unless( t->value.ch == '+'     );
+  Token_free(t);
+
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == .314      );
+  fail_unless( t->exponent   == 1         );
+  Token_free(t);
+
+  FormulaTokenizer_free(ft);
+}
+END_TEST
+
+
 Suite *
 create_suite_FormulaTokenizer (void) 
 { 
@@ -465,6 +497,7 @@ create_suite_FormulaTokenizer (void)
   tcase_add_test( tcase, test_FormulaTokenizer_unknown         );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_locale  );
   tcase_add_test( tcase, test_FormulaTokenizer_accessWithNULL  );
+  tcase_add_test( tcase, test_FormulaTokenizer_numbers_exp_bug );
 
   suite_add_tcase(suite, tcase);
 
