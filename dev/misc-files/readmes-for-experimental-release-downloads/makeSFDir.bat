@@ -4,7 +4,7 @@ REM This script creates the directory structure for SF
 REM 
 
 SET THIS_DIR=%~dp0
-set VERSION=5.11.2-experimental
+set VERSION=5.11.3-experimental
 SET DIST_DIR=%~dp0\%VERSION%
 SET TEST_DIR=%~dp0\source
 
@@ -18,13 +18,7 @@ mkdir "%DIST_DIR%"
 cd /d %DIST_DIR%
 mkdir binaries
 mkdir "binaries\Linux"
-mkdir "binaries\Linux\R interface"
-mkdir "binaries\Linux\R interface\binary-package"
-mkdir "binaries\Linux\R interface\source-package"
 mkdir "binaries\Mac OS X"
-mkdir "binaries\Mac OS X\R interface"
-mkdir "binaries\Mac OS X\R interface\binary-package"
-mkdir "binaries\Mac OS X\R interface\source-package"
 mkdir "binaries\Windows"
 mkdir "binaries\Windows\R interface"
 mkdir "binaries\Windows\python"
@@ -33,19 +27,14 @@ mkdir source
 
 mkdir "source\accepted packages"
 mkdir "source\beta packages"
+mkdir "source\R interface"
 
 
 copy /y %THIS_DIR%\README.md .
 
 copy /y %THIS_DIR%\binaries\README.md %DIST_DIR%\binaries\.
 copy /y %THIS_DIR%\binaries\linux\README.md "%DIST_DIR%\binaries\Linux\."
-copy /y %THIS_DIR%\binaries\linux\R_interface\README.md "%DIST_DIR%\binaries\Linux\R interface\."
-copy /y %THIS_DIR%\binaries\linux\R_interface\binary-package\README.md "%DIST_DIR%\binaries\Linux\R interface\binary-package\."
-copy /y %THIS_DIR%\binaries\linux\R_interface\source-package\README.md "%DIST_DIR%\binaries\Linux\R interface\source-package\."
 copy /y %THIS_DIR%\binaries\mac_osx\README.md "%DIST_DIR%\binaries\Mac OS X\."
-copy /y %THIS_DIR%\binaries\mac_osx\R_interface\README.md "%DIST_DIR%\binaries\Mac OS X\R interface\."
-copy /y %THIS_DIR%\binaries\mac_osx\R_interface\binary-package\README.md "%DIST_DIR%\binaries\Mac OS X\R interface\binary-package\."
-copy /y %THIS_DIR%\binaries\mac_osx\R_interface\source-package\README.md "%DIST_DIR%\binaries\Mac OS X\R interface\source-package\."
 copy /y %THIS_DIR%\binaries\windows\README.md "%DIST_DIR%\binaries\Windows\."
 copy /y %THIS_DIR%\binaries\windows\R_interface\README.md "%DIST_DIR%\binaries\Windows\R interface\."
 copy /y %THIS_DIR%\binaries\windows\python\README.md "%DIST_DIR%\binaries\Windows\python\."
@@ -54,6 +43,7 @@ copy /y %THIS_DIR%\binaries\windows\python\README.md "%DIST_DIR%\binaries\Window
 copy /y %THIS_DIR%\source\README.md %DIST_DIR%\source\.
 copy /y %THIS_DIR%\source\accepted-packages\README.md "%DIST_DIR%\source\accepted packages\."
 copy /y %THIS_DIR%\source\beta-packages\README.md "%DIST_DIR%\source\beta packages\."
+copy /y %THIS_DIR%\source\R_interface\README.md "%DIST_DIR%\source\R interface\."
 
 goto DONE
 

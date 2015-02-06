@@ -603,18 +603,13 @@ if test -d dev; then
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/source/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/source/accepted-packages/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/source/beta-packages/README.md])
+  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/source/R_interface/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/R_interface/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/python/README.md])
   AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/windows/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/binary-package/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/linux/R_interface/source-package/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/binary-package/README.md])
-  AC_CONFIG_FILES([dev/misc-files/readmes-for-experimental-release-downloads/binaries/mac_osx/R_interface/source-package/README.md])
 fi
 
 dnl ---------------------------------------------------------------------------
