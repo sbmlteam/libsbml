@@ -33,7 +33,7 @@
         </unitDefinition>
       </listOfUnitDefinitions>
       <listOfParameters>
-        <parameter id="param2" constant="true" units="m_s"/>
+        <parameter id="param2" constant="false" units="m_s"/>
       </listOfParameters>
     </comp:modelDefinition>
   </comp:listOfModelDefinitions>
