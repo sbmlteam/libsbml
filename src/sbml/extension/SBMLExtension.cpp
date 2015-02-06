@@ -62,9 +62,6 @@ SBMLExtension::SBMLExtension ()
  , mASTBasePlugin (NULL)
 #endif
 {
-#ifndef LIBSBML_USE_LEGACY_MATH
-  mASTBasePlugin = NULL;
-#endif
 }
 
 
@@ -82,7 +79,6 @@ SBMLExtension::SBMLExtension(const SBMLExtension& orig)
     mSupportedPackageURI = orig.mSupportedPackageURI;
 
   #ifndef LIBSBML_USE_LEGACY_MATH
-    mASTBasePlugin = NULL;
     if (orig.mASTBasePlugin != NULL) 
     {
       mASTBasePlugin = orig.mASTBasePlugin->clone();
