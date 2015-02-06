@@ -62,6 +62,9 @@ SBMLExtension::SBMLExtension ()
  , mASTBasePlugin (NULL)
 #endif
 {
+#ifndef LIBSBML_USE_LEGACY_MATH
+  mASTBasePlugin = NULL;
+#endif
 }
 
 
@@ -70,6 +73,9 @@ SBMLExtension::SBMLExtension ()
  */
 SBMLExtension::SBMLExtension(const SBMLExtension& orig)
 {
+  #ifndef LIBSBML_USE_LEGACY_MATH
+    mASTBasePlugin = NULL;
+  #endif
   if (&orig != NULL)
   {
     mIsEnabled = orig.mIsEnabled;
@@ -96,7 +102,8 @@ SBMLExtension::~SBMLExtension ()
   for (size_t i=0; i < mSBasePluginCreators.size(); i++)
     delete mSBasePluginCreators[i];
 #ifndef LIBSBML_USE_LEGACY_MATH
-  delete mASTBasePlugin;
+  if (mASTBasePlugin != NULL)
+    delete mASTBasePlugin;
 #endif
 }
 
