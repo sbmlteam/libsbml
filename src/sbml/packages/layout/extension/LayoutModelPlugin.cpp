@@ -562,17 +562,17 @@ LayoutModelPlugin::enablePackageInternal(const std::string& pkgURI,
 bool
 LayoutModelPlugin::accept(SBMLVisitor& v) const
 {
-	const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
 
-	v.visit(*model);
-	v.leave(*model);
+  v.visit(*model);
+  v.leave(*model);
 
-	for(int i = 0; i < getNumLayouts(); i++)
-	{
-		getLayout(i)->accept(v);
-	}
+  for(int i = 0; i < getNumLayouts(); i++)
+  {
+    getLayout(i)->accept(v);
+  }
 
-	return true;
+  return true;
 }
 /** @endcond */
 

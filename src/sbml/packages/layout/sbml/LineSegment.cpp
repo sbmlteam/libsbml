@@ -473,110 +473,110 @@ LineSegment::addExpectedAttributes(ExpectedAttributes& attributes)
 void LineSegment::readAttributes (const XMLAttributes& attributes,
                                   const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfLineSegments - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+  * during the read of the listOfLineSegments - which will have
+  * happened immediately prior to this read
+  */
 
-	if (getErrorLog() != NULL &&
-	    static_cast<ListOfLineSegments*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", 
-                  LayoutLOCurveSegsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                  LayoutLOCurveSegsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
+  if (getErrorLog() != NULL &&
+    static_cast<ListOfLineSegments*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutLOCurveSegsAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutLOCurveSegsAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
         if (this->getTypeCode() == SBML_LAYOUT_LINESEGMENT)
         {
-				  getErrorLog()->logPackageError("layout", LayoutLSegAllowedAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", LayoutLSegAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
- 				  getErrorLog()->logPackageError("layout", LayoutCBezAllowedAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-       }
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
+          getErrorLog()->logPackageError("layout", LayoutCBezAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
         if (this->getTypeCode() == SBML_LAYOUT_LINESEGMENT)
         {
-				  getErrorLog()->logPackageError("layout", 
-                         LayoutLSegAllowedCoreAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLSegAllowedCoreAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
-				  getErrorLog()->logPackageError("layout", 
-                         LayoutCBezAllowedCoreAttributes,
-				                 getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutCBezAllowedCoreAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
-			}
-		}
-	}
+      }
+    }
+  }
 
-	//bool assigned = false;
+  //bool assigned = false;
 
-	////
-	//// xsi:type string   ( use = "required" )
-	////
-	//assigned = attributes.readInto("xsi:type", mXsi:type);
+  ////
+  //// xsi:type string   ( use = "required" )
+  ////
+  //assigned = attributes.readInto("xsi:type", mXsi:type);
 
-	//if (assigned == true)
-	//{
-	//	// check string is not empty
+  //if (assigned == true)
+  //{
+  //  // check string is not empty
 
-	//	if (mXsi:type.empty() == true)
-	//	{
-	//		logEmptyString(mXsi:type, getLevel(), getVersion(), "<LineSegment>");
-	//	}
-	//}
-	//else
-	//{
-	//	std::string message = "Layout attribute 'xsi:type' is missing.";
-	//	getErrorLog()->logPackageError("layout", LayoutUnknownError,
-	//	               getPackageVersion(), sbmlLevel, sbmlVersion, message);
-	//}
+  //  if (mXsi:type.empty() == true)
+  //  {
+  //    logEmptyString(mXsi:type, getLevel(), getVersion(), "<LineSegment>");
+  //  }
+  //}
+  //else
+  //{
+  //  std::string message = "Layout attribute 'xsi:type' is missing.";
+  //  getErrorLog()->logPackageError("layout", LayoutUnknownError,
+  //                 getPackageVersion(), sbmlLevel, sbmlVersion, message);
+  //}
 }
 
 void

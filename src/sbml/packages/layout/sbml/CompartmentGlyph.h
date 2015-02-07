@@ -157,7 +157,7 @@ public:
    * Returns true if the compartment order has been set
    */    
   bool isSetOrder () const;
-	 
+   
   /**
    * @copydoc doc_renamesidref_common
    */

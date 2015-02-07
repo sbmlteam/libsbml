@@ -1531,103 +1531,103 @@ void
 Layout::readAttributes (const XMLAttributes& attributes,
                         const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfLayouts - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+  * during the read of the listOfLayouts - which will have
+  * happened immediately prior to this read
+  */
 
-	if (getErrorLog() != NULL &&
-	    static_cast<ListOfLayouts*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", 
-                       LayoutLOLayoutsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                  LayoutLOLayoutsAllowedAttributes,
-				          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
-
-	SBase::readAttributes(attributes, expectedAttributes);
-
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutLayoutAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
-
-	bool assigned = false;
-
-	//
-	// id SId  ( use = "required" )
-	//
-	assigned = attributes.readInto("id", mId);
-
-    if (getErrorLog() != NULL)
+  if (getErrorLog() != NULL &&
+    static_cast<ListOfLayouts*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      if (assigned == true)
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        // check string is not empty and correct syntax
-
-        if (mId.empty() == true)
-        {
-          logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
-        }
-        else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-        {
-          getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
-            getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-            + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
-        }
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutLOLayoutsAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        std::string message = "Layout attribute 'id' is missing.";
-        getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutLOLayoutsAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
+  }
 
-    attributes.readInto("name", mName);
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", LayoutLayoutAllowedCoreAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "required" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+  if (getErrorLog() != NULL)
+  {
+    if (assigned == true)
+    {
+      // check string is not empty and correct syntax
+
+      if (mId.empty() == true)
+      {
+        logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+      }
+    }
+    else
+    {
+      std::string message = "Layout attribute 'id' is missing.";
+      getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    }
+  }
+
+  attributes.readInto("name", mName);
 }
 /** @endcond */
 

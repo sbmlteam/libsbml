@@ -265,15 +265,15 @@ SpeciesGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
                                    const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfSpeciesGlyphs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+  * during the read of the listOfSpeciesGlyphs - which will have
+  * happened immediately prior to this read
+  */
 
   bool loSubGlyphs = false;
   if (getParentSBMLObject() != NULL
@@ -282,100 +282,100 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
     loSubGlyphs = true;
   }
 
-	if (getErrorLog() != NULL &&
-	    static_cast<ListOfSpeciesGlyphs*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-        if (loSubGlyphs == true)
-        {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-        }
-        else
-        {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSpeciesGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-        }
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-        if (loSubGlyphs == true)
-        {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-        }
-        else
-        {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSpeciesGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-        }
-			}
-		}
-	}
-
-	GraphicalObject::readAttributes(attributes, expectedAttributes);
-
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutSGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
-
-	bool assigned = false;
-
-	//
-	// species SIdRef   ( use = "optional" )
-	//
-	assigned = attributes.readInto("species", mSpecies);
-
-	if (assigned == true && getErrorLog() != NULL)
-	{
-      // check string is not empty and correct syntax
-
-      if (mSpecies.empty() == true)
+  if (getErrorLog() != NULL &&
+    static_cast<ListOfSpeciesGlyphs*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        if (loSubGlyphs == true)
+        {
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
+        else
+        {
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSpeciesGlyphAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
       }
-      else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "The species on the <" 
-          + getElementName() + "> is '" + mSpecies + "', which does not conform.", getLine(), getColumn());
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        if (loSubGlyphs == true)
+        {
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
+        else
+        {
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSpeciesGlyphAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
       }
     }
+  }
+
+  GraphicalObject::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", LayoutSGAllowedCoreAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
+
+  bool assigned = false;
+
+  //
+  // species SIdRef   ( use = "optional" )
+  //
+  assigned = attributes.readInto("species", mSpecies);
+
+  if (assigned == true && getErrorLog() != NULL)
+  {
+    // check string is not empty and correct syntax
+
+    if (mSpecies.empty() == true)
+    {
+      logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
+    {
+      getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
+        getPackageVersion(), sbmlLevel, sbmlVersion, "The species on the <" 
+        + getElementName() + "> is '" + mSpecies + "', which does not conform.", getLine(), getColumn());
+    }
+  }
 
 }
 /** @endcond */

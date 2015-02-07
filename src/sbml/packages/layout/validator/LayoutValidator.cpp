@@ -36,11 +36,11 @@
 #include <sbml/packages/layout/validator/LayoutValidator.h>
 #include <sbml/SBMLReader.h>
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 using namespace std;
 
-	/** @endcond */
+  /** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -138,23 +138,23 @@ protected:
  */
 struct LayoutValidatorConstraints
 {
-  ConstraintSet<SBMLDocument>             mSBMLDocument;
-  ConstraintSet<Model>                    mModel;
-	ConstraintSet<BoundingBox>      mBoundingBox;
-	ConstraintSet<CompartmentGlyph>      mCompartmentGlyph;
-	ConstraintSet<CubicBezier>      mCubicBezier;
-	ConstraintSet<Curve>      mCurve;
-	ConstraintSet<Dimensions>      mDimensions;
-	ConstraintSet<GraphicalObject>      mGraphicalObject;
-	ConstraintSet<Layout>      mLayout;
-	ConstraintSet<LineSegment>      mLineSegment;
-	ConstraintSet<Point>      mPoint;
-	ConstraintSet<ReactionGlyph>      mReactionGlyph;
-	ConstraintSet<SpeciesGlyph>      mSpeciesGlyph;
-	ConstraintSet<SpeciesReferenceGlyph>      mSpeciesReferenceGlyph;
-	ConstraintSet<TextGlyph>      mTextGlyph;
-	ConstraintSet<ReferenceGlyph>      mReferenceGlyph;
-	ConstraintSet<GeneralGlyph>      mGeneralGlyph;
+  ConstraintSet<SBMLDocument>          mSBMLDocument;
+  ConstraintSet<Model>                 mModel;
+  ConstraintSet<BoundingBox>           mBoundingBox;
+  ConstraintSet<CompartmentGlyph>      mCompartmentGlyph;
+  ConstraintSet<CubicBezier>           mCubicBezier;
+  ConstraintSet<Curve>                 mCurve;
+  ConstraintSet<Dimensions>            mDimensions;
+  ConstraintSet<GraphicalObject>       mGraphicalObject;
+  ConstraintSet<Layout>                mLayout;
+  ConstraintSet<LineSegment>           mLineSegment;
+  ConstraintSet<Point>                 mPoint;
+  ConstraintSet<ReactionGlyph>         mReactionGlyph;
+  ConstraintSet<SpeciesGlyph>          mSpeciesGlyph;
+  ConstraintSet<SpeciesReferenceGlyph> mSpeciesReferenceGlyph;
+  ConstraintSet<TextGlyph>             mTextGlyph;
+  ConstraintSet<ReferenceGlyph>        mReferenceGlyph;
+  ConstraintSet<GeneralGlyph>          mGeneralGlyph;
   map<VConstraint*,bool> ptrMap;
 
   ~LayoutValidatorConstraints ();
@@ -204,95 +204,95 @@ LayoutValidatorConstraints::add (VConstraint* c)
     mModel.add( static_cast< TConstraint<Model>* >(c) );
     return;
   }
-	if (dynamic_cast< TConstraint<BoundingBox>* >(c) != NULL)
-	{
-		mBoundingBox.add( static_cast< TConstraint<BoundingBox>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<BoundingBox>* >(c) != NULL)
+  {
+    mBoundingBox.add( static_cast< TConstraint<BoundingBox>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<CompartmentGlyph>* >(c) != NULL)
-	{
-		mCompartmentGlyph.add( static_cast< TConstraint<CompartmentGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<CompartmentGlyph>* >(c) != NULL)
+  {
+    mCompartmentGlyph.add( static_cast< TConstraint<CompartmentGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<CubicBezier>* >(c) != NULL)
-	{
-		mCubicBezier.add( static_cast< TConstraint<CubicBezier>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<CubicBezier>* >(c) != NULL)
+  {
+    mCubicBezier.add( static_cast< TConstraint<CubicBezier>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Curve>* >(c) != NULL)
-	{
-		mCurve.add( static_cast< TConstraint<Curve>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Curve>* >(c) != NULL)
+  {
+    mCurve.add( static_cast< TConstraint<Curve>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Dimensions>* >(c) != NULL)
-	{
-		mDimensions.add( static_cast< TConstraint<Dimensions>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Dimensions>* >(c) != NULL)
+  {
+    mDimensions.add( static_cast< TConstraint<Dimensions>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<GraphicalObject>* >(c) != NULL)
-	{
-		mGraphicalObject.add( static_cast< TConstraint<GraphicalObject>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<GraphicalObject>* >(c) != NULL)
+  {
+    mGraphicalObject.add( static_cast< TConstraint<GraphicalObject>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Layout>* >(c) != NULL)
-	{
-		mLayout.add( static_cast< TConstraint<Layout>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Layout>* >(c) != NULL)
+  {
+    mLayout.add( static_cast< TConstraint<Layout>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<LineSegment>* >(c) != NULL)
-	{
-		mLineSegment.add( static_cast< TConstraint<LineSegment>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<LineSegment>* >(c) != NULL)
+  {
+    mLineSegment.add( static_cast< TConstraint<LineSegment>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<Point>* >(c) != NULL)
-	{
-		mPoint.add( static_cast< TConstraint<Point>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<Point>* >(c) != NULL)
+  {
+    mPoint.add( static_cast< TConstraint<Point>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<ReactionGlyph>* >(c) != NULL)
-	{
-		mReactionGlyph.add( static_cast< TConstraint<ReactionGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<ReactionGlyph>* >(c) != NULL)
+  {
+    mReactionGlyph.add( static_cast< TConstraint<ReactionGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<SpeciesGlyph>* >(c) != NULL)
-	{
-		mSpeciesGlyph.add( static_cast< TConstraint<SpeciesGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<SpeciesGlyph>* >(c) != NULL)
+  {
+    mSpeciesGlyph.add( static_cast< TConstraint<SpeciesGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<SpeciesReferenceGlyph>* >(c) != NULL)
-	{
-		mSpeciesReferenceGlyph.add( static_cast< TConstraint<SpeciesReferenceGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<SpeciesReferenceGlyph>* >(c) != NULL)
+  {
+    mSpeciesReferenceGlyph.add( static_cast< TConstraint<SpeciesReferenceGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<TextGlyph>* >(c) != NULL)
-	{
-		mTextGlyph.add( static_cast< TConstraint<TextGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<TextGlyph>* >(c) != NULL)
+  {
+    mTextGlyph.add( static_cast< TConstraint<TextGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<ReferenceGlyph>* >(c) != NULL)
-	{
-		mReferenceGlyph.add( static_cast< TConstraint<ReferenceGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<ReferenceGlyph>* >(c) != NULL)
+  {
+    mReferenceGlyph.add( static_cast< TConstraint<ReferenceGlyph>* >(c) );
+    return;
+  }
 
-	if (dynamic_cast< TConstraint<GeneralGlyph>* >(c) != NULL)
-	{
-		mGeneralGlyph.add( static_cast< TConstraint<GeneralGlyph>* >(c) );
-		return;
-	}
+  if (dynamic_cast< TConstraint<GeneralGlyph>* >(c) != NULL)
+  {
+    mGeneralGlyph.add( static_cast< TConstraint<GeneralGlyph>* >(c) );
+    return;
+  }
 
 }
 
@@ -324,173 +324,173 @@ public:
     v.mLayoutConstraints->mModel.applyTo(m, x);
   }
 
-	bool visit (const BoundingBox &x)
-	{
-		v.mLayoutConstraints->mBoundingBox.applyTo(m, x);
-		return !v.mLayoutConstraints->mBoundingBox.empty();
-	}
+  bool visit (const BoundingBox &x)
+  {
+    v.mLayoutConstraints->mBoundingBox.applyTo(m, x);
+    return !v.mLayoutConstraints->mBoundingBox.empty();
+  }
 
-	bool visit (const CompartmentGlyph &x)
-	{
-		v.mLayoutConstraints->mCompartmentGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mCompartmentGlyph.empty();
-	}
+  bool visit (const CompartmentGlyph &x)
+  {
+    v.mLayoutConstraints->mCompartmentGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mCompartmentGlyph.empty();
+  }
 
-	bool visit (const CubicBezier &x)
-	{
-		v.mLayoutConstraints->mCubicBezier.applyTo(m, x);
-		return !v.mLayoutConstraints->mCubicBezier.empty();
-	}
+  bool visit (const CubicBezier &x)
+  {
+    v.mLayoutConstraints->mCubicBezier.applyTo(m, x);
+    return !v.mLayoutConstraints->mCubicBezier.empty();
+  }
 
-	bool visit (const Curve &x)
-	{
-		v.mLayoutConstraints->mCurve.applyTo(m, x);
-		return !v.mLayoutConstraints->mCurve.empty();
-	}
+  bool visit (const Curve &x)
+  {
+    v.mLayoutConstraints->mCurve.applyTo(m, x);
+    return !v.mLayoutConstraints->mCurve.empty();
+  }
 
-	bool visit (const Dimensions &x)
-	{
-		v.mLayoutConstraints->mDimensions.applyTo(m, x);
-		return !v.mLayoutConstraints->mDimensions.empty();
-	}
+  bool visit (const Dimensions &x)
+  {
+    v.mLayoutConstraints->mDimensions.applyTo(m, x);
+    return !v.mLayoutConstraints->mDimensions.empty();
+  }
 
-	bool visit (const GraphicalObject &x)
-	{
-		v.mLayoutConstraints->mGraphicalObject.applyTo(m, x);
-		return !v.mLayoutConstraints->mGraphicalObject.empty();
-	}
+  bool visit (const GraphicalObject &x)
+  {
+    v.mLayoutConstraints->mGraphicalObject.applyTo(m, x);
+    return !v.mLayoutConstraints->mGraphicalObject.empty();
+  }
 
-	bool visit (const Layout &x)
-	{
-		v.mLayoutConstraints->mLayout.applyTo(m, x);
-		return !v.mLayoutConstraints->mLayout.empty();
-	}
+  bool visit (const Layout &x)
+  {
+    v.mLayoutConstraints->mLayout.applyTo(m, x);
+    return !v.mLayoutConstraints->mLayout.empty();
+  }
 
-	bool visit (const LineSegment &x)
-	{
-		v.mLayoutConstraints->mLineSegment.applyTo(m, x);
-		return !v.mLayoutConstraints->mLineSegment.empty();
-	}
+  bool visit (const LineSegment &x)
+  {
+    v.mLayoutConstraints->mLineSegment.applyTo(m, x);
+    return !v.mLayoutConstraints->mLineSegment.empty();
+  }
 
-	bool visit (const Point &x)
-	{
-		v.mLayoutConstraints->mPoint.applyTo(m, x);
-		return !v.mLayoutConstraints->mPoint.empty();
-	}
+  bool visit (const Point &x)
+  {
+    v.mLayoutConstraints->mPoint.applyTo(m, x);
+    return !v.mLayoutConstraints->mPoint.empty();
+  }
 
-	bool visit (const ReactionGlyph &x)
-	{
-		v.mLayoutConstraints->mReactionGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mReactionGlyph.empty();
-	}
+  bool visit (const ReactionGlyph &x)
+  {
+    v.mLayoutConstraints->mReactionGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mReactionGlyph.empty();
+  }
 
-	bool visit (const SpeciesGlyph &x)
-	{
-		v.mLayoutConstraints->mSpeciesGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mSpeciesGlyph.empty();
-	}
+  bool visit (const SpeciesGlyph &x)
+  {
+    v.mLayoutConstraints->mSpeciesGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mSpeciesGlyph.empty();
+  }
 
-	bool visit (const SpeciesReferenceGlyph &x)
-	{
-		v.mLayoutConstraints->mSpeciesReferenceGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mSpeciesReferenceGlyph.empty();
-	}
+  bool visit (const SpeciesReferenceGlyph &x)
+  {
+    v.mLayoutConstraints->mSpeciesReferenceGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mSpeciesReferenceGlyph.empty();
+  }
 
-	bool visit (const TextGlyph &x)
-	{
-		v.mLayoutConstraints->mTextGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mTextGlyph.empty();
-	}
+  bool visit (const TextGlyph &x)
+  {
+    v.mLayoutConstraints->mTextGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mTextGlyph.empty();
+  }
 
-	bool visit (const ReferenceGlyph &x)
-	{
-		v.mLayoutConstraints->mReferenceGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mReferenceGlyph.empty();
-	}
+  bool visit (const ReferenceGlyph &x)
+  {
+    v.mLayoutConstraints->mReferenceGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mReferenceGlyph.empty();
+  }
 
-	bool visit (const GeneralGlyph &x)
-	{
-		v.mLayoutConstraints->mGeneralGlyph.applyTo(m, x);
-		return !v.mLayoutConstraints->mGeneralGlyph.empty();
-	}
+  bool visit (const GeneralGlyph &x)
+  {
+    v.mLayoutConstraints->mGeneralGlyph.applyTo(m, x);
+    return !v.mLayoutConstraints->mGeneralGlyph.empty();
+  }
 
-	virtual bool visit(const SBase &x)
-	{
-		if (&x == NULL || x.getPackageName() != "layout")
-		{
-			return SBMLVisitor::visit(x);
-		}
+  virtual bool visit(const SBase &x)
+  {
+    if (&x == NULL || x.getPackageName() != "layout")
+    {
+      return SBMLVisitor::visit(x);
+    }
 
-		int code = x.getTypeCode();
+    int code = x.getTypeCode();
 
-		const ListOf* list = dynamic_cast<const ListOf*>(&x);
+    const ListOf* list = dynamic_cast<const ListOf*>(&x);
 
-		if (list != NULL)
-		{
-			return SBMLVisitor::visit(x);
-		}
-		else
-		{
-			if (code == SBML_LAYOUT_BOUNDINGBOX)
-			{
-				return visit((const BoundingBox&)x);
-			}
-			else if (code == SBML_LAYOUT_COMPARTMENTGLYPH)
-			{
-				return visit((const CompartmentGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_CUBICBEZIER)
-			{
-				return visit((const CubicBezier&)x);
-			}
-			else if (code == SBML_LAYOUT_CURVE)
-			{
-				return visit((const Curve&)x);
-			}
-			else if (code == SBML_LAYOUT_DIMENSIONS)
-			{
-				return visit((const Dimensions&)x);
-			}
-			else if (code == SBML_LAYOUT_GRAPHICALOBJECT)
-			{
-				return visit((const GraphicalObject&)x);
-			}
-			else if (code == SBML_LAYOUT_LAYOUT)
-			{
-				return visit((const Layout&)x);
-			}
-			else if (code == SBML_LAYOUT_LINESEGMENT)
-			{
-				return visit((const LineSegment&)x);
-			}
-			else if (code == SBML_LAYOUT_POINT)
-			{
-				return visit((const Point&)x);
-			}
-			else if (code == SBML_LAYOUT_REACTIONGLYPH)
-			{
-				return visit((const ReactionGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_SPECIESGLYPH)
-			{
-				return visit((const SpeciesGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_SPECIESREFERENCEGLYPH)
-			{
-				return visit((const SpeciesReferenceGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_TEXTGLYPH)
-			{
-				return visit((const TextGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_REFERENCEGLYPH)
-			{
-				return visit((const ReferenceGlyph&)x);
-			}
-			else if (code == SBML_LAYOUT_GENERALGLYPH)
-			{
-				return visit((const GeneralGlyph&)x);
-			}
+    if (list != NULL)
+    {
+      return SBMLVisitor::visit(x);
+    }
+    else
+    {
+      if (code == SBML_LAYOUT_BOUNDINGBOX)
+      {
+        return visit((const BoundingBox&)x);
+      }
+      else if (code == SBML_LAYOUT_COMPARTMENTGLYPH)
+      {
+        return visit((const CompartmentGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_CUBICBEZIER)
+      {
+        return visit((const CubicBezier&)x);
+      }
+      else if (code == SBML_LAYOUT_CURVE)
+      {
+        return visit((const Curve&)x);
+      }
+      else if (code == SBML_LAYOUT_DIMENSIONS)
+      {
+        return visit((const Dimensions&)x);
+      }
+      else if (code == SBML_LAYOUT_GRAPHICALOBJECT)
+      {
+        return visit((const GraphicalObject&)x);
+      }
+      else if (code == SBML_LAYOUT_LAYOUT)
+      {
+        return visit((const Layout&)x);
+      }
+      else if (code == SBML_LAYOUT_LINESEGMENT)
+      {
+        return visit((const LineSegment&)x);
+      }
+      else if (code == SBML_LAYOUT_POINT)
+      {
+        return visit((const Point&)x);
+      }
+      else if (code == SBML_LAYOUT_REACTIONGLYPH)
+      {
+        return visit((const ReactionGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_SPECIESGLYPH)
+      {
+        return visit((const SpeciesGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_SPECIESREFERENCEGLYPH)
+      {
+        return visit((const SpeciesReferenceGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_TEXTGLYPH)
+      {
+        return visit((const TextGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_REFERENCEGLYPH)
+      {
+        return visit((const ReferenceGlyph&)x);
+      }
+      else if (code == SBML_LAYOUT_GENERALGLYPH)
+      {
+        return visit((const GeneralGlyph&)x);
+      }
       else 
       {
         return SBMLVisitor::visit(x);

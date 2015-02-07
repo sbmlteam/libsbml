@@ -61,9 +61,9 @@ public:
   };
 
 
-	virtual bool filter(const SBase* element)
+  virtual bool filter(const SBase* element)
   {
-	  // return in case we don't have a valid element with an id
+    // return in case we don't have a valid element with an id
     if (element == NULL || element->isSetId() == false)
     {
         return false;
@@ -89,7 +89,7 @@ public:
       break;
     }
 
-    return keep;			
+    return keep;      
   };
 
 };
@@ -1101,6 +1101,6 @@ START_CONSTRAINT (LayoutCBezAllowedElements, CubicBezier, line)
 END_CONSTRAINT
 
 
-	/** @endcond */
+/** @endcond */
 
 

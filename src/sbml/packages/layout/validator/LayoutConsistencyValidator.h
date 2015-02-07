@@ -47,12 +47,12 @@ class LayoutConsistencyValidator: public LayoutValidator
 {
 public:
 
-	LayoutConsistencyValidator () :
-		LayoutValidator(LIBSBML_CAT_GENERAL_CONSISTENCY) { }
+  LayoutConsistencyValidator () :
+    LayoutValidator(LIBSBML_CAT_GENERAL_CONSISTENCY) { }
 
-	virtual ~LayoutConsistencyValidator () { }
+  virtual ~LayoutConsistencyValidator () { }
 
-	 virtual void init ();
+  virtual void init ();
 };
 
 LIBSBML_CPP_NAMESPACE_END

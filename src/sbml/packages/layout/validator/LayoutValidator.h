@@ -60,11 +60,11 @@
 #ifdef __cplusplus
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
 #include <list>
 #include <string>
-	/** @endcond */
+  /** @endcond */
 
 
 #include <sbml/SBMLError.h>

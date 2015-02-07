@@ -67,87 +67,87 @@ class LIBSBML_EXTERN LayoutSBMLDocumentPlugin : public SBMLDocumentPlugin
 {
 public:
 
-	/**
-	 * Creates a new LayoutSBMLDocumentPlugin
-	 */
-	LayoutSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
-	                               LayoutPkgNamespaces* layoutns);
+  /**
+   * Creates a new LayoutSBMLDocumentPlugin
+   */
+  LayoutSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
+                           LayoutPkgNamespaces* layoutns);
 
 
-	/**
-	 * Copy constructor for LayoutSBMLDocumentPlugin.
-	 *
-	 * @param orig; the LayoutSBMLDocumentPlugin instance to copy.
-	 */
-	LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig);
+  /**
+   * Copy constructor for LayoutSBMLDocumentPlugin.
+   *
+   * @param orig; the LayoutSBMLDocumentPlugin instance to copy.
+   */
+  LayoutSBMLDocumentPlugin(const LayoutSBMLDocumentPlugin& orig);
 
 
- 	/**
-	 * Assignment operator for LayoutSBMLDocumentPlugin.
-	 *
-	 * @param rhs; the object whose values are used as the basis
-	 * of the assignment
-	 */
-	LayoutSBMLDocumentPlugin& operator=(const LayoutSBMLDocumentPlugin& rhs);
+   /**
+   * Assignment operator for LayoutSBMLDocumentPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
+   */
+  LayoutSBMLDocumentPlugin& operator=(const LayoutSBMLDocumentPlugin& rhs);
 
 
- 	/**
-	 * Creates and returns a deep copy of this LayoutSBMLDocumentPlugin object.
-	 *
-	 * @return a (deep) copy of this LayoutSBMLDocumentPlugin object.
-	 */
-	virtual LayoutSBMLDocumentPlugin* clone () const;
+   /**
+   * Creates and returns a deep copy of this LayoutSBMLDocumentPlugin object.
+   *
+   * @return a (deep) copy of this LayoutSBMLDocumentPlugin object.
+   */
+  virtual LayoutSBMLDocumentPlugin* clone () const;
 
 
- 	/**
-	 * Destructor for LayoutSBMLDocumentPlugin.
-	 */
-	virtual ~LayoutSBMLDocumentPlugin();
+   /**
+   * Destructor for LayoutSBMLDocumentPlugin.
+   */
+  virtual ~LayoutSBMLDocumentPlugin();
 
 
  #ifndef SWIG
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Reads the attributes of corresponding package in SBMLDocument element
-	 */
-	virtual void readAttributes (const XMLAttributes& attributes, 
-	                             const ExpectedAttributes& expectedAttributes);
+  /**
+   * Reads the attributes of corresponding package in SBMLDocument element
+   */
+  virtual void readAttributes (const XMLAttributes& attributes, 
+                               const ExpectedAttributes& expectedAttributes);
 
 
-	/** @endcond */
+  /** @endcond */
 
 
 #endif // SWIG
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
-	/**
-	 * Returns boolean based on whether flattening of a comp model has been implemented.
-	 *
-	 * @returns @c true if flattening for composed models has been implemented,
-	 * false otherwise.
-	 */
-	virtual bool isCompFlatteningImplemented() const;
-
-
-	/** @endcond */
+  /**
+   * Returns boolean based on whether flattening of a comp model has been implemented.
+   *
+   * @returns @c true if flattening for composed models has been implemented,
+   * false otherwise.
+   */
+  virtual bool isCompFlatteningImplemented() const;
 
 
-	/** @cond doxygenLibsbmlInternal */
-	/**
-	 * Check consistency function.
-	 */
-	virtual unsigned int checkConsistency();
-	/** @endcond */
+  /** @endcond */
 
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Check consistency function.
+   */
+  virtual unsigned int checkConsistency();
+  /** @endcond */
 
-	/**
-	 * Accepts the SBMLVisitor.
-	 */
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the SBMLVisitor.
+   */
 
   IdList getMetaidList() const;
 
@@ -164,7 +164,7 @@ public:
 
 protected:
 
-	/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
 
   IdList mMetaIdList;
   
@@ -173,8 +173,8 @@ protected:
   List* mElementsWithId;
 
   bool mValidationListsPopulated;
-	
-  
+
+
   /** @endcond */
 
 

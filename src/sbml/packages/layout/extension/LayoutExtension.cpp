@@ -63,8 +63,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 const std::string& LayoutExtension::getPackageName ()
 {
-	static const std::string pkgName = "layout";
-	return pkgName;
+  static const std::string pkgName = "layout";
+  return pkgName;
 }
 
 //
@@ -72,17 +72,17 @@ const std::string& LayoutExtension::getPackageName ()
 //
 unsigned int LayoutExtension::getDefaultLevel()
 {
-	return 3;
+  return 3;
 }  
 
 unsigned int LayoutExtension::getDefaultVersion()
 {
-	return 1; 
+  return 1; 
 }
 
 unsigned int LayoutExtension::getDefaultPackageVersion()
 {
-	return 1;
+  return 1;
 } 
 
 //
@@ -93,20 +93,20 @@ unsigned int LayoutExtension::getDefaultPackageVersion()
 
 const std::string& LayoutExtension::getXmlnsL3V1V1 ()
 {
-	static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/layout/version1";
-	return xmlns;
+  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/layout/version1";
+  return xmlns;
 }
 
 const std::string& LayoutExtension::getXmlnsL2 ()
 {
-	static const std::string xmlns = "http://projects.eml.org/bcb/sbml/level2";
-	return xmlns;
+  static const std::string xmlns = "http://projects.eml.org/bcb/sbml/level2";
+  return xmlns;
 }
 
 const std::string& LayoutExtension::getXmlnsXSI ()
 {
-	static const std::string xmlns = "http://www.w3.org/2001/XMLSchema-instance";
-	return xmlns;
+  static const std::string xmlns = "http://www.w3.org/2001/XMLSchema-instance";
+  return xmlns;
 }
 
 //
@@ -502,7 +502,7 @@ LayoutExtension::isInUse(SBMLDocument *doc) const
 packageErrorTableEntry
 LayoutExtension::getErrorTable(unsigned int index) const
 {
-	return layoutErrorTable[index];
+  return layoutErrorTable[index];
 }
 /** @endcond */
 
@@ -514,20 +514,20 @@ LayoutExtension::getErrorTable(unsigned int index) const
 unsigned int
 LayoutExtension::getErrorTableIndex(unsigned int errorId) const
 {
-	unsigned int tableSize = sizeof(layoutErrorTable)/sizeof(layoutErrorTable[0]);
-	unsigned int index = 0;
+  unsigned int tableSize = sizeof(layoutErrorTable)/sizeof(layoutErrorTable[0]);
+  unsigned int index = 0;
 
-	for(unsigned int i = 0; i < tableSize; i++)
-	{
-		if (errorId == layoutErrorTable[i].code)
-		{
-			index = i;
-			break;
-		}
+  for(unsigned int i = 0; i < tableSize; i++)
+  {
+    if (errorId == layoutErrorTable[i].code)
+    {
+      index = i;
+      break;
+    }
 
-	}
+  }
 
-	return index;
+  return index;
 }
 /** @endcond */
 
@@ -539,7 +539,7 @@ LayoutExtension::getErrorTableIndex(unsigned int errorId) const
 unsigned int
 LayoutExtension::getErrorIdOffset() const
 {
-	return 6000000;
+  return 6000000;
 }
 /** @endcond */
 

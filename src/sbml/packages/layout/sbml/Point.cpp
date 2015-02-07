@@ -455,140 +455,140 @@ Point::addExpectedAttributes(ExpectedAttributes& attributes)
 void Point::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                       LayoutPointAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
-
-	bool assigned = false;
-
-	//
-	// id SId  ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
-
- 	if (assigned == true && getErrorLog() != NULL)
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      // check string is not empty and correct syntax
-
-      if (mId.empty() == true)
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
       {
-        logEmptyString(mId, getLevel(), getVersion(), "<Point>");
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
       {
-        getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-          getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutPointAllowedCoreAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
+  }
 
-	//
-	// x double   ( use = "required" )
-	//
+  bool assigned = false;
+
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
+
+  if (assigned == true && getErrorLog() != NULL)
+  {
+    // check string is not empty and correct syntax
+
+    if (mId.empty() == true)
+    {
+      logEmptyString(mId, getLevel(), getVersion(), "<Point>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+    {
+      getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+        getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+        + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+    }
+  }
+
+  //
+  // x double   ( use = "required" )
+  //
   numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("x", mXOffset);
+  assigned = attributes.readInto("x", mXOffset);
 
-	if (assigned == false)
-	{
-		if (getErrorLog() != NULL)
-        {
-          if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-            getErrorLog()->contains(XMLAttributeTypeMismatch))
-          {
-            getErrorLog()->remove(XMLAttributeTypeMismatch);
-            getErrorLog()->logPackageError("layout", 
-              LayoutPointAttributesMustBeDouble,
-              getPackageVersion(), sbmlLevel, sbmlVersion, "The 'x' on the <" 
-              + getElementName() + "> does not conform.", getLine(), getColumn());
-          }
-          else
-          {
-            std::string message = "Layout attribute 'x' is missing.";
-            getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-              getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-          }
-        }
-	}
+  if (assigned == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+        getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("layout", 
+          LayoutPointAttributesMustBeDouble,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The 'x' on the <" 
+          + getElementName() + "> does not conform.", getLine(), getColumn());
+      }
+      else
+      {
+        std::string message = "Layout attribute 'x' is missing.";
+        getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
+    }
+  }
 
-	//
-	// y double   ( use = "required" )
-	//
+  //
+  // y double   ( use = "required" )
+  //
   numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("y", mYOffset);
+  assigned = attributes.readInto("y", mYOffset);
 
-	if (assigned == false)
+  if (assigned == false)
+  {
+    if (getErrorLog() != NULL)
     {
-      if (getErrorLog() != NULL)
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+        getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
-        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-          getErrorLog()->contains(XMLAttributeTypeMismatch))
-        {
-          getErrorLog()->remove(XMLAttributeTypeMismatch);
-          getErrorLog()->logPackageError("layout", 
-            LayoutPointAttributesMustBeDouble,
-            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'y' on the <" 
-            + getElementName() + "> does not conform.", getLine(), getColumn());
-        }
-        else
-        {
-          std::string message = "Layout attribute 'y' is missing.";
-          getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-            getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-        }
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("layout", 
+          LayoutPointAttributesMustBeDouble,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The 'y' on the <" 
+          + getElementName() + "> does not conform.", getLine(), getColumn());
+      }
+      else
+      {
+        std::string message = "Layout attribute 'y' is missing.";
+        getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
+  }
 
-	//
-	// z double   ( use = "optional" )
-	//
-    numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-    mZOffsetExplicitlySet = attributes.readInto("z", mZOffset);
+  //
+  // z double   ( use = "optional" )
+  //
+  numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
+  mZOffsetExplicitlySet = attributes.readInto("z", mZOffset);
 
-    if (mZOffsetExplicitlySet == false)
+  if (mZOffsetExplicitlySet == false)
+  {
+    mZOffset = 0.0;
+    if (getErrorLog() != NULL)
     {
-      mZOffset = 0.0;
-      if (getErrorLog() != NULL)
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+        getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
-        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-          getErrorLog()->contains(XMLAttributeTypeMismatch))
-        {
-          getErrorLog()->remove(XMLAttributeTypeMismatch);
-          getErrorLog()->logPackageError("layout", 
-            LayoutPointAttributesMustBeDouble,
-            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'z' on the <" 
-            + getElementName() + ">does not conform.", getLine(), getColumn());
-        }
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("layout", 
+          LayoutPointAttributesMustBeDouble,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The 'z' on the <" 
+          + getElementName() + ">does not conform.", getLine(), getColumn());
       }
     }
+  }
 }
 /** @endcond */
 

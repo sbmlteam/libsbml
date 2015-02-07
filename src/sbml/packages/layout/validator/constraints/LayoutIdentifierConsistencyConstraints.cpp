@@ -1,4 +1,4 @@
-	/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   LayoutIdentifierConsistencyConstraints.cpp
@@ -57,6 +57,6 @@ EXTERN_CONSTRAINT(LayoutDuplicateComponentId, UniqueIdsLayout);
 // 10302 - caught at read
 
 
-	/** @endcond */
+/** @endcond */
 
 

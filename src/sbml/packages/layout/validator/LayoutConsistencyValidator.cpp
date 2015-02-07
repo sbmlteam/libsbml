@@ -1,4 +1,4 @@
-	/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /**
  * @file:   LayoutConsistencyValidator.cpp
@@ -55,6 +55,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __doxygen_ignore */
 
-	/** @endcond */
+/** @endcond */
 
 

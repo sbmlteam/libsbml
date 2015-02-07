@@ -482,15 +482,15 @@ ReferenceGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
                                 const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfReferenceGlyphs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+  * during the read of the listOfReferenceGlyphs - which will have
+  * happened immediately prior to this read
+  */
 
   bool loSubGlyphs = false;
   if (getParentSBMLObject() != NULL
@@ -499,150 +499,150 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
     loSubGlyphs = true;
   }
 
-	if (getErrorLog() != NULL &&
-	    static_cast<ListOfReferenceGlyphs*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
+  if (getErrorLog() != NULL &&
+    static_cast<ListOfReferenceGlyphs*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
         if (loSubGlyphs == true)
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOReferenceGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOReferenceGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
         if (loSubGlyphs == true)
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOReferenceGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOReferenceGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
-			}
-		}
-	}
+      }
+    }
+  }
 
-	GraphicalObject::readAttributes(attributes, expectedAttributes);
+  GraphicalObject::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                       LayoutREFGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", 
+          LayoutREFGAllowedCoreAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// glyph SIdRef   ( use = "required" )
-	//
-	assigned = attributes.readInto("glyph", mGlyph);
+  //
+  // glyph SIdRef   ( use = "required" )
+  //
+  assigned = attributes.readInto("glyph", mGlyph);
 
   if (getErrorLog() != NULL)
   {
-	  if (assigned == true)
-      {
-        // check string is not empty and correct syntax
-
-        if (mGlyph.empty() == true)
-        {
-          logEmptyString(mGlyph, getLevel(), getVersion(), "<ReferenceGlyph>");
-        }
-        else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
-        {
-          getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
-            getPackageVersion(), sbmlLevel, sbmlVersion, "The glyph on the <" 
-            + getElementName() + "> is '" + mGlyph + "', which does not conform.", getLine(), getColumn());
-        }
-      }
-	  else
-	  {
-		  std::string message = "Layout attribute 'glyph' is missing.";
-		  getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-	  }
-  }
-
-	//
-	// reference SIdRef   ( use = "optional" )
-	//
-	assigned = attributes.readInto("reference", mReference);
-
-	if (assigned == true && getErrorLog() != NULL)
+    if (assigned == true)
     {
       // check string is not empty and correct syntax
 
-      if (mReference.empty() == true)
+      if (mGlyph.empty() == true)
       {
-        logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
+        logEmptyString(mGlyph, getLevel(), getVersion(), "<ReferenceGlyph>");
       }
-      else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
+      else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
       {
-        getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
-          + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+        getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The glyph on the <" 
+          + getElementName() + "> is '" + mGlyph + "', which does not conform.", getLine(), getColumn());
       }
     }
+    else
+    {
+      std::string message = "Layout attribute 'glyph' is missing.";
+      getErrorLog()->logPackageError("layout", LayoutREFGAllowedAttributes,
+        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+    }
+  }
 
-	//
-	// role string   ( use = "optional" )
-	//
+  //
+  // reference SIdRef   ( use = "optional" )
+  //
+  assigned = attributes.readInto("reference", mReference);
+
+  if (assigned == true && getErrorLog() != NULL)
+  {
+    // check string is not empty and correct syntax
+
+    if (mReference.empty() == true)
+    {
+      logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
+    }
+    else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
+    {
+      getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
+        getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
+        + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+    }
+  }
+
+  //
+  // role string   ( use = "optional" )
+  //
   std::string role;
-	assigned = attributes.readInto("role", role);
+  assigned = attributes.readInto("role", role);
 
-	if (assigned == true)
-	{
-		// check string is not empty
+  if (assigned == true)
+  {
+    // check string is not empty
 
-		if (role.empty() == true  && getErrorLog() != NULL)
-		{
+    if (role.empty() == true  && getErrorLog() != NULL)
+    {
       logEmptyString(role, getLevel(), getVersion(), "<ReferenceGlyph>");
-		}
+    }
 
     this->setRole(role);
-	}
-  
+  }
+
 }
 /** @endcond */
 
