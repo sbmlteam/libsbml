@@ -101,7 +101,7 @@
 				layout:speciesReference="SpeciesReference_Glucose" 
 				layout:speciesGlyph="SpeciesGlyph_Glucose" 
 				layout:role="substrate">
-                <layout:boundingBox layout:id="bb6">
+                <layout:boundingBox layout:id="bb66">
                   <layout:position layout:x="50" layout:y="100"/>
                   <layout:dimensions layout:width="60" layout:height="20"/>
                 </layout:boundingBox>

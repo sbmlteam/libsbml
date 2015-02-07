@@ -85,7 +85,7 @@
           </layout:speciesGlyph>
         </layout:listOfSpeciesGlyphs>
         <layout:listOfReactionGlyphs>
-          <layout:reactionGlyph layout:id="ATP" layout:reaction="Hexokinase1">
+          <layout:reactionGlyph layout:id="hk1" layout:reaction="Hexokinase1">
             <layout:curve>
               <layout:listOfCurveSegments>
                 <layout:curveSegment 

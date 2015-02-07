@@ -97,21 +97,6 @@
               </layout:listOfCurveSegments>
             </layout:curve>
             <layout:listOfSpeciesReferenceGlyphs>
-              <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_Glucose" 
-				layout:speciesReference="SpeciesReference_Glucose" 
-				layout:speciesGlyph="SpeciesGlyph_Glucose" 
-				layout:role="substrate">
-                <layout:curve>
-                  <layout:listOfCurveSegments>
-                    <layout:curveSegment 
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-						xsi:type="LineSegment">
-                      <layout:start layout:x="170" layout:y="100"/>
-                      <layout:end layout:x="170" layout:y="50"/>
-                    </layout:curveSegment>
-                  </layout:listOfCurveSegments>
-                </layout:curve>
-              </layout:speciesReferenceGlyph>
               <layout:speciesReferenceGlyph layout:id="SpeciesReferenceGlyph_ATP" 
 				layout:speciesReference="SpeciesReference_ATP" 
 				layout:speciesGlyph="SpeciesGlyph_ATP" 
@@ -199,14 +184,6 @@
           </layout:reactionGlyph>
         </layout:listOfReactionGlyphs>
         <layout:listOfTextGlyphs>
-          <layout:textGlyph layout:id="TextGlyph_Glucose" 
-			layout:originOfText="Glucose" 
-			layout:graphicalObject="SpeciesGlyph_Glucose">
-            <layout:boundingBox layout:id="bbA">
-              <layout:position layout:x="115" layout:y="20"/>
-              <layout:dimensions layout:width="110" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:textGlyph>
           <layout:textGlyph layout:id="TextGlyph_G6P" 
 			layout:originOfText="G6P" 
 			layout:graphicalObject="SpeciesGlyph_G6P">

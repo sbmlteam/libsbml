@@ -57,25 +57,8 @@
               <layout:dimensions layout:width="270" layout:height="20"/>
             </layout:boundingBox>
           </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_ATP" layout:species="ATP">
-            <layout:boundingBox layout:id="bb3">
-              <layout:position layout:x="270" layout:y="70"/>
-              <layout:dimensions layout:width="80" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="glyph_ADP" layout:species="ADP">
-            <layout:boundingBox layout:id="bb4">
-              <layout:position layout:x="270" layout:y="140"/>
-              <layout:dimensions layout:width="80" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Pi" layout:species="Pi">
-            <layout:boundingBox layout:id="bb6">
-              <layout:position layout:x="50" layout:y="100"/>
-              <layout:dimensions layout:width="60" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-        </layout:listOfSpeciesGlyphs>               <layout:listOfCompartmentGlyphs>
+        </layout:listOfSpeciesGlyphs>
+        <layout:listOfCompartmentGlyphs>
           <layout:compartmentGlyph layout:id="CompartmentGlyph_1" layout:compartment="Yeast">
             <layout:boundingBox layout:id="bb1">
               <layout:position layout:x="5" layout:y="5"/>
@@ -84,18 +67,6 @@
           </layout:compartmentGlyph>
         </layout:listOfCompartmentGlyphs>
         <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_Glucose"  layout:species="Glucose">
-            <layout:boundingBox layout:id="bb2">
-              <layout:position layout:x="105" layout:y="20"/>
-              <layout:dimensions layout:width="130" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-          <layout:speciesGlyph layout:id="SpeciesGlyph_G6P" layout:species="G6P">
-            <layout:boundingBox layout:id="bb5">
-              <layout:position layout:x="50" layout:y="190"/>
-              <layout:dimensions layout:width="270" layout:height="20"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
           <layout:speciesGlyph layout:id="SpeciesGlyph_ATP" layout:species="ATP">
             <layout:boundingBox layout:id="bb3">
               <layout:position layout:x="270" layout:y="70"/>

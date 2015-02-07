@@ -70,7 +70,7 @@
             <layout:listOfReferenceGlyphs>
               <!-- reference glyph representing the inhibited species -->
               <layout:referenceGlyph 
-                layout:id="SpeciesReference_J0_0" 
+                layout:id="SpeciesReference_J0_1" 
                 layout:reference="Node1" 
                 layout:glyph="sGlyph_1" 
                 layout:role="inhibitor">

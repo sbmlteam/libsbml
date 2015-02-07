@@ -68,8 +68,9 @@
               </layout:referenceGlyph>              
             </layout:listOfReferenceGlyphs>
           </layout:generalGlyph>
-        </layout:listOfAdditionalGraphicalObjects>		<layout:listOfAdditionalGraphicalObjects>
-          <layout:generalGlyph layout:id="rGlyph_0" layout:reference="sGlyph_0">
+        </layout:listOfAdditionalGraphicalObjects>
+        <layout:listOfAdditionalGraphicalObjects>
+          <layout:generalGlyph layout:id="rGlyph_1" layout:reference="sGlyph_0">
 		    <!-- unused bounding box -->
             <layout:boundingBox>
               <layout:position layout:x="0" layout:y="0"/>
@@ -78,7 +79,7 @@
             <layout:listOfReferenceGlyphs>
 			  <!-- reference glyph representing the inhibited species -->
               <layout:referenceGlyph 
-			      layout:id="SpeciesReference_J0_0" 
+			      layout:id="SpeciesReference_J0_1" 
 				  layout:reference="Node1" 
 				  layout:glyph="sGlyph_1" 
 				  layout:role="inhibitor">
@@ -101,7 +102,7 @@
         
 		<layout:listOfTextGlyphs>
 		
-          <layout:textGlyph layout:id="tGlyph_0" layout:text="Node0" 
+          <layout:textGlyph layout:id="tGlyph_1" layout:text="Node0" 
 		       layout:graphicalObject="sGlyph_0">
             <layout:boundingBox>
               <layout:position layout:x="16" layout:y="18"/>
@@ -109,7 +110,7 @@
             </layout:boundingBox>
           </layout:textGlyph>
 		  
-          <layout:textGlyph layout:id="tGlyph_1" layout:text="Node1" 
+          <layout:textGlyph layout:id="tGlyph_2" layout:text="Node1" 
 		                    layout:graphicalObject="sGlyph_1">
             <layout:boundingBox>
               <layout:position layout:x="161" layout:y="18"/>

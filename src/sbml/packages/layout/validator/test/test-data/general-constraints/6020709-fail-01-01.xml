@@ -41,20 +41,20 @@
       </reaction>
       <reaction id="Hex1" reversible="false" fast="false" metaid="_Hex1">
         <listOfReactants>
-          <speciesReference id="SpeciesReference_Glucose" species="Glucose" 
+          <speciesReference id="SpeciesReference_Glucose2" species="Glucose" 
             stoichiometry="1" constant="true"/>
-          <speciesReference id="SpeciesReference_ATP" species="ATP" 
+          <speciesReference id="SpeciesReference_ATP2" species="ATP" 
             stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference id="SpeciesReference_G6P" species="G6P" 
+          <speciesReference id="SpeciesReference_G6P2" species="G6P" 
             stoichiometry="1" constant="true"/>
-          <speciesReference id="SpeciesReference_ADP" species="ADP" 
+          <speciesReference id="SpeciesReference_ADP2" species="ADP" 
             stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference id="ModifierSpeciesReference_G6P" species="G6P"/>
-          <modifierSpeciesReference id="ModifierSpeciesReference_Pi" species="Pi"/>
+          <modifierSpeciesReference id="ModifierSpeciesReference_G6P2" species="G6P"/>
+          <modifierSpeciesReference id="ModifierSpeciesReference_Pi2" species="Pi"/>
         </listOfModifiers>
       </reaction>
     </listOfReactions>

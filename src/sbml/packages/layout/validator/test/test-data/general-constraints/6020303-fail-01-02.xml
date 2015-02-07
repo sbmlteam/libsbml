@@ -51,9 +51,10 @@
               <layout:dimensions layout:width="390" layout:height="220"/>
             </layout:boundingBox>
           </layout:compartmentGlyph>
-        </layout:listOfCompartmentGlyphs>       <layout:listOfCompartmentGlyphs>
-          <layout:compartmentGlyph layout:id="CompartmentGlyph_1" layout:compartment="Yeast">
-            <layout:boundingBox layout:id="bb1">
+        </layout:listOfCompartmentGlyphs>
+        <layout:listOfCompartmentGlyphs>
+          <layout:compartmentGlyph layout:id="CompartmentGlyph_2" layout:compartment="Yeast">
+            <layout:boundingBox layout:id="bb7">
               <layout:position layout:x="5" layout:y="5"/>
               <layout:dimensions layout:width="390" layout:height="220"/>
             </layout:boundingBox>
