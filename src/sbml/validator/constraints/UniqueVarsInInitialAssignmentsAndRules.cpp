@@ -132,8 +132,8 @@ UniqueVarsInInitialAssignmentsAndRules::getMessage (const string& id, const SBas
   //
   // Example message: 
   //
-  // The Compartment id 'cell' conflicts with the previously defined
-  // Parameter id 'cell' at line 10.
+  // The <compartment> id 'cell' conflicts with the previously defined
+  // <parameter> id 'cell' at line 10.
   //
 
   msg << "  The <" << object.getElementName() << "> " << getFieldname(object.getTypeCode())

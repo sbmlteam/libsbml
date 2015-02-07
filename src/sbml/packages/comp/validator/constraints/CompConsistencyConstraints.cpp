@@ -578,7 +578,7 @@ START_CONSTRAINT (CompReferenceMustBeL3, ExternalModelDefinition, emd)
  
   bool fail = false;
 
-  msg = "<externalModelDefinition> '";
+  msg = "The <externalModelDefinition> with the id '";
   msg += emd.getId();
   msg += "' refers to a URI '";
   msg += emd.getSource();
@@ -614,7 +614,7 @@ START_CONSTRAINT (CompModReferenceMustIdOfModel, ExternalModelDefinition, emd)
   
   bool fail = false;
 
-  msg = "<externalModelDefinition> '";
+  msg = "The <externalModelDefinition> with the id '";
   msg += emd.getId() ;
   msg += "' refers to a model with id '";
   msg += emd.getModelRef();
@@ -683,7 +683,7 @@ START_CONSTRAINT (CompUnresolvedReference, ExternalModelDefinition, emd)
 
   bool fail = false;
 
-  msg = "<externalModelDefinition> '";
+  msg = "The <externalModelDefinition> with the id '";
   msg += emd.getId() ;
   msg += "' refers to a source '";
   msg += emd.getSource();
@@ -741,7 +741,7 @@ START_CONSTRAINT (CompSubmodelMustReferenceModel, Submodel, s)
 
   bool fail = true;
 
-  msg = "<submodel> '";
+  msg = "The <submodel> with the id '";
   msg += s.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -804,7 +804,7 @@ START_CONSTRAINT (CompSubmodelCannotReferenceSelf, Submodel, s)
 
   bool fail = false;
 
-  msg = "<submodel> '";
+  msg = "The <submodel> with the id '";
   msg += s.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -848,7 +848,7 @@ START_CONSTRAINT (CompTimeConversionMustBeParameter, Submodel, s)
 
   bool fail = false;
 
-  msg = "The 'timeConversionFactor' of <submodel> '";
+  msg = "The 'timeConversionFactor' of the <submodel> with the id '";
   msg += s.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -886,7 +886,7 @@ START_CONSTRAINT (CompExtentConversionMustBeParameter, Submodel, s)
 
   bool fail = false;
 
-  msg = "The 'extentConversionFactor' of <submodel> '";
+  msg = "The 'extentConversionFactor' of the <submodel> with the id '";
   msg += s.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -937,7 +937,7 @@ START_CONSTRAINT (CompPortRefMustReferencePort, Deletion, d)
                         (d.getAncestorOfType(SBML_COMP_SUBMODEL, "comp"));
   pre (sub != NULL);
 
-  msg = "The 'portRef' of a <deletion>";
+  msg = "The 'portRef' of the <deletion>";
   msg += " is set to '";
   msg += d.getPortRef();
   msg += "' which is not a <port> within the <model> referenced by ";
@@ -2796,7 +2796,7 @@ START_CONSTRAINT (CompSBaseRefMustReferenceObject, SBaseRef, sbRef)
   bool metaidRef = sbRef.isSetMetaIdRef();
   bool portRef  = sbRef.isSetPortRef();
 
-  msg = "<sBaseRef> in ";
+  msg = "The <sBaseRef> in ";
   const Model* mod = static_cast<const Model*>
                                     (sbRef.getAncestorOfType(SBML_MODEL, "core"));
   if (mod == NULL) {
@@ -2850,7 +2850,7 @@ START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
 
   bool fail = false;
 
-  msg = "<sBaseRef> in ";
+  msg = "The <sBaseRef> in ";
   const Model* mod = static_cast<const Model*>
                                     (sbRef.getAncestorOfType(SBML_MODEL, "core"));
   if (mod == NULL) {
@@ -2869,26 +2869,26 @@ START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
 
   if (idRef == true)
   {
-    msg += "object with id '";
+    msg += "an object with id '";
     msg += sbRef.getIdRef();
     msg += "'";
     if (unitRef == true)
     {
       fail = true;
-      msg += "and also unit with id '";
+      msg += " and also a unit with id '";
       msg += sbRef.getUnitRef();
       msg += "'";
 
       if ( metaidRef == true)
       {
-        msg += "and also object with metaid '";
+        msg += " and also an object with metaid '";
         msg += sbRef.getMetaIdRef();
         msg += "'";
       }
 
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += sbRef.getPortRef();
         msg += "'";
       }
@@ -2897,13 +2897,13 @@ START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
     else if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += sbRef.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += sbRef.getPortRef();
         msg += "'";
       }
@@ -2912,27 +2912,27 @@ START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += sbRef.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += sbRef.getPortRef();
       msg += "'.";
     }
   }
   else if (unitRef == true)
   {
-    msg += "unit with id '";
+    msg += "a unit with id '";
     msg += sbRef.getUnitRef();
-    msg += "' and also ";
+    msg += "' ";
     
     if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += sbRef.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += sbRef.getPortRef();
         msg += "'";
       }
@@ -2941,21 +2941,21 @@ START_CONSTRAINT (CompSBaseRefMustReferenceOnlyOneObject, SBaseRef, sbRef)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += sbRef.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += sbRef.getPortRef();
       msg += "'.";
     }
   }
   else if (metaidRef == true)
   {
-    msg += "object with metaid '";
+    msg += "an object with metaid '";
     msg += sbRef.getMetaIdRef();
     msg += "'";
 
     if (portRef == true)
     {
       fail = true;
-      msg += "and also port with id '";
+      msg += " and also a port with id '";
       msg += sbRef.getPortRef();
       msg += "'";
     }
@@ -2979,7 +2979,7 @@ START_CONSTRAINT (CompPortMustReferenceObject, Port, p)
   bool unitRef = p.isSetUnitRef();
   bool metaidRef = p.isSetMetaIdRef();
 
-  msg = "<port> '";
+  msg = "The <port> '";
   msg += p.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -3031,7 +3031,7 @@ START_CONSTRAINT (CompPortMustReferenceOnlyOneObject, Port, p)
 
   bool fail = false;
 
-  msg = "<port> '";
+  msg = "The <port> '";
   msg += p.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -3052,19 +3052,19 @@ START_CONSTRAINT (CompPortMustReferenceOnlyOneObject, Port, p)
 
   if (idRef == true)
   {
-    msg += "object with id '";
+    msg += "an object with id '";
     msg += p.getIdRef();
-    msg += "' and also ";
+    msg += "'";
     if (unitRef == true)
     {
       fail = true;
-      msg += "unit with id '";
+      msg += " and also a unit with id '";
       msg += p.getUnitRef();
       msg += "'";
 
       if ( metaidRef == true)
       {
-        msg += "and also object with metaid '";
+        msg += " and also an object with metaid '";
         msg += p.getMetaIdRef();
         msg += "'.";
       }
@@ -3072,21 +3072,21 @@ START_CONSTRAINT (CompPortMustReferenceOnlyOneObject, Port, p)
     else if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += p.getMetaIdRef();
       msg += "'.";
     }
   }
   else if (unitRef == true)
   {
-    msg += "unit with id '";
+    msg += "a unit with id '";
     msg += p.getUnitRef();
-    msg += "' and also ";
+    msg += "'";
     
     if (metaidRef == true)
     {
       fail = true;
-      msg += "object with metaid '";
+      msg += " and also an object with metaid '";
       msg += p.getMetaIdRef();
       msg += "'.";
     }
@@ -3117,7 +3117,7 @@ START_CONSTRAINT (CompDeletionMustReferenceObject, Deletion, d)
   bool metaidRef = d.isSetMetaIdRef();
   bool portRef  = d.isSetPortRef();
 
-  msg = "<Deletion> '";
+  msg = "The <deletion> '";
   msg += d.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -3174,7 +3174,7 @@ START_CONSTRAINT (CompDeletionMustReferOnlyOneObject, Deletion, d)
 
   bool fail = false;
 
-  msg = "<Deletion> '";
+  msg = "The <deletion> '";
   msg += d.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -3195,26 +3195,26 @@ START_CONSTRAINT (CompDeletionMustReferOnlyOneObject, Deletion, d)
 
   if (idRef == true)
   {
-    msg += "object with id '";
+    msg += "an object with id '";
     msg += d.getIdRef();
     msg += "'";
     if (unitRef == true)
     {
       fail = true;
-      msg += "and also unit with id '";
+      msg += " and also a unit with id '";
       msg += d.getUnitRef();
       msg += "'";
 
       if ( metaidRef == true)
       {
-        msg += "and also object with metaid '";
+        msg += " and also an object with metaid '";
         msg += d.getMetaIdRef();
         msg += "'";
       }
 
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += d.getPortRef();
         msg += "'";
       }
@@ -3223,13 +3223,13 @@ START_CONSTRAINT (CompDeletionMustReferOnlyOneObject, Deletion, d)
     else if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += d.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += d.getPortRef();
         msg += "'";
       }
@@ -3238,27 +3238,27 @@ START_CONSTRAINT (CompDeletionMustReferOnlyOneObject, Deletion, d)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += d.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += d.getPortRef();
       msg += "'.";
     }
   }
   else if (unitRef == true)
   {
-    msg += "unit with id '";
+    msg += "a unit with id '";
     msg += d.getUnitRef();
-    msg += "' and also ";
+    msg += "'";
     
     if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += d.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += d.getPortRef();
         msg += "'";
       }
@@ -3267,21 +3267,21 @@ START_CONSTRAINT (CompDeletionMustReferOnlyOneObject, Deletion, d)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += d.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += d.getPortRef();
       msg += "'.";
     }
   }
   else if (metaidRef == true)
   {
-    msg += "object with metaid '";
+    msg += "an object with metaid '";
     msg += d.getMetaIdRef();
     msg += "'";
 
     if (portRef == true)
     {
       fail = true;
-      msg += "and also port with id '";
+      msg += " and also a port with id '";
       msg += d.getPortRef();
       msg += "'";
     }
@@ -3371,7 +3371,7 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
 
   bool fail = false;
 
-  msg = "<replacedElement> '";
+  msg = "The <replacedElement> '";
   msg += repE.getId() ;
   msg += "' in ";
   const Model* mod = static_cast<const Model*>
@@ -3392,33 +3392,33 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
 
   if (idRef == true)
   {
-    msg += "object with id '";
+    msg += "an object with id '";
     msg += repE.getIdRef();
     msg += "'";
     if (unitRef == true)
     {
       fail = true;
-      msg += "and also unit with id '";
+      msg += " and also a unit with id '";
       msg += repE.getUnitRef();
       msg += "'";
 
       if ( metaidRef == true)
       {
-        msg += "and also object with metaid '";
+        msg += " and also an object with metaid '";
         msg += repE.getMetaIdRef();
         msg += "'";
       }
 
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repE.getPortRef();
         msg += "'";
       }
 
       if (deletion == true)
       {
-        msg += "and also deletion object '";
+        msg += " and also a deletion object '";
         msg += repE.getDeletion();
         msg += "'";
       }
@@ -3427,20 +3427,20 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
     else if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += repE.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repE.getPortRef();
         msg += "'";
       }
 
       if (deletion == true)
       {
-        msg += "and also deletion object '";
+        msg += " and also a deletion object '";
         msg += repE.getDeletion();
         msg += "'";
       }
@@ -3449,12 +3449,12 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += repE.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += repE.getPortRef();
 
       if (deletion == true)
       {
-        msg += "and also deletion object '";
+        msg += " and also a deletion object '";
         msg += repE.getDeletion();
         msg += "'";
       }
@@ -3463,34 +3463,34 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
     else if (deletion == true)
     {
       fail = true;
-      msg += "and also deletion object '";
+      msg += " and also a deletion object '";
       msg += repE.getDeletion();
       msg += "'.";
     }
   }
   else if (unitRef == true)
   {
-    msg += "unit with id '";
+    msg += "a unit with id '";
     msg += repE.getUnitRef();
-    msg += "' and also ";
+    msg += "'";
     
     if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += repE.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repE.getPortRef();
         msg += "'";
       }
  
       if (deletion == true)
       {
-        msg += "and also deletion object '";
+        msg += " and also a deletion object '";
         msg += repE.getDeletion();
         msg += "'";
       }
@@ -3499,12 +3499,12 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += repE.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += repE.getPortRef();
  
       if (deletion == true)
       {
-        msg += "and also deletion object '";
+        msg += " and also a deletion object '";
         msg += repE.getDeletion();
         msg += "'";
       }
@@ -3513,28 +3513,28 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
     else if (deletion == true)
     {
       fail = true;
-      msg += "and also deletion object '";
+      msg += " and also a deletion object '";
       msg += repE.getDeletion();
       msg += "'.";
    }
   }
   else if (metaidRef == true)
   {
-    msg += "object with metaid '";
+    msg += "an object with metaid '";
     msg += repE.getMetaIdRef();
     msg += "'";
 
     if (portRef == true)
     {
       fail = true;
-      msg += "and also port with id '";
+      msg += " and also a port with id '";
       msg += repE.getPortRef();
       msg += "'";
     }
  
     if (deletion == true)
     {
-      msg += "and also deletion object '";
+      msg += " and also a deletion object '";
       msg += repE.getDeletion();
       msg += "'";
     }
@@ -3542,14 +3542,14 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
   }
   else if (portRef == true)
   {
-    msg += "port with id '";
+    msg += "a port with id '";
     msg += repE.getPortRef();
     msg += "'";
 
     if (deletion == true)
     {
       fail = true;
-      msg += "and also deletion object '";
+      msg += " and also a deletion object '";
       msg += repE.getDeletion();
       msg += "'";
     }
@@ -3775,26 +3775,26 @@ START_CONSTRAINT (CompReplacedByMustRefOnlyOne, ReplacedBy, repBy)
 
   if (idRef == true)
   {
-    msg += "object with id '";
+    msg += "an object with id '";
     msg += repBy.getIdRef();
     msg += "'";
     if (unitRef == true)
     {
       fail = true;
-      msg += "and also unit with id '";
+      msg += " and also a unit with id '";
       msg += repBy.getUnitRef();
       msg += "'";
 
       if ( metaidRef == true)
       {
-        msg += "and also object with metaid '";
+        msg += " and also an object with metaid '";
         msg += repBy.getMetaIdRef();
         msg += "'";
       }
 
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repBy.getPortRef();
         msg += "'";
       }
@@ -3803,13 +3803,13 @@ START_CONSTRAINT (CompReplacedByMustRefOnlyOne, ReplacedBy, repBy)
     else if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += repBy.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repBy.getPortRef();
         msg += "'";
       }
@@ -3818,27 +3818,27 @@ START_CONSTRAINT (CompReplacedByMustRefOnlyOne, ReplacedBy, repBy)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += repBy.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += repBy.getPortRef();
       msg += "'.";
     }
   }
   else if (unitRef == true)
   {
-    msg += "unit with id '";
+    msg += "a unit with id '";
     msg += repBy.getUnitRef();
-    msg += "' and also ";
+    msg += "'";
     
     if (metaidRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
+      msg += " and also an object with metaid '";
       msg += repBy.getMetaIdRef();
       msg += "'";
  
       if (portRef == true)
       {
-        msg += "and also port with id '";
+        msg += " and also a port with id '";
         msg += repBy.getPortRef();
         msg += "'";
       }
@@ -3847,21 +3847,21 @@ START_CONSTRAINT (CompReplacedByMustRefOnlyOne, ReplacedBy, repBy)
     else if (portRef == true)
     {
       fail = true;
-      msg += "and also object with metaid '";
-      msg += repBy.getMetaIdRef();
+      msg += " and also a port with id '";
+      msg += repBy.getPortRef();
       msg += "'.";
     }
   }
   else if (metaidRef == true)
   {
-    msg += "object with metaid '";
+    msg += "an object with metaid '";
     msg += repBy.getMetaIdRef();
     msg += "'";
 
     if (portRef == true)
     {
       fail = true;
-      msg += "and also port with id '";
+      msg += " and also a port with id '";
       msg += repBy.getPortRef();
       msg += "'";
     }

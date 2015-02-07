@@ -508,7 +508,7 @@ ExternalModelDefinition::readAttributes (const XMLAttributes& attributes,
       if (!SyntaxChecker::isValidXMLanyURI(mSource)) 
       {
         getErrorLog()->logPackageError("comp", CompInvalidSourceSyntax,
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), "The source attribute value '" + mSource + "' does not conform to the anyURI syntax.");
       }
     }
     

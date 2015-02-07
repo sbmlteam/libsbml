@@ -922,20 +922,21 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("reference", mReference);
 
-	if (assigned == true)
-	{
-		// check string is not empty and correct syntax
+    if (assigned == true)
+    {
+      // check string is not empty and correct syntax
 
-		if (mReference.empty() == true)
-		{
-      logEmptyString(mReference, getLevel(), getVersion(), "<GeneralGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutGGReferenceSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mReference.empty() == true)
+      {
+        logEmptyString(mReference, getLevel(), getVersion(), "<GeneralGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutGGReferenceSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
+          + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 
 }

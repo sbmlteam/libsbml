@@ -123,7 +123,7 @@ UniquePortReferences::checkReferencedElement(Port& p)
 void 
 UniquePortReferences::logReferenceExists (Port& p)
 {
-  msg = "Port with id '";
+  msg = "The <port> with id '";
   msg += p.getId();
   msg += "' references the object ";
   if (p.isSetIdRef() == true)

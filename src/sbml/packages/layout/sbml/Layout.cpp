@@ -1602,31 +1602,32 @@ Layout::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("id", mId);
 
-  if (getErrorLog() != NULL)
-  {
- 	  if (assigned == true)
-	  {
-		  // check string is not empty and correct syntax
+    if (getErrorLog() != NULL)
+    {
+      if (assigned == true)
+      {
+        // check string is not empty and correct syntax
 
-		  if (mId.empty() == true)
-		  {
-        logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
-		  }
-		  else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		  {
-		    getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
-		                   getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		  }
-	  }
-	  else
-	  {
-		  std::string message = "Layout attribute 'id' is missing.";
-		  getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-	  }
-  }
+        if (mId.empty() == true)
+        {
+          logEmptyString(mId, getLevel(), getVersion(), "<Layout>");
+        }
+        else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+        {
+          getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+            + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+        }
+      }
+      else
+      {
+        std::string message = "Layout attribute 'id' is missing.";
+        getErrorLog()->logPackageError("layout", LayoutLayoutAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
+    }
 
-  attributes.readInto("name", mName);
+    attributes.readInto("name", mName);
 }
 /** @endcond */
 

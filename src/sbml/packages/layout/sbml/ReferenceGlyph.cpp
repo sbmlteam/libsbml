@@ -582,19 +582,20 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
 	  if (assigned == true)
-	  {
-		  // check string is not empty and correct syntax
+      {
+        // check string is not empty and correct syntax
 
-		  if (mGlyph.empty() == true)
-		  {
-			  logEmptyString(mGlyph, getLevel(), getVersion(), "<ReferenceGlyph>");
-		  }
-		  else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
-		  {
-		    getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
-		                   getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		  }
-	  }
+        if (mGlyph.empty() == true)
+        {
+          logEmptyString(mGlyph, getLevel(), getVersion(), "<ReferenceGlyph>");
+        }
+        else if (SyntaxChecker::isValidSBMLSId(mGlyph) == false)
+        {
+          getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The glyph on the <" 
+            + getElementName() + "> is '" + mGlyph + "', which does not conform.", getLine(), getColumn());
+        }
+      }
 	  else
 	  {
 		  std::string message = "Layout attribute 'glyph' is missing.";
@@ -609,19 +610,20 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 	assigned = attributes.readInto("reference", mReference);
 
 	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+    {
+      // check string is not empty and correct syntax
 
-		if (mReference.empty() == true)
-		{
-      logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
-		{
-		  getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
-		                 getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mReference.empty() == true)
+      {
+        logEmptyString(mReference, getLevel(), getVersion(), "<ReferenceGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mReference) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
+          + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 	//
 	// role string   ( use = "optional" )

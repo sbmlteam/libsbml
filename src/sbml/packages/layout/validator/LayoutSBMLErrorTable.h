@@ -143,7 +143,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "In all SBML documents using the Layout "
     "package, the SBML object must include a value for the attribute "
-    "'layout:required.",
+    "'layout:required'.",
     { "L3V1 Core Section 4.1.2"
     }
   },
@@ -484,7 +484,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020405
   { LayoutGOMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <graphicalObject> "
@@ -495,7 +495,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020406
   { LayoutGOMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <graphicalObject> "
@@ -567,7 +567,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020505
   { LayoutCGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <compartmentGlyph> "
@@ -578,7 +578,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020506
   { LayoutCGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <compartmentGlyph> "
@@ -684,7 +684,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020605
   { LayoutSGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <speciesGlyph> "
@@ -695,7 +695,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020606
   { LayoutSGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <speciesGlyph> "
@@ -792,7 +792,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020705
   { LayoutRGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <reactionGlyph> "
@@ -803,7 +803,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020706
   { LayoutRGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <reactionGlyph> "
@@ -936,7 +936,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020805
   { LayoutGGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <generalGlyph> "
@@ -947,7 +947,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020806
   { LayoutGGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <generalGlyph> "
@@ -1095,7 +1095,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020905
   { LayoutTGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <textGlyph> "
@@ -1106,7 +1106,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6020906
   { LayoutTGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <textGlyph> "
@@ -1236,7 +1236,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6021005
   { LayoutSRGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <speciesReferenceGlyph> "
@@ -1247,7 +1247,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6021006
   { LayoutSRGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <speciesReferenceGlyph> "
@@ -1382,7 +1382,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6021105
   { LayoutREFGMetaIdRefMustBeIDREF, 
-    "Layout 'metIdRef' must be IDREF.",
+    "Layout 'metaidRef' must be IDREF.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attribute 'layout:metaidRef' of a <referenceGlyph> "
@@ -1393,7 +1393,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
 
   // 6021106
   { LayoutREFGMetaIdRefMustReferenceObject, 
-    "Layout 'metIdRef' must reference existing object.",
+    "Layout 'metaidRef' must reference existing object.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The value of a 'layout:metaidRef' attribute of a <referenceGlyph> "

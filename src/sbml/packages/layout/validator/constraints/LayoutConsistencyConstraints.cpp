@@ -114,6 +114,12 @@ START_CONSTRAINT (LayoutGOMetaIdRefMustReferenceObject, GraphicalObject, go)
   pre(go.isSetMetaIdRef() == true);
 
   bool fail = false;
+  msg = "The <" + go.getElementName() + "> ";
+  if (go.isSetId()) {
+    msg += "with the id '" + go.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + go.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
 
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
@@ -164,6 +170,13 @@ START_CONSTRAINT (LayoutCGMetaIdRefMustReferenceObject, CompartmentGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -183,6 +196,13 @@ START_CONSTRAINT (LayoutCGCompartmentMustRefComp, CompartmentGlyph, glyph)
   pre(glyph.isSetCompartmentId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a compartment '" + glyph.getCompartmentId() +
+    "' which is not the id of any <compartment> in the model.";
 
   if (m.getCompartment(glyph.getCompartmentId()) == NULL)
   {
@@ -205,6 +225,12 @@ START_CONSTRAINT (LayoutCGNoDuplicateReferences, CompartmentGlyph, glyph)
 
   // bail if we have not found a match
   pre ( c != NULL);
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
 
   if (c->isSetMetaId() == false || c->getMetaId() != glyph.getMetaIdRef())
   {
@@ -236,6 +262,13 @@ START_CONSTRAINT (LayoutSGMetaIdRefMustReferenceObject, SpeciesGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -255,6 +288,13 @@ START_CONSTRAINT (LayoutSGSpeciesMustRefSpecies, SpeciesGlyph, glyph)
   pre(glyph.isSetSpeciesId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a species '" + glyph.getSpeciesId() + 
+    "' which is not the id of any <species> in the model.";
 
   if (m.getSpecies(glyph.getSpeciesId()) == NULL)
   {
@@ -277,6 +317,12 @@ START_CONSTRAINT (LayoutSGNoDuplicateReferences, SpeciesGlyph, glyph)
 
   // bail if we have not found a match
   pre ( obj != NULL);
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
 
   if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
@@ -314,6 +360,13 @@ START_CONSTRAINT (LayoutRGMetaIdRefMustReferenceObject, ReactionGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -333,6 +386,13 @@ START_CONSTRAINT (LayoutRGReactionMustRefReaction, ReactionGlyph, glyph)
   pre(glyph.isSetReactionId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a reaction '" + glyph.getReactionId() +
+    "' which is not the id of any <reaction> in the model.";
 
   if (m.getReaction(glyph.getReactionId()) == NULL)
   {
@@ -355,6 +415,12 @@ START_CONSTRAINT (LayoutRGNoDuplicateReferences, ReactionGlyph, glyph)
 
   // bail if we have not found a match
   pre ( obj != NULL);
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
 
   if (obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
@@ -387,6 +453,13 @@ START_CONSTRAINT (LayoutGGMetaIdRefMustReferenceObject, GeneralGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -407,6 +480,13 @@ START_CONSTRAINT (LayoutGGReferenceMustRefObject, GeneralGlyph, glyph)
   pre(glyph.isSetReferenceId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a reference '" + glyph.getReferenceId() + 
+    "' which is not the id of any element in the model.";
 
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
@@ -449,6 +529,12 @@ START_CONSTRAINT (LayoutGGNoDuplicateReferences, GeneralGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
+
   if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
@@ -479,6 +565,13 @@ START_CONSTRAINT (LayoutTGMetaIdRefMustReferenceObject, TextGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -498,6 +591,13 @@ START_CONSTRAINT (LayoutTGOriginOfTextMustRefObject, TextGlyph, glyph)
   pre(glyph.isSetOriginOfTextId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has an originOfText '" + glyph.getOriginOfTextId() + 
+    "' which is not the id of any element in the model.";
 
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
@@ -542,6 +642,12 @@ START_CONSTRAINT (LayoutTGNoDuplicateReferences, TextGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
+
   if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
@@ -558,6 +664,13 @@ START_CONSTRAINT (LayoutTGGraphicalObjectMustRefObject, TextGlyph, glyph)
 
   std::string goRef = glyph.getGraphicalObjectId();
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a graphicalObject '" + goRef +
+    "' which is not the id of any <graphicalObject> in the model.";
 
   const Layout* layout = static_cast<const Layout *>
                         (glyph.getAncestorOfType(SBML_LAYOUT_LAYOUT, "layout"));
@@ -613,6 +726,13 @@ START_CONSTRAINT (LayoutSRGMetaIdRefMustReferenceObject, SpeciesReferenceGlyph, 
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -632,6 +752,13 @@ START_CONSTRAINT (LayoutSRGSpeciesRefMustRefObject, SpeciesReferenceGlyph, glyph
   pre(glyph.isSetSpeciesReferenceId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a speciesReference '" + glyph.getSpeciesReferenceId() + 
+    "' which is not the id of any <speciesReference> in the model.";
 
   if (m.getSpeciesReference(glyph.getSpeciesReferenceId()) == NULL
     && m.getModifierSpeciesReference(glyph.getSpeciesReferenceId()) == NULL)
@@ -673,6 +800,12 @@ START_CONSTRAINT (LayoutSRGNoDuplicateReferences, SpeciesReferenceGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
+
   if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
@@ -689,6 +822,13 @@ START_CONSTRAINT (LayoutSRGSpeciesGlyphMustRefObject, SpeciesReferenceGlyph, gly
 
   std::string sGlyph = glyph.getSpeciesGlyphId();
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a graphicalObject '" + sGlyph + 
+    "' which is not the id of any <graphicalObject> in the model.";
 
   const Layout* layout = static_cast<const Layout *>
                         (glyph.getAncestorOfType(SBML_LAYOUT_LAYOUT, "layout"));
@@ -738,6 +878,13 @@ START_CONSTRAINT (LayoutREFGMetaIdRefMustReferenceObject, ReferenceGlyph, glyph)
 
   bool fail = false;
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a metaidRef '" + glyph.getMetaIdRef() + 
+    "' which is not the metaid of any element in the model.";
+
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
                             (glyph.getSBMLDocument()->getPlugin("layout"));
@@ -757,6 +904,13 @@ START_CONSTRAINT (LayoutREFGReferenceMustRefObject, ReferenceGlyph, glyph)
   pre(glyph.isSetReferenceId() == true);
 
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a reference '" + glyph.getReferenceId() + 
+    "' which is not the id of any element in the model.";
 
   const LayoutSBMLDocumentPlugin * plug = 
                             static_cast<const LayoutSBMLDocumentPlugin*>
@@ -801,6 +955,12 @@ START_CONSTRAINT (LayoutREFGNoDuplicateReferences, ReferenceGlyph, glyph)
   // bail if we have not found a match
   pre ( i < elements->getSize());
 
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "references multiple objects.";
+
   if (obj == NULL || obj->isSetMetaId() == false || obj->getMetaId() != glyph.getMetaIdRef())
   {
     fail = true;
@@ -817,6 +977,13 @@ START_CONSTRAINT (LayoutREFGGlyphMustRefObject, ReferenceGlyph, glyph)
 
   std::string goRef = glyph.getGlyphId();
   bool fail = false;
+
+  msg = "The <" + glyph.getElementName() + "> ";
+  if (glyph.isSetId()) {
+    msg += "with the id '" + glyph.getId() + "' ";
+  }
+  msg += "has a glyph '" + goRef + 
+    "' which is not the id of any <graphicalObject> in the model.";
 
   const Layout* layout = static_cast<const Layout *>
                         (glyph.getAncestorOfType(SBML_LAYOUT_LAYOUT, "layout"));

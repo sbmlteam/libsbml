@@ -181,13 +181,13 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
   //
   // Example message: 
   //
-  // The Compartment id 'cell' conflicts with the previously defined
-  // Parameter id 'cell' at line 10.
+  // The <compartment> id 'cell' conflicts with the previously defined
+  // <parameter> id 'cell' at line 10.
   //
 
-  msg << "  The " << getTypename(object) << " " << getFieldname()
-      << " '" << id << "' conflicts with the previously defined "
-      << getTypename(previous) << ' ' << getFieldname()
+  msg << "  The <" << object.getElementName() << "> " << getFieldname()
+      << " '" << id << "' conflicts with the previously defined <"
+      << previous.getElementName() << "> " << getFieldname()
       << " '" << id << "'";
 
   if (previous.getLine() != 0)

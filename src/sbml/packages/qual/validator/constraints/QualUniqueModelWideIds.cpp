@@ -164,14 +164,14 @@ QualUniqueModelWideIds::getMessage (const string& id, const SBase& object)
   //
   // Example message: 
   //
-  // The Compartment id 'cell' conflicts with the previously defined
-  // Parameter id 'cell' at line 10.
+  // The <compartment> id 'cell' conflicts with the previously defined
+  // <parameter> id 'cell' at line 10.
   //
 
-  msg << "  The " << getTypename(object)
-      << " id '" << id << "' conflicts with the previously defined "
-      << getTypename(previous)
-      << " id '" << id << "'";
+  msg << "  The <" << object.getElementName()
+      << "> id '" << id << "' conflicts with the previously defined <"
+      << previous.getElementName()
+      << "> id '" << id << "'";
 
   if (previous.getLine() != 0)
   {

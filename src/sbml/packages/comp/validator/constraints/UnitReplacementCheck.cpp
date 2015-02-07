@@ -296,7 +296,7 @@ UnitReplacementCheck::checkReferencedElement(ReplacedElement& repE,
 
   bool cfPresent = false;
   /* adjust the refElement units for conversion factor */
-  if (repE.isSetConversionFactor() == true)
+  if (repE.isSetConversionFactor() == true && refElemUnits && refElemUnits->getNumUnits() > 0)
   {
     Parameter * p = const_cast<Model *>(&m)
                                    ->getParameter(repE.getConversionFactor());
@@ -411,7 +411,7 @@ UnitReplacementCheck::logMismatchUnits (ReplacedElement& repE,
   }
   else
   {
-    msg += " with an inaccuracte conversionFactor declared.";
+    msg += " with an inaccurate conversionFactor declared.";
   }
 
   logFailure(repE);

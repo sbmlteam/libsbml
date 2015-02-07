@@ -363,18 +363,19 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
 
 	if (assigned == true && getErrorLog() != NULL)
 	{
-		// check string is not empty and correct syntax
+      // check string is not empty and correct syntax
 
-		if (mSpecies.empty() == true)
-		{
-      logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mSpecies.empty() == true)
+      {
+        logEmptyString(mSpecies, getLevel(), getVersion(), "<SpeciesGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mSpecies) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The species on the <" 
+          + getElementName() + "> is '" + mSpecies + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 }
 /** @endcond */

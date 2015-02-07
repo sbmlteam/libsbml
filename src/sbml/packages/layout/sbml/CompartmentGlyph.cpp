@@ -353,15 +353,15 @@ CompartmentGlyph::addExpectedAttributes(ExpectedAttributes& attributes)
 void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
                                        const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs=0;
+  unsigned int numErrs=0;
 
-	/* look to see whether an unknown attribute error was logged
-	 * during the read of the listOfCompartmentGlyphs - which will have
-	 * happened immediately prior to this read
-	*/
+  /* look to see whether an unknown attribute error was logged
+   * during the read of the listOfCompartmentGlyphs - which will have
+   * happened immediately prior to this read
+  */
 
   bool loSubGlyphs = false;
   if (getParentSBMLObject() != NULL
@@ -370,123 +370,124 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
     loSubGlyphs = true;
   }
 
-	if (getErrorLog() != NULL &&
-	    static_cast<ListOfCompartmentGlyphs*>(getParentSBMLObject())->size() < 2)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				      getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
+  if (getErrorLog() != NULL &&
+      static_cast<ListOfCompartmentGlyphs*>(getParentSBMLObject())->size() < 2)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+              getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
         if (loSubGlyphs == true)
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOCompGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOCompGlyphAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				           getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
         if (loSubGlyphs == true)
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOSubGlyphAllowedAttribs,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOSubGlyphAllowedAttribs,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
         else
         {
-				  getErrorLog()->logPackageError("layout", 
-                                    LayoutLOCompGlyphAllowedAttributes,
-				            getPackageVersion(), sbmlLevel, sbmlVersion, details);
+          getErrorLog()->logPackageError("layout", 
+            LayoutLOCompGlyphAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details);
         }
-			}
-		}
-	}
+      }
+    }
+  }
 
-	GraphicalObject::readAttributes(attributes, expectedAttributes);
+  GraphicalObject::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", LayoutCGAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+  {
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("layout", LayoutCGAllowedCoreAttributes,
+          getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
+  }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// compartment SIdRef   ( use = "optional" )
-	//
-	assigned = attributes.readInto("compartment", mCompartment);
+  //
+  // compartment SIdRef   ( use = "optional" )
+  //
+  assigned = attributes.readInto("compartment", mCompartment);
 
-	if (assigned == true)
-	{
+  if (assigned == true)
+  {
     if (getErrorLog() != NULL)
     {
-		  // check string is not empty and correct syntax
+      // check string is not empty and correct syntax
 
-		  if (mCompartment.empty() == true)
-		  {
-			  logEmptyString(mCompartment, getLevel(), getVersion(), 
+      if (mCompartment.empty() == true)
+      {
+        logEmptyString(mCompartment, getLevel(), getVersion(), 
           "<CompartmentGlyph>");
-		  }
-		  else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
-		  {
-			  getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		  }
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The compartment on the <" 
+          + getElementName() + "> is '" + mCompartment + "', which does not conform.", getLine(), getColumn());
+      }
     }
-	}
+  }
 
-	//
-	// order double   ( use = "optional" )
-	//
-	if (getErrorLog() != NULL) numErrs = getErrorLog()->getNumErrors();
-	mIsSetOrder = attributes.readInto("order", mOrder);
+  //
+  // order double   ( use = "optional" )
+  //
+  if (getErrorLog() != NULL) numErrs = getErrorLog()->getNumErrors();
+  mIsSetOrder = attributes.readInto("order", mOrder);
 
-	if (mIsSetOrder == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", LayoutCGOrderMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-		}
-	}
+  if (mIsSetOrder == false)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("layout", LayoutCGOrderMustBeDouble,
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+      }
+    }
+  }
 
   
 }

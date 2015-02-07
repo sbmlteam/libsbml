@@ -496,19 +496,20 @@ void Point::readAttributes (const XMLAttributes& attributes,
 	assigned = attributes.readInto("id", mId);
 
  	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+    {
+      // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-      logEmptyString(mId, getLevel(), getVersion(), "<Point>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-      getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mId.empty() == true)
+      {
+        logEmptyString(mId, getLevel(), getVersion(), "<Point>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 	//
 	// x double   ( use = "required" )
@@ -519,22 +520,23 @@ void Point::readAttributes (const XMLAttributes& attributes,
 	if (assigned == false)
 	{
 		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-			else
-			{
-				std::string message = "Layout attribute 'x' is missing.";
-				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-			}
-		}
+        {
+          if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+            getErrorLog()->contains(XMLAttributeTypeMismatch))
+          {
+            getErrorLog()->remove(XMLAttributeTypeMismatch);
+            getErrorLog()->logPackageError("layout", 
+              LayoutPointAttributesMustBeDouble,
+              getPackageVersion(), sbmlLevel, sbmlVersion, "The 'x' on the <" 
+              + getElementName() + "> does not conform.", getLine(), getColumn());
+          }
+          else
+          {
+            std::string message = "Layout attribute 'x' is missing.";
+            getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
+              getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+          }
+        }
 	}
 
 	//
@@ -544,47 +546,49 @@ void Point::readAttributes (const XMLAttributes& attributes,
 	assigned = attributes.readInto("y", mYOffset);
 
 	if (assigned == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-			else
-			{
-				std::string message = "Layout attribute 'y' is missing.";
-				getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-			}
-		}
-	}
+    {
+      if (getErrorLog() != NULL)
+      {
+        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+          getErrorLog()->contains(XMLAttributeTypeMismatch))
+        {
+          getErrorLog()->remove(XMLAttributeTypeMismatch);
+          getErrorLog()->logPackageError("layout", 
+            LayoutPointAttributesMustBeDouble,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'y' on the <" 
+            + getElementName() + "> does not conform.", getLine(), getColumn());
+        }
+        else
+        {
+          std::string message = "Layout attribute 'y' is missing.";
+          getErrorLog()->logPackageError("layout", LayoutPointAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        }
+      }
+    }
 
 	//
 	// z double   ( use = "optional" )
 	//
-  numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	mZOffsetExplicitlySet = attributes.readInto("z", mZOffset);
+    numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
+    mZOffsetExplicitlySet = attributes.readInto("z", mZOffset);
 
-	if (mZOffsetExplicitlySet == false)
-	{
-    mZOffset = 0.0;
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutPointAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-		}
-	}
+    if (mZOffsetExplicitlySet == false)
+    {
+      mZOffset = 0.0;
+      if (getErrorLog() != NULL)
+      {
+        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+          getErrorLog()->contains(XMLAttributeTypeMismatch))
+        {
+          getErrorLog()->remove(XMLAttributeTypeMismatch);
+          getErrorLog()->logPackageError("layout", 
+            LayoutPointAttributesMustBeDouble,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'z' on the <" 
+            + getElementName() + ">does not conform.", getLine(), getColumn());
+        }
+      }
+    }
 }
 /** @endcond */
 

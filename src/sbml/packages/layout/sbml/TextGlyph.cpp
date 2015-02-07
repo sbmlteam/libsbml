@@ -444,20 +444,22 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("graphicalObject", mGraphicalObject);
 
-	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+    if (assigned == true && getErrorLog() != NULL)
+    {
+      // check string is not empty and correct syntax
 
-		if (mGraphicalObject.empty() == true)
-		{
-      logEmptyString(mGraphicalObject, getLevel(), getVersion(), "<TextGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mGraphicalObject) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutTGGraphicalObjectSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mGraphicalObject.empty() == true)
+      {
+        logEmptyString(mGraphicalObject, getLevel(), getVersion(), "<TextGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mGraphicalObject) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutTGGraphicalObjectSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The graphicalObject on the <" 
+          + getElementName() + "> is '" + mGraphicalObject + "', which does not conform.", 
+          getLine(), getColumn());
+      }
+    }
 
 	//
 	// text string   ( use = "optional" )
@@ -479,20 +481,21 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("originOfText", mOriginOfText);
 
-	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+    if (assigned == true && getErrorLog() != NULL)
+    {
+      // check string is not empty and correct syntax
 
-		if (mOriginOfText.empty() == true)
-		{
-      logEmptyString(mOriginOfText, getLevel(), getVersion(), "<TextGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mOriginOfText) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutTGOriginOfTextSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mOriginOfText.empty() == true)
+      {
+        logEmptyString(mOriginOfText, getLevel(), getVersion(), "<TextGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mOriginOfText) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutTGOriginOfTextSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The originOfText on the <" 
+          + getElementName() + "> is '" + mOriginOfText + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 }
 /** @endcond */

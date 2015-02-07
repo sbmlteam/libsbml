@@ -385,9 +385,9 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "<objective> may only have 'metaId' and 'sboTerm' from L3 namespace",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <objective> object may have the optional SBML Level 3 Core "
+    "An <objective> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespace are permitted on a <objective>. ",
+    "Level 3 Core namespace are permitted on an <objective>. ",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -397,9 +397,9 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "<objective> may only have <notes> and <annotations> from L3 Core",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <objective> object may have the optional SBML Level 3 Core subobjects "
+    "An <objective> object may have the optional SBML Level 3 Core subobjects "
     "for notes and annotations. No other elements from the SBML Level 3 Core "
-    "namespace are permitted on a <objective>.",
+    "namespace are permitted on an <objective>.",
     { "L3V1 Core, Section 3.2"
     }
   },
@@ -409,10 +409,10 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "Invalid attribute found on <objective> object",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <objective> object must have the required attributes 'fbc:id' and "
+    "An <objective> object must have the required attributes 'fbc:id' and "
     "'fbc:type' and may have the optional attribute 'fbc:name'. No other "
     "attributes from the SBML Level 3 Flux Balance Constraints namespace "
-    "are permitted on a <objective> object.",
+    "are permitted on an <objective> object.",
     { "L3V1 Fbc V1, Section 3.6"
     }
   },
@@ -422,7 +422,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "The attribute 'fbc:name' must be of the data type string",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'fbc:name' on a <objective> must be of the data type "
+    "The attribute 'fbc:name' on an <objective> must be of the data type "
     "'string'. ",
     { "L3V1 Fbc V1, Section 3.6"
     }
@@ -433,8 +433,8 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "The attribute 'fbc:type' must be of data type FbcType.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The attribute 'fbc:type' on a <objective> must be of the data type "
-    "FbcType. and thus its value must be "
+    "The attribute 'fbc:type' on an <objective> must be of the data type "
+    "FbcType and thus its value must be "
     "one of 'minimize' or 'maximize.",
     { "L3V1 Fbc V1, Section 3.6"
     }
@@ -445,7 +445,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "An <objective> must have one <listOfFluxObjectives>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <objective> object must have one and only one instance of the "
+    "An <objective> object must have one and only one instance of the "
     "<listOfFluxObjectives> object. ",
     { "L3V1 Fbc V1, Section 3.6"
     }
@@ -456,7 +456,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "<listOfFluxObjectives> subobject must not be empty",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "The <listOfFluxObjectives> subobject within a <objective> object must "
+    "The <listOfFluxObjectives> subobject within an <objective> object must "
     "not be empty.",
     { "L3V1 Fbc V1, Section 3.6"
     }

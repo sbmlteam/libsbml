@@ -37,7 +37,7 @@
 
 #ifdef __cplusplus
 
-//using namespace std;
+using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -116,6 +116,14 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
 
   const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
   
+  const SBase* parent = getParentSBMLObject();
+  string message = "";
+  if (parent) {
+    message = "The <" + parent->getElementName() + "> ";
+    if (parent->isSetId()) { //LS DEBUG
+      message += "with the id '" + parent->getId() + "' ";
+    }
+  }
   if (prefix == targetPrefix)
   {
     if ( name == "listOfReplacedElements" ) 
@@ -123,7 +131,7 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
       if (mListOfReplacedElements != NULL)
       {
         getErrorLog()->logPackageError("comp", CompOneListOfReplacedElements, 
-          getPackageVersion(), getLevel(), getVersion());
+          getPackageVersion(), getLevel(), getVersion(), message + "may only have one <listOfReplacedElements>");
       }
       createListOfReplacedElements();
       object = mListOfReplacedElements;
@@ -148,7 +156,7 @@ CompSBasePlugin::createObject(XMLInputStream& stream)
         if (mSBML != NULL && getErrorLog() != NULL)
         {
           getErrorLog()->logPackageError("comp", CompOneReplacedByElement, 
-                          getPackageVersion(), getLevel(), getVersion());
+                          getPackageVersion(), getLevel(), getVersion(), message + "may only have one <replacedBy> child.");
         }
       }
       delete mReplacedBy;

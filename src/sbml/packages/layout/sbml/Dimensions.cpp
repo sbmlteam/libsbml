@@ -386,136 +386,140 @@ Dimensions::addExpectedAttributes(ExpectedAttributes& attributes)
 void Dimensions::readAttributes (const XMLAttributes& attributes,
                                  const ExpectedAttributes& expectedAttributes)
 {
-	const unsigned int sbmlLevel   = getLevel  ();
-	const unsigned int sbmlVersion = getVersion();
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
 
-	unsigned int numErrs;
+  unsigned int numErrs;
 
-	SBase::readAttributes(attributes, expectedAttributes);
+  SBase::readAttributes(attributes, expectedAttributes);
 
-	// look to see whether an unknown attribute error was logged
-	if (getErrorLog() != NULL)
-	{
-		numErrs = getErrorLog()->getNumErrors();
-		for (int n = numErrs-1; n >= 0; n--)
-		{
-			if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownPackageAttribute);
-				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-			else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
-			{
-				const std::string details =
-				                  getErrorLog()->getError(n)->getMessage();
-				getErrorLog()->remove(UnknownCoreAttribute);
-				getErrorLog()->logPackageError("layout", 
-                       LayoutDimsAllowedCoreAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
-			}
-		}
-	}
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
+    {
+      numErrs = getErrorLog()->getNumErrors();
+      for (int n = numErrs-1; n >= 0; n--)
+      {
+        if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+        {
+          const std::string details =
+            getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->remove(UnknownPackageAttribute);
+          getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
+        else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+        {
+          const std::string details =
+            getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->remove(UnknownCoreAttribute);
+          getErrorLog()->logPackageError("layout", 
+            LayoutDimsAllowedCoreAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+        }
+      }
+    }
 
-	bool assigned = false;
+  bool assigned = false;
 
-	//
-	// id SId  ( use = "optional" )
-	//
-	assigned = attributes.readInto("id", mId);
+  //
+  // id SId  ( use = "optional" )
+  //
+  assigned = attributes.readInto("id", mId);
 
- 	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+   if (assigned == true && getErrorLog() != NULL)
+  {
+      // check string is not empty and correct syntax
 
-		if (mId.empty() == true)
-		{
-      logEmptyString(mId, getLevel(), getVersion(), "<Dimensions>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-		{
-      getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
-        getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mId.empty() == true)
+      {
+        logEmptyString(mId, getLevel(), getVersion(), "<Dimensions>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
-	//
-	// width double   ( use = "required" )
-	//
-  numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("width", mW);
+  //
+  // width double   ( use = "required" )
+  //
+    numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
+  assigned = attributes.readInto("width", mW);
 
-	if (assigned == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-			else
-			{
-				std::string message = "Layout attribute 'width' is missing.";
-				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-			}
-		}
-	}
+  if (assigned == false)
+    {
+      if (getErrorLog() != NULL)
+      {
+        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+          getErrorLog()->contains(XMLAttributeTypeMismatch))
+        {
+          getErrorLog()->remove(XMLAttributeTypeMismatch);
+          getErrorLog()->logPackageError("layout", 
+            LayoutDimsAttributesMustBeDouble,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'width' on the <" 
+            + getElementName() + "> does not conform.", getLine(), getColumn());
+        }
+        else
+        {
+          std::string message = "Layout attribute 'width' is missing.";
+          getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        }
+      }
+    }
 
-	//
-	// height double   ( use = "required" )
-	//
-  numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	assigned = attributes.readInto("height", mH);
+  //
+  // height double   ( use = "required" )
+  //
+    numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
+  assigned = attributes.readInto("height", mH);
 
-	if (assigned == false)
-	{
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-			else
-			{
-				std::string message = "Layout attribute 'height' is missing.";
-				getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
-				               getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
-			}
-		}
-	}
+  if (assigned == false)
+    {
+      if (getErrorLog() != NULL)
+      {
+        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+          getErrorLog()->contains(XMLAttributeTypeMismatch))
+        {
+          getErrorLog()->remove(XMLAttributeTypeMismatch);
+          getErrorLog()->logPackageError("layout", 
+            LayoutDimsAttributesMustBeDouble,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'height' on the <" 
+            + getElementName() + "> does not conform.", getLine(), getColumn());
+        }
+        else
+        {
+          std::string message = "Layout attribute 'height' is missing.";
+          getErrorLog()->logPackageError("layout", LayoutDimsAllowedAttributes,
+            getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+        }
+      }
+    }
 
-	//
-	// depth double   ( use = "optional" )
-	//
-  numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
-	mDExplicitlySet = attributes.readInto("depth", mD);
+  //
+  // depth double   ( use = "optional" )
+  //
+    numErrs = getErrorLog() != NULL ? getErrorLog()->getNumErrors() : 0;
+    mDExplicitlySet = attributes.readInto("depth", mD);
 
-	if (mDExplicitlySet == false)
-	{
-    mD = 0.0;
-		if (getErrorLog() != NULL)
-		{
-			if (getErrorLog()->getNumErrors() == numErrs + 1 &&
-			        getErrorLog()->contains(XMLAttributeTypeMismatch))
-			{
-				getErrorLog()->remove(XMLAttributeTypeMismatch);
-				getErrorLog()->logPackageError("layout", 
-                     LayoutDimsAttributesMustBeDouble,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-			}
-		}
-	}
+    if (mDExplicitlySet == false)
+    {
+      mD = 0.0;
+      if (getErrorLog() != NULL)
+      {
+        if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+          getErrorLog()->contains(XMLAttributeTypeMismatch))
+        {
+          getErrorLog()->remove(XMLAttributeTypeMismatch);
+          getErrorLog()->logPackageError("layout", 
+            LayoutDimsAttributesMustBeDouble,
+            getPackageVersion(), sbmlLevel, sbmlVersion, "The 'depth' on the <" 
+            + getElementName() + "> does not conform.", getLine(), getColumn());
+        }
+      }
+    }
 
 }
 /** @endcond */

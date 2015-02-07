@@ -519,40 +519,45 @@ GraphicalObject::createObject(XMLInputStream& stream)
     if (getBoundingBoxExplicitlySet() == true)
     {
       int tc = this->getTypeCode();
+      std::string msg = "The <" + this->getElementName() + "> ";
+      if (this->isSetId()) {
+        msg += "with id '" + this->getId() + "' ";
+      }
+      msg += "has multiple <boundingBox> children.";
 
       switch (tc)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutCGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
         getErrorLog()->logPackageError("layout", LayoutRGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSRGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutREFGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGAllowedElements,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       default:
         getErrorLog()->logPackageError("layout", LayoutGOMustContainBoundingBox,
-          getPackageVersion(), getLevel(), getVersion(), "", getLine(), getColumn());
+          getPackageVersion(), getLevel(), getVersion(), msg, getLine(), getColumn());
         break;
       }
     }
@@ -768,7 +773,9 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         // conform to the SBML type SId.
         //
         getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
+          + getElementName() + "> is '" + mId + "', which does not conform.", 
+          getLine(), getColumn());
       }
     }
     else
@@ -818,40 +825,45 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
     if (!SyntaxChecker::isValidInternalSId(mMetaIdRef))
     {
       int tc = this->getTypeCode();
+      std::string msg = "The metaIdRef on the <" + this->getElementName() + "> ";
+      if (this->isSetId()) {
+        msg += "with id '" + this->getId() +"' ";
+      }
+      msg += "is '" + mMetaIdRef + "', which does not conform.";
 
       switch (tc)
       {
       case SBML_LAYOUT_COMPARTMENTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutCGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_REACTIONGLYPH:
         getErrorLog()->logPackageError("layout", LayoutRGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutSRGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_TEXTGLYPH:
         getErrorLog()->logPackageError("layout", LayoutTGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_REFERENCEGLYPH:
         getErrorLog()->logPackageError("layout", LayoutREFGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       case SBML_LAYOUT_GENERALGLYPH:
         getErrorLog()->logPackageError("layout", LayoutGGMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       default:
         getErrorLog()->logPackageError("layout", LayoutGOMetaIdRefMustBeIDREF,
-          getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+          getPackageVersion(), sbmlLevel, sbmlVersion, msg, getLine(), getColumn());
         break;
       }
     }

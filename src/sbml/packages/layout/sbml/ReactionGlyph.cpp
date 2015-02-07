@@ -724,20 +724,21 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
 	//
 	assigned = attributes.readInto("reaction", mReaction);
 
-	if (assigned == true && getErrorLog() != NULL)
-	{
-		// check string is not empty and correct syntax
+    if (assigned == true && getErrorLog() != NULL)
+    {
+      // check string is not empty and correct syntax
 
-		if (mReaction.empty() == true)
-		{
-      logEmptyString(mReaction, getLevel(), getVersion(), "<ReactionGlyph>");
-		}
-		else if (SyntaxChecker::isValidSBMLSId(mReaction) == false)
-		{
-			getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
-				             getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
-		}
-	}
+      if (mReaction.empty() == true)
+      {
+        logEmptyString(mReaction, getLevel(), getVersion(), "<ReactionGlyph>");
+      }
+      else if (SyntaxChecker::isValidSBMLSId(mReaction) == false)
+      {
+        getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
+          getPackageVersion(), sbmlLevel, sbmlVersion, "The reaction on the <" 
+          + getElementName() + "> is '" + mReaction + "', which does not conform.", getLine(), getColumn());
+      }
+    }
 
 }
 /** @endcond */
