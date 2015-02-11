@@ -245,6 +245,22 @@ InitialAssignment::setSymbol (const std::string& sid)
 }
 
 
+int
+InitialAssignment::unsetSymbol ()
+{
+  mSymbol.erase();
+
+  if (mSymbol.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
 /*
  * Sets the math of this InitialAssignment to a copy of the given
  * ASTNode.
@@ -1074,6 +1090,17 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid)
 {
   if (ia != NULL)
     return ia->setSymbol((sid != NULL) ? sid : "");
+  return
+    LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+InitialAssignment_unsetSymbol (InitialAssignment_t *ia)
+{
+  if (ia != NULL)
+    return ia->unsetSymbol();
   return
     LIBSBML_INVALID_OBJECT;
 }

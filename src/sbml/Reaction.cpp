@@ -782,6 +782,29 @@ Reaction::unsetCompartment ()
 
 
 /*
+ * Unsets the reversible status of this Reaction.
+ */
+int
+Reaction::unsetReversible ()
+{
+  if (getLevel() < 3)
+  {
+    // reset default
+    mReversible = true;
+    mIsSetReversible = true;
+    mExplicitlySetReversible = false;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mIsSetReversible = false;
+    mExplicitlySetReversible = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
  */
 int
@@ -2269,6 +2292,17 @@ Reaction_unsetFast (Reaction_t *r)
 {
   if (r != NULL)
     return r->unsetFast();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Reaction_unsetReversible (Reaction_t *r)
+{
+  if (r != NULL)
+    return r->unsetReversible();
   else
     return LIBSBML_INVALID_OBJECT;
 }

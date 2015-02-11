@@ -306,6 +306,14 @@ ModifierSpeciesReference_unsetName(ModifierSpeciesReference_t * msr)
 
 LIBSBML_EXTERN
 int
+ModifierSpeciesReference_unsetSpecies(ModifierSpeciesReference_t * msr)
+{
+  return (msr != NULL) ? msr->unsetSpecies() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
 ModifierSpeciesReference_hasRequiredAttributes(const ModifierSpeciesReference_t * msr)
 {
   return (msr != NULL) ? static_cast<int>(msr->hasRequiredAttributes()) : 0;

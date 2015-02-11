@@ -135,6 +135,37 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
 END_TEST
 
 
+START_TEST (test_ModifierSpeciesReference_unsetSpecies)
+{
+  const char *s;
+  const char *species = "s1";
+
+
+
+  ModifierSpeciesReference_setSpecies(MSR, species);
+
+  s = ModifierSpeciesReference_getSpecies(MSR);
+  fail_unless( !strcmp(s, species) );
+  fail_unless(ModifierSpeciesReference_isSetSpecies(MSR));
+
+  if (ModifierSpeciesReference_getSpecies(MSR) == species)
+  {
+    fail( "ModifierModifierSpeciesReference_setSpecies(...) "
+          "did not make a copy of string." );
+  }
+
+  ModifierSpeciesReference_unsetSpecies(MSR);
+  fail_unless(!ModifierSpeciesReference_isSetSpecies(MSR));
+
+  if (ModifierSpeciesReference_getSpecies(MSR) != NULL)
+  {
+    fail( "ModifierModifierSpeciesReference_unsetSpecies(MSR) "
+          "did not clear string." );
+  }
+}
+END_TEST
+
+
 START_TEST (test_ModifierSpeciesReference_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -177,6 +208,7 @@ create_suite_ModifierSpeciesReference (void)
   tcase_add_test( tcase, test_ModifierSpeciesReference_create     );
   tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
   tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_unsetSpecies );
   tcase_add_test( tcase, test_ModifierSpeciesReference_createWithNS         );
 
   suite_add_tcase(suite, tcase);

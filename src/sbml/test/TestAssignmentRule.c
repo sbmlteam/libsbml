@@ -124,6 +124,27 @@ START_TEST (test_AssignmentRule_setVariable)
 END_TEST
 
 
+START_TEST (test_AssignmentRule_unsetVariable)
+{
+  const char *variable = "x";
+
+
+  AssignmentRule_setVariable(AR, variable);
+
+  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
+  fail_unless( AssignmentRule_isSetVariable(AR) );
+
+  AssignmentRule_unsetVariable(AR);
+  fail_unless( !AssignmentRule_isSetVariable(AR) );
+
+  if (AssignmentRule_getVariable(AR) != NULL)
+  {
+    fail("AssignmentRule_unsetVariable(AR) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_AssignmentRule_createWithFormula)
 {
   const ASTNode_t *math;
@@ -217,6 +238,7 @@ create_suite_AssignmentRule (void)
   tcase_add_test( tcase, test_AssignmentRule_L2_create     );
   tcase_add_test( tcase, test_AssignmentRule_free_NULL     );
   tcase_add_test( tcase, test_AssignmentRule_setVariable   );
+  tcase_add_test( tcase, test_AssignmentRule_unsetVariable   );
   tcase_add_test( tcase, test_AssignmentRule_createWithFormula   );
   tcase_add_test( tcase, test_AssignmentRule_createWithMath   );
   tcase_add_test( tcase, test_AssignmentRule_createWithNS         );

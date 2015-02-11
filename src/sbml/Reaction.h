@@ -610,6 +610,17 @@ public:
 
 
   /**
+   * Unsets the value of the "reversible" attribute of this Reaction.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetReversible ();
+
+
+  /**
    * Adds a given SpeciesReference object as a reactant in this Reaction.
    *
    * The SpeciesReference instance in @p sr is copied.
@@ -1795,6 +1806,21 @@ Reaction_unsetKineticLaw (Reaction_t *r);
 LIBSBML_EXTERN
 int
 Reaction_unsetFast (Reaction_t *r);
+
+
+/**
+ * Unsets the reversible status of this Reaction_t.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_unsetReversible (Reaction_t *r);
 
 
 /**

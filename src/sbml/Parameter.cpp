@@ -497,6 +497,31 @@ Parameter::unsetName ()
 }
 
 
+int
+Parameter::unsetConstant ()
+{
+  if ( getLevel() < 2 )
+  {
+    mConstant = false;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (getLevel() == 2)
+  {
+    // reset default
+    mConstant = true;
+    mExplicitlySetConstant = false;
+    mIsSetConstant = true;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mIsSetConstant = false;
+    mExplicitlySetConstant = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 /*
  * Unsets the value of this Parameter.
  *
@@ -1858,6 +1883,17 @@ Parameter_unsetName (Parameter_t *p)
 {
   if (p != NULL)
     return p->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Parameter_unsetConstant (Parameter_t *c)
+{
+  if (c != NULL)
+    return c->unsetConstant();
   else
     return LIBSBML_INVALID_OBJECT;
 }

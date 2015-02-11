@@ -726,6 +726,20 @@ public:
 
 
   /**
+   * Unsets the value of the "useValuesFromTriggerTime" attribute of this Event.
+   *
+   * @copydetails doc_event_using_useValuesFromTriggerTime
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   *
+   * @copydetails doc_warning_useValuesFromTriggerTime
+   */
+  int unsetUseValuesFromTriggerTime ();
+
+
+  /**
    * Unsets the Delay of this Event.
    *
    * @copydetails doc_returns_success_code
@@ -1807,6 +1821,22 @@ Event_unsetId (Event_t *e);
 LIBSBML_EXTERN
 int
 Event_unsetName (Event_t *e);
+
+
+/**
+ * Unsets the "useValuesFromTriggerTime" attribute of the given Event_t structure.
+ *
+ * @param e the Event_t structure to unset
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof Event_t
+ */
+LIBSBML_EXTERN
+int
+Event_unsetUseValuesFromTriggerTime (Event_t *e);
 
 
 /**

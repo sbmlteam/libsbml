@@ -790,6 +790,30 @@ Event::unsetName ()
 }
 
 
+int 
+Event::unsetUseValuesFromTriggerTime ()
+{
+  if (getLevel() == 2 && getVersion() < 4)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (getLevel() == 2)
+  {
+    // reset defaults
+    mUseValuesFromTriggerTime = true;
+    mIsSetUseValuesFromTriggerTime = true;
+    mExplicitlySetUVFTT = false;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mIsSetUseValuesFromTriggerTime = false;
+    mExplicitlySetUVFTT = false;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 /*
  * Unsets the delay of this Event.
  */
@@ -2120,6 +2144,17 @@ Event_unsetName (Event_t *e)
 {
   if (e != NULL)
     return e->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Event_unsetUseValuesFromTriggerTime (Event_t *e)
+{
+  if (e != NULL)
+    return e->unsetUseValuesFromTriggerTime();
   else
     return LIBSBML_INVALID_OBJECT;
 }

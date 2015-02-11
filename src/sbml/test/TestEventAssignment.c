@@ -144,6 +144,32 @@ START_TEST (test_EventAssignment_setVariable)
 END_TEST
 
 
+START_TEST (test_EventAssignment_unsetVariable)
+{
+  const char *variable = "k2";
+
+
+  EventAssignment_setVariable(EA, variable);
+
+  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable) );
+  fail_unless( EventAssignment_isSetVariable(EA) );
+
+  if (EventAssignment_getVariable(EA) == variable)
+  {
+    fail("EventAssignment_setVariable(...) did not make a copy of string.");
+  }
+
+  EventAssignment_unsetVariable(EA);
+  fail_unless( !EventAssignment_isSetVariable(EA) );
+
+  if (EventAssignment_getVariable(EA) != NULL)
+  {
+    fail("EventAssignment_unsetVariable(EA) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_EventAssignment_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("2 * k");
@@ -233,6 +259,7 @@ create_suite_EventAssignment (void)
   //tcase_add_test( tcase, test_EventAssignment_createWith  );
   tcase_add_test( tcase, test_EventAssignment_free_NULL   );
   tcase_add_test( tcase, test_EventAssignment_setVariable );
+  tcase_add_test( tcase, test_EventAssignment_unsetVariable );
   tcase_add_test( tcase, test_EventAssignment_setMath     );
   tcase_add_test( tcase, test_EventAssignment_createWithNS         );
 

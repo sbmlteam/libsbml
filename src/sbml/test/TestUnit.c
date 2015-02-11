@@ -255,15 +255,18 @@ START_TEST (test_Unit_isBuiltIn)
 END_TEST
 
 
-START_TEST (test_Unit_set_get)
+START_TEST (test_Unit_set_get_unset)
 {
   Unit_t *u = Unit_create(2, 4);
 
-
+  // defaults
   fail_unless( Unit_getKind      (u) == UNIT_KIND_INVALID );
   fail_unless( Unit_getExponent  (u) == 1   );
+  fail_unless( Unit_isSetExponent(u) );
   fail_unless( Unit_getScale     (u) == 0   );
+  fail_unless( Unit_isSetScale(u) );
   fail_unless( Unit_getMultiplier(u) == 1.0 );
+  fail_unless( Unit_isSetMultiplier(u) );
   fail_unless( !Unit_isSetKind(u) );
 
   Unit_setKind(u, UNIT_KIND_WATT);
@@ -277,6 +280,65 @@ START_TEST (test_Unit_set_get)
 
   Unit_setMultiplier(u, 3.2);
   fail_unless( Unit_getMultiplier(u) == 3.2 );
+
+  fail_unless( Unit_unsetKind(u) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless( Unit_unsetExponent(u) == LIBSBML_UNEXPECTED_ATTRIBUTE);
+
+  fail_unless( Unit_unsetScale(u) == LIBSBML_UNEXPECTED_ATTRIBUTE);
+
+  fail_unless( Unit_unsetMultiplier(u) == LIBSBML_UNEXPECTED_ATTRIBUTE);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_INVALID );
+  fail_unless( Unit_getExponent  (u) == 1   );
+  fail_unless( Unit_isSetExponent(u) );
+  fail_unless( Unit_getScale     (u) == 0   );
+  fail_unless( Unit_isSetScale(u) );
+  fail_unless( Unit_getMultiplier(u) == 1.0 );
+  fail_unless( Unit_isSetMultiplier(u) );
+  fail_unless( !Unit_isSetKind(u) );
+
+  Unit_free(u);
+}
+END_TEST
+
+
+START_TEST (test_Unit_unset)
+{
+  Unit_t *u = Unit_create(2, 4);
+
+
+  Unit_setKind(u, UNIT_KIND_WATT);
+  Unit_setExponent(u, 3);
+  Unit_setScale(u, 4);
+  Unit_setMultiplier(u, 3.2);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_WATT );
+  fail_unless( Unit_getExponent  (u) == 3   );
+  fail_unless( Unit_getScale     (u) == 4  );
+  fail_unless( Unit_getMultiplier(u) == 3.2 );
+
+  fail_unless (Unit_isSetKind(u) == 1);
+  fail_unless (Unit_isSetExponent(u) == 1);
+  fail_unless (Unit_isSetScale(u) == 1);
+  fail_unless (Unit_isSetMultiplier(u) == 1);
+  fail_unless (Unit_isSetOffset(u) == 0);
+
+  Unit_unsetKind(u);
+  Unit_unsetExponent(u);
+  Unit_unsetScale(u);
+  Unit_unsetMultiplier(u);
+
+  fail_unless (Unit_isSetKind(u) == 0);
+  fail_unless (Unit_isSetExponent(u) == 1);
+  fail_unless (Unit_isSetScale(u) == 1);
+  fail_unless (Unit_isSetMultiplier(u) == 1);
+  fail_unless (Unit_isSetOffset(u) == 0);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_INVALID );
+  fail_unless( Unit_getExponent  (u) == 1   );
+  fail_unless( Unit_getScale     (u) == 0  );
+  fail_unless( Unit_getMultiplier(u) == 1.0 );
 
   Unit_free(u);
 }
@@ -326,7 +388,8 @@ create_suite_Unit (void)
   tcase_add_test( tcase, test_Unit_free_NULL  );
   tcase_add_test( tcase, test_Unit_isXXX      );
   tcase_add_test( tcase, test_Unit_isBuiltIn  );
-  tcase_add_test( tcase, test_Unit_set_get    );
+  tcase_add_test( tcase, test_Unit_set_get_unset    );
+  tcase_add_test( tcase, test_Unit_unset    );
   tcase_add_test( tcase, test_Unit_createWithNS         );
 
   suite_add_tcase(suite, tcase);

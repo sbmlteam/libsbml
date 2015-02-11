@@ -186,11 +186,22 @@ START_TEST (test_L3_Parameter_constant)
   fail_unless(Parameter_getConstant(P) == 1);
   fail_unless(Parameter_isSetConstant(P) == 1);
 
+  int ret = Parameter_unsetConstant(P);
+
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(Parameter_getConstant(P) == 1);
+  fail_unless(Parameter_isSetConstant(P) == 0);
+
   Parameter_setConstant(P, 0);
 
   fail_unless(Parameter_getConstant(P) == 0);
   fail_unless(Parameter_isSetConstant(P) == 1);
 
+  ret = Parameter_unsetConstant(P);
+
+  fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(Parameter_getConstant(P) == 0);
+  fail_unless(Parameter_isSetConstant(P) == 0);
 }
 END_TEST
 

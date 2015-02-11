@@ -407,6 +407,16 @@ public:
 
 
   /**
+   * Unsets the attribute "variable" of this EventAssignment.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   */
+  int unsetVariable ();
+
+
+  /**
    * Sets the "math" subelement of this EventAssignment to a copy of the
    * given ASTNode.
    *
@@ -1066,6 +1076,22 @@ EventAssignment_isSetMath (const EventAssignment_t *ea);
 LIBSBML_EXTERN
 int
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
+
+
+/**
+ * Unsets the attribute "variable" of the given EventAssignment_t structure.
+ *
+ * @param ea the EventAssignment_t to set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof EventAssignment_t
+ */
+LIBSBML_EXTERN
+int
+EventAssignment_unsetVariable (EventAssignment_t *ea);
 
 
 /**
