@@ -133,10 +133,10 @@ ADD_CUSTOM_COMMAND(
 			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
-	DEPENDS ${SWIG_DEPENDENCIES}
+	DEPENDS ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
     COMMENT "Swig Ruby source") 
 
-add_custom_target(binding_ruby_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+add_custom_target(binding_ruby_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 
 	
 ####################################################################

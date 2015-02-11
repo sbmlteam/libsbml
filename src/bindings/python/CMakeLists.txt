@@ -208,10 +208,10 @@ ADD_CUSTOM_COMMAND(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 	        ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py
 			${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py
-	        ${SWIG_DEPENDENCIES}
+	        ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
     COMMENT "Swig Python source") 
 
-add_custom_target(binding_python_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+add_custom_target(binding_python_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 	
 ####################################################################
 #

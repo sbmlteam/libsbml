@@ -192,10 +192,10 @@ ADD_CUSTOM_COMMAND(
 			-xmlout ${CMAKE_CURRENT_BINARY_DIR}/tree.xml
 			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
-	DEPENDS ${SWIG_DEPENDENCIES}
+	DEPENDS ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
     COMMENT "Swig JS source")
 
-add_custom_target(binding_js_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+add_custom_target(binding_js_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 
 set(NODE_GYP_ARGS)
 

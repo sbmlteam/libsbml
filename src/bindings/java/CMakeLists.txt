@@ -176,7 +176,7 @@ file(GLOB SWIG_DEPENDENCIES
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/swig-binding.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake
-	@ONLY
+    @ONLY
 )
 
 # munge argument lists to string, so that they can safely passed along
@@ -229,12 +229,13 @@ add_custom_command(
 
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-	        ${SWIG_DEPENDENCIES}
+	        ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
+
 	COMMENT "Swig Java source"
 
 )
 	
-add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+add_custom_target(binding_java_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
@@ -289,12 +290,13 @@ ADD_CUSTOM_COMMAND(
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+
   COMMENT "Building: libsbml.jar"
 )
 
-add_custom_target(binding_java_jar ALL DEPENDS 
-	${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
-	${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
+add_custom_target(binding_java_jar DEPENDS 
+     ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
+     ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
      ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 )
 	
@@ -315,7 +317,7 @@ if(WITH_CHECK)
 	  cmake_policy(SET CMP0010 NEW)
 	endif()
 	
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar jar_file)
+    file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar jar_file)
     file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} current_dir)
     file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test test_dir)
 	

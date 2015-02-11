@@ -188,7 +188,7 @@ add_custom_command(
     
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-            ${SWIG_DEPENDENCIES}
+            ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
     COMMENT "Swig C# source"
 )
 
@@ -263,12 +263,12 @@ ADD_CUSTOM_COMMAND(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 			${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake
 			${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
-	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp                
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     COMMENT "Build csharp files"
 	)
 
-add_custom_target(binding_csharp_managed_lib ALL DEPENDS libsbmlcsP.dll)
+add_custom_target(binding_csharp_managed_lib DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll )
 add_dependencies(binding_csharp_managed_lib binding_csharp_swig)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR})
@@ -296,7 +296,7 @@ ADD_CUSTOM_COMMAND(
     COMMENT "Build C# TestRuner")
 
 
-add_custom_target(binding_csharp_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe)
+add_custom_target(binding_csharp_test_runner DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe)
 add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
