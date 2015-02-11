@@ -198,6 +198,14 @@ else()
 endif()
 endforeach()
 
+# when building documentation we need additional outputs
+set(DOC_OUTPUTS)
+if (WITH_DOXYGEN)
+  set(DOC_OUTPUTS 
+      ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
+	    ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
+  )
+endif()
 	 
 ####################################################################
 #
@@ -208,8 +216,7 @@ add_custom_command(
 
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	       ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
-	       ${CMAKE_CURRENT_BINARY_DIR}/class-list.txt
-	       ${CMAKE_CURRENT_BINARY_DIR}/libsbml-converters.txt
+         ${DOC_OUTPUTS}
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
 		   ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 
