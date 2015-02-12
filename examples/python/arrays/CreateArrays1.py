@@ -1,4 +1,4 @@
-﻿from libsbml import *
+from libsbml import *
 
 arraysNs = ArraysPkgNamespaces();
 doc = SBMLDocument(arraysNs);
