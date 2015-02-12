@@ -133,3 +133,35 @@ execute_process(
 	WORKING_DIRECTORY "${SRC_DIRECTORY}/test"
 )
 
+# delete testrunner if it exists
+if (EXISTS ${BIN_DIRECTORY}/TestRW.exe)
+	file(REMOVE ${BIN_DIRECTORY}/TestRW.exe)
+endif()
+
+set(TEST_FILES ${SRC_DIRECTORY}/TestRW.cs)
+
+# convert paths
+set(NATIVE_TEST_FILES_RW)
+foreach(csFile ${TEST_FILES})
+	file(TO_NATIVE_PATH ${csFile} temp)
+	set(NATIVE_TEST_FILES_RW ${NATIVE_TEST_FILES_RW} ${temp})
+endforeach()
+
+file(TO_NATIVE_PATH ${BIN_DIRECTORY}/TestRW.exe TEST_RUNNER)
+
+message("Creating: TestRW.exe")
+							 
+# compile tests
+execute_process(
+	COMMAND "${CSHARP_COMPILER}"
+		 -target:exe
+		 -nowarn:108,109,114,1570,1572,1573,1574,1591,642,1718,168,219,414
+		 -r:${MANAGED_LIB}
+		 -out:${TEST_RUNNER}
+		 ${CSHARP_EXTRA_ARGS}
+		 ${NATIVE_TEST_FILES_RW}
+	
+	WORKING_DIRECTORY "${SRC_DIRECTORY}/test"
+)
+
+

@@ -167,12 +167,14 @@ endforeach()
  
 # call a separate script for generating documentation / swiging the output 
 add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
+
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
 	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbmlPINVOKE.cs
-		   ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
+	  	   ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
 		   
 	COMMAND "${CMAKE_COMMAND}"
+
 	ARGS -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
 		 -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
 		 -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
@@ -186,10 +188,12 @@ add_custom_command(
 		 -DLIB_NAME=\"${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}\"
 		 -P "${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake"
     
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+  MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
             ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
-    COMMENT "Swig C# source"
+
+  COMMENT "Swig C# source"
 )
 
 add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
@@ -251,6 +255,7 @@ ADD_CUSTOM_COMMAND(
 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.xml
+    ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
 
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DCSHARP_EXTRA_ARGS=\"${CSHARP_EXTRA_ARGS}\"
@@ -280,30 +285,12 @@ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PA
 
 if(WITH_CHECK)
 
-file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll LIBSBML_LIB)
-ADD_CUSTOM_COMMAND(
-	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
-    COMMAND "${CSHARP_COMPILER}"
-    ARGS -r:${LIBSBML_LIB}
-		-target:exe
-		-out:TestRW.exe
-		${CSHARP_EXTRA_ARGS}
-		${CMAKE_CURRENT_SOURCE_DIR}${PATH_SEP}TestRW.cs
-	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/TestRW.cs
-	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
-		${CMAKE_CURRENT_SOURCE_DIR}/TestRunner.cs
-		${CMAKE_CURRENT_SOURCE_DIR}/TestRW.cs
-    COMMENT "Build C# TestRuner")
-
-
-add_custom_target(binding_csharp_test_runner DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe)
-add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
 	add_test(
 	  NAME test_csharp_bindings
 	  COMMAND mono
-	          ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
+	      ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe
 			  ${LIBSBML_ROOT_SOURCE_DIR}/examples/sample-models/from-spec/level-2/
 			  -p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
 
@@ -324,6 +311,7 @@ if(UNIX)
 		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
 		set_tests_properties(test_csharp_bindings_full PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
 	endif()
+
 else()
 
 	include(${LIBSBML_ROOT_SOURCE_DIR}/common.cmake)
@@ -343,7 +331,7 @@ else()
 	set_tests_properties(test_csharp_bindings_full PROPERTIES PASS_REGULAR_EXPRESSION "failures 0")
   
   
-	# link again, this time against the dynamic librar, as this will reveal
+	# link again, this time against the dynamic library, as this will reveal
 	# any potential link errors (this library will not be distributed)
 	#
 	add_library(binding_csharp_native_dll_link_check SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
