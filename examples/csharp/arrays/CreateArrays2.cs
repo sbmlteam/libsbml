@@ -1,4 +1,4 @@
-﻿using libsbmlcs;
+using libsbmlcs;
 
 class Program
 {
