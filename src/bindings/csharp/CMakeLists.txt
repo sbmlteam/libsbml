@@ -250,7 +250,7 @@ INSTALL(TARGETS binding_csharp_native_lib
 # build managed library
 #
 
-ADD_CUSTOM_COMMAND(
+add_custom_command(
 	OUTPUT
 		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe
@@ -273,7 +273,7 @@ ADD_CUSTOM_COMMAND(
     COMMENT "Build csharp files"
 	)
 
-add_custom_target(binding_csharp_managed_lib DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll )
+add_custom_target(binding_csharp_managed_lib ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll )
 add_dependencies(binding_csharp_managed_lib binding_csharp_swig)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR})

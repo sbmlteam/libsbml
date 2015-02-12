@@ -127,10 +127,10 @@
     $action
   }
   catch (const SBMLConstructorException &e){
-    SWIG_fail;
+    SWIG_PHP_Error(E_ERROR, e.what());
   }
   catch (const SBMLExtensionException &e){
-    SWIG_fail;  
+    SWIG_PHP_Error(E_ERROR, e.what());
   }
 }
 %enddef
@@ -195,7 +195,7 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfUnits)
     $action
   }
   catch (const XMLConstructorException &e){
-    SWIG_fail;
+    SWIG_PHP_Error(E_ERROR, e.what());
   }
 }
 %enddef

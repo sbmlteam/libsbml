@@ -218,21 +218,21 @@ add_custom_command(
 	       ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
          ${DOC_OUTPUTS}
 	       ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
-		   ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
+		     ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
-		 -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
-		 -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
-		 -DSRC_DIRECTORY=\"${LIBSBML_ROOT_SOURCE_DIR}\"
-		 -DCMAKE_COMMAND=\"${CMAKE_COMMAND}\"
-		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
-		 -DSWIG_SWIGDOCDEFINES=\"${DOC_ARGS}\"
-		 -DSWIG_ARGS=\"${SWIG_ARGS}\"
-		 -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
-		 -DWITH_DOXYGEN=\"${WITH_DOXYGEN}\"
-		 -DLIB_NAME=\"${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}\"
-		 -P "${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake"
+		   -DBIN_DIRECTORY=\"${LIBSBML_ROOT_BINARY_DIR}\"
+		   -DCUR_SRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		   -DSRC_DIRECTORY=\"${LIBSBML_ROOT_SOURCE_DIR}\"
+		   -DCMAKE_COMMAND=\"${CMAKE_COMMAND}\"
+		   -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		   -DSWIG_SWIGDOCDEFINES=\"${DOC_ARGS}\"
+		   -DSWIG_ARGS=\"${SWIG_ARGS}\"
+		   -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
+		   -DWITH_DOXYGEN=\"${WITH_DOXYGEN}\"
+		   -DLIB_NAME=\"${LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME}\"
+		   -P "${CMAKE_CURRENT_BINARY_DIR}/swig-binding.cmake"
 
 	MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
@@ -301,24 +301,20 @@ ADD_CUSTOM_COMMAND(
   COMMENT "Building: libsbml.jar"
 )
 
-add_custom_target(binding_java_jar DEPENDS 
+add_custom_target(binding_java_jar ALL DEPENDS 
      ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
-     ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbmlJNI.java
-     ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml/libsbml.java
 )
 	
 add_dependencies(binding_java_jar binding_java_swig)
 	
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar DESTINATION ${JAVA_PACKAGE_JAR_INSTALL_DIR}) 
 	
-	
-	
 #
 # Invoke tests if compiled with check
 # 
 if(WITH_CHECK)
 
-    if (NOT UNIX)
+  if (NOT UNIX)
 	  # on windows ignore warnings about backslash in command line, as we do use it where
 	  # necessary
 	  cmake_policy(SET CMP0010 NEW)
@@ -333,10 +329,10 @@ if(WITH_CHECK)
 			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 			COMMAND "${Java_JAVA_EXECUTABLE}" 
 			-Xss8m
-	        -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
+	    -Djava.library.path=$<TARGET_FILE_DIR:binding_java_lib>
 			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
 			AutoTestRunner						    
-			)
+	)
 	# specify that tests have passed if we find only dots	
 	set_tests_properties(test_java_binding PROPERTIES PASS_REGULAR_EXPRESSION "[.]+" )
 	# specify that tests have failed in case there was one of the words below in the output
@@ -348,17 +344,6 @@ if(WITH_CHECK)
 			set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
 		else()
 			set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
-		endif()
-	else()
-		if(MSVC)
-			
-			# on windows setting the path alone would only work if the dependent libraries are in the path
-			# since that is likely not the case for now we ask the users to set up the path prior to calling ctest
-			# otherwise this would do the trick: 
-			
-			#set(new_path "${current_dir};$ENV{PATH}")
-			#string(REPLACE ";" "\\;" new_path "${new_path}")
-			#set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT PATH="${new_path}")
 		endif()
 	endif() 
 
