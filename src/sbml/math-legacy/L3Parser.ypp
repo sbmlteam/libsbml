@@ -305,7 +305,7 @@ LIBSBML_CPP_NAMESPACE_END
 %left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
 %left '-' '+'
 %left '*' '/' '%'
-%left NOT NEG         /* Boolean negation (unary not) and regular negation (unary minus) */
+%left NOT NEG UPLUS   /* Boolean negation (unary not), regular negation (unary minus), and unary plus (currently a no-op) */
 %right '^'            /* exponentiation        */
 
 %token YYEOF 0 "end of string"
@@ -382,6 +382,7 @@ node:           number {$$ = $1;}
         |       node '%' node {$$ = l3p->createModuloTree($1, $3);}
         |       node '>' node {$$ = new ASTNode(AST_RELATIONAL_GT); $$->addChild($1); $$->addChild($3);}
         |       node '<' node {$$ = new ASTNode(AST_RELATIONAL_LT); $$->addChild($1); $$->addChild($3);}
+        |       '+' node %prec UPLUS {$$ = $2;}
         |       '-' node %prec NEG {
                   if (l3p->collapseminus) {
                     if ($2->getType()==AST_REAL) {

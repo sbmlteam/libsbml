@@ -1861,6 +1861,65 @@ START_TEST (test_SBML_parseL3Formula_collapseminussettings5)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_unaryPlus)
+{
+  //A unary plus is currently a no-op.
+  ASTNode_t* r = SBML_parseL3Formula("+++4");
+  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (r) == 4, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("+++(3/8)");
+  fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
+  fail_unless( ASTNode_getNumerator  (r) == 3, NULL );
+  fail_unless( ASTNode_getDenominator(r) == 8, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("+++(+(3/8))");
+  fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
+  fail_unless( ASTNode_getNumerator  (r) == 3, NULL );
+  fail_unless( ASTNode_getDenominator(r) == 8, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("+++4.4");
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 4.4, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("+++4e-3");
+  fail_unless( ASTNode_getType       (r) == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa   (r) == 4, NULL );
+  fail_unless( ASTNode_getExponent   (r) == -3, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("+++.4");
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == .4, NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  ASTNode_free(r);
+
+  r = SBML_parseL3Formula("3+++4");
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  ASTNode_t* c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 4, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  ASTNode_free(r);
+
+  // SBML_deleteL3Parser();
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseL3Formula_avogadrosettings)
 {
   ASTNode_t *r = SBML_parseL3Formula("avogadro");
@@ -3048,6 +3107,7 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings3);
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings4);
   tcase_add_test( tcase, test_SBML_parseL3Formula_collapseminussettings5);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_unaryPlus);
   tcase_add_test( tcase, test_SBML_parseL3Formula_avogadrosettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_unitssettings);
   tcase_add_test( tcase, test_SBML_parseL3Formula_capssettings1);
