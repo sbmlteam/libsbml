@@ -180,22 +180,22 @@ ADD_CUSTOM_COMMAND(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
-			-I${CMAKE_CURRENT_SOURCE_DIR} 
-			-I${LIBSBML_ROOT_BINARY_DIR}/src
-			-I${LIBSBML_ROOT_SOURCE_DIR}/src
-			-I${LIBSBML_ROOT_SOURCE_DIR}/include
-			-c++
-			-javascript -node
-			-module sbml
-			${SWIG_EXTRA_ARGS}		 
-			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-			-xmlout ${CMAKE_CURRENT_BINARY_DIR}/tree.xml
-			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+			    -I${CMAKE_CURRENT_SOURCE_DIR} 
+			    -I${LIBSBML_ROOT_BINARY_DIR}/src
+			    -I${LIBSBML_ROOT_SOURCE_DIR}/src
+			    -I${LIBSBML_ROOT_SOURCE_DIR}/include
+			    -c++
+			    -javascript -node
+			    -module sbml
+			    ${SWIG_EXTRA_ARGS}		 
+			    -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+			    -xmlout ${CMAKE_CURRENT_BINARY_DIR}/tree.xml
+			    ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+  MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
-    COMMENT "Swig JS source")
+  COMMENT "Swig JS source")
 
-add_custom_target(binding_js_swig DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
+add_custom_target(binding_js_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
 
 set(NODE_GYP_ARGS)
 
@@ -205,20 +205,20 @@ set (NODE_GYP_ARGS "--arch=ia32")
 endif()
 
 ADD_CUSTOM_COMMAND(	
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DNODE_GYP_EXECUTABLE=\"${NODE_GYP_EXECUTABLE}\"
 	     -DNODEJS_EXECUTABLE=\"${NODEJS_EXECUTABLE}\"
-		 -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
-		 -DNODE_GYP_ARGS=\"${NODE_GYP_ARGS}\"
-		 -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
-		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
-		 -DLIBSBML_LIBRARY=\"$<TARGET_FILE:${LIBSBML_LIBRARY}-static>\"
-		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+		   -DPYTHON_EXECUTABLE=\"${PYTHON_EXECUTABLE}\"
+		   -DNODE_GYP_ARGS=\"${NODE_GYP_ARGS}\"
+		   -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		   -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		   -DLIBSBML_LIBRARY=\"$<TARGET_FILE:${LIBSBML_LIBRARY}-static>\"
+		   -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	DEPENDS ${SWIG_DEPENDENCIES}
-    COMMENT "Build sbml.node")
+  COMMENT "Build sbml.node")
 
 add_custom_target(binding_js_node ALL DEPENDS 
   ${CMAKE_CURRENT_BINARY_DIR}/build/Release/sbml.node
