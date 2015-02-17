@@ -211,7 +211,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <listOfLayouts> object may have the optional attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfLayouts> object. ",
     { "L3V1 Layout V1 Section 3.5"
@@ -235,7 +235,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "Allowed core attributes on Layout",
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
-    "A <layout> object may have the optional SBML Level~3 Core "
+    "A <layout> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from "
     "the SBML Level 3 Core namespace are permitted on a <layout> object. ",
     { "L3V1 Core Section 3.2"
@@ -277,7 +277,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <layout> object must have the required attribute 'layout:id' and may "
     "have the optional attribute 'layout:name'. No other attributes from the "
-    "SBML Level~3 Layout namespace are permitted on a <layout> object.",
+    "SBML Level 3 Layout namespace are permitted on a <layout> object.",
     { "L3V1 Layout V1 Section 3.6"
     }
   },
@@ -300,8 +300,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfCompartmentGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
-    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "and 'sboTerm' defined by SBML Level 3 Core.  No other attributes "
+    "from the SBML Level 3 Core namespace or the Layout namespace are "
     "permitted on a <listOfCompartmentGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -326,8 +326,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfSpeciesGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
-    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "and 'sboTerm' defined by SBML Level 3 Core.  No other attributes "
+    "from the SBML Level 3 Core namespace or the Layout namespace are "
     "permitted on a <listOfSpeciesGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -352,8 +352,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfReactionGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
-    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "and 'sboTerm' defined by SBML Level 3 Core.  No other attributes "
+    "from the SBML Level 3 Core namespace or the Layout namespace are "
     "permitted on a <listOfReactionGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -378,8 +378,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfAdditionalGraphicalObjectGlyphs> object may have the "
     "optional attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
-    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "and 'sboTerm' defined by SBML Level 3 Core.  No other attributes "
+    "from the SBML Level 3 Core namespace or the Layout namespace are "
     "permitted on a <listOfAdditionalGraphicalObjectGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -414,8 +414,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfTextGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core.  No other attributes "
-    "from the SBML Level~3 Core namespace or the Layout namespace are "
+    "and 'sboTerm' defined by SBML Level 3 Core.  No other attributes "
+    "from the SBML Level 3 Core namespace or the Layout namespace are "
     "permitted on a <listOfTextGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.6"
     }
@@ -865,7 +865,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfSpeciesReferenceGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfSpeciesReferenceGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.10"
@@ -1009,7 +1009,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfReferenceGlyphs> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfReferenceGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.11"
@@ -1036,7 +1036,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <listOfSubGlyphs> object may have the optional attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfSubGlyphs> object. ",
     { "L3V1 Layout V1 Section 3.11"
@@ -1636,7 +1636,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <listOfCurveSegments> object may have the optional "
     "attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Layout "
     "namespace are permitted on a <listOfCurveSegments> object. ",
     { "L3V1 Layout V1 Section 3.4.4"

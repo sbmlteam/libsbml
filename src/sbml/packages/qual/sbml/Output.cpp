@@ -688,8 +688,13 @@ Output::readAttributes (const XMLAttributes& attributes,
        mTransitionEffect = OutputTransitionEffect_fromString( effect.c_str() );
        if (OutputTransitionEffect_isValidOutputTransitionEffect(mTransitionEffect) == 0)
        {
+          std::string msg = "The transitionEffect on the <output> ";
+          if (isSetId()) {
+            msg += "with id '" + getId() + "' ";
+          }
+          msg += "is '" + effect + "', which does not conform.";
           getErrorLog()->logPackageError("qual", QualOutputTransEffectMustBeOutput,
-                         getPackageVersion(), sbmlLevel, sbmlVersion);
+                         getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
     }
   }
@@ -738,8 +743,14 @@ Output::readAttributes (const XMLAttributes& attributes,
   {
     if (mOutputLevel < 0)
     {
+      std::stringstream msg;
+      msg << "The outputLevel of the <output> ";
+      if (isSetId()) {
+        msg << "with id '" << getId() << "' ";
+      }
+      msg << "is '" << mOutputLevel << "', which does not conform.";
       getErrorLog()->logPackageError("qual", QualOutputLevelMustBeNonNegative,
-                   getPackageVersion(), sbmlLevel, sbmlVersion);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
   }
 

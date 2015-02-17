@@ -131,9 +131,9 @@
                 </qual:listOfFunctionTerms>
             </qual:transition>
         </qual:listOfTransitions>       <qual:listOfTransitions>
-            <qual:transition qual:id="tr_B">
+            <qual:transition qual:id="tr_B2">
                 <qual:listOfInputs>
-                    <qual:input qual:id="theta_B_A"     qual:qualitativeSpecies="A" 
+                    <qual:input qual:id="theta_B_A2"     qual:qualitativeSpecies="A" 
                                 qual:thresholdLevel="1"  qual:transitionEffect="none" 
                                 qual:sign="positive"/>
                 </qual:listOfInputs>

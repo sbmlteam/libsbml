@@ -194,7 +194,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <listOfFluxBounds> object may have the optional attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. No other attributes from "
+    "and 'sboTerm' defined by SBML Level 3 Core. No other attributes from "
     "the SBML Level 3 Core namespace or the Flux Balance Constraints "
     "namespace are permitted on a <listOfFluxBounds> object. ",
     { "L3V1 Fbc V1 Section 3.3"
@@ -207,7 +207,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "A <listOfFluxBounds> object may have the optional attributes 'metaid' "
-    "and 'sboTerm' defined by SBML Level~3 Core. Additionally the "
+    "and 'sboTerm' defined by SBML Level 3 Core. Additionally the "
     "<listOfObjectives> must contain the attribute 'activeObjective'. "
     "No other attributes from the SBML Level 3 Core namespace or the Flux "
     "Balance Constraints namespace are permitted on a "

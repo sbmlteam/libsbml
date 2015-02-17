@@ -137,10 +137,10 @@ ResultBecomesNegative::logNegativeResult (const Transition& tr,
                           const SBase& object)
 {
   msg =
-    "The Transition with id '";
+    "The <transition> with id '";
   msg += tr.getId();
   msg += "' includes a resultLevel";
-  msg += " that may cause the QualitativeSpecies '";
+  msg += " that may cause the <qualitativeSpecies> '";
   msg += object.getId();
   msg += "' to become negative.";
   

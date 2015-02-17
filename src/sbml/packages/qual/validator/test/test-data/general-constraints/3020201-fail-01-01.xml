@@ -17,12 +17,12 @@
         </qual:listOfQualitativeSpecies>
         <qual:listOfQualitativeSpecies>
             <qual:qualitativeSpecies qual:compartment="cytosol" qual:constant="false" 
-                qual:id="A" qual:maxLevel="2" qual:name="sds"
+                qual:id="D" qual:maxLevel="2" qual:name="sds"
                 qual:initialLevel="0"/>
             <qual:qualitativeSpecies qual:compartment="cytosol" qual:constant="false" 
-                qual:id="B" qual:maxLevel="1"/>
+                qual:id="E" qual:maxLevel="1"/>
             <qual:qualitativeSpecies qual:compartment="nucleus" qual:constant="false" 
-                qual:id="C" qual:maxLevel="1"/>
+                qual:id="F" qual:maxLevel="1"/>
         </qual:listOfQualitativeSpecies>
         <qual:listOfTransitions>
             <qual:transition qual:id="tr_B">

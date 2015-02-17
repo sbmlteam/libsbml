@@ -116,10 +116,10 @@ QSAssignedOnce::logMultipleAssignment (const Transition& tr,
                           std::string name)
 {
   msg =
-    "The Transition with id '";
+    "The <transition> with id '";
   msg += tr.getId();
-  msg += "' includes an Output";
-  msg += " that uses an assignment to the QualitativeSpecies '";
+  msg += "' includes an <output>";
+  msg += " that uses an assignment to the <qualitativeSpecies> '";
   msg += name;
   msg += "' that has already been assigned.";
   

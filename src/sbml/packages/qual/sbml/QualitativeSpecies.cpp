@@ -800,8 +800,14 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
   {
     if (mInitialLevel < 0)
     {
+      std::stringstream msg;
+      msg << "The initialLevel of the <qualitativeSpecies> ";
+      if (isSetId()) {
+        msg << "with id '" << getId() << "' ";
+      }
+      msg << "is '" << mInitialLevel << "', which does not conform.";
       getErrorLog()->logPackageError("qual", QualInitalLevelNotNegative,
-                   getPackageVersion(), sbmlLevel, sbmlVersion);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
   }
 
@@ -828,8 +834,14 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
   {
     if (mMaxLevel < 0)
     {
+      std::stringstream msg;
+      msg << "The maxLevel of the <qualitativeSpecies> ";
+      if (isSetId()) {
+        msg << "with id '" << getId() << "' ";
+      }
+      msg << "is '" << mMaxLevel << "', which does not conform.";
       getErrorLog()->logPackageError("qual", QualMaxLevelNotNegative,
-                   getPackageVersion(), sbmlLevel, sbmlVersion);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
   }
 }

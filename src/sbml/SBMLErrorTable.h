@@ -10770,7 +10770,7 @@ that is logging the error.
 For example, instead of getting a general error, you would get a specific
 error such as
 
-    "A <layout> object may have the optional SBML Level~3 Core "
+    "A <layout> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from "
     "the SBML Level 3 Core namespace are permitted on a <layout> object. ",
 

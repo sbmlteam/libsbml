@@ -366,8 +366,14 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
   {
     if (mResultLevel < 0)
     {
+      std::stringstream msg;
+      msg << "The resultLevel of the <defaultTerm> ";
+      if (isSetId()) {
+        msg << "with id '" << getId() << "' ";
+      }
+      msg << "is '" << mResultLevel << "', which does not conform.";
       getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeNonNeg,
-                   getPackageVersion(), sbmlLevel, sbmlVersion);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
   }
 

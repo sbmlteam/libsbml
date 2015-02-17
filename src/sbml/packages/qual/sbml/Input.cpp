@@ -743,8 +743,13 @@ Input::readAttributes (const XMLAttributes& attributes,
        mTransitionEffect = InputTransitionEffect_fromString( effect.c_str() );
        if (InputTransitionEffect_isValidInputTransitionEffect(mTransitionEffect) == 0)
        {
+          std::string msg = "The transitionEffect on the <input> ";
+          if (isSetId()) {
+            msg += "with id '" + getId() + "' ";
+          }
+          msg += "is '" + effect + "', which does not conform.";
           getErrorLog()->logPackageError("qual", QualInputTransEffectMustBeInputEffect,
-                       getPackageVersion(), sbmlLevel, sbmlVersion);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
     }
   }
@@ -789,8 +794,13 @@ Input::readAttributes (const XMLAttributes& attributes,
        mSign = InputSign_fromString( sign.c_str() );
        if (InputSign_isValidInputSign(mSign) == 0)
        {
+          std::string msg = "The inputSign on the <input> ";
+          if (isSetId()) {
+            msg += "with id '" + getId() + "' ";
+          }
+          msg += "is '" + sign + "', which does not conform.";
           getErrorLog()->logPackageError("qual", QualInputSignMustBeSignEnum,
-                       getPackageVersion(), sbmlLevel, sbmlVersion);
+                       getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
     }
   }
@@ -818,8 +828,14 @@ Input::readAttributes (const XMLAttributes& attributes,
   {
     if (mThresholdLevel < 0)
     {
+      std::stringstream msg;
+      msg << "The threshholdLevel of the <input> ";
+      if (isSetId()) {
+        msg << "with id '" << getId() << "' ";
+      }
+      msg << "is '" << mThresholdLevel << "', which does not conform.";
       getErrorLog()->logPackageError("qual", QualInputThreshMustBeNonNegative,
-                   getPackageVersion(), sbmlLevel, sbmlVersion);
+                   getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
   }
 
