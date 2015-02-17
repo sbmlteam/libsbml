@@ -45,6 +45,17 @@ if (NOT NODE_GYP_EXECUTABLE)
   )
 endif()
 
+if (NOT NODEJS_EXECUTABLE)
+  message(FATAL_ERROR 
+  "
+       nodejs is required to build the libSBML JS bindings. 
+	   Please set the NODEJS_EXECUTABLE variable to the 
+	   full location of the nodejs interpreter.
+  "
+  )
+endif()
+
+
 ####################################################################
 #
 # determine local dependencies, so as to re-swig if one of them changed
@@ -165,8 +176,8 @@ configure_file(
 
 #
 # Remove SWIG wrappers if requested
-#
-if (LIBSBML_REMOVE_WRAPPERS)
+# 
+if (LIBSBML_REMOVE_WRAPPERS) 
   foreach(file 
     ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
   )
@@ -176,7 +187,27 @@ if (LIBSBML_REMOVE_WRAPPERS)
   endforeach()
 endif(LIBSBML_REMOVE_WRAPPERS)
 
-ADD_CUSTOM_COMMAND(	
+
+# determine V8 version used by nodejs 
+execute_process(
+  COMMAND "${NODEJS_EXECUTABLE}" -e "console.log(process.versions.v8)"
+  OUTPUT_VARIABLE NODEJS_V8_STRING_VERSION
+)
+
+if (NOT NODEJS_V8_STRING_VERSION)
+  message(FATAL_ERROR "Could not determine Nodejs V8 version. Please verify that the NODEJS_EXECUTABLE has been set.")
+endif()
+
+string(REPLACE "." ";" NODEJS_V8_STRING_VERSION "${NODEJS_V8_STRING_VERSION}" )
+string(REPLACE "-" ";" NODEJS_V8_STRING_VERSION "${NODEJS_V8_STRING_VERSION}" )
+list(LENGTH NODEJS_V8_STRING_VERSION versionLength)
+list(GET NODEJS_V8_STRING_VERSION 0 V8_VERSION_MAJOR )
+list(GET NODEJS_V8_STRING_VERSION 1 V8_VERSION_MINOR )
+list(GET NODEJS_V8_STRING_VERSION 2 V8_VERSION_PATCH )
+
+MATH(EXPR V8_VERSION_NUMERIC "${V8_VERSION_MAJOR} * 10000 + ${V8_VERSION_MINOR} * 100 + ${V8_VERSION_PATCH}" )
+
+add_custom_command(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
@@ -185,7 +216,7 @@ ADD_CUSTOM_COMMAND(
 			    -I${LIBSBML_ROOT_SOURCE_DIR}/src
 			    -I${LIBSBML_ROOT_SOURCE_DIR}/include
 			    -c++
-			    -javascript -node
+			    -javascript -node -DV8_VERSION=0x0${V8_VERSION_NUMERIC}
 			    -module sbml
 			    ${SWIG_EXTRA_ARGS}		 
 			    -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
