@@ -40,6 +40,7 @@
 
 #pragma SWIG nowarn=473,401,844
 
+#if (!defined (SWIGJAVA) && !defined(SWIGCSHARP))
 // apply typemaps for items we manage manually
 %include "typemaps.i"
 
@@ -50,6 +51,8 @@
 %apply SWIGTYPE *DISOWN { ASTNode* disownedChild };
 %apply SWIGTYPE *DISOWN { ASTNode_t* disownedChild };
 %apply SWIGTYPE *DISOWN { SBMLNamespaces* disownedNs };
+
+#endif 
 
 %pragma(java) moduleclassmodifiers="
 /**
