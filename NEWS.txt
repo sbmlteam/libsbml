@@ -1,5 +1,88 @@
            libSBML NEWS -- History of user-visible changes
 
+====================================================================
+5.11.3 (Current svn)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - There has been a complete review of validation messages.  These
+    have been unified in terms of spacing and line returns.  In
+    addition many have been enhanced with additional model specific
+    information designed to assist in locating and fixing the issues.
+
+  - There is now an interface to PHP.  This has been tested on all
+    platforms.
+
+  - Historically libSBML did not provide unsetFoo functions where
+    the attribute was a required attribute with a default value.
+    At user request we have changed this so every attribute has a 
+    corresponding unset function.  Note that where the attribute 
+    has a default value it is still considered 'set' but not 
+    considered to have been explicitly set and will therefore not
+    appear in the written output. 
+
+  - The L3Parser will now correctly parse a unary plus.
+	
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - Fixed a bug where using the expat parser failed to correctly
+    report the presence of invalid XML namespaces.
+
+  - Sourceforge libSBML Tracker #393: LibSBML was failing when
+    built on an ARM processor running Fedora.  This has been
+    sorted out.  Thanks to Zbigniew Jędrzejewski-Szmek for 
+    reporting the issue and testing solutions.
+
+  - The formulaParser was incorrectly parsing particular syntax
+    involving exponential, plus/minus signs and no spacing i.e.
+    '2e3-3' was failing to parse.  This has been corrected. 
+    Thanks to Kieran Smallbone for reporting this and apologies
+    for the length of time it took to fix.
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+
 
 ====================================================================
 5.11.2-experimental (2015-01-15)
