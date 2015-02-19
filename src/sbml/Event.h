@@ -394,6 +394,19 @@ public:
 
 
   /**
+   * Initializes the fields of this Event object to "typical" default
+   * values.
+   *
+   * The SBML Event component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.
+   * This method sets the values to certain common defaults, based
+   * mostly on what they are in SBML Level&nbsp;2.  Specifically:
+   *
+   * @li Sets attribute "spatialDimensions" to @c 3
+   */
+  void initDefaults ();
+
+  /**
    * Returns the first child element found that has the given @p id in the
    * model-wide SId namespace, or @c NULL if no such object is found.
    *

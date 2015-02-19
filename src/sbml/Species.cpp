@@ -278,6 +278,9 @@ Species::initDefaults ()
   setConstant              (false);
   setHasOnlySubstanceUnits (false);
 
+  mExplicitlySetBoundaryCondition = false;
+  mExplicitlySetConstant          = false;
+  mExplicitlySetHasOnlySubsUnits  = false;
   if (getLevel() > 2)
   {
     setSubstanceUnits("mole");

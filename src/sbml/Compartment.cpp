@@ -242,6 +242,10 @@ Compartment::initDefaults ()
   setSpatialDimensions(dims);
   setConstant(1);
 
+  // not explicilty set
+  mExplicitlySetSpatialDimensions = false;
+  mExplicitlySetConstant = false;
+
   if (getLevel() > 2)
   {
     setUnits("litre");

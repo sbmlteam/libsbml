@@ -256,6 +256,14 @@ Event::clone () const
 }
 
 
+void
+Event::initDefaults()
+{
+  setUseValuesFromTriggerTime(true);
+  // not explicitly set
+  mExplicitlySetUVFTT = false;
+}
+
 SBase*
 Event::getElementBySId(const std::string& id)
 {

@@ -2968,6 +2968,11 @@ public:
    */
   void addDefinitionsForDefaultUnits ();
 
+  /* In L2 there are default values which need to be 
+   * set if changing from L3 where there are no defaults
+   */
+  void dealWithDefaultValues();
+
 
   void convertParametersToLocals(unsigned int level, unsigned int version);
 

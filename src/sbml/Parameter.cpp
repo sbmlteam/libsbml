@@ -230,11 +230,9 @@ Parameter::clone () const
 void
 Parameter::initDefaults ()
 {
-  //// level 3 has no defaults
-  //if (getLevel() < 3)
-  //{
-    setConstant(true);
-  //}
+  setConstant(true);
+  // not explicitly set
+  mExplicitlySetConstant = false;
 }
 
 

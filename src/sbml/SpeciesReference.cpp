@@ -223,12 +223,12 @@ SpeciesReference::clone () const
 void
 SpeciesReference::initDefaults ()
 {
-  //// level 3 has no defaults
-  //if (getLevel() < 3)
-  //{
-    mStoichiometry = 1.0;
-    mDenominator   = 1;
-  //}
+  setStoichiometry(1.0);
+  setDenominator(1);
+
+  // mark as not explicitly set
+  mExplicitlySetStoichiometry = false;
+  mExplicitlySetDenominator   = false;
 }
 
 

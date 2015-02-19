@@ -237,14 +237,24 @@ Unit::clone () const
 void
 Unit::initDefaults ()
 {
-  //// level 3 has no defaults
-  //if (getLevel() < 3)
-  //{
-    setExponent  ( 1   );
-    setScale     ( 0   );
-    setMultiplier( 1.0 );
-    setOffset    ( 0.0 );
-  //}
+  setExponent  ( 1   );
+  setScale     ( 0   );
+  setMultiplier( 1.0 );
+  setOffset    ( 0.0 );
+
+  // not explicilty set except for l2v1 offset
+  // which is a whole anomaly of its own
+  mExplicitlySetExponent = false;
+  mExplicitlySetScale       = false;
+  mExplicitlySetMultiplier  = false;
+  if (getLevel() == 2 && getVersion() == 1)
+  {
+    mExplicitlySetOffset      = true;
+  }
+  else
+  {
+    mExplicitlySetOffset      = false;
+  }
 }
 
 

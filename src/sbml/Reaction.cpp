@@ -363,10 +363,9 @@ Reaction::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void
 Reaction::initDefaults ()
 {
-  //// level 3 has no defaults
-  //if (getLevel() < 3)
-  //{
-    setReversible(true);
+  setReversible(true);
+  // not explicilty set
+  mExplicitlySetReversible = false;
 
   //
   // Set fast explicitly and make sure mIsSetFast is false.  This preserves
@@ -380,13 +379,14 @@ Reaction::initDefaults ()
   //   r.isSetFast() == N/A             r.isSetFast() == false
   //
   // but for L3 acknowledge that fast has been set
-    mFast      = false;
-    mIsSetFast = false;
-    if (getLevel() == 3)
-    {
-      setFast(false);
-    }
-  //}
+  mFast      = false;
+  mIsSetFast = false;
+  if (getLevel() == 3)
+  {
+    setFast(false);
+  }
+
+  mExplicitlySetFast = false;
 }
 
 

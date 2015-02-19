@@ -236,10 +236,12 @@ Model::convertL3ToL1 (bool strict)
       }
     }
   }
+
+  dealWithDefaultValues();
 }
 
 
-/* convert from L1 to L3 */
+/* convert from L3 to L2 */
 void 
 Model::convertL3ToL2 (bool strict)
 {
@@ -252,6 +254,7 @@ Model::convertL3ToL2 (bool strict)
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
+
     if (r->isSetKineticLaw())
     {
       KineticLaw *kl = r->getKineticLaw();
@@ -259,14 +262,159 @@ Model::convertL3ToL2 (bool strict)
       {
         Parameter *lp = new Parameter(getLevel(), getVersion());
         (*lp) = *(kl->getLocalParameter(j));
+        // make parameter constant by default
+        lp->initDefaults();
         kl->addParameter(lp);
         delete kl->removeLocalParameter(j);
         delete lp;
       }
     }
   }
+
+  dealWithDefaultValues();
 }
 
+
+void
+Model::dealWithDefaultValues()
+{
+  for (unsigned int i = 0; i < getNumCompartments(); i++)
+  {
+    // save any values that are assigned
+    Compartment *c = getCompartment(i);
+    bool constant = c->getConstant();
+    bool replaceConstant = (c->isSetConstant() == true && constant == false);
+    double spDims = c->getSpatialDimensionsAsDouble();
+    bool replaceSD = (c->isSetSpatialDimensions() == true &&
+      util_isEqual(spDims, 3.0) == false);
+
+    c->initDefaults();
+    if (replaceConstant) 
+      c->setConstant(constant);
+    if (replaceSD) 
+      c->setSpatialDimensions(spDims);
+  }
+
+  for (unsigned int i = 0; i < getNumUnitDefinitions(); i++)
+  {
+    UnitDefinition *ud = getUnitDefinition(i);
+    for (unsigned int j = 0; j < ud->getNumUnits(); j++)
+    {
+      // save any values that are assigned
+      Unit *u = ud->getUnit(j);
+      double exp = u->getExponentAsDouble();
+      bool replaceExp = (u->isSetExponent() == true &&
+        util_isEqual(exp, 1.0) == false);
+      unsigned int scale = u->getScale();
+      bool replaceScale = (u->isSetScale() == true && scale != 0);
+      double mult = u->getMultiplier();
+      bool replaceMult = (u->isSetMultiplier() == true &&
+        util_isEqual(mult, 1.0) == false);
+
+      u->initDefaults();
+      if (replaceExp) 
+        u->setExponent(exp);
+      if (replaceScale) 
+        u->setScale(scale);
+      if (replaceMult) 
+        u->setMultiplier(mult);
+    }
+  }
+
+  for (unsigned int i = 0; i < getNumSpecies(); i++)
+  {
+    // save any values that are assigned
+    Species *s = getSpecies(i);
+    bool constant = s->getConstant();
+    bool replaceConstant = (s->isSetConstant() == true && constant == true);
+    bool hosu = s->getHasOnlySubstanceUnits();
+    bool replaceHOSU = (s->isSetHasOnlySubstanceUnits() == true 
+      && hosu == true);
+    bool bc = s->getBoundaryCondition();
+    bool replaceBc = (s->isSetBoundaryCondition() == true && bc == true);
+
+    s->initDefaults();
+    if (replaceConstant) 
+      s->setConstant(constant);
+    if (replaceHOSU) 
+      s->setHasOnlySubstanceUnits(hosu);
+    if (replaceBc)
+      s->setBoundaryCondition(bc);
+  }
+
+  for (unsigned int i = 0; i < getNumParameters(); i++)
+  {
+    // save any values that are assigned
+    Parameter *p = getParameter(i);
+    bool constant = p->getConstant();
+    bool replaceConstant = (p->isSetConstant() == true && constant == false);
+
+    p->initDefaults();
+    if (replaceConstant) 
+      p->setConstant(constant);
+  }
+
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+
+    // check we reset default values if necessary
+    bool rev = r->getReversible();
+    bool replaceRev = (r->isSetReversible() == true 
+      && r->getReversible() == false);
+    r->initDefaults();
+    if (replaceRev == true)
+      r->setReversible(rev);
+
+    for (unsigned int j = 0; j < r->getNumReactants(); j++)
+    {
+      SpeciesReference *sr = r->getReactant(j);
+
+      // now we may have already created a stoichiometry math element
+      // in which case we do not want to mess with the speciesReference
+      if (sr->isSetStoichiometryMath() == false)
+      {
+        double stoich = sr->getStoichiometry();
+        bool replaceStoich = (sr->isSetStoichiometry() == true && 
+          util_isEqual(stoich, 1.0) == 0);
+
+        sr->initDefaults();
+        if (replaceStoich)
+          sr->setStoichiometry(stoich);
+      }
+    }
+    for (unsigned int j = 0; j < r->getNumProducts(); j++)
+    {
+      SpeciesReference *sr = r->getProduct(j);
+
+      // now we may have already created a stoichiometry math element
+      // in which case we do not want to mess with the speciesReference
+      if (sr->isSetStoichiometryMath() == false)
+      {
+        double stoich = sr->getStoichiometry();
+        bool replaceStoich = (sr->isSetStoichiometry() == true && 
+          util_isEqual(stoich, 1.0) == 0);
+
+        sr->initDefaults();
+        if (replaceStoich)
+          sr->setStoichiometry(stoich);
+      }
+    }
+  }
+
+  for (unsigned int i = 0; i < getNumEvents(); i++)
+  {
+    Event * e = getEvent(i);
+    bool uvftt = e->getUseValuesFromTriggerTime();
+    bool replaceUvftt = (e->isSetUseValuesFromTriggerTime() == true 
+      && uvftt == false);
+    e->initDefaults();
+    if (replaceUvftt == true)
+      e->setUseValuesFromTriggerTime(uvftt);
+
+  }
+
+}
 
 void
 Model::removeCompartmentTypes()
