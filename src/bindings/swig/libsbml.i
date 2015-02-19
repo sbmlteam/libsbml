@@ -40,6 +40,17 @@
 
 #pragma SWIG nowarn=473,401,844
 
+// apply typemaps for items we manage manually
+%include "typemaps.i"
+
+%apply SWIGTYPE *DISOWN { SBase* disownedItem };
+%apply SWIGTYPE *DISOWN { SBase_t* disownedItem };
+%apply SWIGTYPE *DISOWN { XMLNode* disownedAnnotation };
+%apply SWIGTYPE *DISOWN { XMLNode_t* disownedAnnotation };
+%apply SWIGTYPE *DISOWN { ASTNode* disownedChild };
+%apply SWIGTYPE *DISOWN { ASTNode_t* disownedChild };
+%apply SWIGTYPE *DISOWN { SBMLNamespaces* disownedNs };
+
 %pragma(java) moduleclassmodifiers="
 /**
   * Wrapper class for global methods and constants defined by libSBML.

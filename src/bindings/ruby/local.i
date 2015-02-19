@@ -230,37 +230,6 @@ namespace std
 }
 
 
-// ----------------------------------------------------------------------
-// takeover ownership
-// ----------------------------------------------------------------------
-
-/**
- * - void ListOf::appendAndOwn(SBase* item)
- */
-%apply SWIGTYPE *DISOWN {SBase* item};
-%apply SWIGTYPE * {const SBase* item};
-
-/**
- * - void ASTNode::addChild (ASTNode* child)
- * - void ASTNode::prependChild (ASTNode* child)
- */
-%apply SWIGTYPE *DISOWN {ASTNode* child};
-%apply SWIGTYPE * {const ASTNode* child};
-
-/**
- * - void ASTNode::insertChild  (unsigned int n, ASTNode* newChild)
- * - void ASTNode::replaceChild (unsigned int n, ASTNode* newChild)
- */
-%apply SWIGTYPE *DISOWN {ASTNode* newChild};
-%apply SWIGTYPE * {const ASTNode* newChild};
-
-/**
- * - void ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation);
- */
-%apply SWIGTYPE *DISOWN {XMLNode* sAnnotation};
-%apply SWIGTYPE * {const XMLNode* sAnnotation};
-
-
 /**
  * Wraps the SBMLConstructorException
  *

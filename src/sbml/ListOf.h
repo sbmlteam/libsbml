@@ -194,7 +194,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
-   * @see appendAndOwn(SBase* item)
+   * @see appendAndOwn(SBase* disownedItem)
    * @see appendFrom(const ListOf* list)
    */
   int append (const SBase* item);
@@ -203,12 +203,12 @@ public:
   /**
    * Adds an item to the end of this ListOf's list of items.
    *
-   * This method does not clone the @p item handed to it; instead, it assumes
+   * This method does not clone the @p disownedItem handed to it; instead, it assumes
    * ownership of it.  This means that when the ListOf is destroyed, the item
    * will be destroyed along with it.  For a method with an alternative
    * ownership behavior, see the ListOf::append(SBase* item) method.
    *
-   * @param item the item to be added to the list.
+   * @param disownedItem the item to be added to the list.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -217,7 +217,7 @@ public:
    * @see append(const SBase* item)
    * @see appendFrom(const ListOf* list)
    */
-  int appendAndOwn (SBase* item);
+  int appendAndOwn (SBase* disownedItem);
 
 
   /**
@@ -233,7 +233,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see append(const SBase* item)
-   * @see appendAndOwn(SBase* item)
+   * @see appendAndOwn(SBase* disownedItem)
    */
   virtual int appendFrom (const ListOf* list);
 
@@ -260,12 +260,12 @@ public:
   /**
    * Inserts an item at a given position in this ListOf's list of items.
    *
-   * This variant of the method makes a clone of the @p item handed to it.
+   * This variant of the method does not make a clone of the @p disownedItem handed to it.
    * This means that when the ListOf is destroyed, the original @p item
    * <em>will</em> be destroyed.
    *
    * @param location the location where to insert the item
-   * @param item the item to be inserted to the list
+   * @param disownedItem the item to be inserted to the list
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -273,7 +273,7 @@ public:
    *
    * @see insert(int location, const SBase* item)
    */
-  int insertAndOwn(int location, SBase* item);
+  int insertAndOwn(int location, SBase* disownedItem);
 
 
   /**
@@ -674,10 +674,10 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 /**
  * Adds the given item to the end of a ListOf_t list.
  *
- * @param lo the ListOf_t structure to which the @p item should be appended.
- * @param item the item to append to the list.
+ * @param lo the ListOf_t structure to which the @p disownedItem should be appended.
+ * @param disownedItem the item to append to the list.
  *
- * Unlike ListOf_append(), this function does not copy the @p item.
+ * Unlike ListOf_append(), this function does not copy the @p disownedItem.
  * The given @p lo list will contain the original item.
  *
  * @copydetails doc_returns_success_code
@@ -690,7 +690,7 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
  */
 LIBSBML_EXTERN
 int
-ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
+ListOf_appendAndOwn (ListOf_t *lo, SBase_t *disownedItem);
 
 
 /**
@@ -731,12 +731,12 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
 /**
  * Inserts an item into a ListOf_t list at a given position.
  *
- * Unlike ListOf_insert(), this function does not clone @p item before
+ * Unlike ListOf_insert(), this function does not clone @p disownedItem before
  * inserting it into @p lo, which means that @p lo becomes the owner.
  *
- * @param lo the list into which @p item will be inserted.
- * @param location the starting index for the @p item in the @p lo list.
- * @param item the item to append to insert into @p lo.
+ * @param lo the list into which @p disownedItem will be inserted.
+ * @param location the starting index for the @p disownedItem in the @p lo list.
+ * @param disownedItem the item to append to insert into @p lo.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -746,7 +746,7 @@ ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
  */
 LIBSBML_EXTERN
 int
-ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item);
+ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *disownedItem);
 
 
 /**

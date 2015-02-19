@@ -3042,7 +3042,7 @@ newModel.addSpecies(s1);
   int setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
   /* sets the SBMLNamaepaces and owns the given object - internal use only */
-  void setSBMLNamespacesAndOwn(SBMLNamespaces * sbmlns);
+  void setSBMLNamespacesAndOwn(SBMLNamespaces * disownedNs);
   /** @endcond */
 
 

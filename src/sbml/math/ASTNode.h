@@ -307,7 +307,7 @@ public:
    *
    * Child nodes are added in-order, from left to right.
    *
-   * @param child the ASTNode instance to add
+   * @param disownedChild the ASTNode instance to add
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -315,13 +315,13 @@ public:
    *
    * @copydetails doc_warning_modifying_structure
    *
-   * @see prependChild(ASTNode* child)
-   * @see replaceChild(unsigned int n, ASTNode* child)
-   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see prependChild(ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see insertChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    * @see isWellFormedASTNode()
    */
-  int addChild (ASTNode* child);
+  int addChild (ASTNode* disownedChild);
 
 
   /**
@@ -329,7 +329,7 @@ public:
    *
    * This method adds child nodes from right to left.
    *
-   * @param child the ASTNode instance to add
+   * @param disownedChild the ASTNode instance to add
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -337,12 +337,12 @@ public:
    *
    * @copydetails doc_warning_modifying_structure
    *
-   * @see addChild(ASTNode* child)
-   * @see replaceChild(unsigned int n, ASTNode* child)
-   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see addChild(ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see insertChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    */
-  int prependChild (ASTNode* child);
+  int prependChild (ASTNode* disownedChild);
 
 
   /**
@@ -356,10 +356,10 @@ public:
    *
    * @copydetails doc_warning_modifying_structure
    *
-   * @see addChild(ASTNode* child)
-   * @see prependChild(ASTNode* child)
-   * @see replaceChild(unsigned int n, ASTNode* child)
-   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see addChild(ASTNode* disownedChild)
+   * @see prependChild(ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see insertChild(unsigned int n, ASTNode* disownedChild)
    */
   int removeChild(unsigned int n);
 
@@ -368,7 +368,7 @@ public:
    * Replaces the nth child of this ASTNode with the given ASTNode.
    *
    * @param n unsigned int the index of the child to replace
-   * @param newChild ASTNode to replace the nth child
+   * @param disownedChild ASTNode to replace the nth child
    * @param delreplaced boolean indicating whether to delete the replaced child.
    *
    * @copydetails doc_returns_success_code
@@ -378,12 +378,12 @@ public:
    *
    * @copydetails doc_warning_modifying_structure
    *
-   * @see addChild(ASTNode* child)
-   * @see prependChild(ASTNode* child)
-   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see addChild(ASTNode* disownedChild)
+   * @see prependChild(ASTNode* disownedChild)
+   * @see insertChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    */
-  int replaceChild(unsigned int n, ASTNode *newChild, bool delreplaced=false);
+  int replaceChild(unsigned int n, ASTNode *disownedChild, bool delreplaced=false);
 
 
   /**
@@ -391,7 +391,7 @@ public:
    * list of children.
    *
    * @param n unsigned int the index of the ASTNode being added
-   * @param newChild ASTNode to insert as the nth child
+   * @param disownedChild ASTNode to insert as the nth child
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -400,12 +400,12 @@ public:
    *
    * @copydetails doc_warning_modifying_structure
    *
-   * @see addChild(ASTNode* child)
-   * @see prependChild(ASTNode* child)
-   * @see replaceChild(unsigned int n, ASTNode* child)
+   * @see addChild(ASTNode* disownedChild)
+   * @see prependChild(ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    */
-  int insertChild(unsigned int n, ASTNode *newChild);
+  int insertChild(unsigned int n, ASTNode *disownedChild);
 
 
   /**
@@ -481,7 +481,7 @@ getChild( getNumChildren() - 1 );
    *
    * @copydetails doc_about_mathml_semantic_annotations
    *
-   * @param sAnnotation the annotation to add.
+   * @param disownedAnnotation the annotation to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -492,7 +492,7 @@ getChild( getNumChildren() - 1 );
    * @see ASTNode::getNumSemanticsAnnotations()
    * @see ASTNode::getSemanticsAnnotation(@if java unsigned int@endif)
    */
-  int addSemanticsAnnotation (XMLNode* sAnnotation);
+  int addSemanticsAnnotation (XMLNode* disownedAnnotation);
 
 
   /**
@@ -2123,7 +2123,7 @@ ASTNode_canonicalize (ASTNode_t *node);
  * Child nodes are added in order from "left-to-right".
  *
  * @param node the node which will get the new child node
- * @param child the ASTNode_t instance to add
+ * @param disownedChild the ASTNode_t instance to add
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -2142,7 +2142,7 @@ ASTNode_canonicalize (ASTNode_t *node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
+ASTNode_addChild (ASTNode_t *node, ASTNode_t *disownedChild);
 
 
 /**
@@ -2151,7 +2151,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
  * This method adds child nodes from right to left.
  *
  * @param node the node that will receive the given child node.
- * @param child the ASTNode_t instance to add.
+ * @param disownedChild the ASTNode_t instance to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -2169,7 +2169,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
  */
 LIBSBML_EXTERN
 int
-ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child);
+ASTNode_prependChild (ASTNode_t *node, ASTNode_t *disownedChild);
 
 
 /**
@@ -2202,7 +2202,7 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n);
  *
  * @param node the ASTNode_t node to modify
  * @param n unsigned int the index of the child to replace
- * @param newChild ASTNode_t structure to replace the nth child
+ * @param disownedChild ASTNode_t structure to replace the nth child
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
@@ -2221,7 +2221,7 @@ ASTNode_removeChild(ASTNode_t* node, unsigned int n);
  */
 LIBSBML_EXTERN
 int
-ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * disownedChild);
 
 
 /**
@@ -2229,7 +2229,7 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
  *
  * @param node the ASTNode_t node to modify
  * @param n unsigned int the index of the child to replace
- * @param newChild ASTNode_t structure to replace the nth child
+ * @param disownedChild ASTNode_t structure to replace the nth child
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
@@ -2248,7 +2248,7 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
  */
 LIBSBML_EXTERN
 int
-ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * disownedChild);
 
 
 /**
@@ -2256,9 +2256,9 @@ ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newCh
  * node.
  *
  * @param node the ASTNode_t structure to modify.
- * @param n unsigned int the index of the location where the @p newChild is
+ * @param n unsigned int the index of the location where the @p disownedChild is
  * to be added.
- * @param newChild ASTNode_t structure to insert as the nth child.
+ * @param disownedChild ASTNode_t structure to insert as the nth child.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
@@ -2276,7 +2276,7 @@ ASTNode_replaceAndDeleteChild(ASTNode_t* node, unsigned int n, ASTNode_t * newCh
  */
 LIBSBML_EXTERN
 int
-ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild);
+ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * disownedChild);
 
 
 /**
@@ -3695,7 +3695,7 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node);
  * @copydetails doc_about_mathml_semantic_annotations
  *
  * @param node the node to modify
- * @param annotation the annotation to add
+ * @param disownedAnnotation the annotation to add
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
@@ -3708,7 +3708,7 @@ ASTNode_unsetParentSBMLObject(ASTNode_t* node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * annotation);
+ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * disownedAnnotation);
 
 
 /**

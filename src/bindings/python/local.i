@@ -365,51 +365,6 @@ SWIGPYTHON__CMP__(XMLError)
 SWIGPYTHON__CMP__(XMLErrorLog)
 SWIGPYTHON__CMP__(XMLOutputStream)
 
-/**
- * The features directives below override the default SWIG generated
- * code for certain methods.  The idea is to tell SWIG to disown the
- * passed-in object.  The containing object will takeover ownership
- * and delete the object as appropriate.  This avoids a deadly
- * double-delete which can result in a segmentation fault.  For
- * example, each SBase that is appended to a ListOf is subsequently
- * owned by that ListOf.
- */
-
-%define TAKEOVER_OWNERSHIP(METHOD_NAME,ARG_INDEX)
-%feature("pythonprepend")
-METHOD_NAME
-%{
-        if args[ARG_INDEX] is not None: args[ARG_INDEX].thisown = 0
-%}
-%enddef
-
-// ----------------------------------------------------------------------
-// ListOf
-// ----------------------------------------------------------------------
-
-#if SWIG_VERSION > 0x010336
-TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),0)
-#else
-TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),1)
-#endif
-
-// ----------------------------------------------------------------------
-// ASTNode
-// ----------------------------------------------------------------------
-
-#if SWIG_VERSION > 0x010336
-TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),0)
-TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),0)
-TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),0)
-#else
-TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
-TAKEOVER_OWNERSHIP(ASTNode::insertChild(unsigned int, ASTNode*),2)
-TAKEOVER_OWNERSHIP(ASTNode::replaceChild(unsigned int, ASTNode*),2)
-TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
-#endif
 
 /**
  *
