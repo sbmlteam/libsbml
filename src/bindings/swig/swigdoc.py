@@ -1782,6 +1782,14 @@ def main (args):
   # file, post-process it, and write the final output to the real destination.
 
   tmpfilename = output_swig_file + ".tmp"
+  
+  # in case we have parallel processes writing to the file, we ensure, that 
+  # each process writes its own file. 
+  count = 1
+  while os.path.isfile(tmpfilename):
+    print ("warning: detected multiple run of swigdoc.py, this should not be happening!")
+    tmpfilename = output_swig_file + ".tmp{0}".format(count)
+    count = count + 1
   stream      = open(tmpfilename, 'w')
 
   # Find all class and enum names, by searching header files for @class and
@@ -1831,22 +1839,26 @@ def main (args):
   # results to the real destination (which is given as arg[5]).
 
   tmpstream   = open(tmpfilename, 'r')
-  finalstream = open(output_swig_file, 'w')
-  postProcessOutput(tmpstream, finalstream)
 
   try:
-    tmpstream.flush()
-    tmpstream.close()
-  except (Exception,):
-    e = sys.exc_info()[1]
-    #FB: not printing the warning below, as after all the documentation file
-    #    has been correctly created. 
-    pass
-    # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a
-    # serious error, but an issue with the python interpreter known to occur
-    # in python 2.7." % e
-  finalstream.flush()
-  finalstream.close()
+    finalstream = open(output_swig_file, 'w')
+    postProcessOutput(tmpstream, finalstream)
+    
+    try:
+      tmpstream.flush()
+      tmpstream.close()
+    except (Exception,):
+      e = sys.exc_info()[1]
+      #FB: not printing the warning below, as after all the documentation file
+      #    has been correctly created. 
+      pass
+      # print "\tWarning, error flushing stream \n\t\t'%s'. \n\tThis is not a
+      # serious error, but an issue with the python interpreter known to occur
+      # in python 2.7." % e
+    finalstream.flush()
+    finalstream.close()
+  except: 
+    print ("error: could not write: " + output_swig_file)
 
   os.remove(tmpfilename)
 
