@@ -303,6 +303,7 @@ if(UNIX)
 			-l ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll
 			-w ${CMAKE_CURRENT_SOURCE_DIR}
 			-p $<TARGET_FILE_DIR:binding_csharp_native_lib>)
+	set_tests_properties(test_csharp_bindings_full PROPERTIES PASS_REGULAR_EXPRESSION "failures 0")
 
 	if(APPLE)
 		set_tests_properties(test_csharp_bindings PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=$<TARGET_FILE_DIR:binding_csharp_native_lib>:${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
