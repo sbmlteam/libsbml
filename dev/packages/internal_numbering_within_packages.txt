@@ -28,7 +28,7 @@ multi         |   1400        |    7000000
 
 qual          |   1100        |    3000000
 
-render        |   1000        |    TBC
+render        |   1000        |    1300000
 
 req           |   1600        |    1100000
 
@@ -39,7 +39,7 @@ NOT YET USED
 
 TypeCode enum: 600, 700, 900, 1500, 1700 ...
 
-Id Offset: 1300000 - 1900000, 
+Id Offset: 1400000 - 1900000, 
 
 
 
