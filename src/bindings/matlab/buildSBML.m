@@ -272,7 +272,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   % same time this new build scheme was introduced.
 
   our_name   = sprintf('%s.m', mfilename);
-  other_name = 'OutputSBML.c';
+  other_name = 'OutputSBML.cpp';
   if ~exist(fullfile(pwd, our_name), 'file') ...
         || ~exist(fullfile(pwd, other_name), 'file')
     error_incorrect_dir('matlab');
@@ -692,43 +692,43 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
     if isWindows()
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, 'TranslateSBML.c', inc_arg, inc_arg2, library_dir, '-DWIN32');
+      feval(fhandle, 'TranslateSBML.cpp', inc_arg, inc_arg2, library_dir, '-DWIN32');
       disp('  - Building OutputSBML ...');
-      feval(fhandle, 'OutputSBML.c', inc_arg, inc_arg2, library_dir, '-DWIN32');
+      feval(fhandle, 'OutputSBML.cpp', inc_arg, inc_arg2, library_dir, '-DWIN32');
     else
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
       if ~isempty(altoptions)
-        feval(fhandle, 'TranslateSBML.c', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
+        feval(fhandle, 'TranslateSBML.cpp', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
       else
-        feval(fhandle, 'TranslateSBML.c', inc_arg, inc_arg2, lib_arg, added_args);
+        feval(fhandle, 'TranslateSBML.cpp', inc_arg, inc_arg2, lib_arg, added_args);
       end;
       disp('  - Building OutputSBML ...');
       if ~isempty(altoptions)
-        feval(fhandle, 'OutputSBML.c', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
+        feval(fhandle, 'OutputSBML.cpp', '-f', altoptions, inc_arg, inc_arg2, lib_arg, added_args);
       else
-        feval(fhandle, 'OutputSBML.c', inc_arg, inc_arg2, lib_arg, added_args);
+        feval(fhandle, 'OutputSBML.cpp', inc_arg, inc_arg2, lib_arg, added_args);
       end;
     end;
   else
     if isWindows()
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
+      feval(fhandle, '--mex', 'TranslateSBML.cpp', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', library_dir);
       disp('  - Building OutputSBML ...');
-      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
+      feval(fhandle, '--mex', 'OutputSBML.cpp', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', library_dir);
     else
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
+      feval(fhandle, '--mex', 'TranslateSBML.cpp', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', lib_arg, added_args);
       disp('  - Building OutputSBML ...');
-      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
+      feval(fhandle, '--mex', 'OutputSBML.cpp', '-DUSE_OCTAVE', inc_arg, inc_arg2, ...
             '-lbz2', '-lz', lib_arg, added_args);
     end;
-%   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE inc_arg inc_arg2 -lbz2 -lz lib_arg;
+%   mkoctfile --mex TranslateSBML.cpp -DUSE_OCTAVE inc_arg inc_arg2 -lbz2 -lz lib_arg;
   end;
 
   transFile = strcat('TranslateSBML.', mexext());
@@ -774,12 +774,12 @@ function copy_matlab_dir(orig_dir, working_dir)
 
   % Copy files from src/bindings/matlab.
 
-  [success, msg, msgid] = copyfile('TranslateSBML.c', working_dir);
+  [success, msg, msgid] = copyfile('TranslateSBML.cpp', working_dir);
   if ~success
     error(sprintf('\n%s\n%s\n', msg, 'Build failed.'));
   end;
 
-  [success, msg, msgid] = copyfile('OutputSBML.c', working_dir);
+  [success, msg, msgid] = copyfile('OutputSBML.cpp', working_dir);
   if ~success
     error(sprintf('\n%s\n%s\n', msg, 'Build failed.'));
   end;
@@ -884,8 +884,8 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
 
     %copy files to libsbml
     cd(orig_dir);
-    copyfile('TranslateSBML.c', new_dir);
-    copyfile('OutputSBML.c', new_dir);
+    copyfile('TranslateSBML.cpp', new_dir);
+    copyfile('OutputSBML.cpp', new_dir);
     copyfile('*.m', new_dir);
     copyfile('*.xml', new_dir);
     cd(new_dir);

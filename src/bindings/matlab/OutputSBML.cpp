@@ -1,5 +1,5 @@
 /**
- * @file    OutputSBML.c
+ * @file    OutputSBML.cpp
  * @brief   MATLAB code for translating SBML-MATLAB structure into a SBML document.
  * @author  Sarah Keating
  *
@@ -53,7 +53,28 @@
 #include <sbml/packages/fbc/sbml/Objective.h>
 
 #endif
+mxArray * mxModel[2];
 
+
+
+void FreeMem(void)
+{
+#ifndef USE_OCTAVE
+  /* destroy arrays created */
+  mxDestroyArray(mxModel[0]);
+#endif
+}
+
+void
+reportError(const char * id, const char * message, bool freeMem = true)
+{
+  if (freeMem)
+  {
+    FreeMem();
+  }
+
+  mexErrMsgIdAndTxt(id, message);
+}
 
 
 #if defined(WIN32) && !defined(CYGWIN) && !defined(USE_OCTAVE)
@@ -68,6 +89,7 @@
 #ifndef uint16_t
 #define uint16_t unsigned short
 #endif
+
 
 FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 {
@@ -97,7 +119,9 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 
   if (utf8 != NULL && strlen(utf8) == 0 && length > 0)
   {
-    mexErrMsgTxt("This string uses characters that cannot be expressed in UTF8, please rename the file.");
+    reportError("OutputSBML:readUnicodeString", 
+      "This string uses characters that cannot be expressed in UTF8, "
+      "please rename the file.");
   }
 
   return utf8;
@@ -213,12 +237,41 @@ void  GetFluxObjective         ( mxArray *, unsigned int, unsigned int, unsigned
 
 #endif
 
-mxArray * mxModel[2];
 
-void FreeMem(void)
+
+char * GetMathMLFormula(char * pacFormula, std::string object)
 {
-	/* destroy arrays created */
-	mxDestroyArray(mxModel[0]);
+  mxArray *mxInput[1];
+  mxArray *mxOutput[1];
+  int nStatus, nBuflen;
+  char * formula;
+
+  /* convert MATLAB formula to MathML infix */
+
+  mxInput[0] = mxCreateString(pacFormula);
+  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
+
+  if (nStatus != 0)
+  {
+    std::string id = std::string("OutputSBML:GetMathMLFormula:") + object;
+    reportError(id.c_str(), "Failed to convert formula");
+  }
+
+  /* get the formula returned */
+  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+  formula = (char *) mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxOutput[0], (char *) formula, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    std::string id = std::string("OutputSBML:GetMathMLFormula") + object;
+    reportError(id.c_str(), "Cannot copy formula");
+  }
+
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
+
+  return formula;
 }
 
 char * ReadString(mxArray* mxParent, const char * name, 
@@ -228,17 +281,24 @@ char * ReadString(mxArray* mxParent, const char * name,
 {
   mxArray * mxField;
   char * value;
-  size_t nBuflen;
+  size_t nBuflen = 0;
   int nStatus;
 
   /* get field */
   mxField = mxGetField(mxParent, index, name);
-  nBuflen = (mxGetM(mxField)*mxGetN(mxField)+1);
-  value = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxField, value, (mwSize)(nBuflen));
+  if (mxField != NULL)
+  {
+    nBuflen = (mxGetM(mxField)*mxGetN(mxField)+1);
+    value = (char *)mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxField, value, (mwSize)(nBuflen));
+  }
+  else
+    nStatus = 1;
 
   if (nStatus != 0)
   {
+    std::string mid = std::string("OutputSBML:ReadString:") 
+                    + std::string(parentName);
     char my_local_output[400];
     if (total == 0)
       sprintf( my_local_output, "Cannot copy %s.%s field", parentName, name);
@@ -246,7 +306,7 @@ char * ReadString(mxArray* mxParent, const char * name,
       sprintf( my_local_output, "Cannot copy %s(%d).%s field", 
                                         parentName, index+1, name);
 
-    mexErrMsgTxt(my_local_output);
+    reportError(mid.c_str(), my_local_output);
   }
 
   return value;
@@ -315,7 +375,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (nStatus != 0)
   {
-    mexErrMsgTxt("Could not determine platform");
+    reportError("OutputSBML:platformDetection", 
+      "Could not determine platform", false);
   }
 
   if (!(strcmp_insensitive(pacTempString1, "0") == 0))
@@ -326,13 +387,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   **********************************************************************************/
   if (nrhs < 1)
   {
-    mexErrMsgTxt("Must supply at least the model as an output argument\n"
-      "USAGE: OutputSBML(SBMLModel, (filename))");
+    reportError("OutputSBML:inputArgs", 
+      "Must supply at least the model as an input argument\n"
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))", false);
   }
   if (usingOctave == 1 && nrhs < 2)
   {
-    mexErrMsgTxt("Octave requires the filename to be specified\n"
-      "USAGE: OutputSBML(SBMLModel, filename)");
+    reportError("OutputSBML:Octave:needFilename", 
+      "Octave requires the filename to be specified\n"
+      "USAGE: OutputSBML(SBMLModel, filename, (exclusiveFlag))", false);
   }
   if (nrhs > 3)
   {
@@ -347,7 +410,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mexAtExit(FreeMem);
 
   /**
-  * we know have the option of a third argument that indicates that we
+  * we now have the option of a third argument that indicates that we
   * want the structure to ONLY contain expected fields or not
   */
   if (nrhs > 2)
@@ -365,8 +428,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   */
   if (nlhs > 0)
   {
-    mexErrMsgTxt("Too many output arguments\n"
-      "USAGE: OutputSBML(SBMLModel, (filename))");
+    reportError("OutputSBML:outputArguments", "Too many output arguments\n"
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
   }
 
   /**
@@ -377,8 +440,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (nrhs > 4)
   {
-    mexErrMsgTxt("Too many input arguments\n"
-      "USAGE: OutputSBML(SBMLModel, (filename), (exclusive))");
+    reportError("OutputSBML:inputArguments", "Too many input arguments\n"
+      "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
   }
 
   nStatus = mexCallMATLAB(2, mxCheckStructure, 2, mxModel, "isSBML_Model");
@@ -392,16 +455,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (nStatus == 0)
     {
       msgTxt = (char *) mxCalloc(200+nBuflen, sizeof(char));
-      sprintf(msgTxt, "\n%s\n\nErrors reported: %s%s\n", "First input must be a valid MATLAB_SBML Structure", 
-        pacTempString1, "USAGE: OutputSBML(SBMLModel, (filename))");
-      mexErrMsgTxt(msgTxt);
+      sprintf(msgTxt, "\n%s\n\nErrors reported: %s\n%s\n", 
+        "First input must be a valid MATLAB_SBML Structure", 
+        pacTempString1, "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
+      reportError("OutputSBML:inputArguments:invalidModelSupplied", msgTxt);
     }
     else
     {
       msgTxt = (char *) mxCalloc(200, sizeof(char));
       sprintf(msgTxt, "%s\n%s", "First input must be a valid MATLAB_SBML Structure", 
-        "USAGE: OutputSBML(SBMLModel, (filename))");
-      mexErrMsgTxt(msgTxt);
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
+      reportError("OutputSBML:inputArguments:invalidStructureSupplied", msgTxt);
     } 
   }
 
@@ -410,8 +474,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (mxIsChar(prhs[1]) != 1)
     {
-      mexErrMsgTxt("Second input must be a filename\n"
-        "USAGE: OutputSBML(SBMLModel, (filename))");
+      reportError("OutputSBML:inputArguments:invalidFilename", 
+        "Second input must be a filename\n"
+        "USAGE: OutputSBML(SBMLModel, (filename), (exclusiveFlag))");
     }
 
     nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
@@ -504,7 +569,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   sbmlModel = SBMLDocument_createModel(sbmlDocument);
 
   /* get notes */
-  pacNotes = ReadString(mxModel[0], "notes", "top-level", 0, 0);
+  pacNotes = ReadString(mxModel[0], "notes", "Model", 0, 0);
   SBase_setNotesString((SBase_t *)(sbmlModel), pacNotes); 
 
   /* get name */
@@ -515,7 +580,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (nStatus != 0)
   {
-    mexErrMsgTxt("Cannot copy name");
+    reportError("OutputSBML:Model", "Cannot copy name");
   }
 
   Model_setName(sbmlModel, pacName);
@@ -549,7 +614,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy id");
+      reportError("OutputSBML:Model", "Cannot copy id");
     }
 
     Model_setId(sbmlModel, pacId);
@@ -562,7 +627,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy metaid");
+      reportError("OutputSBML:Model", "Cannot copy metaid");
     }
 
     SBase_setMetaId((SBase_t *) (sbmlModel), pacMetaid);
@@ -623,7 +688,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy substanceUnits");
+      reportError("OutputSBML:Model", "Cannot copy substanceUnits");
     }
 
     Model_setSubstanceUnits(sbmlModel, pacSubstanceUnits);
@@ -636,7 +701,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy timeUnits");
+      reportError("OutputSBML:Model", "Cannot copy timeUnits");
     }
 
     Model_setTimeUnits(sbmlModel, pacTimeUnits);
@@ -649,7 +714,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy lengthUnits");
+      reportError("OutputSBML:Model", "Cannot copy lengthUnits");
     }
 
     Model_setLengthUnits(sbmlModel, pacLengthUnits);
@@ -662,7 +727,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy areaUnits");
+      reportError("OutputSBML:Model", "Cannot copy areaUnits");
     }
 
     Model_setAreaUnits(sbmlModel, pacAreaUnits);
@@ -675,7 +740,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy volumeUnits");
+      reportError("OutputSBML:Model", "Cannot copy volumeUnits");
     }
 
     Model_setVolumeUnits(sbmlModel, pacVolumeUnits);
@@ -688,7 +753,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy extentUnits");
+      reportError("OutputSBML:Model", "Cannot copy extentUnits");
     }
 
     Model_setExtentUnits(sbmlModel, pacExtentUnits);
@@ -701,7 +766,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy conversionFactor");
+      reportError("OutputSBML:Model", "Cannot copy conversionFactor");
     }
 
     Model_setConversionFactor(sbmlModel, pacConversionFactor);
@@ -717,7 +782,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (nStatus != 0)
   {
-    mexErrMsgTxt("Cannot copy annotations");
+    reportError("OutputSBML:Model", "Cannot copy annotations");
   }
 
   SBase_setAnnotationString((SBase_t *) (sbmlModel), pacAnnotations); 
@@ -739,7 +804,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Cannot copy ActiveObjective");
+      reportError("OutputSBML:Model", "Cannot copy ActiveObjective");
     }
 
     FbcModelPlugin_setActiveObjectiveId(SBase_getPlugin((SBase_t *)(sbmlModel), "fbc"),
@@ -765,7 +830,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (nStatus != 0)
     {
-      mexErrMsgTxt("Failed to read filename");
+      reportError("OutputSBML:GUIInput", "Failed to read filename");
     }
 
     pacFilename = readUnicodeStringFromArrays(mxFilename);
@@ -824,7 +889,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   {
     if (nStatus != 1)
     {
-      mexErrMsgTxt("Failed to write file");
+      reportError("OutputSBML:writeFile", "Failed to write file");
     }
     else
     {
@@ -1030,7 +1095,7 @@ CharToTypecode (char * pacTypecode)
       break;
 
     default:
-      mexErrMsgTxt("error in typecode");
+      reportError("OutputSBML:CharToTypecode", "error in typecode");
       break;
   }
 
@@ -1068,7 +1133,7 @@ GetNamespaces (mxArray * mxNamespaces,
 
 		if (nStatus != 0)
 		{
-			mexErrMsgTxt("Cannot copy uri");
+			reportError("OutputSBML:Namespaces", "Cannot copy uri");
 		}
 
 
@@ -1080,7 +1145,7 @@ GetNamespaces (mxArray * mxNamespaces,
 
 		if (nStatus != 0)
 		{
-			mexErrMsgTxt("Cannot copy prefix");
+			reportError("OutputSBML:Namespaces", "Cannot copy prefix");
 		}
 
 
@@ -2048,9 +2113,6 @@ GetUnit ( mxArray * mxUnits,
  {
    size_t nNoRules = mxGetNumberOfElements(mxRule);
 
-   int nStatus;
-   size_t nBuflen;
-
    char * pacTypecode;
    char * pacNotes;
    char * pacAnnotations;
@@ -2066,8 +2128,6 @@ GetUnit ( mxArray * mxUnits,
 
    mxArray * mxSBOTerm;
 
-   mxArray *mxInput[1];
-   mxArray *mxOutput[1];
    Rule_t *pAssignRule;
    Rule_t *pAlgRule;
    Rule_t *pRateRule;
@@ -2093,27 +2153,8 @@ GetUnit ( mxArray * mxUnits,
      /* get formula */
      pacFormula = ReadString(mxRule, "formula", "rule", i, nNoRules);
 
-     /* temporary hack to convert MATLAB formula to MathML infix */
-
-     mxInput[0] = mxCreateString(pacFormula);
-     nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-     if (nStatus != 0)
-     {
-       mexErrMsgTxt("Failed to convert formula");
-     }
-
-     /* get the formula returned */
-     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-     nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-     if (nStatus != 0)
-     {
-       mexErrMsgTxt("Cannot copy formula");
-     }
-
-     /* END OF HACK */
+     /* convert MATLAB formula to MathML infix */
+     pacFormula = GetMathMLFormula(pacFormula, "Rule");
 
      ast = SBML_parseFormula(pacFormula);
      LookForCSymbolTime(ast);
@@ -2302,7 +2343,7 @@ GetUnit ( mxArray * mxUnits,
        break;
 
      default:
-       mexErrMsgTxt("Error in rule assignment");
+       reportError("OutputSBML:Rule:UnknownError", "Error in rule assignment");
        break;
      }
 
@@ -2578,9 +2619,6 @@ GetUnit ( mxArray * mxUnits,
   unsigned int unIsSetStoichiometry;
   const char * type;
 
-  mxArray * mxInput[1];
-  mxArray * mxOutput[1];
-  
   SpeciesReference_t *pSpeciesReference;
   StoichiometryMath_t *pStoichiometryMath;
  
@@ -2661,30 +2699,13 @@ GetUnit ( mxArray * mxUnits,
 
         if (nStatus != 0)
         {
-          mexErrMsgTxt("Cannot copy StoichiometryMath");
+          reportError("OutputSBML:StoichiometryMath", 
+            "Cannot copy StoichiometryMath");
         }
 
-         /* temporary hack to convert MATLAB formula to MathML infix */
-
-        mxInput[0] = mxCreateString(pacStoichiometryMath);
-        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-        if (nStatus != 0)
-        {
-            mexErrMsgTxt("Failed to convert formula");
-        }
-
-        /* get the formula returned */
-        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-        pacStoichiometryMath = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacStoichiometryMath, (mwSize)(nBuflen));
-
-        if (nStatus != 0)
-        {
-            mexErrMsgTxt("Cannot copy formula");
-        }
-
-        /* END OF HACK */
+         /* convert MATLAB formula to MathML infix */
+        pacStoichiometryMath = GetMathMLFormula(pacStoichiometryMath, 
+          "SpeciesReference:StoichiometryMath");
         if (strcmp(pacStoichiometryMath, ""))
         {
           pStoichiometryMath = 
@@ -2926,9 +2947,6 @@ GetUnit ( mxArray * mxUnits,
                  unsigned int unSBMLVersion, 
 			           Reaction_t * sbmlReaction)
 {
-	int nStatus;
-	size_t nBuflen;
-
   char * pacNotes;
   char * pacAnnotations;
   char * pacFormula;
@@ -2939,8 +2957,6 @@ GetUnit ( mxArray * mxUnits,
 	char * pacMetaid = NULL;
 
 	mxArray * mxParameter, *mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   KineticLaw_t *pKineticLaw;
 
@@ -2958,27 +2974,8 @@ GetUnit ( mxArray * mxUnits,
     /* get formula */
     pacFormula = ReadString(mxKineticLaw, "formula", "kineticLaw", 0, 0);
 
-     /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
+     /* convert MATLAB formula to MathML infix */
+    pacFormula = GetMathMLFormula(pacFormula, "KineticLaw");
 
     KineticLaw_setFormula(pKineticLaw, pacFormula);
   }
@@ -3007,36 +3004,23 @@ GetUnit ( mxArray * mxUnits,
     GetParameterFromKineticLaw(mxParameter, unSBMLLevel, unSBMLVersion, pKineticLaw);
   }
   
-  if (unSBMLLevel == 2)
+  if (unSBMLLevel > 1)
   {
     /* get metaid */
     pacMetaid = ReadString(mxKineticLaw, "metaid", "kineticLaw", 0, 0);
     SBase_setMetaId((SBase_t *) (pKineticLaw), pacMetaid);
 
     /* get Math */
-    pacMath = ReadString(mxKineticLaw, "formula", "kineticLaw", 0, 0);
-
-    /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
+    if (unSBMLLevel == 2)
     {
-      mexErrMsgTxt("Failed to convert formula");
+      pacMath = ReadString(mxKineticLaw, "formula", "kineticLaw", 0, 0);
     }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
+    else
     {
-      mexErrMsgTxt("Cannot copy formula");
+      pacMath = ReadString(mxKineticLaw, "math", "kineticLaw", 0, 0);
     }
-
-    /* END OF HACK */
+    /* convert MATLAB formula to MathML infix */
+    pacMath = GetMathMLFormula(pacMath, "KineticLaw");
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
     LookForCSymbolDelay(ast);
@@ -3044,59 +3028,15 @@ GetUnit ( mxArray * mxUnits,
 
     KineticLaw_setMath(pKineticLaw, ast);
 
-    /* level 2 version 2 onwards */
-    if (unSBMLVersion > 1)
-    {
-      /* get sboTerm */
-      mxSBOTerm = mxGetField(mxKineticLaw, 0, "sboTerm");
-      nSBOTerm = (int)mxGetScalar(mxSBOTerm);
-
-      SBase_setSBOTerm((SBase_t *) (pKineticLaw), nSBOTerm);
-    }
   }
-  else if (unSBMLLevel == 3)
+
+  if (unSBMLLevel == 2 && unSBMLVersion > 1 || unSBMLLevel > 2)
   {
-    /* get metaid */
-    pacMetaid = ReadString(mxKineticLaw, "metaid", "kineticLaw", 0, 0);
-    SBase_setMetaId((SBase_t *) (pKineticLaw), pacMetaid);
-
-    /* get Math */
-    pacMath = ReadString(mxKineticLaw, "math", "kineticLaw", 0, 0);
-
-    /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert math");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy math");
-    }
-
-    /* END OF HACK */
-    ast = SBML_parseFormula(pacMath);
-    LookForCSymbolTime(ast);
-    LookForCSymbolDelay(ast);
-    LookForCSymbolAvo(ast);
-
-    KineticLaw_setMath(pKineticLaw, ast);
-
     /* get sboTerm */
     mxSBOTerm = mxGetField(mxKineticLaw, 0, "sboTerm");
     nSBOTerm = (int)mxGetScalar(mxSBOTerm);
 
     SBase_setSBOTerm((SBase_t *) (pKineticLaw), nSBOTerm);
-
   }
 
   /* get annotations */
@@ -3332,9 +3272,6 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 {
   size_t nNoFunctions = mxGetNumberOfElements(mxFunctionDefinitions);
 
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -3345,8 +3282,6 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   FunctionDefinition_t *pFuncDefinition;
   ASTNode_t *ast;
@@ -3380,27 +3315,9 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
     /* get math */
     pacFormula = ReadString(mxFunctionDefinitions, "math", "functionDefinition", i, nNoFunctions);
 
-    /* temporary hack to convert MATLAB formula to MathML infix */
+    /* convert MATLAB formula to MathML infix */
+    pacFormula = GetMathMLFormula(pacFormula, "FunctionDefinition");
 
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
     ast = SBML_parseFormula(pacFormula);
     LookForCSymbolTime(ast);
     LookForCSymbolDelay(ast);
@@ -3471,9 +3388,6 @@ GetEvent ( mxArray * mxEvents,
   mxArray * mxUseValuesfromTrigger, *mxPriority;
   mxArray * mxTrigger, * mxDelay, * mxEventAssignments, *mxSBOTerm;
 
-  mxArray *mxInput[1];
-  mxArray * mxOutput[1];
-
   Event_t *pEvent;
   size_t i;
 
@@ -3507,30 +3421,10 @@ GetEvent ( mxArray * mxEvents,
 
       if (nStatus != 0)
       {
-        mexErrMsgTxt("Cannot copy Trigger");
+        reportError("OutputSBML:Event", "Cannot copy Trigger");
       }
-      /* temporary hack to convert MATLAB formula to MathML infix */
-
-      mxInput[0] = mxCreateString(pacTrigger);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      /* END OF HACK */
-
+      /* convert MATLAB formula to MathML infix */
+      pacTrigger = GetMathMLFormula(pacTrigger, "Event:Trigger");
       if (strcmp(pacTrigger, ""))
       {
         Trigger_t * trigger = Trigger_create(unSBMLLevel, unSBMLVersion);
@@ -3552,30 +3446,10 @@ GetEvent ( mxArray * mxEvents,
 
       if (nStatus != 0)
       {
-        mexErrMsgTxt("Cannot copy Delay");
+        reportError("OutputSBML:Event", "Cannot copy Delay");
       }
-      /* temporary hack to convert MATLAB formula to MathML infix */
-
-      mxInput[0] = mxCreateString(pacDelay);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      /* END OF HACK */
-
+      /* convert MATLAB formula to MathML infix */
+      pacDelay = GetMathMLFormula(pacDelay, "Event:Delay");
       if (strcmp(pacDelay, ""))
       {
         Delay_t * delay = Delay_create(unSBMLLevel, unSBMLVersion);
@@ -3687,9 +3561,6 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 {
   size_t nNoEventAssigns = mxGetNumberOfElements(mxEventAssignment);
 
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -3699,8 +3570,6 @@ GetEventAssignment ( mxArray * mxEventAssignment,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   EventAssignment_t *pEventAssignment;
   ASTNode_t *ast;
@@ -3727,27 +3596,8 @@ GetEventAssignment ( mxArray * mxEventAssignment,
     /* get Math */
     pacMath = ReadString(mxEventAssignment, "math", "eventAssignment", i, nNoEventAssigns);
 
-    /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
+    /* convert MATLAB formula to MathML infix */
+    pacMath = GetMathMLFormula(pacMath, "EventAssignment");
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
     LookForCSymbolDelay(ast);
@@ -3965,9 +3815,6 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 {
 	size_t nNoInitialAssignments = mxGetNumberOfElements(mxInitialAssignment);
   
-	int nStatus;
-	size_t nBuflen;
-
 	/* values */
 	char * pacNotes;
 	char * pacAnnotations;
@@ -3977,10 +3824,8 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 	char * pacMetaid;
 
 	mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
-	InitialAssignment_t *pInitialAssignment;
+  InitialAssignment_t *pInitialAssignment;
   ASTNode_t *ast;
 	size_t i;
 
@@ -4005,27 +3850,8 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		/* get Math */
     pacMath = ReadString(mxInitialAssignment, "math", "initialAssignment", i, nNoInitialAssignments);
 
-    /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
+    /* convert MATLAB formula to MathML infix */
+    pacMath = GetMathMLFormula(pacMath, "InitialAssignment");
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
     LookForCSymbolDelay(ast);
@@ -4075,9 +3901,6 @@ GetConstraint ( mxArray * mxConstraint,
 {
   size_t nNoConstraints = mxGetNumberOfElements(mxConstraint);
 
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -4087,8 +3910,6 @@ GetConstraint ( mxArray * mxConstraint,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   Constraint_t *pConstraint;
   ASTNode_t * ast;
@@ -4116,27 +3937,8 @@ GetConstraint ( mxArray * mxConstraint,
     /* get Math */
     pacMath = ReadString(mxConstraint, "math", "constraint", i, nNoConstraints);
 
-    /* temporary hack to convert MATLAB formula to MathML infix */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
+    /* convert MATLAB formula to MathML infix */
+    pacMath = GetMathMLFormula(pacMath, "Constraint");
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
     LookForCSymbolDelay(ast);
@@ -4184,9 +3986,6 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
                        unsigned int unSBMLVersion, 
                        SpeciesReference_t * sbmlSpeciesReference )
 {
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -4195,8 +3994,6 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   StoichiometryMath_t *pStoichiometryMath;
   ASTNode_t *ast;
@@ -4218,27 +4015,8 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   /* get Math */
   pacMath = ReadString(mxStoichiometryMath, "math", "stoichiometryMath", 0, 0);
 
-  /* temporary hack to convert MATLAB formula to MathML infix */
-
-  mxInput[0] = mxCreateString(pacMath);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Failed to convert formula");
-  }
-
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy formula");
-  }
-
-  /* END OF HACK */
+  /* convert MATLAB formula to MathML infix */
+  pacMath = GetMathMLFormula(pacMath, "StoichiometryMath");
   ast = SBML_parseFormula(pacMath);
   LookForCSymbolTime(ast);
   LookForCSymbolDelay(ast);
@@ -4287,9 +4065,6 @@ GetTrigger ( mxArray * mxTrigger,
              unsigned int unSBMLVersion, 
              Event_t * sbmlEvent )
 {
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -4301,8 +4076,6 @@ GetTrigger ( mxArray * mxTrigger,
 
   mxArray *mxPersistent, *mxInitialValue;
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   Trigger_t *pTrigger;
   ASTNode_t * ast;
@@ -4323,27 +4096,8 @@ GetTrigger ( mxArray * mxTrigger,
   /* get Math */
   pacMath = ReadString(mxTrigger, "math", "trigger", 0, 0);
 
-  /* temporary hack to convert MATLAB formula to MathML infix */
-
-  mxInput[0] = mxCreateString(pacMath);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Failed to convert formula");
-  }
-
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy formula");
-  }
-
-  /* END OF HACK */
+  /* convert MATLAB formula to MathML infix */
+  pacMath = GetMathMLFormula(pacMath, "Trigger");
   ast = SBML_parseFormula(pacMath);
   LookForCSymbolTime(ast);
   LookForCSymbolDelay(ast);
@@ -4406,9 +4160,6 @@ GetDelay ( mxArray * mxDelay,
            unsigned int unSBMLVersion, 
            Event_t * sbmlEvent )
 {
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -4417,8 +4168,6 @@ GetDelay ( mxArray * mxDelay,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   Delay_t *pDelay;
   ASTNode_t * ast;
@@ -4438,27 +4187,8 @@ GetDelay ( mxArray * mxDelay,
   /* get Math */
   pacMath = ReadString(mxDelay, "math", "delay", 0, 0);
 
-  /* temporary hack to convert MATLAB formula to MathML infix */
-
-  mxInput[0] = mxCreateString(pacMath);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Failed to convert formula");
-  }
-
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy formula");
-  }
-
-  /* END OF HACK */
+  /* convert MATLAB formula to MathML infix */
+  pacMath = GetMathMLFormula(pacMath, "Delay");
   if (strcmp(pacMath, ""))
   {
     ast = SBML_parseFormula(pacMath);
@@ -4508,9 +4238,6 @@ GetPriority ( mxArray * mxPriority,
               unsigned int unSBMLVersion, 
               Event_t * sbmlEvent )
 {
-  int nStatus;
-  size_t nBuflen;
-
   /* values */
   char * pacNotes;
   char * pacAnnotations;
@@ -4519,8 +4246,6 @@ GetPriority ( mxArray * mxPriority,
   char * pacMetaid;
 
   mxArray * mxSBOTerm;
-  mxArray *mxInput[1];
-  mxArray *mxOutput[1];
 
   Priority_t *pPriority;
   ASTNode_t * ast;
@@ -4540,27 +4265,8 @@ GetPriority ( mxArray * mxPriority,
   /* get Math */
   pacMath = ReadString(mxPriority, "math", "priority", 0, 0);
 
-  /* temporary hack to convert MATLAB formula to MathML infix */
-
-  mxInput[0] = mxCreateString(pacMath);
-  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "ConvertFormulaToMathML");
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Failed to convert formula");
-  }
-
-  /* get the formula returned */
-  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-  pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    mexErrMsgTxt("Cannot copy formula");
-  }
-
-  /* END OF HACK */
+  /* convert MATLAB formula to MathML infix */
+  pacMath = GetMathMLFormula(pacMath, "Priority");
   if (strcmp(pacMath, ""))
   {
     ast = SBML_parseFormula(pacMath);

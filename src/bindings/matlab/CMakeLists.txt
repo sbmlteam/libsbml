@@ -88,8 +88,8 @@ ARGS  -E copy_if_different
       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
       ${CMAKE_CURRENT_BINARY_DIR}
 
-DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.c"
+DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.cpp"
 
 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 COMMENT "compile and link bindings using buildSBML"
@@ -167,7 +167,7 @@ macro(build_matlab_file fileName)
 		# sarah commented that the mex command did not work for her, 
 		# so let us try this one on windows
 		
-		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c" src)
+		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp" src)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_BINARY_DIR}/../../" include_path0)
 		file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" include_path1)
 		file(TO_NATIVE_PATH "${LIBSBML_ROOT_SOURCE_DIR}/include" include_path2)
@@ -190,7 +190,7 @@ macro(build_matlab_file fileName)
 				-I${include_path2}
 				${sbml_import}
 				
-			MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c
+			MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp
 			COMMENT "compile and link matlab mex file: ${fileName}") 
 	
 	else()
@@ -216,7 +216,7 @@ macro(build_matlab_file fileName)
 			-I"${LIBSBML_ROOT_SOURCE_DIR}/include"
 			-c
 			${MATLAB_MEX_EXTRA_ARGS}
-			"${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c"
+			"${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp"
 		
 		COMMAND "${MATLAB_MEX_COMMAND}"
 		ARGS 
@@ -226,7 +226,7 @@ macro(build_matlab_file fileName)
 			${MATLAB_LIBSBML_LIB}
 			${MATLAB_EXTRA_LIBS}
 			
-		MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.c
+		MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${fileName}.cpp
 		COMMENT "compile and link matlab mex file: ${fileName}") 
 	
 	endif()
@@ -275,7 +275,7 @@ else()
 	
 	foreach(matlab_source_file "TranslateSBML" "OutputSBML")
 	
-		add_library(matlab_binding_${matlab_source_file} SHARED "${CMAKE_CURRENT_SOURCE_DIR}/${matlab_source_file}.c")
+		add_library(matlab_binding_${matlab_source_file} SHARED "${CMAKE_CURRENT_SOURCE_DIR}/${matlab_source_file}.cpp")
 		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES OUTPUT_NAME "${matlab_source_file}")
 		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES SUFFIX ".${MATLAB_MEX_EXT}")
                 set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES  PREFIX "")

@@ -61,9 +61,9 @@ matlab_sources =                      \
         ConvertFormulaToMathML.m      \
         isSBML_Model.m                \
         README.txt                    \
-        TranslateSBML.c               \
+        TranslateSBML.cpp             \
         TranslateSBML.m               \
-        OutputSBML.c                  \
+        OutputSBML.cpp                \
         OutputSBML.m                  \
         installSBML.m                 \
         isoctave.m                    \
@@ -73,8 +73,8 @@ matlab_sources =                      \
         mexopts-R2009-R2010.sh        \
         test.xml                      
 
-compiled_sources = TranslateSBML.c \
-	 OutputSBML.c
+compiled_sources = TranslateSBML.cpp \
+	 OutputSBML.cpp
 
 # This use of $(libraries) is slightly inconsistent with the other makefiles,
 # but for Octave, these object files act a lot like dynamic libraries and
@@ -139,13 +139,13 @@ link-sources:
 
 flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include 
 
-#%.lo: %.c
-#	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
+#%.lo: %.cpp
+#	$(LIBTOOL) --tag=CCX --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
 
 #%.$(OCTAVEEXT): %.lo
 #	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
 
-%.$(OCTAVEEXT): %.c
+%.$(OCTAVEEXT): %.cpp
 	$(MKOCTFILE) $(flags) $^ -lsbml -L../../.libs $(MKOCTFILE_LIBS)
 
 
@@ -153,7 +153,7 @@ flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include
 # Tags.
 # -----------------------------------------------------------------------------
 
-octave-tags-extra-flags = *.c --lang=none --regex=@matlab-tags-regexp.txt *.m
+octave-tags-extra-flags = *.cpp --lang=none --regex=@matlab-tags-regexp.txt *.m
 
 etags-command = $(ETAGS) $(ETAGSFLAGS) $(octave-tags-extra-flags)
 ctags-command = $(CTAGS) $(CTAGSFLAGS) $(octave-tags-extra-flags)

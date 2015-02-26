@@ -1,5 +1,5 @@
 /**
- * \file    TranslateSBML.c
+ * \file    TranslateSBML.cpp
  * \brief   MATLAB code for translating SBML document into MATLAB structure
  * \author  Sarah Keating
  * 
@@ -89,7 +89,6 @@ void GetPriority        (Event_t *, unsigned int, unsigned int);
 void GetNamespaces   (SBMLDocument_t *);
 
 
-
 mxArray * CreateIntScalar (int);
 const char    * TypecodeToChar  (int);
 const char    * RuleType_toString (RuleType_t);
@@ -171,6 +170,15 @@ typedef enum
 #define uint16_t unsigned short
 #endif
 
+void
+reportError(const char * id, const char * message, bool freeMem = true)
+{
+  /* we dont have any persistent memory here but leave the flag
+   * in case it becomes necessary
+   */
+  mexErrMsgIdAndTxt(id, message);
+}
+
 FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 {
 #ifdef USE_OCTAVE
@@ -199,7 +207,9 @@ FILE_CHAR readUnicodeString(const mxArray *prhs, mwSize length)
 
   if (utf8 != NULL && strlen(utf8) == 0 && length > 0)
   {
-    mexErrMsgTxt("This string uses characters that cannot be expressed in UTF8, please rename the file.");
+    reportError("TranslateSBML:readUnicodeString", 
+      "This string uses characters that cannot be "
+      "expressed in UTF8, please rename the file.");
   }
 
   return utf8;
@@ -312,6 +322,42 @@ OutputVersionInformation(mxArray *plhs[])
 
 #endif
 }
+
+char * GetMatlabFormula(char * pacFormula, std::string object)
+{
+  mxArray *mxInput[1];
+  mxArray *mxOutput[1];
+  int nStatus, nBuflen;
+  char * formula;
+
+  /* convert MathML infix formula to MATLAB */
+
+  mxInput[0] = mxCreateString(pacFormula);
+  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+  if (nStatus != 0)
+  {
+    std::string id = std::string("TranslateSBML:GetMatlabFormula:") + object;
+    reportError(id.c_str(), "Failed to convert formula");
+  }
+
+  /* get the formula returned */
+  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+  formula = (char *) mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxOutput[0], (char *) formula, (mwSize)(nBuflen));
+
+  if (nStatus != 0)
+  {
+    std::string id = std::string("TranslateSBML:GetMatlabFormula") + object;
+    reportError(id.c_str(), "Cannot copy formula");
+  }
+
+  mxDestroyArray(mxInput[0]);
+  mxDestroyArray(mxOutput[0]);
+
+  return formula;
+}
+
 /**
  * NAME:    mexFunction
  *
@@ -623,7 +669,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (nStatus != 0)
   {
-    mexErrMsgTxt("Bad octave read");
+    reportError("TranslateSBML:platformDetection", 
+      "Could not determine platform", false);
   }
 
   if (!(strcmp_insensitive(pacTempString1, "0") == 0))
@@ -649,7 +696,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   case 0:
     break;
   default:
-    mexErrMsgTxt("Too many output arguments.");
+    reportError("TranslateSBML:outputArguments", "Too many output arguments\n"
+      "USAGE: [model, (errors), (version)] = "
+      "TranslateSBML((filename), (validateFlag), (verboseFlag))");
     break;
   }
 
@@ -667,19 +716,34 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     * first argument must be a row vector of type string
     * i.e. the filename containing the sbml to be read
     */
-    if ((nrhs > 3) || (mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
+    if (nrhs > 3)
     {
-      mexErrMsgTxt("Usage: = TranslateSBML(filename, validFlag(optional), verboseFlag(optional))");
+      reportError("TranslateSBML:inputArguments", "Too many input arguments\n"
+        "USAGE: [model, (errors), (version)] = "
+        "TranslateSBML((filename), (validateFlag), (verboseFlag))");
     }
 
+    if ((mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
+    {
+      reportError("TranslateSBML:inputArguments:invalidFilename", 
+        "First argument must be a filename\n"
+        "USAGE: [model, (errors), (version)] = "
+        "TranslateSBML((filename), (validateFlag), (verboseFlag))");
+    }
     if (nrhs > 1 && !mxIsNumeric(prhs[1]))
     {
-      mexErrMsgTxt("Usage:TranslateSBML(filename, validFlag(optional), verboseFlag(optional))\n validFlag is optional but must be a number");
+      reportError("TranslateSBML:inputArguments:validateFlag", 
+        "validateFlag is an optional argument but must be a number\n"
+        "USAGE: [model, (errors), (version)] = "
+        "TranslateSBML((filename), (validateFlag), (verboseFlag))");
     }
 
     if (nrhs > 2 && !mxIsNumeric(prhs[2]))
     {
-      mexErrMsgTxt("Usage:TranslateSBML(filename, validFlag(optional), verboseFlag(optional))\n verboseFlag is optional but must be a number");
+      reportError("TranslateSBML:inputArguments:validateFlag", 
+        "verboseFlag is an optional argument but must be a number\n"
+        "USAGE: [model, (errors), (version)] = "
+        "TranslateSBML((filename), (validateFlag), (verboseFlag))");
     }
 
     /**
@@ -692,7 +756,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (pacFilename == NULL)
     {
-      mexErrMsgTxt("Not enough space to read filename");
+      reportError("TranslateSBML:inputArguments:filename", 
+        "Failed to read filename");
     }
 
     /* check that the file exists */
@@ -706,7 +771,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 #endif
       sprintf(msgTxt, "File %s does not exist on this path", pacFilename);
       /*mxFree(pacFilename);*/
-      mexErrMsgTxt(msgTxt);
+      reportError("TranslateSBML:inputArguments:filename", msgTxt);
     }
     else
     {
@@ -741,7 +806,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
       if (nStatus != 0)
       {
-        mexErrMsgTxt("Failed to read filename");
+      reportError("TranslateSBML:GUIInput:filename", 
+        "Failed to read filename");
       }
 
       /* get the filename returned */
@@ -759,7 +825,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 #endif
         sprintf(msgTxt, "File %s does not exist on this path", pacFilename);
         /*mxFree(pacFilename);*/
-        mexErrMsgTxt(msgTxt);
+        reportError("TranslateSBML:GUIInput:filename", msgTxt);
       }
       else
       {
@@ -784,7 +850,10 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
     else
     {
-      mexErrMsgTxt("Octave requires the filename as argument"); 
+    reportError("TranslateSBML:Octave:needFilename", 
+      "Octave requires the filename to be specified\n"
+        "USAGE: [model, (errors), (version)] = "
+        "TranslateSBML(filename, (validateFlag), (verboseFlag))");
     } 
   }
 
@@ -4219,16 +4288,10 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   int nSBO = -1;
 
   StoichiometryMath_t * pStoichiometryMath;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -4272,29 +4335,8 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
       LookForCSymbolDelay((ASTNode_t*)StoichiometryMath_getMath(pStoichiometryMath));
       pacFormula = SBML_formulaToString((ASTNode_t*)StoichiometryMath_getMath(pStoichiometryMath));
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacFormula);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      mxDestroyArray(mxInput[0]);
-      mxDestroyArray(mxOutput[0]);
-      /* END OF HACK */
+      /* convert MathML in-fix to MATLAB compatible formula */
+      pacFormula = GetMatlabFormula(pacFormula, "StoichiometryMath");
     }
     /**
     * check for NULL strings - Matlab doesnt like creating 
@@ -4311,7 +4353,7 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -4427,19 +4469,13 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   const char * pacTimeUnits = NULL;
   const char * pacSubstanceUnits = NULL;
-  const char * pacMathFormula = NULL;
+  char * pacMathFormula = NULL;
   int nSBO = -1;
 
   KineticLaw_t *pKineticLaw;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -4486,7 +4522,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
       if (unSBMLLevel < 3)
       {
-        pacFormula        = KineticLaw_getFormula(pKineticLaw);
+        pacFormula        = (char*)(KineticLaw_getFormula(pKineticLaw));
       }
 
       GetKineticLawParameters(pKineticLaw, unSBMLLevel, unSBMLVersion);
@@ -4564,55 +4600,15 @@ GetKineticLaw ( Reaction_t   *pReaction,
         }
       }
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
       if (unSBMLLevel < 3)
       {
-        mxInput[0] = mxCreateString(pacFormula);
-        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Failed to convert formula");
-        }
-
-        /* get the formula returned */
-        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-        pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Cannot copy formula");
-        }
-
-        mxDestroyArray(mxInput[0]);
-        mxDestroyArray(mxOutput[0]);
-        /* END OF HACK */
+        /* convert MathML in-fix to MATLAB compatible formula */
+        pacFormula = GetMatlabFormula(pacFormula, "KineticLaw");
       }
       else
       {
-        mxInput[0] = mxCreateString(pacMathFormula);
-        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Failed to convert formula");
-        }
-
-        /* get the formula returned */
-        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-        pacMathFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacMathFormula, (mwSize)(nBuflen));
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Cannot copy formula");
-        }
-
-        mxDestroyArray(mxInput[0]);
-        mxDestroyArray(mxOutput[0]);
-        /* END OF HACK */
+        /* convert MathML in-fix to MATLAB compatible formula */
+        pacMathFormula = GetMatlabFormula(pacMathFormula, "Kineticlaw");
       }
     }
     else 
@@ -4630,10 +4626,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
       pacTypecode = "SBML_KINETIC_LAW";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
     if (pacMathFormula == NULL) {
-      pacMathFormula = "";
+      pacMathFormula = strdup("");
     }
     if (pacTimeUnits == NULL) {
       pacTimeUnits = "";
@@ -5270,7 +5266,7 @@ GetRule ( Model_t      *pModel,
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacType = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   const char * pacVariable = NULL;
   const char * pacSpecies = NULL;
   const char * pacCompartment = NULL;
@@ -5280,11 +5276,6 @@ GetRule ( Model_t      *pModel,
 
   Rule_t *pRule;
   int i;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
 
   if (unSBMLLevel == 1) 
   {
@@ -5333,7 +5324,7 @@ GetRule ( Model_t      *pModel,
 
     if (unSBMLLevel == 1) 
     {
-      pacFormula = Rule_getFormula(pRule);
+      pacFormula = (char *)(Rule_getFormula(pRule));
     }
     else if (unSBMLLevel > 1) 
     {
@@ -5346,29 +5337,8 @@ GetRule ( Model_t      *pModel,
       }
     }
 
-    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    mxDestroyArray(mxInput[0]);
-    mxDestroyArray(mxOutput[0]);
-    /* END OF HACK */    
+    /* convert MathML in-fix to MATLAB compatible formula */
+    pacFormula = GetMatlabFormula(pacFormula, "Rule");
 
     /* values for different types of rules */
     if (unSBMLLevel == 1)
@@ -5603,7 +5573,7 @@ GetRule ( Model_t      *pModel,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
     if (pacType == NULL) {
       pacType = "";
@@ -5719,17 +5689,12 @@ GetFunctionDefinition ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
 
   int nSBO = -1;
 
   FunctionDefinition_t *pFuncDefinition;
   int i;
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
 
   /**
   * create the structure array 
@@ -5793,29 +5758,9 @@ GetFunctionDefinition ( Model_t      *pModel,
       LookForCSymbolAvo((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
       pacFormula = SBML_formulaToString((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
     }
-    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+    /* convert MathML in-fix to MATLAB compatible formula */
+    pacFormula = GetMatlabFormula(pacFormula, "FunctionDefinition");
 
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    mxDestroyArray(mxInput[0]);
-    mxDestroyArray(mxOutput[0]);
-    /* END OF HACK */
     /**
     * check for NULL strings - Matlab doesnt like creating
     * a string that is NULL
@@ -5837,7 +5782,7 @@ GetFunctionDefinition ( Model_t      *pModel,
       pacId = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -5979,18 +5924,14 @@ GetEvent ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
-  const char * pacTrigger = NULL;
-  const char * pacDelay = NULL;
+  char * pacTrigger = NULL;
+  char * pacDelay = NULL;
   const char * pacTimeUnits = NULL;
   int nSBO = -1;
   int nUseValuesFromTriggerTime = 0;
 
   Event_t *pEvent;
   int i;
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -6074,56 +6015,14 @@ GetEvent ( Model_t      *pModel,
         LookForCSymbolAvo((ASTNode_t*)Delay_getMath(Event_getDelay(pEvent)));
         pacDelay      = SBML_formulaToString((ASTNode_t*)Delay_getMath(Event_getDelay(pEvent)));
       }
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacTrigger);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      mxDestroyArray(mxInput[0]);
-      mxDestroyArray(mxOutput[0]);
-      /* END OF HACK */
+      /* convert MathML in-fix to MATLAB compatible formula */
+      pacTrigger = GetMatlabFormula(pacTrigger, "Event:Trigger");
 
 
       if (Event_isSetDelay(pEvent)) 
       {
-        /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-        mxInput[0] = mxCreateString(pacDelay);
-        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Failed to convert formula");
-        }
-
-        /* get the formula returned */
-        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-        pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacDelay, (mwSize)(nBuflen));
-
-        if (nStatus != 0)
-        {
-          mexErrMsgTxt("Cannot copy formula");
-        }
-
-        mxDestroyArray(mxInput[0]);
-        mxDestroyArray(mxOutput[0]);
-        /* END OF HACK */
+        /* convert MathML in-fix to MATLAB compatible formula */
+        pacDelay = GetMatlabFormula(pacDelay, "Event:Delay");
       }
     }
     else
@@ -6159,10 +6058,10 @@ GetEvent ( Model_t      *pModel,
       pacTimeUnits = "";
     }
     if (pacTrigger == NULL) {
-      pacTrigger = "";
+      pacTrigger = strdup("");
     }
     if (pacDelay == NULL) {
-      pacDelay = "";
+      pacDelay = strdup("");
     }
 
     /* put into structure */
@@ -6289,16 +6188,12 @@ GetEventAssignment ( Event_t      *pEvent,
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacVariable;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   int nSBO = -1;
 
   EventAssignment_t * pEventAssignment;
   int i;
 
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
 
 
   /* create the structure array */
@@ -6359,29 +6254,8 @@ GetEventAssignment ( Event_t      *pEvent,
       LookForCSymbolAvo((ASTNode_t*)EventAssignment_getMath(pEventAssignment));
       pacFormula = SBML_formulaToString((ASTNode_t*)EventAssignment_getMath(pEventAssignment));
     }
-    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    mxDestroyArray(mxInput[0]);
-    mxDestroyArray(mxOutput[0]);
-    /* END OF HACK */
+    /* convert MathML in-fix to MATLAB compatible formula */
+    pacFormula = GetMatlabFormula(pacFormula, "EventAssignment");
 
     /**
     * check for NULL strings - Matlab doesnt like creating 
@@ -6402,7 +6276,7 @@ GetEventAssignment ( Event_t      *pEvent,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -6490,18 +6364,12 @@ GetTrigger ( Event_t      *pEvent,
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   int nSBO = -1;
   int nPersistent = 0;
   int nInitialValue = 0;
 
   Trigger_t * pTrigger;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -6553,29 +6421,8 @@ GetTrigger ( Event_t      *pEvent,
       LookForCSymbolAvo((ASTNode_t*)Trigger_getMath(pTrigger));
       pacFormula = SBML_formulaToString((ASTNode_t*)Trigger_getMath(pTrigger));
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacFormula);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      mxDestroyArray(mxInput[0]);
-      mxDestroyArray(mxOutput[0]);
-      /* END OF HACK */
+      /* convert MathML in-fix to MATLAB compatible formula */
+      pacFormula = GetMatlabFormula(pacFormula, "Trigger");
     }
 
     if (unSBMLLevel > 2)
@@ -6598,7 +6445,7 @@ GetTrigger ( Event_t      *pEvent,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -6669,17 +6516,10 @@ GetDelay ( Event_t      *pEvent,
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   int nSBO = -1;
 
   Delay_t * pDelay;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
-
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -6732,29 +6572,8 @@ GetDelay ( Event_t      *pEvent,
       LookForCSymbolAvo((ASTNode_t*)Delay_getMath(pDelay));
       pacFormula = SBML_formulaToString((ASTNode_t*)Delay_getMath(pDelay));
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacFormula);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      mxDestroyArray(mxInput[0]);
-      mxDestroyArray(mxOutput[0]);
-      /* END OF HACK */
+      /* convert MathML in-fix to MATLAB compatible formula */
+      pacFormula = GetMatlabFormula(pacFormula, "Delay");
     }
     /**
     * check for NULL strings - Matlab doesnt like creating 
@@ -6771,7 +6590,7 @@ GetDelay ( Event_t      *pEvent,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -6839,16 +6658,10 @@ GetPriority ( Event_t      *pEvent,
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
-  const char * pacFormula = NULL;
+  char * pacFormula = NULL;
   int nSBO = -1;
 
   Priority_t * pPriority;
-
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
-
 
   /* create the structure array */
   if (unSBMLLevel < 3) 
@@ -6890,29 +6703,8 @@ GetPriority ( Event_t      *pEvent,
       LookForCSymbolAvo((ASTNode_t*)Priority_getMath(pPriority));
       pacFormula = SBML_formulaToString((ASTNode_t*)Priority_getMath(pPriority));
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacFormula);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Failed to convert formula");
-      }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
-
-      if (nStatus != 0)
-      {
-        mexErrMsgTxt("Cannot copy formula");
-      }
-
-      mxDestroyArray(mxInput[0]);
-      mxDestroyArray(mxOutput[0]);
-      /* END OF HACK */
+      /* convert MathML in-fix to MATLAB compatible formula */
+      pacFormula = GetMatlabFormula(pacFormula, "Priority");
     }
     /**
     * check for NULL strings - Matlab doesnt like creating 
@@ -6929,7 +6721,7 @@ GetPriority ( Event_t      *pEvent,
       pacAnnotations = "";
     }
     if (pacFormula == NULL) {
-      pacFormula = "";
+      pacFormula = strdup("");
     }
 
     /* put into structure */
@@ -7498,14 +7290,10 @@ GetInitialAssignment ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacSymbol = NULL;
   int nSBO = -1;
-  const char * pacMath = NULL;
+  char * pacMath = NULL;
 
   InitialAssignment_t *pInitialAssignment;
   int i;
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -7561,32 +7349,8 @@ GetInitialAssignment ( Model_t      *pModel,
       pacMath = SBML_formulaToString((ASTNode_t*)InitialAssignment_getMath(pInitialAssignment));
     }
 
-    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-
-    mxDestroyArray(mxInput[0]);
-    mxDestroyArray(mxOutput[0]);
-    /* END OF HACK */
-
-
-
+    /* convert MathML in-fix to MATLAB compatible formula */
+    pacMath = GetMatlabFormula(pacMath, "InitialAssignment");
     /**        
     * check for NULL strings - Matlab doesnt like creating 
     * a string that is NULL
@@ -7605,7 +7369,7 @@ GetInitialAssignment ( Model_t      *pModel,
       pacSymbol = "";
     }
     if (pacMath == NULL) {
-      pacMath = "";
+      pacMath = strdup("");
     }
 
     /* put into structure */
@@ -7697,14 +7461,10 @@ GetConstraint ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacMessage = NULL;
   int nSBO = -1;
-  const char * pacMath = NULL;
+  char * pacMath = NULL;
 
   Constraint_t *pConstraint;
   int i;
-  /* variables for mathML - matlab hack */
-  int nStatus;
-  size_t nBuflen;
-  mxArray * mxInput[1], * mxOutput[1];
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -7763,31 +7523,8 @@ GetConstraint ( Model_t      *pModel,
       pacMath = SBML_formulaToString((ASTNode_t*)Constraint_getMath(pConstraint));
     }
 
-    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-    mxInput[0] = mxCreateString(pacMath);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Failed to convert formula");
-    }
-
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      mexErrMsgTxt("Cannot copy formula");
-    }
-    mxDestroyArray(mxInput[0]);
-    mxDestroyArray(mxOutput[0]);
-
-    /* END OF HACK */
-
-
+    /* convert MathML in-fix to MATLAB compatible formula */
+    pacMath = GetMatlabFormula(pacMath, "Constraint");
 
     /**        
     * check for NULL strings - Matlab doesnt like creating 
@@ -7807,7 +7544,7 @@ GetConstraint ( Model_t      *pModel,
       pacMessage = "";
     }
     if (pacMath == NULL) {
-      pacMath = "";
+      pacMath = strdup("");
     }
 
     /* put into structure */
