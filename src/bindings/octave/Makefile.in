@@ -66,6 +66,7 @@ matlab_sources =                      \
         OutputSBML.cpp                \
         OutputSBML.m                  \
         installSBML.m                 \
+        isFbcEnabled.m                \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
         mexopts-R2007.sh              \
@@ -80,7 +81,7 @@ compiled_sources = TranslateSBML.cpp \
 # but for Octave, these object files act a lot like dynamic libraries and
 # we're installing them in the same place as the other libraries, so....
 
-libraries = $(compiled_sources:.c=.$(OCTAVEEXT))
+libraries = $(compiled_sources:.cpp=.$(OCTAVEEXT))
 
 subdirs = test
 
