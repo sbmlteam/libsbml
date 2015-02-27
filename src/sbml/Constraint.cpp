@@ -241,16 +241,121 @@ Constraint::setMessage (const XMLNode* xhtml)
     mMessage = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else if (!SyntaxChecker::hasExpectedXHTMLSyntax(xhtml, getSBMLNamespaces()))
+
+  delete mMessage;
+  const string&  name = xhtml->getName();
+
+  /* check for notes tags and add if necessary */
+
+  if (name == "message")
   {
-    return LIBSBML_INVALID_OBJECT;
+    mMessage = static_cast<XMLNode*>( xhtml->clone() );
   }
   else
   {
-    delete mMessage;
-    mMessage = (xhtml != NULL) ? new XMLNode(*xhtml) : NULL;
-    return LIBSBML_OPERATION_SUCCESS;
+    XMLToken message_t = XMLToken(XMLTriple("message", "", ""),
+                                XMLAttributes());
+    mMessage = new XMLNode(message_t);
+
+    // The root node of the given XMLNode tree can be an empty XMLNode
+    // (i.e. neither start, end, nor text XMLNode) if the given notes was
+    // converted from an XML string whose top level elements are neither
+    // "html" nor "body" and not enclosed with <notes>..</notes> tag
+    // (e.g. <p ...>..</p><br/>).
+    if (!xhtml->isStart() && !xhtml->isEnd() && !xhtml->isText() )
+    {
+      for (unsigned int i=0; i < xhtml->getNumChildren(); i++)
+      {
+        if (mMessage->addChild(xhtml->getChild(i)) < 0)
+        {
+          return LIBSBML_OPERATION_FAILED;
+        }
+      }
+    }
+    else
+    {
+      if (mMessage->addChild(*xhtml) < 0)
+        return LIBSBML_OPERATION_FAILED;
+    }
   }
+
+  if (!SyntaxChecker::hasExpectedXHTMLSyntax(mMessage, getSBMLNamespaces()))
+  {
+    delete mMessage;
+    mMessage = NULL;
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/* Sets the message from a string optionally wrapping in xhtml tags
+*/
+int 
+Constraint::setMessage (const std::string& message, 
+                        bool addXHTMLMarkup)
+{
+  int success = LIBSBML_OPERATION_FAILED;
+  if (&(message) == NULL)
+  {
+    success = LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (message.empty())
+  {
+    success = unsetMessage();
+  }
+  else
+  {
+    XMLNode* message_xmln;
+
+    // you might not have a document !!
+    if (getSBMLDocument() != NULL)
+    {
+      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      message_xmln = XMLNode::convertStringToXMLNode(message,xmlns);
+    }
+    else
+    {
+      message_xmln = XMLNode::convertStringToXMLNode(message);
+    }
+
+    if(message_xmln != NULL)
+    {
+      if (addXHTMLMarkup == true)
+      {
+        // just say the user passed a string that did not represent xhtml
+        // the xmlnode will not get set as it is invalid
+        if (message_xmln->getNumChildren() == 0
+          && message_xmln->isStart() == false
+          && message_xmln->isEnd() == false
+          && message_xmln->isText() == true)
+        {
+          //create a parent node of xhtml type p
+          XMLAttributes blank_att = XMLAttributes();
+          XMLTriple triple = XMLTriple("p", "http://www.w3.org/1999/xhtml", "");
+          XMLNamespaces xmlns = XMLNamespaces();
+          xmlns.add("http://www.w3.org/1999/xhtml", "");
+          XMLNode *xmlnode = new XMLNode(XMLToken(triple, blank_att, xmlns));
+
+          // create a text node from the text given
+          xmlnode->addChild(*message_xmln);
+          success = setMessage(xmlnode);
+          delete xmlnode;
+        }
+        else
+        {
+          success = setMessage(message_xmln);
+        }
+      }
+      else
+      {
+        success = setMessage(message_xmln);
+      }
+      delete message_xmln;
+    }
+  }
+  return success;
 }
 
 

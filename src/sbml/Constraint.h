@@ -286,6 +286,24 @@ public:
 
 
   /**
+   * Sets the message of this Constraint.
+   *
+   * @param message an XML string that is to be used as the content of the
+   * "message" subelement of this object
+   *
+   * @param addXHTMLMarkup a boolean indicating whether to wrap the contents
+   * of the @p message argument with XHTML paragraph (<code>&lt;p&gt;</code>)
+   * tags.  This is appropriate when the string in @p message does not already
+   * containg the appropriate XHTML markup.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
+  int setMessage (const std::string& message, bool addXHTMLMarkup = false);
+
+
+  /**
    * Sets the mathematical expression of this Constraint to a copy of the
    * AST given as @p math.
    *
