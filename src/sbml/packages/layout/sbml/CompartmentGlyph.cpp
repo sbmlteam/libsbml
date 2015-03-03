@@ -464,7 +464,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutCGCompartmentSyntax,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The compartment on the <" 
-          + getElementName() + "> is '" + mCompartment + "', which does not conform.", getLine(), getColumn());
+          + getElementName() + "> is '" + mCompartment + "', which does not conform to the syntax.", getLine(), getColumn());
       }
     }
   }

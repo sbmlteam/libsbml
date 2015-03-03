@@ -752,8 +752,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<assignmentRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -823,8 +823,8 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<assignmentRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -904,8 +904,8 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-    msg += " but the units returned by the <assignmentRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<assignmentRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -943,8 +943,8 @@ START_CONSTRAINT (10514, AssignmentRule, ar)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <assignmentRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<assignmentRule> with variable '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -987,8 +987,8 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment> with symbol '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<initialAssignment> with symbol '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1032,8 +1032,8 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment> with symbol '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<initialAssignment> with symbol '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1075,8 +1075,8 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <initialAssignment> with symbol '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<initialAssignment> with symbol '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1113,8 +1113,8 @@ START_CONSTRAINT (10524, InitialAssignment, ia)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <initialAssignment> with symbol '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<initialAssignment> with symbol '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -1195,8 +1195,8 @@ START_CONSTRAINT (10531, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<rateRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1273,8 +1273,8 @@ START_CONSTRAINT (10532, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<rateRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1362,8 +1362,8 @@ START_CONSTRAINT (10533, RateRule, rr)
   {
     msg =  " Expected units are ";
     msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
-    msg += " but the units returned by the <rateRule> with variable '";
-    msg += variable + "'s <math> expression are ";
+    msg += " but the units returned by the <math> expression of the ";
+    msg += "<rateRule> with variable '" + variable + "' are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
   }
@@ -1406,8 +1406,8 @@ START_CONSTRAINT (10534, RateRule, rr)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless per time";
-  msg += " but the units returned by the <rateRule> with variable '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<rateRule> with variable '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
@@ -1459,7 +1459,7 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   msg =  "Expected units are ";
   }
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <kineticLaw>'s <math> expression ";
+  msg += " but the units returned by the <math> expression in the <kineticLaw> ";
   if (rxn && rxn->isSetId()) {
     msg += "(from the <reaction> with id '" + rxn->getId() + "') ";
   }
@@ -1543,11 +1543,11 @@ START_CONSTRAINT (10551, Event, e)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(formulaUnits->getEventTimeUnitDefinition());
-  msg += " but the units returned by the <event>";
+  msg += " but the units returned by the <delay> from the <event> ";
   if (e.isSetId()) {
-    msg += " with id '" + e.getId();
+    msg += "with id '" + e.getId() + "' ";
   }
-  msg += "'s <delay> are ";
+  msg += "are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1595,12 +1595,12 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   const SBase* e = ea.getAncestorOfType(SBML_EVENT);
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment> with variable '";
-  msg += variable;
+  msg += " but the units returned by the <math> expression of the ";
+  msg += "<eventAssignment> with variable '" + variable + "' ";
   if (e && e->isSetId()) {
-    msg += "' from the <event> with id '" + e->getId();
+    msg += " from the <event> with id '" + e->getId() + "' ";
   }
-  msg += "'s <math> expression are ";
+  msg += "are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1647,8 +1647,8 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment> with variable '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression from the ";
+  msg += "<eventAssignment> with variable '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1693,8 +1693,8 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 
   msg =  "Expected units are ";
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
-  msg += " but the units returned by the <eventAssignment> with variable '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression from the ";
+  msg += "<eventAssignment> with variable '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
@@ -1733,8 +1733,8 @@ START_CONSTRAINT (10564, EventAssignment, ea)
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
   msg =  " Expected units are dimensionless";
-  msg += " but the units returned by the <eventAssignment> with variable '";
-  msg += variable + "'s <math> expression are ";
+  msg += " but the units returned by the <math> expression from the ";
+  msg += "<eventAssignment> with variable '" + variable + "' are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   

@@ -736,7 +736,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutRGReactionSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The reaction on the <" 
-        + getElementName() + "> is '" + mReaction + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mReaction + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 

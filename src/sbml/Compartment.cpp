@@ -1151,7 +1151,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
     logEmptyString("name", level, version, "<compartment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -1168,7 +1168,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform to the syntax.");
   }
 
   //
@@ -1200,7 +1200,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<compartment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // size    { use="optional" }              (L2v1 ->)
@@ -1217,7 +1217,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform to the syntax.");
   }
 
   //
@@ -1292,7 +1292,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<compartment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string elplusid = "<compartment>";
   if (!mId.empty()) {

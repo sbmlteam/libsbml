@@ -438,7 +438,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
           getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+          + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", getLine(), getColumn());
       }
     }
 
@@ -459,7 +459,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->logPackageError("layout", 
             LayoutDimsAttributesMustBeDouble,
             getPackageVersion(), sbmlLevel, sbmlVersion, "The 'width' on the <" 
-            + getElementName() + "> does not conform.", getLine(), getColumn());
+            + getElementName() + "> is not a double.", getLine(), getColumn());
         }
         else
         {
@@ -487,7 +487,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->logPackageError("layout", 
             LayoutDimsAttributesMustBeDouble,
             getPackageVersion(), sbmlLevel, sbmlVersion, "The 'height' on the <" 
-            + getElementName() + "> does not conform.", getLine(), getColumn());
+            + getElementName() + "> is not a double", getLine(), getColumn());
         }
         else
         {
@@ -516,7 +516,7 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
           getErrorLog()->logPackageError("layout", 
             LayoutDimsAttributesMustBeDouble,
             getPackageVersion(), sbmlLevel, sbmlVersion, "The 'depth' on the <" 
-            + getElementName() + "> does not conform.", getLine(), getColumn());
+            + getElementName() + "> is not a double", getLine(), getColumn());
         }
       }
     }

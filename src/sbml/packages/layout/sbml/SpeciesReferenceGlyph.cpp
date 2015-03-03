@@ -642,7 +642,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutSRGSpeciesGlyphSyntax, 
           getPackageVersion(), sbmlLevel, sbmlVersion, "The speciesGlyph on the <" 
-          + getElementName() + "> is '" + mSpeciesGlyph + "', which does not conform.",
+          + getElementName() + "> is '" + mSpeciesGlyph + "', which does not conform to the syntax.",
           getLine(), getColumn());
       }
     }
@@ -673,7 +673,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
 
       getErrorLog()->logPackageError("layout", LayoutSRGSpeciesReferenceSyntax, 
         getPackageVersion(), sbmlLevel, sbmlVersion, "The speciesReference on the <" 
-        + getElementName() + "> is '" + mSpeciesReference + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mSpeciesReference + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 
@@ -699,7 +699,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutSRGRoleSyntax, 
           getPackageVersion(), sbmlLevel, sbmlVersion, "The role on the <" 
-          + getElementName() + "> is '" + role + "', which does not conform.", getLine(), getColumn());
+          + getElementName() + "> is '" + role + "', which is not a valid option", getLine(), getColumn());
       }
     }
   }

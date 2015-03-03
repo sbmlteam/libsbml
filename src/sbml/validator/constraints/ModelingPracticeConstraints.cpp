@@ -147,7 +147,7 @@ START_CONSTRAINT (80601, Species, s)
     else 
     {
       msg = "The <species> with the id '" + s.getId();
-      msg += "' does not have an 'initialSize' or 'initialAmount' ";
+      msg += "' does not have an 'initialConcentration' or 'initialAmount' ";
       msg += "attribute, nor is its initial value set by an <initialAssignment> ";
       msg += "or <assignmentRule>.";
     }

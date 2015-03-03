@@ -1221,7 +1221,7 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
       logEmptyString("variable", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform.");
+      logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform to the syntax.");
   }
 
   //
@@ -1267,7 +1267,7 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
       logEmptyString("variable", level, version, "<rule>");
     }
     if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-      logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform.");
+      logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform to the syntax.");
   }
 }
 /** @endcond */

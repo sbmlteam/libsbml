@@ -593,7 +593,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutREFGGlyphSyntax,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The glyph on the <" 
-          + getElementName() + "> is '" + mGlyph + "', which does not conform.", getLine(), getColumn());
+          + getElementName() + "> is '" + mGlyph + "', which does not conform to the syntax.", getLine(), getColumn());
       }
     }
     else
@@ -621,7 +621,7 @@ void ReferenceGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutREFGReferenceSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
-        + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mReference + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 

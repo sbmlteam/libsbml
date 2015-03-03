@@ -507,7 +507,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutSIdSyntax, 
         getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-        + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 
@@ -528,7 +528,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("layout", 
           LayoutPointAttributesMustBeDouble,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The 'x' on the <" 
-          + getElementName() + "> does not conform.", getLine(), getColumn());
+          + getElementName() + "> is not a double", getLine(), getColumn());
       }
       else
       {
@@ -556,7 +556,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("layout", 
           LayoutPointAttributesMustBeDouble,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The 'y' on the <" 
-          + getElementName() + "> does not conform.", getLine(), getColumn());
+          + getElementName() + "> is not a double", getLine(), getColumn());
       }
       else
       {
@@ -585,7 +585,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
         getErrorLog()->logPackageError("layout", 
           LayoutPointAttributesMustBeDouble,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The 'z' on the <" 
-          + getElementName() + ">does not conform.", getLine(), getColumn());
+          + getElementName() + "> is not a double", getLine(), getColumn());
       }
     }
   }

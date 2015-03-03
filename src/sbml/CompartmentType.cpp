@@ -419,7 +419,7 @@ CompartmentType::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<compartmentType>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // name: string  { use="optional" }  (L2v2 ->)

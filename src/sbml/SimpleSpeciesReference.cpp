@@ -513,7 +513,7 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
       logEmptyString("id", level, version, "<speciesReference>");
     }
     if (!SyntaxChecker::isValidInternalSId(mId)) 
-      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+      logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
     //
     // name: string  { use="optional" }  (L2v2->)
@@ -547,7 +547,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
   {
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
   }
 
   //

@@ -1494,7 +1494,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<event>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -1514,7 +1514,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
     }
     if (!SyntaxChecker::isValidInternalUnitSId(mTimeUnits))
     {
-      logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The timeUnits attribute '" + mTimeUnits + "' does not conform.");
+      logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The timeUnits attribute '" + mTimeUnits + "' does not conform to the syntax.");
     }
   }
 
@@ -1560,7 +1560,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<event>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // name: string  { use="optional" }  (L2v1 ->)

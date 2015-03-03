@@ -934,7 +934,7 @@ void GeneralGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutGGReferenceSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The reference on the <" 
-        + getElementName() + "> is '" + mReference + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mReference + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 

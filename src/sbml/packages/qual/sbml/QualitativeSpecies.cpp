@@ -699,7 +699,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(InvalidIdSyntax, sbmlLevel, sbmlVersion, "The id '" + mId + "' does not conform.");
+      logError(InvalidIdSyntax, sbmlLevel, sbmlVersion, "The id '" + mId + "' does not conform to the syntax.");
     }
   }
   else
@@ -725,7 +725,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
     else if (SyntaxChecker::isValidSBMLSId(mCompartment) == false)
     {
       logError(InvalidIdSyntax, getLevel(), getVersion(), 
-        "The syntax of the attribute compartment='" + mCompartment + "' does not conform.");
+        "The syntax of the attribute compartment='" + mCompartment + "' does not conform to the syntax.");
     }
   }
   else
@@ -805,7 +805,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mInitialLevel << "', which does not conform.";
+      msg << "is '" << mInitialLevel << "', which is negative";
       getErrorLog()->logPackageError("qual", QualInitalLevelNotNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
@@ -839,7 +839,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mMaxLevel << "', which does not conform.";
+      msg << "is '" << mMaxLevel << "', which is negative";
       getErrorLog()->logPackageError("qual", QualMaxLevelNotNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

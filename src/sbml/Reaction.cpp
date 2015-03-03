@@ -1588,7 +1588,7 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
     logEmptyString("name", level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1627,7 +1627,7 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1684,7 +1684,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string elplusid = "<reaction>";
   if (!mId.empty()) {

@@ -456,7 +456,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutTGGraphicalObjectSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The graphicalObject on the <" 
-        + getElementName() + "> is '" + mGraphicalObject + "', which does not conform.", 
+        + getElementName() + "> is '" + mGraphicalObject + "', which does not conform to the syntax.", 
         getLine(), getColumn());
     }
   }
@@ -493,7 +493,7 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutTGOriginOfTextSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The originOfText on the <" 
-        + getElementName() + "> is '" + mOriginOfText + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mOriginOfText + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 

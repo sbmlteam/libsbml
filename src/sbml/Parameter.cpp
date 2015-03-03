@@ -833,7 +833,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
     logEmptyString("name", level, version, "<parameter>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // value: double  { use="required" }  (L1v2)
@@ -858,7 +858,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform to the syntax.");
   }
 }
 /** @endcond */
@@ -886,7 +886,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<parameter>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // value: double  { use="optional" }  (L1v2->)
@@ -903,7 +903,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mUnits + "' does not conform to the syntax.");
   }
 
   //
@@ -962,7 +962,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<parameter>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string elplusid = "<" + getElementName() + ">";
   if (!mId.empty()) {

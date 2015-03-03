@@ -1616,7 +1616,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-          + getElementName() + "> is '" + mId + "', which does not conform.", getLine(), getColumn());
+          + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", getLine(), getColumn());
       }
     }
     else

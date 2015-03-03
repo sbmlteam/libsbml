@@ -774,7 +774,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
         //
         getErrorLog()->logPackageError("layout", LayoutSIdSyntax,
           getPackageVersion(), sbmlLevel, sbmlVersion, "The id on the <" 
-          + getElementName() + "> is '" + mId + "', which does not conform.", 
+          + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", 
           getLine(), getColumn());
       }
     }
@@ -829,7 +829,7 @@ void GraphicalObject::readAttributes(const XMLAttributes& attributes,
       if (this->isSetId()) {
         msg += "with id '" + this->getId() +"' ";
       }
-      msg += "is '" + mMetaIdRef + "', which does not conform.";
+      msg += "is '" + mMetaIdRef + "', which does not conform to the syntax.";
 
       switch (tc)
       {

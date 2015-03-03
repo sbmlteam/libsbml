@@ -5088,7 +5088,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
     {
       if (!SyntaxChecker::isValidXMLID(mMetaId))
       {
-        logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform.");
+        logError(InvalidMetaidSyntax, getLevel(), getVersion(), "The metaid '" + mMetaId + "' does not conform to the syntax.");
       }
     }
   }
@@ -6276,7 +6276,7 @@ SBase::checkAnnotation()
       if (getLevel() < 3)
       {
         logError(MissingAnnotationNamespace, getLevel(), getVersion(), 
-          msg + "is missing a namespace on an element in its child <annotation>.");
+          msg + "lacks a namespace declaration on an element in its child <annotation>.");
       }
       msg += "uses a restricted namespace on an element in its child <annotation>.";
       logError(SBMLNamespaceInAnnotation, getLevel(), getVersion(), msg);

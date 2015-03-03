@@ -373,7 +373,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
     {
       getErrorLog()->logPackageError("layout", LayoutSGSpeciesSyntax,
         getPackageVersion(), sbmlLevel, sbmlVersion, "The species on the <" 
-        + getElementName() + "> is '" + mSpecies + "', which does not conform.", getLine(), getColumn());
+        + getElementName() + "> is '" + mSpecies + "', which does not conform to the syntax.", getLine(), getColumn());
     }
   }
 

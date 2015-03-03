@@ -693,7 +693,7 @@ Input::readAttributes (const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(InvalidIdSyntax, sbmlLevel, sbmlVersion, "The id '" + mId + "' does not conform.");
+      logError(InvalidIdSyntax, sbmlLevel, sbmlVersion, "The id '" + mId + "' does not conform to the syntax.");
     }
   }
 
@@ -714,7 +714,7 @@ Input::readAttributes (const XMLAttributes& attributes,
     {
       logError(InvalidIdSyntax, getLevel(), getVersion(), 
         "The syntax of the attribute qualitativeSpecies='" + mQualitativeSpecies 
-        + "' does not conform.");
+        + "' does not conform to the syntax.");
     }
   }
   else
@@ -747,7 +747,7 @@ Input::readAttributes (const XMLAttributes& attributes,
           if (isSetId()) {
             msg += "with id '" + getId() + "' ";
           }
-          msg += "is '" + effect + "', which does not conform.";
+          msg += "is '" + effect + "', which is not a valid option";
           getErrorLog()->logPackageError("qual", QualInputTransEffectMustBeInputEffect,
                        getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
@@ -798,7 +798,7 @@ Input::readAttributes (const XMLAttributes& attributes,
           if (isSetId()) {
             msg += "with id '" + getId() + "' ";
           }
-          msg += "is '" + sign + "', which does not conform.";
+          msg += "is '" + sign + "', which is not a valid option";
           getErrorLog()->logPackageError("qual", QualInputSignMustBeSignEnum,
                        getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
@@ -833,7 +833,7 @@ Input::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mThresholdLevel << "', which does not conform.";
+      msg << "is '" << mThresholdLevel << "', which is negative";
       getErrorLog()->logPackageError("qual", QualInputThreshMustBeNonNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

@@ -703,7 +703,7 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalSId(mVariable)) 
     logError(InvalidIdSyntax, getLevel(), getVersion(), 
-    "The syntax of the attribute variable='" + mVariable + "' does not conform.");
+    "The syntax of the attribute variable='" + mVariable + "' does not conform to the syntax.");
 
 
   //
@@ -742,7 +742,7 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
   if (!SyntaxChecker::isValidInternalSId(mVariable)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mVariable + "' does not conform to the syntax.");
 }
 /** @endcond */
 

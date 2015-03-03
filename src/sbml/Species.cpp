@@ -1450,7 +1450,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
     logEmptyString("name", level, version, "<species>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
@@ -1473,7 +1473,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mSubstanceUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The units attribute '" + mSubstanceUnits + "' does not conform to the syntax.");
   }
 
   //
@@ -1511,7 +1511,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<species>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   //
   // compartment: SId    { use="required" }  (L2v1->)
@@ -1533,7 +1533,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
-    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The substanceUnits attribute '" + mSubstanceUnits + "' does not conform.");
+    logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The substanceUnits attribute '" + mSubstanceUnits + "' does not conform to the syntax.");
   }
 
   //
@@ -1580,7 +1580,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
     }
     if (!SyntaxChecker::isValidInternalUnitSId(mSpatialSizeUnits))
     {
-      logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The spatialSizeUnits attribute '" + mSpatialSizeUnits + "' does not conform.");
+      logError(InvalidUnitIdSyntax, getLevel(), getVersion(), "The spatialSizeUnits attribute '" + mSpatialSizeUnits + "' does not conform to the syntax.");
     }
   }
 
@@ -1626,7 +1626,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
     logEmptyString("id", level, version, "<species>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) 
-    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform.");
+    logError(InvalidIdSyntax, level, version, "The id '" + mId + "' does not conform to the syntax.");
 
   string spplusid = "<species>";
   if (!mId.empty()) {

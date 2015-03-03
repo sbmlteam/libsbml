@@ -5965,7 +5965,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The contents of the message element must not contain an XML DOCTYPE "
+    "The contents of the <message> element must not contain an XML DOCTYPE "
     "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". ",
     {"",
      "",
@@ -5991,7 +5991,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The XHTML content inside a <constraint>'s message element can only take one "
+    "The XHTML content inside a <constraint>'s <message> element can only take one "
     "of the following general forms: (1) a complete XHTML document beginning "
     "with the element <html> and ending with </html>; (2) the \"body\" portion "
     "of a document beginning with the element <body> and ending with </body>; "
@@ -6021,7 +6021,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A Constraint object must contain exactly one MathML math element.  "
+    "A <constraint> object must contain exactly one MathML <math> element.  "
     "The <math> element is optional in L3V2 and beyond.",
     {"",
      "",
@@ -6047,7 +6047,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A Constraint object may contain at most one Message subobject.",
+    "A <constraint> object may contain at most one <message> subobject.",
     {"",
      "",
      "",
@@ -6072,7 +6072,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A Constraint object "
+    "A <constraint> object "
     "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on a "
     "Constraint object.",
@@ -6235,7 +6235,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A Reaction object may contain at most one of each of the following "
+    "A <reaction> object may contain at most one of each of the following "
     "elements: <listOfReactants>, <listOfProducts>, <listOfModifiers>, and "
     "<kineticLaw>.",
     {"",
@@ -6262,7 +6262,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute 'compartment' in a Reaction object is "
+    "The value of the attribute 'compartment' in a <reaction> object is "
     "optional, but if present, must be the identifier of an existing "
     "Compartment object defined in the model.",
     {"",
@@ -6289,7 +6289,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A Reaction object must have the required attributes 'id', 'reversible' "
+    "A <reaction> object must have the required attributes 'id', 'reversible' "
     "and 'fast', and may have the optional attributes 'metaid', 'sboTerm', 'name' "
     "and 'compartment'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a Reaction object.",
@@ -6386,10 +6386,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A SpeciesReference object must have the required attributes 'species' "
+    "A <speciesReference> object must have the required attributes 'species' "
     "and 'constant', and may have the optional attributes 'metaid', 'sboTerm', 'name' "
     "'id' and 'stoichiometry'. No other attributes from the SBML Level 3 Core "
-    "namespace are permitted on a SpeciesReference object.",
+    "namespace are permitted on a <speciesReference> object.",
     {"",
      "",
      "",
@@ -6414,10 +6414,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A ModifierSpeciesReference object must have the required attribute 'species' "
+    "A <modifierSpeciesReference> object must have the required attribute 'species' "
     "and may have the optional attributes 'metaid', 'sboTerm', 'id' "
     "and 'name'. No other attributes from the SBML Level 3 Core "
-    "namespace are permitted on a ModifierSpeciesReference object.",
+    "namespace are permitted on a <modifierSpeciesReference> object.",
     {"",
      "",
      "",

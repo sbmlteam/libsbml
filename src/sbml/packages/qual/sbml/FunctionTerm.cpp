@@ -524,7 +524,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mResultLevel << "', which does not conform.";
+      msg << "is '" << mResultLevel << "', which is negative";
       getErrorLog()->logPackageError("qual", QualFuncTermResultMustBeNonNeg,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
