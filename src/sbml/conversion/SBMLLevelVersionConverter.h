@@ -257,6 +257,8 @@ private:
    */
   bool performConversion(bool strict, bool strictUnits, bool duplicateAnn);
 
+  unsigned int validateConvertedDocument();
+
   /** @endcond */
 };
 

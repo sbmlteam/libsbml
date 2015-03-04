@@ -351,7 +351,7 @@ SBMLLevelVersionConverter::convert()
       {
         /* now we want to mDocument->check whether the resulting model is valid
          */
-        mDocument->validateSBML();
+        validateConvertedDocument();
         unsigned int errors = 
            mDocument->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
         if (errors > 0)
@@ -1083,7 +1083,24 @@ SBMLLevelVersionConverter::hasStrictSBO()
 
 /** @cond doxygenIgnored */
 
+unsigned int
+SBMLLevelVersionConverter::validateConvertedDocument()
+{
+  // force a read
+  std::string sbml = writeSBMLToStdString(mDocument);
+  SBMLDocument *tempdoc = readSBMLFromString(sbml.c_str());
+  unsigned int nerrors = tempdoc->getErrorLog()->getNumErrors();
+  for (unsigned int i = 0; i < nerrors; i++)
+  {
+    const SBMLError * error = tempdoc->getErrorLog()->getError(i);
+    mDocument->getErrorLog()->add(*(error));
+  }
+  delete tempdoc;
 
+  nerrors += mDocument->checkConsistency();
+
+  return nerrors;
+}
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
