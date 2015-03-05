@@ -370,6 +370,35 @@ public:
   static UncertMLNode * createDistributionNode(std::string name, 
     std::string arguments, std::string argumentIds); 
 
+  /**
+   * Creates an UncertMLNode representing the distribution with arguments
+   * listed.
+   *
+   * @param name - name of the distribtuion to create
+   * @param arguments - a comma seperated list of the argument names
+   * @param argumentsIds - a comma seperated list of the values to apply
+   * 
+   * Example usage would be
+   *            createDistributionNodeWithValues("NormalDistribtuion", 
+   *                                   "mean,variance", "4, 0.9")
+   * which would produce a node representing the xml:
+   *
+   * <UncertML xmlns=\"http://www.uncertml.org/3.0\">
+   *  <NormalDistribution definition=\"http://www.uncertml.org/distributions\">
+   *    <mean>
+   *      <var> 4 </var>
+   *    </mean>
+   *    <variance>
+   *      <var> 0.9 </var>
+   *    </variance>
+   *  </NormalDistribution>
+   * </UncertML>;
+   *
+   * @returns an UncertMLNode representing the distribution
+   */
+  static UncertMLNode * createDistributionNodeWithValues(std::string name, 
+    std::string arguments, std::string argumentValues); 
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */

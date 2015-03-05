@@ -581,6 +581,7 @@ UncertMLNode::createDistributionNode(std::string name,
 
   if (numArgs != numIds)
   {
+    delete node;
     return NULL;
   }
 
@@ -593,6 +594,61 @@ UncertMLNode::createDistributionNode(std::string name,
     XMLAttributes attributes = XMLAttributes();
     attributes.add("varId", argIds.at(i));
     varChild->setAttributes(attributes);
+
+    UncertMLNode * child = new UncertMLNode();
+    child->setElementName(args.at(i));
+
+    child->addChild(varChild);
+
+    node->addChild(child);
+  }
+
+
+  return node;
+}
+
+
+
+UncertMLNode * 
+UncertMLNode::createDistributionNodeWithValues(std::string name, 
+                     std::string arguments, std::string argumentValues)
+{
+  UncertMLNode *node = new UncertMLNode();
+  node->setElementName(name);
+
+  XMLAttributes attr = XMLAttributes();
+  /* really the url should be specific to the distribtuion
+  * but whilst the attribue is required in uncertML it does not require
+  * it to be an exact match
+  */
+  attr.add("definition", "http://www.uncertml.org/distributions");
+  node->setAttributes(attr);
+
+  /* create an idlist from the arguments 
+   * and check we have the same number of args and ids
+   */
+  IdList args = IdList(arguments);
+  IdList argIds = IdList(argumentValues);
+
+  unsigned int numArgs = args.size();
+  unsigned int numIds = argIds.size();
+
+  if (numArgs != numIds)
+  {
+    delete node;
+    return NULL;
+  }
+
+
+
+  for (unsigned int i = 0; i < numArgs; i++)
+  {
+    UncertMLNode * varChild = new UncertMLNode();
+    varChild->setElementName("var");
+    
+    UncertMLNode * valChild = new UncertMLNode();
+    valChild->setText(argIds.at(i));
+    varChild->addChild(valChild);
 
     UncertMLNode * child = new UncertMLNode();
     child->setElementName(args.at(i));
