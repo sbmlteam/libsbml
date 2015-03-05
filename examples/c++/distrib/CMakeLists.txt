@@ -17,6 +17,7 @@ endif(EXTRA_INCLUDE_DIRS)
 foreach(example 
 
 	createNormalExample
+	createSpecificationExamples
 	createStatisticsExample
 	
 )
