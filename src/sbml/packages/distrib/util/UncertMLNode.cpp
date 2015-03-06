@@ -611,7 +611,9 @@ UncertMLNode::createDistributionNode(std::string name,
 
 UncertMLNode * 
 UncertMLNode::createDistributionNodeWithValues(std::string name, 
-                     std::string arguments, std::string argumentValues)
+                                               std::string arguments, 
+                                               std::string argumentValues,
+                                               std::string argumentElementNames)
 {
   UncertMLNode *node = new UncertMLNode();
   node->setElementName(name);
@@ -629,11 +631,12 @@ UncertMLNode::createDistributionNodeWithValues(std::string name,
    */
   IdList args = IdList(arguments);
   IdList argIds = IdList(argumentValues);
+  IdList argElNames = IdList(argumentElementNames);
 
   unsigned int numArgs = args.size();
   unsigned int numIds = argIds.size();
 
-  if (numArgs != numIds)
+  if (numArgs != numIds || numArgs != argElNames.size())
   {
     delete node;
     return NULL;
@@ -644,15 +647,25 @@ UncertMLNode::createDistributionNodeWithValues(std::string name,
   for (unsigned int i = 0; i < numArgs; i++)
   {
     UncertMLNode * varChild = new UncertMLNode();
-    varChild->setElementName("var");
-    
-    UncertMLNode * valChild = new UncertMLNode();
-    valChild->setText(argIds.at(i));
-    varChild->addChild(valChild);
+    std::string elname = argElNames.at(i);
 
+    if (elname == "varId") {
+      varChild->setElementName("var");
+
+      XMLAttributes attributes = XMLAttributes();
+      attributes.add("varId", argIds.at(i));
+      varChild->setAttributes(attributes);
+    }
+    else {
+      varChild->setElementName(elname);
+
+      UncertMLNode * valChild = new UncertMLNode();
+      valChild->setText(argIds.at(i));
+      varChild->addChild(valChild);
+
+    }
     UncertMLNode * child = new UncertMLNode();
     child->setElementName(args.at(i));
-
     child->addChild(varChild);
 
     node->addChild(child);
