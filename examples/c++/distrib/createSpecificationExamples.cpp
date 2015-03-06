@@ -148,16 +148,22 @@ void createExample2()
     UncertMLNode * catprob = new UncertMLNode();
     catprob->setElementName("categoryProb");
 
+    UncertMLNode* name = new UncertMLNode();
+    name->setElementName("name");
+    UncertMLNode* nametxt = new UncertMLNode();
+    nametxt->setText( UIntToString(i+1));
+    name->addChild(nametxt);
+    catprob->addChild(name);
+
     UncertMLNode* prob = new UncertMLNode();
     prob->setElementName("prob");
     UncertMLNode* var = new UncertMLNode();
-    var->setText("0.25");
+    var->setElementName("pVal");
+    UncertMLNode* vartxt = new UncertMLNode();
+    vartxt->setText("0.25");
+    var->addChild(vartxt);
     prob->addChild(var);
     catprob->addChild(prob);
-
-    UncertMLNode* name = new UncertMLNode();
-    name->setText( UIntToString(i+1));
-    catprob->addChild(name);
 
     uncert->addChild(catprob);
   }
@@ -232,16 +238,22 @@ void createExample3()
     UncertMLNode * catprob = new UncertMLNode();
     catprob->setElementName("categoryProb");
 
+    UncertMLNode* name = new UncertMLNode();
+    name->setElementName("name");
+    UncertMLNode* nametxt = new UncertMLNode();
+    nametxt->setText(names[i]);
+    name->addChild(nametxt);
+    catprob->addChild(name);
+
     UncertMLNode* prob = new UncertMLNode();
     prob->setElementName("prob");
     UncertMLNode* var = new UncertMLNode();
-    var->setText("0.25");
+    var->setElementName("pVal");
+    UncertMLNode* vartxt = new UncertMLNode();
+    vartxt->setText("0.25");
+    var->addChild(vartxt);
     prob->addChild(var);
     catprob->addChild(prob);
-
-    UncertMLNode* name = new UncertMLNode();
-    name->setText(names[i]);
-    catprob->addChild(name);
 
     uncert->addChild(catprob);
   }
@@ -274,7 +286,7 @@ void createExample4()
 
   Species* s = mod->createSpecies();
   s->setId("S1");
-  s->setHasOnlySubstanceUnits(false);
+  s->setHasOnlySubstanceUnits(true);
   s->setInitialAmount(3.22);
   s->setCompartment("C");
   s->setBoundaryCondition(false);
@@ -284,7 +296,7 @@ void createExample4()
   Uncertainty* uncert = distrib->createUncertainty();
 
   UncertMLNode * stddev = UncertMLNode::createDistributionNodeWithValues
-                         ("StandardDeviation", "value", "0.3");
+                         ("StandardDeviation", "value", "0.3", "prVal");
 
   uncert->setUncertML(stddev);
 
@@ -307,7 +319,7 @@ void createExample5()
 
   Species* s = mod->createSpecies();
   s->setId("S1");
-  s->setHasOnlySubstanceUnits(false);
+  s->setHasOnlySubstanceUnits(true);
   s->setInitialAmount(3.22);
   s->setCompartment("C");
   s->setBoundaryCondition(false);
@@ -320,12 +332,16 @@ void createExample5()
                           ("StatisticsCollection", "", "");
 
   UncertMLNode * normal = UncertMLNode::createDistributionNodeWithValues
-                          ("NormalDistribution", "mean, variance", "3.2, 0.09");
+                          ("Mean", "value", "3.2", "rVal");
   statcol->addChild(normal);
 
   UncertMLNode * stddev = UncertMLNode::createDistributionNodeWithValues
-                         ("StandardDeviation", "value", "0.3");
+                         ("StandardDeviation", "value", "0.3", "prVal");
   statcol->addChild(stddev);
+
+  UncertMLNode * variance = UncertMLNode::createDistributionNodeWithValues
+                         ("Variance", "value", "0.09", "prVal");
+  statcol->addChild(variance);
 
 
   uncert->setUncertML(statcol);
