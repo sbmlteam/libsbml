@@ -210,8 +210,8 @@ START_CONSTRAINT (QualInputConstantCannotBeConsumed, Input, input)
   if (input.isSetId()) {
     msg += "with the id '" + input.getId() + "' ";
   }
-  msg += "has constant set to true ";
-  msg += "and the transitionEffect set to consumption.";
+  msg += "has constant set to true, ";
+  msg += "but the transitionEffect of the <input> is set to consumption.";
 
   QualModelPlugin *plug1 = (QualModelPlugin*)(m.getPlugin("qual"));
 

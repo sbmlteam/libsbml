@@ -692,7 +692,7 @@ Output::readAttributes (const XMLAttributes& attributes,
           if (isSetId()) {
             msg += "with id '" + getId() + "' ";
           }
-          msg += "is '" + effect + "', which is not a valid option";
+          msg += "is '" + effect + "', which is not a valid option.";
           getErrorLog()->logPackageError("qual", QualOutputTransEffectMustBeOutput,
                          getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
@@ -748,7 +748,7 @@ Output::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mOutputLevel << "', which is negative";
+      msg << "is '" << mOutputLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualOutputLevelMustBeNonNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

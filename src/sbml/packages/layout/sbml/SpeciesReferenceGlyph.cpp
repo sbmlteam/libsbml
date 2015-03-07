@@ -699,7 +699,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
       {
         getErrorLog()->logPackageError("layout", LayoutSRGRoleSyntax, 
           getPackageVersion(), sbmlLevel, sbmlVersion, "The role on the <" 
-          + getElementName() + "> is '" + role + "', which is not a valid option", getLine(), getColumn());
+          + getElementName() + "> is '" + role + "', which is not a valid option.", getLine(), getColumn());
       }
     }
   }

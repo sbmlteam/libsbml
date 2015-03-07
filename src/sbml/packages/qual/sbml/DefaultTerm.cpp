@@ -371,7 +371,7 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mResultLevel << "', which is negative";
+      msg << "is '" << mResultLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualDefaultTermResultMustBeNonNeg,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

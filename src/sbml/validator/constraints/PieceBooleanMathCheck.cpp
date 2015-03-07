@@ -170,8 +170,18 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
   msg << "The formula '" << formula;
   msg << "' in the " << getFieldname() << " element of the <" << object.getElementName();
   msg << "> ";
-  if (object.isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
-    msg << "with id '" << object.getId() << "' ";
+  switch(object.getTypeCode()) {
+  case SBML_INITIAL_ASSIGNMENT:
+  case SBML_EVENT_ASSIGNMENT:
+  case SBML_ASSIGNMENT_RULE:
+  case SBML_RATE_RULE:
+    //LS DEBUG:  could use other attribute values, or 'isSetActualId'.
+    break;
+  default:
+    if (object.isSetId()) {
+      msg << "with id '" << object.getId() << "' ";
+    }
+    break;
   }
   msg << "uses a piecewise function that does not return a boolean.";
   safe_free(formula);

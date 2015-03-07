@@ -369,8 +369,18 @@ int ReplacedElement::performReplacementAndCollect(set<SBase*>* removed, set<SBas
     //Already deleted: can't get the deleted element's ID to 
     if (doc) {
       string error = "Cannot carry out replacement in ReplacedElement::performReplacement: a <" + parent->getElementName() + ">";
-      if (parent->isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
-        error += " with the id '" + parent->getId() + "'";
+      switch(parent->getTypeCode()) {
+      case SBML_INITIAL_ASSIGNMENT:
+      case SBML_EVENT_ASSIGNMENT:
+      case SBML_ASSIGNMENT_RULE:
+      case SBML_RATE_RULE:
+        //LS DEBUG:  could use other attribute values, or 'isSetActualId'.
+        break;
+      default:
+        if (parent->isSetId()) {
+          error += "with id '" + parent->getId() + "' ";
+        }
+        break;
       }
       error += " has a child <replacedElement> that points to something that has already been deleted, probably because its parent was deleted.";
       doc->getErrorLog()->logPackageError("comp", CompDeletedReplacement, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());

@@ -158,9 +158,11 @@ START_CONSTRAINT (FbcFluxObjectReactionMustExist, FluxObjective, fo)
 
   bool fail = false;
 
-  msg = "<fluxObjective> '";
-  msg += fo.getId() ;
-  msg += "' refers to reaction with id '";
+  msg = "The <fluxObjective> ";
+  if (fo.isSetId()) {
+    msg += "with the id '" + fo.getId() + "' ";
+  }
+  msg += "refers to a reaction with id '";
   msg += fo.getReaction();
   msg += "' that does not exist within the <model>.";
 

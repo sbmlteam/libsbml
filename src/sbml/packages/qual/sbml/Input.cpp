@@ -747,7 +747,7 @@ Input::readAttributes (const XMLAttributes& attributes,
           if (isSetId()) {
             msg += "with id '" + getId() + "' ";
           }
-          msg += "is '" + effect + "', which is not a valid option";
+          msg += "is '" + effect + "', which is not a valid option.";
           getErrorLog()->logPackageError("qual", QualInputTransEffectMustBeInputEffect,
                        getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
@@ -798,7 +798,7 @@ Input::readAttributes (const XMLAttributes& attributes,
           if (isSetId()) {
             msg += "with id '" + getId() + "' ";
           }
-          msg += "is '" + sign + "', which is not a valid option";
+          msg += "is '" + sign + "', which is not a valid option.";
           getErrorLog()->logPackageError("qual", QualInputSignMustBeSignEnum,
                        getPackageVersion(), sbmlLevel, sbmlVersion, msg);
        }
@@ -833,7 +833,7 @@ Input::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mThresholdLevel << "', which is negative";
+      msg << "is '" << mThresholdLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualInputThreshMustBeNonNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

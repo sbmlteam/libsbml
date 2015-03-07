@@ -805,7 +805,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mInitialLevel << "', which is negative";
+      msg << "is '" << mInitialLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualInitalLevelNotNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }
@@ -839,7 +839,7 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
       if (isSetId()) {
         msg << "with id '" << getId() << "' ";
       }
-      msg << "is '" << mMaxLevel << "', which is negative";
+      msg << "is '" << mMaxLevel << "', which is negative.";
       getErrorLog()->logPackageError("qual", QualMaxLevelNotNegative,
                    getPackageVersion(), sbmlLevel, sbmlVersion, msg.str());
     }

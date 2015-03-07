@@ -4317,11 +4317,21 @@ SBase::readAnnotation (XMLInputStream& stream)
 
     if (mAnnotation != NULL)
     {
-        string msg = "An SBML <" + getElementName() + "> element ";
-        if (isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
-          msg += "with the id '" + getId() + "' ";
+      string msg = "An SBML <" + getElementName() + "> element ";
+      switch(getTypeCode()) {
+      case SBML_INITIAL_ASSIGNMENT:
+      case SBML_EVENT_ASSIGNMENT:
+      case SBML_ASSIGNMENT_RULE:
+      case SBML_RATE_RULE:
+        //LS DEBUG:  could use other attribute values, or 'isSetActualId'.
+        break;
+      default:
+        if (isSetId()) {
+          msg += "with id '" + getId() + "' ";
         }
-        msg += "has multiple <annotation> children.";
+        break;
+      }
+      msg += "has multiple <annotation> children.";
       if (getLevel() < 3)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
@@ -6200,9 +6210,18 @@ SBase::checkAnnotation()
                                                != uri_list.end())
       {
         string msg = "An SBML <" + getElementName() + "> element ";
-        if (isSetId())  //LS DEBUG:  need 'isSetActualId' or something.
-        {
-          msg += "with the id '" + getId() + "' ";
+        switch(getTypeCode()) {
+        case SBML_INITIAL_ASSIGNMENT:
+        case SBML_EVENT_ASSIGNMENT:
+        case SBML_ASSIGNMENT_RULE:
+        case SBML_RATE_RULE:
+          //LS DEBUG:  could use other attribute values, or 'isSetActualId'.
+          break;
+        default:
+          if (isSetId()) {
+            msg += "with id '" + getId() + "' ";
+          }
+          break;
         }
         msg += "has an <annotation> child with multiple children with the same namespace.";
         logError(DuplicateAnnotationNamespaces, getLevel(), getVersion(), msg);
@@ -6258,8 +6277,18 @@ SBase::checkAnnotation()
       n++;
     }
     string msg = "An SBML <" + getElementName() + "> element ";
-    if (isSetId()) { //LS DEBUG:  need 'isSetActualId' or something.
-      msg += "with the id '" + getId() + "' ";
+    switch(getTypeCode()) {
+    case SBML_INITIAL_ASSIGNMENT:
+    case SBML_EVENT_ASSIGNMENT:
+    case SBML_ASSIGNMENT_RULE:
+    case SBML_RATE_RULE:
+      //LS DEBUG:  could use other attribute values, or 'isSetActualId'.
+      break;
+    default:
+      if (isSetId()) {
+        msg += "with id '" + getId() + "' ";
+      }
+      break;
     }
     if (match > 0)
     {
