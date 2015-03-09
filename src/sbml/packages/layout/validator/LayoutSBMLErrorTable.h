@@ -1479,7 +1479,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <point> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespace are permitted on a <point>. ",
+    "Level 3 Core namespace are permitted on a <point>. It should be noted "
+    "that the 'point' object may occur as a <position>, <basePoint1>, "
+    "<basePoint2>, <start> or <end> element.",
     { "L3V1 Core Section 3.2"
     }
   },
@@ -1491,7 +1493,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <point> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespace are permitted on a <point>. ",
+    "Level 3 Core namespace are permitted on a <point>.  It should be noted "
+    "that the 'point' object may occur as a <position>, <basePoint1>, "
+    "<basePoint2>, <start> or <end> element.",
     { "L3V1 Core Section 3.2"
     }
   },
@@ -1505,7 +1509,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "'layout:y' and may have the optional attributes 'layout:id', "
     "and 'layout:z'.  "
     "No other attributes from the Layout namespace "
-    "are permitted on a <point>. ",
+    "are permitted on a <point>.   It should be noted "
+    "that the 'point' object may occur as a <position>, <basePoint1>, "
+    "<basePoint2>, <start> or <end> element.",
     { "L3V1 Layout V1 Section 3.4.1"
     }
   },
@@ -1516,7 +1522,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "The attributes 'layout:x', 'layout:y' and 'layout:z' of a <point> "
-    "element must be of the data type 'double'.",
+    "element must be of the data type 'double'. It should be noted "
+    "that the 'point' object may occur as a <position>, <basePoint1>, "
+    "<basePoint2>, <start> or <end> element.",
     { "L3V1 Layout V1 Section 3.4.1"
     }
   },
@@ -1553,7 +1561,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "There must be exactly one instance of a <point> and a <dimensions> "
     "object on a <boundingBox>. "
     "No other elements from "
-    "the Layout namespace are permitted on a <boundingBox>. ",
+    "the Layout namespace are permitted on a <boundingBox>. It should be noted "
+    "that the 'point' object will occur as a <position> element.",
     { "L3V1 Layout V1 Section 3.4.3"
     }
   },
@@ -1576,7 +1585,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "If the 'layout:z' attribute on a <point> element of a <boundingBox> "
-    "is not specified, the attribute 'layout:depth' must not be specified.",
+    "is not specified, the attribute 'layout:depth' must not be specified. "
+    "It should be noted "
+    "that the 'point' object will occur as a <position> element.",
     { "L3V1 Layout V1 Section 3.7"
     }
   },
@@ -1672,7 +1683,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <lineSegment> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the SBML "
-    "Level 3 Core namespace are permitted on a <lineSegment>. ",
+    "Level 3 Core namespace are permitted on a <lineSegment>.  It should "
+    "be noted that a 'lineSegment' occurs as a <curveSegment> element with "
+    "type 'LineSegment' or 'CubicBezier'.",
     { "L3V1 Core Section 3.2"
     }
   },
@@ -1684,7 +1697,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_SEV_ERROR,
     "A <lineSegment> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML "
-    "Level 3 Core namespace are permitted on a <lineSegment>. ",
+    "Level 3 Core namespace are permitted on a <lineSegment>. It should "
+    "be noted that a 'lineSegment' occurs as a <curveSegment> element with "
+    "type 'LineSegment' or 'CubicBezier'.",
     { "L3V1 Core Section 3.2"
     }
   },
@@ -1697,7 +1712,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "A <lineSegment> must specify two <point> elements 'start' "
     "and 'end'. "
     "No other elements from "
-    "the Layout namespace are permitted on a <lineSegment>. ",
+    "the Layout namespace are permitted on a <lineSegment>.  It should "
+    "be noted that a 'lineSegment' occurs as a <curveSegment> element with "
+    "type 'LineSegment' or 'CubicBezier'.",
     { "L3V1 Layout V1 Section 3.4.5"
     }
   },
@@ -1708,7 +1725,9 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "No attributes from the Layout namespace "
-    "are permitted on a <lineSegment>. ",
+    "are permitted on a <lineSegment>.  It should "
+    "be noted that a 'lineSegment' occurs as a <curveSegment> element with "
+    "type 'LineSegment' or 'CubicBezier'.",
     { "L3V1 Layout V1 Section 3.4.5"
     }
   },
