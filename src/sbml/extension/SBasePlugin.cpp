@@ -658,6 +658,16 @@ SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
 
 
 /** @cond doxygenLibsbmlInternal */
+
+bool 
+SBasePlugin::isValidTypeForList(SBase* item) const
+{ 
+  return false; 
+}
+
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * @return the SBMLErrorLog used to log errors while reading and
  * validating SBML.

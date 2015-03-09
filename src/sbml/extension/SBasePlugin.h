@@ -663,6 +663,8 @@ public:
   /** @endcond */
 
 
+  virtual bool isValidTypeForList(SBase* item) const;
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**

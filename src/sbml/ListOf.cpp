@@ -38,6 +38,7 @@
 #include <sbml/SBO.h>
 #include <sbml/common/common.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/extension/SBasePlugin.h>
 
 /** @cond doxygenIgnored */
 
@@ -612,6 +613,23 @@ ListOf::writeAttributes (XMLOutputStream& stream) const
   // (EXTENSION)
   //
   SBase::writeExtensionAttributes(stream);
+}
+
+bool
+ListOf::isValidTypeForList(SBase * item)
+{
+  bool match = false;
+
+  match = (item->getTypeCode() == getItemTypeCode());
+
+  unsigned int n = 0;
+  while (match == false && n < getNumPlugins())
+  {
+      match = getPlugin(n)->isValidTypeForList(item);
+      n++;
+  }
+
+  return match;
 }
 
 /** @endcond */
