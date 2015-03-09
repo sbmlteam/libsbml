@@ -143,10 +143,20 @@ void createExample2()
   // create the UncertMLNode object
   UncertMLNode * uncert = UncertMLNode::createDistributionNode
                           ("CategoricalDistribution", "", "");
+  
+  /* create the definition attribute to be used
+  * really the url should be specific to the distribtuion
+  * but whilst the attribue is required in uncertML it does not require
+  * it to be an exact match
+  */
+  XMLAttributes attr = XMLAttributes();
+  attr.add("definition", "http://www.uncertml.org/distributions");
+  
   for (unsigned int i = 0; i < 4; i++)
   {
     UncertMLNode * catprob = new UncertMLNode();
     catprob->setElementName("categoryProb");
+    catprob->setAttributes(attr);
 
     UncertMLNode* name = new UncertMLNode();
     name->setElementName("name");
@@ -233,10 +243,20 @@ void createExample3()
   names.push_back("D");
   UncertMLNode * uncert = UncertMLNode::createDistributionNode
                           ("CategoricalDistribution", "", "");
+
+  /* create the definition attribute to be used
+  * really the url should be specific to the distribtuion
+  * but whilst the attribue is required in uncertML it does not require
+  * it to be an exact match
+  */
+  XMLAttributes attr = XMLAttributes();
+  attr.add("definition", "http://www.uncertml.org/distributions");
+
   for (unsigned int i = 0; i < 4; i++)
   {
     UncertMLNode * catprob = new UncertMLNode();
     catprob->setElementName("categoryProb");
+    catprob->setAttributes(attr);
 
     UncertMLNode* name = new UncertMLNode();
     name->setElementName("name");
