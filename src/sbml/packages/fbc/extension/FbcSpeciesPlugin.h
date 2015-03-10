@@ -214,6 +214,20 @@ public:
                                      const std::string& pkgPrefix, bool flag);
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /** @endcond */
+
+
 protected:
 
   // --------------------------------------------------------

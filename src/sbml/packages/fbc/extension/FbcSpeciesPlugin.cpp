@@ -375,6 +375,17 @@ void
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+bool
+FbcSpeciesPlugin::accept (SBMLVisitor& v) const
+{
+  return true;
+}
+
+/** @endcond */
+
+
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
 

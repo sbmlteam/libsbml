@@ -320,5 +320,11 @@ TestModelPlugin::enablePackageInternal(const std::string& pkgURI,
  
 }
 
+bool
+TestModelPlugin::accept (SBMLVisitor& v) const
+{
+  return true;
+}
+
 
 #endif //__cplusplus 

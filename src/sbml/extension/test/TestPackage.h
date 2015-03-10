@@ -112,6 +112,8 @@ public:
     const std::string& pkgPrefix, bool flag);
   const std::string& getValue() const;
   void setValue(const std::string& value);
+  virtual bool accept (SBMLVisitor& v) const;
+
 
 protected:
   std::string mValue;

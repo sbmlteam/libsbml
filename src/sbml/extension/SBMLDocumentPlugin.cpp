@@ -189,6 +189,17 @@ SBMLDocumentPlugin::isCompFlatteningImplemented() const
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+bool
+SBMLDocumentPlugin::accept (SBMLVisitor& v) const
+{
+  return true;
+}
+
+/** @endcond */
+
+
 
 
 /** @cond doxygenLibsbmlInternal */
