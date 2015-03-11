@@ -1826,7 +1826,7 @@ ASTNumber::getValue() const
   }
   else
   {
-    return 0;//util_NaN();
+    return ASTBase::getValue();
   }
 
 }
@@ -2575,7 +2575,16 @@ ASTNumber::read(XMLInputStream& stream, const std::string& reqd_prefix)
     || name == "pi" || name == "exponentiale"
     || name == "notanumber" || name == "infinity")
   {
-    mConstant = new ASTConstantNumberNode();
+    if (name == "true")  
+      mConstant = new ASTConstantNumberNode(AST_CONSTANT_TRUE);
+    else if (name == "false")  
+      mConstant = new ASTConstantNumberNode(AST_CONSTANT_FALSE);
+    else if (name == "pi")  
+      mConstant = new ASTConstantNumberNode(AST_CONSTANT_PI);
+    else if (name == "exponentiale")  
+      mConstant = new ASTConstantNumberNode(AST_CONSTANT_E);
+    else  
+      mConstant = new ASTConstantNumberNode();
     read = mConstant->read(stream, reqd_prefix);
     if (read == true && mConstant != NULL)
     {
@@ -2691,15 +2700,7 @@ ASTNumber::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   {
     mConstant->ASTBase::syncMembersAndResetParentsFrom(rhs);
     mConstant->setType(type);
-    if (rhs->isSetConstantValue() == true)
-    {
-      mConstant->setValue(rhs->getValue());
-    }
-    if (rhs->isSetUnits() == true && mExponential != NULL)
-    {
-      mExponential->setUnits(rhs->getUnits());
-      mExponential->setUnitsPrefix(rhs->getUnitsPrefix());
-    }
+    //}
     this->ASTBase::syncMembersFrom(mConstant);
   }
   else if (mCSymbol != NULL)

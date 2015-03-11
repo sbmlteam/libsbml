@@ -845,7 +845,7 @@ ASTCSymbol::getValue() const
   }
   else
   {
-    return 0;//util_NaN();
+    return ASTBase::getValue();
   }
 
 }

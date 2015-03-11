@@ -1091,82 +1091,104 @@ START_TEST (test_ASTNode_getName)
 
   ASTNode_setName(n, NULL);
   fail_unless( ASTNode_getName(n) == NULL );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
 
   /** AST_CONSTANTs **/
   ASTNode_setType(n, AST_CONSTANT_E);
   fail_unless( !strcmp(ASTNode_getName(n), "exponentiale") );
+  fail_unless( util_isEqual(ASTNode_getValue(n), 2.71828182));
 
   ASTNode_setType(n, AST_CONSTANT_FALSE);
   fail_unless( !strcmp(ASTNode_getName(n), "false") );
+  fail_unless( util_isEqual(ASTNode_getValue(n), 0));
 
   ASTNode_setType(n, AST_CONSTANT_PI);
   fail_unless( !strcmp(ASTNode_getName(n), "pi") );
+  fail_unless( util_isEqual(ASTNode_getValue(n), 3.14159292));
 
   ASTNode_setType(n, AST_CONSTANT_TRUE);
   fail_unless( !strcmp(ASTNode_getName(n), "true") );
+  fail_unless( util_isEqual(ASTNode_getValue(n), 1));
 
 
   /** AST_LAMBDA **/
   ASTNode_setType(n, AST_LAMBDA);
   fail_unless( !strcmp(ASTNode_getName(n), "lambda") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
 
   /** AST_FUNCTION (user-defined) **/
   ASTNode_setType(n, AST_FUNCTION);
   ASTNode_setName(n, "f");
   fail_unless( !strcmp(ASTNode_getName(n), "f") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_FUNCTION_DELAY);
   fail_unless( !strcmp(ASTNode_getName(n), "f") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setName(n, NULL);
   fail_unless( !strcmp(ASTNode_getName(n), "delay") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_FUNCTION);
   fail_unless( ASTNode_getName(n) == NULL );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
 
   /** AST_FUNCTIONs (builtin)  **/
   ASTNode_setType(n, AST_FUNCTION_ABS);
   fail_unless( !strcmp(ASTNode_getName(n), "abs") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_FUNCTION_ARCCOS);
   fail_unless( !strcmp(ASTNode_getName(n), "arccos") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_FUNCTION_TAN);
   fail_unless( !strcmp(ASTNode_getName(n), "tan") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_FUNCTION_TANH);
   fail_unless( !strcmp(ASTNode_getName(n), "tanh") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
 
   /** AST_LOGICALs **/
   ASTNode_setType(n, AST_LOGICAL_AND);
   fail_unless( !strcmp(ASTNode_getName(n), "and") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_LOGICAL_NOT);
   fail_unless( !strcmp(ASTNode_getName(n), "not") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_LOGICAL_OR);
   fail_unless( !strcmp(ASTNode_getName(n), "or")  );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_LOGICAL_XOR);
   fail_unless( !strcmp(ASTNode_getName(n), "xor") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
 
   /** AST_RELATIONALs **/
   ASTNode_setType(n, AST_RELATIONAL_EQ);
   fail_unless( !strcmp(ASTNode_getName(n), "eq") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_RELATIONAL_GEQ);
   fail_unless( !strcmp(ASTNode_getName(n), "geq") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_RELATIONAL_LT);
   fail_unless( !strcmp(ASTNode_getName(n), "lt") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_setType(n, AST_RELATIONAL_NEQ);
   fail_unless( !strcmp(ASTNode_getName(n), "neq") );
+  fail_unless( util_isNaN(ASTNode_getValue(n)));
 
   ASTNode_free(n);
 }

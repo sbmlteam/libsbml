@@ -12,7 +12,7 @@
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
  *
- * Copyright (C) 2009-2012 jointly by the following organizations: 
+ * Copyright (C) 2009-2013 jointly by the following organizations: 
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *  
@@ -869,9 +869,23 @@ ASTNode::getReal () const
 {
   /* HACK TO REPLICATE OLD AST */
   // hack since old ASTNode would reset the "real" value of an integer to 0
-  if (mNumber != NULL && mNumber->getType() != AST_INTEGER)
+  if (mNumber != NULL)
   {
-    return mNumber->getValue();
+    switch (mNumber->getType())
+    {
+    case AST_INTEGER:
+    case AST_NAME:
+    case AST_NAME_TIME:
+    case AST_CONSTANT_E:
+    case AST_CONSTANT_PI:
+    case AST_CONSTANT_TRUE:
+    case AST_CONSTANT_FALSE:
+      return 0;
+      break;
+    default:
+      return mNumber->getValue();
+      break;
+    }
   }
   else
   {
@@ -930,6 +944,23 @@ ASTNode::getExtendedType () const
   else
   {
     return ASTBase::getExtendedType();
+  }
+}
+
+double
+ASTNode::getValue() const
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getValue();
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getValue();
+  }
+  else
+  {
+    return ASTBase::getValue();
   }
 }
 
@@ -3845,6 +3876,15 @@ ASTNode_getExponent (const ASTNode_t *node)
 {
   if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getExponent();
+}
+
+
+LIBSBML_EXTERN
+double
+ASTNode_getValue (const ASTNode_t *node)
+{
+  if (node == NULL) return util_NaN();
+  return static_cast<const ASTNode*>(node)->getValue();
 }
 
 

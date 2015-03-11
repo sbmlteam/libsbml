@@ -355,6 +355,7 @@ public:
    */
   virtual bool hasUnambiguousPackageInfixGrammar(const ASTNode *child) const;
 
+  virtual double getValue() const;
 
 
 protected:
@@ -425,7 +426,7 @@ protected:
 
   virtual unsigned int getNumChildren() const;
 
-  virtual double getValue() const;
+  //virtual double getValue() const;
 
   friend class ASTNumber;
   friend class ASTFunction;

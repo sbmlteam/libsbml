@@ -1942,7 +1942,7 @@ ASTBase::getFunction() const
 double 
 ASTBase::getValue() const 
 { 
-  return 0;
+  return util_NaN();
 }
 
 

@@ -1244,6 +1244,43 @@ ASTNode::getExponent () const
 }
 
 
+LIBSBML_EXTERN
+double
+ASTNode::getValue () const
+{
+  double value = util_NaN();
+
+  switch(mType)
+  {
+  case AST_CONSTANT_E:
+    value = 2.71828182;
+    break;
+  case AST_CONSTANT_FALSE:
+    value = 0;
+    break;
+  case AST_CONSTANT_PI:
+    value = 3.14159292;
+    break;
+  case AST_CONSTANT_TRUE:
+    value = 1;
+    break;
+  case AST_INTEGER:
+    value = (double)(getInteger());
+    break;
+  case AST_NAME_AVOGADRO:
+  case AST_RATIONAL:
+  case AST_REAL:
+  case AST_REAL_E:
+    value = getReal();
+    break;
+  default:
+    break;
+  }
+
+  return value;
+
+}
+
 /*
  * @return the precedence of this ASTNode (as defined in the SBML L1
  * specification).
@@ -3075,6 +3112,15 @@ ASTNode_getExponent (const ASTNode_t *node)
 {
   if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getExponent();
+}
+
+
+LIBSBML_EXTERN
+double
+ASTNode_getValue (const ASTNode_t *node)
+{
+  if (node == NULL) return util_NaN();
+  return static_cast<const ASTNode*>(node)->getValue();
 }
 
 

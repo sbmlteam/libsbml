@@ -72,6 +72,7 @@ Suite *create_suite_TestValidASTNode      (void);
 
 Suite *create_suite_NewASTNode            (void);
 Suite *create_suite_TestChildFunctions    (void);
+Suite *create_suite_TestGetValue          (void);
 
 /**
  * Global.
@@ -137,6 +138,7 @@ main (void)
 
   srunner_add_suite( runner, create_suite_NewASTNode() );
   srunner_add_suite( runner, create_suite_TestChildFunctions() );
+  srunner_add_suite( runner, create_suite_TestGetValue() );
 
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */

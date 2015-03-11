@@ -52,6 +52,27 @@ ASTConstantNumberNode::ASTConstantNumberNode (int type) :
     , mValue       ( 0 )
     , mIsSetValue (false)
 {
+  switch (type)
+  {
+  case AST_CONSTANT_E:
+    mValue = 2.71828182;
+    mIsSetValue = true;
+    break;
+  case AST_CONSTANT_FALSE:
+    mValue = 0;
+    mIsSetValue = true;
+    break;
+  case AST_CONSTANT_PI:
+    mValue = 3.14159292;
+    mIsSetValue = true;
+    break;
+  case AST_CONSTANT_TRUE:
+    mValue = 1;
+    mIsSetValue = true;
+    break;
+  default:
+    break;
+  }
 }
   
 

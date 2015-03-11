@@ -778,6 +778,21 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
 
 
   /**
+   * Returns the numerical value of this ASTNode.
+   *
+   * @return the numerical value of this ASTNode, or @c NaN if this
+   * is not a type of node that has a numerical value.
+   *
+   * @note This function will return a numerical value (as a double) for 
+   * any ASTNode that represents a number, a constant such as pi or
+   * avogadro or @c 1 for true and @c 0 for false. It does not evaluate
+   * the node in any way so, for example, it will not return the value of 
+   * a named ASTNode.
+   */
+  double getValue() const;
+  
+  
+  /**
    * Returns the precedence of this node in the infix math syntax of SBML
    * Level&nbsp;1.
    *
@@ -2602,6 +2617,25 @@ long
 ASTNode_getExponent (const ASTNode_t *node);
 
 
+/**
+ * Returns the numerical value of this ASTNode_t.
+ *
+ * @param node the ASTNode_t whose value is to be returned.
+ *
+ * @return the numerical value of this ASTNode_t, or @c NaN if this
+ * is not a type of node that has a numerical value.
+ *
+ * @note This function will return a numerical value (as a double) for 
+ * any ASTNode_t that represents a number, a constant such as pi or
+ * avogadro or @c 1 for true and @c 0 for false. It does not evaluate
+ * the node in any way so, for example, it will not return the value of 
+ * a named ASTNode_t.
+ */
+LIBSBML_EXTERN
+double 
+ASTNode_getValue(const ASTNode_t *node);
+  
+  
 /**
  * Returns the precedence of a node in the infix math syntax of SBML
  * Level&nbsp;1.
