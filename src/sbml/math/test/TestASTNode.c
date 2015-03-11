@@ -5158,17 +5158,20 @@ START_TEST (test_ASTNode_userData_1)
   Model_t * m = Model_create(3,1);
   
   fail_unless(ASTNode_getUserData(n) == NULL);
+  fail_unless(ASTNode_isSetUserData(n) == 0);
 
   int i = ASTNode_setUserData(n, (void*)(m));
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(ASTNode_getUserData(n) != NULL);
   fail_unless(ASTNode_getUserData(n) == m);
+  fail_unless(ASTNode_isSetUserData(n) == 1);
   
   i = ASTNode_setUserData(n, NULL);
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(ASTNode_getUserData(n) == NULL);
+  fail_unless(ASTNode_isSetUserData(n) == 0);
 
   ASTNode_free(n);
   Model_free(m);

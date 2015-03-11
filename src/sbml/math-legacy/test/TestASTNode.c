@@ -4792,7 +4792,7 @@ START_TEST (test_ASTNode_returnsBoolean)
   const ASTNode_t *math;
 
   // boolean function
-  ASTNode* n = SBML_parseFormula("geq(a,b)");
+  ASTNode_t* n = SBML_parseFormula("geq(a,b)");
   fail_unless(ASTNode_returnsBoolean(n) == 1);
   ASTNode_free(n);
 
@@ -4830,7 +4830,7 @@ START_TEST (test_ASTNode_returnsBoolean)
   fail_unless(ASTNode_returnsBoolean(math) == 0);
 
   // func with model func returns boolean
-  ASTNode* m = SBML_parseFormula("lambda(x, true)");
+  ASTNode_t* m = SBML_parseFormula("lambda(x, true)");
   FunctionDefinition_setMath(fd, m);
   ASTNode_free(m);
   fail_unless(ASTNode_returnsBoolean(math) == 1);
@@ -5156,17 +5156,20 @@ START_TEST (test_ASTNode_userData_1)
   Model_t * m = Model_create(3,1);
   
   fail_unless(ASTNode_getUserData(n) == NULL);
+  fail_unless(ASTNode_isSetUserData(n) == 0);
 
   int i = ASTNode_setUserData(n, (void*)(m));
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(ASTNode_getUserData(n) != NULL);
   fail_unless(ASTNode_getUserData(n) == m);
+  fail_unless(ASTNode_isSetUserData(n) == 1);
   
   i = ASTNode_setUserData(n, NULL);
 
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(ASTNode_getUserData(n) == NULL);
+  fail_unless(ASTNode_isSetUserData(n) == 0);
 
   ASTNode_free(n);
   Model_free(m);

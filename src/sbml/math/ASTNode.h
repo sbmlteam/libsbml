@@ -3824,7 +3824,7 @@ ASTNode_setUserData(ASTNode_t* node, void *userData);
  */
 LIBSBML_EXTERN
 void *
-ASTNode_getUserData(ASTNode_t* node);
+ASTNode_getUserData(const ASTNode_t* node);
 
 
 /**
@@ -3864,7 +3864,7 @@ ASTNode_unsetUserData(ASTNode_t* node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_isSetUserData(ASTNode_t* node);
+ASTNode_isSetUserData(const ASTNode_t* node);
 
 
 /**

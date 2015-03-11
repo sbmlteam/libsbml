@@ -3715,7 +3715,8 @@ ASTNode_setUserData(ASTNode_t* node, void *userData)
 
 
 LIBSBML_EXTERN
-void *ASTNode_getUserData(ASTNode_t* node)
+void *
+ASTNode_getUserData(const ASTNode_t* node)
 {
   if (node == NULL) return NULL;
   return node->getUserData();
@@ -3733,7 +3734,7 @@ ASTNode_unsetUserData(ASTNode_t* node)
 
 LIBSBML_EXTERN
 int
-ASTNode_isSetUserData(ASTNode_t* node)
+ASTNode_isSetUserData(const ASTNode_t* node)
 {
   if (node == NULL) return (int) false;
   return static_cast<int>(node->isSetUserData());
