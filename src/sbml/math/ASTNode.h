@@ -784,10 +784,14 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * is not a type of node that has a numerical value.
    *
    * @note This function will return a numerical value (as a double) for 
-   * any ASTNode that represents a number, a constant such as pi or
-   * avogadro or @c 1 for true and @c 0 for false. It does not evaluate
+   * any ASTNode_t that represents a number, a constant such as pi or
+   * avogadro or @c 1 for nodes of type 
+   * @sbmlconstant{AST_CONSTANT_TRUE, ASTNodeType_t} and @c 0 for nodes of type
+   * @sbmlconstant{AST_CONSTANT_FALSE, ASTNodeType_t}. It does not evaluate
    * the node in any way so, for example, it will not return the value of 
-   * a named ASTNode.
+   * a named ASTNode_t or attempt to evaluate a function. 
+   * This includes a node representing @c time i.e. nodes
+   * of type @sbmlconstant{AST_NAME_TIME, ASTNodeType_t}.
    */
   double getValue() const;
   
@@ -2627,9 +2631,15 @@ ASTNode_getExponent (const ASTNode_t *node);
  *
  * @note This function will return a numerical value (as a double) for 
  * any ASTNode_t that represents a number, a constant such as pi or
- * avogadro or @c 1 for true and @c 0 for false. It does not evaluate
+ * avogadro or @c 1 for nodes of type 
+ * @sbmlconstant{AST_CONSTANT_TRUE, ASTNodeType_t} and @c 0 for nodes of type
+ * @sbmlconstant{AST_CONSTANT_FALSE, ASTNodeType_t}. It does not evaluate
  * the node in any way so, for example, it will not return the value of 
- * a named ASTNode_t.
+ * a named ASTNode_t or attempt to evaluate a function. 
+ * This includes a node representing @c time i.e. nodes
+ * of type @sbmlconstant{AST_NAME_TIME, ASTNodeType_t}.
+ *
+ * @memberof ASTNode_t
  */
 LIBSBML_EXTERN
 double 
