@@ -119,7 +119,7 @@ Association::Association(const XMLNode& node, FbcPkgNamespaces* fbcns)
       
       if(childName=="gene" || childName=="or" || childName == "and")
       {
-        mAssociations.push_back(Association(*child, new FbcPkgNamespaces(*fbcns)));
+        mAssociations.push_back(new Association(*child, new FbcPkgNamespaces(*fbcns)));
       }
       ++n;
     }
@@ -135,7 +135,12 @@ Association::Association(const Association& source) : SBase(source)
 {
   this->mType=source.mType;
   this->mReference=source.mReference;
-  this->mAssociations=source.mAssociations;
+
+  std::vector<Association*>::const_iterator it;
+  for (it = source.mAssociations.begin(); it != source.mAssociations.end(); ++it)
+  {
+    mAssociations.push_back((*it)->clone());
+  }
 }
 
 /*
@@ -148,7 +153,19 @@ Association& Association::operator=(const Association& source)
     this->SBase::operator=(source);
     this->mType=source.mType;
     this->mReference=source.mReference;
-    this->mAssociations=source.mAssociations;
+
+    std::vector<Association*>::iterator it;
+    for (it = mAssociations.begin(); it != mAssociations.end(); ++it)
+    {
+      delete (*it);
+    }
+    mAssociations.clear();
+
+    std::vector<Association*>::const_iterator cit;
+    for (cit = source.mAssociations.begin(); cit != source.mAssociations.end(); ++cit)
+    {
+      mAssociations.push_back((*cit)->clone());
+    }
   }
   
   return *this;
@@ -160,6 +177,12 @@ Association& Association::operator=(const Association& source)
  */ 
 Association::~Association ()
 {
+  std::vector<Association*>::iterator it;
+  for (it = mAssociations.begin(); it != mAssociations.end(); ++it)
+  {
+    delete (*it);
+  }
+  mAssociations.clear();
 }
 
 AssociationTypeCode_t 
@@ -349,11 +372,11 @@ Association::toInfix() const
   {
     stringstream str;
     str << "(";
-    str << mAssociations[0].toInfix();
+    str << mAssociations[0]->toInfix();
     for (size_t pos = 1; pos < mAssociations.size(); ++pos)
     {
       str << " or ";
-      str << mAssociations[pos].toInfix();
+      str << mAssociations[pos]->toInfix();
     }
     str << ")";
     return str.str();
@@ -363,11 +386,11 @@ Association::toInfix() const
   {
     stringstream str;
     str << "(";
-    str << mAssociations[0].toInfix();
+    str << mAssociations[0]->toInfix();
     for (size_t pos = 1; pos < mAssociations.size(); ++pos)
     {
       str << " and ";
-      str << mAssociations[pos].toInfix();
+      str << mAssociations[pos]->toInfix();
     }
     str << ")";
     return str.str();
@@ -382,9 +405,9 @@ Association::addGene(const std::string& id)
 {
   if (mType == OR_ASSOCIATION || mType == AND_ASSOCIATION)
   {
-    Association geneAssociation;
-    geneAssociation.setType(GENE_ASSOCIATION);
-    geneAssociation.setReference(id);
+    Association *geneAssociation = new Association();
+    geneAssociation->setType(GENE_ASSOCIATION);
+    geneAssociation->setReference(id);
     mAssociations.push_back(geneAssociation);
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -402,7 +425,7 @@ Association::addAssociation(Association &association)
 {
   if (mType == OR_ASSOCIATION || mType == AND_ASSOCIATION)
   {
-    mAssociations.push_back(association);
+    mAssociations.push_back(association.clone());
     return LIBSBML_OPERATION_SUCCESS;
   }
   return LIBSBML_OPERATION_FAILED;
@@ -491,10 +514,10 @@ XMLNode Association::toXML() const
   if(this->mNotes) node.addChild(*this->mNotes);
   if(this->mAnnotation) node.addChild(*this->mAnnotation);
 
-  std::vector<Association>::const_iterator it;
+  std::vector<Association*>::const_iterator it;
   for (it = mAssociations.begin(); it != mAssociations.end(); ++it)
   {
-    node.addChild((*it).toXML());
+    node.addChild((*it)->toXML());
   }
   return node;
 }
@@ -504,9 +527,29 @@ XMLNode Association::toXML() const
 SBase*
 Association::createObject (XMLInputStream& stream)
 {
-  return NULL;
+  SBase* object = NULL;
+
+
+  if (mType == GENE_ASSOCIATION) return NULL;
+
+  const string& name = stream.peek().getName();
+  if (name == "gene" || name == "or" || name == "and")
+  {
+    Association* association = new Association(getLevel(), getVersion());
+    if (name == "gene")
+      association->setType(GENE_ASSOCIATION);
+    else if (name == "and")
+      association->setType(AND_ASSOCIATION);
+    else if (name == "or")
+      association->setType(OR_ASSOCIATION);
+
+    mAssociations.push_back(association);
+    object = association;
+  }
+  return object;
 }
 /** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -514,6 +557,7 @@ Association::addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
+  if (mType == GENE_ASSOCIATION)
   attributes.add("reference");
 }
 /** @endcond */
@@ -527,6 +571,8 @@ Association::readAttributes (const XMLAttributes& attributes,
 
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
+
+  if (mType != GENE_ASSOCIATION) return;
 
   bool assigned = attributes.readInto("reference", mReference, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mReference.empty())
@@ -546,6 +592,7 @@ Association::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  if (mType == GENE_ASSOCIATION)
   stream.writeAttribute("reference",   getPrefix(), mReference);
 
   //
@@ -562,10 +609,10 @@ Association::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
 
   
-  std::vector<Association>::const_iterator it;
+  std::vector<Association*>::const_iterator it;
   for (it = mAssociations.begin(); it!= mAssociations.end(); ++it)
   {
-    (*it).write(stream);
+    (*it)->write(stream);
   }
   
   //

@@ -77,7 +77,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   AssociationTypeCode_t mType;
   std::string mReference;
-  std::vector<Association> mAssociations;
+  std::vector<Association*> mAssociations;
   /** @endcond */
 
 public:
@@ -415,7 +415,6 @@ protected:
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
   /** @endcond */
-
 
   /** @cond doxygenLibsbmlInternal */
   /**
