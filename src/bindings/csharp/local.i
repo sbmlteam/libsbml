@@ -1182,6 +1182,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
  */
 %typemap(csin) SBase*       item "SBase.getCPtrAndDisown($csinput)";
 %typemap(csin) const SBase* item "SBase.getCPtr($csinput)";
+%typemap(csin) SBase*       disownedItem "SBase.getCPtrAndDisown($csinput)";
 
 /**
  * takeover ownership
@@ -1190,6 +1191,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
  * - void ASTNode::prependChild (ASTNode* child)
  */
 %typemap(csin) ASTNode*       child "ASTNode.getCPtrAndDisown($csinput)";
+%typemap(csin) ASTNode*       disownedChild "ASTNode.getCPtrAndDisown($csinput)";
 %typemap(csin) const ASTNode* child "ASTNode.getCPtr($csinput)";
 
 /**
@@ -1207,8 +1209,13 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
  * - void ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation);
  */
 %typemap(csin) XMLNode*       sAnnotation "XMLNode.getCPtrAndDisown($csinput)";
+%typemap(csin) XMLNode*       disownedAnnotation "XMLNode.getCPtrAndDisown($csinput)";
 %typemap(csin) const XMLNode* sAnnotation "XMLNode.getCPtr($csinput)";
 
+/**
+ * takeover ownership of SBMLNamespaces object if called disownedNs
+ */
+%typemap(csin) SBMLNamespaces*       disownedNs "SBMLNamespaces.getCPtrAndDisown($csinput)";
 
 /**
  * Of course, there are some exceptions to the above rule.  These typemaps

@@ -1131,6 +1131,7 @@ SWIGJAVA_EQUALS(XMLOutputStream)
  */
 %typemap(javain) SBase*       item "SBase.getCPtrAndDisown($javainput)";
 %typemap(javain) const SBase* item "SBase.getCPtr($javainput)";
+%typemap(javain) SBase*       disownedItem "SBase.getCPtrAndDisown($javainput)";
 
 /**
  * takeover ownership
@@ -1139,6 +1140,7 @@ SWIGJAVA_EQUALS(XMLOutputStream)
  * - void ASTNode::prependChild (ASTNode* child)
  */
 %typemap(javain) ASTNode*       child "ASTNode.getCPtrAndDisown($javainput)";
+%typemap(javain) ASTNode*       disownedChild "ASTNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const ASTNode* child "ASTNode.getCPtr($javainput)";
 
 /**
@@ -1156,7 +1158,13 @@ SWIGJAVA_EQUALS(XMLOutputStream)
  * - void ASTNode::addSemanticsAnnotation (XMLNode* sAnnotation);
  */
 %typemap(javain) XMLNode*       sAnnotation "XMLNode.getCPtrAndDisown($javainput)";
+%typemap(javain) XMLNode*       disownedAnnotation "XMLNode.getCPtrAndDisown($javainput)";
 %typemap(javain) const XMLNode* sAnnotation "XMLNode.getCPtr($javainput)";
+
+/**
+ * takeover ownership of SBMLNamespaces object if called disownedNs
+ */
+%typemap(javain) SBMLNamespaces*       disownedNs "SBMLNamespaces.getCPtrAndDisown($javainput)";
 
 
 /**
@@ -1474,5 +1482,4 @@ LIST_WRAPPER(SBMLNamespaces::getSupportedNamespaces,SBMLNamespaces)
 
 
 %include "local-packages.i"
-
 
