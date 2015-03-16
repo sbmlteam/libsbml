@@ -123,7 +123,7 @@ public:
    *
    * @return the (deep) copy of this SBasePlugin object.
    */
-  virtual SBasePlugin* clone () const = 0;
+  virtual SBasePlugin* clone () const;
 
 
   /**
@@ -674,7 +674,7 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const = 0;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /** @endcond */
 
