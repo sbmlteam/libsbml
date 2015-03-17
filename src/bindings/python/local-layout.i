@@ -70,6 +70,14 @@ SBMLCONSTRUCTOR_EXCEPTION(ListOfReferenceGlyphs)
 SBMLCONSTRUCTOR_EXCEPTION(ReferenceGlyph)
 SBMLCONSTRUCTOR_EXCEPTION(GeneralGlyph)
 
+
+%rename(getX) BoundingBox::x;
+%rename(getY) BoundingBox::y;
+%rename(getZ) BoundingBox::z;
+%rename(getWidth) BoundingBox::width;
+%rename(getHeight) BoundingBox::height;
+%rename(getDepth) BoundingBox::depth;
+
 /**
  * Convert LineSegment objects into the most specific type possible.
  */
