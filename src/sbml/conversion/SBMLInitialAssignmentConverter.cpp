@@ -122,7 +122,7 @@ SBMLInitialAssignmentConverter::convert()
   /* if no initial assignments bail now */
   if (mModel->getNumInitialAssignments() == 0)
   {
-    return true;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
   /* check consistency of model */
