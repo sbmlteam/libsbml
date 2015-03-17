@@ -1286,7 +1286,7 @@ SampledField::uncompress()
   if (mCompression == SPATIAL_COMPRESSIONKIND_DEFLATED)
   {
     char* csamples = (char*)malloc(sizeof(char)*mSamplesLength);
-    for (unsigned int i = 0 ; i < mSamplesLength; ++i)
+    for (int i = 0 ; i < mSamplesLength; ++i)
       csamples[i] = mSamples[i];
     SampledField::uncompress_data(csamples, mSamplesLength, mUncompressedSamples, mUncompressedLength);
     free(csamples);
