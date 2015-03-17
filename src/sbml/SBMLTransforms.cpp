@@ -928,33 +928,69 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     break;
 
   case AST_RELATIONAL_EQ :
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      == (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+        == (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   case AST_RELATIONAL_GEQ:
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      >= (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+        >= (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   case AST_RELATIONAL_GT:
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      > (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+        > (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   case AST_RELATIONAL_LEQ:
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      <= (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+         result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+         <= (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   case AST_RELATIONAL_LT :
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      < (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+        < (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   case AST_RELATIONAL_NEQ :
-    result = (double)((evaluateASTNode(node->getChild(0), values, m))
-      != (evaluateASTNode(node->getChild(1), values, m)));
+    if (node->getNumChildren() < 2) result = 0.0;
+    else 
+    {      
+      result = 1.0;
+      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
+        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
+        != (evaluateASTNode(node->getChild(i), values, m)));
+    }
     break;
 
   default:
