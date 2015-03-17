@@ -708,6 +708,7 @@ START_TEST (test_SBML_parseL3Formula_rational1)
   fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
   fail_unless( ASTNode_getNumerator  (r) ==   3, NULL );
   fail_unless( ASTNode_getDenominator(r) ==   4, NULL );
+  fail_unless( ASTNode_getReal       (r) ==   0.75, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
@@ -724,6 +725,7 @@ START_TEST (test_SBML_parseL3Formula_rational2)
   fail_unless( ASTNode_getType       (r) == AST_RATIONAL, NULL );
   fail_unless( ASTNode_getNumerator  (r) ==   3, NULL );
   fail_unless( ASTNode_getDenominator(r) ==   4, NULL );
+  fail_unless( ASTNode_getReal       (r) ==   0.75, NULL );
   fail_unless( !strcmp(units, "mL"), NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
@@ -3034,6 +3036,621 @@ START_TEST (test_SBML_parseL3Formula_matrixrow_noarrays)
 END_TEST
 
 
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allLT)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y < z");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allGT)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x > y > z");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_GT);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allLEQ)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x <= y <= z");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allGEQ)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x >= y >= z");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_GEQ);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allEQ)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x == y == z");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_EQ);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allNEQ)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x != y != z");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_NEQ);
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_NEQ);
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed1)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y <= z");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed2)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x > y < z");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_GT);
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_allLT_many)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y < z < p < d < q");
+
+  fail_unless( ASTNode_getType        (r) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (r) == 6   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "x"));
+  fail_unless( ASTNode_getNumChildren (c) == 0);
+
+  c = ASTNode_getChild(r, 1);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "y"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "z"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 3);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "p"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 4);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "d"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  c = ASTNode_getChild(r, 5);
+
+  fail_unless( ASTNode_getType        (c) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c), "q"));
+  fail_unless( ASTNode_getNumChildren(c) == 0 );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed_many1)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y <= z <= p");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 3   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 2);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed_many2)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y < z <= p");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (c) == 3   );
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 2);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed_many3)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y < z <= p <= d");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 2   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (c) == 3   );
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 2);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 3   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 2);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "d"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed_many4)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y <= z <= p == q");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 3   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 3   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c2 = ASTNode_getChild(c, 2);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_EQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "q"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseL3Formula_combinedRelational_mixed_many5)
+{
+  ASTNode_t *r = SBML_parseL3Formula("x < y <= z == p >= q > r != s");
+
+  fail_unless( ASTNode_getType        (r) == AST_LOGICAL_AND);
+  fail_unless( ASTNode_getNumChildren (r) == 6   );
+
+  ASTNode_t *c = ASTNode_getChild(r, 0);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LT);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  ASTNode_t *c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "x"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 1);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "y"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 2);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_EQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "z"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 3);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_GEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "p"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "q"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 4);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_GT);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "q"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "r"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+  c = ASTNode_getChild(r, 5);
+  fail_unless( ASTNode_getType        (c) == AST_RELATIONAL_NEQ);
+  fail_unless( ASTNode_getNumChildren (c) == 2   );
+
+  c2 = ASTNode_getChild(c, 0);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "r"));
+  fail_unless( ASTNode_getNumChildren (c2) == 0);
+
+  c2 = ASTNode_getChild(c, 1);
+  fail_unless( ASTNode_getType        (c2) == AST_NAME);
+  fail_unless( !strcmp(ASTNode_getName(c2), "s"));
+  fail_unless( ASTNode_getNumChildren(c2) == 0 );
+
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3FormulaParser (void) 
 { 
@@ -3152,6 +3769,20 @@ create_suite_L3FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseL3Formula_vector_noarrays );
   tcase_add_test( tcase, test_SBML_parseL3Formula_matrix_noarrays );
   tcase_add_test( tcase, test_SBML_parseL3Formula_matrixrow_noarrays );
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLT);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allGT);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLEQ);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allGEQ);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allEQ);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allNEQ);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed1);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_allLT_many);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many1);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many2);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many3);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many4);
+  tcase_add_test( tcase, test_SBML_parseL3Formula_combinedRelational_mixed_many5);
 
   suite_add_tcase(suite, tcase);
 
