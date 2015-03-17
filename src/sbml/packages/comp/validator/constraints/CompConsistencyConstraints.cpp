@@ -3371,9 +3371,7 @@ START_CONSTRAINT (CompReplacedElementMustRefOnlyOne, ReplacedElement, repE)
 
   bool fail = false;
 
-  msg = "The <replacedElement> '";
-  msg += repE.getId() ;
-  msg += "' in ";
+  msg = "The <replacedElement> in ";
   const Model* mod = static_cast<const Model*>
                                 (repE.getAncestorOfType(SBML_MODEL, "core"));
   if (mod == NULL) {
@@ -3608,7 +3606,7 @@ START_CONSTRAINT (CompReplacedElementDeletionRef, ReplacedElement, repE)
     msg += mod->getId();
     msg += "'";
   }
-  msg = " refers to the deletion '";
+  msg += " refers to the deletion '";
   msg += repE.getDeletion();
   msg += "' that is not part of the parent model.";
 

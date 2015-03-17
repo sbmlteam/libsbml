@@ -311,7 +311,7 @@ SubmodelReferenceCycles::logCycle (const Model& m, std::string id,
 {
   msg = "Model with id '";
   msg += id;
-  msg += "' is referenced by with the model with id '"; 
+  msg += "' is referenced by the model with id '"; 
   msg += id1;
   msg += "'.";
 
