@@ -166,25 +166,26 @@ option(WITH_JAVASCRIPT   "Generate the experimental Node.js language interface f
 
 if (WITH_JAVASCRIPT)
 
+  set(_PF86 "ProgramFiles(x86)")
   find_program(NODE_GYP_EXECUTABLE
         NAMES node-gyp node-gyp.cmd
         PATHS
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-			  "$ENV{ProgramFiles}/nodejs/"
-			  "$ENV{ProgramFiles(x86)}/nodejs/"
+              "$ENV{ProgramFilesProgramFiles}/nodejs/"
+              "$ENV{ProgramW6432}/nodejs/"
         DOC "The file name of the node-gyp executable."
         )
-		
+
   find_program(NODEJS_EXECUTABLE
         NAMES node nodeexe
         PATHS
               /usr/local/bin
               /opt/local/bin
               /usr/bin
-			  "$ENV{ProgramFiles}/nodejs/"
-			  "$ENV{ProgramFiles(x86)}/nodejs/"
+              "$ENV{ProgramFiles}/nodejs/"
+              "$ENV{ProgramW6432}/nodejs/"
         DOC "The file name of the nodejs executable."
         )
   # check that we found node-gyp
