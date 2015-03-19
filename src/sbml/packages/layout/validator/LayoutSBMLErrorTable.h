@@ -86,7 +86,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-    "specification.) Within a <model> object"
+    "specification.) Within a <model> object "
     "the values of the attributes id and layout:id on every instance of the "
     "following classes of objects must be unique across the set of all id "
     "and layout:id attribute values of all such objects in a model: the "
