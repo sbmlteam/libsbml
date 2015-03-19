@@ -357,6 +357,7 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
+  if (NOT LIBEXPAT_LIBRARY)  
     find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
         PATHS ${LIBSBML_DEPENDENCY_DIR}/lib
@@ -365,6 +366,9 @@ if(WITH_EXPAT)
         DOC "The file name of the Expat library."
                 )
 
+  endif()
+  
+  if (NOT LIBEXPAT_INCLUDE_DIR)
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
         PATHS ${LIBSBML_DEPENDENCY_DIR}/include
@@ -372,7 +376,8 @@ if(WITH_EXPAT)
               ${CMAKE_OSX_SYSROOT}/usr/include              
         DOC "The directory containing the Expat include files."
               )
-
+  endif()
+  
     add_definitions( -DUSE_EXPAT )
     list(APPEND SWIG_EXTRA_ARGS -DUSE_EXPAT)	
 
@@ -394,13 +399,16 @@ endif(WITH_EXPAT)
 #
 set(USE_LIBXML OFF)
 if(WITH_LIBXML)
+  if (NOT LIBXML_LIBRARY)
     find_library(LIBXML_LIBRARY
         NAMES libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the libxml2 library."
                 )
-
+  endif()
+  
+  if (NOT LIBXML_INCLUDE_DIR)
     find_path(LIBXML_INCLUDE_DIR
         NAMES libxml/parser.h
         PATHS ${LIBSBML_DEPENDENCY_DIR}/include
@@ -411,20 +419,21 @@ if(WITH_LIBXML)
 
         DOC "The directory containing the libxml2 include files."
               )
+  endif()
+    
+  add_definitions( -DUSE_LIBXML )
+  list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)	
+  set(USE_LIBXML ON)
 
-    add_definitions( -DUSE_LIBXML )
-	list(APPEND SWIG_EXTRA_ARGS -DUSE_LIBXML)	
-	set(USE_LIBXML ON)
+  set(LIBSBML_XML_LIBRARY "libxml2")
+  set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
+  set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
 
-    set(LIBSBML_XML_LIBRARY "libxml2")
-    set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
-    set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
-
-    if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
+  if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
         message(FATAL_ERROR
 "The include directory specified for libxml appears to be invalid.
 It should contain the file libxml/parser.h, but it does not.")
-    endif()
+  endif()
 endif(WITH_LIBXML)
 
 
@@ -474,6 +483,7 @@ endif(WITH_XERCES)
 #
 
 set(BZIP_INITIAL_VALUE)
+if (NOT LIBBZ_LIBRARY)
 find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
     PATHS /usr/lib /usr/local/lib
@@ -481,6 +491,7 @@ find_library(LIBBZ_LIBRARY
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
+endif()
 
 if(EXISTS ${LIBBZ_LIBRARY})
     set(BZIP_INITIAL_VALUE ON)
@@ -561,6 +572,7 @@ Separate multiple directories using semicolons." )
 #
 
 set(ZLIB_INITIAL_VALUE)
+if (NOT LIBZ_LIBRARY)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
     PATHS /usr/lib /usr/local/lib
@@ -568,6 +580,7 @@ find_library(LIBZ_LIBRARY
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
+endif()
 
 if(EXISTS ${LIBZ_LIBRARY})
     set(ZLIB_INITIAL_VALUE ON)
