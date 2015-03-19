@@ -4551,7 +4551,8 @@ SBase::logUnknownAttribute( const string& attribute,
     {
       msg << "Attribute '" << attribute << "' is not part of the "
           << "definition of an SBML Level " << level
-          << " Version " << version << " <"
+          << " Version " << version << " Package "
+          << getPackageName() << " Version " << getPackageVersion() << " <"
           << element << "> element.";
       if (mSBML != NULL)
       {
