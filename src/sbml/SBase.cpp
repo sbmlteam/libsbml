@@ -861,7 +861,38 @@ int
 SBase::setUserData(void *userData)
 {
   this->mUserData = userData;
+  if (userData == NULL && mUserData == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (mUserData != NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+bool
+SBase::isSetUserData() const
+{
   if (mUserData != NULL)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+int
+SBase::unsetUserData()
+{
+  this->mUserData = NULL;
+  if (mUserData == NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -7217,10 +7248,27 @@ SBase_setUserData(SBase_t* sb, void *userData)
 
 
 LIBSBML_EXTERN
-void *SBase_getUserData(SBase_t* sb)
+void *
+SBase_getUserData(const SBase_t* sb)
 {
   if (sb == NULL) return NULL;
   return sb->getUserData();
+}
+
+LIBSBML_EXTERN
+int
+SBase_isSetUserData(const SBase_t* sb)
+{
+  if (sb == NULL) return 0;
+  return static_cast <int>(sb->isSetUserData());
+}
+
+LIBSBML_EXTERN
+int
+SBase_unsetUserData(SBase_t* sb)
+{
+  if (sb == NULL) return LIBSBML_INVALID_OBJECT;
+  return sb->unsetUserData();
 }
 
 LIBSBML_EXTERN

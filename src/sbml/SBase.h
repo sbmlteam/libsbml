@@ -3180,6 +3180,30 @@ newModel.addSpecies(s1);
 
 
   /**
+   * Predicate returning true or false depending on whether
+   * the user data of this element has been set.
+   *
+   * @copydetails doc_what_is_user_data
+   *
+   * @return boolean, @c true if this object's user data has been set,
+   * @c false otherwise.
+   */
+  bool isSetUserData() const;
+
+
+  /**
+   * Unsets the user data of this element.
+   *
+   * @copydetails doc_what_is_user_data
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   */
+  int unsetUserData();
+
+
+  /**
    * Gets the namespace URI to which this element belongs to.
    *
    * For example, all elements that belong to SBML Level 3 Version 1 Core
@@ -4941,7 +4965,38 @@ SBase_setUserData(SBase_t* sb, void *userData);
  */
 LIBSBML_EXTERN
 void *
-SBase_getUserData(SBase_t* sb);
+SBase_getUserData(const SBase_t* sb);
+
+/**
+ * Predicate returning nonzero true or false depending on whether the
+ * structure's user data object has been set.
+ *
+ * @param sb defines the node of which the user data should be queried.
+ *
+ * @return nonzero (true) if the user data object of this
+ * SBML structure has been set, zero (false) otherwise.
+ *
+ * @memberof SBase_t
+ */
+LIBSBML_EXTERN
+int 
+SBase_isSetUserData(const SBase_t* sb);
+
+/**
+ * Unsets the user data of this node. 
+ *
+ * @param sb defines the node of which the user data should be unset.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SBase_t
+ */
+LIBSBML_EXTERN
+int 
+SBase_unsetUserData(SBase_t* sb);
 
 /**
  * Returns the first child element found that has the given @p id in the

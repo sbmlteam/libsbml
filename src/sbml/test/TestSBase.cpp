@@ -2506,20 +2506,20 @@ START_TEST(test_SBase_userData)
   Species s1(3, 1);
   int myValue = 10;
   fail_unless(s1.getUserData() == NULL);
+  fail_unless(s1.isSetUserData() == false);
   fail_unless(s1.setUserData(&myValue) == LIBSBML_OPERATION_SUCCESS);
   fail_unless((*(int*)s1.getUserData()) == 10);
+  fail_unless(s1.isSetUserData() == true);
 
   // make sure that cloning also clones the pointer to the data
   Species *s2 = s1.clone();
   fail_unless((*(int*)s2->getUserData()) == 10);
+  fail_unless(s1.isSetUserData() == true);
   delete s2;
 
-  // for whatever reason unsetting the user data returns a failure for now
-  // we should revisit whether that is what we want ... i'll add it as test case
-  // for now
-
-  fail_unless(s1.setUserData(NULL) == LIBSBML_OPERATION_FAILED);
+  fail_unless(s1.setUserData(NULL) == LIBSBML_OPERATION_SUCCESS);
   fail_unless(s1.getUserData() == NULL);
+  fail_unless(s1.isSetUserData() == false);
 
   // test that when accessed with NULL arguments nothing bad happens
 
@@ -2527,6 +2527,23 @@ START_TEST(test_SBase_userData)
   fail_unless(SBase_setUserData(NULL, NULL) == LIBSBML_INVALID_OBJECT);
 
 
+}
+END_TEST
+
+START_TEST(test_SBase_userData1)
+{
+  Species s1(3, 1);
+  int myValue = 10;
+  fail_unless(s1.getUserData() == NULL);
+  fail_unless(s1.isSetUserData() == false);
+  fail_unless(s1.setUserData(&myValue) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless((*(int*)s1.getUserData()) == 10);
+  fail_unless(s1.isSetUserData() == true);
+
+  // test the unset function
+  fail_unless(s1.unsetUserData() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(s1.getUserData() == NULL);
+  fail_unless(s1.isSetUserData() == false);
 }
 END_TEST
 
@@ -2579,6 +2596,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_matchesSBMLNamespaces);
   tcase_add_test(tcase, test_SBase_matchesRequiredSBMLNamespacesForAddition);
   tcase_add_test(tcase, test_SBase_userData);
+  tcase_add_test(tcase, test_SBase_userData1);
 
   tcase_add_test(tcase, test_SBase_prefixMetaIdSBO);
 
