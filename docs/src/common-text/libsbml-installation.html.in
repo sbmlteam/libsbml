@@ -485,9 +485,7 @@ accomplish the same goals as the two other individual options.
 
 <p> <strong>Important</strong>: libSBML is known to work with SWIG version 2.0.0
 or later; earlier versions are known <em>not</em> to work.  You <em>must</em> use
-  version 2.0.0 or later. As of August 2012 some issues have been identified
-  with versions of SWIG greater than 2.0.4; thus we currently recommend
-  the use of version 2.0.4.
+  version 2.0.0 or later.
 
   <p> <a target="_blank" href="http://www.swig.org">SWIG</a> is the
 <em>Simplified Wrapper and Interface Generator</em> and in libSBML it is used
