@@ -90,7 +90,7 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "the values of the attributes id and layout:id on every instance of the "
     "following classes of objects must be unique across the set of all id "
     "and layout:id attribute values of all such objects in a model: the "
-    "model itself, plus all contained <functionDefinition>, <compartment>,"
+    "model itself, plus all contained <functionDefinition>, <compartment>, "
     "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
     "<event>, and <parameter> objects, plus the <boundingBox>, "
     "<compartmentGlyph>, <generalGlyph>, <graphicalObject>, <layout>, "
@@ -264,8 +264,8 @@ static const packageErrorTableEntry layoutErrorTable[] =
     "optional, but if present, these container object must not be "
     "empty.  Specifically, if any of the following classes of objects "
     "are present on the <layout>, it must not be empty: "
-    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>,"
-    " <listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
+    "<listOfCompartmentGlyphs>, <listOfSpeciesGlyphs>, <listOfReactionGlyphs>, "
+    "<listOfTextGlyphs>, <listOfAdditionalGraphicalObjects>.",
     { "L3V1 Layout V1 Section 3.6"
     }
   },

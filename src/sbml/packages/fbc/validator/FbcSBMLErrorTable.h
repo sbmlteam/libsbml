@@ -81,11 +81,11 @@ static const packageErrorTableEntry fbcErrorTable[] =
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "(Extends validation rule #10301 in the SBML Level 3 Version 1 Core "
-    "specification.) Within a <model> object"
+    "specification.) Within a <model> object "
     "the values of the attributes id and fbc:id on every instance of the "
     "following classes of objects must be unique across the set of all id "
     "and fbc:id attribute values of all such objects in a model: the "
-    "model itself, plus all contained <functionDefinition>, <compartment>,"
+    "model itself, plus all contained <functionDefinition>, <compartment>, "
     "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
     "<event>, and <parameter> objects, plus the <fluxBound>, <objective> "
     "and <fluxObjective> "
@@ -281,7 +281,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "A <fluxBound> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the "
     "SBML Level 3 Core namespace are permitted on a <fluxBound>.",
-    { "L3V1 Core, Section 3.2."
+    { "L3V1 Core, Section 3.2"
     }
   },
   
@@ -293,7 +293,7 @@ static const packageErrorTableEntry fbcErrorTable[] =
     "A <fluxBound> object may have the optional SBML Level 3 Core "
     "subobjects for notes and annotations. No other elements from the "
     "SBML Level 3 Core namespace are permitted on a <fluxBound>.",
-    { "L3V1 Core, Section 3.2."
+    { "L3V1 Core, Section 3.2"
     }
   },
   

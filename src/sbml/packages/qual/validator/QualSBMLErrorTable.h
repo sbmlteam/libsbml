@@ -75,7 +75,7 @@ static const packageErrorTableEntry qualErrorTable[] =
     LIBSBML_CAT_GENERAL_CONSISTENCY, 
     LIBSBML_SEV_ERROR,
     "Wherever they appear in an SBML document, "
-    "elements and attributes from the Qualitative Models"
+    "elements and attributes from the Qualitative Models "
     "package must be declared either implicitly or explicitly to be in the "
     "XML namespace 'http://www.sbml.org/sbml/level3/version1/qual/version1'",
     { "L3V1 Qual V1 Section 3.1"

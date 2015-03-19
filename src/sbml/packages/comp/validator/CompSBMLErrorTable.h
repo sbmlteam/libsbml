@@ -83,7 +83,7 @@ static const packageErrorTableEntry compErrorTable[] =
     "the values of the attributes id and comp:id on every instance of the "
     "following classes of objects must be unique across the set of all id "
     "and comp:id attribute values of all such objects in a model: the "
-    "model itself, plus all contained <functionDefinition>, <compartment>,"
+    "model itself, plus all contained <functionDefinition>, <compartment>, "
     "<species>, <reaction>, <speciesReference>, <modifierSpeciesReference>, "
     "<event>, and <parameter> objects, plus the <submodel> and <deletion> "
     "objects defined by the Hierarchical Model Composition package, plus "
