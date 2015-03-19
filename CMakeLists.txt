@@ -492,6 +492,7 @@ option(WITH_BZIP2    "Enable the use of bzip2 compression."  ${BZIP_INITIAL_VALU
 set(USE_BZ2 OFF)
 if(WITH_BZIP2)
 
+  if (NOT LIBBZ_INCLUDE_DIR)
     find_path(LIBBZ_INCLUDE_DIR
         NAMES bzlib.h bzip2/bzlib.h
         PATHS ${CMAKE_OSX_SYSROOT}/usr/include
@@ -499,8 +500,10 @@ if(WITH_BZIP2)
               ${LIBSBML_DEPENDENCY_DIR}/include
               NO_DEFAULT_PATH
         DOC "The directory containing the bzip2 include files."
-              )
-    if (NOT LIBBZ_INCLUDE_DIR)
+        )
+  endif()
+
+  if (NOT LIBBZ_INCLUDE_DIR)
       find_path(LIBBZ_INCLUDE_DIR
         NAMES bzlib.h bzip2/bzlib.h
         PATHS ${CMAKE_OSX_SYSROOT}/usr/include
@@ -508,7 +511,7 @@ if(WITH_BZIP2)
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the bzip2 include files."
               )
-    endif()
+  endif()
 
     set(USE_BZ2 ON)
     add_definitions( -DUSE_BZ2 )
@@ -576,6 +579,7 @@ option(WITH_ZLIB     "Enable the use of zip compression."    ${ZLIB_INITIAL_VALU
 set(USE_ZLIB OFF)
 if(WITH_ZLIB)
 
+  if (NOT LIBZ_INCLUDE_DIR)
     find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
         PATHS ${CMAKE_OSX_SYSROOT}/usr/include
@@ -584,6 +588,7 @@ if(WITH_ZLIB)
               NO_DEFAULT_PATH
         DOC "The directory containing the zlib include files."
               )
+  endif()
     if (NOT LIBZ_INCLUDE_DIR)
         find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
