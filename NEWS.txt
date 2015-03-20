@@ -1,12 +1,19 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.11.3 (Current svn)
+5.11.4 (2015-04-02)
 ====================================================================
 
 STABLE RELEASE
 
 * New features
+
+  - The ASTNode class has a new function double getValue() that
+    returns the numerical value of the ASTNode as a double.  This
+    includes returning '1' for an ASTNode of type AST_CONSTANT_TRUE
+    and '0' for AST_CONSTANT_FALSE.  Note, it does not attempt to
+    evaluate the node and thus will return NaN for a function
+    or node representing a named variable.
 
   - There has been a complete review of validation messages.  These
     have been unified in terms of spacing and line returns.  In
@@ -25,12 +32,17 @@ STABLE RELEASE
     appear in the written output. 
 
   - The L3Parser will now correctly parse a unary plus.
-	
-  - 'comp' package-specific updates:
-  - 'fbc' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
 
+  - The L3Parser will now parse chains of relational operators.
+    Identical operators become ASTNodes with relational type and
+    each argument as a direct child.  Thus 'x < y < z' becomes
+    an ASTNode of type AST_RELATIONAL_LT with three children
+    representing x, y and z.  Non identical operators use a logical
+    'and' function to combine the arguments. Thus 'x < y > z' 
+    becomes an ASTNode of type AST_LOGICAL_AND with two children
+    each representing the relational operator; that is 
+    and(lt(x,y), gt(y,z)) 
+	
 * Bug fixes
 
   - Fixed a bug where using the expat parser failed to correctly
@@ -47,43 +59,50 @@ STABLE RELEASE
     Thanks to Kieran Smallbone for reporting this and apologies
     for the length of time it took to fix.
 
-  - 'comp' package-specific bug fixes:
+  - Sourceforge libSBML Tracker #402: The functions that deal with
+    user data on both ASTNode and SBase objects have been made
+    to work with const versions of objects where appropriate.
+    Thanks to Takeshi Abe for the request and the patch.
+
   - 'fbc' package-specific bug fixes:
+
+    - A bug in the code that reads GeneAssociations as an annotation
+      meant information was being lost.  This has been corrected.
+
   - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
+
+    - The names of some functions meant they were failing to 
+      correctly port to the Python bindings.  The binding mechanism
+      has been fixed to correct this.  Thanks to Kieran Smallbone
+      for reporting this.
 
 * Configuration/build system changes
+
+  - This release includes pre-built binaries for the MATLAB 
+    bindings that should work for many Linux and MacOSX
+    platforms.  Please advise us it you find a combination
+    of platform and MATLAB version for which these fail. 
 
 
 * Miscellaneous
 
+  - The names of some arguments to functions have 
+    been modified to convey the fact that the object
+    is not owned by the collection object to which it
+    has been added.
 
 EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
   - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'groups' package-specific updates:
+
+    - There are new example programs that will create the
+      examples given in the current specification. 
+
   - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
-
-
-
+    
 ====================================================================
 5.11.2-experimental (2015-01-15)
 ====================================================================
