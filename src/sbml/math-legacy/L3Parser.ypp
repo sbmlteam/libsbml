@@ -235,6 +235,12 @@ public:
   bool checkNumArguments(const ASTNode* function);
 
   /**
+   * This function takes the given left and right ASTNodes, and combines them
+   * with the given relational type, returning the combined node.
+   */
+  ASTNode* combineRelationalElements(ASTNode* left, ASTNode* right, ASTNodeType_t type);
+
+  /**
    * Provides a copy of the default parser settings member variable.
    */
   L3ParserSettings getDefaultL3ParserSettings();
@@ -380,8 +386,6 @@ node:           number {$$ = $1;}
         |       node '/' node {$$ = new ASTNode(AST_DIVIDE); $$->addChild($1); $$->addChild($3);}
         |       node '-' node {$$ = new ASTNode(AST_MINUS); $$->addChild($1); $$->addChild($3);}
         |       node '%' node {$$ = l3p->createModuloTree($1, $3);}
-        |       node '>' node {$$ = new ASTNode(AST_RELATIONAL_GT); $$->addChild($1); $$->addChild($3);}
-        |       node '<' node {$$ = new ASTNode(AST_RELATIONAL_LT); $$->addChild($1); $$->addChild($3);}
         |       '+' node %prec UPLUS {$$ = $2;}
         |       '-' node %prec NEG {
                   if (l3p->collapseminus) {
@@ -416,12 +420,14 @@ node:           number {$$ = $1;}
                     $$->addChild($2);
                   }
                 }
-        |       node '>' '=' node {$$ = new ASTNode(AST_RELATIONAL_GEQ); $$->addChild($1); $$->addChild($4);}
-        |       node '<' '=' node {$$ = new ASTNode(AST_RELATIONAL_LEQ); $$->addChild($1); $$->addChild($4);}
-        |       node '=' '=' node {$$ = new ASTNode(AST_RELATIONAL_EQ); $$->addChild($1); $$->addChild($4);}
-        |       node '!' '=' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
-        |       node '<' '>' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
-        |       node '>' '<' node {$$ = new ASTNode(AST_RELATIONAL_NEQ); $$->addChild($1); $$->addChild($4);}
+        |       node '>' node {$$ = l3p->combineRelationalElements($1, $3, AST_RELATIONAL_GT);}
+        |       node '<' node {$$ = l3p->combineRelationalElements($1, $3, AST_RELATIONAL_LT);}
+        |       node '>' '=' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_GEQ);}
+        |       node '<' '=' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_LEQ);}
+        |       node '=' '=' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_EQ);}
+        |       node '!' '=' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_NEQ);}
+        |       node '<' '>' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_NEQ);}
+        |       node '>' '<' node {$$ = l3p->combineRelationalElements($1, $4, AST_RELATIONAL_NEQ);}
         |       node '&' '&' node {
                   if ($1->getType()==AST_LOGICAL_AND) {
                     $$ = $1;
@@ -1093,6 +1099,65 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
     return false;
   }
 }
+
+ASTNode* L3Parser::combineRelationalElements(ASTNode* left, ASTNode* right, ASTNodeType_t type)
+{
+  //If 'left' is the same as 'type', add 'right' as a new argument.  (cf x < y < z -> lt(x, y, z))
+  ASTNodeType_t leftType = left->getType();
+  if (leftType == type && type != AST_RELATIONAL_NEQ)
+  {
+    left->addChild(right);
+    return left;
+  }
+  //If 'left' is relational itself, make a new 'and' node and combine them:
+  // x < y <= z  ->  and(x<y, y<=z)
+  if (ASTNode_isRelational(left))
+  {
+    ASTNode* ret = new ASTNode(AST_LOGICAL_AND);
+    ret->addChild(left);
+    ASTNode* newrel = new ASTNode(type);
+    newrel->addChild(left->getChild(left->getNumChildren()-1)->deepCopy());
+    newrel->addChild(right);
+    ret->addChild(newrel);
+    return ret;
+  }
+
+  //Another option is that we've already done the above, and need to extend it:
+  if (leftType == AST_LOGICAL_AND && left->getNumChildren() >= 2)
+  {
+    bool combine = true;
+    ASTNode* leftchild = NULL;
+    for (unsigned int lc=0; lc<left->getNumChildren(); lc++)
+    {
+      leftchild = left->getChild(lc);
+      if (!ASTNode_isRelational(leftchild) ||
+          leftchild->getNumChildren() < 2)
+      {
+        combine = false;
+      }
+    }
+    if (combine)
+    {
+      if (leftchild->getType() == type && type != AST_RELATIONAL_NEQ) {
+        //We can combine them by adding to the last entry (x < y <= z <= q)
+        leftchild->addChild(right);
+        return left;
+      }
+      ASTNode* newrel = new ASTNode(type);
+      newrel->addChild(leftchild->getChild(leftchild->getNumChildren()-1)->deepCopy());
+      newrel->addChild(right);
+      left->addChild(newrel);
+      return left;
+    }
+  }
+
+  //Otherwise, we can't combine them:
+  ASTNode* ret = new ASTNode(type);
+  ret->addChild(left);
+  ret->addChild(right);
+  return ret;
+}
+
 
 L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 {
