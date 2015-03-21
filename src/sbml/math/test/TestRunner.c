@@ -119,17 +119,17 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_ASTNode() );
 
-  srunner_add_suite( runner, create_suite_FormulaFormatter () );
-  srunner_add_suite( runner, create_suite_FormulaParser    () );
-  srunner_add_suite( runner, create_suite_L3FormulaFormatter () );
-  srunner_add_suite( runner, create_suite_L3FormulaParser  () );
-  srunner_add_suite( runner, create_suite_L3FormulaParserC () );
-  srunner_add_suite( runner, create_suite_FormulaTokenizer () );
-  srunner_add_suite( runner, create_suite_ReadMathML       () );
-  srunner_add_suite( runner, create_suite_NewReadMathML       () );
-  srunner_add_suite( runner, create_suite_WriteMathML      () );
-  srunner_add_suite( runner, create_suite_WriteMathMLFromAST      () );
-  srunner_add_suite( runner, create_suite_NewWriteMathMLFromAST      () );
+  srunner_add_suite( runner, create_suite_FormulaFormatter     () );
+  srunner_add_suite( runner, create_suite_FormulaParser        () );
+  srunner_add_suite( runner, create_suite_L3FormulaFormatter   () );
+  srunner_add_suite( runner, create_suite_L3FormulaParser      () );
+  srunner_add_suite( runner, create_suite_L3FormulaParserC     () );
+  srunner_add_suite( runner, create_suite_FormulaTokenizer     () );
+  srunner_add_suite( runner, create_suite_ReadMathML           () );
+  srunner_add_suite( runner, create_suite_NewReadMathML        () );
+  srunner_add_suite( runner, create_suite_WriteMathML          () );
+  srunner_add_suite( runner, create_suite_WriteMathMLFromAST   () );
+  srunner_add_suite( runner, create_suite_NewWriteMathMLFromAST() );
 
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );

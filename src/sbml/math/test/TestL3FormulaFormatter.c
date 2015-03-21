@@ -356,9 +356,6 @@ START_TEST (test_SBML_formulaToL3String)
     "!x^2",
     "(!x)^2",
     "x^!2",
-    "x == y == z",
-    "(x >= y) <= z",
-    "(x > y) == z",
     "1 ml",
     "(3/4) uM",
     "INF",
@@ -370,8 +367,6 @@ START_TEST (test_SBML_formulaToL3String)
     "false",
     "(x > y) + (p == q)",
     "gt(x, y, z) + eq(p, d, q)",
-    "gt(x) + eq(p)",
-    "gt() + eq()",
     "(x || y) > (p && q)",
     "or(x) > and(p)",
     "or() > and()",
@@ -387,7 +382,7 @@ START_TEST (test_SBML_formulaToL3String)
   int        i;
 
 
-  for (i = 0; i < *formulae[i]; i++)
+  for (i = 0; i < 56; i++)
   {
     n = SBML_parseL3Formula( formulae[i] );
     s = SBML_formulaToL3String(n);

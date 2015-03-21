@@ -253,10 +253,8 @@ public:
   bool checkNumArgumentsForPackage(const ASTNode* function);
 
   /**
-   * This function checks the provided ASTNode function to see if it is a 
-   * known function with the wrong number of arguments.  If so, an error is set
-   * (using the 'setError' function) and 'true' is returned.  If the
-   * correct number of arguments is provided, 'false' is returned.
+   * This function takes the given left and right ASTNodes, and combines them
+   * with the given relational type, returning the combined node.
    */
   ASTNode* combineRelationalElements(ASTNode* left, ASTNode* right, ASTNodeType_t type);
 
