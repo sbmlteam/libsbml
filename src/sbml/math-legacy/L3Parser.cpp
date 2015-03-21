@@ -150,6 +150,7 @@ public:
   bool collapseminus;
   bool parseunits;
   bool avocsymbol;
+  bool strCmpIsCaseSensitive;
 
   L3Parser();
   virtual ~L3Parser();
@@ -202,11 +203,17 @@ public:
    */
   void setAvoCsymbol(bool avo);
   /**
+   * Sets the member variable 'strCmpIsCaseSensitive' to the provided boolean. Used in
+   * deciding whether to parse the built-in functions and variables caseless
+   * or not.
+   */
+  void setComparisonCaseSensitivity(bool strcmp);
+  /**
    * Compares the two strings, and returns 'true' if they are equivalent,
    * ignoring case.  Used in the parser and in the 'getSymbolFor' and 
    * 'getFunctionFor' functions.
    */
-  bool caselessStrCmp(const std::string& lhs, const std::string& rhs) const;
+  bool l3StrCmp(const std::string& lhs, const std::string& rhs) const;
   /**
    * Sets the input string to be parsed, copied to the 'input' stringstream
    * member variable.
@@ -315,7 +322,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /* Line 371 of yacc.c  */
-#line 319 "L3Parser.cpp"
+#line 326 "L3Parser.cpp"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -365,7 +372,7 @@ extern int sbml_yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 298 "L3Parser.ypp"
+#line 305 "L3Parser.ypp"
 
   ASTNode* astnode;
   char character;
@@ -377,7 +384,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 381 "L3Parser.cpp"
+#line 388 "L3Parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -405,7 +412,7 @@ int sbml_yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 409 "L3Parser.cpp"
+#line 416 "L3Parser.cpp"
 
 #ifdef short
 # undef short
@@ -716,10 +723,10 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   329,   329,   330,   331,   332,   335,   336,   362,   363,
-     364,   375,   386,   387,   388,   389,   390,   423,   424,   425,
-     426,   427,   428,   429,   430,   431,   442,   453,   454,   465,
-     523,   524,   525,   526,   527,   543,   544
+       0,   336,   336,   337,   338,   339,   342,   343,   369,   370,
+     371,   382,   393,   394,   395,   396,   397,   430,   431,   432,
+     433,   434,   435,   436,   437,   438,   449,   460,   461,   472,
+     530,   531,   532,   533,   534,   550,   551
 };
 #endif
 
@@ -1662,31 +1669,31 @@ yyreduce:
     {
         case 3:
 /* Line 1787 of yacc.c  */
-#line 330 "L3Parser.ypp"
+#line 337 "L3Parser.ypp"
     {l3p->outputNode = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 4:
 /* Line 1787 of yacc.c  */
-#line 331 "L3Parser.ypp"
+#line 338 "L3Parser.ypp"
     {}
     break;
 
   case 5:
 /* Line 1787 of yacc.c  */
-#line 332 "L3Parser.ypp"
+#line 339 "L3Parser.ypp"
     {delete (yyvsp[(1) - (2)].astnode);}
     break;
 
   case 6:
 /* Line 1787 of yacc.c  */
-#line 335 "L3Parser.ypp"
+#line 342 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 7:
 /* Line 1787 of yacc.c  */
-#line 336 "L3Parser.ypp"
+#line 343 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode();
                    string name(*(yyvsp[(1) - (1)].word));
@@ -1701,10 +1708,10 @@ yyreduce:
                      ASTNodeType_t type = l3p->getSymbolFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
                      if (type==AST_REAL) {
-                       if (l3p->caselessStrCmp(name, "inf"))          (yyval.astnode)->setValue(numeric_limits<double>::infinity());
-                       if (l3p->caselessStrCmp(name, "infinity"))     (yyval.astnode)->setValue(numeric_limits<double>::infinity());
-                       if (l3p->caselessStrCmp(name, "nan"))          (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
-                       if (l3p->caselessStrCmp(name, "notanumber"))   (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
+                       if (l3p->l3StrCmp(name, "inf"))          (yyval.astnode)->setValue(numeric_limits<double>::infinity());
+                       if (l3p->l3StrCmp(name, "infinity"))     (yyval.astnode)->setValue(numeric_limits<double>::infinity());
+                       if (l3p->l3StrCmp(name, "nan"))          (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
+                       if (l3p->l3StrCmp(name, "notanumber"))   (yyval.astnode)->setValue(numeric_limits<double>::quiet_NaN());
                      }
                      if (!l3p->avocsymbol && type==AST_NAME_AVOGADRO) {
                        //Don't parse 'avogadro' as a csymbol.
@@ -1717,19 +1724,19 @@ yyreduce:
 
   case 8:
 /* Line 1787 of yacc.c  */
-#line 362 "L3Parser.ypp"
+#line 369 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (3)].astnode);}
     break;
 
   case 9:
 /* Line 1787 of yacc.c  */
-#line 363 "L3Parser.ypp"
+#line 370 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_POWER); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 10:
 /* Line 1787 of yacc.c  */
-#line 364 "L3Parser.ypp"
+#line 371 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_TIMES) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1745,7 +1752,7 @@ yyreduce:
 
   case 11:
 /* Line 1787 of yacc.c  */
-#line 375 "L3Parser.ypp"
+#line 382 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_PLUS) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1761,31 +1768,31 @@ yyreduce:
 
   case 12:
 /* Line 1787 of yacc.c  */
-#line 386 "L3Parser.ypp"
+#line 393 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_DIVIDE); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 13:
 /* Line 1787 of yacc.c  */
-#line 387 "L3Parser.ypp"
+#line 394 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_MINUS); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 14:
 /* Line 1787 of yacc.c  */
-#line 388 "L3Parser.ypp"
+#line 395 "L3Parser.ypp"
     {(yyval.astnode) = l3p->createModuloTree((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode));}
     break;
 
   case 15:
 /* Line 1787 of yacc.c  */
-#line 389 "L3Parser.ypp"
+#line 396 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (2)].astnode);}
     break;
 
   case 16:
 /* Line 1787 of yacc.c  */
-#line 390 "L3Parser.ypp"
+#line 397 "L3Parser.ypp"
     {
                   if (l3p->collapseminus) {
                     if ((yyvsp[(2) - (2)].astnode)->getType()==AST_REAL) {
@@ -1823,55 +1830,55 @@ yyreduce:
 
   case 17:
 /* Line 1787 of yacc.c  */
-#line 423 "L3Parser.ypp"
+#line 430 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode), AST_RELATIONAL_GT);}
     break;
 
   case 18:
 /* Line 1787 of yacc.c  */
-#line 424 "L3Parser.ypp"
+#line 431 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode), AST_RELATIONAL_LT);}
     break;
 
   case 19:
 /* Line 1787 of yacc.c  */
-#line 425 "L3Parser.ypp"
+#line 432 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_GEQ);}
     break;
 
   case 20:
 /* Line 1787 of yacc.c  */
-#line 426 "L3Parser.ypp"
+#line 433 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_LEQ);}
     break;
 
   case 21:
 /* Line 1787 of yacc.c  */
-#line 427 "L3Parser.ypp"
+#line 434 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_EQ);}
     break;
 
   case 22:
 /* Line 1787 of yacc.c  */
-#line 428 "L3Parser.ypp"
+#line 435 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 23:
 /* Line 1787 of yacc.c  */
-#line 429 "L3Parser.ypp"
+#line 436 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 24:
 /* Line 1787 of yacc.c  */
-#line 430 "L3Parser.ypp"
+#line 437 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 25:
 /* Line 1787 of yacc.c  */
-#line 431 "L3Parser.ypp"
+#line 438 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_AND) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1887,7 +1894,7 @@ yyreduce:
 
   case 26:
 /* Line 1787 of yacc.c  */
-#line 442 "L3Parser.ypp"
+#line 449 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_OR) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1903,13 +1910,13 @@ yyreduce:
 
   case 27:
 /* Line 1787 of yacc.c  */
-#line 453 "L3Parser.ypp"
+#line 460 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_NOT); (yyval.astnode)->addChild((yyvsp[(2) - (2)].astnode));}
     break;
 
   case 28:
 /* Line 1787 of yacc.c  */
-#line 454 "L3Parser.ypp"
+#line 461 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode(AST_FUNCTION);
                    string name(*(yyvsp[(1) - (3)].word));
@@ -1925,7 +1932,7 @@ yyreduce:
 
   case 29:
 /* Line 1787 of yacc.c  */
-#line 465 "L3Parser.ypp"
+#line 472 "L3Parser.ypp"
     {
                    (yyval.astnode) = (yyvsp[(3) - (4)].astnode);
                    string name(*(yyvsp[(1) - (4)].word));
@@ -1935,7 +1942,7 @@ yyreduce:
                      //The symbol is not used in any other mathematical context in the SBML model, so we can see if it matches a list of pre-defined names
                      ASTNodeType_t type = l3p->getFunctionFor(name);
                      if (type != AST_UNKNOWN) (yyval.astnode)->setType(type);
-                     if (type==AST_FUNCTION_ROOT && l3p->caselessStrCmp(name, "sqrt")) {
+                     if (type==AST_FUNCTION_ROOT && l3p->l3StrCmp(name, "sqrt")) {
                        //If the number of arguments is wrong, set an error now instead of waiting for later.
                        if ((yyval.astnode)->getNumChildren() != 1) {
                          l3p->setError("The function 'sqrt' takes exactly one argument.");
@@ -1947,19 +1954,19 @@ yyreduce:
                        int2->setValue(2);
                        (yyval.astnode)->prependChild(int2);
                      }
-                     if (type==AST_FUNCTION_POWER && l3p->caselessStrCmp(name, "sqr")) {
+                     if (type==AST_FUNCTION_POWER && l3p->l3StrCmp(name, "sqr")) {
                        //Add a '2' node after the existing child.
                        ASTNode* int2 = new ASTNode(AST_INTEGER);
                        int2->setValue(2);
                        (yyval.astnode)->addChild(int2);
                      }
-                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log10")) {
+                     if (type==AST_FUNCTION_LOG && l3p->l3StrCmp(name, "log10")) {
                        //Add a '10' node before the existing child.
                        ASTNode* int10 = new ASTNode(AST_INTEGER);
                        int10->setValue(10);
                        (yyval.astnode)->prependChild(int10);
                      }
-                     if (type==AST_FUNCTION_LOG && l3p->caselessStrCmp(name, "log")) {
+                     if (type==AST_FUNCTION_LOG && l3p->l3StrCmp(name, "log")) {
                        //If there is exactly one argument, change it to log10, ln, or give a special error message, depending on a user setting (by default, parse to log10).
                        if ((yyval.astnode)->getNumChildren() == 1) {
                          ASTNode* int10;
@@ -1986,31 +1993,31 @@ yyreduce:
 
   case 30:
 /* Line 1787 of yacc.c  */
-#line 523 "L3Parser.ypp"
+#line 530 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));}
     break;
 
   case 31:
 /* Line 1787 of yacc.c  */
-#line 524 "L3Parser.ypp"
+#line 531 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);}
     break;
 
   case 32:
 /* Line 1787 of yacc.c  */
-#line 525 "L3Parser.ypp"
+#line 532 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));}
     break;
 
   case 33:
 /* Line 1787 of yacc.c  */
-#line 526 "L3Parser.ypp"
+#line 533 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);}
     break;
 
   case 34:
 /* Line 1787 of yacc.c  */
-#line 527 "L3Parser.ypp"
+#line 534 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -2029,19 +2036,19 @@ yyreduce:
 
   case 35:
 /* Line 1787 of yacc.c  */
-#line 543 "L3Parser.ypp"
+#line 550 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));}
     break;
 
   case 36:
 /* Line 1787 of yacc.c  */
-#line 544 "L3Parser.ypp"
+#line 551 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 2045 "L3Parser.cpp"
+#line 2052 "L3Parser.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2273,7 +2280,7 @@ yyreturn:
 
 
 /* Line 2050 of yacc.c  */
-#line 547 "L3Parser.ypp"
+#line 554 "L3Parser.ypp"
 
 
 
@@ -2466,6 +2473,7 @@ L3Parser::L3Parser()
   , collapseminus(L3P_EXPAND_UNARY_MINUS)
   , parseunits(L3P_PARSE_UNITS)
   , avocsymbol(L3P_AVOGADRO_IS_CSYMBOL)
+  , strCmpIsCaseSensitive(L3P_COMPARE_BUILTINS_CASE_SENSITIVE)
 {
 }
 
@@ -2478,87 +2486,87 @@ L3Parser::~L3Parser ()
 
 ASTNodeType_t L3Parser::getSymbolFor(string name) const
 {
-  if (caselessStrCmp(name, "true"))         return AST_CONSTANT_TRUE;
-  if (caselessStrCmp(name, "false"))        return AST_CONSTANT_FALSE;
-  if (caselessStrCmp(name, "pi"))           return AST_CONSTANT_PI;
-  if (caselessStrCmp(name, "exponentiale")) return AST_CONSTANT_E;
-  if (caselessStrCmp(name, "avogadro"))     return AST_NAME_AVOGADRO;
-  if (caselessStrCmp(name, "time"))         return AST_NAME_TIME;
-  if (caselessStrCmp(name, "inf"))          return AST_REAL;
-  if (caselessStrCmp(name, "infinity"))     return AST_REAL;
-  if (caselessStrCmp(name, "nan"))          return AST_REAL;
-  if (caselessStrCmp(name, "notanumber"))   return AST_REAL;
+  if (l3StrCmp(name, "true"))         return AST_CONSTANT_TRUE;
+  if (l3StrCmp(name, "false"))        return AST_CONSTANT_FALSE;
+  if (l3StrCmp(name, "pi"))           return AST_CONSTANT_PI;
+  if (l3StrCmp(name, "exponentiale")) return AST_CONSTANT_E;
+  if (l3StrCmp(name, "avogadro"))     return AST_NAME_AVOGADRO;
+  if (l3StrCmp(name, "time"))         return AST_NAME_TIME;
+  if (l3StrCmp(name, "inf"))          return AST_REAL;
+  if (l3StrCmp(name, "infinity"))     return AST_REAL;
+  if (l3StrCmp(name, "nan"))          return AST_REAL;
+  if (l3StrCmp(name, "notanumber"))   return AST_REAL;
   return AST_UNKNOWN;
 }
 
 ASTNodeType_t L3Parser::getFunctionFor(string name) const
 {
-  if (caselessStrCmp(name, "abs"))      return AST_FUNCTION_ABS;
-  if (caselessStrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;
-  if (caselessStrCmp(name, "arccos"))   return AST_FUNCTION_ARCCOS;
-  if (caselessStrCmp(name, "acosh"))    return AST_FUNCTION_ARCCOSH;
-  if (caselessStrCmp(name, "arccosh"))  return AST_FUNCTION_ARCCOSH;
-  if (caselessStrCmp(name, "acot"))     return AST_FUNCTION_ARCCOT;
-  if (caselessStrCmp(name, "arccot"))   return AST_FUNCTION_ARCCOT;
-  if (caselessStrCmp(name, "acoth"))    return AST_FUNCTION_ARCCOTH;
-  if (caselessStrCmp(name, "arccoth"))  return AST_FUNCTION_ARCCOTH;
-  if (caselessStrCmp(name, "acsc"))     return AST_FUNCTION_ARCCSC;
-  if (caselessStrCmp(name, "arccsc"))   return AST_FUNCTION_ARCCSC;
-  if (caselessStrCmp(name, "acsch"))    return AST_FUNCTION_ARCCSCH;
-  if (caselessStrCmp(name, "arccsch"))  return AST_FUNCTION_ARCCSCH;
-  if (caselessStrCmp(name, "asec"))     return AST_FUNCTION_ARCSEC;
-  if (caselessStrCmp(name, "arcsec"))   return AST_FUNCTION_ARCSEC;
-  if (caselessStrCmp(name, "asech"))    return AST_FUNCTION_ARCSECH;
-  if (caselessStrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
-  if (caselessStrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
-  if (caselessStrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
-  if (caselessStrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
-  if (caselessStrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
-  if (caselessStrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
-  if (caselessStrCmp(name, "arctanh"))  return AST_FUNCTION_ARCTANH;
-  if (caselessStrCmp(name, "ceil"))     return AST_FUNCTION_CEILING;
-  if (caselessStrCmp(name, "ceiling"))  return AST_FUNCTION_CEILING;
-  if (caselessStrCmp(name, "cos"))      return AST_FUNCTION_COS;
-  if (caselessStrCmp(name, "cosh"))     return AST_FUNCTION_COSH;
-  if (caselessStrCmp(name, "cot"))      return AST_FUNCTION_COT;
-  if (caselessStrCmp(name, "coth"))     return AST_FUNCTION_COTH;
-  if (caselessStrCmp(name, "csc"))      return AST_FUNCTION_CSC;
-  if (caselessStrCmp(name, "csch"))     return AST_FUNCTION_CSCH;
-  if (caselessStrCmp(name, "delay"))    return AST_FUNCTION_DELAY;
-  if (caselessStrCmp(name, "exp"))      return AST_FUNCTION_EXP;
-  if (caselessStrCmp(name, "factorial")) return AST_FUNCTION_FACTORIAL;
-  if (caselessStrCmp(name, "floor"))    return AST_FUNCTION_FLOOR;
-  if (caselessStrCmp(name, "lambda"))   return AST_LAMBDA;
-  if (caselessStrCmp(name, "log"))      return AST_FUNCTION_LOG;
-  if (caselessStrCmp(name, "ln"))       return AST_FUNCTION_LN;
-  if (caselessStrCmp(name, "log10"))    return AST_FUNCTION_LOG;
-  if (caselessStrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
-  if (caselessStrCmp(name, "power"))    return AST_POWER;
-  if (caselessStrCmp(name, "pow"))      return AST_POWER;
-  if (caselessStrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
-  if (caselessStrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
-  if (caselessStrCmp(name, "root"))     return AST_FUNCTION_ROOT;
-  if (caselessStrCmp(name, "sec"))      return AST_FUNCTION_SEC;
-  if (caselessStrCmp(name, "sech"))     return AST_FUNCTION_SECH;
-  if (caselessStrCmp(name, "sin"))      return AST_FUNCTION_SIN;
-  if (caselessStrCmp(name, "sinh"))     return AST_FUNCTION_SINH;
-  if (caselessStrCmp(name, "tan"))      return AST_FUNCTION_TAN;
-  if (caselessStrCmp(name, "tanh"))     return AST_FUNCTION_TANH;
-  if (caselessStrCmp(name, "and"))      return AST_LOGICAL_AND;
-  if (caselessStrCmp(name, "not"))      return AST_LOGICAL_NOT;
-  if (caselessStrCmp(name, "or"))       return AST_LOGICAL_OR;
-  if (caselessStrCmp(name, "xor"))      return AST_LOGICAL_XOR;
-  if (caselessStrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
-  if (caselessStrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
-  if (caselessStrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
-  if (caselessStrCmp(name, "gt"))       return AST_RELATIONAL_GT;
-  if (caselessStrCmp(name, "leq"))      return AST_RELATIONAL_LEQ;
-  if (caselessStrCmp(name, "lt"))       return AST_RELATIONAL_LT;
-  if (caselessStrCmp(name, "neq"))      return AST_RELATIONAL_NEQ;
-  if (caselessStrCmp(name, "divide"))   return AST_DIVIDE;
-  if (caselessStrCmp(name, "minus"))    return AST_MINUS;
-  if (caselessStrCmp(name, "plus"))     return AST_PLUS;
-  if (caselessStrCmp(name, "times"))    return AST_TIMES;
+  if (l3StrCmp(name, "abs"))      return AST_FUNCTION_ABS;
+  if (l3StrCmp(name, "acos"))     return AST_FUNCTION_ARCCOS;
+  if (l3StrCmp(name, "arccos"))   return AST_FUNCTION_ARCCOS;
+  if (l3StrCmp(name, "acosh"))    return AST_FUNCTION_ARCCOSH;
+  if (l3StrCmp(name, "arccosh"))  return AST_FUNCTION_ARCCOSH;
+  if (l3StrCmp(name, "acot"))     return AST_FUNCTION_ARCCOT;
+  if (l3StrCmp(name, "arccot"))   return AST_FUNCTION_ARCCOT;
+  if (l3StrCmp(name, "acoth"))    return AST_FUNCTION_ARCCOTH;
+  if (l3StrCmp(name, "arccoth"))  return AST_FUNCTION_ARCCOTH;
+  if (l3StrCmp(name, "acsc"))     return AST_FUNCTION_ARCCSC;
+  if (l3StrCmp(name, "arccsc"))   return AST_FUNCTION_ARCCSC;
+  if (l3StrCmp(name, "acsch"))    return AST_FUNCTION_ARCCSCH;
+  if (l3StrCmp(name, "arccsch"))  return AST_FUNCTION_ARCCSCH;
+  if (l3StrCmp(name, "asec"))     return AST_FUNCTION_ARCSEC;
+  if (l3StrCmp(name, "arcsec"))   return AST_FUNCTION_ARCSEC;
+  if (l3StrCmp(name, "asech"))    return AST_FUNCTION_ARCSECH;
+  if (l3StrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
+  if (l3StrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
+  if (l3StrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
+  if (l3StrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
+  if (l3StrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
+  if (l3StrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
+  if (l3StrCmp(name, "arctanh"))  return AST_FUNCTION_ARCTANH;
+  if (l3StrCmp(name, "ceil"))     return AST_FUNCTION_CEILING;
+  if (l3StrCmp(name, "ceiling"))  return AST_FUNCTION_CEILING;
+  if (l3StrCmp(name, "cos"))      return AST_FUNCTION_COS;
+  if (l3StrCmp(name, "cosh"))     return AST_FUNCTION_COSH;
+  if (l3StrCmp(name, "cot"))      return AST_FUNCTION_COT;
+  if (l3StrCmp(name, "coth"))     return AST_FUNCTION_COTH;
+  if (l3StrCmp(name, "csc"))      return AST_FUNCTION_CSC;
+  if (l3StrCmp(name, "csch"))     return AST_FUNCTION_CSCH;
+  if (l3StrCmp(name, "delay"))    return AST_FUNCTION_DELAY;
+  if (l3StrCmp(name, "exp"))      return AST_FUNCTION_EXP;
+  if (l3StrCmp(name, "factorial")) return AST_FUNCTION_FACTORIAL;
+  if (l3StrCmp(name, "floor"))    return AST_FUNCTION_FLOOR;
+  if (l3StrCmp(name, "lambda"))   return AST_LAMBDA;
+  if (l3StrCmp(name, "log"))      return AST_FUNCTION_LOG;
+  if (l3StrCmp(name, "ln"))       return AST_FUNCTION_LN;
+  if (l3StrCmp(name, "log10"))    return AST_FUNCTION_LOG;
+  if (l3StrCmp(name, "piecewise")) return AST_FUNCTION_PIECEWISE;
+  if (l3StrCmp(name, "power"))    return AST_POWER;
+  if (l3StrCmp(name, "pow"))      return AST_POWER;
+  if (l3StrCmp(name, "sqr"))      return AST_FUNCTION_POWER;
+  if (l3StrCmp(name, "sqrt"))     return AST_FUNCTION_ROOT;
+  if (l3StrCmp(name, "root"))     return AST_FUNCTION_ROOT;
+  if (l3StrCmp(name, "sec"))      return AST_FUNCTION_SEC;
+  if (l3StrCmp(name, "sech"))     return AST_FUNCTION_SECH;
+  if (l3StrCmp(name, "sin"))      return AST_FUNCTION_SIN;
+  if (l3StrCmp(name, "sinh"))     return AST_FUNCTION_SINH;
+  if (l3StrCmp(name, "tan"))      return AST_FUNCTION_TAN;
+  if (l3StrCmp(name, "tanh"))     return AST_FUNCTION_TANH;
+  if (l3StrCmp(name, "and"))      return AST_LOGICAL_AND;
+  if (l3StrCmp(name, "not"))      return AST_LOGICAL_NOT;
+  if (l3StrCmp(name, "or"))       return AST_LOGICAL_OR;
+  if (l3StrCmp(name, "xor"))      return AST_LOGICAL_XOR;
+  if (l3StrCmp(name, "eq"))       return AST_RELATIONAL_EQ;
+  if (l3StrCmp(name, "equals"))   return AST_RELATIONAL_EQ;
+  if (l3StrCmp(name, "geq"))      return AST_RELATIONAL_GEQ;
+  if (l3StrCmp(name, "gt"))       return AST_RELATIONAL_GT;
+  if (l3StrCmp(name, "leq"))      return AST_RELATIONAL_LEQ;
+  if (l3StrCmp(name, "lt"))       return AST_RELATIONAL_LT;
+  if (l3StrCmp(name, "neq"))      return AST_RELATIONAL_NEQ;
+  if (l3StrCmp(name, "divide"))   return AST_DIVIDE;
+  if (l3StrCmp(name, "minus"))    return AST_MINUS;
+  if (l3StrCmp(name, "plus"))     return AST_PLUS;
+  if (l3StrCmp(name, "times"))    return AST_TIMES;
   return AST_UNKNOWN;
 }
 
@@ -2653,8 +2661,16 @@ void L3Parser::setAvoCsymbol(bool avo)
   avocsymbol = avo;
 }
 
-bool L3Parser::caselessStrCmp(const string& lhs, const string& rhs) const
+void L3Parser::setComparisonCaseSensitivity(bool strcmp)
 {
+  strCmpIsCaseSensitive = strcmp;
+}
+
+bool L3Parser::l3StrCmp(const string& lhs, const string& rhs) const
+{
+  if (strCmpIsCaseSensitive) {
+    return lhs==rhs;
+  }
   if (lhs.size() != rhs.size()) return false;
 
   for (size_t i = 0; i < lhs.size(); ++i) {
@@ -2698,6 +2714,7 @@ void L3Parser::clear()
   collapseminus = defaultL3ParserSettings.getParseCollapseMinus();
   parseunits = defaultL3ParserSettings.getParseUnits();
   avocsymbol = defaultL3ParserSettings.getParseAvogadroCsymbol();
+  strCmpIsCaseSensitive = defaultL3ParserSettings.getComparisonCaseSensitivity();
 }
 
 string L3Parser::getError()
@@ -2953,6 +2970,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->collapseminus = settings->getParseCollapseMinus();
   l3p->parseunits = settings->getParseUnits();
   l3p->avocsymbol = settings->getParseAvogadroCsymbol();
+  l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   sbml_yyparse();
   return l3p->outputNode;
 }
