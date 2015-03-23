@@ -48,6 +48,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ASTArraysVectorFunctionNode::ASTArraysVectorFunctionNode (int type) :
   ASTNaryFunctionNode(type)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

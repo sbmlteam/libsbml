@@ -38,6 +38,7 @@
 #include <sbml/packages/arrays/extension/ArraysExtension.h>
 #include <sbml/packages/arrays/extension/ArraysSBMLDocumentPlugin.h>
 #include <sbml/packages/arrays/extension/ArraysSBasePlugin.h>
+#include <sbml/packages/arrays/extension/ArraysASTPlugin.h>
 
 #if (0)
 #include <sbml/packages/arrays/math/ASTArraysMatrixFunctionNode.h>
