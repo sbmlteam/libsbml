@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCSymbolTimeNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -69,6 +70,10 @@ ASTCSymbolTimeNode::ASTCSymbolTimeNode (int type) :
 {
   setEncoding("text");
   setDefinitionURL("http://www.sbml.org/sbml/symbols/time");
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

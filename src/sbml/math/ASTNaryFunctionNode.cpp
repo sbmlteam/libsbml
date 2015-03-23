@@ -51,6 +51,10 @@ ASTNaryFunctionNode::ASTNaryFunctionNode (int type) :
   ASTFunctionBase(type)
     , mReducedToBinary (false)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

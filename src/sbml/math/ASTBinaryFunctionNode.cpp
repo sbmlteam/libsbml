@@ -38,6 +38,7 @@
 #include <sbml/math/ASTFunction.h>
 #include <sbml/math/ASTQualifierNode.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -50,6 +51,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ASTBinaryFunctionNode::ASTBinaryFunctionNode (int type) :
   ASTFunctionBase(type)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

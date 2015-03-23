@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCiNumberNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -68,7 +69,12 @@ ASTCiNumberNode::ASTCiNumberNode (int type) :
     , mName       ( "" )
     , mDefinitionURL ( "" )
 {
-    ASTBase::setType(type);
+  ASTBase::setType(type);
+  
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

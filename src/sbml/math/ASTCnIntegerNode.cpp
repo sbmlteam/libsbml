@@ -37,6 +37,7 @@
 #include <sbml/math/ASTCnIntegerNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include <sstream>
 
@@ -54,6 +55,10 @@ ASTCnIntegerNode::ASTCnIntegerNode (int type) :
     , mInteger (0)
     , mIsSetInteger  (false)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 
@@ -63,6 +68,11 @@ ASTCnIntegerNode::ASTCnIntegerNode (const XMLNode *xml) :
     , mIsSetInteger  (false)
 {
   setType(AST_INTEGER);
+  
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
 
   

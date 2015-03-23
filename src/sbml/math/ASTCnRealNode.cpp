@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCnRealNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include <sstream>
 
@@ -53,6 +54,10 @@ ASTCnRealNode::ASTCnRealNode (int type) :
     , mReal (0)
     , mIsSetReal  (false)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 
@@ -62,6 +67,10 @@ ASTCnRealNode::ASTCnRealNode (const XMLNode *xml) :
     , mIsSetReal  (false)
 {
   setType(AST_REAL);
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
 
   

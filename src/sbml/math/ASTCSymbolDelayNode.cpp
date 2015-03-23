@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCSymbolDelayNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -70,6 +71,10 @@ ASTCSymbolDelayNode::ASTCSymbolDelayNode (int type) :
 {
   setEncoding("text");
   setDefinitionURL("http://www.sbml.org/sbml/symbols/delay");
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

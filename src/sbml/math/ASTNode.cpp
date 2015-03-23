@@ -185,7 +185,7 @@ ASTNode::ASTNode (ASTNodeType_t type) :
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
   
@@ -285,7 +285,7 @@ ASTNode::ASTNode (int type) :
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
 /** @endcond */  
@@ -407,7 +407,7 @@ ASTBase()
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
 /** @endcond */
@@ -1353,7 +1353,7 @@ ASTNode::setType (int type)
 
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 
   if (copyNumber != NULL)
@@ -2715,7 +2715,7 @@ ASTNode::write(XMLOutputStream& stream) const
 
     for (unsigned int i = 0; i < getNumPlugins(); i++)
     {
-      getPlugin(i)->writeXMLNS(stream);
+      ASTBase::getPlugin(i)->writeXMLNS(stream);
     }
   }
 
@@ -3362,6 +3362,57 @@ ASTNode::unsetUserData()
   return success;
 }
   
+/** @cond doxygenLibsbmlInternal */
+
+ASTBasePlugin* 
+ASTNode::getPlugin(const std::string& package)
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getPlugin(package);
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getPlugin(package);
+  }
+  else
+  {
+    return ASTBase::getPlugin(package);
+  }
+}
+
+const ASTBasePlugin*
+ASTNode::getPlugin(const std::string& package) const
+{
+  return const_cast<ASTNode*>(this)->getPlugin(package);
+}
+
+
+ASTBasePlugin*
+ASTNode::getPlugin(unsigned int n)
+{
+  if (mNumber != NULL)
+  {
+    return mNumber->getPlugin(n);
+  }
+  else if (mFunction != NULL)
+  {
+    return mFunction->getPlugin(n);
+  }
+  else
+  {
+    return ASTBase::getPlugin(n);
+  }
+}
+
+
+const ASTBasePlugin*
+  ASTNode::getPlugin(unsigned int n) const
+{
+  return const_cast<ASTNode*>(this)->getPlugin(n);
+}
+
+/** @endcond */
 
 bool
 ASTNode::canonicalize ()
@@ -3654,7 +3705,7 @@ ASTNode::connectPlugins()
 {
   for (unsigned int i = 0; i < getNumPlugins(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
 /** @endcond */

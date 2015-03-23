@@ -1927,6 +1927,15 @@ setValue(value, 0);
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual ASTBasePlugin* getPlugin(const std::string& package);
+  virtual const ASTBasePlugin* getPlugin(const std::string& package) const;
+  virtual ASTBasePlugin* getPlugin(unsigned int n);
+  virtual const ASTBasePlugin* getPlugin(unsigned int n) const;
+
+  /** @endcond */
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */

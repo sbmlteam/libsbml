@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCSymbolAvogadroNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -73,6 +74,10 @@ ASTCSymbolAvogadroNode::ASTCSymbolAvogadroNode (int type) :
   ASTConstantNumberNode::setValue(6.02214179e23);
   setEncoding("text");
   setDefinitionURL("http://www.sbml.org/sbml/symbols/avogadro");
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

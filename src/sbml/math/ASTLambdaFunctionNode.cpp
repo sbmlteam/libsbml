@@ -38,6 +38,7 @@
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
 #include <sbml/math/ASTNode.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -52,6 +53,10 @@ ASTLambdaFunctionNode::ASTLambdaFunctionNode (int type) :
     , mNumBvars ( 0 )
 
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
   

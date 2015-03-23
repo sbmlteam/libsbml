@@ -39,6 +39,7 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/util/List.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -54,6 +55,10 @@ ASTSemanticsNode::ASTSemanticsNode (int type)
   , mNumAnnotations ( 0 )
 {
   mSemanticsAnnotations = new List;
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 
 }
   

@@ -240,6 +240,12 @@ ASTFunction::ASTFunction (int type) :
       mIsOther = true;
     }
   }
+
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
+
 }
   
 
@@ -3543,6 +3549,112 @@ ASTFunction::hasCorrectNumberArguments() const
 }
 
 
+ASTBasePlugin*
+ASTFunction::getPlugin(const std::string& package)
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->getPlugin(package);
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->getPlugin(package);
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->getPlugin(package);
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->getPlugin(package);
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->getPlugin(package);
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->getPlugin(package);
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->getPlugin(package);
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->getPlugin(package);
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->getPlugin(package);
+  }
+  else
+  {
+    return ASTBase::getPlugin(package);
+  }
+}
+
+
+const ASTBasePlugin*
+ASTFunction::getPlugin(const std::string& package) const
+{
+  return const_cast<ASTFunction*>(this)->getPlugin(package);
+}
+
+
+ASTBasePlugin*
+ASTFunction::getPlugin(unsigned int n)
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction->getPlugin(n);
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction->getPlugin(n);
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction->getPlugin(n);
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction->getPlugin(n);
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda->getPlugin(n);
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise->getPlugin(n);
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol->getPlugin(n);
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier->getPlugin(n);
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics->getPlugin(n);
+  }
+  else
+  {
+    return ASTBase::getPlugin(n);
+  }
+}
+
+
+const ASTBasePlugin*
+ASTFunction::getPlugin(unsigned int n) const
+{
+  return const_cast<ASTFunction*>(this)->getPlugin(n);
+}
+
+
 ASTUnaryFunctionNode *
 ASTFunction::getUnaryFunction() const
 {
@@ -3603,6 +3715,72 @@ ASTSemanticsNode *
 ASTFunction::getSemantics() const
 {
   return mSemantics;
+}
+
+
+ASTBase*
+ASTFunction::getMember() const
+{
+  if (mUnaryFunction != NULL)
+  {
+    return mUnaryFunction;
+  }
+  else if (mBinaryFunction != NULL)
+  {
+    return mBinaryFunction;
+  }
+  else if (mNaryFunction != NULL)
+  {
+    return mNaryFunction;
+  }
+  else if (mUserFunction != NULL)
+  {
+    return mUserFunction;
+  }
+  else if (mLambda != NULL)
+  {
+    return mLambda;
+  }
+  else if (mPiecewise != NULL)
+  {
+    return mPiecewise;
+  }
+  else if (mCSymbol != NULL)
+  {
+    return mCSymbol;
+  }
+  else if (mQualifier != NULL)
+  {
+    return mQualifier;
+  }
+  else if (mSemantics != NULL)
+  {
+    return mSemantics;
+  }
+  else if (mIsOther == true)
+  {
+    if (mPackageName.empty() == false && mPackageName != "core")
+    {
+      return const_cast<ASTBase*>((getPlugin(mPackageName))->getMath());
+    }
+    else
+    {
+      unsigned int i = 0;
+      while (i < getNumPlugins())
+      {
+        if (getPlugin(i)->isSetMath() == true)
+        {
+          return const_cast<ASTBase*>(getPlugin(i)->getMath());
+        }
+        i++;
+      }
+      return NULL;
+    }
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -3844,6 +4022,12 @@ ASTFunction::readFunctionNode(XMLInputStream& stream, const std::string& reqd_pr
 {
   bool done = false;
   
+  std::string package = "core";
+  if (plugin != NULL) 
+  {
+    package = plugin->getPackageName();
+  }
+
   if (representsUnaryFunction(type, plugin) == true)  
   {
     reset();
@@ -3855,7 +4039,7 @@ ASTFunction::readFunctionNode(XMLInputStream& stream, const std::string& reqd_pr
       // if the type came from a plugin set the packagename
       if (type > AST_UNKNOWN)
       {
-        mUnaryFunction->setPackageName(plugin->getPackageName());
+        mUnaryFunction->setPackageName(package);
       }
       this->ASTBase::syncMembersAndResetParentsFrom(mUnaryFunction);
       done = true;
@@ -3877,7 +4061,7 @@ ASTFunction::readFunctionNode(XMLInputStream& stream, const std::string& reqd_pr
       // if the type came from a plugin set the packagename
       if (type > AST_UNKNOWN)
       {
-        mBinaryFunction->setPackageName(plugin->getPackageName());
+        mBinaryFunction->setPackageName(package);
       }
       this->ASTBase::syncMembersAndResetParentsFrom(mBinaryFunction);
       done = true;
@@ -3905,7 +4089,7 @@ ASTFunction::readFunctionNode(XMLInputStream& stream, const std::string& reqd_pr
       // if the type came from a plugin set the packagename
       if (type > AST_UNKNOWN)
       {
-        mNaryFunction->setPackageName(plugin->getPackageName());
+        mNaryFunction->setPackageName(package);
       }
       this->ASTBase::syncMembersAndResetParentsFrom(mNaryFunction);
       done = true;
@@ -4119,6 +4303,15 @@ ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_pref
   expectedAttributes.add("definitionURL");
   ASTBase::readAttributes(element_ci.getAttributes(), expectedAttributes,
                           stream, element_ci);
+  // save the attributes onto the Function
+  if (ASTBase::isSetClass())
+    setClass(ASTBase::getClass());
+  if (ASTBase::isSetId())
+    setId(ASTBase::getId());
+  if (ASTBase::isSetStyle())
+    setStyle(ASTBase::getStyle());
+
+  
   
   funcName = trim( stream.next().getCharacters() );
   
@@ -4263,25 +4456,25 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
 {
   if (mUnaryFunction != NULL)
   {
-    mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mUnaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mUnaryFunction);
   }
   else if (mBinaryFunction != NULL)
   {
-    mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mBinaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mBinaryFunction);
   }
   else if (mNaryFunction != NULL)
   {
-    mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mNaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mNaryFunction);
   }
   else if (mUserFunction != NULL)
   {
-    mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mUserFunction->setType(type);
     if (rhs->isSetName() == true)
     {
@@ -4295,13 +4488,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   }
   else if (mLambda != NULL)
   {
-    mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mLambda->setType(type);
     this->ASTBase::syncMembersFrom(mLambda);
   }
   else if (mPiecewise != NULL)
   {
-    mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mPiecewise->setType(type);
     this->ASTBase::syncMembersFrom(mPiecewise);
   }
@@ -4312,13 +4505,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTNumber* rhs, int type)
   }
   else if (mQualifier != NULL)
   {
-    mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mQualifier->setType(type);
     this->ASTBase::syncMembersFrom(mQualifier);
   }
   else if (mSemantics != NULL)
   {
-    mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mSemantics->setType(type);
     if (rhs->isSetDefinitionURL() == true)
     {
@@ -4339,25 +4532,25 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   bool copyChildren = true;
   if (mUnaryFunction != NULL)
   {
-    mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mUnaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mUnaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mUnaryFunction);
   }
   else if (mBinaryFunction != NULL)
   {
-    mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mBinaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mBinaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mBinaryFunction);
   }
   else if (mNaryFunction != NULL)
   {
-    mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mNaryFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mNaryFunction->setType(type);
     this->ASTBase::syncMembersFrom(mNaryFunction);
   }
   else if (mUserFunction != NULL)
   {
-    mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mUserFunction->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mUserFunction->setType(type);
     if (rhs->isSetName() == true)
     {
@@ -4371,7 +4564,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   }
   else if (mLambda != NULL)
   {
-    mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mLambda->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mLambda->setType(type);
     // taking a punt that we are creating a lamda from a function
     // that we have parsed so set the numBvars
@@ -4380,7 +4573,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   }
   else if (mPiecewise != NULL)
   {
-    mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mPiecewise->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mPiecewise->setType(type);
     this->ASTBase::syncMembersFrom(mPiecewise);
   }
@@ -4391,13 +4584,13 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
   }
   else if (mQualifier != NULL)
   {
-    mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mQualifier->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mQualifier->setType(type);
     this->ASTBase::syncMembersFrom(mQualifier);
   }
   else if (mSemantics != NULL)
   {
-    mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs);
+    mSemantics->ASTBase::syncMembersAndResetParentsFrom(rhs->getMember());
     mSemantics->setType(type);
     if (rhs->isSetDefinitionURL() == true)
     {
@@ -4410,7 +4603,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
     ASTBase * node = NULL;
     if (mPackageName.empty() == false && mPackageName != "core")
     {
-      node = getPlugin(mPackageName)->getMath()->deepCopy();
+      node = ASTBase::getPlugin(mPackageName)->getMath()->deepCopy();
     }
     else
     {
@@ -4418,9 +4611,9 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       bool found = false;
       while (found == false && i < getNumPlugins())
       {
-        if (getPlugin(i)->isSetMath() == true)
+        if (ASTBase::getPlugin(i)->isSetMath() == true)
         {
-          node = getPlugin(i)->getMath()->deepCopy();
+          node = ASTBase::getPlugin(i)->getMath()->deepCopy();
           found = true;
         }
         i++;
@@ -4432,6 +4625,10 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       node->ASTBase::syncMembersAndResetParentsFrom(rhs);
       node->setType(type);
       this->ASTBase::syncMembersFrom(node);
+      for (unsigned int i = 0; i < getNumPlugins(); i++)
+      {
+        ASTBase::getPlugin(i)->connectToParent(this);
+      }
       // note this will clone plugins and therefore any children they may have
       // so do not recopy the children
       if (rhs->getNumChildren() == this->getNumChildren())
@@ -4461,7 +4658,7 @@ ASTFunction::syncPackageMembersAndTypeFrom(ASTFunction* rhs, int type)
     ASTBase * node = NULL;
     if (mPackageName.empty() == false && mPackageName != "core")
     {
-      node = const_cast<ASTBase*>(getPlugin(mPackageName)->getMath());
+      node = const_cast<ASTBase*>(ASTBase::getPlugin(mPackageName)->getMath());
     }
     else
     {
@@ -4469,9 +4666,9 @@ ASTFunction::syncPackageMembersAndTypeFrom(ASTFunction* rhs, int type)
       bool found = false;
       while (found == false && i < getNumPlugins())
       {
-        if (getPlugin(i)->isSetMath() == true)
+        if (ASTBase::getPlugin(i)->isSetMath() == true)
         {
-          node = const_cast<ASTBase*>(getPlugin(i)->getMath());
+          node = const_cast<ASTBase*>(ASTBase::getPlugin(i)->getMath());
           found = true;
         }
         i++;
@@ -4506,54 +4703,63 @@ ASTFunction::reset()
 {
   if (mUnaryFunction != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mUnaryFunction);
     delete mUnaryFunction;
     mUnaryFunction = NULL;
   }
 
   if (mBinaryFunction != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mBinaryFunction);
     delete mBinaryFunction;
     mBinaryFunction = NULL;
   }
 
   if (mNaryFunction != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mNaryFunction);
     delete mNaryFunction;
     mNaryFunction = NULL;
   }
 
   if (mUserFunction != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mUserFunction);
     delete mUserFunction;
     mUserFunction = NULL;
   }
 
   if (mLambda != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mLambda);
     delete mLambda;
     mLambda = NULL;
   }
 
   if (mPiecewise != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mPiecewise);
     delete mPiecewise;
     mPiecewise = NULL;
   }
 
   if (mCSymbol != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mCSymbol);
     delete mCSymbol;
     mCSymbol = NULL;
   }
 
   if (mQualifier != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mQualifier);
     delete mQualifier;
     mQualifier = NULL;
   }
 
   if (mSemantics != NULL)
   {
+    this->syncMembersAndResetParentsFrom(mSemantics);
     delete mSemantics;
     mSemantics = NULL;
   }

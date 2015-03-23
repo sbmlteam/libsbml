@@ -36,6 +36,7 @@
 #include <sbml/math/ASTUnaryFunctionNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -48,6 +49,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ASTUnaryFunctionNode::ASTUnaryFunctionNode (int type) :
   ASTFunctionBase(type)
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

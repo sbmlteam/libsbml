@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCnExponentialNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include <sstream>
 
@@ -55,6 +56,10 @@ ASTCnExponentialNode::ASTCnExponentialNode (int type) :
     , mIsSetMantissa  ( false )
     , mIsSetExponent    ( false )
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

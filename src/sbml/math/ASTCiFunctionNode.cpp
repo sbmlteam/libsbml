@@ -37,6 +37,7 @@
 #include <sbml/math/ASTNaryFunctionNode.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTFunction.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -51,6 +52,10 @@ ASTCiFunctionNode::ASTCiFunctionNode (int type) :
     , mName ("")
     , mDefinitionURL ( "" )
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 

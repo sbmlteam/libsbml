@@ -59,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 ASTBasePlugin::ASTBasePlugin (const std::string &uri)
  : mSBMLExt(SBMLExtensionRegistry::getInstance().getExtensionInternal(uri))
-  ,mParent(NULL)
+  ,mParentASTNode(NULL)
   ,mURI(uri)
   ,mSBMLNS(NULL)
   ,mPrefix("")
@@ -71,7 +71,7 @@ ASTBasePlugin::ASTBasePlugin (const std::string &uri)
  */
 ASTBasePlugin::ASTBasePlugin ()
  : mSBMLExt(NULL)
-  ,mParent(NULL)
+  ,mParentASTNode(NULL)
   ,mURI("")
   ,mSBMLNS(NULL)
   ,mPrefix("")
@@ -86,7 +86,7 @@ ASTBasePlugin::ASTBasePlugin ()
 */
 ASTBasePlugin::ASTBasePlugin(const ASTBasePlugin& orig)
   : mSBMLExt(orig.mSBMLExt)
-   ,mParent(orig.mParent) // 
+   ,mParentASTNode(NULL) // 
    ,mURI(orig.mURI)
    ,mSBMLNS(NULL)
    ,mPrefix(orig.mPrefix)
@@ -115,7 +115,7 @@ ASTBasePlugin&
 ASTBasePlugin::operator=(const ASTBasePlugin& orig)
 {
   mSBMLExt = orig.mSBMLExt;
-  mParent  = orig.mParent;  // 0 should be set to mSBML and mParent?
+  mParentASTNode  = orig.mParentASTNode;  // 0 should be set to mSBML and mParentASTNode?
   mURI     = orig.mURI;
   mPrefix  = orig.mPrefix;
 
@@ -156,7 +156,7 @@ ASTBasePlugin::setSBMLExtension (const SBMLExtension* ext)
 void
 ASTBasePlugin::connectToParent (ASTBase* astbase)
 {
-  mParent = astbase;
+  mParentASTNode = astbase;
 }
 
 
@@ -197,7 +197,7 @@ ASTBasePlugin::setPrefix(const std::string &prefix)
 ASTBase*
 ASTBasePlugin::getParentASTObject ()
 {
-  return mParent;
+  return mParentASTNode;
 }
 
 
@@ -207,7 +207,7 @@ ASTBasePlugin::getParentASTObject ()
 const ASTBase*
 ASTBasePlugin::getParentASTObject () const
 {
-  return mParent;
+  return mParentASTNode;
 }
 
 

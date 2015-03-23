@@ -36,6 +36,7 @@
 #include <sbml/math/ASTConstantNumberNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /* open doxygen comment */
 
@@ -72,6 +73,10 @@ ASTConstantNumberNode::ASTConstantNumberNode (int type) :
     break;
   default:
     break;
+  }
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
   

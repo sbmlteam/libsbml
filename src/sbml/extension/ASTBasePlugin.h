@@ -423,7 +423,7 @@ protected:
   // Parent ASTNode object to which this plugin object
   // connected.
   //
-  ASTBase                *mParent;
+  ASTBase                *mParentASTNode;
 
   //
   // XML namespace of corresponding package extension

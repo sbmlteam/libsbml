@@ -36,6 +36,7 @@
 #include <sbml/math/ASTCnRationalNode.h>
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 #include <sstream>
 
@@ -55,6 +56,10 @@ ASTCnRationalNode::ASTCnRationalNode (int type) :
     , mIsSetDenominator  ( false )
     , mIsSetNumerator    ( false )
 {
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
   
 
@@ -66,6 +71,10 @@ ASTCnRationalNode::ASTCnRationalNode (const XMLNode *xml) :
     , mIsSetNumerator    ( false )
 {
     setType(AST_RATIONAL);
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    ASTBase::getPlugin(i)->connectToParent(this);
+  }
 }
 
   

@@ -256,7 +256,7 @@ public:
    * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
    */
-  ASTBasePlugin* getPlugin(const std::string& package);
+  virtual ASTBasePlugin* getPlugin(const std::string& package);
 
 
   /**
@@ -268,7 +268,7 @@ public:
    * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
-  const ASTBasePlugin* getPlugin(const std::string& package) const;
+  virtual const ASTBasePlugin* getPlugin(const std::string& package) const;
 
 
   /**
@@ -280,7 +280,7 @@ public:
    * @return the plug-in object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
    */
-  ASTBasePlugin* getPlugin(unsigned int n);
+  virtual ASTBasePlugin* getPlugin(unsigned int n);
 
 
   /**
@@ -292,7 +292,7 @@ public:
    * @return the plug-in object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
-  const ASTBasePlugin* getPlugin(unsigned int n) const;
+  virtual const ASTBasePlugin* getPlugin(unsigned int n) const;
 
 
   /**

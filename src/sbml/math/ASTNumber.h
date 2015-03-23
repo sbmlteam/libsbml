@@ -246,6 +246,12 @@ public:
  /************************************* 
    * access member variable functions 
    */
+  virtual ASTBasePlugin* getPlugin(const std::string& package);
+  virtual const ASTBasePlugin* getPlugin(const std::string& package) const;
+  virtual ASTBasePlugin* getPlugin(unsigned int n);
+  virtual const ASTBasePlugin* getPlugin(unsigned int n) const;
+
+  ASTBase* getMember() const;
 
   /************************************* 
    * read/write functions 
