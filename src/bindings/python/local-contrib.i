@@ -222,3 +222,46 @@ class AutoProperty(type):
     }
 }
 
+
+%extend CVTerm
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}
+
+
+%extend Date
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}
+
+
+%extend ModelCreator
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}
+
+%extend ModelHistory
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}
+
+
+%extend SBMLNamespaces
+{
+    %pythoncode
+    {
+        __metaclass__ = AutoProperty
+    }
+}

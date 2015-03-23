@@ -785,6 +785,80 @@ def readSBML(*args):
 %}
 
 
+
+
+/**
+ * Allows ListOf objects:
+ *
+ *   - To be indexed and sliced, e.g. lst[0].
+ */
+ 
+%define WRAP_LISTWRAPPER(CLASS)
+
+%template ( ListWrapper ## CLASS ) ListWrapper<CLASS>;
+
+%extend ListWrapper<CLASS>
+{
+  int __len__()
+  {
+    return self->getSize();
+  }
+
+  %pythoncode
+  {
+    def __getitem__(self, key):
+
+      try:
+         keyIsSlice = isinstance(key, slice)
+      except:
+         keyIsSlice = 0
+
+      if keyIsSlice:
+        start = key.start
+        if start is None:
+          start = 0
+        stop = key.stop
+        if stop is None:
+          stop = self.getSize()
+        return [self[i] for i in range(
+          self._fixNegativeIndex(start), self._fixNegativeIndex(stop)
+        )]
+
+      key = self._fixNegativeIndex(key)
+      if key < 0 or key >= self.getSize():
+        raise IndexError(key)
+      return self.get(key)
+
+
+    def _fixNegativeIndex(self, index):
+      if index < 0:
+        return index + self.getSize()
+      else:
+        return index
+
+
+    def __iter__(self):
+      for i in range(self.getSize()):
+        yield self[i]
+
+
+    def __repr__(self):
+      return "[" + ", ".join([repr(self[i]) for i in range(len(self))]) + "]"
+
+
+    def __str__(self):
+      return repr(self)
+  }
+}
+
+%enddef
+
+WRAP_LISTWRAPPER(SBMLNamespaces)
+WRAP_LISTWRAPPER(CVTerm)
+WRAP_LISTWRAPPER(Date)
+WRAP_LISTWRAPPER(ModelCreator)
+
+
 /**
  *  Wraps the following functions by using the corresponding 
  *  ListWrapper<TYPENAME> class.
@@ -804,6 +878,8 @@ def readSBML(*args):
  *
  */
 
+ 
+ 
 %feature("shadow")
 SBMLNamespaces::getSupportedNamespaces
 %{
@@ -890,7 +966,7 @@ ModelHistory::getListModifiedDates
 #endif
                                SWIG_POINTER_OWN |  0 );
 }
-
+ 
 %feature("shadow")
 SBase::getCVTerms
 %{
