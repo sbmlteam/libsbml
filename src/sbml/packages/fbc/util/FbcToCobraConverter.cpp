@@ -89,6 +89,7 @@ ConversionProperties
 {
   static ConversionProperties prop;
   prop.addOption("convert fbc to cobra", true, "convert FBC L3V1 to SBML L2V4 with COBRA annotation");
+  prop.addOption("overwriteReactionNotes", false, "write gene association into reaction notes, even if the reaction has notes already");
   return prop;
 }
 
@@ -212,6 +213,21 @@ string getNotesForFormula(const string& formula)
   return str.str();
 }
 
+const GeneAssociation* getGeneAssociationForReaction(const FbcModelPlugin* plugin, const std::string& id)
+{
+  if (plugin == NULL) return NULL;
+
+  for (int i = 0; i < plugin->getNumGeneAssociations(); ++i)
+  {
+    const GeneAssociation* association = plugin->getGeneAssociation(i);
+    if (association == NULL) continue;
+
+    if (association->isSetReaction() && association->getReaction() == id)
+      return association;
+  }
+  return NULL;
+}
+
 int 
   FbcToCobraConverter::convert()
 {  
@@ -260,6 +276,12 @@ int
     }
   }
 
+
+  // overwrite reactionNotes
+  bool overwriteReactionNotes = getProperties() != NULL && 
+    getProperties()->hasOption("overwriteReactionNotes") &&
+    getProperties()->getBoolValue("overwriteReactionNotes");
+
   // create KineticLaw
   for (unsigned int i = 0; i < model->getNumReactions(); ++i)
   {
@@ -268,6 +290,25 @@ int
       continue;
 
     createKineticLawForReaction(reaction);
+
+    // get gene association for reaction 
+    const GeneAssociation* association = getGeneAssociationForReaction(plugin, reaction->getId());
+    
+    if (association == NULL || association->getAssociation() == NULL) continue;
+
+    //unset notes if requested
+    if (reaction->isSetNotes() && overwriteReactionNotes)
+      reaction->unsetNotes();
+
+    // skip adding gene association if we already have notes
+    if (reaction->isSetNotes()) continue;
+
+    // write new notes 
+    reaction->setNotes(
+      "<body xmlns='http://www.w3.org/1999/xhtml'>\n"
+      "  <p>GENE_ASSOCIATION : " + association->getAssociation()->toInfix() +"</p>\n"
+      "</body>"
+    );
 
   }
 
