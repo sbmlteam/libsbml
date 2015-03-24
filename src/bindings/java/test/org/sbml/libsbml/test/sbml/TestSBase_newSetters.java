@@ -138,7 +138,7 @@ public class TestSBase_newSetters {
     cv.setBiologicalQualifierType(libsbml.BQB_ENCODES);
     cv.addResource( "foo");
     int i = S.addCVTerm(cv);
-    assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+    assertTrue( i == libsbml.LIBSBML_MISSING_METAID );
     assertTrue( S.getNumCVTerms() == 0 );
     S.setMetaId( "_id");
     i = S.addCVTerm(cv);

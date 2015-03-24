@@ -59,7 +59,7 @@ class TestSBase_newSetters(unittest.TestCase):
     cv.setBiologicalQualifierType(libsbml.BQB_ENCODES)
     cv.addResource( "foo")
     i = self.S.addCVTerm(cv)
-    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assert_( i == libsbml.LIBSBML_MISSING_METAID )
     self.assert_( self.S.getNumCVTerms() == 0 )
     self.S.setMetaId( "_id")
     i = self.S.addCVTerm(cv)

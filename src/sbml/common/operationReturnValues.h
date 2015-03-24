@@ -128,7 +128,7 @@ typedef enum
 
   , LIBSBML_DUPLICATE_ANNOTATION_NS   = -11
     /*!< There already exists a top level annotation with the same namespace as
-     * annoation being appended.  This error is
+     * annotation being appended.  This error is
      * typically returned in situations where the appendAnnotation function
      * is being used to add an annotation that has a namespace that is already
      * present in the existing annotation. */
@@ -152,6 +152,11 @@ typedef enum
      * is being used to replace or remove an annotation with a namespace that does
      * not match the namespace of any top-level element that is already
      * present in the existing annotation. */
+
+     , LIBSBML_MISSING_METAID   = -14
+    /*!< The requested action cannot be performed as the target object does not have 
+     * the metaid attribute set. */
+     
    /* ---------------------------------------------------------------------------
     *   
     *              Return codes for package extension

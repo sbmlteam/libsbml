@@ -1843,7 +1843,7 @@ START_TEST(test_SBase_addCVTerms)
   
   int i = SBase_addCVTerm(S, cv);
 
-  fail_unless ( i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless ( i == LIBSBML_MISSING_METAID);
   fail_unless(SBase_getNumCVTerms(S) == 0);
 
   SBase_setMetaId(S, "_id");

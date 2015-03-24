@@ -1280,7 +1280,7 @@ SBase::setAnnotation (const XMLNode* annotation)
       && isSetMetaId() == false)
     {
       mAnnotation = NULL;
-      return LIBSBML_UNEXPECTED_ATTRIBUTE;
+      return LIBSBML_MISSING_METAID;
     }
     else
     {
@@ -1448,7 +1448,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
       || RDFAnnotationParser::hasHistoryRDFAnnotation(annotation) == true)
     && isSetMetaId() == false)
   {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return LIBSBML_MISSING_METAID;
   }
 
   XMLNode* new_annotation = NULL;
@@ -2241,7 +2241,7 @@ SBase::setModelHistory(ModelHistory * history)
   // shouldnt add a history to an object with no metaid
   if (!isSetMetaId())
   {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return LIBSBML_MISSING_METAID;
   }
 
   if (mHistory == history)
@@ -2645,7 +2645,7 @@ SBase::addCVTerm(CVTerm * term, bool newBag)
   // shouldnt add a CVTerm to an object with no metaid
   if (!isSetMetaId())
   {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return LIBSBML_MISSING_METAID;
   }
 
   if (term == NULL)
