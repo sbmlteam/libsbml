@@ -46,6 +46,10 @@ sbmlns = SBMLNamespaces(3,1,"fbc",1);
 
 document = SBMLDocument(sbmlns);
 
+# mark the fbc package as not required
+
+document.setPackageRequired("fbc", False)
+
 #  create the Model
 
 model= document.createModel();
@@ -65,6 +69,15 @@ species.setCompartment("compartment");
 species.setBoundaryCondition(False);
 species.setConstant(False);
 species.setHasOnlySubstanceUnits(False);
+
+# just as an example for setting charge and chemicalFormula
+
+splugin = species.getPlugin("fbc")
+if splugin != None: 
+  splugin.setCharge(-1)
+  # chemical formula should follow the hill system
+  splugin.setChemicalFormula("C2H5Br")
+
 
 species = model.createSpecies();
 species.setId("Node2");
