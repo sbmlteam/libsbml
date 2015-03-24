@@ -90,8 +90,8 @@ START_TEST (test_SBMLExtension)
 	status = ext->addSBasePluginCreator(modelPluginCreator);
 	fail_unless(status == LIBSBML_OPERATION_SUCCESS );
 
-	// this number is three as the static initializer already adds 2, plus the one created above
-	fail_unless(ext->getNumOfSBasePlugins() == 3 ); 
+	// this number is three as the static initializer already adds 3, plus the one created above
+	fail_unless(ext->getNumOfSBasePlugins() == 4 ); 
 	fail_unless(ext->getNumOfSupportedPackageURI() == 1 );
 
 	// now try to get it back
@@ -183,6 +183,17 @@ START_TEST (test_SBMLExtension_copy)
 	fail_unless(ext != NULL );
 	fail_unless(ext->getURI(3, 1, 1) == uri);
 	fail_unless(ext->getURI(300, 100, 100) == "");
+
+  // test that we get the creators back that we expect
+
+  SBaseExtensionPoint losExtPoint("core", SBML_LIST_OF, "listOfSpecies");
+  SBaseExtensionPoint lorExtPoint("core", SBML_LIST_OF, "listOfReactions");
+  
+  // test plugin only extends the list of species 
+  fail_unless(ext->getSBasePluginCreator(losExtPoint) != NULL);
+  // but not the list of reactions
+  fail_unless(ext->getSBasePluginCreator(lorExtPoint) == NULL);
+
 
 	// test copy
   TestExtension *copy = new TestExtension(*ext);

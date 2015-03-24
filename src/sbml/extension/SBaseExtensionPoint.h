@@ -81,6 +81,40 @@ public:
    */
   SBaseExtensionPoint(const std::string& pkgName, int typeCode);
 
+  /**
+  * Constructor for SBaseExtensionPoint.
+  *
+  * The use of SBaseExtensionPoint is relatively straightforward.  The
+  * class needs to be used for each extended SBML object implemented
+  * using SBMLDocumentPlugin or SBasePlugin.  Doing so requires knowing
+  * just two things:
+  *
+  * @li The short-form name of the @em parent package being extended.
+  * The parent package is often simply core SBML, identified in libSBML
+  * by the nickname <code>"core"</code>, but a SBML Level&nbsp;3
+  * package could conceivably extend another Level&nbsp;3 package and
+  * the mechanism supports this.
+  *
+  * @li The libSBML type code assigned to the object being extended.
+  * For example, if an extension of Model is implemented, the relevant
+  * type code is SBML_MODEL, found in #SBMLTypeCode_t.
+  *
+  * @param pkgName the short-form name of the parent package where
+  * that this package extension is extending.
+  *
+  * @param typeCode the type code of the object being extended.
+  * 
+  * @param elementName element name for the target element, in case 
+  * multiple elements match the same type code (as will be the case
+  * for ListOf classes)
+  *
+  * @param elementOnly flag to be used during the registration 
+  * of the package, when set then the plugin is only applied to 
+  * elements whose elementName match.
+  */
+  SBaseExtensionPoint(const std::string& pkgName, 
+    int typeCode, const std::string& elementName, bool elementOnly = false);
+
 
   /**
    * Destroys this SBaseExtensionPoint object.
@@ -117,10 +151,21 @@ public:
    */
   virtual int getTypeCode() const;
 
+  /**
+   * the target element name
+   */
+  const std::string& getElementName() const; 
+
+  /**
+   * 
+   */
+  bool isElementOnly() const; 
 
 private:
   std::string mPackageName;
   int         mTypeCode;
+  std::string mElementName;  
+  bool        mElementOnly;
 };
 
 

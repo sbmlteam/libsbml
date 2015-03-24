@@ -90,7 +90,32 @@ typedef enum
    SBML_TEST_TEST  = 200
 } SBMLGroupsTypeCode_t;
 
+class TestLOSPlugin : public SBasePlugin
+{
+public:
+  TestLOSPlugin(const std::string &uri, const std::string &prefix,
+    TestPkgNamespaces *groupsns);
+  TestLOSPlugin(const TestLOSPlugin& orig);
+  virtual ~TestLOSPlugin();
+  TestLOSPlugin& operator=(const TestLOSPlugin& orig);
+  virtual TestLOSPlugin* clone() const;
+  virtual SBase* createObject(XMLInputStream& stream);
+  virtual void writeElements(XMLOutputStream& stream) const;
+  virtual bool hasRequiredElements() const;
 
+  virtual void setSBMLDocument(SBMLDocument* d);
+  virtual void connectToParent(SBase *sbase);
+
+  virtual void enablePackageInternal(const std::string& pkgURI,
+    const std::string& pkgPrefix, bool flag);
+  const std::string& getValue() const;
+  void setValue(const std::string& value);
+  virtual bool accept(SBMLVisitor& v) const;
+
+
+protected:
+  std::string mValue;
+};
 
 class TestModelPlugin : public SBasePlugin
 {

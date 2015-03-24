@@ -3271,7 +3271,7 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
 
       if (sbmlext)
       {
-        SBaseExtensionPoint extPoint(getPackageName(), getTypeCode());
+        SBaseExtensionPoint extPoint(getPackageName(), getTypeCode(), getElementName());
         const SBasePluginCreatorBase* sbPluginCreator = sbmlext->getSBasePluginCreator(extPoint);
         if (sbPluginCreator)
         {
