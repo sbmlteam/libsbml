@@ -85,6 +85,7 @@ typedef enum
     , SBML_LOCAL_PARAMETER            = 30 /*!< LocalParameter */
     , SBML_PRIORITY                   = 31 /*!< Priority */
     , SBML_GENERIC_SBASE              = 32 /*!< Any SBase-derived class. Not returned by any getType function, but used internally for packages that extend the SBase class itself, in the PKGNAMEExtension classes (such as CompExtension). */
+    , SBML_LIST_OF_REACTIONS          = 33 /*!< ListOfReactions */
 } SBMLTypeCode_t;
 
 

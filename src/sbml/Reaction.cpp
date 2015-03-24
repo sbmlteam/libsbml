@@ -1887,6 +1887,12 @@ ListOfReactions::getItemTypeCode () const
   return SBML_REACTION;
 }
 
+int
+ListOfReactions::getTypeCode () const
+{
+  return SBML_LIST_OF_REACTIONS;
+}
+
 
 /*
  * @return the name of this element ie "listOfReactions".

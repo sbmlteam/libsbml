@@ -1296,6 +1296,27 @@ public:
    */
   virtual int getItemTypeCode () const;
 
+  /**
+   * Returns the libSBML type code for this object.
+   *
+   * @copydetails doc_what_are_typecodes
+   *
+   * @copydetails doc_additional_typecode_details
+   *
+   * @return the @if clike #SBMLTypeCode_t value@else SBML object type
+   * code@endif@~ of this SBML object, or @sbmlconstant{SBML_UNKNOWN,
+   * SBMLTypeCode_t} (the default).  The latter is possible because
+   * subclasses of SBase are not required to implement this method to return
+   * a type code.
+   *
+   * @copydetails doc_warning_typecodes_not_unique
+   *
+   * @see getPackageName()
+   * @see getElementName()
+   */
+  virtual int getTypeCode () const;
+
+
 
   /**
    * Returns the XML element name of this object
