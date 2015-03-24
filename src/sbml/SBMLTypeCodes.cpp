@@ -72,7 +72,6 @@ const char* SBML_TYPE_CODE_STRINGS[] =
   , "StoichiometryMath"
   , "LocalParameter"
   , "Priority"
-  , "ListOfReactions"
 };
 
 
