@@ -1370,6 +1370,16 @@ Model::dealWithEvents(bool strict)
   }
 }
 
+bool isValidUnit(const Model* model, const std::string& unitId)
+{
+  if (model == NULL) return false;
+
+  if (model->getUnitDefinition(unitId) != NULL)
+    return true;
+
+  return UnitKind_forName(unitId.c_str()) != UNIT_KIND_INVALID;
+}
+
 void
 Model::dealWithModelUnits(bool strict)
 {
@@ -1378,7 +1388,7 @@ Model::dealWithModelUnits(bool strict)
   unsigned int n = 0;
   unsigned int num = elements->getSize();
   
-  if (isSetVolumeUnits())
+  if (isSetVolumeUnits() && isValidUnit(this, getVolumeUnits()))
   {
     std::string volume = getVolumeUnits();
     // if in an L3 model a user used volume as an id of a UnitDefinition
@@ -1421,7 +1431,7 @@ Model::dealWithModelUnits(bool strict)
     delete ud;
     if (strict) unsetVolumeUnits();
   }
-  if (isSetAreaUnits())
+  if (isSetAreaUnits() && isValidUnit(this, getAreaUnits()))
   {
     std::string area = getAreaUnits();
     // if in an L3 model a user used area as an id of a UnitDefinition
@@ -1464,7 +1474,7 @@ Model::dealWithModelUnits(bool strict)
     delete ud;
     if (strict) unsetAreaUnits();
   }
-  if (isSetLengthUnits())
+  if (isSetLengthUnits() && isValidUnit(this, getLengthUnits()))
   {
     std::string length = getLengthUnits();
     // if in an L3 model a user used length as an id of a UnitDefinition
@@ -1507,7 +1517,7 @@ Model::dealWithModelUnits(bool strict)
     delete ud;
     if (strict) unsetLengthUnits();
   }
-  if (isSetSubstanceUnits())
+  if (isSetSubstanceUnits() && isValidUnit(this, getSubstanceUnits()))
   {
     std::string substance = getSubstanceUnits();
     // if in an L3 model a user used substance as an id of a UnitDefinition
@@ -1550,7 +1560,7 @@ Model::dealWithModelUnits(bool strict)
     delete ud;
     if (strict) unsetSubstanceUnits();
   }
-  if (isSetTimeUnits())
+  if (isSetTimeUnits() && isValidUnit(this, getTimeUnits()))
   {
     std::string time = getTimeUnits();
     // if in an L3 model a user used time as an id of a UnitDefinition
