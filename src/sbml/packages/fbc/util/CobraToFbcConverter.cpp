@@ -89,6 +89,7 @@ ConversionProperties
   static ConversionProperties prop;
   prop.addOption("convert cobra", true, "convert cobra sbml to fbc");
   prop.addOption("checkCompatibility", false, "checks level/version compatibility");
+  prop.addOption("removeUnits", false, "removes unit definitions");
   return prop;
 }
 
@@ -112,17 +113,17 @@ CobraToFbcConverter::matchesProperties(const ConversionProperties &props) const
 }
 
 int 
-  CobraToFbcConverter::convert()
-{  
+CobraToFbcConverter::convert()
+{
   int result = LIBSBML_OPERATION_FAILED;
 
-  if (mDocument == NULL) 
+  if (mDocument == NULL)
   {
     return LIBSBML_INVALID_OBJECT;
   }
 
   Model* mModel = mDocument->getModel();
-  if (mModel == NULL) 
+  if (mModel == NULL)
   {
     return LIBSBML_INVALID_OBJECT;
   }
@@ -135,12 +136,12 @@ int
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
-  
+
   std::map<const string, int> chargeMap;
   std::map<const string, string> formulaMap;
   Model* model = mDocument->getModel();
 
-  for (unsigned int i = 0; i < model->getNumSpecies();++i)
+  for (unsigned int i = 0; i < model->getNumSpecies(); ++i)
   {
     Species* current = model->getSpecies(i);
     bool haveCharge = current->isSetCharge();
@@ -154,43 +155,43 @@ int
     if (current->isSetNotes())
     {
       string originalNotes = current->getNotesString();
-	  string notes(originalNotes);
+      string notes(originalNotes);
       std::transform(notes.begin(), notes.end(), notes.begin(), ::toupper);
       size_t pos = notes.find("FORMULA:");
       if (pos != string::npos)
       {
-        size_t end = notes.find("</", pos+9);
+        size_t end = notes.find("</", pos + 9);
         if (end != string::npos)
         {
-          string formula = originalNotes.substr(pos + 9, end-(pos+9));
-          if (formula[0] != '<' &&  formula[0] != '/' )
+          string formula = originalNotes.substr(pos + 9, end - (pos + 9));
+          if (formula[0] != '<' &&  formula[0] != '/')
           {
             size_t pos = formula.find_first_not_of(" \n\t\r");
             if (pos != std::string::npos)
-            formulaMap[current->getId()] = formula;
+              formulaMap[current->getId()] = formula;
           }
         }
       } // added chemical formula if present 
-	 
+
       pos = notes.find("CHARGE:");
       if (pos != string::npos && !haveCharge)
       {
-        size_t end = notes.find("</", pos+8);
+        size_t end = notes.find("</", pos + 8);
         if (end != string::npos)
         {
-          string formula = originalNotes.substr(pos + 8, end-(pos+8));
-          if (formula[0] != '<' &&  formula[0] != '/' )
+          string formula = originalNotes.substr(pos + 8, end - (pos + 8));
+          if (formula[0] != '<' &&  formula[0] != '/')
           {
             size_t pos = formula.find_first_not_of(" \n\t\r");
             if (pos != std::string::npos)
-		  {
-			int charge; 
-			stringstream str; 
-			str << formula; 
-			str >> charge;
-			if (charge != 0)
-			  chargeMap[current->getId()] = charge;
-		  }
+            {
+              int charge;
+              stringstream str;
+              str << formula;
+              str >> charge;
+              if (charge != 0)
+                chargeMap[current->getId()] = charge;
+            }
           }
         }
       } // added charge if present
@@ -202,7 +203,7 @@ int
 
   if (checkCompatibility())
   {
-    SBMLNamespaces l3ns(3,1);
+    SBMLNamespaces l3ns(3, 1);
     ConversionProperties prop(&l3ns);
     prop.addOption("strict", false, "should validity be preserved");
     prop.addOption("ignorePackages", true, "convert even if packages are used");
@@ -217,8 +218,8 @@ int
     mDocument->updateSBMLNamespace("core", 3, 1);
     mDocument->getModel()->convertL2ToL3();
   }
-    
-  mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc",true);
+
+  mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc", true);
   mDocument->setPkgRequired("fbc", false);
 
   FbcModelPlugin *fbcPlugin = (FbcModelPlugin*)model->getPlugin("fbc");
@@ -235,7 +236,7 @@ int
     KineticLaw* kineticLaw = reaction->getKineticLaw();
     if (kineticLaw == NULL) continue;
     double LB = kineticLaw->getLocalParameter("LOWER_BOUND") != NULL ? kineticLaw->getLocalParameter("LOWER_BOUND")->getValue() : -std::numeric_limits<double>::infinity();
-    double UB = kineticLaw->getLocalParameter("UPPER_BOUND") != NULL ? kineticLaw->getLocalParameter("UPPER_BOUND")->getValue() :  std::numeric_limits<double>::infinity();
+    double UB = kineticLaw->getLocalParameter("UPPER_BOUND") != NULL ? kineticLaw->getLocalParameter("UPPER_BOUND")->getValue() : std::numeric_limits<double>::infinity();
     double OBJ = kineticLaw->getLocalParameter("OBJECTIVE_COEFFICIENT") != NULL ? kineticLaw->getLocalParameter("OBJECTIVE_COEFFICIENT")->getValue() : 0;
     reaction->unsetKineticLaw();
 
@@ -279,15 +280,15 @@ int
       size_t pos = notes.find("ASSOCIATION:");
       if (pos != string::npos)
       {
-        size_t end = notes.find("</", pos+12);
+        size_t end = notes.find("</", pos + 12);
         if (end != string::npos)
         {
-          string geneAssociation = originalNotes.substr(pos + 12, end-(pos+12));
+          string geneAssociation = originalNotes.substr(pos + 12, end - (pos + 12));
           Association* association = Association::parseInfixAssociation(geneAssociation);
           if (association != NULL)
           {
             GeneAssociation* ga = fbcPlugin->createGeneAssociation();
-            stringstream temp; temp  << "ga_" << (fbcPlugin->getNumGeneAssociations());
+            stringstream temp; temp << "ga_" << (fbcPlugin->getNumGeneAssociations());
             ga->setId(temp.str());
             ga->setReaction(rID);
             ga->setAssociation(association);
@@ -298,29 +299,35 @@ int
     }
 
   }
-  
+
   // remove objective if we never had an active one
   if (objective->getNumFluxObjectives() == 0)
   {
     delete fbcPlugin->removeObjective("obj");
     fbcPlugin->unsetActiveObjectiveId();
   }
-  
 
-  model->setTimeUnits("dimensionless");
 
-  while (model->getNumUnitDefinitions() > 0)
+  bool removeUnits = getProperties() != NULL &&
+    getProperties()->hasOption("removeUnits") &&
+    getProperties()->getBoolValue("removeUnits");
+
+  if (removeUnits)
   {
-    delete model->removeUnitDefinition(0);
+    model->setTimeUnits("dimensionless");
+    while (model->getNumUnitDefinitions() > 0)
+    {
+      delete model->removeUnitDefinition(0);
+    }
+    
+    for (unsigned int i = 0; i < model->getNumCompartments(); ++i)
+      model->getCompartment(i)->unsetUnits();
   }
-
-  for (unsigned int i = 0; i < model->getNumCompartments(); ++i)
-    model->getCompartment(i)->unsetUnits();
 
   for (unsigned int i = 0; i < model->getNumSpecies(); ++i)
   {
     Species *current =  model->getSpecies(i);
-    current->unsetUnits();
+    if (removeUnits) current->unsetUnits();
     FbcSpeciesPlugin* splugin = static_cast<FbcSpeciesPlugin*>(current->getPlugin("fbc"));
     int charge = chargeMap[current->getId()];
     if (charge != 0)

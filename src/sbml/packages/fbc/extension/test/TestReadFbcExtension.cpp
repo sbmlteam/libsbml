@@ -372,6 +372,53 @@ START_TEST(test_FbcExtension_read_and_validate_chemicals)
 }
 END_TEST
 
+START_TEST(test_FbcExtension_read_and_convert)
+{
+  char *filename = safe_strcat(TestDataDirectory, "cobra-l2.xml");
+  SBMLDocument *document = readSBMLFromFile(filename);
+
+  // ensure we have a model, and it has no errors
+  fail_unless(document->getModel() != NULL);
+  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) ==0);
+  document->checkConsistency();
+  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  // convert to L3
+  ConversionProperties props;
+  props.addOption("convert cobra", true);
+  props.addOption("checkCompatibility", true);
+  
+  int result = document->convert(props);
+
+  // ensure that all is well with the model
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  Model* model = document->getModel();
+
+  // NOW let us look at the units
+  fail_unless(model->isSetSubstanceUnits());
+  fail_unless(model->getSubstanceUnits() == "substance");
+  fail_unless(model->isSetTimeUnits());
+  fail_unless(model->isSetExtentUnits());
+  fail_unless(model->isSetAreaUnits());
+  fail_unless(model->isSetLengthUnits());
+
+  // ok ... since we have all the units defined, there ought to be unit definitions
+  fail_unless(model->getNumUnitDefinitions() > 0);
+  
+  UnitDefinition* substance = model->getUnitDefinition("substance");
+  fail_unless(substance != NULL);
+
+
+  std::string finalModel = writeSBMLToStdString(document);
+
+
+  delete document;
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadFbcExtension (void)
 {
@@ -384,6 +431,7 @@ create_suite_ReadFbcExtension (void)
   tcase_add_test( tcase, test_FbcExtension_read_L3V1V1_unknown_elements);
   tcase_add_test( tcase, test_FbcExtension_read_L3V1V1_with_wonky_chemicals);
   tcase_add_test( tcase, test_FbcExtension_read_and_validate_chemicals);
+  tcase_add_test( tcase, test_FbcExtension_read_and_convert);
   suite_add_tcase(suite, tcase);
   
   return suite;

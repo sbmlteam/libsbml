@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="meta_WCM_3_10" id="WCM_3_10" name="Whole Cell 2015 - Metabolism">
+    <listOfUnitDefinitions>
+      <unitDefinition id="mmol_per_gDW_per_hr">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="gram" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="0.000277777777777778"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000290" id="c" name="Cytosol" spatialDimensions="3" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="meta_M_gamma_radiation_c" sboTerm="SBO:0000170" id="M_gamma_radiation_c" name="gamma radiation (1.2 MeV)" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="meta_M_A23CMP_c" sboTerm="SBO:0000247" id="M_A23CMP_c" name="2&apos;,3&apos;-Cyclic AMP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_A23CMP_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/biocyc/CPD-3707"/>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/23camp"/>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C02353"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/5400.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/3dmet/B01564"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/27844.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pdb-ccd/ACK"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_A3MP_c" sboTerm="SBO:0000247" id="M_A3MP_c" name="3&apos;-AMP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_A3MP_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/biocyc/CPD-3706"/>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/3amp"/>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C01367"/>
+                  <rdf:li rdf:resource="http://identifiers.org/cas/84-21-9"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/4566.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/3dmet/B01442"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/28931.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pdb-ccd/3AM"/>
+                  <rdf:li rdf:resource="http://identifiers.org/knapsack/C00019350"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_AC_c" sboTerm="SBO:0000247" id="M_AC_c" name="acetate" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_AC_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/biocyc/ACET"/>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/ac"/>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00033"/>
+                  <rdf:li rdf:resource="http://identifiers.org/cas/64-19-7"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3335.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/3dmet/B00009"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/15366.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pdb-ccd/ACY"/>
+                  <rdf:li rdf:resource="http://identifiers.org/knapsack/C00001176"/>
+                  <rdf:li rdf:resource="http://identifiers.org/lipidmaps/LMFA01010002"/>
+                  <rdf:li rdf:resource="http://identifiers.org/lipidbank/DFA0002"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_ACAL_c" sboTerm="SBO:0000247" id="M_ACAL_c" name="acetaldehyde" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_ACAL_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/biocyc/ACETALD"/>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/acald"/>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00084"/>
+                  <rdf:li rdf:resource="http://identifiers.org/cas/75-07-0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/3384.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/3dmet/B01155"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/15343.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pdb-ccd/ACE"/>
+                  <rdf:li rdf:resource="http://identifiers.org/knapsack/C00007392"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_ACCOA_c" sboTerm="SBO:0000247" id="M_ACCOA_c" name="Acetyl-CoA" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_ACCOA_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/biocyc/ACETYL-COA"/>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/accoa"/>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C00024"/>
+                  <rdf:li rdf:resource="http://identifiers.org/cas/72-89-9"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/2093.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/3dmet/B04621"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/15351.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pdb-ccd/ACO"/>
+                  <rdf:li rdf:resource="http://identifiers.org/knapsack/C00007259"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_acriflavine_c" sboTerm="SBO:0000247" id="M_acriflavine_c" name="Acriflavine" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_acriflavine_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://identifiers.org/kegg.compound/C11273"/>
+                  <rdf:li rdf:resource="http://identifiers.org/pubchem.compound/156632.0"/>
+                  <rdf:li rdf:resource="http://identifiers.org/chebi/383703.0"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction metaid="meta_R_Aas1" sboTerm="SBO:0000176" id="R_Aas1" name="acyl-[acyl-carrier-protein] synthetase  (n-C12:0)" reversible="false">
+        <notes>
+          <body xmlns="http://www.w3.org/1999/xhtml">
+            <p>GENE_ASSOCIATION: </p>
+          </body>
+        </notes>
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_R_Aas1">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="http://bigg.ucsd.edu/bigg/AACPS7"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+        <listOfReactants>
+          <speciesReference sboTerm="SBO:0000010" species="M_A23CMP_c" stoichiometry="1"/>
+          <speciesReference sboTerm="SBO:0000010" species="M_A3MP_c" stoichiometry="1"/>
+          <speciesReference sboTerm="SBO:0000010" species="M_AC_c" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference sboTerm="SBO:0000011" species="M_ACAL_c" stoichiometry="1"/>
+          <speciesReference sboTerm="SBO:0000011" species="M_ACCOA_c" stoichiometry="1"/>
+          <speciesReference sboTerm="SBO:0000011" species="M_AC_c" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> FLUX_VALUE </ci>
+          </math>
+          <listOfParameters>
+            <parameter id="LOWER_BOUND" value="0" units="mmol_per_gDW_per_hr"/>
+            <parameter id="UPPER_BOUND" value="10000000000" units="mmol_per_gDW_per_hr"/>
+            <parameter id="FLUX_VALUE" value="0" units="mmol_per_gDW_per_hr" />
+            <parameter id="OBJECTIVE_COEFFICIENT" value="0" units="mmol_per_gDW_per_hr"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
