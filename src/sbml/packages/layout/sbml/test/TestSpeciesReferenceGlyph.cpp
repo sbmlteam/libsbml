@@ -79,7 +79,7 @@ START_TEST (test_SpeciesReferenceGlyph_new )
   fail_unless( !SRG->isSetSpeciesReferenceId() );
   fail_unless( !SRG->isSetSpeciesGlyphId() );
   fail_unless( !SRG->isSetRole() );
-  fail_unless( SRG->getRole() == SPECIES_ROLE_UNDEFINED );
+  fail_unless(SRG->getRole() == SPECIES_ROLE_INVALID);
   fail_unless( SRG->getCurve() != NULL);
   fail_unless( !SRG->isSetCurve());
 }
@@ -165,12 +165,14 @@ START_TEST (test_SpeciesReferenceGlyph_setRole_by_string)
   SRG->setRole("inhibitor");
   fail_unless(SRG->getRole()==SPECIES_ROLE_INHIBITOR);
   SRG->setRole("test");
-  fail_unless(SRG->getRole()==SPECIES_ROLE_UNDEFINED);
+  fail_unless(SRG->getRole() == SPECIES_ROLE_INVALID);
 }
 END_TEST
 
 START_TEST ( test_SpeciesReferenceGlyph_getRoleString )
 {
+  SRG->setRole(SPECIES_ROLE_INVALID);
+  fail_unless(SRG->getRoleString() == "invalid");
   SRG->setRole(SPECIES_ROLE_UNDEFINED);
   fail_unless(SRG->getRoleString() == "undefined");
   SRG->setRole(SPECIES_ROLE_SUBSTRATE);

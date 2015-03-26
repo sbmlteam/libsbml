@@ -54,6 +54,7 @@ static const std::string SPECIES_REFERENCE_ROLE_STRING[]={
    ,"modifier"
    ,"activator"
    ,"inhibitor"
+   ,"invalid"
    ,""
 };
 /** @endcond */
@@ -86,13 +87,13 @@ SpeciesReferenceGlyph::renameSIdRefs(const std::string& oldid, const std::string
 /*
  * Creates a new SpeciesReferenceGlyph.  The id if the associated species
  * reference and the id of the associated species glyph are set to the
- * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
+ * empty string.  The role is set to SPECIES_ROLE_INVALID.
  */
 SpeciesReferenceGlyph::SpeciesReferenceGlyph (unsigned int level, unsigned int version, unsigned int pkgVersion)
  : GraphicalObject(level,version,pkgVersion)
    ,mSpeciesReference("")
    ,mSpeciesGlyph("")
-   ,mRole  ( SPECIES_ROLE_UNDEFINED )
+   , mRole(SPECIES_ROLE_INVALID)
    ,mCurve(level,version,pkgVersion)
   ,mCurveExplicitlySet (false)
 {
@@ -111,7 +112,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(LayoutPkgNamespaces* layoutns)
  : GraphicalObject(layoutns)
    ,mSpeciesReference("")
    ,mSpeciesGlyph("")
-   ,mRole  ( SPECIES_ROLE_UNDEFINED )
+   , mRole(SPECIES_ROLE_INVALID)
    ,mCurve(layoutns)
   , mCurveExplicitlySet ( false )
 {
@@ -174,7 +175,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node, unsigned int l
  :  GraphicalObject  (node, l2version)
   , mSpeciesReference("")
   , mSpeciesGlyph    ("")
-  , mRole            (SPECIES_ROLE_UNDEFINED)
+  , mRole(SPECIES_ROLE_INVALID)
   , mCurve           (2, l2version)
    ,mCurveExplicitlySet (false)
 {
@@ -339,7 +340,8 @@ SpeciesReferenceGlyph::setRole (const std::string& role)
   else if ( role == "modifier"      ) this->mRole = SPECIES_ROLE_MODIFIER;
   else if ( role == "activator"     ) this->mRole = SPECIES_ROLE_ACTIVATOR;
   else if ( role == "inhibitor"     ) this->mRole = SPECIES_ROLE_INHIBITOR;
-  else                                this->mRole = SPECIES_ROLE_UNDEFINED;
+  else if ( role == "undefined"     ) this->mRole = SPECIES_ROLE_UNDEFINED;
+  else                                this->mRole = SPECIES_ROLE_INVALID;
 }
 
 
@@ -422,23 +424,23 @@ SpeciesReferenceGlyph::isSetSpeciesReferenceId () const
 
 
 /*
- * Returns true of role is different from SPECIES_ROLE_UNDEFINED.
+ * Returns true of role is different from SPECIES_ROLE_INVALID.
  */ 
 bool SpeciesReferenceGlyph::isSetRole () const
 {
-  return ! (this->mRole == SPECIES_ROLE_UNDEFINED);
+  return !(this->mRole == SPECIES_ROLE_INVALID);
 }
 
 
 /*
  * Calls initDefaults on GraphicalObject and sets role to
- * SPECIES_ROLE_UNDEFINED.
+ * SPECIES_ROLE_INVALID.
  */ 
 void
 SpeciesReferenceGlyph::initDefaults ()
 {
     GraphicalObject::initDefaults();
-    this->mRole = SPECIES_ROLE_UNDEFINED;
+    this->mRole = SPECIES_ROLE_INVALID;
 }
 
 
@@ -695,7 +697,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
     {
       this->setRole(role);
 
-      if (this->getRole() == SPECIES_ROLE_UNDEFINED && getErrorLog() != NULL)
+      if (this->getRole() == SPECIES_ROLE_INVALID && getErrorLog() != NULL)
       {
         getErrorLog()->logPackageError("layout", LayoutSRGRoleSyntax, 
           getPackageVersion(), sbmlLevel, sbmlVersion, "The role on the <" 
@@ -705,7 +707,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
   }
   else
   {
-    this->setRole(SPECIES_ROLE_UNDEFINED);
+    this->setRole(SPECIES_ROLE_INVALID);
   }
 
   
@@ -982,7 +984,7 @@ LIBSBML_EXTERN
 SpeciesReferenceRole_t
 SpeciesReferenceGlyph_getRole (const SpeciesReferenceGlyph_t *srg)
 {
-  if (srg == NULL) return SPECIES_ROLE_UNDEFINED;
+  if (srg == NULL) return SPECIES_ROLE_INVALID;
   return srg->getRole();
 }
 
