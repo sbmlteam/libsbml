@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.11.4 (2015-04-02)
+5.11.4 (2015-04-09)
 ====================================================================
 
 STABLE RELEASE
@@ -42,7 +42,20 @@ STABLE RELEASE
     becomes an ASTNode of type AST_LOGICAL_AND with two children
     each representing the relational operator; that is 
     and(lt(x,y), gt(y,z)) 
-	
+
+  - The ability to index lists in the python bindings has been improved.
+
+  - A new value 'LIBSBML_MISSING_METAID' has been added to the 
+    OperationReturnValues_t enumeration.  This value will be returned
+    when a user attempts to set an annotation on an object that has
+    no metaid attribute set.  Note this is a change in behaviour as
+    previously the value returned would have been 
+    'LIBSBML_UNEXPECTED_ATTRIBUTE'.  We hope this change makes the 
+    issue clearer to users.
+
+  - The package extension mechanism has been expanded to allow the 
+    extension of individual ListOfFoo classes.
+
 * Bug fixes
 
   - Fixed a bug where using the expat parser failed to correctly
@@ -64,6 +77,11 @@ STABLE RELEASE
     to work with const versions of objects where appropriate.
     Thanks to Takeshi Abe for the request and the patch.
 
+  - 'comp' package-specific bug fixes:
+
+    - The code for determining whether an external file is available
+      has been further tightened up. 
+
   - 'fbc' package-specific bug fixes:
 
     - A bug in the code that reads GeneAssociations as an annotation
@@ -76,13 +94,16 @@ STABLE RELEASE
       has been fixed to correct this.  Thanks to Kieran Smallbone
       for reporting this.
 
+    - The SpeciesReferenceGlyph attribute 'role' can take the value
+      'undefined' but this was not written out. This has been 
+      changed.
+
 * Configuration/build system changes
 
   - This release includes pre-built binaries for the MATLAB 
     bindings that should work for many Linux and MacOSX
     platforms.  Please advise us it you find a combination
     of platform and MATLAB version for which these fail. 
-
 
 * Miscellaneous
 
@@ -102,6 +123,20 @@ EXPERIMENTAL RELEASE
 
   - 'multi' package-specific updates:
 
+    - The multi code has been updated in line with the specification
+      Release 1.0.2 dated November 2014.
+
+  - 'spatial' package-specific updates:
+
+    - The spatial code has been updated in line with the specification
+      Release 0.90 dated March 2015.
+
+* Bug fixes
+
+  - 'multi' package-specific bug fixes:
+
+    - The multi attributes that can be added to a math <ci> element
+      where being lost when written out.  This has been fixed.
     
 ====================================================================
 5.11.2-experimental (2015-01-15)
