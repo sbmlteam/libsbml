@@ -58,6 +58,10 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - Conversion from SBML Level 3 to Level 2 was losing some 
+    LocalParameters. This has been sorted.  Thanks to Matthias 
+    König for spotting and reporting the problem.
+
   - Fixed a bug where using the expat parser failed to correctly
     report the presence of invalid XML namespaces.
 
@@ -86,6 +90,8 @@ STABLE RELEASE
 
     - A bug in the code that reads GeneAssociations as an annotation
       meant information was being lost.  This has been corrected.
+      Thanks to Matthias König for reporting the problem.
+
 
   - 'layout' package-specific bug fixes:
 
@@ -124,7 +130,8 @@ EXPERIMENTAL RELEASE
   - 'multi' package-specific updates:
 
     - The multi code has been updated in line with the specification
-      Release 1.0.2 dated November 2014.
+      Release 1.0.2 dated November 2014. This code has been contributed
+      by Fengkai Zhang. Many thanks, Fengkai.
 
   - 'spatial' package-specific updates:
 
