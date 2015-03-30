@@ -226,13 +226,19 @@ Model::convertL3ToL1 (bool strict)
     if (r->isSetKineticLaw())
     {
       KineticLaw *kl = r->getKineticLaw();
-      for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
+      unsigned int numLocals = kl->getNumLocalParameters();
+      for (unsigned int j = 0; j < numLocals; j++)
       {
         Parameter *lp = new Parameter(getLevel(), getVersion());
         (*lp) = *(kl->getLocalParameter(j));
+        // make parameter constant by default
+        lp->initDefaults();
         kl->addParameter(lp);
-        delete kl->removeLocalParameter(j);
         delete lp;
+      }
+      for (unsigned int j = numLocals; j > 0; j--)
+      {
+        delete kl->removeLocalParameter(j-1);
       }
     }
   }
@@ -258,15 +264,19 @@ Model::convertL3ToL2 (bool strict)
     if (r->isSetKineticLaw())
     {
       KineticLaw *kl = r->getKineticLaw();
-      for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
+      unsigned int numLocals = kl->getNumLocalParameters();
+      for (unsigned int j = 0; j < numLocals; j++)
       {
         Parameter *lp = new Parameter(getLevel(), getVersion());
         (*lp) = *(kl->getLocalParameter(j));
         // make parameter constant by default
         lp->initDefaults();
         kl->addParameter(lp);
-        delete kl->removeLocalParameter(j);
         delete lp;
+      }
+      for (unsigned int j = numLocals; j > 0; j--)
+      {
+        delete kl->removeLocalParameter(j-1);
       }
     }
   }
