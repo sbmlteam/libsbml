@@ -784,8 +784,11 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    * is not a type of node that has a numerical value.
    *
    * @note This function will return a numerical value (as a double) for 
-   * any ASTNode_t that represents a number, a constant such as pi or
-   * avogadro or @c 1 for nodes of type 
+   * any ASTNode_t that represents a number, a constant such as 
+   * @sbmlconstant{AST_CONSTANT_PI, ASTNodeType_t}, 
+   * @sbmlconstant{AST_CONSTANT_E, ASTNodeType_t}, or 
+   * @sbmlconstant{AST_NAME_AVOGADRO, ASTNodeType_t}, or 
+   * @c 1 for nodes of type 
    * @sbmlconstant{AST_CONSTANT_TRUE, ASTNodeType_t} and @c 0 for nodes of type
    * @sbmlconstant{AST_CONSTANT_FALSE, ASTNodeType_t}. It does not evaluate
    * the node in any way so, for example, it will not return the value of 

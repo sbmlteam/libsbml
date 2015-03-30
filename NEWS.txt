@@ -10,10 +10,11 @@ STABLE RELEASE
 
   - The ASTNode class has a new function double getValue() that
     returns the numerical value of the ASTNode as a double.  This
-    includes returning '1' for an ASTNode of type AST_CONSTANT_TRUE
-    and '0' for AST_CONSTANT_FALSE.  Note, it does not attempt to
-    evaluate the node and thus will return NaN for a function
-    or node representing a named variable.
+    includes returning values for constants such as AST_CONSTANT_PI,
+    AST_CONSTANT_E, and AST_NAME_AVOGADRO, or '1' for an ASTNode of type
+    AST_CONSTANT_TRUE and '0' for AST_CONSTANT_FALSE.  Note, it does
+    not attempt to evaluate the node and thus will return NaN for a
+    function or node representing a named variable, and AST_NAME_TIME.
 
   - There has been a complete review of validation messages.  These
     have been unified in terms of spacing and line returns.  In
@@ -60,14 +61,14 @@ STABLE RELEASE
 
   - Conversion from SBML Level 3 to Level 2 was losing some 
     LocalParameters. This has been sorted.  Thanks to Matthias 
-    KÃ¶nig for spotting and reporting the problem.
+    König for spotting and reporting the problem.
 
   - Fixed a bug where using the expat parser failed to correctly
     report the presence of invalid XML namespaces.
 
   - Sourceforge libSBML Tracker #393: LibSBML was failing when
     built on an ARM processor running Fedora.  This has been
-    sorted out.  Thanks to Zbigniew JÄ™drzejewski-Szmek for 
+    sorted out.  Thanks to Zbigniew Jedrzejewski-Szmek for 
     reporting the issue and testing solutions.
 
   - The formulaParser was incorrectly parsing particular syntax
@@ -90,7 +91,7 @@ STABLE RELEASE
 
     - A bug in the code that reads GeneAssociations as an annotation
       meant information was being lost.  This has been corrected.
-      Thanks to Matthias KÃ¶nig for reporting the problem.
+      Thanks to Matthias König for reporting the problem.
 
 
   - 'layout' package-specific bug fixes:
@@ -251,7 +252,7 @@ EXPERIMENTAL RELEASE
 
     - Sourceforge libsbml Tracker #387: The C# bindings for spatial 
       were not working as expected. These have been fixed. Thanks to 
-      Harold GÃ³mez for reporting this.
+      Harold Gómez for reporting this.
 
 		   
 ====================================================================
@@ -493,7 +494,7 @@ STABLE RELEASE
     
   - LibSBML incorrectly reported the units of 'pi' as radians. This
     has been corrected to report 'dimensionless'.  Thanks to Matthias
-    KÃ¶nig for reporting this.
+    König for reporting this.
 
   - The L3 parser did not recognize 'arcsinh' or 'asinh' as valid
     built-in functions.  This has been fixed.
@@ -1890,16 +1891,16 @@ STABLE RELEASE
     Line numbers were not being reported as accurately for L2 models 
     as for L3 models. We have overviewed all the code relating
     to line numbers and improved the accuracy and consistency
-    of line numbers reported. Thanks to Raimund RÃ¶nn for the report.  
+    of line numbers reported. Thanks to Raimund Rönn for the report.  
 
   - Tracker issue #3471902
     The documentation for the readSBMLFromString function claimed it
     prepend the xml encoding if it was not present. In fact, the 
     function did not do this. This has been corrected. Thanks to
-    Raimund RÃ¶nn for reporting it.  
+    Raimund Rönn for reporting it.  
     
   - Tracker issue #3466104
-    Fixed inaccuracies in the documentation. Thanks to Raimund RÃ¶nn
+    Fixed inaccuracies in the documentation. Thanks to Raimund Rönn
     for his careful reading and taking the time to report the errors.
     
   - Validation failed to notice that csymbol avogadro was not valid
@@ -2076,10 +2077,10 @@ STABLE RELEASE
   - Tracker issue #3461400
     Writing out an L2 model with Layout annotation caused duplicate
     annotations to be written out.  This has been fixed.  Thanks to
-    Raimund RÃ¶nn for reporting the problem.
+    Raimund Rönn for reporting the problem.
 
   - Tracker issue #3462055  
-    A couple of typos have been corrected.  Thanks to Raimund RÃ¶nn 
+    A couple of typos have been corrected.  Thanks to Raimund Rönn 
     for taking the time to report these.
        
   - The documentation for Python did not omit internal libSBML
