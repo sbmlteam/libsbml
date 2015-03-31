@@ -93,6 +93,7 @@ mkdir src\bindings\python
 mkdir src\bindings\r
 mkdir src\bindings\ruby
 mkdir src\bindings\swig
+mkdir src\bindings\php
 
 copy /y %PACKAGE_DIR%\src\bindings\csharp\*-%PACKAGE_NAME%.i        src\bindings\csharp
 copy /y %PACKAGE_DIR%\src\bindings\java\*-%PACKAGE_NAME%.i          src\bindings\java
@@ -108,6 +109,8 @@ copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.cpp        src\bindings
 copy /y %PACKAGE_DIR%\src\bindings\ruby\*-%PACKAGE_NAME%.i          src\bindings\ruby
 copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.i          src\bindings\swig
 copy /y %PACKAGE_DIR%\src\bindings\swig\%PACKAGE_NAME%-*.h          src\bindings\swig
+copy /y %PACKAGE_DIR%\src\bindings\php\*-%PACKAGE_NAME%.cpp         src\bindings\php
+copy /y %PACKAGE_DIR%\src\bindings\php\*-%PACKAGE_NAME%.i           src\bindings\php
 
 
 mkdir examples
