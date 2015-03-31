@@ -391,7 +391,7 @@ ArgumentsUnitsCheck::logInconsistentSameUnits (const ASTNode & node,
   default:
     if (sb.isSetId()) {
       msg += "with id '";
-      msg += getId() + "' ";
+      msg += sb.getId() + "' ";
     }
     break;
   }
@@ -425,7 +425,7 @@ ArgumentsUnitsCheck::logInconsistentDelay (const ASTNode & node,
   default:
     if (sb.isSetId()) {
       msg += "with id '";
-      msg += getId() + "' ";
+      msg += sb.getId() + "' ";
     }
     break;
   }
@@ -460,7 +460,7 @@ ArgumentsUnitsCheck::logInconsistentPiecewise (const ASTNode & node,
   default:
     if (sb.isSetId()) {
       msg += "with id '";
-      msg += getId() + "' ";
+      msg += sb.getId() + "' ";
     }
     break;
   }
@@ -496,7 +496,7 @@ ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node,
   default:
     if (sb.isSetId()) {
       msg += "with id '";
-      msg += getId() + "' ";
+      msg += sb.getId() + "' ";
     }
     break;
   }
