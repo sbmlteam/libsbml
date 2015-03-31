@@ -70,7 +70,7 @@ test_sources =           \
   TestReadFromFile2.cpp  \
   TestValidASTNode.cpp   \
   TestChildFunctions.cpp  \
-  TestGetValues.cpp \
+  TestGetValue.cpp \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
