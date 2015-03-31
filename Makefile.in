@@ -292,6 +292,9 @@ examples =                                                          \
   examples/python/inlineInitialAssignments.py                       \
   examples/python/replaceOneFD.py                                   \
   examples/python/evaluateCustomMath.py                             \
+  examples/php/createExampleSBML.php                                \
+  examples/php/echoSBML.php                                         \
+  examples/php/validateSBML.php                                     \
   examples/r/addCVTerms.R                                           \
   examples/r/addModelHistory.R                                      \
   examples/r/addingEvidenceCodes_1.R                                \
@@ -429,6 +432,28 @@ jsbindings =                                                   \
   src/bindings/javascript/local-packages.i.in                  \
 
 
+# The files listed in 'php bindings' have to be included the dist files, even
+# though they can't be created by gnumake.
+
+phpbindings =                                                  \
+  src/bindings/php/CMakeLists.txt                              \
+  src/bindings/php/libsbml.i                                   \
+  src/bindings/php/local-downcast-converters-layout.cpp        \
+  src/bindings/php/local-downcast-converters.cpp.in            \
+  src/bindings/php/local-downcast-extension-layout.cpp         \
+  src/bindings/php/local-downcast-extension.cpp.in             \
+  src/bindings/php/local-downcast-namespaces-layout.cpp        \
+  src/bindings/php/local-downcast-namespaces.cpp.in            \
+  src/bindings/php/local-downcast-packages-layout.cpp          \
+  src/bindings/php/local-downcast-plugins-layout.cpp           \
+  src/bindings/php/local-downcast-plugins.cpp.in               \
+  src/bindings/php/local-downcast.cpp.in                       \
+  src/bindings/php/local-layout.i                              \
+  src/bindings/php/local-packages.i.in                         \
+  src/bindings/php/local.cpp                                   \
+  src/bindings/php/local.i                                     \
+
+
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
 
@@ -515,7 +540,8 @@ distfiles =                         \
   layout-package.cmake              \
   $(examples)                       \
   $(jsbindings)                     \
-  $(rbindings)
+  $(rbindings)                      \
+  $(phpbindings)
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in
