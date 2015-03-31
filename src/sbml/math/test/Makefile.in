@@ -73,7 +73,7 @@ test_sources =           \
   TestNewReadMathML.cpp  \
   TestNewWriteMathMLFromAST.cpp \
   TestChildFunctions.cpp \
-  TestGetValues.cpp \
+  TestGetValue.cpp \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
