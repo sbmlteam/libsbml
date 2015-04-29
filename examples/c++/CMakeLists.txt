@@ -49,6 +49,7 @@ foreach(example
 	appendAnnotation
 	callExternalValidator
 	convertSBML
+  convertToL1V1
 	createExampleSBML
 	echoSBML
 	inferUnits

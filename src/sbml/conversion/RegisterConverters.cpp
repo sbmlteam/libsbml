@@ -46,7 +46,7 @@
 #include <sbml/conversion/SBMLInferUnitsConverter.h>
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLReactionConverter.h>
-
+#include <sbml/conversion/SBMLLevel1Version1Converter.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -54,6 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 // list it needs to be registered manually. 
   
 /** @cond doxygenLibsbmlInternal */
+static SBMLConverterRegister<SBMLLevel1Version1Converter> registerLevel1Version1Converter;
 static SBMLConverterRegister<SBMLRuleConverter> registerRuleConverter;
 static SBMLConverterRegister<SBMLIdConverter> registerIdConverter;
 static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverter;
