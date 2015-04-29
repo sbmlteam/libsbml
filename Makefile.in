@@ -102,6 +102,7 @@ examples =                                                          \
   examples/c++/addingEvidenceCodes_2.cpp                            \
   examples/c++/appendAnnotation.cpp                                 \
   examples/c++/callExternalValidator.cpp                            \
+  examples/c++/convertToL1V1.cpp                                    \
   examples/c++/convertSBML.cpp                                      \
   examples/c++/createExampleSBML.cpp                                \
   examples/c++/echoSBML.cpp                                         \

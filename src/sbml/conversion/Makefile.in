@@ -69,6 +69,7 @@ common_headers = \
   SBMLLocalParameterConverter.h \
   SBMLReactionConverter.h \
   SBMLRuleConverter.h \
+  SBMLLevel1Version1Converter.h \
   SBMLStripPackageConverter.h \
   SBMLUnitsConverter.h
 
@@ -86,6 +87,7 @@ common_sources = \
   SBMLLocalParameterConverter.cpp \
   SBMLReactionConverter.cpp \
   SBMLRuleConverter.cpp \
+  SBMLLevel1Version1Converter.cpp \
   SBMLStripPackageConverter.cpp \
   SBMLUnitsConverter.cpp
 
