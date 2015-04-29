@@ -51,22 +51,15 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
 
-  int
-  main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
-  const unsigned int latestLevel   = SBMLDocument::getDefaultLevel();
-  const unsigned int latestVersion = SBMLDocument::getDefaultVersion();
-
 
   if (argc != 3)
   {
     cout << "Usage: convertToL1V1 input-filename output-filename" << endl
       << "This program will attempt to convert a model either to" << endl
-      << "SBML Level " << latestLevel << " Version " << latestVersion
-      << " (if the model is not already) or, if " << endl
-      << "the model is already expressed in Level " << latestLevel
-      << " Version " << latestVersion << ", this" << endl
-      << "program will attempt to convert the model to Level 1 Version 2."
+      << "SBML Level 1 Version 1."
       << endl;
     return 1;
   }
@@ -94,8 +87,6 @@ LIBSBML_CPP_NAMESPACE_USE
   prop.addOption("inlineCompartmentSizes", true, 
     "if true, occurrances of compartment ids in expressions will be replaced with their initial size");
   int conversionResult = document->convert(prop);
-
-  std::string result = writeSBMLToStdString(document);
 
   errors = document->getNumErrors();
 
@@ -128,5 +119,4 @@ LIBSBML_CPP_NAMESPACE_USE
   delete document;
   return 0;
 }
-
 

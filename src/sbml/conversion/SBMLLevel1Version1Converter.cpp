@@ -137,7 +137,7 @@ ConversionProperties
 
 
 bool 
-  SBMLLevel1Version1Converter::matchesProperties(const ConversionProperties &props) const
+SBMLLevel1Version1Converter::matchesProperties(const ConversionProperties &props) const
 {
   if (&props == NULL || !props.hasOption("convertToL1V1"))
     return false;
@@ -146,7 +146,7 @@ bool
 
 
 bool 
-  SBMLLevel1Version1Converter::inlineCompartmentSizes()
+SBMLLevel1Version1Converter::inlineCompartmentSizes()
 {
   if (getProperties() == NULL)
   {
@@ -164,7 +164,7 @@ bool
 
 
 bool 
-  SBMLLevel1Version1Converter::shouldChangePow()
+SBMLLevel1Version1Converter::shouldChangePow()
 {
   if (getProperties() == NULL)
   {
@@ -180,7 +180,10 @@ bool
   }
 }
 
-void changePow (ASTNode* node, const std::map<string, double>& compartmentValueMap, bool shouldChangePow)
+void 
+changePow (ASTNode* node, 
+           const std::map<string, double>& compartmentValueMap,
+           bool shouldChangePow)
 {
   unsigned int c;
   std::map<string, double>::const_iterator it;
@@ -210,17 +213,13 @@ void changePow (ASTNode* node, const std::map<string, double>& compartmentValueM
 }
 
 
-void convertPow(SBMLDocument_t* doc, bool shouldChangePow, bool inlineCompartmentSizes)
+void 
+convertPow(SBMLDocument* doc, 
+           bool shouldChangePow, 
+           bool inlineCompartmentSizes)
 {
 
-  ASTNode_t*		ast_Node;
-  Reaction_t*		r;
-  KineticLaw_t*	kl;
-  unsigned int i;
-  Model_t*		model;
-  const char*			strKineticFormula;
-
-  model = SBMLDocument_getModel(doc);
+  Model* model = SBMLDocument_getModel(doc);
   if (model == NULL)
   {
     return;
@@ -228,43 +227,44 @@ void convertPow(SBMLDocument_t* doc, bool shouldChangePow, bool inlineCompartmen
 
   std::map<string, double> compartmentValueMap;
   if (inlineCompartmentSizes)
-    for(i = 0; i < Model_getNumCompartments(model); i++)
+  {
+    for(unsigned int i = 0; i < model->getNumCompartments(); ++i)
     {
       Compartment* c = model->getCompartment(i);
       compartmentValueMap[c->getId()] = c->getSize();
     }
+  }
 
-
-    for(i = 0; i < Model_getNumReactions(model); i++)
+  for(unsigned int i = 0; i < model->getNumReactions(); ++i)
+  {
+    Reaction* r  = model->getReaction(i);
+    KineticLaw* kl = r->getKineticLaw();
+    const char* strKineticFormula;
+    if (kl == NULL)
     {
-      r  = Model_getReaction(model, i);
-      kl = Reaction_getKineticLaw(r);
-
-      if (kl == NULL)
+      strKineticFormula = "";
+    }
+    else
+    {
+      strKineticFormula = KineticLaw_getFormula(kl);
+      if (strKineticFormula == NULL)
       {
-        strKineticFormula = "";
-      }
-      else
-      {
-        strKineticFormula = KineticLaw_getFormula(kl);
-        if (strKineticFormula == NULL)
-        {
-          return;
-        }
-      }
-      ast_Node	= (ASTNode_t *) SBML_parseFormula (strKineticFormula);
-      if (ast_Node != NULL)
-      {
-        changePow(ast_Node, compartmentValueMap, shouldChangePow);
-        KineticLaw_setMath (kl, ast_Node);
+        continue;
       }
     }
 
+    ASTNode* ast_Node	= SBML_parseFormula (strKineticFormula);
+    if (ast_Node != NULL)
+    {
+      changePow(ast_Node, compartmentValueMap, shouldChangePow);
+      kl->setMath (ast_Node);
+    }
+  }
 }
 
 
 int
-  SBMLLevel1Version1Converter::convert()
+SBMLLevel1Version1Converter::convert()
 {
 
   if (mDocument == NULL)
@@ -281,13 +281,11 @@ int
   }
 
   /* since this function will write to the error log we should
-  * clear anything in the log first
-  */
+   * clear anything in the log first
+   */
   mDocument->getErrorLog()->clearLog();
 
-  bool success;
-
-  success = mDocument->setLevelAndVersion(1, 2, false);
+  bool success = mDocument->setLevelAndVersion(1, 2, false);
   if (!success) return LIBSBML_OPERATION_FAILED;
 
   mDocument->updateSBMLNamespace("core", 1, 1);
