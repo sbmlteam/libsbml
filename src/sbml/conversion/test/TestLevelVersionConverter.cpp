@@ -195,6 +195,37 @@ START_TEST (test_convertL2V5ToL3V1_strict)
 END_TEST
 
 
+START_TEST (test_convertToL1V1)
+{
+
+  std::string filename(TestDataDirectory);
+  filename+= "/00856-sbml-l3v1.xml";
+
+  SBMLDocument* document = readSBMLFromFile(filename.c_str());
+
+  ConversionProperties prop;
+  prop.addOption("convertToL1V1", true,
+    "convert the document to SBML Level 1 Version 1");
+  prop.addOption("changePow", true, 
+    "change pow expressions to the (^) hat notation");
+  prop.addOption("inlineCompartmentSizes", true, 
+    "if true, occurrances of compartment ids in expressions will be replaced with their initial size");
+  
+  int conversionResult = document->convert(prop);
+
+  int errors = document->getNumErrors(LIBSBML_SEV_ERROR);
+  // we should not have errors right from the start
+  fail_unless(errors == 0);
+  // conversion should have succeeded
+  fail_unless(conversionResult == LIBSBML_OPERATION_SUCCESS);
+  // level ought to be 1
+  fail_unless(document->getLevel() == 1);
+  // version as well 
+  fail_unless(document->getVersion() == 1);
+  delete document;
+}
+END_TEST
+
 Suite *
 create_suite_TestLevelVersionConverter (void)
 { 
@@ -208,6 +239,7 @@ create_suite_TestLevelVersionConverter (void)
 
   tcase_add_test(tcase, test_convertL3V1ToL2V5_strict);
   tcase_add_test(tcase, test_convertL2V5ToL3V1_strict);
+  tcase_add_test(tcase, test_convertToL1V1);
 
   suite_add_tcase(suite, tcase);
 

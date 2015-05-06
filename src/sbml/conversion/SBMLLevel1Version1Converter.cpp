@@ -66,8 +66,8 @@ SBMLLevel1Version1Converter::SBMLLevel1Version1Converter ()
 /*
 * Copy constructor.
 */
-SBMLLevel1Version1Converter::SBMLLevel1Version1Converter(const SBMLLevel1Version1Converter& orig) :
-  SBMLConverter(orig)
+SBMLLevel1Version1Converter::SBMLLevel1Version1Converter(const SBMLLevel1Version1Converter& orig) 
+  :  SBMLConverter(orig)
 {
 }
 
@@ -84,7 +84,7 @@ SBMLLevel1Version1Converter::~SBMLLevel1Version1Converter ()
 * Assignment operator for SBMLLevel1Version1Converter.
 */
 SBMLLevel1Version1Converter& 
-  SBMLLevel1Version1Converter::operator=(const SBMLLevel1Version1Converter& rhs)
+SBMLLevel1Version1Converter::operator=(const SBMLLevel1Version1Converter& rhs)
 {  
   if (&rhs == NULL)
   {
@@ -100,14 +100,14 @@ SBMLLevel1Version1Converter&
 
 
 SBMLLevel1Version1Converter*
-  SBMLLevel1Version1Converter::clone () const
+SBMLLevel1Version1Converter::clone () const
 {
   return new SBMLLevel1Version1Converter(*this);
 }
 
 
 ConversionProperties
-  SBMLLevel1Version1Converter::getDefaultProperties() const
+SBMLLevel1Version1Converter::getDefaultProperties() const
 {
   static ConversionProperties prop;
   static bool init = false;
