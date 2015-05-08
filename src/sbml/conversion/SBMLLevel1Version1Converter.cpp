@@ -286,7 +286,7 @@ SBMLLevel1Version1Converter::convert()
    */
   mDocument->getErrorLog()->clearLog();
 
-  bool success = mDocument->setLevelAndVersion(1, 2, false);
+  bool success = mDocument->setLevelAndVersion(1, 2, false, true);
   if (!success) return LIBSBML_OPERATION_FAILED;
 
   mDocument->updateSBMLNamespace("core", 1, 1);
