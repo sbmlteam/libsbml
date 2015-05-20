@@ -48,6 +48,8 @@
 
 #include <sbml/util/ElementFilter.h>
 
+#include <math.h>
+
 /** @cond doxygenIgnored */
 
 using namespace std;
@@ -898,10 +900,14 @@ UnitDefinition::reorder(UnitDefinition *ud)
   int *initialIndexArray = NULL;
   initialIndexArray = new int[units->size()];
 
+  std::vector<unsigned int> used;
+
   for (n = 0; n < numUnits; n++)
   {
-    indexArray[n] = ((Unit *)units->get(n))->getKind();
-    initialIndexArray[n] = ((Unit *)units->get(n))->getKind();
+    Unit * unit = (Unit *)(units->get(n));
+    int value = unit->getKind();
+    indexArray[n] = value;
+    initialIndexArray[n] = value;
   }
 
   qsort(indexArray, numUnits, sizeof(int), compareKinds);
@@ -913,9 +919,13 @@ UnitDefinition::reorder(UnitDefinition *ud)
     {
       if (indexArray[n] == initialIndexArray[p])
       {
-        unit = (Unit *) units->get(p);
-        units->append(unit);
-        break;
+        if (used.end() == std::find(used.begin(), used.end(), p)) 
+        {
+          unit = (Unit *) units->get(p);
+          units->append(unit);
+          used.push_back(p);
+          break;
+        }
       }
     }
   }

@@ -165,6 +165,46 @@ START_TEST(test_unitdefinition_order)
 }
 END_TEST
 
+START_TEST(test_unitdefinition_order1)
+{
+  UnitDefinition* ud = new UnitDefinition(2, 4);
+
+  Unit* u  = new Unit(2, 4);
+  u->setKind(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(2, 4);
+  u1->setKind(UNIT_KIND_AMPERE);
+  Unit* u2 = new Unit(2, 4);
+  u2->setKind(UNIT_KIND_METRE);
+  u2->setScale(3);
+
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud->addUnit(u2);
+
+  UnitDefinition::reorder(ud);
+
+  fail_unless(ud->getNumUnits() == 3);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 3);
+
+  /* NULL case*/
+  delete ud;
+  ud = NULL;
+
+  UnitDefinition::reorder(ud);
+  
+  fail_unless(ud == NULL);
+
+  delete u;
+  delete u1;
+  delete u2;
+  delete ud;
+}
+END_TEST
+
 START_TEST(test_unitdefinition_convert_SI)
 {
   UnitDefinition* ud  = new UnitDefinition(2, 4);
@@ -1142,6 +1182,7 @@ create_suite_UtilsUnitDefinition (void)
   tcase_add_test( tcase, test_unitdefinition_simplify      );
   tcase_add_test( tcase, test_unitdefinition_simplify1     );
   tcase_add_test( tcase, test_unitdefinition_order         );
+  tcase_add_test( tcase, test_unitdefinition_order1        );
   tcase_add_test( tcase, test_unitdefinition_convert_SI    );
   tcase_add_test( tcase, test_unitdefinition_convert_SI1   );
   tcase_add_test( tcase, test_unitdefinition_convert_SI2   );
