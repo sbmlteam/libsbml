@@ -82,19 +82,12 @@ ChangedMath::ChangedMath (ReqPkgNamespaces* reqns)
  */
 ChangedMath::ChangedMath (const ChangedMath& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mName  ( orig.mName)
+  , mChangedBy  ( orig.mChangedBy)
+  , mViableWithoutChange  ( orig.mViableWithoutChange)
+  , mIsSetViableWithoutChange  ( orig.mIsSetViableWithoutChange)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mName  = orig.mName;
-    mChangedBy  = orig.mChangedBy;
-    mViableWithoutChange  = orig.mViableWithoutChange;
-    mIsSetViableWithoutChange  = orig.mIsSetViableWithoutChange;
-  }
 }
 
 
@@ -104,11 +97,7 @@ ChangedMath::ChangedMath (const ChangedMath& orig)
 ChangedMath&
 ChangedMath::operator=(const ChangedMath& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -235,15 +224,8 @@ ChangedMath::setId(const std::string& id)
 int
 ChangedMath::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -253,15 +235,8 @@ ChangedMath::setName(const std::string& name)
 int
 ChangedMath::setChangedBy(const std::string& changedBy)
 {
-  if (&(changedBy) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mChangedBy = changedBy;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mChangedBy = changedBy;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
