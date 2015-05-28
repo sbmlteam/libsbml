@@ -242,7 +242,7 @@ public:
 
   virtual bool visit(const SBase &x)
   {
-    if (&x == NULL || x.getPackageName() != "dyn")
+    if (x.getPackageName() != "dyn")
     {
       return SBMLVisitor::visit(x);
     }
