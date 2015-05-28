@@ -81,18 +81,11 @@ SpatialComponent::SpatialComponent (DynPkgNamespaces* dynns)
  */
 SpatialComponent::SpatialComponent (const SpatialComponent& orig)
   : SBase(orig)
+  , mSpatialIndex  ( orig.mSpatialIndex)
+  , mVariable  ( orig.mVariable)
+  , mId  ( orig.mId)
+  , mName  ( orig.mName)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mSpatialIndex  = orig.mSpatialIndex;
-    mVariable  = orig.mVariable;
-    mId  = orig.mId;
-    mName  = orig.mName;
-  }
 }
 
 
@@ -102,11 +95,7 @@ SpatialComponent::SpatialComponent (const SpatialComponent& orig)
 SpatialComponent&
 SpatialComponent::operator=(const SpatialComponent& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mSpatialIndex  = rhs.mSpatialIndex;
@@ -246,11 +235,7 @@ SpatialComponent::setSpatialIndex(const std::string& spatialIndex)
 int
 SpatialComponent::setVariable(const std::string& variable)
 {
-  if (&(variable) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(variable)))
+  if (!(SyntaxChecker::isValidInternalSId(variable)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -278,15 +263,8 @@ SpatialComponent::setId(const std::string& id)
 int
 SpatialComponent::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

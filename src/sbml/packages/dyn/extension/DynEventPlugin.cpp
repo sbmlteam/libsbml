@@ -373,15 +373,8 @@ DynEventPlugin::isSetApplyToAll() const
 int
 DynEventPlugin::setCboTerm(const std::string& cboTerm)
 {
-  if (&(cboTerm) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mCboTerm = cboTerm;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mCboTerm = cboTerm;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

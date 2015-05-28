@@ -321,7 +321,6 @@ DynValidator::addConstraint (VConstraint* c)
 unsigned int
 DynValidator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
 
   const Model* m = d.getModel();
 
@@ -358,7 +357,6 @@ DynValidator::validate (const SBMLDocument& d)
 unsigned int
 DynValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
 
   SBMLReader    reader;
   SBMLDocument& d = *reader.readSBML(filename);

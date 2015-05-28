@@ -81,18 +81,11 @@ DynElement::DynElement (DynPkgNamespaces* dynns)
  */
 DynElement::DynElement (const DynElement& orig)
   : SBase(orig)
+  , mIdRef  ( orig.mIdRef)
+  , mId  ( orig.mId)
+  , mName  ( orig.mName)
+  , mMetaIdRef  ( orig.mMetaIdRef)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mIdRef  = orig.mIdRef;
-    mId  = orig.mId;
-    mName  = orig.mName;
-    mMetaIdRef  = orig.mMetaIdRef;
-  }
 }
 
 
@@ -102,11 +95,7 @@ DynElement::DynElement (const DynElement& orig)
 DynElement&
 DynElement::operator=(const DynElement& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mIdRef  = rhs.mIdRef;
@@ -222,11 +211,7 @@ DynElement::isSetMetaIdRef() const
 int
 DynElement::setIdRef(const std::string& idRef)
 {
-  if (&(idRef) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(idRef)))
+  if (!(SyntaxChecker::isValidInternalSId(idRef)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -254,15 +239,8 @@ DynElement::setId(const std::string& id)
 int
 DynElement::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -272,15 +250,8 @@ DynElement::setName(const std::string& name)
 int
 DynElement::setMetaIdRef(const std::string& metaIdRef)
 {
-  if (&(metaIdRef) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mMetaIdRef = metaIdRef;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mMetaIdRef = metaIdRef;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
