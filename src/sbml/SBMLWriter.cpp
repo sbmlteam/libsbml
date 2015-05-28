@@ -82,15 +82,8 @@ SBMLWriter::~SBMLWriter ()
 int
 SBMLWriter::setProgramName (const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  
-  {
-    mProgramName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mProgramName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -106,15 +99,8 @@ SBMLWriter::setProgramName (const std::string& name)
 int
 SBMLWriter::setProgramVersion (const std::string& version)
 {
-  if (&(version) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  
-  {
-    mProgramVersion = version;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mProgramVersion = version;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

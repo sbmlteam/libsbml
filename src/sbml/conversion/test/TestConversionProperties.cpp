@@ -74,36 +74,6 @@ START_TEST (test_conversion_properties_read)
 }
 END_TEST
 
-START_TEST (test_conversion_properties_exceptions)
-{
-  int value = 0;
-
-  // null copy constructor
-  try
-  {
-    ConversionProperties *props = NULL;
-    new ConversionProperties(*props);
-  }
-  catch(SBMLConstructorException& )
-  {
-    value = 1;
-  }
-  fail_unless(value == 1);
-
-  value = 0;
-  // null assignment op
-  try
-  {
-    ConversionProperties *props = NULL;
-    ConversionProperties props1 = *props;
-  }
-  catch(SBMLConstructorException& )
-  {
-    value = 1;
-  }
-  fail_unless(value == 1);
-}
-END_TEST
 
 START_TEST (test_conversion_properties_write)
 {
@@ -185,7 +155,6 @@ create_suite_TestConversionProperties (void)
 
   tcase_add_test(tcase, test_conversion_properties_read);
   tcase_add_test(tcase, test_conversion_properties_write);
-  tcase_add_test(tcase, test_conversion_properties_exceptions);
   tcase_add_test(tcase, test_conversion_properties_clone);
   tcase_add_test(tcase, test_conversion_properties_assign);
 

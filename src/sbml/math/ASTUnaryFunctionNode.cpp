@@ -194,7 +194,6 @@ ASTUnaryFunctionNode::isSqrt() const
 void
 ASTUnaryFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   stream.startElement("apply");
     

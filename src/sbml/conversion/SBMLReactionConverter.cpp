@@ -115,7 +115,7 @@ SBMLReactionConverter::getDefaultProperties() const
 bool 
 SBMLReactionConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("replaceReactions"))
+  if (!props.hasOption("replaceReactions"))
     return false;
   return true;
 }

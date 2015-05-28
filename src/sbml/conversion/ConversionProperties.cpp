@@ -45,79 +45,72 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ConversionProperties::ConversionProperties(SBMLNamespaces* targetNS) : mTargetNamespaces(NULL)
+ConversionProperties::ConversionProperties(SBMLNamespaces* targetNS) 
+  : mTargetNamespaces(NULL)
+  , mOptions()
 {
   if (targetNS != NULL) mTargetNamespaces = targetNS->clone();
 }
 
 ConversionProperties::ConversionProperties(const ConversionProperties& orig)
+  : mTargetNamespaces(NULL)
+  , mOptions()
 {
   
-  if (&orig == NULL)
+  if (orig.mTargetNamespaces != NULL)
+    mTargetNamespaces = orig.mTargetNamespaces->clone();
+  
+  map<string, ConversionOption*>::const_iterator it;
+  for (it = orig.mOptions.begin(); it != orig.mOptions.end(); ++it)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mOptions.insert(pair<string, ConversionOption*>
+      ( it->second->getKey(), it->second->clone()));
   }
-  else
-  {    
-    if (orig.mTargetNamespaces != NULL)
-      mTargetNamespaces = orig.mTargetNamespaces->clone();
-    else 
-      mTargetNamespaces = NULL;
-
-    map<string, ConversionOption*>::const_iterator it;
-    for (it = orig.mOptions.begin(); it != orig.mOptions.end(); ++it)
-    {
-      mOptions.insert(pair<string, ConversionOption*>
-        ( it->second->getKey(), it->second->clone()));
-    }
-  }
+  
 }
 
 ConversionProperties& 
 ConversionProperties::operator=(const ConversionProperties& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
   if (&rhs == this)
   {
     return *this;
   }
-    // clear 
-
-    if (mTargetNamespaces != NULL)
-    {
-      delete mTargetNamespaces;
-      mTargetNamespaces = NULL;
-    }
     
-    map<string, ConversionOption*>::iterator it1;
-    for (it1 = mOptions.begin(); it1 != mOptions.end(); ++it1)
-    {
-      if (it1->second != NULL) 
-      { 
-        delete it1->second;
-        it1->second=NULL;
-      }
+  // clear 
+
+  if (mTargetNamespaces != NULL)
+  {
+    delete mTargetNamespaces;
+    mTargetNamespaces = NULL;
+  }
+  
+  map<string, ConversionOption*>::iterator it1;
+  for (it1 = mOptions.begin(); it1 != mOptions.end(); ++it1)
+  {
+    if (it1->second != NULL) 
+    { 
+      delete it1->second;
+      it1->second=NULL;
     }
-    mOptions.clear();
+  }
+  mOptions.clear();
 
-    // assign
+  // assign
 
-    if (rhs.mTargetNamespaces != NULL)
-      mTargetNamespaces = rhs.mTargetNamespaces->clone();
-    else 
-      mTargetNamespaces = NULL;
+  if (rhs.mTargetNamespaces != NULL)
+    mTargetNamespaces = rhs.mTargetNamespaces->clone();
+  else 
+    mTargetNamespaces = NULL;
 
-    map<string, ConversionOption*>::const_iterator it;
-    for (it = rhs.mOptions.begin(); it != rhs.mOptions.end(); ++it)
-    {
-      mOptions.insert(pair<string, ConversionOption*>
-        ( it->second->getKey(), it->second->clone()));
-    }
+  map<string, ConversionOption*>::const_iterator it;
+  for (it = rhs.mOptions.begin(); it != rhs.mOptions.end(); ++it)
+  {
+    mOptions.insert(pair<string, ConversionOption*>
+      ( it->second->getKey(), it->second->clone()));
+  }
 
-    return *this;
+  return *this;
 }
 
 ConversionProperties* 
@@ -228,7 +221,6 @@ ConversionProperties::getNumOptions() const
 void 
 ConversionProperties::addOption(const ConversionOption &option)
 {
-  if (&option == NULL) return;
   ConversionOption *old = removeOption(option.getKey());
   if (old != NULL) delete old;
 

@@ -143,11 +143,6 @@ Compartment::~Compartment ()
 Compartment::Compartment(const Compartment& orig) :
    SBase             ( orig                    )
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
   {
     mSpatialDimensions       = orig.mSpatialDimensions;
     mSpatialDimensionsDouble = orig.mSpatialDimensionsDouble;
@@ -172,11 +167,7 @@ Compartment::Compartment(const Compartment& orig) :
  */
 Compartment& Compartment::operator=(const Compartment& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mSpatialDimensions= rhs.mSpatialDimensions  ;
@@ -497,11 +488,7 @@ Compartment::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -522,11 +509,7 @@ Compartment::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidInternalSId(name)))
     {
@@ -552,11 +535,7 @@ Compartment::setName (const std::string& name)
 int
 Compartment::setCompartmentType (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if ( (getLevel() < 2)
+  if ( (getLevel() < 2)
     || (getLevel() == 2 && getVersion() == 1))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -674,11 +653,7 @@ Compartment::setVolume (double value)
 int
 Compartment::setUnits (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalUnitSId(sid)))
+  if (!(SyntaxChecker::isValidInternalUnitSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -696,11 +671,7 @@ Compartment::setUnits (const std::string& sid)
 int
 Compartment::setOutside (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1570,11 +1541,6 @@ ListOfCompartments::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
   {
     result = find_if( mItems.begin(), mItems.end(), IdEq<Compartment>(sid) );
     return (result == mItems.end()) ? NULL : 
@@ -1598,15 +1564,12 @@ ListOfCompartments::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEq<Compartment>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Compartment>(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <Compartment*> (item);

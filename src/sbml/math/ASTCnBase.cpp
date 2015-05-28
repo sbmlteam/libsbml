@@ -113,11 +113,7 @@ ASTCnBase::isSetUnits() const
 int 
 ASTCnBase::setUnits(const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
+  if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

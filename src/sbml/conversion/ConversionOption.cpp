@@ -106,18 +106,11 @@ ConversionOption::ConversionOption(const std::string& key, int value,
 
 ConversionOption::ConversionOption
   (const ConversionOption& orig)
+  : mKey(orig.mKey)
+  , mValue(orig.mValue)
+  , mType(orig.mType)
+  , mDescription(orig.mDescription)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mDescription = orig.mDescription;
-    mKey = orig.mKey;
-    mType = orig.mType;
-    mValue = orig.mValue;
-  }
 }
 
 
@@ -125,18 +118,14 @@ ConversionOption::ConversionOption
 ConversionOption& 
 ConversionOption::operator=(const ConversionOption& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else
+  if(&rhs!=this)
   {
     mDescription = rhs.mDescription;
     mKey = rhs.mKey;
     mType = rhs.mType;
     mValue = rhs.mValue;
   }
-   return *this;
+  return *this;
 }
 
 ConversionOption* 

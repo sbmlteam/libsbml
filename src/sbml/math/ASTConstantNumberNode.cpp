@@ -202,7 +202,6 @@ ASTConstantNumberNode::isNegInfinity() const
 void
 ASTConstantNumberNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   std::string name;
 

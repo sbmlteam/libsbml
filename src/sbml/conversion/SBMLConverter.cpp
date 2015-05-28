@@ -60,24 +60,14 @@ SBMLConverter::SBMLConverter (const std::string& name)
  * Copy constructor.
  */
 SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
-    mDocument (NULL)
+    mDocument (orig.mDocument)
   , mProps(NULL)
-  , mName("")
+  , mName(orig.mName)
 {
-  if (&orig == NULL)
+  if (orig.mProps != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mDocument = orig.mDocument;
-    mName = orig.mName;
-    
-    if (orig.mProps != NULL) 
-    {
-      mProps = new ConversionProperties(*orig.mProps);
-    }
-  }
+    mProps = new ConversionProperties(*orig.mProps);
+  }  
 }
 
 
@@ -100,11 +90,7 @@ SBMLConverter::~SBMLConverter ()
 SBMLConverter& 
 SBMLConverter::operator=(const SBMLConverter& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mDocument = rhs.mDocument;
     mName = rhs.mName;

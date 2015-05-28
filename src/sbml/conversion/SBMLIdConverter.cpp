@@ -112,7 +112,7 @@ SBMLIdConverter::getDefaultProperties() const
 bool 
 SBMLIdConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("renameSIds"))
+  if (!props.hasOption("renameSIds"))
     return false;
   return true;
 }

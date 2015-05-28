@@ -538,7 +538,7 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
 
-  std::vector<XMLNode> mChildren;
+  std::vector<XMLNode*> mChildren;
 
   /** @endcond */
 };

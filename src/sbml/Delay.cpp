@@ -93,24 +93,18 @@ Delay::~Delay ()
 /*
  * Copy constructor. Creates a copy of this Delay.
  */
-Delay::Delay (const Delay& orig) :
-   SBase          ( orig )
- , mMath          ( NULL    )
+Delay::Delay (const Delay& orig)
+ : SBase          ( orig )
+ , mMath          ( NULL )
+ , mInternalId    ( orig.mInternalId )
 {
-  if (&orig == NULL)
+   
+  if (orig.mMath != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
-  else
-  {
-    mInternalId = orig.mInternalId;
- 
-    if (orig.mMath != NULL) 
-    {
-      mMath = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
-  }
+  
 }
 
 
@@ -119,11 +113,7 @@ Delay::Delay (const Delay& orig) :
  */
 Delay& Delay::operator=(const Delay& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mInternalId = rhs.mInternalId;

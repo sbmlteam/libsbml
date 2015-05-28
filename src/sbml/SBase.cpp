@@ -378,46 +378,39 @@ SBase::SBase (SBMLNamespaces *sbmlns)
  * Copy constructor. Creates a copy of this SBase object.
  */
 SBase::SBase(const SBase& orig)
+  : mMetaId (orig.mMetaId)
+  , mNotes (NULL)
+  , mAnnotation (NULL)
+  , mSBML (NULL)
+  , mSBMLNamespaces(NULL)
+  , mUserData(orig.mUserData)
+  , mSBOTerm(orig.mSBOTerm)
+  , mLine(orig.mLine)
+  , mColumn(orig.mColumn)
+  , mParentSBMLObject(NULL)
+  , mCVTerms(NULL)
+  , mHistory(NULL)
+  , mHasBeenDeleted(false)
+  , mEmptyString()
+  , mPlugins(orig.mPlugins.size())
+  , mDisabledPlugins()
+  , mURI(orig.mURI)
+  , mHistoryChanged(orig.mHistoryChanged)
+  , mCVTermsChanged(orig.mCVTermsChanged)
+  , mAttributesOfUnknownPkg (orig.mAttributesOfUnknownPkg)
+  , mAttributesOfUnknownDisabledPkg (orig.mAttributesOfUnknownDisabledPkg)
+  , mElementsOfUnknownPkg (orig.mElementsOfUnknownPkg)
+  , mElementsOfUnknownDisabledPkg (orig.mElementsOfUnknownDisabledPkg)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  this->mMetaId = orig.mMetaId;
-
   if(orig.mNotes != NULL)
     this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
-  else
-    this->mNotes = NULL;
 
   if(orig.mAnnotation != NULL)
     this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
-  else
-    this->mAnnotation = NULL;
 
-  /* the copy does not contain a pointer to the document since technically
-   * a copy is not part of the document
-   */
-  this->mSBML       = NULL;
-  this->mSBOTerm    = orig.mSBOTerm;
-  this->mLine       = orig.mLine;
-  this->mColumn     = orig.mColumn;
-  this->mParentSBMLObject = NULL;
-  this->mUserData   = orig.mUserData;
-  this->mAttributesOfUnknownPkg = orig.mAttributesOfUnknownPkg;
-  this->mAttributesOfUnknownDisabledPkg = orig.mAttributesOfUnknownDisabledPkg;
-  this->mElementsOfUnknownPkg = orig.mElementsOfUnknownPkg;
-  this->mElementsOfUnknownDisabledPkg = orig.mElementsOfUnknownDisabledPkg;
-
-  /* if the object belongs to document that has had the level/version reset
-   * the copy will end up with the wrong namespace information
-   * need to use the default namespace NOT the namespace local to the object
-   */
   if(orig.getSBMLNamespaces() != NULL)
     this->mSBMLNamespaces =
     new SBMLNamespaces(*const_cast<SBase&>(orig).getSBMLNamespaces());
-  else
-    this->mSBMLNamespaces = NULL;
 
   if(orig.mCVTerms != NULL)
   {
@@ -429,34 +422,18 @@ SBase::SBase(const SBase& orig)
         ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
     }
   }
-  else
-  {
-    this->mCVTerms = NULL;
-  }
 
   if (orig.mHistory != NULL)
   {
     this->mHistory = orig.mHistory->clone();
   }
-  else
-  {
-    this->mHistory = NULL;
-  }
 
-  this->mHasBeenDeleted = false;
-
-  this->mURI = orig.mURI;
-
-  mPlugins.resize( orig.mPlugins.size() );
   transform( orig.mPlugins.begin(), orig.mPlugins.end(),
              mPlugins.begin(), ClonePluginEntity() );
   for (size_t i=0; i < mPlugins.size(); ++i)
   {
     mPlugins[i]->connectToParent(this);
   }
-
-  this->mHistoryChanged = orig.mHistoryChanged;
-  this->mCVTermsChanged = orig.mCVTermsChanged;
 
 }
 /** @endcond */
@@ -492,11 +469,7 @@ SBase::~SBase ()
  */
 SBase& SBase::operator=(const SBase& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->mMetaId = rhs.mMetaId;
 
@@ -1192,11 +1165,7 @@ SBase::isSetModelHistory()
 int
 SBase::setMetaId (const std::string& metaid)
 {
-  if (&(metaid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -1377,47 +1346,42 @@ SBase::setAnnotation (const XMLNode* annotation)
 int
 SBase::setAnnotation (const std::string& annotation)
 {
-  if (&(annotation) == NULL)
+  
+  int success = LIBSBML_OPERATION_FAILED;
+  
+  //
+  // (*NOTICE*)
+  //
+  // syncAnnotation() must not be invoked in this function.
+  //
+  //
+  
+  if(annotation.empty())
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    unsetAnnotation();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  
+  XMLNode* annt_xmln;
+  
+  // you might not have a document !!
+  if (getSBMLDocument() != NULL)
+  {
+    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
   }
   else
   {
-    int success = LIBSBML_OPERATION_FAILED;
-
-    //
-    // (*NOTICE*)
-    //
-    // syncAnnotation() must not be invoked in this function.
-    //
-    //
-
-    if(annotation.empty())
-    {
-      unsetAnnotation();
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-
-    XMLNode* annt_xmln;
-
-    // you might not have a document !!
-    if (getSBMLDocument() != NULL)
-    {
-      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
-      annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
-    }
-    else
-    {
-      annt_xmln = XMLNode::convertStringToXMLNode(annotation);
-    }
-
-    if(annt_xmln != NULL)
-    {
-      success = setAnnotation(annt_xmln);
-      delete annt_xmln;
-    }
-    return success;
+    annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
+  
+  if(annt_xmln != NULL)
+  {
+    success = setAnnotation(annt_xmln);
+    delete annt_xmln;
+  }
+  return success;
+  
 }
 
 
@@ -1774,11 +1738,8 @@ int
 SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if (&(notes) == NULL)
-  {
-    success = LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (notes.empty())
+  
+  if (notes.empty())
   {
     success = unsetNotes();
   }
@@ -2424,14 +2385,7 @@ SBase::setSBOTerm (int value)
 int
 SBase::setSBOTerm (const std::string &sboid)
 {
-  if (&(sboid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    return setSBOTerm(SBO::stringToInt(sboid));
-  }
+  return setSBOTerm(SBO::stringToInt(sboid));
 }
 
 
@@ -3736,11 +3690,6 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
   }
 
   const std::string& pkgName = getPackageName();
-  if (&pkgName == NULL)
-  {
-	  // the pkgName was not initialized, so this is an invalid element
-	  return false;
-  }
 
   if (pkgName == "core")
   {
@@ -6141,8 +6090,6 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
 void
 SBase::read(XMLNode& node, XMLErrorSeverityOverride_t flag /*= LIBSBML_OVERRIDE_DISABLED*/)
 {
-  if (&node == NULL) return;
-
   XMLErrorLog* log = getErrorLog();
 
   // set override for error messages

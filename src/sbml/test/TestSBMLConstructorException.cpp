@@ -148,30 +148,6 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   }
   fail_unless(msg == errMsg);
 
-  Compartment *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Compartment s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Compartment *s = new Compartment(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -292,30 +268,6 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   }
   fail_unless(msg == errMsg);
   
-  CompartmentType *sn24 = NULL;
-  msg = "";
-  try
-  {
-    CompartmentType s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    CompartmentType *s = new CompartmentType(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -439,30 +391,6 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   }
   fail_unless(msg == errMsg);
 
-  Constraint *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Constraint s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Constraint *s = new Constraint(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -585,30 +513,6 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   }
   fail_unless(msg == errMsg);
 
-  InitialAssignment *sn24 = NULL;
-  msg = "";
-  try
-  {
-    InitialAssignment s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    InitialAssignment *s = new InitialAssignment(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -672,30 +576,6 @@ START_TEST ( test_SBMLConstructorException_Species )
   }
   fail_unless(msg == errMsg);
 
-  Species *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Species s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Species *s = new Species(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -817,30 +697,6 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   }
   fail_unless(msg == errMsg);
 
-  SpeciesType *sn24 = NULL;
-  msg = "";
-  try
-  {
-    SpeciesType s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    SpeciesType *s = new SpeciesType(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -944,30 +800,6 @@ START_TEST ( test_SBMLConstructorException_Delay )
   }
   fail_unless(msg == errMsg);
 
-  Delay *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Delay s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Delay *s = new Delay(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1071,30 +903,6 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   }
   fail_unless(msg == errMsg);
 
-  Trigger *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Trigger s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Trigger *s = new Trigger(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1198,30 +1006,6 @@ START_TEST ( test_SBMLConstructorException_Event )
   }
   fail_unless(msg == errMsg);
 
-  Event *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Event s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Event *s = new Event(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1325,30 +1109,6 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   }
   fail_unless(msg == errMsg);
 
-  EventAssignment *sn24 = NULL;
-  msg = "";
-  try
-  {
-    EventAssignment s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    EventAssignment *s = new EventAssignment(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1452,30 +1212,6 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   }
   fail_unless(msg == errMsg);
 
-  ModifierSpeciesReference *sn24 = NULL;
-  msg = "";
-  try
-  {
-    ModifierSpeciesReference s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    ModifierSpeciesReference *s = new ModifierSpeciesReference(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1577,30 +1313,6 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   }
   fail_unless(msg == errMsg);
 
-  StoichiometryMath *sn24 = NULL;
-  msg = "";
-  try
-  {
-    StoichiometryMath s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    StoichiometryMath *s = new StoichiometryMath(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1664,30 +1376,6 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
   }
   fail_unless(msg == errMsg);
 
-  SpeciesReference *sn24 = NULL;
-  msg = "";
-  try
-  {
-    SpeciesReference s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    SpeciesReference *s = new SpeciesReference(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1791,30 +1479,6 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   }
   fail_unless(msg == errMsg);
 
-  FunctionDefinition *sn24 = NULL;
-  msg = "";
-  try
-  {
-    FunctionDefinition s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    FunctionDefinition *s = new FunctionDefinition(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1878,30 +1542,6 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
   }
   fail_unless(msg == errMsg);
 
-  KineticLaw *sn24 = NULL;
-  msg = "";
-  try
-  {
-    KineticLaw s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    KineticLaw *s = new KineticLaw(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -1965,30 +1605,6 @@ START_TEST ( test_SBMLConstructorException_Model )
   }
   fail_unless(msg == errMsg);
 
-  Model *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Model s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Model *s = new Model(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2052,30 +1668,6 @@ START_TEST ( test_SBMLConstructorException_Parameter )
   }
   fail_unless(msg == errMsg);
 
-  Parameter *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Parameter s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Parameter *s = new Parameter(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2138,31 +1730,6 @@ START_TEST ( test_SBMLConstructorException_Reaction )
     msg = e.what();
   }
   fail_unless(msg == errMsg);
-
-  Reaction *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Reaction s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Reaction *s = new Reaction(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2226,30 +1793,6 @@ START_TEST ( test_SBMLConstructorException_Unit )
   }
   fail_unless(msg == errMsg);
 
-  Unit *sn24 = NULL;
-  msg = "";
-  try
-  {
-    Unit s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    Unit *s = new Unit(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2312,31 +1855,6 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
     msg = e.what();
   }
   fail_unless(msg == errMsg);
-
-  UnitDefinition *sn24 = NULL;
-  msg = "";
-  try
-  {
-    UnitDefinition s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    UnitDefinition *s = new UnitDefinition(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2399,31 +1917,6 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
     msg = e.what();
   }
   fail_unless(msg == errMsg);
-
-  AssignmentRule *sn24 = NULL;
-  msg = "";
-  try
-  {
-    AssignmentRule s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    AssignmentRule *s = new AssignmentRule(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2487,30 +1980,6 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
   }
   fail_unless(msg == errMsg);
 
-  AlgebraicRule *sn24 = NULL;
-  msg = "";
-  try
-  {
-    AlgebraicRule s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    AlgebraicRule *s = new AlgebraicRule(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2574,30 +2043,6 @@ START_TEST ( test_SBMLConstructorException_RateRule )
   }
   fail_unless(msg == errMsg);
 
-  RateRule *sn24 = NULL;
-  msg = "";
-  try
-  {
-    RateRule s(&SN24);
-    s=*sn24;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    RateRule *s = new RateRule(*sn24);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2670,30 +2115,6 @@ START_TEST ( test_SBMLConstructorException_Priority )
   }
   fail_unless(msg == errMsg);
   
-  Priority *sn31 = NULL;
-  msg = "";
-  try
-  {
-    Priority s(&SN31);
-    s=*sn31;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
-  
-  msg = "";
-  try
-  {
-    Priority *s = new Priority(*sn31);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
 }
 END_TEST
 
@@ -2766,30 +2187,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   }
   fail_unless(msg == errMsg);
 
-  LocalParameter *sn31 = NULL;
-  msg = "";
-  try
-  {
-    LocalParameter s(&SN31);
-    s=*sn31;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    LocalParameter *s = new LocalParameter(*sn31);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
+
 }
 END_TEST
 
@@ -2818,30 +2216,7 @@ START_TEST ( test_SBMLConstructorException_SBMLNamespaces )
   //}
   //fail_unless(msg == errMsg);
 
-  SBMLNamespaces *sn31 = NULL;
-  msg = "";
-  try
-  {
-    SBMLNamespaces s(SN31);
-    s=*sn31;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    SBMLNamespaces *s = new SBMLNamespaces(*sn31);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
+  
 }
 END_TEST
 
@@ -2893,30 +2268,7 @@ START_TEST ( test_SBMLConstructorException_SBMLDocument )
   }
   fail_unless(msg == errMsg);
   
-  SBMLDocument *sn31 = NULL;
-  msg = "";
-  try
-  {
-    SBMLDocument s(&SN31);
-    s=*sn31;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
- 
-  msg = "";
-  try
-  {
-    SBMLDocument *s = new SBMLDocument(*sn31);
-    (void) s;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
+  
 }
 END_TEST
 

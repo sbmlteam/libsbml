@@ -436,10 +436,6 @@ bool representsFunctionRequiringAtLeastTwoArguments(int type)
 bool
 isCoreTopLevelMathMLFunctionNodeTag(const std::string& name)
 {
-  if (&name == NULL) 
-  {
-    return false;
-  }
 
   if ( name == "apply"
     || name == "lambda"
@@ -462,11 +458,7 @@ isCoreTopLevelMathMLFunctionNodeTag(const std::string& name)
 bool
 isCoreTopLevelMathMLNumberNodeTag(const std::string& name)
 {
-  if (&name == NULL) 
-  {
-    return false;
-  }
-
+  
   if ( name == "cn"
     || name == "ci"
     || name == "csymbol"

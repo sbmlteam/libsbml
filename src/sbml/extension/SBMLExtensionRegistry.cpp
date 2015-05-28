@@ -99,12 +99,9 @@ SBMLExtensionRegistry::SBMLExtensionRegistry()
 
 
 SBMLExtensionRegistry::SBMLExtensionRegistry(const SBMLExtensionRegistry& orig)
+ : mSBMLExtensionMap(orig.mSBMLExtensionMap)
+ , mSBasePluginMap(orig.mSBasePluginMap)
 {
-  if (&orig != NULL)
-  {
-    mSBMLExtensionMap =   orig.mSBMLExtensionMap;
-    mSBasePluginMap   =   orig.mSBasePluginMap;
-  }
 }
 
 SBMLExtensionRegistry& SBMLExtensionRegistry::operator= (const SBMLExtensionRegistry&rhs)
@@ -218,8 +215,6 @@ SBMLExtensionRegistry::getExtension(const std::string& uri)
 const SBMLExtension*
 SBMLExtensionRegistry::getExtensionInternal(const std::string& uri)
 {
-  if(&uri == NULL) return NULL;
-  
   SBMLExtensionMapIter it = mSBMLExtensionMap.find(uri);
 
 #if 0
@@ -242,18 +237,15 @@ SBMLExtensionRegistry::getSBasePluginCreators(const SBaseExtensionPoint& extPoin
 {
   std::list<const SBasePluginCreatorBase*> sbaseExtList;
 
-  if (&extPoint != NULL)
-  {
-    SBasePluginMapIter it = mSBasePluginMap.find(extPoint);
-    if (it != mSBasePluginMap.end())
-    {    
-      do 
-      {
-        sbaseExtList.push_back((*it).second);
-        ++it;
-      } while ( it != mSBasePluginMap.upper_bound(extPoint));
-    }
-  }  
+  SBasePluginMapIter it = mSBasePluginMap.find(extPoint);
+  if (it != mSBasePluginMap.end())
+  {    
+    do 
+    {
+      sbaseExtList.push_back((*it).second);
+      ++it;
+    } while ( it != mSBasePluginMap.upper_bound(extPoint));
+  }
 
   return sbaseExtList;
 }
@@ -269,8 +261,6 @@ SBMLExtensionRegistry::getSBasePluginCreators(const std::string& uri)
 {
   std::list<const SBasePluginCreatorBase*> sbasePCList;
 
-  if (&uri != NULL)
-  {
   SBasePluginMapIter it = mSBasePluginMap.begin();
   if (it != mSBasePluginMap.end())
   {    
@@ -296,7 +286,7 @@ SBMLExtensionRegistry::getSBasePluginCreators(const std::string& uri)
       std::cout << "[DEBUG] SBMLExtensionRegistry::getPluginCreators() " 
                 << uri << " is NOT found." << std::endl;
 #endif
-  }
+
 
   return sbasePCList;  
 }
@@ -310,7 +300,6 @@ SBMLExtensionRegistry::getSBasePluginCreators(const std::string& uri)
 const SBasePluginCreatorBase* 
 SBMLExtensionRegistry::getSBasePluginCreator(const SBaseExtensionPoint& extPoint, const std::string &uri)
 {
-  if(&extPoint == NULL || &uri == NULL) return NULL;
   SBasePluginMapIter it = mSBasePluginMap.find(extPoint);
   if (it != mSBasePluginMap.end())
   {
@@ -344,7 +333,6 @@ unsigned int
 SBMLExtensionRegistry::getNumExtension(const SBaseExtensionPoint& extPoint)
 {
   unsigned int numOfExtension = 0;
-  if (&extPoint == NULL) return 0;
   SBasePluginMapIter it = mSBasePluginMap.find(extPoint);
   if (it != mSBasePluginMap.end())
   {    

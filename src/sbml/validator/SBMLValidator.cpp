@@ -53,19 +53,9 @@ SBMLValidator::SBMLValidator () :
 /*
  * Copy constructor.
  */
-    SBMLValidator::SBMLValidator(const SBMLValidator& orig) :
-    mDocument (NULL)
+SBMLValidator::SBMLValidator(const SBMLValidator& orig)
+  : mDocument (orig.mDocument)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mDocument = orig.mDocument;
-    
-    
-  }
 }
 
 
@@ -84,15 +74,9 @@ SBMLValidator::~SBMLValidator ()
 SBMLValidator& 
 SBMLValidator::operator=(const SBMLValidator& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mDocument = rhs.mDocument;
-    
-    
   }
 
   return *this;
@@ -165,7 +149,6 @@ SBMLValidator::getFailures () const
 void
 SBMLValidator::logFailure (const SBMLError& msg)
 {
-  if (&msg == NULL) return;
   mFailures.push_back(msg);
 }
 
@@ -179,8 +162,6 @@ SBMLValidator::logFailure (const SBMLError& msg)
 unsigned int
 SBMLValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
-
   SBMLReader    reader;
   SBMLDocument* d = reader.readSBML(filename);
 

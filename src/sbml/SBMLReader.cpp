@@ -136,8 +136,6 @@ SBMLReader::readSBMLFromFile (const std::string& filename)
 SBMLDocument*
 SBMLReader::readSBMLFromString (const std::string& xml)
 {
-  if (&xml == NULL) return NULL;
-
   const static string dummy_xml ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");  
   
   if (!strncmp(xml.c_str(), dummy_xml.c_str(), 14))

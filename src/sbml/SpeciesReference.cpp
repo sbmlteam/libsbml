@@ -122,29 +122,21 @@ SpeciesReference::~SpeciesReference ()
 /*
  * Copy constructor. Creates a copy of this SpeciesReference.
  */
-SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
-   SimpleSpeciesReference( orig                )
- , mStoichiometryMath    ( NULL                   )
+SpeciesReference::SpeciesReference (const SpeciesReference& orig)
+ : SimpleSpeciesReference( orig                )
+ , mStoichiometry        ( orig.mStoichiometry )
+ , mDenominator          ( orig.mDenominator   )
+ , mStoichiometryMath    ( NULL                )
+ , mConstant             ( orig.mConstant)
+ , mIsSetConstant        ( orig.mIsSetConstant)
+ , mIsSetStoichiometry   ( orig.mIsSetStoichiometry)
+ , mExplicitlySetStoichiometry ( orig.mExplicitlySetStoichiometry)
+ , mExplicitlySetDenominator   ( orig.mExplicitlySetDenominator)
 {
-  if (&orig == NULL)
+  if (orig.mStoichiometryMath != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mStoichiometry = orig.mStoichiometry ;
-    mDenominator = orig.mDenominator   ;
-    mConstant = orig.mConstant;
-    mIsSetConstant = orig.mIsSetConstant;
-    mIsSetStoichiometry = orig.mIsSetStoichiometry;
-    mExplicitlySetStoichiometry = orig.mExplicitlySetStoichiometry;
-    mExplicitlySetDenominator = orig.mExplicitlySetDenominator;
-
-    if (orig.mStoichiometryMath != NULL)
-    {
-      mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
+    mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
     mStoichiometryMath->connectToParent(this);
-    }
   }
 }
 
@@ -154,11 +146,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
  */
 SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->SimpleSpeciesReference::operator = ( rhs );
@@ -1284,16 +1272,9 @@ ListOfSpeciesReferences::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqSSR(sid) );
-    return (result == mItems.end()) ? NULL : 
-                             static_cast <SimpleSpeciesReference*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqSSR(sid) );
+  return (result == mItems.end()) ? NULL : 
+                           static_cast <SimpleSpeciesReference*> (*result);
 }
 
 
@@ -1312,15 +1293,12 @@ ListOfSpeciesReferences::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqSSR(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqSSR(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <SimpleSpeciesReference*> (item);

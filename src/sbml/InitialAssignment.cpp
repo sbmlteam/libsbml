@@ -92,22 +92,15 @@ InitialAssignment::~InitialAssignment ()
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
    SBase   ( orig )
+ , mSymbol ( orig.mSymbol)
  , mMath   ( NULL    )
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
-  else
-  {
-    mSymbol  = orig.mSymbol;
-
-    if (orig.mMath != NULL) 
-    {
-      mMath = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
-  }
+ 
 }
 
 
@@ -116,15 +109,10 @@ InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
  */
 InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mSymbol = rhs.mSymbol;
-
     delete mMath;
     if (rhs.mMath != NULL) 
     {
@@ -229,11 +217,7 @@ InitialAssignment::isSetMath () const
 int
 InitialAssignment::setSymbol (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -883,16 +867,10 @@ ListOfInitialAssignments::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
-    return (result == mItems.end()) ? NULL : 
-                                static_cast <InitialAssignment*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
+  return (result == mItems.end()) ? NULL : 
+                              static_cast <InitialAssignment*> (*result);
+  
 }
 
 
@@ -911,15 +889,12 @@ ListOfInitialAssignments::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <InitialAssignment*> (item);

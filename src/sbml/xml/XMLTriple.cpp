@@ -58,13 +58,10 @@ XMLTriple::XMLTriple ()
 XMLTriple::XMLTriple (  const std::string&  name
                       , const std::string&  uri
                       , const std::string&  prefix ) 
+ : mName   ( name )
+ , mURI    ( uri  )
+ , mPrefix ( prefix )
 {
-  if ((&name == NULL) || (&uri == NULL) || (&prefix == NULL))
-    throw XMLConstructorException("Null argument given to constructor");
-
-  mName = name;
-  mURI = uri;
-  mPrefix = prefix;
 }
 
 
@@ -78,8 +75,6 @@ XMLTriple::XMLTriple (  const std::string&  name
  */
 XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
 { 
-  if (&triplet == NULL)
-    throw XMLConstructorException("NULL reference in XML constructor");
 
   string::size_type start = 0;
   string::size_type pos   = triplet.find(sepchar, start);
@@ -113,17 +108,10 @@ XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
  * Copy constructor; creates a copy of this XMLTriple set.
  */
 XMLTriple::XMLTriple(const XMLTriple& orig)
+  : mName   ( orig.mName )
+  , mURI    ( orig.mURI )
+  , mPrefix ( orig.mPrefix )
 {
-  if (&orig == NULL)
-  {
-    throw XMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mName   = orig.mName;
-    mURI    = orig.mURI;
-    mPrefix = orig.mPrefix;
-  }
 }
 
 
@@ -133,11 +121,7 @@ XMLTriple::XMLTriple(const XMLTriple& orig)
 XMLTriple& 
 XMLTriple::operator=(const XMLTriple& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw XMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mName   = rhs.mName;
     mURI    = rhs.mURI;

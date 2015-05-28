@@ -54,8 +54,6 @@ XMLFileBuffer::XMLFileBuffer (const string& filename)
 {
   mStream = NULL;
 
-  if (&filename == NULL) return;
-
   mFilename = filename;
 
   try

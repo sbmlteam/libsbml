@@ -206,21 +206,10 @@ START_TEST (test_SBMLExtension_copy)
 	fail_unless(assign != NULL );
 	fail_unless(assign->getURI(3, 1, 1) == uri);
 
-  // test NULL copy
-  TestExtension *ext1 = NULL;
-  TestExtension *copy1 = new TestExtension(*ext1);
-	fail_unless(copy1->getNumOfSupportedPackageURI() == 0 );
-
-  // test NULL assign
-  TestExtension *assign1 = new TestExtension();
-  (*assign1) = *ext1;
-	fail_unless(assign1->getNumOfSupportedPackageURI() == 0 );
-
-	delete ext;
+  delete ext;
   delete copy;
   delete assign;
-  delete copy1;
-  delete assign1;
+  
 }
 END_TEST
 

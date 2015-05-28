@@ -348,7 +348,6 @@ ASTFunctionBase::hasChildren() const
 void
 ASTFunctionBase::writeArgumentsOfType(XMLOutputStream& stream, int type) const
 {
-  if (&stream == NULL) return;
 
   int thisType = getExtendedType();
 

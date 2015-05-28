@@ -86,19 +86,11 @@ CompartmentType::~CompartmentType ()
 /*
  * Copy constructor. Creates a copy of this CompartmentType.
  */
-CompartmentType::CompartmentType(const CompartmentType& orig) :
-   SBase             ( orig                    )
+CompartmentType::CompartmentType(const CompartmentType& orig)
+  : SBase             ( orig                    )
+  , mId               (orig.mId)
+  , mName             (orig.mName)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId               = orig.mId;
-    mName             = orig.mName;
-  }
-
 }
 
 
@@ -107,11 +99,7 @@ CompartmentType::CompartmentType(const CompartmentType& orig) :
  */
 CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mId = rhs.mId;
@@ -204,11 +192,7 @@ CompartmentType::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -229,11 +213,7 @@ CompartmentType::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidInternalSId(name)))
     {
@@ -566,16 +546,9 @@ ListOfCompartmentTypes::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
-    return (result == mItems.end()) ? NULL : 
-                      static_cast <CompartmentType*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
+  return (result == mItems.end()) ? NULL : 
+                    static_cast <CompartmentType*> (*result);  
 }
 
 
@@ -594,15 +567,12 @@ ListOfCompartmentTypes::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <CompartmentType*> (item);

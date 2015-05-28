@@ -88,8 +88,6 @@ void
 SBMLDocumentPluginNotRequired::readAttributes (const XMLAttributes& attributes,
                                           const ExpectedAttributes& expectedAttributes)
 {
-  if (&attributes == NULL || &expectedAttributes == NULL ) return;
-
   //If we're reading from a file, the file might erroneously not have set the 'required' flag:
   mIsSetRequired = false;
 

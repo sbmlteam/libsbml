@@ -107,7 +107,7 @@ CobraToFbcConverter::checkCompatibility() const
 bool 
 CobraToFbcConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("convert cobra"))
+  if (!props.hasOption("convert cobra"))
     return false;
   return true;
 }

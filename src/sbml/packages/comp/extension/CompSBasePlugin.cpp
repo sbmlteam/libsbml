@@ -459,7 +459,6 @@ CompSBasePlugin::logInvalidId(const std::string& attribute,
                               const std::string& wrongattribute)
 {
 
-  if (&attribute == NULL || &wrongattribute == NULL) return;
   bool knownelement = (getParentSBMLObject() == NULL);
   std::ostringstream msg;
 

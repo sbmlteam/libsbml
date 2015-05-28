@@ -87,7 +87,6 @@ LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, const std::string& reqd_prefix)
 {
-  if (&stream == NULL) return NULL;
 
   stream.skipText();
 
@@ -113,7 +112,7 @@ LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
-  if (node == NULL || &stream == NULL) return;
+  if (node == NULL ) return;
   stream.setSBMLNamespaces(sbmlns);
   node->write(stream);
 }

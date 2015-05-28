@@ -104,7 +104,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 #define ADD_FILTERED_ELEMENT(pResult,pSublist,element,pFilter)\
 {\
-  if (&element != NULL) {\
+  {\
     if (pFilter == NULL || pFilter->filter(&element))\
     pResult->add(&element);\
     pSublist = element.getAllElements(pFilter);\

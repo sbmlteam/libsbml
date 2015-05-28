@@ -217,8 +217,6 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mNextAmpersandIsRef( false )
  , mSBMLns (NULL)
 {
-  if (&stream == NULL)
-    throw XMLConstructorException();
 
   unsetStringStream();
   mStream.imbue( locale::classic() );
@@ -233,7 +231,6 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
 void
 XMLOutputStream::endElement (const std::string& name, const std::string& prefix)
 {
-  if(&name == NULL) return;
 
   if (mInStart)
   {
@@ -267,7 +264,6 @@ XMLOutputStream::endElement (const std::string& name, const std::string& prefix)
 void
 XMLOutputStream::endElement (const XMLTriple& triple)
 {
-  if(&triple == NULL) return;
 
   if (mInStart)
   {
@@ -310,7 +306,6 @@ XMLOutputStream::setAutoIndent (bool indent)
 void
 XMLOutputStream::startElement (const std::string& name, const std::string& prefix)
 {
-  if (&name == NULL) return; 
 
   if (mInStart)
   {
@@ -341,7 +336,6 @@ XMLOutputStream::startElement (const std::string& name, const std::string& prefi
 void
 XMLOutputStream::startElement (const XMLTriple& triple)
 {
-  if (&triple == NULL) return;
 
   if (mInStart)
   {
@@ -371,7 +365,6 @@ XMLOutputStream::startElement (const XMLTriple& triple)
 void
 XMLOutputStream::startEndElement (const std::string& name, const std::string& prefix)
 {
-  if (&name == NULL) return; 
 
   if (mInStart)
   {
@@ -406,7 +399,6 @@ XMLOutputStream::startEndElement (const std::string& name, const std::string& pr
 void
 XMLOutputStream::startEndElement (const XMLTriple& triple)
 {
-  if (&triple == NULL) return;
 
   if (mInStart)
   {
@@ -440,7 +432,7 @@ XMLOutputStream::startEndElement (const XMLTriple& triple)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const std::string& value)
 {
-  if ( &name == NULL || &value == NULL || value.empty() ) return; 
+  if ( value.empty() ) return; 
 
   mStream << ' ';
 
@@ -531,7 +523,6 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const char* value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const bool& value)
 {
-  if (&name == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -561,7 +552,6 @@ XMLOutputStream::writeAttribute (const std::string& name, const std::string& pre
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
 {
-  if (&triple == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -576,7 +566,6 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const double& value)
 {
-  if (&name == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -617,7 +606,6 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const double& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const long& value)
 {
-  if (&name == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -659,7 +647,6 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const long& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const int& value)
 {
-  if (&name == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -688,7 +675,6 @@ XMLOutputStream::writeAttribute (const std::string& name, const std::string& pre
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
 {
-  if (&triple == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -703,7 +689,6 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const unsigned int& value)
 {
-  if (&name == NULL || &value == NULL) return; 
 
   mStream << ' ';
 
@@ -733,7 +718,6 @@ void
 XMLOutputStream::writeAttribute (  const XMLTriple&     triple
                                  , const unsigned int&  value )
 {
-  if (&triple == NULL || &value == NULL) return; 
 
   mStream << ' ';
 

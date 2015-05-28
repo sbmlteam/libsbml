@@ -47,7 +47,7 @@ IdList::IdList()
 
 IdList::IdList(const std::string& commaSeparated)
 {
-  if (&commaSeparated == NULL || commaSeparated.size() == 0) 
+  if (commaSeparated.size() == 0) 
     return;
 
   size_t length = commaSeparated.size();

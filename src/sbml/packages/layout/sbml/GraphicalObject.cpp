@@ -370,7 +370,7 @@ bool GraphicalObject::isSetId() const
   */
 int GraphicalObject::setId(const std::string& id)
 {
-  if (&id != NULL && id.empty())
+  if (id.empty())
     return unsetId();
   return SyntaxChecker::checkAndSetSId(id, mId);
 }
@@ -416,7 +416,7 @@ bool GraphicalObject::isSetMetaIdRef() const
   */
 int GraphicalObject::setMetaIdRef(const std::string& metaid)
 {
-  if (&metaid != NULL && metaid.empty())
+  if (metaid.empty())
     return unsetMetaIdRef();
   return SyntaxChecker::checkAndSetSId(metaid, mMetaIdRef);
 }

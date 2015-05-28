@@ -77,10 +77,7 @@ Date::Date(unsigned int year, unsigned int month,
 Date::Date (const std::string& date) :
   mHasBeenModified (false)
 { 
-  if (&(date) == NULL)
-    mDate = "";
-  else
-    mDate = date; 
+  mDate = date; 
 
   parseDateStringToNumbers();
   parseDateNumbersToString();
@@ -94,11 +91,6 @@ Date::~Date() {}
  */
 Date::Date(const Date& orig)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
   {
     mYear   = orig.mYear;
     mMonth  = orig.mMonth;
@@ -122,11 +114,7 @@ Date::Date(const Date& orig)
  */
 Date& Date::operator=(const Date& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mYear   = rhs.mYear;
     mMonth  = rhs.mMonth;
@@ -392,16 +380,7 @@ Date::setDateAsString (const std::string& date)
    * the date completely
    */
  
-  if (&(date) == NULL)
-  {
-    mDate = "";
-    // revert to default numbers
-    // rewrite date string to reflect the defaults
-    parseDateStringToNumbers();
-    parseDateNumbersToString();
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (date.empty())
+  if (date.empty())
   {
     mDate = "";
     // revert to default numbers

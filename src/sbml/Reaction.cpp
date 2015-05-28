@@ -175,33 +175,25 @@ Reaction::~Reaction ()
 /*
  * Copy constructor. Creates a copy of this Reaction.
  */
-Reaction::Reaction (const Reaction& orig) :
-    SBase      ( orig )
+Reaction::Reaction (const Reaction& orig)
+  : SBase      ( orig )
+  , mId        ( orig.mId )
+  , mName      ( orig.mName )
   , mReactants ( orig.mReactants  )
   , mProducts  ( orig.mProducts   )
   , mModifiers ( orig.mModifiers  )
   , mKineticLaw( NULL    )
-{
-  if (&orig == NULL)
+  , mReversible( orig.mReversible )
+  , mFast      ( orig.mFast       )
+  , mIsSetFast ( orig.mIsSetFast  )
+  , mCompartment ( orig.mCompartment )
+  , mIsSetReversible ( orig.mIsSetReversible )
+  , mExplicitlySetReversible ( orig.mExplicitlySetReversible )
+  , mExplicitlySetFast       ( orig.mExplicitlySetFast )
+{  
+  if (orig.mKineticLaw != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mReversible      = orig.mReversible ;
-    mFast            = orig.mFast       ;
-    mIsSetFast       = orig.mIsSetFast  ;
-    mId              = orig.mId;
-    mName            = orig.mName;
-    mCompartment     = orig.mCompartment;
-    mIsSetReversible = orig.mIsSetReversible;
-    mExplicitlySetReversible = orig.mExplicitlySetReversible;
-    mExplicitlySetFast       = orig.mExplicitlySetFast;
-
-    if (orig.mKineticLaw != NULL)
-    {
-      mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
-    }
+    mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
   }
   connectToChild();
 }
@@ -212,11 +204,7 @@ Reaction::Reaction (const Reaction& orig) :
  */
 Reaction& Reaction::operator=(const Reaction& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mReversible = rhs.mReversible ;
@@ -546,11 +534,7 @@ Reaction::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -571,11 +555,7 @@ Reaction::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidInternalSId(name)))
     {
@@ -662,11 +642,7 @@ Reaction::setFast (bool value)
 int
 Reaction::setCompartment (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -1930,15 +1906,8 @@ ListOfReactions::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEq<Reaction>(sid) );
-    return (result == mItems.end()) ? NULL : static_cast <Reaction*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Reaction>(sid) );
+  return (result == mItems.end()) ? NULL : static_cast <Reaction*> (*result);
 }
 
 
@@ -1957,16 +1926,14 @@ ListOfReactions::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEq<Reaction>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Reaction>(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
+
 
   return static_cast <Reaction*> (item);
 }

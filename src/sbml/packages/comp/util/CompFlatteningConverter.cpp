@@ -131,7 +131,7 @@ bool
 CompFlatteningConverter::matchesProperties
                         (const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("flatten comp"))
+  if (!props.hasOption("flatten comp"))
     return false;
   return true;
 }

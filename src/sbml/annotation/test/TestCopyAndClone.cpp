@@ -117,31 +117,7 @@ START_TEST ( test_Date_ConstructorException )
   }
   fail_unless(msg == "");
 
-  Date *date1 = NULL;
-  msg = "";
-  try
-  {
-    Date* date2=new Date(*date1);
-    (void) date2;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
-
-  msg = "";
-  Date *date2 = new Date();
-  try
-  {
-    (*date2) = *date1;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
-  delete date2;
+  
 }
 END_TEST
 
@@ -223,31 +199,6 @@ START_TEST ( test_ModelCreator_ConstructorException )
   }
   fail_unless(msg == "");
 
-  ModelCreator *mc1 = NULL;
-  msg = "";
-  try
-  {
-    ModelCreator* mc2=new ModelCreator(*mc1);
-    (void) mc2;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
-
-  msg = "";
-  ModelCreator *mc2 = new ModelCreator();
-  try
-  {
-    (*mc2) = *mc1;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
-  delete mc2;
 }
 END_TEST
 
@@ -375,31 +326,6 @@ START_TEST ( test_ModelHistory_ConstructorException )
   }
   fail_unless(msg == "");
 
-  ModelHistory *mh1 = NULL;
-  msg = "";
-  try
-  {
-    ModelHistory* mh2=new ModelHistory(*mh1);
-    (void) mh2;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
-
-  msg = "";
-  ModelHistory *mh2 = new ModelHistory();
-  try
-  {
-    (*mh2) = *mh1;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
-  delete mh2;
 }
 END_TEST
 
@@ -485,31 +411,6 @@ START_TEST ( test_CVTerm_ConstructorException )
   }
   fail_unless(msg == "");
 
-  CVTerm *cvterm1 = NULL;
-  msg = "";
-  try
-  {
-    CVTerm* cvterm2=new CVTerm(*cvterm1);
-    (void) cvterm2;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg1);
-
-  msg = "";
-  CVTerm *cvterm2 = new CVTerm(BIOLOGICAL_QUALIFIER);
-  try
-  {
-    (*cvterm2) = *cvterm1;
-  }
-  catch (SBMLConstructorException &e)
-  {
-    msg = e.getSBMLErrMsg();
-  }
-  fail_unless(msg == errMsg2);
-  delete cvterm2;
 }
 END_TEST
 

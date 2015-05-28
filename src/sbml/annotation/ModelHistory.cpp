@@ -89,33 +89,28 @@ ModelHistory::~ModelHistory()
  */
 ModelHistory::ModelHistory(const ModelHistory& orig)
 {
-  if (&orig == NULL)
+  
+  mCreators = new List();
+  mModifiedDates = new List();
+  unsigned int i;
+  for (i = 0; i < orig.mCreators->getSize(); i++)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+  }
+  for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+  {
+    this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
+  }
+  if (orig.mCreatedDate != NULL) 
+  {
+    this->mCreatedDate = orig.mCreatedDate->clone();
   }
   else
   {
-    mCreators = new List();
-    mModifiedDates = new List();
-    unsigned int i;
-    for (i = 0; i < orig.mCreators->getSize(); i++)
-    {
-      this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
-    }
-    for (i = 0; i < orig.mModifiedDates->getSize(); i++)
-    {
-      this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
-    }
-    if (orig.mCreatedDate != NULL) 
-    {
-      this->mCreatedDate = orig.mCreatedDate->clone();
-    }
-    else
-    {
-      mCreatedDate = NULL;
-    }
-    mHasBeenModified = orig.mHasBeenModified;
+    mCreatedDate = NULL;
   }
+  mHasBeenModified = orig.mHasBeenModified;
+  
 }
 
 
@@ -125,11 +120,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
 ModelHistory& 
 ModelHistory::operator=(const ModelHistory& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     if (mCreators != NULL)
     {

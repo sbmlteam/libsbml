@@ -52,8 +52,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 static const string
 trim (const string& s)
 {
-  if (&s == NULL) return s;
-
   static const string whitespace(" \t\r\n");
 
   string::size_type begin = s.find_first_not_of(whitespace);

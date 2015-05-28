@@ -358,7 +358,6 @@ ASTLambdaFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
 void
 ASTLambdaFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   ASTBase::writeStartElement(stream);
 

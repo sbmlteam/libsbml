@@ -324,7 +324,7 @@ public:
 
   virtual bool visit (const SBase &x)
   {
-    if (&x == NULL || x.getPackageName() != "comp")
+    if (x.getPackageName() != "comp")
     {
       return SBMLVisitor::visit(x);      
     }
@@ -465,7 +465,6 @@ CompValidator::addConstraint (VConstraint* c)
 //void
 //CompValidator::logFailure (const SBMLError& msg)
 //{
-//  if (&msg == NULL) return;
 //  mFailures.push_back(msg);
 //}
 
@@ -478,8 +477,6 @@ CompValidator::addConstraint (VConstraint* c)
 unsigned int
 CompValidator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
-
   Model* m = const_cast<SBMLDocument&>(d).getModel();
 
   if (m != NULL)
@@ -607,8 +604,6 @@ CompValidator::validate (const SBMLDocument& d)
 unsigned int
 CompValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
-
   SBMLReader    reader;
   SBMLDocument* d = reader.readSBML(filename);
 

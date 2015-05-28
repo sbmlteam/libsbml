@@ -450,15 +450,8 @@ int Layout::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*

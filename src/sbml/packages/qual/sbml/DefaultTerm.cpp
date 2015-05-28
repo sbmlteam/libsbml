@@ -77,16 +77,9 @@ DefaultTerm::DefaultTerm (QualPkgNamespaces* qualns)
  */
 DefaultTerm::DefaultTerm (const DefaultTerm& orig)
   : SBase(orig)
+  , mResultLevel(orig.mResultLevel)
+  , mIsSetResultLevel(orig.mIsSetResultLevel)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mResultLevel  = orig.mResultLevel;
-    mIsSetResultLevel  = orig.mIsSetResultLevel;
-  }
 }
 
 
@@ -96,11 +89,7 @@ DefaultTerm::DefaultTerm (const DefaultTerm& orig)
 DefaultTerm&
 DefaultTerm::operator=(const DefaultTerm& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mResultLevel  = rhs.mResultLevel;

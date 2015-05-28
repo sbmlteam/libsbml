@@ -162,11 +162,6 @@ CVTerm::~CVTerm()
  */
 CVTerm::CVTerm(const CVTerm& orig)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
   {
     mQualifier      = orig.mQualifier;
     mModelQualifier = orig.mModelQualifier;
@@ -197,11 +192,7 @@ CVTerm::CVTerm(const CVTerm& orig)
 CVTerm& 
 CVTerm::operator=(const CVTerm& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mQualifier       = rhs.mQualifier;
     mModelQualifier  = rhs.mModelQualifier;
@@ -324,11 +315,7 @@ CVTerm::setBiologicalQualifierType(BiolQualifierType_t type)
 int 
 CVTerm::setModelQualifierType(const std::string& qualifier)
 {
-  ModelQualifierType_t type;
-  if (&qualifier == NULL)
-    type = BQM_UNKNOWN;
-  else
-    type = ModelQualifierType_fromString(qualifier.c_str());
+  ModelQualifierType_t type = ModelQualifierType_fromString(qualifier.c_str());
   
   return setModelQualifierType(type);  
 }
@@ -341,11 +328,7 @@ CVTerm::setModelQualifierType(const std::string& qualifier)
 int 
 CVTerm::setBiologicalQualifierType(const std::string& qualifier)
 {
-  BiolQualifierType_t type;
-  if (&qualifier == NULL)
-    type = BQB_UNKNOWN;
-  else
-    type = BiolQualifierType_fromString(qualifier.c_str());
+  BiolQualifierType_t type = BiolQualifierType_fromString(qualifier.c_str());
   return setBiologicalQualifierType(type);
 }
 
@@ -462,7 +445,7 @@ CVTerm::getResourceURI(unsigned int n) const
 int 
 CVTerm::addResource(const std::string& resource)
 {
-  if (&resource == NULL || resource.empty())
+  if (resource.empty())
   {
     return LIBSBML_OPERATION_FAILED;
   }

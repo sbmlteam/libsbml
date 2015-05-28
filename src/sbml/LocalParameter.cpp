@@ -100,10 +100,6 @@ LocalParameter::~LocalParameter ()
 LocalParameter::LocalParameter(const LocalParameter& orig) :
     Parameter      ( orig             )
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
 }
 
 
@@ -112,22 +108,14 @@ LocalParameter::LocalParameter(const LocalParameter& orig) :
  */
 LocalParameter::LocalParameter(const Parameter& orig) :
     Parameter      ( orig             )
-{
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
+{  
 }
 /*
  * Assignment operator.
  */
 LocalParameter& LocalParameter::operator=(const LocalParameter& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->Parameter::operator =(rhs);
   }
@@ -415,16 +403,10 @@ ListOfLocalParameters::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
-    return (result == mItems.end()) ? NULL : 
-                             static_cast <LocalParameter*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
+  return (result == mItems.end()) ? NULL : 
+                           static_cast <LocalParameter*> (*result);
+  
 }
 
 
@@ -457,15 +439,12 @@ ListOfLocalParameters::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <LocalParameter*> (item);

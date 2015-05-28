@@ -158,7 +158,6 @@ CompBase::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes)
 {
   SBase::readAttributes(attributes,expectedAttributes);
-  if (&attributes == NULL || &expectedAttributes == NULL ) return;
 
   //const unsigned int sbmlLevel   = getLevel  ();
   //const unsigned int sbmlVersion = getVersion();
@@ -199,8 +198,6 @@ CompBase::writeAttributes (XMLOutputStream& stream) const
 void 
 CompBase::logUnknownElement(const std::string &element)
 {
-  if(&element == NULL) return;
-  
   std::ostringstream msg;
 
   msg << "Element '"   << element << "' is not part of the definition of "
@@ -223,8 +220,6 @@ void
 CompBase::logUnknownAttribute(const std::string &attribute,
                               const std::string& element)
 {
-  if (&attribute == NULL || &element == NULL) return;
-  
   std::ostringstream msg;
 
   msg << "Attribute '" << attribute << "' is not part of the "
@@ -257,8 +252,6 @@ CompBase::logEmptyString(const std::string &attribute,
                          const std::string& element)
 {
 
-  if (&attribute == NULL || &element == NULL) return;
-  
   std::ostringstream msg;
 
   msg << "Attribute '" << attribute << "' on an "
@@ -279,8 +272,6 @@ CompBase::logInvalidId(const std::string& attribute,
                        const std::string& object)
 {
 
-  if (&attribute == NULL || &wrongattribute == NULL) return;
-  
   std::ostringstream msg;
 
   if (attribute == "comp:metaIdRef")
@@ -375,8 +366,6 @@ CompBase::logMissingAttribute(const std::string& attribute,
                               const std::string& element)
 {
 
-  if (&attribute == NULL || &element == NULL) return;
-  
   std::ostringstream msg;
 
   msg << "The required attribute '" << attribute << "' of a <"

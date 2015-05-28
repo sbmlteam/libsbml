@@ -257,8 +257,6 @@ ASTSemanticsNode::swapChildren(ASTFunction* that)
 void 
 ASTSemanticsNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
-
   stream.startElement("semantics");
 
   ASTBase::writeAttributes(stream);

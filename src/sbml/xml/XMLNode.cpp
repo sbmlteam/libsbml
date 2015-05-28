@@ -80,6 +80,7 @@ XMLNode::XMLNode ()
  */
 XMLNode::~XMLNode ()
 {
+  removeChildren();
 }
 
 
@@ -184,7 +185,13 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
 XMLNode::XMLNode(const XMLNode& orig):
       XMLToken (orig)
 {
-  this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+  std::vector<XMLNode*>::const_iterator it = orig.mChildren.begin();
+  while(it != orig.mChildren.end())
+  {
+    const XMLNode* node = *it;    
+    addChild(*node);
+    ++it;
+  }
 }
 
 
@@ -194,14 +201,19 @@ XMLNode::XMLNode(const XMLNode& orig):
 XMLNode& 
 XMLNode::operator=(const XMLNode& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw XMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->XMLToken::operator=(rhs);
-    this->mChildren.assign( rhs.mChildren.begin(), rhs.mChildren.end() ); 
+    removeChildren();
+
+    std::vector<XMLNode*>::const_iterator it = rhs.mChildren.begin();
+    while(it != rhs.mChildren.end())
+    {
+      const XMLNode* node = *it;
+      addChild(*node);
+      ++it;
+    }
+
   }
 
   return *this;
@@ -225,16 +237,10 @@ XMLNode::clone () const
 int
 XMLNode::addChild (const XMLNode& node)
 {
-  /* catch case where node is NULL
-   */
-  if (&(node) == NULL)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
 
   if (isStart())
   {
-    mChildren.push_back(node);
+    mChildren.push_back(new XMLNode(node));
     /* need to catch the case where this node is both a start and
     * an end element
     */
@@ -243,7 +249,7 @@ XMLNode::addChild (const XMLNode& node)
   }
   else if (isEOF())
   {
-    mChildren.push_back(node);
+    mChildren.push_back(new XMLNode(node));
     // this causes strange things to happen when node is written out
     //   this->mIsStart = true;
     return LIBSBML_OPERATION_SUCCESS;
@@ -262,22 +268,15 @@ XMLNode::addChild (const XMLNode& node)
 XMLNode&
 XMLNode::insertChild (unsigned int n, const XMLNode& node)
 {
-  /* catch case where node is NULL
-   */
-  if (&(node) == NULL)
-  {
-    return const_cast<XMLNode&>(node);
-  }
-
   unsigned int size = (unsigned int)mChildren.size();
 
   if ( (n >= size) || (size == 0) )
   {
-    mChildren.push_back(node);
-    return mChildren.back();
+    mChildren.push_back(node.clone());
+    return *mChildren.back();
   }
 
-  return *(mChildren.insert(mChildren.begin() + n, node));
+  return **(mChildren.insert(mChildren.begin() + n, node.clone()));
 }
 
 
@@ -294,7 +293,7 @@ XMLNode::removeChild(unsigned int n)
 
   if ( n < getNumChildren() )
   {
-    rval = mChildren[n].clone();
+    rval = mChildren[n];
     mChildren.erase(mChildren.begin() + n);
   }
   
@@ -307,6 +306,12 @@ XMLNode::removeChild(unsigned int n)
 int
 XMLNode::removeChildren()
 {
+  std::vector<XMLNode*>::iterator curIt = mChildren.begin();
+    while(curIt != mChildren.end())
+    {
+      delete *curIt;    
+      ++curIt;
+      }
   mChildren.clear(); 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -335,7 +340,7 @@ XMLNode::getChild (unsigned int n) const
   unsigned int size = getNumChildren();
   if ( (n < size) && (size > 0) )
   {
-    return mChildren[n];
+    return *mChildren[n];
   }
   else
   {
@@ -410,8 +415,6 @@ XMLNode::getChild (const std::string&  name) const
 int
 XMLNode::getIndex (const std::string& name) const
 {
-  if (&name == NULL) return -1;
-
   for (unsigned int index = 0; index < getNumChildren(); ++index)
   {
     if (getChild(index).getName() == name) return index;
@@ -432,8 +435,6 @@ XMLNode::getIndex (const std::string& name) const
 bool 
 XMLNode::equals(const XMLNode& other, bool ignoreURI /*=false*/) const
 {
-  if (&other == NULL) return false;
-
   bool equal;//=true;
   // check if the nodes have the same name,
   equal=getName()==other.getName();
@@ -504,8 +505,6 @@ XMLNode::getNumChildren () const
 void
 XMLNode::write (XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
-
   unsigned int children = getNumChildren();
 
   XMLToken::write(stream);
@@ -574,7 +573,6 @@ std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
  */
 XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns)
 {
-  if (&xmlstr == NULL) return NULL;
 
   XMLNode* xmlnode     = NULL;
   std::ostringstream oss;

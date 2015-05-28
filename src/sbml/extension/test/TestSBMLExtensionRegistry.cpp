@@ -135,12 +135,11 @@ END_TEST
 
 START_TEST (test_SBMLExtensionRegistry_getExtension)
 {
-	string *nullString = NULL;
 
 	SBMLExtensionRegistry &instance = SBMLExtensionRegistry::getInstance();
 	const std::string &uri = TestExtension::getXmlnsL3V1V1();
-	// try and get extension for NULL reference;
-	SBMLExtension* result = instance.getExtension(*nullString);
+	
+	SBMLExtension* result = NULL;
 	fail_unless(result == NULL);
 
 	// get a valid one

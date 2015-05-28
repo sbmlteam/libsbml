@@ -159,7 +159,6 @@ ASTQualifierNode::swapChildren(ASTFunction* that)
 void
 ASTQualifierNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   const char * name = ASTBase::getNameFromType(getExtendedType());
   

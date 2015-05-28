@@ -251,37 +251,33 @@ SBMLDocument::~SBMLDocument ()
 /*
  * Creates a copy of this SBMLDocument.
  */
-SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
-   SBase  ( orig          )
+SBMLDocument::SBMLDocument (const SBMLDocument& orig)
+ : SBase  ( orig          )
+ , mLevel ( orig.mLevel   )
+ , mVersion ( orig.mVersion )
  , mModel ( NULL          )
  , mLocationURI (orig.mLocationURI )
+ , mErrorLog()
+ , mValidators ()
+ , mInternalValidator(new SBMLInternalValidator())
+ , mRequiredAttrOfUnknownPkg(orig.mRequiredAttrOfUnknownPkg)
+ , mRequiredAttrOfUnknownDisabledPkg(orig.mRequiredAttrOfUnknownDisabledPkg)
+ , mPkgUseDefaultNSMap()
 {
-  if (&orig == NULL)
+  
+  
+  setSBMLDocument(this);
+  
+  mInternalValidator->setDocument(this);
+  mInternalValidator->setApplicableValidators(orig.getApplicableValidators());
+  mInternalValidator->setConversionValidators(orig.getConversionValidators());
+  
+  if (orig.mModel != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mModel = static_cast<Model*>( orig.mModel->clone() );
+    mModel->setSBMLDocument(this);
   }
-  else
-  {
-    mLevel                             = orig.mLevel;
-    mVersion                           = orig.mVersion;
-
-    setSBMLDocument(this);
-
-    mInternalValidator = new SBMLInternalValidator();
-    mInternalValidator->setDocument(this);
-    mInternalValidator->setApplicableValidators(orig.getApplicableValidators());
-    mInternalValidator->setConversionValidators(orig.getConversionValidators());
-    mRequiredAttrOfUnknownPkg = orig.mRequiredAttrOfUnknownPkg;
-    mRequiredAttrOfUnknownDisabledPkg = orig.mRequiredAttrOfUnknownDisabledPkg;
-
-    if (orig.mModel != NULL) 
-    {
-      mModel = static_cast<Model*>( orig.mModel->clone() );
-      mModel->setSBMLDocument(this);
-    }
-    
-  }
-
+  
   connectToChild();
   //if(orig.mNamespaces)
   //  this->mNamespaces = 
@@ -297,11 +293,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
  */
 SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     setSBMLDocument(this);

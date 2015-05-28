@@ -375,7 +375,6 @@ ASTBinaryFunctionNode::isSqrt() const
 void
 ASTBinaryFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   int type  = getType();
 

@@ -122,21 +122,14 @@ XMLToken::XMLToken (  const XMLTriple&    triple
  */
 XMLToken::XMLToken (  const std::string&  chars
                     , const unsigned int  line
-                    , const unsigned int  column ) :
-   mIsStart   ( false  )
+                    , const unsigned int  column ) 
+ : mChars     ( chars  )
+ , mIsStart   ( false  )
  , mIsEnd     ( false  )
  , mIsText    ( true   )
  , mLine      ( line   )
  , mColumn    ( column )
 {
-  if (&chars == NULL)
-  {
-    throw XMLConstructorException("NULL reference in XML constructor");
-  }
-  else
-  {
-    mChars = chars;
-  }
 }
 
 
@@ -152,37 +145,25 @@ XMLToken::~XMLToken ()
  * Copy constructor; creates a copy of this XMLToken.
  */
 XMLToken::XMLToken(const XMLToken& orig)
+ : mTriple()
+ , mAttributes()
+ , mNamespaces()
+ , mChars (orig.mChars)
+ , mIsStart (orig.mIsStart)
+ , mIsEnd (orig.mIsEnd)
+ , mIsText (orig.mIsText)
+ , mLine (orig.mLine)
+ , mColumn (orig.mColumn)
 {
-  if (&orig == NULL)
-  {
-    throw XMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    if (orig.mTriple.isEmpty())
-      mTriple = XMLTriple();
-    else
-      mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
-    
-    if (orig.mAttributes.isEmpty())
-      mAttributes = XMLAttributes();
-    else
-      mAttributes = XMLAttributes(orig.getAttributes());
-    
-    if (orig.mNamespaces.isEmpty())
-      mNamespaces = XMLNamespaces();
-    else
-      mNamespaces = XMLNamespaces(orig.getNamespaces());
+  if (!orig.mTriple.isEmpty())
+    mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
+  
+  if (!orig.mAttributes.isEmpty())
+    mAttributes = XMLAttributes(orig.getAttributes());
+  
+  if (!orig.mNamespaces.isEmpty())
+    mNamespaces = XMLNamespaces(orig.getNamespaces());
 
-    mChars = orig.mChars;
-
-    mIsStart = orig.mIsStart;
-    mIsEnd = orig.mIsEnd;
-    mIsText = orig.mIsText;
-
-    mLine = orig.mLine;
-    mColumn = orig.mColumn;
-  }
 }
 
 
@@ -192,11 +173,7 @@ XMLToken::XMLToken(const XMLToken& orig)
 XMLToken& 
 XMLToken::operator=(const XMLToken& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw XMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     if (rhs.mTriple.isEmpty())
       mTriple = XMLTriple();
@@ -308,10 +285,6 @@ XMLToken::getAttributes () const
 int 
 XMLToken::setAttributes(const XMLAttributes& attributes)
 {
-	// test whether argument is valid
-	if(&attributes == NULL)
-		return LIBSBML_INVALID_OBJECT;
-
 
   /* the code will crash if the attributes points to NULL
    * put in a try catch statement to check
@@ -779,9 +752,6 @@ XMLToken::getNamespaces () const
 int 
 XMLToken::setNamespaces(const XMLNamespaces& namespaces)
 {
-	// test whether argument is valid
-	if(&namespaces == NULL)
-		return LIBSBML_INVALID_OBJECT;
 
   /* the code will crash if the namespaces points to NULL
    * put in a try catch statement to check
@@ -815,7 +785,6 @@ XMLToken::setNamespaces(const XMLNamespaces& namespaces)
 int 
 XMLToken::addNamespace (const std::string& uri, const std::string& prefix)
 {
-  if (&uri == NULL || &prefix == NULL ) return LIBSBML_INVALID_OBJECT;
 
    if (mIsStart)  
    {
@@ -1054,9 +1023,6 @@ XMLToken::hasNamespaceNS(const std::string& uri, const std::string& prefix) cons
 int 
 XMLToken::setTriple(const XMLTriple& triple)
 {
-	// test whether argument is valid
-	if(&triple == NULL)
-		return LIBSBML_INVALID_OBJECT;
 
   /* the code will crash if the triple points to NULL
    * put in a try catch statement to check

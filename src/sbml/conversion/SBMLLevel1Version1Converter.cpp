@@ -86,11 +86,7 @@ SBMLLevel1Version1Converter::~SBMLLevel1Version1Converter ()
 SBMLLevel1Version1Converter& 
 SBMLLevel1Version1Converter::operator=(const SBMLLevel1Version1Converter& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBMLConverter::operator =(rhs);
   }
@@ -139,7 +135,7 @@ SBMLLevel1Version1Converter::getDefaultProperties() const
 bool 
 SBMLLevel1Version1Converter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("convertToL1V1"))
+  if (!props.hasOption("convertToL1V1"))
     return false;
   return true;
 }

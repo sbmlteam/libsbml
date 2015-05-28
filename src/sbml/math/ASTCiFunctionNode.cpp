@@ -218,7 +218,6 @@ ASTCiFunctionNode::unsetDefinitionURL()
 void
 ASTCiFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   stream.startElement("apply");
   

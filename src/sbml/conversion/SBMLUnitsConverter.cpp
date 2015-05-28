@@ -88,11 +88,7 @@ SBMLUnitsConverter::~SBMLUnitsConverter ()
 SBMLUnitsConverter& 
 SBMLUnitsConverter::operator=(const SBMLUnitsConverter& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBMLConverter::operator =(rhs);
   }
@@ -133,7 +129,7 @@ SBMLUnitsConverter::getDefaultProperties() const
 bool 
 SBMLUnitsConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("units"))
+  if (!props.hasOption("units"))
     return false;
   return true;
 }

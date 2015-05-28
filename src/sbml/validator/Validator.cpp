@@ -706,7 +706,6 @@ Validator::getFailures () const
 void
 Validator::logFailure (const SBMLError& msg)
 {
-  if (&msg == NULL) return;
   mFailures.push_back(msg);
 }
 
@@ -751,8 +750,6 @@ private:
 unsigned int
 Validator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
-
   Model* m = const_cast<SBMLDocument&>(d).getModel();
 
   if (m != NULL)
@@ -812,8 +809,6 @@ Validator::validate (const SBMLDocument& d)
 unsigned int
 Validator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
-
   SBMLReader    reader;
   SBMLDocument* d = reader.readSBML(filename);
 

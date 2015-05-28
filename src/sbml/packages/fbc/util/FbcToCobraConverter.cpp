@@ -97,7 +97,7 @@ ConversionProperties
 bool 
   FbcToCobraConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("convert fbc to cobra"))
+  if (!props.hasOption("convert fbc to cobra"))
     return false;
   return true;
 }

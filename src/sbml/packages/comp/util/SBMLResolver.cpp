@@ -47,14 +47,7 @@ SBMLResolver::SBMLResolver ()
  */
 SBMLResolver::SBMLResolver(const SBMLResolver& orig)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    //
-  }
+  //  
 }
 
 
@@ -73,11 +66,7 @@ SBMLResolver::~SBMLResolver ()
 SBMLResolver&
 SBMLResolver::operator=(const SBMLResolver& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     //
   }

@@ -173,37 +173,6 @@ START_TEST (test_conversion_options_clone)
 END_TEST
 
 
-START_TEST (test_conversion_options_exceptions)
-{
-  int value = 0;
-
-  // null copy constructor
-  try
-  {
-    ConversionOption *opt = NULL;
-    new ConversionOption(*opt);
-  }
-  catch(SBMLConstructorException& )
-  {
-    value = 1;
-  }
-  fail_unless(value == 1);
-
-  value = 0;
-  // null assignment op
-  try
-  {
-    ConversionOption *opt = NULL;
-    ConversionOption opt2 = *opt;
-  }
-  catch(SBMLConstructorException& )
-  {
-    value = 1;
-  }
-  fail_unless(value == 1);
-
-}
-END_TEST
 
 Suite *
 create_suite_TestConversionOption (void)
@@ -218,7 +187,6 @@ create_suite_TestConversionOption (void)
   tcase_add_test(tcase, test_conversion_options_set);
   tcase_add_test(tcase, test_conversion_options_constructor);
   tcase_add_test(tcase, test_conversion_options_clone);
-  tcase_add_test(tcase, test_conversion_options_exceptions);
 
   suite_add_tcase(suite, tcase);
 

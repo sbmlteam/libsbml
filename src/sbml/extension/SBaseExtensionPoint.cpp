@@ -113,8 +113,6 @@ SBaseExtensionPoint::getTypeCode() const
 
 bool operator==(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs) 
 {
-  if (&lhs == NULL || &rhs == NULL) return false;
-
   if (   (lhs.getTypeCode()    == rhs.getTypeCode()) 
       && (lhs.getPackageName() == rhs.getPackageName()) 
      )
@@ -139,8 +137,6 @@ bool operator==(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs)
 
 bool operator<(const SBaseExtensionPoint& lhs, const SBaseExtensionPoint& rhs) 
 {
-  if (&lhs == NULL || &rhs == NULL) return false;
-
   if ( lhs.getPackageName() == rhs.getPackageName() )
   {
     if (lhs.getTypeCode()  < rhs.getTypeCode())

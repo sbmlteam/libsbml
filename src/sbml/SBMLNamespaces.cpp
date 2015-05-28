@@ -174,22 +174,13 @@ SBMLNamespaces::~SBMLNamespaces()
  * Copy constructor; creates a copy of a SBMLNamespaces.
  */
 SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
+ : mLevel(orig.mLevel)
+ , mVersion(orig.mVersion)
+ , mNamespaces(NULL)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mLevel   = orig.mLevel;
-    mVersion = orig.mVersion;
- 
-    if(orig.mNamespaces != NULL)
-      this->mNamespaces = 
-            new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
-    else
-      this->mNamespaces = NULL;
-  }
+  if(orig.mNamespaces != NULL)
+    this->mNamespaces = 
+          new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
 }
 
 
@@ -226,11 +217,7 @@ SBMLNamespaces::freeSBMLNamespaces(List * supportedNS)
 SBMLNamespaces&
 SBMLNamespaces::operator=(const SBMLNamespaces& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     mLevel   = rhs.mLevel;
     mVersion = rhs.mVersion;

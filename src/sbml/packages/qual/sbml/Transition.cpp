@@ -90,22 +90,14 @@ Transition::Transition (QualPkgNamespaces* qualns)
  */
 Transition::Transition (const Transition& orig)
   : SBase(orig)
+  , mId (orig.mId)
+  , mName (orig.mName)
+  , mInputs (orig.mInputs)
+  , mOutputs (orig.mOutputs)
+  , mFunctionTerms (orig.mFunctionTerms)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mName  = orig.mName;
-    mInputs  = orig.mInputs;
-    mOutputs  = orig.mOutputs;
-    mFunctionTerms  = orig.mFunctionTerms;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -115,11 +107,7 @@ Transition::Transition (const Transition& orig)
 Transition&
 Transition::operator=(const Transition& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -254,15 +242,9 @@ Transition::setId(const std::string& id)
 int
 Transition::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+
 }
 
 

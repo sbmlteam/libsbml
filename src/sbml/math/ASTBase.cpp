@@ -1536,7 +1536,6 @@ ASTBase::writeENotation (  double    mantissa
                 , long             exponent
                 , XMLOutputStream& stream ) const
 {
-  if (&stream == NULL) return;
 
   ostringstream output;
 
@@ -1564,10 +1563,9 @@ ASTBase::writeENotation (  double    mantissa
 
 void
 ASTBase::writeENotation (  const std::string&    mantissa
-                               , const std::string&    exponent
-                , XMLOutputStream& stream ) const
+                         , const std::string&    exponent
+                         , XMLOutputStream& stream ) const
 {
-  if (&mantissa == NULL || &exponent == NULL || &stream == NULL) return;
 
   static const string enotation = "e-notation";
   stream.writeAttribute("type", enotation);
@@ -1580,7 +1578,6 @@ ASTBase::writeENotation (  const std::string&    mantissa
 void 
 ASTBase::writeNegInfinity(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   stream.startElement("apply");
   stream.startEndElement("minus");
@@ -1591,7 +1588,6 @@ ASTBase::writeNegInfinity(XMLOutputStream& stream) const
 void 
 ASTBase::writeConstant(XMLOutputStream& stream, const std::string & name) const
 {
-  if (&stream == NULL) return;
 
 	stream.startElement(name);
   writeAttributes(stream);
@@ -1601,7 +1597,6 @@ ASTBase::writeConstant(XMLOutputStream& stream, const std::string & name) const
 void 
 ASTBase::writeStartEndElement (XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   const char * name = getNameFromType(getExtendedType());
 	stream.startElement(name);
@@ -1887,8 +1882,6 @@ void
 ASTBase::logError (XMLInputStream& stream, const XMLToken& element, SBMLErrorCode_t code,
           const std::string& msg)
 {
-  if (&element == NULL || &stream == NULL) return;
-
   SBMLNamespaces* ns = stream.getSBMLNamespaces();
   if (ns != NULL)
   {

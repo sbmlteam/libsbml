@@ -70,23 +70,21 @@ SBMLExtension::SBMLExtension ()
  */
 SBMLExtension::SBMLExtension(const SBMLExtension& orig)
 {
-  #ifndef LIBSBML_USE_LEGACY_MATH
+#ifndef LIBSBML_USE_LEGACY_MATH
     mASTBasePlugin = NULL;
-  #endif
-  if (&orig != NULL)
-  {
-    mIsEnabled = orig.mIsEnabled;
-    mSupportedPackageURI = orig.mSupportedPackageURI;
+#endif
 
-  #ifndef LIBSBML_USE_LEGACY_MATH
-    if (orig.mASTBasePlugin != NULL) 
-    {
-      mASTBasePlugin = orig.mASTBasePlugin->clone();
-    }
-  #endif
-    for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
-      mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
+  mIsEnabled = orig.mIsEnabled;
+  mSupportedPackageURI = orig.mSupportedPackageURI;
+
+#ifndef LIBSBML_USE_LEGACY_MATH
+  if (orig.mASTBasePlugin != NULL) 
+  {
+    mASTBasePlugin = orig.mASTBasePlugin->clone();
   }
+#endif
+  for (size_t i=0; i < orig.mSBasePluginCreators.size(); i++)
+    mSBasePluginCreators.push_back(orig.mSBasePluginCreators[i]->clone());
 }
 
 
@@ -110,7 +108,7 @@ SBMLExtension::~SBMLExtension ()
 SBMLExtension& 
 SBMLExtension::operator=(const SBMLExtension& orig)
 {  
-  if (&orig != NULL && &orig != this)
+  if (&orig != this)
   {
     mIsEnabled = orig.mIsEnabled; 
     mSupportedPackageURI = orig.mSupportedPackageURI; 
@@ -251,7 +249,6 @@ SBMLExtension::getASTBasePlugin() const
 SBasePluginCreatorBase*
 SBMLExtension::getSBasePluginCreator(const SBaseExtensionPoint& extPoint)
 {
-  if (&extPoint == NULL) return NULL;
   std::vector<SBasePluginCreatorBase*>::iterator it = mSBasePluginCreators.begin();
   while(it != mSBasePluginCreators.end())
   {
@@ -322,7 +319,6 @@ SBMLExtension::getNumOfSupportedPackageURI() const
 bool
 SBMLExtension::isSupported(const std::string& uri) const
 {
-  if(&uri == NULL) return false;
   return ( mSupportedPackageURI.end() 
             != 
            find(mSupportedPackageURI.begin(),mSupportedPackageURI.end(), uri) );

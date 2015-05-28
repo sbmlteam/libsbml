@@ -117,7 +117,7 @@ XMLErrorLog::~XMLErrorLog ()
 void
 XMLErrorLog::add (const XMLError& error)
 {
-  if (&error == NULL || mOverriddenSeverity == LIBSBML_OVERRIDE_DONT_LOG) return;
+  if (mOverriddenSeverity == LIBSBML_OVERRIDE_DONT_LOG) return;
 
   XMLError* cerror;
 

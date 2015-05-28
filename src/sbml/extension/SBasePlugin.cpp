@@ -575,8 +575,6 @@ void
 SBasePlugin::readAttributes (const XMLAttributes& attributes,
                              const ExpectedAttributes& expectedAttributes)
 {
-  if (&attributes == NULL || &expectedAttributes == NULL ) return;
-
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
   const unsigned int pkgVersion  = getPackageVersion();
@@ -690,7 +688,6 @@ SBasePlugin::logUnknownElement(const std::string &element,
  			               const unsigned int sbmlVersion,
 			               const unsigned int pkgVersion )
 {
-  if(&element == NULL) return;
   
   std::ostringstream msg;
 
@@ -763,14 +760,12 @@ SBasePlugin::clone () const
  */
 void 
 SBasePlugin::logEmptyString(const std::string &attribute, 
-                                    const unsigned int sbmlLevel,
-                                    const unsigned int sbmlVersion,
-			            const unsigned int pkgVersion,
-			            const std::string& element)
+                            const unsigned int sbmlLevel,
+                            const unsigned int sbmlVersion,
+			                      const unsigned int pkgVersion,
+			                      const std::string& element)
 {
 
-  if (&attribute == NULL || &element == NULL) return;
-  
   std::ostringstream msg;
 
   msg << "Attribute '" << attribute << "' on an "

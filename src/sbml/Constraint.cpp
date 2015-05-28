@@ -98,19 +98,13 @@ Constraint::Constraint (const Constraint& orig) :
  , mMath   ( NULL   )
  , mMessage( NULL   )
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL)    
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mMath    = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
-  else
-  {
-    if (orig.mMath != NULL)    
-    {
-      mMath    = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
-    if (orig.mMessage != NULL) mMessage = new XMLNode(*orig.mMessage);
-  }
+  if (orig.mMessage != NULL) mMessage = new XMLNode(*orig.mMessage);
+  
 }
 
 
@@ -119,11 +113,7 @@ Constraint::Constraint (const Constraint& orig) :
  */
 Constraint& Constraint::operator=(const Constraint& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
 
@@ -297,11 +287,7 @@ Constraint::setMessage (const std::string& message,
                         bool addXHTMLMarkup)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if (&(message) == NULL)
-  {
-    success = LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (message.empty())
+  if (message.empty())
   {
     success = unsetMessage();
   }

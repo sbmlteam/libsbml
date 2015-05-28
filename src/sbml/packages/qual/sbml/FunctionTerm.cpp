@@ -84,23 +84,13 @@ FunctionTerm::FunctionTerm (QualPkgNamespaces* qualns)
  */
 FunctionTerm::FunctionTerm (const FunctionTerm& orig)
   : SBase(orig)
+  , mResultLevel(orig.mResultLevel)
+  , mIsSetResultLevel(orig.mIsSetResultLevel)
+  , mMath(NULL)
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mResultLevel  = orig.mResultLevel;
-    mIsSetResultLevel  = orig.mIsSetResultLevel;
-    if (orig.mMath != NULL)
-    {
-      mMath = orig.mMath->deepCopy();
-    }
-    else
-    {
-      mMath = NULL;
-    }
+    mMath = orig.mMath->deepCopy();
   }
 }
 
@@ -111,11 +101,7 @@ FunctionTerm::FunctionTerm (const FunctionTerm& orig)
 FunctionTerm&
 FunctionTerm::operator=(const FunctionTerm& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mResultLevel  = rhs.mResultLevel;
@@ -653,20 +639,14 @@ ListOfFunctionTerms::clone () const
  */
 ListOfFunctionTerms::ListOfFunctionTerms (const ListOfFunctionTerms& orig)
   : ListOf(orig)
+  , mDefaultTerm(NULL)
 {
-  if (&orig == NULL)
+  if (orig.mDefaultTerm != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mDefaultTerm = static_cast<DefaultTerm*>( orig.mDefaultTerm->clone() );
   }
-  else
-  {
-    if (orig.mDefaultTerm != NULL)
-    {
-      mDefaultTerm = static_cast<DefaultTerm*>( orig.mDefaultTerm->clone() );
-    }
-
-    connectToChild();
-  }
+  
+  connectToChild();
 }
 
 
@@ -676,11 +656,7 @@ ListOfFunctionTerms::ListOfFunctionTerms (const ListOfFunctionTerms& orig)
 ListOfFunctionTerms&
 ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     ListOf::operator=(rhs);
     delete mDefaultTerm;

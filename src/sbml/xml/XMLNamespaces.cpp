@@ -72,15 +72,8 @@ XMLNamespaces::~XMLNamespaces ()
  * Copy constructor; creates a copy of this XMLNamespaces set.
  */
 XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
+ : mNamespaces(orig.mNamespaces.begin(), orig.mNamespaces.end())
 {
-  if (&orig == NULL)
-  {
-    throw XMLConstructorException("Null argument to copy constructor");
-  }
-  else  
-  {
-    mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
-  }
 }
 
 
@@ -90,11 +83,7 @@ XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
 XMLNamespaces& 
 XMLNamespaces::operator=(const XMLNamespaces& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw XMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mNamespaces.assign( rhs.mNamespaces.begin(), rhs.mNamespaces.end() ); 
   }
@@ -122,7 +111,6 @@ XMLNamespaces::clone () const
 int
 XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 {
-  if (&uri == NULL || &prefix == NULL) return LIBSBML_INVALID_OBJECT;
   //
   // avoids duplicate prefix
   // BUT do not replace the sbml core ns
@@ -319,7 +307,6 @@ XMLNamespaces::getURI (int index) const
 std::string
 XMLNamespaces::getURI (const std::string& prefix) const
 {
-  if (&prefix == NULL) return std::string();
   for (int index = 0; index < getLength(); ++index)
   {
     if (getPrefix(index) == prefix) return getURI(index);
@@ -345,7 +332,6 @@ XMLNamespaces::isEmpty () const
   */
 bool XMLNamespaces::hasURI(const std::string& uri) const
 {
-  if (&uri == NULL) return false;
   return ( getIndex(uri) != -1 );
 }
 
@@ -356,7 +342,6 @@ bool XMLNamespaces::hasURI(const std::string& uri) const
  */
 bool XMLNamespaces::hasPrefix(const std::string& prefix) const
 {
-  if (&prefix == NULL) return false;
   return ( getIndexByPrefix(prefix) != -1 );
 }
 
@@ -367,8 +352,6 @@ bool XMLNamespaces::hasPrefix(const std::string& prefix) const
  */
 bool XMLNamespaces::hasNS(const std::string& uri, const std::string& prefix) const
 {
-  if (&uri == NULL || &prefix == NULL) return false;
-
   for (int i= 0; i < getLength(); ++i)
   {
      if ( (getURI(i) == uri) && (getPrefix(i) == prefix) ) 

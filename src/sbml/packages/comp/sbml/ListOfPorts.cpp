@@ -110,16 +110,14 @@ ListOfPorts::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEq<Port>(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Port>(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
+
   return static_cast<Port*>(item);
 }
 

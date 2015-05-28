@@ -51,14 +51,7 @@ SBMLFileResolver::SBMLFileResolver ()
  */
 SBMLFileResolver::SBMLFileResolver(const SBMLFileResolver& orig)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    setAdditionalDirs(orig.mAdditionalDirs);
-  }
+  setAdditionalDirs(orig.mAdditionalDirs);
 }
 
 
@@ -77,11 +70,7 @@ SBMLFileResolver::~SBMLFileResolver ()
 SBMLFileResolver&
 SBMLFileResolver::operator=(const SBMLFileResolver& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     setAdditionalDirs(rhs.mAdditionalDirs);
   }

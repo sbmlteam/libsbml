@@ -802,7 +802,6 @@ ASTPiecewiseFunctionNode::setHasOtherwise(bool otherwise)
 void
 ASTPiecewiseFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   ASTBase::writeStartElement(stream);
 

@@ -103,28 +103,20 @@ Rule::~Rule ()
 /*
  * Copy constructor. Creates a copy of this Rule.
  */
-Rule::Rule (const Rule& orig) :
-   SBase   ( orig          )
- , mMath   ( NULL            )
+Rule::Rule (const Rule& orig) 
+ : SBase       ( orig             )
+ , mVariable   ( orig.mVariable   )
+ , mFormula    ( orig.mFormula    )
+ , mMath       ( NULL             )
+ , mUnits      ( orig.mUnits      )
+ , mType       ( orig.mType       )
+ , mL1Type     ( orig.mL1Type     )
+ , mInternalId ( orig.mInternalId )
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mVariable   = orig.mVariable;
-    mFormula    = orig.mFormula ;
-    mUnits      = orig.mUnits   ;
-    mType       = orig.mType    ;
-    mL1Type     = orig.mL1Type  ;
-    mInternalId = orig.mInternalId;
-
-    if (orig.mMath != NULL) 
-    {
-      mMath = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
 }
 
@@ -134,11 +126,7 @@ Rule::Rule (const Rule& orig) :
  */
 Rule& Rule::operator=(const Rule& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mVariable = rhs.mVariable;
@@ -323,38 +311,34 @@ Rule::isSetUnits () const
 int
 Rule::setFormula (const std::string& formula)
 {
-  if (&(formula) == NULL)
+  
+  
+  if (formula == "")
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    mFormula.erase();
+    delete mMath;
+    mMath = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
   }
-  else 
+  ASTNode * math = SBML_parseFormula(formula.c_str());
+  if (math == NULL || !(math->isWellFormedASTNode()))
   {
-    if (formula == "")
+    delete math;
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete math;
+    mFormula = formula;
+  
+    if (mMath != NULL)
     {
-      mFormula.erase();
       delete mMath;
       mMath = NULL;
-      return LIBSBML_OPERATION_SUCCESS;
     }
-    ASTNode * math = SBML_parseFormula(formula.c_str());
-    if (math == NULL || !(math->isWellFormedASTNode()))
-    {
-      delete math;
-      return LIBSBML_INVALID_OBJECT;
-    }
-    else
-    {
-      delete math;
-      mFormula = formula;
-
-      if (mMath != NULL)
-      {
-        delete mMath;
-        mMath = NULL;
-      }
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+    return LIBSBML_OPERATION_SUCCESS;
   }
+  
 }
 
 
@@ -396,11 +380,7 @@ Rule::setMath (const ASTNode* math)
 int
 Rule::setVariable (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (isAlgebraic())
+  if (isAlgebraic())
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -424,11 +404,7 @@ int
 Rule::setUnits (const std::string& sname)
 {
   /* only in L1 ParameterRule */
-  if (&(sname) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() > 1)
+  if (getLevel() > 1)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -1478,15 +1454,8 @@ ListOfRules::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
-    return (result == mItems.end()) ? NULL : static_cast <Rule*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
+  return (result == mItems.end()) ? NULL : static_cast <Rule*> (*result);
 }
 
 
@@ -1519,15 +1488,12 @@ ListOfRules::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <Rule*> (item);

@@ -49,19 +49,12 @@ SBMLUri::SBMLUri (const std::string& uri)
  * Copy constructor.
  */
 SBMLUri::SBMLUri(const SBMLUri& orig)
+ : mScheme (orig.mScheme)
+ , mHost   (orig.mHost)
+ , mPath   (orig.mPath)
+ , mQuery  (orig.mQuery)
+ , mUri    (orig.mUri)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mScheme = orig.mScheme;
-    mHost = orig.mHost;
-    mPath = orig.mPath;
-    mQuery = orig.mQuery;
-    mUri = orig.mUri;
-  }
 }
 
 
@@ -80,11 +73,7 @@ SBMLUri::~SBMLUri ()
 SBMLUri&
 SBMLUri::operator=(const SBMLUri& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mScheme = rhs.mScheme;
     mHost = rhs.mHost;

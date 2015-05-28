@@ -134,11 +134,6 @@ ModelCreator::~ModelCreator()
  */
 ModelCreator::ModelCreator(const ModelCreator& orig)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
   {
     mFamilyName   = orig.mFamilyName;
     mGivenName    = orig.mGivenName;
@@ -161,11 +156,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
  */
 ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     mFamilyName   = rhs.mFamilyName;
     mGivenName    = rhs.mGivenName;
@@ -235,11 +226,6 @@ ModelCreator::isSetOrganisation()
 int 
 ModelCreator::setFamilyName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
   {
     mFamilyName = name;
     mHasBeenModified = true;
@@ -254,11 +240,6 @@ ModelCreator::setFamilyName(const std::string& name)
 int 
 ModelCreator::setGivenName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
   {
     mGivenName = name;
     mHasBeenModified = true;
@@ -273,11 +254,6 @@ ModelCreator::setGivenName(const std::string& name)
 int 
 ModelCreator::setEmail(const std::string& email)
 {
-  if (&(email) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
   {
     mEmail = email;
     mHasBeenModified = true;
@@ -289,11 +265,6 @@ ModelCreator::setEmail(const std::string& email)
 int 
 ModelCreator::setOrganization(const std::string& organization)
 {
-  if (&(organization) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
   {
     mOrganization = organization;
     mHasBeenModified = true;

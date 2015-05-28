@@ -84,21 +84,14 @@ Output::Output (QualPkgNamespaces* qualns)
  * Copy constructor for Output.
  */
 Output::Output (const Output& orig)
-  : SBase(orig)
+  : SBase ( orig )
+  , mId ( orig.mId )
+  , mQualitativeSpecies ( orig.mQualitativeSpecies )
+  , mTransitionEffect ( orig.mTransitionEffect )
+  , mName ( orig.mName )
+  , mOutputLevel ( orig.mOutputLevel )
+  , mIsSetOutputLevel ( orig.mIsSetOutputLevel )
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mQualitativeSpecies  = orig.mQualitativeSpecies;
-    mTransitionEffect  = orig.mTransitionEffect;
-    mName  = orig.mName;
-    mOutputLevel  = orig.mOutputLevel;
-    mIsSetOutputLevel  = orig.mIsSetOutputLevel;
-  }
 }
 
 
@@ -108,11 +101,7 @@ Output::Output (const Output& orig)
 Output&
 Output::operator=(const Output& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -260,11 +249,7 @@ Output::setId(const std::string& id)
 int
 Output::setQualitativeSpecies(const std::string& qualitativeSpecies)
 {
-  if (&(qualitativeSpecies) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
+  if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -301,15 +286,10 @@ Output::setTransitionEffect(const OutputTransitionEffect_t transitionEffect)
 int
 Output::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+
+ mName = name;
+ return LIBSBML_OPERATION_SUCCESS;
+
 }
 
 

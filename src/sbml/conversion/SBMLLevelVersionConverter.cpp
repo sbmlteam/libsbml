@@ -86,11 +86,7 @@ SBMLLevelVersionConverter::~SBMLLevelVersionConverter ()
 SBMLLevelVersionConverter& 
 SBMLLevelVersionConverter::operator=(const SBMLLevelVersionConverter& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBMLConverter::operator =(rhs);
   }
@@ -134,7 +130,7 @@ SBMLLevelVersionConverter::getDefaultProperties() const
 bool 
 SBMLLevelVersionConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("setLevelAndVersion"))
+  if (!props.hasOption("setLevelAndVersion"))
     return false;
   return true;
 }

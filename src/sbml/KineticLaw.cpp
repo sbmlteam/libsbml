@@ -109,28 +109,22 @@ KineticLaw::~KineticLaw ()
  * Copy constructor. Creates a copy of this KineticLaw.
  */
 KineticLaw::KineticLaw (const KineticLaw& orig) :
-   SBase          ( orig                 )
- , mMath          ( NULL                    )
- , mParameters    ( orig.mParameters     )
- , mLocalParameters    ( orig.mLocalParameters     )
+   SBase            ( orig                  )
+ , mFormula         ( orig.mFormula         )
+ , mMath            ( NULL                  )
+ , mParameters      ( orig.mParameters      )
+ , mLocalParameters ( orig.mLocalParameters )
+ , mTimeUnits       ( orig.mTimeUnits       )
+ , mSubstanceUnits  ( orig.mSubstanceUnits  )
+ , mInternalId      ( orig.mInternalId      )
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mFormula         = orig.mFormula;
-    mTimeUnits       = orig.mTimeUnits;
-    mSubstanceUnits  = orig.mSubstanceUnits;
-    mInternalId      = orig.mInternalId;
 
-    if (orig.mMath != NULL) 
-    {
-      mMath = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
+  if (orig.mMath != NULL) 
+  {
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
+  
   connectToChild();
 }
 
@@ -140,11 +134,7 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  */
 KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mFormula        = rhs.mFormula        ;
@@ -360,38 +350,32 @@ KineticLaw::isSetSubstanceUnits () const
 int
 KineticLaw::setFormula (const std::string& formula)
 {
-  if (&(formula) == NULL)
+  if (formula == "")
   {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    mFormula.erase();
+    delete mMath;
+    mMath = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  ASTNode * math = SBML_parseFormula(formula.c_str());
+  if (math == NULL || !(math->isWellFormedASTNode()))
+  {
+    delete math;
+    return LIBSBML_INVALID_OBJECT;
   }
   else
   {
-    if (formula == "")
+    mFormula = formula;
+
+    if (mMath != NULL)
     {
-      mFormula.erase();
       delete mMath;
       mMath = NULL;
-      return LIBSBML_OPERATION_SUCCESS;
     }
-    ASTNode * math = SBML_parseFormula(formula.c_str());
-    if (math == NULL || !(math->isWellFormedASTNode()))
-    {
-      delete math;
-      return LIBSBML_INVALID_OBJECT;
-    }
-    else
-    {
-      mFormula = formula;
-
-      if (mMath != NULL)
-      {
-        delete mMath;
-        mMath = NULL;
-      }
-      delete math;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+    delete math;
+    return LIBSBML_OPERATION_SUCCESS;
   }
+  
 }
 
 
@@ -434,11 +418,7 @@ int
 KineticLaw::setTimeUnits (const std::string& sid)
 {
   /* only in L1 and L2V1 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if ((getLevel() == 2 && getVersion() > 1)
+  if ((getLevel() == 2 && getVersion() > 1)
     || getLevel() > 2)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -462,11 +442,7 @@ int
 KineticLaw::setSubstanceUnits (const std::string& sid)
 {
   /* only in L1 and L2V1 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if ((getLevel() == 2 && getVersion() > 1)
+  if ((getLevel() == 2 && getVersion() > 1)
     || getLevel() > 2)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -1031,7 +1007,7 @@ KineticLaw::removeLocalParameter (unsigned int n)
 Parameter* 
 KineticLaw::removeParameter (const std::string& sid)
 {
-  return (&sid != NULL) ? mParameters.remove(sid) : NULL;
+  return mParameters.remove(sid);
 }
 
 
@@ -1042,7 +1018,7 @@ KineticLaw::removeParameter (const std::string& sid)
 LocalParameter* 
 KineticLaw::removeLocalParameter (const std::string& sid)
 {
-  return (&sid != NULL) ? mLocalParameters.remove(sid) : NULL;
+  return mLocalParameters.remove(sid);
 }
 
 

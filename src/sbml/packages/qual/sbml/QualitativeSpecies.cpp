@@ -91,23 +91,16 @@ QualitativeSpecies::QualitativeSpecies (QualPkgNamespaces* qualns)
  */
 QualitativeSpecies::QualitativeSpecies (const QualitativeSpecies& orig)
   : SBase(orig)
+  , mId (orig.mId)
+  , mCompartment (orig.mCompartment)
+  , mConstant (orig.mConstant)
+  , mIsSetConstant (orig.mIsSetConstant)
+  , mName (orig.mName)
+  , mInitialLevel (orig.mInitialLevel)
+  , mIsSetInitialLevel (orig.mIsSetInitialLevel)
+  , mMaxLevel (orig.mMaxLevel)
+  , mIsSetMaxLevel (orig.mIsSetMaxLevel)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mCompartment  = orig.mCompartment;
-    mConstant  = orig.mConstant;
-    mIsSetConstant  = orig.mIsSetConstant;
-    mName  = orig.mName;
-    mInitialLevel  = orig.mInitialLevel;
-    mIsSetInitialLevel  = orig.mIsSetInitialLevel;
-    mMaxLevel  = orig.mMaxLevel;
-    mIsSetMaxLevel  = orig.mIsSetMaxLevel;
-  }
 }
 
 
@@ -117,11 +110,7 @@ QualitativeSpecies::QualitativeSpecies (const QualitativeSpecies& orig)
 QualitativeSpecies&
 QualitativeSpecies::operator=(const QualitativeSpecies& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -292,11 +281,7 @@ QualitativeSpecies::setId(const std::string& id)
 int
 QualitativeSpecies::setCompartment(const std::string& compartment)
 {
-  if (&(compartment) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(compartment)))
+  if (!(SyntaxChecker::isValidInternalSId(compartment)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -326,15 +311,9 @@ QualitativeSpecies::setConstant(bool constant)
 int
 QualitativeSpecies::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
+ 
 }
 
 

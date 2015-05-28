@@ -83,11 +83,7 @@ SBMLStripPackageConverter::~SBMLStripPackageConverter ()
 SBMLStripPackageConverter& 
 SBMLStripPackageConverter::operator=(const SBMLStripPackageConverter& rhs)
 {  
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBMLConverter::operator =(rhs);
   }
@@ -129,7 +125,7 @@ SBMLStripPackageConverter::getDefaultProperties() const
 bool 
 SBMLStripPackageConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("stripPackage"))
+  if (!props.hasOption("stripPackage"))
     return false;
   return true;
 }

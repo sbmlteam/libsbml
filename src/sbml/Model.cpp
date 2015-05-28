@@ -157,53 +157,44 @@ Model::~Model ()
 /*
  * Copy constructor.
  */
-Model::Model(const Model& orig) :
-       SBase                (orig                    )
-     , mFunctionDefinitions (orig.mFunctionDefinitions)
-     , mUnitDefinitions     (orig.mUnitDefinitions)
-     , mCompartmentTypes    (orig.mCompartmentTypes)
-     , mSpeciesTypes        (orig.mSpeciesTypes)
-     , mCompartments        (orig.mCompartments)
-     , mSpecies             (orig.mSpecies)
-     , mParameters          (orig.mParameters)
-     , mInitialAssignments  (orig.mInitialAssignments)
-     , mRules               (orig.mRules)
-     , mConstraints         (orig.mConstraints)
-     , mReactions           (orig.mReactions)
-     , mEvents              (orig.mEvents)
+Model::Model(const Model& orig)
+  : SBase                (orig)
+  , mId                  (orig.mId)
+  , mName                (orig.mName)
+  , mSubstanceUnits      (orig.mSubstanceUnits)
+  , mTimeUnits           (orig.mTimeUnits)
+  , mVolumeUnits         (orig.mVolumeUnits)
+  , mAreaUnits           (orig.mAreaUnits)
+  , mLengthUnits         (orig.mLengthUnits)
+  , mExtentUnits         (orig.mExtentUnits)
+  , mConversionFactor    (orig.mConversionFactor)
+  , mFunctionDefinitions (orig.mFunctionDefinitions)
+  , mUnitDefinitions     (orig.mUnitDefinitions)
+  , mCompartmentTypes    (orig.mCompartmentTypes)
+  , mSpeciesTypes        (orig.mSpeciesTypes)
+  , mCompartments        (orig.mCompartments)
+  , mSpecies             (orig.mSpecies)
+  , mParameters          (orig.mParameters)
+  , mInitialAssignments  (orig.mInitialAssignments)
+  , mRules               (orig.mRules)
+  , mConstraints         (orig.mConstraints)
+  , mReactions           (orig.mReactions)
+  , mEvents              (orig.mEvents)
+  , mFormulaUnitsData    (NULL)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId                   = orig.mId;
-    mName                 = orig.mName;
-    mSubstanceUnits       = orig.mSubstanceUnits ;
-    mTimeUnits            = orig.mTimeUnits ;
-    mVolumeUnits          = orig.mVolumeUnits ;
-    mAreaUnits            = orig.mAreaUnits ;
-    mLengthUnits          = orig.mLengthUnits ;
-    mExtentUnits          = orig.mExtentUnits ;
-    mConversionFactor     = orig.mConversionFactor ;
 
-    if(orig.mFormulaUnitsData != NULL)
+  if(orig.mFormulaUnitsData != NULL)
+  {
+    this->mFormulaUnitsData  = new List();
+    unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
+    for(i = 0; i < iMax; ++i)
     {
-      this->mFormulaUnitsData  = new List();
-      unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
-      for(i = 0; i < iMax; ++i)
-      {
-        this->mFormulaUnitsData
-          ->add(static_cast<FormulaUnitsData*>
-                                  (orig.mFormulaUnitsData->get(i))->clone());
-      }
-    }
-    else
-    {
-      this->mFormulaUnitsData = NULL;
+      this->mFormulaUnitsData
+        ->add(static_cast<FormulaUnitsData*>
+                                (orig.mFormulaUnitsData->get(i))->clone());
     }
   }
+  
   connectToChild();
 }
 
@@ -213,11 +204,7 @@ Model::Model(const Model& orig) :
  */
 Model& Model::operator=(const Model& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator = (rhs);
     mId = rhs.mId;
@@ -715,11 +702,7 @@ Model::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -740,11 +723,7 @@ Model::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidInternalSId(name)))
     {
@@ -770,11 +749,7 @@ Model::setName (const std::string& name)
 int
 Model::setSubstanceUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -796,11 +771,7 @@ Model::setSubstanceUnits (const std::string& units)
 int
 Model::setTimeUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -822,11 +793,7 @@ Model::setTimeUnits (const std::string& units)
 int
 Model::setVolumeUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -848,11 +815,7 @@ Model::setVolumeUnits (const std::string& units)
 int
 Model::setAreaUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -874,11 +837,7 @@ Model::setAreaUnits (const std::string& units)
 int
 Model::setLengthUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -900,11 +859,7 @@ Model::setLengthUnits (const std::string& units)
 int
 Model::setExtentUnits (const std::string& units)
 {
-  if (&(units) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -926,11 +881,7 @@ Model::setExtentUnits (const std::string& units)
 int
 Model::setConversionFactor (const std::string& id)
 {
-  if (&(id) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

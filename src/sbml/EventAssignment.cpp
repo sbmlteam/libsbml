@@ -94,23 +94,16 @@ EventAssignment::~EventAssignment ()
  * Copy constructor. Creates a copy of this EventAssignment.
  */
 EventAssignment::EventAssignment (const EventAssignment& orig) :
-   SBase   ( orig )
-  , mMath  ( NULL    )
+   SBase      ( orig )
+  , mVariable ( orig.mVariable )
+  , mMath     ( NULL    )
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL) 
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mMath = orig.mMath->deepCopy();
+    mMath->setParentSBMLObject(this);
   }
-  else
-  {
-    mVariable  = orig.mVariable;
-
-    if (orig.mMath != NULL) 
-    {
-      mMath = orig.mMath->deepCopy();
-      mMath->setParentSBMLObject(this);
-    }
-  }
+  
 }
 
 
@@ -119,11 +112,7 @@ EventAssignment::EventAssignment (const EventAssignment& orig) :
  */
 EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mVariable = rhs.mVariable;
@@ -216,11 +205,7 @@ EventAssignment::isSetMath () const
 int
 EventAssignment::setVariable (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -885,16 +870,9 @@ ListOfEventAssignments::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
-    return (result == mItems.end()) ? NULL : 
-                      static_cast <EventAssignment*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
+  return (result == mItems.end()) ? NULL : 
+                    static_cast <EventAssignment*> (*result);
 }
 
 
@@ -913,15 +891,12 @@ ListOfEventAssignments::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <EventAssignment*> (item);

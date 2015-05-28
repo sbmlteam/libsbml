@@ -161,38 +161,31 @@ Species::~Species ()
 /*
  * Copy constructor. Creates a copy of this Species.
  */
-Species::Species(const Species& orig) :
-   SBase             ( orig                    )
+Species::Species(const Species& orig)
+ : SBase                       ( orig )
+ , mId                         ( orig.mId )
+ , mName                       ( orig.mName)
+ , mSpeciesType                ( orig.mSpeciesType)
+ , mCompartment                ( orig.mCompartment)
+ , mInitialAmount              ( orig.mInitialAmount)
+ , mInitialConcentration       ( orig.mInitialConcentration)
+ , mSubstanceUnits             ( orig.mSubstanceUnits)
+ , mSpatialSizeUnits           ( orig.mSpatialSizeUnits)
+ , mHasOnlySubstanceUnits      ( orig.mHasOnlySubstanceUnits)
+ , mBoundaryCondition          ( orig.mBoundaryCondition)
+ , mCharge                     ( orig.mCharge)
+ , mConstant                   ( orig.mConstant)
+ , mIsSetInitialAmount         ( orig.mIsSetInitialAmount)
+ , mIsSetInitialConcentration  ( orig.mIsSetInitialConcentration)
+ , mIsSetCharge                ( orig.mIsSetCharge)
+ , mConversionFactor           ( orig.mConversionFactor)
+ , mIsSetBoundaryCondition     ( orig.mIsSetBoundaryCondition)
+ , mIsSetHasOnlySubstanceUnits ( orig.mIsSetHasOnlySubstanceUnits)
+ , mIsSetConstant              ( orig.mIsSetConstant)
+ , mExplicitlySetBoundaryCondition ( orig.mExplicitlySetBoundaryCondition)
+ , mExplicitlySetConstant          ( orig.mExplicitlySetConstant)
+ , mExplicitlySetHasOnlySubsUnits  ( orig.mExplicitlySetHasOnlySubsUnits)  
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId                         = orig.mId;
-    mName                       = orig.mName;
-    mSpeciesType                = orig.mSpeciesType;
-    mCompartment                = orig.mCompartment;
-    mInitialAmount              = orig.mInitialAmount;
-    mInitialConcentration       = orig.mInitialConcentration;
-    mSubstanceUnits             = orig.mSubstanceUnits;
-    mSpatialSizeUnits           = orig.mSpatialSizeUnits;
-    mHasOnlySubstanceUnits      = orig.mHasOnlySubstanceUnits;
-    mBoundaryCondition          = orig.mBoundaryCondition;
-    mCharge                     = orig.mCharge;
-    mConstant                   = orig.mConstant;
-    mIsSetInitialAmount         = orig.mIsSetInitialAmount;
-    mIsSetInitialConcentration  = orig.mIsSetInitialConcentration;
-    mIsSetCharge                = orig.mIsSetCharge;
-    mConversionFactor           = orig.mConversionFactor;
-    mIsSetBoundaryCondition     = orig.mIsSetBoundaryCondition;
-    mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
-    mIsSetConstant              = orig.mIsSetConstant;
-    mExplicitlySetBoundaryCondition = orig.mExplicitlySetBoundaryCondition;
-    mExplicitlySetConstant          = orig.mExplicitlySetConstant;
-    mExplicitlySetHasOnlySubsUnits  = orig.mExplicitlySetHasOnlySubsUnits;
-  }
 }
 
 
@@ -201,11 +194,7 @@ Species::Species(const Species& orig) :
  */
 Species& Species::operator=(const Species& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment operator");
-  }
-  else if(&rhs!=this)
+  if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mId = rhs.mId;
@@ -616,11 +605,7 @@ Species::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -641,11 +626,7 @@ Species::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (getLevel() == 1)
+  if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidInternalSId(name)))
     {
@@ -671,11 +652,7 @@ Species::setName (const std::string& name)
 int
 Species::setSpeciesType (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if ( (getLevel() < 2)
+  if ( (getLevel() < 2)
     || (getLevel() == 2 && getVersion() == 1))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -698,11 +675,7 @@ Species::setSpeciesType (const std::string& sid)
 int
 Species::setCompartment (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -757,11 +730,7 @@ Species::setInitialConcentration (double value)
 int
 Species::setSubstanceUnits (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  if (!(SyntaxChecker::isValidInternalSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -779,11 +748,7 @@ Species::setSubstanceUnits (const std::string& sid)
 int
 Species::setSpatialSizeUnits (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  if ( (getLevel() != 2)
+  if ( (getLevel() != 2)
     || (getLevel() == 2 && getVersion() > 2))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -890,11 +855,7 @@ Species::setConstant (bool value)
 int
 Species::setConversionFactor (const std::string& sid)
 {
-  if (&(sid) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else  if (getLevel() < 3)
+  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -2035,15 +1996,8 @@ ListOfSpecies::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  if (&(sid) == NULL)
-  {
-    return NULL;
-  }
-  else
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
-    return (result == mItems.end()) ? NULL : static_cast <Species*> (*result);
-  }
+  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+  return (result == mItems.end()) ? NULL : static_cast <Species*> (*result);
 }
 
 
@@ -2062,15 +2016,12 @@ ListOfSpecies::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  if (&(sid) != NULL)
-  {
-    result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
 
-    if (result != mItems.end())
-    {
-      item = *result;
-      mItems.erase(result);
-    }
+  if (result != mItems.end())
+  {
+    item = *result;
+    mItems.erase(result);
   }
 
   return static_cast <Species*> (item);

@@ -104,12 +104,6 @@ CiElementNot0DComp::checkMath (const Model& m, const ASTNode& node, const SBase 
   if (m.getLevel() != 2) return;
   else if (m.getVersion() != 5) return;
 
-  /* should not be here but why not catch it rather than crash*/
-  if (&(node) == NULL)
-  {
-    return;
-  }
-
   ASTNodeType_t type = node.getType();
     
   /* if the node is a &lt;ci&gt; element it will have type AST_NAME

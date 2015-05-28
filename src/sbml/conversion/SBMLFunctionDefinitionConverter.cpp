@@ -109,7 +109,7 @@ SBMLFunctionDefinitionConverter::getDefaultProperties() const
 bool 
 SBMLFunctionDefinitionConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("expandFunctionDefinitions"))
+  if (!props.hasOption("expandFunctionDefinitions"))
     return false;
   return true;
 }

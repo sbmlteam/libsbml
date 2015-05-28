@@ -110,7 +110,7 @@ SBMLRuleConverter::getDefaultProperties() const
 bool 
   SBMLRuleConverter::matchesProperties(const ConversionProperties &props) const
 {
-  if (&props == NULL || !props.hasOption("sortRules"))
+  if (!props.hasOption("sortRules"))
     return false;
   return true;
 }

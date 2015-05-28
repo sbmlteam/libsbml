@@ -144,7 +144,6 @@ SBasePluginCreatorBase::getSupportedPackageURI(unsigned int i) const
 bool 
 SBasePluginCreatorBase::isSupported(const std::string& uri) const
 {
-  if (&uri == NULL) return false;
   return ( mSupportedPackageURI.end()
             !=
            find(mSupportedPackageURI.begin(), mSupportedPackageURI.end(), uri)
