@@ -720,7 +720,6 @@ SBasePlugin::logUnknownAttribute(const std::string &attribute,
                                  const unsigned int pkgVersion,
                                  const std::string& element)
 {
-  if (&attribute == NULL || &element == NULL) return;
   
   std::ostringstream msg;
 
