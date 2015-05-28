@@ -84,26 +84,16 @@ DrawFromDistribution::DrawFromDistribution (DistribPkgNamespaces* distribns)
  */
 DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
   : SBase(orig)
+  , mDistribInputs  ( orig.mDistribInputs)
+  , mUncertML ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mUncertML != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mUncertML = orig.mUncertML->clone();
   }
-  else
-  {
-    mDistribInputs  = orig.mDistribInputs;
-    if (orig.mUncertML != NULL)
-    {
-      mUncertML = orig.mUncertML->clone();
-    }
-    else
-    {
-      mUncertML = NULL;
-    }
 
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -113,11 +103,7 @@ DrawFromDistribution::DrawFromDistribution (const DrawFromDistribution& orig)
 DrawFromDistribution&
 DrawFromDistribution::operator=(const DrawFromDistribution& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mDistribInputs  = rhs.mDistribInputs;

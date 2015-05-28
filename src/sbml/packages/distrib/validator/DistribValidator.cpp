@@ -258,7 +258,7 @@ public:
 
   virtual bool visit(const SBase &x)
   {
-    if (&x == NULL || x.getPackageName() != "distrib")
+    if (x.getPackageName() != "distrib")
     {
       return SBMLVisitor::visit(x);
     }
@@ -341,7 +341,6 @@ DistribValidator::addConstraint (VConstraint* c)
 unsigned int
 DistribValidator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
 
   const Model* m = d.getModel();
 
@@ -373,7 +372,6 @@ DistribValidator::validate (const SBMLDocument& d)
 unsigned int
 DistribValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
 
   SBMLReader    reader;
   SBMLDocument* d = reader.readSBML(filename);

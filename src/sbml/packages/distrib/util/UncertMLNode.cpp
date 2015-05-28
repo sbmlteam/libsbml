@@ -66,21 +66,14 @@ UncertMLNode::UncertMLNode (XMLNode* xml)
  * Copy constructor for UncertMLNode.
  */
 UncertMLNode::UncertMLNode (const UncertMLNode& orig)
+ : mElementName ( orig.mElementName)
+ , mText        ( orig.mText)
+ , mAttributes  ( orig.mAttributes)
+ , mChildren    ( orig.mChildren.size())
 {
-  if (&orig == NULL)
+  for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mElementName = orig.mElementName;
-    mText        = orig.mText;
-    mAttributes  = orig.mAttributes;
-
-    for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
-    {
-      addChild( orig.getChild(c)->clone() );
-    }
+    addChild( orig.getChild(c)->clone() );
   }
 }
 
@@ -91,11 +84,7 @@ UncertMLNode::UncertMLNode (const UncertMLNode& orig)
 UncertMLNode&
 UncertMLNode::operator=(const UncertMLNode& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     mElementName = rhs.mElementName;
     mText        = rhs.mText;
@@ -210,15 +199,8 @@ UncertMLNode::getNumAttributes() const
 int
 UncertMLNode::setElementName(const std::string& elementName)
 {
-  if (&(elementName) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mElementName = elementName;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mElementName = elementName;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -228,15 +210,8 @@ UncertMLNode::setElementName(const std::string& elementName)
 int
 UncertMLNode::setText(const std::string& text)
 {
-  if (&(text) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mText = text;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mText = text;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -246,15 +221,8 @@ UncertMLNode::setText(const std::string& text)
 int
 UncertMLNode::setAttributes(const XMLAttributes & attr)
 {
-  if (&(attr) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mAttributes = XMLAttributes(attr);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mAttributes = XMLAttributes(attr);
+  return LIBSBML_OPERATION_SUCCESS;  
 }
 
 

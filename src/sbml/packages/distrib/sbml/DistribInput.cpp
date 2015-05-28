@@ -88,21 +88,13 @@ DistribInput::DistribInput (DistribPkgNamespaces* distribns)
  */
 DistribInput::DistribInput (const DistribInput& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mName  ( orig.mName)
+  , mIndex  ( orig.mIndex)
+  , mIsSetIndex  ( orig.mIsSetIndex)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mName  = orig.mName;
-    mIndex  = orig.mIndex;
-    mIsSetIndex  = orig.mIsSetIndex;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -112,11 +104,7 @@ DistribInput::DistribInput (const DistribInput& orig)
 DistribInput&
 DistribInput::operator=(const DistribInput& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -225,15 +213,8 @@ DistribInput::setId(const std::string& id)
 int
 DistribInput::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
