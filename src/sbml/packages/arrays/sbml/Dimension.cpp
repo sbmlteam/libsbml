@@ -82,19 +82,12 @@ Dimension::Dimension (ArraysPkgNamespaces* arraysns)
  */
 Dimension::Dimension (const Dimension& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mName  ( orig.mName)
+  , mSize  ( orig.mSize)
+  , mArrayDimension  ( orig.mArrayDimension)
+  , mIsSetArrayDimension  ( orig.mIsSetArrayDimension)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mName  = orig.mName;
-    mSize  = orig.mSize;
-    mArrayDimension  = orig.mArrayDimension;
-    mIsSetArrayDimension  = orig.mIsSetArrayDimension;
-  }
 }
 
 
@@ -104,11 +97,7 @@ Dimension::Dimension (const Dimension& orig)
 Dimension&
 Dimension::operator=(const Dimension& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -235,15 +224,8 @@ Dimension::setId(const std::string& id)
 int
 Dimension::setName(const std::string& name)
 {
-  if (&(name) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mName = name;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -253,11 +235,7 @@ Dimension::setName(const std::string& name)
 int
 Dimension::setSize(const std::string& size)
 {
-  if (&(size) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(size)))
+  if (!(SyntaxChecker::isValidInternalSId(size)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

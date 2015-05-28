@@ -93,7 +93,6 @@ ASTArraysVectorFunctionNode::deepCopy () const
 void
 ASTArraysVectorFunctionNode::write(XMLOutputStream& stream) const
 {
-  if (&stream == NULL) return;
 
   std::string name = getNameFromType(this->getExtendedType());
   stream.startElement(name);

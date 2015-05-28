@@ -245,7 +245,7 @@ public:
 
   virtual bool visit(const SBase &x)
   {
-    if (&x == NULL || x.getPackageName() != "arrays")
+    if (x.getPackageName() != "arrays")
     {
       return SBMLVisitor::visit(x);
     }
@@ -324,7 +324,6 @@ ArraysValidator::addConstraint (VConstraint* c)
 unsigned int
 ArraysValidator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
 
   const Model* m = d.getModel();
 
@@ -356,7 +355,6 @@ ArraysValidator::validate (const SBMLDocument& d)
 unsigned int
 ArraysValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
 
   SBMLReader    reader;
   SBMLDocument& d = *reader.readSBML(filename);

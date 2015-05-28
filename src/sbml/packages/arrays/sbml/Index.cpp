@@ -84,24 +84,14 @@ Index::Index (ArraysPkgNamespaces* arraysns)
  */
 Index::Index (const Index& orig)
   : SBase(orig)
+  , mReferencedAttribute  ( orig.mReferencedAttribute)
+  , mArrayDimension  ( orig.mArrayDimension)
+  , mIsSetArrayDimension  ( orig.mIsSetArrayDimension)
+  , mMath(NULL)
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mReferencedAttribute  = orig.mReferencedAttribute;
-    mArrayDimension  = orig.mArrayDimension;
-    mIsSetArrayDimension  = orig.mIsSetArrayDimension;
-    if (orig.mMath != NULL)
-    {
-      mMath = orig.mMath->deepCopy();
-    }
-    else
-    {
-      mMath = NULL;
-    }
+    mMath = orig.mMath->deepCopy();
   }
 }
 
@@ -112,11 +102,7 @@ Index::Index (const Index& orig)
 Index&
 Index::operator=(const Index& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mReferencedAttribute  = rhs.mReferencedAttribute;
@@ -227,15 +213,8 @@ Index::isSetMath() const
 int
 Index::setReferencedAttribute(const std::string& referencedAttribute)
 {
-  if (&(referencedAttribute) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mReferencedAttribute = referencedAttribute;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  mReferencedAttribute = referencedAttribute;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
