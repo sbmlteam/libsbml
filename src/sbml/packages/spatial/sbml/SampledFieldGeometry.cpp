@@ -97,11 +97,7 @@ SampledFieldGeometry::SampledFieldGeometry (const SampledFieldGeometry& orig)
 SampledFieldGeometry&
 SampledFieldGeometry::operator=(const SampledFieldGeometry& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
     mSampledVolumes  = rhs.mSampledVolumes;
