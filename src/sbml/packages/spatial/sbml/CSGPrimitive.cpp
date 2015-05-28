@@ -75,15 +75,8 @@ CSGPrimitive::CSGPrimitive (SpatialPkgNamespaces* spatialns)
  */
 CSGPrimitive::CSGPrimitive (const CSGPrimitive& orig)
   : CSGNode(orig)
+  , mPrimitiveType  ( orig.mPrimitiveType)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mPrimitiveType  = orig.mPrimitiveType;
-  }
 }
 
 
@@ -93,11 +86,7 @@ CSGPrimitive::CSGPrimitive (const CSGPrimitive& orig)
 CSGPrimitive&
 CSGPrimitive::operator=(const CSGPrimitive& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGNode::operator=(rhs);
     mPrimitiveType  = rhs.mPrimitiveType;

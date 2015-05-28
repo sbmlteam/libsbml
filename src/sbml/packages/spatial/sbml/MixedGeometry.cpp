@@ -90,19 +90,11 @@ MixedGeometry::MixedGeometry (SpatialPkgNamespaces* spatialns)
  */
 MixedGeometry::MixedGeometry (const MixedGeometry& orig)
   : GeometryDefinition(orig)
+  , mGeometryDefinitions  ( orig.mGeometryDefinitions)
+  , mOrdinalMappings  ( orig.mOrdinalMappings)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mGeometryDefinitions  = orig.mGeometryDefinitions;
-    mOrdinalMappings  = orig.mOrdinalMappings;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -112,11 +104,7 @@ MixedGeometry::MixedGeometry (const MixedGeometry& orig)
 MixedGeometry&
 MixedGeometry::operator=(const MixedGeometry& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
     mGeometryDefinitions  = rhs.mGeometryDefinitions;

@@ -89,22 +89,15 @@ CSGRotation::CSGRotation (SpatialPkgNamespaces* spatialns)
  */
 CSGRotation::CSGRotation (const CSGRotation& orig)
   : CSGTransformation(orig)
+  , mRotateX  ( orig.mRotateX)
+  , mIsSetRotateX  ( orig.mIsSetRotateX)
+  , mRotateY  ( orig.mRotateY)
+  , mIsSetRotateY  ( orig.mIsSetRotateY)
+  , mRotateZ  ( orig.mRotateZ)
+  , mIsSetRotateZ  ( orig.mIsSetRotateZ)
+  , mRotateAngleInRadians  ( orig.mRotateAngleInRadians)
+  , mIsSetRotateAngleInRadians  ( orig.mIsSetRotateAngleInRadians)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mRotateX  = orig.mRotateX;
-    mIsSetRotateX  = orig.mIsSetRotateX;
-    mRotateY  = orig.mRotateY;
-    mIsSetRotateY  = orig.mIsSetRotateY;
-    mRotateZ  = orig.mRotateZ;
-    mIsSetRotateZ  = orig.mIsSetRotateZ;
-    mRotateAngleInRadians  = orig.mRotateAngleInRadians;
-    mIsSetRotateAngleInRadians  = orig.mIsSetRotateAngleInRadians;
-  }
 }
 
 
@@ -114,11 +107,7 @@ CSGRotation::CSGRotation (const CSGRotation& orig)
 CSGRotation&
 CSGRotation::operator=(const CSGRotation& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
     mRotateX  = rhs.mRotateX;

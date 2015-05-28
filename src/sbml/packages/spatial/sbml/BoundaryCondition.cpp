@@ -81,18 +81,11 @@ BoundaryCondition::BoundaryCondition (SpatialPkgNamespaces* spatialns)
  */
 BoundaryCondition::BoundaryCondition (const BoundaryCondition& orig)
   : SBase(orig)
+  , mVariable  ( orig.mVariable)
+  , mType  ( orig.mType)
+  , mCoordinateBoundary  ( orig.mCoordinateBoundary)
+  , mBoundaryDomainType  ( orig.mBoundaryDomainType)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mVariable  = orig.mVariable;
-    mType  = orig.mType;
-    mCoordinateBoundary  = orig.mCoordinateBoundary;
-    mBoundaryDomainType  = orig.mBoundaryDomainType;
-  }
 }
 
 
@@ -102,11 +95,7 @@ BoundaryCondition::BoundaryCondition (const BoundaryCondition& orig)
 BoundaryCondition&
 BoundaryCondition::operator=(const BoundaryCondition& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
@@ -222,11 +211,7 @@ BoundaryCondition::isSetBoundaryDomainType() const
 int
 BoundaryCondition::setVariable(const std::string& variable)
 {
-  if (&(variable) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(variable)))
+  if (!(SyntaxChecker::isValidInternalSId(variable)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -268,11 +253,7 @@ BoundaryCondition::setType(const std::string& type)
 int
 BoundaryCondition::setCoordinateBoundary(const std::string& coordinateBoundary)
 {
-  if (&(coordinateBoundary) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(coordinateBoundary)))
+  if (!(SyntaxChecker::isValidInternalSId(coordinateBoundary)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -290,11 +271,7 @@ BoundaryCondition::setCoordinateBoundary(const std::string& coordinateBoundary)
 int
 BoundaryCondition::setBoundaryDomainType(const std::string& boundaryDomainType)
 {
-  if (&(boundaryDomainType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(boundaryDomainType)))
+  if (!(SyntaxChecker::isValidInternalSId(boundaryDomainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

@@ -75,15 +75,8 @@ CSGPseudoPrimitive::CSGPseudoPrimitive (SpatialPkgNamespaces* spatialns)
  */
 CSGPseudoPrimitive::CSGPseudoPrimitive (const CSGPseudoPrimitive& orig)
   : CSGNode(orig)
+  , mCsgObjectRef  ( orig.mCsgObjectRef)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mCsgObjectRef  = orig.mCsgObjectRef;
-  }
 }
 
 
@@ -93,11 +86,7 @@ CSGPseudoPrimitive::CSGPseudoPrimitive (const CSGPseudoPrimitive& orig)
 CSGPseudoPrimitive&
 CSGPseudoPrimitive::operator=(const CSGPseudoPrimitive& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGNode::operator=(rhs);
     mCsgObjectRef  = rhs.mCsgObjectRef;
@@ -150,11 +139,7 @@ CSGPseudoPrimitive::isSetCsgObjectRef() const
 int
 CSGPseudoPrimitive::setCsgObjectRef(const std::string& csgObjectRef)
 {
-  if (&(csgObjectRef) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(csgObjectRef)))
+  if (!(SyntaxChecker::isValidInternalSId(csgObjectRef)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

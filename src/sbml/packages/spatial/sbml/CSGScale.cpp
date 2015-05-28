@@ -85,20 +85,13 @@ CSGScale::CSGScale (SpatialPkgNamespaces* spatialns)
  */
 CSGScale::CSGScale (const CSGScale& orig)
   : CSGTransformation(orig)
+  , mScaleX  ( orig.mScaleX)
+  , mIsSetScaleX  ( orig.mIsSetScaleX)
+  , mScaleY  ( orig.mScaleY)
+  , mIsSetScaleY  ( orig.mIsSetScaleY)
+  , mScaleZ  ( orig.mScaleZ)
+  , mIsSetScaleZ  ( orig.mIsSetScaleZ)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mScaleX  = orig.mScaleX;
-    mIsSetScaleX  = orig.mIsSetScaleX;
-    mScaleY  = orig.mScaleY;
-    mIsSetScaleY  = orig.mIsSetScaleY;
-    mScaleZ  = orig.mScaleZ;
-    mIsSetScaleZ  = orig.mIsSetScaleZ;
-  }
 }
 
 
@@ -108,11 +101,7 @@ CSGScale::CSGScale (const CSGScale& orig)
 CSGScale&
 CSGScale::operator=(const CSGScale& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
     mScaleX  = rhs.mScaleX;

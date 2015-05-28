@@ -89,26 +89,16 @@ AnalyticVolume::AnalyticVolume (SpatialPkgNamespaces* spatialns)
  */
 AnalyticVolume::AnalyticVolume (const AnalyticVolume& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mFunctionType  ( orig.mFunctionType)
+  , mOrdinal  ( orig.mOrdinal)
+  , mIsSetOrdinal  ( orig.mIsSetOrdinal)
+  , mDomainType  ( orig.mDomainType)
+  , mMath ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mMath != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mFunctionType  = orig.mFunctionType;
-    mOrdinal  = orig.mOrdinal;
-    mIsSetOrdinal  = orig.mIsSetOrdinal;
-    mDomainType  = orig.mDomainType;
-    if (orig.mMath != NULL)
-    {
-      mMath = orig.mMath->deepCopy();
-    }
-    else
-    {
-      mMath = NULL;
-    }
+    mMath = orig.mMath->deepCopy();
   }
 }
 
@@ -119,11 +109,7 @@ AnalyticVolume::AnalyticVolume (const AnalyticVolume& orig)
 AnalyticVolume&
 AnalyticVolume::operator=(const AnalyticVolume& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -316,11 +302,7 @@ AnalyticVolume::setOrdinal(int ordinal)
 int
 AnalyticVolume::setDomainType(const std::string& domainType)
 {
-  if (&(domainType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
+  if (!(SyntaxChecker::isValidInternalSId(domainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

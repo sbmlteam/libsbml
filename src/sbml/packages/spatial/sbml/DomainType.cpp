@@ -79,17 +79,10 @@ DomainType::DomainType (SpatialPkgNamespaces* spatialns)
  */
 DomainType::DomainType (const DomainType& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mSpatialDimensions  ( orig.mSpatialDimensions)
+  , mIsSetSpatialDimensions  ( orig.mIsSetSpatialDimensions)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mSpatialDimensions  = orig.mSpatialDimensions;
-    mIsSetSpatialDimensions  = orig.mIsSetSpatialDimensions;
-  }
 }
 
 
@@ -99,11 +92,7 @@ DomainType::DomainType (const DomainType& orig)
 DomainType&
 DomainType::operator=(const DomainType& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;

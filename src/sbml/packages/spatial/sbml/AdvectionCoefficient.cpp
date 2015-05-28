@@ -77,16 +77,9 @@ AdvectionCoefficient::AdvectionCoefficient (SpatialPkgNamespaces* spatialns)
  */
 AdvectionCoefficient::AdvectionCoefficient (const AdvectionCoefficient& orig)
   : SBase(orig)
+  , mVariable  ( orig.mVariable)
+  , mCoordinate  ( orig.mCoordinate)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mVariable  = orig.mVariable;
-    mCoordinate  = orig.mCoordinate;
-  }
 }
 
 
@@ -96,11 +89,7 @@ AdvectionCoefficient::AdvectionCoefficient (const AdvectionCoefficient& orig)
 AdvectionCoefficient&
 AdvectionCoefficient::operator=(const AdvectionCoefficient& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
@@ -174,11 +163,7 @@ AdvectionCoefficient::isSetCoordinate() const
 int
 AdvectionCoefficient::setVariable(const std::string& variable)
 {
-  if (&(variable) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(variable)))
+  if (!(SyntaxChecker::isValidInternalSId(variable)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

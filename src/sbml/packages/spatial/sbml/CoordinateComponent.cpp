@@ -89,36 +89,24 @@ CoordinateComponent::CoordinateComponent (SpatialPkgNamespaces* spatialns)
  */
 CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mType  ( orig.mType)
+  , mUnit  ( orig.mUnit)
+  , mBoundaryMin ( NULL)
+  , mBoundaryMax ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mBoundaryMin != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mBoundaryMin = orig.mBoundaryMin->clone();
   }
-  else
-  {
-    mId  = orig.mId;
-    mType  = orig.mType;
-    mUnit  = orig.mUnit;
-    if (orig.mBoundaryMin != NULL)
-    {
-      mBoundaryMin = orig.mBoundaryMin->clone();
-    }
-    else
-    {
-      mBoundaryMin = NULL;
-    }
-    if (orig.mBoundaryMax != NULL)
-    {
-      mBoundaryMax = orig.mBoundaryMax->clone();
-    }
-    else
-    {
-      mBoundaryMax = NULL;
-    }
 
-    // connect to child objects
-    connectToChild();
+  if (orig.mBoundaryMax != NULL)
+  {
+    mBoundaryMax = orig.mBoundaryMax->clone();
   }
+
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -128,11 +116,7 @@ CoordinateComponent::CoordinateComponent (const CoordinateComponent& orig)
 CoordinateComponent&
 CoordinateComponent::operator=(const CoordinateComponent& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -376,11 +360,7 @@ CoordinateComponent::setType(const std::string& type)
 int
 CoordinateComponent::setUnit(const std::string& unit)
 {
-  if (&(unit) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(unit)))
+  if (!(SyntaxChecker::isValidInternalSId(unit)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

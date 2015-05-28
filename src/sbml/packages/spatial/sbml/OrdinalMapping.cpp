@@ -79,17 +79,10 @@ OrdinalMapping::OrdinalMapping (SpatialPkgNamespaces* spatialns)
  */
 OrdinalMapping::OrdinalMapping (const OrdinalMapping& orig)
   : SBase(orig)
+  , mGeometryDefinition  ( orig.mGeometryDefinition)
+  , mOrdinal  ( orig.mOrdinal)
+  , mIsSetOrdinal  ( orig.mIsSetOrdinal)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mGeometryDefinition  = orig.mGeometryDefinition;
-    mOrdinal  = orig.mOrdinal;
-    mIsSetOrdinal  = orig.mIsSetOrdinal;
-  }
 }
 
 
@@ -99,11 +92,7 @@ OrdinalMapping::OrdinalMapping (const OrdinalMapping& orig)
 OrdinalMapping&
 OrdinalMapping::operator=(const OrdinalMapping& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mGeometryDefinition  = rhs.mGeometryDefinition;
@@ -178,11 +167,7 @@ OrdinalMapping::isSetOrdinal() const
 int
 OrdinalMapping::setGeometryDefinition(const std::string& geometryDefinition)
 {
-  if (&(geometryDefinition) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(geometryDefinition)))
+  if (!(SyntaxChecker::isValidInternalSId(geometryDefinition)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

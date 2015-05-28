@@ -85,20 +85,13 @@ CSGTranslation::CSGTranslation (SpatialPkgNamespaces* spatialns)
  */
 CSGTranslation::CSGTranslation (const CSGTranslation& orig)
   : CSGTransformation(orig)
+  , mTranslateX  ( orig.mTranslateX)
+  , mIsSetTranslateX  ( orig.mIsSetTranslateX)
+  , mTranslateY  ( orig.mTranslateY)
+  , mIsSetTranslateY  ( orig.mIsSetTranslateY)
+  , mTranslateZ  ( orig.mTranslateZ)
+  , mIsSetTranslateZ  ( orig.mIsSetTranslateZ)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mTranslateX  = orig.mTranslateX;
-    mIsSetTranslateX  = orig.mIsSetTranslateX;
-    mTranslateY  = orig.mTranslateY;
-    mIsSetTranslateY  = orig.mIsSetTranslateY;
-    mTranslateZ  = orig.mTranslateZ;
-    mIsSetTranslateZ  = orig.mIsSetTranslateZ;
-  }
 }
 
 
@@ -108,11 +101,7 @@ CSGTranslation::CSGTranslation (const CSGTranslation& orig)
 CSGTranslation&
 CSGTranslation::operator=(const CSGTranslation& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
     mTranslateX  = rhs.mTranslateX;

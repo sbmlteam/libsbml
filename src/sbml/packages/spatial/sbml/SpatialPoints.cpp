@@ -85,21 +85,14 @@ SpatialPoints::SpatialPoints (SpatialPkgNamespaces* spatialns)
  */
 SpatialPoints::SpatialPoints (const SpatialPoints& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mCompression  ( orig.mCompression)
+  , mArrayData  ( NULL)
+  , mArrayDataLength  ( orig.mArrayDataLength)
+  , mIsSetArrayDataLength  ( orig.mIsSetArrayDataLength)
+  , mDataType  ( orig.mDataType)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mCompression  = orig.mCompression;
-    mArrayData  = NULL;
-    setArrayData(orig.mArrayData, orig.mArrayDataLength);
-    mArrayDataLength  = orig.mArrayDataLength;
-    mIsSetArrayDataLength  = orig.mIsSetArrayDataLength;
-    mDataType  = orig.mDataType;
-  }
+  setArrayData(orig.mArrayData, orig.mArrayDataLength);
 }
 
 
@@ -109,11 +102,7 @@ SpatialPoints::SpatialPoints (const SpatialPoints& orig)
 SpatialPoints&
 SpatialPoints::operator=(const SpatialPoints& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;

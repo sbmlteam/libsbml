@@ -96,25 +96,15 @@ CSGTransformation::CSGTransformation (SpatialPkgNamespaces* spatialns)
  */
 CSGTransformation::CSGTransformation (const CSGTransformation& orig)
   : CSGNode(orig)
+  , mCsgNode ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mCsgNode != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mCsgNode = orig.mCsgNode->clone();
   }
-  else
-  {
-    if (orig.mCsgNode != NULL)
-    {
-      mCsgNode = orig.mCsgNode->clone();
-    }
-    else
-    {
-      mCsgNode = NULL;
-    }
 
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -124,11 +114,7 @@ CSGTransformation::CSGTransformation (const CSGTransformation& orig)
 CSGTransformation&
 CSGTransformation::operator=(const CSGTransformation& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGNode::operator=(rhs);
     if (rhs.mCsgNode != NULL)

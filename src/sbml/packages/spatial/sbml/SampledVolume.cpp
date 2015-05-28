@@ -89,22 +89,15 @@ SampledVolume::SampledVolume (SpatialPkgNamespaces* spatialns)
  */
 SampledVolume::SampledVolume (const SampledVolume& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mDomainType  ( orig.mDomainType)
+  , mSampledValue  ( orig.mSampledValue)
+  , mIsSetSampledValue  ( orig.mIsSetSampledValue)
+  , mMinValue  ( orig.mMinValue)
+  , mIsSetMinValue  ( orig.mIsSetMinValue)
+  , mMaxValue  ( orig.mMaxValue)
+  , mIsSetMaxValue  ( orig.mIsSetMaxValue)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mDomainType  = orig.mDomainType;
-    mSampledValue  = orig.mSampledValue;
-    mIsSetSampledValue  = orig.mIsSetSampledValue;
-    mMinValue  = orig.mMinValue;
-    mIsSetMinValue  = orig.mIsSetMinValue;
-    mMaxValue  = orig.mMaxValue;
-    mIsSetMaxValue  = orig.mIsSetMaxValue;
-  }
 }
 
 
@@ -114,11 +107,7 @@ SampledVolume::SampledVolume (const SampledVolume& orig)
 SampledVolume&
 SampledVolume::operator=(const SampledVolume& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -268,11 +257,7 @@ SampledVolume::setId(const std::string& id)
 int
 SampledVolume::setDomainType(const std::string& domainType)
 {
-  if (&(domainType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
+  if (!(SyntaxChecker::isValidInternalSId(domainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

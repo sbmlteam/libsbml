@@ -109,32 +109,26 @@ SampledField::SampledField (SpatialPkgNamespaces* spatialns)
  */
 SampledField::SampledField (const SampledField& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mDataType  ( orig.mDataType)
+  , mNumSamples1  ( orig.mNumSamples1)
+  , mIsSetNumSamples1  ( orig.mIsSetNumSamples1)
+  , mNumSamples2  ( orig.mNumSamples2)
+  , mIsSetNumSamples2  ( orig.mIsSetNumSamples2)
+  , mNumSamples3  ( orig.mNumSamples3)
+  , mIsSetNumSamples3  ( orig.mIsSetNumSamples3)
+  , mInterpolationType  ( orig.mInterpolationType)
+  , mCompression  ( orig.mCompression)
+  , mSamples  ( NULL)
+  , mSamplesLength  ( orig.mSamplesLength)
+  , mIsSetSamplesLength  ( orig.mIsSetSamplesLength)
+  , mUncompressedSamples ( NULL)
+  , mUncompressedLength ( 0)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mDataType  = orig.mDataType;
-    mNumSamples1  = orig.mNumSamples1;
-    mIsSetNumSamples1  = orig.mIsSetNumSamples1;
-    mNumSamples2  = orig.mNumSamples2;
-    mIsSetNumSamples2  = orig.mIsSetNumSamples2;
-    mNumSamples3  = orig.mNumSamples3;
-    mIsSetNumSamples3  = orig.mIsSetNumSamples3;
-    mInterpolationType  = orig.mInterpolationType;
-    mCompression  = orig.mCompression;
-    mSamples  = NULL;
-    setSamples(orig.mSamples, orig.mSamplesLength);
-    mSamplesLength  = orig.mSamplesLength;
-    mIsSetSamplesLength  = orig.mIsSetSamplesLength;
-    mUncompressedSamples = NULL;
-    mUncompressedLength = 0;
-    // connect to child objects
-    connectToChild();
-  }
+  setSamples(orig.mSamples, orig.mSamplesLength);
+  
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -144,11 +138,7 @@ SampledField::SampledField (const SampledField& orig)
 SampledField&
 SampledField::operator=(const SampledField& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;

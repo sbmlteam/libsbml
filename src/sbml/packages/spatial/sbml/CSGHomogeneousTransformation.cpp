@@ -83,33 +83,21 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation (SpatialPkgNamespaces
  */
 CSGHomogeneousTransformation::CSGHomogeneousTransformation (const CSGHomogeneousTransformation& orig)
   : CSGTransformation(orig)
+  , mForwardTransformation ( NULL)
+  , mReverseTransformation ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mForwardTransformation != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mForwardTransformation = orig.mForwardTransformation->clone();
   }
-  else
-  {
-    if (orig.mForwardTransformation != NULL)
-    {
-      mForwardTransformation = orig.mForwardTransformation->clone();
-    }
-    else
-    {
-      mForwardTransformation = NULL;
-    }
-    if (orig.mReverseTransformation != NULL)
-    {
-      mReverseTransformation = orig.mReverseTransformation->clone();
-    }
-    else
-    {
-      mReverseTransformation = NULL;
-    }
 
-    // connect to child objects
-    connectToChild();
+  if (orig.mReverseTransformation != NULL)
+  {
+    mReverseTransformation = orig.mReverseTransformation->clone();
   }
+
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -119,11 +107,7 @@ CSGHomogeneousTransformation::CSGHomogeneousTransformation (const CSGHomogeneous
 CSGHomogeneousTransformation&
 CSGHomogeneousTransformation::operator=(const CSGHomogeneousTransformation& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     CSGTransformation::operator=(rhs);
     if (rhs.mForwardTransformation != NULL)

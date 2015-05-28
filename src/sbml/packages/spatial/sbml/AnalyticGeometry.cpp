@@ -81,18 +81,10 @@ AnalyticGeometry::AnalyticGeometry (SpatialPkgNamespaces* spatialns)
  */
 AnalyticGeometry::AnalyticGeometry (const AnalyticGeometry& orig)
   : GeometryDefinition(orig)
+  , mAnalyticVolumes  ( orig.mAnalyticVolumes)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mAnalyticVolumes  = orig.mAnalyticVolumes;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -102,11 +94,7 @@ AnalyticGeometry::AnalyticGeometry (const AnalyticGeometry& orig)
 AnalyticGeometry&
 AnalyticGeometry::operator=(const AnalyticGeometry& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
     mAnalyticVolumes  = rhs.mAnalyticVolumes;

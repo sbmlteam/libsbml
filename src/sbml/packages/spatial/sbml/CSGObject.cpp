@@ -98,29 +98,19 @@ CSGObject::CSGObject (SpatialPkgNamespaces* spatialns)
  */
 CSGObject::CSGObject (const CSGObject& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mDomainType  ( orig.mDomainType)
+  , mOrdinal  ( orig.mOrdinal)
+  , mIsSetOrdinal  ( orig.mIsSetOrdinal)
+  , mCsgNode ( NULL)
 {
-  if (&orig == NULL)
+  if (orig.mCsgNode != NULL)
   {
-    throw SBMLConstructorException("Null argument to copy constructor");
+    mCsgNode = orig.mCsgNode->clone();
   }
-  else
-  {
-    mId  = orig.mId;
-    mDomainType  = orig.mDomainType;
-    mOrdinal  = orig.mOrdinal;
-    mIsSetOrdinal  = orig.mIsSetOrdinal;
-    if (orig.mCsgNode != NULL)
-    {
-      mCsgNode = orig.mCsgNode->clone();
-    }
-    else
-    {
-      mCsgNode = NULL;
-    }
 
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -130,11 +120,7 @@ CSGObject::CSGObject (const CSGObject& orig)
 CSGObject&
 CSGObject::operator=(const CSGObject& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -388,11 +374,7 @@ CSGObject::setId(const std::string& id)
 int
 CSGObject::setDomainType(const std::string& domainType)
 {
-  if (&(domainType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
+  if (!(SyntaxChecker::isValidInternalSId(domainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

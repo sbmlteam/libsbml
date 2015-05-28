@@ -86,17 +86,10 @@ GeometryDefinition::GeometryDefinition (SpatialPkgNamespaces* spatialns)
  */
 GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mIsActive  ( orig.mIsActive)
+  , mIsSetIsActive  ( orig.mIsSetIsActive)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mIsActive  = orig.mIsActive;
-    mIsSetIsActive  = orig.mIsSetIsActive;
-  }
 }
 
 
@@ -106,11 +99,7 @@ GeometryDefinition::GeometryDefinition (const GeometryDefinition& orig)
 GeometryDefinition&
 GeometryDefinition::operator=(const GeometryDefinition& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;

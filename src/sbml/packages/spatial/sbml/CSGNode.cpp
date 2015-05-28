@@ -84,15 +84,8 @@ CSGNode::CSGNode (SpatialPkgNamespaces* spatialns)
  */
 CSGNode::CSGNode (const CSGNode& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-  }
 }
 
 
@@ -102,11 +95,7 @@ CSGNode::CSGNode (const CSGNode& orig)
 CSGNode&
 CSGNode::operator=(const CSGNode& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;

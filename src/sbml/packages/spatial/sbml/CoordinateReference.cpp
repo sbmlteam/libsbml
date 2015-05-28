@@ -75,15 +75,8 @@ CoordinateReference::CoordinateReference (SpatialPkgNamespaces* spatialns)
  */
 CoordinateReference::CoordinateReference (const CoordinateReference& orig)
   : SBase(orig)
+  , mCoordinate  ( orig.mCoordinate)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mCoordinate  = orig.mCoordinate;
-  }
 }
 
 
@@ -93,11 +86,7 @@ CoordinateReference::CoordinateReference (const CoordinateReference& orig)
 CoordinateReference&
 CoordinateReference::operator=(const CoordinateReference& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mCoordinate  = rhs.mCoordinate;

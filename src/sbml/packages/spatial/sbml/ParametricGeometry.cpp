@@ -83,26 +83,17 @@ ParametricGeometry::ParametricGeometry (SpatialPkgNamespaces* spatialns)
  */
 ParametricGeometry::ParametricGeometry (const ParametricGeometry& orig)
   : GeometryDefinition(orig)
-{
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    if (orig.mSpatialPoints != NULL)
-    {
-      mSpatialPoints = orig.mSpatialPoints->clone();
-    }
-    else
-    {
-      mSpatialPoints = NULL;
-    }
-    mParametricObjects  = orig.mParametricObjects;
+  , mSpatialPoints ( NULL)
+  , mParametricObjects  ( orig.mParametricObjects)
 
-    // connect to child objects
-    connectToChild();
+{
+  if (orig.mSpatialPoints != NULL)
+  {
+    mSpatialPoints = orig.mSpatialPoints->clone();
   }
+
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -112,11 +103,7 @@ ParametricGeometry::ParametricGeometry (const ParametricGeometry& orig)
 ParametricGeometry&
 ParametricGeometry::operator=(const ParametricGeometry& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
     if (rhs.mSpatialPoints != NULL)

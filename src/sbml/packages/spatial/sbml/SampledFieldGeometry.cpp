@@ -83,19 +83,11 @@ SampledFieldGeometry::SampledFieldGeometry (SpatialPkgNamespaces* spatialns)
  */
 SampledFieldGeometry::SampledFieldGeometry (const SampledFieldGeometry& orig)
   : GeometryDefinition(orig)
+  , mSampledVolumes  ( orig.mSampledVolumes)
+  , mSampledField  ( orig.mSampledField)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mSampledVolumes  = orig.mSampledVolumes;
-    mSampledField  = orig.mSampledField;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -166,11 +158,7 @@ SampledFieldGeometry::isSetSampledField() const
 int
 SampledFieldGeometry::setSampledField(const std::string& sampledField)
 {
-  if (&(sampledField) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(sampledField)))
+  if (!(SyntaxChecker::isValidInternalSId(sampledField)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

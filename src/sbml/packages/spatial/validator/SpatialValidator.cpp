@@ -684,7 +684,7 @@ public:
 
   virtual bool visit(const SBase &x)
   {
-    if (&x == NULL || x.getPackageName() != "spatial")
+    if (x.getPackageName() != "spatial")
     {
       return SBMLVisitor::visit(x);
     }
@@ -899,7 +899,6 @@ SpatialValidator::addConstraint (VConstraint* c)
 unsigned int
 SpatialValidator::validate (const SBMLDocument& d)
 {
-  if (&d == NULL) return 0;
 
   const Model* m = d.getModel();
 
@@ -931,7 +930,6 @@ SpatialValidator::validate (const SBMLDocument& d)
 unsigned int
 SpatialValidator::validate (const std::string& filename)
 {
-  if (&filename == NULL) return 0;
 
   SBMLReader    reader;
   SBMLDocument* d = reader.readSBML(filename);

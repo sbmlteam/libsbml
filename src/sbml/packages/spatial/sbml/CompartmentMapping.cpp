@@ -81,18 +81,11 @@ CompartmentMapping::CompartmentMapping (SpatialPkgNamespaces* spatialns)
  */
 CompartmentMapping::CompartmentMapping (const CompartmentMapping& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mDomainType  ( orig.mDomainType)
+  , mUnitSize  ( orig.mUnitSize)
+  , mIsSetUnitSize  ( orig.mIsSetUnitSize)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mDomainType  = orig.mDomainType;
-    mUnitSize  = orig.mUnitSize;
-    mIsSetUnitSize  = orig.mIsSetUnitSize;
-  }
 }
 
 
@@ -102,11 +95,7 @@ CompartmentMapping::CompartmentMapping (const CompartmentMapping& orig)
 CompartmentMapping&
 CompartmentMapping::operator=(const CompartmentMapping& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -212,11 +201,7 @@ CompartmentMapping::setId(const std::string& id)
 int
 CompartmentMapping::setDomainType(const std::string& domainType)
 {
-  if (&(domainType) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domainType)))
+  if (!(SyntaxChecker::isValidInternalSId(domainType)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

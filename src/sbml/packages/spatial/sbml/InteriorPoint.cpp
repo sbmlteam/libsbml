@@ -85,20 +85,13 @@ InteriorPoint::InteriorPoint (SpatialPkgNamespaces* spatialns)
  */
 InteriorPoint::InteriorPoint (const InteriorPoint& orig)
   : SBase(orig)
+  , mCoord1  ( orig.mCoord1)
+  , mIsSetCoord1  ( orig.mIsSetCoord1)
+  , mCoord2  ( orig.mCoord2)
+  , mIsSetCoord2  ( orig.mIsSetCoord2)
+  , mCoord3  ( orig.mCoord3)
+  , mIsSetCoord3  ( orig.mIsSetCoord3)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mCoord1  = orig.mCoord1;
-    mIsSetCoord1  = orig.mIsSetCoord1;
-    mCoord2  = orig.mCoord2;
-    mIsSetCoord2  = orig.mIsSetCoord2;
-    mCoord3  = orig.mCoord3;
-    mIsSetCoord3  = orig.mIsSetCoord3;
-  }
 }
 
 
@@ -108,11 +101,7 @@ InteriorPoint::InteriorPoint (const InteriorPoint& orig)
 InteriorPoint&
 InteriorPoint::operator=(const InteriorPoint& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mCoord1  = rhs.mCoord1;

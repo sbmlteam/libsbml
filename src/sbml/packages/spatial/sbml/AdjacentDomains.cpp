@@ -79,17 +79,10 @@ AdjacentDomains::AdjacentDomains (SpatialPkgNamespaces* spatialns)
  */
 AdjacentDomains::AdjacentDomains (const AdjacentDomains& orig)
   : SBase(orig)
+  , mId  ( orig.mId)
+  , mDomain1  ( orig.mDomain1)
+  , mDomain2  ( orig.mDomain2)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mId  = orig.mId;
-    mDomain1  = orig.mDomain1;
-    mDomain2  = orig.mDomain2;
-  }
 }
 
 
@@ -99,11 +92,7 @@ AdjacentDomains::AdjacentDomains (const AdjacentDomains& orig)
 AdjacentDomains&
 AdjacentDomains::operator=(const AdjacentDomains& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mId  = rhs.mId;
@@ -208,11 +197,7 @@ AdjacentDomains::setId(const std::string& id)
 int
 AdjacentDomains::setDomain1(const std::string& domain1)
 {
-  if (&(domain1) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domain1)))
+  if (!(SyntaxChecker::isValidInternalSId(domain1)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -230,11 +215,7 @@ AdjacentDomains::setDomain1(const std::string& domain1)
 int
 AdjacentDomains::setDomain2(const std::string& domain2)
 {
-  if (&(domain2) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(domain2)))
+  if (!(SyntaxChecker::isValidInternalSId(domain2)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

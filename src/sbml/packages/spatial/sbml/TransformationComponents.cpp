@@ -81,19 +81,12 @@ TransformationComponents::TransformationComponents (SpatialPkgNamespaces* spatia
  */
 TransformationComponents::TransformationComponents (const TransformationComponents& orig)
   : SBase(orig)
+  , mComponents  ( NULL)
+  , mComponentsLength  ( orig.mComponentsLength)
+  , mIsSetComponentsLength  ( orig.mIsSetComponentsLength)
+  , mElementName ( orig.mElementName)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mComponents  = NULL;
-    setComponents(orig.mComponents, orig.mComponentsLength);
-    mComponentsLength  = orig.mComponentsLength;
-    mIsSetComponentsLength  = orig.mIsSetComponentsLength;
-    mElementName = orig.mElementName;
-  }
+  setComponents(orig.mComponents, orig.mComponentsLength);
 }
 
 
@@ -103,11 +96,7 @@ TransformationComponents::TransformationComponents (const TransformationComponen
 TransformationComponents&
 TransformationComponents::operator=(const TransformationComponents& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mComponents  = NULL;

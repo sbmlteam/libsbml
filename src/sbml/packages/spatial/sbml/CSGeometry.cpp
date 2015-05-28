@@ -81,18 +81,10 @@ CSGeometry::CSGeometry (SpatialPkgNamespaces* spatialns)
  */
 CSGeometry::CSGeometry (const CSGeometry& orig)
   : GeometryDefinition(orig)
+  , mCsgObjects  ( orig.mCsgObjects)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mCsgObjects  = orig.mCsgObjects;
-
-    // connect to child objects
-    connectToChild();
-  }
+  // connect to child objects
+  connectToChild();
 }
 
 
@@ -102,11 +94,7 @@ CSGeometry::CSGeometry (const CSGeometry& orig)
 CSGeometry&
 CSGeometry::operator=(const CSGeometry& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     GeometryDefinition::operator=(rhs);
     mCsgObjects  = rhs.mCsgObjects;

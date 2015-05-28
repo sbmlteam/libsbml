@@ -81,18 +81,11 @@ DiffusionCoefficient::DiffusionCoefficient (SpatialPkgNamespaces* spatialns)
  */
 DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
   : SBase(orig)
+  , mVariable  ( orig.mVariable)
+  , mType  ( orig.mType)
+  , mCoordinateReference1  ( orig.mCoordinateReference1)
+  , mCoordinateReference2  ( orig.mCoordinateReference2)
 {
-  if (&orig == NULL)
-  {
-    throw SBMLConstructorException("Null argument to copy constructor");
-  }
-  else
-  {
-    mVariable  = orig.mVariable;
-    mType  = orig.mType;
-    mCoordinateReference1  = orig.mCoordinateReference1;
-    mCoordinateReference2  = orig.mCoordinateReference2;
-  }
 }
 
 
@@ -102,11 +95,7 @@ DiffusionCoefficient::DiffusionCoefficient (const DiffusionCoefficient& orig)
 DiffusionCoefficient&
 DiffusionCoefficient::operator=(const DiffusionCoefficient& rhs)
 {
-  if (&rhs == NULL)
-  {
-    throw SBMLConstructorException("Null argument to assignment");
-  }
-  else if (&rhs != this)
+  if (&rhs != this)
   {
     SBase::operator=(rhs);
     mVariable  = rhs.mVariable;
@@ -222,11 +211,7 @@ DiffusionCoefficient::isSetCoordinateReference2() const
 int
 DiffusionCoefficient::setVariable(const std::string& variable)
 {
-  if (&(variable) == NULL)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else if (!(SyntaxChecker::isValidInternalSId(variable)))
+  if (!(SyntaxChecker::isValidInternalSId(variable)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
