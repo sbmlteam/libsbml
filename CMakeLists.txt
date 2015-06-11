@@ -647,7 +647,7 @@ endif(WITH_ZLIB)
 if(WITH_CSHARP)
     FILE(TO_CMAKE_PATH "$ENV{WINDIR}" windir)	
     find_program(CSHARP_COMPILER
-        NAMES gmcs csc
+        NAMES gmcs csc mcs
         PATHS 
             ${windir}/Microsoft.NET/Framework/v2.0.50727/ 
             ${windir}/Microsoft.NET/Framework/v3.0/ 
