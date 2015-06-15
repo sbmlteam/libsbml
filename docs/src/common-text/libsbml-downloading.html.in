@@ -5,29 +5,76 @@ instructions for your situation:
 
 <table class="text-table borderless centered"><tr><td>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
-<li><a href="#dl-not-python-not-r">1. If you use C, C++, C#, Java, JavaScript, MATLAB, Perl or Ruby</a></li>
-<li><a href="#dl-python">2. If you use Python</a>
+<li><a href="#dl-matlab">1. If you use MATLAB</a></li>
+<li><a href="#dl-not-python-not-r">2. If you use C, C++, C#, Java, JavaScript, Perl or Ruby</a></li>
+<li><a href="#dl-python">3. If you use Python</a>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
-<li><a href="#dl-python-pipy">2.1 Using PiPI</li>
-<li><a href="#dl-python-linux">2.2 Using Linux's <code>apt-get</code> and <code>yum</code> together with online repositories</li>
-<li><a href="#dl-python-windows">2.3 Using the Windows libSBML installer for Python</li>
+<li><a href="#dl-python-pipy">3.1 Using PiPI</li>
+<li><a href="#dl-python-linux">3.2 Using Linux's <code>apt-get</code> and <code>yum</code> together with online repositories</li>
+<li><a href="#dl-python-windows">3.3 Using the Windows libSBML installer for Python</li>
 </ul></li>
-<li><a href="#dl-r">3. If you use R</a>
+<li><a href="#dl-r">4. If you use R</a>
 <ul class="tight-list" style="margin-top: 0.25em; margin-bottom: 0; list-style-type: none">
-<li><a href="#dl-r-gui">3.1 Using the R GUI</a></li>
-<li><a href="#dl-r-shell">3.2 Using a shell command</a></li>
+<li><a href="#dl-r-gui">4.1 Using the R GUI</a></li>
+<li><a href="#dl-r-shell">4.2 Using a shell command</a></li>
 </ul></li>
-<li><a href="#dl-src">4. If you want to build from sources</a></li>
+<li><a href="#dl-src">5. If you want to build from sources</a></li>
 </table>
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-not-python-not-r">1. If you use C, C++, C#, Java, JavaScript, MATLAB, Perl or Ruby</a></h2>
+<h2><a class="anchor" name="dl-matlab">1. If you use MATLAB</a></h2>
+<!-- ---------------------------------------------------------------------- -->
+
+<p> As of libSBML version 5.11.4, we provide a single-archive installation
+for all versions of MATLAB and all operating systems. The interface files are
+ready to run; they require no compilation or additional steps beyond
+informing MATLAB about the path to the folder where you unpacked the
+archive. To obtain the archive, first visit the libSBML <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
+site</a> and navigate to the folder named <b>MATLAB interface</b>,
+as shown in the screenshot below.
+
+<center style="width: 500px; margin: 1em auto">
+  <a target="_blank" href="http://sf.net/projects/sbml/files/libsbml">
+<img class="screenshot" style="border: 1px solid #ccc" width="500px"
+     src="sourceforge-download-matlab.png"
+     alt="Image of SourceForge download page for the libSBML MATLAB interface"></a>
+<p style="font-style: italic"> Screenshot of the <a target="_blank"
+href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
+page</a> for the libSBML MATLAB interface.
+</center>
+
+After downloading that file:
+<ol>
+<li>Download the compressed archive.
+
+<li>Extract the archive somewhere on your local computer.
+
+<li>Start your copy of MATLAB and add the folder to your MATLAB path using <code>addPath</code>.
+
+<li>Verify that everything works. You can do this easily by changing into
+that folder within your running MATLAB environment, then issuing the command
+<code>TranslateSBML('test.xml')</code> in MATLAB. If everything went as
+planned, the output of that command will be a MATLAB structure representing
+the toy test model.
+
+<li>Save the changes to your MATLAB path for future use. For this, you can
+use MATLAB's standard <code>savepath</code> command.
+</ol>
+
+<p> Note that this MATLAB installer contains <em>only</em> the core libSBML
+ilbrary and the MATLAB interface; it does not contain language API interfaces
+for other programming languages discussed on this page.
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2><a class="anchor" name="dl-not-python-not-r">2. If you use C, C++, C#, Java, JavaScript, Perl or Ruby</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> The installation packages in the libSBML <a target="_blank"
 href="http://sf.net/projects/sbml/files/libsbml">SourceForge download
-site</a> contain interfaces for C, C++, C#, Java, JavaScript, MATLAB, Perl,
+site</a> contain interfaces for C, C++, C#, Java, JavaScript, Perl,
 Python, and Ruby in the same package. (However, there are better ways to get
 the Python interface, as explained below.) The download area has two
 subdirectories: one for stable releases of libSBML, and one for experimental
@@ -55,7 +102,7 @@ and finally, double-click the <code>.pkg</code> file contained inside.)
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-python">2. If you only use Python</a></h2>
+<h2><a class="anchor" name="dl-python">3. If you only use Python</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> We provide three easy options for obtaining the libSBML Python interface:
@@ -68,7 +115,7 @@ installers. The following paragraphs provide more information about each.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="dl-python-pypi">2.1 Using PiPI</a></h3>
+<h3><a class="anchor" name="dl-python-pypi">3.1 Using PiPI</a></h3>
 
 <p> If you have <a target="_blank"
 href="https://pip.pypa.io/en/latest/installing.html">pip</a> installed on
@@ -111,7 +158,7 @@ Python interpreter.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="dl-python-linux">2.2 Using Linux's
+<h3><a class="anchor" name="dl-python-linux">3.2 Using Linux's
 <code>apt-get</code> or <code>yum</code></a></h3>
 
 <p> If you are running Linux, and you prefer to use the standard over-the-air
@@ -159,7 +206,7 @@ work when typed into your Python interpreter.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="dl-python-linux">2.3 Using the Windows libSBML installer for Python</a></h3>
+<h3><a class="anchor" name="dl-python-linux">3.3 Using the Windows libSBML installer for Python</a></h3>
 
 <p> If you are running Windows, you can take advantage of executable
 installers that we make available for that platform. They can be found in a
@@ -185,7 +232,7 @@ process.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-r">3. If you only use R</a></h2>
+<h2><a class="anchor" name="dl-r">4. If you only use R</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> We provide installers for the libSBML R language interface for Linux,
@@ -207,7 +254,7 @@ explained below.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="dl-r-gui">3.1 Using the R GUI</a></h3>
+<h3><a class="anchor" name="dl-r-gui">4.1 Using the R GUI</a></h3>
 
 <p> From the R menu "<strong>Packages</strong>" or
 "<strong>Packages&nbsp;&amp;&nbsp;Data</strong>" (depending on your operating
@@ -218,7 +265,7 @@ archive file, and select the archive file for installation.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3><a class="anchor" name="dl-r-shell">3.1 Using a shell command</a></h3>
+<h3><a class="anchor" name="dl-r-shell">4.2 Using a shell command</a></h3>
 
 <p> Suppose that the path to the libSBML R archive on your computer is <span
 class="placeholder">archive</span>.  Execute the following command in a
@@ -245,7 +292,7 @@ may need to supply the full path to <code>R</code>.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2><a class="anchor" name="dl-src">4. If you want to build from sources</a></h2>
+<h2><a class="anchor" name="dl-src">5. If you want to build from sources</a></h2>
 <!-- ---------------------------------------------------------------------- -->
 
 <p> If you need to use Octave, or no installation package is available for
