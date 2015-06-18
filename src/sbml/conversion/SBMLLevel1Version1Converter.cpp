@@ -37,6 +37,7 @@
 #include <sbml/SBMLWriter.h>
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/Model.h>
 
 #ifdef __cplusplus
