@@ -17,7 +17,9 @@ LIBSBML_DIR=$LIBSBML_DIR/src/bindings
 OUT_DIR=$THIS_DIR
 
 # make sure it also works for CYGWIN
-if [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ];then
+UNAME=$(uname -s)
+UNAME=${UNAME:0:6}
+if [ "$UNAME" == "CYGWIN" ];then
   LIBSBML_DIR=$(cygpath -w $LIBSBML_DIR)
   OUT_DIR=$(cygpath -w $OUT_DIR)  
 fi
