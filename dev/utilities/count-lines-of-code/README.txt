@@ -5,6 +5,15 @@ WINDOWS
 
 Two batch files:
 
-src-no-bindings: produces no-bindings.csv which counts the loc excluding the bindings
+src-no-bindings.bat: produces no-bindings.csv which counts the loc excluding the bindings
 
-bindings-onle: produces bindings.csv which counts loc in the bindings directory only
+bindings-only.bat: produces bindings.csv which counts loc in the bindings directory only
+
+Mac / Unix / CYGWIN
+===================
+Analog to the windows scripts, these scripts will produce the same files. The olny differenceWill
+is that they search for cloc in the environment variable CLOC, or in the path. 
+
+src-no-bindings.sh: produces no-bindings.csv in this folder 
+
+bindings-only.sh  : produces bindings.csv in this folder 
