@@ -354,9 +354,6 @@ public:
    * Copy constructor; creates a copy of this Event.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   Event (const Event& orig);
 
@@ -366,9 +363,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   Event& operator=(const Event& rhs);
 

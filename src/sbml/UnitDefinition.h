@@ -312,9 +312,6 @@ public:
    * Copy constructor; creates a copy of this UnitDefinition.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   UnitDefinition(const UnitDefinition& orig);
 
@@ -324,9 +321,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   UnitDefinition& operator=(const UnitDefinition& rhs);
 

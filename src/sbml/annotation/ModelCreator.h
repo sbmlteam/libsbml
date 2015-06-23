@@ -126,9 +126,6 @@ public:
    * Copy constructor; creates a copy of the ModelCreator.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   ModelCreator(const ModelCreator& orig);
 
@@ -138,9 +135,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   ModelCreator& operator=(const ModelCreator& rhs);
 

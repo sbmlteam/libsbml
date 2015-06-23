@@ -98,9 +98,6 @@ public:
    * @param name a string, the name for the entity represented by this object.
    * @param uri a string, the XML namespace URI associated with the prefix.
    * @param prefix a string, the XML namespace prefix for this triple.
-   *
-   * @throws XMLConstructorException
-   * Thrown if any of the arguments are @c NULL.
    */
   XMLTriple (  const std::string&  name
              , const std::string&  uri
@@ -125,9 +122,6 @@ public:
    * @param triplet a string representing the triplet as shown above
    * @param sepchar a character, the sepchar used in the triplet
    *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p triplet is @c NULL.
-   *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
@@ -137,9 +131,6 @@ public:
    * Copy constructor; creates a copy of this XMLTriple object.
    *
    * @param orig the XMLTriple object to copy.
-   *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   XMLTriple(const XMLTriple& orig);
 
@@ -149,9 +140,6 @@ public:
    *
    * @param rhs The XMLTriple object whose values are used as the basis
    * of the assignment.
-   *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   XMLTriple& operator=(const XMLTriple& rhs);
 

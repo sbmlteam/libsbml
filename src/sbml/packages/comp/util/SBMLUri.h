@@ -61,9 +61,6 @@ public:
    * Copy constructor.  Creates a copy of an SBMLUri object.
    *
    * @param orig the SBMLUri object to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLUri(const SBMLUri& orig); 
 
@@ -79,9 +76,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */  
   SBMLUri& operator=(const SBMLUri& rhs);
 

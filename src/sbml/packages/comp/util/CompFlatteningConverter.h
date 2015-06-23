@@ -517,9 +517,6 @@ public:
    * This creates a copy of a CompFlatteningConverter object.
    *
    * @param orig the CompFlatteningConverter instance to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   CompFlatteningConverter(const CompFlatteningConverter& orig);
 

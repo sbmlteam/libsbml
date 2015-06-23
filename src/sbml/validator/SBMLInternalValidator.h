@@ -440,9 +440,6 @@ public:
    * Copy constructor; creates a copy of an SBMLInternalValidator object.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLInternalValidator(const SBMLInternalValidator& orig);
 

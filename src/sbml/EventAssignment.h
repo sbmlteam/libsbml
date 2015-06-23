@@ -313,9 +313,6 @@ public:
    * Copy constructor; creates a copy of this EventAssignment.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   EventAssignment (const EventAssignment& orig);
 
@@ -325,9 +322,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   EventAssignment& operator=(const EventAssignment& rhs);
 

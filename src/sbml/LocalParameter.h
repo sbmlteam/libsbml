@@ -215,9 +215,6 @@ public:
    * Copy constructor; creates a copy of a given LocalParameter object.
    * 
    * @param orig the LocalParameter instance to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   LocalParameter(const LocalParameter& orig);
 
@@ -227,9 +224,6 @@ public:
    * the attributes of a given Parameter object.
    * 
    * @param orig the Parameter instance to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   LocalParameter(const Parameter& orig);
 
@@ -239,9 +233,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   LocalParameter& operator=(const LocalParameter& rhs);
 

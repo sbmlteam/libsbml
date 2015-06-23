@@ -118,9 +118,6 @@ public:
    * Copy constructor; creates a copy of this SimpleSpeciesReference.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SimpleSpeciesReference(const SimpleSpeciesReference& orig);
 
@@ -130,9 +127,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SimpleSpeciesReference& operator=(const SimpleSpeciesReference& rhs);
 

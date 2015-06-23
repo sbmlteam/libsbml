@@ -239,10 +239,7 @@ public:
    * Copy constructor; creates a copy of a Parameter.
    * 
    * @param orig the Parameter instance to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
-   */
+     */
   Parameter(const Parameter& orig);
 
 
@@ -251,9 +248,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   Parameter& operator=(const Parameter& rhs);
 

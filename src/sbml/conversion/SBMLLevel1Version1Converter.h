@@ -120,9 +120,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLLevel1Version1Converter& operator=(const SBMLLevel1Version1Converter& rhs);
 

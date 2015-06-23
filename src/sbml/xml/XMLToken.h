@@ -225,9 +225,6 @@ public:
    * @param column an unsigned int, the column number to associate with the
    * token (default = 0).
    *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p chars is @c NULL.
-   *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
   XMLToken (  const std::string&  chars
@@ -245,9 +242,6 @@ public:
    * Copy constructor; creates a copy of this XMLToken object.
    *
    * @param orig the XMLToken object to copy.
-   *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   XMLToken(const XMLToken& orig);
 
@@ -257,9 +251,6 @@ public:
    *
    * @param rhs The XMLToken object whose values are used as the basis
    * of the assignment.
-   *
-   * @throws XMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   XMLToken& operator=(const XMLToken& rhs);
 

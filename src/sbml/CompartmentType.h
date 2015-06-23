@@ -158,9 +158,6 @@ public:
    * Copy constructor; creates a copy of this CompartmentType object.
    *
    * @param orig the object to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   CompartmentType(const CompartmentType& orig);
 
@@ -170,9 +167,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   CompartmentType& operator=(const CompartmentType& rhs);
 

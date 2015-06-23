@@ -228,9 +228,6 @@ public:
    * Copy constructor; creates a copy of this KineticLaw.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   KineticLaw (const KineticLaw& orig);
 
@@ -240,9 +237,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   KineticLaw& operator=(const KineticLaw& rhs);
 

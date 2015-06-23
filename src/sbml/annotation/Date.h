@@ -279,9 +279,6 @@ public:
    * Copy constructor; creates a copy of this Date.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   Date(const Date& orig);
 
@@ -291,9 +288,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   Date& operator=(const Date& rhs);
 

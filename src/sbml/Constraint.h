@@ -187,9 +187,6 @@ public:
    * Copy constructor; creates a copy of this Constraint.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   Constraint (const Constraint& orig);
 
@@ -199,9 +196,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   Constraint& operator=(const Constraint& rhs);
 

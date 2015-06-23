@@ -181,18 +181,12 @@ public:
    * Copy constructor; creates a copy of a SBMLNamespaces.
    * 
    * @param orig the SBMLNamespaces instance to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLNamespaces(const SBMLNamespaces& orig);
 
 
   /**
    * Assignment operator for SBMLNamespaces.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLNamespaces& operator=(const SBMLNamespaces& rhs);
 

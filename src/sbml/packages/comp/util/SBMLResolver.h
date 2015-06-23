@@ -78,9 +78,6 @@ public:
    * Copy constructor.  Creates a copy of an SBMLResolver object.
    *
    * @param c the SBMLResolver object to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLResolver(const SBMLResolver& c);
 
@@ -96,9 +93,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLResolver& operator=(const SBMLResolver& rhs);
 

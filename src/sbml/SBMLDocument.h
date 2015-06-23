@@ -427,9 +427,6 @@ public:
    * Copy constructor; creates a copy of this SBMLDocument.
    *
    * @param orig the object to copy.
-   * 
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLDocument (const SBMLDocument& orig);
 
@@ -439,9 +436,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLDocument& operator=(const SBMLDocument& rhs);
 

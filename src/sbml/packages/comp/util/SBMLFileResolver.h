@@ -75,9 +75,6 @@ public:
    * Copy constructor.  Creates a copy of an SBMLFileResolver object.
    *
    * @param c the SBMLFileResolver object to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   SBMLFileResolver(const SBMLFileResolver& c);
 
@@ -93,9 +90,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   SBMLFileResolver& operator=(const SBMLFileResolver& rhs);
 

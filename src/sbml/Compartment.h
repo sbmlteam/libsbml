@@ -531,9 +531,6 @@ public:
    * This creates a copy of a Compartment object.
    *
    * @param orig the Compartment instance to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   Compartment(const Compartment& orig);
 
@@ -543,9 +540,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   Compartment& operator=(const Compartment& rhs);
 

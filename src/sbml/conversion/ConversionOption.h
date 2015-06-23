@@ -243,9 +243,6 @@ public:
    * Copy constructor; creates a copy of an ConversionOption object.
    *
    * @param orig the ConversionOption object to copy.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p orig is @c NULL.
    */
   ConversionOption(const ConversionOption& orig);
 
@@ -255,9 +252,6 @@ public:
    *
    * @param rhs The object whose values are used as the basis of the
    * assignment.
-   *
-   * @throws SBMLConstructorException
-   * Thrown if the argument @p rhs is @c NULL.
    */
   ConversionOption& operator=(const ConversionOption& rhs);
 
