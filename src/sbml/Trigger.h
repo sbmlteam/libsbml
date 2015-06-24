@@ -356,8 +356,6 @@ public:
    * (SBML Level&nbsp;3 only) Unsets the "initialValue" attribute of this 
    * Trigger instance.
    *
-   * @param initialValue a boolean representing the initialValue to be set.
-   *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_UNEXPECTED_ATTRIBUTE, OperationReturnValues_t}
@@ -371,8 +369,6 @@ public:
   /**
    * (SBML Level&nbsp;3 only) Unsets the "persistent" attribute of this 
    * Trigger instance.
-   *
-   * @param persistent a boolean representing the persistent value to be set.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}

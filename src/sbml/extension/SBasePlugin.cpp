@@ -741,11 +741,13 @@ SBasePlugin::logUnknownAttribute(const std::string &attribute,
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 SBasePlugin::accept (SBMLVisitor& v) const
 {
   return false;
 }
+/** @endcond */
 
 SBasePlugin* 
 SBasePlugin::clone () const

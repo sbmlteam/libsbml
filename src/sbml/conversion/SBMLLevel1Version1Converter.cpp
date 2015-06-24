@@ -49,7 +49,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 void SBMLLevel1Version1Converter::init()
 {
   SBMLLevel1Version1Converter converter;
@@ -142,6 +142,7 @@ SBMLLevel1Version1Converter::matchesProperties(const ConversionProperties &props
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 SBMLLevel1Version1Converter::inlineCompartmentSizes()
 {
@@ -259,6 +260,7 @@ convertPow(SBMLDocument* doc,
     delete ast_Node;
   }
 }
+/** @endcond */
 
 
 int
