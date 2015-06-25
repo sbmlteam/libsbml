@@ -162,7 +162,7 @@ implies the operation is applied to the following arguments, @em unary
 implies there is one argument, and @em binary implies there are two
 arguments.  The values in the Precedence column show how the order of
 different types of operation are determined.  For example, the expression
-<code>a * b + c</code> is evaluated as <code>(a * b) + c</code> because the
+<code>a + b * c</code> is evaluated as <code>a + (b * c)</code> because the
 @c * operator has higher precedence.  The Associates column shows how the
 order of similar precedence operations is determined; for example, 
 <code>a - b + c</code> is evaluated as <code>(a - b) + c</code> because the
