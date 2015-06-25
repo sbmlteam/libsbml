@@ -57,10 +57,8 @@
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #include <list>
 #include <string>
-
 /** @endcond */
 
 
@@ -142,7 +140,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   FbcValidatorConstraints* mFbcConstraints;
 
   friend class FbcValidatingVisitor;

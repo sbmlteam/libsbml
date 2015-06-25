@@ -34,9 +34,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-
-
-
 static const packageErrorTableEntry fbcErrorTable[] =
 {
   // 2010100
@@ -573,6 +570,5 @@ static const packageErrorTableEntry fbcErrorTable[] =
 };
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

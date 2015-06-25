@@ -275,7 +275,6 @@ public:
   void transferFrom(List* list);
 
   /** @cond doxygenLibsbmlInternal */
-
  /**
   * Delete all child elements of the given list, and then the list itself.
   *
@@ -286,11 +285,8 @@ public:
   static void deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc);
 
   /** @cond doxygenLibsbmlInternal */
-
-
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   unsigned int size;
   ListNode*    head;
   ListNode*    tail;

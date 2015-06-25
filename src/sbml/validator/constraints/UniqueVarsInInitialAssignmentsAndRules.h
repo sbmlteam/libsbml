@@ -113,5 +113,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueVarsInInitialAssignmentsAndRules_h */
-
 /** @endcond */

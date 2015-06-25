@@ -49,9 +49,7 @@
 #include "FunctionNoArgsMathCheck.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -193,5 +191,4 @@ FunctionNoArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

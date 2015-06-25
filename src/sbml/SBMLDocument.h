@@ -325,7 +325,6 @@ class SBMLInternalValidator;
 #define PracticeCheckON   0x40
 #define PracticeCheckOFF  0xbf
 #define AllChecksON       0x7f
-
 /** @endcond */
 
 
@@ -440,6 +439,7 @@ public:
   SBMLDocument& operator=(const SBMLDocument& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of SBMLDocument.
    *
@@ -448,6 +448,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -1560,7 +1561,6 @@ public:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   int addUnknownPackageRequired(const std::string& pkgURI,
                                 const std::string& prefix, bool flag);
 
@@ -1576,7 +1576,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   //typedef std::map<std::string, bool>  PkgRequiredMap;
   //typedef PkgRequiredMap::iterator     PkgRequiredMapIter;
   typedef std::map<std::string, bool>  PkgUseDefaultNSMap;

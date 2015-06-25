@@ -132,5 +132,4 @@ XMLParser::setErrorLog (XMLErrorLog* log)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

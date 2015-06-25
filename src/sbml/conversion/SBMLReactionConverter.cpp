@@ -503,8 +503,6 @@ SBMLReactionConverter::isDocumentValid()
 }
 
 /** @cond doxygenCOnly */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

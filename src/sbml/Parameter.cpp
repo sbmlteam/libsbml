@@ -46,9 +46,7 @@
 #include <sbml/Parameter.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -188,18 +186,13 @@ Parameter& Parameter::operator=(const Parameter& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the parent Model's or
- * KineticLaw's next Parameter (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Parameter::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -1091,27 +1084,22 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 
 /* private functions used for inferring units */
 /** @cond doxygenLibsbmlInternal */
-
 void
 Parameter::setCalculatingUnits(bool calculatingUnits)
 {
   mCalculatingUnits = calculatingUnits;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 Parameter::getCalculatingUnits() const
 {
   return mCalculatingUnits;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnits(Model* m, bool globalParameter)
 {
@@ -1151,12 +1139,9 @@ Parameter::inferUnits(Model* m, bool globalParameter)
   delete uff;
   return derivedUD;
 }
-
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromRules(UnitFormulaFormatter *uff, Model *m)
 {
@@ -1217,12 +1202,9 @@ Parameter::inferUnitsFromRules(UnitFormulaFormatter *uff, Model *m)
 
   return derivedUD;
 }
-
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
 {
@@ -1273,12 +1255,9 @@ Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
 
   return derivedUD;
 }
-
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromReactions(UnitFormulaFormatter *uff, Model *m)
 {
@@ -1300,11 +1279,9 @@ Parameter::inferUnitsFromReactions(UnitFormulaFormatter *uff, Model *m)
 
   return derivedUD;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromEvents(UnitFormulaFormatter *uff, Model *m)
 {
@@ -1323,11 +1300,9 @@ Parameter::inferUnitsFromEvents(UnitFormulaFormatter *uff, Model *m)
 
   return derivedUD;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
 {
@@ -1409,11 +1384,9 @@ Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
 
   return derivedUD;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 UnitDefinition *
 Parameter::inferUnitsFromKineticLaw(KineticLaw* kl, 
                                     UnitFormulaFormatter *uff, Model *m)
@@ -1460,7 +1433,6 @@ Parameter::inferUnitsFromKineticLaw(KineticLaw* kl,
 
   return derivedUD;
 }
-
 /** @endcond */
 
 /*
@@ -1642,8 +1614,6 @@ ListOfParameters::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_create (unsigned int level, unsigned int version)
@@ -1925,6 +1895,5 @@ ListOfParameters_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

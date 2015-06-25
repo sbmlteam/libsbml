@@ -145,7 +145,6 @@ SBML_formulaToL3StringWithSettings (const ASTNode_t *tree, const L3ParserSetting
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #ifndef SWIG
 
 
@@ -316,7 +315,6 @@ L3FormulaFormatter_visitOther ( const ASTNode_t *parent,
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif  /* L3FormulaFormatter_h */

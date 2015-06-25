@@ -93,9 +93,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 // General SBO validation
@@ -1254,7 +1252,5 @@ START_CONSTRAINT(99702, Delay, d)
 
 }
 END_CONSTRAINT
-
-
 /** @endcond */
 

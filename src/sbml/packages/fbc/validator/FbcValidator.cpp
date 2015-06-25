@@ -36,9 +36,7 @@
 #include <sbml/SBMLReader.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN

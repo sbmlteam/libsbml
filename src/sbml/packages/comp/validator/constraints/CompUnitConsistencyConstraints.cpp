@@ -35,16 +35,12 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
 // General Unit validation 
 //1021205
 EXTERN_CONSTRAINT( CompReplacedUnitsShouldMatch, UnitReplacementCheck             )
-
-
 /** @endcond */
 

@@ -42,9 +42,7 @@
 #include "StoichiometryMathVars.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -165,6 +163,5 @@ StoichiometryMathVars::logUndefined ( const Reaction& r,
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

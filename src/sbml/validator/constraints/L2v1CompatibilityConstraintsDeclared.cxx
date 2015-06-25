@@ -115,7 +115,5 @@ addConstraint(new VConstraintTrigger91020(*this));
 addConstraint(new VConstraintDelay91020(*this));
 
 addConstraint(new VConstraintInitialAssignment91020(*this));
-
-
 /** @endcond */
 

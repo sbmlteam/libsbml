@@ -51,7 +51,5 @@ addConstraint(new VConstraintModel96008(*this));
 addConstraint(new DuplicateTopLevelAnnotation(96009, *this));
 
 addConstraint(new VConstraintCompartment96010(*this));
-
-
 /** @endcond */
 

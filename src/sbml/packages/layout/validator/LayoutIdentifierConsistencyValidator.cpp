@@ -1,5 +1,4 @@
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * @file:   LayoutIdentifierConsistencyValidator.cpp
  * @brief:  Implementation of the LayoutIdentifierConsistencyValidator class
@@ -54,7 +53,6 @@ LayoutIdentifierConsistencyValidator::init ()
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __doxygen_ignore */
-
 /** @endcond */
 
 

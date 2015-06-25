@@ -44,9 +44,7 @@
 #include <limits.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -3363,7 +3361,6 @@ ASTNode::unsetUserData()
 }
   
 /** @cond doxygenLibsbmlInternal */
-
 ASTBasePlugin* 
 ASTNode::getPlugin(const std::string& package)
 {
@@ -3411,7 +3408,6 @@ const ASTBasePlugin*
 {
   return const_cast<ASTNode*>(this)->getPlugin(n);
 }
-
 /** @endcond */
 
 bool
@@ -3715,7 +3711,6 @@ ASTNode::connectPlugins()
 
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_create (void)
@@ -4686,8 +4681,6 @@ ASTNode_hasUnambiguousPackageInfixGrammar(const ASTNode *node, const ASTNode *ch
   return (int)node->hasUnambiguousPackageInfixGrammar(child);
 }
 /** @endcond */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

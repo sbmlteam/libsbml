@@ -773,9 +773,7 @@ XMLNode SpeciesReferenceGlyph::toXML() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 SpeciesReferenceGlyph::accept (SBMLVisitor& v) const
 {
@@ -795,6 +793,7 @@ SpeciesReferenceGlyph::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
@@ -848,7 +847,6 @@ SpeciesReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_create(void)
@@ -1073,7 +1071,6 @@ SpeciesReferenceGlyph_unsetId (SpeciesReferenceGlyph_t *srg)
   if (srg == NULL) return;
   srg->unsetId();
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

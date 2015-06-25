@@ -75,7 +75,6 @@ SBML_formulaToString (const ASTNode_t *tree);
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #ifndef SWIG
 
 
@@ -210,7 +209,6 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif  /* FormulaFormatter_h */

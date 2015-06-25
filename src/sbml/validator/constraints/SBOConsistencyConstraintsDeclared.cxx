@@ -145,7 +145,5 @@ addConstraint(new VConstraintSpeciesType99702(*this));
 addConstraint(new VConstraintTrigger99702(*this));
 
 addConstraint(new VConstraintDelay99702(*this));
-
-
 /** @endcond */
 

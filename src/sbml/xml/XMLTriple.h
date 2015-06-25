@@ -197,7 +197,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   std::string  mName;
   std::string  mURI;
   std::string  mPrefix;

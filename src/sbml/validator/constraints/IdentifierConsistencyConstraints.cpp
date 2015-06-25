@@ -51,9 +51,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
@@ -337,9 +335,5 @@ START_CONSTRAINT (99303, Model, x)
  
 }
 END_CONSTRAINT
-
-
-
-
 /** @endcond */
 

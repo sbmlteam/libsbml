@@ -470,9 +470,7 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept(SBMLVisitor& v) const;
-
   /** @endcond */
 
   /**

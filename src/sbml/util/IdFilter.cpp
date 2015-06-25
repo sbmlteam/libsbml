@@ -70,5 +70,4 @@ IdFilter::filter(const SBase* element)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

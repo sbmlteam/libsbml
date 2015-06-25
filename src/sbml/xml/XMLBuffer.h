@@ -78,5 +78,4 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* XMLBuffer_h */
-
 /** @endcond */

@@ -107,7 +107,6 @@ public:
  #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Reads the attributes of corresponding package in SBMLDocument element
    */
@@ -121,7 +120,6 @@ public:
 #endif // SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Returns boolean based on whether flattening of a comp model has been implemented.
    *
@@ -133,7 +131,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Check consistency function.
    */
@@ -144,20 +141,16 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the SBMLVisitor.
    */
   virtual bool accept(SBMLVisitor& v) const;
-
-
   /** @endcond */
 
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /** @endcond */
 
 

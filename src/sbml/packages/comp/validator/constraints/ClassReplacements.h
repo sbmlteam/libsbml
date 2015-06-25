@@ -76,5 +76,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ClassReplacements_h */
-
 /** @endcond */

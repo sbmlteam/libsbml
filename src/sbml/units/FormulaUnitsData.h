@@ -377,7 +377,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
     std::string mUnitReferenceId;
 
     bool mContainsUndeclaredUnits;
@@ -477,7 +476,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif //FormulaUnitsData_h
-
 /** @endcond */
 
 

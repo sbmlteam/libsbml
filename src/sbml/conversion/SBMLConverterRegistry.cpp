@@ -99,7 +99,6 @@ SBMLConverterRegistry::getConverterByIndex(int index) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 SBMLConverterRegistry::SBMLConverterRegistry()
 {
 }
@@ -119,7 +118,6 @@ SBMLConverterRegistry::~SBMLConverterRegistry()
   }
   mConverters.clear();
 }
-
 /** @endcond */
 
 

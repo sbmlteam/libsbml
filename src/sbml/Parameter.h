@@ -252,6 +252,7 @@ public:
   Parameter& operator=(const Parameter& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Parameter.
    *
@@ -263,6 +264,7 @@ public:
    * embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -696,7 +698,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /* set a flag to indicate that a parameter should 
    * calculate its units from math */
   virtual void setCalculatingUnits(bool calculatingUnits);
@@ -706,7 +707,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   Parameter (SBMLNamespaces* sbmlns, bool isLocal);
 
   /**
@@ -801,7 +801,6 @@ private:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /* flag to indicate that a parameter should calculate its units from math */
   bool getCalculatingUnits() const;
   
@@ -965,7 +964,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Gets the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -986,7 +984,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create a ListOfParameters object corresponding to the next token in
    * the XML input stream.

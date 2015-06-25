@@ -100,5 +100,4 @@ XMLMemoryBuffer::error ()
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

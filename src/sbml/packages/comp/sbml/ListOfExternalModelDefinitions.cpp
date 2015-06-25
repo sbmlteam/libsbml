@@ -180,7 +180,6 @@ ListOfExternalModelDefinitions::writeXMLNS (XMLOutputStream& stream) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 ListOfExternalModelDefinitions::accept(SBMLVisitor& v) const
 {
@@ -193,7 +192,6 @@ ListOfExternalModelDefinitions::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 #endif /* __cplusplus */

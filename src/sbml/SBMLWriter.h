@@ -213,7 +213,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Writes the given SBML document to an in-memory string and returns a
    * pointer to it.
@@ -328,7 +327,6 @@ public:
 
  protected:
   /** @cond doxygenLibsbmlInternal */
-
   std::string mProgramName;
   std::string mProgramVersion;
 

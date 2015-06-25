@@ -390,8 +390,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
-
   std::string mFamilyName;
   std::string mGivenName;
   std::string mEmail;

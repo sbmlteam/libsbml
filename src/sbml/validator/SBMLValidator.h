@@ -328,8 +328,6 @@ protected:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
-
   /** @endcond */
 };
 

@@ -743,9 +743,7 @@ Objective::clone() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Objective::accept (SBMLVisitor& v) const
 {
@@ -758,6 +756,7 @@ Objective::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1109,20 +1108,17 @@ ListOfObjectives::unsetActiveObjective()
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 ListOfObjectives::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
-
 /** @endcond */
 
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Objective_t *
 Objective_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -1364,9 +1360,6 @@ ObjectiveType_isValidObjectiveTypeString(const char* s)
   return ObjectiveType_isValidObjectiveType
                                          (ObjectiveType_fromString(s));
 }
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

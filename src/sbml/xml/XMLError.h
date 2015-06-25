@@ -1107,7 +1107,6 @@ public:
 #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates and returns a deep copy of this XMLError object.
    *
@@ -1132,7 +1131,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   unsigned int mErrorId;
 
   std::string  mMessage;
@@ -1164,7 +1162,6 @@ protected:
 #ifndef SWIG
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Outputs the given XMLError_t (or the derived class (e.g. SBMLError) ) to stream 
  * by invoking the print function which is implemented as a virtual function in
@@ -1188,7 +1185,6 @@ typedef struct {
   const char*  shortMessage;
   const char*  message;
 } xmlErrorTableEntry;
-
 /** @endcond */
 
 #endif  /* !SWIG */

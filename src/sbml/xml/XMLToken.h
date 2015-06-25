@@ -1128,7 +1128,6 @@ public:
 #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Inserts this XMLToken into stream.
    *
@@ -1149,7 +1148,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   XMLTriple     mTriple;
   XMLAttributes mAttributes;
   XMLNamespaces mNamespaces;

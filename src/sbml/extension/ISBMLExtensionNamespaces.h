@@ -79,5 +79,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* ISBMLExtensionNamespaces_h */
-
 /** @endcond */

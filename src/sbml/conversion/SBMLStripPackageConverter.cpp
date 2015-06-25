@@ -131,7 +131,6 @@ SBMLStripPackageConverter::matchesProperties(const ConversionProperties &props) 
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 SBMLStripPackageConverter::stripPackage(const std::string& packageToStrip)
 {
@@ -238,8 +237,6 @@ SBMLStripPackageConverter::isStripAllUnrecognizedPackages() const
 }
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -47,7 +47,6 @@ class LIBSBML_EXTERN CobraToFbcConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */

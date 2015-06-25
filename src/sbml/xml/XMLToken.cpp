@@ -40,9 +40,7 @@
 #include <sbml/xml/XMLToken.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1259,8 +1257,6 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_create (void)
@@ -1899,8 +1895,6 @@ XMLToken_unsetEnd (XMLToken_t *token)
   if (token == NULL) return LIBSBML_INVALID_OBJECT;
   return token->unsetEnd();
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

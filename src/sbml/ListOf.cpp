@@ -41,9 +41,7 @@
 #include <sbml/extension/SBasePlugin.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -127,9 +125,7 @@ ListOf& ListOf::operator=(const ListOf& rhs)
   return *this;
 }
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 ListOf::accept (SBMLVisitor& v) const
 {
@@ -139,6 +135,7 @@ ListOf::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 /*
@@ -477,7 +474,6 @@ struct SetParentSBMLObject : public unary_function<SBase*, void>
 };
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -499,7 +495,6 @@ ListOf::connectToChild()
   SBase::connectToChild();
   for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(this) );
 }
-
 /** @endcond */
 
 
@@ -631,15 +626,12 @@ ListOf::isValidTypeForList(SBase * item)
 
   return match;
 }
-
 /** @endcond */
 
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 ListOf_t *
 ListOf_create (unsigned int level, unsigned int version)
@@ -775,7 +767,6 @@ ListOf_getItemTypeCode (const ListOf_t *lo)
 {
   return (lo != NULL) ? lo->getItemTypeCode() : SBML_UNKNOWN;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

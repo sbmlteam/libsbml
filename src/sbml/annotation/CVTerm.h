@@ -595,7 +595,6 @@ public:
   QualifierType_t getQualifierType();
 
   /** @cond doxygenLibsbmlInternal */
-
   QualifierType_t getQualifierType() const;
 
   /** @endcond */
@@ -644,7 +643,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   ModelQualifierType_t getModelQualifierType() const;
 
   /** @endcond */
@@ -701,7 +699,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   BiolQualifierType_t getBiologicalQualifierType() const;
 
   /** @endcond */
@@ -1077,7 +1074,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   XMLAttributes * mResources;
 
   QualifierType_t       mQualifier;
@@ -1523,7 +1519,6 @@ CVTerm_removeNestedCVTerm(CVTerm_t* cvt, unsigned int n);
 LIBSBML_EXTERN
 const List_t * 
 CVTerm_getListNestedCVTerms(const CVTerm_t* cvt);
-
 /** @endcond */
 
 END_C_DECLS

@@ -77,7 +77,6 @@ SBML_parseFormula (const char *formula);
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #ifndef SWIG
 
 
@@ -130,7 +129,6 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif  /* FormulaParser_h */

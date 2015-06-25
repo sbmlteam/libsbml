@@ -90,7 +90,6 @@ class LIBSBML_EXTERN SBMLIdConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */

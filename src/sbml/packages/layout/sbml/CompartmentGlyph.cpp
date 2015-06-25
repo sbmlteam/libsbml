@@ -537,7 +537,6 @@ XMLNode CompartmentGlyph::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 CompartmentGlyph_t *
 CompartmentGlyph_create(void)
@@ -653,6 +652,5 @@ CompartmentGlyph_clone (const CompartmentGlyph_t *m)
   if (m == NULL) return NULL;
   return static_cast<CompartmentGlyph*>( m->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

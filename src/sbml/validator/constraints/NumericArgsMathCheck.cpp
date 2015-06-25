@@ -49,9 +49,7 @@
 #include "NumericArgsMathCheck.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -224,6 +222,5 @@ NumericArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

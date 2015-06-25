@@ -136,6 +136,5 @@ public:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif // InputDecompressor_h
-
 /** @endcond */
 

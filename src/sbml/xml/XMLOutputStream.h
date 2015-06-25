@@ -710,7 +710,6 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Copy Constructor, made private so as to notify users, that copying an input stream is not supported.
    */
@@ -727,7 +726,6 @@ private:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Unitialized XMLOutputStreams may only be created by subclasses.
    */
@@ -827,7 +825,6 @@ protected:
 
 
 /** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLOutputStringStream : public XMLOutputStream
 {
 public:
@@ -849,11 +846,9 @@ protected:
 
   std::ostringstream& mString;
 };
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLOwningOutputStringStream : public XMLOutputStringStream
 {
 public:
@@ -871,11 +866,9 @@ public:
   virtual ~XMLOwningOutputStringStream();
 
 };
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLOutputFileStream : public XMLOutputStream
 {
 public:
@@ -892,12 +885,10 @@ public:
                        , const std::string&  programVersion = "");
 
 };
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 class LIBLAX_EXTERN XMLOwningOutputFileStream : public XMLOutputFileStream
 {
 public:
@@ -916,7 +907,6 @@ public:
   virtual ~XMLOwningOutputFileStream();
 
 };
-
 /** @endcond */
 
 

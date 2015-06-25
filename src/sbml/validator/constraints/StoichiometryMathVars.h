@@ -84,5 +84,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* StoichiometryMathVars_h */
-
 /** @endcond */

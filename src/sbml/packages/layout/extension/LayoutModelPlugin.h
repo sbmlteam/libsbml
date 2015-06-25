@@ -306,7 +306,6 @@ public:
   // ---------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   int appendFrom(const Model* model);
 
   /** @endcond */
@@ -371,15 +370,12 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
-
   /** @endcond */
 
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /*-- data members --*/
 
   ListOfLayouts mLayouts;

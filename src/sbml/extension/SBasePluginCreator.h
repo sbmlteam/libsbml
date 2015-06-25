@@ -126,13 +126,11 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /** @endcond */
 
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /** @endcond */
 };
 

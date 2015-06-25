@@ -376,19 +376,16 @@ void
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 FbcSpeciesPlugin::accept (SBMLVisitor& v) const
 {
   return true;
 }
-
 /** @endcond */
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 int
 FbcSpeciesPlugin_getCharge(SBasePlugin_t * fbc)
@@ -465,7 +462,6 @@ FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc)
     ? static_cast<FbcSpeciesPlugin*>(fbc)->unsetChemicalFormula()
     : LIBSBML_INVALID_OBJECT;
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

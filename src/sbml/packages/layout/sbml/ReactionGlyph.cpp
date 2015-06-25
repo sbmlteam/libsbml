@@ -959,9 +959,7 @@ XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 ReactionGlyph::accept (SBMLVisitor& v) const
 {
@@ -983,6 +981,7 @@ ReactionGlyph::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
@@ -1035,7 +1034,6 @@ ReactionGlyph::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_create (void)
@@ -1237,7 +1235,5 @@ ReactionGlyph_clone (const ReactionGlyph_t *m)
   if (m == NULL) return NULL;
   return static_cast<ReactionGlyph*>( m->clone() );
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

@@ -383,7 +383,6 @@ List::deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 /**
  * @if conly
  * @memberof List_t
@@ -544,6 +543,5 @@ List_size (const List_t *lst)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

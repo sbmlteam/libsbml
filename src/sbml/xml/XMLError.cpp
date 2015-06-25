@@ -40,9 +40,7 @@
 #include <sbml/xml/XMLConstructorException.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -309,7 +307,6 @@ const char * xmlCategoryStringTable[] =
 , "Operating system"                    // LIBSBML_CAT_SYSTEM
 , "XML content"                         // LIBSBML_CAT_XML
 };
-
 /** @endcond **/
 
 
@@ -807,8 +804,6 @@ ostream& operator<< (ostream& s, const XMLError& error)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBLAX_EXTERN
 XMLError_t*
 XMLError_create (void)
@@ -994,6 +989,5 @@ XMLError_print (const XMLError_t *error, FILE *stream)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

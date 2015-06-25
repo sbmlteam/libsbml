@@ -92,5 +92,4 @@ private:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* XMLMemoryBuffer_h */
-
 /** @endcond */

@@ -555,14 +555,13 @@ FluxObjective::clone() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 FluxObjective::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -720,7 +719,6 @@ ListOfFluxObjectives::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 FluxObjective_t *
 FluxObjective_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -866,8 +864,6 @@ FluxObjective_unsetCoefficient(FluxObjective_t * flux)
 {
   return (flux != NULL) ? flux->unsetCoefficient() : LIBSBML_INVALID_OBJECT;
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

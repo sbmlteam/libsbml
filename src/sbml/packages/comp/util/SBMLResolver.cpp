@@ -95,8 +95,6 @@ SBMLResolver::resolveUri(const std::string &uri, const std::string& baseUri/*=""
 }
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

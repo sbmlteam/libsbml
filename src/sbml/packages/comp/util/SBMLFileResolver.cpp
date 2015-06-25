@@ -270,8 +270,6 @@ SBMLFileResolver::addAdditionalDir(const std::string& dir)
 }
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -302,14 +302,13 @@ Replacing::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Replacing::accept (SBMLVisitor& v) const
 {
   return false;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

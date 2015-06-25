@@ -560,7 +560,6 @@ XMLNode TextGlyph::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_create (void)
@@ -700,7 +699,6 @@ TextGlyph_clone (const TextGlyph_t *m)
   if (m == NULL) return NULL;
   return static_cast<TextGlyph*>( m->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

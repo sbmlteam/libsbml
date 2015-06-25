@@ -37,7 +37,6 @@
 #include <sbml/SBMLReader.h>
 
   /** @cond doxygenLibsbmlInternal */
-
 using namespace std;
 
   /** @endcond */

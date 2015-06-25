@@ -280,7 +280,6 @@ SBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
 {
   return true;
 }
-
 /** @endcond */
 
 
@@ -525,7 +524,6 @@ SBasePlugin::parseAnnotation(SBase *parentObject, XMLNode *annotation)
 {
 
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -656,13 +654,11 @@ SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 SBasePlugin::isValidTypeForList(SBase* item) const
 { 
   return false; 
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -788,7 +784,6 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 const char* 
 SBasePlugin_getURI(SBasePlugin_t* plugin)
@@ -978,7 +973,6 @@ SBasePlugin_getPackageVersion(SBasePlugin_t* plugin)
   if (plugin == NULL) return SBML_INT_MAX;
   return plugin->getPackageVersion();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

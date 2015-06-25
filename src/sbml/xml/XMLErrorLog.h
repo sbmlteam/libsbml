@@ -386,7 +386,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   std::vector<XMLError*> mErrors;
   const XMLParser*       mParser;
   XMLErrorSeverityOverride_t    mOverriddenSeverity;

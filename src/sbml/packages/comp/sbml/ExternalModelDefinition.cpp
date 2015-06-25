@@ -577,13 +577,11 @@ ExternalModelDefinition::getTypeCode () const
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 ExternalModelDefinition::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
-
 /** @endcond */
 
 /*
@@ -948,9 +946,6 @@ ListOfExternalModelDefinitions_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfExternalModelDefinitions *>(lo)->remove(sid) : NULL;
 }
-
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

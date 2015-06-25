@@ -605,7 +605,6 @@ if (doc->getLevel() == 2)
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   bool                                 mIsEnabled;
   SupportedPackageURIList              mSupportedPackageURI;
   std::vector<SBasePluginCreatorBase*> mSBasePluginCreators;
@@ -618,7 +617,6 @@ protected:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   friend class SBMLExtensionRegistry;
 
   /** @endcond */

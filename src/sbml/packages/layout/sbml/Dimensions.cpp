@@ -574,17 +574,12 @@ Dimensions::getTypeCode () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the SBML object's next
- * sibling object (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool Dimensions::accept (SBMLVisitor& v) const
 {
     return v.visit(*this);
 }
+/** @endcond */
 
 /*
  * Creates an XMLNode object from this.
@@ -599,7 +594,6 @@ XMLNode Dimensions::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Dimensions_t *
 Dimensions_create (void)
@@ -717,7 +711,6 @@ Dimensions_clone (const Dimensions_t *m)
   if (m == NULL) return NULL;
   return static_cast<Dimensions*>( m->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

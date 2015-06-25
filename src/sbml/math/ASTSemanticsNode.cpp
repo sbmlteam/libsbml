@@ -391,6 +391,5 @@ ASTSemanticsNode::hasCorrectNumberArguments() const
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

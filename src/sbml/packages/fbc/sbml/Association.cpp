@@ -642,14 +642,13 @@ Association::clone() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Association::accept (SBMLVisitor& v) const
 {
   return false;
 }
+/** @endcond */
 
 #endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END

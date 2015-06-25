@@ -45,9 +45,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -337,7 +335,6 @@ bool L3ParserSettings::getComparisonCaseSensitivity() const
 
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 L3ParserSettings_t *
 L3ParserSettings_create ()
@@ -486,6 +483,5 @@ L3ParserSettings_visitPackageInfixSyntax( const ASTNode_t *parent,
   if (settings == NULL) return;
   settings->visitPackageInfixSyntax(parent, node, sb);
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

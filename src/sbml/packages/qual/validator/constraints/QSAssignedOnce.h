@@ -85,6 +85,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* QSAssignedOnce_h */
-
 /** @endcond */
 

@@ -31,9 +31,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -203,5 +201,4 @@ UniqueReplacedReferences::logReferenceExists (ReplacedElement& repE)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

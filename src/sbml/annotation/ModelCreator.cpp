@@ -38,9 +38,7 @@
 #include <cstdio>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -403,7 +401,6 @@ ModelCreator::resetModifiedFlags()
 
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_create()
@@ -621,7 +618,6 @@ ModelCreator_hasRequiredAttributes(ModelCreator_t *mc)
   if (mc == NULL) return (int)false;
   return static_cast<int> (mc->hasRequiredAttributes());
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

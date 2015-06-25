@@ -46,9 +46,7 @@
 #include <sbml/compress/OutputCompressor.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -326,8 +324,6 @@ SBMLWriter::hasBzip2()
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 SBMLWriter_t *
 SBMLWriter_create ()
@@ -466,8 +462,6 @@ std::string writeSBMLToStdString(const SBMLDocument* d)
   else
     return sw.writeSBMLToStdString(d);
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

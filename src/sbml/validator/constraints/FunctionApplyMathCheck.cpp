@@ -49,9 +49,7 @@
 #include "FunctionApplyMathCheck.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -174,5 +172,4 @@ FunctionApplyMathCheck::getMessage (const ASTNode& node, const SBase& object)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

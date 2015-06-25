@@ -96,9 +96,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 START_CONSTRAINT (20217, Model, x)
@@ -1840,7 +1838,5 @@ START_CONSTRAINT (20702, Parameter, p)
   inv( p.isSetUnits() );
 }
 END_CONSTRAINT
-
-
 /** @endcond */
 

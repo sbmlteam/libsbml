@@ -183,5 +183,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdsLayout_h */
-
 /** @endcond */

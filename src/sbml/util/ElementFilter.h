@@ -202,7 +202,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   void* mUserData;
 
   /** @endcond */

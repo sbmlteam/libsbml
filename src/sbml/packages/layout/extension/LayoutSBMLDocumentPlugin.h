@@ -108,7 +108,6 @@ public:
  #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Reads the attributes of corresponding package in SBMLDocument element
    */
@@ -122,7 +121,6 @@ public:
 #endif // SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Returns boolean based on whether flattening of a comp model has been implemented.
    *
@@ -144,7 +142,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the SBMLVisitor.
    */
@@ -165,7 +162,6 @@ public:
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   IdList mMetaIdList;
   
   IdList mIdList;

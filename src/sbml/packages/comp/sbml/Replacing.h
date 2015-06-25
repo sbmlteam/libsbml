@@ -207,6 +207,7 @@ public:
   /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -215,6 +216,7 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */

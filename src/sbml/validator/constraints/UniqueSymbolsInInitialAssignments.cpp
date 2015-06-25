@@ -38,9 +38,7 @@
 #include "UniqueSymbolsInInitialAssignments.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -106,6 +104,5 @@ UniqueSymbolsInInitialAssignments::getFieldname ()
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

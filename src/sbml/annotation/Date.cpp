@@ -38,9 +38,7 @@
 #include <cstdio>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -663,7 +661,6 @@ Date::resetModifiedFlags()
 
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Date_t *
 Date_createFromValues(unsigned int year, unsigned int month, 
@@ -890,7 +887,6 @@ Date_representsValidDate(Date_t *date)
   if (date == NULL) return (int)false;
   return static_cast<int> (date->representsValidDate());
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

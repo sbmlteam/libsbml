@@ -317,7 +317,6 @@ public:
   virtual bool isInUse(SBMLDocument *doc) const;
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the entry in the error table at this index. 
    *
@@ -332,7 +331,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the index in the error table with the given errorId. 
    *
@@ -347,7 +345,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the offset for the errorId range for the layout L3 package. 
    *

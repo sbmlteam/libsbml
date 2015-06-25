@@ -49,7 +49,6 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 /** @endcond */
@@ -4396,8 +4395,5 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
   inv(mIds.contains(sbRef.getMetaIdRef()))
 }
 END_CONSTRAINT
-
-
-
 /** @endcond */
 

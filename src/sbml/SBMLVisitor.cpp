@@ -287,6 +287,5 @@ SBMLVisitor::leave (const ListOf& x, int type)
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

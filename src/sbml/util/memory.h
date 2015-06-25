@@ -285,5 +285,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /** memory_h **/
-
 /** @endcond */

@@ -39,7 +39,6 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
 // 20101 - caught at read
 // 20102 - caught at read

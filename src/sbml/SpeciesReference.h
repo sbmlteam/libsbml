@@ -320,6 +320,7 @@ public:
   SpeciesReference& operator=(const SpeciesReference& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -328,6 +329,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -861,7 +863,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return a speciesReference object, if present.
    *
@@ -1112,7 +1113,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -1127,7 +1127,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   enum SpeciesType { Unknown, Reactant, Product, Modifier };
 
 

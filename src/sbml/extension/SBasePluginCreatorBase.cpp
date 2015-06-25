@@ -122,7 +122,6 @@ SBasePluginCreatorBase::getTargetExtensionPoint() const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 unsigned int 
 SBasePluginCreatorBase::getNumOfSupportedPackageURI() const
 {
@@ -153,7 +152,6 @@ SBasePluginCreatorBase::isSupported(const std::string& uri) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBasePlugin_t*
 SBasePluginCreator_createPlugin(SBasePluginCreatorBase_t* creator, 
@@ -231,8 +229,6 @@ SBasePluginCreator_isSupported(SBasePluginCreatorBase_t* creator, const char* ur
   string sUri(uri);
   return creator->isSupported(sUri);
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

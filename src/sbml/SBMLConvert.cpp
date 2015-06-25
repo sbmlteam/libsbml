@@ -1975,7 +1975,6 @@ void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
     }
   }
 }
-
 /** @endcond **/
 
 LIBSBML_CPP_NAMESPACE_END

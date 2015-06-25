@@ -49,9 +49,7 @@
 #include <sbml/util/ElementFilter.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -237,13 +235,7 @@ Reaction& Reaction::operator=(const Reaction& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * Reaction (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Reaction::accept (SBMLVisitor& v) const
 {
@@ -259,6 +251,7 @@ Reaction::accept (SBMLVisitor& v) const
 
   return result;
 }
+/** @endcond */
 
 
 /*
@@ -1291,7 +1284,6 @@ Reaction::removeModifier (const std::string& species)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1341,8 +1333,6 @@ Reaction::enablePackageInternal(const std::string& pkgURI,
 
   if (mKineticLaw) mKineticLaw->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
-
-
 /** @endcond */
 
 
@@ -1991,8 +1981,6 @@ ListOfReactions::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_create (unsigned int level, unsigned int version)
@@ -2531,6 +2519,5 @@ ListOfReactions_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

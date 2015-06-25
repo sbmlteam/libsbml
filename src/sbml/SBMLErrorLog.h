@@ -200,7 +200,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates a new, empty SBMLErrorLog.
    */

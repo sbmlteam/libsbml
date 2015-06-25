@@ -291,7 +291,5 @@ ASTCnBase::syncMembersAndResetParentsFrom(ASTCnBase* rhs)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

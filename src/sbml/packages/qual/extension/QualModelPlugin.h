@@ -102,7 +102,6 @@ public:
   // --------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -142,7 +141,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   int appendFrom(const Model* model);
 
   /** @endcond */
@@ -490,13 +488,11 @@ public:
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
   /** @endcond */
 
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /*-- data members --*/
 
   ListOfQualitativeSpecies mQualitativeSpecies;

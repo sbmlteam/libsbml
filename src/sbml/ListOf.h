@@ -160,6 +160,8 @@ public:
   ListOf& operator=(const ListOf& rhs);
 
 
+
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -170,6 +172,7 @@ public:
    * list.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -550,7 +553,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   typedef std::vector<SBase*>           ListItem;
   typedef std::vector<SBase*>::iterator ListItemIter;
 

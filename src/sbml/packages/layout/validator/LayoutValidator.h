@@ -61,7 +61,6 @@
 
 
   /** @cond doxygenLibsbmlInternal */
-
 #include <list>
 #include <string>
   /** @endcond */
@@ -145,7 +144,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   LayoutValidatorConstraints* mLayoutConstraints;
 
   friend class LayoutValidatingVisitor;

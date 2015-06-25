@@ -101,7 +101,6 @@ class LIBSBML_EXTERN SBMLInitialAssignmentConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */

@@ -447,7 +447,6 @@ Output::hasRequiredAttributes () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * write contained elements
  */
@@ -458,28 +457,19 @@ Output::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Output::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument.
  */
@@ -488,29 +478,20 @@ Output::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Enables/Disables the given package with this element.
- */
+/** @cond doxygenLibsbmlInternal */
 void
 Output::enablePackageInternal(const std::string& pkgURI,
              const std::string& pkgPrefix, bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get the list of expected attributes for this element.
  */
@@ -525,13 +506,10 @@ Output::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("name");
   attributes.add("outputLevel");
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Read values from the given XMLAttributes set into their specific fields.
  */
@@ -735,13 +713,10 @@ Output::readAttributes (const XMLAttributes& attributes,
   }
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -769,9 +744,7 @@ Output::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /*
@@ -938,7 +911,6 @@ ListOfOutputs::getItemTypeCode () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Creates a new Output in this ListOfOutputs
  */
@@ -958,13 +930,10 @@ ListOfOutputs::createObject(XMLInputStream& stream)
 
   return object;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write the namespace for the Qual package.
  */
@@ -986,14 +955,11 @@ ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
 
   stream << xmlns;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Output_t *
 Output_create(unsigned int level, unsigned int version,
@@ -1295,8 +1261,6 @@ OutputTransitionEffect_isValidOutputTransitionEffectString(const char* s)
   return OutputTransitionEffect_isValidOutputTransitionEffect
                                          (OutputTransitionEffect_fromString(s));
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

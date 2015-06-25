@@ -759,7 +759,5 @@ ASTNaryFunctionNode::getReducedToBinary() const
   return mReducedToBinary;
 }
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

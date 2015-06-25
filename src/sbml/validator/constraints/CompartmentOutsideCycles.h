@@ -109,5 +109,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* CompartmentOutsideCycles_h */
-
 /** @endcond */

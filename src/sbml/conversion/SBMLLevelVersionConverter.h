@@ -100,7 +100,6 @@ class LIBSBML_EXTERN  SBMLLevelVersionConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -236,7 +235,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   bool conversion_errors(unsigned int errors, bool strictUnits = true);
 
   /*

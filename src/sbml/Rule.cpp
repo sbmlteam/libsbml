@@ -54,9 +54,7 @@
 #include <sbml/RateRule.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -153,18 +151,13 @@ Rule& Rule::operator=(const Rule& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next Rule
- * (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Rule::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -1513,7 +1506,6 @@ ListOfRules::getElementPosition () const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 ListOfRules::isValidTypeForList(SBase * item)
 {
@@ -1525,7 +1517,6 @@ ListOfRules::isValidTypeForList(SBase * item)
     ||    (tc == SBML_COMPARTMENT_VOLUME_RULE )
     ||    (tc == SBML_PARAMETER_RULE));
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -1663,8 +1654,6 @@ ListOfRules::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraic (unsigned int level, unsigned int version)
@@ -2028,6 +2017,5 @@ ListOfRules_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

@@ -43,14 +43,10 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 // General model validation
 
 EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
-
-
 /** @endcond */

@@ -261,7 +261,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Returns true @c true or @c false depending on whether the argument
    * string conforms to the syntax of SBML identifiers or is empty.
@@ -279,7 +278,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * return true has the xhtml ns correctly declared
    */
@@ -289,7 +287,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * return true if the html tag contains both a title
    * and a body tag 

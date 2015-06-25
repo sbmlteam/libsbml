@@ -1694,6 +1694,7 @@ Layout::clone() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 Layout::accept (SBMLVisitor& v) const
 {
@@ -1711,6 +1712,7 @@ Layout::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -2564,7 +2566,6 @@ XMLNode ListOfTextGlyphs::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Layout_t *
 Layout_create (void)
@@ -3014,7 +3015,6 @@ Layout_unsetId (Layout_t *l)
   if (l == NULL) return;
   l->unsetId();
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

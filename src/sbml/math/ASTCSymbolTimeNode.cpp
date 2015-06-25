@@ -253,7 +253,5 @@ ASTCSymbolTimeNode::read(XMLInputStream& stream, const std::string& reqd_prefix)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

@@ -100,7 +100,6 @@ SBMLResolverRegistry::getResolverByIndex(int index) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 SBMLResolverRegistry::SBMLResolverRegistry()
 {
   // for now ensure that we always have a file resolver in there
@@ -162,8 +161,6 @@ SBMLResolverRegistry::resolveUri(const std::string &uri, const std::string& base
   }
   return result;
 }
-
-
 /** @endcond */
 
 

@@ -41,9 +41,7 @@
 #include "DuplicateTopLevelAnnotation.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -309,5 +307,4 @@ DuplicateTopLevelAnnotation::logDuplicate (std::string name, const SBase& object
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

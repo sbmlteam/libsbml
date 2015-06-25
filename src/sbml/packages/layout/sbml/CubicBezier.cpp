@@ -610,9 +610,7 @@ CubicBezier::getTypeCode () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 CubicBezier::accept (SBMLVisitor& v) const
 {
@@ -627,6 +625,7 @@ CubicBezier::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
@@ -691,7 +690,6 @@ XMLNode CubicBezier::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 CubicBezier_t *
 CubicBezier_create (void)
@@ -832,8 +830,6 @@ CubicBezier_clone (const CubicBezier_t *m)
   if (m == NULL) return NULL;
   return static_cast<CubicBezier*>( m->clone() );
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

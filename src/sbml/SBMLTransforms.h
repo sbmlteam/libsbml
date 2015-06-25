@@ -177,7 +177,5 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 #endif  /* SBMLTransforms_h */
-
-
 /** @endcond */
 

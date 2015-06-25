@@ -62,7 +62,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* L2v3CompatibilityValidator_h */
-
-
 /** @endcond */
 

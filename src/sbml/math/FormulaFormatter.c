@@ -482,6 +482,5 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
     StringBuffer_appendChar(sb, ')');
   }
 }
-
 /** @endcond */
 

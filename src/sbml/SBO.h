@@ -225,7 +225,6 @@ class LIBSBML_EXTERN SBO
 {
 public:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
    *
@@ -578,7 +577,6 @@ public:
 
 protected:  
   /** @cond doxygenLibsbmlInternal */
-
  /**
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    * * @return true if the term is-a parent, false otherwise

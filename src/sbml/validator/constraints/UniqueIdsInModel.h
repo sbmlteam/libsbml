@@ -80,5 +80,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdsInModel_h */
-
 /** @endcond */

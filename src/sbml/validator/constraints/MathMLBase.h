@@ -191,6 +191,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* MathMLBase_h */
-
 /** @endcond */
 

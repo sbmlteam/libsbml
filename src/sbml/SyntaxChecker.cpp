@@ -34,9 +34,7 @@
 #include <cstring>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1316,7 +1314,6 @@ case 3:
       
   return letter; 
 }
-
 /** @endcond */
 
 
@@ -2055,7 +2052,6 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 int
 SyntaxChecker_isValidSBMLSId(const char * sid)
@@ -2093,6 +2089,5 @@ SyntaxChecker_hasExpectedXHTMLSyntax(XMLNode_t * node,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

@@ -36,20 +36,15 @@
 #include <sbml/xml/XMLConstructorException.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygenLibsbmlInternal */
-
 XMLConstructorException::XMLConstructorException(std::string message):
       std::invalid_argument(message)
 {
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

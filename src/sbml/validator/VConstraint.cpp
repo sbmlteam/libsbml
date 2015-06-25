@@ -33,9 +33,7 @@
 #include <sbml/validator/VConstraint.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -115,7 +113,6 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

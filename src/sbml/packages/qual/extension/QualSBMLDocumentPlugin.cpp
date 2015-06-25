@@ -93,7 +93,6 @@ QualSBMLDocumentPlugin::~QualSBMLDocumentPlugin ()
 
 
 /** @cond doxygenLibsbmlInternal */
-
 void 
 QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
@@ -130,7 +129,6 @@ QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     //}
   }
 }
-
 /** @endcond*/
 
 
@@ -211,7 +209,6 @@ QualSBMLDocumentPlugin::checkConsistency()
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 QualSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 {
@@ -222,7 +219,6 @@ QualSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 

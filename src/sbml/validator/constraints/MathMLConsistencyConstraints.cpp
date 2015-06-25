@@ -59,9 +59,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 // General XML validation
@@ -97,6 +95,4 @@ EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 
 EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
 EXTERN_CONSTRAINT( 10222, CiElementNot0DComp    )
-
-
 /** @endcond */

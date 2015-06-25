@@ -62,9 +62,7 @@
 #include <sbml/util/ElementFilter.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -204,8 +202,6 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
 }
 
 /** @cond doxygenLibsbmlInternal */
-
-
   unsigned int SBMLDocument::getNumValidators() const
   {
     return (unsigned int)mValidators.size();
@@ -232,7 +228,6 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
     }
     return NULL;
   }
-
 /** @endcond */
 
 
@@ -319,9 +314,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBMLDocument::accept (SBMLVisitor& v) const
 {
@@ -331,6 +324,7 @@ SBMLDocument::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 /*
@@ -962,7 +956,6 @@ SBMLDocument::printErrors(std::ostream& stream, unsigned int severity) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1001,7 +994,6 @@ int SBMLDocument::convert(const ConversionProperties& props)
 
   return result;
 }
-
 /** @endcond */
 
 
@@ -1398,7 +1390,6 @@ SBMLDocument::getUnknownPackagePrefix(int index) const
   }
   return result;
 }
-
 /** @endcond */
 
 
@@ -1409,7 +1400,6 @@ SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -1872,8 +1862,6 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
     delete xmlns;
   }
 }
-
-
 /** @endcond */
 
 
@@ -1962,16 +1950,12 @@ SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string
   if (mModel)
     mModel->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
-
 /** @endcond */
 
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
-
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_create ()
@@ -2365,7 +2349,5 @@ SBMLDocument_convert(SBMLDocument_t *d, const ConversionProperties_t* props)
   if (d == NULL || props == NULL) return LIBSBML_INVALID_OBJECT;
   return d->convert(*props);
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

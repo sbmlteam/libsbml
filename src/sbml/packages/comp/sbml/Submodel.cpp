@@ -739,7 +739,6 @@ Submodel::getTypeCode () const
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 Submodel::accept (SBMLVisitor& v) const
 {
@@ -754,7 +753,6 @@ Submodel::accept (SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 
@@ -1425,7 +1423,6 @@ Submodel::removeProcessingCallback(ModelProcessingCallback cb)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Submodel_t *
 Submodel_create(unsigned int level, unsigned int version,
@@ -1758,9 +1755,6 @@ ListOfSubmodels_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfSubmodels *>(lo)->remove(sid) : NULL;
 }
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

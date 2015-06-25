@@ -310,6 +310,7 @@ public:
   virtual int getTypeCode () const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -318,6 +319,7 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
    
 
    /**

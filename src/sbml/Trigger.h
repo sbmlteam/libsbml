@@ -221,6 +221,7 @@ public:
   Trigger& operator=(const Trigger& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Trigger.
    *
@@ -229,6 +230,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -381,7 +383,6 @@ public:
 
 #if (0)
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument of this SBML object.
    *
@@ -507,7 +508,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.

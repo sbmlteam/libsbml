@@ -64,10 +64,8 @@
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #include <list>
 #include <string>
-
 /** @endcond */
 
 
@@ -185,8 +183,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
-
   ValidatorConstraints* mConstraints;
   std::list<SBMLError>  mFailures;
   unsigned int          mCategory;

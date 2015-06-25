@@ -214,7 +214,6 @@ public:
   void setBasePoint2 (double x, double y, double z = 0.0);
 
   /** @cond doxygenLibsbmlInternal */
-
   bool getBasePt1ExplicitlySet() const;
 
   bool getBasePt2ExplicitlySet() const;
@@ -282,6 +281,7 @@ public:
   virtual int getTypeCode () const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -290,6 +290,7 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
    
  
    /**

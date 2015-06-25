@@ -711,9 +711,7 @@ XMLNode ReferenceGlyph::toXML() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 ReferenceGlyph::accept (SBMLVisitor& v) const
 {
@@ -733,6 +731,7 @@ ReferenceGlyph::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
@@ -786,7 +785,6 @@ ReferenceGlyph::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ReferenceGlyph_t *
 ReferenceGlyph_create(void)
@@ -1002,7 +1000,6 @@ ReferenceGlyph_unsetId (ReferenceGlyph_t *srg)
   if (srg == NULL) return;
   srg->unsetId();
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

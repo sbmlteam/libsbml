@@ -44,9 +44,7 @@
 #include <sbml/Compartment.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -125,8 +123,6 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
 }
 
 /** @cond doxygenLibsbmlInternal */
-
-
 /** @endcond */
                           
 /*
@@ -191,18 +187,13 @@ Compartment& Compartment::operator=(const Compartment& rhs)
 
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * Compartment (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Compartment::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -1628,8 +1619,6 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Compartment_t *
 Compartment_create (unsigned int level, unsigned int version)
@@ -2103,7 +2092,6 @@ ListOfCompartments_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

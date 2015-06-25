@@ -55,9 +55,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 // Compartment validation
@@ -813,7 +811,5 @@ START_CONSTRAINT (21231, Priority, p)
   inv( p.hasRequiredElements() == true);
 }
 END_CONSTRAINT
-
-
 /** @endcond */
 

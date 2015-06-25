@@ -44,9 +44,7 @@
 #include <sbml/SBO.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -93,7 +91,6 @@ SBO::checkTerm (int sboTerm)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Reads (and checks) sboTerm from the given XMLAttributes set.
  *
@@ -1363,7 +1360,6 @@ SBO::populateSBOTree()
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

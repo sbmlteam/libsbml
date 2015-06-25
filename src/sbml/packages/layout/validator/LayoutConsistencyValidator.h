@@ -59,6 +59,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus*/
 #endif  /* LayoutConsistencyValidator_H__ */
-
-
 /** @endcond */

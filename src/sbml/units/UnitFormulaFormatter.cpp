@@ -2550,7 +2550,6 @@ UnitFormulaFormatter::possibleToUseUnitsData(FormulaUnitsData * fud)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 /* NOT YET NECESSARY 
 LIBSBML_EXTERN
 UnitFormulaFormatter_t* 
@@ -2628,7 +2627,6 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
 
 
 */
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

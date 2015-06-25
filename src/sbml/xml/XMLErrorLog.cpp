@@ -40,9 +40,7 @@
 #include <sbml/xml/XMLErrorLog.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -343,7 +341,6 @@ XMLErrorLog::changeErrorSeverity(XMLErrorSeverity_t originalSeverity,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLErrorLog_create (void)
@@ -437,6 +434,5 @@ XMLErrorLog_setSeverityOverride (XMLErrorLog_t *log, XMLErrorSeverityOverride_t 
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

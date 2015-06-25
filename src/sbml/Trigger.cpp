@@ -49,9 +49,7 @@
 #include <sbml/Trigger.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -145,14 +143,13 @@ Trigger& Trigger::operator=(const Trigger& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Trigger::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -676,7 +673,6 @@ Trigger::writeElements (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_create (unsigned int level, unsigned int version)
@@ -838,10 +834,6 @@ Trigger_hasRequiredElements (Trigger_t *t)
 {
   return (t != NULL) ? static_cast <int> (t->hasRequiredElements() ) : 0;
 }
-
-
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

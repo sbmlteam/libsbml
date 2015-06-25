@@ -109,5 +109,4 @@ bool hasBzip2();
 LIBSBML_CPP_NAMESPACE_END
 
 #endif //CompressCommon_h
-
 /** @endcond */

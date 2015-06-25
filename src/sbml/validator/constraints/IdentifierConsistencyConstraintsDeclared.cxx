@@ -57,7 +57,5 @@ addConstraint(new VConstraintKineticLaw99303(*this));
 addConstraint(new VConstraintEvent99303(*this));
 
 addConstraint(new VConstraintModel99303(*this));
-
-
 /** @endcond */
 

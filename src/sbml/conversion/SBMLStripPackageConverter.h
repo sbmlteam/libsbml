@@ -72,7 +72,6 @@ class LIBSBML_EXTERN SBMLStripPackageConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */

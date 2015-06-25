@@ -40,9 +40,7 @@
 #include "QSAssignedOnce.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -128,5 +126,4 @@ QSAssignedOnce::logMultipleAssignment (const Transition& tr,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

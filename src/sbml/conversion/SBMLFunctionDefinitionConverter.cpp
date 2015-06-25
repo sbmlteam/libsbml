@@ -322,8 +322,6 @@ SBMLFunctionDefinitionConverter::expandFD_errors(unsigned int errors)
 
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -49,9 +49,7 @@
 #include <sbml/StoichiometryMath.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -131,14 +129,13 @@ StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 StoichiometryMath::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -602,8 +599,6 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_create (unsigned int level, unsigned int version)
@@ -704,8 +699,6 @@ StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)
     static_cast<int>(static_cast<StoichiometryMath*>(stoichMath)
                                 ->containsUndeclaredUnits()) : 0;
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

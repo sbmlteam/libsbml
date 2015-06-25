@@ -46,9 +46,7 @@
 #include <sbml/InitialAssignment.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -129,18 +127,13 @@ InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * InitialAssignment (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 InitialAssignment::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -968,8 +961,6 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_create (unsigned int level, unsigned int version)
@@ -1129,7 +1120,6 @@ ListOfInitialAssignments_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

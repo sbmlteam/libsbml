@@ -49,9 +49,7 @@
 #include "EqualityArgsMathCheck.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -193,5 +191,4 @@ EqualityArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -241,6 +241,7 @@ public:
   KineticLaw& operator=(const KineticLaw& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of KineticLaw.
    *
@@ -249,6 +250,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -1009,7 +1011,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *

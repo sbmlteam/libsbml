@@ -126,7 +126,5 @@ LIBSBML_CPP_NAMESPACE_END
 #endif /* __cplusplus */
 
 #endif  /* ASTNode_h */
-
-
 /** @endcond */
 

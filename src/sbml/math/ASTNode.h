@@ -198,14 +198,12 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /* constructor for use by mathml reader */
   ASTNode(SBMLNamespaces* sbmlns, ASTNodeType_t type);
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * Creates and returns a new ASTNode.
    */
@@ -215,7 +213,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /* constructor for use by mathml reader */
   ASTNode(SBMLNamespaces* sbmlns, int type = AST_UNKNOWN);
 
@@ -1567,7 +1564,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Replace any nodes of type AST_NAME with the name 'id' from the child
    * 'math' object with the provided ASTNode.
@@ -1579,7 +1575,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Replaces any 'AST_NAME_TIME' nodes with a node that multiplies time by
    * the given function.
@@ -1591,7 +1586,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void setIsChildFlag(bool flag);
 
   /** @endcond */
@@ -1878,7 +1872,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool representsBvar() const;
 
 
@@ -1886,7 +1879,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * writes the node to the stream
    */
@@ -1896,7 +1888,6 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * reads the node from the stream
    */
@@ -1906,32 +1897,27 @@ setValue(value, 0);
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void writeNodeOfType(XMLOutputStream& stream, int type,
     bool inChildNode = false) const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   unsigned int getNumBvars() const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual int getTypeCode () const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual const std::string& getPackageName () const;
 
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual ASTBasePlugin* getPlugin(const std::string& package);
   virtual const ASTBasePlugin* getPlugin(const std::string& package) const;
   virtual ASTBasePlugin* getPlugin(unsigned int n);
@@ -1942,7 +1928,6 @@ setValue(value, 0);
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   ASTNumber * mNumber;
   ASTFunction * mFunction;
 
@@ -1987,7 +1972,6 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * return the number member variable
    */
@@ -1996,7 +1980,6 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * return the function member variable
    */

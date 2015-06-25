@@ -102,7 +102,6 @@ typedef CLASS_OR_STRUCT Submodel                     Submodel_t;
  * @copydoc SBMLDocumentPlugin
  */
 typedef CLASS_OR_STRUCT CompSBMLDocumentPlugin       CompSBMLDocumentPlugin_t;
-
 /** @endcond */
 
 
@@ -122,7 +121,6 @@ typedef CLASS_OR_STRUCT CompModelPlugin               CompModelPlugin_t;
  * @copydoc ModelDefinition
  */
 typedef CLASS_OR_STRUCT ModelDefinition              ModelDefinition_t;
-
 /** @endcond */
 
 

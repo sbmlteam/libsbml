@@ -45,9 +45,7 @@
 /** @endcond */
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1146,7 +1144,6 @@ XMLAttributes::write (XMLOutputStream& stream) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Logs an attribute format error.
  *
@@ -1220,7 +1217,6 @@ XMLAttributes::attributeRequiredError (const std::string&  name
 
   log->add( XMLError(MissingXMLRequiredAttribute, message.str(), line, column) );
 }
-
 /** @endcond */
 
 
@@ -1266,8 +1262,6 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_create (void)
@@ -1721,7 +1715,5 @@ XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

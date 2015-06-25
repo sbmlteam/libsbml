@@ -53,5 +53,4 @@ CompUnitConsistencyValidator::init ()
 LIBSBML_CPP_NAMESPACE_END
 
 #endif /* doxygen_ignore */
-
 /** @endcond */

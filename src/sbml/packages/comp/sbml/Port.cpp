@@ -368,7 +368,6 @@ Port::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 Port::accept (SBMLVisitor& v) const
 {
@@ -381,13 +380,11 @@ Port::accept (SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Port_t *
 Port_create(unsigned int level, unsigned int version,
@@ -519,8 +516,6 @@ ListOfPorts_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfPorts *>(lo)->remove(sid) : NULL;
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

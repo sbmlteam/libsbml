@@ -131,5 +131,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XMLHandler_h */
-
 /** @endcond */

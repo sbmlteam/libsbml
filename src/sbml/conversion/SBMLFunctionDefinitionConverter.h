@@ -88,7 +88,6 @@ class LIBSBML_EXTERN SBMLFunctionDefinitionConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -182,7 +181,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   bool expandFD_errors(unsigned int errors);
 
   /** @endcond */

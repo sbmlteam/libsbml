@@ -243,5 +243,4 @@ StringBuffer_toString (const StringBuffer_t *sb)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -323,7 +323,5 @@ ASTCSymbolAvogadroNode::read(XMLInputStream& stream, const std::string& reqd_pre
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

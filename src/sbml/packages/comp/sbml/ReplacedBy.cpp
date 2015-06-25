@@ -180,7 +180,6 @@ ReplacedBy::updateIDs(SBase* oldnames, SBase* newnames)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 ReplacedBy::accept (SBMLVisitor& v) const
 {
@@ -193,12 +192,10 @@ ReplacedBy::accept (SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ReplacedBy_t *
 ReplacedBy_create(unsigned int level, unsigned int version,
@@ -273,9 +270,6 @@ ReplacedBy_hasRequiredAttributes(ReplacedBy_t * rb)
 {
   return (rb != NULL) ? static_cast<int>(rb->hasRequiredAttributes()) : 0;
 }
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -40,9 +40,7 @@
 #include "UniqueVarsInEventsAndRules.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -124,6 +122,5 @@ UniqueVarsInEventsAndRules::getFieldname ()
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

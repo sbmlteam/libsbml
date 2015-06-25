@@ -1317,8 +1317,7 @@ int CompModelPlugin::removeCollectedElements(set<SBase*>* removed, set<SBase*>* 
 }
 
   
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 CompModelPlugin::accept(SBMLVisitor& v) const
 {
@@ -1338,7 +1337,6 @@ CompModelPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 void 

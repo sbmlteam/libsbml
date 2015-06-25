@@ -43,8 +43,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN 
 ExpectedAttributes_t *
@@ -86,8 +84,6 @@ ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribut
   return attr->hasAttribute(std::string(attribute));
 }
 /** @endcond */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

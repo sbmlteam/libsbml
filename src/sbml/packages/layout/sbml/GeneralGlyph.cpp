@@ -1145,9 +1145,7 @@ XMLNode ListOfReferenceGlyphs::toXML() const
 
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 GeneralGlyph::accept (SBMLVisitor& v) const
 {
@@ -1169,6 +1167,7 @@ GeneralGlyph::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
@@ -1223,7 +1222,6 @@ GeneralGlyph::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 GeneralGlyph_t *
 GeneralGlyph_create (void)
@@ -1425,7 +1423,5 @@ GeneralGlyph_clone (const GeneralGlyph_t *m)
   if (m == NULL) return NULL;
   return static_cast<GeneralGlyph*>( m->clone() );
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

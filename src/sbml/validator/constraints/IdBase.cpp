@@ -39,9 +39,7 @@
 #include <sbml/ModifierSpeciesReference.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -246,6 +244,5 @@ IdBase::logIdConflict (const std::string& id, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

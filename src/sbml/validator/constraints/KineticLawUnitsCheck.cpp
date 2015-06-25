@@ -50,9 +50,7 @@
 #include "MathMLBase.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -205,6 +203,5 @@ KineticLawUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

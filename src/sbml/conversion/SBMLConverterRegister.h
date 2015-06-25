@@ -110,5 +110,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* SBMLConverterRegister_h */
-
 /** @endcond */

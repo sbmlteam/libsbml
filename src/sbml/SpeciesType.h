@@ -168,6 +168,7 @@ public:
   SpeciesType& operator=(const SpeciesType& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of SpeciesType.
    *
@@ -178,6 +179,7 @@ public:
    * the list of compartment types.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -315,7 +317,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to get the list of
    * expected attributes.
@@ -524,7 +525,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -545,7 +545,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create a ListOfSpeciesTypes object corresponding to the next token
    * in the XML input stream.

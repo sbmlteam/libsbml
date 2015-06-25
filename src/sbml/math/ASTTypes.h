@@ -142,7 +142,6 @@ typedef enum
 
 
 /** @cond doxygenLibsbmlInternal */
-
 typedef enum
 {
   AST_TYPECODE_BASE
@@ -170,14 +169,12 @@ typedef enum
 , AST_TYPECODE_FUNCTION_QUALIFIER
 , AST_TYPECODE_ASTNODE
 } AST_Class_TypeCode_t;
-
 /** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END
 
 /** @cond doxygenLibsbmlInternal */
-
 #ifdef __cplusplus
 
 #include <string>
@@ -233,7 +230,6 @@ bool isCoreTopLevelMathMLNumberNodeTag(const std::string& name);
 LIBSBML_CPP_NAMESPACE_END
 
 #endif /* cplusplus */
-
 /** @endcond */
 
 #endif  /* ASTTypes_h */

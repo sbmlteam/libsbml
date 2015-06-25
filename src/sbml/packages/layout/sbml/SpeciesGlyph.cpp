@@ -433,7 +433,6 @@ XMLNode SpeciesGlyph::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_create (void)
@@ -519,7 +518,6 @@ SpeciesGlyph_clone (const SpeciesGlyph_t *sg)
   if (sg==NULL) return NULL;
   return static_cast<SpeciesGlyph*>( sg->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

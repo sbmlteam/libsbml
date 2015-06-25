@@ -151,7 +151,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * protected constructor, use the getInstance() method to access the registry.
    */

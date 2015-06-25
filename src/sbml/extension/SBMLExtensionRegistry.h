@@ -63,7 +63,6 @@ public:
 
 #ifndef SWIG
   /** @cond doxygenLibsbmlInternal */
-
   //
   // typedef for SBasePluginCreatorBase
   //
@@ -391,7 +390,6 @@ private:
   static bool registered;
 
   /** @cond doxygenLibsbmlInternal */
-
   SBMLExtensionMap  mSBMLExtensionMap;
   SBasePluginMap    mSBasePluginMap;
 

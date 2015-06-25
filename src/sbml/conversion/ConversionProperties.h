@@ -399,7 +399,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   SBMLNamespaces *mTargetNamespaces;
   std::map<std::string, ConversionOption*> mOptions;
 

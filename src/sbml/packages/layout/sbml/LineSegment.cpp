@@ -616,9 +616,7 @@ LineSegment::getTypeCode () const
   return SBML_LAYOUT_LINESEGMENT;
 }
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 LineSegment::accept (SBMLVisitor& v) const
 {
@@ -631,6 +629,7 @@ LineSegment::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -704,7 +703,6 @@ LineSegment::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_create (void)
@@ -801,7 +799,6 @@ LineSegment_clone (const LineSegment_t *m)
   if (m == NULL) return NULL;
   return static_cast<LineSegment*>( m->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

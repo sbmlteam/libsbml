@@ -131,6 +131,7 @@ public:
   SimpleSpeciesReference& operator=(const SimpleSpeciesReference& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -139,6 +140,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -292,7 +294,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool hasRequiredAttributes() const ;
 
   /**

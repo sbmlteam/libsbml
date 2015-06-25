@@ -282,6 +282,7 @@ public:
   Unit& operator=(const Unit& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Unit.
    *
@@ -293,6 +294,7 @@ public:
    * located in the enclosing UnitDefinition instance).
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -1117,7 +1119,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   void setExponentUnitChecking (double value); 
                                            
   double getExponentUnitChecking();
@@ -1360,7 +1361,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -1375,7 +1375,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create a ListOfUnits object corresponding to the next token
    * in the XML input stream.

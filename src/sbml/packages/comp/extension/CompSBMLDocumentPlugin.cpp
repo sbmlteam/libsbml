@@ -1039,7 +1039,6 @@ CompSBMLDocumentPlugin::checkConsistency()
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 CompSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 {
@@ -1053,42 +1052,35 @@ CompSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 CompSBMLDocumentPlugin::getOverrideCompFlattening() const
 {
   return mOverrideCompFlattening;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 void
 CompSBMLDocumentPlugin::setOverrideCompFlattening(bool overrideCompFlattening)
 {
   mOverrideCompFlattening = overrideCompFlattening;
 }
-
 /** @endcond */
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ModelDefinition_t *
 CompSBMLDocumentPlugin_createModelDefinition(CompSBMLDocumentPlugin_t * docPlug)
 {
   return docPlug->createModelDefinition();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

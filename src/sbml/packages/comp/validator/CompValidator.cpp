@@ -35,9 +35,7 @@
 #include <sbml/packages/comp/common/CompExtensionTypes.h>
 #include <sbml/SBMLTypes.h>
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN

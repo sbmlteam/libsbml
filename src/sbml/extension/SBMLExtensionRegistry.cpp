@@ -69,8 +69,6 @@ SBMLExtensionRegistry::deleteRegistry()
 }
 
 /** @cond doxygenLibsbmlInternal */
-
-
 /*
  *
  */
@@ -580,8 +578,6 @@ SBMLExtensionRegistry::enablePackages(const std::vector<std::string>& packages)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 int 
 SBMLExtensionRegistry_addExtension(const SBMLExtension_t* extension)
@@ -723,7 +719,6 @@ SBMLExtensionRegistry_getRegisteredPackageName(int index)
 {
   return safe_strdup(SBMLExtensionRegistry::getRegisteredPackageName(index).c_str());
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

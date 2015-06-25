@@ -936,7 +936,6 @@ Transition::hasRequiredElements () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * write contained elements
  */
@@ -961,16 +960,10 @@ Transition::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Transition::accept (SBMLVisitor& v) const
 {
@@ -984,13 +977,11 @@ Transition::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @cond doxygenLibsbmlInternal */
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument.
  */
@@ -1004,13 +995,10 @@ Transition::setSBMLDocument (SBMLDocument* d)
   mFunctionTerms.setSBMLDocument(d);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * 
  */
@@ -1022,11 +1010,8 @@ Transition::connectToChild()
   mOutputs.connectToParent(this);
   mFunctionTerms.connectToParent(this);
 }
-
-
-  /** @endcond */
+/** @endcond */
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Enables/Disables the given package with this element.
  */
@@ -1040,9 +1025,7 @@ Transition::enablePackageInternal(const std::string& pkgURI,
   mOutputs.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mFunctionTerms.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1083,12 +1066,10 @@ Transition::createObject (XMLInputStream& stream)
   }
   return object;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Get the list of expected attributes for this element.
  */
@@ -1100,13 +1081,10 @@ Transition::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("id");
   attributes.add("name");
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Read values from the given XMLAttributes set into their specific fields.
  */
@@ -1213,13 +1191,10 @@ Transition::readAttributes (const XMLAttributes& attributes,
   }
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -1237,9 +1212,7 @@ Transition::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /*
@@ -1371,7 +1344,6 @@ ListOfTransitions::getItemTypeCode () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Creates a new Transition in this ListOfTransitions
  */
@@ -1391,13 +1363,10 @@ ListOfTransitions::createObject(XMLInputStream& stream)
 
   return object;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write the namespace for the Qual package.
  */
@@ -1419,14 +1388,11 @@ ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
 
   stream << xmlns;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Transition_t *
 Transition_create(unsigned int level, unsigned int version,
@@ -1751,10 +1717,6 @@ ListOfTransitions_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfTransitions *>(lo)->remove(sid) : NULL;
 }
-
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

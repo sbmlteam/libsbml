@@ -690,9 +690,7 @@ FluxBound::clone() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 FluxBound::accept (SBMLVisitor& v) const
 {
@@ -700,6 +698,7 @@ FluxBound::accept (SBMLVisitor& v) const
   visited = v.visit(*this);
   return  visited;
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -921,7 +920,6 @@ ListOfFluxBounds::writeXMLNS (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 FluxBound_t *
 FluxBound_create(unsigned int level, unsigned int version, unsigned int pkgversion)
@@ -1184,10 +1182,6 @@ FluxBoundOperation_isValidFluxBoundOperationString(const char* s)
   return FluxBoundOperation_isValidFluxBoundOperation
                                          (FluxBoundOperation_fromString(s));
 }
-
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

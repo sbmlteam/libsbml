@@ -95,5 +95,4 @@ public:
 LIBSBML_CPP_NAMESPACE_END
 
 #endif // OutputCompressor_h
-
 /** @endcond */

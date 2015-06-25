@@ -173,5 +173,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ExpatHandler_h */
-
 /** @endcond */

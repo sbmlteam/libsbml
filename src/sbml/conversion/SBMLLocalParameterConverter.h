@@ -77,7 +77,6 @@ class LIBSBML_EXTERN SBMLLocalParameterConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */

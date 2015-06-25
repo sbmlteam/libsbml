@@ -198,4 +198,3 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* IdBase_h */
 
 /** @cond doxygenLibsbmlInternal */
-

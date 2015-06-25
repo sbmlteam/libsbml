@@ -136,5 +136,4 @@ XMLHandler::characters (const XMLToken& data)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

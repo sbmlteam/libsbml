@@ -329,7 +329,6 @@ class LIBSBML_EXTERN L3ParserSettings
 {
 private:
   /** @cond doxygenLibsbmlInternal */
-
   const Model* mModel;
   ParseLogType_t mParselog;
   bool mCollapseminus;
@@ -744,7 +743,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * This function checks the provided ASTNode function to see if it is a
    * known function with the wrong number of arguments.  If so, the error is

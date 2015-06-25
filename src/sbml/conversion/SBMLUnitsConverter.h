@@ -82,7 +82,6 @@ class LIBSBML_EXTERN SBMLUnitsConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -197,7 +196,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   bool convertUnits(SBase& sb, Model& m);
 
   bool convertUnits(SBase& sb, Model& m, std::string &modelUnitAttribute, ASTNode *ast = 0);

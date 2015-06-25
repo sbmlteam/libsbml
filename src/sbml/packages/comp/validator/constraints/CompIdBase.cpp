@@ -33,9 +33,7 @@
 #include <sbml/RateRule.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -293,6 +291,5 @@ CompIdBase::logIdConflict (const std::string& id, const SBase& object)
 #endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

@@ -458,5 +458,4 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

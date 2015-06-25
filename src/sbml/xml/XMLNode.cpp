@@ -44,9 +44,7 @@
 #include <sbml/xml/XMLNode.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -651,8 +649,6 @@ XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_create (void)
@@ -1430,8 +1426,6 @@ XMLNode_unsetEnd (XMLNode_t *node)
   if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->unsetEnd();
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

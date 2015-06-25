@@ -367,8 +367,6 @@ int
 
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

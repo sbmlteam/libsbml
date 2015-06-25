@@ -222,9 +222,7 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept(SBMLVisitor& v) const;
-
   /** @endcond */
 
 
@@ -603,7 +601,6 @@ public:
   friend class ExternalModelDefinition; //So that it can call 'getSBMLDocumentFromURI' but nothing else can.
 
   /** @cond doxygenLibsbmlInternal */
-
   /* retrieve the override flattening flag */
   bool getOverrideCompFlattening() const;
 
@@ -611,7 +608,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /* retrieve the override flattening flag */
   void setOverrideCompFlattening(bool overrideCompFlattening);
 

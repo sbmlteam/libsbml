@@ -39,9 +39,7 @@
 #include "CompartmentOutsideCycles.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -171,6 +169,5 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

@@ -267,6 +267,7 @@ public:
   Reaction& operator=(const Reaction& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Reaction.
    *
@@ -275,6 +276,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -1066,7 +1068,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument of this SBML object.
    */
@@ -1153,7 +1154,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *
@@ -1382,7 +1382,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the position of this element.
    *
@@ -1396,7 +1395,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *

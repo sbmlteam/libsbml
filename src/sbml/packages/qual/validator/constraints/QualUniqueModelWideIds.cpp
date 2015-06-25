@@ -36,9 +36,7 @@
 #include <sbml/packages/qual/extension/QualModelPlugin.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -283,5 +281,4 @@ QualUniqueModelWideIds::createExistingMap (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -551,8 +551,6 @@ getNameFromCoreType(int type)
 
   return name;
 }
-
-
 /** @endcond */
 
 

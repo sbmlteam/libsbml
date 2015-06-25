@@ -39,7 +39,6 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
 // 10301
 EXTERN_CONSTRAINT(FbcDuplicateComponentId, UniqueModelWideIds);

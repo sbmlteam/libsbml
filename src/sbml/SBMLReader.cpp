@@ -45,9 +45,7 @@
 #include <sbml/compress/InputDecompressor.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -332,8 +330,6 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 SBMLReader_t *
 SBMLReader_create ()
@@ -427,6 +423,5 @@ readSBMLFromString (const char *xml)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

@@ -43,9 +43,7 @@
 #include <sbml/CompartmentType.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -110,18 +108,13 @@ CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * CompartmentType (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 CompartmentType::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -320,7 +313,6 @@ CompartmentType::hasRequiredAttributes() const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -631,8 +623,6 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_create (unsigned int level, unsigned int version)
@@ -790,7 +780,6 @@ ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

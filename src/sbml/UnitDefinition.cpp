@@ -51,9 +51,7 @@
 #include <math.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -128,13 +126,7 @@ UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * UnitDefinition (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 UnitDefinition::accept (SBMLVisitor& v) const
 {
@@ -143,7 +135,8 @@ UnitDefinition::accept (SBMLVisitor& v) const
 
   return result;
 }
-
+/** @endcond */
+\
 
 /*
  * @return a (deep) copy of this UnitDefinition.
@@ -642,7 +635,6 @@ UnitDefinition::removeUnit (unsigned int n)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -678,7 +670,6 @@ UnitDefinition::enablePackageInternal(const std::string& pkgURI,
 
   mUnits.enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
-
 /** @endcond */
 
 
@@ -1185,7 +1176,6 @@ UnitDefinition::areEquivalent(const UnitDefinition * ud1, const UnitDefinition *
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1, 
                                const UnitDefinition * ud2)
@@ -1282,7 +1272,6 @@ UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1,
 
   return identical;
 }
-
 /** @endcond */
 
 /* 
@@ -1894,8 +1883,6 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_create (unsigned int level, unsigned int version)
@@ -2226,8 +2213,6 @@ ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

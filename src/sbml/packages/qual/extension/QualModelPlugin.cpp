@@ -178,8 +178,6 @@ QualModelPlugin::createObject(XMLInputStream& stream)
 
 
 /** @cond doxygenLibsbmlInternal */
-
-
 bool 
 QualModelPlugin::accept(SBMLVisitor& v) const
 {
@@ -198,8 +196,6 @@ QualModelPlugin::accept(SBMLVisitor& v) const
   }
   return true;
 }
-
-
 /** @endcond */
 
 
@@ -239,7 +235,6 @@ QualModelPlugin::hasRequiredElements() const
  */  
 
 /** @cond doxygenLibsbmlInternal */
-
 int 
 QualModelPlugin::appendFrom(const Model* model)
 {

@@ -288,7 +288,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   SBMLDocument *   mDocument;
   ConversionProperties *mProps;
   std::string mName;
@@ -298,8 +297,6 @@ protected:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
-
   /** @endcond */
 };
 

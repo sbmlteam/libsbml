@@ -54,9 +54,7 @@ static const char* PREAMBLE =
     "(References: L2V2 Section 3.5.) ";
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -509,6 +507,5 @@ ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

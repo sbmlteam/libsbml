@@ -206,7 +206,6 @@ DefaultTerm::hasRequiredAttributes () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * write contained elements
  */
@@ -217,28 +216,19 @@ DefaultTerm::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 DefaultTerm::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument.
  */
@@ -247,13 +237,10 @@ DefaultTerm::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Enables/Disables the given package with this element.
  */
@@ -263,13 +250,10 @@ DefaultTerm::enablePackageInternal(const std::string& pkgURI,
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Get the list of expected attributes for this element.
  */
@@ -280,13 +264,10 @@ DefaultTerm::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("resultLevel");
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Read values from the given XMLAttributes set into their specific fields.
  */
@@ -367,13 +348,10 @@ DefaultTerm::readAttributes (const XMLAttributes& attributes,
   }
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -388,14 +366,11 @@ DefaultTerm::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 DefaultTerm_t *
 DefaultTerm_create(unsigned int level, unsigned int version,
@@ -467,10 +442,6 @@ DefaultTerm_hasRequiredAttributes(DefaultTerm_t * dt)
 {
   return (dt != NULL) ? static_cast<int>(dt->hasRequiredAttributes()) : 0;
 }
-
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

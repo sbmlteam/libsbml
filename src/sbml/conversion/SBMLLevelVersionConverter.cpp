@@ -946,7 +946,6 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
   return conversion;
 
 }
-
 /** @endcond */
 
 
@@ -1078,7 +1077,6 @@ SBMLLevelVersionConverter::hasStrictSBO()
 
 
 /** @cond doxygenIgnored */
-
 unsigned int
 SBMLLevelVersionConverter::validateConvertedDocument()
 {

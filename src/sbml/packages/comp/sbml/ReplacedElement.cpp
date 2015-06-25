@@ -479,7 +479,6 @@ ReplacedElement::getReferencedElementFrom(Model* model)
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 ReplacedElement::accept (SBMLVisitor& v) const
 {
@@ -492,13 +491,11 @@ ReplacedElement::accept (SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ReplacedElement_t *
 ReplacedElement_create(unsigned int level, unsigned int version,
@@ -643,8 +640,6 @@ ReplacedElement_hasRequiredAttributes(ReplacedElement_t * re)
 {
   return (re != NULL) ? static_cast<int>(re->hasRequiredAttributes()) : 0;
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

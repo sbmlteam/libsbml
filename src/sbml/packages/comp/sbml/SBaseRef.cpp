@@ -719,9 +719,7 @@ SBaseRef::getTypeCode () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 SBaseRef::accept (SBMLVisitor& v) const
 {
@@ -731,6 +729,7 @@ SBaseRef::accept (SBMLVisitor& v) const
   }
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -1051,7 +1050,6 @@ SBase* SBaseRef::getDirectReference()
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBaseRef_t *
 SBaseRef_create(unsigned int level, unsigned int version,
@@ -1266,7 +1264,5 @@ SBaseRef_hasRequiredAttributes(SBaseRef_t * sbr)
 {
   return (sbr != NULL) ? static_cast<int>(sbr->hasRequiredAttributes()) : 0;
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

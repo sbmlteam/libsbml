@@ -597,6 +597,5 @@ MemTrace_MemInfoList_remove (MemInfoList_t *list, const void *address)
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** TRACE_MEMORY **/
-
 /** @endcond */
 

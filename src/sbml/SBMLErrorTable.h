@@ -10902,6 +10902,5 @@ know about them.
 };
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

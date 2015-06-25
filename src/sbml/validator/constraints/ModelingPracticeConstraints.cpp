@@ -40,9 +40,7 @@
 
 #include "LocalParameterShadowsIdInModel.h"
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 // Compartment validation
@@ -221,8 +219,5 @@ START_CONSTRAINT (80702, Parameter, p)
   inv (fail == false);
 }
 END_CONSTRAINT
-
-
-
 /** @endcond */
 

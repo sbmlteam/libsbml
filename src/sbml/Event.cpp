@@ -50,9 +50,7 @@
 #include <sbml/util/ElementFilter.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -214,13 +212,7 @@ Event& Event::operator=(const Event& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next Event
- * (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Event::accept (SBMLVisitor& v) const
 {
@@ -236,6 +228,7 @@ Event::accept (SBMLVisitor& v) const
 
   return result;
 }
+/** @endcond */
 
 
 /*
@@ -1136,7 +1129,6 @@ Event::removeEventAssignment (const std::string& variable)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1181,8 +1173,6 @@ Event::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
   if (mDelay)   mDelay->enablePackageInternal(pkgURI,pkgPrefix,flag);
   if (mPriority)   mPriority->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
-
-
 /** @endcond */
 
 
@@ -1246,7 +1236,6 @@ Event::hasRequiredElements() const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * sets the mInternalIdOnly flag
  */
@@ -1376,7 +1365,6 @@ Event::createObject (XMLInputStream& stream)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -1452,7 +1440,6 @@ Event::readAttributes (const XMLAttributes& attributes,
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1513,7 +1500,6 @@ Event::readL2Attributes (const XMLAttributes& attributes)
                                                 mUseValuesFromTriggerTime, getErrorLog(), false, getLine(), getColumn());
   }
 }
-
 /** @endcond */
 
 
@@ -1560,7 +1546,6 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   }
 
 }
-
 /** @endcond */
 
 
@@ -1860,8 +1845,6 @@ ListOfEvents::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Event_t *
 Event_create (unsigned int level, unsigned int version)
@@ -2310,7 +2293,6 @@ ListOfEvents_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

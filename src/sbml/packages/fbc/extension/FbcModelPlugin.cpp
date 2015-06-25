@@ -1345,8 +1345,6 @@ void
 
 
 /** @cond doxygenLibsbmlInternal */
-
-
 bool 
 FbcModelPlugin::accept(SBMLVisitor& v) const
 {
@@ -1366,8 +1364,6 @@ FbcModelPlugin::accept(SBMLVisitor& v) const
   }
   return true;
 }
-
-
 /** @endcond */
 
 ListOfFluxBounds * 
@@ -1396,8 +1392,6 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 int
 FbcModelPlugin_addFluxBound(SBasePlugin_t * fbc, FluxBound_t * fb)
@@ -1473,7 +1467,5 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, const char * activeId)
     ? static_cast<FbcModelPlugin *>(fbc)->setActiveObjectiveId(activeId) 
     : LIBSBML_INVALID_OBJECT;
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

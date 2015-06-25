@@ -278,7 +278,5 @@ ASTConstantNumberNode::read(XMLInputStream& stream, const std::string& reqd_pref
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

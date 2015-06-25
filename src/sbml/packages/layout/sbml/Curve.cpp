@@ -653,9 +653,7 @@ Curve::getTypeCode () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Curve::accept (SBMLVisitor& v) const
 {
@@ -667,12 +665,12 @@ Curve::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Curve_t *
 Curve_create (void)
@@ -768,7 +766,6 @@ Curve_clone (const Curve_t *m)
   if (m == NULL) return NULL;
   return static_cast<Curve*>( m->clone() );
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

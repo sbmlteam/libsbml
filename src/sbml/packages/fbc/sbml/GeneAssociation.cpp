@@ -549,14 +549,13 @@ GeneAssociation::clone() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 GeneAssociation::accept (SBMLVisitor& v) const
 {
   return false;
 }
+/** @endcond */
 
 
 /*

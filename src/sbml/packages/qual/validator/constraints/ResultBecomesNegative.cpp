@@ -40,9 +40,7 @@
 #include "ResultBecomesNegative.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -149,5 +147,4 @@ ResultBecomesNegative::logNegativeResult (const Transition& tr,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

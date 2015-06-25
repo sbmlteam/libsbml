@@ -73,5 +73,4 @@ bool hasBzip2()
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

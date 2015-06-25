@@ -164,7 +164,6 @@ protected:
   SBasePluginCreatorBase (const SBasePluginCreatorBase&);
 
   /** @cond doxygenLibsbmlInternal */
-
   SupportedPackageURIList  mSupportedPackageURI;
   SBaseExtensionPoint       mTargetExtensionPoint;
 

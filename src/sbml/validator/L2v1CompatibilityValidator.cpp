@@ -57,5 +57,4 @@ L2v1CompatibilityValidator::init ()
 LIBSBML_CPP_NAMESPACE_END
 
 #endif
-
 /** @endcond */

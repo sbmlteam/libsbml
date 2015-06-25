@@ -29,9 +29,7 @@
 #include "UniqueComponentIds.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -139,5 +137,4 @@ UniqueComponentIds::doCheck (const Model& m)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

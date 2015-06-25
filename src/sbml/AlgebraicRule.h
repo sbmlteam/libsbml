@@ -154,6 +154,7 @@ public:
   virtual AlgebraicRule* clone () const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of AlgebraicRule.
    *
@@ -164,10 +165,10 @@ public:
    * in the list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * sets the mInternalIdOnly flag
    */
@@ -194,7 +195,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   bool mInternalIdOnly;
 
   /* the validator classes need to be friends to access the 

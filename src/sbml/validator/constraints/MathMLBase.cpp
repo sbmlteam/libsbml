@@ -37,9 +37,7 @@
 #include "MathMLBase.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -525,5 +523,4 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

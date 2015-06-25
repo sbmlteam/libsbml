@@ -237,7 +237,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Initializes comp extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 

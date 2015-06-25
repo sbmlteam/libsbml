@@ -49,9 +49,7 @@
 #include "ExponentUnitsCheck.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -373,6 +371,5 @@ ExponentUnitsCheck::logNonIntegerPowerConflict (const ASTNode & node,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

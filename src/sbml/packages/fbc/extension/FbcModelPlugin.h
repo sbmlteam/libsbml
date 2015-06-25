@@ -177,7 +177,6 @@ public:
   
   
   /** @cond doxygenLibsbmlInternal */
-
   int appendFrom(const Model* model);
 
   /** @endcond */
@@ -670,9 +669,7 @@ public:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept(SBMLVisitor& v) const;
-
   /** @endcond */
 
   ListOfFluxBounds * getFluxBoundsForReaction(const std::string& reaction) const;
@@ -688,7 +685,6 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /*-- data members --*/
 
   ListOfFluxBounds mBounds;

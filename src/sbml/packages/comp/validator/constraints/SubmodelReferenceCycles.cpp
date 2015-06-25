@@ -36,9 +36,7 @@
 #include <sbml/util/IdList.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -329,6 +327,5 @@ SubmodelReferenceCycles::logCycle (const Model& m, std::string id,
 #endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 

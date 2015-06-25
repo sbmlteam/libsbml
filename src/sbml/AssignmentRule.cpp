@@ -51,9 +51,7 @@
 #include <sbml/AssignmentRule.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -97,18 +95,13 @@ AssignmentRule::clone () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next Rule
- * (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 AssignmentRule::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 bool 
@@ -140,7 +133,6 @@ AssignmentRule::renameSIdRefs(const std::string& oldid, const std::string& newid
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 LIBSBML_EXTERN
 AssignmentRule_t *

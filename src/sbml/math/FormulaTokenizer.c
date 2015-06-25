@@ -49,9 +49,7 @@
 /* Forward references */
 
 /** @cond doxygenLibsbmlInternal */
-
 void Token_convertNaNInf (Token_t *t);
-
 /** @endcond */
 
 
@@ -232,7 +230,6 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
    */
   ft->formula[ endpos ] = endchar;
 }
-
 /** @endcond */
 
 

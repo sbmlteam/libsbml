@@ -1552,7 +1552,5 @@ ASTCSymbol::setInReadFromApply(bool inReadFromApply)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

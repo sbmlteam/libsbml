@@ -193,5 +193,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* XMLTokenizer_h */
-
 /** @endcond */

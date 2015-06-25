@@ -905,7 +905,6 @@ void GraphicalObject::writeAttributes(XMLOutputStream& stream) const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #if LIBSBML_HAS_PACKAGE_RENDER
 
 bool isL3RenderNamespaceDeclared(const SBMLDocument* doc, const RenderGraphicalObjectPlugin* plugin)
@@ -968,9 +967,7 @@ GraphicalObject::getTypeCode() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 GraphicalObject::accept(SBMLVisitor& v) const
 {
@@ -985,6 +982,7 @@ GraphicalObject::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 /*
  * Creates an XMLNode object from this.
@@ -1250,7 +1248,6 @@ XMLNode ListOfGraphicalObjects::toXML() const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 GraphicalObject_t *
 GraphicalObject_create(void)
@@ -1336,7 +1333,6 @@ GraphicalObject_unsetId(GraphicalObject_t *go)
   if (go == NULL) return;
   go->unsetId();
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

@@ -145,14 +145,12 @@ ModelDefinition::removeFromParentAndDelete()
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 ModelDefinition::accept (SBMLVisitor& v) const
 {
   v.visit(*this);
   return true;
 }
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -206,7 +204,6 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ModelDefinition_t *
 ModelDefinition_create(unsigned int level, unsigned int version,
@@ -237,8 +234,6 @@ ModelDefinition_clone(ModelDefinition_t * md)
     return NULL;
   }
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

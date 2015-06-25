@@ -40,9 +40,7 @@
 #include "UniqueVarsInInitialAssignmentsAndRules.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -174,5 +172,4 @@ UniqueVarsInInitialAssignmentsAndRules::getFieldname (int typecode)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

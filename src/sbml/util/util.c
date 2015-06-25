@@ -65,7 +65,6 @@
 #endif
 
 /** @cond doxygenLibsbmlInternal */
-
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 LIBSBML_EXTERN
@@ -402,8 +401,6 @@ util_trim_in_place (char *s)
 
   return s;
 }
-
-
 /** @endcond */
 
 

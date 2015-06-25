@@ -49,9 +49,7 @@
 #include <sbml/Delay.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -134,14 +132,13 @@ Delay& Delay::operator=(const Delay& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Delay::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -624,8 +621,6 @@ Delay::writeElements (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Delay_t *
 Delay_create (unsigned int level, unsigned int version)
@@ -723,7 +718,6 @@ Delay_containsUndeclaredUnits(Delay_t *d)
 {
   return (d != NULL) ? static_cast<int>(d->containsUndeclaredUnits()) : 0;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

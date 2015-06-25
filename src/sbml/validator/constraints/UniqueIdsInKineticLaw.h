@@ -78,5 +78,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdsInKineticLaw_h */
-
 /** @endcond */

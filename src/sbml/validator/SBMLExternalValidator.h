@@ -206,6 +206,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif  /* SBMLExternalValidator_h */
-
-
 /** @endcond */

@@ -198,6 +198,7 @@ public:
   SBase& operator=(const SBase& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this SBase object.
    *
@@ -206,6 +207,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const = 0;
+  /** @endcond */
 
 
   /**
@@ -3250,7 +3252,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   bool matchesCoreSBMLNamespace(const SBase * sb);
 
   bool matchesCoreSBMLNamespace(const SBase * sb) const;
@@ -3751,7 +3752,6 @@ SBase.readExtensionAttributes(attributes, expectedAttributes);
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Stores the location (line and column) and any XML namespaces (for
    * roundtripping) declared on this SBML (XML) element.

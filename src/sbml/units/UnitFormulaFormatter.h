@@ -329,7 +329,6 @@ public:
 
 private:
   /* @cond doxygenLibsbmlInternal */
-
   const Model * model;
   bool mContainsUndeclaredUnits;
   unsigned int mCanIgnoreUndeclaredUnits;
@@ -409,6 +408,5 @@ LIBSBML_CPP_NAMESPACE_END
 #endif   !SWIG   */
 
 #endif  /* UnitFormulaFormatter_h */
-
 /** @endcond */
 

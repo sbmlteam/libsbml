@@ -39,9 +39,7 @@
 #include <iostream>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
@@ -783,7 +781,6 @@ SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBMLNamespaces_t *
 SBMLNamespaces_create(unsigned int level, unsigned int version)
@@ -861,7 +858,6 @@ SBMLNamespaces_getSupportedNamespaces(int *length)
   SBMLNamespaces::freeSBMLNamespaces(const_cast<List*>(supported));
   return result;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

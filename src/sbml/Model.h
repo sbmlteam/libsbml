@@ -537,6 +537,7 @@ public:
   Model& operator=(const Model& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Constraint.
    *
@@ -545,6 +546,7 @@ public:
    * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -2855,8 +2857,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
-
  /**************************************************************
   * Conversion between levels/versions
   *
@@ -3169,7 +3169,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Adds a copy of the given FormulaUnitsData object to this Model.
    *
@@ -3690,7 +3689,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
@@ -3802,7 +3800,6 @@ protected:
   private:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Internal function used in populateListFormulaUnitsData
    */

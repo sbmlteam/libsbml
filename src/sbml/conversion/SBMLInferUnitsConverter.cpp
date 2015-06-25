@@ -266,8 +266,6 @@ SBMLInferUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
 
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

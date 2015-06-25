@@ -127,6 +127,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* KineticLawUnitsCheck_h */
-
 /** @endcond */
 

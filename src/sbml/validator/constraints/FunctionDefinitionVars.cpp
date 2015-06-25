@@ -40,9 +40,7 @@
 #include "FunctionDefinitionVars.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -153,5 +151,4 @@ FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

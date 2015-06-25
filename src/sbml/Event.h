@@ -367,6 +367,7 @@ public:
   Event& operator=(const Event& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of Event.
    *
@@ -377,6 +378,7 @@ public:
    * of events within which this Event is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -1063,7 +1065,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *
@@ -1292,7 +1293,6 @@ public:
 
 
  /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -1313,7 +1313,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *

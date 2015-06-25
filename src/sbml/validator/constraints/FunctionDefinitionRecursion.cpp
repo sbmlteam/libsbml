@@ -41,9 +41,7 @@
 #include <sbml/util/IdList.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -272,5 +270,4 @@ FunctionDefinitionRecursion::logCycle ( const FunctionDefinition* object,
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

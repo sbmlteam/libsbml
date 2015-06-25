@@ -38,9 +38,7 @@
 #include <sbml/packages/layout/sbml/GeneralGlyph.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -356,5 +354,4 @@ UniqueIdsLayout::createExistingMap (const Model& m)
 
 #endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

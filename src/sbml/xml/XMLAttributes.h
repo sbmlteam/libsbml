@@ -1526,7 +1526,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Writes this XMLAttributes set to stream.
    *
@@ -1573,7 +1572,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Used by attributeTypeError().
    */

@@ -60,9 +60,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -70,7 +68,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Used by the Destructor to delete each item in mPlugins.
  */
@@ -90,7 +87,6 @@ struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
     return sb->clone();
   }
 };
-
 /** @endcond */
 
 
@@ -672,7 +668,6 @@ SBase::getMetaId ()
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
@@ -696,7 +691,6 @@ SBase::getName () const
 {
   return mEmptyString;
 }
-
 /** @endcond */
 
 /*
@@ -1088,7 +1082,6 @@ SBase::isSetMetaId () const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
@@ -1113,8 +1106,6 @@ SBase::isSetName () const
 {
   return (getName().empty() == false);
 }
-
-
 /** @endcond */
 
 
@@ -1187,7 +1178,6 @@ SBase::setMetaId (const std::string& metaid)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
@@ -1209,8 +1199,6 @@ SBase::setName (const std::string& name)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
-
-
 /** @endcond */
 
 
@@ -2233,7 +2221,6 @@ SBase::setModelHistory(ModelHistory * history)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -2295,7 +2282,6 @@ SBase::connectToChild()
     mPlugins[p]->connectToParent(this);
   }
 }
-
 /** @endcond */
 
 SBase*
@@ -3419,7 +3405,6 @@ SBase::hasValidLevelVersionNamespaceCombination()
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 SBase::matchesSBMLNamespaces(const SBase * sb)
 {
@@ -3890,7 +3875,6 @@ SBase::getSBMLNamespaces() const
     const_cast<SBase*>(this)->mSBMLNamespaces = new SBMLNamespaces();
   return mSBMLNamespaces;  
 }
-
 /** @endcond */
 
 
@@ -4232,8 +4216,6 @@ SBase::createExtensionObject (XMLInputStream& stream)
 
   return object;
 }
-
-
 /** @endcond */
 
 
@@ -4264,8 +4246,6 @@ SBase::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-
-
 /** @endcond */
 
 
@@ -4472,8 +4452,6 @@ SBase::getHasBeenDeleted() const
 {
   return mHasBeenDeleted;
 }
-
-
 /** @endcond */
 
 
@@ -4983,7 +4961,6 @@ SBase::logError (  unsigned int       id
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -5232,13 +5209,10 @@ SBase::storeUnknownExtElement(XMLInputStream &stream)
 
   return false;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
-
 /*
  * Returns the prefix of this element.
  */
@@ -5412,8 +5386,6 @@ SBase::writeExtensionAttributes (XMLOutputStream& stream) const
 
   /////////////////////////////////////////////////////////////////////////
 }
-
-
 /** @endcond */
 
 
@@ -5960,7 +5932,6 @@ SBase::checkListOfPopulated(SBase* object)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /* returns the derived units of the object
  * needs to be on SBase so that comp can use it for unit checking
  * but may also need to be implemented for other packages
@@ -5970,12 +5941,10 @@ SBase::getDerivedUnitDefinition()
 { 
   return NULL; 
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /* returns the derived units of the object
  * needs to be on SBase so that comp can use it for unit checking
  * but may also need to be implemented for other packages
@@ -5985,7 +5954,6 @@ SBase::containsUndeclaredUnits()
 { 
   return false; 
 }
-
 /** @endcond */
 
   
@@ -6054,7 +6022,6 @@ SBase::checkMathMLNamespace(const XMLToken elem)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 void
 SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
                              const std::string& elementName,
@@ -6403,7 +6370,6 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 }
-
 /** @endcond */
 /** @cond doxygenLibsbmlInternal */
 /* default for components that have no required attributes */
@@ -6509,8 +6475,6 @@ SBase::removeDuplicateAnnotations()
 
 
 }
-
-
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
@@ -6565,13 +6529,11 @@ SBase::getElementNamespace() const
 {
   return mURI;
 }
-
 /** @endcond */
 
 #endif /* __cplusplus */
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 int
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
@@ -7289,7 +7251,6 @@ SBase_getAllElementsFromPlugins(SBase_t* sb)
   if (sb == NULL) return NULL;
   return sb->getAllElementsFromPlugins();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

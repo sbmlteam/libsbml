@@ -44,9 +44,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -410,7 +408,6 @@ XMLNamespaces::containIdenticalSetNS(XMLNamespaces* rhs)
 
   return equivalent;
 }
-
 /** @endcond */
 
 #ifndef SWIG
@@ -456,7 +453,6 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_create (void)
@@ -622,8 +618,6 @@ XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* pref
   if (ns == NULL) return (int)false;
   return ns->hasNS(uri, prefix);
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

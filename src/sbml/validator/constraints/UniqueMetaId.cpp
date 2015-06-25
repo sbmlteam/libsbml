@@ -37,9 +37,7 @@
 #include <sbml/ModifierSpeciesReference.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -333,5 +331,4 @@ UniqueMetaId::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

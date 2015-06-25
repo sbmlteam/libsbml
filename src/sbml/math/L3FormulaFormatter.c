@@ -989,7 +989,5 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   assert(0);
   return 1;
 }
-
-
 /** @endcond */
 

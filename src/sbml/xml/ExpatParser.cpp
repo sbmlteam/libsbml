@@ -395,5 +395,4 @@ ExpatParser::parseReset ()
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

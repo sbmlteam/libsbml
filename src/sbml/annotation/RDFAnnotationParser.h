@@ -405,7 +405,6 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
 
 
   /** @cond doxygenLibsbmlInternal */
-
   
   static bool hasRDFAnnotation(const XMLNode *annotation);
 
@@ -423,7 +422,6 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation.
   protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   static XMLNode * createRDFDescription(const std::string& metaid);
 
   

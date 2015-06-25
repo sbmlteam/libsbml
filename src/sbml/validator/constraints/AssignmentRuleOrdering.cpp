@@ -45,9 +45,7 @@
 #include <sbml/util/IdList.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -212,5 +210,4 @@ AssignmentRuleOrdering::logForwardReference (const ASTNode & node,
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

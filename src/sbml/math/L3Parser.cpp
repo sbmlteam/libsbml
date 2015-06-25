@@ -64,8 +64,6 @@
 
 
  /** @cond doxygenLibsbmlInternal */
-
-
 /* Line 349 of yacc.c  */
 #line 71 "L3Parser.cpp"
 
@@ -3189,7 +3187,6 @@ SBML_getLastParseL3Error()
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 LIBSBML_EXTERN
 void
 SBML_deleteL3Parser()
@@ -3200,7 +3197,6 @@ SBML_deleteL3Parser()
     l3p = NULL;
   }
 }
-
 /** @endcond */
 
 END_C_DECLS

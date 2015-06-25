@@ -834,7 +834,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -847,18 +846,14 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
@@ -869,7 +864,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Connects to child elements.
    */
@@ -880,7 +874,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
@@ -894,7 +887,6 @@ public:
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create and return an SBML object of this class, if present.
    *
@@ -914,7 +906,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Read values from the given XMLAttributes set into their specific fields.
    */
@@ -926,7 +917,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write values of XMLAttributes to the output stream.
    */
@@ -1097,7 +1087,6 @@ public:
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates a new Transition in this ListOfTransitions
    */
@@ -1108,7 +1097,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write the namespace for the Qual package.
    */

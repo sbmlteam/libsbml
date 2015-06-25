@@ -1470,5 +1470,4 @@ XMLOutputStream_getString(XMLOutputStream_t* stream)
 
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -45,9 +45,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
@@ -596,6 +594,4 @@ START_CONSTRAINT (91020, InitialAssignment, ia)
   inv( size == 0 );
 }
 END_CONSTRAINT
-
-
 /** @endcond */

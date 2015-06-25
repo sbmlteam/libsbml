@@ -51,9 +51,7 @@
 #include <sbml/RateRule.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -109,18 +107,13 @@ RateRule::hasRequiredAttributes() const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next Rule
- * (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 RateRule::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 void
@@ -138,7 +131,6 @@ RateRule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 
 

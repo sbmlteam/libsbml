@@ -40,9 +40,7 @@
 #include "ResultExceedsMaximum.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -150,5 +148,4 @@ ResultExceedsMaximum::logExceedsMaximum (const Transition& tr,
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

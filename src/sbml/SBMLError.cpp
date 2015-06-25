@@ -42,9 +42,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -185,7 +183,6 @@ std::string SBMLError::stringForCategory(unsigned int code) const
 
   return XMLError::stringForCategory(code);
 }
-
 /** @endcond **/
 
 
@@ -473,7 +470,6 @@ SBMLError::adjustErrorId(unsigned int offset)
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

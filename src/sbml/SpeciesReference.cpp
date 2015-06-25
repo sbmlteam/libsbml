@@ -53,9 +53,7 @@
 #include <sbml/extension/SBasePlugin.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -174,13 +172,7 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Reaction's next
- * SpeciesReference (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 SpeciesReference::accept (SBMLVisitor& v) const
 {
@@ -190,6 +182,7 @@ SpeciesReference::accept (SBMLVisitor& v) const
   
   return result;
 }
+/** @endcond */
 
 
 /*
@@ -1449,7 +1442,6 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_create (unsigned int level, unsigned int version)
@@ -1902,8 +1894,6 @@ ListOfSpeciesReferences_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

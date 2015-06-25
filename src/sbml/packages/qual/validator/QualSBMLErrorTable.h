@@ -41,9 +41,6 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   /** @cond doxygenLibsbmlInternal */
-
-
-
 static const packageErrorTableEntry qualErrorTable[] =
 {
   // 3010100

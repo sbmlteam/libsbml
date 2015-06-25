@@ -47,9 +47,7 @@
 #include <sstream>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -192,18 +190,13 @@ Unit& Unit::operator=(const Unit& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the UnitDefinition's next
- * Unit (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Unit::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -1714,7 +1707,6 @@ Unit::convertToSI(const Unit * unit)
 
   return ud;
 }
-
 /** @endcond */
 
 
@@ -2190,7 +2182,6 @@ Unit::isUnitChecking() const
 {
   return mInternalUnitCheckingFlag;
 }
-
 /** @endcond */
 
 
@@ -2321,7 +2312,6 @@ ListOfUnits::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 Unit_t *
 Unit_create (unsigned int level, unsigned int version)
@@ -2889,7 +2879,6 @@ Unit_convertToSI(Unit_t * unit)
   return (unit != NULL) ? static_cast<UnitDefinition_t*>(Unit::convertToSI(
     static_cast<Unit*>(unit))) : NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

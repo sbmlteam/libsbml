@@ -115,7 +115,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class ReplacedElement;
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * ModelProcessingCallback defines a processing callback that changes submodel instantiations
  * 
@@ -653,8 +652,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
-
   /**
    * Accepts the given SBMLVisitor.
    *
@@ -663,7 +660,6 @@ public:
    * sibling object (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
-  
   /** @endcond */
 
 
@@ -803,7 +799,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /** 
    * Clears all registered processing callbacks
    */

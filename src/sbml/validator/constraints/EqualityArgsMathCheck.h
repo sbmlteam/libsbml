@@ -113,6 +113,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* EqualityArgsMathCheck_h */
-
 /** @endcond */
 

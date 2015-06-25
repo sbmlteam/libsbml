@@ -51,7 +51,6 @@
 /** @cond doxygenIgnore */
 
 using namespace std;
-
 /** @endcond doxygenIgnore */
 
 LIBSBML_CPP_NAMESPACE_BEGIN

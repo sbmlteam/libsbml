@@ -546,7 +546,6 @@ CompSBasePlugin::createListOfReplacedElements()
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool 
 CompSBasePlugin::accept(SBMLVisitor& v) const
 {
@@ -562,7 +561,6 @@ CompSBasePlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 

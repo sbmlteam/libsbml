@@ -461,6 +461,5 @@ LIBSBML_CPP_NAMESPACE_END
 #endif /* LIBSBML_USE_LEGACY_MATH */
 
 #endif  /* ASTBasePlugin_h */
-
 /** @endcond */
 

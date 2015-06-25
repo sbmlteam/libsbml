@@ -354,8 +354,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
-
   /**
    * Copy Constructor, made private so as to notify users, that copying an
    * input stream is not supported.
@@ -375,7 +373,6 @@ private:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Unitialized XMLInputStreams may only be created by subclasses.
    */

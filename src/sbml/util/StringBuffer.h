@@ -289,5 +289,4 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** StringBuffer_h **/
-
 /** @endcond */

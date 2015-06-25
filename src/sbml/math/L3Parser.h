@@ -202,11 +202,9 @@ SBML_getLastParseL3Error();
 
 
 /** @cond doxygenLibsbmlInternal */
-
 LIBSBML_EXTERN
 void
 SBML_deleteL3Parser();
-
 /** @endcond */
 
 END_C_DECLS

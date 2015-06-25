@@ -215,13 +215,11 @@ LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 LayoutSpeciesReferencePlugin::accept (SBMLVisitor& v) const
 {
   return true;
 }
-
 /** @endcond */
 
 

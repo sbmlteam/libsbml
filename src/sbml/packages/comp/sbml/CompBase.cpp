@@ -503,5 +503,4 @@ int CompBase::removeFromParentAndPorts(SBase* todelete)
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
-
 /** @endcond */

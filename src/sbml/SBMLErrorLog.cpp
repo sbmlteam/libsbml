@@ -42,9 +42,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -311,9 +309,6 @@ public:
 private:
   unsigned int severity;
 };
-
-
-
 /** @endcond */
 
 unsigned int 
@@ -392,7 +387,6 @@ SBMLErrorLog::getErrorWithSeverity(unsigned int n, unsigned int severity) const
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

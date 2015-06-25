@@ -299,7 +299,5 @@ ASTCnRealNode::writeENotation (  double    mantissa
 
 
 LIBSBML_CPP_NAMESPACE_END
-
-
 /** @endcond */
 

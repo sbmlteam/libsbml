@@ -315,7 +315,6 @@ Deletion::saveReferencedElement()
 }
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 Deletion::accept (SBMLVisitor& v) const
 {
@@ -328,7 +327,6 @@ Deletion::accept (SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 
@@ -465,9 +463,6 @@ ListOfDeletions_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfDeletions *>(lo)->remove(sid) : NULL;
 }
-
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

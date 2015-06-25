@@ -44,9 +44,7 @@
 #include <sbml/Species.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -229,18 +227,13 @@ Species& Species::operator=(const Species& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * Species (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Species::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -2080,8 +2073,6 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Species_t *
 Species_create (unsigned int level, unsigned int version)
@@ -2715,8 +2706,6 @@ ListOfSpecies_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

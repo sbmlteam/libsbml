@@ -414,7 +414,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   std::string mKey;
   std::string mValue;
   ConversionOptionType_t mType;

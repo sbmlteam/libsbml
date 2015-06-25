@@ -564,7 +564,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the value of the individual numbers from the date 
    * as a string.

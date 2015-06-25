@@ -76,5 +76,4 @@ IdentifierTransformer::setUserData(void* userData)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -216,7 +216,6 @@ public:
 
 #ifndef SWIG
   /** @cond doxygenLibsbmlInternal */
-
   void setPackageVersion(unsigned int pkgVersion)
   {
     mPackageVersion = pkgVersion;
@@ -228,7 +227,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   unsigned int mPackageVersion;
   std::string mPackageName;
 

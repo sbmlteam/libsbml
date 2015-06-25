@@ -100,6 +100,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueCompIdBase_h */
-
 /** @endcond */
 

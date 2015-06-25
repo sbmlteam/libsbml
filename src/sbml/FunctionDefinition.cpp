@@ -49,9 +49,7 @@
 #include <sbml/Model.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -138,18 +136,13 @@ FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Model's next
- * FunctionDefinition (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 FunctionDefinition::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -1088,7 +1081,6 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_create (unsigned int level, unsigned int version)
@@ -1302,7 +1294,6 @@ ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
   else
     return NULL;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

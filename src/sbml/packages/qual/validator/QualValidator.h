@@ -64,10 +64,8 @@
 
 
 /** @cond doxygenLibsbmlInternal */
-
 #include <list>
 #include <string>
-
 /** @endcond */
 
 
@@ -149,7 +147,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   QualValidatorConstraints* mQualConstraints;
 
   friend class QualValidatingVisitor;

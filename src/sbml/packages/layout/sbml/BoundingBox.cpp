@@ -738,9 +738,7 @@ BoundingBox::getTypeCode () const
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 BoundingBox::accept (SBMLVisitor& v) const
 {
@@ -753,6 +751,7 @@ BoundingBox::accept (SBMLVisitor& v) const
   
   return true;
 }
+/** @endcond */
 
 /*
  * Creates an XMLNode object from this.
@@ -812,7 +811,6 @@ BoundingBox::enablePackageInternal(const std::string& pkgURI,
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_create (void)
@@ -1032,7 +1030,6 @@ BoundingBox_unsetId (BoundingBox_t *bb)
   if (bb == NULL) return;
   bb->unsetId();
 }
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

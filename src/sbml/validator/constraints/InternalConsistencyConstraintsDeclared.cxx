@@ -175,7 +175,5 @@ addConstraint(new VConstraintDelay21210(*this));
 addConstraint(new VConstraintEventAssignment21213(*this));
 
 addConstraint(new VConstraintPriority21231(*this));
-
-
 /** @endcond */
 

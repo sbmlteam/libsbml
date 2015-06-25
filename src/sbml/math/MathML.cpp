@@ -45,9 +45,7 @@
 #include <sbml/math/MathML.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -284,7 +282,6 @@ writeMathMLToStdString (const ASTNode* node)
 
   return os.str();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

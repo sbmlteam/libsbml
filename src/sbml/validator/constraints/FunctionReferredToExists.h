@@ -92,5 +92,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* FunctionReferredToExists_h */
-
 /** @endcond */

@@ -39,9 +39,7 @@
 #include <sbml/units/FormulaUnitsData.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -634,7 +632,6 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
 }
 
 */
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -59,5 +59,4 @@ SBOConsistencyValidator::init ()
 LIBSBML_CPP_NAMESPACE_END
 
 #endif
-
 /** @endcond */

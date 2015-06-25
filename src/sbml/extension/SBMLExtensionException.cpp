@@ -36,14 +36,12 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
-
 SBMLExtensionException::SBMLExtensionException(const std::string& errmsg) throw()
 : std::invalid_argument(errmsg)
 {}
 
 SBMLExtensionException::~SBMLExtensionException() throw()
 {}
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -206,6 +206,7 @@ public:
   virtual AssignmentRule* clone () const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of AssignmentRule.
    *
@@ -216,6 +217,7 @@ public:
    * in the list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -242,7 +244,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
    */

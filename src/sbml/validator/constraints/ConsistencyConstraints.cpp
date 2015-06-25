@@ -98,9 +98,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
@@ -2661,9 +2659,6 @@ START_CONSTRAINT (21231, Priority, p)
   inv( p.isSetMath() );
 }
 END_CONSTRAINT
-
-
-
 /** @endcond */
 
 

@@ -106,7 +106,6 @@ SBMLDocumentPlugin::clone () const
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Subclasses should override this method to get the list of
  * expected attributes.
@@ -186,13 +185,11 @@ SBMLDocumentPlugin::isCompFlatteningImplemented() const
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 SBMLDocumentPlugin::accept (SBMLVisitor& v) const
 {
   return true;
 }
-
 /** @endcond */
 
 
@@ -204,7 +201,6 @@ SBMLDocumentPlugin::checkConsistency()
 {
   return 0;
 }
-
 /** @endcond */
 
 
@@ -254,7 +250,6 @@ SBMLDocumentPlugin::unsetRequired()
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBMLDocumentPlugin_t*
 SBMLDocumentPlugin_create(const char* uri, const char* prefix,
@@ -348,7 +343,5 @@ SBMLDocumentPlugin_unsetRequired(SBMLDocumentPlugin_t* plugin)
   if (plugin == NULL) return LIBSBML_INVALID_OBJECT;
   return plugin->unsetRequired();
 }
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

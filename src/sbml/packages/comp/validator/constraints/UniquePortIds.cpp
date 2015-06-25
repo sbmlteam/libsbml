@@ -29,9 +29,7 @@
 #include "UniquePortIds.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -83,5 +81,4 @@ UniquePortIds::doCheck (const Model& m)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

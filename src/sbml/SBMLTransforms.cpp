@@ -40,9 +40,7 @@
 #include <sbml/util/IdList.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1196,12 +1194,10 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 
   return success;
 }
-
 /** @endcond */
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

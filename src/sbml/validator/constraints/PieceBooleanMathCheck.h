@@ -112,5 +112,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* PieceBooleanMathCheck_h */
-
 /** @endcond */

@@ -194,7 +194,6 @@ FbcSBMLDocumentPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
 /** @endcond */
 
 

@@ -507,7 +507,6 @@ QualitativeSpecies::hasRequiredAttributes () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * write contained elements
  */
@@ -518,13 +517,10 @@ QualitativeSpecies::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Accepts the given SBMLVisitor.
  */
@@ -533,13 +529,10 @@ QualitativeSpecies::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument.
  */
@@ -548,13 +541,10 @@ QualitativeSpecies::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Enables/Disables the given package with this element.
  */
@@ -564,13 +554,10 @@ QualitativeSpecies::enablePackageInternal(const std::string& pkgURI,
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Get the list of expected attributes for this element.
  */
@@ -586,13 +573,10 @@ QualitativeSpecies::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("initialLevel");
   attributes.add("maxLevel");
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Read values from the given XMLAttributes set into their specific fields.
  */
@@ -824,13 +808,10 @@ QualitativeSpecies::readAttributes (const XMLAttributes& attributes,
     }
   }
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -860,9 +841,7 @@ QualitativeSpecies::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /*
@@ -994,7 +973,6 @@ ListOfQualitativeSpecies::getItemTypeCode () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Creates a new QualitativeSpecies in this ListOfQualitativeSpecies
  */
@@ -1014,13 +992,10 @@ ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
 
   return object;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write the namespace for the Qual package.
  */
@@ -1046,7 +1021,6 @@ ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 QualitativeSpecies_t *
 QualitativeSpecies_create(unsigned int level, unsigned int version,
@@ -1309,8 +1283,6 @@ ListOfQualitativeSpecies_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfQualitativeSpecies *>(lo)->remove(sid) : NULL;
 }
-
-
 /** @endcond */
 
 

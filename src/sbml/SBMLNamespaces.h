@@ -612,7 +612,6 @@ else
 	
 protected:  
   /** @cond doxygenLibsbmlInternal */
-
   void initSBMLNamespace();
 
   unsigned int    mLevel;

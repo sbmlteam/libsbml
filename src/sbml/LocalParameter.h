@@ -237,6 +237,7 @@ public:
   LocalParameter& operator=(const LocalParameter& rhs);
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Accepts the given SBMLVisitor for this instance of LocalParameter.
    *
@@ -249,6 +250,7 @@ public:
    * in the enclosing KineticLaw).
    */
   virtual bool accept (SBMLVisitor& v) const;
+  /** @endcond */
 
 
   /**
@@ -336,7 +338,6 @@ public:
   virtual bool hasRequiredAttributes() const ;
 
   /** @cond doxygenLibsbmlInternal */
-
   /* a local Parameter does not have a constant attribute but
    * because it derives from parameter it inherits one
    * need to make sure these do the right thing
@@ -353,7 +354,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to get the list of
    * expected attributes.
@@ -575,7 +575,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -596,7 +595,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Create a ListOfLocalParameters object corresponding to the next token in
    * the XML input stream.

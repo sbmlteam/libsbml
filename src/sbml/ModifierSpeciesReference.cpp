@@ -50,9 +50,7 @@
 #include <sbml/extension/SBasePlugin.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -86,18 +84,13 @@ ModifierSpeciesReference::~ModifierSpeciesReference ()
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- *
- * @return the result of calling <code>v.visit()</code>, which indicates
- * whether or not the Visitor would like to visit the Reaction's next
- * ModifierSpeciesReference (if available).
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 ModifierSpeciesReference::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
 /*
@@ -147,7 +140,6 @@ ModifierSpeciesReference::hasRequiredAttributes() const
 
 
 /** @cond doxygenIgnored */
-
 /** @endcond */
 
 

@@ -65,5 +65,4 @@ protected:
 LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* FluxBoundsConsistent_h */
-
 /** @endcond */

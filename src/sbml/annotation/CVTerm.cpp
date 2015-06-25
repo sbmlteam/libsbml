@@ -49,9 +49,7 @@
 
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -669,14 +667,11 @@ CVTerm::removeNestedCVTerm(unsigned int n)
 
   return removed;
 }
-
 /** @endcond */
 #endif /* __cplusplus */
 
 
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createWithQualifierType(QualifierType_t type)
@@ -970,10 +965,6 @@ BiolQualifierType_fromString(const char* s)
   }
   return BQB_UNKNOWN;
 }
-
-
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

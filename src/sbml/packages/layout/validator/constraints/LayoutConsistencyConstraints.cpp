@@ -1,5 +1,4 @@
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * @file:   LayoutConsistencyConstraints.cpp
  * @brief:  Implementation of the LayoutConsistencyConstraints class
@@ -48,7 +47,6 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 /** @endcond */
@@ -1099,8 +1097,6 @@ START_CONSTRAINT (LayoutCBezAllowedElements, CubicBezier, line)
   inv(fail == false);
 }
 END_CONSTRAINT
-
-
 /** @endcond */
 
 

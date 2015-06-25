@@ -50,7 +50,6 @@ BEGIN_C_DECLS
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBMLExtensionNamespaces_t*
 SBMLExtensionNamespaces_clone(SBMLExtensionNamespaces_t* extns)
@@ -101,8 +100,6 @@ SBMLExtensionNamespaces_setPackageVersion(SBMLExtensionNamespaces_t* extns,
   extns->setPackageVersion(pkgVersion);
   return LIBSBML_OPERATION_SUCCESS;
 }
-
-
 /** @endcond */
 
 END_C_DECLS

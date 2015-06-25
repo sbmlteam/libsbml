@@ -496,7 +496,6 @@ class LIBSBML_EXTERN CompFlatteningConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -612,7 +611,6 @@ public:
 private:
 
   /** @cond doxygenLibsbmlInternal */
-
   int validateOriginalDocument();
 
   int validateFlatDocument(Model* flatmodel, unsigned int pkgVersion,

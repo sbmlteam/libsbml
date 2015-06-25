@@ -40,9 +40,7 @@
 #include <cstdio>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -469,7 +467,6 @@ ModelHistory::resetModifiedFlags()
 
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 ModelHistory_t * 
 ModelHistory_create ()
@@ -618,7 +615,6 @@ ModelHistory_hasRequiredAttributes(ModelHistory_t *mh)
   if (mh == NULL) return (int)false;
   return static_cast<int> (mh->hasRequiredAttributes());
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

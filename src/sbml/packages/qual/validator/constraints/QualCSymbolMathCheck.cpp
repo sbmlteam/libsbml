@@ -37,9 +37,7 @@
 
 #include <sbml/packages/qual/extension/QualModelPlugin.h>
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -140,7 +138,6 @@ QualCSymbolMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif /* __cplusplus */

@@ -70,7 +70,6 @@ class LIBSBML_EXTERN XMLConstructorException : public std::invalid_argument
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /* constructor */
   XMLConstructorException (std::string 
                     message="NULL reference in XML constructor");

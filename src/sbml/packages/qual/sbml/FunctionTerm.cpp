@@ -322,7 +322,6 @@ FunctionTerm::hasRequiredElements () const
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * write contained elements
  */
@@ -338,43 +337,28 @@ FunctionTerm::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 FunctionTerm::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * Sets the parent SBMLDocument.
- */
+/** @cond doxygenLibsbmlInternal */
 void
 FunctionTerm::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
+/** @endcond */
 
 
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables/Disables the given package with this element.
  */
@@ -384,13 +368,10 @@ FunctionTerm::enablePackageInternal(const std::string& pkgURI,
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Get the list of expected attributes for this element.
  */
@@ -401,13 +382,10 @@ FunctionTerm::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("resultLevel");
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Read values from the given XMLAttributes set into their specific fields.
  */
@@ -517,9 +495,7 @@ FunctionTerm::readAttributes (const XMLAttributes& attributes,
   }
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -576,7 +552,6 @@ FunctionTerm::readOtherXML (XMLInputStream& stream)
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -591,9 +566,7 @@ FunctionTerm::writeAttributes (XMLOutputStream& stream) const
   SBase::writeExtensionAttributes(stream);
 
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
 /*
@@ -875,7 +848,6 @@ ListOfFunctionTerms::getAllElements(ElementFilter *filter)
 }
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Creates a new FunctionTerm in this ListOfFunctionTerms
  */
@@ -905,13 +877,10 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
   delete qualns;
   return object;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write the namespace for the Qual package.
  */
@@ -933,13 +902,10 @@ ListOfFunctionTerms::writeXMLNS(XMLOutputStream& stream) const
 
   stream << xmlns;
 }
-
-
-  /** @endcond */
+/** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * Write the namespace for the Qual package.
  */
@@ -957,11 +923,8 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
   //
   SBase::writeExtensionElements(stream);
 }
-
-
-  /** @endcond */
+/** @endcond */
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * 
  */
@@ -978,7 +941,6 @@ ListOfFunctionTerms::connectToChild()
 
 
   /** @cond doxygenLibsbmlInternal */
-
 /*
  * 
  */
@@ -994,11 +956,7 @@ ListOfFunctionTerms::setSBMLDocument(SBMLDocument* d)
   /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
-
-/*
- * 
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 ListOfFunctionTerms::accept(SBMLVisitor& v) const
 {
@@ -1018,12 +976,11 @@ ListOfFunctionTerms::accept(SBMLVisitor& v) const
 
   return result;
 }
-  /** @endcond */
+/** @endcond */
 
 
 #endif /* __cplusplus */  
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 FunctionTerm_t *
 FunctionTerm_create(unsigned int level, unsigned int version,
@@ -1117,10 +1074,6 @@ ListOfFunctionTerms_removeById(ListOf_t * lo, const char * sid)
 
   return (sid != NULL) ? static_cast <ListOfFunctionTerms *>(lo)->remove(sid) : NULL;
 }
-
-
-
-
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

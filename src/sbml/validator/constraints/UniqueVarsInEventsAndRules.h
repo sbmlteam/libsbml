@@ -90,5 +90,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueVarsInEventsAndRules_h */
-
 /** @endcond */

@@ -422,7 +422,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Used by readSBML() and readSBMLFromString().
    *

@@ -85,7 +85,6 @@ class LIBSBML_EXTERN  SBMLLevel1Version1Converter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -192,7 +191,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /*
    * Predicate returning true if compartment sizes in kinetic laws should
    * be inlined with their values.

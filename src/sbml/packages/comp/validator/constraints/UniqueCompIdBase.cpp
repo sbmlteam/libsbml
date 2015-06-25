@@ -30,9 +30,7 @@
 #include "UniqueCompIdBase.h"
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -132,5 +130,4 @@ UniqueCompIdBase::getMessage (const string& id, const SBase& object)
 #endif /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */

@@ -199,4 +199,3 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* CompIdBase_h */
 
 /** @cond doxygenLibsbmlInternal */
-

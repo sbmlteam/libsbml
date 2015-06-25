@@ -99,7 +99,6 @@ class LIBSBML_EXTERN SBMLRuleConverter : public SBMLConverter
 public:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Register with the ConversionRegistry.
    */
@@ -192,7 +191,6 @@ public:
 
 private:
   /** @cond doxygenLibsbmlInternal */
-
   /** @endcond */
 
 };

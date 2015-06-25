@@ -282,7 +282,6 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft);
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /**
  * Creates a new Token and returns a point to it.
  *
@@ -365,7 +364,6 @@ Token_negateValue (Token_t *t);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
-
 /** @endcond */
 
 #endif  /** FormulaTokenizer_h **/

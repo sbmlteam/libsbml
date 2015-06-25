@@ -36,9 +36,7 @@
 #include <sbml/xml/XMLConstructorException.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -225,8 +223,6 @@ bool operator!=(const XMLTriple& lhs, const XMLTriple& rhs)
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_create (void)
@@ -323,9 +319,6 @@ XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
 {
   return (int) !((bool)XMLTriple_equalTo(lhs, rhs));
 }
-
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

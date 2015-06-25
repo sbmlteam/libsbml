@@ -44,9 +44,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
@@ -134,8 +132,5 @@ START_CONSTRAINT (96010, Compartment, c)
   inv( c.isSetOutside() == false);
 }
 END_CONSTRAINT
-
-
-
 /** @endcond */
 

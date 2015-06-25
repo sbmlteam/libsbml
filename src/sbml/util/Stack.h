@@ -185,6 +185,5 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** Stack_h **/
-
 /** @endcond */
 

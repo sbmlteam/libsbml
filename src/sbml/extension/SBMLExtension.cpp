@@ -189,7 +189,6 @@ SBMLExtension::addSBasePluginCreator(const SBasePluginCreatorBase* sbaseExt)
 
 #ifndef LIBSBML_USE_LEGACY_MATH
 /** @cond doxygenLibsbmlInternal */
-
 int 
 SBMLExtension::setASTBasePlugin(const ASTBasePlugin* astPlugin)
 {
@@ -207,40 +206,33 @@ SBMLExtension::setASTBasePlugin(const ASTBasePlugin* astPlugin)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 bool
 SBMLExtension::isSetASTBasePlugin() const
 {
   return (mASTBasePlugin != NULL);
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 ASTBasePlugin*
 SBMLExtension::getASTBasePlugin()
 {
   return mASTBasePlugin;
 }
-
 /** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
-
 const ASTBasePlugin*
 SBMLExtension::getASTBasePlugin() const
 {
   return const_cast<SBMLExtension*>(this)->getASTBasePlugin();
 }
-
 /** @endcond */
 
 #endif /* LIBSBML_USE_LEGACY_MATH */
@@ -491,7 +483,6 @@ SBMLExtension::getShortMessage(unsigned int index) const
 #endif /* __cplusplus */
 
 /** @cond doxygenIgnored */
-
 LIBSBML_EXTERN
 SBMLExtension_t*
 SBMLExtension_clone(SBMLExtension_t* ext)
@@ -650,7 +641,6 @@ SBMLExtension_isEnabled(SBMLExtension_t* ext)
   if (ext == NULL) return LIBSBML_INVALID_OBJECT;
   return ext->isEnabled();
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

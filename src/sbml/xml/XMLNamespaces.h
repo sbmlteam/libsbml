@@ -370,7 +370,6 @@ public:
 #ifndef SWIG
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Writes this XMLNamespaces list to stream.
    *
@@ -398,14 +397,12 @@ public:
 #endif  /* !SWIG */
 
   /** @cond doxygenLibsbmlInternal */
-
   friend class SBase;
 
   /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Removes the default XML namespace.
    */

@@ -37,9 +37,7 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 
@@ -62,7 +60,5 @@ EXTERN_CONSTRAINT( CompUniquePortIds, UniquePortIds             )
 //1010310 - conversionfactor syntax - caught at read
 //1010311 - string syntax - since an attribute value is a string 
             // by the time it is read in we cannot check this
-
-
 /** @endcond */
 

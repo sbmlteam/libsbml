@@ -51,9 +51,7 @@
 #include <sbml/util/ElementFilter.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -162,9 +160,7 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 KineticLaw::accept (SBMLVisitor& v) const
 {
@@ -177,6 +173,7 @@ KineticLaw::accept (SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 /*
@@ -1023,7 +1020,6 @@ KineticLaw::removeLocalParameter (const std::string& sid)
 
 
 /** @cond doxygenLibsbmlInternal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -1076,7 +1072,6 @@ KineticLaw::enablePackageInternal(const std::string& pkgURI,
     mLocalParameters.enablePackageInternal(pkgURI,pkgPrefix,flag);
   }
 }
-
 /** @endcond */
 
 /*
@@ -1574,8 +1569,6 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_create (unsigned int level, unsigned int version)
@@ -1918,8 +1911,6 @@ KineticLaw_removeLocalParameterById (KineticLaw_t *kl, const char *sid)
   else
     return NULL;
 }
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

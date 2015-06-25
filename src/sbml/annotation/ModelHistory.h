@@ -376,7 +376,6 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
   /* Can have more than one creator. */
 
   List * mCreators;

@@ -49,9 +49,7 @@
 #include <sbml/Priority.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -132,9 +130,7 @@ Priority& Priority::operator=(const Priority& rhs)
 }
 
 
-/*
- * Accepts the given SBMLVisitor.
- */
+/** @cond doxygenLibsbmlInternal */
 bool
 Priority::accept (SBMLVisitor& v) const
 {
@@ -142,6 +138,7 @@ Priority::accept (SBMLVisitor& v) const
   v.leave(*this);
   return true;
 }
+/** @endcond */
 
 
 /*
@@ -477,8 +474,6 @@ Priority::writeElements (XMLOutputStream& stream) const
 
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
-
-
 LIBSBML_EXTERN
 Priority_t *
 Priority_create (unsigned int level, unsigned int version)
@@ -560,7 +555,6 @@ Priority_setMath (Priority_t *p, const ASTNode_t *math)
   else
     return LIBSBML_INVALID_OBJECT;
 }
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

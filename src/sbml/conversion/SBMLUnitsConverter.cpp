@@ -1863,8 +1863,6 @@ SBMLUnitsConverter::mathMatchesCnUnits(const ASTNode * ast, std::string & units)
 
 
 /** @cond doxygenIgnored */
-
-
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

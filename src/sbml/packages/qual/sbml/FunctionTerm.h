@@ -264,7 +264,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -277,18 +276,14 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
@@ -299,7 +294,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Enables/Disables the given package with this element.
    */
@@ -313,7 +307,6 @@ public:
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Get the list of expected attributes for this element.
    */
@@ -324,7 +317,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Read values from the given XMLAttributes set into their specific fields.
    */
@@ -335,7 +327,6 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
@@ -348,7 +339,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write values of XMLAttributes to the output stream.
    */
@@ -586,7 +576,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Connects to child elements.
    */
@@ -597,20 +586,16 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Connects to child elements.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
-
   /** @endcond */
 
 
 protected:
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Creates a new FunctionTerm in this ListOfFunctionTerms
    */
@@ -621,7 +606,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write the namespace for the Qual package.
    */
@@ -632,7 +616,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Write the namespace for the Qual package.
    */
@@ -643,7 +626,6 @@ protected:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Connects to child elements.
    */

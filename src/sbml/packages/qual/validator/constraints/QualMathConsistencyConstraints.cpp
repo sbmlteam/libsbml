@@ -46,7 +46,6 @@
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygenIgnored */
-
 using namespace std;
 
 //10201
@@ -67,7 +66,6 @@ END_CONSTRAINT
 
 //10202
 EXTERN_CONSTRAINT (QualMathCSymbolDisallowed, QualCSymbolMathCheck)
-
 /** @endcond */
 
 
