@@ -331,6 +331,16 @@
  * packages.
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_are_disabled_plugins
+ *
+ * @par
+ * If a plugin is <em>disabled</em>, the package information it contains is
+ * no longer considered to be part of the SBML document for the purposes of
+ * searching the document or writing out the document.  However, the information
+ * is still retained, so if the plugin is enabled again, the same information 
+ * will once again be available, and will be written out to the final model.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_notes
  *
  * @par
@@ -3182,4 +3192,19 @@ if (lmp != null)
  * released or finalized, libsbml itself might not yet implement support for
  * this.</b>
  * 
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_throw_exception_lv
+ *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p level and @p version combination are invalid
+ * or if this object is incompatible with the given level and version.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_throw_exception_namespace
+ *
+ * @throws SBMLConstructorException
+ * Thrown if the given @p sbmlns is inconsistent or incompatible
+ * with this object.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  */

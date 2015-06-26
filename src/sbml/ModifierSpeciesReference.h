@@ -93,6 +93,8 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * ModifierSpeciesReference
    *
+   * @copydetails doc_throw_exception_lv
+   *
    * @copydetails doc_note_setting_lv
    */
   ModifierSpeciesReference (unsigned int level, unsigned int version);
@@ -103,6 +105,8 @@ public:
    * object @p sbmlns.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @copydetails doc_throw_exception_namespace
    *
    * @copydetails doc_note_setting_lv
    */

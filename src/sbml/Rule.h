@@ -860,6 +860,10 @@ public:
    * @param level the SBML Level
    * 
    * @param version the Version within the SBML Level
+   *
+   * @copydetails doc_throw_exception_lv
+   *
+   * @copydetails doc_note_setting_lv
    */
   ListOfRules (unsigned int level, unsigned int version);
           
@@ -873,6 +877,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object that is used to determine the
    * characteristics of the ListOfRules object to be created.
+   *
+   * @copydetails doc_throw_exception_namespace
+   *
+   * @copydetails doc_note_setting_lv
    */
   ListOfRules (SBMLNamespaces* sbmlns);
 

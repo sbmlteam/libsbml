@@ -281,6 +281,8 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesReference
    *
+   * @copydetails doc_throw_exception_lv
+   *
    * @copydetails doc_note_setting_lv
    */
   SpeciesReference (unsigned int level, unsigned int version);
@@ -291,6 +293,8 @@ public:
    * @p sbmlns.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @copydetails doc_throw_exception_namespace
    *
    * @copydetails doc_note_setting_lv
    */
@@ -975,6 +979,10 @@ public:
    * @param level the SBML Level
    * 
    * @param version the Version within the SBML Level
+   *
+   * @copydetails doc_throw_exception_lv
+   *
+   * @copydetails doc_note_setting_lv
    */
   ListOfSpeciesReferences (unsigned int level, unsigned int version);
           
@@ -988,6 +996,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object that is used to determine the
    * characteristics of the ListOfSpeciesReferences object to be created.
+   *
+   * @copydetails doc_throw_exception_namespace
+   *
+   * @copydetails doc_note_setting_lv
    */
   ListOfSpeciesReferences (SBMLNamespaces* sbmlns);
 
