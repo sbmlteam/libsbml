@@ -1,6 +1,75 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.11.5 (Current SVN)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - There is a new converter that will convert to SBML L1V1. The 'regular'
+    SBMLLevelVersionConverter does not support this level and version
+    as we generally discourage the use of it. However users have requested
+    the facility and thus we have included a separate converter to meet
+    that need.
+  
+	
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - The static function UnitDefinition::reorder failed to correctly deal
+    with situations where the same unit kind appeared multiple times. This
+    has been fixed. Thanks to Matthias König for reporting the problem.
+
+  - 'comp' package-specific bug fixes:
+  - 'fbc' package-specific bug fixes:
+  - 'layout' package-specific bug fixes:
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+  - Several functions in libSBML checked for a NULL reference; something
+    that it is considered a well-formed program should not be able to 
+    create. As more and more compilers are complaining about this code,
+    on the grounds it should not be possible to create the NULL reference,
+    we made the decision to remove this code. Please let us know if this
+    is an issue for you.
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'groups' package-specific updates:
+  - 'multi' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+
+====================================================================
 5.11.4 (2015-04-09)
 ====================================================================
 
