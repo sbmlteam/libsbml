@@ -25,6 +25,8 @@ REM note have to use the cloc group and will rename later
 SET FORCE_BASH="Bourne Shell",bash
 SET FORCE_BAT="Bourne Shell",bat
 
+REM do not count configure
+SET REMOVE_MATCHES=configure$
 
 REM for some reason it is not picking up the R examples
 REM but does if you tell it they have lowercase r (they dont but it works)
@@ -35,7 +37,7 @@ SET OUTPUT_FILE=%THIS_DIR%\results_cloc.xml
 
 
 REM run the count
-%CLOC% %LIBSBML_DIR%  --exclude-dir=%EXCLUDE_DIRS% --exclude-ext=%EXCLUDE_EXT% --read-lang-def=%SWIG_DEF% --force-lang=%FORCE_BASH% --force-lang=%FORCE_BAT% --force-lang=%FORCE_R% --lang-no-ext=%FORCE_NO% --report-file=%OUTPUT_FILE% --xml
+%CLOC% %LIBSBML_DIR%  --exclude-dir=%EXCLUDE_DIRS% --exclude-ext=%EXCLUDE_EXT% --not-match-f=%REMOVE_MATCHES% --read-lang-def=%SWIG_DEF% --force-lang=%FORCE_BASH% --force-lang=%FORCE_BAT% --force-lang=%FORCE_R% --lang-no-ext=%FORCE_NO% --report-file=%OUTPUT_FILE% --xml
 
 REM unset variables
 SET THIS_DIR=
@@ -52,3 +54,4 @@ SET FORCE_CSS=
 SET FORCE_R=
 SET OUTPUT_FILE=
 SET SWIG_DEF=
+SET REMOVE_MATCHES=

@@ -28,6 +28,9 @@ EXCLUDE_DIRS=doc-converter
 
 EXCLUDE_EXT=xsl,xsd,html,css
 
+# do not count configure
+SET REMOVE_MATCHES=configure$
+
 
 # record files with no extension as Bourne Shell
 FORCE_NO="Bourne Shell"
@@ -47,4 +50,4 @@ FORCE_R="R",r
 OUTPUT_FILE=$OUT_DIR/results_cloc.xml
 
 # run the count
-$CLOC $CLOC_DEFAULT_ARGS $LIBSBML_DIR --exclude-dir=$EXCLUDE_DIRS$ --exclude-ext=$EXCLUDE_EXT$ --read-lang-def=$SWIG_DEF$ --force-lang=$FORCE_BASH$ --force-lang=$FORCE_BAT$ --force-lang=$FORCE_R$ --lang-no-ext=$FORCE_NO$ --report-file=$OUTPUT_FILE$ --xml
+$CLOC $CLOC_DEFAULT_ARGS $LIBSBML_DIR --exclude-dir=$EXCLUDE_DIRS$ --exclude-ext=$EXCLUDE_EXT$ --not-match-f=$REMOVE_MATCHES$ --read-lang-def=$SWIG_DEF$ --force-lang=$FORCE_BASH$ --force-lang=$FORCE_BAT$ --force-lang=$FORCE_R$ --lang-no-ext=$FORCE_NO$ --report-file=$OUTPUT_FILE$ --xml
