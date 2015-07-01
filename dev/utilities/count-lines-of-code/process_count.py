@@ -97,7 +97,7 @@ def main(args):
     file_out.write('  \\begin{tabular}[t]{lrrrr}\n')
     file_out.write('    \\toprule\n')
     file_out.write('                       &                   & \\textbf{Code}  & \\textls[-15]{\\textbf{Comment}}\\\\[-2pt]\n')
-    file_out.write('    \\textbf{Language} & \\textbf{Files}   & \\textbf{lines} & \\textbf{lines}\\\\\n')
+    file_out.write('    \\textbf{Language} & \\textbf{Files}   & \\textbf{Lines} & \\textbf{Lines}\\\\\n')
     file_out.write('    \\midrule\n')
     # okay not going to be clever and try and sort it
     # I know what order I want them in
