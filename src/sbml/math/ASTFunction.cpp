@@ -109,8 +109,8 @@ determineNumPiece(XMLInputStream & stream)
   return n;
 }
 
-bool
-hasOtherwise(XMLInputStream & stream)
+static unsigned int
+determineNumOtherwise(XMLInputStream & stream)
 {
   unsigned int n = 0;
 
@@ -119,10 +119,20 @@ hasOtherwise(XMLInputStream & stream)
 
   n = stream.determineNumSpecificChildren(otherwise, piecewise);
 
-  if (n > 0)
-    return true;
-  else
-    return false;
+  return n;
+}
+
+bool
+hasOtherwise(XMLInputStream & stream)
+{
+  bool hasOtherwise = false;
+
+  const std::string otherwise = "otherwise";
+  const std::string piecewise = "piecewise";
+
+  hasOtherwise = stream.containsChild(otherwise, piecewise);
+
+  return hasOtherwise;
 }
 
 static unsigned int
@@ -3967,7 +3977,8 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
     numChildren = determineNumChildren(stream);
   }
 
-  if (done == false && isTopLevelMathMLNumberNodeTag(nextName) == true)
+  if (done == false && (isTopLevelMathMLNumberNodeTag(nextName) == true)
+    || (isTopLevelMathMLFunctionNodeTag(nextName) == true))
   {
     std::string message = "<" + nextName + "> cannot be used directly " +
       "following an <apply> tag.";
@@ -4158,17 +4169,39 @@ ASTFunction::readPiecewise(XMLInputStream& stream, const std::string& reqd_prefi
   const XMLToken nextElement = stream.peek();
   const string&  nextName = nextElement.getName();
   
-  unsigned int numPiece = 0;
+  unsigned int numPiece = 0, numOtherwise = 0;
   bool otherwise = false;
     
   if (nextName == "piece")
   {
     numPiece = determineNumPiece(stream);
+    numOtherwise = determineNumOtherwise(stream);
     otherwise = hasOtherwise(stream);
+
+    if (otherwise && numOtherwise == 0)
+    {
+      // problem
+      std::string message = "Unexpected tag found within the <piecewise>"
+        " element";
+
+      logError(stream, nextElement, BadMathML, message);
+      return read;
+    }
   }
   else if (nextName == "otherwise")
   {
     otherwise = true;
+  }
+  else if (nextName != "math" && nextName != "piecewise")
+  {
+    // should not really be anything else 
+    // if it is math or piecewise then 
+    // we have an empty piecewise which is fine to read
+    std::string message = "<" + nextName + "> cannot be used directly " +
+      "following an <piecewise> tag; expected <piece> or <otherwise>.";
+
+    logError(stream, nextElement, BadMathML, message);
+    return read;
   }
 
   reset();
@@ -4787,5 +4820,7 @@ ASTFunction::representsQualifierNode(int type)
   return valid;
 }
 LIBSBML_CPP_NAMESPACE_END
+
+
 /** @endcond */
 

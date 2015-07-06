@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="modelID" name="myModel">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="pieceFun">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          
+          <lambda>
+            <apply>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            </apply>
+            <piecewise>
+              <piece>
+                <apply>
+                  <minus/>
+                  <ci> x </ci>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> x </ci>
+                  <cn> 0 </cn>
+                </apply>
+              </piece>
+              <otherwise>
+                <apply>
+                  <times/>
+                  <ci> x </ci>
+                  <cn> 2 </cn>
+                </apply>
+              </otherwise>
+            </piecewise>
+           
+          </lambda>
+            
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+  </model>
+</sbml>

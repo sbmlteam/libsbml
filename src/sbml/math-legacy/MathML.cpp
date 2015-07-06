@@ -782,6 +782,23 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
        */
       if (elem.isEnd()) return;
 
+      // check for names that should not follow an apply
+      // but that will not create a node with a type that is
+      // always incorrect
+      stream.skipText();
+      std::string nextName = stream.peek().getName();
+      if (nextName == "bvar" || nextName == "piece" || nextName == "otherwise"
+        || nextName == "logbase" || nextName == "degree" 
+        || nextName == "lambda" || nextName == "semantics")
+      {
+        std::string message = "<";
+        message += nextName;
+        message += "> is not an operator and cannot be used directly following an";
+        message += " <apply> tag.";
+
+        logError(stream, elem, BadMathML, message);
+      }
+
       readMathML(node, stream, reqd_prefix, inRead);
 
       if (node.isName()) node.setType(AST_FUNCTION);
@@ -820,7 +837,18 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
         return;
 
       }
-    }
+      else if (node.getType() == AST_FUNCTION_PIECEWISE) 
+      {
+        std::string message = "A <piecewise> element";
+        message += " is not an operator and cannot be used directly following an";
+        message += " <apply> tag.";
+
+        logError(stream, elem, BadMathML, message);
+
+        return;
+
+      }
+   }
     else if (name == "lambda")
     {
       node.setType(AST_LAMBDA);
@@ -874,14 +902,15 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
        /* look to see whether a lambda is followed by an
        * appropriate tag
        */
+      std::string nextName = stream.peek().getName();
       if (elem.getName() == "lambda" 
-        && stream.peek().getName() != "lambda"
-        && stream.peek().getName() != "bvar")
+        && nextName != "lambda"
+        && nextName != "bvar")
       {
-        if ( !isMathMLNodeTag(stream.peek().getName()))
+        if ( !isMathMLNodeTag(nextName))
         {
           std::string message = "<";
-          message += stream.peek().getName();
+          message += nextName;
           message += "> cannot be used directly following a";
           message += " <bvar> element.";
 
@@ -895,7 +924,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
        * dont want to add the child since this makes it look like
        * it has a bvar
        */
-      if (stream.peek().getName() == "math") 
+      if (nextName == "math") 
       {
         delete child;
         break;
@@ -905,7 +934,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
         node.addChild(child, true);
       }
 
-      if (stream.peek().getName() == "piece" && stream.isGood()) 
+      if (nextName == "piece" && stream.isGood()) 
         stream.next();
     }
   }
@@ -1692,7 +1721,6 @@ LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
-  if (node == NULL) return;
 
   static const string uri = "http://www.w3.org/1998/Math/MathML";
 

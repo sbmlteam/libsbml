@@ -109,13 +109,26 @@ TestValidator::test (const TestFile& file)
 
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
+  unsigned int num = file.getSequenceId();
+
   /* for 10311 called using just the id validator you will get 99303 */
   if (id == 10311 && expected == 1)
   {
     expected = 2;
     others = 99303;
   }
-
+#ifdef LIBSBML_USE_LEGACY_MATH
+  if (id == 99219 && num == 32)
+  {
+    expected = 2;
+  }
+#else
+  if (id == 99219 && num == 32)
+  {
+    expected = 2;
+    others = 10102;
+  }
+#endif
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
   list<SBMLError>::const_iterator begin = mValidator.getFailures().begin();

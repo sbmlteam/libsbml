@@ -228,6 +228,18 @@ TestFile::getFilesIn ( const string& directory,
         else if (num == 13 && file.getNumFailures() > 0) 
           continue;
       }
+      else if (id == 99219)
+      {
+        if (num == 29)
+          continue;
+      }
+#else
+      unsigned int num = file.getSequenceId();
+      if (id == 99219)
+      {
+        if (num == 33 || num == 34)
+          continue;
+      }
 
 #endif
 

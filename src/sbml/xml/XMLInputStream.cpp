@@ -348,6 +348,29 @@ XMLInputStream::determineNumSpecificChildren(const std::string& childName,
   return num;
 }
 
+
+bool
+XMLInputStream::containsChild(const std::string& childName,
+                                             const std::string& container)
+{
+  bool valid = false;
+  bool hasChild = this->mTokenizer.containsChild(valid, 
+                                                       childName, container);
+
+  while (isGood() == true && valid == false)
+  {
+    requeueToken();
+    if (isGood() == true)
+    {
+      hasChild = this->mTokenizer.containsChild(valid, 
+                                                       childName, container);
+    }
+  }
+
+  return hasChild;
+}
+
+
 LIBLAX_EXTERN
 XMLInputStream_t *
 XMLInputStream_create (const char* content, int isFile, const char *library)

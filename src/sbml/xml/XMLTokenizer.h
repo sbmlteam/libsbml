@@ -174,6 +174,9 @@ protected:
   unsigned int determineNumSpecificChildren(bool & valid, 
                const std::string& qualifier,  const std::string& container);
 
+  bool containsChild(bool & valid, 
+               const std::string& qualifier,  const std::string& container);
+
   bool mInChars;
   bool mInStart;
   bool mEOFSeen;

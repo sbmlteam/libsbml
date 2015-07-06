@@ -352,6 +352,30 @@ public:
   unsigned int determineNumSpecificChildren(const std::string& childName,
                                             const std::string& container);
 
+  /**
+   * Predicate returning @c true if a child token of the specified type occurs 
+   * within a given container element.
+   *
+   * This method allows information from the input stream to be determined
+   * without the need to actually read and consume the tokens in the stream.
+   * It returns @c true if the @p childName element occurs at any point
+   * within the element specified by @p container.
+   *
+   * @param childName a string representing the name of the child
+   * element whose presence is to be determined.
+   *
+   * @param container a string representing the name of the element
+   * for which the presence of the child element is to be determined.
+   *
+   * @return boolean @c true if a child of type @p childName occurs within 
+   * the @p container element, @c false otherwise.
+   *
+   * @note This method assumes the stream has been read up to and including
+   * the element @p container.
+   */
+  bool containsChild(const std::string& childName,
+                                            const std::string& container);
+
 private:
   /** @cond doxygenLibsbmlInternal */
   /**
