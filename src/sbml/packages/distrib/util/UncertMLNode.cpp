@@ -69,7 +69,7 @@ UncertMLNode::UncertMLNode (const UncertMLNode& orig)
  : mElementName ( orig.mElementName)
  , mText        ( orig.mText)
  , mAttributes  ( orig.mAttributes)
- , mChildren    ( orig.mChildren.size())
+ , mChildren    ( )
 {
   for (unsigned int c = 0; c < orig.getNumChildren(); ++c)
   {
@@ -470,7 +470,7 @@ UncertMLNode::createStatisticsNode(std::string arguments,
   node->setElementName("StatisticsCollection");
 
   XMLAttributes attr = XMLAttributes();
-  /* really the url should be specific to the distribtuion
+  /* really the url should be specific to the distribution
   * but whilst the attribue is required in uncertML it does not require
   * it to be an exact match
   */
@@ -531,7 +531,7 @@ UncertMLNode::createDistributionNode(std::string name,
   node->setElementName(name);
 
   XMLAttributes attr = XMLAttributes();
-  /* really the url should be specific to the distribtuion
+  /* really the url should be specific to the distribution
   * but whilst the attribue is required in uncertML it does not require
   * it to be an exact match
   */
@@ -587,7 +587,7 @@ UncertMLNode::createDistributionNodeWithValues(std::string name,
   node->setElementName(name);
 
   XMLAttributes attr = XMLAttributes();
-  /* really the url should be specific to the distribtuion
+  /* really the url should be specific to the distribution
   * but whilst the attribue is required in uncertML it does not require
   * it to be an exact match
   */

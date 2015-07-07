@@ -345,12 +345,12 @@ public:
    * Creates an UncertMLNode representing the distribution with arguments
    * listed.
    *
-   * @param name - name of the distribtuion to create
+   * @param name - name of the distribution to create
    * @param arguments - a comma seperated list of the argument names
    * @param argumentsIds - a comma seperated list of the ids to apply
    * 
    * Example usage would be
-   *            createDistributionNode("NormalDistribtuion", 
+   *            createDistributionNode("NormalDistribution", 
    *                                   "mean,variance", "mu, sigma")
    * which would produce a node representing the xml:
    *
@@ -374,13 +374,13 @@ public:
    * Creates an UncertMLNode representing the distribution with arguments
    * listed.
    *
-   * @param name - name of the distribtuion to create
+   * @param name - name of the distribution to create
    * @param arguments - a comma seperated list of the argument names
    * @param argumentsIds - a comma seperated list of the values to apply
    * @param argumentElementNames - a comma seperated list of the elements to use, or 'varId' for the attribute
    * 
    * Example usage would be
-   *     createDistributionNodeWithValues("NormalDistribtuion", 
+   *     createDistributionNodeWithValues("NormalDistribution", 
    *                  "mean,variance", "4, 0.9", "rVal, prVal")
    * which would produce a node representing the xml:
    *
