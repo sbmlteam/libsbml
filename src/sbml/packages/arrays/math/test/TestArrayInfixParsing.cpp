@@ -1365,7 +1365,7 @@ START_TEST (test_parse_function_matrixrow_3args)
   delete r;
 }
 END_TEST
-#endif
+
 
 
 START_TEST (test_parse_function_mean_1args)
@@ -1411,7 +1411,7 @@ START_TEST (test_parse_function_mode_2args)
   delete r;
 }
 END_TEST
-
+#endif
 
 Suite *
 create_suite_ArrayInfixParsing ()
@@ -1496,11 +1496,11 @@ create_suite_ArrayInfixParsing ()
   tcase_add_test( tcase, test_parse_function_matrixrow_1args);
   tcase_add_test( tcase, test_parse_function_matrixrow_2args);
   tcase_add_test( tcase, test_parse_function_matrixrow_3args);
-#endif
+
  
   tcase_add_test( tcase, test_parse_function_mean_1args);
   tcase_add_test( tcase, test_parse_function_mode_2args);
-
+#endif
   suite_add_tcase(suite, tcase);
 
   return suite;

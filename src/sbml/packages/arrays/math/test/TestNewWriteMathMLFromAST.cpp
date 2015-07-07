@@ -288,7 +288,7 @@ START_TEST (test_MathMLFromAST_selector)
 }
 END_TEST
 
-
+#if (0)
 START_TEST (test_MathMLFromAST_mean)
 {
   const char* expected = wrapMathML
@@ -369,7 +369,7 @@ START_TEST (test_MathMLFromAST_product)
   fail_unless( equals(expected, S) );
 }
 END_TEST
-
+#endif
 
 Suite *
 create_suite_NewWriteMathMLFromAST ()
@@ -386,8 +386,11 @@ create_suite_NewWriteMathMLFromAST ()
   tcase_add_test( tcase, test_MathMLFromAST_scalarproduct      );
 #endif
   tcase_add_test( tcase, test_MathMLFromAST_selector           );
+
+#if (0)
   tcase_add_test( tcase, test_MathMLFromAST_mean               );
   tcase_add_test( tcase, test_MathMLFromAST_product            );
+#endif
 
   suite_add_tcase(suite, tcase);
 

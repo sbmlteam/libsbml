@@ -363,7 +363,7 @@ START_TEST (test_element_selector)
 END_TEST
 
 
-
+#if (0)
 START_TEST (test_element_sum)
 {
   const char* s = wrapMathML
@@ -435,7 +435,7 @@ START_TEST (test_element_sum)
 
 }
 END_TEST
-
+#endif
 
 
 
@@ -454,7 +454,10 @@ create_suite_NewReadMathML ()
   tcase_add_test( tcase, test_element_vectorproduct                      );
 #endif
   tcase_add_test( tcase, test_element_selector                      );
+
+#if (0)
   tcase_add_test( tcase, test_element_sum                      );
+#endif
 
   suite_add_tcase(suite, tcase);
 

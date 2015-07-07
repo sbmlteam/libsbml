@@ -600,7 +600,7 @@ START_TEST (test_parse_function_matrix_emptyrows)
   safe_free(oldroundtrip);
 }
 END_TEST
-#endif
+
 
 
 START_TEST (test_parse_function_sum)
@@ -616,7 +616,7 @@ START_TEST (test_parse_function_sum)
   safe_free(oldroundtrip);
 }
 END_TEST
-
+#endif
 
 Suite *
 create_suite_ArrayInfixWriting ()
@@ -672,9 +672,9 @@ create_suite_ArrayInfixWriting ()
   tcase_add_test( tcase, test_parse_function_matrix_1row);
   tcase_add_test( tcase, test_parse_function_matrix_2rows);
   tcase_add_test( tcase, test_parse_function_matrix_emptyrows);
-#endif
 
   tcase_add_test( tcase, test_parse_function_sum);
+#endif
 
   suite_add_tcase(suite, tcase);
 
