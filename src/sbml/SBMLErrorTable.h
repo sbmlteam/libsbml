@@ -1139,6 +1139,34 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V2 Section 3.1.1"}
 },
 
+  //10313
+  {
+    DanglingUnitReference,
+    "Dangling reference to a unit.",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "Unit identifier references (i.e the 'units' attribute on <Compartment>, "
+    "the 'units' attribute on <Parameter>, and the 'substanceUnits' "
+    "attribute on <Species>) must be the identifier of a <UnitDefinition> "
+    "in the <Model>, or the identifier of a predefined unit in SBML.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L2V5 Section 4.4.2",
+     "",
+     ""}
+},
+
   //10401
   {
     MissingAnnotationNamespace,

@@ -508,6 +508,7 @@ typedef enum
 , InvalidIdSyntax                       = 10310 /*!< Invalid syntax for an 'id' attribute value. */
 , InvalidUnitIdSyntax                   = 10311 /*!< Invalid syntax for the identifier of a unit. */
 , InvalidNameSyntax                     = 10312 /*!< Invalid syntax for a 'name' attribute value. */
+, DanglingUnitReference                 = 10313 /*!< Dangling reference to a unit. */ 
 , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of the XML namespace for the annotation. */
 , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using the same XML namespace. */
 , SBMLNamespaceInAnnotation             = 10403 /*!< The SBML XML namespace cannot be used in an Annotation object. */

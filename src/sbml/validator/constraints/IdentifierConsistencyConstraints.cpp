@@ -68,9 +68,86 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 // 10309: syntax of metid - caught at read but not finished TO DO
 // 10310: syntax of id - caught at read
 // 10311: syntax of UnitSId - caught at read
+// 10313: dangling unit reference
+
+START_CONSTRAINT (10313, Parameter, p)
+{
+  pre( p.getLevel() == 2 && p.getVersion() == 5);
+  pre( p.isSetUnits() );
+
+  const string& units = p.getUnits();
+
+  msg = "The units '";
+  msg += units;
+  msg+= "' of the <parameter> with id '";
+  msg += p.getId() ;
+  msg += "' do not refer to a valid unit kind/built-in unit ";
+  msg += "or the identifier of an existing <unitDefinition>. ";
+ 
+  inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
+  inv_or( Unit::isBuiltIn(units, p.getLevel())     );
+  inv_or( m.getUnitDefinition(units) );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (10313, Species, s)
+{
+  pre( s.getLevel() == 2 && s.getVersion() == 5);
+  pre(s.isSetSubstanceUnits() );
+
+  bool failed = false;
+  
+  const string& units = s.getSubstanceUnits();
+
+  msg = "The subtanceUnits '";
+  msg += units;
+  msg += "' of the <species> with id '";
+  msg += s.getId(); 
+  msg += "' do not refer to a valid unit kind ";
+  msg += "or the identifier of an existing <unitDefinition>. ";
+
+  if (Unit::isUnitKind(units, s.getLevel(), s.getVersion()) == false
+    && Unit::isBuiltIn(units, s.getLevel()) == false
+    && m.getUnitDefinition(units) == NULL)
+  {
+    failed = true;
+  }
+   
+  inv(failed == false);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (10313, Compartment, c)
+{
+  pre( c.getLevel() == 2 && c.getVersion() == 5);
+  pre( c.isSetUnits() );
+
+  const string& units = c.getUnits();
+
+  msg = "The units '";
+  msg += units;
+  msg+= "' of the <compartment> with id '";
+  msg += c.getId() ;
+  msg += "' do not refer to a valid unit kind/built-in unit ";
+  msg += "or the identifier of an existing <unitDefinition>. ";
+ 
+  inv_or( Unit::isUnitKind(units, c.getLevel(), c.getVersion())    );
+  inv_or( Unit::isBuiltIn(units, c.getLevel())     );
+  inv_or( m.getUnitDefinition(units) );
+}
+END_CONSTRAINT
+
+
 
 START_CONSTRAINT (99303, Parameter, p)
 {
+  // do not report for l2v5
+  bool report = true;
+  if (p.getLevel() == 2 && p.getVersion() == 5)
+    report = false;
+  pre (report);
+
   pre( p.isSetUnits() );
 
   const string& units = p.getUnits();
@@ -91,6 +168,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99303, Species, s)
 {
+  // do not report for l2v5
+  bool report = true;
+  if (s.getLevel() == 2 && s.getVersion() == 5)
+    report = false;
+  pre (report);
+
   bool failed = false;
 
   msg = "";
@@ -140,6 +223,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99303, Compartment, c)
 {
+  // do not report for l2v5
+  bool report = true;
+  if (c.getLevel() == 2 && c.getVersion() == 5)
+    report = false;
+  pre (report);
+
   pre( c.isSetUnits() );
 
   const string& units = c.getUnits();
