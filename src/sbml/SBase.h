@@ -229,6 +229,16 @@ public:
    */
   virtual SBase* getElementBySId(const std::string& id);
   
+  /**
+   * Returns the first child element found that has the given @p id in the
+   * model-wide @c SId namespace, or @c NULL if no such object is found.
+   *
+   * @param id string representing the "id" attribute value of the object
+   * to find.
+   *
+   * @return pointer to the first element found with the given identifier.
+   */
+  const SBase* getElementBySId(const std::string& id) const;
   
   /**
    * Returns the first child element it can find with a specific "metaid"
@@ -243,6 +253,18 @@ public:
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
+  /**
+   * Returns the first child element it can find with a specific "metaid"
+   * attribute value, or @c NULL if no such object is found.
+   *
+   * @copydetails doc_what_is_metaid
+   *
+   * @param metaid string representing the "metaid" attribute value of the
+   * object to find.
+   *
+   * @return pointer to the first element found with the given meta-identifier.
+   */
+  const SBase* getElementByMetaId(const std::string& metaid) const;
 
   /**
    * Returns a List of all child SBase objects, including those nested to
@@ -3380,9 +3402,9 @@ protected:
    * Helper to log a common type of error.
    */
   void logUnknownAttribute( const std::string& attribute,
-			    const unsigned int level,
-			    const unsigned int version,
-			    const std::string& element,
+          const unsigned int level,
+          const unsigned int version,
+          const std::string& element,
           const std::string& prefix="");
 
 
@@ -3390,8 +3412,8 @@ protected:
    * Helper to log a common type of error.
    */
   void logUnknownElement( const std::string& element,
-			  const unsigned int level,
-			  const unsigned int version );
+        const unsigned int level,
+        const unsigned int version );
 
  
   /**

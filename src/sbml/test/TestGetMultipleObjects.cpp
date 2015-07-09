@@ -60,45 +60,85 @@ START_TEST (test_GetMultipleObjects_getId)
 
   d = reader.readSBML(filename);
 
- if (d == NULL)
+  if (d == NULL)
   {
     fail("readSBML(\"multiple-ids.xml\") returned a NULL pointer.");
   }
 
-  SBase* obj = d->getElementBySId("no_id");
-  fail_unless(obj == NULL);
+  {
+    SBase* obj = d->getElementBySId("no_id");
+    fail_unless(obj == NULL);
 
-  obj = d->getElementBySId("");
-  fail_unless(obj == NULL);
+    obj = d->getElementBySId("");
+    fail_unless(obj == NULL);
 
-  obj = d->getElementBySId("find_id");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_MODEL);
+    obj = d->getElementBySId("find_id");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_MODEL);
 
-  obj = d->getElementBySId("func1");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_FUNCTION_DEFINITION);
+    obj = d->getElementBySId("func1");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_FUNCTION_DEFINITION);
 
-  obj = d->getElementBySId("comp");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_COMPARTMENT);
+    obj = d->getElementBySId("comp");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_COMPARTMENT);
 
-  obj = d->getElementBySId("b");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_SPECIES);
+    obj = d->getElementBySId("b");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_SPECIES);
 
-  obj = d->getElementBySId("x");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_PARAMETER);
+    obj = d->getElementBySId("x");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_PARAMETER);
 
-  obj = d->getElementBySId("J0");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_REACTION);
+    obj = d->getElementBySId("J0");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_REACTION);
 
-  obj = d->getElementBySId("E0");
-  fail_unless(obj != NULL);
-  fail_unless(obj->getTypeCode() == SBML_EVENT);
+    obj = d->getElementBySId("E0");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_EVENT);
+  }
+  // now try the same for a const version
 
+  const SBase* constDoc = d;
+
+  {
+    const SBase* obj = constDoc->getElementBySId("no_id");
+    fail_unless(obj == NULL);
+
+    obj = constDoc->getElementBySId("");
+    fail_unless(obj == NULL);
+
+    obj = constDoc->getElementBySId("find_id");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_MODEL);
+
+    obj = constDoc->getElementBySId("func1");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_FUNCTION_DEFINITION);
+
+    obj = constDoc->getElementBySId("comp");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_COMPARTMENT);
+
+    obj = constDoc->getElementBySId("b");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_SPECIES);
+
+    obj = constDoc->getElementBySId("x");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_PARAMETER);
+
+    obj = constDoc->getElementBySId("J0");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_REACTION);
+
+    obj = constDoc->getElementBySId("E0");
+    fail_unless(obj != NULL);
+    fail_unless(obj->getTypeCode() == SBML_EVENT);
+  }
   delete d;
 }
 END_TEST

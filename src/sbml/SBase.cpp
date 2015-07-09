@@ -97,12 +97,26 @@ SBase::getElementBySId(const std::string& id)
   return getElementFromPluginsBySId(id);
 }
 
+const SBase*
+SBase::getElementBySId(const std::string& id) const
+{  
+  SBase* thus = const_cast<SBase*>(this);
+  return thus->getElementBySId(id);
+}
+
 
 SBase*
 SBase::getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty()) return NULL;
   return getElementFromPluginsByMetaId(metaid);
+}
+
+const SBase*
+SBase::getElementByMetaId(const std::string& metaid) const
+{
+  SBase* thus = const_cast<SBase*>(this);
+  return thus->getElementByMetaId(metaid);
 }
 
 List*
@@ -614,14 +628,14 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
       }
       else
       {
-	//
-	// (NOTE)
+  //
+  // (NOTE)
         //
-	// SBMLExtensionException should be thrown if the corresponding package
+  // SBMLExtensionException should be thrown if the corresponding package
         // extension is not loaded.
         // However, currently, no idea how to check if the uri belongs to extension
         // package or not (e.g. XHTML namespace or other namespace can be given).
-	//
+  //
 #if 0
         std::ostringstream errMsg;
 
@@ -630,8 +644,8 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
           errMsg << "Package \"" << sbmlext->getName() << "\" (" << uri << ") for \"<"
                  << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
                  << ">\" element is disabled.";
-	}
-	else
+  }
+  else
         {
           errMsg << "Package \"" << uri << "\" for \"<"
                  << SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str())
@@ -820,7 +834,7 @@ SBase::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* 
 void *
 SBase::getUserData() const
 {
-	return this->mUserData;
+  return this->mUserData;
 }
 
 
@@ -2251,8 +2265,8 @@ SBase::connectToParent (SBase* parent)
   if (mParentSBMLObject)
   {
 #if 0
-	  cout << "[DEBUG] connectToParent " << this << " (parent) " << SBMLTypeCode_toString(parent->getTypeCode(),"core")
-			   << " " << parent->getSBMLDocument() << endl;
+    cout << "[DEBUG] connectToParent " << this << " (parent) " << SBMLTypeCode_toString(parent->getTypeCode(),"core")
+         << " " << parent->getSBMLDocument() << endl;
 #endif
     setSBMLDocument(mParentSBMLObject->getSBMLDocument());
   }
@@ -3057,7 +3071,7 @@ SBase::deleteDisabledPlugins(bool recursive /*= true*/)
 int
 SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
 {
-	return enablePackage(pkgURI, prefix, false);
+  return enablePackage(pkgURI, prefix, false);
 }
 
 /*
@@ -3678,9 +3692,9 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   if (pkgName == "core")
   {
-	// we need to consider whether it should be necessary to declare the sbml namespace.
-	//if (!sbmlDeclared)
-	//  return false;
+  // we need to consider whether it should be necessary to declare the sbml namespace.
+  //if (!sbmlDeclared)
+  //  return false;
 
     if (typecode == SBML_UNKNOWN)
     {
@@ -4295,8 +4309,8 @@ SBase::readAnnotation (XMLInputStream& stream)
       if (getLevel() < 3)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
-	        "Only one <annotation> element is permitted inside a "
-	        "particular containing element.  " + msg);
+          "Only one <annotation> element is permitted inside a "
+          "particular containing element.  " + msg);
       }
       else
       {
@@ -4409,7 +4423,7 @@ SBase::readNotes (XMLInputStream& stream)
       {
         logError(NotSchemaConformant, getLevel(), getVersion(),
                 "Only one <notes> element is permitted inside a "
-	            "particular containing element.");
+              "particular containing element.");
       }
       else
       {
@@ -4502,7 +4516,7 @@ SBase::logUnknownAttribute( const string& attribute,
       if (mSBML != NULL)
       {
         getErrorLog()->logError(UnknownPackageAttribute,
-  			      level, version, msg.str(), getLine(), getColumn());
+              level, version, msg.str(), getLine(), getColumn());
       }
     }
     else
@@ -4515,7 +4529,7 @@ SBase::logUnknownAttribute( const string& attribute,
       if (mSBML != NULL)
       {
         getErrorLog()->logError(UnknownCoreAttribute,
-  			      level, version, msg.str(), getLine(), getColumn());
+              level, version, msg.str(), getLine(), getColumn());
       }
     }
     return;
@@ -4539,7 +4553,7 @@ SBase::logUnknownAttribute( const string& attribute,
     {
 
       getErrorLog()->logError(NotSchemaConformant,
-  			    level, version, msg.str(), getLine(), getColumn());
+            level, version, msg.str(), getLine(), getColumn());
     }
     else
     {
@@ -4766,8 +4780,8 @@ SBase::logUnknownAttribute( const string& attribute,
  */
 void
 SBase::logUnknownElement( const string& element,
-			  const unsigned int level,
-			  const unsigned int version )
+        const unsigned int level,
+        const unsigned int version )
 {
   bool logged = false;
   ostringstream msg;
@@ -4887,7 +4901,7 @@ SBase::logUnknownElement( const string& element,
     if (mSBML != NULL)
     {
       getErrorLog()->logError(UnrecognizedElement,
-			    level, version, msg.str(), getLine(), getColumn());
+          level, version, msg.str(), getLine(), getColumn());
     }
   }
 
@@ -4902,7 +4916,7 @@ SBase::logUnknownElement( const string& element,
     if (mSBML != NULL)
     {
       getErrorLog()->logError(UnrecognizedElement,
-			      level, version, msg.str(), getLine(), getColumn());
+            level, version, msg.str(), getLine(), getColumn());
     }
   }
 
@@ -5073,7 +5087,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
   if (level > 2 || ( (level == 2) && (version > 2) ) )
   {
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
   }
 
   //
