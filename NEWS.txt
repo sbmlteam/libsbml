@@ -1,8 +1,20 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.11.5 (Current SVN)
+5.11.6-experimental (2015-07-16)
 ====================================================================
+
+***                 Experimental only release                    ***
+
+This is an experimental only release, that is, a release of those
+files provided in the experimental folder of a full release. 
+
+This includes updates to all the SBML L3 packages that are not yet
+accepted and undergoing development.
+
+NOTE: An experimental release is not as rigorously tested as a 
+full release.  Any changes/fixes listed as either referring to
+stable or experimental code may change before the next full release.
 
 STABLE RELEASE
 
@@ -13,10 +25,18 @@ STABLE RELEASE
     as we generally discourage the use of it. However users have requested
     the facility and thus we have included a separate converter to meet
     that need.
+	
+  - 'const' versions of the getElementBySId() and getElementByMetaId()
+    functions have been added.
   
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
+  
+    -  Code has been updated to use support the FBC V2 format that is currently
+	   available as a Release Candidate document. Full validation for this
+	   format has been included.
+	   
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
 
@@ -25,6 +45,10 @@ STABLE RELEASE
   - The static function UnitDefinition::reorder failed to correctly deal
     with situations where the same unit kind appeared multiple times. This
     has been fixed. Thanks to Matthias König for reporting the problem.
+	
+  - There were some discrepancies between math and math-legacy code reporting
+    the incorrect use of the MathML <apply> tag. This has been standardized 
+	and more rigorously tested.
 
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
@@ -48,11 +72,25 @@ EXPERIMENTAL RELEASE
 
 * New features
 
+  - L2V5 specific updates:
+  
+    - A new validation rule was identified during the review of the SBML
+	  Level 2 Version 5 specification. Support for this has been added.
+
   - 'arrays' package-specific updates:
+  
+    - The MathML elements included in the 'arrays' package has been 
+	  reduced. The code now reflects this.
+	  
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
   - 'groups' package-specific updates:
   - 'multi' package-specific updates:
+  
+    - The code has been updated to reflect v 1.0.4 of the specification.
+	  This includes full validation. Thanks to Fengkai Zhang for 
+	  contributing the code.
+	  
   - 'render' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
