@@ -31,6 +31,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/validator/VConstraint.h>
+#include <sbml/extension/SBasePlugin.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -94,10 +95,39 @@ VConstraint::logFailure (const SBase& object)
 void
 VConstraint::logFailure (const SBase& object, const std::string& message)
 {
+  std::string pkg = object.getPackageName();
+  unsigned int pkgVersion = object.getPackageVersion();
+  if (mId > 99999 && pkg == "core")
+  {
+    // we are dealing with a core object that is logging errors 
+    // relating to a package
+    // need to work out which pkg
+
+    unsigned int offset = (unsigned int)(floor(mId/100000)) * 100000;
+
+    // it is possible that the object does not have a direct plugin
+    // it may the child of an object that does
+    // so lets cut straight to the parent document
+    const SBMLDocument * doc = object.getSBMLDocument();
+    if (doc != NULL)
+    {
+      for (unsigned int i = 0; i < doc->getNumPlugins(); i++)
+      {
+        const SBMLExtension * ext = doc->getPlugin(i)->getSBMLExtension();
+
+        if (ext->getErrorIdOffset() == offset)
+        {
+          pkg = doc->getPlugin(i)->getPackageName();
+          pkgVersion = doc->getPlugin(i)->getPackageVersion();
+          break;
+        }
+      }
+    }
+  }
+
   SBMLError error = SBMLError( mId, object.getLevel(), object.getVersion(),
 			       message, object.getLine(), object.getColumn(),
-             LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML, object.getPackageName(),
-             object.getPackageVersion());
+             LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML, pkg, pkgVersion);
 
   if (error.getSeverity() != LIBSBML_SEV_NOT_APPLICABLE)
     mValidator.logFailure(error);

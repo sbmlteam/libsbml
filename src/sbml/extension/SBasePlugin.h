@@ -676,6 +676,11 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  
+  const SBMLExtension* getSBMLExtension() const;
+
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */

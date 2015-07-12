@@ -782,6 +782,18 @@ SBasePlugin::logEmptyString(const std::string &attribute,
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
+
+const SBMLExtension*
+SBasePlugin::getSBMLExtension() const
+{
+  return mSBMLExt;
+}
+/** @endcond */
+
+
+
+
 #endif /* __cplusplus */
 /** @cond doxygenIgnored */
 LIBSBML_EXTERN
