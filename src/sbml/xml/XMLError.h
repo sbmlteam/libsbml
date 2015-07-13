@@ -547,6 +547,7 @@ typedef enum
                                        specified in the error log. */
   , LIBSBML_OVERRIDE_DONT_LOG     /*!< All error logging is disabled. */
   , LIBSBML_OVERRIDE_WARNING      /*!< All errors will be logged as warnings */
+  , LIBSBML_OVERRIDE_ERROR        /*!< All warnings will be logged as errors */
 
 } XMLErrorSeverityOverride_t;
 

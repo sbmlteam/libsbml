@@ -105,21 +105,29 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
 
     unsigned int offset = (unsigned int)(floor((double)mId/100000.0)) * 100000;
 
-    // it is possible that the object does not have a direct plugin
-    // it may the child of an object that does
-    // so lets cut straight to the parent document
-    const SBMLDocument * doc = object.getSBMLDocument();
-    if (doc != NULL)
+    if (offset == 9900000)
     {
-      for (unsigned int i = 0; i < doc->getNumPlugins(); i++)
+      // we are dealing with the strict units validator
+      mId = mId - offset;
+    }
+    else
+    {
+      // it is possible that the object does not have a direct plugin
+      // it may the child of an object that does
+      // so lets cut straight to the parent document
+      const SBMLDocument * doc = object.getSBMLDocument();
+      if (doc != NULL)
       {
-        const SBMLExtension * ext = doc->getPlugin(i)->getSBMLExtension();
-
-        if (ext->getErrorIdOffset() == offset)
+        for (unsigned int i = 0; i < doc->getNumPlugins(); i++)
         {
-          pkg = doc->getPlugin(i)->getPackageName();
-          pkgVersion = doc->getPlugin(i)->getPackageVersion();
-          break;
+          const SBMLExtension * ext = doc->getPlugin(i)->getSBMLExtension();
+
+          if (ext->getErrorIdOffset() == offset)
+          {
+            pkg = doc->getPlugin(i)->getPackageName();
+            pkgVersion = doc->getPlugin(i)->getPackageVersion();
+            break;
+          }
         }
       }
     }

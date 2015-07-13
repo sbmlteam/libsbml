@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1"
+      xmlns:html="http://www.w3.org/1999/xhtml">
+    <model timeUnits="second">
+        <listOfUnitDefinitions>
+             <unitDefinition id="mm">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+        </listOfUnitDefinitions>
+        <listOfParameters>
+            <parameter id="p" value="2" units="metre" constant="false"/>
+                        
+            <parameter id="c1" value="2" units="mm" constant="true"/>
+            <parameter id="c2" value="2" units="dimensionless" constant="true"/>
+        </listOfParameters>
+        <listOfRules>
+            <assignmentRule variable="p">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <times/>
+                        <ci> c1 </ci>
+                        <ci> c2 </ci>
+                    </apply>
+                </math>
+                
+            </assignmentRule>
+        </listOfRules>
+        
+    </model>
+</sbml>

@@ -957,6 +957,24 @@ public:
 
 
   /**
+   * Performs consistency checking and validation on this SBML document
+   * using the ultra strict units validator that assumes that there
+   * are no hidden numerical conversion factors.
+   *
+   * If this method returns a nonzero value (meaning, one or more
+   * consistency checks have failed for SBML document), the failures may be
+   * due to warnings @em or errors.  Callers should inspect the severity
+   * flag in the individual SBMLError objects returned by
+   * SBMLDocument::getError(@if java long@endif) to determine the nature of the failures.
+   *
+   * @return the number of failed checks (errors) encountered.
+   *
+   * @see SBMLDocument::checkInternalConsistency()
+   */
+  unsigned int checkConsistencyWithStrictUnits ();
+
+
+  /**
    * Performs consistency checking and validation on this SBML document.
    *
    * If this method returns a nonzero value (meaning, one or more

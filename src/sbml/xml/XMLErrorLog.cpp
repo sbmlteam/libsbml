@@ -134,6 +134,13 @@ XMLErrorLog::add (const XMLError& error)
     cerror->getSeverity() > LIBSBML_SEV_WARNING)
   {
     cerror->mSeverity = LIBSBML_SEV_WARNING;
+    cerror->mSeverityString = "Warning";
+  }
+  else if (mOverriddenSeverity == LIBSBML_OVERRIDE_ERROR &&
+    cerror->getSeverity() == LIBSBML_SEV_WARNING)
+  {
+    cerror->mSeverity = LIBSBML_SEV_ERROR;
+    cerror->mSeverityString = "Error";
   }
 
   mErrors.push_back(cerror);

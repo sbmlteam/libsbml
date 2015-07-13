@@ -42,6 +42,7 @@
 #include <sbml/xml/XMLError.h>
 
 #include <sbml/validator/SBMLInternalValidator.h>
+#include <sbml/validator/StrictUnitConsistencyValidator.h>
 
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
@@ -741,6 +742,79 @@ SBMLDocument::checkConsistency ()
 
   return numErrors;
 }
+
+
+/*
+ * Performs a set of semantic consistency checks on the document.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkConsistencyWithStrictUnits ()
+{
+  //  XMLLogOverride(getErrorLog(), LIBSBML_OVERRIDE_DISABLED);
+  // keep a copy of the override status
+  // and then override any change
+  XMLErrorSeverityOverride_t overrideStatus = 
+                                  getErrorLog()->getSeverityOverride();
+  getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_DISABLED);
+
+  // turn off the original units validator
+  setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+
+  unsigned int numErrors = mInternalValidator->checkConsistency();
+
+  for (unsigned int i = 0; i < getNumPlugins(); i++)
+  {
+    numErrors += static_cast<SBMLDocumentPlugin*>
+                      (getPlugin(i))->checkConsistency();
+  }
+
+  list<SBMLValidator*>::iterator it;
+  for (it = mValidators.begin(); it != mValidators.end(); it++)
+  {
+    long newErrors = (*it)->validate(*this);
+    if (newErrors > 0)
+    {
+      mErrorLog.add((*it)->getFailures());
+      numErrors += newErrors;
+    }
+  }
+
+  // check we have no serious errors 
+  bool seriousErrors = getNumErrors(LIBSBML_SEV_FATAL) > 0
+    || getNumErrors(LIBSBML_SEV_ERROR) > 0;
+
+  if (seriousErrors)
+  {
+    // restore value of override
+    getErrorLog()->setSeverityOverride(overrideStatus);
+
+    return numErrors;
+  }
+  else
+  {
+    // log as errors
+    getErrorLog()->setSeverityOverride(LIBSBML_OVERRIDE_ERROR);
+    StrictUnitConsistencyValidator unit_validator;
+    unit_validator.init();
+    unsigned int nerrors = unit_validator.validate(*this);
+    numErrors += nerrors;
+    if (nerrors > 0) 
+    {
+      getErrorLog()->add( unit_validator.getFailures() );
+    }
+  }
+    
+
+
+  // restore value of override
+  getErrorLog()->setSeverityOverride(overrideStatus);
+
+  return numErrors;
+}
+
 
 /*
  * Performs consistency checking and validation on this SBML document.

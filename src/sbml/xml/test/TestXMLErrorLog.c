@@ -162,7 +162,22 @@ START_TEST(test_XMLErrorLog_override)
   fail_unless(XMLErrorLog_getNumErrors(log) == 1);
   fail_unless(XMLError_getSeverity(XMLErrorLog_getError(log, 0)) == LIBSBML_SEV_FATAL);
 
+  /* test that warnings are logged as errors */
+  XMLErrorLog_clearLog(log);
+  XMLErrorLog_setSeverityOverride(log, LIBSBML_OVERRIDE_ERROR);
+  fail_unless(XMLErrorLog_isSeverityOverridden(log) == 1);
+  fail_unless(XMLErrorLog_getSeverityOverride(log) == LIBSBML_OVERRIDE_ERROR);
+
+
   XMLError_free(error);
+  
+  error = XMLError_create();
+  XMLErrorLog_add( log, error );
+  fail_unless(XMLErrorLog_getNumErrors(log) == 1);
+  fail_unless(XMLError_getSeverity(XMLErrorLog_getError(log, 0)) == LIBSBML_SEV_FATAL);
+
+  XMLError_free(error);
+
   XMLErrorLog_free(log);
 }
 END_TEST

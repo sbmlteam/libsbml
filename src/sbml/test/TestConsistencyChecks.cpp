@@ -112,6 +112,39 @@ START_TEST (test_consistency_checks)
 END_TEST
 
 
+START_TEST (test_strict_unit_consistency_checks)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+  unsigned int errors;
+  std::string filename(TestDataDirectory);
+  filename += "l3v1-units.xml";
+
+
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"l3v1-units.xml\") returned a NULL pointer.");
+  }
+
+  errors = d->checkConsistency();
+
+  fail_unless(errors == 0);
+
+  d->getErrorLog()->clearLog();
+
+  errors = d->checkConsistencyWithStrictUnits();
+
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 10513);
+  fail_unless(d->getError(0)->getSeverity() == LIBSBML_SEV_ERROR);
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestConsistencyChecks (void)
 { 
@@ -120,6 +153,7 @@ create_suite_TestConsistencyChecks (void)
 
 
   tcase_add_test(tcase, test_consistency_checks);
+  tcase_add_test(tcase, test_strict_unit_consistency_checks);
 
   suite_add_tcase(suite, tcase);
 
