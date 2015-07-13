@@ -20,6 +20,12 @@ STABLE RELEASE
 
 * New features
 
+  - There is a new function on SBMLDocument, checkConsistencyWithStrictUnits(),
+    which applies the same validation as the checkConsistency() function with
+	one difference being that it will always apply unit validation using 
+	exact identity comparison between units and it logs all unit
+	violations as Error regardless of the SBML Level and Version.
+
   - There is a new converter that will convert to SBML L1V1. The 'regular'
     SBMLLevelVersionConverter does not support this level and version
     as we generally discourage the use of it. However users have requested
@@ -29,17 +35,12 @@ STABLE RELEASE
   - 'const' versions of the getElementBySId() and getElementByMetaId()
     functions have been added.
   
-	
-  - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
   
     -  Code has been updated to use support the FBC V2 format that is currently
 	   available as a Release Candidate document. Full validation for this
 	   format has been included.
 	   
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
-
 * Bug fixes
 
   - The static function UnitDefinition::reorder failed to correctly deal
@@ -50,14 +51,6 @@ STABLE RELEASE
     the incorrect use of the MathML <apply> tag. This has been standardized 
 	and more rigorously tested.
 
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
-
-* Configuration/build system changes
-
-
 * Miscellaneous
 
   - Several functions in libSBML checked for a NULL reference; something
@@ -66,7 +59,6 @@ STABLE RELEASE
     on the grounds it should not be possible to create the NULL reference,
     we made the decision to remove this code. Please let us know if this
     is an issue for you.
-
 
 EXPERIMENTAL RELEASE
 
@@ -82,31 +74,12 @@ EXPERIMENTAL RELEASE
     - The MathML elements included in the 'arrays' package has been 
 	  reduced. The code now reflects this.
 	  
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'groups' package-specific updates:
   - 'multi' package-specific updates:
   
     - The code has been updated to reflect v 1.0.4 of the specification.
 	  This includes full validation. Thanks to Fengkai Zhang for 
 	  contributing the code.
 	  
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
-
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
-
-
 ====================================================================
 5.11.4 (2015-04-09)
 ====================================================================
