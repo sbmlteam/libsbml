@@ -103,7 +103,7 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
     // relating to a package
     // need to work out which pkg
 
-    unsigned int offset = (unsigned int)(floor(mId/100000)) * 100000;
+    unsigned int offset = (unsigned int)(floor((double)mId/100000.0)) * 100000;
 
     // it is possible that the object does not have a direct plugin
     // it may the child of an object that does
