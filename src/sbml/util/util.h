@@ -40,6 +40,28 @@
 
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifdef __cplusplus
+
+#include <string>
+
+/**
+ * Utility function that replaces all occurences of 'from' to 'to' 
+ * in the given string. 
+ * 
+ * @param str, the string to be modified
+ * @param from, the substring to be replaced
+ * @param to, the target substring to be used instead of 'from'
+ *
+ * @return a reference to the string, so that the replace calls can be chained
+ */
+ std::string& replaceAllSubStrings(std::string& str, 
+              const std::string& from, const std::string& to);
+
+
+
+#endif // __cplusplus
+
 BEGIN_C_DECLS
 
 /**

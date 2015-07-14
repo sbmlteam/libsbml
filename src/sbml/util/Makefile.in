@@ -81,7 +81,7 @@ sources   = \
 	ElementFilter.cpp \
 	IdentifierTransformer.cpp \
 	PrefixTransformer.cpp \
-	util.c
+	util.cpp
 
 extra_CPPFLAGS = -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
 

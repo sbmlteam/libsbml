@@ -39,7 +39,6 @@
 #pragma warning( disable : 4723 )          // C4723: potential divide by 0
 #endif
 
-
 #include <ctype.h>
 #include <locale.h>
 #include <sys/stat.h>
@@ -496,6 +495,28 @@ util_freeArray (void ** objects, int length)
   free(objects);
 
 }
+
+#ifdef __cplusplus
+
+std::string& replaceAllSubStrings(
+  std::string& str, 
+  const std::string& from, 
+  const std::string& to) 
+{
+  if (from.empty())
+    return str;
+
+  size_t start_pos = 0;
+
+  while ((start_pos = str.find(from, start_pos)) != std::string::npos) 
+  {
+    str.replace(start_pos, from.length(), to);
+    start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+  }
+  return str;
+}
+
+#endif // __cplusplus
 
 #ifdef _MSC_VER
 #pragma warning( pop )  // restore warning
