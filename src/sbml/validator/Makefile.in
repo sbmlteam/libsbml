@@ -72,6 +72,7 @@ headers =								\
   L2v3CompatibilityValidator.h			\
   L2v4CompatibilityValidator.h			\
   L3v1CompatibilityValidator.h			\
+  StrictUnitConsistencyValidator.h		     	\
   SBMLInternalValidator.h		     	\
   SBMLExternalValidator.h		     	\
   SBMLValidator.h		             	\
@@ -85,6 +86,7 @@ sources =								\
   InternalConsistencyValidator.cpp		\
   MathMLConsistencyValidator.cpp		\
   UnitConsistencyValidator.cpp			\
+  StrictUnitConsistencyValidator.cpp			\
   SBOConsistencyValidator.cpp			\
   OverdeterminedValidator.cpp			\
   ModelingPracticeValidator.cpp	    	\
