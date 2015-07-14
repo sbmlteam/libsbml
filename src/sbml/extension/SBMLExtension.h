@@ -97,15 +97,15 @@
 #define SBMLExtension_h
 
 
-#ifndef EXTENSION_CREATE_NS
-#define EXTENSION_CREATE_NS(type,variable,sbmlns)\
+#ifndef EXTENSION_CREATE_NS_WITH_VERSION
+#define EXTENSION_CREATE_NS_WITH_VERSION(type,variable,sbmlns, version)\
   type* variable;\
   {\
       XMLNamespaces* xmlns = sbmlns->getNamespaces();\
       variable = dynamic_cast<type*>(sbmlns);\
       if (variable == NULL)\
       {\
-       variable = new type(sbmlns->getLevel(), sbmlns->getVersion());\
+       variable = new type(sbmlns->getLevel(), sbmlns->getVersion(), version);\
        for (int i = 0; i < xmlns->getNumNamespaces(); i++)\
        {\
          if (!variable->getNamespaces()->hasURI(xmlns->getURI(i)))\
@@ -116,6 +116,12 @@
   }
 #endif
 
+#ifndef EXTENSION_CREATE_NS
+#define EXTENSION_CREATE_NS(type,variable,sbmlns)\
+  EXTENSION_CREATE_NS_WITH_VERSION(type,variable,sbmlns,1)
+#endif
+
+
 #include <sbml/common/libsbml-config-common.h>
 
 #include <sbml/extension/SBasePluginCreatorBase.h>
@@ -125,7 +131,7 @@
   /** @cond doxygenLibsbmlInternal */
 #ifndef SWIG
 typedef struct {
-  const char * ref_l3v1;
+  const char * ref_l3v1v1;
 } packageReferenceEntry;
 
 
@@ -133,10 +139,27 @@ typedef struct {
   unsigned int code;
   const char*  shortMessage;
   unsigned int category;
-  unsigned int l3v1_severity;
+  unsigned int l3v1v1_severity;
   const char*  message;
   packageReferenceEntry reference;
 } packageErrorTableEntry;
+
+typedef struct {
+  const char * ref_l3v1v1;
+  const char * ref_l3v1v2;
+} packageReferenceEntryV2;
+
+
+typedef struct {
+  unsigned int code;
+  const char*  shortMessage;
+  unsigned int category;
+  unsigned int l3v1v1_severity;
+  unsigned int l3v1v2_severity;
+  const char*  message;
+  packageReferenceEntryV2 reference;
+} packageErrorTableEntryV2;
+
 
 #endif
   /** @endcond */
@@ -560,6 +583,11 @@ if (doc->getLevel() == 2)
    */
   virtual bool isInUse(SBMLDocument *doc) const;
 
+  /** @cond doxygenLibsbmlInternal */
+
+  virtual bool hasMultipleVersions() const;
+
+  /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
   /*
@@ -573,6 +601,9 @@ if (doc->getLevel() == 2)
 
 #ifndef SWIG
   virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
+
+  virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
+
 #endif
   /**
    * @ifnot clike @internal @endif@~

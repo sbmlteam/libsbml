@@ -56,6 +56,23 @@ static const packageErrorTableEntry defaultErrorTable[] =
   }
 };
 
+
+static const packageErrorTableEntryV2 defaultErrorTableV2[] =
+{
+  // 10304
+  { 0, 
+    "",
+    0, 
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "",
+    { "",
+      ""
+    }
+  }
+};
+
+
 SBMLExtension::SBMLExtension ()
  : mIsEnabled(true)
 #ifndef LIBSBML_USE_LEGACY_MATH
@@ -393,6 +410,17 @@ SBMLExtension::getErrorTable(unsigned int index) const
 }
 /** @endcond */
 
+
+/** @cond doxygenLibsbmlInternal */
+
+packageErrorTableEntryV2 
+SBMLExtension::getErrorTableV2(unsigned int index) const
+{
+  return defaultErrorTableV2[0];
+}
+
+/** @endcond */
+
 /** @cond doxygenLibsbmlInternal */
 unsigned int 
 SBMLExtension::getErrorTableIndex(unsigned int errorId) const
@@ -400,6 +428,16 @@ SBMLExtension::getErrorTableIndex(unsigned int errorId) const
   return 0;
 }
 /** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+bool
+SBMLExtension::hasMultipleVersions() const
+{
+  return false;
+}
+/** @endcond */
+
+
 
 /** @cond doxygenLibsbmlInternal */
 unsigned int
@@ -413,13 +451,31 @@ SBMLExtension::getErrorIdOffset() const
 unsigned int 
 SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 {
-  packageErrorTableEntry pkgErr = getErrorTable(index);
-  switch (pkgVersion)
+  // I know this is messy but I need to think through multiple versions of 
+  // packages
+  if (hasMultipleVersions() == false)
   {
-    case 1:
-    default:
-      return pkgErr.l3v1_severity;
-      break;
+    packageErrorTableEntry pkgErr = getErrorTable(index);
+    switch (pkgVersion)
+    {
+      case 1:
+      default:
+        return pkgErr.l3v1v1_severity;
+        break;
+    }
+  }
+  else
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    switch (pkgVersion)
+    {
+      case 1:
+        return pkgErr.l3v1v1_severity;
+      case 2:
+      default:
+        return pkgErr.l3v1v2_severity;
+        break;
+    }
   }
 }
 /** @endcond */
@@ -428,8 +484,17 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
 unsigned int 
 SBMLExtension::getCategory(unsigned int index) const
 {
-  packageErrorTableEntry pkgErr = getErrorTable(index);
-  return pkgErr.category;
+  // I know this is messy but I need to think through multiple versions of 
+  // packages
+  if (hasMultipleVersions() == false)
+  {
+    packageErrorTableEntry pkgErr = getErrorTable(index);
+    return pkgErr.category;
+  }
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    return pkgErr.category;
+  }
 }
 /** @endcond */
 
@@ -439,19 +504,40 @@ SBMLExtension::getMessage(unsigned int index,
                           unsigned int pkgVersion, 
                           const std::string& details) const
 {
-  packageErrorTableEntry pkgErr = getErrorTable(index);
-      
   ostringstream newMsg;
   std::string ref;
 
-  newMsg << pkgErr.message << endl;
-
-  switch (pkgVersion)
+  // I know this is messy but I need to think through multiple versions of 
+  // packages
+  if (hasMultipleVersions() == false)
   {
-    case 1:
-    default:
-      ref = pkgErr.reference.ref_l3v1;
-      break;
+    packageErrorTableEntry pkgErr = getErrorTable(index);
+
+    newMsg << pkgErr.message << endl;
+
+    switch (pkgVersion)
+    {
+      case 1:
+      default:
+        ref = pkgErr.reference.ref_l3v1v1;
+        break;
+    }
+  }
+  else
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+      
+    newMsg << pkgErr.message << endl;
+
+    switch (pkgVersion)
+    {
+      case 1:
+        ref = pkgErr.reference.ref_l3v1v1;
+      case 2:
+      default:
+        ref = pkgErr.reference.ref_l3v1v2;
+        break;
+    }
   }
 
   if (!ref.empty())
@@ -466,7 +552,7 @@ SBMLExtension::getMessage(unsigned int index,
       newMsg << endl;
     }
   }
-
+  
   return newMsg.str();
 }
 /** @endcond */
@@ -475,8 +561,18 @@ SBMLExtension::getMessage(unsigned int index,
 std::string 
 SBMLExtension::getShortMessage(unsigned int index) const
 {
-  packageErrorTableEntry pkgErr = getErrorTable(index);
-  return pkgErr.shortMessage;
+  // I know this is messy but I need to think through multiple versions of 
+  // packages
+  if (hasMultipleVersions() == false)
+  {
+    packageErrorTableEntry pkgErr = getErrorTable(index);
+    return pkgErr.shortMessage;
+  }
+  else
+  {
+    packageErrorTableEntryV2 pkgErr = getErrorTableV2(index);
+    return pkgErr.shortMessage;
+  }
 }
 /** @endcond */
 
