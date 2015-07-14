@@ -125,6 +125,7 @@ sources =                                     \
   UniqueVarsInInitialAssignmentsAndRules.cpp  \
   UniqueVarsInRules.cpp                       \
   UnitConsistencyConstraints.cpp              \
+  StrictUnitConsistencyConstraints.cpp        \
   ValidCnUnitsValue.cpp                       \
   UnitsBase.cpp
 
