@@ -30,8 +30,8 @@ Source code for python (core plus all packages):
 
 Code for each of the packages is available in the directories
 
-* [accepted-packages](accepted-packages)  -- source code for packages that have been accepted
-* [beta-packages](beta-packages)  -- source code for packages under development
+* [accepted packages](accepted%20packages)  -- source code for packages that have been accepted
+* [beta packages](beta%20packages)  -- source code for packages under development
 
 
 Please note: the code in these directories reflects the current state of

@@ -21,7 +21,7 @@ By default, the installer will put libSBML into /usr.  Detailed information abou
 
 ### **_R interface_**
 
-[The directory named "R interface"](R%20interface) contains the standalone installer for the R libSBML library, without the other languages.
+[The directory named "source/R interface"](R%20interface) contains the source package for the R libSBML library.
 
 ### **_Python installer_**
 
