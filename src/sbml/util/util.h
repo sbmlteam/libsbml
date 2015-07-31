@@ -39,11 +39,12 @@
 #include <sbml/common/extern.h>
 
 /** @cond doxygenLibsbmlInternal */
-LIBSBML_CPP_NAMESPACE_BEGIN
 
 #ifdef __cplusplus
 
 #include <string>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /**
  * Utility function that replaces all occurences of 'from' to 'to' 
@@ -58,9 +59,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  std::string& replaceAllSubStrings(std::string& str, 
               const std::string& from, const std::string& to);
 
+LIBSBML_CPP_NAMESPACE_END
 
 
 #endif // __cplusplus
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 BEGIN_C_DECLS
 
