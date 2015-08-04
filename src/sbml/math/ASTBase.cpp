@@ -1705,10 +1705,11 @@ ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
         const ASTBasePlugin* astPlugin = sbmlext->getASTBasePlugin();
         if (astPlugin != NULL)
         {
-          //// need to give the plugin infomrtaion about itself
-          //astPlugin->setSBMLExtension(sbmlext);
-          //astPlugin->connectToParent(this);
-          mPlugins.push_back(astPlugin->clone());
+            ASTBasePlugin* myastPlugin = astPlugin->clone();
+            myastPlugin->setSBMLExtension(sbmlext);
+//            myastPlugin->setPrefix(xmlns->getPrefix(i));
+            myastPlugin->connectToParent(this);
+            mPlugins.push_back(myastPlugin);
         }
 
       }
