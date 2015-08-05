@@ -229,7 +229,7 @@ public:
    * &ldquo;qual&rdquo; package
    *
    * @return an QualPkgNamespace object corresponding to the given @p uri, or
-   * @c NULL if the URI is not defined in the Hierarchical %Model Qualosition
+   * @c NULL if the URI is not defined in the Qual
    * package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
