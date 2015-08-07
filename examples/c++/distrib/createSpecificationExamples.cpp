@@ -707,7 +707,447 @@ void createMultivariate()
 }
 
 
+void createExchangeValuesTest()
+{
+  SBMLDocument* ex1 = createDistribDoc();
+  Model* mod = ex1->getModel();
+  Compartment* c = mod->createCompartment();
+  c->setId("C");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setSize(1);
+  c->setUnits("litre");
 
+
+  Species* s = mod->createSpecies();
+  s->setId("S1_standard_deviation");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(4.2);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  DistribSBasePlugin* distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  Uncertainty* uncert = distrib->createUncertainty();
+  UncertMLNode * stddev = UncertMLNode::createDistributionNodeWithValues
+                         ("StandardDeviation", "value", "0.3", "prVal");
+  uncert->setUncertML(stddev);
+
+
+  s = mod->createSpecies();
+  s->setId("S2_variance");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(1.03);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * variance = UncertMLNode::createDistributionNodeWithValues
+                         ("Variance", "value", "0.09", "prVal");
+  uncert->setUncertML(variance);
+
+
+  s = mod->createSpecies();
+  s->setId("S3_stddev_and_variance");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(6.9);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * statcol = UncertMLNode::createDistributionNode
+                          ("StatisticsCollection", "", "");
+  statcol->addChild(stddev);
+  statcol->addChild(variance);
+  uncert->setUncertML(statcol);
+
+
+  s = mod->createSpecies();
+  s->setId("S4_stddev_variance_and_mean");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * mean = UncertMLNode::createDistributionNodeWithValues
+                          ("Mean", "value", "3.2", "rVal");
+  statcol->addChild(mean);
+  uncert->setUncertML(statcol);
+
+
+  s = mod->createSpecies();
+  s->setId("S5_noval_range");
+  s->setHasOnlySubstanceUnits(true);
+  //s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * range = UncertMLNode::createDistributionNodeWithValues
+                          ("Range", "lower, upper", "0.5, 8.6", "rVal, rVal");
+  uncert->setUncertML(range);
+
+
+  s = mod->createSpecies();
+  s->setId("S6_noval_uniform");
+  s->setHasOnlySubstanceUnits(true);
+  //s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * uniform = UncertMLNode::createDistributionNodeWithValues
+                          ("UniformDistribution", "minimum, maximum", "0.5, 8.6", "rVal, rVal");
+  uncert->setUncertML(uniform);
+
+
+  s = mod->createSpecies();
+  s->setId("S7_val_range");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(1.5);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(range);
+
+
+  s = mod->createSpecies();
+  s->setId("S8_val_uniform");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(2.04);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(uniform);
+
+
+  s = mod->createSpecies();
+  s->setId("S9_normal");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(8.8);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * normal = UncertMLNode::createDistributionNodeWithValues
+                          ("NormalDistribution", "mean, stddev", "8.8, 0.3", "rVal, prVal");
+  uncert->setUncertML(normal);
+
+
+
+  ex1->checkConsistency();
+  writeSBML(ex1,"distrib_exchange_values.xml");
+ 
+  delete ex1;
+}
+
+
+
+void createExchangeVariablesTest()
+{
+  SBMLDocument* ex1 = createDistribDoc();
+  Model* mod = ex1->getModel();
+  Compartment* c = mod->createCompartment();
+  c->setId("C");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setSize(1);
+  c->setUnits("litre");
+
+  Parameter* p = mod->createParameter();
+  p->setId("STDDEV");
+  p->setConstant(true);
+  p->setValue(0.3);
+  p->setUnits("dimensionless");
+
+  p = mod->createParameter();
+  p->setId("VARIANCE");
+  p->setConstant(true);
+  p->setValue(0.9);
+  p->setUnits("dimensionless");
+
+  p = mod->createParameter();
+  p->setId("MEAN");
+  p->setConstant(true);
+  p->setValue(3.2);
+  p->setUnits("mole");
+
+  p = mod->createParameter();
+  p->setId("LOW");
+  p->setConstant(true);
+  p->setValue(0.5);
+  p->setUnits("mole");
+
+  p = mod->createParameter();
+  p->setId("HIGH");
+  p->setConstant(true);
+  p->setValue(8.6);
+  p->setUnits("mole");
+
+
+  Species* s = mod->createSpecies();
+  s->setId("S1_standard_deviation");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(4.2);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  DistribSBasePlugin* distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  Uncertainty* uncert = distrib->createUncertainty();
+  UncertMLNode * stddev = UncertMLNode::createDistributionNode
+                         ("StandardDeviation", "value", "STDDEV");
+  uncert->setUncertML(stddev);
+
+
+  s = mod->createSpecies();
+  s->setId("S2_variance");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(1.03);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * variance = UncertMLNode::createDistributionNode
+                         ("Variance", "value", "VARIANCE");
+  uncert->setUncertML(variance);
+
+
+  s = mod->createSpecies();
+  s->setId("S3_stddev_and_variance");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(6.9);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * statcol = UncertMLNode::createDistributionNode
+                          ("StatisticsCollection", "", "");
+  statcol->addChild(stddev);
+  statcol->addChild(variance);
+  uncert->setUncertML(statcol);
+
+
+  s = mod->createSpecies();
+  s->setId("S4_stddev_variance_and_mean");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * mean = UncertMLNode::createDistributionNode
+                          ("Mean", "value", "MEAN");
+  statcol->addChild(mean);
+  uncert->setUncertML(statcol);
+
+
+  s = mod->createSpecies();
+  s->setId("S5_noval_range");
+  s->setHasOnlySubstanceUnits(true);
+  //s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * range = UncertMLNode::createDistributionNode
+                          ("Range", "lower, upper", "LOW, HIGH");
+  uncert->setUncertML(range);
+
+
+  s = mod->createSpecies();
+  s->setId("S6_noval_uniform");
+  s->setHasOnlySubstanceUnits(true);
+  //s->setInitialAmount(3.22);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * uniform = UncertMLNode::createDistributionNode
+                          ("UniformDistribution", "minimum, maximum", "LOW, HIGH");
+  uncert->setUncertML(uniform);
+
+
+  s = mod->createSpecies();
+  s->setId("S7_val_range");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(1.5);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(range);
+
+
+  s = mod->createSpecies();
+  s->setId("S8_val_uniform");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(2.04);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(uniform);
+
+
+  s = mod->createSpecies();
+  s->setId("S9_normal");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(8.8);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  UncertMLNode * normal = UncertMLNode::createDistributionNode
+                          ("NormalDistribution", "mean, stddev", "MEAN, STDDEV");
+  uncert->setUncertML(normal);
+
+
+
+  ex1->checkConsistency();
+  writeSBML(ex1,"distrib_exchange_variables.xml");
+ 
+  delete ex1;
+}
+
+
+void createExchangeDifferentElementsTest()
+{
+  UncertMLNode * stddev = UncertMLNode::createDistributionNodeWithValues
+                         ("StandardDeviation", "value", "0.3", "prVal");
+
+  SBMLDocument* ex1 = createDistribDoc();
+  Model* mod = ex1->getModel();
+  Compartment* c = mod->createCompartment();
+  c->setId("C");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setSize(1);
+  c->setUnits("litre");
+  DistribSBasePlugin* distrib = static_cast<DistribSBasePlugin*>(c->getPlugin("distrib"));
+  Uncertainty* uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+
+  Parameter* p = mod->createParameter();
+  p->setId("p1");
+  p->setConstant(true);
+  p->setValue(3.5);
+  p->setUnits("dimensionless");
+  distrib = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  Species* s = mod->createSpecies();
+  s->setId("S1");
+  s->setHasOnlySubstanceUnits(true);
+  s->setInitialAmount(4.2);
+  s->setCompartment("C");
+  s->setBoundaryCondition(false);
+  s->setConstant(false);
+  s->setUnits("mole");
+  distrib = static_cast<DistribSBasePlugin*>(s->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  Reaction* r = mod->createReaction();
+  r->setId("J0");
+  r->setReversible(true);
+  r->setFast(false);
+  SpeciesReference* sr = r->createReactant();
+  sr->setId("sr1");
+  sr->setSpecies("S1");
+  sr->setConstant(true);
+  sr->setStoichiometry(1);
+  distrib = static_cast<DistribSBasePlugin*>(sr->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  KineticLaw* kl = r->createKineticLaw();
+  kl->setMath(SBML_parseFormula("plocal*S1"));
+  distrib = static_cast<DistribSBasePlugin*>(kl->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+  
+  LocalParameter* lp = kl->createLocalParameter();
+  lp->setId("plocal");
+  lp->setValue(4.2);
+  lp->setConstant(true);
+  lp->setUnits("dimensionless");
+  distrib = static_cast<DistribSBasePlugin*>(lp->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  p = mod->createParameter();
+  p->setId("p2");
+  p->setConstant(false);
+  p->setUnits("dimensionless");
+  InitialAssignment* ia = mod->createInitialAssignment();
+  ia->setSymbol("p2");
+  ia->setMath(SBML_parseFormula("2^4"));
+  distrib = static_cast<DistribSBasePlugin*>(ia->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  RateRule* rr = mod->createRateRule();
+  rr->setVariable("p2");
+  rr->setMath(SBML_parseL3Formula("8"));
+  distrib = static_cast<DistribSBasePlugin*>(lp->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+  p = mod->createParameter();
+  p->setId("p3");
+  p->setConstant(false);
+  p->setUnits("dimensionless");
+  AssignmentRule* ar = mod->createAssignmentRule();
+  ar->setVariable("p3");
+  ar->setMath(SBML_parseFormula("pi"));
+  distrib = static_cast<DistribSBasePlugin*>(ar->getPlugin("distrib"));
+  uncert = distrib->createUncertainty();
+  uncert->setUncertML(stddev);
+
+
+  ex1->checkConsistency();
+  writeSBML(ex1,"distrib_all_elements.xml");
+ 
+  delete ex1;
+}
 
 
 int main(int argc,char** argv)
@@ -721,5 +1161,8 @@ int main(int argc,char** argv)
   createPkPd();
   createTruncated();
   createMultivariate();
+  createExchangeValuesTest();
+  createExchangeVariablesTest();
+  createExchangeDifferentElementsTest();
   return 0;
 }
