@@ -533,6 +533,7 @@ SBMLExtension::getMessage(unsigned int index,
     {
       case 1:
         ref = pkgErr.reference.ref_l3v1v1;
+        break;
       case 2:
       default:
         ref = pkgErr.reference.ref_l3v1v2;
