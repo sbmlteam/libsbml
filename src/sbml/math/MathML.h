@@ -36,6 +36,7 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 
 #ifdef __cplusplus
@@ -56,6 +57,44 @@ class XMLInputStream;
 class XMLOutputStream;
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
+
+class LIBSBML_EXTERN MathML
+{
+public:
+  MathML(SBMLNamespaces* sbmlns);
+
+  MathML();
+
+  virtual ~MathML();
+
+  void setPrefix(const std::string& prefix);
+
+  ASTNode* readMathML(XMLInputStream& stream);
+
+  void writeMathML(XMLOutputStream& stream, const ASTNode* node);
+
+  friend class ASTNode;
+  friend class ASTBasePlugin;
+
+
+protected:
+
+  bool  hasSeriousErrors(XMLErrorLog* log, unsigned int index);
+
+  void writeOpenMathElement(XMLOutputStream& stream, const ASTNode* node);
+
+  void writeCloseMathElement(XMLOutputStream& stream);
+
+  std::string mPrefix;
+  SBMLNamespaces* mSBMLns;
+
+  friend class ASTNode;
+  friend class ASTBasePlugin;
+
+};
+
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /**
@@ -77,6 +116,7 @@ LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NULL);
 /** @endcond */
+
 
 #ifndef SWIG
 

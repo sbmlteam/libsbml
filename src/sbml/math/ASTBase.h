@@ -205,10 +205,15 @@ public:
   //bool readAttributes(const XMLAttributes att);
 
   /* functions to keep note of whether this instance of an AST is a child */
+  // removed as this could cause issues when manipulating ASTs
+#if (0)
   bool isChild() const;
+#endif
 
-
+  // this is now a no-op but left for backwards compatibility reasons
+  // since it did trickle up to the exposed ASTNode class
   virtual void setIsChildFlag(bool flag);
+  
 
   // functions for MathML attributes
   std::string getClass() const;
@@ -391,7 +396,10 @@ protected:
 
   /* member variables */
 
-  bool mIsChildFlag;
+/*
+ * removed as caused issues when manipulating ASTs
+ */
+//  bool mIsChildFlag;
 
   ASTNodeType_t mType;
   int mTypeFromPackage;

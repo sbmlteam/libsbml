@@ -1952,6 +1952,8 @@ protected:
   bool canonicalizeLogical    ();
   bool canonicalizeRelational ();
 
+  friend class MathML;
+
   /* additional to original astnode */
   bool hasCnUnits() const;
   const std::string& getUnitsPrefix() const;

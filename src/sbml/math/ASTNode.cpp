@@ -2692,6 +2692,11 @@ ASTNode::swapChildren(ASTNode* that)
 void 
 ASTNode::write(XMLOutputStream& stream) const
 {
+  /* writing the opening math and ns has moved to the MathML writing code
+   * as trying to keep track of a child node could cause issues
+   * when manipulating or using child ASTs
+   */
+#if (0)
   if (ASTBase::isChild() == false)
   {
     static const string uri = "http://www.w3.org/1998/Math/MathML";
@@ -2716,11 +2721,8 @@ ASTNode::write(XMLOutputStream& stream) const
       ASTBase::getPlugin(i)->writeXMLNS(stream);
     }
   }
+#endif
 
-  //if (getSemanticsFlag() == true)
-  //{
-  //  stream.startElement("semantics");
-  //}
   if (mNumber != NULL)
   {
     mNumber->write(stream);
@@ -2731,20 +2733,16 @@ ASTNode::write(XMLOutputStream& stream) const
     mFunction->write(stream);
   }
 
-  //if (getSemanticsFlag() == true)
-  //{
-  //  for (unsigned int n = 0; n < getNumSemanticsAnnotations(); n++)
-  //  {
-  //    stream << *(getSemanticsAnnotation(n));
-  //  }
-  //  stream.endElement("semantics");
-  //}
-
+  /* writing the closing math has moved to the MathML writing code
+   * as trying to keep track of a child node could cause issues
+   * when manipulating or using child ASTs
+   */
+#if (0)
   if (ASTBase::isChild() == false)
   {
     stream.endElement("math");
   }
-
+#endif
 }
 /** @endcond */
 

@@ -90,8 +90,8 @@ struct CloneASTPluginEntityNoParent : public unary_function<ASTBasePlugin*, ASTB
 
 
 ASTBase::ASTBase (int type) :
-   mIsChildFlag     ( false )
-   , mPackageName      ( "core" )
+//   mIsChildFlag     ( false )
+     mPackageName      ( "core" )
    , mId ("")
    , mClass ("")
    , mStyle ("")
@@ -116,8 +116,8 @@ ASTBase::ASTBase (int type) :
   
 
 ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
-   mIsChildFlag     ( false )
-   , mPackageName      ( "core" )
+//   mIsChildFlag     ( false )
+     mPackageName      ( "core" )
    , mId ("")
    , mClass ("")
    , mStyle ("")
@@ -141,8 +141,8 @@ ASTBase::ASTBase (SBMLNamespaces* sbmlns, int type) :
  * Copy constructor
  */
 ASTBase::ASTBase (const ASTBase& orig):
-   mIsChildFlag          ( orig.mIsChildFlag )  
-  , mType                ( orig.mType )
+//   mIsChildFlag          ( orig.mIsChildFlag )  
+    mType                ( orig.mType )
   , mTypeFromPackage     ( orig.mTypeFromPackage)
   , mPackageName         ( orig.mPackageName )
   , mId                  (orig.mId)
@@ -171,7 +171,7 @@ ASTBase::operator=(const ASTBase& rhs)
 {
   if(&rhs!=this)
   {
-    mIsChildFlag          = rhs.mIsChildFlag;
+//    mIsChildFlag          = rhs.mIsChildFlag;
     mType                 = rhs.mType;
     mTypeFromPackage      = rhs.mTypeFromPackage;
     mPackageName          = rhs.mPackageName;
@@ -1417,18 +1417,22 @@ ASTBase::readAttributes(const XMLAttributes& attributes,
   return read;
 }
 
-
+#if (0)
+/*
+ * removed as caused issues when manipulating ASTs
+ */
 bool 
 ASTBase::isChild() const
 {
   return mIsChildFlag;
 }
-
+#endif
 
 void 
 ASTBase::setIsChildFlag(bool flag)
 {
-  mIsChildFlag = flag;
+  // no op
+  // left for backwards compatibility reasons
 }
 
 //
@@ -1753,7 +1757,7 @@ ASTBase::syncMembersFrom(ASTBase* rhs)
     return;
   }
 
-  mIsChildFlag          = rhs->mIsChildFlag;
+//  mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
   mPackageName          = rhs->mPackageName;
@@ -1780,7 +1784,7 @@ ASTBase::syncPluginsFrom(ASTBase* rhs)
     return;
   }
 
-  mIsChildFlag          = rhs->mIsChildFlag;
+//  mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
   mPackageName          = rhs->mPackageName;
@@ -1808,7 +1812,7 @@ ASTBase::syncMembersAndResetParentsFrom(ASTBase* rhs)
     return;
   }
 
-  mIsChildFlag          = rhs->mIsChildFlag;
+//  mIsChildFlag          = rhs->mIsChildFlag;
   mType                 = rhs->mType;
   mTypeFromPackage      = rhs->mTypeFromPackage;
   mPackageName          = rhs->mPackageName;
@@ -1842,7 +1846,7 @@ ASTBase::syncMembersOnlyFrom(ASTBase* rhs)
     return;
   }
 
-  mIsChildFlag          = rhs->mIsChildFlag;
+//  mIsChildFlag          = rhs->mIsChildFlag;
   mId                   = rhs->mId;
   mClass                = rhs->mClass;
   mStyle                = rhs->mStyle;

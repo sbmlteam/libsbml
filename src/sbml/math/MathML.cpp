@@ -43,6 +43,7 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
+#include <sbml/extension/ASTBasePlugin.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -53,8 +54,76 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 /** @cond doxygenLibsbmlInternal */
+
+MathML::MathML(SBMLNamespaces* sbmlns) :
+    mPrefix ("")
+  , mSBMLns (sbmlns)
+{
+}
+
+MathML::MathML() :
+    mPrefix ("")
+  , mSBMLns (NULL)
+{
+}
+
+
+MathML::~MathML() 
+{
+}
+
+
+void 
+MathML::setPrefix(const std::string& prefix)
+{
+  mPrefix = prefix;
+}
+
+ASTNode* 
+MathML::readMathML(XMLInputStream& stream)
+{
+  if (mSBMLns != NULL)
+  {
+    stream.setSBMLNamespaces(mSBMLns);
+  }
+
+  stream.skipText();
+
+  unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();
+
+  ASTNode* node = new ASTNode(stream.getSBMLNamespaces());
+  
+  bool read = node->read(stream, mPrefix);
+  
+  if (read == false 
+    || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
+  {
+    delete node;
+    node = NULL;
+  }
+
+  return node;
+}
+
+ 
+void 
+MathML::writeMathML(XMLOutputStream& stream, const ASTNode* node)
+{
+  if (node == NULL ) return;
+
+  if (mSBMLns != NULL)
+  {
+    stream.setSBMLNamespaces(mSBMLns);
+  }
+
+  writeOpenMathElement(stream, node);
+  node->write(stream);
+  writeCloseMathElement(stream);
+}
+
+
 bool
-hasSeriousErrors(XMLErrorLog* log, unsigned int index)
+MathML::hasSeriousErrors(XMLErrorLog* log, unsigned int index)
 {
   bool seriousErrors = false;
 
@@ -78,29 +147,51 @@ hasSeriousErrors(XMLErrorLog* log, unsigned int index)
 
   return seriousErrors;
 }
-/** @endcond */
+
+
+void 
+MathML::writeOpenMathElement(XMLOutputStream& stream, const ASTNode* node)
+{
+  static const std::string uri = "http://www.w3.org/1998/Math/MathML";
+
+  stream.startElement("math");
+  stream.writeAttribute("xmlns", uri);
+
+    // need to know if we have units
+  if (node->hasCnUnits() == true && stream.getSBMLNamespaces() != NULL
+    && stream.getSBMLNamespaces()->getLevel() > 2)
+  {
+    std::string prefix = node->getUnitsPrefix();
+    if (prefix.empty() == true)
+    {
+      prefix = "sbml";
+    }
+    stream.writeAttribute(prefix, "xmlns", stream.getSBMLNamespaces()->getURI());
+  }
+
+  for (unsigned int i = 0; i < node->getNumPlugins(); i++)
+  {
+    node->getPlugin(i)->writeXMLNS(stream);
+  }
+}
+
+
+void 
+MathML::writeCloseMathElement(XMLOutputStream& stream)
+{
+  stream.endElement("math");
+}
+
 
 /** @cond doxygenLibsbmlInternal */
 LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, const std::string& reqd_prefix)
 {
-
-  stream.skipText();
-
-  unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();
-
-  ASTNode*      node = new ASTNode(stream.getSBMLNamespaces());
-  
-  bool read = node->read(stream, reqd_prefix);
-  
-  if (read == false 
-    || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
-  {
-    delete node;
-    node = NULL;
-  }
-
+  MathML* mathml = new MathML();
+  mathml->setPrefix(reqd_prefix);
+  ASTNode * node = mathml->readMathML(stream);
+  delete mathml;
   return node;
 }
 /** @endcond */
@@ -111,8 +202,9 @@ void
 writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (node == NULL ) return;
-  stream.setSBMLNamespaces(sbmlns);
-  node->write(stream);
+  MathML* mathml = new MathML(sbmlns);
+  mathml->writeMathML(stream, node);
+  delete mathml;
 }
 /** @endcond */
 
@@ -157,20 +249,7 @@ readMathMLFromString (const char *xml)
   SBMLNamespaces sbmlns;
   stream.setSBMLNamespaces(&sbmlns);
 
-  unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();
-  
-  ASTNode* ast = new ASTNode(&sbmlns);
-  
-  bool read = ast->read(stream);
-  
-  stream.setSBMLNamespaces(NULL);
-  
-  if (read == false 
-    || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
-  {
-    delete ast;
-    return NULL;
-  }
+  ASTNode* ast = readMathML (stream);
 
   return ast;
 }
@@ -220,23 +299,7 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
   }
   stream.setSBMLNamespaces(&sbmlns);
 
-  unsigned int numErrorsB4Read = stream.getErrorLog()->getNumErrors();
-  
-  ASTNode* ast = new ASTNode(&sbmlns);
-  
-  bool read = ast->read(stream);
-  
-  if (needDelete == true)
-  {
-    safe_free((void *)(xmlstr_c));
-  }
-
-  if (read == false 
-    || hasSeriousErrors(stream.getErrorLog(), numErrorsB4Read) == true)
-  {
-    delete ast;
-    return NULL;
-  }
+  ASTNode * ast = readMathML(stream);
 
   return ast;
 }
@@ -254,14 +317,17 @@ writeMathMLToString (const ASTNode* node)
   ostringstream   os;
   XMLOutputStream stream(os);
   SBMLNamespaces sbmlns;
-  stream.setSBMLNamespaces(&sbmlns);
+  //stream.setSBMLNamespaces(&sbmlns);
 
   char * result = NULL;
 
   if (node != NULL)
-  {
-    node->write(stream);
+  { 
+    MathML* mathml = new MathML(&sbmlns);
+    mathml->writeMathML(stream, node);
+
     result = safe_strdup( os.str().c_str() );
+    delete mathml;
   }
 
   return result;
@@ -276,9 +342,9 @@ writeMathMLToStdString (const ASTNode* node)
   ostringstream   os;
   XMLOutputStream stream(os);
   SBMLNamespaces sbmlns;
-  stream.setSBMLNamespaces(&sbmlns);
-
-  writeMathML(node, stream);
+  MathML* mathml = new MathML(&sbmlns);
+  mathml->writeMathML(stream, node);
+  delete mathml;
 
   return os.str();
 }

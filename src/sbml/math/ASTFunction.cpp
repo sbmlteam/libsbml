@@ -4366,7 +4366,8 @@ ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_pref
       mUserFunction->setDefinitionURL(url);
     }
     this->setType(mUserFunction->getType());
-    this->ASTBase::setIsChildFlag(mUserFunction->ASTBase::isChild());
+//    removed when isChild was removed
+//    this->ASTBase::setIsChildFlag(mUserFunction->ASTBase::isChild());
     if (mNaryFunction != NULL)
     {
       delete mNaryFunction;
