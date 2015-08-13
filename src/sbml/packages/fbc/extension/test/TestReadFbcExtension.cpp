@@ -413,7 +413,7 @@ START_TEST(test_FbcExtension_read_and_convert)
 
   std::string finalModel = writeSBMLToStdString(document);
 
-
+  safe_free(filename);
   delete document;
 }
 END_TEST

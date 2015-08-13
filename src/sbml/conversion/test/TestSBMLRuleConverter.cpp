@@ -324,9 +324,6 @@ START_TEST (test_conversion_inlineFD_bug)
 
   // all seems good ... write it 
   const ASTNode * node = doc->getModel()->getReaction(0)->getKineticLaw()->getMath();
-#ifndef LIBSBML_USE_LEGACY_MATH
-  fail_unless(node->ASTBase::isChild() == false);
-#endif
   std::string math = writeMathMLToStdString(node);
   ASTNode* test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
@@ -339,9 +336,6 @@ START_TEST (test_conversion_inlineFD_bug)
   fail_unless(doc->getModel()->getRule(0)->getMath() != NULL);
 
   node = doc->getModel()->getRule(0)->getMath();
-#ifndef LIBSBML_USE_LEGACY_MATH
-  fail_unless(node->ASTBase::isChild() == false);
-#endif
   math = writeMathMLToStdString(node);
   test = readMathMLFromString(math.c_str());
   fail_unless(test != NULL);
