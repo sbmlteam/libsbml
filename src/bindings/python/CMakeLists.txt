@@ -264,7 +264,21 @@ else()
   endif()
 endif()
 
-target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static ${PYTHON_LIBRARIES})
+SET(PYTHON_USE_DYNAMIC_LOOKUP OFF)
+if(APPLE)
+  option (PYTHON_USE_DYNAMIC_LOOKUP
+  "Do not actually link against the python library, instead use the undefined lookup mechanism, that ." OFF)
+  mark_as_advanced(PYTHON_USE_DYNAMIC_LOOKUP)
+
+endif(APPLE)
+
+if (APPLE AND PYTHON_USE_DYNAMIC_LOOKUP)
+  set_target_properties (binding_python_lib PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static)
+else()
+  target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static ${PYTHON_LIBRARIES})
+endif()
+
 
 # 
 # Determine the python installation directory
