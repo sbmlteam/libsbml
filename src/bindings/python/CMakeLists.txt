@@ -264,12 +264,10 @@ else()
   endif()
 endif()
 
-SET(PYTHON_USE_DYNAMIC_LOOKUP OFF)
 if(APPLE)
   option (PYTHON_USE_DYNAMIC_LOOKUP
   "Do not actually link against the python library, instead use the undefined lookup mechanism, that ." OFF)
   mark_as_advanced(PYTHON_USE_DYNAMIC_LOOKUP)
-
 endif(APPLE)
 
 if (APPLE AND PYTHON_USE_DYNAMIC_LOOKUP)
