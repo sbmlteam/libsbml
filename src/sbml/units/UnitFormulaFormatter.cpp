@@ -493,8 +493,9 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
   {
     unit = tempUD->getUnit(i);
     /* dont change the exponent on a dimensionless unit */
-    if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
-      unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
+    /* actually do as there may be a multiplier */
+  //  if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
+    unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
     ud->addUnit(unit);
   }
   delete tempUD;
