@@ -15,12 +15,31 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - There was a very subtle bug in unit checking that incorrectly
+    applied a multiplication factor. Thanks to Mike Cooling for 
+    the detailed example and anaylysis that revealed this. It 
+    has now been fixed.
+
+  - In the new math code using the children of an ASTNode could
+    result in the math namespace declaration being unecessarily
+    written out in many places. This has been sorted out. 
+
+  - Sourceforge libSBML Tracker #414: A missing break
+    statement was added. 
+
+
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'layout' package-specific bug fixes:
   - 'qual' package-specific bug fixes:
 
 * Configuration/build system changes
+
+  - The CMake files have added an option to dynamically link
+    to a python version on Mac OSX systems rather than 
+    automatically link.  Thanks to Kyle Medley for supplying 
+    the initial patch for this.
 
 
 * Miscellaneous
@@ -34,7 +53,12 @@ EXPERIMENTAL RELEASE
   - 'distrib' package-specific updates:
   - 'dyn' package-specific updates:
   - 'groups' package-specific updates:
+
   - 'multi' package-specific updates:
+
+    - Full validation has been added to the multi package code.  
+      Thanks to Fengkai Zhang for his continued efforts on this.
+
   - 'render' package-specific updates:
   - 'req' package-specific updates:
   - 'spatial' package-specific updates:
