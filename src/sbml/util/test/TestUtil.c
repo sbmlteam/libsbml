@@ -32,7 +32,9 @@
 
 #if defined(WIN32) && !defined(CYGWIN)
 #include <errno.h>
+#if _MSC_VER < 1900
 #define snprintf _snprintf
+#endif
 #else
 #include <sys/errno.h>
 #endif 

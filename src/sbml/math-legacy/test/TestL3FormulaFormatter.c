@@ -316,7 +316,11 @@ START_TEST (test_SBML_formulaToL3String)
     "1",
     "2.1",
 #if defined(WIN32) && !defined(CYGWIN)
-    "2.100000e-010",
+#if _MSC_VER < 1900
+	  "2.100000e-010",
+#else
+	  "2.100000e-10",
+#endif
 #else
     "2.100000e-10",
 #endif
