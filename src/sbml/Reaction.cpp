@@ -798,6 +798,37 @@ Reaction::addReactant (const SpeciesReference* sr)
   }
 }
 
+int Reaction::addReactant(
+    const Species *species,
+    double stoichiometry,
+    const string &id,
+    bool constant)
+{
+  if (species == NULL)
+    return LIBSBML_INVALID_OBJECT;
+
+  if (!species->isSetId())
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (!id.empty() && getListOfModifiers()->get(id) != NULL)
+    {
+      // an object with this id already exists
+      return LIBSBML_DUPLICATE_OBJECT_ID;
+    }
+
+  SpeciesReference* ref = createReactant();
+  if (!id.empty())
+    ref->setId(id);
+
+  if (stoichiometry == stoichiometry)
+    ref->setStoichiometry(stoichiometry);
+
+  ref->setSpecies(species->getId());
+  ref->setConstant(constant);
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 /*
  * Adds a copy of the given product (SpeciesReference) to this Reaction.
@@ -822,6 +853,38 @@ Reaction::addProduct (const SpeciesReference* sr)
 
     return LIBSBML_OPERATION_SUCCESS;
   }
+}
+
+int
+Reaction::addProduct(
+    const Species *species,
+    double stoichiometry,
+    const string &id,
+    bool constant)
+{
+  if (species == NULL)
+    return LIBSBML_INVALID_OBJECT;
+
+  if (!species->isSetId())
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (!id.empty() && getListOfModifiers()->get(id) != NULL)
+    {
+      // an object with this id already exists
+      return LIBSBML_DUPLICATE_OBJECT_ID;
+    }
+
+  SpeciesReference* ref = createProduct();
+  if (!id.empty())
+    ref->setId(id);
+
+  if (stoichiometry == stoichiometry)
+    ref->setStoichiometry(stoichiometry);
+
+  ref->setSpecies(species->getId());
+  ref->setConstant(constant);
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -849,6 +912,32 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
 
     return LIBSBML_OPERATION_SUCCESS;
   }
+}
+
+int
+Reaction::addModifier(
+    const Species *species,
+    const string &id)
+{
+  if (species == NULL)
+    return LIBSBML_INVALID_OBJECT;
+
+  if (!species->isSetId())
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  if (!id.empty() && getListOfModifiers()->get(id) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+
+  ModifierSpeciesReference* ref = createModifier();
+  if (!id.empty())
+    ref->setId(id);
+
+  ref->setSpecies(species->getId());
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1618,7 +1707,7 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version == 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version,
-				getLine(), getColumn());
+        getLine(), getColumn());
 
 }
 /** @endcond */

@@ -632,6 +632,34 @@ public:
    */
   int addReactant (const SpeciesReference* sr);
 
+  /**
+   * Adds the given species as a reactant with the given stoichiometry
+   *
+   * @param species the species to be added as reactant
+   *
+   * @param stoichiometry an optional parameter specifying the
+   *        stoichiometry of the product (defaulting to 1)
+   *
+   * @param id an optional id to be given to the species reference that will
+   *        be created. (defaulting to empty string, i.e. not set)
+   *
+   * @param constant an attribute specifying whether the species reference is
+   *        constant or not (defaulting to true)
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createProduct()
+   */
+  int addReactant(const Species* species,
+                  double stoichiometry = 1.0,
+                  const std::string& id = "",
+                  bool constant = true);
 
   /**
    * Adds a given SpeciesReference object as a product in this Reaction.
@@ -653,6 +681,34 @@ public:
    */
   int addProduct (const SpeciesReference* sr);
 
+  /**
+   * Adds the given species as a product with the given stoichiometry
+   *
+   * @param species the species to be added as product
+   *
+   * @param stoichiometry an optional parameter specifying the
+   *        stoichiometry of the product (defaulting to 1)
+   *
+   * @param id an optional id to be given to the species reference that will
+   *        be created. (defaulting to empty string, i.e. not set)
+   *
+   * @param constant an attribute specifying whether the species reference is
+   *        constant or not (defaulting to true)
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createProduct()
+   */
+  int addProduct(const Species* species,
+                 double stoichiometry = 1.0,
+                 const std::string& id = "",
+                 bool constant = true);
 
   /**
    * Adds a given ModifierSpeciesReference object as a product in this
@@ -677,6 +733,26 @@ public:
    */
   int addModifier (const ModifierSpeciesReference* msr);
 
+  /**
+   * Adds the given species as a modifier to this reaction
+   *
+   * @param species the species to be added as modifier
+   *
+   * @param id an optional id to be given to the species reference that will
+   *        be created. (defaulting to empty string, i.e. not set)
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+   *
+   * @copydetails doc_note_object_is_copied
+   *
+   * @see createProduct()
+   */
+  int addModifier(const Species *species,
+                  const std::string &id = "");
 
   /**
    * Creates a new SpeciesReference, adds it to this Reaction's list of
