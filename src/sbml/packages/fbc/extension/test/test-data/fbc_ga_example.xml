@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version1" level="3" version="1" fbc:required="false">
   <model>
     <annotation>
       <listOfGeneAssociations xmlns="http://www.sbml.org/sbml/level3/version1/fbc/version1">
@@ -15,23 +15,23 @@
       <compartment id="compartment" size="1" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="Node1" compartment="compartment" boundaryCondition="false"/>
-      <species id="Node2" compartment="compartment" boundaryCondition="false"/>
+      <species id="Node1" compartment="compartment" boundaryCondition="false" hasOnlySubstanceUnits="false" constant="false"/>
+      <species id="Node2" compartment="compartment" boundaryCondition="false" hasOnlySubstanceUnits="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction id="J0" reversible="false">
+      <reaction id="J0" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="Node0" stoichiometry="1"/>
+          <speciesReference species="Node0" constant="true" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="Node1" stoichiometry="1"/>
+          <speciesReference species="Node1" constant="true" stoichiometry="1"/>
         </listOfProducts>
       </reaction>
     </listOfReactions>
     <fbc:listOfFluxBounds>
       <fbc:fluxBound fbc:id="bound1" fbc:reaction="J0" fbc:operation="equal" fbc:value="10"/>
     </fbc:listOfFluxBounds>
-    <fbc:listOfObjectives>
+    <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:reaction="J0" fbc:coefficient="1"/>

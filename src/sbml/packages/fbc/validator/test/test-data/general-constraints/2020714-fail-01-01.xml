@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
+  <model id="m" substanceUnits="mole" timeUnits="second" volumeUnits="litre" extentUnits="mole" fbc:strict="true">
+    <listOfUnitDefinitions>
+      <unitDefinition id="vol_per_time">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="comp1" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S1" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S2" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S3" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+      <species id="S4" compartment="comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="2" fbc:chemicalFormula="S20"/>
+    </listOfSpecies>
+    
+    <listOfParameters>
+      <parameter sboTerm="SBO:0000625" id="low" value="10" constant="true"/>
+      <parameter sboTerm="SBO:0000625" id="up" value="24" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="R1" reversible="false" fast="false" fbc:lowerFluxBound="low" fbc:upperFluxBound="up">
+        <fbc:geneProductAssociation fbc:id="gg1">
+          <fbc:or>
+            <fbc:geneProductRef fbc:geneProduct="g_1"/>
+            <fbc:geneProductRef fbc:geneProduct="g_1"/>
+          </fbc:or>
+        </fbc:geneProductAssociation>
+        <listOfReactants>
+          <speciesReference species="S1" constant="true" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2" constant="false" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="vol_per_time"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfGeneProducts>
+      <fbc:geneProduct fbc:id="g_1" fbc:label="b1"/>
+    </fbc:listOfGeneProducts>
+    <fbc:listOfObjectives fbc:activeObjective="c">
+      <fbc:objective fbc:id="c" fbc:type="maximize">
+        <fbc:listOfFluxObjectives>
+          <fbc:fluxObjective fbc:reaction="R1" fbc:coefficient="1"/>
+         </fbc:listOfFluxObjectives>
+      </fbc:objective>
+    </fbc:listOfObjectives>
+  </model>
+</sbml>

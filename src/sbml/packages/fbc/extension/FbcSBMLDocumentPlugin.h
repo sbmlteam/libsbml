@@ -1,137 +1,157 @@
 /**
- * @file    FbcSBMLDocumentPlugin.h
- * @brief   Definition of FbcSBMLDocumentPlugin, the plugin class of
- *          Fbc package for the Model element.
- * @author  Lucian Smith
+ * @file:   FbcSBMLDocumentPlugin.h
+ * @brief:  Implementation of the FbcSBMLDocumentPlugin class
+ * @author: SBMLTeam
  *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
- * Copyright (C) 2013-2015 jointly by the following organizations:
+ *
+ * Copyright (C) 2013-2014 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
+ *
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *
+ * Copyright (C) 2002-2005 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
- *
- * @class FbcSBMLDocumentPlugin
- * @sbmlbrief{fbc} Extension of SBMLDocument.
- *
- * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
- * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref fbc "Flux Balance Constraints" package ('fbc').
- *
- * The FbcSBMLDocumentPlugin defines a
- * required flag named <code>required</code>, which indicates whether the
- * 'fbc' constructs can be used to change the core mathematics of the
- * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
- * Because they can not, this attribute must be set @c false.
+ * ------------------------------------------------------------------------ -->
  */
 
-#ifndef FbcSBMLDocumentPlugin_h
-#define FbcSBMLDocumentPlugin_h
+
+#ifndef FbcSBMLDocumentPlugin_H__
+#define FbcSBMLDocumentPlugin_H__
+
+
+#include <sbml/common/extern.h>
 
 
 #ifdef __cplusplus
 
-#include <sbml/common/extern.h>
+
 #include <sbml/extension/SBMLDocumentPlugin.h>
-
-#include <iostream>
-#include <string>
-#include <map>
-
 #include <sbml/packages/fbc/extension/FbcExtension.h>
-#include <sbml/packages/fbc/validator/FbcValidator.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class FbcValidator;
 
 class LIBSBML_EXTERN FbcSBMLDocumentPlugin : public SBMLDocumentPlugin
 {
 public:
 
   /**
-   * Constructor
+   * Creates a new FbcSBMLDocumentPlugin
    */
-  FbcSBMLDocumentPlugin (const std::string &uri, const std::string &prefix, FbcPkgNamespaces *fbcns);
+  FbcSBMLDocumentPlugin(const std::string& uri, const std::string& prefix, 
+                                 FbcPkgNamespaces* fbcns);
 
 
   /**
-   * Copy constructor. Creates a copy of this FbcSBMLDocumentPlugin object.
+   * Copy constructor for FbcSBMLDocumentPlugin.
+   *
+   * @param orig; the FbcSBMLDocumentPlugin instance to copy.
    */
   FbcSBMLDocumentPlugin(const FbcSBMLDocumentPlugin& orig);
 
 
-  /**
-   * Destroy this object.
-   */
-  virtual ~FbcSBMLDocumentPlugin ();
-
-
-  /**
+   /**
    * Assignment operator for FbcSBMLDocumentPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-  FbcSBMLDocumentPlugin& operator=(const FbcSBMLDocumentPlugin& orig);
+  FbcSBMLDocumentPlugin& operator=(const FbcSBMLDocumentPlugin& rhs);
 
 
-  /**
+   /**
    * Creates and returns a deep copy of this FbcSBMLDocumentPlugin object.
-   * 
-   * @return a (deep) copy of this FbcSBMLDocumentPlugin object
+   *
+   * @return a (deep) copy of this FbcSBMLDocumentPlugin object.
    */
   virtual FbcSBMLDocumentPlugin* clone () const;
 
 
-#ifndef SWIG
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Reads the attributes of corresponding package in SBMLDocument element.
+   /**
+   * Destructor for FbcSBMLDocumentPlugin.
    */
-  virtual void readAttributes (const XMLAttributes& attributes,
+  virtual ~FbcSBMLDocumentPlugin();
+
+
+ #ifndef SWIG
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Reads the attributes of corresponding package in SBMLDocument element
+   */
+  virtual void readAttributes (const XMLAttributes& attributes, 
                                const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
 
 
-#endif //SWIG
- 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+#endif // SWIG
+
   /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns boolean based on whether flattening of a comp model has been implemented.
+   *
+   * @returns @c true if flattening for composed models has been implemented,
+   * false otherwise.
+   */
   virtual bool isCompFlatteningImplemented() const;
-  /** @endcond */
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Check consistency function.
    */
   virtual unsigned int checkConsistency();
-  /** @endcond */
 
+
+  /** @endcond doxygenLibsbmlInternal */
 
   /** @cond doxygenLibsbmlInternal */
   virtual bool accept(SBMLVisitor& v) const;
   /** @endcond */
 
 
+protected:
 
+  /** @cond doxygenLibsbmlInternal */
 
+  /** @endcond doxygenLibsbmlInternal */
 
 
 };
 
+
+
+
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
-#endif  /* FbcSBMLDocumentPlugin_h */
+
+#endif /* __cplusplus */
+#endif /* FbcSBMLDocumentPlugin_H__ */
+
+

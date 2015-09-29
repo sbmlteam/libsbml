@@ -47,4 +47,14 @@
 
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 
-#endif
+#include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
+#include <sbml/packages/fbc/common/FbcExtensionTypes.h>
+#include <sbml/packages/fbc/sbml/FbcAssociation.h>
+#include <sbml/packages/fbc/sbml/GeneProductAssociation.h>
+#include <sbml/packages/fbc/sbml/GeneProduct.h>
+#include <sbml/packages/fbc/sbml/GeneProductRef.h>
+#include <sbml/packages/fbc/sbml/FbcAnd.h>
+#include <sbml/packages/fbc/sbml/FbcOr.h>
+
+#endif // USE_FBC 
+

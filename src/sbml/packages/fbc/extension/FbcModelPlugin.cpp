@@ -8,13 +8,13 @@
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -26,29 +26,36 @@
  *------------------------------------------------------------------------- -->
  */
 
+
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
-
-
 #include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
+
 
 #include <iostream>
 using namespace std;
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
-  /*
-  * Constructor
-  */
-  FbcModelPlugin::FbcModelPlugin (const std::string &uri, 
-  const std::string &prefix,
-  FbcPkgNamespaces *fbcns)
-  : SBasePlugin(uri,prefix, fbcns)
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+
+/*
+ * Creates a new FbcModelPlugin
+ */
+FbcModelPlugin::FbcModelPlugin(const std::string& uri,  
+                                 const std::string& prefix, 
+                               FbcPkgNamespaces* fbcns) :
+    SBasePlugin(uri, prefix, fbcns)
+  , mStrict (false)
+  , mIsSetStrict (false)
+  , mObjectives (fbcns)
+  , mGeneProducts (fbcns)
   , mBounds(fbcns)
-  , mObjectives(fbcns)
   , mAssociations(fbcns)
 {
   // connect child elements to this element.
@@ -57,12 +64,15 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
-* Copy constructor. Creates a copy of this FbcModelPlugin object.
-*/
+ * Copy constructor for FbcModelPlugin.
+ */
 FbcModelPlugin::FbcModelPlugin(const FbcModelPlugin& orig)
-  : SBasePlugin(orig)
+  :  SBasePlugin(orig)
+  , mStrict (orig.mStrict)
+  , mIsSetStrict (orig.mIsSetStrict)
+  , mObjectives (orig.mObjectives)
+  , mGeneProducts (orig.mGeneProducts)
   , mBounds(orig.mBounds)
-  , mObjectives(orig.mObjectives)
   , mAssociations(orig.mAssociations)
 {
   // connect child elements to this element.
@@ -71,56 +81,115 @@ FbcModelPlugin::FbcModelPlugin(const FbcModelPlugin& orig)
 
 
 /*
-* Destroy this object.
-*/
-FbcModelPlugin::~FbcModelPlugin () {}
-
-/*
-* Assignment operator for FbcModelPlugin.
-*/
+ * Assignment operator for FbcModelPlugin.
+ */
 FbcModelPlugin& 
-  FbcModelPlugin::operator=(const FbcModelPlugin& orig)
+FbcModelPlugin::operator=(const FbcModelPlugin& rhs)
 {
-  if(&orig!=this)
+  if (&rhs != this)
   {
-    this->SBasePlugin::operator =(orig);
-    mBounds       = orig.mBounds;
-    mObjectives   = orig.mObjectives;
-    mAssociations = orig.mAssociations;
-
+    this->SBasePlugin::operator=(rhs);
+    mStrict  = rhs.mStrict;
+    mIsSetStrict  = rhs.mIsSetStrict;
+    mBounds       = rhs.mBounds;
+    mObjectives   = rhs.mObjectives;
+    mAssociations = rhs.mAssociations;
+    mGeneProducts  = rhs.mGeneProducts;
     // connect child elements to this element.
     connectToChild();
-  }    
+  }
+
   return *this;
 }
 
 
 /*
-* Creates and returns a deep copy of this FbcModelPlugin object.
-* 
-* @return a (deep) copy of this FbcModelPlugin object
-*/
+ * Creates and returns a deep copy of this FbcModelPlugin object.
+ */
 FbcModelPlugin* 
-  FbcModelPlugin::clone () const
+FbcModelPlugin::clone () const
 {
-  return new FbcModelPlugin(*this);  
+  return new FbcModelPlugin(*this);
+}
+
+
+/*
+ * Destructor for FbcModelPlugin.
+ */
+FbcModelPlugin::~FbcModelPlugin()
+{
 }
 
 
 /** @cond doxygenLibsbmlInternal */
-SBase*
-  FbcModelPlugin::createObject(XMLInputStream& stream)
+int
+FbcModelPlugin::appendFrom(const Model* model)
 {
-  SBase*        object = 0;
+  int ret = LIBSBML_OPERATION_SUCCESS;
 
-  const std::string&   name   = stream.peek().getName();
-  const XMLNamespaces& xmlns  = stream.peek().getNamespaces();
-  const std::string&   prefix = stream.peek().getPrefix();
+  if (model == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  const FbcModelPlugin* modplug =
+    static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
+
+  // absence of a plugin is not an error
+  if (modplug == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  Model* parent = static_cast<Model*>(getParentSBMLObject());
+
+  if (parent == NULL)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+
+  ret = mBounds.appendFrom(modplug->getListOfFluxBounds());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mObjectives.appendFrom(modplug->getListOfObjectives());
+
+  if (ret != LIBSBML_OPERATION_SUCCESS)
+  {
+    return ret;
+  }
+
+  ret = mGeneProducts.appendFrom(modplug->getListOfGeneProducts());
+
+  return ret;
+}
+/** @endcond */
+//---------------------------------------------------------------
+//
+// overridden virtual functions for read/write/check
+//
+//---------------------------------------------------------------
+
+/*
+ * create object
+ */
+SBase*
+FbcModelPlugin::createObject (XMLInputStream& stream)
+{
+  SBase* object = NULL; 
+
+  const std::string&      name   = stream.peek().getName(); 
+  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const std::string&      prefix = stream.peek().getPrefix(); 
 
   const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
 
-  if (prefix == targetPrefix)
-  {
+  if (prefix == targetPrefix) 
+  { 
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     if ( name == "listOfFluxBounds" ) 
     {
       if (mBounds.size() != 0)
@@ -135,9 +204,9 @@ SBase*
       {
         mBounds.getSBMLDocument()->enableDefaultNS(mURI,true);
       }
-    }          
-    else if ( name == "listOfObjectives" ) 
-    {
+    }     
+    else if (name == "listOfObjectives" ) 
+    { 
       if (mObjectives.size() != 0)
       {
         getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
@@ -147,48 +216,69 @@ SBase*
       object = &mObjectives;
 
       if (targetPrefix.empty())
-      {
-        mObjectives.getSBMLDocument()->enableDefaultNS(mURI,true);
-      }
-    }          
+      { 
+        mObjectives.getSBMLDocument()->enableDefaultNS(mURI, true); 
+      } 
+    } 
     else if ( name == "listOfGeneAssociations" ) 
     {
+      if (mAssociations.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
+          getPackageVersion(), getLevel(), getVersion());
+      }
+      
       object = &mAssociations;
 
       if (targetPrefix.empty())
       {
         mAssociations.getSBMLDocument()->enableDefaultNS(mURI,true);
       }
-    }          
-  }    
+    }  
+    else if (name == "listOfGeneProducts" ) 
+    { 
+      if (mGeneProducts.size() != 0)
+      {
+        getErrorLog()->logPackageError("fbc", FbcOnlyOneEachListOf, 
+          getPackageVersion(), getLevel(), getVersion());
+      }
+      
+      object = &mGeneProducts;
 
-  return object;
+      if (targetPrefix.empty() == true) 
+      { 
+        mGeneProducts.getSBMLDocument()->enableDefaultNS(mURI, true); 
+      } 
+    } 
+
+    delete fbcns;
+  } 
+
+  return object; 
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * write elements
+ */
 void
-  FbcModelPlugin::writeElements (XMLOutputStream& stream) const
+FbcModelPlugin::writeElements (XMLOutputStream& stream) const
 {
+  if (getLevel() == 2) return;
+  
   if (getNumFluxBounds() > 0)
   {
     mBounds.write(stream);
   }    
-  if (getNumObjectives() > 0)
-  {
+  if (getNumObjectives() > 0) 
+  { 
     mObjectives.write(stream);
-  }    
-  
-  // gene associations did not make the cut for the first version,
-  // so we can't save them here, instead do it in an annotation.
-  /*if (getNumGeneAssociations() > 0)
-  {
-    mAssociations.write(stream);
-  }*/   
+  } 
+  if (getNumGeneProducts() > 0) 
+  { 
+    mGeneProducts.write(stream);
+  } 
 }
-/** @endcond */
-
-
 
 LIBSBML_EXTERN
 void
@@ -282,47 +372,23 @@ XMLNode* deleteFbcAnnotation(XMLNode* pAnnotation)
 }
 
 
-/** @cond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
 void
-FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
+FbcModelPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  Model *parent = static_cast<Model*>(const_cast<SBase*>(getParentSBMLObject()));
-  if (parent == NULL) return;
-  
-  
-  XMLNode *parentAnnotation = parent->getAnnotation();
-  if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
-  {
-    deleteFbcAnnotation(parentAnnotation);
-  }
-  
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-  XMLNode* annt = new XMLNode(ann_token);
+  SBasePlugin::addExpectedAttributes(attributes);
 
-  
-  
-  if( mAssociations.size() > 0)
-  {
-    XMLAttributes loga_attr = XMLAttributes();
-    loga_attr.add("xmlns", FbcExtension::getXmlnsL3V1V1());
-    XMLToken loga_token = XMLToken(XMLTriple("listOfGeneAssociations", FbcExtension::getXmlnsL3V1V1(), ""), loga_attr);
-    XMLNode loga = XMLNode(loga_token);
-
-    for (unsigned int i = 0; i < mAssociations.size(); ++i)
-      loga.addChild(mAssociations.get(i)->toXML());
-    
-    // then add the ones toXML()
-    annt->addChild(loga);
-  }
-
-  
-  if (annt && annt->getNumChildren() > 0)
-  {
-    parent->appendAnnotation(annt);
-  }
-  delete annt;
+  attributes.add("strict");
 }
-/** @endcond */
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /** @cond doxygenLibsbmlInternal */
@@ -369,7 +435,7 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
   try
   {   
     XMLNode *pAnnotation = parentObject->getAnnotation();
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     
     if (!pAnnotation)
     {
@@ -457,122 +523,171 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-/* default for components that have no required elements */
-bool
-  FbcModelPlugin::hasRequiredElements() const
-{
-  bool allPresent = true;
 
-  if (mBounds.size() < 1)
-  {
-    allPresent = false;    
-  }
+/*
+ * Checks if this plugin object has all the required elements.
+ */
+bool
+FbcModelPlugin::hasRequiredElements () const
+{
+  bool allPresent = true; 
+
   if (mObjectives.size() < 1)
   {
     allPresent = false;    
   }
-  if (mAssociations.size() < 1)
+
+
+  return allPresent; 
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
+FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
+{
+  const unsigned int sbmlLevel   = getLevel  ();
+  const unsigned int sbmlVersion = getVersion();
+
+  unsigned int numErrs;
+
+  SBasePlugin::readAttributes(attributes, expectedAttributes);
+
+  // look to see whether an unknown attribute error was logged
+  if (getErrorLog() != NULL)
   {
-    allPresent = false;    
+    numErrs = getErrorLog()->getNumErrors();
+    for (int n = numErrs-1; n >= 0; n--)
+    {
+      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownPackageAttribute);
+        getErrorLog()->logPackageError("fbc", FbcUnknown,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details =
+                          getErrorLog()->getError(n)->getMessage();
+        getErrorLog()->remove(UnknownCoreAttribute);
+        getErrorLog()->logPackageError("fbc", FbcUnknown,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      }
+    }
   }
-  return allPresent;
-}
-/** @endcond */
 
-SBase* 
-FbcModelPlugin::getElementBySId(const std::string& id)
+  //
+  // strict bool   ( use = "required" )
+  //
+  numErrs = getErrorLog()->getNumErrors();
+  mIsSetStrict = attributes.readInto("strict", mStrict);
+
+  if (mIsSetStrict == false && getPackageVersion() > 1)
+  {
+    if (getErrorLog() != NULL)
+    {
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
+              getErrorLog()->contains(XMLAttributeTypeMismatch))
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("fbc", FbcNSUndeclared,
+                     getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
+      }
+      else
+      {
+        std::string message = "Fbc attribute 'strict' is missing from <Model> object.";
+        getErrorLog()->logPackageError("fbc", FbcNSUndeclared,
+                       getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
+      }
+    }
+  }
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
+FbcModelPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  if (id.empty()) return NULL;
-  SBase* obj = mBounds.getElementBySId(id);
-  if (obj != NULL) return obj;
-  obj = mObjectives.getElementBySId(id);
-  if (obj != NULL) return obj;
-  obj = mAssociations.getElementBySId(id);
-  return obj;
+  SBasePlugin::writeAttributes(stream);
+
+  if (isSetStrict() == true && getPackageVersion() != 1 && getLevel() == 3)
+    stream.writeAttribute("strict", getPrefix(), mStrict);
+
+  Model *parent = static_cast<Model*>(const_cast<SBase*>(getParentSBMLObject()));
+  if (parent == NULL) return;
+
+
+  XMLNode *parentAnnotation = parent->getAnnotation();
+  if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
+  {
+    deleteFbcAnnotation(parentAnnotation);
+  }
+
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLNode* annt = new XMLNode(ann_token);
+
+
+
+  if (mAssociations.size() > 0)
+  {
+    XMLAttributes loga_attr = XMLAttributes();
+    loga_attr.add("xmlns", FbcExtension::getXmlnsL3V1V1());
+    XMLToken loga_token = XMLToken(XMLTriple("listOfGeneAssociations", FbcExtension::getXmlnsL3V1V1(), ""), loga_attr);
+    XMLNode loga = XMLNode(loga_token);
+
+    for (unsigned int i = 0; i < mAssociations.size(); ++i)
+      loga.addChild(mAssociations.get(i)->toXML());
+
+    // then add the ones toXML()
+    annt->addChild(loga);
+  }
+
+
+  if (annt && annt->getNumChildren() > 0)
+  {
+    parent->appendAnnotation(annt);
+  }
+  delete annt;
 }
 
 
-SBase*
-FbcModelPlugin::getElementByMetaId(const std::string& metaid)
-{
-  if (metaid.empty()) return NULL;
-  if (mBounds.getMetaId() == metaid) return &mBounds;
-  if (mObjectives.getMetaId() == metaid) return &mObjectives;
-  if (mAssociations.getMetaId() == metaid) return &mAssociations;
+  /** @endcond doxygenLibsbmlInternal */
 
-  SBase* obj = mBounds.getElementByMetaId(metaid);
-  if (obj != NULL) return obj;
-  obj = mObjectives.getElementByMetaId(metaid);
-  if (obj != NULL) return obj;
-  obj = mAssociations.getElementByMetaId(metaid);
-  return obj;
-}
 
+//---------------------------------------------------------------
+//
+// Functions for interacting with the members of the plugin
+//
+//---------------------------------------------------------------
 
 List*
-FbcModelPlugin::getAllElements(ElementFilter *filter)
+FbcModelPlugin::getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = NULL;
 
-  ADD_FILTERED_LIST(ret, sublist, mBounds, filter);
   ADD_FILTERED_LIST(ret, sublist, mObjectives, filter);
+  ADD_FILTERED_LIST(ret, sublist, mGeneProducts, filter);
+  ADD_FILTERED_LIST(ret, sublist, mBounds, filter);
   ADD_FILTERED_LIST(ret, sublist, mAssociations, filter);
- 
+
   return ret;
 }
-
-
-/** @cond doxygenLibsbmlInternal */
-int 
-FbcModelPlugin::appendFrom(const Model* model)
-{
-  int ret = LIBSBML_OPERATION_SUCCESS;
-
-  if (model==NULL)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-
-  const FbcModelPlugin* modplug = 
-    static_cast<const FbcModelPlugin*>(model->getPlugin(getPrefix()));
-  
-  // absence of a plugin is not an error
-  if (modplug==NULL)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  Model* parent = static_cast<Model*>(getParentSBMLObject());
-
-  if (parent==NULL) 
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  
-  ret = mBounds.appendFrom(modplug->getListOfFluxBounds());
-
-  if (ret != LIBSBML_OPERATION_SUCCESS)
-  {
-    return ret;
-  }
-
-  ret = mObjectives.appendFrom(modplug->getListOfObjectives());
-  
-  return ret;
-}
-/** @endcond */
-
-
-
-
-
-/*
-*
-*  (EXTENSION) Additional public functions
-*
-*/  
 
 
 
@@ -725,7 +840,7 @@ FluxBound*
 
   try
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     bound = new FluxBound(fbcns);
     delete fbcns;
   }
@@ -799,224 +914,398 @@ unsigned int
 
 
 
-/*
-* Returns the ListOfObjectives in this plugin object.
-*
-* @return ListOfObjectives object in this plugin object.
-*/
-const ListOfObjectives* 
-  FbcModelPlugin::getListOfObjectives () const
-{
-  return &mObjectives;
-}
 
 /*
-* Returns the ListOfObjectives in this plugin object.
-*
-* @return ListOfObjectives object in this plugin object.
-*/
-ListOfObjectives* 
-  FbcModelPlugin::getListOfObjectives ()
+ * Returns the value of the "strict" attribute of this FbcModelPlugin.
+ */
+bool
+FbcModelPlugin::getStrict() const
 {
-  return &mObjectives;
-}
-
-
-
-/*
-* Returns the Objective object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the Objective to get.
-*
-* @return the nth Objective in the ListOfObjectives.
-*/
-const Objective* 
-  FbcModelPlugin::getObjective (unsigned int n) const
-{
-  return static_cast<const Objective*>(mObjectives.get(n));
+  return mStrict;
 }
 
 
 /*
-* Returns the Objective object that belongs to the given index. If the
-* index is invalid, @c NULL is returned.
-*
-* @param n the index number of the Objective to get.
-*
-* @return the nth Objective in the ListOfObjectives.
-*/
-Objective* 
-  FbcModelPlugin::getObjective (unsigned int n)
+ * Returns true/false if strict is set.
+ */
+bool
+FbcModelPlugin::isSetStrict() const
 {
-  return static_cast<Objective*>(mObjectives.get(n));
+  return mIsSetStrict;
 }
 
 
 /*
-* Returns the Objective object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the Objective to get.
-* 
-* @return Objective in the ListOfObjectives with the given @p id
-* or NULL if no such Objective exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
-Objective* 
-  FbcModelPlugin::getObjective (const std::string& sid)
+ * Sets strict and returns value indicating success.
+ */
+int
+FbcModelPlugin::setStrict(bool strict)
 {
-  return static_cast<Objective*>(mObjectives.get(sid));
-}
-
-
-/*
-* Returns the Objective object based on its identifier.
-*
-* @param sid a string representing the identifier 
-* of the Objective to get.
-* 
-* @return Objective in the ListOfObjectives with the given @p id 
-* or NULL if no such Objective exists.
-*
-* @see get(unsigned int n)
-* @see size()
-*/
-const Objective* 
-  FbcModelPlugin::getObjective (const std::string& sid) const
-{
-  return static_cast<const Objective*>(mObjectives.get(sid));
-}
-
-/*
-* Adds a copy of the given Objective object to the list of Objectives.
-*
-* @param objective the Objective object to be added to the list of Objectives.
-*
-* @return integer value indicating success/failure of the
-* function.  @if clike The value is drawn from the
-* enumeration #OperationReturnValues_t. @endif The possible values
-* returned by this function are:
-* @li LIBSBML_OPERATION_SUCCESS
-*/ 
-int 
-  FbcModelPlugin::addObjective (const Objective* objective)
-{
-  if (!objective)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }    
-  else if (!objective->hasRequiredElements())
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != objective->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != objective->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (getPackageVersion() != objective->getPackageVersion())
-  {
-    return LIBSBML_PKG_VERSION_MISMATCH;
-  }
-  else
-  {
-    mObjectives.append(objective);
-  }
-
+  mStrict = strict;
+  mIsSetStrict = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
-* Creates a new Objective object and adds it to the list of Objective objects
-* and returns it.
-*
-* @return a newly created Objective object
-*/
-Objective* 
-  FbcModelPlugin::createObjective()
+ * Unsets strict and returns value indicating success.
+ */
+int
+FbcModelPlugin::unsetStrict()
 {
-  Objective* objective = NULL;
+  mStrict = false;
+  mIsSetStrict = false;
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
-  try
-  {      
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
-    objective = new Objective(fbcns);
-    delete fbcns;
-  }
-  catch(...)
+
+/*
+ * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
+ */
+const ListOfObjectives*
+FbcModelPlugin::getListOfObjectives() const
+{
+  return &mObjectives;
+}
+
+
+/*
+ * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
+ */
+ListOfObjectives*
+FbcModelPlugin::getListOfObjectives()
+{
+  return &mObjectives;
+}
+
+
+/*
+ * Removes the nth Objective from the ListOfObjectives.
+ */
+Objective*
+FbcModelPlugin::removeObjective(unsigned int n)
+{
+  return mObjectives.remove(n);
+}
+
+
+/*
+ * Removes the a Objective with given id from the ListOfObjectives.
+ */
+Objective*
+FbcModelPlugin::removeObjective(const std::string& sid)
+{
+  return mObjectives.remove(sid);
+}
+
+
+/*
+ * Return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+ */
+Objective*
+FbcModelPlugin::getObjective(unsigned int n)
+{
+  return mObjectives.get(n);
+}
+
+
+/*
+ * Return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+ */
+const Objective*
+FbcModelPlugin::getObjective(unsigned int n) const
+{
+  return mObjectives.get(n);
+}
+
+
+/*
+ * Return a Objective from the ListOfObjectives by id.
+ */
+Objective*
+FbcModelPlugin::getObjective(const std::string& sid)
+{
+  return mObjectives.get(sid);
+}
+
+
+/*
+ * Return a Objective from the ListOfObjectives by id.
+ */
+const Objective*
+FbcModelPlugin::getObjective(const std::string& sid) const
+{
+  return mObjectives.get(sid);
+}
+
+
+/*
+ * Adds a copy the given "Objective" to this FbcModelPlugin.
+ *
+ * @param o; the Objective object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+FbcModelPlugin::addObjective(const Objective* o)
+{
+  if (o == NULL)
   {
-    /* 
-    * NULL will be returned if the mSBMLNS is invalid (basically this
-    * should not happen) or some exception is thrown (e.g. std::bad_alloc)
-    *
-    * (Maybe this should be changed so that caller can detect what kind 
-    *  of error happened in this function.)
-    */
+    return LIBSBML_OPERATION_FAILED;
   }
-
-  if (objective) mObjectives.appendAndOwn(objective);
-
-  return objective;
+  else if (o->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != o->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != o->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    mObjectives.append(o);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /*
-* Removes the nth Objective object from this plugin object and
-* returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-*  deleting it.
-*
-* @param n the index of the Objective object to remove
-*
-* @return the Objective object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
-Objective* 
-  FbcModelPlugin::removeObjective (unsigned int n)
-{
-  return static_cast<Objective*>(mObjectives.remove(n));
-}
-
-
-/*
-* Removes the Objective object with the given @p id attribute from 
-* this plugin object and returns a pointer to it.
-*
-* The caller owns the returned object and is responsible for
-* deleting it.
-*
-* @param sid the id attribute of the Objective object to remove
-*
-* @return the Objective object removed.  As mentioned above, the 
-* caller owns the returned object. @c NULL is returned if the 
-* given index is out of range.
-*/
-Objective* 
-  FbcModelPlugin::removeObjective (const std::string& sid)
-{
-  return static_cast<Objective*>(mObjectives.remove(sid));
-}
-
-
-/*
-* Returns the number of Objective object in this plugin object.
-*
-* @return the number of Objective object in this plugin object.
-*/
-unsigned int 
-  FbcModelPlugin::getNumObjectives() const
+ * Get the number of Objective objects in this FbcModelPlugin.
+ *
+ * @return the number of Objective objects in this FbcModelPlugin
+ */
+unsigned int
+FbcModelPlugin::getNumObjectives() const
 {
   return mObjectives.size();
 }
+
+
+/*
+ * Creates a new Objective object, adds it to this FbcModelPlugins
+ * FbcModelPlugin and returns the Objective object created. 
+ *
+ * @return a new Objective object instance
+ *
+ * @see addObjective(const Objective* o)
+ */
+Objective*
+FbcModelPlugin::createObjective()
+{
+  Objective* o = NULL;
+
+  try
+  {
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    o = new Objective(fbcns);
+    delete fbcns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(o != NULL)
+  {
+    mObjectives.appendAndOwn(o);
+  }
+
+  return o;
+}
+
+
+/*
+ * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+ */
+const ListOfGeneProducts*
+FbcModelPlugin::getListOfGeneProducts() const
+{
+  return &mGeneProducts;
+}
+
+
+/*
+ * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+ */
+ListOfGeneProducts*
+FbcModelPlugin::getListOfGeneProducts()
+{
+  return &mGeneProducts;
+}
+
+
+/*
+ * Removes the nth GeneProduct from the ListOfGeneProducts.
+ */
+GeneProduct*
+FbcModelPlugin::removeGeneProduct(unsigned int n)
+{
+  return mGeneProducts.remove(n);
+}
+
+
+/*
+ * Removes the a GeneProduct with given id from the ListOfGeneProducts.
+ */
+GeneProduct*
+FbcModelPlugin::removeGeneProduct(const std::string& sid)
+{
+  return mGeneProducts.remove(sid);
+}
+
+
+/*
+ * Return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+ */
+GeneProduct*
+FbcModelPlugin::getGeneProduct(unsigned int n)
+{
+  return mGeneProducts.get(n);
+}
+
+
+/*
+ * Return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+ */
+const GeneProduct*
+FbcModelPlugin::getGeneProduct(unsigned int n) const
+{
+  return mGeneProducts.get(n);
+}
+
+
+/*
+ * Return a GeneProduct from the ListOfGeneProducts by id.
+ */
+GeneProduct*
+FbcModelPlugin::getGeneProduct(const std::string& sid)
+{
+  return mGeneProducts.get(sid);
+}
+
+GeneProduct* 
+FbcModelPlugin::getGeneProductByLabel(const std::string& label)
+{
+  for (unsigned int i = 0; i < mGeneProducts.size(); ++i)
+  {
+    GeneProduct* current = mGeneProducts.get(i);
+    if (current != NULL && current->getLabel() == label)
+      return current;
+  }
+  return NULL;
+}
+
+
+/*
+ * Return a GeneProduct from the ListOfGeneProducts by id.
+ */
+const GeneProduct*
+FbcModelPlugin::getGeneProduct(const std::string& sid) const
+{
+  return mGeneProducts.get(sid);
+}
+
+
+/*
+ * Adds a copy the given "GeneProduct" to this FbcModelPlugin.
+ *
+ * @param gp; the GeneProduct object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+FbcModelPlugin::addGeneProduct(const GeneProduct* gp)
+{
+  if (gp == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (gp->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != gp->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != gp->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    mGeneProducts.append(gp);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Get the number of GeneProduct objects in this FbcModelPlugin.
+ *
+ * @return the number of GeneProduct objects in this FbcModelPlugin
+ */
+unsigned int
+FbcModelPlugin::getNumGeneProducts() const
+{
+  return mGeneProducts.size();
+}
+
+
+/*
+ * Creates a new GeneProduct object, adds it to this FbcModelPlugins
+ * FbcModelPlugin and returns the GeneProduct object created. 
+ *
+ * @return a new GeneProduct object instance
+ *
+ * @see addGeneProduct(const GeneProduct* gp)
+ */
+GeneProduct*
+FbcModelPlugin::createGeneProduct()
+{
+  GeneProduct* gp = NULL;
+
+  try
+  {
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    gp = new GeneProduct(fbcns);
+    delete fbcns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(gp != NULL)
+  {
+    mGeneProducts.appendAndOwn(gp);
+  }
+
+  return gp;
+}
+
 
 
 /* 
@@ -1210,7 +1499,7 @@ GeneAssociation*
 
   try
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     association = new GeneAssociation(fbcns);
     delete fbcns;
   }
@@ -1283,23 +1572,24 @@ int
 }
 
 
-/** @cond doxygenLibsbmlInternal */
+//---------------------------------------------------------------
+
+
 /*
  * Sets the parent SBMLDocument of this SBML object.
  *
  * @param d the SBMLDocument object to use
  */
-void 
-  FbcModelPlugin::setSBMLDocument (SBMLDocument* d)
+void
+FbcModelPlugin::setSBMLDocument(SBMLDocument* d)
 {
   SBasePlugin::setSBMLDocument(d);
 
   mBounds.setSBMLDocument(d);  
   mAssociations.setSBMLDocument(d);  
   mObjectives.setSBMLDocument(d);  
+  mGeneProducts.setSBMLDocument(d);
 }
-/** @endcond */
-
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -1309,47 +1599,55 @@ FbcModelPlugin::connectToChild()
 }
 /** @endcond */
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
-* Sets the parent SBML object of this plugin object to
-* this object and child elements (if any).
-* (Creates a child-parent relationship by this plugin object)
-*/
+ * Connect to parent.
+ */
 void
-  FbcModelPlugin::connectToParent (SBase* sbase)
+FbcModelPlugin::connectToParent(SBase* sbase)
 {
   SBasePlugin::connectToParent(sbase);
 
+  if (getNumObjectives() > 0)
+  {
+    mObjectives.connectToParent(sbase);
+  }
   mAssociations.connectToParent(sbase);
   mBounds.connectToParent(sbase);
-  mObjectives.connectToParent(sbase);
+  if (getNumGeneProducts() > 0)
+  {
+    mGeneProducts.connectToParent(sbase);
+  }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
-* Enables/Disables the given package with child elements in this plugin
-* object (if any).
-*/
+ * Enables the given package.
+ */
 void
-  FbcModelPlugin::enablePackageInternal(const std::string& pkgURI,
-  const std::string& pkgPrefix, bool flag)
+FbcModelPlugin::enablePackageInternal(const std::string& pkgURI,
+                                   const std::string& pkgPrefix, bool flag)
 {
   mAssociations.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mBounds.enablePackageInternal(pkgURI,pkgPrefix,flag);
-  mObjectives.enablePackageInternal(pkgURI,pkgPrefix,flag);
+  if (getNumObjectives() > 0)
+  {
+    mObjectives.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+  if (getNumGeneProducts() > 0)
+  {
+    mGeneProducts.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-bool 
+/*
+ * Accept the SBMLVisitor.
+ */
+bool
 FbcModelPlugin::accept(SBMLVisitor& v) const
 {
-  const Model * model = static_cast<const Model * >(this->getParentSBMLObject()); 
-  
+  const Model * model = static_cast<const Model * >(this->getParentSBMLObject());
+
   v.visit(*model);
   v.leave(*model);
 
@@ -1362,9 +1660,16 @@ FbcModelPlugin::accept(SBMLVisitor& v) const
     getListOfObjectives()->accept(v);
     getObjective(i)->accept(v);
   }
+
+  for(unsigned int i = 0; i < getNumGeneProducts(); i++)
+  {
+    getGeneProduct(i)->accept(v);
+  }
+
   return true;
 }
-/** @endcond */
+
+
 
 ListOfFluxBounds * 
 FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
@@ -1391,6 +1696,7 @@ FbcModelPlugin::getFluxBoundsForReaction(const std::string& reaction) const
 }
 
 #endif /* __cplusplus */
+
 /** @cond doxygenIgnored */
 LIBSBML_EXTERN
 int
@@ -1468,4 +1774,10 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, const char * activeId)
     : LIBSBML_INVALID_OBJECT;
 }
 /** @endcond */
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+
+
+

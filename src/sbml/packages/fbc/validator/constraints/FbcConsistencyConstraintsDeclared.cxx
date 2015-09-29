@@ -42,6 +42,41 @@ addConstraint(new VConstraintObjectiveFbcObjectiveOneListOfObjectives(*this));
 
 addConstraint(new VConstraintFluxObjectiveFbcFluxObjectReactionMustExist(*this));
 
+addConstraint(new VConstraintFluxObjectiveFbcFluxObjectCoefficientWhenStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionLwrBoundRefExists(*this));
+
+addConstraint(new VConstraintReactionFbcReactionUpBoundRefExists(*this));
+
+addConstraint(new VConstraintReactionFbcReactionMustHaveBoundsStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionConstantBoundsStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionBoundsMustHaveValuesStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionBoundsNotAssignedStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionLwrBoundNotInfStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionUpBoundNotNegInfStrict(*this));
+
+addConstraint(new VConstraintReactionFbcReactionLwrLessThanUpStrict(*this));
+
+addConstraint(new VConstraintSpeciesReferenceFbcSpeciesReferenceConstantStrict(*this));
+
+addConstraint(new VConstraintSpeciesReferenceFbcSpeciesRefsStoichMustBeRealStrict(*this));
+
+addConstraint(new VConstraintSpeciesReferenceFbcSpeciesRefNotAssignedStrict(*this));
+
+addConstraint(new VConstraintGeneProductRefFbcGeneProdRefGeneProductExists(*this));
+
+addConstraint(new VConstraintFbcAndFbcAndTwoChildren(*this));
+
+addConstraint(new VConstraintFbcOrFbcOrTwoChildren(*this));
+
+addConstraint(new UniqueGeneProductLabels(FbcGeneProductLabelMustBeUnique, *this));
+
+addConstraint(new VConstraintGeneProductFbcGeneProductAssocSpeciesMustExist(*this));
 
 /** @endcond */
 

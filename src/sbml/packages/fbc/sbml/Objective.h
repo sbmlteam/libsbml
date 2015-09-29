@@ -35,8 +35,10 @@
  * well as the subcomponents for Annotation and Notes.
  */
 
+
 #ifndef Objective_H__
 #define Objective_H__
+
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
@@ -62,138 +64,101 @@ LIBSBML_CPP_NAMESPACE_END
 
 #ifdef __cplusplus
 
+
 #include <string>
+
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
+
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+
 class LIBSBML_EXTERN Objective : public SBase
 {
-protected:
-  /** @cond doxygenLibsbmlInternal */
-  std::string mId;
-  std::string mName;
-  ObjectiveType_t mType;
-  std::string mTypeString;
-  ListOfFluxObjectives mFluxes;
-  bool mIsSetListOfFluxObjectives;
-  /** @endcond */
 
+protected:
+
+  std::string   mId;
+  std::string   mName;
+  ObjectiveType_t   mType;
+  ListOfFluxObjectives   mFluxObjectives;
+  bool mIsSetListOfFluxObjectives;
+  std::string mTypeString;
 
 public:
 
   /**
    * Creates a new Objective with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this Objective
+   *
+   * @param version an unsigned int, the SBML Version to assign to this Objective
+   *
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this Objective
    */
-   Objective(unsigned int level      = FbcExtension::getDefaultLevel(),
-          unsigned int version    = FbcExtension::getDefaultVersion(),
-          unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
+  Objective(unsigned int level      = FbcExtension::getDefaultLevel(),
+            unsigned int version    = FbcExtension::getDefaultVersion(),
+            unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
 
 
   /**
    * Creates a new Objective with the given FbcPkgNamespaces object.
-   */
-   Objective(FbcPkgNamespaces* fbcns);
-
-
-  /**
-   * Copy constructor.
-   */
-   Objective(const Objective& source);
-
-
-  /**
-   * Assignment operator.
-   */
-   Objective& operator=(const Objective& source);
-
-
-  /**
-   * Destructor.
-   */
-  virtual ~Objective ();
-
-
-
-  /**
-   * Returns the first child element found that has the given @p id in the
-   * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
-   *
-   * @return a pointer to the SBase element with the given @p id.
+   * @param fbcns the FbcPkgNamespaces object
    */
-  virtual SBase* getElementBySId(const std::string& id);
+  Objective(FbcPkgNamespaces* fbcns);
 
 
-  /**
-   * Returns the first child element it can find with the given @p metaid, or
-   * itself if it has the given @p metaid, or @c NULL if no such object is
-   * found.
+   /**
+   * Copy constructor for Objective.
    *
-   * @param metaid string representing the metaid of objects to find
-   *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @param orig; the Objective instance to copy.
    */
-  virtual SBase* getElementByMetaId(const std::string& metaid);
+  Objective(const Objective& orig);
 
-  /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+
+   /**
+   * Assignment operator for Objective.
    *
-   * @return a List* of pointers to all children objects.
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-  virtual List* getAllElements(ElementFilter* filter=NULL);
+  Objective& operator=(const Objective& rhs);
+
+
+   /**
+   * Creates and returns a deep copy of this Objective object.
+   *
+   * @return a (deep) copy of this Objective object.
+   */
+  virtual Objective* clone () const;
+
+
+   /**
+   * Destructor for Objective.
+   */
+  virtual ~Objective();
+
+
+   /**
+   * Returns the value of the "id" attribute of this Objective.
+   *
+   * @return the value of the "id" attribute of this Objective as a string.
+   */
+  virtual const std::string& getId() const;
 
 
   /**
    * Returns the value of the "name" attribute of this Objective.
    *
-   * @return the value of the "name" attribute of this Objective.
+   * @return the value of the "name" attribute of this Objective as a string.
    */
-  virtual const std::string& getName () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Objective's "name" attribute has been set.
-   *
-   * @return @c true if this Objective's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetName () const;
-
-
-  /**
-   * Sets the value of the "name" attribute of this Objective.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   */
-  virtual int setName (const std::string& name);
-
-
-  /**
-   * Unsets the value of the "name" attribute of this Objective.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  virtual int unsetName ();
-
-
-  /**
-   * Returns the string of the "type" attribute of this Objective.
-   *
-   * @return the string of the "type" attribute of this Objective.
-   */
-  const std::string& getType ();
+  virtual const std::string& getName() const;
 
 
   /**
@@ -201,7 +166,34 @@ public:
    *
    * @return the enumeration value of the "type" attribute of this Objective.
    */
-  ObjectiveType_t getObjectiveType () const;
+  virtual ObjectiveType_t getObjectiveType () const;
+
+  /**
+  * Returns the string of the "type" attribute of this Objective.
+  *
+  * @return the string of the "type" attribute of this Objective.
+  */
+  const std::string& getType();
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Objective's "id" attribute has been set.
+   *
+   * @return @c true if this Objective's "id" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetId() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Objective's "name" attribute has been set.
+   *
+   * @return @c true if this Objective's "name" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetName() const;
 
 
   /**
@@ -211,19 +203,38 @@ public:
    * @return @c true if this Objective's "type" attribute has been set,
    * otherwise @c false is returned.
    */
-  virtual bool isSetType () const;
+  virtual bool isSetType() const;
 
 
   /**
-   * Sets the SIdRef string of the "type" attribute of this Objective.
+   * Sets the value of the "id" attribute of this Objective.
    *
-   * @param type a SIdRef string to be set.
+   * @param id; const std::string& value of the "id" attribute to be set
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int setType (const std::string& type);
+  virtual int setId(const std::string& id);
+
+
+  /**
+   * Sets the value of the "name" attribute of this Objective.
+   *
+   * @param name; const std::string& value of the "name" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setName(const std::string& name);
+
 
 
   /**
@@ -239,604 +250,737 @@ public:
 
 
   /**
-   * Unsets the value of the "id" attribute of this Objective.
+   * Sets the value of the "type" attribute of this Objective.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @param type; string value of the "type" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
-  virtual int unsetType ();
-
-
-  /**
-   * Returns the string of the "id" attribute of this Objective.
-   *
-   * @return the string of the "id" attribute of this Objective.
-   */
-  virtual const std::string& getId () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Objective's "id" attribute has been set.
-   *
-   * @return @c true if this Objective's "id" attribute has been set,
-   * otherwise @c false is returned.
-   */
-  virtual bool isSetId () const;
-
-
-  /**
-   * Sets the SIdRef string of the "id" attribute of this Objective.
-   *
-   * @param id a SIdRef string to be set.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   */
-  virtual int setId (const std::string& id);
+  virtual int setType(const std::string& type);
 
 
   /**
    * Unsets the value of the "id" attribute of this Objective.
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  virtual int unsetId ();
+  virtual int unsetId();
 
 
   /**
-   * Returns the ListOf object that holds all members.
+   * Unsets the value of the "name" attribute of this Objective.
    *
-   * @return the ListOf object that holds all members.
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
    */
-  const ListOfFluxObjectives* getListOfFluxObjectives () const;
+  virtual int unsetName();
+
 
   /**
-   * Returns the member with the given index.
-   * If the index is invalid, @c NULL is returned.
+   * Unsets the value of the "type" attribute of this Objective.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetType();
+
+
+  /**
+   * Returns the  "ListOfFluxObjectives" in this Objective object.
+   *
+   * @return the "ListOfFluxObjectives" attribute of this Objective.
+   */
+  const ListOfFluxObjectives* getListOfFluxObjectives() const;
+
+
+  /**
+   * Returns the  "ListOfFluxObjectives" in this Objective object.
+   *
+   * @return the "ListOfFluxObjectives" attribute of this Objective.
+   */
+  ListOfFluxObjectives* getListOfFluxObjectives();
+
+
+  /**
+   * Get a FluxObjective from the ListOfFluxObjectives.
    *
    * @param n the index number of the FluxObjective to get.
    *
-   * @return the nth FluxObjective in the ListOfFluxObjectives.
+   * @return the nth FluxObjective in the ListOfFluxObjectives within this Objective.
+   *
+   * @see getNumFluxObjectives()
    */
-  FluxObjective* getFluxObjective (unsigned int n);
+  FluxObjective* getFluxObjective(unsigned int n);
+
 
   /**
-   * Returns the member with the given index.
-   * If the index is invalid, @c NULL is returned.
+   * Get a FluxObjective from the ListOfFluxObjectives.
    *
    * @param n the index number of the FluxObjective to get.
    *
-   * @return the nth FluxObjective in the ListOfFluxObjectives.
-   */
-  const FluxObjective* getFluxObjective (unsigned int n) const;
-
-  /**
-   * Returns the member with the given symbol.
-   * If the index is invalid, @c NULL is returned.
+   * @return the nth FluxObjective in the ListOfFluxObjectives within this Objective.
    *
-   * @param symbol a string representing the symbol attribute
-   * of the FluxObjective to get.
-   *
-   * @return FluxObjective in the ListOfFluxObjectives with the given symbol
-   * or NULL if no such FluxObjective exists.
+   * @see getNumFluxObjectives()
    */
-  FluxObjective* getFluxObjective (const std::string& symbol);
+  const FluxObjective* getFluxObjective(unsigned int n) const;
 
 
   /**
-   * Returns the member with the given symbol.
-   * If the index is invalid, @c NULL is returned.
-   *
-   * @param symbol a string representing the symbol attribute
-   * of the FluxObjective to get.
-   *
-   * @return FluxObjective in the ListOfFluxObjectives with the given symbol
-   * or NULL if no such FluxObjective exists.
-   */
-  const FluxObjective* getFluxObjective (const std::string& symbol) const;
-
-
-  /**
-   * Adds a copy of the given FluxObjective object to the list of members.
-   *
-   * @param member the FluxObjective object to be added to the list of
-   * members.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
-  int addFluxObjective (const FluxObjective* member);
-
-
-  /**
-   * Returns the number of members for this objective.
-   *
-   * @return the number of members for this objective.
-   */
-  unsigned int getNumFluxObjectives () const;
-
-
-  /**
-   * Creates a FluxObjective object, adds it to the end of the
-   * member objects list and returns a pointer to the newly
-   * created object.
-   *
-   * @return a newly created FluxObjective object
-   */
-  FluxObjective* createFluxObjective ();
-
-
-  /**
-   * Removes the member with the given index from the objective.
-   * A pointer to the member that was removed is returned.
-   * If no member has been removed, @c NULL is returned.
-   *
-   * @param index the index of the FluxObjective object to remove
-   *
-   * @return the FluxObjective object removed.  As mentioned above,
-   * the caller owns the returned object. @c NULL is returned if
-   * the given index is out of range.
-   */
-  FluxObjective* removeFluxObjective(unsigned int index);
-
-
-  /**
-   * Removes the member with the given symbol from the objective.
-   * A pointer to the member that was removed is returned.
-   * If no member has been removed, @c NULL is returned.
-   *
-   * @param symbol the symbol attribute of the FluxObjective object to remove
-   *
-   * @return the FluxObjective object removed.  As mentioned above,
-   * the caller owns the returned object. @c NULL is returned if
-   * the given index is out of range.
-   */
-  FluxObjective* removeFluxObjective(const std::string& symbol);
-
-  /**
-   * Returns the XML element name of
-   * this SBML object.
-   *
-   * @return the name of this element, as a text string.
-   */
-  virtual const std::string& getElementName () const ;
-
-
-  /**
-   * Creates and returns a deep copy of this Objective object.
-   *
-   * @return a (deep) copy of this Objective.
-   */
-  virtual Objective* clone () const;
-
-
-  /**
-   * Returns the libSBML type code of this object instance.
-   *
-   * @copydetails doc_what_are_typecodes
-   *
-   * @return the SBML type code for this object:
-   * @sbmlconstant{SBML_FBC_OBJECTIVE, SBMLFbcTypeCode_t}
-   *
-   * @copydetails doc_warning_typecodes_not_unique
-   *
-   * @see getElementName()
-   * @see getPackageName()
-   */
-  virtual int getTypeCode () const;
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
-   *   mReactants.write(stream);
-   *   mProducts.write(stream);
-   *   ...
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the SBML object's next
-   * sibling object (if available).
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   *
-   * @param d the SBMLDocument object to use
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * Subclasses must override this function if they define
-   * one ore more child elements.
-   * Basically, this function needs to be called in
-   * constructor, copy constructor, assignment operator.
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Enables/Disables the given package with this element and child
-   * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
-   *
-   * @note Subclasses in which one or more child elements are defined
-   * must override this function.
-   */
-  virtual void enablePackageInternal(const std::string& pkgURI,
-                                     const std::string& pkgPrefix, bool flag);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * elements
-   * needs to be overloaded for each component
-   */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  bool getIsSetListOfFluxObjectives() const;
-  /** @endcond */
-
-protected:
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Create and return an SBML object of this class, if present.
-   *
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase*
-  createObject (XMLInputStream& stream);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
-   */
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-  /** @endcond */
-
-
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.  For example:
-   *
-   *   SBase::writeAttributes(stream);
-   *   stream.writeAttribute( "id"  , mId   );
-   *   stream.writeAttribute( "name", mName );
-   *   ...
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-  /** @endcond */
-};
-
-
-/**
- * @class ListOfObjectives
- * @sbmlbrief{fbc} A list of Objective objects.
- *
- * The ListOfObjectives is a container for the Objective elements of Model.
- *
- * @copydetails doc_what_is_listof
- *
- * @see Objective
- */
-class LIBSBML_EXTERN ListOfObjectives : public ListOf
-{
-public:
-
-  /**
-   * Creates and returns a deep copy of this ListOfObjectives object.
-   *
-   * @return a (deep) copy of this ListOfObjectives.
-   */
-  virtual ListOfObjectives* clone () const;
-
-
-  /**
-   * Creates a new ListOfObjectives with the given level, version, and package version.
-   */
-   ListOfObjectives(unsigned int level      = FbcExtension::getDefaultLevel(),
-                 unsigned int version    = FbcExtension::getDefaultVersion(),
-                 unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
-
-
-  /**
-   * Creates a new ListOfObjectives with the given FbcPkgNamespaces object.
-   */
-   ListOfObjectives(FbcPkgNamespaces* fbcns);
-
-
-  /**
-   * Get a Objective from the ListOfObjectives.
-   *
-   * @param n the index number of the Objective to get.
-   *
-   * @return the nth Objective in this ListOfObjectives.
-   *
-   * @see size()
-   */
-  virtual Objective * get(unsigned int n);
-
-
-  /**
-   * Get a Objective from the ListOfObjectives.
-   *
-   * @param n the index number of the Objective to get.
-   *
-   * @return the nth Objective in this ListOfObjectives.
-   *
-   * @see size()
-   */
-  virtual const Objective * get(unsigned int n) const;
-
-  /**
-   * Get a Objective from the ListOfObjectives
+   * Get a FluxObjective from the ListOfFluxObjectives
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the Objective to get.
+   * of the FluxObjective to get.
    *
-   * @return Objective in this ListOfObjectives
-   * with the given @p sid or @c NULL if no such
-   * Objective exists.
+   * @return the FluxObjective in the ListOfFluxObjectives
+   * with the given id or NULL if no such
+   * FluxObjective exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getFluxObjective(unsigned int n)
+   *
+   * @see getNumFluxObjectives()
    */
-  virtual Objective* get (const std::string& sid);
+  FluxObjective* getFluxObjective(const std::string& sid);
 
 
   /**
-   * Get a Objective from the ListOfObjectives
+   * Get a FluxObjective from the ListOfFluxObjectives
    * based on its identifier.
    *
    * @param sid a string representing the identifier
-   * of the Objective to get.
+   * of the FluxObjective to get.
    *
-   * @return Objective in this ListOfObjectives
-   * with the given @p sid or @c NULL if no such
-   * Objective exists.
+   * @return the FluxObjective in the ListOfFluxObjectives
+   * with the given id or NULL if no such
+   * FluxObjective exists.
    *
-   * @see get(unsigned int n)
-   * @see size()
+   * @see getFluxObjective(unsigned int n)
+   *
+   * @see getNumFluxObjectives()
    */
-  virtual const Objective* get (const std::string& sid) const;
+  const FluxObjective* getFluxObjective(const std::string& sid) const;
 
 
   /**
-   * Removes the nth item from this ListOfObjectives items and returns a pointer to
-   * it.
+   * Adds a copy the given "FluxObjective" to this Objective.
+   *
+   * @param fo; the FluxObjective object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addFluxObjective(const FluxObjective* fo);
+
+
+  /**
+   * Get the number of FluxObjective objects in this Objective.
+   *
+   * @return the number of FluxObjective objects in this Objective
+   */
+  unsigned int getNumFluxObjectives() const;
+
+
+  /**
+   * Creates a new FluxObjective object, adds it to this Objectives
+   * ListOfFluxObjectives and returns the FluxObjective object created. 
+   *
+   * @return a new FluxObjective object instance
+   *
+   * @see addFluxObjective(const FluxObjective* fo)
+   */
+  FluxObjective* createFluxObjective();
+
+
+  /**
+   * Removes the nth FluxObjective from the ListOfFluxObjectives within this Objective.
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the item to remove
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
+   * @param n the index of the FluxObjective to remove.
    *
-   * @see size()
+   * @see getNumFluxObjectives()
    */
-  virtual Objective* remove (unsigned int n);
+  FluxObjective* removeFluxObjective(unsigned int n);
 
 
   /**
-   * Removes item in this ListOfObjectives items with the given identifier.
+   * Removes the FluxObjective with the given identifier from the ListOfFluxObjectives within this Objective
+   * and returns a pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
-   * @param sid the identifier of the item to remove
+   * @param sid the identifier of the FluxObjective to remove.
    *
-   * @return the item removed.  As mentioned above, the caller owns the
+   * @return the FluxObjective removed. As mentioned above, the caller owns the
    * returned item.
    */
-  virtual Objective* remove (const std::string& sid);
+  FluxObjective* removeFluxObjective(const std::string& sid);
 
 
   /**
-   * Returns the libSBML type code for the objects contained in this ListOf
-   * (i.e., @sbmlconstant{SBML_FBC_OBJECTIVE, SBMLFbcTypeCode_t}).
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
    *
-   * @copydetails doc_what_are_typecodes
-   *
-   * @return the SBML type code for objects contained in this list:
-   * @sbmlconstant{SBML_FBC_OBJECTIVE, SBMLFbcTypeCode_t}
-   *
-   * @see getElementName()
-   * @see getPackageName()
+   * @return a List* of pointers to all child objects.
    */
-  virtual int getItemTypeCode () const;
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
 
   /**
-   * Returns the XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object, which for Objective, is
+   * always @c "objective".
    *
-   * @return the name of this element, as a text string.
+   * @return the name of this element, i.e. @c "objective".
    */
   virtual const std::string& getElementName () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * ListOfObjective's "activeObjective" attribute has been set.
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * @return @c true if this ListOfObjective's "activeObjective" attribute has been set,
-   * otherwise @c false is returned.
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
    */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Predicate returning @c true if all the required attributes
+   * for this Objective object have been set.
+   *
+   * @note The required attributes for a Objective object are:
+   * @li "id"
+   * @li "type"
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true if all the required elements
+   * for this Objective object have been set.
+   *
+   * @note The required elements for a Objective object are:
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
+   */
+  virtual bool hasRequiredElements() const;
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Sets the parent SBMLDocument.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Connects to child elements.
+   */
+  virtual void connectToChild ();
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Enables/Disables the given package with this element.
+   */
+  virtual void enablePackageInternal(const std::string& pkgURI,
+               const std::string& pkgPrefix, bool flag);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+  /** @cond doxygenLibsbmlInternal */
+  bool getIsSetListOfFluxObjectives() const;
+  /** @endcond */
+protected:
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * return the SBML object corresponding to next XMLToken.
+   */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Get the list of expected attributes for this element.
+   */
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+
+};
+
+class LIBSBML_EXTERN ListOfObjectives : public ListOf
+{
+
+public:
+
+  /**
+   * Creates a new ListOfObjectives with the given level, version, and package version.
+   *
+   * @param level an unsigned int, the SBML Level to assign to this ListOfObjectives
+   *
+   * @param version an unsigned int, the SBML Version to assign to this ListOfObjectives
+   *
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this ListOfObjectives
+   */
+  ListOfObjectives(unsigned int level      = FbcExtension::getDefaultLevel(),
+                   unsigned int version    = FbcExtension::getDefaultVersion(),
+                   unsigned int pkgVersion = FbcExtension::getDefaultPackageVersion());
+
+
+  /**
+   * Creates a new ListOfObjectives with the given FbcPkgNamespaces object.
+   *
+   * @param fbcns the FbcPkgNamespaces object
+   */
+  ListOfObjectives(FbcPkgNamespaces* fbcns);
+
+  /**
+   * Copy Constructor 
+   */
+  ListOfObjectives(const ListOfObjectives& other);
+
+
+  /** 
+   * Assignment operator 
+   */
+  ListOfObjectives& operator=(const ListOfObjectives& rhs);
+
+   /**
+   * Creates and returns a deep copy of this ListOfObjectives object.
+   *
+   * @return a (deep) copy of this ListOfObjectives object.
+   */
+  virtual ListOfObjectives* clone () const;
+
+
+   /**
+   * Get a Objective from the ListOfObjectives.
+   *
+   * @param n the index number of the Objective to get.
+   *
+   * @return the nth Objective in this ListOfObjectives.
+   *
+   * @see size()
+   */
+  virtual Objective* get(unsigned int n);
+
+
+  /**
+   * Get a Objective from the ListOfObjectives.
+   *
+   * @param n the index number of the Objective to get.
+   *
+   * @return the nth Objective in this ListOfObjectives.
+   *
+   * @see size()
+   */
+  virtual const Objective* get(unsigned int n) const;
+
+
+  /**
+   * Get a Objective from the ListOfObjectives
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Objective to get.
+   *
+   * @return Objective in this ListOfObjectives
+   * with the given id or NULL if no such
+   * Objective exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual Objective* get(const std::string& sid);
+
+
+  /**
+   * Get a Objective from the ListOfObjectives
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the Objective to get.
+   *
+   * @return Objective in this ListOfObjectives
+   * with the given id or NULL if no such
+   * Objective exists.
+   *
+   * @see get(unsigned int n)   *
+   * @see size()
+   */
+  virtual const Objective* get(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "Objective" to this ListOfObjectives.
+   *
+   * @param o; the Objective object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSEDML_OPERATION_SUCCESS
+   * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addObjective(const Objective* o);
+
+
+  /**
+   * Get the number of Objective objects in this ListOfObjectives.
+   *
+   * @return the number of Objective objects in this ListOfObjectives
+   */
+  unsigned int getNumObjectives() const;
+
+
+  /**
+   * Creates a new Objective object, adds it to the
+   * ListOfObjectives and returns the Objective object created. 
+   *
+   * @return a new Objective object instance
+   *
+   * @see addObjective(const Objective* o)
+   */
+  Objective* createObjective();
+
+
+  /**
+   * Removes the nth Objective from this ListOfObjectives
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the Objective to remove.
+   *
+   * @see size()
+   */
+  virtual Objective* remove(unsigned int n);
+
+
+  /**
+   * Removes the Objective from this ListOfObjectives with the given identifier
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the Objective to remove.
+   *
+   * @return the Objective removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  virtual Objective* remove(const std::string& sid);
+
+
+  /**
+   * Returns the XML element name of this object, which for ListOfObjectives, is
+   * always @c "listOfObjectives".
+   *
+   * @return the name of this element, i.e. @c "listOfObjectives".
+   */
+  virtual const std::string& getElementName () const;
+
+
+  /**
+  * Predicate returning @c true or @c false depending on whether this
+  * ListOfObjective's "activeObjective" attribute has been set.
+  *
+  * @return @c true if this ListOfObjective's "activeObjective" attribute has been set,
+  * otherwise @c false is returned.
+  */
   virtual bool isSetActiveObjective() const;
 
 
   /**
-   * Sets the value of the "activeObjective" attribute of this ListOfObjectives.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
-   */
+  * Sets the value of the "activeObjective" attribute of this ListOfObjectives.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+  */
   virtual int setActiveObjective(const std::string &activeObjective);
 
 
   /**
-   * Returns the value of the "activeObjective" attribute of this ListOfObjectives.
-   *
-   * @return the value of the "activeObjective" attribute of this ListOfObjectives.
-   */
+  * Returns the value of the "activeObjective" attribute of this ListOfObjectives.
+  *
+  * @return the value of the "activeObjective" attribute of this ListOfObjectives.
+  */
   virtual const std::string& getActiveObjective() const;
 
 
   /**
-   * Unsets the value of the "activeObjective" attribute of this ListOfObjectives.
-   *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
-   */
+  * Unsets the value of the "activeObjective" attribute of this ListOfObjectives.
+  *
+  * @copydetails doc_returns_success_code
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+  */
   virtual int unsetActiveObjective();
 
   /** @cond doxygenLibsbmlInternal */
-  virtual bool accept (SBMLVisitor& v) const;
+  virtual bool accept(SBMLVisitor& v) const;
   /** @endcond */
 
   /**
-   * Adds a clone of all items in the provided ListOf to this object.  This means that when this ListOf is destroyed, the original items will not be destroyed.  In addition, copy over the input ListOfObjectives' 'activeObjective' attribute, if none is set for this element.
+   * Returns the libSBML type code for this SBML object.
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    *
-   * @param list A list of items to be added.
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
-   * @see append(const SBase* item)
+   * @see getElementName()
    */
+  virtual int getTypeCode () const;
+
+
+  /**
+   * Returns the libSBML type code for the SBML objects
+   * contained in this ListOf object
+   * 
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * @return the SBML type code for the objects in this ListOf instance, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   *
+   * @see getElementName()
+   */
+  virtual int getItemTypeCode () const;
+
+  /**
+  * Adds a clone of all items in the provided ListOf to this object.  This means that when this ListOf is destroyed, the original items will not be destroyed.  In addition, copy over the input ListOfObjectives' 'activeObjective' attribute, if none is set for this element.
+  *
+  * @param list A list of items to be added.
+  *
+  * @see append(const SBase* item)
+  */
   virtual int appendFrom(const ListOf* list);
 
 
   /**
-   * @copydoc doc_renamesidref_common
-   */
+  * @copydoc doc_renamesidref_common
+  */
   virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
-
-
-
 protected:
-  /** @cond doxygenLibsbmlInternal */
-  /**
-   * Create and return an SBML object of this class, if present.
-   *
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase* createObject (XMLInputStream& stream);
-  /** @endcond */
-
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
+   * Creates a new Objective in this ListOfObjectives
    */
+  virtual SBase* createObject(XMLInputStream& stream);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+  * Subclasses should override this method to get the list of
+  * expected attributes.
+  * This function is invoked from corresponding readAttributes()
+  * function.
+  */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
   /** @endcond */
 
-
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Reads the attributes of corresponding package in SBMLDocument element.
+   * Write the namespace for the Fbc package.
    */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
+  virtual void writeXMLNS(XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+  /**
+  * Reads the attributes of corresponding package in SBMLDocument element.
+  */
+  virtual void readAttributes(const XMLAttributes& attributes,
+    const ExpectedAttributes& expectedAttributes);
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Writes the attributes of corresponding package in SBMLDocument element.
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-
+  * Writes the attributes of corresponding package in SBMLDocument element.
+  */
+  virtual void writeAttributes(XMLOutputStream& stream) const;
+  /** @endcond */
   std::string mActiveObjective;
-  /** @endcond */
+
 
 };
 
-/** @cond doxygenLibsbmlInternal */
-/**
- * Used by ListOfObjectives::get() to lookup an SBase based by its
- * symbol
- */
-#ifndef SWIG
-template<>
-struct IdEq<Objective> : public std::unary_function<SBase*, bool>
-{
-  const std::string& id;
 
-  IdEq (const std::string& id) : id(id) { }
-  bool operator() (SBase* sb)
-       { return static_cast <Objective*> (sb)->getId() == id; }
-};
-#endif
-/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif /* __cplusplus */
-
+#endif  /*  __cplusplus  */
 
 #ifndef SWIG
 
@@ -844,344 +988,374 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Creates a new Objective_t structure using the given SBML @p level
- * and @p version values.
+ * Creates a new Objective_t structure using the given SBML @p level and
+ * @p version values.
  *
- * @param level an unsigned int, the SBML Level to assign to this
- * Objective_t
- * @param version an unsigned int, the SBML Version to assign to this
- * Objective_t
- * @param pkgVersion an unsigned int, the SBML 'Qual' package Version to assign to this
- * Objective_t
+ * @param level an unsigned int, the SBML level to assign to this
+ * Objective_t structure.
  *
- * @return a pointer to the newly created Objective_t structure.
+ * @param version an unsigned int, the SBML version to assign to this
+ * Objective_t structure.
+ *
+ * @returns the newly-created Objective_t structure, or a null pointer if
+ * an error occurred during construction.
+ *
+ * @copydetails doc_note_setting_lv
  *
  * @memberof Objective_t
  */
 LIBSBML_EXTERN
 Objective_t *
-Objective_create(unsigned int level, unsigned int version, unsigned int pkgVersion);
+Objective_create(unsigned int level, unsigned int version,
+                 unsigned int pkgVersion);
 
 
 /**
- * Takes an Objective_t structure and returns its identifier.
- *
- * @param obj the Objective_t structure whose identifier is sought
- *
- * @return the identifier of the given Objective_t, as a pointer to a string.
+ * Frees the given Objective_t structure.
+ * 
+ * @param o the Objective_t structure to be freed.
  *
  * @memberof Objective_t
+ */
+LIBSBML_EXTERN
+void
+Objective_free(Objective_t * o);
+
+
+/**
+ * Creates a deep copy of the given Objective_t structure.
+ * 
+ * @param o the Objective_t structure to be copied.
+ *
+ * @returns a (deep) copy of the given Objective_t structure, or a null
+ * pointer if a failure occurred.
+ *
+ * @memberof Objective_t
+ */
+LIBSBML_EXTERN
+Objective_t *
+Objective_clone(Objective_t * o);
+
+
+/**
+ * Returns the value of the "id" attribute of the given Objective_t
+ * structure.
+ *
+ * @param o the Objective_t structure.
+ *
+ * @return the id of this structure.
+ *
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 const char *
-Objective_getId(Objective_t * obj);
+Objective_getId(const Objective_t * o);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
- * Objective_t structure's identifier is set.
+ * Returns the value of the "name" attribute of the given Objective_t
+ * structure.
  *
- * @param obj the Objective_t structure to query
+ * @param o the Objective_t structure.
  *
- * @return @c non-zero (true) if the "id" attribute of the given
- * Objective_t structure is set, zero (false) otherwise.
+ * @return the name of this structure.
  *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_isSetId(Objective_t * obj);
-
-
-/**
- * Assigns the identifier of an Objective_t structure.
- *
- * This makes a copy of the string passed in the param @p sid.
- *
- * @param obj the Objective_t structure to set.
- * @param sid the string to use as the identifier.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @note Using this function with an id of NULL is equivalent to
- * unsetting the "id" attribute.
- *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_setId(Objective_t * obj, const char * sid);
-
-
-/**
- * Unsets the "id" attribute of the given Objective_t structure.
- *
- * @param obj the Objective_t structure to unset
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_unsetId(Objective_t * obj);
-
-/**
- * Takes a Objective_t structure and returns its name.
- *
- * @param obj the Objective_t whose name is sought.
- *
- * @return the name of the given Objective_t, as a pointer to a string.
- *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 const char *
-Objective_getName(Objective_t * obj);
+Objective_getName(const Objective_t * o);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
- * Objective_t structure's name is set.
- *
- * @param obj the Objective_t structure to query
- *
- * @return @c non-zero (true) if the "name" attribute of the given
- * Objective_t structure is set, zero (false) otherwise.
- *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_isSetName(Objective_t * obj);
-
-
-/**
- * Sets the name of the given Objective_t to a copy of @p name.
- *
- * @param obj the Objective_t structure to set
- * @param name the name to assign to the given Objective_t's "name" attribute.
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
- *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "name" attribute.
- *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_setName(Objective_t * obj, const char * name);
-
-
-/**
- * Unsets the "name" attribute of the given Objective_t structure.
- *
- * @param obj the Objective_t structure to unset
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Objective_t
- */
-LIBSBML_EXTERN
-int
-Objective_unsetName(Objective_t * obj);
-
-
-/**
- * Takes a Objective_t structure and returns its type.
- *
- * @param obj the Objective_t whose type is sought.
- *
- * @return the type of the given Objective_t, as a pointer to a string.
- *
- * @memberof Objective_t
- */
+* Takes a Objective_t structure and returns its type.
+*
+* @param obj the Objective_t whose type is sought.
+*
+* @return the type of the given Objective_t, as a pointer to a string.
+*
+* @memberof Objective_t
+*/
 LIBSBML_EXTERN
 const char *
 Objective_getType(Objective_t * obj);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
- * Objective_t structure's type is set.
+ * Predicate returning @c 1 if the given Objective_t structure's "id"
+ * is set.
  *
- * @param obj the Objective_t structure to query
+ * @param o the Objective_t structure.
  *
- * @return @c non-zero (true) if the "type" attribute of the given
- * Objective_t structure is set, zero (false) otherwise.
+ * @return @c 1 if the "id" of this Objective_t structure is
+ * set, @c 0 otherwise.
  *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-Objective_isSetType(Objective_t * obj);
+Objective_isSetId(const Objective_t * o);
 
 
 /**
- * Sets the type of the given Objective_t to a copy of @p type.
+ * Predicate returning @c 1 if the given Objective_t structure's "name"
+ * is set.
  *
- * @param obj the Objective_t structure to set
- * @param type the type to assign to the given Objective_t's "type" attribute.
+ * @param o the Objective_t structure.
  *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @return @c 1 if the "name" of this Objective_t structure is
+ * set, @c 0 otherwise.
  *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "type" attribute.
- *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-Objective_setType(Objective_t * obj, const char * type);
+Objective_isSetName(const Objective_t * o);
 
 
 /**
- * Unsets the "type" attribute of the given Objective_t structure.
+ * Predicate returning @c 1 if the given Objective_t structure's "type"
+ * is set.
  *
- * @param obj the Objective_t structure to unset
+ * @param o the Objective_t structure.
  *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @return @c 1 if the "type" of this Objective_t structure is
+ * set, @c 0 otherwise.
  *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-Objective_unsetType(Objective_t * obj);
-
+Objective_isSetType(const Objective_t * o);
 
 
 /**
- * Appends a copy of the given FluxObjective_t structure to the given Objective_t
- * structure.
+ * Sets the "id" attribute of the given Objective_t structure.
  *
- * @param obj the Objective_t structure to which the FluxObjective_t should be
- * added
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs Objective_unsetId() instead.
  *
- * @param fo a FluxObjective_t structure to add
+ * @param o the Objective_t structure.
  *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @param id the string to which the structures "id" attribute should be
+ * set.
  *
- * @memberof Objective_t
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * fo);
+Objective_setId(Objective_t * o, const char * id);
 
 
 /**
- * Return a specific FluxObjective_t structure of the given Objective_t.
+ * Sets the "name" attribute of the given Objective_t structure.
  *
- * @param obj the Objective_t structure to use
+ * This function copies the string given in @p string.  If the string is
+ * a null pointer, this function performs Objective_unsetName() instead.
  *
- * @param n an integer, the index of the FluxObjective_t structure to return
+ * @param o the Objective_t structure.
  *
- * @return the nth FluxObjective_t of the given Objective_t, or @c NULL if no such FluxObjective_t exists.
+ * @param name the string to which the structures "name" attribute should be
+ * set.
  *
- * @memberof Objective_t
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @note Using this function with a null pointer for @p name is equivalent to
+ * unsetting the value of the "name" attribute.
+ * 
+ * @member of Objective_t
  */
+LIBSBML_EXTERN
+int
+Objective_setName(Objective_t * o, const char * name);
+
+
+/**
+ * Sets the "type" attribute of the given Objective_t structure.
+ *
+ * @param o the Objective_t structure.
+ *
+ * @param type the string to which the structures "type" attribute should be
+ * set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Objective_t
+ */
+LIBSBML_EXTERN
+int
+Objective_setType(Objective_t * o, const char* type);
+
+
+/**
+ * Unsets the value of the "id" attribute of the given 
+ * Objective_t structure.
+ *
+ * @param o the Objective_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Objective_t
+ */
+LIBSBML_EXTERN
+int
+Objective_unsetId(Objective_t * o);
+
+
+/**
+ * Unsets the value of the "name" attribute of the given 
+ * Objective_t structure.
+ *
+ * @param o the Objective_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Objective_t
+ */
+LIBSBML_EXTERN
+int
+Objective_unsetName(Objective_t * o);
+
+
+/**
+ * Unsets the value of the "type" attribute of the given 
+ * Objective_t structure.
+ *
+ * @param o the Objective_t structure.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif@~ The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
+ * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ *
+ * @member of Objective_t
+ */
+LIBSBML_EXTERN
+int
+Objective_unsetType(Objective_t * o);
+
+
+LIBSBML_EXTERN
+int
+Objective_addFluxObjective(Objective_t * o, FluxObjective_t * fo);
+
+
 LIBSBML_EXTERN
 FluxObjective_t *
-Objective_getFluxObjective(Objective_t * obj, unsigned int n);
+Objective_createFluxObjective(Objective_t * o);
 
 
-/**
- * Returns the number of FluxObjective_t structures attached to the given
- * Objective_t.
- *
- * @param obj the Objective_t structure to use
- *
- * @return the number of FluxObjective_t structures in the given Objective_t.
- *
- * @memberof Objective_t
- */
+LIBSBML_EXTERN
+ListOf_t *
+Objective_getListOfFluxObjectives(Objective_t * o) ;
+
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_getFluxObjective(Objective_t * o, unsigned int n);
+
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_getFluxObjectiveById(Objective_t * o, const char * sid);
+
+
 LIBSBML_EXTERN
 unsigned int
-Objective_getNumFluxObjectives(Objective_t * obj);
+Objective_getNumFluxObjectives(Objective_t * o);
 
 
-/**
- * Takes a Objective_t structure and returns its activeObjective.
- *
- * @param lo the ListOf_t whose activeObjective is sought.
- *
- * @return the activeObjective of the given Objective_t, as a pointer to a string.
- *
- * @memberof Objective_t
- */
 LIBSBML_EXTERN
-const char *
-ListOfObjectives_getActiveObjective(ListOf_t * lo);
+FluxObjective_t *
+Objective_removeFluxObjective(Objective_t * o, unsigned int n);
+
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_removeFluxObjectiveById(Objective_t * o, const char * sid);
 
 
 /**
- * Predicate returning @c true or @c false depending on whether the given
- * Objective_t structure's activeObjective is set.
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * attributes of the given Objective_t structure have been set.
  *
- * @param lo the ListOf_t structure to query
+ * @param o the Objective_t structure to check.
  *
- * @return @c non-zero (true) if the "activeObjective" attribute of the given
- * Objective_t structure is set, zero (false) otherwise.
+ * @return @c 1 if all the required attributes for this
+ * structure have been defined, @c 0 otherwise.
  *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-ListOfObjectives_isSetActiveObjective(ListOf_t * lo);
+Objective_hasRequiredAttributes(const Objective_t * o);
 
 
 /**
- * Sets the activeObjective of the given Objective_t to a copy of @p activeObjective.
+ * Predicate returning @c 1 or *c 0 depending on whether all the required
+ * sub-elements of the given Objective_t structure have been set.
  *
- * @param lo the ListOf_t structure to set
- * @param activeObjective the activeObjective to assign to the given Objective_t's "activeObjective" attribute.
+ * @param o the Objective_t structure to check.
  *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @return @c 1 if all the required sub-elements for this
+ * structure have been defined, @c 0 otherwise.
  *
- * @note Using this function with the name set to NULL is equivalent to
- * unsetting the "activeObjective" attribute.
- *
- * @memberof Objective_t
+ * @member of Objective_t
  */
 LIBSBML_EXTERN
 int
-ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * activeObjective);
+Objective_hasRequiredElements(const Objective_t * o);
 
 
-/**
- * Unsets the "activeObjective" attribute of the given Objective_t structure.
- *
- * @param lo the ListOf_t structure to unset
- *
- * @copydetails doc_returns_success_code
- * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
- *
- * @memberof Objective_t
- */
 LIBSBML_EXTERN
-int
-ListOfObjectives_unsetActiveObjective(ListOf_t * lo);
+Objective_t *
+ListOfObjectives_getById(ListOf_t * lo, const char * sid);
+
+
+LIBSBML_EXTERN
+Objective_t *
+ListOfObjectives_removeById(ListOf_t * lo, const char * sid);
+
+
+
 
 /**
  * Returns the string version of the provided ObjectiveType_t enumeration.
@@ -1252,10 +1426,10 @@ LIBSBML_EXTERN
 int
 ObjectiveType_isValidObjectiveTypeString(const char* s);
 
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
+#endif  /*  !SWIG  */
 
-#endif  /* !SWIG */
-#endif  /* Objective_H__ */
+#endif /*  Objective_H__  */
+

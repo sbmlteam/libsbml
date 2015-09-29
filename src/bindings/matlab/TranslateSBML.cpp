@@ -45,11 +45,15 @@
 
 #include <sbml/extension/SBasePlugin.h>
 
+
 #ifdef USE_FBC
 
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
+
+#include <sbml/conversion/ConversionProperties.h>
 
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
@@ -890,7 +894,34 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   }
   
 #else
-  sbmlDocument = readSBML(pacFilename);
+  sbmlDocument = readSBML(pacFilename); 
+#endif
+
+#ifdef USE_FBC
+  
+  const FbcSBMLDocumentPlugin* plug = 
+    dynamic_cast<const FbcSBMLDocumentPlugin*>(sbmlDocument->getPlugin("fbc"));
+  if (plug != NULL)
+  {
+  
+    if (plug->getPackageVersion() == 2)
+    {
+      ConversionProperties props;
+
+      /* add an option that we want to strip a given package */
+      props.addOption("convert fbc v2 to fbc v1", true,
+                      "convert fbc v2 to fbc v1");
+
+      /* perform the conversion */
+      int result = sbmlDocument->convert(props);
+      if (result != LIBSBML_OPERATION_SUCCESS)
+      {
+        reportError("TranslateSBML:Fbc:read", 
+          "Fbc Version is as yet unsupported. The attempt to convert to fbc V1 failed.");
+      }
+    }
+  }
+
 #endif
   
   /*mxFree(pacFilename);*/

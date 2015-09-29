@@ -4,19 +4,17 @@
  *          the fbc package for the Species element.
  * @author  Frank T. Bergmann
  *
- * $Id$
- * $HeadURL$
- *
  *<!---------------------------------------------------------------------------
+
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -28,8 +26,12 @@
  *------------------------------------------------------------------------- -->
  */
 
+
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
+#include <sbml/util/ElementFilter.h>
+#include <sbml/Model.h>
+
 #include <iostream>
 using namespace std;
 
@@ -129,23 +131,25 @@ parseChemicalFormula(std::string& chemicalFormula,
   }
 
 }
-  /*
-  * Constructor
-  */
-  FbcSpeciesPlugin::FbcSpeciesPlugin (const std::string &uri, 
-  const std::string &prefix,
-  FbcPkgNamespaces *fbcns)
-  : SBasePlugin(uri,prefix, fbcns)
-  , mCharge(0)
-  , mIsSetCharge(false)
-  , mChemicalFormula()
+
+
+/*
+ * Creates a new FbcSpeciesPlugin
+ */
+FbcSpeciesPlugin::FbcSpeciesPlugin(const std::string& uri,  
+                                 const std::string& prefix, 
+                               FbcPkgNamespaces* fbcns) :
+    SBasePlugin(uri, prefix, fbcns)
+  , mCharge (0)
+  , mIsSetCharge (false)
+  , mChemicalFormula ("")
 {
 }
 
 
 /*
-* Copy constructor. Creates a copy of this FbcSpeciesPlugin object.
-*/
+ * Copy constructor for FbcSpeciesPlugin.
+ */
 FbcSpeciesPlugin::FbcSpeciesPlugin(const FbcSpeciesPlugin& orig)
   : SBasePlugin(orig)
   , mCharge(orig.mCharge)
@@ -156,128 +160,108 @@ FbcSpeciesPlugin::FbcSpeciesPlugin(const FbcSpeciesPlugin& orig)
 
 
 /*
-* Destroy this object.
-*/
-FbcSpeciesPlugin::~FbcSpeciesPlugin () {}
-
-/*
-* Assignment operator for FbcSpeciesPlugin.
-*/
+ * Assignment operator for FbcSpeciesPlugin.
+ */
 FbcSpeciesPlugin& 
-  FbcSpeciesPlugin::operator=(const FbcSpeciesPlugin& orig)
+FbcSpeciesPlugin::operator=(const FbcSpeciesPlugin& rhs)
 {
-  if(&orig!=this)
+  if (&rhs != this)
   {
-    this->SBasePlugin::operator =(orig);
-    mChemicalFormula = orig.mChemicalFormula;
-    mCharge = orig.mCharge;
-    mIsSetCharge = orig.mIsSetCharge;
-  }    
+    this->SBasePlugin::operator=(rhs);
+    mCharge  = rhs.mCharge;
+    mIsSetCharge  = rhs.mIsSetCharge;
+    mChemicalFormula  = rhs.mChemicalFormula;
+  }
+
   return *this;
 }
 
 
 /*
-* Creates and returns a deep copy of this FbcSpeciesPlugin object.
-* 
-* @return a (deep) copy of this FbcSpeciesPlugin object
-*/
+ * Creates and returns a deep copy of this FbcSpeciesPlugin object.
+ */
 FbcSpeciesPlugin* 
-  FbcSpeciesPlugin::clone () const
+FbcSpeciesPlugin::clone () const
 {
-  return new FbcSpeciesPlugin(*this);  
+  return new FbcSpeciesPlugin(*this);
 }
 
 
-bool 
-FbcSpeciesPlugin::isSetCharge() const
-{
-  return mIsSetCharge;
-}
-
-int 
-FbcSpeciesPlugin::setCharge(int charge)
-{
-  mIsSetCharge = true;
-  mCharge = charge;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-int FbcSpeciesPlugin::getCharge() const
-{
-  return mCharge;
-}
-
-int 
-FbcSpeciesPlugin::unsetCharge()
-{
-  mIsSetCharge = false;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-bool 
-FbcSpeciesPlugin::isSetChemicalFormula() const
-{
-  return !mChemicalFormula.empty();
-}
-
-int 
-FbcSpeciesPlugin::setChemicalFormula(const std::string& chemicalFormula)
-{
-  mChemicalFormula = chemicalFormula;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-
-const std::string& 
-FbcSpeciesPlugin::getChemicalFormula() const
-{
-  return mChemicalFormula;
-}
-
-int 
-FbcSpeciesPlugin::unsetChemicalFormula()
-{
-  mChemicalFormula.erase();
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-/** @cond doxygenLibsbmlInternal */
 /*
-* Sets the parent SBMLDocument of this SBML object.
-*
-* @param d the SBMLDocument object to use
-*/
-void 
-  FbcSpeciesPlugin::setSBMLDocument (SBMLDocument* d)
+ * Destructor for FbcSpeciesPlugin.
+ */
+FbcSpeciesPlugin::~FbcSpeciesPlugin()
 {
-  SBasePlugin::setSBMLDocument(d);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
+//---------------------------------------------------------------
+//
+// overridden virtual functions for read/write/check
+//
+//---------------------------------------------------------------
+
+/*
+ * create object
+ */
+SBase*
+FbcSpeciesPlugin::createObject (XMLInputStream& stream)
+{
+  return NULL; 
+}
+
+
+/*
+ * write elements
+ */
+void
+FbcSpeciesPlugin::writeElements (XMLOutputStream& stream) const
+{
+}
+
+
+/*
+ * Checks if this plugin object has all the required elements.
+ */
+bool
+FbcSpeciesPlugin::hasRequiredElements () const
+{
+  bool allPresent = true; 
+
+  // TO DO 
+
+  return allPresent; 
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
 void
 FbcSpeciesPlugin::addExpectedAttributes(ExpectedAttributes& attributes)
 {
-  //
-  // required attribute is not defined for SBML Level 2 or lesser.
-  //
-  if ( mSBMLExt->getLevel(mURI) > 2 )
-  {    
-    attributes.add("charge");
-    attributes.add("chemicalFormula");
-  }
-}
-/** @endcond */
+  SBasePlugin::addExpectedAttributes(attributes);
 
-/** @cond doxygenLibsbmlInternal */
-void 
+  attributes.add("charge");
+  attributes.add("chemicalFormula");
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
+void
 FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
-                                             const ExpectedAttributes& expectedAttributes)
+                             const ExpectedAttributes& expectedAttributes)
 {
-  // dont call this as all it does it log unknown attributes
+   // dont call this as all it does it log unknown attributes
 //  SBasePlugin::readAttributes(attributes, expectedAttributes);
   for (int i = 0; i < attributes.getLength(); i++)
   {
@@ -293,21 +277,21 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
     }      
   }
   
-  if ( mSBMLExt->getLevel(mURI) > 2 )
-  {    
+  if (mSBMLExt->getLevel(mURI) > 2)
+  {
     XMLTriple tripleCharge("charge", mURI, mPrefix);
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    mIsSetCharge = attributes.readInto(tripleCharge, mCharge, getErrorLog(), 
+    mIsSetCharge = attributes.readInto(tripleCharge, mCharge, getErrorLog(),
       false, getLine(), getColumn());
     if (mIsSetCharge == false)
     {
-    if (getErrorLog()->getNumErrors() == numErrs + 1 && 
+      if (getErrorLog()->getNumErrors() == numErrs + 1 &&
         getErrorLog()->contains(XMLAttributeTypeMismatch))
-    {
-      getErrorLog()->remove(XMLAttributeTypeMismatch);
-      getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeInteger,
-        getPackageVersion(), getLevel(), getVersion());
-    }
+      {
+        getErrorLog()->remove(XMLAttributeTypeMismatch);
+        getErrorLog()->logPackageError("fbc", FbcSpeciesChargeMustBeInteger,
+          getPackageVersion(), getLevel(), getVersion());
+      }
     }
 
     XMLTriple tripleChemicalFormula("chemicalFormula", mURI, mPrefix);
@@ -317,71 +301,200 @@ FbcSpeciesPlugin::readAttributes (const XMLAttributes& attributes,
       parseChemicalFormula(mChemicalFormula, *(getErrorLog()), getPackageVersion(),
         getLevel(), getVersion());
     }
-    
+
   }
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void 
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
 FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 {
-  //
-  // required attribute is not defined for SBML Level 2 .
-  //
-  if ( mSBMLExt->getLevel(mURI) < 3)
-    return;
-  
-  //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
-  if ( isSetCharge() ) 
+  SBasePlugin::writeAttributes(stream);
+
+  if (isSetCharge() == true)
+    stream.writeAttribute("charge", getPrefix(), mCharge);
+
+  if (isSetChemicalFormula() == true)
+    stream.writeAttribute("chemicalFormula", getPrefix(), mChemicalFormula);
+
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+//---------------------------------------------------------------
+//
+// Functions for interacting with the members of the plugin
+//
+//---------------------------------------------------------------
+
+List*
+FbcSpeciesPlugin::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+
+  return ret;
+}
+
+
+/*
+ * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
+ */
+int
+FbcSpeciesPlugin::getCharge() const
+{
+  return mCharge;
+}
+
+
+/*
+ * Returns the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
+ */
+const std::string&
+FbcSpeciesPlugin::getChemicalFormula() const
+{
+  return mChemicalFormula;
+}
+
+
+/*
+ * Returns true/false if charge is set.
+ */
+bool
+FbcSpeciesPlugin::isSetCharge() const
+{
+  return mIsSetCharge;
+}
+
+
+/*
+ * Returns true/false if chemicalFormula is set.
+ */
+bool
+FbcSpeciesPlugin::isSetChemicalFormula() const
+{
+  return (mChemicalFormula.empty() == false);
+}
+
+
+/*
+ * Sets charge and returns value indicating success.
+ */
+int
+FbcSpeciesPlugin::setCharge(int charge)
+{
+  mCharge = charge;
+  mIsSetCharge = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets chemicalFormula and returns value indicating success.
+ */
+int
+FbcSpeciesPlugin::setChemicalFormula(const std::string& chemicalFormula)
+{
   {
-    XMLTriple tripleCharge("charge", mURI, mPrefix);
-    stream.writeAttribute(tripleCharge, mCharge);
-  }
-  if ( isSetChemicalFormula() )
-  {
-    XMLTriple tripleChemicalFormula("chemicalFormula", mURI, mPrefix);
-    stream.writeAttribute(tripleChemicalFormula, mChemicalFormula);
+    mChemicalFormula = chemicalFormula;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 }
-/** @endcond */
 
 
-
-/** @cond doxygenLibsbmlInternal */
 /*
-* Sets the parent SBML object of this plugin object to
-* this object and child elements (if any).
-* (Creates a child-parent relationship by this plugin object)
-*/
+ * Unsets charge and returns value indicating success.
+ */
+int
+FbcSpeciesPlugin::unsetCharge()
+{
+  mCharge = SBML_INT_MAX;
+  mIsSetCharge = false;
+
+  if (isSetCharge() == false)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets chemicalFormula and returns value indicating success.
+ */
+int
+FbcSpeciesPlugin::unsetChemicalFormula()
+{
+  mChemicalFormula.erase();
+
+  if (mChemicalFormula.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+//---------------------------------------------------------------
+
+
+/*
+ * Set the SBMLDocument.
+ */
 void
-  FbcSpeciesPlugin::connectToParent (SBase* sbase)
+FbcSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
+{
+  SBasePlugin::setSBMLDocument(d);
+
+}
+
+
+/*
+ * Connect to parent.
+ */
+void
+FbcSpeciesPlugin::connectToParent(SBase* sbase)
 {
   SBasePlugin::connectToParent(sbase);
 
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 /*
-* Enables/Disables the given package with child elements in this plugin
-* object (if any).
-*/
+ * Enables the given package.
+ */
 void
-  FbcSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
-  const std::string& pkgPrefix, bool flag)
+FbcSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
+                                   const std::string& pkgPrefix, bool flag)
 {
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accept the SBMLVisitor.
+ */
 bool
-FbcSpeciesPlugin::accept (SBMLVisitor& v) const
+FbcSpeciesPlugin::accept(SBMLVisitor& v) const
 {
+
   return true;
 }
-/** @endcond */
+
 
 
 #endif /* __cplusplus */
@@ -463,5 +576,10 @@ FbcSpeciesPlugin_unsetChemicalFormula(SBasePlugin_t * fbc)
     : LIBSBML_INVALID_OBJECT;
 }
 /** @endcond */
+
+
 LIBSBML_CPP_NAMESPACE_END
+
+
+
 

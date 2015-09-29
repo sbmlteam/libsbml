@@ -237,11 +237,11 @@ START_TEST(test_FbcExtension_typecode)
   fail_unless(sbext != NULL);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_OBJECTIVE), "Objective") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_GENEASSOCIATION), "GeneAssociation") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_ASSOCIATION), "Association") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_ASSOCIATION), "FbcAssociation") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_FLUXBOUND), "FluxBound") == 0);
   fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_FLUXOBJECTIVE), "FluxObjective") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_ASSOCIATION-1), "(Unknown SBML Fbc Type)") == 0);
-  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_OBJECTIVE+1), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_V1ASSOCIATION-1), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(sbext->getStringFromTypeCode(SBML_FBC_OR+1), "(Unknown SBML Fbc Type)") == 0);
 
   delete sbext;
 }
@@ -249,13 +249,13 @@ END_TEST
 
 START_TEST(test_FbcExtension_SBMLtypecode)
 {	
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_OBJECTIVE     ,"fbc"), "Objective") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_GENEASSOCIATION,"fbc"), "GeneAssociation") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_ASSOCIATION,"fbc"), "Association") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXBOUND,"fbc"), "FluxBound") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXOBJECTIVE,"fbc"), "FluxObjective") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_ASSOCIATION - 1   ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
-	fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_OBJECTIVE + 1  ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_OBJECTIVE     ,"fbc"), "Objective") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_GENEASSOCIATION,"fbc"), "GeneAssociation") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_ASSOCIATION,"fbc"), "FbcAssociation") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXBOUND,"fbc"), "FluxBound") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_FLUXOBJECTIVE,"fbc"), "FluxObjective") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_V1ASSOCIATION - 1   ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
+  fail_unless(strcmp(SBMLTypeCode_toString(SBML_FBC_OR + 1  ,"fbc"), "(Unknown SBML Fbc Type)") == 0);
 }
 END_TEST
 

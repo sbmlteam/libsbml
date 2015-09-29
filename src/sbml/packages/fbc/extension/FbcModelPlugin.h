@@ -7,13 +7,13 @@
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -28,8 +28,9 @@
  * @sbmlbrief{fbc} Extension of Model.
  */
 
-#ifndef FbcModelPlugin_h
-#define FbcModelPlugin_h
+
+#ifndef FbcModelPlugin_H__
+#define FbcModelPlugin_H__
 
 
 #include <sbml/common/extern.h>
@@ -43,9 +44,12 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/GeneAssociation.h>
+#include <sbml/packages/fbc/sbml/GeneProduct.h>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -55,39 +59,44 @@ class LIBSBML_EXTERN FbcModelPlugin : public SBasePlugin
 public:
 
   /**
-   * Constructor
+   * Creates a new FbcModelPlugin
    */
-  FbcModelPlugin  (const std::string &uri, const std::string &prefix,
-                    FbcPkgNamespaces *fbcns);
+  FbcModelPlugin(const std::string& uri, const std::string& prefix, 
+                                 FbcPkgNamespaces* fbcns);
 
 
   /**
-   * Copy constructor. Creates a copy of this FbcModelPlugin object.
+   * Copy constructor for FbcModelPlugin.
+   *
+   * @param orig; the FbcModelPlugin instance to copy.
    */
-  FbcModelPlugin (const FbcModelPlugin & orig);
+  FbcModelPlugin(const FbcModelPlugin& orig);
 
 
-  /**
-   * Destroy this object.
+   /**
+   * Assignment operator for FbcModelPlugin.
+   *
+   * @param rhs; the object whose values are used as the basis
+   * of the assignment
    */
-  virtual ~FbcModelPlugin  ();
+  FbcModelPlugin& operator=(const FbcModelPlugin& rhs);
 
 
-  /**
-   * Assignment operator for FbcModelPlugin .
+   /**
+   * Creates and returns a deep copy of this FbcModelPlugin object.
+   *
+   * @return a (deep) copy of this FbcModelPlugin object.
    */
-  FbcModelPlugin & operator=(const FbcModelPlugin & orig);
+  virtual FbcModelPlugin* clone () const;
 
 
-  /**
-   * Creates and returns a deep copy of this FbcModelPlugin  object.
-   * 
-   * @return a (deep) copy of this FbcModelPlugin object
+   /**
+   * Destructor for FbcModelPlugin.
    */
-  virtual FbcModelPlugin * clone () const;
+  virtual ~FbcModelPlugin();
 
 
-  // --------------------------------------------------------
+   //---------------------------------------------------------------
   //
   // overridden virtual functions for reading/writing/checking 
   // elements
@@ -95,6 +104,7 @@ public:
   // --------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
@@ -104,43 +114,37 @@ public:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-  /** @endcond */
 
 
+  /** @endcond doxygenLibsbmlInternal */
+  
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * This function is a bit tricky.
-   * This function is used only for setting annotation element in case
-   * gene associations are used. 
-   * Thus, no attribute is written by this function.
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-  /** @endcond */
-
-
+  int appendFrom(const Model* model);
+  
+  /** @endcond doxygenLibsbmlInternal */
+  
   /** @cond doxygenLibsbmlInternal */
+
   /**
    * Subclasses must override this method to write out their contained
    * SBML objects as XML elements if they have their specific elements.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
+  /** @endcond doxygenLibsbmlInternal */
+
+
   /**
    * Checks if this plugin object has all the required elements.
    *
-   * Subclasses should override this function if they have their specific
-   * elements.
+   * Subclasses must override this method 
+   * if they have their specific elements.
    *
-   * @return true if this plugin object has all the required elements,
+   * @return true if this plugin object has all the required elements
    * otherwise false will be returned.
    */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
-
-
+  virtual bool hasRequiredElements () const;
   /** @cond doxygenLibsbmlInternal */
   /**
    * Parses Gene Annotation Extension 
@@ -149,45 +153,104 @@ public:
   /** @endcond */
 
 
-  /**
-   * Returns the first child element found that has the given @p id in the model-wide SId namespace, or @c NULL if no such object is found.
-   *
-   * @param id string representing the id of objects to find
-   *
-   * @return a pointer to the SBase element with the given @p id.
-   */
-  virtual SBase* getElementBySId(const std::string& id);
-  
-  
-  /**
-   * Returns the first child element it can find with the given @p metaid, or itself if it has the given @p metaid, or @c NULL if no such object is found.
-   *
-   * @param metaid string representing the metaid of objects to find
-   *
-   * @return a pointer to the SBase element with the given @p metaid.
-   */
-  virtual SBase* getElementByMetaId(const std::string& metaid);
-  
-  /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
-   *
-   * @return a List* of pointers to all children objects.
-   */
-  virtual List* getAllElements(ElementFilter* filter=NULL);
-  
-  
+  //---------------------------------------------------------------
+
+
   /** @cond doxygenLibsbmlInternal */
-  int appendFrom(const Model* model);
 
-  /** @endcond */
-
-  /** ------------------------------------------------------------------
-   *
-   *  Additional public functions
-   *
-   * ------------------------------------------------------------------
+  /**
+   * Get the list of expected attributes for this element.
    */
-  
+  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Read values from the given XMLAttributes set into their specific fields.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes,
+                               const ExpectedAttributes& expectedAttributes);
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Write values of XMLAttributes to the output stream.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  //---------------------------------------------------------------
+  //
+  // Functions for interacting with the members of the plugin
+  //
+  //---------------------------------------------------------------
+
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   *
+   * @return a List* of pointers to all child objects.
+   */
+   virtual List* getAllElements(ElementFilter * filter = NULL);
+
+
+  /**
+   * Returns the value of the "strict" attribute of this FbcModelPlugin.
+   *
+   * @return the value of the "strict" attribute of this FbcModelPlugin as a boolean.
+   */
+  virtual bool getStrict() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * FbcModelPlugin's "strict" attribute has been set.
+   *
+   * @return @c true if this FbcModelPlugin's "strict" attribute has been set,
+   * otherwise @c false is returned.
+   */
+  virtual bool isSetStrict() const;
+
+
+  /**
+   * Sets the value of the "strict" attribute of this FbcModelPlugin.
+   *
+   * @param strict; bool value of the "strict" attribute to be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  virtual int setStrict(bool strict);
+
+
+  /**
+   * Unsets the value of the "strict" attribute of this FbcModelPlugin.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  virtual int unsetStrict();
+
+ 
   /**
    * Returns the ListOfFluxBounds in this plugin object.
    *
@@ -255,6 +318,13 @@ public:
    */
   const FluxBound* getFluxBound (const std::string& sid) const;
 
+  /** 
+   * 
+   * @param reaction the id of an reaction to find fluxBounds for
+   * 
+   * @returns a listOfFluxBounds for the given reaction id
+   */
+  ListOfFluxBounds *  getFluxBoundsForReaction(const std::string& reaction) const;
 
   /**
    * Adds a copy of the given FluxBound object to the list of FluxBounds.
@@ -316,133 +386,144 @@ public:
   unsigned int getNumFluxBounds() const;
 
 
-    
   /**
-   * Returns the ListOfObjectives in this plugin object.
+   * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
    *
-   * @return ListOfObjectives object in this plugin object.
+   * @return the "ListOfObjectives" attribute of this FbcModelPlugin.
    */
-  const ListOfObjectives* getListOfObjectives () const;
- 
-  /**
-   * Returns the ListOfObjectives in this plugin object.
-   *
-   * @return ListOfObjectives object in this plugin object.
-   */
-  ListOfObjectives* getListOfObjectives ();
+  const ListOfObjectives* getListOfObjectives() const;
 
 
-  
   /**
-   * Returns the Objective object that belongs to the given index. If the
-   * index is invalid, @c NULL is returned.
+   * Returns the  "ListOfObjectives" in this FbcModelPlugin object.
+   *
+   * @return the "ListOfObjectives" attribute of this FbcModelPlugin.
+   */
+  ListOfObjectives* getListOfObjectives();
+
+
+  /**
+   * Get a Objective from the ListOfObjectives.
    *
    * @param n the index number of the Objective to get.
    *
-   * @return the nth Objective in the ListOfObjectives.
+   * @return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+   *
+   * @see getNumObjectives()
    */
-  const Objective* getObjective (unsigned int n) const;
+  Objective* getObjective(unsigned int n);
 
 
   /**
-   * Returns the Objective object that belongs to the given index. If the
-   * index is invalid, @c NULL is returned.
+   * Get a Objective from the ListOfObjectives.
    *
    * @param n the index number of the Objective to get.
    *
-   * @return the nth Objective in the ListOfObjectives.
+   * @return the nth Objective in the ListOfObjectives within this FbcModelPlugin.
+   *
+   * @see getNumObjectives()
    */
-  Objective* getObjective (unsigned int n);
+  const Objective* getObjective(unsigned int n) const;
 
 
   /**
-   * Returns the Objective object based on its identifier.
+   * Get a Objective from the ListOfObjectives
+   * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the Objective to get.
-   * 
-   * @return Objective in the ListOfObjectives with the given @p id
-   * or NULL if no such Objective exists.
+   *
+   * @return the Objective in the ListOfObjectives
+   * with the given id or NULL if no such
+   * Objective exists.
    *
    * @see getObjective(unsigned int n)
-   * @see getListOfObjectives()
+   *
+   * @see getNumObjectives()
    */
-  Objective* getObjective (const std::string& sid);
+  Objective* getObjective(const std::string& sid);
 
 
   /**
-   * Returns the Objective object based on its identifier.
+   * Get a Objective from the ListOfObjectives
+   * based on its identifier.
    *
-   * @param sid a string representing the identifier 
+   * @param sid a string representing the identifier
    * of the Objective to get.
-   * 
-   * @return Objective in the ListOfObjectives with the given @p sid 
-   * or NULL if no such Objective exists.
+   *
+   * @return the Objective in the ListOfObjectives
+   * with the given id or NULL if no such
+   * Objective exists.
    *
    * @see getObjective(unsigned int n)
-   * @see getListOfObjectives()
+   *
+   * @see getNumObjectives()
    */
-  const Objective* getObjective (const std::string& sid) const;
+  const Objective* getObjective(const std::string& sid) const;
 
 
   /**
-   * Adds a copy of the given Objective object to the list of Objectives.
+   * Adds a copy the given "Objective" to this FbcModelPlugin.
    *
-   * @param bound the Objective object to be added to the list of Objectives.
+   * @param o; the Objective object to add
    *
-   * @copydetails doc_returns_success_code
-   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
-  int addObjective (const Objective* bound);
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addObjective(const Objective* o);
 
 
   /**
-   * Creates a new Objective object and adds it to the list of Objective objects
-   * and returns it.
+   * Get the number of Objective objects in this FbcModelPlugin.
    *
-   * @return a newly created Objective object
+   * @return the number of Objective objects in this FbcModelPlugin
+   */
+  unsigned int getNumObjectives() const;
+
+
+  /**
+   * Creates a new Objective object, adds it to this FbcModelPlugins
+   * ListOfObjectives and returns the Objective object created. 
+   *
+   * @return a new Objective object instance
+   *
+   * @see addObjective(const Objective* o)
    */
   Objective* createObjective();
 
 
   /**
-   * Removes the nth Objective object from this plugin object and
-   * returns a pointer to it.
+   * Removes the nth Objective from the ListOfObjectives within this FbcModelPlugin.
+   * and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   *  deleting it.
+   * The caller owns the returned item and is responsible for deleting it.
    *
-   * @param n the index of the Objective object to remove
+   * @param n the index of the Objective to remove.
    *
-   * @return the Objective object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if the 
-   * given index is out of range.
+   * @see getNumObjectives()
    */
-  Objective* removeObjective (unsigned int n);
+  Objective* removeObjective(unsigned int n);
 
 
   /**
-   * Removes the Objective object with the given @p sid attribute from 
-   * this plugin object and returns a pointer to it.
+   * Removes the Objective with the given identifier from the ListOfObjectives within this FbcModelPlugin
+   * and returns a pointer to it.
    *
-   * The caller owns the returned object and is responsible for
-   * deleting it.
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
    *
-   * @param sid the id attribute of the Objective object to remove
+   * @param sid the identifier of the Objective to remove.
    *
-   * @return the Objective object removed.  As mentioned above, the 
-   * caller owns the returned object. @c NULL is returned if the 
-   * given index is out of range.
+   * @return the Objective removed. As mentioned above, the caller owns the
+   * returned item.
    */
-  Objective* removeObjective (const std::string& sid);
+  Objective* removeObjective(const std::string& sid);
 
-
-  /**
-   * Returns the number of Objective object in this plugin object.
-   *
-   * @return the number of Objective object in this plugin object.
-   */
-  unsigned int getNumObjectives() const;
 
   /** 
    * Returns the current active objective. 
@@ -468,6 +549,160 @@ public:
    * Unsets the active objective.
    */  
   void unsetActiveObjectiveId();
+  /**
+   * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+   *
+   * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
+   */
+  const ListOfGeneProducts* getListOfGeneProducts() const;
+
+
+  /**
+   * Returns the  "ListOfGeneProducts" in this FbcModelPlugin object.
+   *
+   * @return the "ListOfGeneProducts" attribute of this FbcModelPlugin.
+   */
+  ListOfGeneProducts* getListOfGeneProducts();
+
+
+  /**
+   * Get a GeneProduct from the ListOfGeneProducts.
+   *
+   * @param n the index number of the GeneProduct to get.
+   *
+   * @return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+   *
+   * @see getNumGeneProducts()
+   */
+  GeneProduct* getGeneProduct(unsigned int n);
+
+
+  /**
+   * Get a GeneProduct from the ListOfGeneProducts.
+   *
+   * @param n the index number of the GeneProduct to get.
+   *
+   * @return the nth GeneProduct in the ListOfGeneProducts within this FbcModelPlugin.
+   *
+   * @see getNumGeneProducts()
+   */
+  const GeneProduct* getGeneProduct(unsigned int n) const;
+
+
+  /**
+   * Get a GeneProduct from the ListOfGeneProducts
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the GeneProduct to get.
+   *
+   * @return the GeneProduct in the ListOfGeneProducts
+   * with the given id or NULL if no such
+   * GeneProduct exists.
+   *
+   * @see getGeneProduct(unsigned int n)
+   *
+   * @see getNumGeneProducts()
+   */
+  GeneProduct* getGeneProduct(const std::string& sid);
+
+  /**
+  * Get a GeneProduct from the ListOfGeneProducts
+  * based on its label.
+  *
+  * @param label a string representing the label
+  * of the GeneProduct to get.
+  *
+  * @return the GeneProduct in the ListOfGeneProducts
+  * with the given label or NULL if no such
+  * GeneProduct exists.
+  *
+  * @see getGeneProduct(unsigned int n)
+  *
+  * @see getNumGeneProducts()
+  */
+  GeneProduct* getGeneProductByLabel(const std::string& label);
+
+
+  /**
+   * Get a GeneProduct from the ListOfGeneProducts
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier
+   * of the GeneProduct to get.
+   *
+   * @return the GeneProduct in the ListOfGeneProducts
+   * with the given id or NULL if no such
+   * GeneProduct exists.
+   *
+   * @see getGeneProduct(unsigned int n)
+   *
+   * @see getNumGeneProducts()
+   */
+  const GeneProduct* getGeneProduct(const std::string& sid) const;
+
+
+  /**
+   * Adds a copy the given "GeneProduct" to this FbcModelPlugin.
+   *
+   * @param gp; the GeneProduct object to add
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int addGeneProduct(const GeneProduct* gp);
+
+
+  /**
+   * Get the number of GeneProduct objects in this FbcModelPlugin.
+   *
+   * @return the number of GeneProduct objects in this FbcModelPlugin
+   */
+  unsigned int getNumGeneProducts() const;
+
+
+  /**
+   * Creates a new GeneProduct object, adds it to this FbcModelPlugins
+   * ListOfGeneProducts and returns the GeneProduct object created. 
+   *
+   * @return a new GeneProduct object instance
+   *
+   * @see addGeneProduct(const GeneProduct* gp)
+   */
+  GeneProduct* createGeneProduct();
+
+
+  /**
+   * Removes the nth GeneProduct from the ListOfGeneProducts within this FbcModelPlugin.
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   *
+   * @param n the index of the GeneProduct to remove.
+   *
+   * @see getNumGeneProducts()
+   */
+  GeneProduct* removeGeneProduct(unsigned int n);
+
+
+  /**
+   * Removes the GeneProduct with the given identifier from the ListOfGeneProducts within this FbcModelPlugin
+   * and returns a pointer to it.
+   *
+   * The caller owns the returned item and is responsible for deleting it.
+   * If none of the items in this list have the identifier @p sid, then
+   * @c NULL is returned.
+   *
+   * @param sid the identifier of the GeneProduct to remove.
+   *
+   * @return the GeneProduct removed. As mentioned above, the caller owns the
+   * returned item.
+   */
+  GeneProduct* removeGeneProduct(const std::string& sid);
 
   /**
    * Returns the ListOfObjectives in this plugin object.
@@ -595,84 +830,53 @@ public:
    */
   int getNumGeneAssociations() const;
 
-  // ---------------------------------------------------------
-  //
-  // virtual functions (internal implementation) which should
-  // be overridden by subclasses.
-  //
-  // ---------------------------------------------------------
 
   /** @cond doxygenLibsbmlInternal */
+
   /**
-   * Sets the parent SBMLDocument of this plugin object.
-   *
-   * Subclasses which contain one or more SBase derived elements must
-   * override this function.
-   *
-   * @param d the SBMLDocument object to use
-   *
-   * @see connectToParent
-   * @see enablePackageInternal
+   * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond */
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Sets the *parent* of this SBML object to child SBML objects (if any).
-   * (Creates a child-parent relationship by the parent)
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToChild ();
+  * Sets the *parent* of this SBML object to child SBML objects (if any).
+  * (Creates a child-parent relationship by the parent)
+  *
+  * @see setSBMLDocument
+  * @see enablePackageInternal
+  */
+  virtual void connectToChild();
   /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * Sets the parent SBML object of this plugin object to
-   * this object and child elements (if any).
-   * (Creates a child-parent relationship by this plugin object)
-   *
-   * This function is called when this object is created by
-   * the parent element.
-   * Subclasses must override this this function if they have one
-   * or more child elements.Also, SBasePlugin::connectToParent()
-   * must be called in the overridden function.
-   *
-   * @param sbase the SBase object to use
-   *
-   * @see setSBMLDocument
-   * @see enablePackageInternal
-   */
-  virtual void connectToParent (SBase *sbase);
-  /** @endcond */
+
+  virtual void connectToParent (SBase* sbase);
+
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
-  /**
-   * Enables/Disables the given package with child elements in this plugin
-   * object (if any).
-   * (This is an internal implementation invoked from
-   *  SBase::enablePackageInternal() function)
-   *
-   * @note Subclasses in which one or more SBase derived elements are
-   * defined must override this function.
-   *
-   * @see setSBMLDocument
-   * @see connectToParent
-   */
+
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond */
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
 
   /** @cond doxygenLibsbmlInternal */
-  virtual bool accept(SBMLVisitor& v) const;
-  /** @endcond */
 
-  ListOfFluxBounds * getFluxBoundsForReaction(const std::string& reaction) const;
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /** @endcond doxygenLibsbmlInternal */
+
 
 protected:
 
@@ -685,14 +889,21 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-  /*-- data members --*/
 
+  bool          mStrict;
+  bool          mIsSetStrict;
+  ListOfObjectives   mObjectives;
+  ListOfGeneProducts   mGeneProducts;
   ListOfFluxBounds mBounds;
-  ListOfObjectives mObjectives;
   ListOfGeneAssociations mAssociations;
 
-  /** @endcond */
+  /** @endcond doxygenLibsbmlInternal */
+
+
 };
+
+
+
 
 LIBSBML_CPP_NAMESPACE_END
 
@@ -701,7 +912,6 @@ LIBSBML_CPP_NAMESPACE_END
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
-
 
 /**
  * Appends a copy of the given FluxBound_t structure to the given FbcModelPlugin_t
@@ -846,9 +1056,10 @@ LIBSBML_EXTERN
 int
 FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fmp, const char * activeObjective);
 
-
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
-#endif  /* FbcModelPlugin_h */
+#endif /* FbcModelPlugin_H__ */
+
+

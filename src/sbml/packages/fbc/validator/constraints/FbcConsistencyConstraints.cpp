@@ -30,10 +30,16 @@
 #include <sbml/validator/VConstraint.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
+#include <sbml/packages/fbc/sbml/GeneProductRef.h>
+#include <sbml/packages/fbc/sbml/FbcAnd.h>
+#include <sbml/packages/fbc/sbml/FbcOr.h>
+#include <sbml/packages/fbc/extension/FbcModelPlugin.h>
+#include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
 
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 
 #include "FluxBoundsConsistent.h"
+#include "UniqueGeneProductLabels.h"
 #endif
 
 #include <sbml/validator/ConstraintMacros.h>
@@ -177,6 +183,632 @@ START_CONSTRAINT (FbcFluxObjectReactionMustExist, FluxObjective, fo)
 END_CONSTRAINT
 
 // 20607 - caught at read
+
+// 20608
+START_CONSTRAINT(FbcFluxObjectCoefficientWhenStrict, FluxObjective, fo)
+{
+  pre(fo.getPackageVersion() == 2);
+  pre(fo.isSetCoefficient());
+  
+  // is model strict
+  const FbcModelPlugin * plugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (plugin != NULL);
+  pre (plugin->getStrict());
+
+  bool fail = false;
+
+  if (util_isNaN(fo.getCoefficient()) || util_isInf(fo.getCoefficient()))
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+
+}
+END_CONSTRAINT
+
+// 20701 - caught at read
+// 20702 - caught at read
+// 20703 - caught at read
+// 20704 - caught at read
+
+// 20705
+START_CONSTRAINT (FbcReactionLwrBoundRefExists, Reaction, r)
+{
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  
+  bool fail = false;
+
+  std::string fb = plug->getLowerFluxBound();
+  
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+  msg += "' refers to lowerBound with id '";
+  msg += fb;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(fb) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20706
+START_CONSTRAINT (FbcReactionUpBoundRefExists, Reaction, r)
+{
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string fb = plug->getUpperFluxBound();
+  
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+  msg += "' refers to upperBound with id '";
+  msg += fb;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getParameter(fb) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+// 20707
+START_CONSTRAINT (FbcReactionMustHaveBoundsStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  
+  bool fail = false;
+
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+  msg += "'";
+
+  if (!(plug->isSetLowerFluxBound()) && !(plug->isSetUpperFluxBound()))
+  {
+    msg += " is missing both upperBound and lowerBound attributes.";
+    fail = true;
+  }
+  else if (!(plug->isSetLowerFluxBound()))
+  {
+    msg += " is missing the lowerBound attribute.";
+    fail = true;
+  }
+  else if (!(plug->isSetUpperFluxBound()))
+  {
+    msg += " is missing the upperBound attribute.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20708
+START_CONSTRAINT (FbcReactionConstantBoundsStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string up = plug->getUpperFluxBound();
+  std::string low = plug->getLowerFluxBound();
+  pre(m.getParameter(up) != NULL);
+  pre(m.getParameter(low) != NULL);
+  
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+
+  if (!(m.getParameter(up)->getConstant()) && !(m.getParameter(low)->getConstant()))
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' and lowerBound with id '";
+    msg += "' that are not constant parameters.";
+    fail = true;
+  }
+  else if (!(m.getParameter(up)->getConstant()))
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' that is not a constant parameter.";
+    fail = true;
+  }
+  else if (!(m.getParameter(low)->getConstant()))
+  {
+    msg += "' refers to lowerBound with id '";
+    msg += low;
+    msg += "' that is not a constant parameter.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20709
+START_CONSTRAINT (FbcReactionBoundsMustHaveValuesStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string up = plug->getUpperFluxBound();
+  std::string low = plug->getLowerFluxBound();
+  pre(m.getParameter(up) != NULL);
+  pre(m.getParameter(low) != NULL);
+
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+
+  if (util_isNaN(m.getParameter(up)->getValue()) && 
+    util_isNaN(m.getParameter(low)->getValue()))
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' and lowerBound with id '";
+    msg += "' that are have no defined value.";
+    fail = true;
+  }
+  else if (util_isNaN(m.getParameter(up)->getValue()))
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' that has no defined value.";
+    fail = true;
+  }
+  else if (util_isNaN(m.getParameter(low)->getValue()))
+  {
+    msg += "' refers to lowerBound with id '";
+    msg += low;
+    msg += "' that has no defined value.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20710
+START_CONSTRAINT (FbcReactionBoundsNotAssignedStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string up = plug->getUpperFluxBound();
+  std::string low = plug->getLowerFluxBound();
+  pre(m.getParameter(up) != NULL);
+  pre(m.getParameter(low) != NULL);
+  
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+
+  if (m.getInitialAssignmentBySymbol(up) != NULL && 
+    m.getInitialAssignmentBySymbol(low) != NULL)
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' and lowerBound with id '";
+    msg += "' that are the targets of initialAssignments.";
+    fail = true;
+  }
+  else if (m.getInitialAssignmentBySymbol(up) != NULL)
+  {
+    msg += "' refers to upperBound with id '";
+    msg += up;
+    msg += "' that is the target of an initialAssignment.";
+    fail = true;
+  }
+  else if (m.getInitialAssignmentBySymbol(low) != NULL)
+  {
+    msg += "' refers to lowerBound with id '";
+    msg += low;
+    msg += "' that is the target of an initialAssignment.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20711
+START_CONSTRAINT (FbcReactionLwrBoundNotInfStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string low = plug->getLowerFluxBound();
+  pre(m.getParameter(low) != NULL);
+
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+
+  if (util_isInf(m.getParameter(low)->getValue()))
+  {
+    msg += "' and lowerBound with id '";
+    msg += low;
+    msg += "' that has an infinite value.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20712
+START_CONSTRAINT (FbcReactionUpBoundNotNegInfStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string up = plug->getUpperFluxBound();
+  pre(m.getParameter(up) != NULL);
+
+  msg = "<Reaction> '";
+  msg += r.getId() ;
+
+  if (util_isInf(m.getParameter(up)->getValue()) == -1)
+  {
+    msg += "' and upperBound with id '";
+    msg += up;
+    msg += "' that has a negative infinite value.";
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20713
+START_CONSTRAINT (FbcReactionLwrLessThanUpStrict, Reaction, r)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const FbcReactionPlugin* plug = 
+    static_cast<const FbcReactionPlugin*>(r.getPlugin("fbc"));
+  pre(plug != NULL);
+  pre(plug->getPackageVersion() == 2);
+  pre(plug->isSetLowerFluxBound());
+  pre(plug->isSetUpperFluxBound());
+  
+  bool fail = false;
+
+  std::string up = plug->getUpperFluxBound();
+  std::string low = plug->getLowerFluxBound();
+  pre(m.getParameter(up) != NULL);
+  pre(m.getParameter(low) != NULL);
+  
+  double up_value = m.getParameter(up)->getValue();
+  double low_value = m.getParameter(low)->getValue();
+
+  pre(util_isFinite(up_value));
+  pre(util_isFinite(low_value));
+  
+  
+  msg = "In <Reaction> '";
+  msg += r.getId() ;
+  msg += "' the upperBound with id '";
+  msg += up;
+  msg += "' has a value that is not greater than or equal to the lowerBound with id '";
+  msg += low;
+  msg += "'.";
+  
+  if (up_value < low_value)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20714
+START_CONSTRAINT (FbcSpeciesReferenceConstantStrict, SpeciesReference, sr)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const Reaction * r = static_cast<const Reaction*>(
+    sr.getAncestorOfType(SBML_REACTION));
+
+  
+  bool fail = false;
+
+  msg = "<Reaction> '";
+  msg += r->getId() ;
+  msg += "' has the speciesReference to '";
+  msg += sr.getSpecies();
+  msg += "' which is not constant.";
+
+  if (sr.getConstant() == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20715
+START_CONSTRAINT (FbcSpeciesRefsStoichMustBeRealStrict, SpeciesReference, sr)
+{
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const Reaction * r = static_cast<const Reaction*>(
+    sr.getAncestorOfType(SBML_REACTION));
+
+  
+  bool fail = false;
+
+  msg = "<Reaction> '";
+  msg += r->getId() ;
+  msg += "' has the speciesReference to '";
+  msg += sr.getSpecies();
+  msg += "' which is does not have a valid stoichiometry.";
+
+  if (util_isFinite(sr.getStoichiometry()) == false)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+// 20716
+START_CONSTRAINT (FbcSpeciesRefNotAssignedStrict, SpeciesReference, sr)
+{
+  pre(sr.isSetId());
+
+  // is model strict
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+  pre (mplugin->getStrict());
+
+  const Reaction * r = static_cast<const Reaction*>(
+    sr.getAncestorOfType(SBML_REACTION));
+
+  
+  bool fail = false;
+
+  msg = "<Reaction> '";
+  msg += r->getId() ;
+  msg += "' has the speciesReference with id '";
+  msg += sr.getId();
+  msg += "' which is the target of an <initialAssignment>.";
+
+  if (m.getInitialAssignmentBySymbol(sr.getId()) != NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+  // 20801 - caught at read
+  // 20802 - caught at read
+  // 20803 - caught at read
+  // 20804 - caught at read
+  // 20805 - caught at read
+  // 20806 - caught at read
+
+  // 20901 - caught at read
+  // 20902 - caught at read
+  // 20903 - caught at read
+  // 20904 - caught at read
+
+// 20908
+START_CONSTRAINT (FbcGeneProdRefGeneProductExists, GeneProductRef, r)
+{
+  pre(r.isSetGeneProduct());
+
+  const FbcModelPlugin * mplugin = 
+    static_cast<const FbcModelPlugin*>(m.getPlugin("fbc"));
+  pre (mplugin != NULL);
+
+  bool fail = false;
+
+  std::string gp = r.getGeneProduct();
+
+  const Reaction * react = static_cast<const Reaction *>
+    (r.getAncestorOfType(SBML_REACTION));
+
+  msg = "<GeneProductRef> in the <reaction> with id '";
+  msg += react->getId() ;
+  msg += "' refers to a geneProduct with id '";
+  msg += gp;
+  msg += "' that does not exist within the <model>.";
+
+  if (mplugin->getGeneProduct(gp) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+  // 21001 - caught at read
+  // 21002 - caught at read
+  
+// 21003
+START_CONSTRAINT (FbcAndTwoChildren, FbcAnd, r)
+{
+  bool fail = false;
+
+  const Reaction * react = static_cast<const Reaction *>
+    (r.getAncestorOfType(SBML_REACTION));
+
+  msg = "The <And> element in the <reaction> with id '";
+  msg += react->getId() ;
+  msg += "' does not have two child elements.";
+
+  if (r.getNumAssociations() < 2)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+  // 21101 - caught at read
+  // 21102 - caught at read
+  
+// 21103
+START_CONSTRAINT (FbcOrTwoChildren, FbcOr, r)
+{
+  bool fail = false;
+
+  const Reaction * react = static_cast<const Reaction *>
+    (r.getAncestorOfType(SBML_REACTION));
+
+  msg = "The <Or> element in the <reaction> with id '";
+  msg += react->getId() ;
+  msg += "' does not have two child elements.";
+
+  if (r.getNumAssociations() < 2)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+  // 21201 - caught at read
+  // 21202 - caught at read
+  // 21203 - caught at read
+  // 21204 - caught at read
+
+//21205
+EXTERN_CONSTRAINT( FbcGeneProductLabelMustBeUnique, UniqueGeneProductLabels)
+
+  // 21206 - caught at read
+ 
+//21207
+START_CONSTRAINT (FbcGeneProductAssocSpeciesMustExist, GeneProduct, gp)
+{
+  pre (gp.isSetAssociatedSpecies());
+
+  std::string as = gp.getAssociatedSpecies();
+
+  bool fail = false;
+
+  msg = "The <GeneProduct> with id '";
+  msg += gp.getId() ;
+  msg += "' refers to an associatedSpecies '";
+  msg += as;
+  msg += "' that does not exist within the <model>.";
+
+  if (m.getSpecies(as) == NULL)
+  {
+    fail = true;
+  }
+
+  inv(fail == false);
+}
+END_CONSTRAINT
+
+
+
+
 /** @endcond */
 
 

@@ -7,13 +7,13 @@
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -25,148 +25,193 @@
  *------------------------------------------------------------------------- -->
  */
 
+
 #include <sbml/extension/SBMLExtensionRegister.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
+#include <sbml/extension/SBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
+
 #include <sbml/packages/fbc/util/CobraToFbcConverter.h>
 #include <sbml/packages/fbc/util/FbcToCobraConverter.h>
+#include <sbml/packages/fbc/util/FbcV1ToV2Converter.h>
+#include <sbml/packages/fbc/util/FbcV2ToV1Converter.h>
 
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
+#include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
+#include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/validator/FbcSBMLErrorTable.h>
+
 
 #ifdef __cplusplus
 
+
 #include <iostream>
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-// -------------------------------------------------------------------------
-//
-// This block is global initialization code which should be automatically 
-// executed before invoking main() block.
-//
-// -------------------------------------------------------------------------
 
-//------------- (START) -----------------------------------
+/*---------------------------------------------------------------
+ *
+ * This block is global initialization code which should be automatically
+ * executed before invoking main() block.
+ *
+ */
 
-// The name of this package
+/*------------------ (START) ----------------------------------*/
 
-const std::string& FbcExtension::getPackageName ()
+/*
+ * Returns the package name of this extension.
+ */
+const std::string&
+FbcExtension::getPackageName ()
 {
   static const std::string pkgName = "fbc";
   return pkgName;
 }
 
-//
-// Default SBML level, version, and package version
-//
-unsigned int FbcExtension::getDefaultLevel()
+
+/*
+ * Returns the default SBML Level this extension.
+ */
+unsigned int
+FbcExtension::getDefaultLevel ()
 {
   return 3;
-}  
-
-unsigned int FbcExtension::getDefaultVersion()
-{
-  return 1; 
 }
 
-unsigned int FbcExtension::getDefaultPackageVersion()
+
+/*
+ * Returns the default SBML Version this extension.
+ */
+unsigned int
+FbcExtension::getDefaultVersion ()
 {
   return 1;
-} 
+}
 
-//
-// XML namespaces of (1) package versions of fbc extension, and 
-// (2) another XML namespace(XMLSchema-instance) required in the fbc 
-//  extension.
-//
 
-const std::string& FbcExtension::getXmlnsL3V1V1 ()
+/*
+ * Returns the default SBML version this extension.
+ */
+unsigned int
+FbcExtension::getDefaultPackageVersion ()
+{
+  return 1;
+}
+
+
+/*
+ * XML namespaces of package.
+ */
+const std::string&
+FbcExtension::getXmlnsL3V1V2 ()
+{
+  static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version2";
+  return xmlns;
+}
+
+/*
+ * XML namespaces of package.
+ */
+const std::string&
+FbcExtension::getXmlnsL3V1V1 ()
 {
   static const std::string xmlns = "http://www.sbml.org/sbml/level3/version1/fbc/version1";
   return xmlns;
 }
 
-//
-// Adds this FbcExtension object to the SBMLExtensionRegistry class.
-// FbcExtension::init() function is automatically invoked when this
-// object is instantiated.
-//
+
+/*
+ * Adds this FbcExtension object to the SBMLExtensionRegistry class.
+ * FbcExtension::init function is automatically invoked when this
+ * object is instantiated
+ */
 static SBMLExtensionRegister<FbcExtension> fbcExtensionRegistry;
 
+
 static
-const char* SBML_FBC_TYPECODE_STRINGS[] =
+const char * SBML_FBC_TYPECODE_STRINGS[] = 
 {
     "Association"
   , "FluxBound"
   , "FluxObjective"
   , "GeneAssociation"
   , "Objective"
-
+  , "FbcAssociation"
+  , "GeneProductAssociation"
+  , "GeneProduct"
+  , "GeneProductRef"
+  , "FbcAnd"
+  , "FbcOr"
 };
 
-//------------- (END) -----------------------------------
 
-// --------------------------------------------------------
-//
-// Instantiate SBMLExtensionNamespaces<FbcExtension>
-// (FbcPkgNamespaces) for DLL.
-//
-// --------------------------------------------------------
-
-template class LIBSBML_EXTERN SBMLExtensionNamespaces<FbcExtension>;
+/*
+ * Instantiate SBMLExtensionNamespaces<FbcExtension>
+ * (FbcPkgNamespaces) for DLL.
+ */
+template class LIBSBML_EXTERN  SBMLExtensionNamespaces<FbcExtension>;
 
 
+/*------------------ (END) ----------------------------------*/
 
-FbcExtension::FbcExtension ()
+/*
+ * Constructor
+ */
+FbcExtension::FbcExtension()
 {
 }
 
 
 /*
- * Copy constructor.
+ * Copy constructor
  */
-FbcExtension::FbcExtension(const FbcExtension& orig)
-: SBMLExtension(orig)
+FbcExtension::FbcExtension(const FbcExtension& orig) :
+   SBMLExtension(orig)
 {
 }
 
 
 /*
- * Destroy this object.
+ * Assignment operator
  */
-FbcExtension::~FbcExtension ()
-{
-}
-
-
-/*
- * Assignment operator for FbcExtension.
- */
-FbcExtension& 
-FbcExtension::operator=(const FbcExtension& orig)
-{
-  SBMLExtension::operator=(orig);
+FbcExtension&
+FbcExtension::operator=(const FbcExtension& rhs)
+ {
+  if (&rhs != this)
+  {
+    SBMLExtension::operator=(rhs);
+  }
   return *this;
 }
 
 
 /*
- * Creates and returns a deep copy of this FbcExtension object.
- * 
- * @return a (deep) copy of this FbcExtension object
+ * Clone
  */
-FbcExtension* 
+FbcExtension*
 FbcExtension::clone () const
-{
-  return new FbcExtension(*this);  
+ {
+  return new FbcExtension(*this);
 }
 
 
+/*
+ * Destructor
+ */
+FbcExtension::~FbcExtension()
+ {
+}
+
+
+/*
+ * Returns the name of this package
+ */
 const std::string&
 FbcExtension::getName() const
 {
@@ -175,14 +220,12 @@ FbcExtension::getName() const
 
 
 /*
- * Returns the URI (namespace) of the package corresponding to the combination of the given sbml level,
- * sbml version, and package version.
- * Empty string will be returned if no corresponding URI exists.
- *
- * @return a string of the package URI
+ * Returns the URI (namespace) of the package
  */
-const std::string& 
-FbcExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsigned int pkgVersion) const
+const std::string&
+FbcExtension::getURI(unsigned int sbmlLevel,
+                                  unsigned int sbmlVersion,
+                                  unsigned int pkgVersion) const
 {
   if (sbmlLevel == 3)
   {
@@ -192,6 +235,11 @@ FbcExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsigned 
       {
         return getXmlnsL3V1V1();
       }
+      if (pkgVersion == 2)
+      {
+        return getXmlnsL3V1V2();
+      }
+  
     }
   }
 
@@ -203,32 +251,26 @@ FbcExtension::getURI(unsigned int sbmlLevel, unsigned int sbmlVersion, unsigned 
 
 /*
  * Returns the SBML level with the given URI of this package.
- *
- *  (NOTICE) Package developers MUST OVERRIDE this pure virtual function in their derived class.
- *
  */
-unsigned int 
+unsigned int
 FbcExtension::getLevel(const std::string &uri) const
 {
-  if (uri == getXmlnsL3V1V1())
+  if (uri == getXmlnsL3V1V1() || uri == getXmlnsL3V1V2())
   {
     return 3;
   }
-  
+
   return 0;
 }
 
 
 /*
  * Returns the SBML version with the given URI of this package.
- *
- *  (NOTICE) Package developers MUST OVERRIDE this pure virtual function in their derived class.
- *
  */
-unsigned int 
+unsigned int
 FbcExtension::getVersion(const std::string &uri) const
 {
-  if (uri == getXmlnsL3V1V1())
+  if (uri == getXmlnsL3V1V1() || uri == getXmlnsL3V1V2())
   {
     return 1;
   }
@@ -239,9 +281,6 @@ FbcExtension::getVersion(const std::string &uri) const
 
 /*
  * Returns the package version with the given URI of this package.
- *
- *  (NOTICE) Package developers MUST OVERRIDE this pure virtual function in their derived class.
- *
  */
 unsigned int
 FbcExtension::getPackageVersion(const std::string &uri) const
@@ -250,181 +289,205 @@ FbcExtension::getPackageVersion(const std::string &uri) const
   {
     return 1;
   }
-
+  if (uri == getXmlnsL3V1V2())
+  {
+    return 2;
+  }
   return 0;
 }
 
 
 /*
- * Returns an SBMLExtensionNamespaces<class SBMLExtensionType> object 
- * (e.g. SBMLExtensionNamespaces<FbcExtension> whose alias type is 
- * FbcPkgNamespaces) corresponding to the given uri.
- * NULL will be returned if the given uri is not defined in the corresponding package.
- *
- *  (NOTICE) Package developers MUST OVERRIDE this pure virtual function in their derived class.
- *
+ * Returns an SBMLExtensionNamespaces<FbcExtension> object 
  */
 SBMLNamespaces*
 FbcExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
   FbcPkgNamespaces* pkgns = NULL;
-  if ( uri == getXmlnsL3V1V1())
+  if (uri == getXmlnsL3V1V1())
   {
-    pkgns = new FbcPkgNamespaces(3,1,1);    
-  }  
+    pkgns = new FbcPkgNamespaces(3, 1, 1);
+  }
+  if (uri == getXmlnsL3V1V2())
+  {
+    pkgns = new FbcPkgNamespaces(3, 1, 2);
+  }
+
   return pkgns;
 }
 
 
+/** @cond doxygenLibsbmlInternal */
+bool
+FbcExtension::hasMultipleVersions() const
+{
+  return true;
+}
+/** @endcond */
+
+
+
 /*
- * This method takes a type code of the fbc package and returns a string representing
- * the code.
+ * This method takes a type code from the Fbc package and returns a string representing 
  */
-const char* 
+const char*
 FbcExtension::getStringFromTypeCode(int typeCode) const
 {
-  int min = SBML_FBC_ASSOCIATION;
-  int max = SBML_FBC_OBJECTIVE;
+  int min = SBML_FBC_V1ASSOCIATION;
+  int max = SBML_FBC_OR;
 
   if ( typeCode < min || typeCode > max)
   {
-    return "(Unknown SBML Fbc Type)";  
+    return "(Unknown SBML Fbc Type)";
   }
 
   return SBML_FBC_TYPECODE_STRINGS[typeCode - min];
 }
 
-/** @cond doxygenLibsbmlInternal */
 /*
- *
- * Initialization function of the fbc extension module which is automatically invoked 
- * by SBMLExtensionRegister class before main() function invoked.
- *
+ * Initialization function of fbc extension module which is automatically invoked
+ * by SBMLExtensionRegister class before main() function invoked. 
  */
-void 
+void
 FbcExtension::init()
 {
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------
   //
-  // 1. Checks if the fbc package has already been registered.
+  // 1. Check if the fbc package has already been registered
   //
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------
 
   if (SBMLExtensionRegistry::getInstance().isRegistered(getPackageName()))
   {
-    // do nothing;
-    return;
+    // do nothing
+     return;
   }
 
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------
   //
-  // 2. Creates an SBMLExtension derived object.
+  // 2. Creates an SBMLExtension derived object
   //
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------
 
   FbcExtension fbcExtension;
 
-  //-------------------------------------------------------------------------------------
+  //----------------------------------------------------------------
   //
-  // 3. Creates SBasePluginCreatorBase derived objects required for this 
-  //    extension. The derived classes can be instantiated by using the following 
-  //     template class.
+  // 3. Creates the SBasePlugins required by this package
   //
-  //    temaplate<class SBasePluginType> class SBasePluginCreator
-  //
-  //    The constructor of the creator class has two arguments:
-  //
-  //        (1) SBaseExtensionPoint : extension point to which the plugin object connected
-  //        (2) std::vector<std::string> : a std::vector object that contains a list of URI
-  //                                       (package versions) supported by the plugin object.
-  //---------------------------------------------------------------------------------------
+  //----------------------------------------------------------------
 
   std::vector<std::string> packageURIs;
   packageURIs.push_back(getXmlnsL3V1V1());
+  packageURIs.push_back(getXmlnsL3V1V2());
 
-  SBaseExtensionPoint sbmldocExtPoint("core",SBML_DOCUMENT);
-  SBaseExtensionPoint modelExtPoint("core",SBML_MODEL);
-  SBaseExtensionPoint speciesExtPoint("core",SBML_SPECIES);
+  SBaseExtensionPoint sbmldocExtPoint("core", SBML_DOCUMENT);
+  SBaseExtensionPoint modelExtPoint("core", SBML_MODEL);
+  SBaseExtensionPoint speciesExtPoint("core", SBML_SPECIES);
+  SBaseExtensionPoint reactionExtPoint("core", SBML_REACTION);
 
-  SBasePluginCreator<FbcSBMLDocumentPlugin, FbcExtension> sbmldocPluginCreator(sbmldocExtPoint,packageURIs);
-  SBasePluginCreator<FbcModelPlugin,     FbcExtension> modelPluginCreator(modelExtPoint,packageURIs);
-  SBasePluginCreator<FbcSpeciesPlugin,   FbcExtension> speciesPluginCreator(speciesExtPoint,packageURIs);
+  SBasePluginCreator<FbcSBMLDocumentPlugin, FbcExtension> sbmldocPluginCreator(sbmldocExtPoint, packageURIs);
+  SBasePluginCreator<FbcModelPlugin, FbcExtension> modelPluginCreator(modelExtPoint, packageURIs);
+  SBasePluginCreator<FbcSpeciesPlugin, FbcExtension> speciesPluginCreator(speciesExtPoint, packageURIs);
+  SBasePluginCreator<FbcReactionPlugin, FbcExtension> reactionPluginCreator(reactionExtPoint, packageURIs);
 
-  //--------------------------------------------------------------------------------------
+  //----------------------------------------------------------------
   //
-  // 3. Adds the above SBasePluginCreatorBase derived objects to the SBMLExtension derived object.
+  // 4. Adds the creator objects to the extension
   //
-  //--------------------------------------------------------------------------------------
+  //----------------------------------------------------------------
 
   fbcExtension.addSBasePluginCreator(&sbmldocPluginCreator);
   fbcExtension.addSBasePluginCreator(&modelPluginCreator);
   fbcExtension.addSBasePluginCreator(&speciesPluginCreator);
-  
-  //-------------------------------------------------------------------------
+  fbcExtension.addSBasePluginCreator(&reactionPluginCreator);
+
+  //----------------------------------------------------------------
   //
-  // 4. Registers the SBMLExtension derived object to SBMLExtensionRegistry
+  // 5. Register the object with the registry
   //
-  //-------------------------------------------------------------------------
+  //----------------------------------------------------------------
 
   int result = SBMLExtensionRegistry::getInstance().addExtension(&fbcExtension);
 
   if (result != LIBSBML_OPERATION_SUCCESS)
   {
-#if 0
     std::cerr << "[Error] FbcExtension::init() failed." << std::endl;
-#endif
   }
-  
-  
+ 
   // 5. Register the cobra converter
   
   CobraToFbcConverter c1;
   SBMLConverterRegistry::getInstance().addConverter(&c1);
   FbcToCobraConverter c2;
   SBMLConverterRegistry::getInstance().addConverter(&c2);
-  
+  FbcV1ToV2Converter c3;
+  SBMLConverterRegistry::getInstance().addConverter(&c3);
+  FbcV2ToV1Converter c4;
+  SBMLConverterRegistry::getInstance().addConverter(&c4);
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-packageErrorTableEntry
-FbcExtension::getErrorTable(unsigned int index) const
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Return error table entry. 
+ */
+packageErrorTableEntryV2
+FbcExtension::getErrorTableV2(unsigned int index) const
 {
-  return fbcErrorTable[index];
+  return fbcErrorTableV2[index];
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-unsigned int 
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Return error table index for this id. 
+ */
+unsigned int
 FbcExtension::getErrorTableIndex(unsigned int errorId) const
 {
-  unsigned int tableSize = sizeof(fbcErrorTable)/sizeof(fbcErrorTable[0]);
+  unsigned int tableSize = sizeof(fbcErrorTableV2)/sizeof(fbcErrorTableV2[0]);
   unsigned int index = 0;
 
-  for ( unsigned int i = 0; i < tableSize; i++ )
+  for(unsigned int i = 0; i < tableSize; i++)
   {
-    if ( errorId == fbcErrorTable[i].code )
+    if (errorId == fbcErrorTableV2[i].code)
     {
       index = i;
       break;
     }
+
   }
 
   return index;
 }
-/** @endcond */
+
+  /** @endcond doxygenLibsbmlInternal */
 
 
-/** @cond doxygenLibsbmlInternal */
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Return error offset. 
+ */
 unsigned int
 FbcExtension::getErrorIdOffset() const
 {
   return 2000000;
 }
-/** @endcond */
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif  /* __cplusplus */
+
+#endif /* __cplusplus */
+
+

@@ -343,7 +343,7 @@ Association* GeneAssociation::createAssociation()
   Association* result = NULL;
   try 
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
     result = new Association(fbcns);
     unsetAssociation();
     mAssociation = result;
@@ -553,7 +553,10 @@ GeneAssociation::clone() const
 bool
 GeneAssociation::accept (SBMLVisitor& v) const
 {
-  return false;
+  v.visit(*this);
+  v.leave(*this);
+
+  return true;
 }
 /** @endcond */
 
@@ -689,7 +692,7 @@ ListOfGeneAssociations::createObject (XMLInputStream& stream)
   {
     try
     {
-      FBC_CREATE_NS(fbcns, getSBMLNamespaces());
+      FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
       object = new GeneAssociation(fbcns);
       appendAndOwn(object);
       delete fbcns;

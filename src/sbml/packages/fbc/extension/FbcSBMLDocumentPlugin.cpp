@@ -1,19 +1,18 @@
 /**
- * @file    FbcSBMLDocumentPlugin.cpp
- * @brief   Implementation of FbcSBMLDocumentPlugin, the plugin class of
- *          fbc package for the SBase element.
- * @author  Lucian Smith
+ * @file:   FbcSBMLDocumentPlugin.cpp
+ * @brief:  Implementation of the FbcSBMLDocumentPlugin class
+ * @author: SBMLTeam
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -24,11 +23,6 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *------------------------------------------------------------------------- -->
  */
-
-#include <ostream>
-
-#include <sbml/common/libsbml-version.h>
-#include <sbml/packages/fbc/common/fbcfwd.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/validator/FbcConsistencyValidator.h>
 #include <sbml/packages/fbc/validator/FbcIdentifierConsistencyValidator.h>
@@ -39,11 +33,16 @@
 
 #ifdef __cplusplus
 
+/** @cond doxygenLibsbmlInternal */
+
 using namespace std;
+
+/** @endcond doxygenLibsbmlInternal */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin (const string &uri, const string &prefix, FbcPkgNamespaces *fbcns)
+FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin (const string &uri, 
+                              const string &prefix, FbcPkgNamespaces *fbcns)
   : SBMLDocumentPlugin(uri,prefix, fbcns)
 {
 }
@@ -84,6 +83,7 @@ FbcSBMLDocumentPlugin::~FbcSBMLDocumentPlugin ()
 
 
 /** @cond doxygenLibsbmlInternal */
+
 void 
 FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
                             const ExpectedAttributes& expectedAttributes)
@@ -91,8 +91,6 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   // for now don't read the required flag for L2 models 
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3) return;
   
-  // do not need to call this as we are going to read the required attribute here
-  //SBMLDocumentPlugin::readAttributes(attributes, expectedAttributes);
   unsigned int numErrs = getErrorLog()->getNumErrors();
   XMLTriple tripleRequired("required", mURI, getPrefix());
   bool assigned = attributes.readInto(tripleRequired, mRequired, 
@@ -121,19 +119,17 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
     }
   }
 }
-/** @endcond */
+
+/** @endcond doxygenLibsbmlInternal*/
 
 
-/** @cond doxygenLibsbmlInternal */
 bool
 FbcSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }
-/** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
 unsigned int 
 FbcSBMLDocumentPlugin::checkConsistency()
 {
@@ -148,9 +144,11 @@ FbcSBMLDocumentPlugin::checkConsistency()
   /* determine which validators to run */
   bool id    = ((applicableValidators & 0x01) == 0x01);
   bool sbml  = ((applicableValidators & 0x02) == 0x02);
+  /* LIST OTHERS HERE */
 
   FbcIdentifierConsistencyValidator id_validator;
   FbcConsistencyValidator validator;
+  /* LIST OTHERS HERE */
 
   if (id)
   {
@@ -175,13 +173,20 @@ FbcSBMLDocumentPlugin::checkConsistency()
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      log->add( validator.getFailures() );
+      log->add(validator.getFailures() );
+    // DO NOT NEED THIS IN LAST CALL
+      // /* only want to bail if errors not warnings */
+      // if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      // {
+      //   return total_errors;
+      // }
     }
   }
 
+  /* ADD OTHERS HERE */
+
   return total_errors;  
 }
-/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 bool 
@@ -195,8 +200,6 @@ FbcSBMLDocumentPlugin::accept(SBMLVisitor& v) const
   return true;
 }
 /** @endcond */
-
-
 
 LIBSBML_CPP_NAMESPACE_END
 

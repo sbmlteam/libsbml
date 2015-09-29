@@ -253,6 +253,7 @@ int
     return LIBSBML_OPERATION_FAILED;
   }
 
+  plugin->unsetStrict();
   // collect information
 
   Model* model = mDocument->getModel();
@@ -291,10 +292,23 @@ int
 
     createKineticLawForReaction(reaction);
 
+    FbcReactionPlugin* rplug = dynamic_cast<FbcReactionPlugin*>(reaction->getPlugin("fbc"));
+    
     // get gene association for reaction 
     const GeneAssociation* association = getGeneAssociationForReaction(plugin, reaction->getId());
+    std::string infix; 
     
-    if (association == NULL || association->getAssociation() == NULL) continue;
+    if (association != NULL && association->getAssociation() != NULL)
+    {
+      infix = association->getAssociation()->toInfix();
+    }
+    else if (rplug != NULL && rplug->isSetGeneProductAssociation())
+    {
+      infix = rplug->getGeneProductAssociation()->getAssociation()->toInfix();
+      rplug->unsetGeneProductAssociation();
+    }
+    
+    if (infix.empty()) continue;
 
     //unset notes if requested
     if (reaction->isSetNotes() && overwriteReactionNotes)
@@ -303,12 +317,20 @@ int
     // skip adding gene association if we already have notes
     if (reaction->isSetNotes()) continue;
 
+    
+    
     // write new notes 
     reaction->setNotes(
       "<body xmlns='http://www.w3.org/1999/xhtml'>\n"
-      "  <p>GENE_ASSOCIATION : " + association->getAssociation()->toInfix() +"</p>\n"
+      "  <p>GENE_ASSOCIATION : " + infix +"</p>\n"
       "</body>"
     );
+    
+    if (rplug != NULL)
+    {
+      rplug->unsetLowerFluxBound(); 
+      rplug->unsetUpperFluxBound(); 
+    }
 
   }
 
@@ -330,6 +352,7 @@ int
 
   // disable package
   mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version1", "fbc",false);
+  mDocument->enablePackage("http://www.sbml.org/sbml/level3/version1/fbc/version2", "fbc",false);
 
   // convert model to L2V1 (as L2V2 is the last model that had charge)
   mDocument->setConversionValidators(AllChecksON & UnitsCheckOFF);

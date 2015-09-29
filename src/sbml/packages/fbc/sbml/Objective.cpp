@@ -1,18 +1,18 @@
 /**
- * @file    Objective.cpp
- * @brief   Implementation of Objective, the SBase derived class of the fbc package.
- * @author  Akiya Jouraku
+ * @file:   Objective.cpp
+ * @brief:  Implementation of the Objective class
+ * @author: SBMLTeam
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
- * 
+ *
  * Copyright (C) 2013-2015 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany
- * 
- * Copyright (C) 2009-2013 jointly by the following organizations: 
+ *
+ * Copyright (C) 2009-2013 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *
@@ -37,10 +37,11 @@
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
-
 #include <sbml/util/ElementFilter.h>
 
+
 using namespace std;
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
@@ -48,19 +49,19 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /*
  * Creates a new Objective with the given level, version, and package version.
  */
-Objective::Objective (unsigned int level, unsigned int version, unsigned int pkgVersion) 
-  : SBase (level,version)
-  ,mId("")
-  ,mName("")
-  ,mType(OBJECTIVE_TYPE_UNKNOWN)
-  ,mTypeString("")
-  ,mFluxes()
-  ,mIsSetListOfFluxObjectives(false)
+Objective::Objective (unsigned int level, unsigned int version, unsigned int pkgVersion)
+  : SBase(level, version)
+  , mId ("")
+  , mName ("")
+  , mType (OBJECTIVE_TYPE_UNKNOWN)
+  , mFluxObjectives (level, version, pkgVersion)
+  , mIsSetListOfFluxObjectives(false)
+  , mTypeString()
 {
-  // set an SBMLNamespaces derived object (FbcPkgNamespaces) of this package.
-  setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level,version,pkgVersion));  
+  // set an SBMLNamespaces derived object of this package
+  setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion));
 
-  // connect child elements to this element.
+  // connect to child objects
   connectToChild();
 }
 
@@ -68,214 +69,109 @@ Objective::Objective (unsigned int level, unsigned int version, unsigned int pkg
 /*
  * Creates a new Objective with the given FbcPkgNamespaces object.
  */
-Objective::Objective(FbcPkgNamespaces* fbcns)
- : SBase(fbcns)
-  ,mId("")
-  ,mName("")
-  ,mType(OBJECTIVE_TYPE_UNKNOWN)
-  ,mTypeString("")
-  ,mFluxes()
-  ,mIsSetListOfFluxObjectives(false)
+Objective::Objective (FbcPkgNamespaces* fbcns)
+  : SBase(fbcns)
+  , mId ("")
+  , mName ("")
+  , mType (OBJECTIVE_TYPE_UNKNOWN)
+  , mFluxObjectives (fbcns)
+  , mIsSetListOfFluxObjectives(false)
+  , mTypeString()
 {
-  //
   // set the element namespace of this object
-  //
   setElementNamespace(fbcns->getURI());
+
+  // connect to child objects
+  connectToChild();
 
   // load package extensions bound with this object (if any) 
   loadPlugins(fbcns);
+}
 
-  // connect child elements to this element.
+
+/*
+ * Copy constructor for Objective.
+ */
+Objective::Objective (const Objective& orig)
+  : SBase(orig)
+  , mId (orig.mId)
+  , mName(orig.mName)
+  , mType(orig.mType)
+  , mFluxObjectives(orig.mFluxObjectives)
+  , mIsSetListOfFluxObjectives(orig.mIsSetListOfFluxObjectives)
+{
+  
+
+  // connect to child objects
   connectToChild();
 }
 
 
 /*
- * Copy constructor.
+ * Assignment for Objective.
  */
-Objective::Objective(const Objective& source) : SBase(source)
+Objective&
+Objective::operator=(const Objective& rhs)
 {
-  this->mId=source.mId;
-  this->mName=source.mName;
-  this->mType=source.mType;
-  this->mFluxes=source.mFluxes;
-  this->mTypeString = source.mTypeString;
-  this->mIsSetListOfFluxObjectives = source.mIsSetListOfFluxObjectives;
-
-  // connect child elements to this element.
-  connectToChild();
-}
-
-/*
- * Assignment operator.
- */
-Objective& Objective::operator=(const Objective& source)
-{
-  if(&source!=this)
+  if (&rhs != this)
   {
-    this->SBase::operator=(source);
-    this->mId= source.mId;
-    this->mName= source.mName;
-    this->mType= source.mType;
-    this->mFluxes= source.mFluxes;
-    this->mTypeString = source.mTypeString;
-    this->mIsSetListOfFluxObjectives = source.mIsSetListOfFluxObjectives;
+    SBase::operator=(rhs);
+    mId  = rhs.mId;
+    mName  = rhs.mName;
+    mType  = rhs.mType;
+    mFluxObjectives  = rhs.mFluxObjectives;
+    mIsSetListOfFluxObjectives = rhs.mIsSetListOfFluxObjectives;
 
-    // connect child elements to this element.
+    // connect to child objects
     connectToChild();
   }
-  
   return *this;
 }
 
 
 /*
- * Destructor.
- */ 
+ * Clone for Objective.
+ */
+Objective*
+Objective::clone () const
+{
+  return new Objective(*this);
+}
+
+
+/*
+ * Destructor for Objective.
+ */
 Objective::~Objective ()
 {
 }
 
 
-SBase* 
-Objective::getElementBySId(const std::string& id)
-{
-  if (id.empty()) return NULL;
-  SBase* obj = mFluxes.getElementBySId(id);
-  return obj;
-}
-
-
-SBase*
-Objective::getElementByMetaId(const std::string& metaid)
-{
-  if (metaid.empty()) return NULL;
-  if (mFluxes.getMetaId() == metaid) return &mFluxes;
-  SBase* obj = mFluxes.getElementByMetaId(metaid);
-  return obj;
-}
-
-
-List*
-Objective::getAllElements(ElementFilter *filter)
-{
-  List* ret = new List();
-  List* sublist = NULL;
-
-  ADD_FILTERED_LIST(ret, sublist, mFluxes, filter);
-    
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
-}
-
-
 /*
-  * Returns the value of the "id" attribute of this Objective.
-  */
-const std::string& 
-Objective::getId () const
+ * Returns the value of the "id" attribute of this Objective.
+ */
+const std::string&
+Objective::getId() const
 {
   return mId;
 }
 
 
 /*
-  * Predicate returning @c true or @c false depending on whether this
-  * Objective's "id" attribute has been set.
-  */
-bool 
-Objective::isSetId () const
-{
-  return (mId.empty() == false);
-}
-
-/*
-  * Sets the value of the "id" attribute of this Objective.
-  */
-int 
-Objective::setId (const std::string& id)
-{
-  return SyntaxChecker::checkAndSetSId(id ,mId);
-}
-
-
-/*
-  * Unsets the value of the "id" attribute of this Objective.
-  */
-int 
-Objective::unsetId ()
-{
-  mId.erase();
-  if (mId.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-
-
-/*
  * Returns the value of the "name" attribute of this Objective.
  */
 const std::string&
-Objective::getName () const
+Objective::getName() const
 {
   return mName;
 }
 
 
 /*
- * Predicate returning @c true or @c false depending on whether this
- * Objective's "name" attribute has been set.
+ * Returns the value of the "type" attribute of this Objective.
  */
-bool
-Objective::isSetName () const
-{
-  return (mName.empty() == false);
-}
-
-/*
- * Sets the value of the "name" attribute of this Objective.
- */
-int
-Objective::setName (const std::string& name)
-{
-  mName = name;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Unsets the value of the "name" attribute of this Objective.
- */
-int
-Objective::unsetName ()
-{
-  mName.erase();
-  if (mName.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-
-
-/*
-  * Returns the value of the "type" attribute of this Objective.
-  */
-const std::string& 
-Objective::getType ()
+const std::string&
+Objective::getType()
 {
   if (ObjectiveType_toString(mType) != NULL)
   {
@@ -288,42 +184,72 @@ Objective::getType ()
   return mTypeString;
 }
 
-
-/*
-  * Returns the value of the "type" attribute of this Objective.
-  */
-ObjectiveType_t 
-Objective::getObjectiveType () const
+ObjectiveType_t
+Objective::getObjectiveType() const
 {
   return mType;
 }
 
 
-/*
-  * Predicate returning @c true or @c false depending on whether this
-  * Objective's "type" attribute has been set.
-  */
-bool 
-Objective::isSetType () const
-{
-  return (mType != OBJECTIVE_TYPE_UNKNOWN);
-}
 
 /*
-  * Sets the value of the "type" attribute of this Objective.
-  */
-int 
-Objective::setType (const std::string& type)
+ * Returns true/false if id is set.
+ */
+bool
+Objective::isSetId() const
 {
-  return setType(ObjectiveType_fromString(type.c_str()));
+  return (mId.empty() == false);
 }
 
 
 /*
-  * Sets the value of the "type" attribute of this Objective.
-  */
-int 
-Objective::setType (ObjectiveType_t type)
+ * Returns true/false if name is set.
+ */
+bool
+Objective::isSetName() const
+{
+  return (mName.empty() == false);
+}
+
+
+/*
+ * Returns true/false if type is set.
+ */
+bool
+Objective::isSetType() const
+{
+  return mType != OBJECTIVE_TYPE_UNKNOWN;
+}
+
+
+/*
+ * Sets id and returns value indicating success.
+ */
+int
+Objective::setId(const std::string& id)
+{
+  return SyntaxChecker::checkAndSetSId(id, mId);
+}
+
+
+/*
+ * Sets name and returns value indicating success.
+ */
+int
+Objective::setName(const std::string& name)
+{
+  {
+    mName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets type and returns value indicating success.
+ */
+int
+Objective::setType(ObjectiveType_t type)
 {
   if (ObjectiveType_isValidObjectiveType(type) == 0)
   {
@@ -339,10 +265,58 @@ Objective::setType (ObjectiveType_t type)
 
 
 /*
-  * Unsets the value of the "type" attribute of this Objective.
-  */
-int 
-Objective::unsetType ()
+ * Sets type and returns value indicating success.
+ */
+int
+Objective::setType(const std::string& type)
+{
+  return setType(ObjectiveType_fromString(type.c_str()));
+}
+
+
+/*
+ * Unsets id and returns value indicating success.
+ */
+int
+Objective::unsetId()
+{
+  mId.erase();
+
+  if (mId.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets name and returns value indicating success.
+ */
+int
+Objective::unsetName()
+{
+  mName.erase();
+
+  if (mName.empty() == true)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets type and returns value indicating success.
+ */
+int
+Objective::unsetType()
 {
   mType = OBJECTIVE_TYPE_UNKNOWN;
   return LIBSBML_OPERATION_SUCCESS;
@@ -350,196 +324,382 @@ Objective::unsetType ()
 
 
 /*
- * Returns the fluxObjective object that holds all fluxObjectives.
- */ 
+ * Returns the  "ListOfFluxObjectives" in this Objective object.
+ */
 const ListOfFluxObjectives*
-Objective::getListOfFluxObjectives () const
+Objective::getListOfFluxObjectives() const
 {
-  return &this->mFluxes;
+  return &mFluxObjectives;
 }
 
 
 /*
- * Remove the fluxObjective with the given @p id.
- * A pointer to the removed fluxObjective is returned.
- * If no fluxObjective has been removed, @c NULL is returned.
+ * Returns the  "ListOfFluxObjectives" in this Objective object.
+ */
+ListOfFluxObjectives*
+Objective::getListOfFluxObjectives()
+{
+  return &mFluxObjectives;
+}
+
+
+/*
+ * Removes the nth FluxObjective from the ListOfFluxObjectives.
  */
 FluxObjective*
-Objective::removeFluxObjective(const std::string& symbol)
+Objective::removeFluxObjective(unsigned int n)
 {
-  return mFluxes.remove(symbol);
+  return mFluxObjectives.remove(n);
 }
 
 
 /*
- * Remove the fluxObjective with the given index.
- * A pointer to the removed fluxObjective is returned.
- * If no fluxObjective has been removed, @c NULL is returned.
+ * Removes the a FluxObjective with given id from the ListOfFluxObjectives.
  */
 FluxObjective*
-Objective::removeFluxObjective(unsigned int index)
+Objective::removeFluxObjective(const std::string& sid)
 {
-  return mFluxes.remove(index);
+  return mFluxObjectives.remove(sid);
 }
 
 
 /*
- * Returns the fluxObjective with the given index.
- * If the index is invalid, @c NULL is returned.
- */ 
-FluxObjective* 
-Objective::getFluxObjective (unsigned int index)
-{
-  return mFluxes.get(index);
-}
-
-/*
- * Returns the fluxObjective with the given index.
- * If the index is invalid, @c NULL is returned.
- */ 
-const FluxObjective* 
-Objective::getFluxObjective (unsigned int index) const
-{
-  return mFluxes.get(index);
-}
-
-
-/*
- * Returns the fluxObjective that has the given @p id, or @c NULL if no
- * fluxObjective has the id.
+ * Return the nth FluxObjective in the ListOfFluxObjectives within this Objective.
  */
 FluxObjective*
-Objective::getFluxObjective (const std::string& symbol) 
+Objective::getFluxObjective(unsigned int n)
 {
-  return mFluxes.get(symbol);
+  return mFluxObjectives.get(n);
 }
 
 
 /*
- * Returns the fluxObjective that has the given @p id, or @c NULL if no
- * fluxObjective has the id.
+ * Return the nth FluxObjective in the ListOfFluxObjectives within this Objective.
  */
 const FluxObjective*
-Objective::getFluxObjective (const std::string& symbol) const
+Objective::getFluxObjective(unsigned int n) const
 {
-  return mFluxes.get(symbol);
+  return mFluxObjectives.get(n);
 }
 
 
 /*
- * Adds a fluxObjective element
+ * Return a FluxObjective from the ListOfFluxObjectives by id.
+ */
+FluxObjective*
+Objective::getFluxObjective(const std::string& sid)
+{
+  return mFluxObjectives.get(sid);
+}
+
+
+/*
+ * Return a FluxObjective from the ListOfFluxObjectives by id.
+ */
+const FluxObjective*
+Objective::getFluxObjective(const std::string& sid) const
+{
+  return mFluxObjectives.get(sid);
+}
+
+
+/*
+ * Adds a copy the given "FluxObjective" to this Objective.
+ *
+ * @param fo; the FluxObjective object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
  */
 int
-Objective::addFluxObjective (const FluxObjective* fluxObjective)
+Objective::addFluxObjective(const FluxObjective* fo)
 {
-  if (fluxObjective == NULL)
+  if (fo == NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (getLevel() != fluxObjective->getLevel())
+  else if (fo->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != fo->getLevel())
   {
     return LIBSBML_LEVEL_MISMATCH;
   }
-  else if (getVersion() != fluxObjective->getVersion())
+  else if (getVersion() != fo->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
   }
-  else if (getFluxObjective(fluxObjective->getId()) != NULL)
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fo)) == false)
   {
-    // an object with this id already exists
-    return LIBSBML_DUPLICATE_OBJECT_ID;
-  }
-  else if (getPackageVersion() != fluxObjective->getPackageVersion())
-  {
-    return LIBSBML_PKG_VERSION_MISMATCH;
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else
   {
-    mFluxes.append(fluxObjective);
-
+    mFluxObjectives.append(fo);
     return LIBSBML_OPERATION_SUCCESS;
   }
-
 }
 
 
 /*
- * Returns the number of fluxObjectives for the objective.
+ * Get the number of FluxObjective objects in this Objective.
+ *
+ * @return the number of FluxObjective objects in this Objective
  */
 unsigned int
-Objective::getNumFluxObjectives () const
+Objective::getNumFluxObjectives() const
 {
-  return this->mFluxes.size();
+  return mFluxObjectives.size();
 }
 
 
 /*
- * Creates a FluxObjective object, adds it to the end of the fluxObjective
- * objects list and returns a reference to the newly created object.
+ * Creates a new FluxObjective object, adds it to this Objectives
+ * Objective and returns the FluxObjective object created. 
+ *
+ * @return a new FluxObjective object instance
+ *
+ * @see addFluxObjective(const FluxObjective* fo)
  */
 FluxObjective*
-Objective::createFluxObjective ()
+Objective::createFluxObjective()
 {
-  FluxObjective* result = NULL;
+  FluxObjective* fo = NULL;
 
   try
   {
-    FBC_CREATE_NS(fbcns, getSBMLNamespaces());
-    result = new FluxObjective(fbcns);
-    this->mFluxes.appendAndOwn(result);
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    fo = new FluxObjective(fbcns);
     delete fbcns;
-  } 
-  catch(...)
+  }
+  catch (...)
   {
-    /* 
-    * NULL will be returned if the mSBMLNS is invalid (basically this
-    * should not happen) or some exception is thrown (e.g. std::bad_alloc)
-    *
-    * (Maybe this should be changed so that caller can detect what kind 
-    *  of error happened in this function.)
-    */
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
   }
 
-  return result;
+  if(fo != NULL)
+  {
+    mFluxObjectives.appendAndOwn(fo);
+  }
+
+  return fo;
 }
 
+
+List*
+Objective::getAllElements(ElementFilter* filter)
+{
+  List* ret = new List();
+  List* sublist = NULL;
+
+  ADD_FILTERED_LIST(ret, sublist, mFluxObjectives, filter);
+
+  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+  return ret;
+}
+
+
 /*
- * Returns the XML element name of
- * this SBML object.
+ * Returns the XML element name of this object
  */
 const std::string&
 Objective::getElementName () const
 {
-  static const std::string name = "objective";
+  static const string name = "objective";
   return name;
 }
 
 
-/** @cond doxygenLibsbmlInternal */
-SBase*
-Objective::createObject (XMLInputStream& stream)
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+Objective::getTypeCode () const
 {
-  const std::string& name   = stream.peek().getName();
-  SBase*        object = NULL;
+  return SBML_FBC_OBJECTIVE;
+}
 
-  if (name == "listOfFluxes" || name == "listOfFluxObjectives")
-  {
-    if (mFluxes.size() != 0)
-    {
-      getErrorLog()->logPackageError("fbc", FbcObjectiveOneListOfObjectives, 
-        getPackageVersion(), getLevel(), getVersion());
-    }
 
-    object = &mFluxes;
+/*
+ * check if all the required attributes are set
+ */
+bool
+Objective::hasRequiredAttributes () const
+{
+  bool allPresent = true;
 
-    mIsSetListOfFluxObjectives = true;
-  }
+  if (isSetId() == false)
+    allPresent = false;
 
-  return object;
+  if (isSetType() == false)
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+/*
+ * check if all the required elements are set
+ */
+bool
+Objective::hasRequiredElements () const
+{
+  bool allPresent = true;
+
+  return allPresent;
+}
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/** @cond doxygenLibsbmlInternal */
+bool
+Objective::getIsSetListOfFluxObjectives() const
+{
+  return mIsSetListOfFluxObjectives;
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * write contained elements
+ */
+void
+Objective::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+  if (getNumFluxObjectives() > 0)
+  {
+    mFluxObjectives.write(stream);
+  }
+
+  SBase::writeExtensionElements(stream);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Accepts the given SBMLVisitor.
+ */
+bool
+Objective::accept (SBMLVisitor& v) const
+{
+  v.visit(*this);
+  for (unsigned int n = 0; n < getNumFluxObjectives(); n++)
+  {
+    getFluxObjective(n)->accept(v);
+  }
+  v.leave(*this);
+
+  return true;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Sets the parent SBMLDocument.
+ */
+void
+Objective::setSBMLDocument (SBMLDocument* d)
+{
+  SBase::setSBMLDocument(d);
+  mFluxObjectives.setSBMLDocument(d);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+   * Connects to child elements.
+ */
+void
+Objective::connectToChild()
+{
+  SBase::connectToChild();
+
+  mFluxObjectives.connectToParent(this);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Enables/Disables the given package with this element.
+ */
+void
+Objective::enablePackageInternal(const std::string& pkgURI,
+             const std::string& pkgPrefix, bool flag)
+{
+  SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  mFluxObjectives.enablePackageInternal(pkgURI, pkgPrefix, flag);
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * creates object.
+ */
+SBase*
+Objective::createObject(XMLInputStream& stream)
+{
+  SBase* object = NULL;
+
+  const string& name = stream.peek().getName();
+
+  if (name == "listOfFluxes" || name == "listOfFluxObjectives")
+  {
+    if (mFluxObjectives.size() != 0)
+    {
+      getErrorLog()->logPackageError("fbc", FbcObjectiveOneListOfObjectives,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
+    object = &mFluxObjectives;
+    mIsSetListOfFluxObjectives = true;
+  }
+  connectToChild();
+
+
+  return object;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Get the list of expected attributes for this element.
+ */
 void
 Objective::addExpectedAttributes(ExpectedAttributes& attributes)
 {
@@ -549,14 +709,20 @@ Objective::addExpectedAttributes(ExpectedAttributes& attributes)
   attributes.add("name");
   attributes.add("type");
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Read values from the given XMLAttributes set into their specific fields.
+ */
 void
 Objective::readAttributes (const XMLAttributes& attributes,
-                        const ExpectedAttributes& expectedAttributes)
+                             const ExpectedAttributes& expectedAttributes)
 {
-
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
  
@@ -668,7 +834,7 @@ Objective::readAttributes (const XMLAttributes& attributes,
     else 
     {
        mType = ObjectiveType_fromString( type.c_str() );
-       if (ObjectiveType_isValidObjectiveType(mType) == 0)
+       if (ObjectiveType_isValidObjectiveType((ObjectiveType_t)(int)mType) == 0)
        {
           getErrorLog()->logPackageError("fbc", FbcObjectiveTypeMustBeEnum, 
             getPackageVersion(), sbmlLevel, sbmlVersion);
@@ -681,247 +847,247 @@ Objective::readAttributes (const XMLAttributes& attributes,
     getErrorLog()->logPackageError("fbc", FbcObjectiveRequiredAttributes, 
       getPackageVersion(), sbmlLevel, sbmlVersion, message);
   }
-
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write values of XMLAttributes to the output stream.
+ */
+  void
 Objective::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  stream.writeAttribute("id",   getPrefix(), mId);
-  
-  if(isSetName())
-    stream.writeAttribute("name",   getPrefix(), mName);
-  
+  if (isSetId() == true)
+    stream.writeAttribute("id", getPrefix(), mId);
+
+  if (isSetName() == true)
+    stream.writeAttribute("name", getPrefix(), mName);
+
   if (isSetType() == true)
-    stream.writeAttribute("type", getPrefix(), 
-                     ObjectiveType_toString(mType));
+    stream.writeAttribute("type", getPrefix(),
+    ObjectiveType_toString(mType));
 
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionAttributes(stream);
 }
-/** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void
-Objective::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
 
-  if (getNumFluxObjectives() > 0)
-    mFluxes.write(stream);
-
-  //
-  // (EXTENSION)
-  //
-  SBase::writeExtensionElements(stream);
-}
-/** @endcond */
+  /** @endcond doxygenLibsbmlInternal */
 
 
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
- * (default).
- *
- * @see getElementName()
+ * Constructor 
  */
-int
-Objective::getTypeCode () const
-{
-  return SBML_FBC_OBJECTIVE;
-}
-
-Objective*
-Objective::clone() const
-{
-    return new Objective(*this);
-}
-
-
-/** @cond doxygenLibsbmlInternal */
-bool
-Objective::accept (SBMLVisitor& v) const
-{
-  v.visit(*this);
-  for (unsigned int n = 0; n < getNumFluxObjectives(); n++)
-  {
-    getFluxObjective(n)->accept(v);
-  }
-  v.leave(*this);
-
-  return true;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets the parent SBMLDocument of this SBML object.
- */
-void
-Objective::setSBMLDocument (SBMLDocument* d)
-{
-  SBase::setSBMLDocument(d);
-
-  mFluxes.setSBMLDocument(d);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Sets this SBML object to child SBML objects (if any).
- * (Creates a child-parent relationship by the parent)
-  */
-void
-Objective::connectToChild()
-{
-  SBase::connectToChild();
-  mFluxes.connectToParent(this);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Enables/Disables the given package with this element and child
- * elements (if any).
- * (This is an internal implementation for enablePakcage function)
- */
-void
-Objective::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix, bool flag)
-{
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
-
-  mFluxes.enablePackageInternal(pkgURI,pkgPrefix,flag);
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/* default for components that have no required elements */
-bool
-Objective::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  
-  if (mFluxes.size() < 1)
-  {
-    allPresent = false;
-  }
-  
-  return allPresent;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-bool 
-Objective::getIsSetListOfFluxObjectives() const
-{
-  return mIsSetListOfFluxObjectives;
-}
-/** @endcond */
-
-
-/** @cond doxygenLibsbmlInternal */
-/*
- * Ctor.
- */
-ListOfObjectives::ListOfObjectives(FbcPkgNamespaces* fbcns)
- : ListOf(fbcns)
+ListOfObjectives::ListOfObjectives(unsigned int level, 
+                   unsigned int version, 
+                   unsigned int pkgVersion)
+ : ListOf(level, version)
  , mActiveObjective()
 {
-  //
-  // set the element namespace of this object
-  //
-  setElementNamespace(fbcns->getURI());
+  setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level, version, pkgVersion)); 
 }
-/** @endcond */
 
+ListOfObjectives::ListOfObjectives(const ListOfObjectives& other)
+  : ListOf(other)
+  , mActiveObjective(other.mActiveObjective)
+{
 
-/** @cond doxygenLibsbmlInternal */
+}
+
 /*
- * Ctor.
+* Assignment for Objective.
+*/
+ListOfObjectives&
+ListOfObjectives::operator=(const ListOfObjectives& rhs)
+{
+  if (&rhs != this)
+  {
+    ListOf::operator=(rhs);
+    mActiveObjective = rhs.mActiveObjective;
+
+  }
+  return *this;
+}
+
+/*
+ * Constructor 
  */
-ListOfObjectives::ListOfObjectives(unsigned int level, unsigned int version, unsigned int pkgVersion)
- : ListOf(level,version)
+ListOfObjectives::ListOfObjectives(FbcPkgNamespaces* fbcns)
+  : ListOf(fbcns)
   , mActiveObjective()
 {
-  setSBMLNamespacesAndOwn(new FbcPkgNamespaces(level,version,pkgVersion));
-};
-/** @endcond */
+  setElementNamespace(fbcns->getURI());
+}
 
 
 /*
- * @return a (deep) copy of this ListOfObjectives.
+ * Returns a deep copy of this ListOfObjectives 
  */
-ListOfObjectives*
+ListOfObjectives* 
 ListOfObjectives::clone () const
-{
+ {
   return new ListOfObjectives(*this);
 }
 
 
-/* return nth item in list */
-Objective *
+/*
+ * Get a Objective from the ListOfObjectives by index.
+*/
+Objective*
 ListOfObjectives::get(unsigned int n)
 {
   return static_cast<Objective*>(ListOf::get(n));
 }
 
 
-/* return nth item in list */
-const Objective *
+/*
+ * Get a Objective from the ListOfObjectives by index.
+ */
+const Objective*
 ListOfObjectives::get(unsigned int n) const
 {
   return static_cast<const Objective*>(ListOf::get(n));
 }
 
 
-/* return item by symbol */
+/*
+ * Get a Objective from the ListOfObjectives by id.
+ */
 Objective*
-ListOfObjectives::get (const std::string& symbol)
+ListOfObjectives::get(const std::string& sid)
 {
-  return const_cast<Objective*>( 
-    static_cast<const ListOfObjectives&>(*this).get(symbol) );
+  return const_cast<Objective*>(
+    static_cast<const ListOfObjectives&>(*this).get(sid));
 }
 
 
-/* return item by symbol */
+/*
+ * Get a Objective from the ListOfObjectives by id.
+ */
 const Objective*
-ListOfObjectives::get (const std::string& symbol) const
+ListOfObjectives::get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Objective>(symbol) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Objective>(sid) );
   return (result == mItems.end()) ? 0 : static_cast <Objective*> (*result);
 }
 
 
-/* Removes the nth item from this list */
-Objective*
-ListOfObjectives::remove (unsigned int n)
+/**
+ * Adds a copy the given "Objective" to this ListOfObjectives.
+ *
+ * @param o; the Objective object to add
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+int
+ListOfObjectives::addObjective(const Objective* o)
 {
-   return static_cast<Objective*>(ListOf::remove(n));
+  if (o == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (o->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != o->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != o->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(o)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+  append(o);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
-/* Removes item in this list by symbol */
-Objective*
-ListOfObjectives::remove (const std::string& symbol)
+/**
+ * Get the number of Objective objects in this ListOfObjectives.
+ *
+ * @return the number of Objective objects in this ListOfObjectives
+ */
+unsigned int 
+ListOfObjectives::getNumObjectives() const
 {
-  SBase* item = 0;
+  return size();
+}
+
+/**
+ * Creates a new Objective object, adds it to this ListOfObjectives
+ * Objective and returns the Objective object created. 
+ *
+ * @return a new Objective object instance
+ *
+ * @see addObjective(const Objective* o)
+ */
+Objective* 
+ListOfObjectives::createObjective()
+{
+  Objective* o = NULL;
+
+  try
+  {
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    o = new Objective(fbcns);
+    delete fbcns;
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * do nothing
+     */
+  }
+
+  if(o != NULL)
+  {
+    appendAndOwn(o);
+  }
+
+  return o;
+}
+
+/*
+ * Removes the nth Objective from this ListOfObjectives
+ */
+Objective*
+ListOfObjectives::remove(unsigned int n)
+{
+  return static_cast<Objective*>(ListOf::remove(n));
+}
+
+
+/*
+ * Removes the Objective from this ListOfObjectives with the given identifier
+ */
+Objective*
+ListOfObjectives::remove(const std::string& sid)
+{
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEq<Objective>(symbol) );
+  result = find_if( mItems.begin(), mItems.end(), IdEq<Objective>(sid) );
 
   if (result != mItems.end())
   {
@@ -934,8 +1100,28 @@ ListOfObjectives::remove (const std::string& symbol)
 
 
 /*
- * @return the typecode (int) of SBML objects contained in this ListOf or
- * SBML_UNKNOWN (default).
+ * Returns the XML element name of this object
+ */
+const std::string&
+ListOfObjectives::getElementName () const
+{
+  static const string name = "listOfObjectives";
+  return name;
+}
+
+
+/*
+ * Returns the libSBML type code for this SBML object.
+ */
+int
+ListOfObjectives::getTypeCode () const
+{
+  return SBML_LIST_OF;
+}
+
+
+/*
+ * Returns the libSBML type code for the objects in this LIST_OF.
  */
 int
 ListOfObjectives::getItemTypeCode () const
@@ -944,16 +1130,7 @@ ListOfObjectives::getItemTypeCode () const
 }
 
 
-/*
- * Returns the XML element name of
- * this SBML object.
- */
-const std::string&
-ListOfObjectives::getElementName () const
-{
-  static const std::string name = "listOfObjectives";
-  return name;
-}
+  /** @cond doxygenLibsbmlInternal */
 
 
 int ListOfObjectives::appendFrom(const ListOf* list)
@@ -962,7 +1139,7 @@ int ListOfObjectives::appendFrom(const ListOf* list)
   if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
 
   const ListOfObjectives* objectives = static_cast<const ListOfObjectives*>(list);
-  if (objectives==NULL) return LIBSBML_INVALID_OBJECT;
+  if (objectives == NULL) return LIBSBML_INVALID_OBJECT;
 
   if (!isSetActiveObjective()) {
     setActiveObjective(objectives->getActiveObjective());
@@ -973,116 +1150,45 @@ int ListOfObjectives::appendFrom(const ListOf* list)
 void
 ListOfObjectives::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  if (mActiveObjective==oldid) mActiveObjective=newid;
+  if (mActiveObjective == oldid) mActiveObjective = newid;
   ListOf::renameSIdRefs(oldid, newid);
 }
 
-/** @cond doxygenLibsbmlInternal */
+
+/*
+ * Creates a new Objective in this ListOfObjectives
+ */
 SBase*
-ListOfObjectives::createObject (XMLInputStream& stream)
+ListOfObjectives::createObject(XMLInputStream& stream)
 {
   const std::string& name   = stream.peek().getName();
-  SBase*        object = 0;
-
+  SBase* object = NULL;
 
   if (name == "objective")
   {
-    try
-    {
-      FBC_CREATE_NS(fbcns, getSBMLNamespaces());
-      object = new Objective(fbcns);
-      appendAndOwn(object);
-      delete fbcns;
-      //mItems.push_back(object);
-    }
-    catch(...)
-    {
-      /* 
-      * NULL will be returned if the mSBMLNS is invalid (basically this
-      * should not happen) or some exception is thrown (e.g. std::bad_alloc)
-      *
-      * (Maybe this should be changed so that caller can detect what kind 
-      *  of error happened in this function.)
-      */
-    }
-
+    FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+    object = new Objective(fbcns);
+    appendAndOwn(object);
+    delete fbcns;
   }
 
   return object;
 }
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void
-ListOfObjectives::addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  SBase::addExpectedAttributes(attributes);
-  //
-  // required attribute is not defined for SBML Level 2 or lesser.
-  //
-  if ( getLevel() > 2 )
-  {    
-    attributes.add("activeObjective");
-  }
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void 
-ListOfObjectives::readAttributes (const XMLAttributes& attributes,
-                                  const ExpectedAttributes& expectedAttributes)
-{
-  SBase::readAttributes(attributes, expectedAttributes);
-  
-  if ( getLevel() > 2 )
-  {    
-    bool assigned = attributes.readInto("activeObjective", mActiveObjective, 
-      getErrorLog(), false, getLine(), getColumn());
-    if (assigned && mActiveObjective.empty())
-    {
-      logEmptyString(mActiveObjective, getLevel(), getVersion(), 
-        "<listOfObjectives>");
-    }
-    if (!SyntaxChecker::isValidSBMLSId(mActiveObjective)) 
-    {
-      getErrorLog()->logPackageError("fbc", FbcActiveObjectiveSyntax, 
-        getPackageVersion(), getLevel(), getVersion());
-    }
-    
-  }
-}
-/** @endcond */
-
-/** @cond doxygenLibsbmlInternal */
-void 
-ListOfObjectives::writeAttributes (XMLOutputStream& stream) const
-{
-  //
-  // required attribute is not defined for SBML Level 2 .
-  //
-  if ( getLevel() < 3)
-    return;
-  
-  //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
-  if ( isSetActiveObjective() ) 
-  {
-    stream.writeAttribute("activeObjective", getPrefix(), mActiveObjective);
-  }
-}
-/** @endcond */
 
 
+  /** @endcond doxygenLibsbmlInternal */
 
-bool 
+
+bool
 ListOfObjectives::isSetActiveObjective() const
 {
   return !mActiveObjective.empty();
 }
 
-int 
+int
 ListOfObjectives::setActiveObjective(const std::string &activeObjective)
 {
-  if (!SyntaxChecker::isValidSBMLSId(activeObjective)) 
+  if (!SyntaxChecker::isValidSBMLSId(activeObjective))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1096,7 +1202,7 @@ ListOfObjectives::getActiveObjective() const
   return mActiveObjective;
 }
 
-int 
+int
 ListOfObjectives::unsetActiveObjective()
 {
   mActiveObjective.erase();
@@ -1106,96 +1212,151 @@ ListOfObjectives::unsetActiveObjective()
     return LIBSBML_OPERATION_FAILED;
 }
 
+/** @cond doxygenLibsbmlInternal */
+void
+ListOfObjectives::addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  SBase::addExpectedAttributes(attributes);
+  //
+  // required attribute is not defined for SBML Level 2 or lesser.
+  //
+  if (getLevel() > 2)
+  {
+    attributes.add("activeObjective");
+  }
+}
+/** @endcond */
+/** @cond doxygenLibsbmlInternal */
+void
+ListOfObjectives::readAttributes(const XMLAttributes& attributes,
+const ExpectedAttributes& expectedAttributes)
+{
+  SBase::readAttributes(attributes, expectedAttributes);
+
+  if (getLevel() > 2)
+  {
+    bool assigned = attributes.readInto("activeObjective", mActiveObjective,
+      getErrorLog(), false, getLine(), getColumn());
+    if (assigned && mActiveObjective.empty())
+    {
+      logEmptyString(mActiveObjective, getLevel(), getVersion(),
+        "<listOfObjectives>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mActiveObjective))
+    {
+      getErrorLog()->logPackageError("fbc", FbcActiveObjectiveSyntax,
+        getPackageVersion(), getLevel(), getVersion());
+    }
+
+  }
+}
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-bool 
+void
+ListOfObjectives::writeAttributes(XMLOutputStream& stream) const
+{
+  //
+  // required attribute is not defined for SBML Level 2 .
+  //
+  if (getLevel() < 3)
+    return;
+
+  //cout << "[DEBUG] SBMLDocumentPlugin::writeAttributes() " << endl;
+  if (isSetActiveObjective())
+  {
+    stream.writeAttribute("activeObjective", getPrefix(), mActiveObjective);
+  }
+}
+/** @endcond */
+
+
+  /** @cond doxygenLibsbmlInternal */
+
+/*
+ * Write the namespace for the Fbc package.
+ */
+void
+ListOfObjectives::writeXMLNS(XMLOutputStream& stream) const
+{
+  XMLNamespaces xmlns;
+
+  std::string prefix = getPrefix();
+
+  if (prefix.empty())
+  {
+    XMLNamespaces* thisxmlns = getNamespaces();
+    if (thisxmlns && thisxmlns->hasURI(FbcExtension::getXmlnsL3V1V1()))
+    {
+      xmlns.add(FbcExtension::getXmlnsL3V1V1(),prefix);
+    }
+  }
+
+  stream << xmlns;
+}
+
+
+  /** @endcond doxygenLibsbmlInternal */
+
+
+/** @cond doxygenLibsbmlInternal */
+bool
 ListOfObjectives::accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
 /** @endcond */
 
+#endif // __cplusplus
 
 
-#endif /* __cplusplus */
-/** @cond doxygenIgnored */
 LIBSBML_EXTERN
 Objective_t *
-Objective_create(unsigned int level, unsigned int version, unsigned int pkgversion)
+Objective_create(unsigned int level, unsigned int version,
+                 unsigned int pkgVersion)
 {
-  return new Objective(level, version, pkgversion);
+  return new Objective(level, version, pkgVersion);
+}
+
+
+LIBSBML_EXTERN
+void
+Objective_free(Objective_t * o)
+{
+  if (o != NULL)
+    delete o;
+}
+
+
+LIBSBML_EXTERN
+Objective_t *
+Objective_clone(Objective_t * o)
+{
+  if (o != NULL)
+  {
+    return static_cast<Objective_t*>(o->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
 LIBSBML_EXTERN
 const char *
-Objective_getId(Objective_t * obj)
+Objective_getId(const Objective_t * o)
 {
-  if (obj == NULL)
-    return NULL;
-
-  return obj->getId().empty() ? "" : safe_strdup(obj->getId().c_str());
-}
-
-
-LIBSBML_EXTERN
-int
-Objective_isSetId(Objective_t * obj)
-{
-  return (obj != NULL) ? static_cast<int>(obj->isSetId()) : 0;
-}
-
-
-LIBSBML_EXTERN
-int
-Objective_setId(Objective_t * obj, const char * id)
-{
-  return (obj != NULL) ? obj->setId(id) : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Objective_unsetId(Objective_t * obj)
-{
-  return (obj != NULL) ? obj->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL && o->isSetId()) ? o->getId().c_str() : NULL;
 }
 
 
 LIBSBML_EXTERN
 const char *
-Objective_getName(Objective_t * obj)
+Objective_getName(const Objective_t * o)
 {
-  if (obj == NULL)
-    return NULL;
-  
-  return obj->getName().c_str();
+  return (o != NULL && o->isSetName()) ? o->getName().c_str() : NULL;
 }
-
-
-LIBSBML_EXTERN
-int
-Objective_isSetName(Objective_t * obj)
-{
-  return (obj != NULL) ? static_cast<int>(obj->isSetName()) : 0;
-}
-
-
-LIBSBML_EXTERN
-int
-Objective_setName(Objective_t * obj, const char * name)
-{
-  return (obj != NULL) ? obj->setName(name) : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-Objective_unsetName(Objective_t * obj)
-{
-  return (obj != NULL) ? obj->unsetName() : LIBSBML_INVALID_OBJECT;
-}
-
 
 
 LIBSBML_EXTERN
@@ -1205,91 +1366,188 @@ Objective_getType(Objective_t * obj)
   if (obj == NULL)
     return NULL;
 
-  return obj->getType().empty() ? "" : safe_strdup(obj->getType().c_str());
+  return obj->getType().empty() ? "" : obj->getType().c_str();
 }
 
 
 LIBSBML_EXTERN
 int
-Objective_isSetType(Objective_t * obj)
+Objective_isSetId(const Objective_t * o)
 {
-  return (obj != NULL) ? static_cast<int>(obj->isSetType()) : 0;
+  return (o != NULL) ? static_cast<int>(o->isSetId()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-Objective_setType(Objective_t * obj, const char * type)
+Objective_isSetName(const Objective_t * o)
 {
-  return (obj != NULL) ? obj->setType(type) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? static_cast<int>(o->isSetName()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-Objective_unsetType(Objective_t * obj)
+Objective_isSetType(const Objective_t * o)
 {
-  return (obj != NULL) ? obj->unsetType() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? static_cast<int>(o->isSetType()) : 0;
 }
 
 
 LIBSBML_EXTERN
 int
-Objective_addFluxObjective(Objective_t * obj, FluxObjective_t * flux)
+Objective_setId(Objective_t * o, const char * id)
 {
-  return (obj != NULL) ? obj->addFluxObjective(flux) : LIBSBML_INVALID_OBJECT;
+  if (o != NULL)
+    return (id == NULL) ? o->setId("") : o->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
+
+LIBSBML_EXTERN
+int
+Objective_setName(Objective_t * o, const char * name)
+{
+  if (o != NULL)
+    return (name == NULL) ? o->setName("") : o->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Objective_setType(Objective_t * o, const char* type)
+{
+  if (o != NULL)
+    return o->setType(type);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Objective_unsetId(Objective_t * o)
+{
+  return (o != NULL) ? o->unsetId() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Objective_unsetName(Objective_t * o)
+{
+  return (o != NULL) ? o->unsetName() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Objective_unsetType(Objective_t * o)
+{
+  return (o != NULL) ? o->unsetType() : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Objective_addFluxObjective(Objective_t * o, FluxObjective_t * fo)
+{
+  return  (o != NULL) ? o->addFluxObjective(fo) : LIBSBML_INVALID_OBJECT;
+}
 
 LIBSBML_EXTERN
 FluxObjective_t *
-Objective_getFluxObjective(Objective_t * obj, unsigned int n)
+Objective_createFluxObjective(Objective_t * o)
 {
-  return (obj != NULL) ? obj->getFluxObjective(n) : NULL;
+  return  (o != NULL) ? o->createFluxObjective() : NULL;
 }
 
+LIBSBML_EXTERN
+ListOf_t *
+Objective_getListOfFluxObjectives(Objective_t * o)
+{
+  return  (o != NULL) ? (ListOf_t *)o->getListOfFluxObjectives() : NULL;
+}
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_getFluxObjective(Objective_t * o, unsigned int n)
+{
+  return  (o != NULL) ? o->getFluxObjective(n) : NULL;
+}
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_getFluxObjectiveById(Objective_t * o, const char * sid)
+{
+  return  (o != NULL) ? o->getFluxObjective(sid) : NULL;
+}
 
 LIBSBML_EXTERN
 unsigned int
-Objective_getNumFluxObjectives(Objective_t * obj)
+Objective_getNumFluxObjectives(Objective_t * o)
 {
-  return (obj != NULL) ? obj->getNumFluxObjectives() : SBML_INT_MAX;
+  return  (o != NULL) ? o->getNumFluxObjectives() : SBML_INT_MAX;
+}
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_removeFluxObjective(Objective_t * o, unsigned int n)
+{
+  return  (o != NULL) ? o->removeFluxObjective(n) : NULL;
+}
+
+LIBSBML_EXTERN
+FluxObjective_t *
+Objective_removeFluxObjectiveById(Objective_t * o, const char * sid)
+{
+  return  (o != NULL) ? o->removeFluxObjective(sid) : NULL;
+}
+
+LIBSBML_EXTERN
+int
+Objective_hasRequiredAttributes(const Objective_t * o)
+{
+  return (o != NULL) ? static_cast<int>(o->hasRequiredAttributes()) : 0;
 }
 
 
 LIBSBML_EXTERN
-const char *
-ListOfObjectives_getActiveObjective(ListOf_t * lo)
+int
+Objective_hasRequiredElements(const Objective_t * o)
+{
+  return (o != NULL) ? static_cast<int>(o->hasRequiredElements()) : 0;
+}
+
+
+/*
+ *
+ */
+LIBSBML_EXTERN
+Objective_t *
+ListOfObjectives_getById(ListOf_t * lo, const char * sid)
 {
   if (lo == NULL)
     return NULL;
 
-  return static_cast<ListOfObjectives *>(lo)->getActiveObjective().empty() ? safe_strdup("") 
-                                    : safe_strdup(static_cast<ListOfObjectives *>(lo)->getActiveObjective().c_str());
+  return (sid != NULL) ? static_cast <ListOfObjectives *>(lo)->get(sid) : NULL;
 }
 
 
+/*
+ *
+ */
 LIBSBML_EXTERN
-int
-ListOfObjectives_isSetActiveObjective(ListOf_t * lo)
+Objective_t *
+ListOfObjectives_removeById(ListOf_t * lo, const char * sid)
 {
-  return (lo != NULL) ? static_cast<int>(static_cast<ListOfObjectives *>(lo)->isSetActiveObjective()) : 0;
-}
+  if (lo == NULL)
+    return NULL;
 
-
-LIBSBML_EXTERN
-int
-ListOfObjectives_setActiveObjective(ListOf_t * lo, const char * obj)
-{
-  return (lo != NULL) ? static_cast<ListOfObjectives *>(lo)->setActiveObjective(obj) : LIBSBML_INVALID_OBJECT;
-}
-
-
-LIBSBML_EXTERN
-int
-ListOfObjectives_unsetActiveObjective(ListOf_t * lo)
-{
-  return (lo != NULL) ? static_cast<ListOfObjectives *>(lo)->unsetActiveObjective() : LIBSBML_INVALID_OBJECT;
+  return (sid != NULL) ? static_cast <ListOfObjectives *>(lo)->remove(sid) : NULL;
 }
 
 
@@ -1353,6 +1611,8 @@ ObjectiveType_isValidObjectiveType(ObjectiveType_t effect)
 }
 
 
+
+
 LIBSBML_EXTERN
 int 
 ObjectiveType_isValidObjectiveTypeString(const char* s)
@@ -1360,6 +1620,7 @@ ObjectiveType_isValidObjectiveTypeString(const char* s)
   return ObjectiveType_isValidObjectiveType
                                          (ObjectiveType_fromString(s));
 }
-/** @endcond */
+
 LIBSBML_CPP_NAMESPACE_END
+
 
