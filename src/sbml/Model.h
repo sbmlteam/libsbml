@@ -2876,7 +2876,7 @@ public:
    * writeAttributes() methods, however there are some difference between
    * L1 and L3 that require the underlying Model to be changed.
    */
-  void convertL1ToL3 ();
+  void convertL1ToL3 (bool addDefaultUnits = true);
 
 
   /*
@@ -2886,7 +2886,7 @@ public:
    * writeAttributes() methods, however there are some difference between
    * L2 and L3 that require the underlying Model to be changed.
    */
-  void convertL2ToL3 (bool strict = false);
+  void convertL2ToL3 (bool strict = false, bool addDefaultUnits = true);
 
   
   /*
@@ -3022,15 +3022,6 @@ public:
 
 //  void convertLayoutToAnnotation ();
 
-
-  /*
-   * Converts the model to a from SBML Level 1 to Level 2.
-   *
-   * Most of the necessary changes occur during the various
-   * writeAttributes() methods, however there are some difference between
-   * L1 and L2 that require the underlying Model to be changed.
-   */
-  void convertToL2Strict ();
 
 
   /*

@@ -120,6 +120,8 @@ SBMLLevelVersionConverter::getDefaultProperties() const
                    "Whether validity should be strictly preserved");
     prop.addOption("setLevelAndVersion", true, 
                    "Convert the model to a given Level and Version of SBML");
+    prop.addOption("addDefaultUnits", true,
+                   "Whether default units should be added when converting to L3");
     delete sbmlns;
     init = true;
     return prop;
@@ -178,6 +180,23 @@ SBMLLevelVersionConverter::getValidityFlag()
   else
   {
     return getProperties()->getBoolValue("strict");
+  }
+}
+
+bool
+SBMLLevelVersionConverter::getAddDefaultUnits()
+{
+  if (getProperties() == NULL)
+  {
+    return true;
+  }
+  else if (getProperties()->hasOption("addDefaultUnits") == false)
+  {
+    return true;
+  }
+  else
+  {
+    return getProperties()->getBoolValue("addDefaultUnits");
   }
 }
 
@@ -393,6 +412,8 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
   bool conversion = false;
  
   bool doConversion = false;
+
+  bool addDefaultUnits = getAddDefaultUnits();
   
   unsigned int currentLevel = mDocument->getLevel();
   unsigned int currentVersion = mDocument->getVersion();
@@ -485,7 +506,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         currentModel->removeParameterRuleUnits(strict);
         currentModel->convertParametersToLocals(targetLevel, targetVersion);
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-        currentModel->convertL1ToL3();
+        currentModel->convertL1ToL3(addDefaultUnits);
         conversion = true;
       }
       break;
@@ -749,7 +770,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         currentModel->convertParametersToLocals(targetLevel, targetVersion);
         mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-        currentModel->convertL2ToL3(strict);
+        currentModel->convertL2ToL3(strict, addDefaultUnits);
         conversion = true;
       }
       break;

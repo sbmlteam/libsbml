@@ -189,7 +189,54 @@ START_TEST (test_convertL2V5ToL3V1_strict)
   fail_unless(s->isSetSpeciesType() == false);
   fail_unless(s->getSpeciesType() == "");
   
+
+  // the default is to create units upon the conversion
+  // so these should be set
+  fail_unless(m->isSetLengthUnits());
+  fail_unless(m->isSetTimeUnits());
+  fail_unless(m->isSetSubstanceUnits());
+  fail_unless(m->isSetAreaUnits());
+  fail_unless(m->isSetVolumeUnits());
+
+  fail_unless(s->isSetSubstanceUnits());
+
+
   delete d;
+
+  // now test that when we convert without adding default units that the 
+  // file has none
+
+  prop.addOption("addDefaultUnits", false);
+
+  d = readSBMLFromFile(filename.c_str());
+
+  // convert to L3V1
+  converter->setDocument(d);
+  converter->setProperties(&prop);
+  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  m = d->getModel();
+  s = m->getSpecies(0);
+
+  fail_unless(d->getLevel() == 3);
+  fail_unless(d->getVersion() == 1);
+  fail_unless(m->getNumCompartmentTypes() == 0);
+  fail_unless(s->isSetSpeciesType() == false);
+  fail_unless(s->getSpeciesType() == "");
+
+
+  // now the units should not be set
+  fail_unless(!m->isSetLengthUnits());
+  fail_unless(!m->isSetTimeUnits());
+  fail_unless(!m->isSetSubstanceUnits());
+  fail_unless(!m->isSetAreaUnits());
+  fail_unless(!m->isSetVolumeUnits());
+
+  fail_unless(!s->isSetSubstanceUnits());
+
+
+  delete d;
+
   delete converter;
 }
 END_TEST

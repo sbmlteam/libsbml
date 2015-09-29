@@ -227,6 +227,15 @@ public:
    */
   bool getValidityFlag();
 
+  /**
+   * Returns the flag indicating whether default units should be added when
+   * converting to L3 or not.
+   *
+   * @return @c true if default units should be added, @c false
+   * otherwise.
+   */
+  bool getAddDefaultUnits();
+
 
 #ifndef SWIG
 
