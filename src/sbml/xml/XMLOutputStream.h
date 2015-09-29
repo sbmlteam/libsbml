@@ -688,7 +688,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 
 
   /** @cond doxygenLibsbmlInternal */
-  bool getStringStream()   { return mStringStream;  }
+  bool getStringStream();
   /** @endcond */
 
 
@@ -817,8 +817,8 @@ protected:
 
   /* this is needed for the derived classes used to create the C wrapper */
   bool mStringStream;
-  void setStringStream()   { mStringStream = true;  }
-  void unsetStringStream() { mStringStream = false; }
+  void setStringStream();
+  void unsetStringStream();
 
   /** @endcond */
 };
@@ -840,7 +840,7 @@ public:
                          , const std::string&  programName  = ""
                          , const std::string&  programVersion = "");
 
-  std::ostringstream& getString() { return mString; }
+  std::ostringstream& getString();
 
 protected:
 

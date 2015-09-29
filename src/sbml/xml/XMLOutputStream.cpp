@@ -745,6 +745,11 @@ XMLOutputStream::upIndent ()
   if (mDoIndent) ++mIndent;
 }
 
+bool XMLOutputStream::getStringStream()
+{
+  return mStringStream;
+}
+
 
 /*
  * Outputs indentation whitespace.
@@ -901,6 +906,18 @@ void
 XMLOutputStream::writeValue (const unsigned int& value)
 {
   mStream << '=' << '"' << value << '"';
+}
+
+void
+XMLOutputStream::setStringStream()
+{
+  mStringStream = true;
+}
+
+void
+XMLOutputStream::unsetStringStream()
+{
+  mStringStream = false;
 }
 
 
@@ -1074,6 +1091,12 @@ XMLOutputStringStream::XMLOutputStringStream (  std::ostringstream& stream
 
 {
   setStringStream();
+}
+
+std::ostringstream &
+XMLOutputStringStream::getString()
+{
+  return mString;
 }
 
 XMLOwningOutputStringStream::XMLOwningOutputStringStream (  const std::string&  encoding
