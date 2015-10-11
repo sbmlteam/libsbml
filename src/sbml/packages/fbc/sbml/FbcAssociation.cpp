@@ -288,7 +288,20 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
 
   if (node->getType() == AST_NAME)
   {
-    GeneProduct* prod = plugin->getGeneProduct(node->getName());
+    std::string name = node->getName();
+    replaceAllSubStrings(name, "__DOT__", ".");
+    replaceAllSubStrings(name, "__ONE__", "1");
+    replaceAllSubStrings(name, "__TWO__", "2");
+    replaceAllSubStrings(name, "__THREE__", "3");
+    replaceAllSubStrings(name, "__FOUR__", "4");
+    replaceAllSubStrings(name, "__FIVE__", "5");
+    replaceAllSubStrings(name, "__SIX__", "6");
+    replaceAllSubStrings(name, "__SEVEN__", "7");
+    replaceAllSubStrings(name, "__EIGHT__", "8");
+    replaceAllSubStrings(name, "__NINE__", "9");
+    replaceAllSubStrings(name, "__ZERO__", "0");
+
+    GeneProduct* prod = plugin->getGeneProductByLabel(name);
     string id;
     if (prod == NULL)
     {
@@ -303,18 +316,6 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
         id = str.str();
       }
       prod->setId(id);
-      std::string name = node->getName();
-      replaceAllSubStrings(name, "__DOT__", ".");
-      replaceAllSubStrings(name, "__ONE__", "1");
-      replaceAllSubStrings(name, "__TWO__", "2");
-      replaceAllSubStrings(name, "__THREE__", "3");
-      replaceAllSubStrings(name, "__FOUR__", "4");
-      replaceAllSubStrings(name, "__FIVE__", "5");
-      replaceAllSubStrings(name, "__SIX__", "6");
-      replaceAllSubStrings(name, "__SEVEN__", "7");
-      replaceAllSubStrings(name, "__EIGHT__", "8");
-      replaceAllSubStrings(name, "__NINE__", "9");
-      replaceAllSubStrings(name, "__ZERO__", "0");
       prod->setLabel(name);
     }
     else

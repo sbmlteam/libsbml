@@ -281,6 +281,92 @@ START_TEST(test_FbcExtension_convert_and_write)
 }
 END_TEST
 
+START_TEST(test_FbcExtension_create_and_write_new_geneassociation
+)
+{
+  FbcPkgNamespaces *sbmlns = new FbcPkgNamespaces(3, 1, 2);
+
+  // create the document
+
+  SBMLDocument document(sbmlns);
+  document.setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+  document.setConsistencyChecks(LIBSBML_CAT_MODELING_PRACTICE, false);
+
+  // create the Model
+
+  Model* model = document.createModel();
+
+  // create the Compartment
+
+  Compartment* compartment = model->createCompartment();
+  compartment->setId("compartment");
+  compartment->setConstant(true);
+  compartment->setSize(1);
+
+  // create the Species
+
+  Species* species = model->createSpecies();
+  species->setId("Node1");
+  species->setCompartment("compartment");
+  species->setBoundaryCondition(false);
+
+  species = model->createSpecies();
+  species->setId("Node2");
+  species->setCompartment("compartment");
+  species->setBoundaryCondition(false);
+
+  Reaction* reaction = model->createReaction();
+  reaction->setId("J0");
+  reaction->setReversible(false);
+  SpeciesReference* reactant = reaction->createReactant();
+  reactant->setSpecies("Node0");
+  reactant->setStoichiometry(1);
+  SpeciesReference* product = reaction->createProduct();
+  product->setSpecies("Node1");
+  product->setStoichiometry(1);
+
+  // use fbc
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+
+  fail_unless(mplugin != NULL);
+
+  FluxBound* bound = mplugin->createFluxBound();
+
+  bound->setId("bound1");
+  bound->setReaction("J0");
+  bound->setOperation("equal");
+  bound->setValue(10);
+
+  Objective* objective = mplugin->createObjective();
+  objective->setId("obj1");
+  objective->setType("maximize");
+
+  FluxObjective* fluxObjective = objective->createFluxObjective();
+  fluxObjective->setReaction("J0");
+  fluxObjective->setCoefficient(1);
+
+  FbcReactionPlugin* rplug = dynamic_cast<FbcReactionPlugin*>(reaction->getPlugin("fbc"));
+  fail_unless(rplug != NULL);
+
+  GeneProductAssociation * ga = rplug->createGeneProductAssociation();
+  ga->setId("ga1");
+  ga->setAssociation("MG_077 AND MG_321 AND MG_080 AND MG_078 AND MG_079");
+  fail_unless(ga->getAssociation() != NULL);
+
+  fail_unless(mplugin->getNumGeneProducts() == 5);
+
+  ga->setAssociation("MG_077 AND MG_321 AND MG_080 AND MG_078 AND MG_079");
+  fail_unless(ga->getAssociation() != NULL);
+
+  fail_unless(mplugin->getNumGeneProducts() == 5);
+
+
+  delete sbmlns;
+
+}
+END_TEST
+
 Suite *
 create_suite_WriteFbcExtension(void)
 {
@@ -292,6 +378,7 @@ create_suite_WriteFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_create_and_write_L3V1V1);
   tcase_add_test(tcase, test_FbcExtension_create_and_write_geneassociation);
   tcase_add_test(tcase, test_FbcExtension_convert_and_write);
+  tcase_add_test(tcase, test_FbcExtension_create_and_write_new_geneassociation);
   suite_add_tcase(suite, tcase);
 
   return suite;
