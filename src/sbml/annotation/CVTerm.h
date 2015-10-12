@@ -1055,22 +1055,94 @@ public:
 
   
   /** @endcond */
-  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the number of CVTerm objects nested within this CVTerm
+   * object.
+   * 
+   * @return the number of CVTerms nested within this CVTerm object.
+   *
+   * @note this does not recurse through potentially nested CVTerms within
+   * a given nested CVTerm. It returns the number of terms immediately nested
+   * within this CVTerm.
+   */
   unsigned int getNumNestedCVTerms() const;
 
-  const CVTerm * getNestedCVTerm(unsigned int n) const;
 
+  /**
+   * Returns the nth CVTerm in the list of CVTerms of this CVTerm
+   * object.
+   * 
+   * @param n unsigned int the index of the CVTerm to retrieve
+   *
+   * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
+   */
   CVTerm * getNestedCVTerm(unsigned int n);
 
+
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns the nth CVTerm in the list of CVTerms of this CVTerm
+   * object.
+   * 
+   * @param n unsigned int the index of the CVTerm to retrieve
+   *
+   * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
+   */
+  const CVTerm * getNestedCVTerm(unsigned int n) const;
+  
+  /** @endcond */
+
+
+  /**
+   * Returns a list of CVTerm objects contained within this CVTerm
+   * object.
+   * 
+   * @return the list of CVTerms for this CVTerm object.
+   */
   List* getListNestedCVTerms();
 
-  const List* getListNestedCVTerms() const;
 
+  /** @cond doxygenLibsbmlInternal */
+
+  /**
+   * Returns a list of CVTerm objects contained within this CVTerm
+   * object.
+   * 
+   * @return the list of CVTerms for this CVTerm object.
+   */
+  const List* getListNestedCVTerms() const;
+  
+  /** @endcond */
+
+
+
+  /**
+   * Adds a copy of the given CVTerm object to the list of nested CVTerms
+   * within this CVTerm object.
+   *
+   * @param term the CVTerm to assign.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
   int addNestedCVTerm(const CVTerm* term);
 
+  
+  /**
+   * Removes the nth CVTerm in the list of CVTerms of this CVTerm
+   * object and returns a pointer to it.
+   * 
+   * @param n unsigned int the index of the CVTerm to retrieve
+   *
+   * @return a pointer to the nth CVTerm in the list of CVTerms for this 
+   * CVTerm object.
+   */
   CVTerm* removeNestedCVTerm(unsigned int n);
 
-  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
@@ -1499,27 +1571,93 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 BiolQualifierType_fromString(const char* s);
 
-/** @cond doxygenLibsbmlInternal */
+
+/**
+ * Returns the number of CVTerm_t structures nested within this CVTerm_t
+ * structure.
+ *
+ * @param cvt the structure to getNumNestedCVTerms from
+ *
+ * @return the number of CVTerm_t structures nested within this CVTerm_t structure.
+ *
+ * @note this does not recurse through potentially nested CVTerms within
+ * a given nested CVTerm. It returns the number of terms immediately nested
+ * within this CVTerm_t.
+ *
+ * @memberof CVTerm_t
+ */
 LIBSBML_EXTERN
 unsigned int 
 CVTerm_getNumNestedCVTerms(const CVTerm_t* cvt);
 
+
+
+/**
+ * Returns the nth CVTerm_t in the list of CVTerm_t's of this CVTerm_t
+ * structure.
+ *
+ * @param cvt the structure to get CVTerm_t's from
+ * @param n unsigned int the index of the CVTerm_t to retrieve
+ *
+ * @return the nth CVTerm_t in the list of CVTerm_t's for this CVTerm_t structure.
+ *
+ * @memberof CVTerm_t
+ */
 LIBSBML_EXTERN
 const CVTerm_t * 
 CVTerm_getNestedCVTerm(const CVTerm_t* cvt, unsigned int n);
 
+
+/**
+ * Adds a copy of the given CVTerm_t to the list of nested CVTerm_t's
+ * within this CVTerm_t structure.
+ *
+ * @param cvt the structure to add the CVTerm_t to
+ * @param term the CVTerm_t to assign
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof CVTerm_t
+ */
 LIBSBML_EXTERN
 int 
 CVTerm_addNestedCVTerm(CVTerm_t* cvt, const CVTerm_t* term);
 
+
+/**
+ * Removes the nth CVTerm_t in the list of CVTerm_t's of this CVTerm_t
+ * structure and returns a pointer to it.
+ *
+ * @param cvt the structure to get CVTerm_t's from
+ * @param n unsigned int the index of the CVTerm_t to retrieve
+ *
+ * @return a pointer to the nth CVTerm_t in the list of CVTerm_t's for this 
+ * CVTerm_t structure.
+ *
+ * @memberof CVTerm_t
+ */
 LIBSBML_EXTERN
 CVTerm_t * 
 CVTerm_removeNestedCVTerm(CVTerm_t* cvt, unsigned int n);
 
+
+/**
+ * Returns a list of CVTerm_t structures contained within this CVTerm_t
+ * structure.
+ *
+ * @param cvt the structure to getListNestedCVTerms from
+ *
+ * @return the list of CVTerm_t's for this CVTerm_t structure.
+ *
+ * @memberof CVTerm_t
+ */
 LIBSBML_EXTERN
 const List_t * 
 CVTerm_getListNestedCVTerms(const CVTerm_t* cvt);
-/** @endcond */
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
