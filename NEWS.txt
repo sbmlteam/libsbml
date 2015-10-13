@@ -7,9 +7,29 @@
 STABLE RELEASE
 
 * New features
+
+  - In SBML Level 2 some units were defined by default and did not 
+    need to be explicitly included in a model. The 
+    SBMLLevelVersionConverter adds these units explicitly when 
+    converting to SBML Level 3. We have an added an option to
+    disable this functionality and return Level 3 models without
+    the units implied by Level 2.
+
+  - Sourceforge libSBML Tracker #242: 'addProduct etc using a species'
+    We have added functions addProduct/addReactant/addModifier that 
+    take a Species as argument, along with a number of other optional 
+    values to completely specify the speciesReference object being 
+    created. This is a slight divergence from the direction libSBML
+    usually takes and we would be grateful for any feedback
+    on these functions. 
 	
   - 'comp' package-specific updates:
   - 'fbc' package-specific updates:
+
+    - The FBC Version 2 package has been accepted by the SBML Editors.
+      The code supporting this is now available as part of the stable
+      release.
+
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
 
@@ -40,6 +60,9 @@ STABLE RELEASE
     to a python version on Mac OSX systems rather than 
     automatically link.  Thanks to Kyle Medley for supplying 
     the initial patch for this.
+
+  - The test code has been tweaked to build and run with MSVC 2015.
+    Fortunately the main code base worked with no issues.
 
 
 * Miscellaneous
