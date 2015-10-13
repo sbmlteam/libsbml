@@ -810,7 +810,7 @@ int Reaction::addReactant(
   if (!species->isSetId())
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
-  if (!id.empty() && getListOfModifiers()->get(id) != NULL)
+  if (!id.empty() && getListOfReactants()->get(id) != NULL)
     {
       // an object with this id already exists
       return LIBSBML_DUPLICATE_OBJECT_ID;
@@ -868,7 +868,7 @@ Reaction::addProduct(
   if (!species->isSetId())
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
-  if (!id.empty() && getListOfModifiers()->get(id) != NULL)
+  if (!id.empty() && getListOfProducts()->get(id) != NULL)
     {
       // an object with this id already exists
       return LIBSBML_DUPLICATE_OBJECT_ID;
@@ -2373,10 +2373,38 @@ Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
 
 LIBSBML_EXTERN
 int
+Reaction_addReactantBySpecies (Reaction_t *r, const Species_t *s, 
+                               double stoichiometry, const char *id,
+                               int constant)
+{
+  if (r != NULL)
+    return r->addReactant( static_cast<const Species*>(s), stoichiometry, id, 
+                            constant);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
 {
   if (r != NULL)
     return r->addProduct( static_cast<const SpeciesReference*>(sr) );
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Reaction_addProductBySpecies (Reaction_t *r, const Species_t *s, 
+                               double stoichiometry, const char *id,
+                               int constant)
+{
+  if (r != NULL)
+    return r->addProduct( static_cast<const Species*>(s), stoichiometry, id, 
+                            constant);
   else
     return LIBSBML_INVALID_OBJECT;
 }
@@ -2397,6 +2425,18 @@ Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
   }
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+Reaction_addModifierBySpecies (Reaction_t *r, const Species_t *s, 
+                               const char *id)
+{
+  if (r != NULL)
+    return r->addModifier( static_cast<const Species*>(s), id);
   else
     return LIBSBML_INVALID_OBJECT;
 }

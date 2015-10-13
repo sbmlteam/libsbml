@@ -654,6 +654,8 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
+   * @note the Species object itself is NOT added to the model
+   *
    * @see createProduct()
    */
   int addReactant(const Species* species,
@@ -703,6 +705,8 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
+   * @note the Species object itself is NOT added to the model
+   *
    * @see createProduct()
    */
   int addProduct(const Species* species,
@@ -749,7 +753,9 @@ public:
    *
    * @copydetails doc_note_object_is_copied
    *
-   * @see createProduct()
+   * @note the Species object itself is NOT added to the model
+   *
+   * @see createModifier()
    */
   int addModifier(const Species *species,
                   const std::string &id = "");
@@ -1963,6 +1969,85 @@ Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr);
 LIBSBML_EXTERN
 int
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
+
+/**
+ * Adds a copy of the given Species_t object as a reactant to this Reaction_t.
+ *
+ * @param r the Reaction_t structure to which the reactant is added
+ * @param s the Species_t structure to be added as reactant
+ * @param stoichiometry of the product
+ * @param id be given to the species reference that will
+ *        be created. 
+ * @param constant an attribute specifying whether the species reference is
+ *        constant or not
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @note the Species_t structure itself is NOT added to the model
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_addReactantBySpecies (Reaction_t *r, const Species_t *s, 
+                               double stoichiometry, const char *id,
+                               int constant);
+
+
+/**
+ * Adds a copy of the given Species_t object as a product to this Reaction_t.
+ *
+ * @param r the Reaction_t structure to which the product is added
+ * @param s the Species_t structure to be added as product
+ * @param stoichiometry of the product
+ * @param id be given to the species reference that will
+ *        be created. 
+ * @param constant an attribute specifying whether the species reference is
+ *        constant or not
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @note the Species_t structure itself is NOT added to the model
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_addProductBySpecies (Reaction_t *r, const Species_t *s, 
+                               double stoichiometry, const char *id,
+                               int constant);
+
+
+/**
+ * Adds a copy of the given Species_t object as a modifier to this Reaction_t.
+ *
+ * @param r the Reaction_t structure to which the modifier is added
+ * @param s the Species_t structure to be added as modifier
+ * @param id be given to the species reference that will
+ *        be created. 
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @note the Species_t structure itself is NOT added to the model
+ *
+ * @memberof Reaction_t
+ */
+LIBSBML_EXTERN
+int
+Reaction_addModifierBySpecies (Reaction_t *r, const Species_t *s, 
+                               const char *id);
 
 
 /**

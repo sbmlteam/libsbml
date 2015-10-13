@@ -298,6 +298,30 @@ START_TEST (test_Reaction_addReactant)
 END_TEST
 
 
+START_TEST (test_Reaction_addReactantBySpecies)
+{
+  Species_t *s = Species_create(2, 4);
+  Species_setId(s, "s");
+  Reaction_addReactantBySpecies(R, s, 2.0, "sr", false);
+
+  fail_unless( Reaction_getNumReactants(R) == 1 );
+  fail_unless( Reaction_getNumProducts (R) == 0 );
+  fail_unless( Reaction_getNumModifiers(R) == 0 );
+
+  SpeciesReference_t *sr = Reaction_getReactant(R, 0);
+
+  fail_unless(!strcmp(SpeciesReference_getSpecies(sr), "s"));
+  fail_unless(util_isEqual(SpeciesReference_getStoichiometry(sr), 2.0) == 1);
+  fail_unless(!strcmp(SpeciesReference_getId(sr), "sr"));
+  fail_unless(SpeciesReference_getConstant(sr) == 0);
+
+  fail_unless(Reaction_addReactantBySpecies(R, s, 1.0, "sr", false) == LIBSBML_DUPLICATE_OBJECT_ID);
+
+  Species_free(s);
+}
+END_TEST
+
+
 START_TEST (test_Reaction_addProduct)
 {
   SpeciesReference_t *sr = SpeciesReference_create(2, 4);
@@ -314,6 +338,31 @@ START_TEST (test_Reaction_addProduct)
 END_TEST
 
 
+START_TEST (test_Reaction_addProductBySpecies)
+{
+  Species_t *s = Species_create(2, 4);
+  Species_setId(s, "s");
+  Reaction_addProductBySpecies(R, s, 2.0, "sr", false);
+
+  fail_unless( Reaction_getNumReactants(R) == 0 );
+  fail_unless( Reaction_getNumProducts (R) == 1 );
+  fail_unless( Reaction_getNumModifiers(R) == 0 );
+
+  SpeciesReference_t *sr = Reaction_getProduct(R, 0);
+
+  fail_unless(!strcmp(SpeciesReference_getSpecies(sr), "s"));
+  fail_unless(util_isEqual(SpeciesReference_getStoichiometry(sr), 2.0) == 1);
+  fail_unless(!strcmp(SpeciesReference_getId(sr), "sr"));
+  fail_unless(SpeciesReference_getConstant(sr) == 0);
+
+  fail_unless(Reaction_addProductBySpecies(R, s, 1.0, "sr", false) == LIBSBML_DUPLICATE_OBJECT_ID);
+  fail_unless( Reaction_getNumProducts (R) == 1 );
+
+  Species_free(s);
+}
+END_TEST
+
+
 START_TEST (test_Reaction_addModifier)
 {
   SpeciesReference_t * msr = SpeciesReference_createModifier(2, 4);
@@ -325,6 +374,29 @@ START_TEST (test_Reaction_addModifier)
   fail_unless( Reaction_getNumModifiers(R) == 1 );
 
   SpeciesReference_free(msr);
+}
+END_TEST
+
+
+START_TEST (test_Reaction_addModifierBySpecies)
+{
+  Species_t *s = Species_create(2, 4);
+  Species_setId(s, "s");
+  Reaction_addModifierBySpecies(R, s, "sr");
+
+  fail_unless( Reaction_getNumReactants(R) == 0 );
+  fail_unless( Reaction_getNumProducts (R) == 0 );
+  fail_unless( Reaction_getNumModifiers(R) == 1 );
+
+  SpeciesReference_t *sr = Reaction_getModifier(R, 0);
+
+  fail_unless(!strcmp(SpeciesReference_getSpecies(sr), "s"));
+  fail_unless(!strcmp(SpeciesReference_getId(sr), "sr"));
+
+  fail_unless(Reaction_addModifierBySpecies(R, s, "sr") == LIBSBML_DUPLICATE_OBJECT_ID);
+  fail_unless( Reaction_getNumModifiers (R) == 1 );
+
+  Species_free(s);
 }
 END_TEST
 
@@ -609,8 +681,11 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_fast            );
   tcase_add_test( tcase, test_Reaction_compartment     );
   tcase_add_test( tcase, test_Reaction_addReactant     );
+  tcase_add_test( tcase, test_Reaction_addReactantBySpecies     );
   tcase_add_test( tcase, test_Reaction_addProduct      );
+  tcase_add_test( tcase, test_Reaction_addProductBySpecies      );
   tcase_add_test( tcase, test_Reaction_addModifier     );
+  tcase_add_test( tcase, test_Reaction_addModifierBySpecies     );
   tcase_add_test( tcase, test_Reaction_getReactant     );
   tcase_add_test( tcase, test_Reaction_getReactantById );
   tcase_add_test( tcase, test_Reaction_getProduct      );
