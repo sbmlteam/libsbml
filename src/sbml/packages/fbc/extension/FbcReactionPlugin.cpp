@@ -320,6 +320,21 @@ FbcReactionPlugin::readAttributes (const XMLAttributes& attributes,
 
   /** @cond doxygenLibsbmlInternal */
 
+
+int
+FbcReactionPlugin::prependStringToAllIdentifiers(const std::string& prefix)
+{
+  if (isSetLowerFluxBound() == true)
+  {
+    setLowerFluxBound(prefix + mLowerFluxBound);
+  }
+  if (isSetUpperFluxBound() == true)
+  {
+    setUpperFluxBound(prefix + mUpperFluxBound);
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 /*
  * Write values of XMLAttributes to the output stream.
  */
