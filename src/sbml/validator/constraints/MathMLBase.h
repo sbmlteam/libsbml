@@ -54,6 +54,10 @@ class ASTNode;
 class MathMLBase: public TConstraint<Model>
 {
 public:
+#ifndef SWIG
+  typedef std::map<const std::string, bool> NumericFDMap;
+  typedef NumericFDMap::iterator            NumericFDIter;
+#endif
 
   /**
    * Creates a new Constraint with the given @p id.
@@ -181,6 +185,10 @@ protected:
   unsigned int mIsTrigger;
 
   IdList mLocalParameters;
+
+  NumericFDMap mNumericFunctionsChecked;
+
+  IdList mFunctionsChecked;
 
 };
 

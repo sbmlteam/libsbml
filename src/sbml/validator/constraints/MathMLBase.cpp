@@ -48,6 +48,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 MathMLBase::MathMLBase (unsigned int id, Validator& v) :
   TConstraint<Model>(id, v)
 {
+  mNumericFunctionsChecked.clear();
+  mFunctionsChecked.clear();
 }
 
 
@@ -274,31 +276,41 @@ MathMLBase::checkFunction (const Model& m,
   unsigned int i, nodeCount;
   unsigned int noBvars;
   ASTNode * fdMath;
-  const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
+  const std::string& name = node.getName();
 
-  if (fd && fd->isSetMath() == true && fd->isSetBody() == true)
+  if (mFunctionsChecked.contains(name))
   {
-    noBvars = fd->getNumArguments();
-    fdMath = fd->getBody()->deepCopy();
-    //if (noBvars == 0)
-    //{
-    //  fdMath = fd->getMath()->getLeftChild()->deepCopy();
-    //}
-    //else
-    //{
-    //  fdMath = fd->getMath()->getRightChild()->deepCopy();
-    //}
+    checkChildren(m, node, sb);
+  }
+  else
+  {
+    const FunctionDefinition *fd = m.getFunctionDefinition(name);
 
-    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    if (fd && fd->isSetMath() == true && fd->isSetBody() == true)
     {
-      if (nodeCount < node.getNumChildren())
-        fdMath->replaceArgument(fd->getArgument(i)->getName(), 
-                                          node.getChild(nodeCount));
-    }
-    /* check the math of the new function */
-    checkMath(m, *fdMath, sb);
+      noBvars = fd->getNumArguments();
+      fdMath = fd->getBody()->deepCopy();
 
-    delete fdMath;
+      /* check the math of the new function */
+      // the checkLogicalArguments function does not see bvars
+      // as anything other than numbers and so for the logical arguments
+      // check will fail if the function uses a logical operator
+      // so we have to replace the bvars with the arguments being used
+      if (fdMath->isLogical())
+      {
+        for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+        {
+          if (nodeCount < node.getNumChildren())
+            fdMath->replaceArgument(fd->getArgument(i)->getName(), 
+                                              node.getChild(nodeCount));
+        }
+      }
+
+      checkMath(m, *fdMath, sb);
+      delete fdMath;
+      mFunctionsChecked.append(name);
+      checkChildren(m, node, sb);
+    }
   }
 }
 
@@ -442,83 +454,96 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
 bool 
 MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 {
-  unsigned int i, nodeCount;
-  //const ASTNode * fdMath;
-  //bool needDelete = false;
+  //unsigned int i, nodeCount;
   unsigned int noBvars;
+  bool isNumeric = true;
 
   ASTNode * fdMath;
-  const FunctionDefinition *fd = m.getFunctionDefinition(node->getName());
+  const std::string& name = node->getName();
+  bool alreadyChecked = false;
 
-  if (fd != NULL && fd->isSetMath() == true && fd->isSetBody() == true)
+  NumericFDIter iter = mNumericFunctionsChecked.begin();
+  while (!alreadyChecked && iter != mNumericFunctionsChecked.end())
   {
-    noBvars = fd->getNumArguments();
-    fdMath = fd->getBody()->deepCopy();
-    //if (noBvars == 0)
-    //{
-    //  fdMath = fd->getMath()->getLeftChild()->deepCopy();
-    //}
-    //else
-    //{
-    //  fdMath = fd->getMath()->getRightChild()->deepCopy();
-    //}
-
-    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    if (iter->first == name)
     {
-      if (nodeCount < node->getNumChildren())
-        fdMath->replaceArgument(fd->getArgument(i)->getName(), 
-                                          node->getChild(nodeCount));
-    //}
-  ///* check this function definition exists */
-  //if (m.getFunctionDefinition(node->getName()))
-  //{
-  //  /* formula will be the right child of the functiondefinition math */
-  //  fdMath = m.getFunctionDefinition(node->getName())->getMath()->getRightChild();
-  //  
-  //  /* if function has no variables then this will be null */
-  //  if (fdMath == NULL)
-  //  {
-  //    newMath = m.getFunctionDefinition(node->getName())->getMath()->getLeftChild();
-  //  }
-  //  else
-  //  {
-  //    /*
-  //      * create a new ASTNode of this type but with the children
-  //      * from the original function
-  //      */
-  //    newMath = new ASTNode(fdMath->getType());
-  //    /* if the fd refers to another function need to copy the name */
-  //    if (fdMath->getType() == AST_FUNCTION)
-  //      newMath->setName(fdMath->getName());
-  //    needDelete = true;
-  //    nodeCount = 0;
-  //    for (i = 0; i < fdMath->getNumChildren(); i++)
-  //    {
-  //      if (fdMath->getChild(i)->isName())
-  //      {
-  //        newMath->addChild(node->getChild(nodeCount)->deepCopy());
-  //        nodeCount++;
-  //      }
-  //      else
-  //      {
-  //        newMath->addChild(fdMath->getChild(i)->deepCopy());
-  //      }
-  //    }
+      isNumeric = iter->second;
+      alreadyChecked = true;
     }
-    
-    bool isNumeric = returnsNumeric(m, fdMath);
-    //bool isNumeric = returnsNumeric(m, newMath);
-    //if(needDelete) delete newMath;
-    delete fdMath;
-   
-    return isNumeric;
+    iter++;
+  }
+
+  if (alreadyChecked)
+  {
+    if (!isNumeric)
+      return isNumeric;
+    else
+    {
+      unsigned int numChildren = node->getNumChildren();
+      unsigned int count = 0;
+      bool temp;
+      for (unsigned int n = 0; n < numChildren; n++)
+      {
+        temp = returnsNumeric(m, node->getChild(n));
+        if (temp)
+          count++;
+      }
+      if (count != numChildren)
+        isNumeric = false;
+      else
+        isNumeric = true;
+      return isNumeric;
+    }
   }
   else
   {
-    /* if the function definition doesnt exist then this will be caught
-     * by another constraint and we shouldnt ever get here
-     */
-    return true;
+    const FunctionDefinition *fd = m.getFunctionDefinition(name);
+
+    if (fd != NULL && fd->isSetMath() == true && fd->isSetBody() == true)
+    {
+      noBvars = fd->getNumArguments();
+      fdMath = fd->getBody()->deepCopy();
+
+      //for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+      //{
+      //  if (nodeCount < node->getNumChildren())
+      //    fdMath->replaceArgument(fd->getArgument(i)->getName(), 
+      //                                      node->getChild(nodeCount));
+      //}
+    
+      isNumeric = returnsNumeric(m, fdMath);
+      delete fdMath;
+      mNumericFunctionsChecked.insert(std::pair<const std::string&, 
+                                                bool>(name, isNumeric));
+
+      if (isNumeric)
+      {
+        // check the children
+        unsigned int numChildren = node->getNumChildren();
+        unsigned int count = 0;
+        bool temp;
+        for (unsigned int n = 0; n < numChildren; n++)
+        {
+          temp = returnsNumeric(m, node->getChild(n));
+          if (temp)
+            count++;
+        }
+        if (count != numChildren)
+          isNumeric = false;
+        else
+          isNumeric = true;
+      }
+
+   
+      return isNumeric;
+    }
+    else
+    {
+      /* if the function definition doesnt exist then this will be caught
+       * by another constraint and we shouldnt ever get here
+       */
+      return true;
+    }
   }
 }
 
