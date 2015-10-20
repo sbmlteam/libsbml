@@ -321,6 +321,7 @@ Index::unsetMath()
 void
 Index::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath() == true)
   {
     getMath()->renameSIdRefs(oldid, newid);
