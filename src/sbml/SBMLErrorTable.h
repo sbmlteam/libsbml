@@ -8590,7 +8590,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Models in SBML Level 2 Versions 1-4 can only represent compartments "
-    "with integer values 0, 1, 2,or 3 as spatial dimensions."
+    "with integer values 0, 1, 2, or 3 as spatial dimensions."
   },
 
   //92010

@@ -100,7 +100,7 @@ public:
 
   /**
    * @return a boolean, indicating whether the converter should create 
-   *         a 'strict' model, i.e.: a model with all default bounds sepcified.
+   *         a 'strict' model, i.e.: a model with all default bounds specified.
    */
   bool getStrict();
 
