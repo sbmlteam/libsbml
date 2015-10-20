@@ -332,6 +332,8 @@ if(WITH_SWIG)
               /usr/local/bin
               /opt/local/bin
               /usr/bin
+              "C:/Program Files (x86)/Swig"
+              "C:/Program Files/Swig"
         DOC "The file name of the SWIG executable."
         )
     find_package(SWIG)
