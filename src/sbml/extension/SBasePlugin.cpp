@@ -394,6 +394,30 @@ SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+//Override and provide your own renaming scheme for the rest of the model if you do anything here.
+void 
+SBasePlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+//Override and provide your own renaming scheme for the rest of the model if you do anything here.
+void 
+SBasePlugin::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
+//Override and provide your own renaming scheme for the rest of the model if you do anything here.
+void 
+SBasePlugin::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+{
+}
+/** @endcond */
+
+/** @cond doxygenLibsbmlInternal */
 int 
 SBasePlugin::transformIdentifiers(IdentifierTransformer* idTransformer)
 {

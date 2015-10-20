@@ -402,6 +402,7 @@ int Delay::removeFromParentAndDelete()
 void
 Delay::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
   }
@@ -410,6 +411,7 @@ Delay::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Delay::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

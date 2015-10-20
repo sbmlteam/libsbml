@@ -265,6 +265,7 @@ int Priority::removeFromParentAndDelete()
 void
 Priority::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
   }
@@ -273,6 +274,7 @@ Priority::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Priority::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

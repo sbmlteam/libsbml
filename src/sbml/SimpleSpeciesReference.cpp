@@ -370,6 +370,7 @@ SimpleSpeciesReference::isModifier () const
 void
 SimpleSpeciesReference::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetSpecies()) {
     if (mSpecies==oldid) setSpecies(newid);
   }

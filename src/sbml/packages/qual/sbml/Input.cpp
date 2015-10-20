@@ -451,6 +451,7 @@ Input::unsetThresholdLevel()
 void
 Input::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetQualitativeSpecies() == true && mQualitativeSpecies == oldid)
   {
     setQualitativeSpecies(newid);

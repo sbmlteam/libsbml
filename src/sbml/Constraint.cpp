@@ -392,6 +392,7 @@ Constraint::unsetMessage ()
 void
 Constraint::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
   }
@@ -400,6 +401,7 @@ Constraint::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Constraint::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

@@ -406,6 +406,7 @@ int Trigger::removeFromParentAndDelete()
 void
 Trigger::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
   }
@@ -414,6 +415,7 @@ Trigger::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Trigger::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

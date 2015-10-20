@@ -149,16 +149,10 @@ public:
 
   /** @endcond doxygenLibsbmlInternal */
 
-  /** @cond doxygenLibsbmlInternal */
   /**
-   * Add the given string to all identifiers in the object.  If the string is
-   * added to anything other than an id or a metaid, this code is responsible
-   * for tracking down and renaming all *idRefs in the package extention that
-   * identifier comes from.
+   * @copydoc doc_renamesidref_common
    */
-  virtual int prependStringToAllIdentifiers(const std::string& prefix);
-  /** @endcond */
-
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /** @cond doxygenLibsbmlInternal */

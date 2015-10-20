@@ -147,6 +147,7 @@
 #include <sbml/math/ASTFunction.h>
 #include <sbml/math/ASTNumber.h>
 #include <sbml/math/ASTTypes.h>
+#include <sbml/math/ASTBase.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

@@ -3800,6 +3800,7 @@ Model::appendFrom(const Model* model)
 void
 Model::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetConversionFactor()) {
     if (getConversionFactor()==oldid) {
       setConversionFactor(newid);
@@ -3810,6 +3811,7 @@ Model::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Model::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
   if (mTimeUnits == oldid)      mTimeUnits = newid;
   if (mVolumeUnits == oldid)    mVolumeUnits = newid;

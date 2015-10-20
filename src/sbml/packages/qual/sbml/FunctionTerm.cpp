@@ -262,6 +262,7 @@ FunctionTerm::unsetMath()
 void
 FunctionTerm::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath() == true)
   {
     mMath->renameSIdRefs(oldid, newid);

@@ -128,7 +128,11 @@ SBase::getAllElements(ElementFilter *filter)
 void
 SBase::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  //No SIdRefs in SBase
+  //No SIdRefs in SBase, but plugins might have some.
+  for (unsigned int p = 0; p < getNumPlugins(); p++)
+  {
+    getPlugin(p)->renameSIdRefs(oldid, newid);
+  }
 }
 
 void
@@ -150,12 +154,21 @@ SBase::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
     }
   }
   */
+  //We also need to check the plugins:
+  for (unsigned int p = 0; p < getNumPlugins(); p++)
+  {
+    getPlugin(p)->renameMetaIdRefs(oldid, newid);
+  }
 }
 
 void
 SBase::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  //No UnitSIdRefs in SBase, either.
+  //No UnitSIdRefs in SBase, either.  But check the plugins.
+  for (unsigned int p = 0; p < getNumPlugins(); p++)
+  {
+    getPlugin(p)->renameUnitSIdRefs(oldid, newid);
+  }
 }
 
 /** @cond doxygenLibsbmlInternal */

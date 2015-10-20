@@ -579,6 +579,24 @@ public:
   /** @endcond */
 
 
+  /**
+   * @copydoc doc_renamesidref_common
+   */
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
+   * @copydoc doc_renamemetasidref_common
+   */
+  virtual void renameMetaIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
+   * @copydoc doc_renameunitsidref_common
+   */
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
+
+
   /** @cond doxygenLibsbmlInternal */
   virtual int transformIdentifiers(IdentifierTransformer* sidTransformer);
   /** @endcond */

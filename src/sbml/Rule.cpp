@@ -836,6 +836,7 @@ Rule::hasRequiredElements() const
 void
 Rule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameSIdRefs(oldid, newid);
   }
@@ -853,6 +854,7 @@ Rule::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Rule::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

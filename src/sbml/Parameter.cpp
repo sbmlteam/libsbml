@@ -699,6 +699,7 @@ Parameter::hasRequiredAttributes() const
 void 
 Parameter::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (mUnits == oldid) mUnits= newid;
 }
 

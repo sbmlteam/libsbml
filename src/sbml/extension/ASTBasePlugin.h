@@ -336,6 +336,37 @@ public:
   /* end doxygen comment */
   friend class L3ParserSettings;
   friend class ASTBase;
+
+  //The following functions don't do anything on their own, and are meant to be overridden by relevant plugins.
+  /**
+   * Renames all the SIdRef attributes on this node and its child nodes.
+   *
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
+   */
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
+   * Renames all the UnitSIdRef attributes on this node and its child nodes.
+   *
+   * The only place UnitSIDRefs appear in MathML <code>&lt;cn&gt;</code>
+   * elements, so the effects of this method are limited to that.
+   *
+   * @param oldid the old identifier.
+   * @param newid the new identifier.
+   */
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Replace any nodes of type AST_NAME with the name 'id' from the child
+   * 'math' object with the provided ASTNode.
+   *
+   */
+  virtual void replaceIDWithFunction(const std::string& id, const ASTNode* function);
+
 protected:
   /* open doxygen comment */
   /**

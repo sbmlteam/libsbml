@@ -594,6 +594,26 @@ ASTBasePlugin::getNameFromType(int type) const
   return "AST_unknown";
 }
 
+void 
+ASTBasePlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
+{
+}
+
+
+void 
+ASTBasePlugin::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+{
+}
+
+
+/** @cond doxygenLibsbmlInternal */
+void 
+ASTBasePlugin::replaceIDWithFunction(const std::string& id, const ASTNode* function)
+{
+}
+/** @endcond */
+
+
 bool
 ASTBasePlugin::isPackageInfixFunction() const
 {

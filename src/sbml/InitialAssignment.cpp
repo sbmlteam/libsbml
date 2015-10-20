@@ -456,6 +456,7 @@ InitialAssignment::hasRequiredElements() const
 void
 InitialAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (mSymbol == oldid) {
     setSymbol(newid);
   }
@@ -467,6 +468,7 @@ InitialAssignment::renameSIdRefs(const std::string& oldid, const std::string& ne
 void 
 InitialAssignment::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

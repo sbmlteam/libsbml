@@ -341,6 +341,7 @@ FluxObjective::unsetCoefficient()
 void
 FluxObjective::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetReaction() == true && mReaction == oldid)
   {
     setReaction(newid);

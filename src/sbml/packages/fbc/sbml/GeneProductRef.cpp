@@ -293,6 +293,7 @@ GeneProductRef::unsetName()
 void
 GeneProductRef::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  FbcAssociation::renameSIdRefs(oldid, newid);
   if (isSetGeneProduct() == true && mGeneProduct == oldid)
   {
     setGeneProduct(newid);

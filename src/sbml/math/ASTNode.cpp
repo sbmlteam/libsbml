@@ -3007,6 +3007,10 @@ ASTNode::renameSIdRefs(const std::string& oldid, const std::string& newid)
   {
     getChild(child)->renameSIdRefs(oldid, newid);
   }
+
+  for (unsigned int p=0; p<getNumPlugins(); p++) {
+    getPlugin(p)->renameSIdRefs(oldid, newid);
+  }
 }
 
 
@@ -3024,6 +3028,10 @@ ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
   for (unsigned int child=0; child<getNumChildren(); child++) 
   {
     getChild(child)->renameUnitSIdRefs(oldid, newid);
+  }
+
+  for (unsigned int p=0; p<getNumPlugins(); p++) {
+    getPlugin(p)->renameUnitSIdRefs(oldid, newid);
   }
 }
 
@@ -3044,6 +3052,10 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     {
       child->replaceIDWithFunction(id, function);
     }
+  }
+
+  for (unsigned int p=0; p<getNumPlugins(); p++) {
+    getPlugin(p)->replaceIDWithFunction(id, function);
   }
 }
 /** @endcond */

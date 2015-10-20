@@ -623,6 +623,7 @@ FunctionDefinition::hasRequiredElements() const
 void 
 FunctionDefinition::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

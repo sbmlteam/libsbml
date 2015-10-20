@@ -1139,6 +1139,7 @@ int KineticLaw::removeFromParentAndDelete()
 void
 KineticLaw::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   //If the oldid is actually a local parameter, we should not rename it.
   if (getParameter(oldid) != NULL) return;
   if (getLocalParameter(oldid) != NULL) return;
@@ -1150,6 +1151,7 @@ KineticLaw::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 KineticLaw::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }

@@ -1268,6 +1268,7 @@ Species::hasRequiredAttributes() const
 void
 Species::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetSpeciesType()) {
     if (mSpeciesType==oldid) setSpeciesType(newid);
   }
@@ -1282,6 +1283,7 @@ Species::renameSIdRefs(const std::string& oldid, const std::string& newid)
 void 
 Species::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetSubstanceUnits()) {
     if (mSubstanceUnits==oldid) setSubstanceUnits(newid);
   }

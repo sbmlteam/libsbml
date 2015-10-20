@@ -313,28 +313,26 @@ FbcReactionPlugin::readAttributes (const XMLAttributes& attributes,
   }
 
 }
+/** @endcond doxygenLibsbmlInternal */
 
-
-  /** @endcond doxygenLibsbmlInternal */
-
-
-  /** @cond doxygenLibsbmlInternal */
-
-
-int
-FbcReactionPlugin::prependStringToAllIdentifiers(const std::string& prefix)
+/** @cond doxygenLibsbmlInternal */
+void
+FbcReactionPlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
-  if (isSetLowerFluxBound() == true)
+  SBasePlugin::renameSIdRefs(oldid, newid);
+  if (isSetLowerFluxBound())
   {
-    setLowerFluxBound(prefix + mLowerFluxBound);
+    if (mLowerFluxBound==oldid) mLowerFluxBound=newid;
   }
-  if (isSetUpperFluxBound() == true)
+  if (isSetUpperFluxBound())
   {
-    setUpperFluxBound(prefix + mUpperFluxBound);
+    if (mUpperFluxBound==oldid) mUpperFluxBound=newid;
   }
-  return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond doxygenLibsbmlInternal */
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Write values of XMLAttributes to the output stream.
  */
@@ -352,9 +350,7 @@ FbcReactionPlugin::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("upperFluxBound", getPrefix(), mUpperFluxBound);
 
 }
-
-
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 //---------------------------------------------------------------

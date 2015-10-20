@@ -341,6 +341,7 @@ GeneProduct::unsetAssociatedSpecies()
 void
 GeneProduct::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetAssociatedSpecies() == true && mAssociatedSpecies == oldid)
   {
     setAssociatedSpecies(newid);

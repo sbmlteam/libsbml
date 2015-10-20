@@ -461,6 +461,7 @@ EventAssignment::hasRequiredElements() const
 void
 EventAssignment::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (mVariable == oldid) {
     setVariable(newid);
   }
@@ -472,6 +473,7 @@ EventAssignment::renameSIdRefs(const std::string& oldid, const std::string& newi
 void 
 EventAssignment::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameUnitSIdRefs(oldid, newid);
   if (isSetMath()) {
     mMath->renameUnitSIdRefs(oldid, newid);
   }
