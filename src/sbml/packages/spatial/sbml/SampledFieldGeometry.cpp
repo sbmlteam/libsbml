@@ -363,6 +363,7 @@ SampledFieldGeometry::createSampledVolume()
 void
 SampledFieldGeometry::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  GeometryDefinition::renameSIdRefs(oldid, newid);
   if (isSetSampledField() == true && mSampledField == oldid)
   {
     setSampledField(newid);

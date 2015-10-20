@@ -236,6 +236,7 @@ OrdinalMapping::unsetOrdinal()
 void
 OrdinalMapping::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetGeometryDefinition() == true && mGeometryDefinition == oldid)
   {
     setGeometryDefinition(newid);

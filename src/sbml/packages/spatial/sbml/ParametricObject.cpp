@@ -552,6 +552,7 @@ ParametricObject::unsetDataType()
 void
 ParametricObject::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetDomainType() == true && mDomainType == oldid)
   {
     setDomainType(newid);

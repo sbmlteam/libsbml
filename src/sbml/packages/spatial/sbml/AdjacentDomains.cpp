@@ -290,6 +290,7 @@ AdjacentDomains::unsetDomain2()
 void
 AdjacentDomains::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetDomain1() == true && mDomain1 == oldid)
   {
     setDomain1(newid);

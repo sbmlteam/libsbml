@@ -714,6 +714,7 @@ CSGSetOperator::createCsgSetOperator()
 void
 CSGSetOperator::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  CSGNode::renameSIdRefs(oldid, newid);
   if (isSetComplementA() == true && mComplementA == oldid)
   {
     setComplementA(newid);

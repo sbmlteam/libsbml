@@ -176,6 +176,7 @@ CSGPseudoPrimitive::unsetCsgObjectRef()
 void
 CSGPseudoPrimitive::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  CSGNode::renameSIdRefs(oldid, newid);
   if (isSetCsgObjectRef() == true && mCsgObjectRef == oldid)
   {
     setCsgObjectRef(newid);

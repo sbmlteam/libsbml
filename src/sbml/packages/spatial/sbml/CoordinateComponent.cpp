@@ -513,6 +513,7 @@ CoordinateComponent::unsetBoundaryMax()
 void
 CoordinateComponent::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetUnit() == true && mUnit == oldid)
   {
     setUnit(newid);

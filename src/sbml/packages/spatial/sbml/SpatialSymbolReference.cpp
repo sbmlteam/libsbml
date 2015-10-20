@@ -176,6 +176,7 @@ SpatialSymbolReference::unsetSpatialRef()
 void
 SpatialSymbolReference::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetSpatialRef() == true && mSpatialRef == oldid)
   {
     setSpatialRef(newid);
