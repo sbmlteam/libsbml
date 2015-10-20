@@ -342,6 +342,7 @@ SpatialComponent::unsetName()
 void
 SpatialComponent::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
+  SBase::renameSIdRefs(oldid, newid);
   if (isSetVariable() == true && mVariable == oldid)
   {
     setVariable(newid);
