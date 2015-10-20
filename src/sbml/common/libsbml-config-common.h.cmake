@@ -106,4 +106,4 @@
 /* Define to specify that the legacy math implementation ought to be used. */
 #cmakedefine LIBSBML_USE_LEGACY_MATH 1
 
-#include "libsbml-config-packages.h"
+#include <sbml/common/libsbml-config-packages.h>
