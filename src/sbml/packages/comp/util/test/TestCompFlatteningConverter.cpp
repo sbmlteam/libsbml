@@ -1769,6 +1769,34 @@ START_TEST (test_comp_flatten_converter_fbc11)
 END_TEST
 
 
+START_TEST (test_comp_flatten_converter_fbc12)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_v2_1.xml", "fbc_v2_1_flat.xml", "fbc_v2_1_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_flatten_converter_fbc13)
+{ 
+  SBMLDocument* doc = test_flatten_fbc("fbc_v2_2.xml", "fbc_v2_2_flat.xml", "fbc_v2_2_flat_fbc_removed.xml");
+  if (SBMLExtensionRegistry::isPackageEnabled("fbc") == false)
+  {
+    fail_unless(doc->getNumErrors() == 2);
+    fail_unless(doc->getErrorLog()->getError(0)->getErrorId() == UnrequiredPackagePresent);
+    fail_unless(doc->getErrorLog()->getError(1)->getErrorId() == CompFlatteningNotRecognisedNotReqd);
+  }
+  delete doc;
+}
+END_TEST
+
+
 START_TEST (test_comp_flatten_converter_qual1)
 { 
   SBMLDocument* doc = test_flatten_qual("aggregate_qual.xml", "aggregate_qual_flat.xml", "qual_flat_qual_removed.xml");
@@ -2173,6 +2201,9 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_fbc9);
   tcase_add_test(tcase, test_comp_flatten_converter_fbc10);
   tcase_add_test(tcase, test_comp_flatten_converter_fbc11);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc12);
+  tcase_add_test(tcase, test_comp_flatten_converter_fbc13);
+
   tcase_add_test(tcase, test_comp_flatten_converter_qual1);
   tcase_add_test(tcase, test_comp_flatten_converter_qual2);
   tcase_add_test(tcase, test_comp_flatten_converter_qual3);

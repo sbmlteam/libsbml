@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="sub1__vol_per_time">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="sub1__comp1" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="sub1__S" compartment="sub1__comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="sub1__S1" compartment="sub1__comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="sub1__S2" compartment="sub1__comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="sub1__S3" compartment="sub1__comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="sub1__S4" compartment="sub1__comp1" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter sboTerm="SBO:0000625" id="FB_equal" value="15" constant="true"/>
+      <parameter sboTerm="SBO:0000625" id="sub1__fb_R2_equal" value="23" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="sub1__R1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="sub1__S1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sub1__S2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sub1__S1 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="sub1__vol_per_time"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="sub1__R2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="sub1__S2" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sub1__S4" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> sub1__S2 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="sub1__vol_per_time"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

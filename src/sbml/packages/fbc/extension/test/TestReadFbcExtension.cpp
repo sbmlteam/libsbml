@@ -489,75 +489,6 @@ START_TEST(test_FbcExtension_read_and_convert_V1ToV2)
 }
 END_TEST
 
-
-#ifdef USE_COMP
-START_TEST(test_FbcExtension_flatten1)
-{
-  char *filename = safe_strcat(TestDataDirectory, "fbc_comp1.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
-
-  // ensure we have a model, and it has no errors
-  fail_unless(document->getModel() != NULL);
-  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
-  document->checkConsistency();
-  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
-
-  ConversionProperties props;
-  props.addOption("flatten comp");
-  props.addOption("performValidation", true);
-  
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-  
-  // ensure we have a converter
-  fail_unless(converter!= NULL);  
-
-  // fail if conversion was not valid
-  converter->setDocument(document);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  string newModel = writeSBMLToStdString(document);
-
-
-  delete document;
-}
-END_TEST
-#endif
-
-
-#ifdef USE_COMP
-START_TEST(test_FbcExtension_flatten2)
-{
-  char *filename = safe_strcat(TestDataDirectory, "fbc_comp2.xml");
-  SBMLDocument *document = readSBMLFromFile(filename);
-
-  // ensure we have a model, and it has no errors
-  fail_unless(document->getModel() != NULL);
-  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
-  document->checkConsistency();
-  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
-
-  ConversionProperties props;
-  props.addOption("flatten comp");
-  props.addOption("performValidation", true);
-  
-  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
-  
-  // ensure we have a converter
-  fail_unless(converter!= NULL);  
-
-  // fail if conversion was not valid
-  converter->setDocument(document);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  //string newModel = writeSBMLToStdString(document);
-
-
-  delete document;
-}
-END_TEST
-#endif
-
-
 Suite *
 create_suite_ReadFbcExtension(void)
 {
@@ -572,12 +503,6 @@ create_suite_ReadFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_read_and_validate_chemicals);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert_V1ToV2);
-
-#ifdef USE_COMP
-  tcase_add_test(tcase, test_FbcExtension_flatten1);
-  tcase_add_test(tcase, test_FbcExtension_flatten2);
-#endif
-
   suite_add_tcase(suite, tcase);
 
   return suite;
