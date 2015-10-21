@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true" fbc:required="false">
+  <model fbc:strict="false">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="sub1" comp:modelRef="m"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="m" comp:source="fbc_v2_1.xml" comp:modelRef="m"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>
