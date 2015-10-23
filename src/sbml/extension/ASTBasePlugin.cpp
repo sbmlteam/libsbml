@@ -162,11 +162,11 @@ ASTBasePlugin::connectToParent (ASTBase* astbase)
 
 
 
-/**
+/*
  *
  * (Extension)
  *
- * Sets the XML namespace to which this element belogns to.
+ * Sets the XML namespace to which this element belongs to.
  * For example, all elements that belong to SBML Level 3 Version 1 Core
  * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core";
  * all elements that belong to Layout Extension Version 1 for SBML Level 3
@@ -606,12 +606,10 @@ ASTBasePlugin::renameUnitSIdRefs(const std::string& oldid, const std::string& ne
 }
 
 
-/** @cond doxygenLibsbmlInternal */
 void 
 ASTBasePlugin::replaceIDWithFunction(const std::string& id, const ASTNode* function)
 {
 }
-/** @endcond */
 
 
 bool
