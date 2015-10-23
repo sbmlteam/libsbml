@@ -2,3 +2,4 @@
 # WARNING: It is meant to be used in conjunction with our script in 
 # WARNING: sbml/trunk/project/scripts/svn-update-from-svnignore.sh
 README.txt
+README.md
