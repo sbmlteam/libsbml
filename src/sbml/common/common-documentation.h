@@ -31,9 +31,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * This file contains no code; it simply defines text fragments used as
- * common documentation blocks in other libSBML files via the @copydetails
+ * common documentation blocks in other libSBML files via the @@copydetails
  * operator from Doxygen.  The use of @@class is a hack needed because
- * Doxygen's @copydetails command has limited functionality.  No classes are
+ * Doxygen's @@copydetails command has limited functionality.  No classes are
  * actually defined, and symbols beginning with "doc_" are marked as ignored
  * in our Doxygen configuration.
  *
