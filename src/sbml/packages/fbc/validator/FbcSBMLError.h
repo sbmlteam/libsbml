@@ -65,7 +65,7 @@ typedef enum
 , FbcLOObjectivesAllowedAttributes     = 2020206 /*!< Allowed attributes on ListOfObjectives */
 , FbcActiveObjectiveSyntax             = 2020207 /*!< Type of activeObjective attribute */
 , FbcActiveObjectiveRefersObjective    = 2020208 /*!< ActiveObjective must reference Objective */
-, FbcModelMustHaveStrict               = 2020209 /*!< 'Strict' attribute required on <model> */
+, FbcModelMustHaveStrict               = 2020209 /*!< 'Strict' attribute required on <code>&lt;model&gt;</code> */
 , FbcModelStrictMustBeBoolean          = 2020210 /*!< 'Strict' attribute must be boolean */
 , FbcLOGeneProductsAllowedElements     = 2020211 /*!< Allowed elements on ListOfGeneProducts */
 , FbcLOGeneProductsAllowedAttributes   = 2020212 /*!< Allowed attributes on ListOfGeneProducts */
@@ -120,34 +120,34 @@ typedef enum
 , FbcSpeciesRefsStoichMustBeRealStrict  = 2020715 /*!< Stoichiometry of SpeciesReferences must be real valued when strict */
 , FbcSpeciesRefNotAssignedStrict        = 2020716 /*!< SpeciesReference not target of InitialAssignment when strict" */
 
-, FbcGeneProdAssocAllowedCoreAttribs    = 2020801 /*!< Allowed core attributes on <GeneProductAssociation> */
-, FbcGeneProdAssocAllowedCoreElements   = 2020802 /*!< Allowed core elements on <GeneProductAssociation> */
-, FbcGeneProdAssocAllowedAttribs        = 2020803 /*!< Allowed fbc attributes on <GeneProductAssociation> */
+, FbcGeneProdAssocAllowedCoreAttribs    = 2020801 /*!< Allowed core attributes on <code>&lt;GeneProductAssociation&gt;</code> */
+, FbcGeneProdAssocAllowedCoreElements   = 2020802 /*!< Allowed core elements on <code>&lt;GeneProductAssociation&gt;</code> */
+, FbcGeneProdAssocAllowedAttribs        = 2020803 /*!< Allowed fbc attributes on <code>&lt;GeneProductAssociation&gt;</code> */
 , FbcGeneProdAssocIdSyntax              = 2020804 /*!< 'fbc:id' must have SId syntax */
-, FbcGeneProdAssocContainsOneElement    = 2020805 /*!< <GeneProductAssociation> must contain one concrete object */
+, FbcGeneProdAssocContainsOneElement    = 2020805 /*!< <code>&lt;GeneProductAssociation&gt;</code> must contain one concrete object */
 , FbcGeneProdAssocNameMustBeString      = 2020806 /*!< 'fbc:name' must be string */
 
-, FbcGeneProdRefAllowedCoreAttribs      = 2020901 /*!< Allowed core attributes on <GeneProductRef> */
-, FbcGeneProdRefAllowedCoreElements     = 2020902 /*!< Allowed core elements on <GeneProductRef> */
-, FbcGeneProdRefAllowedAttribs          = 2020903 /*!< Allowed fbc attributes on <GeneProductRef> */
+, FbcGeneProdRefAllowedCoreAttribs      = 2020901 /*!< Allowed core attributes on <code>&lt;GeneProductRef&gt;</code> */
+, FbcGeneProdRefAllowedCoreElements     = 2020902 /*!< Allowed core elements on <code>&lt;GeneProductRef&gt;</code> */
+, FbcGeneProdRefAllowedAttribs          = 2020903 /*!< Allowed fbc attributes on <code>&lt;GeneProductRef&gt;</code> */
 , FbcGeneProdRefGeneProductSIdRef       = 2020904 /*!< 'fbc:geneProduct' must be SIdRef */
-, FbcGeneProdRefGeneProductExists       = 2020908 /*!< 'fbc:geneProduct' must point to existing <GeneProduct> */
+, FbcGeneProdRefGeneProductExists       = 2020908 /*!< 'fbc:geneProduct' must point to existing <code>&lt;GeneProduct&gt;</code> */
 
-, FbcAndAllowedCoreAttributes           = 2021001 /*!< Allowed core attributes on <And> */
-, FbcAndAllowedCoreElements             = 2021002 /*!< Allowed core elements on <And> */
-, FbcAndTwoChildren                     = 2021003 /*!< <And> must have at least two child elements */
+, FbcAndAllowedCoreAttributes           = 2021001 /*!< Allowed core attributes on <code>&lt;And&gt;</code> */
+, FbcAndAllowedCoreElements             = 2021002 /*!< Allowed core elements on <code>&lt;And&gt;</code> */
+, FbcAndTwoChildren                     = 2021003 /*!< <code>&lt;And&gt;</code> must have at least two child elements */
 
-, FbcOrAllowedCoreAttributes            = 2021101 /*!< Allowed core attributes on <Or> */
-, FbcOrAllowedCoreElements              = 2021102 /*!< Allowed core elements on <Or> */
-, FbcOrTwoChildren                      = 2021103 /*!< <Or> must have at least two child elements */
+, FbcOrAllowedCoreAttributes            = 2021101 /*!< Allowed core attributes on <code>&lt;Or&gt;</code> */
+, FbcOrAllowedCoreElements              = 2021102 /*!< Allowed core elements on <code>&lt;Or&gt;</code> */
+, FbcOrTwoChildren                      = 2021103 /*!< <code>&lt;Or&gt;</code> must have at least two child elements */
 
-, FbcGeneProcuctAllowedCoreAttributes   = 2021201 /*!< Allowed core attributes on <GeneProduct> */
-, FbcGeneProcuctAllowedCoreElements     = 2021202 /*!< Allowed core elements on <GeneProduct> */
-, FbcGeneProductAllowedAttributes       = 2021203 /*!< Allowed fbc attributes on <GeneProduct> */
+, FbcGeneProcuctAllowedCoreAttributes   = 2021201 /*!< Allowed core attributes on <code>&lt;GeneProduct&gt;</code> */
+, FbcGeneProcuctAllowedCoreElements     = 2021202 /*!< Allowed core elements on <code>&lt;GeneProduct&gt;</code> */
+, FbcGeneProductAllowedAttributes       = 2021203 /*!< Allowed fbc attributes on <code>&lt;GeneProduct&gt;</code> */
 , FbcGeneProductLabelMustBeString       = 2021204 /*!< 'fbc:label' must be string */
 , FbcGeneProductLabelMustBeUnique       = 2021205 /*!< 'fbc:label' must be unique */
 , FbcGeneProductNameMustBeString        = 2021206 /*!< 'fbc:name' must be string */
-, FbcGeneProductAssocSpeciesMustExist   = 2021207 /*!< 'fbc:associatedSpecies' must point to existing <species> */
+, FbcGeneProductAssocSpeciesMustExist   = 2021207 /*!< 'fbc:associatedSpecies' must point to existing <code>&lt;species&gt;</code> */
 
 } FbcSBMLErrorCode_t;
 
