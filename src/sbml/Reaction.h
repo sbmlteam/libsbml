@@ -227,11 +227,11 @@ public:
    * Creates a new Reaction using the given SBMLNamespaces object
    * @p  sbmlns.
    *
-   * @copydetails doc_what_are_sbmlnamespaces 
+   * @copydetails doc_what_are_sbmlnamespaces
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @copydetails doc_throw_exception_namespaces
+   * @copydetails doc_throw_exception_namespace
    *
    * @copydetails doc_note_setting_lv
    */
