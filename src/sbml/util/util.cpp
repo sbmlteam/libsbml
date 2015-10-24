@@ -1,5 +1,5 @@
 /**
- * @file    util.c
+ * @file    util.cpp
  * @brief   Utility functions. 
  * @author  Ben Bornstein
  * 
