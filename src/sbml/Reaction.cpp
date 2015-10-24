@@ -802,7 +802,7 @@ Reaction::addReactant (const SpeciesReference* sr)
 int Reaction::addReactant(
     const Species *species,
     double stoichiometry,
-    const string &id,
+    const std::string &id,
     bool constant)
 {
   if (species == NULL)
@@ -860,7 +860,7 @@ int
 Reaction::addProduct(
     const Species *species,
     double stoichiometry,
-    const string &id,
+    const std::string &id,
     bool constant)
 {
   if (species == NULL)
@@ -918,7 +918,7 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
 int
 Reaction::addModifier(
     const Species *species,
-    const string &id)
+    const std::string &id)
 {
   if (species == NULL)
     return LIBSBML_INVALID_OBJECT;
