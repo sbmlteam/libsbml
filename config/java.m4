@@ -236,7 +236,9 @@ development kit installation.
         parent=`dirname "$headers"`
         if test -e "$parent/Classes/classes.jar"; then
           JAVADOC_JAR="$parent/Classes/classes.jar"
-        else
+        elif test -e "$parent/Classes/tools.jar"; then
+          JAVADOC_JAR="$parent/Classes/tools.jar"
+        elif test -e "${parent}JDK/Classes/classes.jar"; then
           JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
         fi
       ;;
