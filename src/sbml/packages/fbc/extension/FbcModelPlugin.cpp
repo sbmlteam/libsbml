@@ -173,6 +173,7 @@ FbcModelPlugin::appendFrom(const Model* model)
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -256,8 +257,9 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
 
   return object; 
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -279,6 +281,7 @@ FbcModelPlugin::writeElements (XMLOutputStream& stream) const
     mGeneProducts.write(stream);
   } 
 }
+/** @endcond */
 
 LIBSBML_EXTERN
 void
@@ -1575,6 +1578,7 @@ int
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Sets the parent SBMLDocument of this SBML object.
  *
@@ -1590,6 +1594,8 @@ FbcModelPlugin::setSBMLDocument(SBMLDocument* d)
   mObjectives.setSBMLDocument(d);  
   mGeneProducts.setSBMLDocument(d);
 }
+/** @endcond */
+
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -1599,6 +1605,7 @@ FbcModelPlugin::connectToChild()
 }
 /** @endcond */
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -1618,8 +1625,10 @@ FbcModelPlugin::connectToParent(SBase* sbase)
     mGeneProducts.connectToParent(sbase);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -1638,8 +1647,9 @@ FbcModelPlugin::enablePackageInternal(const std::string& pkgURI,
     mGeneProducts.enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
 }
+/** @endcond */
 
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -1668,6 +1678,7 @@ FbcModelPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

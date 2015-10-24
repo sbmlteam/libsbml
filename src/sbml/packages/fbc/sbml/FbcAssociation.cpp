@@ -909,6 +909,13 @@ ListOfFbcAssociations::writeXMLNS(XMLOutputStream& stream) const
 
   /** @endcond doxygenLibsbmlInternal */
 
+bool
+ListOfFbcAssociations::isValidTypeForList(SBase * item)
+{
+    int code = item->getTypeCode();
+    return code == getItemTypeCode() || code == SBML_FBC_AND || code == SBML_FBC_OR || code == SBML_FBC_GENEPRODUCTREF ;
+}
+
 
 LIBSBML_EXTERN
 FbcAssociation_t *

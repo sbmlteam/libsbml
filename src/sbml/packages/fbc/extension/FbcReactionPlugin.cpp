@@ -124,6 +124,7 @@ FbcReactionPlugin::~FbcReactionPlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -160,8 +161,10 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
 
   return object; 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -173,6 +176,7 @@ FbcReactionPlugin::writeElements (XMLOutputStream& stream) const
     mGeneProductAssociation->write(stream);
   } 
 }
+/** @endcond */
 
 
 /*
@@ -579,6 +583,7 @@ FbcReactionPlugin::unsetGeneProductAssociation()
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -592,8 +597,10 @@ FbcReactionPlugin::setSBMLDocument(SBMLDocument* d)
     mGeneProductAssociation->setSBMLDocument(d);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -607,8 +614,10 @@ FbcReactionPlugin::connectToParent(SBase* sbase)
     mGeneProductAssociation->connectToParent(sbase);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -621,8 +630,10 @@ FbcReactionPlugin::enablePackageInternal(const std::string& pkgURI,
     mGeneProductAssociation->enablePackageInternal(pkgURI, pkgPrefix, flag);
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -649,7 +660,7 @@ FbcReactionPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
-
+/** @endcond */
 
 
 

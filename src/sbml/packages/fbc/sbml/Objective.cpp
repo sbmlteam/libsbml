@@ -571,6 +571,7 @@ Objective::getIsSetListOfFluxObjectives() const
 /** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write contained elements
  */
@@ -585,6 +586,7 @@ Objective::writeElements (XMLOutputStream& stream) const
 
   SBase::writeExtensionElements(stream);
 }
+/** @endcond */
 
 
   /** @endcond doxygenLibsbmlInternal */

@@ -344,6 +344,8 @@ FbcExtension::getStringFromTypeCode(int typeCode) const
   return SBML_FBC_TYPECODE_STRINGS[typeCode - min];
 }
 
+
+/** @cond doxygenLibsbmlInternal */
 /*
  * Initialization function of fbc extension module which is automatically invoked
  * by SBMLExtensionRegister class before main() function invoked. 
@@ -414,9 +416,9 @@ FbcExtension::init()
   {
     std::cerr << "[Error] FbcExtension::init() failed." << std::endl;
   }
- 
+
   // 5. Register the cobra converter
-  
+
   CobraToFbcConverter c1;
   SBMLConverterRegistry::getInstance().addConverter(&c1);
   FbcToCobraConverter c2;
@@ -426,12 +428,13 @@ FbcExtension::init()
   FbcV2ToV1Converter c4;
   SBMLConverterRegistry::getInstance().addConverter(&c4);
 }
+/** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error table entry. 
+ * Return error table entry.
  */
 packageErrorTableEntryV2
 FbcExtension::getErrorTableV2(unsigned int index) const
@@ -439,13 +442,13 @@ FbcExtension::getErrorTableV2(unsigned int index) const
   return fbcErrorTableV2[index];
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
- * Return error table index for this id. 
+ * Return error table index for this id.
  */
 unsigned int
 FbcExtension::getErrorTableIndex(unsigned int errorId) const
@@ -466,10 +469,10 @@ FbcExtension::getErrorTableIndex(unsigned int errorId) const
   return index;
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond doxygenLibsbmlInternal */
 
 
-  /** @cond doxygenLibsbmlInternal */
+/** @cond doxygenLibsbmlInternal */
 
 /*
  * Return error offset. 
@@ -480,7 +483,7 @@ FbcExtension::getErrorIdOffset() const
   return 2000000;
 }
 
-  /** @endcond doxygenLibsbmlInternal */
+/** @endcond doxygenLibsbmlInternal */
 
 
 

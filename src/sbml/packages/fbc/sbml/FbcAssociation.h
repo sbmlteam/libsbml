@@ -601,10 +601,7 @@ protected:
   /** @endcond doxygenLibsbmlInternal */
 
 
-  virtual bool isValidTypeForList(SBase * item) {
-    int code = item->getTypeCode();
-    return code == getItemTypeCode() || code == SBML_FBC_AND || code == SBML_FBC_OR || code == SBML_FBC_GENEPRODUCTREF ;
-  }
+  virtual bool isValidTypeForList(SBase * item);
 
 
   friend class FbcAnd;

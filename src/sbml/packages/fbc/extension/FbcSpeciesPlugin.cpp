@@ -201,6 +201,7 @@ FbcSpeciesPlugin::~FbcSpeciesPlugin()
 //
 //---------------------------------------------------------------
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * create object
  */
@@ -209,8 +210,10 @@ FbcSpeciesPlugin::createObject (XMLInputStream& stream)
 {
   return NULL; 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * write elements
  */
@@ -218,6 +221,7 @@ void
 FbcSpeciesPlugin::writeElements (XMLOutputStream& stream) const
 {
 }
+/** @endcond */
 
 
 /*
@@ -453,6 +457,7 @@ FbcSpeciesPlugin::unsetChemicalFormula()
 //---------------------------------------------------------------
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Set the SBMLDocument.
  */
@@ -462,8 +467,10 @@ FbcSpeciesPlugin::setSBMLDocument(SBMLDocument* d)
   SBasePlugin::setSBMLDocument(d);
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Connect to parent.
  */
@@ -473,8 +480,10 @@ FbcSpeciesPlugin::connectToParent(SBase* sbase)
   SBasePlugin::connectToParent(sbase);
 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Enables the given package.
  */
@@ -483,8 +492,10 @@ FbcSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
                                    const std::string& pkgPrefix, bool flag)
 {
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Accept the SBMLVisitor.
  */
@@ -494,6 +505,7 @@ FbcSpeciesPlugin::accept(SBMLVisitor& v) const
 
   return true;
 }
+/** @endcond */
 
 
 

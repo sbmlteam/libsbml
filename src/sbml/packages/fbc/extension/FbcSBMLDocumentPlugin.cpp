@@ -41,11 +41,13 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/** @cond doxygenLibsbmlInternal */
 FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin (const string &uri, 
                               const string &prefix, FbcPkgNamespaces *fbcns)
   : SBMLDocumentPlugin(uri,prefix, fbcns)
 {
 }
+/** @endcond */
 
 
 FbcSBMLDocumentPlugin::FbcSBMLDocumentPlugin(const FbcSBMLDocumentPlugin& orig)
@@ -123,13 +125,16 @@ FbcSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 /** @endcond doxygenLibsbmlInternal*/
 
 
+/** @cond doxygenLibsbmlInternal */
 bool
 FbcSBMLDocumentPlugin::isCompFlatteningImplemented() const
 {
   return true;
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int 
 FbcSBMLDocumentPlugin::checkConsistency()
 {
@@ -187,6 +192,7 @@ FbcSBMLDocumentPlugin::checkConsistency()
 
   return total_errors;  
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 bool 
