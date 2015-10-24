@@ -103,6 +103,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class SBMLNamespaces;
 
+// testing
+
 class LIBSBML_EXTERN AlgebraicRule : public Rule
 {
 public:
