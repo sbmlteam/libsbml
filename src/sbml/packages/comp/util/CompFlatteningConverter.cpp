@@ -973,6 +973,32 @@ CompFlatteningConverter::getPackagesToStrip() const
 }
 /** @endcond */
 
+// simple callback disabling packages on child documents
+int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
+{
+  if (m == NULL) return LIBSBML_OPERATION_FAILED;
+
+  IdList *pkgsToStrip = static_cast<IdList*>(userdata);
+
+  XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
+  for (int i = 0; i < ns->getLength(); i++)
+  {
+    std::string nsURI = ns->getURI(i);
+    std::string package = ns->getPrefix(i);
+    if (package.empty() == true)
+    {
+      continue;
+    }
+    else if (pkgsToStrip->contains(package) == true)
+    {
+      m->enablePackageInternal(nsURI, package, false);
+    }
+  }
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 
 /** @cond doxygenLibsbmlInternal */
 void
@@ -988,7 +1014,9 @@ CompFlatteningConverter::stripUnflattenablePackages()
       continue;
     }
 
-    bool flattenable = getFlattenableStatus(package);
+    // need to be enabled in order to flatten so need to check both
+    bool flattenable = getFlattenableStatus(package) &&
+      SBMLExtensionRegistry::getInstance().isEnabled(package);
 
     // if we can flatten we dont need to strip
     if (flattenable == true)
@@ -1042,6 +1070,7 @@ CompFlatteningConverter::stripUnflattenablePackages()
       mDocument->getErrorLog()->logPackageError("comp", errorId, 
         mDocument->getPlugin("comp")->getPackageVersion(), 
         mDocument->getLevel(), mDocument->getVersion(), message);
+      mPkgsToStrip->append(package);
     }
     else if (getAbortForRequired() == true)
     {
@@ -1053,37 +1082,17 @@ CompFlatteningConverter::stripUnflattenablePackages()
         mDocument->getErrorLog()->logPackageError("comp", errorId, 
           mDocument->getPlugin("comp")->getPackageVersion(), 
           mDocument->getLevel(), mDocument->getVersion(), message);
+        mPkgsToStrip->append(package);
       }
     }
+
+    // setup callback that will disable the packages on submodels
+    Submodel::addProcessingCallback(&DisablePackageOnChildDocuments, mPkgsToStrip);
+
 
   }
 }
 /** @endcond */
-
-// simple callback disabling packages on child documents
-int DisablePackageOnChildDocuments(Model* m, SBMLErrorLog *, void* userdata)
-{
-  if (m == NULL) return LIBSBML_OPERATION_FAILED;
-
-  IdList *pkgsToStrip = static_cast<IdList*>(userdata);
-
-  XMLNamespaces *ns = m->getSBMLNamespaces()->getNamespaces();
-  for (int i = 0; i < ns->getLength(); i++)
-  {
-    std::string nsURI = ns->getURI(i);
-    std::string package = ns->getPrefix(i);
-    if (package.empty() == true)
-    {
-      continue;
-    }
-    else if (pkgsToStrip->contains(package) == true)
-    {
-      m->enablePackageInternal(nsURI, package, false);
-    }
-  }
-
-  return LIBSBML_OPERATION_SUCCESS;
-}
 
 /** @cond doxygenLibsbmlInternal */
 int

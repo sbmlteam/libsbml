@@ -40,6 +40,11 @@
 #include <sbml/util/ElementFilter.h>
 #include <sbml/util/PrefixTransformer.h>
 
+#ifdef USE_FBC
+#include <sbml/packages/fbc/extension/FbcModelPlugin.h>
+#endif
+
+
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -544,6 +549,23 @@ Model* CompModelPlugin::flattenModel() const
       delete flat;
       return NULL;
     }
+#ifdef USE_FBC
+    // for an fbc v2 model we need to check that the model element 
+    // in the flat document has the fbc:strict attribute
+    // note this can happen if the parent document did not have fbc but
+    // included a submodel from an external document that did
+    if (SBMLExtensionRegistry::isPackageEnabled("fbc"))
+    {
+      FbcModelPlugin *mplugin = static_cast<FbcModelPlugin*>
+        (flat->getPlugin("fbc"));
+      if (mplugin != NULL && mplugin->getPackageVersion() == 2
+        && mplugin->isSetStrict() == false)
+      {
+        mplugin->setStrict(false);
+      }
+    }
+#endif
+
   }
 
   // Now we clear the saved referenced elements in the local Port objects, 
