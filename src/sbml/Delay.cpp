@@ -270,6 +270,7 @@ Delay::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true or @c false depending on whether 
  * the math expression of this InitialAssignment contains
@@ -325,8 +326,10 @@ Delay::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this InitialAssignment contains
@@ -337,6 +340,7 @@ Delay::containsUndeclaredUnits() const
 {
   return const_cast<Delay *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 
 /*

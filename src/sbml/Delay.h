@@ -356,6 +356,7 @@ public:
   const UnitDefinition * getDerivedUnitDefinition() const;
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Predicate returning @c true if the "math" expression in this Delay
    * instance contains parameters with undeclared units or literal numbers.
@@ -379,8 +380,10 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
+  /** @endcond */
 
 
+  /** @cond doxygenLibsbmlInternal */
   /**
    * Predicate returning @c true if the "math" expression in this Delay
    * instance contains parameters with undeclared units or literal numbers.
@@ -404,6 +407,7 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits() const;
+  /** @endcond */
 
 
   /**

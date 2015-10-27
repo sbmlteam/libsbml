@@ -911,6 +911,7 @@ KineticLaw::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this KineticLaw contains
@@ -967,13 +968,16 @@ KineticLaw::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 KineticLaw::containsUndeclaredUnits() const
 {
   return const_cast<KineticLaw *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 /**
  * Removes the nth Parameter object in the list of local parameters 

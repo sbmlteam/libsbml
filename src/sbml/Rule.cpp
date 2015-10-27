@@ -553,6 +553,7 @@ Rule::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this Rule contains
@@ -624,14 +625,16 @@ Rule::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
-
+/** @cond doxygenLibsbmlInternal */
 bool 
 Rule::containsUndeclaredUnits() const
 {
   return const_cast<Rule *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 
 /*

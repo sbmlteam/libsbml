@@ -514,6 +514,7 @@ StoichiometryMath::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this StoichiometryMath contains
@@ -570,13 +571,16 @@ StoichiometryMath::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 StoichiometryMath::containsUndeclaredUnits() const
 {
   return const_cast<StoichiometryMath *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */

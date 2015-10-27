@@ -336,6 +336,7 @@ InitialAssignment::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this InitialAssignment contains
@@ -392,13 +393,16 @@ InitialAssignment::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 InitialAssignment::containsUndeclaredUnits() const
 {
   return const_cast<InitialAssignment *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 
 /*

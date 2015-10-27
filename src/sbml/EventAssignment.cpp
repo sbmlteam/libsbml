@@ -324,6 +324,7 @@ EventAssignment::getDerivedUnitDefinition() const
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 /*
  * Predicate returning @c true if 
  * the math expression of this EventAssignment contains
@@ -381,13 +382,16 @@ EventAssignment::containsUndeclaredUnits()
     return false;
   }
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 bool 
 EventAssignment::containsUndeclaredUnits() const
 {
   return const_cast<EventAssignment *> (this)->containsUndeclaredUnits();
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
