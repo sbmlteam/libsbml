@@ -60,8 +60,6 @@
 #include <sbml/extension/SBasePlugin.h>
 
 
-// testsing
-
 /** @cond doxygenIgnored */
 using namespace std;
 /** @endcond */
