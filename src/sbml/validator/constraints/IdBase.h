@@ -49,7 +49,7 @@ class Validator;
 
 
 /**
- * The IdBase Cosntraint is the base class for all SBML id constraints.  It
+ * The IdBase Constraint is the base class for all SBML id constraints.  It
  * provides mechanisms for checking only certain subsets of ids within an
  * SBML model and tailoring the error messages logged.
  *
@@ -65,11 +65,11 @@ class Validator;
  *   2.  Override doCheckId() to perform the actual check.  If the check
  *       fails, call logFailure().
  *
- *   3.  Override getMesage() to log error messages.  GetMessage() should
+ *   3.  Override getMessage() to log error messages.  GetMessage() should
  *       use getPreamble() and getFieldName() when constructing the error
  *       message.
  *
- *   4.  Override getPreabmle() to customize the part of the actual error
+ *   4.  Override getPreamble() to customize the part of the actual error
  *       message that remains constant (e.g. the part that doesn't report
  *       line numbers, SBML object ids and typenames, etc).
  *
