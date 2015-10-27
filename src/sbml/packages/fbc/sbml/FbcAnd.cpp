@@ -556,7 +556,7 @@ FbcAnd::createObject(XMLInputStream& stream)
 {
   SBase* object = FbcAssociation::createObject(stream);
 
-  const string& name = stream.peek().getName();
+  //const string& name = stream.peek().getName();
 
   object = mAssociations.createObject(stream);
   connectToChild();

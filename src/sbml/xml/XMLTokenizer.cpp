@@ -605,7 +605,7 @@ XMLTokenizer::containsChild(bool & valid,
                             const std::string& container)
 {
   valid = false;
-  unsigned int numQualifiers = 0;
+  //unsigned int numQualifiers = 0;
   
 
   size_t size = mTokens.size();
@@ -615,7 +615,7 @@ XMLTokenizer::containsChild(bool & valid,
   }
 
   unsigned int index = 0;
-  unsigned int depth = 0;
+  //unsigned int depth = 0;
   std::string name;
   
   XMLToken next = mTokens.at(index);

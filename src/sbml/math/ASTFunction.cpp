@@ -3977,8 +3977,8 @@ ASTFunction::readApply(XMLInputStream& stream, const std::string& reqd_prefix,
     numChildren = determineNumChildren(stream);
   }
 
-  if (done == false && (isTopLevelMathMLNumberNodeTag(nextName) == true)
-    || (isTopLevelMathMLFunctionNodeTag(nextName) == true))
+  if (done == false && ((isTopLevelMathMLNumberNodeTag(nextName) == true)
+    || (isTopLevelMathMLFunctionNodeTag(nextName) == true)))
   {
     std::string message = "<" + nextName + "> cannot be used directly " +
       "following an <apply> tag.";
