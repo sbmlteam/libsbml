@@ -40,9 +40,9 @@
 #include <sbml/util/ElementFilter.h>
 #include <sbml/util/PrefixTransformer.h>
 
-#ifdef USE_FBC
+#ifdef LIBSBML_HAS_PACKAGE_FBC
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
-#endif
+#endif // LIBSBML_HAS_PACKAGE_FBC
 
 
 using namespace std;
@@ -549,7 +549,7 @@ Model* CompModelPlugin::flattenModel() const
       delete flat;
       return NULL;
     }
-#ifdef USE_FBC
+#ifdef LIBSBML_HAS_PACKAGE_FBC
     // for an fbc v2 model we need to check that the model element 
     // in the flat document has the fbc:strict attribute
     // note this can happen if the parent document did not have fbc but
@@ -564,7 +564,7 @@ Model* CompModelPlugin::flattenModel() const
         mplugin->setStrict(false);
       }
     }
-#endif
+#endif // LIBSBML_HAS_PACKAGE_FBC
 
   }
 
