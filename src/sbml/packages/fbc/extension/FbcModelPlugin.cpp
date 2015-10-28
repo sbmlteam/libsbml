@@ -600,13 +600,13 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
               getErrorLog()->contains(XMLAttributeTypeMismatch))
       {
         getErrorLog()->remove(XMLAttributeTypeMismatch);
-        getErrorLog()->logPackageError("fbc", FbcNSUndeclared,
+        getErrorLog()->logPackageError("fbc", FbcModelStrictMustBeBoolean,
                      getPackageVersion(), sbmlLevel, sbmlVersion, "", getLine(), getColumn());
       }
       else
       {
         std::string message = "Fbc attribute 'strict' is missing from <Model> object.";
-        getErrorLog()->logPackageError("fbc", FbcNSUndeclared,
+        getErrorLog()->logPackageError("fbc", FbcModelMustHaveStrict,
                        getPackageVersion(), sbmlLevel, sbmlVersion, message, getLine(), getColumn());
       }
     }
