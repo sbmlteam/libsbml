@@ -557,8 +557,9 @@ endef
 # contents lacking all the classes flagged with @ingroup.  To solve that,
 # we copy over the index files created from the first Doxygen pass.
 
+#  $(call doxygen_indexing_pass,$(1),$(2),$(3))
+
 define run_doxygen
-  $(call doxygen_indexing_pass,$(1),$(2),$(3))
   $(call doxygen_final_pass,$(1),$(2),$(3))
 endef
 

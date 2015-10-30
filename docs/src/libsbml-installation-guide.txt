@@ -7,7 +7,7 @@ installers.  Please follow the link below for more information:
 - @subpage libsbml-downloading
 @htmlinclude doxygen-regular-text-end.html
 
-If an installer is not available for your platform or the combination of
+If an installer is not available for your platform or for the combination of
 features you would like, you may need to build and configure libSBML
 yourself. For that, please follow the instructions below:
 

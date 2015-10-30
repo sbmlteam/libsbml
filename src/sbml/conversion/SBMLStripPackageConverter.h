@@ -51,6 +51,17 @@
  * @li @c "package": the value of this option should be a text string, the
  * nickname of the SBML Level&nbsp;3 package to be stripped from the model.
  *
+ * In addition, the converter understands an additional optional:
+ *
+ * @li @c "stripAllUnrecognized": if set to @c true, the converter will
+ * remove all SBML Level&nbsp;3 package constructs for Level&nbsp;3 packages
+ * that this copy of libSBML does not recognize.  Note that what a given copy
+ * of libSBML recognizes is determined by which plug-ins it has been
+ * configured to include.  If this option is enabled, it may remove SBML
+ * Level&nbsp;3 package constructs that are legitimate in the sense that they
+ * are officially defined SBML constructs, but not recognized because the
+ * running copy of libSBML has not had support enabled for them.
+ *
  * @copydetails doc_section_using_sbml_converters
  */
 
