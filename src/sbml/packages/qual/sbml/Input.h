@@ -96,6 +96,7 @@ class LIBSBML_EXTERN Input : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mQualitativeSpecies;
   InputTransitionEffect_t   mTransitionEffect;
@@ -103,6 +104,7 @@ protected:
   InputSign_t   mSign;
   int           mThresholdLevel;
   bool          mIsSetThresholdLevel;
+  /** @endcond */
 
 
 public:

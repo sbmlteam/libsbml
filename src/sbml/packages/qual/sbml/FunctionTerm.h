@@ -68,9 +68,11 @@ class LIBSBML_EXTERN FunctionTerm : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   int           mResultLevel;
   bool          mIsSetResultLevel;
   ASTNode*      mMath;
+  /** @endcond */
 
 
 public:

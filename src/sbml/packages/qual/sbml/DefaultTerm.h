@@ -66,8 +66,10 @@ class LIBSBML_EXTERN DefaultTerm : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   int           mResultLevel;
   bool          mIsSetResultLevel;
+  /** @endcond */
 
 
 public:

@@ -54,8 +54,10 @@ public:
 	virtual ~XMLLogOverride();
 	
 protected: 
+  /** @cond doxygenLibsbmlInternal */
 	XMLErrorLog* mLog;
 	XMLErrorSeverityOverride_t mOldStatus;
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

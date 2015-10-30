@@ -78,6 +78,7 @@ class LIBSBML_EXTERN QualitativeSpecies : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mCompartment;
   bool          mConstant;
@@ -87,6 +88,7 @@ protected:
   bool          mIsSetInitialLevel;
   int           mMaxLevel;
   bool          mIsSetMaxLevel;
+  /** @endcond */
 
 
 public:

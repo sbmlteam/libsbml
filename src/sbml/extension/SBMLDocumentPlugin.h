@@ -248,8 +248,10 @@ public:
 protected:
   /*-- data members --*/
 
+  /** @cond doxygenLibsbmlInternal */
   bool mRequired;
   bool mIsSetRequired;
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

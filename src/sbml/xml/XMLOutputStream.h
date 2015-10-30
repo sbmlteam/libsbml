@@ -843,8 +843,9 @@ public:
   std::ostringstream& getString();
 
 protected:
-
+  /** @cond doxygenLibsbmlInternal */
   std::ostringstream& mString;
+  /** @endcond */
 };
 /** @endcond */
 

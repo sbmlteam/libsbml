@@ -607,8 +607,6 @@ public:
 
 
 protected:
-
-protected:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Need a version of the SBaseRef constructor that does not load plugins.

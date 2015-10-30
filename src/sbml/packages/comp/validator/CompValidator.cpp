@@ -113,7 +113,9 @@ public:
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::list< TConstraint<T>* > constraints;
+  /** @endcond */
 };
 
 
@@ -379,8 +381,10 @@ public:
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   CompValidator&   v;
   const Model& m;
+  /** @endcond */
 };
 
 

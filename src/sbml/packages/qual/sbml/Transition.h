@@ -84,11 +84,13 @@ class LIBSBML_EXTERN Transition : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mName;
   ListOfInputs   mInputs;
   ListOfOutputs   mOutputs;
   ListOfFunctionTerms   mFunctionTerms;
+  /** @endcond */
 
 
 public:

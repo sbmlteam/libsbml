@@ -87,12 +87,14 @@ class LIBSBML_EXTERN Output : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mQualitativeSpecies;
   OutputTransitionEffect_t   mTransitionEffect;
   std::string   mName;
   int           mOutputLevel;
   bool          mIsSetOutputLevel;
+  /** @endcond */
 
 
 public:
