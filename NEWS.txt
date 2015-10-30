@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.11.9 (Current SVN)
+5.12.0 (2015-11-12)
 ====================================================================
 
 STABLE RELEASE
@@ -23,15 +23,21 @@ STABLE RELEASE
     usually takes and we would be grateful for any feedback
     on these functions. 
 	
+  - Validation speed has been dramatically improved for models that
+    make use of functionDefinitions and in particular nested 
+    functionDefinitions.	
+	
   - 'comp' package-specific updates:
+  
+    - The 'flattening' routines have been expanded to correctly deal
+	  with FBC V2.
+	
   - 'fbc' package-specific updates:
 
     - The FBC Version 2 package has been accepted by the SBML Editors.
       The code supporting this is now available as part of the stable
       release.
 
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
 
 * Bug fixes
 
@@ -48,12 +54,6 @@ STABLE RELEASE
     statement was added. 
 
 
-
-  - 'comp' package-specific bug fixes:
-  - 'fbc' package-specific bug fixes:
-  - 'layout' package-specific bug fixes:
-  - 'qual' package-specific bug fixes:
-
 * Configuration/build system changes
 
   - The CMake files have added an option to dynamically link
@@ -67,35 +67,18 @@ STABLE RELEASE
 
 * Miscellaneous
 
+  - Further documentation improvements have been added.
+
 
 EXPERIMENTAL RELEASE
 
 * New features
-
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'groups' package-specific updates:
 
   - 'multi' package-specific updates:
 
     - Full validation has been added to the multi package code.  
       Thanks to Fengkai Zhang for his continued efforts on this.
 
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
-
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
 
 ====================================================================
 5.11.6-experimental (2015-07-16)
