@@ -429,7 +429,6 @@ public:
   const UnitDefinition * getDerivedUnitDefinition() const;
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Predicate returning @c true if the math expression of this
    * InitialAssignment contains parameters/numbers with undeclared units.
@@ -445,10 +444,8 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits();
-  /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
   /**
    * Predicate returning @c true if the math expression of this
    * InitialAssignment contains parameters/numbers with undeclared units.
@@ -464,7 +461,6 @@ public:
    * @see getDerivedUnitDefinition()
    */
   bool containsUndeclaredUnits() const;
-  /** @endcond */
 
 
   /**
