@@ -314,7 +314,7 @@ public:
    * @copydetails doc_warning_modifying_structure
    *
    * @see prependChild(ASTNode* disownedChild)
-   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced=false)
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    * @see isWellFormedASTNode()
@@ -336,7 +336,7 @@ public:
    * @copydetails doc_warning_modifying_structure
    *
    * @see addChild(ASTNode* disownedChild)
-   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced=false)
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    * @see removeChild(unsigned int n)
    */
@@ -356,7 +356,7 @@ public:
    *
    * @see addChild(ASTNode* disownedChild)
    * @see prependChild(ASTNode* disownedChild)
-   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced=false)
    * @see insertChild(unsigned int n, ASTNode* disownedChild)
    */
   int removeChild(unsigned int n);
@@ -400,7 +400,7 @@ public:
    *
    * @see addChild(ASTNode* disownedChild)
    * @see prependChild(ASTNode* disownedChild)
-   * @see replaceChild(unsigned int n, ASTNode* disownedChild)
+   * @see replaceChild(unsigned int n, ASTNode* disownedChild, bool delreplaced=false)
    * @see removeChild(unsigned int n)
    */
   int insertChild(unsigned int n, ASTNode *disownedChild);
