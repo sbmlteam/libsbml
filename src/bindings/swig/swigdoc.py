@@ -276,8 +276,7 @@ class CHeader:
       self.ignoreThis = False
       self.inDocs     = not self.isInternal
 
-    if '@endcond' in stripped:
-      self.isInternal = False
+    if '@endcond' in stripped: self.isInternal = False
 
     if self.inComment and stripped.endswith('*/'):
       self.inComment  = False
@@ -1788,7 +1787,7 @@ def main (args):
   # each process writes its own file. 
   count = 1
   while os.path.isfile(tmpfilename):
-    print("warning: detected multiple run of swigdoc.py, this should not be happening!")
+    print ("warning: detected multiple run of swigdoc.py, this should not be happening!")
     tmpfilename = output_swig_file + ".tmp{0}".format(count)
     count = count + 1
   stream      = open(tmpfilename, 'w')
