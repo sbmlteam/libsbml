@@ -50,13 +50,22 @@ AC_SUBST(PACKAGE_COMP_SPEC_URL, [http://sbml.org/specifications/sbml-level-3/ver
 AC_SUBST(PACKAGE_COMP_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Hierarchical_Model_Composition_%28comp%29/Confirmed_issues_in_the_Hierarchical_Model_Composition_package_specification])
 
 # -----------------------------------------------------------------------------
-# 'fbc' package
+# 'fbc' package, v1
 # -----------------------------------------------------------------------------
 
-AC_SUBST(PACKAGE_FBC_VERSION, 1)
-AC_SUBST(PACKAGE_FBC_RELEASE, 1)
-AC_SUBST(PACKAGE_FBC_SPEC_URL, [http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1])
-AC_SUBST(PACKAGE_FBC_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification])
+AC_SUBST(PACKAGE_FBC_V1_VERSION, 1)
+AC_SUBST(PACKAGE_FBC_V1_RELEASE, 1)
+AC_SUBST(PACKAGE_FBC_V1_SPEC_URL, [http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-1.release-1])
+AC_SUBST(PACKAGE_FBC_V1_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification])
+
+# -----------------------------------------------------------------------------
+# 'fbc' package, v2
+# -----------------------------------------------------------------------------
+
+AC_SUBST(PACKAGE_FBC_V2_VERSION, 2)
+AC_SUBST(PACKAGE_FBC_V2_RELEASE, 1)
+AC_SUBST(PACKAGE_FBC_V2_SPEC_URL, [http://identifiers.org/combine.specifications/sbml.level-3.version-1.fbc.version-2.release-1])
+AC_SUBST(PACKAGE_FBC_V2_ERRATA_URL, [http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/Flux_Balance_Constraints_%28flux%29/Confirmed_issues_in_the_Flux_Balance_Constraints_package_specification])
 
 # -----------------------------------------------------------------------------
 # 'layout' package

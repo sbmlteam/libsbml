@@ -37,6 +37,10 @@ described in SBML, the Flux Balance Constraints (FBC) package is designed to
 extend SBML Level~3 Core by adding the elements necessary to encode current
 and future constraint-based models.
 
+<p> In version 2 of this package, the ability to encode gene products and
+gene product references was added, and the encoding of flux bounds was modified
+to reference parameters, instead of holding directly-encoded values.
+
 
 <h2>The specification for this SBML package</h2>
 
@@ -58,10 +62,17 @@ is provided below, along with a link to the page of known issues (if any).
 </tr>
 
 <tr><td>
-<a class="spec-link" target="_blank" href="@PACKAGE_FBC_SPEC_URL@">
-  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;@PACKAGE_FBC_VERSION@ Release&nbsp;@PACKAGE_FBC_RELEASE@</a>
+<a class="spec-link" target="_blank" href="@PACKAGE_FBC_V1_SPEC_URL@">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;@PACKAGE_FBC_V1_VERSION@ Release&nbsp;@PACKAGE_FBC_V1_RELEASE@</a>
 </td><td>
-<a class="spec-link" target="_blank" href="@PACKAGE_FBC_ERRATA_URL@">
+<a class="spec-link" target="_blank" href="@PACKAGE_FBC_V1_ERRATA_URL@">
+  <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+</td></tr>
+<tr><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_FBC_V2_SPEC_URL@">
+  <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints package, Version&nbsp;@PACKAGE_FBC_V2_VERSION@ Release&nbsp;@PACKAGE_FBC_V2_RELEASE@</a>
+</td><td>
+<a class="spec-link" target="_blank" href="@PACKAGE_FBC_V2_ERRATA_URL@">
   <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
 </td></tr>
 </table>

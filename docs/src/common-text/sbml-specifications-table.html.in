@@ -126,11 +126,25 @@ See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Spe
 
 <tr>
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_SPEC_URL@">
-            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints</a>
+        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_V1_SPEC_URL@">
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints, version 1</a>
     </td>
     <td style="white-space: nowrap">
-        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_ERRATA_URL@">
+        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_V1_ERRATA_URL@">
+            <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
+    </td>
+    <td>
+See the <a class="spec-link" target="_blank" href="http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc">activity page for 'fbc'</a> for more information
+    </td>
+</tr>
+
+<tr>
+    <td style="white-space: nowrap">
+        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_V2_SPEC_URL@">
+            <img class="big-icon" width="22px" src="icon-format-pdf-44px.jpg">Flux Balance Constraints, version 2</a>
+    </td>
+    <td style="white-space: nowrap">
+        <a class="spec-link" target="_blank" href="@PACKAGE_FBC_V2_ERRATA_URL@">
             <img class="big-icon" width="22px" src="icon-format-html-44px.jpg">Errata page</a>
     </td>
     <td>
