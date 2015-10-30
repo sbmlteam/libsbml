@@ -29,6 +29,13 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class FbcAnd
+ * @sbmlbrief{fbc} The 'and' type of FbcAssociation child of a GeneProductAssociation.
+ *
+ * The FbcAnd class contains two or more FbcAssociation children for a 
+ * GeneProductAssociation, meaning that all its children are included 
+ * in the association.
  */
 
 
@@ -63,7 +70,9 @@ class LIBSBML_EXTERN FbcAnd : public FbcAssociation
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   ListOfFbcAssociations   mAssociations;
+  /** @endcond doxygenLibsbmlInternal */
 
 
 public:

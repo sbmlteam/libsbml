@@ -29,6 +29,17 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class FbcAssociation
+ * @sbmlbrief{fbc} The abstract base class for the FbcAnd, FbcOr, and 
+ * GeneProductRef classes.
+ *
+ * The FbcAssociation class is the abstract base class for the classes that 
+ * can be used as children of the GeneProductAssociation child of a Reaction.
+ * The FbcAnd class is used when all of its children are definitely associated
+ * with the Reaction; the FbcOr class is used when at least one of its children
+ * are associated with the Reaction; and the GeneProductRef class is used to
+ * denote a particular GeneProduct.
  */
 
 
@@ -64,10 +75,9 @@ class LIBSBML_EXTERN FbcAssociation : public SBase
 {
 
 protected:
-
-
-
+  /** @cond doxygenLibsbmlInternal */
   std::string   mElementName;
+  /** @endcond */
 
 public:
 
@@ -323,6 +333,29 @@ protected:
 
 };
 
+/**
+ * @class ListOfFbcAssociations
+ * @sbmlbrief{fbc} A list of FbcAssociation objects.
+ * 
+ * The ListOfFbcAssociations is a container of FbcAssociation objects 
+ * for the FbcAnd and FbcOr classes.  Unlike the ListOf___ classes in
+ * SBML, the ListOfFbcAssociations is not a class that appears in the 
+ * &ldquo;fbc&rdquo; specification, and instead is used in libsbml 
+ * as a convenience class to store arbitrary numbers of FbcAssociation
+ * objects.  Also unlike other ListOf___ classes, the FbcAnd and FbcOr 
+ * classes require at least two child FbcAssociation objects, so valid
+ * ListOfFbcAssociations libsbml objects will always contain two or more 
+ * children.
+ *
+ * In addition, these children will have element names associated with 
+ * their derived class, not the base FbcAssociation class:  
+ * &ldquo;fbc:and&rdquo;, &ldquo;fbc:or&rdquo;, and &ldquo;fbc:geneProductRef&rdquo;.
+ *
+ * @see FbcAssociation
+ * @see FbcAnd
+ * @see FbcOr
+ * @see GeneProductRef
+ */
 class LIBSBML_EXTERN ListOfFbcAssociations : public ListOf
 {
 

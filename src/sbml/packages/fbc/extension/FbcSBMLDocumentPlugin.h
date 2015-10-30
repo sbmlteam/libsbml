@@ -29,6 +29,19 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class FbcSBMLDocumentPlugin
+ * @sbmlbrief{fbc} Extension of SBMLDocument for the fbc package.
+ *
+ * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
+ * class, and codifies the extentions to the SBMLDocument class defined in
+ * the SBML Level&nbsp;3 @ref comp
+ * @if java "Flux Balance Constraints"@endif@~ 
+ * package (&ldquo;comp&rdquo;).  This extention defines a
+ * required flag named <code>required</code>, which indicates whether 
+ * &ldquo;fbc&rdquo; constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Since they cannot, this attribute must be set @c false.
  */
 
 

@@ -310,8 +310,8 @@ GeneAssociation::unsetReaction ()
 
 
 /*
-  * Returns the value of the "association" attribute of this GeneAssociation.
-  */
+ * Returns the value of the "association" attribute of this GeneAssociation.
+ */
 const Association* 
 GeneAssociation::getAssociation () const
 {
@@ -319,8 +319,8 @@ GeneAssociation::getAssociation () const
 }
 
 /*
-  * Returns the value of the "association" attribute of this GeneAssociation.
-  */
+ * Returns the value of the "association" attribute of this GeneAssociation.
+ */
 Association* 
 GeneAssociation::getAssociation ()
 {

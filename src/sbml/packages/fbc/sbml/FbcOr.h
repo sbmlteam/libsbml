@@ -29,6 +29,13 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class FbcOr
+ * @sbmlbrief{fbc} The 'or' type of FbcAssociation child of a GeneProductAssociation.
+ *
+ * The FbcOr class contains two or more FbcAssociation children for a 
+ * GeneProductAssociation, meaning that one or more of its children are included 
+ * in the association.
  */
 
 
@@ -63,7 +70,9 @@ class LIBSBML_EXTERN FbcOr : public FbcAssociation
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   ListOfFbcAssociations   mAssociations;
+  /** @endcond */
 
 
 public:

@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new FbcModelPlugin
  */
 FbcModelPlugin::FbcModelPlugin(const std::string& uri,  
-                                 const std::string& prefix, 
+                               const std::string& prefix, 
                                FbcPkgNamespaces* fbcns) :
     SBasePlugin(uri, prefix, fbcns)
   , mStrict (false)
@@ -1378,7 +1378,6 @@ ListOfGeneAssociations*
   return &mAssociations;
 }
 
-
 /*
 * Returns the GeneAssociation object that belongs to the given index. If the
 * index is invalid, @c NULL is returned.
@@ -1393,7 +1392,6 @@ const GeneAssociation*
   return static_cast<const GeneAssociation*>(mAssociations.get(n));
 }
 
-
 /*
 * Returns the GeneAssociation object that belongs to the given index. If the
 * index is invalid, @c NULL is returned.
@@ -1407,7 +1405,6 @@ GeneAssociation*
 {
   return static_cast<GeneAssociation*>(mAssociations.get(n));
 }
-
 
 /*
 * Returns the GeneAssociation object based on its identifier.
@@ -1426,7 +1423,6 @@ GeneAssociation*
 {
   return static_cast<GeneAssociation*>(mAssociations.get(sid));
 }
-
 
 /*
 * Returns the GeneAssociation object based on its identifier.
@@ -1488,7 +1484,6 @@ int
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-
 /*
 * Creates a new GeneAssociation object and adds it to the list of GeneAssociation objects
 * and returns it.
@@ -1522,7 +1517,6 @@ GeneAssociation*
   return association;
 }
 
-
 /*
 * Removes the nth GeneAssociation object from this plugin object and
 * returns a pointer to it.
@@ -1542,7 +1536,6 @@ GeneAssociation*
   return static_cast<GeneAssociation*>(mAssociations.remove(n));
 }
 
-
 /*
 * Removes the GeneAssociation object with the given @p id attribute from 
 * this plugin object and returns a pointer to it.
@@ -1561,7 +1554,6 @@ GeneAssociation*
 {
   return static_cast<GeneAssociation*>(mAssociations.remove(sid));
 }
-
 
 /*
 * Returns the number of GeneAssociation object in this plugin object.

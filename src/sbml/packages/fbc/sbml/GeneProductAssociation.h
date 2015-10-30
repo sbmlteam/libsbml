@@ -29,6 +29,16 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class GeneProductAssociation
+ * @sbmlbrief{fbc} The GeneProductAssociation child of a Reaction associates 
+ * that Reaction with one or more genes or implied gene products through its 
+ * child Association.
+ *
+ * A GeneProductAssociation has a child FbcAssociation which may be of type 
+ * FbcAnd, FbcOr, or GeneProductRef.  This defines a relationship between the 
+ * parent Reaction and the children GeneProductRef elements, as modulated by any 
+ * 'FbcAnd' or 'FbcOr' parents that might be present.
  */
 
 
@@ -62,9 +72,11 @@ class LIBSBML_EXTERN GeneProductAssociation : public SBase
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mName;
   FbcAssociation*      mAssociation;
+  /** @endcond */
 
 
 public:

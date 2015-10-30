@@ -82,13 +82,14 @@ class LIBSBML_EXTERN Objective : public SBase
 {
 
 protected:
-
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mName;
   ObjectiveType_t   mType;
   ListOfFluxObjectives   mFluxObjectives;
   bool mIsSetListOfFluxObjectives;
   std::string mTypeString;
+  /** @endcond */
 
 public:
 
@@ -629,6 +630,20 @@ protected:
 
 };
 
+/**
+ * @class ListOfObjectives
+ * @sbmlbrief{fbc} A list of Objective objects.
+ * 
+ * The ListOfObjectives is a container for the SBML extended Model
+ * that lists all the possible Objective elements in the model.  The 
+ * ListOfObjectives object contains the 'activeObjective' attribute,
+ * not commonly seen in other ListOf___ 
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see GeneProduct
+ * @see FbcModelPlugin
+ */
 class LIBSBML_EXTERN ListOfObjectives : public ListOf
 {
 

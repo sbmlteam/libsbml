@@ -466,6 +466,19 @@ protected:
 
 };
 
+/**
+ * @class ListOfFluxObjectives
+ * @sbmlbrief{fbc} A list of FluxObjective objects.
+ * 
+ * The ListOfFluxObjectives is a container for the &ldquo;fbc&rdquo;
+ * Objective that indicate which fluxes (and what ratios for those fluxes)
+ * are to be used in maximizing or minimizing the Objective.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see Objective
+ * @see FluxObjective
+ */
 class LIBSBML_EXTERN ListOfFluxObjectives : public ListOf
 {
 

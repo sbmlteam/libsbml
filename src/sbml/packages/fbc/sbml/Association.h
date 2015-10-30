@@ -24,14 +24,11 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlbrief{fbc} Proposed representation of gene associations.
+ * @sbmlbrief{fbc} Helper class for an association annotation for fbc level 1.
  *
- * The Association class is currently not part of the official SBML
- * Level&nbsp;3 Flux Balance Constraints package specification; it is instead
- * a proposed future development of the package.  If adopted, the Association
- * class would be a child of a GeneAssociation that would describe a single
- * @em and or @em or relationship between two or more genes or other
- * associations.
+ * The Association class is a helper class for creating fbc level 1 annotations
+ * for storing gene association information.  For fbc level 2, that capability
+ * is handled by the FbcAssociation class.
  */
 
 #ifndef Association_H__
@@ -59,8 +56,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * @brief Enumeration of possible association children of the proposed
  * GeneAssociation class.
  *
- * This class is not part of Version&nbsp;1 of the Flux Balance Constraints
- * specification.
+ * These type codes are not part of the Flux Balance Constraints
+ * specification, but are used exclusively as helpers for custom
+ * annotations of Version~1 of the specification.  In Version~2, this
+ * information is handled bthough the use of the FbcAssociation abstract class,
+ * with its FbcAnd, FbcOr, and GeneProductAssociation derived classes.
  */
 typedef enum
 {

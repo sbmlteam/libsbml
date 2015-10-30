@@ -24,10 +24,11 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneAssociation
- * @sbmlbrief{fbc} Proposed annotation for gene associations.
+ * @sbmlbrief{fbc} Helper class for an association annotation for fbc level 1.
  *
- * Gene associations are not part of the core FBC specification, but rather
- * are a proposed annotation.
+ * The GeneAssociation class is a helper class for creating fbc level 1 annotations
+ * for storing gene association information.  For fbc level 2, that capability
+ * is handled by the GeneProductAssociation class.
  */ 
 
 #ifndef GeneAssociation_H__

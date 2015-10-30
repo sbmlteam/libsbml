@@ -1,5 +1,5 @@
 /**
- * @file    Association.h
+ * @file    Association.cpp
  * @brief   Implementation of Association, the contents of a GeneAssociation.
  * @author  Frank T. Bergmann
  *
@@ -645,4 +645,3 @@ Association::accept (SBMLVisitor& v) const
 
 #endif /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END
-

@@ -24,10 +24,10 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcExtension
- * @sbmlbrief{fbc} Base extension class for the package.
+ * @sbmlbrief{fbc} Base extension class for the fbc package.
  *
  * @class FbcPkgNamespaces
- * @sbmlbrief{fbc} SBMLNamespaces extension for the package.
+ * @sbmlbrief{fbc} SBMLNamespaces extension for the fbc package.
  */
 
 
@@ -143,7 +143,8 @@ public:
 
 
   /**
-   * Creates a new FbcExtension   */
+   * Creates a new FbcExtension   
+   */
   FbcExtension();
 
 
@@ -259,7 +260,6 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Initializes fbc extension by creating an object of this class with 
    * required SBasePlugin derived objects and registering the object 
@@ -272,13 +272,10 @@ public:
    *
    */
   static void init();
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the entry in the error table at this index. 
    *
@@ -287,13 +284,10 @@ public:
    * @return packageErrorTableEntry object in the FbcSBMLErrorTable corresponding to the index given.
    */
   //virtual packageErrorTableEntry getErrorTable(unsigned int index) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the entry in the error table at this index. 
    *
@@ -302,13 +296,10 @@ public:
    * @return packageErrorTableEntry object in the FbcSBMLErrorTable corresponding to the index given.
    */
   virtual packageErrorTableEntryV2 getErrorTableV2(unsigned int index) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the index in the error table with the given errorId. 
    *
@@ -317,30 +308,22 @@ public:
    * @return unsigned integer representing the index in the FbcSBMLErrorTable corresponding to the errorId given.
    */
   virtual unsigned int getErrorTableIndex(unsigned int errorId) const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Return the offset for the errorId range for the fbc L3 package. 
    *
    * @return unsigned intege representing the  offset for errors FbcSBMLErrorTable.
    */
   virtual unsigned int getErrorIdOffset() const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool hasMultipleVersions() const;
-
-
-  /** @endcond doxygenLibsbmlInternal */
+  /** @endcond */
 
 
 };
@@ -363,12 +346,20 @@ public:
 //
 typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
 
+/**
+ * @enum  SBMLFbcTypeCode_t
+ * @brief SBMLFbcTypeCode_t is the enumeration of possible types from the 'Fbc' package.
+ *
+ * @copydetails doc_what_are_typecodes
+ *
+ * @copydetails doc_additional_typecode_details
+ */
 typedef enum
 {
-    SBML_FBC_V1ASSOCIATION          = 800 /*!< Association type used in V1 for annotations */
+    SBML_FBC_V1ASSOCIATION          = 800 /*!< Association (only used in V1 for annotations--replaced in V2 with FbcAssociation) */
   , SBML_FBC_FLUXBOUND              = 801 /*!< FluxBound */
   , SBML_FBC_FLUXOBJECTIVE          = 802 /*!< FluxObjective */
-  , SBML_FBC_GENEASSOCIATION        = 803 /*!< GeneAssociation */
+  , SBML_FBC_GENEASSOCIATION        = 803 /*!< GeneAssociation (only used in V1 for annotations--replaced in V2 with GeneProductAssociation)*/
   , SBML_FBC_OBJECTIVE              = 804 /*!< Objective */
   , SBML_FBC_ASSOCIATION            = 805 /*!< FbcAssociation */
   , SBML_FBC_GENEPRODUCTASSOCIATION = 806 /*!< GeneProductAssociation */

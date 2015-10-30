@@ -29,6 +29,15 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class GeneProduct
+ * @sbmlbrief{fbc} A GeneProduct is an FbcAssociation that relates the parent 
+ * Reaction to a GeneProduct.
+ *
+ * A GeneProduct contains an id and an optional name so that it can be referenced 
+ * within SBML, a label to uniquely identify and reference a gene or implied gene 
+ * product, and an optional associatedSpecies, which references the SBML species 
+ * (if any) also associated with that gene or gene product.
  */
 
 
@@ -60,11 +69,12 @@ class LIBSBML_EXTERN GeneProduct : public SBase
 {
 
 protected:
-
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mName;
   std::string   mLabel;
   std::string   mAssociatedSpecies;
+  /** @endcond */
 
 
 public:
@@ -463,6 +473,20 @@ protected:
 
 };
 
+/**
+ * @class ListOfGeneProducts
+ * @sbmlbrief{fbc} A list of GeneProduct objects.
+ * 
+ * The ListOfGeneProducts is a container for the SBML extended Model
+ * that lists all the possible GeneProduct elements in the model.  These
+ * GeneProduct elements are referenced in the GeneProductAssociation child
+ * of an extended Reaction.
+ * 
+ * @copydetails doc_what_is_listof
+ *
+ * @see GeneProduct
+ * @see FbcModelPlugin
+ */
 class LIBSBML_EXTERN ListOfGeneProducts : public ListOf
 {
 

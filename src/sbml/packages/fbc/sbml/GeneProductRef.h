@@ -29,6 +29,13 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class GeneProductRef
+ * @sbmlbrief{fbc} A GeneProductRef is an FbcAssociation that relates the parent 
+ * Reaction to a GeneProduct.
+ *
+ * A GeneProductRef is a child of a Reaction, and points to a GeneProduct 
+ * involved in that Reaction.
  */
 
 
@@ -62,9 +69,11 @@ class LIBSBML_EXTERN GeneProductRef : public FbcAssociation
 
 protected:
 
+  /** @cond doxygenLibsbmlInternal */
   std::string   mId;
   std::string   mGeneProduct;
   std::string   mName;
+  /** @endcond */
 
 
 public:

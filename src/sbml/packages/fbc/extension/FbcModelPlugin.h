@@ -705,140 +705,128 @@ public:
   GeneProduct* removeGeneProduct(const std::string& sid);
 
   /**
-   * Returns the ListOfObjectives in this plugin object.
+   * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
    *
-   * @return ListOfObjectives object in this plugin object.
+   * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
   const ListOfGeneAssociations* getListOfGeneAssociations () const;
 
   /**
-   * Returns the ListOfGeneAssociations in this plugin object.
+   * Returns the ListOfGeneAssociations annotation object for level 1 in this plugin object.
    *
-   * @return ListOfGeneAssociations object in this plugin object.
+   * @return ListOfGeneAssociations annotation object for level 1 in this plugin object.
    */
   ListOfGeneAssociations* getListOfGeneAssociations ();
 
-  
   /**
-   * Returns the GeneAssociation object that belongs to the given index. If the
+   * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @param n the index number of the GeneAssociation to get.
+   * @param n the index number of the GeneAssociation annotation to get.
    *
-   * @return the nth GeneAssociation in the ListOfGeneAssociations.
+   * @return the nth GeneAssociation annotation in the ListOfGeneAssociations.
    */
   const GeneAssociation* getGeneAssociation (unsigned int n) const;
 
-
   /**
-   * Returns the GeneAssociation object that belongs to the given index. If the
+   * Returns the GeneAssociation annotation object that belongs to the given index. If the
    * index is invalid, @c NULL is returned.
    *
-   * @param n the index number of the GeneAssociation to get.
+   * @param n the index number of the GeneAssociation annotation to get.
    *
-   * @return the nth GeneAssociation in the ListOfGeneAssociations.
+   * @return the nth GeneAssociation annotation in the ListOfGeneAssociations.
    */
   GeneAssociation* getGeneAssociation (unsigned int n);
 
-
   /**
-   * Returns the GeneAssociation object based on its identifier.
+   * Returns the GeneAssociation annotation object based on its identifier.
    *
    * @param sid a string representing the identifier 
-   * of the GeneAssociation to get.
+   * of the GeneAssociation annotation to get.
    * 
-   * @return GeneAssociation in the ListOfGeneAssociations with the given @p sid
-   * or NULL if no such GeneAssociation exists.
+   * @return GeneAssociation annotation in the ListOfGeneAssociations with the given @p sid
+   * or NULL if no such GeneAssociation annotation exists.
    *
    * @see getGeneAssociation(unsigned int n)
    * @see getListOfGeneAssociations()
    */
   GeneAssociation* getGeneAssociation (const std::string& sid);
 
-
   /**
-   * Returns the GeneAssociation object based on its identifier.
+   * Returns the GeneAssociation annotation object based on its identifier.
    *
    * @param sid a string representing the identifier 
-   * of the GeneAssociation to get.
+   * of the GeneAssociation annotation to get.
    * 
-   * @return GeneAssociation in the ListOfGeneAssociations with the given @p sid 
-   * or NULL if no such GeneAssociation exists.
+   * @return GeneAssociation annotation in the ListOfGeneAssociations with the given @p sid 
+   * or NULL if no such GeneAssociation annotation exists.
    *
    * @see getGeneAssociation(unsigned int n)
    * @see getListOfGeneAssociations()
    */
   const GeneAssociation* getGeneAssociation (const std::string& sid) const;
 
-
   /**
-   * Adds a copy of the given GeneAssociation object to the list of GeneAssociations.
+   * Adds a copy of the given GeneAssociation annotation object to the list of GeneAssociations.
    *
-   * @param association the GeneAssociation object to be added to the list of GeneAssociations.
+   * @param association the GeneAssociation annotation object to be added to the list of GeneAssociations.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */ 
   int addGeneAssociation (const GeneAssociation* association);
 
-
   /**
-   * Creates a new GeneAssociation object and adds it to the list of GeneAssociation objects
+   * Creates a new GeneAssociation annotation object and adds it to the list of GeneAssociation objects
    * and returns it.
    *
-   * @return a newly created GeneAssociation object
+   * @return a newly created GeneAssociation annotation object
    */
   GeneAssociation* createGeneAssociation();
 
-
   /**
-   * Removes the nth GeneAssociation object from this plugin object and
+   * Removes the nth GeneAssociation annotation object from this plugin object and
    * returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for
    *  deleting it.
    *
-   * @param n the index of the GeneAssociation object to remove
+   * @param n the index of the GeneAssociation annotation object to remove
    *
-   * @return the GeneAssociation object removed.  As mentioned above, the 
+   * @return the GeneAssociation annotation object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
    * given index is out of range.
    */
   GeneAssociation* removeGeneAssociation (unsigned int n);
 
-
   /**
-   * Removes the GeneAssociation object with the given @p sid attribute from 
+   * Removes the GeneAssociation annotation object with the given @p sid attribute from 
    * this plugin object and returns a pointer to it.
    *
    * The caller owns the returned object and is responsible for
    * deleting it.
    *
-   * @param sid the id attribute of the GeneAssociation object to remove
+   * @param sid the id attribute of the GeneAssociation annotation object to remove
    *
-   * @return the GeneAssociation object removed.  As mentioned above, the 
+   * @return the GeneAssociation annotation object removed.  As mentioned above, the 
    * caller owns the returned object. @c NULL is returned if the 
    * given index is out of range.
    */
   GeneAssociation* removeGeneAssociation (const std::string& sid);
 
-
   /**
-   * Returns the number of GeneAssociation object in this plugin object.
+   * Returns the number of GeneAssociation annotation object in this plugin object.
    *
-   * @return the number of GeneAssociation object in this plugin object.
+   * @return the number of GeneAssociation annotation object in this plugin object.
    */
   int getNumGeneAssociations() const;
 
 
   /** @cond doxygenLibsbmlInternal */
-
   /**
    * Sets the parent SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -855,26 +843,18 @@ public:
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void connectToParent (SBase* sbase);
-
-
   /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-
-
   /** @endcond doxygenLibsbmlInternal */
 
 
   /** @cond doxygenLibsbmlInternal */
-
   virtual bool accept (SBMLVisitor& v) const;
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -889,14 +869,12 @@ protected:
   /** @endcond */
 
   /** @cond doxygenLibsbmlInternal */
-
   bool          mStrict;
   bool          mIsSetStrict;
   ListOfObjectives   mObjectives;
   ListOfGeneProducts   mGeneProducts;
   ListOfFluxBounds mBounds;
   ListOfGeneAssociations mAssociations;
-
   /** @endcond doxygenLibsbmlInternal */
 
 
