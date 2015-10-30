@@ -787,8 +787,6 @@ public:
    * @param value a Boolean, the return parameter into which the value should
    * be assigned.
    *
-   * @copydetails doc_read_methods_common_args
-   *
    * @param log an XMLErrorLog object, an optional error log for reporting
    * problems.
    *
