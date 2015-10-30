@@ -983,10 +983,10 @@ public:
 
   /**
    * Returns the line number on which this object first appears in the XML
-   * representation of the SBML document, or '0' if the object was created,
+   * representation of the SBML document, or <code>0</code> if the object was created,
    * not read from a file.
    *
-   * @return the line number of this SBML object, or '0' if no such value.
+   * @return the line number of this SBML object, or <code>0</code> if no such value.
    *
    * @note The line number for each construct in an SBML model is set upon
    * reading the model.  The accuracy of the line number depends on the
@@ -1010,10 +1010,10 @@ public:
 
   /**
    * Returns the column number on which this object first appears in the XML
-   * representation of the SBML document, or '0' if the object was created,
+   * representation of the SBML document, or <code>0</code> if the object was created,
    * not read from a file.
    * 
-   * @return the column number of this SBML object, or '0' if no such value.
+   * @return the column number of this SBML object, or <code>0</code> if no such value.
    * 
    * @note The column number for each construct in an SBML model is set
    * upon reading the model.  The accuracy of the column number depends on
@@ -2560,9 +2560,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /**
    * Returns this element as an XMLNode.
-   * 
+   *
    * @return this element as an XMLNode.
-   * 
+   *
    * @warning <span class="warning">This operation is computationally
    * expensive, because the element has to be fully serialized to a string
    * and then parsed into the XMLNode structure.  Attempting to convert a
@@ -3972,12 +3972,12 @@ SBase_getSBOTermAsURL (const SBase_t *sb);
 
 /**
  * Returns the line number on which the given structure first appears in the
- * XML representation of the SBML document, or '0' if the object was created,
+ * XML representation of the SBML document, or <code>0</code> if the object was created,
  * not read from a file.
  *
  * @param sb the SBase_t structure
  *
- * @return the line number of the given structure, or '0' if no such value.
+ * @return the line number of the given structure, or <code>0</code> if no such value.
  *
  * @see getColumn().
  *
@@ -3990,12 +3990,12 @@ SBase_getLine (const SBase_t *sb);
 
 /**
  * Returns the column number on which the given structure first appears in the
- * XML representation of the SBML document, or '0' if the object was created,
+ * XML representation of the SBML document, or <code>0</code> if the object was created,
  * not read from a file.
  *
  * @param sb the SBase_t structure
  *
- * @return the column number of this SBML structure, or '0' if no such value.
+ * @return the column number of this SBML structure, or <code>0</code> if no such value.
  *
  * @see getLine().
  *
