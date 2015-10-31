@@ -40,6 +40,8 @@
  * with the Reaction; the FbcOr class is used when at least one of its children
  * are associated with the Reaction; and the GeneProductRef class is used to
  * denote a particular GeneProduct.
+ *
+ * @copydetails fbcv2_annotation_replacement
  */
 
 
@@ -350,6 +352,8 @@ protected:
  * In addition, these children will have element names associated with 
  * their derived class, not the base FbcAssociation class:  
  * &ldquo;fbc:and&rdquo;, &ldquo;fbc:or&rdquo;, and &ldquo;fbc:geneProductRef&rdquo;.
+ *
+ * @copydetails fbcv2_annotation_replacement
  *
  * @see FbcAssociation
  * @see FbcAnd

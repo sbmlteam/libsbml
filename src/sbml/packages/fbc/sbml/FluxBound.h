@@ -28,6 +28,10 @@
  *
  * The FluxBound object holds a single (in)equality that provides the maximum
  * or minimum value that a reaction flux can obtain at steady state.
+ *
+ * Note that this class is only defined for Version&nbsp;1 of the fbc specification, 
+ * and was replaced in Version&nbsp;2 by a Parameter referenced by the 
+ * upperFluxBound or lowerFluxBound attributes on an FbcReactionPlugin.
  */
 
 #ifndef FluxBound_H__
@@ -480,6 +484,10 @@ protected:
  * @sbmlbrief{fbc} A list of FluxBound objects.
  *
  * The ListOfFluxBounds is a container for the FluxBound elements of a Model.
+ *
+ * Note that this class is only defined for Version&nbsp;1 of the fbc specification,
+ * and was replaced in Version&nbsp;2 by Parameter elements referenced by the 
+ * upperFluxBound or lowerFluxBound attributes on an FbcReactionPlugin.
  *
  * @copydetails doc_what_is_listof
  */

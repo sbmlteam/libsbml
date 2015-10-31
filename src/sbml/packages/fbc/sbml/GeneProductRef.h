@@ -36,6 +36,8 @@
  *
  * A GeneProductRef is a child of a Reaction, and points to a GeneProduct 
  * involved in that Reaction.
+ *
+ * @copydetails fbcv2_annotation_replacement
  */
 
 

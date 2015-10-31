@@ -37,7 +37,9 @@
  * A GeneProduct contains an id and an optional name so that it can be referenced 
  * within SBML, a label to uniquely identify and reference a gene or implied gene 
  * product, and an optional associatedSpecies, which references the SBML species 
- * (if any) also associated with that gene or gene product.
+ * (if any) also associated with that gene or gene product. 
+ *
+ * @copydetails fbcv2_annotation_replacement
  */
 
 
@@ -481,6 +483,8 @@ protected:
  * that lists all the possible GeneProduct elements in the model.  These
  * GeneProduct elements are referenced in the GeneProductAssociation child
  * of an extended Reaction.
+ *
+ * @copydetails fbcv2_annotation_replacement
  * 
  * @copydetails doc_what_is_listof
  *

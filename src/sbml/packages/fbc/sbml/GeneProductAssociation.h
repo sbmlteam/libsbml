@@ -39,6 +39,8 @@
  * FbcAnd, FbcOr, or GeneProductRef.  This defines a relationship between the 
  * parent Reaction and the children GeneProductRef elements, as modulated by any 
  * 'FbcAnd' or 'FbcOr' parents that might be present.
+ *
+ * @copydetails fbcv2_annotation_replacement
  */
 
 

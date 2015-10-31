@@ -62,7 +62,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  *
  * These type codes are not part of the Flux Balance Constraints
  * specification, but are used exclusively as helpers for custom
- * annotations of Version~1 of the specification.  In Version~2, this
+ * annotations of Version&nbsp;1 of the specification.  In Version&nbsp;2, this
  * information is handled bthough the use of the FbcAssociation abstract class,
  * with its FbcAnd, FbcOr, and GeneProductAssociation derived classes.
  */

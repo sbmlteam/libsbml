@@ -36,6 +36,8 @@
  * The FbcOr class contains two or more FbcAssociation children for a 
  * GeneProductAssociation, meaning that one or more of its children are included 
  * in the association.
+ *
+ * @copydetails fbcv2_annotation_replacement
  */
 
 

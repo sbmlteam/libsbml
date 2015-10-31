@@ -92,7 +92,7 @@ public:
 
   
   /** 
-   * the actual conversion 
+   * Perform the conversion.
    * 
    * @return status code represeting success/failure/conversion impossible
    */

@@ -3188,7 +3188,7 @@ if (lmp != null)
  *
  * @par
  * <b>The following section describes how this class or function will behave
- * in SBML Level~3 Version~2, but since that specfication has not yet been
+ * in SBML Level&nbsp;3 Version&nbsp;2, but since that specfication has not yet been
  * released or finalized, libsbml itself might not yet implement support for
  * this.</b>
  * 
@@ -3206,5 +3206,13 @@ if (lmp != null)
  * Thrown if the given @p sbmlns is inconsistent or incompatible
  * with this object.
  *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class fbcv2_annotation_replacement
+ *
+ * @par
+ * Note that this class was introduced in Version&nbsp;2 of the fbc specification, but 
+ * that the information it holds can be stored in the Association and GeneAssociation 
+ * annotation classes in libsbml for models with fbc Version&nbsp;1.
+ * 
  * <!-- ------------------------------------------------------------------- -->
  */
