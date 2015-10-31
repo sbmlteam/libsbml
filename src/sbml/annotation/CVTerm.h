@@ -1062,9 +1062,9 @@ public:
    * 
    * @return the number of CVTerms nested within this CVTerm object.
    *
-   * @note this does not recurse through potentially nested CVTerms within
-   * a given nested CVTerm. It returns the number of terms immediately nested
-   * within this CVTerm.
+   * @note this does not recurse through potentially nested CVTerm objects
+   * within a given nested CVTerm. It returns the number of terms immediately
+   * nested within this CVTerm.
    */
   unsigned int getNumNestedCVTerms() const;
 
@@ -1119,8 +1119,8 @@ public:
 
 
   /**
-   * Adds a copy of the given CVTerm object to the list of nested CVTerms
-   * within this CVTerm object.
+   * Adds a copy of the given CVTerm object to the list of nested CVTerm
+   * objects within this CVTerm object.
    *
    * @param term the CVTerm to assign.
    *
@@ -1580,7 +1580,7 @@ BiolQualifierType_fromString(const char* s);
  *
  * @return the number of CVTerm_t structures nested within this CVTerm_t structure.
  *
- * @note this does not recurse through potentially nested CVTerms within
+ * @note this does not recurse through potentially nested CVTerm objects within
  * a given nested CVTerm. It returns the number of terms immediately nested
  * within this CVTerm_t.
  *
