@@ -24,14 +24,16 @@
  *------------------------------------------------------------------------- -->
  *
  * @class GeneAssociation
- * @sbmlbrief{fbc} Helper class for an association annotation for fbc level 1.
+ * @sbmlbrief{fbc} Annotation helper class for &ldquo;fbc&rdquo; Version&nbsp;1.
  *
  * @htmlinclude not-sbml-warning.html
  *
- * The GeneAssociation class is a helper class for creating fbc level 1 annotations
- * for storing gene association information.  For fbc level 2, that capability
- * is handled by the GeneProductAssociation class.
- */ 
+ * The GeneAssociation class is a helper class for creating annotations to
+ * store gene association information in Version&nbsp;1 of the SBML
+ * Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;) package.  In
+ * &ldquo;fbc&rdquo; Version&nbsp;2, the equivalent capability is handled by
+ * the GeneProductAssociation class and this class (GeneAssociation) is not used.
+ */
 
 #ifndef GeneAssociation_H__
 #define GeneAssociation_H__

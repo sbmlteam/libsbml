@@ -29,10 +29,11 @@
  * An integral component in a complete description of a steady-state model is
  * the so-called <em>objective function</em>, which generally consists of a
  * linear combination of model variables (fluxes) and a sense (direction). In
- * the SBML Level&nbsp;3 FBC package, this concept is succinctly captured in
- * the Objective class. The FBC Objective class is derived from the normal
- * SBML SBase class and inherits the 'metaid' and 'sboTerm' attributes, as
- * well as the subcomponents for Annotation and Notes.
+ * the SBML Level&nbsp;3 &ldquo;fbc&rdquo; package, this concept is
+ * succinctly captured in the Objective class. The FBC Objective class is
+ * derived from the normal SBML SBase class and inherits the 'metaid' and
+ * 'sboTerm' attributes, as well as the subcomponents for Annotation and
+ * Notes.
  */
 
 
@@ -965,7 +966,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
 
   /**
-   * Write the namespace for the Fbc package.
+   * Write the namespace for the &ldquo;fbc&rdquo; package.
    */
   virtual void writeXMLNS(XMLOutputStream& stream) const;
 

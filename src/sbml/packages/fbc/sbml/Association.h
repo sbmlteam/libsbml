@@ -24,13 +24,15 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Association
- * @sbmlbrief{fbc} Helper class for an association annotation for fbc level 1.
+ * @sbmlbrief{fbc} Annotation helper class for &ldquo;fbc&rdquo; Version&nbsp;1.
  *
  * @htmlinclude not-sbml-warning.html
  *
- * The Association class is a helper class for creating fbc level 1 annotations
- * for storing gene association information.  For fbc level 2, that capability
- * is handled by the FbcAssociation class.
+ * The Association class is a helper class for creating annotations to store
+ * gene association information in Version&nbsp;1 of the SBML Level&nbsp;3
+ * Flux Balance Constraints (&ldquo;fbc&rdquo;) package.  In
+ * &ldquo;fbc&rdquo; Version&nbsp;2, the equivalent capability is handled
+ * by the FbcAssociation class and this class (Association) is not used.
  */
 
 #ifndef Association_H__
@@ -86,7 +88,7 @@ public:
 
   /**
    * Creates a new Association objet with the given SBML Level, Version, and
-   * FBC package version.
+   * &ldquo;fbc&rdquo; package version.
    */
    Association(unsigned int level      = FbcExtension::getDefaultLevel(),
                unsigned int version    = FbcExtension::getDefaultVersion(),

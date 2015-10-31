@@ -1,6 +1,6 @@
 /**
  * @file    FbcExtensionTypes.h
- * @brief   Include all SBML types of fbc extension in a single header file.
+ * @brief   Includes all SBML types of the fbc package extension in a single header file.
  * @author  Frank T. Bergmann
  *
  *<!---------------------------------------------------------------------------

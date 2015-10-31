@@ -1,6 +1,6 @@
 /**
  * @file    FbcExtension.h
- * @brief   Definition of FbcExtension, the core module of fbc package. 
+ * @brief   Definition of FbcExtension, the core module of fbc package.
  * @author  Frank T. Bergmann
  *
  *<!---------------------------------------------------------------------------
@@ -24,10 +24,10 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FbcExtension
- * @sbmlbrief{fbc} Base extension class for the fbc package.
+ * @sbmlbrief{fbc} Base extension class for the &ldquo;fbc&rdquo; package.
  *
  * @class FbcPkgNamespaces
- * @sbmlbrief{fbc} SBMLNamespaces extension for the fbc package.
+ * @sbmlbrief{fbc} SBMLNamespaces extension for the &ldquo;fbc&rdquo; package.
  */
 
 
@@ -143,7 +143,7 @@ public:
 
 
   /**
-   * Creates a new FbcExtension   
+   * Creates a new FbcExtension instance.
    */
   FbcExtension();
 
@@ -180,23 +180,28 @@ public:
 
 
    /**
-   * Returns the name of this package ("fbc")
+   * Returns the name of this SBML Level&nbsp;3 package ("fbc").
    *
-   * @return a string representing the name of this package ("fbc")
+   * @return a string representing the name of this package ("fbc").
    */
   virtual const std::string& getName() const;
 
 
   /**
-   * Returns the URI (namespace) of the package corresponding to the combination of 
-   * the given sbml level, sbml version, and package version.
-   * Empty string will be returned if no corresponding URI exists.
+   * Returns a string representing the SBML XML namespace of this
+   * SBML Level&nbsp;3 package.
+   *
+   * The namespace URI constructed by this method corresponds to the
+   * combination of the Level and Version of SBML, and the Version of the
+   * SBML Level&nbsp;3 package.  (At the time of this writing, the only SBML
+   * Level that supports packages is Level&nbsp;3, so the value of
+   * @p sbmlLevel is necessarily always <code>3</code>.)
    *
    * @param sbmlLevel the level of SBML
    * @param sbmlVersion the version of SBML
    * @param pkgVersion the version of package
    *
-   * @return a string of the package URI, or an empty string if no
+   * @return a string representing the package URI, or an empty string if no
    * corresponding URI exists.
    */
   virtual const std::string& getURI(unsigned int sbmlLevel,
@@ -207,35 +212,35 @@ public:
   /**
    * Returns the SBML Level for the given URI of this package.
    *
-   * @param uri the string of URI that represents one of versions of the
-   * &ldquo;fbc&rdquo; package
+   * @param uri a URI that represents a version of this package.
    *
-   * @return the SBML Level with the given URI of this package, or @c 0 if
-   * the given URI is invalid.
+   * @return the SBML Level for the given URI of this package, or @c 0 if the
+   * given URI is invalid.
    */
   virtual unsigned int getLevel(const std::string &uri) const;
 
 
   /**
-   * Returns the SBML Version for the given URI of this package.
+   * Returns the Version within the SBML Level for the given URI of this
+   * package.
    *
-   * @param uri the string of URI that represents one of versions of the
-   * &ldquo;fbc&rdquo; package
+   * @param uri a URI that represents a version of this package.
    *
-   * @return the SBML version with the given URI of this package, or @c 0 if
-   * the given URI is invalid.
+   * @return the SBML Version within the SBML Level for the given URI of this
+   * package, or @c 0 if the given URI is invalid.
    */
   virtual unsigned int getVersion(const std::string &uri) const;
 
 
   /**
-   * Returns the package version for the given URI of this package.
+   * Returns the SBML Level&nbsp;3 package version for the given URI of this
+   * package.
    *
-   * @param uri the string of URI that represents one of versions of the
-   * &ldquo;fbc&rdquo; package
+   * @param uri a URI that represents one of the valid versions of this
+   * package.
    *
-   * @return the package version with the given URI of this package, or @c 0
-   * if the given URI is invalid.
+   * @return the version of the SBML Level&nbsp;3 package with the given URI,
+   * or @c 0 if the given URI is invalid.
    */
   virtual unsigned int getPackageVersion(const std::string &uri) const;
 
@@ -243,11 +248,11 @@ public:
   /**
    * Returns an FbcPkgNamespaces object.
    *
-   * @param uri the string of URI that represents one of versions of the
+   * @param uri a URI that represents one of the valid versions of the
    * &ldquo;fbc&rdquo; package
    *
    * @return an FbcPkgNamespace object corresponding to the given @p uri, or
-   * @c NULL if the URI is not defined in the FBC package.
+   * @c NULL if the URI is not defined in the &ldquo;fbc&rdquo; package.
    */
   virtual SBMLNamespaces* getSBMLExtensionNamespaces(const std::string &uri) const;
 
@@ -255,6 +260,14 @@ public:
   /**
    * Takes a type code of the &ldquo;fbc&rdquo; package and returns a string
    * describing the code.
+   *
+   * @param typeCode a libSBML type code defined by the libSBML extension
+   * implementing support for the SBML Level&nbsp;3 &ldquo;fbc&rdquo; package.
+   *
+   * @return a text string representing the type code given by @p typeCode.
+   * If the type code is unrecognized for this implementation of the libSBML
+   * &ldquo;fbc&rdquo; package, the string returned will be
+   * <code>"(Unknown SBML Fbc Type)"</code>.
    */
   virtual const char* getStringFromTypeCode(int typeCode) const;
 
@@ -348,7 +361,8 @@ typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
 
 /**
  * @enum  SBMLFbcTypeCode_t
- * @brief SBMLFbcTypeCode_t is the enumeration of possible types from the 'Fbc' package.
+ * @brief SBMLFbcTypeCode_t Enumeration of possible types in the libSBML
+ * &ldquo;fbc&rdquo; package implementation.
  *
  * @copydetails doc_what_are_typecodes
  *
@@ -356,10 +370,10 @@ typedef SBMLExtensionNamespaces<FbcExtension> FbcPkgNamespaces;
  */
 typedef enum
 {
-    SBML_FBC_V1ASSOCIATION          = 800 /*!< Association (only used in V1 for annotations--replaced in V2 with FbcAssociation) */
+    SBML_FBC_V1ASSOCIATION          = 800 /*!< Association (only used in Version&nbsp;1; replaced in Version&nbsp;2 with FbcAssociation) */
   , SBML_FBC_FLUXBOUND              = 801 /*!< FluxBound */
   , SBML_FBC_FLUXOBJECTIVE          = 802 /*!< FluxObjective */
-  , SBML_FBC_GENEASSOCIATION        = 803 /*!< GeneAssociation (only used in V1 for annotations--replaced in V2 with GeneProductAssociation)*/
+  , SBML_FBC_GENEASSOCIATION        = 803 /*!< GeneAssociation (only used in Version&nbsp;1; replaced in Version&nbsp;2 with GeneProductAssociation)*/
   , SBML_FBC_OBJECTIVE              = 804 /*!< Objective */
   , SBML_FBC_ASSOCIATION            = 805 /*!< FbcAssociation */
   , SBML_FBC_GENEPRODUCTASSOCIATION = 806 /*!< GeneProductAssociation */

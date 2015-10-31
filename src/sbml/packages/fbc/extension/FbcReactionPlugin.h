@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FbcReactionPlugin
- * @sbmlbrief{comp} Extension of Reaction by the fbc package.
+ * @sbmlbrief{comp} Extension of Reaction by the &ldquo;fbc&rdquo; package.
  *
  * The FbcReactionPlugin class inherits from the SBasePlugin class, 
  * and codifies the extentions to the Reaction class defined in the
