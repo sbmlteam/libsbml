@@ -575,7 +575,7 @@ define doxygen_indexing_pass
     $(DOXYGEN) doxygen-config.txt; \
   fi
   cp -f $(2)/navtreeindex*.js .
-  cp -f $(2)/navtree.js .
+  cp -f $(2)/navtree*.js .
   cp -f $(2)/files.js .
 endef
 
@@ -593,9 +593,11 @@ define doxygen_final_pass
   fi
   cp -f navtreeindex*.js $(2)
   cp -f navtree.js $(2)
+  cp -f navtree*.js $(2)
   cp -f files.js $(2)
   rm navtreeindex*.js
   rm navtree.js
+  rm navtreedata.js
   rm files.js
 endef
 
@@ -776,13 +778,13 @@ define merge_java_example
 endef
 
 define insert_javascript
-  perl -i -pe 's|<SCRIPT type="text/javascript">|<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">|g' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<SCRIPT type="text/javascript">|<script src="../../../sbml.js"></script><SCRIPT type="text/javascript">|ig' $(wildcard $(1)/*.html)
 endef
 
 define rewrite_links
-  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>Package|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|g' $(wildcard $(1)/*.html)
-  perl -i -pe 's|<FONT CLASS="NavBarFont1 top-level"><B>Package|<FONT CLASS="NavBarFont1 top-level"><B>org.sbml.libsbml|g' $(wildcard $(1)/*.html)
-  perl -i -pe 's|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>\n  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="$(2)extensions-summary.html"><FONT CLASS="NavBarFont1"><B>Level 3 Extensions</B></FONT></A>&nbsp;</TD>|g' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>Package|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|ig' $(wildcard $(1)/*.html)
+  perl -i -pe 's|<FONT CLASS="NavBarFont1 top-level"><B>Package|<FONT CLASS="NavBarFont1 top-level"><B>org.sbml.libsbml|ig' $(wildcard $(1)/*.html)
+  perl -i -pe 's|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>|org.sbml.libsbml</B></FONT></A>&nbsp;</TD>\n  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="$(2)extensions-summary.html"><FONT CLASS="NavBarFont1"><B>Level 3 Extensions</B></FONT></A>&nbsp;</TD>|ig' $(wildcard $(1)/*.html)
 endef
 
 define adjust_frameset_in_file
@@ -790,11 +792,11 @@ define adjust_frameset_in_file
 endef
 
 define fix_broken_highlighting
-  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|g' \
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|ig' \
     $(java-manual)/index.html
-  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|g' \
+  perl -i -pe 's|<FONT CLASS="NavBarFont1"><B>org.sbml.libsbml|<FONT CLASS="NavBarFont1 selected"><B>org.sbml.libsbml|ig' \
     $(java-manual)/$(java-class-path)/package-summary.html
-  perl -i -pe 's|CLASS="NavBarFont1"><B>Level 3 Extensions|CLASS="NavBarFont1 selected"><B>Level 3 Extensions|g' \
+  perl -i -pe 's|CLASS="NavBarFont1"><B>Level 3 Extensions|CLASS="NavBarFont1 selected"><B>Level 3 Extensions|ig' \
     $(java-manual)/extensions-summary.html
   perl -i -pe 's|NavBarFont1 top-level|NavBarFont1|g' \
     $(java-manual)/extensions-summary.html
@@ -886,7 +888,6 @@ java-manual $(java-manual): $(all-sources) $(css-files) SBMLDoclet.class \
 	$(call merge_html,libsbml-java-math.html,libsbml-java-math.html,Manipulating mathematical expressions)
 	$(call merge_html,libsbml-java-misc.html,libsbml-java-misc.html,Miscellaneous Java-specific information)
 	$(call merge_html,libsbml-java-example-files.html,libsbml-java-example-files.html,Example libSBML programs in Java)
-	$(call merge_html,libsbml-core-versus-packages.html,libsbml-core-versus-packages.html,LibSBML &ldquo;core&rdquo; and extensions)
 	$(call merge_html,common-text/libsbml-installation.html,libsbml-installation.html,LibSBML installation)
 	$(call merge_html,common-text/libsbml-downloading.html,libsbml-downloading.html,LibSBML downloads)
 	$(call merge_html,common-text/libsbml-features.html,libsbml-features.html,LibSBML features)
