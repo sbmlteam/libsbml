@@ -92,6 +92,7 @@
 #include <sbml/conversion/SBMLInferUnitsConverter.h>
 #include <sbml/conversion/SBMLInitialAssignmentConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
+#include <sbml/conversion/SBMLLevel1Version1Converter.h>
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLReactionConverter.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
