@@ -982,11 +982,12 @@ public:
 
 
   /**
-   * Returns the line number on which this object first appears in the XML
-   * representation of the SBML document, or <code>0</code> if the object was created,
-   * not read from a file.
+   * Returns the line number where this object first appears in the XML
+   * representation of the SBML document.
    *
-   * @return the line number of this SBML object, or <code>0</code> if no such value.
+   * @return the line number of this SBML object.  If this object was
+   * created programmatically and not read from a file, this method will
+   * return the value @c 0.
    *
    * @note The line number for each construct in an SBML model is set upon
    * reading the model.  The accuracy of the line number depends on the
@@ -1009,12 +1010,13 @@ public:
 
 
   /**
-   * Returns the column number on which this object first appears in the XML
-   * representation of the SBML document, or <code>0</code> if the object was created,
-   * not read from a file.
-   * 
-   * @return the column number of this SBML object, or <code>0</code> if no such value.
-   * 
+   * Returns the column number where this object first appears in the XML
+   * representation of the SBML document.
+   *
+   * @return the column number of this SBML object.  If this object was
+   * created programmatically and not read from a file, this method will
+   * return the value @c 0.
+   *
    * @note The column number for each construct in an SBML model is set
    * upon reading the model.  The accuracy of the column number depends on
    * the correctness of the XML representation of the model, and on the
@@ -1618,7 +1620,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
-   * @see removeTopLevelAnnotationElement(const std::string elementName, const std::string elementURI)
+   * @see removeTopLevelAnnotationElement(const std::string elementName, const std::string elementURI, bool removeEmpty)
    * @see replaceTopLevelAnnotationElement(const std::string&)
    */
   int replaceTopLevelAnnotationElement(const XMLNode* annotation);
@@ -2525,6 +2527,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * <li> Level&nbsp;2 Version&nbsp;2: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version2</code>&quot;
    * <li> Level&nbsp;2 Version&nbsp;3: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version3</code>&quot;
    * <li> Level&nbsp;2 Version&nbsp;4: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version4</code>&quot;
+   * <li> Level&nbsp;2 Version&nbsp;5: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level2/version5</code>&quot;
    * <li> Level&nbsp;3 Version&nbsp;1 Core: &quot;<code style='margin-right:0; padding-right:0'>http</code><code style='margin-left:0; padding-left:0'>://www.sbml.org/sbml/level3/version1/core</code>&quot;
    * </ul>
    *
@@ -3248,14 +3251,13 @@ newModel.addSpecies(s1);
    *
    * This function first returns the URI for this element by looking into the
    * SBMLNamespaces object of the document with the its package name.  If not
-   * found, it will @if clike return the result of getElementNamespace()@else
-   * return the XML namespace to which this element belongs@endif.
+   * found, it will then look for the namespace associated with the element
+   * itself.
    *
-   * @return the URI of this element
+   * @return the URI of this element, as a text string
    *
    * @see getSBMLDocument()
    * @see getPackageName()
-   * @if clike @see getElementNamespace() @endif
    */
   std::string getURI() const;
 
@@ -3336,6 +3338,7 @@ protected:
    * <li> Level&nbsp;2 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level2/version2"</code>
    * <li> Level&nbsp;2 Version&nbsp;3: <code>"http://www.sbml.org/sbml/level2/version3"</code>
    * <li> Level&nbsp;2 Version&nbsp;4: <code>"http://www.sbml.org/sbml/level2/version4"</code>
+   * <li> Level&nbsp;2 Version&nbsp;5: <code>"http://www.sbml.org/sbml/level2/version5"</code>
    * <li> Level&nbsp;3 Version&nbsp;1 Core: <code>"http://www.sbml.org/sbml/level3/version1/core"</code>
    * </ul>
    *
@@ -4915,6 +4918,7 @@ SBase_getElementName (const SBase_t *sb);
  * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
  * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
  * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
+ * <li> Level&nbsp;2 Version&nbsp;5 "http://www.sbml.org/sbml/level2/version5"
  * </ul>
  *
  * @param sb the SBase_t structure
