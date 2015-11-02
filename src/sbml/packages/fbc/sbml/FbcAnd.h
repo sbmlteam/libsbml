@@ -247,13 +247,14 @@ public:
   */
   virtual std::string toInfix() const;
 
+
   /**
    * Creates a new FbcAnd object, adds it to this FbcAnds
    * ListOfFbcAssociations and returns the FbcAnd object created. 
    *
    * @return a new FbcAnd object instance
    *
-   * @see addFbcAssociation(const FbcAssociation* fa)
+   * @see addAssociation(const FbcAssociation* fa)
    */
   FbcAnd* createAnd();
 
@@ -264,7 +265,7 @@ public:
    *
    * @return a new FbcOr object instance
    *
-   * @see addFbcAssociation(const FbcAssociation* fa)
+   * @see addAssociation(const FbcAssociation* fa)
    */
   FbcOr* createOr();
 
@@ -275,7 +276,7 @@ public:
    *
    * @return a new GeneProductRef object instance
    *
-   * @see addFbcAssociation(const FbcAssociation* fa)
+   * @see addAssociation(const FbcAssociation* fa)
    */
   GeneProductRef* createGeneProductRef();
 
