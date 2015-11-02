@@ -686,9 +686,27 @@ string that @em is the content to be read.
 %feature("docstring") XMLOutputStream::XMLOutputStream "
 Creates a new XMLOutputStream that wraps the given @p stream.
 
-@copydetails doc_programname_arguments
+The functionality associated with the @p programName and @p
+programVersion arguments concerns an optional comment that libSBML can
+write at the beginning of the output stream.  The comment is intended
+for human readers of the XML file, and has the following form:
+@verbatim
+<!-- Created by <program name> version <program version>
+on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+@endverbatim
 
-@copydetails doc_xml_declaration
+This program information comment is a separate item from the XML
+declaration that this method can also write to this output stream.  The
+comment is also not mandated by any SBML specification.  This libSBML
+functionality is provided for the convenience of calling programs, and to
+help humans trace the origin of SBML files.
+
+LibSBML tries to produce human-readable XML output by automatically
+indenting the bodies of elements.  Callers can manually control
+indentation further by using the XMLOutputStream::upIndent()
+and XMLOutputStream::downIndent() methods to increase and
+decrease, respectively, the current level of indentation in the
+XML output.
 
 @param stream the input stream to wrap.
 
