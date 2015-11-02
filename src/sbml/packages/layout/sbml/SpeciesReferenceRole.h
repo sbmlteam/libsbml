@@ -56,7 +56,7 @@ typedef enum
   , SPECIES_ROLE_MODIFIER /*!< 'modifier':  The referenced Species influences the reaction in some way, but is not produced or consumed by it. */
   , SPECIES_ROLE_ACTIVATOR /*!< The referenced Species acts as an activator of the reaction. */
   , SPECIES_ROLE_INHIBITOR /*!< The referenced Species acts as an inhibitor of the reaction. */
-  , SPECIES_ROLE_INVALID /*!< Used by libSBML to note that the role is not set, or an invalid and will not be written out. */
+  , SPECIES_ROLE_INVALID /*!< Used by libSBML to note that the role is not set, or is invalid and will not be written out. */
 } SpeciesReferenceRole_t;
 
 
