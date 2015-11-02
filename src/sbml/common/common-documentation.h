@@ -3209,12 +3209,60 @@ if (lmp != null)
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_note_fbcv2_annotation_replacement
  *
- * @note
- * This class of objects was introduced in Version&nbsp;2 of the
+ * @note This class of objects was introduced in Version&nbsp;2 of the
  * SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
  * specification.  In Version&nbsp;1 of &ldquo;fbc&rdquo;, the information
  * encoded by this class can be stored instead using the Association and
  * GeneAssociation annotation classes.  Please see the Version&nbsp;1 and
  * Version&nbsp;2 &ldquo;fbc&rdquo; specifications for more details.
+ *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_common_intro_package_validators
+ *
+ * @par
+ * LibSBML implements facilities for verifying that a given SBML document
+ * is valid according to the SBML specifications; it also exposes the
+ * validation interface so that user programs and SBML Level&nbsp;3 package
+ * authors may use the facilities to implement new validators.  There are
+ * two main interfaces to libSBML's validation facilities, based on the
+ * classes Validator and ValidatingVisitor.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_section_package_validators_general_info
+ *
+ * @section general-pkg-validators General information about package-specific validators
+ *
+ * The general SBMLDocument::checkConsistency() methods that perform
+ * validation make use of the libSBML plugin mechanism to invoke the
+ * package-specific validators via the relevant document plugin.  In the case
+ * of a validator such as FbcValidator, QualValidator, and others, the
+ * package-specific validator acts on the constructs from the relevant
+ * package rather than on core SBML constructs.  (However, this does not
+ * necessarily mean it does not take into account the whole SBML
+ * model&mdash;the information needed by a given validator to do its work is
+ * up to the validator itself.)
+ *
+ * Package-specific validators are invoked when
+ * SBMLDocument::checkConsistency() is invoked on the overall SBMLDocument
+ * object.  As the main validation procedure executes, it passes control to
+ * each libSBML package plugin via the plugin's <code><span class="code"
+ * style="background-color: #ffccbb; font-style: italic">Package</span>SBMLDocumentPlugin</code>
+ * class, (where <code><span class="code" style="background-color: #ffccbb;
+ * font-style: italic">Package</span></code> is the package prefix, such as
+ * <code>Qual</code>, or <code>Fbc</code>).  These class implement their own
+ * consistency-checking functions for rules defined in the relevant SBML
+ * Level&nbsp;3 package.
+ *
+ * The package-specific validators obey the same categories of
+ * consistency/error checks as are used by the overall
+ * SBMLDocument::checkConsistency().  This means that, for example, if
+ * identifier validation is turned off, it is turned off in all SBML
+ * Level&nbsp;3 package validators too. See
+ * SBMLDocument::setConsistencyChecks(@if java int categ, boolean
+ * onoff@endif) for more information about categories and how
+ * to control them.
+ *
+ * @see SBMLDocument::checkConsistency()
+ * @see SBMLDocument::checkInternalConsistency()
+ * @see SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
  */
