@@ -43,7 +43,6 @@
  * @copydetails doc_note_fbcv2_annotation_replacement
  */
 
-
 #ifndef FbcAssociation_H__
 #define FbcAssociation_H__
 
@@ -237,7 +236,7 @@ public:
   * or disjunctions.  For example:
   * @verbatim
   (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
-@end verbatim
+@endverbatim
   *
   * This method also creates missing GeneProduct objects, in case the unique
   * reference does not yet exist.
@@ -268,7 +267,6 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -279,7 +277,6 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
 
   /** @endcond doxygenLibsbmlInternal */
 
@@ -296,7 +293,6 @@ protected:
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -308,7 +304,6 @@ protected:
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -318,7 +313,6 @@ protected:
    * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
 
   /** @endcond doxygenLibsbmlInternal */
 
@@ -601,7 +595,6 @@ protected:
    */
   virtual SBase* createObject(XMLInputStream& stream);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -611,7 +604,6 @@ protected:
    * Write the namespace for the &ldquo;fbc&rdquo; package.
    */
   virtual void writeXMLNS(XMLOutputStream& stream) const;
-
 
   /** @endcond doxygenLibsbmlInternal */
 
