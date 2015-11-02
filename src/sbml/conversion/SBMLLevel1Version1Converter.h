@@ -37,31 +37,41 @@
  *
  * This SBML converter takes an SBML document having one SBML Level+Version
  * combination, and attempts to convert it to an SBML document having a
- * different Level+Version combination.
- *
- * This class is also the basis for
- * SBMLDocument::setLevelAndVersion(@if java long, long, boolean@endif).
+ * different Level+Version combination.  This converter
+ * (SBMLLevel1Version1Converter) converts models to SBML Level&nbsp;1
+ * Version&nbsp;1, to the extent possible by the limited features of
+ * that Level/Version combination of SBML.
  *
  * @section SBMLLevel1Version1Converter-usage Configuration and use of SBMLLevel1Version1Converter
  *
  * SBMLLevel1Version1Converter is enabled by creating a ConversionProperties
- * object with the option @c "setLevelAndVersion", and passing this
+ * object with the option @c "convertToL1V1", and passing this
  * properties object to SBMLDocument::convert(@if java
  * ConversionProperties@endif).  The target SBML Level and Version
  * combination are determined by the value of the SBML namespace set on the
  * ConversionProperties object (using
  * ConversionProperties::setTargetNamespaces(SBMLNamespaces *targetNS)).
  *
- * In addition, this converter offers one option:
+ * In addition, this converter offers the following options:
  *
- * @li @c "strict": if this option has the value @c true, then the validity
- * of the SBML document will be strictly preserved.  This means that SBML
- * validation will be performed, and if the original model is not valid or
- * semantics cannot be preserved in the converted model, then conversion will
- * not be performed.  Conversely, if this option is set to @c false, model
- * conversion will always be performed; if any errors are detected related to
- * altered semantics, the errors will be logged in the usual way (i.e., the
- * error log on the SBMLDocument object).
+ * @li @c "changePow": Mathematical expressions for exponentiation of
+ * the form <code>pow(s1, 2)</code> will be converted to the expression
+ * <code>s1^2</code>.
+ *
+ * @li @c "inlineCompartmentSizes": Back in the days of SBML Level&nbsp;1
+ * Version&nbsp;1, many software tools assumed that the "kinetic laws" of
+ * SBML were written in terms of units of
+ * <em>concentration</em>/<em>time</em>.  These tools would not expect (and
+ * thus not handle) rate expressions such as
+ * <code>CompartmentOfS1 * k * S1</code>.
+ * When the option @c "inlineCompartmentSizes" is enabled, libSBML will
+ * replace the references to compartments (such as @c "CompartmentOfS1" in
+ * this example) with their initial sizes.  This is not strictly correct in
+ * all cases; in particular, if the compartment volume varies during
+ * simulation, this conversion will not reflect the expected behavior.
+ * However, many models do not have time-varying compartment sizes, so this
+ * option makes it easy to get modern SBML rate expressions into a form that
+ * old software tools may better understand.
  *
  * @copydetails doc_section_using_sbml_converters
  */
