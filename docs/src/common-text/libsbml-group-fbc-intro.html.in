@@ -34,7 +34,7 @@ standardized data format for the definition, exchange and annotation of
 constraint based models has become critical. As the core model components
 (e.g., species, reactions, stoichiometry) can already be efficiently
 described in SBML, the Flux Balance Constraints (FBC) package is designed to
-extend SBML Level~3 Core by adding the elements necessary to encode current
+extend SBML Level&nbsp;3 Core by adding the elements necessary to encode current
 and future constraint-based models.
 
 <p> In version 2 of this package, the ability to encode gene products and
