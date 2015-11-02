@@ -38,6 +38,8 @@
 
 #include <sbml/packages/fbc/util/CobraToFbcConverter.h>
 #include <sbml/packages/fbc/util/FbcToCobraConverter.h>
+#include <sbml/packages/fbc/util/FbcV1ToV2Converter.h>
+#include <sbml/packages/fbc/util/FbcV2ToV1Converter.h>
 
 #include <sbml/packages/fbc/sbml/Association.h>
 #include <sbml/packages/fbc/sbml/FluxBound.h>
