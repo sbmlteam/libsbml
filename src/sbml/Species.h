@@ -1051,7 +1051,7 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see isSetConstant()
-   * @see setConstant(@if java String@endif)
+   * @see setConstant(@if java boolean@endif)
    * @see getConstant()
    */
   int unsetConstant ();
