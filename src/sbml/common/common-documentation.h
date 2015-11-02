@@ -3167,7 +3167,7 @@ if (lmp != null)
  * as a convenient way to refer to the package.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class l3v2_specific_addition
+ * @class doc_l3v2_specific_addition
  *
  * @par
  * <b>The following section describes how this class or function will behave
