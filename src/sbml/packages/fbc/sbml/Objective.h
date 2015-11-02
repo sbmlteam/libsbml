@@ -645,7 +645,7 @@ protected:
  * attribute on ListOfObjectives: the "activeObjective" attribute.  This
  * attribute is of type <code>SIdRef</code> and can only refer to the id of
  * an existing Objective. This required attribute exists so that when
- * multiple Objective’s are included in a single model, the model will always
+ * multiple Objective's are included in a single model, the model will always
  * be well described; i.e., there will be a single, primary objective
  * function which defines a single optimum and its associated solution space.
  *
