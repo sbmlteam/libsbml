@@ -72,13 +72,6 @@
  * reactions lacking kinetic laws are simply undefined, and not determined by
  * the algebraic rule.)
  *
- * @copydetails l3v2_specific_addition
- *
- * Finally, any symbol that appears as the target of a 'rateOf' csymbol may
- * not be determined by an AlgebraicRule.  This is because the 'rateOf'
- * csymbol is defined as applying only to symbols whose rates of change are 
- * easily determinable.
- *
  * @copydetails doc_rules_general_summary
  */
 
