@@ -663,6 +663,14 @@ InvalidUnitsValue = _libsbml.InvalidUnitsValue
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+CiCannotReference0DCompartment = _libsbml.CiCannotReference0DCompartment
+    ## @var long CiCannotReference0DCompartment
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 DuplicateComponentId = _libsbml.DuplicateComponentId
     ## @var long DuplicateComponentId
     ## 
@@ -754,6 +762,14 @@ InvalidUnitIdSyntax = _libsbml.InvalidUnitIdSyntax
 InvalidNameSyntax = _libsbml.InvalidNameSyntax
     ## @var long InvalidNameSyntax
     ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+DanglingUnitReference = _libsbml.DanglingUnitReference
+    ## @var long DanglingUnitReference
+    ##
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
@@ -1119,6 +1135,14 @@ InvalidDelaySBOTerm = _libsbml.InvalidDelaySBOTerm
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+InvalidLocalParameterSBOTerm = _libsbml.InvalidLocalParameterSBOTerm
+    ## @var long InvalidLocalParameterSBOTerm
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 NotesNotInXHTMLNamespace = _libsbml.NotesNotInXHTMLNamespace
     ## @var long NotesNotInXHTMLNamespace
     ## 
@@ -1466,6 +1490,14 @@ AllowedAttributesOnListOfReactions = _libsbml.AllowedAttributesOnListOfReactions
 AllowedAttributesOnListOfEvents = _libsbml.AllowedAttributesOnListOfEvents
     ## @var long AllowedAttributesOnListOfEvents
     ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+L3V2SubstanceUnitsOnModel = _libsbml.L3V2SubstanceUnitsOnModel
+    ## @var long L3V2SubstanceUnitsOnModel
+    ##
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
@@ -2007,6 +2039,14 @@ AllowedAttributesOnInitialAssign = _libsbml.AllowedAttributesOnInitialAssign
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+InitAssignmentCannotRef0DComp = _libsbml.InitAssignmentCannotRef0DComp
+    ## @var long InitAssignmentCannotRef0DComp
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 InvalidAssignRuleVariable = _libsbml.InvalidAssignRuleVariable
     ## @var long InvalidAssignRuleVariable
     ## 
@@ -2082,6 +2122,14 @@ AllowedAttributesOnRateRule = _libsbml.AllowedAttributesOnRateRule
 AllowedAttributesOnAlgRule = _libsbml.AllowedAttributesOnAlgRule
     ## @var long AllowedAttributesOnAlgRule
     ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+RuleCannotRef0DComp = _libsbml.RuleCannotRef0DComp
+    ## @var long RuleCannotRef0DComp
+    ##
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
@@ -2375,6 +2423,14 @@ AllowedAttributesOnListOfMods = _libsbml.AllowedAttributesOnListOfMods
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+L3V2FastDeprecated = _libsbml.L3V2FastDeprecated
+    ## @var long L3V2FastDeprecated
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
 AllowedAttributesOnLocalParameter = _libsbml.AllowedAttributesOnLocalParameter
     ## @var long AllowedAttributesOnLocalParameter
     ## 
@@ -2610,6 +2666,14 @@ SpeciesShouldHaveValue = _libsbml.SpeciesShouldHaveValue
 ParameterShouldHaveUnits = _libsbml.ParameterShouldHaveUnits
     ## @var long ParameterShouldHaveUnits
     ## 
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
+
+ParameterShouldHaveValue = _libsbml.ParameterShouldHaveValue
+    ## @var long ParameterShouldHaveValue
+    ##
     ## A value in the enumeration of all the SBML error and warning codes
     ## for objects of class SBMLError.  Please consult the
     ## documentation for SBMLError for an explanation of the
@@ -5100,6 +5164,11 @@ LIBSBML_ANNOTATION_NS_NOT_FOUND = _libsbml.LIBSBML_ANNOTATION_NS_NOT_FOUND
     ## namespace of any top-level element that is already present in the
     ## existing annotation.
 
+LIBSBML_MISSING_METAID = _libsbml.LIBSBML_MISSING_METAID
+    ## @var long LIBSBML_MISSING_METAID
+    ## @brief The requested action cannot be performed as the target object
+    ## does not have the "metaid" attribute set.
+
 LIBSBML_PKG_UNKNOWN = _libsbml.LIBSBML_PKG_UNKNOWN
     ## @var long LIBSBML_PKG_UNKNOWN
     ## @brief One of the possible libSBML package operation return codes.
@@ -5428,8 +5497,8 @@ SBML_COMP_PORT = _libsbml.SBML_COMP_PORT
     ## SBMLFbcTypeCode_t 
 
     
-SBML_FBC_ASSOCIATION = _libsbml.SBML_FBC_ASSOCIATION
-    ## @var long SBML_FBC_ASSOCIATION
+SBML_FBC_V1ASSOCIATION = _libsbml.SBML_FBC_V1ASSOCIATION
+    ## @var long SBML_FBC_V1ASSOCIATION
     ##
     ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
     ## possible SBML component type codes.
@@ -5532,9 +5601,146 @@ SBML_FBC_OBJECTIVE = _libsbml.SBML_FBC_OBJECTIVE
     ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
     ## component to which a given object corresponds.
 
-    ## AssociationTypeCode_t 
+SBML_FBC_AND = _libsbml.SBML_FBC_AND
+    ## @var long SBML_FBC_AND
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
 
-    
+SBML_FBC_GENEPRODUCT = _libsbml.SBML_FBC_GENEPRODUCT
+    ## @var long SBML_FBC_GENEPRODUCT
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
+SBML_FBC_GENEPRODUCTASSOCIATION = _libsbml.SBML_FBC_GENEPRODUCTASSOCIATION
+    ## @var long SBML_FBC_GENEPRODUCTASSOCIATION
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
+SBML_FBC_GENEPRODUCTREF = _libsbml.SBML_FBC_GENEPRODUCTREF
+    ## @var long SBML_FBC_GENEPRODUCTREF
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
+SBML_FBC_OR = _libsbml.SBML_FBC_OR
+    ## @var long SBML_FBC_OR
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
+SBML_FBC_V1ASSOCIATION = _libsbml.SBML_FBC_V1ASSOCIATION
+    ## @var long SBML_FBC_V1ASSOCIATION
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
+SBML_FBC_ASSOCIATION = _libsbml.SBML_FBC_ASSOCIATION
+    ## @var long SBML_FBC_ASSOCIATION
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+    ## possible SBML component type codes.
+    ## 
+    ## LibSBML attaches an identifying code to every kind of SBML object.
+    ## These are known as <em>SBML type codes</em>.  In other languages,
+    ## the set of type codes is stored in an enumeration; in the Java
+    ## language interface for libSBML, the type codes are defined as static
+    ## integer constants in the interface class @link libsbml libsbml@endlink.
+    ## The names of the type codes all begin with the characters
+    ## <code>SBML_</code>.
+    ## 
+    ## Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+    ## type codes to objects.  The present type code belongs to libSBML's
+    ## extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+    ## (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+    ## component to which a given object corresponds.
+
 GENE_ASSOCIATION = _libsbml.GENE_ASSOCIATION
     ## @var long GENE_ASSOCIATION
     ##
@@ -6204,6 +6410,18 @@ SPECIES_ROLE_ACTIVATOR = _libsbml.SPECIES_ROLE_ACTIVATOR
     
 SPECIES_ROLE_INHIBITOR = _libsbml.SPECIES_ROLE_INHIBITOR
     ## @var long SPECIES_ROLE_INHIBITOR
+    ##
+    ## <span class="pkg-marker pkg-color-layout">layout</span> One of the
+    ## possible roles of a SpeciesReferenceGlyph.
+    ## 
+    ## SpeciesReferenceGlyphs include an attribute to describe the role of a
+    ## given SpeciesReference in a model diagram.  The present code is one of
+    ## the possible values for this role attribute.
+    ##
+
+    
+SPECIES_ROLE_INVALID = _libsbml.SPECIES_ROLE_INVALID
+    ## @var long SPECIES_ROLE_INVALID
     ##
     ## <span class="pkg-marker pkg-color-layout">layout</span> One of the
     ## possible roles of a SpeciesReferenceGlyph.
@@ -8158,7 +8376,46 @@ FbcActiveObjectiveRefersObjective = _libsbml.FbcActiveObjectiveRefersObjective
     ##
 
 
-    
+FbcModelMustHaveStrict = _libsbml.FbcModelMustHaveStrict
+    ## @var long FbcModelMustHaveStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+
+FbcModelStrictMustBeBoolean = _libsbml.FbcModelStrictMustBeBoolean
+    ## @var long FbcModelStrictMustBeBoolean
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+
+FbcLOGeneProductsAllowedElements = _libsbml.FbcLOGeneProductsAllowedElements
+    ## @var long FbcLOGeneProductsAllowedElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+
+FbcLOGeneProductsAllowedAttributes = _libsbml.FbcLOGeneProductsAllowedAttributes
+    ## @var long FbcLOGeneProductsAllowedAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+
 FbcSpeciesAllowedL3Attributes = _libsbml.FbcSpeciesAllowedL3Attributes
     ## @var long FbcSpeciesAllowedL3Attributes
     ##
@@ -8492,6 +8749,376 @@ FbcFluxObjectCoefficientMustBeDouble = _libsbml.FbcFluxObjectCoefficientMustBeDo
     ## SBMLError.  Please consult the documentation for  SBMLError
     ## for an explanation of the meaning of this particular error code.
     ##
+
+
+FbcFluxObjectCoefficientWhenStrict = _libsbml.FbcFluxObjectCoefficientWhenStrict
+    ## @var long FbcFluxObjectCoefficientWhenStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionOnlyOneGeneProdAss = _libsbml.FbcReactionOnlyOneGeneProdAss
+    ## @var long FbcReactionOnlyOneGeneProdAss
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionAllowedAttributes = _libsbml.FbcReactionAllowedAttributes
+    ## @var long FbcReactionAllowedAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionLwrBoundSIdRef = _libsbml.FbcReactionLwrBoundSIdRef
+    ## @var long FbcReactionLwrBoundSIdRef
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionUpBoundSIdRef = _libsbml.FbcReactionUpBoundSIdRef
+    ## @var long FbcReactionUpBoundSIdRef
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionLwrBoundRefExists = _libsbml.FbcReactionLwrBoundRefExists
+    ## @var long FbcReactionLwrBoundRefExists
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionUpBoundRefExists = _libsbml.FbcReactionUpBoundRefExists
+    ## @var long FbcReactionUpBoundRefExists
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionMustHaveBoundsStrict = _libsbml.FbcReactionMustHaveBoundsStrict
+    ## @var long FbcReactionMustHaveBoundsStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionConstantBoundsStrict = _libsbml.FbcReactionConstantBoundsStrict
+    ## @var long FbcReactionConstantBoundsStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionBoundsMustHaveValuesStrict = _libsbml.FbcReactionBoundsMustHaveValuesStrict
+    ## @var long FbcReactionBoundsMustHaveValuesStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionBoundsNotAssignedStrict = _libsbml.FbcReactionBoundsNotAssignedStrict
+    ## @var long FbcReactionBoundsNotAssignedStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionLwrBoundNotInfStrict = _libsbml.FbcReactionLwrBoundNotInfStrict
+    ## @var long FbcReactionLwrBoundNotInfStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionUpBoundNotNegInfStrict = _libsbml.FbcReactionUpBoundNotNegInfStrict
+    ## @var long FbcReactionUpBoundNotNegInfStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcReactionLwrLessThanUpStrict = _libsbml.FbcReactionLwrLessThanUpStrict
+    ## @var long FbcReactionLwrLessThanUpStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcSpeciesReferenceConstantStrict = _libsbml.FbcSpeciesReferenceConstantStrict
+    ## @var long FbcSpeciesReferenceConstantStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcSpeciesRefsStoichMustBeRealStrict = _libsbml.FbcSpeciesRefsStoichMustBeRealStrict
+    ## @var long FbcSpeciesRefsStoichMustBeRealStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcSpeciesRefNotAssignedStrict = _libsbml.FbcSpeciesRefNotAssignedStrict
+    ## @var long FbcSpeciesRefNotAssignedStrict
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocAllowedCoreAttribs = _libsbml.FbcGeneProdAssocAllowedCoreAttribs
+    ## @var long FbcGeneProdAssocAllowedCoreAttribs
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocAllowedCoreElements = _libsbml.FbcGeneProdAssocAllowedCoreElements
+    ## @var long FbcGeneProdAssocAllowedCoreElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocAllowedAttribs = _libsbml.FbcGeneProdAssocAllowedAttribs
+    ## @var long FbcGeneProdAssocAllowedAttribs
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocIdSyntax = _libsbml.FbcGeneProdAssocIdSyntax
+    ## @var long FbcGeneProdAssocIdSyntax
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocContainsOneElement = _libsbml.FbcGeneProdAssocContainsOneElement
+    ## @var long FbcGeneProdAssocContainsOneElement
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdAssocNameMustBeString = _libsbml.FbcGeneProdAssocNameMustBeString
+    ## @var long FbcGeneProdAssocNameMustBeString
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdRefAllowedCoreAttribs = _libsbml.FbcGeneProdRefAllowedCoreAttribs
+    ## @var long FbcGeneProdRefAllowedCoreAttribs
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdRefAllowedCoreElements = _libsbml.FbcGeneProdRefAllowedCoreElements
+    ## @var long FbcGeneProdRefAllowedCoreElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdRefAllowedAttribs = _libsbml.FbcGeneProdRefAllowedAttribs
+    ## @var long FbcGeneProdRefAllowedAttribs
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdRefGeneProductSIdRef = _libsbml.FbcGeneProdRefGeneProductSIdRef
+    ## @var long FbcGeneProdRefGeneProductSIdRef
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProdRefGeneProductExists = _libsbml.FbcGeneProdRefGeneProductExists
+    ## @var long FbcGeneProdRefGeneProductExists
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcAndAllowedCoreAttributes = _libsbml.FbcAndAllowedCoreAttributes
+    ## @var long FbcAndAllowedCoreAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcAndAllowedCoreElements = _libsbml.FbcAndAllowedCoreElements
+    ## @var long FbcAndAllowedCoreElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcAndTwoChildren = _libsbml.FbcAndTwoChildren
+    ## @var long FbcAndTwoChildren
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcOrAllowedCoreAttributes = _libsbml.FbcOrAllowedCoreAttributes
+    ## @var long FbcOrAllowedCoreAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcOrAllowedCoreElements = _libsbml.FbcOrAllowedCoreElements
+    ## @var long FbcOrAllowedCoreElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcOrTwoChildren = _libsbml.FbcOrTwoChildren
+    ## @var long FbcOrTwoChildren
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProcuctAllowedCoreAttributes = _libsbml.FbcGeneProcuctAllowedCoreAttributes
+    ## @var long FbcGeneProcuctAllowedCoreAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProcuctAllowedCoreElements = _libsbml.FbcGeneProcuctAllowedCoreElements
+    ## @var long FbcGeneProcuctAllowedCoreElements
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProductAllowedAttributes = _libsbml.FbcGeneProductAllowedAttributes
+    ## @var long FbcGeneProductAllowedAttributes
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProductLabelMustBeString = _libsbml.FbcGeneProductLabelMustBeString
+    ## @var long FbcGeneProductLabelMustBeString
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProductLabelMustBeUnique = _libsbml.FbcGeneProductLabelMustBeUnique
+    ## @var long FbcGeneProductLabelMustBeUnique
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProductNameMustBeString = _libsbml.FbcGeneProductNameMustBeString
+    ## @var long FbcGeneProductNameMustBeString
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
+
+FbcGeneProductAssocSpeciesMustExist = _libsbml.FbcGeneProductAssocSpeciesMustExist
+    ## @var long FbcGeneProductAssocSpeciesMustExist
+    ##
+    ## <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+    ## enumeration of all the error and warning codes generated by the
+    ## libSBML &ldquo;fbc&rdquo; extension for objects of class 
+    ## SBMLError.  Please consult the documentation for  SBMLError
+    ## for an explanation of the meaning of this particular error code.
 
 
     ## LayoutSBMLErrorCode_t 
@@ -11146,6 +11773,16 @@ LIBSBML_OVERRIDE_WARNING = _libsbml.LIBSBML_OVERRIDE_WARNING
     ## of actual errors.
 
 
+LIBSBML_OVERRIDE_ERROR = _libsbml.LIBSBML_OVERRIDE_ERROR
+    ## @var long LIBSBML_OVERRIDE_ERROR
+    ##
+    ## Severity override code for errors logged in the XML layer.
+    ##
+    ## XMLErrorLog can be configured whether to log errors or not log them.
+    ## This code has the following meaning: log all errors as errors instead
+    ## of warnings.
+
+
 AnnotationNotElement = _libsbml.AnnotationNotElement
     ## @var long AnnotationNotElement
     ##
@@ -11154,6 +11791,13 @@ AnnotationNotElement = _libsbml.AnnotationNotElement
     ## documentation for SBMLError for an explanation of the
     ## meaning of this particular error code.
 
+NestedAnnotationNotAllowed = _libsbml.NestedAnnotationNotAllowed
+    ## @var long NestedAnnotationNotAllowed
+    ##
+    ## A value in the enumeration of all the SBML error and warning codes
+    ## for objects of class SBMLError.  Please consult the
+    ## documentation for SBMLError for an explanation of the
+    ## meaning of this particular error code.
 
 L3PackageOnLowerSBML = _libsbml.L3PackageOnLowerSBML
     ## @var long L3PackageOnLowerSBML
