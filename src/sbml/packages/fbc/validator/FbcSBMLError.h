@@ -141,8 +141,8 @@ typedef enum
 , FbcOrAllowedCoreElements              = 2021102 /*!< Allowed core elements on <code>&lt;Or&gt;</code> */
 , FbcOrTwoChildren                      = 2021103 /*!< <code>&lt;Or&gt;</code> must have at least two child elements */
 
-, FbcGeneProcuctAllowedCoreAttributes   = 2021201 /*!< Allowed core attributes on <code>&lt;GeneProduct&gt;</code> */
-, FbcGeneProcuctAllowedCoreElements     = 2021202 /*!< Allowed core elements on <code>&lt;GeneProduct&gt;</code> */
+, FbcGeneProductAllowedCoreAttributes   = 2021201 /*!< Allowed core attributes on <code>&lt;GeneProduct&gt;</code> */
+, FbcGeneProductAllowedCoreElements     = 2021202 /*!< Allowed core elements on <code>&lt;GeneProduct&gt;</code> */
 , FbcGeneProductAllowedAttributes       = 2021203 /*!< Allowed fbc attributes on <code>&lt;GeneProduct&gt;</code> */
 , FbcGeneProductLabelMustBeString       = 2021204 /*!< 'fbc:label' must be string */
 , FbcGeneProductLabelMustBeUnique       = 2021205 /*!< 'fbc:label' must be unique */

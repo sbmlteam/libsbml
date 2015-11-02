@@ -1218,7 +1218,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
   },
 
   // 2021201
-  { FbcGeneProcuctAllowedCoreAttributes,
+  { FbcGeneProductAllowedCoreAttributes,
     "Allowed core attributes on <GeneProduct>",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1233,7 +1233,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
   },
 
   // 2021202
-  { FbcGeneProcuctAllowedCoreElements,
+  { FbcGeneProductAllowedCoreElements,
     "Allowed core elements on <GeneProduct>",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,

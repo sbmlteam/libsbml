@@ -509,7 +509,7 @@ GeneProduct::readAttributes (const XMLAttributes& attributes,
         const std::string details =
                    getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", FbcGeneProcuctAllowedCoreAttributes,
+        getErrorLog()->logPackageError("fbc", FbcGeneProductAllowedCoreAttributes,
                   getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }
@@ -536,7 +536,7 @@ GeneProduct::readAttributes (const XMLAttributes& attributes,
         const std::string details =
                           getErrorLog()->getError(n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
-        getErrorLog()->logPackageError("fbc", FbcGeneProcuctAllowedCoreAttributes,
+        getErrorLog()->logPackageError("fbc", FbcGeneProductAllowedCoreAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
     }

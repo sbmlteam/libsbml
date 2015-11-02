@@ -9746,7 +9746,7 @@ public interface libsbmlConstants
      * SBMLError}.  Please consult the documentation for {@link SBMLError}
      * for an explanation of the meaning of this particular error code.
      */
-    public final static int FbcGeneProcuctAllowedCoreAttributes = 2021201;
+    public final static int FbcGeneProductAllowedCoreAttributes = 2021201;
 
 
     /**
@@ -9756,7 +9756,7 @@ public interface libsbmlConstants
      * SBMLError}.  Please consult the documentation for {@link SBMLError}
      * for an explanation of the meaning of this particular error code.
      */
-    public final static int FbcGeneProcuctAllowedCoreElements = 2021202;
+    public final static int FbcGeneProductAllowedCoreElements = 2021202;
 
 
     /**
