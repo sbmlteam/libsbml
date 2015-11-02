@@ -78,6 +78,7 @@ public:
    */
   GeneAssociation(const XMLNode& node, FbcPkgNamespaces* fbcns);
 
+
   /**
    * Creates a new GeneAssociation with the given FbcPkgNamespaces object.
    */
@@ -111,8 +112,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneAssociation's "id" attribute has been set.
+   * Predicate returning @c true if this GeneAssociation's "id" attribute is
+   * set.
    *
    * @return @c true if this GeneAssociation's "id" attribute has been set, 
    * otherwise @c false is returned.
@@ -151,8 +152,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneAssociation's "reaction" attribute has been set.
+   * Predicate returning @c true if this GeneAssociation's "reaction"
+   * attribute is set.
    *
    * @return @c true if this GeneAssociation's "reaction" attribute has been set, 
    * otherwise @c false is returned.
@@ -203,8 +204,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneAssociation's "association" element has been set.
+   * Predicate returning @c true if this GeneAssociation's "association"
+   * element is set.
    *
    * @return @c true if this GeneAssociation's "association" element has been set, 
    * otherwise @c false is returned.
@@ -235,10 +236,11 @@ public:
 
 
   /**
-   * Returns the XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object.
    *
-   * @return the name of this element, as a text string.
+   * For GeneAssociation, the XML element name is always @c "geneAssociation".
+   *
+   * @return the name of this element, i.e. @c "geneAssociation".
    */
   virtual const std::string& getElementName () const ;
 
@@ -489,11 +491,13 @@ public:
    */
   virtual int getItemTypeCode () const;
 
+
   /**
-   * Returns the XML element name of
-   * this SBML object.
+   * Returns the XML element name of this object.
    *
-   * @return the name of this element, as a text string.
+   * For ListOfGeneAssociations, the XML element name is always @c "listOfGeneAssociations".
+   *
+   * @return the name of this element, i.e. @c "listOfGeneAssociations".
    */
   virtual const std::string& getElementName () const;
 

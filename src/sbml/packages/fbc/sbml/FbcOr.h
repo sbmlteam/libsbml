@@ -31,13 +31,17 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FbcOr
- * @sbmlbrief{fbc} The 'or' type of FbcAssociation child of a GeneProductAssociation.
+ * @sbmlbrief{fbc} An &ldquo;or&rdquo; relationship for gene products
  *
- * The FbcOr class contains two or more FbcAssociation children for a 
- * GeneProductAssociation, meaning that one or more of its children are included 
- * in the association.
+ * FbcOr class is used in Version 2 of the SBML Level&nbsp;3 Flux Balance
+ * Constraints (&ldquo;fbc&rdquo;) package to represent an "or" relationship
+ * between two or more child FbcAssociation objects.  In other words, it
+ * indicates that all of the child objects are included.  Note that since the
+ * FbcAssociation class is the parent class of GeneProducRef, FbcOr and
+ * FbcOr, a given FbcOr can potentially include nested "and"/"or"
+ * combinations of gene products.
  *
- * @copydetails fbcv2_annotation_replacement
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
 
 
@@ -80,13 +84,15 @@ protected:
 public:
 
   /**
-   * Creates a new FbcOr with the given level, version, and package version.
+   * Creates a new FbcOr with the given SBML Level, Version, and
+   * &ldquo;fbc&rdquo;package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this FbcOr
    *
    * @param version an unsigned int, the SBML Version to assign to this FbcOr
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this FbcOr
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to
+   * this FbcOr
    */
   FbcOr(unsigned int level      = FbcExtension::getDefaultLevel(),
         unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -217,8 +223,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addAssociation(const FbcAssociation* fa);
 
@@ -310,8 +316,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for FbcOr, is
-   * always @c "fbcOr".
+   * Returns the XML element name of this object.
+   *
+   * For FbcOr, the XML element name is always @c "fbcOr".
    *
    * @return the name of this element, i.e. @c "fbcOr".
    */
@@ -320,33 +327,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_FBC_OR, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 

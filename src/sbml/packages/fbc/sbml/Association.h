@@ -130,8 +130,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Association's "type" attribute has been set.
+   * Predicate returning @c true if this Association's "type" attribute is
+   * set.
    *
    * @return @c true if this Association object's "type" attribute has been set,
    * otherwise @c false is returned.

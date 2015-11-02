@@ -779,7 +779,7 @@ ListOfGeneProducts::addGeneProduct(const GeneProduct* gp)
 }
 
 
-/**
+/*
  * Get the number of GeneProduct objects in this ListOfGeneProducts.
  *
  * @return the number of GeneProduct objects in this ListOfGeneProducts
@@ -790,7 +790,8 @@ ListOfGeneProducts::getNumGeneProducts() const
 	return size();
 }
 
-/**
+
+/*
  * Creates a new GeneProduct object, adds it to this ListOfGeneProducts
  * GeneProduct and returns the GeneProduct object created. 
  *

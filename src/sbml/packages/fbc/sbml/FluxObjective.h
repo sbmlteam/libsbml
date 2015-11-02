@@ -29,10 +29,45 @@
  * An integral component in a complete description of a steady-state model is
  * the so-called <em>objective function</em>, which generally consists of a
  * linear combination of model variables (fluxes) and a sense (direction). In
- * the SBML Level&nbsp;3 &ldquo;fbc&rdquo; package, this concept is
- * succinctly captured in the Objective class.
- */
+ * the SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
+ * package, this concept is succinctly captured in the Objective class.  An
+ * Objective object includes a list of flux objectives, each in the form of a
+ * FluxObjective object.
 
+ * The FluxObjective class is a relatively simple container for a model
+ * variable weighted by a signed linear coefficient.  In addition to the
+ * common SBML object attributes of "id" and "name" (both of which are
+ * optional), it adds two required attributes: "reaction" and "coefficient".
+ *
+ * The "reaction" attribute must have a value of type <code>SIdRef</code>,
+ * and its value is restricted to the identifier of a Reaction object in the
+ * model.  The "reaction" attribute identifiers the reaction to which the
+ * FluxObjective applies.  The "coefficient" attribute must have a value of
+ * type <code>double</code>, and refers to the coefficient that this
+ * FluxObjective takes in the enclosing Objective.  Its unit of measurement
+ * is <code>dimensionless</code>.  The meaning of these two attributes
+ * together is given by the formula <em>coefficient &times;
+ * reaction-flux</em>.  Since reactions in SBML Level&nbsp;3 are in units of
+ * <em>extent</em>, the units of a flux objective are thus <em>extent per
+ * time</em>.
+ *
+ * The following example * illustrates the use of these attributes in an
+ * example of a * ListOfObjectives:
+ * @verbatim
+<fbc:listOfObjectives fbc:activeObjective="obj1">
+ <fbc:objective fbc:id="obj1" fbc:type="maximize">
+  <fbc:listOfFluxObjectives>
+   <fbc:fluxObjective fbc:reaction="R1" fbc:coefficient="1"/>
+   <fbc:fluxObjective fbc:reaction="R2" fbc:coefficient="2"/>
+  </fbc:listOfFluxObjectives>
+ </fbc:objective>
+</fbc:listOfObjectives>
+@endverbatim
+ *
+ * @see Objective
+ * @see ListOfObjectives
+ * @see ListOfFluxObjectives
+ */
 
 #ifndef FluxObjective_H__
 #define FluxObjective_H__
@@ -73,13 +108,17 @@ protected:
 public:
 
   /**
-   * Creates a new FluxObjective with the given level, version, and package version.
+   * Creates a new FluxObjective with the given SBML Level, Version, and
+   * &ldquo;fbc&rdquo;package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this FluxObjective
+   * @param level an unsigned int, the SBML Level to assign to this
+   * FluxObjective
    *
-   * @param version an unsigned int, the SBML Version to assign to this FluxObjective
+   * @param version an unsigned int, the SBML Version to assign to this
+   * FluxObjective
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this FluxObjective
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to
+   * this FluxObjective
    */
   FluxObjective(unsigned int level      = FbcExtension::getDefaultLevel(),
                 unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -136,7 +175,8 @@ public:
   /**
    * Returns the value of the "name" attribute of this FluxObjective.
    *
-   * @return the value of the "name" attribute of this FluxObjective as a string.
+   * @return the value of the "name" attribute of this FluxObjective as a
+   * string.
    */
   virtual const std::string& getName() const;
 
@@ -144,7 +184,8 @@ public:
   /**
    * Returns the value of the "reaction" attribute of this FluxObjective.
    *
-   * @return the value of the "reaction" attribute of this FluxObjective as a string.
+   * @return the value of the "reaction" attribute of this FluxObjective as a
+   * string.
    */
   virtual const std::string& getReaction() const;
 
@@ -152,14 +193,15 @@ public:
   /**
    * Returns the value of the "coefficient" attribute of this FluxObjective.
    *
-   * @return the value of the "coefficient" attribute of this FluxObjective as a double.
+   * @return the value of the "coefficient" attribute of this FluxObjective
+   * as a double.
    */
   virtual double getCoefficient() const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FluxObjective's "id" attribute has been set.
+   * Predicate returning @c true if this FluxObjective's "id" attribute is
+   * set.
    *
    * @return @c true if this FluxObjective's "id" attribute has been set,
    * otherwise @c false is returned.
@@ -168,8 +210,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FluxObjective's "name" attribute has been set.
+   * Predicate returning @c true if this FluxObjective's "name" attribute is
+   * set.
    *
    * @return @c true if this FluxObjective's "name" attribute has been set,
    * otherwise @c false is returned.
@@ -178,8 +220,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FluxObjective's "reaction" attribute has been set.
+   * Predicate returning @c true if this FluxObjective's "reaction" attribute
+   * is set.
    *
    * @return @c true if this FluxObjective's "reaction" attribute has been set,
    * otherwise @c false is returned.
@@ -188,11 +230,11 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FluxObjective's "coefficient" attribute has been set.
+   * Predicate returning @c true if this FluxObjective's "coefficient"
+   * attribute is set.
    *
-   * @return @c true if this FluxObjective's "coefficient" attribute has been set,
-   * otherwise @c false is returned.
+   * @return @c true if this FluxObjective's "coefficient" attribute has been
+   * set, otherwise @c false is returned.
    */
   virtual bool isSetCoefficient() const;
 
@@ -206,8 +248,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -221,8 +263,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -236,8 +278,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setReaction(const std::string& reaction);
 
@@ -251,8 +293,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setCoefficient(double coefficient);
 
@@ -264,8 +306,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -277,8 +319,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
@@ -290,8 +332,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetReaction();
 
@@ -303,30 +345,22 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetCoefficient();
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
    virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Returns the XML element name of this object, which for FluxObjective, is
-   * always @c "fluxObjective".
+   * Returns the XML element name of this object.
+   *
+   * For FluxObjective, the XML element name is always @c "fluxObjective".
    *
    * @return the name of this element, i.e. @c "fluxObjective".
    */
@@ -335,33 +369,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_FBC_FLUXOBJECTIVE, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -389,7 +406,6 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -399,7 +415,6 @@ public:
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;
-
 
   /** @endcond doxygenLibsbmlInternal */
 
@@ -411,7 +426,6 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -422,7 +436,6 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                const std::string& pkgPrefix, bool flag);
-
 
   /** @endcond doxygenLibsbmlInternal */
 
@@ -436,7 +449,6 @@ protected:
    */
   virtual void addExpectedAttributes(ExpectedAttributes& attributes);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -448,7 +460,6 @@ protected:
   virtual void readAttributes (const XMLAttributes& attributes,
                                const ExpectedAttributes& expectedAttributes);
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -458,7 +469,6 @@ protected:
    * Write values of XMLAttributes to the output stream.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
 
   /** @endcond doxygenLibsbmlInternal */
 
@@ -581,8 +591,8 @@ public:
 	 * function.  @if clike The value is drawn from the
 	 * enumeration #OperationReturnValues_t. @endif The possible values
 	 * returned by this function are:
-	 * @li LIBSEDML_OPERATION_SUCCESS
-	 * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+	 * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+	 * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
 	 */
 	int addFluxObjective(const FluxObjective* fo);
 
@@ -636,8 +646,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfFluxObjectives, is
-   * always @c "listOfFluxObjectives".
+   * Returns the XML element name of this object.
+   *
+   * For ListOfFluxObjectives, the XML element name is always @c "listOfFluxObjectives".
    *
    * @return the name of this element, i.e. @c "listOfFluxObjectives".
    */
@@ -646,67 +657,30 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf.
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_FBC_FLUXOBJECTIVE, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 
@@ -938,9 +912,9 @@ FluxObjective_isSetCoefficient(const FluxObjective_t * fo);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -967,9 +941,9 @@ FluxObjective_setId(FluxObjective_t * fo, const char * id);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -996,9 +970,9 @@ FluxObjective_setName(FluxObjective_t * fo, const char * name);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -1022,9 +996,9 @@ FluxObjective_setReaction(FluxObjective_t * fo, const char * reaction);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of FluxObjective_t
  */
@@ -1043,9 +1017,9 @@ FluxObjective_setCoefficient(FluxObjective_t * fo, double coefficient);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of FluxObjective_t
  */
@@ -1064,9 +1038,9 @@ FluxObjective_unsetId(FluxObjective_t * fo);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of FluxObjective_t
  */
@@ -1085,9 +1059,9 @@ FluxObjective_unsetName(FluxObjective_t * fo);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of FluxObjective_t
  */
@@ -1106,9 +1080,9 @@ FluxObjective_unsetReaction(FluxObjective_t * fo);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of FluxObjective_t
  */

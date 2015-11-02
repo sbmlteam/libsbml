@@ -24,7 +24,20 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class FbcV2ToV1Converter
- * @sbmlbrief{fbc} SBML Level 3 'fbc' Version 2 to SBML Level 3 'fbc' Version 1 converter.
+ * @sbmlbrief{fbc} Convert &ldquo;fbc&rdquo; Version 2 models to Version 1
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This converter takes a model in &ldquo;fbc&rdquo; Version&nbsp;2 format
+ * and converts it to &ldquo;fbc&rdquo; Version&nbsp;1 format.
+ *
+ * FbcV2ToV1Converter is enabled by creating a ConversionProperties object
+ * with the option <code>"convert fbc v2 to fbc v1"</code> (literally that
+ * full string, including the spaces), and passing this properties object to
+ * SBMLDocument::convert(@if java ConversionProperties@endif).  The converter
+ * offers no options.
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef FbcV2ToV1Converter_h
@@ -56,19 +69,23 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new FbcV2ToV1Converter object.
    */
   FbcV2ToV1Converter();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an FbcV2ToV1Converter
+   * object.
+   *
+   * @param obj the FbcV2ToV1Converter object to copy.
    */
   FbcV2ToV1Converter(const FbcV2ToV1Converter&);
 
+
   /**
-   * Creates and returns a deep copy of this FbcV2ToV1Converter.
-   * 
+   * Creates and returns a deep copy of this FbcV2ToV1Converter object.
+   *
    * @return a (deep) copy of this FbcV2ToV1Converter.
    */
   virtual FbcV2ToV1Converter* clone() const;
@@ -81,35 +98,50 @@ public:
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
-   * 
-   * @param props the properties to match
-   * 
-   * @return <c>true</c> if this converter is a match, <c>false</c> otherwise.
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an FbcV2ToV1Converter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * SBMLConverterRegistry::getConverterFor(@if java ConversionProperties@endif)
+   * to search across all registered converters for one matching particular
+   * properties.
+   *
+   * @param props the properties to match.
+   *
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
-  
-  /** 
-   * the actual conversion 
-   * 
-   * @return status code representing success/failure/conversion impossible
+
+  /**
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int convert();
 
 
   /**
    * Returns the default properties of this converter.
-   * 
+   *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
    * returns the @em default property settings for this converter.  It is
    * meant to be called in order to discover all the settings for the
    * converter object.
-   *
-   * The properties for the FbcV2ToV1Converter are:
-   * "convert cobra" - the name of this converter 
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.
@@ -123,7 +155,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
-  
+
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN

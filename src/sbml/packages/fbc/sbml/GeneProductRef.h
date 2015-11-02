@@ -31,15 +31,21 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GeneProductRef
- * @sbmlbrief{fbc} A GeneProductRef is an FbcAssociation that relates the parent 
- * Reaction to a GeneProduct.
+ * @sbmlbrief{fbc} Reference to a gene product of a reaction
  *
- * A GeneProductRef is a child of a Reaction, and points to a GeneProduct 
- * involved in that Reaction.
+ * GeneProductRef encodes a references to a GeneProduct object declared in a
+ * ListOfGeneProducts attached to the enclosing Model object.  GeneProductRef
+ * is derived from the FbcAssociation class.
  *
- * @copydetails fbcv2_annotation_replacement
+ * GeneProductRef objects are used to construct the content of
+ * GeneProductAssociation objects.  As described more fully in the
+ * documentation of the latter, a GeneProductAssociation is a container that
+ * may contain either (i) a single GeneProductRef or (ii) a logical
+ * expression built up with FbcAnd and FbcOr and ultimately containing two
+ * or more GeneProductRef objects.
+ *
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
-
 
 #ifndef GeneProductRef_H__
 #define GeneProductRef_H__
@@ -81,13 +87,17 @@ protected:
 public:
 
   /**
-   * Creates a new GeneProductRef with the given level, version, and package version.
+   * Creates a new GeneProductRef with the given SBML Level, Version, and
+   * &ldquo;fbc&rdquo;package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this GeneProductRef
+   * @param level an unsigned int, the SBML Level to assign to this
+   * GeneProductRef
    *
-   * @param version an unsigned int, the SBML Version to assign to this GeneProductRef
+   * @param version an unsigned int, the SBML Version to assign to this
+   * GeneProductRef
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this GeneProductRef
+   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to
+   * this GeneProductRef
    */
   GeneProductRef(unsigned int level      = FbcExtension::getDefaultLevel(),
                  unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -164,8 +174,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductRef's "id" attribute has been set.
+   * Predicate returning @c true if this GeneProductRef's "id" attribute is
+   * set.
    *
    * @return @c true if this GeneProductRef's "id" attribute has been set,
    * otherwise @c false is returned.
@@ -174,8 +184,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductRef's "geneProduct" attribute has been set.
+   * Predicate returning @c true if this GeneProductRef's "geneProduct"
+   * attribute is set.
    *
    * @return @c true if this GeneProductRef's "geneProduct" attribute has been set,
    * otherwise @c false is returned.
@@ -184,8 +194,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductRef's "name" attribute has been set.
+   * Predicate returning @c true if this GeneProductRef's "name" attribute is
+   * set.
    *
    * @return @c true if this GeneProductRef's "name" attribute has been set,
    * otherwise @c false is returned.
@@ -202,8 +212,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -217,8 +227,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setGeneProduct(const std::string& geneProduct);
 
@@ -232,8 +242,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -245,8 +255,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -258,8 +268,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetGeneProduct();
 
@@ -271,30 +281,22 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
 
   /**
-   * Renames all the @c SIdRef attributes on this element, including any
-   * found in MathML content (if such exists).
-   *
-   * This method works by looking at all attributes and (if appropriate)
-   * mathematical formulas, comparing the identifiers to the value of @p
-   * oldid.  If any matches are found, the matching identifiers are replaced
-   * with @p newid.  The method does @em not descend into child elements.
-   *
-   * @param oldid the old identifier
-   * @param newid the new identifier
+   * @copydoc doc_renamesidref_common
    */
    virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
 
 
   /**
-   * Returns the XML element name of this object, which for GeneProductRef, is
-   * always @c "geneProductRef".
+   * Returns the XML element name of this object.
+   *
+   * For GeneProductRef, the XML element name is always @c "geneProductRef".
    *
    * @return the name of this element, i.e. @c "geneProductRef".
    */
@@ -303,40 +305,23 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_FBC_GENEPRODUCTREF, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this GeneProductRef object have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * GeneProductRef object have been set.
    *
    * @note The required attributes for a GeneProductRef object are:
    * @li "geneProduct"
@@ -613,9 +598,9 @@ GeneProductRef_isSetName(const GeneProductRef_t * gpr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -642,9 +627,9 @@ GeneProductRef_setId(GeneProductRef_t * gpr, const char * id);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -671,9 +656,9 @@ GeneProductRef_setGeneProduct(GeneProductRef_t * gpr, const char * geneProduct);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -695,9 +680,9 @@ GeneProductRef_setName(GeneProductRef_t * gpr, const char * name);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of GeneProductRef_t
  */
@@ -716,9 +701,9 @@ GeneProductRef_unsetId(GeneProductRef_t * gpr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of GeneProductRef_t
  */
@@ -737,9 +722,9 @@ GeneProductRef_unsetGeneProduct(GeneProductRef_t * gpr);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of GeneProductRef_t
  */

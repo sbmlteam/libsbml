@@ -25,6 +25,23 @@
  *
  * @class FbcToCobraConverter
  * @sbmlbrief{fbc} SBML Level 3 'fbc' to COBRA converter.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This converter takes a model in &ldquo;fbc&rdquo; Version&nbsp;2 format
+ * and converts it to COBRA format.
+ *
+ * FbcToCobraConverter is enabled by creating a ConversionProperties object
+ * with the option <code>"convert fbc to cobra"</code> (literally that
+ * full string, including the spaces), and passing this properties object to
+ * SBMLDocument::convert(@if java ConversionProperties@endif).  The converter
+ * offers one option:
+ *
+ * @li @c "overwriteReactionNotes": should gene associations be written into
+ * the "notes" subelement attached to Reaction objects, even if a Reaction
+ * already has "notes" content?
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef FbcToCobraConverter_h
@@ -56,19 +73,23 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new FbcToCobraConverter object.
    */
   FbcToCobraConverter();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an FbcToCobraConverter
+   * object.
+   *
+   * @param obj the FbcToCobraConverter object to copy.
    */
   FbcToCobraConverter(const FbcToCobraConverter&);
 
+
   /**
-   * Creates and returns a deep copy of this FbcToCobraConverter.
-   * 
+   * Creates and returns a deep copy of this FbcToCobraConverter object.
+   *
    * @return a (deep) copy of this FbcToCobraConverter.
    */
   virtual FbcToCobraConverter* clone() const;
@@ -81,35 +102,50 @@ public:
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
-   * 
-   * @param props the properties to match
-   * 
-   * @return <c>true</c> if this converter is a match, <c>false</c> otherwise.
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an FbcToCobraConverter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * SBMLConverterRegistry::getConverterFor(@if java ConversionProperties@endif)
+   * to search across all registered converters for one matching particular
+   * properties.
+   *
+   * @param props the properties to match.
+   *
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
-  
-  /** 
-   * the actual conversion 
-   * 
-   * @return status code represeting success/failure/conversion impossible
+
+  /**
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int convert();
 
 
   /**
    * Returns the default properties of this converter.
-   * 
+   *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
    * returns the @em default property settings for this converter.  It is
    * meant to be called in order to discover all the settings for the
    * converter object.
-   *
-   * The properties for the FbcToCobraConverter are:
-   * "convert cobra" - the name of this converter 
    *
    * @return the ConversionProperties object describing the default properties
    * for this converter.

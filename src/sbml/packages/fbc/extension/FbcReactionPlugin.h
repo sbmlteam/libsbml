@@ -222,8 +222,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the
-    "GeneProductAssociation" element has been set.
+   * Predicate returning @c true if this FbcReactionPlugin's
+   * "GeneProductAssociation" element has been set.
    *
    * @return @c true if the "GeneProductAssociation" element has been set,
    * otherwise @c false is returned.
@@ -240,7 +240,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    */
   int setGeneProductAssociation (const GeneProductAssociation* geneProductAssociation);
 
@@ -270,8 +270,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FbcReactionPlugin's "lowerFluxBound" attribute has been set.
+   * Predicate returning @c true if this FbcReactionPlugin's "lowerFluxBound"
+   * attribute is set.
    *
    * @return @c true if this FbcReactionPlugin's "lowerFluxBound" attribute has been set,
    * otherwise @c false is returned.
@@ -280,8 +280,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * FbcReactionPlugin's "upperFluxBound" attribute has been set.
+   * Predicate returning @c true if this FbcReactionPlugin's "upperFluxBound"
+   * attribute is set.
    *
    * @return @c true if this FbcReactionPlugin's "upperFluxBound" attribute has been set,
    * otherwise @c false is returned.
@@ -298,8 +298,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setLowerFluxBound(const std::string& lowerFluxBound);
 
@@ -313,8 +313,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setUpperFluxBound(const std::string& upperFluxBound);
 
@@ -326,8 +326,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetLowerFluxBound();
 
@@ -339,8 +339,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetUpperFluxBound();
 
@@ -351,8 +351,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetGeneProductAssociation();
 

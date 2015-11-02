@@ -25,6 +25,23 @@
  *
  * @class CobraToFbcConverter
  * @sbmlbrief{fbc} COBRA to SBML Level 3 'fbc' converter.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This converter takes a model in &ldquo;fbc&rdquo; Version&nbsp;2 format
+ * and converts it to COBRA format.
+ *
+ * CobraToFbcConverter is enabled by creating a ConversionProperties object
+ * with the option <code>"convert cobra"</code> (literally that full string,
+ * including the spaces), and passing this properties object to
+ * SBMLDocument::convert(@if java ConversionProperties@endif).  The converter
+ * offers two options:
+ *
+ * @li @c "checkCompatibility": whether to check the SBML Level/Version
+ * compatibility
+ * @li @c "removeUnits": whether to remove unit definitions
+ *
+ * @copydetails doc_section_using_sbml_converters
  */
 
 #ifndef CobraToFbcConverter_h
@@ -56,19 +73,23 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new CobraToFbcConverter object.
    */
   CobraToFbcConverter();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an CobraToFbcConverter
+   * object.
+   *
+   * @param obj the CobraToFbcConverter object to copy.
    */
   CobraToFbcConverter(const CobraToFbcConverter&);
 
+
   /**
-   * Creates and returns a deep copy of this CobraToFbcConverter.
-   * 
+   * Creates and returns a deep copy of this CobraToFbcConverter object.
+   *
    * @return a (deep) copy of this CobraToFbcConverter.
    */
   virtual CobraToFbcConverter* clone() const;
@@ -81,45 +102,64 @@ public:
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
-   * 
-   * @param props the properties to match
-   * 
-   * @return <c>true</c> if this converter is a match, <c>false</c> otherwise.
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an CobraToFbcConverter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * SBMLConverterRegistry::getConverterFor(@if java ConversionProperties@endif)
+   * to search across all registered converters for one matching particular
+   * properties.
+   *
+   * @param props the properties to match.
+   *
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
-  
-  /** 
+
+  /**
    * Perform the conversion.
-   * 
-   * @return status code represeting success/failure/conversion impossible
+   *
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java SBMLDocument@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java ConversionProperties@endif).
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    */
   virtual int convert();
 
 
   /**
    * Returns the default properties of this converter.
-   * 
+   *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
    * returns the @em default property settings for this converter.  It is
    * meant to be called in order to discover all the settings for the
    * converter object.
    *
-   * The properties for the CobraToFbcConverter are:
-   * "convert cobra" - the name of this converter 
-   *
    * @return the ConversionProperties object describing the default properties
    * for this converter.
    */
   virtual ConversionProperties getDefaultProperties() const;
 
-  /** 
-   * Returns a flag whether the level and version of the source document
-   * should be checked for compatibility before converting to SBML Level 3
-   */ 
+
+  /**
+   * Returns @c true if the option property to check Level and Version of the
+   * source document (@c "checkCompatibility") is @c true.
+   *
+   * @return @c true if the option @c "checkCompatibility" has been set to
+   * @c true, @c false otherwise.
+   */
   bool checkCompatibility() const;
 
 };

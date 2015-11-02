@@ -283,7 +283,8 @@ FbcOr::toInfix() const
 
 }
 
-/**
+
+/*
  * Creates a new FbcAnd object, adds it to this FbcOrs
  * ListOfFbcAssociations and returns the FbcAnd object created. 
  *
@@ -320,7 +321,7 @@ FbcOr::createAnd()
 }
 
 
-/**
+/*
  * Creates a new FbcOr object, adds it to this FbcOrs
  * ListOfFbcAssociations and returns the FbcOr object created. 
  *
@@ -357,7 +358,7 @@ FbcOr::createOr()
 }
 
 
-/**
+/*
  * Creates a new GeneProductRef object, adds it to this FbcOrs
  * ListOfFbcAssociations and returns the GeneProductRef object created. 
  *

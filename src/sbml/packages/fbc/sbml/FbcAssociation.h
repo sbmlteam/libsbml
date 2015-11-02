@@ -31,17 +31,16 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class FbcAssociation
- * @sbmlbrief{fbc} The abstract base class for the FbcAnd, FbcOr, and 
- * GeneProductRef classes.
+ * @sbmlbrief{fbc} Base class for FbcAnd, FbcOr, and GeneProductRef
  *
- * The FbcAssociation class is the abstract base class for the classes that 
+ * The FbcAssociation class is the abstract base class for the classes that
  * can be used as children of the GeneProductAssociation child of a Reaction.
  * The FbcAnd class is used when all of its children are definitely associated
  * with the Reaction; the FbcOr class is used when at least one of its children
  * are associated with the Reaction; and the GeneProductRef class is used to
  * denote a particular GeneProduct.
  *
- * @copydetails fbcv2_annotation_replacement
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
 
 
@@ -84,13 +83,17 @@ protected:
 public:
 
   /**
-   * Creates a new FbcAssociation with the given level, version, and package version.
+   * Creates a new FbcAssociation with the given SBML Level, Version, and
+   * &ldquo;fbc&rdquo;package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this FbcAssociation
+   * @param level an unsigned int, the SBML Level to assign to this
+   * FbcAssociation
    *
-   * @param version an unsigned int, the SBML Version to assign to this FbcAssociation
+   * @param version an unsigned int, the SBML Version to assign to this
+   * FbcAssociation
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this FbcAssociation
+   * @param pkgVersion an unsigned int, the SBML &ldquo;fbc&rdquo; package
+   * Version to assign to this FbcAssociation
    */
   FbcAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
                  unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -155,17 +158,20 @@ public:
 
 
   /**
-   * Returns @c true, if this abstract "FbcAssociation" is of type GeneProductRef.
+   * Returns @c true, if this abstract "FbcAssociation" is of type
+   * GeneProductRef.
    *
-   * @return @c true, if this abstract "FbcAssociation" is of type GeneProductRef.
+   * @return @c true, if this abstract "FbcAssociation" is of type
+   * GeneProductRef.
    *
    */
   virtual bool isGeneProductRef() const;
 
 
   /**
-   * Returns the XML element name of this object, which for FbcAssociation, is
-   * always @c "fbcAssociation".
+   * Returns the XML element name of this object.
+   *
+   * For FbcAssociation, the XML element name is always @c "fbcAssociation".
    *
    * @return the name of this element, i.e. @c "fbcAssociation".
    */
@@ -174,33 +180,16 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_FBC_ASSOCIATION, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
@@ -209,7 +198,8 @@ public:
    * Predicate returning @c true if all the required attributes
    * for this FbcAssociation object have been set.
    *
-   * @note The required attributes for a FbcAssociation object are:
+   * @note FbcAssociation has no required attributes, so this
+   * method always returns @c true.
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -226,7 +216,6 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
@@ -237,20 +226,21 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
-
   /** @endcond doxygenLibsbmlInternal */
 
 
   /**
   * Parses a gene association in infix format and returns a corresponding
-  * Association object. It also creates all geneProducts, in case the unique
-  * reference does not yet exist. 
+  * Association object.
   *
   * This parses a string that has a list of gene names and conjunctions
   * or disjunctions.  For example:
   * @verbatim
   (b2422) and (b2425) and (b2423) and (b2424) or (b2422) and (b2423) and (b2424) and (b2413) and (b3917)
-  @endverbatim
+@end verbatim
+  *
+  * This method also creates missing GeneProduct objects, in case the unique
+  * reference does not yet exist.
   *
   * @param association the string to parse.
   * @param plugin the FbcModelPlugin on which to add the geneProduct elements
@@ -259,7 +249,8 @@ public:
   *
   * @copydetails doc_note_static_methods
   */
-  static FbcAssociation* parseFbcInfixAssociation(const std::string& association, FbcModelPlugin* plugin);
+  static FbcAssociation* parseFbcInfixAssociation(const std::string& association,
+                                                  FbcModelPlugin* plugin);
 
 
   /**
@@ -353,7 +344,7 @@ protected:
  * their derived class, not the base FbcAssociation class:  
  * &ldquo;fbc:and&rdquo;, &ldquo;fbc:or&rdquo;, and &ldquo;fbc:geneProductRef&rdquo;.
  *
- * @copydetails fbcv2_annotation_replacement
+ * @copydetails doc_note_fbcv2_annotation_replacement
  *
  * @see FbcAssociation
  * @see FbcAnd
@@ -366,13 +357,17 @@ class LIBSBML_EXTERN ListOfFbcAssociations : public ListOf
 public:
 
   /**
-   * Creates a new ListOfFbcAssociations with the given level, version, and package version.
+   * Creates a new ListOfFbcAssociations with the given SBML Level, Version,
+   * and &ldquo;fbc&rdquo;package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this ListOfFbcAssociations
+   * @param level an unsigned int, the SBML Level to assign to this
+   * ListOfFbcAssociations
    *
-   * @param version an unsigned int, the SBML Version to assign to this ListOfFbcAssociations
+   * @param version an unsigned int, the SBML Version to assign to this
+   * ListOfFbcAssociations
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this ListOfFbcAssociations
+   * @param pkgVersion an unsigned int, the SBML &ldquo;fbc&rdquo; package
+   * Version to assign to this ListOfFbcAssociations
    */
   ListOfFbcAssociations(unsigned int level      = FbcExtension::getDefaultLevel(),
                         unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -380,7 +375,8 @@ public:
 
 
   /**
-   * Creates a new ListOfFbcAssociations with the given FbcPkgNamespaces object.
+   * Creates a new ListOfFbcAssociations with the given FbcPkgNamespaces
+   * object.
    *
    * @param fbcns the FbcPkgNamespaces object
    */
@@ -403,6 +399,7 @@ public:
    * @return the nth FbcAssociation in this ListOfFbcAssociations.
    *
    * @see size()
+   * @see getNumFbcAssociations()
    */
   virtual FbcAssociation* get(unsigned int n);
 
@@ -415,46 +412,46 @@ public:
    * @return the nth FbcAssociation in this ListOfFbcAssociations.
    *
    * @see size()
+   * @see getNumFbcAssociations()
    */
   virtual const FbcAssociation* get(unsigned int n) const;
 
 
   /**
-   * Get a FbcAssociation from the ListOfFbcAssociations
-   * based on its identifier.
+   * Get a FbcAssociation from the ListOfFbcAssociations based on its
+   * identifier.
    *
-   * @param sid a string representing the identifier
-   * of the FbcAssociation to get.
+   * @param sid a string representing the identifier of the FbcAssociation to
+   * get.
    *
-   * @return FbcAssociation in this ListOfFbcAssociations
-   * with the given id or NULL if no such
-   * FbcAssociation exists.
+   * @return FbcAssociation in this ListOfFbcAssociations with the given id
+   * or NULL if no such FbcAssociation exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual FbcAssociation* get(const std::string& sid);
 
 
   /**
-   * Get a FbcAssociation from the ListOfFbcAssociations
-   * based on its identifier.
+   * Get a FbcAssociation from the ListOfFbcAssociations based on its
+   * identifier.
    *
-   * @param sid a string representing the identifier
-   * of the FbcAssociation to get.
+   * @param sid a string representing the identifier of the FbcAssociation to
+   * get.
    *
-   * @return FbcAssociation in this ListOfFbcAssociations
-   * with the given id or NULL if no such
-   * FbcAssociation exists.
+   * @return FbcAssociation in this ListOfFbcAssociations with the given id
+   * or NULL if no such FbcAssociation exists.
    *
-   * @see get(unsigned int n)   *
+   * @see get(unsigned int n)
    * @see size()
    */
   virtual const FbcAssociation* get(const std::string& sid) const;
 
 
   /**
-   * Adds a copy the given "FbcAssociation" to this ListOfFbcAssociations.
+   * Adds a copy the given FbcAssociation object to this
+   * ListOfFbcAssociations.
    *
    * @param fa; the FbcAssociation object to add
    *
@@ -462,8 +459,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSEDML_OPERATION_SUCCESS
-   * @li LIBSEDML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int addFbcAssociation(const FbcAssociation* fa);
 
@@ -471,49 +468,65 @@ public:
   /**
    * Get the number of FbcAssociation objects in this ListOfFbcAssociations.
    *
-   * @return the number of FbcAssociation objects in this ListOfFbcAssociations
+   * @return the number of FbcAssociation objects in this
+   * ListOfFbcAssociations
    */
   unsigned int getNumFbcAssociations() const;
 
 
   /**
-   * Creates a new FbcAssociation object, adds it to the
-   * ListOfFbcAssociations and returns the FbcAssociation object created. 
+   * Creates a new FbcAnd object.
+   *
+   * This method creates a new FbcAssociation object of subclass FbcAnd, adds
+   * it to the ListOfFbcAssociations, and returns the FbcAssociation object
+   * created.
    *
    * @return a new FbcAssociation object instance
    *
+   * @see createOr()
+   * @see createGeneProductRef()
    * @see addFbcAssociation(const FbcAssociation* fa)
    */
   FbcAnd* createAnd();
 
 
   /**
-   * Creates a new FbcAssociation object, adds it to the
-   * ListOfFbcAssociations and returns the FbcAssociation object created. 
+   * Creates a new FbcOr object.
+   *
+   * This method creates a new FbcAssociation object of subclass FbcOr, adds
+   * it to the ListOfFbcAssociations, and returns the FbcAssociation object
+   * created.
    *
    * @return a new FbcAssociation object instance
    *
+   * @see createAnd()
+   * @see createGeneProductRef()
    * @see addFbcAssociation(const FbcAssociation* fa)
    */
   FbcOr* createOr();
 
 
   /**
-   * Creates a new FbcAssociation object, adds it to the
-   * ListOfFbcAssociations and returns the FbcAssociation object created. 
+   * Creates a new GeneProductRef object.
+   *
+   * This method creates a new FbcAssociation object of subclass
+   * GeneProductRef, adds it to the ListOfFbcAssociations, and returns the
+   * FbcAssociation object created.
    *
    * @return a new FbcAssociation object instance
    *
+   * @see createOr()
+   * @see createAnd()
    * @see addFbcAssociation(const FbcAssociation* fa)
    */
   GeneProductRef* createGeneProductRef();
 
 
   /**
-   * Removes the nth FbcAssociation from this ListOfFbcAssociations
-   * and returns a pointer to it.
+   * Removes the nth FbcAssociation
    *
-   * The caller owns the returned item and is responsible for deleting it.
+   * This method removes the nth object from this ListOfFbcAssociations and
+   * returns a pointer to it.
    *
    * @param n the index of the FbcAssociation to remove.
    *
@@ -523,93 +536,58 @@ public:
 
 
   /**
-   * Removes the FbcAssociation from this ListOfFbcAssociations with the given identifier
-   * and returns a pointer to it.
+   * Removes the FbcAssociation with the given identifier
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then
-   * @c NULL is returned.
+   * This method searches for and removes the FbcAssociation object with the
+   * given identifier @p sid, and returns a pointer to it.  The caller owns
+   * the returned item and is responsible for deleting it.  If none of the
+   * items in this list have the identifier @p sid, then @c NULL is returned.
    *
    * @param sid the identifier of the FbcAssociation to remove.
    *
-   * @return the FbcAssociation removed. As mentioned above, the caller owns the
-   * returned item.
+   * @return the FbcAssociation removed. As mentioned above, the caller owns
+   * the returned item.
    */
   virtual FbcAssociation* remove(const std::string& sid);
 
 
   /**
-   * Returns the XML element name of this object, which for ListOfFbcAssociations, is
-   * always @c "listOfFbcAssociations".
+   * Returns the XML element name of this object.
    *
-   * @return the name of this element, i.e. @c "listOfFbcAssociations".
+   * For ListOfFbcAssociations, the XML element name is always
+   * @c "listOfFbcAssociations".
+   *
+   * @return the name of this element.
    */
   virtual const std::string& getElementName () const;
 
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_LIST_OF, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getTypeCode () const;
 
 
   /**
-   * Returns the libSBML type code for the SBML objects
-   * contained in this ListOf object
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
+   * Returns the libSBML type code for the objects contained in this ListOf.
    *
-   * @return the SBML type code for the objects in this ListOf instance, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for the objects contained in this ListOf
+   * instance: @sbmlconstant{SBML_FBC_ASSOCIATION, SBMLTypeCode_t} (default).
    *
    * @see getElementName()
+   * @see getPackageName()
    */
   virtual int getItemTypeCode () const;
 

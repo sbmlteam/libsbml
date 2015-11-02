@@ -608,7 +608,7 @@ ListOfFbcAssociations::get(const std::string& sid) const
 }
 
 
-/**
+/*
  * Adds a copy the given "FbcAssociation" to this ListOfFbcAssociations.
  *
  * @param fa; the FbcAssociation object to add
@@ -651,7 +651,7 @@ ListOfFbcAssociations::addFbcAssociation(const FbcAssociation* fa)
 }
 
 
-/**
+/*
  * Get the number of FbcAssociation objects in this ListOfFbcAssociations.
  *
  * @return the number of FbcAssociation objects in this ListOfFbcAssociations
@@ -662,7 +662,8 @@ ListOfFbcAssociations::getNumFbcAssociations() const
   return size();
 }
 
-/**
+
+/*
  * Creates a new FbcAnd object, adds it to this ListOfFbcAssociations
  * and and returns the FbcAnd object created. 
  *
@@ -698,7 +699,8 @@ ListOfFbcAssociations::createAnd()
   return fa;
 }
 
-/**
+
+/*
  * Creates a new FbcOr object, adds it to this ListOfFbcAssociations
  * or and returns the FbcOr object created. 
  *
@@ -734,7 +736,8 @@ ListOfFbcAssociations::createOr()
   return fo;
 }
 
-/**
+
+/*
  * Creates a new GeneProductRef object, adds it to this ListOfFbcAssociations
  * geneProductRef and returns the GeneProductRef object created. 
  *

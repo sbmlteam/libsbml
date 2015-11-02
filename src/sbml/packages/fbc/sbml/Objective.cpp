@@ -980,7 +980,7 @@ ListOfObjectives::get(const std::string& sid) const
 }
 
 
-/**
+/*
  * Adds a copy the given "Objective" to this ListOfObjectives.
  *
  * @param o; the Objective object to add
@@ -1023,7 +1023,7 @@ ListOfObjectives::addObjective(const Objective* o)
 }
 
 
-/**
+/*
  * Get the number of Objective objects in this ListOfObjectives.
  *
  * @return the number of Objective objects in this ListOfObjectives
@@ -1034,7 +1034,7 @@ ListOfObjectives::getNumObjectives() const
   return size();
 }
 
-/**
+/*
  * Creates a new Objective object, adds it to this ListOfObjectives
  * Objective and returns the Objective object created. 
  *

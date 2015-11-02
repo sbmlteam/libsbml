@@ -731,7 +731,7 @@ ListOfFluxObjectives::get(const std::string& sid) const
 }
 
 
-/**
+/*
  * Adds a copy the given "FluxObjective" to this ListOfFluxObjectives.
  *
  * @param fo; the FluxObjective object to add
@@ -774,7 +774,7 @@ ListOfFluxObjectives::addFluxObjective(const FluxObjective* fo)
 }
 
 
-/**
+/*
  * Get the number of FluxObjective objects in this ListOfFluxObjectives.
  *
  * @return the number of FluxObjective objects in this ListOfFluxObjectives
@@ -785,7 +785,8 @@ ListOfFluxObjectives::getNumFluxObjectives() const
   return size();
 }
 
-/**
+
+/*
  * Creates a new FluxObjective object, adds it to this ListOfFluxObjectives
  * FluxObjective and returns the FluxObjective object created. 
  *

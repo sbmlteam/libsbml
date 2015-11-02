@@ -31,18 +31,46 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GeneProductAssociation
- * @sbmlbrief{fbc} The GeneProductAssociation child of a Reaction associates 
- * that Reaction with one or more genes or implied gene products through its 
- * child Association.
+ * @sbmlbrief{fbc} Association between gene products and reactions
  *
- * A GeneProductAssociation has a child FbcAssociation which may be of type 
- * FbcAnd, FbcOr, or GeneProductRef.  This defines a relationship between the 
- * parent Reaction and the children GeneProductRef elements, as modulated by any 
- * 'FbcAnd' or 'FbcOr' parents that might be present.
+ * In Version&nbsp;2 of the SBML Level&nbsp;3 Flux Balance Constraints
+ * (&ldquo;fbc&rdquo;) package specification, GeneProductAssociation is a
+ * class derived from SBase used to associate one more genes or gene products
+ * with reactions.  GeneProductAssociation objects are essentially
+ * containers, with one such container optionally attached as a subelement to
+ * a Reaction object in a model.  The container can contain one of three
+ * kinds of objects, all of which are subclasses of the libSBML parent class
+ * FbcAssociation.  (Note that this class is named <em>%Association</em> in
+ * the &ldquo;fbc&rdquo; Version&nbsp;2 specification, but in libSBML is
+ * named FbcAssociation to avoid a name conflict with an existing class.)
  *
- * @copydetails fbcv2_annotation_replacement
+ * One of the kinds of FbcAssociation subclasses that can appear in a
+ * GeneProductAssociation is GeneProductRef.  This class of objects
+ * references a GeneProduct declared in a ListOfGeneProducts attached to the
+ * enclosing Model object.  In the &ldquo;fbc&rdquo; approach, when more than
+ * one gene (or gene product) is present in an association, they are written
+ * as logical expressions using Boolean logical operators <em>and</em> and
+ * <em>or</em> through the classes (in libSBML) FbcAnd and FbcOr.  (In the
+ * &ldquo;fbc&rdquo; Version&nbsp;2 specification, these are simply named
+ * <em>And</em> and <em>Or</em>, respectively.) The FbcAnd and FbcOr objects
+ * in turn can contain either GeneProductRef objects or other FbcAnd and/or
+ * FbcOr objects.
+ *
+ * Here is a concrete example of what the XML representation of a simple
+ * <em>or</em> relationship might look like:
+<pre class="fragment">
+&lt;reaction id = "R_ABTA" <span class="regular-text" style="font-weight: normal; font-style: italic; background-color: #ffd; padding-left: 2px; padding-right: 2px">... rest of Reaction declaration elided for this example ...</span>&gt;
+ &lt;fbc:geneProductAssociation fbc:id="ga_16"&gt;
+  &lt;fbc:or&gt;
+   &lt;fbc:geneProductRef fbc:geneProduct="g_b2662"/&gt;
+   &lt;fbc:geneProductRef fbc:geneProduct="g_b1302"/&gt;
+  &lt;/fbc:or&gt;
+ &lt;/fbc:geneProductAssociation&gt;
+&lt;/reaction&gt;
+</pre>
+ *
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
-
 
 #ifndef GeneProductAssociation_H__
 #define GeneProductAssociation_H__
@@ -84,13 +112,17 @@ protected:
 public:
 
   /**
-   * Creates a new GeneProductAssociation with the given level, version, and package version.
+   * Creates a new GeneProductAssociation with the given SBML Level, Version, and
+   * &ldquo;fbc&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this GeneProductAssociation
+   * @param level an unsigned int, the SBML Level to assign to this
+   * GeneProductAssociation
    *
-   * @param version an unsigned int, the SBML Version to assign to this GeneProductAssociation
+   * @param version an unsigned int, the SBML Version to assign to this
+   * GeneProductAssociation
    *
-   * @param pkgVersion an unsigned int, the SBML Fbc Version to assign to this GeneProductAssociation
+   * @param pkgVersion an unsigned int, the SBML &ldquo;fbc&rdquo; Version to
+   * assign to this GeneProductAssociation object
    */
   GeneProductAssociation(unsigned int level      = FbcExtension::getDefaultLevel(),
                          unsigned int version    = FbcExtension::getDefaultVersion(),
@@ -98,7 +130,8 @@ public:
 
 
   /**
-   * Creates a new GeneProductAssociation with the given FbcPkgNamespaces object.
+   * Creates a new GeneProductAssociation with the given FbcPkgNamespaces
+   * object.
    *
    * @param fbcns the FbcPkgNamespaces object
    */
@@ -117,7 +150,7 @@ public:
    * Assignment operator for GeneProductAssociation.
    *
    * @param rhs; the object whose values are used as the basis
-   * of the assignment
+   * of the assignment.
    */
   GeneProductAssociation& operator=(const GeneProductAssociation& rhs);
 
@@ -139,7 +172,8 @@ public:
    /**
    * Returns the value of the "id" attribute of this GeneProductAssociation.
    *
-   * @return the value of the "id" attribute of this GeneProductAssociation as a string.
+   * @return the value of the "id" attribute of this GeneProductAssociation
+   * as a string.
    */
   virtual const std::string& getId() const;
 
@@ -147,7 +181,8 @@ public:
   /**
    * Returns the value of the "name" attribute of this GeneProductAssociation.
    *
-   * @return the value of the "name" attribute of this GeneProductAssociation as a string.
+   * @return the value of the "name" attribute of this GeneProductAssociation
+   * as a string.
    */
   virtual const std::string& getName() const;
 
@@ -170,6 +205,8 @@ public:
 
   /**
    * Creates a new "association" and sets it for this GeneProductAssociation.
+   *
+   * @return the 
    */
   virtual FbcAnd* createAnd();
 
@@ -187,8 +224,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductAssociation's "id" attribute has been set.
+   * Predicate returning @c true if this GeneProductAssociation's "id"
+   * attribute is set.
    *
    * @return @c true if this GeneProductAssociation's "id" attribute has been set,
    * otherwise @c false is returned.
@@ -197,8 +234,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductAssociation's "name" attribute has been set.
+   * Predicate returning @c true if this GeneProductAssociation's "name"
+   * attribute is set.
    *
    * @return @c true if this GeneProductAssociation's "name" attribute has been set,
    * otherwise @c false is returned.
@@ -207,8 +244,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * GeneProductAssociation's "association" element has been set.
+   * Predicate returning @c true if this GeneProductAssociation's
+   * "association" element is set.
    *
    * @return @c true if this GeneProductAssociation's "association" element has been set,
    * otherwise @c false is returned.
@@ -225,8 +262,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setId(const std::string& id);
 
@@ -240,8 +277,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setName(const std::string& name);
 
@@ -255,8 +292,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   virtual int setAssociation(FbcAssociation* association);
 
@@ -269,8 +306,8 @@ public:
   * function.  @if clike The value is drawn from the
   * enumeration #OperationReturnValues_t. @endif The possible values
   * returned by this function are:
-  * @li LIBSBML_OPERATION_SUCCESS
-  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+  * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
   */
   virtual int setAssociation(const std::string& association);
 
@@ -281,8 +318,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetId();
 
@@ -294,8 +331,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetName();
 
@@ -307,8 +344,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    */
   virtual int unsetAssociation();
 
@@ -323,8 +360,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for GeneProductAssociation, is
-   * always @c "geneProductAssociation".
+   * Returns the XML element name of this object.
+   *
+   * For GeneProductAssociation, the XML element name is always @c "geneProductAssociation".
    *
    * @return the name of this element, i.e. @c "geneProductAssociation".
    */
@@ -333,40 +371,23 @@ public:
 
   /**
    * Returns the libSBML type code for this SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or
-   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @copydetails doc_what_are_typecodes
+   *
+   * @return the SBML type code for this object:
+   * @sbmlconstant{SBML_FBC_GENEPRODUCTASSOCIATION, SBMLTypeCode_t} (default).
+   *
+   * @copydetails doc_warning_typecodes_not_unique
    *
    * @see getElementName()
-   */
+   * @see getPackageName()
+ */
   virtual int getTypeCode () const;
 
 
   /**
-   * Predicate returning @c true if all the required attributes
-   * for this GeneProductAssociation object have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * GeneProductAssociation object have been set.
    *
    * @note The required attributes for a GeneProductAssociation object are:
    * @li "association"
@@ -378,8 +399,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if all the required elements
-   * for this GeneProductAssociation object have been set.
+   * Predicate returning @c true if all the required elements for this
+   * GeneProductAssociation object have been set.
    *
    * @note The required elements for a GeneProductAssociation object are:
    * @li "association"
@@ -610,8 +631,8 @@ GeneProductAssociation_createGeneProductRef(GeneProductAssociation_t * gpa);
 
 
 /**
- * Predicate returning @c 1 if the given GeneProductAssociation_t structure's "id"
- * is set.
+ * Predicate returning @c 1 if the given GeneProductAssociation_t structure's
+ * "id" is set.
  *
  * @param gpa the GeneProductAssociation_t structure.
  *
@@ -672,9 +693,9 @@ GeneProductAssociation_isSetAssociation(const GeneProductAssociation_t * gpa);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -701,9 +722,9 @@ GeneProductAssociation_setId(GeneProductAssociation_t * gpa, const char * id);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @note Using this function with a null pointer for @p name is equivalent to
  * unsetting the value of the "name" attribute.
@@ -730,9 +751,9 @@ GeneProductAssociation_setAssociation(GeneProductAssociation_t * gpa, FbcAssocia
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of GeneProductAssociation_t
  */
@@ -751,9 +772,9 @@ GeneProductAssociation_unsetId(GeneProductAssociation_t * gpa);
  * function.  @if clike The value is drawn from the
  * enumeration #OperationReturnValues_t. @endif@~ The possible values
  * returned by this function are:
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
- * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
- * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT@endlink
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
  *
  * @member of GeneProductAssociation_t
  */
