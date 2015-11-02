@@ -82,9 +82,9 @@ public:
    * Copy constructor; creates a copy of an CobraToFbcConverter
    * object.
    *
-   * @param obj the CobraToFbcConverter object to copy.
+   * @param orig the CobraToFbcConverter object to copy.
    */
-  CobraToFbcConverter(const CobraToFbcConverter&);
+  CobraToFbcConverter(const CobraToFbcConverter& orig);
 
 
   /**

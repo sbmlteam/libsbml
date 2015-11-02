@@ -78,9 +78,9 @@ public:
    * Copy constructor; creates a copy of an FbcV2ToV1Converter
    * object.
    *
-   * @param obj the FbcV2ToV1Converter object to copy.
+   * @param orig the FbcV2ToV1Converter object to copy.
    */
-  FbcV2ToV1Converter(const FbcV2ToV1Converter&);
+  FbcV2ToV1Converter(const FbcV2ToV1Converter& orig);
 
 
   /**
