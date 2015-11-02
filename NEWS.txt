@@ -8,7 +8,7 @@ STABLE RELEASE
 
 * New features
 
-  - In SBML Level 2 some units were defined by default and did not 
+  - In SBML Level 2, some units were defined by default and did not 
     need to be explicitly included in a model. The 
     SBMLLevelVersionConverter adds these units explicitly when 
     converting to SBML Level 3. We have an added an option to
@@ -18,14 +18,14 @@ STABLE RELEASE
   - Sourceforge libSBML Tracker #242: 'addProduct etc using a species'
     We have added functions addProduct/addReactant/addModifier that 
     take a Species as argument, along with a number of other optional 
-    values to completely specify the speciesReference object being 
+    values to completely specify the SpeciesReference object being 
     created. This is a slight divergence from the direction libSBML
     usually takes and we would be grateful for any feedback
     on these functions. 
 	
   - Validation speed has been dramatically improved for models that
-    make use of functionDefinitions and in particular nested 
-    functionDefinitions.	
+    make use of FunctionDefinitions and in particular nested 
+    FunctionDefinitions.	
 	
   - 'comp' package-specific updates:
   
@@ -46,20 +46,19 @@ STABLE RELEASE
     the detailed example and anaylysis that revealed this. It 
     has now been fixed.
 
-  - In the new math code using the children of an ASTNode could
-    result in the math namespace declaration being unecessarily
-    written out in many places. This has been sorted out. 
+  - In the new math code using the children of an ASTNode could result
+    in the math namespace declaration being unecessarily written out
+    in many places. This has been sorted out.
 
-  - Sourceforge libSBML Tracker #414: A missing break
-    statement was added. 
+  - Sourceforge libSBML Tracker #414: "A missing break statement" was
+    added.
 
 
 * Configuration/build system changes
 
-  - The CMake files have added an option to dynamically link
-    to a python version on Mac OSX systems rather than 
-    automatically link.  Thanks to Kyle Medley for supplying 
-    the initial patch for this.
+  - The CMake files have added an option to dynamically link to a
+    python version on Mac OSX systems rather than automatically link.
+    Thanks to Kyle Medley for supplying the initial patch for this.
 
   - The test code has been tweaked to build and run with MSVC 2015.
     Fortunately the main code base worked with no issues.
@@ -67,7 +66,8 @@ STABLE RELEASE
 
 * Miscellaneous
 
-  - Further documentation improvements have been added.
+  - Further documentation improvements have been added, especially for
+    the FBC package.
 
 
 EXPERIMENTAL RELEASE
