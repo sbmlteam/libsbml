@@ -205,6 +205,16 @@ public interface libsbmlConstants
     /**
      * One of the possible libSBML operation return codes.
      * <p>
+     * This code has the following meaning: the requested action cannot be
+     * performed because the target object does not have its "metaid"
+     * attribute set.
+     */
+    public final static int LIBSBML_MISSING_METAID = -14;
+
+
+    /**
+     * One of the possible libSBML operation return codes.
+     * <p>
      * This code has the following meaning: The existing annotation does
      * not have a top-level element with the given namespace. This error is
      * typically returned in situations where one of the annotation
@@ -2170,6 +2180,16 @@ public interface libsbmlConstants
     public final static int LIBSBML_OVERRIDE_WARNING = LIBSBML_OVERRIDE_DONT_LOG + 1;
 
 
+    /**
+     * Severity override code for errors logged in the XML layer.
+     * <p>
+     * XMLErrorLog can be configured whether to log errors or not log them.
+     * This code has the following meaning: log all warnings as errors instead
+     * of as warnings.
+     */
+    public final static int LIBSBML_OVERRIDE_ERROR = LIBSBML_OVERRIDE_WARNING + 1;
+
+
     // SBMLErrorCode_t
 
 
@@ -2413,6 +2433,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int CiCannotReference0DCompartment = 10222;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int DuplicateComponentId = 10301;
 
 
@@ -2513,6 +2542,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int InvalidNameSyntax = 10312;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int DanglingUnitReference = 10313;
 
 
     /**
@@ -2926,6 +2964,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int InvalidLocalParameterSBOTerm = 10718;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int NotesNotInXHTMLNamespace = 10801;
 
 
@@ -3323,6 +3370,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int AllowedAttributesOnListOfEvents = 20232;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int L3V2SubstanceUnitsOnModel = 20233;
 
 
     /**
@@ -3934,6 +3990,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int InitAssignmentCannotRef0DComp = 20806;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int InvalidAssignRuleVariable = 20901;
 
 
@@ -4016,6 +4081,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int AllowedAttributesOnAlgRule = 20910;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RuleCannotRef0DComp = 20911;
 
 
     /**
@@ -4348,6 +4422,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int L3V2FastDeprecated = 21152;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int AllowedAttributesOnLocalParameter = 21172;
 
 
@@ -4610,6 +4693,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int ParameterShouldHaveUnits = 80701;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int ParameterShouldHaveValue = 80702;
 
 
     /**
@@ -5509,6 +5601,15 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int AnnotationNotElement = 99406;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int NestedAnnotationNotAllowed = 99407;
 
 
     /**
@@ -6470,7 +6571,7 @@ public interface libsbmlConstants
      * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
      * component to which a given object corresponds.
      */
-    public final static int SBML_FBC_ASSOCIATION = 800;
+    public final static int SBML_FBC_V1ASSOCIATION = 800;
 
 
     /**
@@ -6556,6 +6657,131 @@ public interface libsbmlConstants
      */
     public final static int SBML_FBC_OBJECTIVE = 804;
 
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_ASSOCIATION = 805;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_GENEPRODUCTASSOCIATION = 806;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_GENEPRODUCT = 807;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_GENEPRODUCTREF = 808;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_AND = 809;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Flux Balance Constraints
+     * (&ldquo;fbc&rdquo;) package.  It is used to identify the type of SBML
+     * component to which a given object corresponds.
+     */
+    public final static int SBML_FBC_OR = 810;
 
 
     // AssociationTypeCode_t
@@ -7189,6 +7415,16 @@ public interface libsbmlConstants
      * the possible values for this role attribute.
      */
     public final static int SPECIES_ROLE_INHIBITOR = SPECIES_ROLE_ACTIVATOR + 1;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-layout">layout</span> One of the
+     * possible roles of a SpeciesReferenceGlyph.
+     * <p>
+     * This code is used by libSBML to indicate that the role is not set,
+     * or is invalid and will not be written out.
+     */
+    public final static int SPECIES_ROLE_INVALID = SPECIES_ROLE_INHIBITOR + 1;
 
 
     // SBMLQualTypeCode_t
@@ -8860,6 +9096,46 @@ public interface libsbmlConstants
      * SBMLError}.  Please consult the documentation for {@link SBMLError}
      * for an explanation of the meaning of this particular error code.
      */
+    public final static int FbcModelMustHaveStrict = 2020209;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcModelStrictMustBeBoolean = 2020210;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcLOGeneProductsAllowedElements = 2020211;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcLOGeneProductsAllowedAttributes = 2020212;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
     public final static int FbcSpeciesChargeMustBeInteger = 2020302;
 
 
@@ -9121,6 +9397,417 @@ public interface libsbmlConstants
      * for an explanation of the meaning of this particular error code.
      */
     public final static int FbcFluxObjectCoefficientMustBeDouble = 2020607;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcFluxObjectCoefficientWhenStrict = 2020608;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionOnlyOneGeneProdAss = 2020701;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionAllowedAttributes = 2020702;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionLwrBoundSIdRef = 2020703;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionUpBoundSIdRef = 2020704;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionLwrBoundRefExists = 2020705;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionUpBoundRefExists = 2020706;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionMustHaveBoundsStrict = 2020707;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionConstantBoundsStrict = 2020708;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionBoundsMustHaveValuesStrict = 2020709;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionBoundsNotAssignedStrict = 2020710;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionLwrBoundNotInfStrict = 2020711;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionUpBoundNotNegInfStrict = 2020712;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcReactionLwrLessThanUpStrict = 2020713;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcSpeciesReferenceConstantStrict = 2020714;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcSpeciesRefsStoichMustBeRealStrict = 2020715;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcSpeciesRefNotAssignedStrict = 2020716;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocAllowedCoreAttribs = 2020801;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocAllowedCoreElements = 2020802;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocAllowedAttribs = 2020803;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocIdSyntax = 2020804;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocContainsOneElement = 2020805;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdAssocNameMustBeString = 2020806;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdRefAllowedCoreAttribs = 2020901;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdRefAllowedCoreElements = 2020902;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdRefAllowedAttribs = 2020903;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdRefGeneProductSIdRef = 2020904;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProdRefGeneProductExists = 2020908;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcAndAllowedCoreAttributes = 2021001;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcAndAllowedCoreElements = 2021002;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcAndTwoChildren = 2021003;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcOrAllowedCoreAttributes = 2021101;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcOrAllowedCoreElements = 2021102;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcOrTwoChildren = 2021103;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProcuctAllowedCoreAttributes = 2021201;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProcuctAllowedCoreElements = 2021202;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProductAllowedAttributes = 2021203;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProductLabelMustBeString = 2021204;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProductLabelMustBeUnique = 2021205;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProductNameMustBeString = 2021206;
+
+
+    /**
+     * <span class="pkg-marker pkg-color-fbc">fbc</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;fbc&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int FbcGeneProductAssocSpeciesMustExist = 2021207;
+
 
 
     // LayoutSBMLErrorCode_t
@@ -11315,4 +12002,5 @@ public interface libsbmlConstants
      * for an explanation of the meaning of this particular error code.
      */
     public final static int QualFuncTermResultMustBeNonNeg = 3020806;
+
 }
