@@ -32,26 +32,19 @@
  *
  * @class LayoutValidator
  * @sbmlbrief{layout} Entry point for package validation.
- * 
+ *
  * @htmlinclude not-sbml-warning.html
  *
- * LibSBML implements facilities for verifying that a given SBML document
- * is valid according to the SBML specifications; it also exposes the
- * validation interface so that user programs and SBML Level&nbsp;3 package
- * authors may use the facilities to implement new validators.  There are
- * two main interfaces to libSBML's validation facilities, based on the
- * classes Validator and ValidatingVisitor.
+ * @copydetails doc_common_intro_package_validators
  *
- * The LayoutValidator class extends the Validator class from core libSBML
- * to apply validation to the constructs introduced by this package
- * specification. This then acts as a base class for any validators 
- * that apply rules to the 'layout' package specification constructs or to
- * entire models that use the package and may therefore be subject to
- * other global restrictions introduced. 
+ * The LayoutValidator class extends the Validator class from core libSBML to
+ * apply validation to the constructs introduced by the SBML Level&nbsp;3
+ * Layout package. This class then acts as a base class for any validators
+ * that apply rules to the &ldquo;layout&rdquo; package specification
+ * constructs or to entire models that use the &ldquo;layout&rdquo; package,
+ * and may therefore be subject to other global restrictions introduced.
  *
- * The general 'checkConsistency' functions that invoke validation 
- * make use of the plugin mechanism to invoke the package specific
- * validators via the relevant document plugin.
+ * @copydetails doc_section_package_validators_general_info
  */
 
 #ifndef LayoutValidator__H
