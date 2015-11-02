@@ -3207,12 +3207,14 @@ if (lmp != null)
  * with this object.
  *
  * <!-- ------------------------------------------------------------------- -->
- * @class fbcv2_annotation_replacement
+ * @class doc_note_fbcv2_annotation_replacement
  *
- * @par
- * Note that this class was introduced in Version&nbsp;2 of the fbc specification, but 
- * that the information it holds can be stored in the Association and GeneAssociation 
- * annotation classes in libsbml for models with fbc Version&nbsp;1.
- * 
+ * @note
+ * This class of objects was introduced in Version&nbsp;2 of the
+ * SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
+ * specification.  In Version&nbsp;1 of &ldquo;fbc&rdquo;, the information
+ * encoded by this class can be stored instead using the Association and
+ * GeneAssociation annotation classes.  Please see the Version&nbsp;1 and
+ * Version&nbsp;2 &ldquo;fbc&rdquo; specifications for more details.
  * <!-- ------------------------------------------------------------------- -->
  */
