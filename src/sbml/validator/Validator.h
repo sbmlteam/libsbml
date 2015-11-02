@@ -135,24 +135,27 @@ public:
   /**
    * Get the category of validation rules covered by this validator.
    *
-   * The category values are drawn from the enumeration
-   * #SBMLErrorCategory_t.  See the documentation for the class SBMLError
-   * for more information.
+   * @return an integer code representing the category of validator rules
+   * covered by this validator class.  The category values are drawn from the
+   * enumeration #SBMLErrorCategory_t.  See the documentation for the class
+   * SBMLError for more information.
    */
   unsigned int getCategory () const;
 
 
   /**
-   * Get the list of SBMLError objects (if any) logged as a result
-   * of running the validator.
-   * 
-   * @return a list of failures logged during validation.
+   * Get the list of SBMLError objects logged during validator execution.
+   *
+   * @return a list of failures logged during validation.  The list may
+   * be empty if no errors or other diagnostics were logged by the validator.
    */
   const std::list<SBMLError>& getFailures () const;
 
 
   /**
-   * Adds the given failure to this list of Validators failures.
+   * Adds the given failure to this list of validation failures.
+   *
+   * This method can be used in the implementation of custom validators.
    *
    * @param err the SBMLError object to append.
    */
