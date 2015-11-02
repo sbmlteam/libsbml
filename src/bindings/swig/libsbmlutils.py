@@ -141,10 +141,9 @@ def doxygen_class_finder(line):
 
 
 def swig_class_finder(line):
-    start = line.find('%template(')
-    if start >= 0:
-        end = line.find(')')
-        return line[start + 10:end].strip()
+    match = re.search('%template\s*\(([^)]+)\)', line)
+    if match != None:
+        return match.group(1).strip()
     return None
 
 
