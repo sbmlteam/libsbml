@@ -33,20 +33,18 @@
  * validation interface so that user programs and SBML Level&nbsp;3 package
  * authors may use the facilities to implement new validators.  There are
  * two main interfaces to libSBML's validation facilities, based on the
- * classes CompValidator and SBMLCompValidator.
+ * classes Validator and ValidatingVisitor.
  *
- * The CompValidator class is the basis of the system for validating an SBML
- * document against the validation rules defined in the SBML
- * specifications.  The scheme used by CompValidator relies is compact and uses
- * the @em visitor programming pattern, but it relies on C/C++ features and
- * is not directly accessible from language bindings.  SBMLCompValidator offers
- * a framework for straightforward class-based extensibility, so that user
- * code can subclass SBMLCompValidator to implement new validation systems,
- * different validators can be introduced or turned off at run-time, and
- * interfaces can be provided in the libSBML language bindings.
- * SBMLCompValidator can call CompValidator functionality internally (as is the
- * case in the current implementation of SBMLInternalCompValidator) or use
- * entirely different implementation approaches, as necessary.
+ * The FbcValidator class extends the Validator class from core libSBML
+ * to apply validation to the constructs introduced by this package
+ * specification. This then acts as a base class for any validators 
+ * that apply rules to the 'fbc' package specification constructs or to
+ * entire models that use the package and may therefore be subject to
+ * other global restrictions introduced. 
+ *
+ * The general 'checkConsistency' functions that invoke validation 
+ * make use of the plugin mechanism to invoke the package specific
+ * validators via the relevant document plugin.
  */
 
 #ifndef FbcValidator_h

@@ -42,18 +42,16 @@
  * two main interfaces to libSBML's validation facilities, based on the
  * classes Validator and ValidatingVisitor.
  *
- * The QualValidator class is the basis of the system for validating an SBML
- * document against the validation rules defined in the SBML
- * specifications.  The scheme used by QualValidator relies is compact and uses
- * the @em visitor programming pattern, but it relies on C/C++ features and
- * is not directly accessible from language bindings.  SBMLQualValidator offers
- * a framework for straightforward class-based extensibility, so that user
- * code can subclass SBMLQualValidator to implement new validation systems,
- * different validators can be introduced or turned off at run-time, and
- * interfaces can be provided in the libSBML language bindings.
- * SBMLQualValidator can call QualValidator functionality internally (as is the
- * case in the current implementation of SBMLInternalQualValidator) or use
- * entirely different implementation approaches, as necessary.
+ * The QualValidator class extends the Validator class from core libSBML
+ * to apply validation to the constructs introduced by this package
+ * specification. This then acts as a base class for any validators 
+ * that apply rules to the 'qual' package specification constructs or to
+ * entire models that use the package and may therefore be subject to
+ * other global restrictions introduced. 
+ *
+ * The general 'checkConsistency' functions that invoke validation 
+ * make use of the plugin mechanism to invoke the package specific
+ * validators via the relevant document plugin.
  */
 
 #ifndef QualValidator__H
