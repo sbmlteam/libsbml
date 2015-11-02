@@ -317,13 +317,15 @@ public:
    */
   const FluxBound* getFluxBound (const std::string& sid) const;
 
-  /** 
-   * 
+
+  /**
+   *
    * @param reaction the id of an reaction to find fluxBounds for
-   * 
-   * @returns a listOfFluxBounds for the given reaction id
+   *
+   * @return a listOfFluxBounds for the given reaction id
    */
   ListOfFluxBounds *  getFluxBoundsForReaction(const std::string& reaction) const;
+
 
   /**
    * Adds a copy of the given FluxBound object to the list of FluxBounds.
@@ -332,7 +334,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   */ 
+   */
   int addFluxBound (const FluxBound* bound);
 
 
