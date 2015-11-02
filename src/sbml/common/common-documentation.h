@@ -1407,23 +1407,6 @@
  * statements that contain the symbol in their "math" subelement expressions.
  * This graph must be acyclic.
  *
- * @copydetails l3v2_specific_addition
- *
- * Similarly, the combined set of RateRule and Reaction objects constitute 
- * a set of definitions for the rates of change of various model entities 
- * (namely, the objects identified by the values of the 'variable' attributes 
- * of the RateRule objects, and the 'species' attributes of the SpeciesReference 
- * objects in each Reaction).  These rates of change may be referenced directly 
- * using the <em>rateOf</em> csymbol, but may not thereby contain algebraic 
- * loops---dependency chains between these statements must terminate.  More 
- * formally, consider a directed graph in which the nodes are the definitions 
- * of different variables' rates of change, and directed arcs exist for each 
- * occurrence of a variable referenced by a <em>rateOf</em> csymbol from any 
- * RateRule or KineticLaw object in the model.  Let the directed arcs point 
- * from the variable referenced by the <em>rateOf</em> csymbol (call it 
- * <em>x</em>) to the variable(s) determined by the 'math' expression in which
- * <em>x</em> appears.  This graph must be acyclic.
- *
  * SBML does not specify when or how often rules should be evaluated.
  * Eliminating algebraic loops ensures that assignment statements can be
  * evaluated any number of times without the result of those evaluations
@@ -3265,4 +3248,29 @@ if (lmp != null)
  * @see SBMLDocument::checkConsistency()
  * @see SBMLDocument::checkInternalConsistency()
  * @see SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+ */
+
+/* <!-- -------------------------------------------------------------------
+ * Temporarily removed text from Lucian bout l3v2 things that are not yet
+ * official.  This came from the section on "a model must not contain
+ * algebraic loops".
+ *
+ * @copydetails doc_l3v2_specific_addition
+ *
+ * Similarly, the combined set of RateRule and Reaction objects constitute 
+ * a set of definitions for the rates of change of various model entities 
+ * (namely, the objects identified by the values of the 'variable' attributes 
+ * of the RateRule objects, and the 'species' attributes of the SpeciesReference 
+ * objects in each Reaction).  These rates of change may be referenced directly 
+ * using the <em>rateOf</em> csymbol, but may not thereby contain algebraic 
+ * loops---dependency chains between these statements must terminate.  More 
+ * formally, consider a directed graph in which the nodes are the definitions 
+ * of different variables' rates of change, and directed arcs exist for each 
+ * occurrence of a variable referenced by a <em>rateOf</em> csymbol from any 
+ * RateRule or KineticLaw object in the model.  Let the directed arcs point 
+ * from the variable referenced by the <em>rateOf</em> csymbol (call it 
+ * <em>x</em>) to the variable(s) determined by the 'math' expression in which
+ * <em>x</em> appears.  This graph must be acyclic.
+ *
+ * -->
  */
