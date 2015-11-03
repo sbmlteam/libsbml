@@ -86,7 +86,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_FATAL,
     LIBSBML_SEV_FATAL,
     LIBSBML_SEV_FATAL,
-    "Unrecognized error encountered by libSBML" },
+    "Unrecognized error encountered by libSBML",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+  },
 
   //10101
   {
@@ -7744,316 +7753,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Use of SBML Level 1 Version 1 is not recommended and conversion is "
-    "not supported by libSBML."
-  },
-
-  ////90501
-  //{
-  //  L2V4InconsistentArgUnits,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "The units of the expressions used as arguments to a function call should "
-  //  "The units of the expressions used as arguments to a function call should "
-  //  "match the units expected for the arguments of that function. "
-  //},
-
-  ////90502
-  //// This is an internal error that reverts to 90501
-  //{
-  //  L2V4InconsistentArgUnitsWarnings,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  ""
-  //  ""
-  //},
-
-  ////90503
-  //// This is an internal error that reverts to 90501
-  //{
-  //  L2V4InconsistentPowerUnitsWarnings,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  ""
-  //  ""
-  //},
-
-  ////90504
-  //// This is an internal error that reverts to 90501
-  //{
-  //  L2V4InconsistentExponUnitsWarnings,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  ""
-  //  ""
-  //},
-
-  ////90511
-  //{
-  //  L2V4AssignRuleCompartmentMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-  //  "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
-  //  "the units of the rule's right-hand side should be consistent with the "
-  //  "units of that compartment's size."
-  //},
-
-  ////90512
-  //{
-  //  L2V4AssignRuleSpeciesMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-  //  "When the 'variable' in an <assignmentRule> refers to a <species>, the "
-  //  "units of the rule's right-hand side should be consistent with the units "
-  //  "of the species' quantity."
-  //},
-
-  ////90513
-  //{
-  //  L2V4AssignRuleParameterMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-  //  "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
-  //  "units of the rule's right-hand side should be consistent with the units "
-  //  "declared for that parameter."
-  //},
-
-  ////90521
-  //{
-  //  L2V4InitAssignCompartmenMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <initialAssignment> refers to a "
-  //  "When the 'variable' in an <initialAssignment> refers to a "
-  //  "<compartment>, the units of the <initialAssignment>'s <math> expression "
-  //  "should be consistent with the units of that compartment's size."
-  //},
-
-  ////90522
-  //{
-  //  L2V4InitAssignSpeciesMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <initialAssignment> refers to a <species>, "
-  //  "When the 'variable' in an <initialAssignment> refers to a <species>, "
-  //  "the units of the <initialAssignment>'s <math> expression should be "
-  //  "consistent with the units of that species' quantity."
-  //},
-
-  ////90523
-  //{
-  //  L2V4InitAssignParameterMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-  //  "When the 'variable' in an <initialAssignment> refers to a <parameter>, "
-  //  "the units of the <initialAssignment>'s <math> expression should be "
-  //  "consistent with the units declared for that parameter."
-  //},
-
-  ////90531
-  //{
-  //  L2V4RateRuleCompartmentMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in a <rateRule> definition refers to a "
-  //  "When the 'variable' in a <rateRule> definition refers to a "
-  //  "<compartment>, the units of the rule's right-hand side should be of the "
-  //  "form _x per time_, where _x_ is either the 'units' in that "
-  //  "<compartment> definition, or (in the absence of explicit units declared "
-  //  "for the compartment size) the default units for that compartment, and "
-  //  "_time_ refers to the units of time for the model."
-  //},
-
-  ////90532
-  //{
-  //  L2V4RateRuleSpeciesMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
-  //  "When the 'variable' in a <rateRule> definition refers to a <species>, "
-  //  "the units of the rule's right-hand side should be of the form _x per "
-  //  "time_, where _x_ is the units of that species' quantity, and _time_ "
-  //  "refers to the units of time for the model."
-  //},
-
-  ////90533
-  //{
-  //  L2V4RateRuleParameterMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-  //  "When the 'variable' in a <rateRule> definition refers to a <parameter>, "
-  //  "the units of the rule's right-hand side should be of the form _x per "
-  //  "time_, where _x_ is the 'units' in that <parameter> definition, and "
-  //  "_time_ refers to the units of time for the model."
-  //},
-
-  ////90541
-  //{
-  //  L2V4KineticLawNotSubstancePerTime,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "The units of the 'math' formula in a <kineticLaw> definition should be "
-  //  "The units of the 'math' formula in a <kineticLaw> definition should be "
-  //  "the equivalent of _substance per time_."
-  //},
-
-  ////90551
-  //{
-  //  L2V4DelayUnitsNotTime,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When a value for <delay> is given in a <event> definition, the units of "
-  //  "When a value for <delay> is given in a <event> definition, the units of "
-  //  "the delay formula should correspond to either the value of 'timeUnits' in "
-  //  "the <event> or (if no 'timeUnits' are given), the model's default units "
-  //  "of time."
-  //},
-
-  ////90561
-  //{
-  //  L2V4EventAssignCompartmentMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
-  //  "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
-  //  "the units of the <eventAssignment>'s <math> expression should be consistent "
-  //  "with the units of that compartment's size."
-  //},
-
-  ////90562
-  //{
-  //  L2V4EventAssignSpeciesMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <eventAssignment> refers to a <species>, the "
-  //  "When the 'variable' in an <eventAssignment> refers to a <species>, the "
-  //  "units of the <eventAssignment>'s <math> expression should be consistent "
-  //  "with the units of the species' quantity."
-  //},
-
-  ////90563
-  //{
-  //  L2V4EventAssignParameterMismatch,
-  //  LIBSBML_CAT_UNITS_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  LIBSBML_SEV_GENERAL_WARNING,
-  //  "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
-  //  "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
-  //  "units of the <eventAssignment>'s <math> expression should be consistent "
-  //  "with the units declared for that parameter."
-  //},
-
+    "not supported by libSBML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * L1 compatibility.
@@ -8073,8 +7782,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A model with <event> definitions cannot be represented in SBML Level 1."
-  },
+    "A model with <event> definitions cannot be represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91002
   {
@@ -8092,8 +7809,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "SBML Level 1 does not have <functionDefinitions>. The "
     "<functionDefinitions> in the original model have been "
-    "replaced by appropriate formula."
-  },
+    "replaced by appropriate formula.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91003
   {
@@ -8110,8 +7835,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "Conversion of a model with <constraint>s to SBML Level 1 may result "
-    "in loss of information."
-  },
+    "in loss of information.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91004
   {
@@ -8129,8 +7862,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "SBML Level 1 does not have <initialAssignments>. The "
     "<initialAssignments> in the original model have been "
-    "replaced by appropriate values."
-  },
+    "replaced by appropriate values.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91005
   {
@@ -8146,8 +7887,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "<speciesType> definitions cannot be represented in SBML Level 1."
-  },
+    "<speciesType> definitions cannot be represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91006
   {
@@ -8163,8 +7912,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "<compartmentType> definitions cannot be represented in SBML Level 1."
-  },
+    "<compartmentType> definitions cannot be represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91007
   {
@@ -8181,8 +7938,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <compartment> with 'spatialDimensions' not equal to 3 cannot be "
-    "represented in SBML Level 1."
-  },
+    "represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91008
   {
@@ -8199,8 +7964,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <speciesReference> containing a non-integer or non-rational "
-    "<stoichiometryMath> subelement cannot be represented in SBML Level 1."
-  },
+    "<stoichiometryMath> subelement cannot be represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91009
   {
@@ -8217,8 +7990,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <speciesReference> containing a non-integer 'stoichiometry' attribute "
-    "value cannot be represented in SBML Level 1."
-  },
+    "value cannot be represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91010
   {
@@ -8235,8 +8016,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <unit> containing multipliers or offsets cannot be represented in "
-    "SBML Level 1."
-  },
+    "SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91011
   {
@@ -8253,8 +8042,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <species> that does not identify its compartment cannot be "
-    "represented in SBML Level 1."
-  },
+    "represented in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91012
   {
@@ -8272,8 +8069,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The information represented by the value of a 'spatialSizeUnit' "
     "attribute on a <species> definition cannot be represented in "
-    "SBML Level 1."
-  },
+    "SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91013
   {
@@ -8289,8 +8094,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    "SBO terms cannot be represented directly in SBML Level 1."
-  },
+    "SBO terms cannot be represented directly in SBML Level 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91014
   {
@@ -8309,8 +8122,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 1 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91015
   {
@@ -8328,8 +8149,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "This model contains conversion factors "
     "and thus conversion to earlier levels "
-    "is not supported."
-  },
+    "is not supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91016
   {
@@ -8346,8 +8175,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "SBML Level 1/2 do not have the 'compartment' attribute on a "
-    "Reaction.  This information will be lost in the conversion."
-  },
+    "Reaction.  This information will be lost in the conversion.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91017
   {
@@ -8365,7 +8202,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Conversion to SBML Level 1 requires that 'extent' units be a "
     "variant of substance",
-  },
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91018
   {
@@ -8384,7 +8229,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "Conversion to SBML Levels 1 and 2 requires that any global units "
     "must refer to a valid unit kind or the id of "
     "a valid unitDefinition.",
-  },
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91019
   {
@@ -8404,7 +8257,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "and not units of concentration cannot be correctly interpreted "
     "in SBML Level 1 without alteration of any mathematical formula. "
     "LibSBML does not do this alteration",
-  },
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //91020
   {
@@ -8421,7 +8282,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Conversion of the csymbol avogadro is not yet supported.",
-  },
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
   /* --------------------------------------------------------------------------
    * L2 compatibility.
    * ----------------------------------------------------------------------- */
@@ -8441,8 +8310,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "Conversion of a model with <constraints> to SBML Level 2 Version 1 may "
-    "result in loss of information."
-  },
+    "result in loss of information.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92002
   {
@@ -8460,8 +8337,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "SBML Level 2 Version 1 does not have <initialAssignments>. The "
     "<initialAssignments> in the original model have been "
-    "replaced by appropriate values."
-  },
+    "replaced by appropriate values.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92003
   {
@@ -8478,8 +8363,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "<speciesType> definitions cannot be represented in SBML Level 2 "
-    "Version 1."
-  },
+    "Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92004
   {
@@ -8496,8 +8389,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "<compartmentType> definitions cannot be represented in SBML Level 2 "
-    "Version 1."
-  },
+    "Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92005
   {
@@ -8513,8 +8414,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    "SBO terms cannot be represented directly in SBML Level 2 Version 1."
-  },
+    "SBO terms cannot be represented directly in SBML Level 2 Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92006
   {
@@ -8531,8 +8440,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "The 'id' attribute value of a <speciesReference> cannot be "
-    "represented directly in SBML Level 2 Version 1."
-  },
+    "represented directly in SBML Level 2 Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92007
   {
@@ -8552,8 +8469,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "is that there is a delay between the time of trigger and the "
     "time of value assignments performed by the <event>.  This interpretation is "
     "not supported by SBML Level 2 versions prior to Version 4. "
-    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92008
   {
@@ -8572,8 +8497,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 1 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92009
   {
@@ -8590,8 +8523,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Models in SBML Level 2 Versions 1-4 can only represent compartments "
-    "with integer values 0, 1, 2, or 3 as spatial dimensions."
-  },
+    "with integer values 0, 1, 2, or 3 as spatial dimensions.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92010
   {
@@ -8608,8 +8549,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "Conversion of a varying stoichiometry to an SBML L2 StoichiometryMath "
-    "element is not yet supported."
-  },
+    "element is not yet supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92011
   {
@@ -8625,8 +8574,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Event priority is not supported in SBML Level 2."
-  },
+    "Event priority is not supported in SBML Level 2.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92012
   {
@@ -8642,8 +8599,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Non persistent events are not supported in SBML Level 2."
-  },
+    "Non persistent events are not supported in SBML Level 2.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //92013
   {
@@ -8659,8 +8624,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Initialvalue of event Triggers was assumed true in L2."
-  },
+    "Initialvalue of event Triggers was assumed true in L2.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * L2V2 compatibility.
@@ -8683,8 +8656,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "In SBML Level 2 Version 2, an 'sboTerm' attribute is only permitted on "
     "the following elements: <model>, <functionDefinition>, <parameter>, "
     "<initialAssignment>, <rule>, <constraint>, <reaction>, "
-    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>."
-  },
+    "<speciesReference>, <kineticLaw>, <event> and <eventAssignment>.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93002
   {
@@ -8702,8 +8683,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)"
-  },
+    "L2V2 Section 4.4.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93003
   {
@@ -8723,8 +8712,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93004
   {
@@ -8744,8 +8741,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93005
   {
@@ -8765,8 +8770,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "is that there is a delay between the time of trigger and the "
     "time of value assignments performed by the <event>.  This interpretation is "
     "not supported by SBML Level 2 versions prior to Version 4. "
-    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93006
   {
@@ -8788,8 +8801,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "and above it is expected to be a term derived from SBO:0000231 "
     "\"interaction\". Using the existing term will create an invalid "
     " L2V2 model. (References: L2V2 Section 4.2.1; L2V3 "
-    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
-  },
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93007
   {
@@ -8808,8 +8829,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 2 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //93008
   {
@@ -8829,8 +8858,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
     "This model contains sboTerms that produce "
     "inconsistencies and thus conversion to Level 2 Version 2 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * L2V3 compatibility.
@@ -8856,8 +8893,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
     "elements will be placed inside a new top level element named "
     "\"duplicateTopLevelElements\" with the namespace "
-    "\"http://www.sbml.org/libsbml/annotation\""
-  },
+    "\"http://www.sbml.org/libsbml/annotation\"",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94001
   {
@@ -8875,8 +8920,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)"
-  },
+    "L2V2 Section 4.4.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94002
   {
@@ -8896,8 +8949,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94003
   {
@@ -8917,8 +8978,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94004
   {
@@ -8936,8 +9005,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
-  },
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94005
   {
@@ -8955,8 +9032,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94006
   {
@@ -8976,8 +9061,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "is that there is a delay between the time of trigger and the "
     "time of value assignments performed by the <event>.  This interpretation is "
     "not supported by SBML Level 2 versions prior to Version 4. "
-    "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "(References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94007
   {
@@ -8999,8 +9092,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "and above it is expected to be a term derived from SBO:0000231 "
     "\"interaction\". Using the existing term will create an invalid "
     " L2V3 model. (References: L2V2 Section 4.2.1; L2V3 "
-    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
-  },
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94008
   {
@@ -9019,8 +9120,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 2 Version 4 removed the requirement that all units "
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 3 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94009
   {
@@ -9040,8 +9149,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "be drawn from a given branch of SBO (http://www.biomodels.net/SBO/). "
     "This model contains sboTerms that produce "
     "inconsistencies and thus conversion to Level 2 Version 3 "
-    "would produce an invalid model."
-  },
+    "would produce an invalid model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //94010
   {
@@ -9063,8 +9180,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
     "elements will be placed inside a new top level element named "
     "\"duplicateTopLevelElements\" with the namespace "
-    "\"http://www.sbml.org/libsbml/annotation\""
-  },
+    "\"http://www.sbml.org/libsbml/annotation\"",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * L2V4 compatibility.
@@ -9086,8 +9211,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)"
-  },
+    "L2V2 Section 4.4.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95002
   {
@@ -9107,8 +9240,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95003
   {
@@ -9128,8 +9269,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95004
   {
@@ -9147,8 +9296,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
-  },
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95005
   {
@@ -9166,8 +9323,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95006
   {
@@ -9189,8 +9354,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "and above it is expected to be a term derived from SBO:0000231 "
     "\"interaction\". Using the existing term will create an invalid "
     " L2V4 model. (References: L2V2 Section 4.2.1; L2V3 "
-    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
-  },
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //95007
   {
@@ -9212,8 +9385,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
     "elements will be placed inside a new top level element named "
     "\"duplicateTopLevelElements\" with the namespace "
-    "\"http://www.sbml.org/libsbml/annotation\""
-  },
+    "\"http://www.sbml.org/libsbml/annotation\"",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * L3V1 compatibility.
@@ -9234,8 +9415,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "<speciesType> definitions cannot be represented in SBML Level 3 "
-    "Version 1."
-  },
+    "Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96002
   {
@@ -9252,8 +9441,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "<compartmentType> definitions cannot be represented in SBML Level 3 "
-    "Version 1."
-  },
+    "Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96003
   {
@@ -9271,8 +9468,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
-    "L2V2 Section 4.4.)"
-  },
+    "L2V2 Section 4.4.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96004
   {
@@ -9292,8 +9497,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96005
   {
@@ -9313,8 +9526,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
-    "(References: L2V2 Section 4.13.5.)"
-  },
+    "(References: L2V2 Section 4.13.5.)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96006
   {
@@ -9332,8 +9553,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'spatialSizeUnits' attribute on <species>, previously available "
     "in SBML Level 2 versions prior to Version 3, has been removed as "
-    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
-  },
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96007
   {
@@ -9351,8 +9580,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96008
   {
@@ -9374,8 +9611,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "and above it is expected to be a term derived from SBO:0000231 "
     "\"interaction\". Using the existing term will create an invalid "
     " L2V4 model. (References: L2V2 Section 4.2.1; L2V3 "
-    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
-  },
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96009
   {
@@ -9397,8 +9642,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
     "elements will be placed inside a new top level element named "
     "\"duplicateTopLevelElements\" with the namespace "
-    "\"http://www.sbml.org/libsbml/annotation\""
-  },
+    "\"http://www.sbml.org/libsbml/annotation\"",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96010
   {
@@ -9416,8 +9669,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'outside' attribute on <compartment>, previously available "
     "in SBML Level 2 has been removed as "
-    "of SBML Level 3 Version 1."
-  },
+    "of SBML Level 3 Version 1.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //96011
   {
@@ -9434,8 +9695,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "Conversion of a model with <stoichiometryMath> to SBML Level 3 is not "
-    "yet supported."
-  },
+    "yet supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * These are errors checked by libSBML that were never published in a spec.
@@ -9459,8 +9728,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "consistent with a valid published SBML specification.  These are "
     "Level 1, Versions 1 and 2; Level 2, Versions 1, 2, 3 and 4; "
     "and Level 3, Version 1.  If newer levels or versions of SBML "
-    "now exist, you must update your version of libSBML."
-  },
+    "now exist, you must update your version of libSBML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99104
   {
@@ -9477,8 +9754,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <sbml> container element cannot contain <notes> or <annotations> in "
-    "an SBML Level 1 document."
-  },
+    "an SBML Level 1 document.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99106
   {
@@ -9498,8 +9783,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "identifier in a MathML <ci> element except for the following: (a) "
     "identifiers for which there exists a subsequent assignment rule, "
     "and (b) the identifier for which the rule is defined. (L2V1 Section "
-    "4.8.4)."
-  },
+    "4.8.4).",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99107
   {
@@ -9520,8 +9813,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "true indicates that interpreting the package is necessary for complete "
     "mathematical interpretation of the model. (L3V1 Section 4.1.2) "
     "This instance of libSBML version 5 cannot find the code necessary to "
-    "interpret the package information."
-  },
+    "interpret the package information.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99108
   {
@@ -9541,8 +9842,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "URI and defines the attribute named 'required'. LibSBML has detected "
     "what appears to be an SBML Level 3 package with required=false but "
     "this instance of libSBML-5 cannot find the code necessary to parse "
-    "this information."
-  },
+    "this information.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99109
   {
@@ -9560,8 +9869,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "The 'required' attribute for this package is expected to be 'false' "
     "as there is no way to change the mathematical interpretation of the "
-    "model using the constructs in this package."
-  },
+    "model using the constructs in this package.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99127
   {
@@ -9579,8 +9896,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
     "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
-    "(L2v1 Section 4.9.7)."
-  },
+    "(L2v1 Section 4.9.7).",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99128
   {
@@ -9598,8 +9923,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
     "UnitDefnition that defines a variant of 'second' with exponent='1' "
-    "(L2v1 Section 4.9.7)."
-  },
+    "(L2v1 Section 4.9.7).",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99129
   {
@@ -9616,8 +9949,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "In a Level 1 model, only predefined functions are permitted "
-    "within the formula. (L1V2 Appendix C) "
-  },
+    "within the formula. (L1V2 Appendix C) ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99130
   // should be in the spec but is not
@@ -9664,8 +10005,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The 'timeUnits' attribute on <event>, previously available in SBML "
     "Level 2 versions prior to Version 3, has been removed as of SBML "
-    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
-  },
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99219
   {   
@@ -9681,8 +10030,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Invalid MathML. The body of an <apply> tag must begin with an operator."   
-  },
+    "Invalid MathML. The body of an <apply> tag must begin with an operator.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99220
   {   
@@ -9698,8 +10055,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Failed to read a valid double value from MathML."   
-  },
+    "Failed to read a valid double value from MathML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99221
   {   
@@ -9715,8 +10080,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Failed to read a valid integer value from MathML."   
-  },
+    "Failed to read a valid integer value from MathML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99222
   {   
@@ -9732,8 +10105,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Failed to read a valid exponential value from MathML."   
-  },
+    "Failed to read a valid exponential value from MathML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99223
   {   
@@ -9749,8 +10130,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Failed to read a valid rational value from MathML."   
-  },
+    "Failed to read a valid rational value from MathML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99224
   {   
@@ -9770,8 +10159,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "a <lambda> element must begin with one of "   
     "the following: <cn>, <ci>, <csymbol>, <apply>, <piecewise>, "
     "<true>, <false>, <notanumber>, <pi>, <infinity>, <exponentiale>, "
-    "<semantics>. (References: L2V3 Appendix B)"
-  },
+    "<semantics>. (References: L2V3 Appendix B)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99225
   {   
@@ -9787,8 +10184,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "An invalid MathML attribute has been encountered."
-  },
+    "An invalid MathML attribute has been encountered.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99301
   {   
@@ -9806,8 +10211,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The csymbol 'time' should not be used within the <math> element "
     "of a <functionDefinition>. (References: L2V3 Section 4.3.2; " 
-    "L2V4 Section 4.3.2)"
-  },
+    "L2V4 Section 4.3.2)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99302
   {   
@@ -9824,8 +10237,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The <lambda> element of a FunctionDefinition object must contain a function "
-    "body in addition to zero or more arguments."
-  },
+    "body in addition to zero or more arguments.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99301
   {   
@@ -9843,8 +10264,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The csymbol 'time' should not be used within a the <math> element "
     "of a <FunctionDefinition>. (References: L2V3 Section 4.3.2; " 
-    "L2V4 Section 4.3.2)"
-  },
+    "L2V4 Section 4.3.2)",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99303
   {   
@@ -9862,7 +10291,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "Where a component has an attribute that refers to a unit identifier, " 
     "that attribute must refer to a unit defined in SBML or be the id "
-    "of a UnitDefinition in the model."
+    "of a UnitDefinition in the model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
    },
 
   //99401
@@ -10076,8 +10513,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    ""
-  },
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99503
   // This is an internal error that reverts to 10501
@@ -10094,8 +10539,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    ""
-  },
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99504
   // This is an internal error that reverts to 10501
@@ -10112,8 +10565,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    ""
-  },
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99505
   {
@@ -10131,8 +10592,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "In situations where a mathematical expression contains literal numbers "
     "or parameters whose units have not been declared, it is not possible "
-    "to verify accurately the consistency of the units in the expression. "
-  },
+    "to verify accurately the consistency of the units in the expression. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99506
   {
@@ -10152,8 +10621,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "of time should be consistent with the global time units of the model. "
     "In models where the 'timeUnits' attribute has not been declared, libSBML "
     "does not yet have the functionality to verify accurately the consistency "
-    "of the units in such expressions. "
-  },
+    "of the units in such expressions. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99507
   {
@@ -10173,8 +10650,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "of extent should be consistent with the global extent units of the model. "
     "In models where the 'extentUnits' attribute has not been declared, libSBML "
     "does not yet have the functionality to verify accurately the consistency "
-    "of the units in such expressions. "
-  },
+    "of the units in such expressions. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99508
   {
@@ -10195,9 +10680,18 @@ static const sbmlErrorTableEntry errorTable[] =
     "of the object to establish unit consistency. "
     "In models where the units of an object have not been declared, libSBML "
     "does not yet have the functionality to accurately verify the consistency "
-    "of the units in mathematical expressions referring to that object. "
-  },
-  //99701
+    "of the units in mathematical expressions referring to that object. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
+  
+   //99701
   {   
     UnrecognisedSBOTerm,   
     "Unrecognized 'sboTerm' attribute value",
@@ -10213,8 +10707,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "The SBOTerm used is not recognized by libSBML and therefore the correct "
     "parentage cannot be checked. However, since libSBML is referring to a "
-    "snapshot of the SBO tree the term may now exist."
-  },
+    "snapshot of the SBO tree the term may now exist.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99702
   {   
@@ -10230,8 +10732,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    "The SBOTerm value used is considered obsolete."
-  },
+    "The SBOTerm value used is considered obsolete.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * Internal consistency checks.
@@ -10254,8 +10764,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'spatialDimensions' attribute on <compartment> was not available "
     "in SBML Level 1. In order for the internal representation of a "
     "<compartment> to be correct, the value for the spatialDimensions "
-    "member variable should be '3'."
-  },
+    "member variable should be '3'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99902
   {   
@@ -10274,8 +10792,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'compartmentType' attribute on <compartment> was not available "
     "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
     "representation of a <compartment> to be correct, the value for the "
-    "compartmentType member variable should be not be set."
-  },
+    "compartmentType member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99903
   {   
@@ -10296,8 +10822,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "of <compartment> and <parameter> to be correct, the value for the "
     "constant member variable should be 'false' if the <compartment> or "
     "<parameter> is the variable of a <rule> otherwise it can be either "
-    "'true' or 'false' without affecting the interpretation of the model."
-  },
+    "'true' or 'false' without affecting the interpretation of the model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99904
   {   
@@ -10316,8 +10850,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'metaid' attribute on all <SBase> objects was not available "
     "in SBML Level 1. In order for the internal "
     "representation to be correct, the value for the "
-    "'metaid' member variable should be not be set."
-  },
+    "'metaid' member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99905
   {   
@@ -10338,8 +10880,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "<unit> and <unitDefinition> was not available before SBML Level 2 "
     "Version 3. In order for the internal "
     "representation of these components to be correct, the value for the "
-    "sboTerm member variable should be '-1'."
-  },
+    "sboTerm member variable should be '-1'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99906
   {   
@@ -10358,8 +10908,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'units' attribute on a <compartment> must be either "
     "'volume', 'litre', 'liter' or the identifier of a <unitDefinition> "
     "based on either 'litre'/'liter' or 'metre'/'meter' (with "
-    "'exponent' equal to '3')."
-  },
+    "'exponent' equal to '3').",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99907
   {   
@@ -10376,8 +10934,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "A value for the compartment 'volume' attribute must be specified "
-    "in this Level+Version of SBML."
-  },
+    "in this Level+Version of SBML.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
 
   //99908
@@ -10396,8 +10962,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     "The <compartmentType> component was introduced in SBML Level 2 Version "
     "2. In order for the internal representation of a <model> to "
-    "be correct, the <listOfCompartmentTypes> component should be empty."
-  },
+    "be correct, the <listOfCompartmentTypes> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99909
   {   
@@ -10415,8 +10989,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <constraint> component was introduced in SBML Level 2 Version "
     "2. In order for the internal representation of a <model> to "
-    "be correct, the <listOfConstraints> component should be empty."
-  },
+    "be correct, the <listOfConstraints> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99910
   {   
@@ -10434,8 +11016,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <event> component was introduced in SBML Level 2 Version "
     "1. In order for the internal representation of a <model> to "
-    "be correct, the <listOfEvents> component should be empty."
-  },
+    "be correct, the <listOfEvents> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99911
   {   
@@ -10456,8 +11046,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "<rule> and <speciesReferenece> was not available before SBML Level 2 "
     "Version 2. In order for the internal "
     "representation of these components to be correct, the value for the "
-    "sboTerm member variable should be '-1'."
-  },
+    "sboTerm member variable should be '-1'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99912
   {   
@@ -10475,8 +11073,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <functionDefinition> component was introduced in SBML Level 2 Version "
     "1. In order for the internal representation of a <model> to "
-    "be correct, the <listOfFunctionDefinitions> component should be empty."
-  },
+    "be correct, the <listOfFunctionDefinitions> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99913
   {   
@@ -10494,8 +11100,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The <initialAssignment> component was introduced in SBML Level 2 Version "
     "2. In order for the internal respresentation of a <model> to "
-    "be correct, the <listOfInitialAssignments> component should be empty."
-  },
+    "be correct, the <listOfInitialAssignments> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99914
   {   
@@ -10512,8 +11126,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "An <algebraicRule> does not assign a value to a particular variable "
-    "and does not carry an attribute named 'variable'."
-  },
+    "and does not carry an attribute named 'variable'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99915
   {   
@@ -10531,8 +11153,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The 'units' attribute on <rule> was only applicable to a <parameterRule> "
     "in SBML Level 1. In order for the internal respresentation of a <rule> to "
-    "be correct, the value for the units member variable should not be set."
-  },
+    "be correct, the value for the units member variable should not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99916
   {   
@@ -10555,8 +11185,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "variable of a <rule> or (2) the 'boundaryCondition' attribute is 'false' "
     "and the <species> is a product/reactant in a <reaction>. Otherwise it "
     "can be either 'true' or 'false' without affecting the interpretation of "
-    "the model."
-  },
+    "the model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99917
   {   
@@ -10575,8 +11213,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'spatialSizeUnits' attribute on <species> was not available "
     "in SBML Level 1. In order for the internal "
     "respresentation of a <species> to be correct, the value for the "
-    "spatialSizeUnits member variable should be not be set."
-  },
+    "spatialSizeUnits member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99918
   {   
@@ -10595,8 +11241,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'speciesType' attribute on <species> was not available "
     "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
     "respresentation of a <species> to be correct, the value for the "
-    "speciesType member variable should be not be set."
-  },
+    "speciesType member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99919
   {   
@@ -10615,8 +11269,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'hasOnlySubstanceUnits' attribute on <species> was not available "
     "in SBML Level 1. In order for the internal "
     "respresentation of a <species> to be correct, the value for the "
-    "hasOnlySubstanceUnits member variable should be 'false'."
-  },
+    "hasOnlySubstanceUnits member variable should be 'false'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99920
   {   
@@ -10635,8 +11297,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'id' attribute on <speciesReference> was not available "
     "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
     "respresentation of a <speciesReference> to be correct, the value for the "
-    "id member variable should be not be set."
-  },
+    "id member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
     //99921
   {   
@@ -10655,7 +11325,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'name' attribute on <speciesReference> was not available "
     "in SBML Level 1 or SBML Level 2 Version 1. In order for the internal "
     "respresentation of a <speciesReference> to be correct, the value for the "
-    "name member variable should be not be set."
+    "name member variable should be not be set.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
    },
 
   //99922
@@ -10674,8 +11352,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     "The <speciesType> component was introduced in SBML Level 2 Version "
     "2. In order for the internal respresentation of a <model> to "
-    "be correct, the <listOfSpeciesTypes> component should be empty."
-  },
+    "be correct, the <listOfSpeciesTypes> component should be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99923
   {   
@@ -10694,8 +11380,16 @@ static const sbmlErrorTableEntry errorTable[] =
     "The <stoichiometryMath> component on a <speciesReference> was "
     "introduced in SBML Level 2. "
     "In order for the internal respresentation of a <speciesReference> to "
-    "be correct, the <stoichiometryMath> component should be 'NULL'."
-  },
+    "be correct, the <stoichiometryMath> component should be 'NULL'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99924
   {   
@@ -10713,8 +11407,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'multiplier' attribute on <unit> was not available in SBML Level 1. "
     "In order for the internal respresentation of a <unit> to "
-    "be correct, the value for the multiplier member variable should be '1.0'."
-  }, 
+    "be correct, the value for the multiplier member variable should be '1.0'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99925
   {   
@@ -10732,8 +11434,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The 'offset' attribute on <unit> was only available in SBML Level 2 "
     "Version 1. In order for the internal respresentation of a <unit> to "
-    "be correct, the value for the offset member variable should be '0'."
-  }, 
+    "be correct, the value for the offset member variable should be '0'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99926
   {   
@@ -10750,37 +11460,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "The 'spatialDimensions' attribute on <compartment> was left unset on "
-    "the SBML Level 3 model.  Conversion will apply a default value of '3'."
-  }, 
-
-  ////99927
-  //// should be in the spec but is not
-  //{
-  //  L3SubstanceUnitsOnModel,
-  //  "Invalid 'substanceUnits' attribute value",
-  //  LIBSBML_CAT_GENERAL_CONSISTENCY,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_NOT_APPLICABLE,
-  //  LIBSBML_SEV_WARNING,
-  //  LIBSBML_SEV_WARNING,
-  //  "The value of the attribute substanceUnits on a Model object should be "
-  //  "either the units 'mole', 'item', 'avogadro', 'dimensionless', "
-  //  "'kilogram', 'gram', or the identifier of a UnitDefinition object "
-  //  "based on these units.",
-  //  {"",
-  //   "",
-  //   "",
-  //   "",
-  //   "",
-  //   "",
-  //   "L3V1 Section 4.2.6",
-  //   "L3V2 Section 4.2.6"}
-  //},
+    "the SBML Level 3 model.  Conversion will apply a default value of '3'.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
 
 /* Explanation about 99994 and 99995:
@@ -10825,8 +11514,16 @@ know about them.
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
-    ""
-  },
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99995
   {   
@@ -10842,8 +11539,16 @@ know about them.
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
-    ""
-  },
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
 
 
@@ -10861,8 +11566,16 @@ know about them.
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
-    "Conversion of SBML Level 3 package information is not yet supported."
-  },
+    "Conversion of SBML Level 3 package information is not yet supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99997
   {   
@@ -10878,8 +11591,16 @@ know about them.
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
-    "Conversion is only possible to an existing SBML Level and Version."
-  },
+    "Conversion is only possible to an existing SBML Level and Version.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   //99998
   {   
@@ -10896,8 +11617,16 @@ know about them.
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
     "Validation of or conversion from L3 documents/models is not yet "
-    "supported."
-  },
+    "supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
 
   /* --------------------------------------------------------------------------
    * Boundary marker.  Application-specific codes should begin at 100000.
