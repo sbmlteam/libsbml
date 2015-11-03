@@ -4971,8 +4971,8 @@ SBase::logEmptyString( const string& attribute,
  */
 void
 SBase::logError (  unsigned int       id
-                 , const unsigned int level
-                 , const unsigned int version
+                 , const unsigned int 
+                 , const unsigned int 
                  , const std::string& details )
 {
   //
@@ -4980,7 +4980,7 @@ SBase::logError (  unsigned int       id
   // no SBMLDocument attached.
   //
   if ( SBase::getErrorLog() != NULL && mSBML != NULL)
-    getErrorLog()->logError(id, level, version, details, getLine(), getColumn());
+    getErrorLog()->logError(id, getLevel(), getVersion(), details, getLine(), getColumn());
 }
 /** @endcond */
 
