@@ -658,7 +658,7 @@ if(WITH_CSHARP)
         DOC "The file name of the C# compiler for the libsbmlcs assembly."
         )
     find_program(CSHARP_EXAMPLE_COMPILER
-        NAMES gmcs csc
+        NAMES gmcs csc mcs
         PATHS 
             ${windir}/Microsoft.NET/Framework/v4.0.30319/ 
             ${windir}/Microsoft.NET/Framework/v3.5/ 
