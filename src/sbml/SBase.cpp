@@ -4903,8 +4903,8 @@ SBase::logUnknownElement( const string& element,
   {
     // put in a package message
     // for now - want to log error from package but needs further work
-
-    msg << "Element '" << element << "' is not part of the definition of '"
+    ostringstream msg1;
+    msg1 << "Element '" << element << "' is not part of the definition of '"
         << this->getElementName() << "' in "
         << "SBML Level " << level << " Version " << version
         << " Package " << getPackageName()
@@ -4913,21 +4913,21 @@ SBase::logUnknownElement( const string& element,
     if (mSBML != NULL)
     {
       getErrorLog()->logError(UnrecognizedElement,
-          level, version, msg.str(), getLine(), getColumn());
+          level, version, msg1.str(), getLine(), getColumn());
       logged = true;
     }
   }
 
   if (logged == false)
   {
-
-    msg << "Element '" << element << "' is not part of the definition of "
+    ostringstream msg1;
+    msg1 << "Element '" << element << "' is not part of the definition of "
         << "SBML Level " << level << " Version " << version << ".";
 
     if (mSBML != NULL)
     {
       getErrorLog()->logError(UnrecognizedElement,
-            level, version, msg.str(), getLine(), getColumn());
+            level, version, msg1.str(), getLine(), getColumn());
     }
   }
 

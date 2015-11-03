@@ -282,9 +282,9 @@ START_TEST (test_QualExtension_read_L3V1V1_unknown_elements)
 
   SBMLDocument *document = readSBMLFromString(s1);
   Model *model = document->getModel();
- 
+
   fail_unless(model != NULL);
-  fail_unless(document->getNumErrors() == 2);
+  fail_unless(document->getNumErrors() == 1);
 
   delete document;
 }

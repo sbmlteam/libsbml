@@ -171,7 +171,7 @@ SBMLStripPackageConverter::convert()
   {
     int numPackages = mDocument->getNumUnknownPackages();
     bool result = true;
-    for (int i = 0; i < numPackages; ++i)
+    for (int i = numPackages-1; i >=0; --i)
     {
       const std::string& current = mDocument->getUnknownPackagePrefix(i);
       result &= stripPackage(current);
