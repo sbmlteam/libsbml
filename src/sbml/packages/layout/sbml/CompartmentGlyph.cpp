@@ -100,7 +100,7 @@ CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
 /*
  * Constructor which creates a new CompartmentGlyph with the given @p id.
  */
-CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
+CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string&)
   : GraphicalObject(layoutns)
   , mCompartment("")
   , mOrder(numeric_limits<double>::quiet_NaN())
@@ -125,7 +125,7 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
  * Constructor which creates a new CompartmentGlyph.  Id and associated
  * compartment id are set to copies of the values given as arguments.
  */
-CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, const std::string& compId)
+CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::string&, const std::string& compId)
   : GraphicalObject(layoutns)
   , mCompartment(compId)
   , mOrder(numeric_limits<double>::quiet_NaN())
@@ -374,12 +374,12 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
       static_cast<ListOfCompartmentGlyphs*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-              getErrorLog()->getError(n)->getMessage();
+              getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         if (loSubGlyphs == true)
         {
@@ -394,10 +394,10 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
             getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
         }
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         if (loSubGlyphs == true)
         {
@@ -421,20 +421,20 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("layout", LayoutCGAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("layout", LayoutCGAllowedCoreAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());

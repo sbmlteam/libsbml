@@ -403,7 +403,7 @@ LibXMLParser::parseNext ()
 {
   if ( error() ) return false;
 
-  int bytes = mSource->copyTo(mBuffer, BUFFER_SIZE);
+  int bytes = (int)mSource->copyTo(mBuffer, BUFFER_SIZE);
   int done  = (bytes == 0);
 
   if ( mSource->error() )
@@ -424,7 +424,7 @@ LibXMLParser::parseNext ()
     // libXML message, I think it's less confusing for the user.
 
     reportError(translateError(libxmlError->code), "",
-		libxmlError->line, libxmlError->int2);
+		(unsigned int)libxmlError->line, (unsigned int)libxmlError->int2);
     return false;
   }
 

@@ -603,7 +603,7 @@ START_CONSTRAINT( 9999508, Parameter, p)
   UnitDefinition * ud =  const_cast<UnitDefinition*>(p.getDerivedUnitDefinition());
   
   bool isNotNull = ud != NULL;
-  int numUnits = isNotNull ? ud->getNumUnits() : 0;
+  int numUnits = isNotNull ? (int)ud->getNumUnits() : 0;
   
   if (!isNotNull)  
 

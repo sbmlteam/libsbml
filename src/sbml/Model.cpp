@@ -5728,7 +5728,7 @@ Model::createReactionUnitsData(UnitFormulaFormatter * unitFormatter)
       if(react->getKineticLaw()->isSetMath())
       {
         ud = unitFormatter->getUnitDefinition
-                                  (react->getKineticLaw()->getMath(), true, n);
+                                  (react->getKineticLaw()->getMath(), true, (int)n);
         fud->setContainsParametersWithUndeclaredUnits
                                  (unitFormatter->getContainsUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits
@@ -5761,7 +5761,7 @@ Model::createReactionUnitsData(UnitFormulaFormatter * unitFormatter)
 /** @cond doxygenLibsbmlInternal */
 void
 Model::createLocalParameterUnitsData(KineticLaw * kl,
-                                     UnitFormulaFormatter * unitFormatter)
+                                     UnitFormulaFormatter*)
 {
   UnitDefinition *ud = NULL;
   FormulaUnitsData *fud = NULL;

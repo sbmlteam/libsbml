@@ -553,7 +553,7 @@ Delay::readAttributes (const XMLAttributes& attributes,
  * parents implementation of this method as well.
  */
 void
-Delay::readL2Attributes (const XMLAttributes& attributes)
+Delay::readL2Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */
@@ -566,7 +566,7 @@ Delay::readL2Attributes (const XMLAttributes& attributes)
  * parents implementation of this method as well.
  */
 void
-Delay::readL3Attributes (const XMLAttributes& attributes)
+Delay::readL3Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */

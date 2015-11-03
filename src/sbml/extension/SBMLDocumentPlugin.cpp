@@ -186,7 +186,7 @@ SBMLDocumentPlugin::isCompFlatteningImplemented() const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-SBMLDocumentPlugin::accept (SBMLVisitor& v) const
+SBMLDocumentPlugin::accept (SBMLVisitor&) const
 {
   return true;
 }

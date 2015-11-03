@@ -261,7 +261,7 @@ public:
 
   using SBMLVisitor::visit;
 
-  QualValidatingVisitor (QualValidator& v, const Model& m) : v(v), m(m) { }
+  QualValidatingVisitor (QualValidator& validator, const Model& model) : v(validator), m(model) { }
 
   bool visit (const QualitativeSpecies &x)
   {

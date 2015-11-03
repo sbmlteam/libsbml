@@ -239,7 +239,7 @@ int getInt(string value)
   return intValue;
 }
 
-int getCategory(string category)
+int getCategory(string)
 {  
   return LIBSBML_CAT_INTERNAL;
 }
@@ -268,11 +268,11 @@ void parseResultFile(std::string &mOutputFileName, std::vector<SBMLError>& error
   }
 
   const XMLToken  element  = stream.next();
-  int errorId=0; 
-  int categoryId=0;
-  int severityId=0;
-  int line=0;
-  int column=0;
+  unsigned int errorId=0;
+  unsigned int categoryId=0;
+  unsigned int severityId=0;
+  unsigned int line=0;
+  unsigned int column=0;
   string message;
   bool started = false;
   if (element.getName() == "validation-results")
@@ -294,9 +294,9 @@ void parseResultFile(std::string &mOutputFileName, std::vector<SBMLError>& error
 
          if (nextName == "problem")
          {
-           categoryId = getCategory(next.getAttrValue("category"));
-           errorId = getInt(next.getAttrValue("code"));
-           severityId = getSeverity(next.getAttrValue("severity"));
+           categoryId = (unsigned int)getCategory(next.getAttrValue("category"));
+           errorId = (unsigned int)getInt(next.getAttrValue("code"));
+           severityId = (unsigned int)getSeverity(next.getAttrValue("severity"));
 
            if (started)
            {             
@@ -310,8 +310,8 @@ void parseResultFile(std::string &mOutputFileName, std::vector<SBMLError>& error
          } 
          else if (nextName == "location")
          {
-           line = getInt(next.getAttrValue("line"));
-           column = getInt(next.getAttrValue("column"));
+           line = (unsigned int)getInt(next.getAttrValue("line"));
+           column = (unsigned int)getInt(next.getAttrValue("column"));
            stream.next();
          } 
          else if (nextName == "message")

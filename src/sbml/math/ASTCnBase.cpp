@@ -246,7 +246,7 @@ ASTCnBase::readAttributes(const XMLAttributes& attributes,
 
 
 bool 
-ASTCnBase::read(XMLInputStream& stream, const std::string& reqd_prefix)
+ASTCnBase::read(XMLInputStream& stream, const std::string& )
 {
   bool read = false;
 

@@ -1429,11 +1429,11 @@ ListOfRules::get(unsigned int n) const
  */
 struct IdEqRule : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqRule (const string& id) : id(id) { }
+  IdEqRule (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <Rule *> (sb)->getVariable() == id; }
+       { return static_cast <Rule *> (sb)->getVariable() == mId; }
 };
 
 

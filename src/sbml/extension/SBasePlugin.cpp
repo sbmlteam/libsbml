@@ -192,7 +192,7 @@ SBasePlugin::getElementByMetaId(const std::string& metaid)
 }
 
 List*
-SBasePlugin::getAllElements(ElementFilter *filter)
+SBasePlugin::getAllElements(ElementFilter *)
 {
   return new List();
 }
@@ -268,15 +268,15 @@ SBasePlugin::getParentSBMLObject () const
  * object (if any).
  */
 void 
-SBasePlugin::enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix, bool flag)
+SBasePlugin::enablePackageInternal(const std::string& ,
+                                   const std::string& , bool )
 {
  // do nothing.
 }
 
 
 bool 
-SBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
+SBasePlugin::stripPackage(const std::string& , bool )
 {
   return true;
 }
@@ -357,7 +357,7 @@ SBasePlugin::getPackageVersion() const
 
 /** @cond doxygenLibsbmlInternal */
 void 
-SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+SBasePlugin::replaceSIDWithFunction(const std::string& , const ASTNode* )
 {
 }
 /** @endcond */
@@ -365,20 +365,20 @@ SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* functi
 
 /** @cond doxygenLibsbmlInternal */
 void 
-SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& , const ASTNode* )
 {
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void 
-SBasePlugin::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+SBasePlugin::multiplyAssignmentsToSIdByFunction(const std::string& , const ASTNode* )
 {
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
-bool SBasePlugin::hasIdentifierBeginningWith(const std::string& prefix)
+bool SBasePlugin::hasIdentifierBeginningWith(const std::string& )
 {
   return false;
 }
@@ -387,7 +387,7 @@ bool SBasePlugin::hasIdentifierBeginningWith(const std::string& prefix)
 /** @cond doxygenLibsbmlInternal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
 int 
-SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
+SBasePlugin::prependStringToAllIdentifiers(const std::string& )
 {
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -396,7 +396,7 @@ SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
 /** @cond doxygenLibsbmlInternal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
 void 
-SBasePlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
+SBasePlugin::renameSIdRefs(const std::string& , const std::string& )
 {
 }
 /** @endcond */
@@ -404,7 +404,7 @@ SBasePlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
 /** @cond doxygenLibsbmlInternal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
 void 
-SBasePlugin::renameMetaIdRefs(const std::string& oldid, const std::string& newid)
+SBasePlugin::renameMetaIdRefs(const std::string& , const std::string& )
 {
 }
 /** @endcond */
@@ -412,14 +412,14 @@ SBasePlugin::renameMetaIdRefs(const std::string& oldid, const std::string& newid
 /** @cond doxygenLibsbmlInternal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
 void 
-SBasePlugin::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+SBasePlugin::renameUnitSIdRefs(const std::string& , const std::string& )
 {
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 int 
-SBasePlugin::transformIdentifiers(IdentifierTransformer* idTransformer)
+SBasePlugin::transformIdentifiers(IdentifierTransformer* )
 {
    return LIBSBML_OPERATION_SUCCESS;
 }
@@ -486,7 +486,7 @@ SBasePlugin::getPackageName() const
  * Intended to be overridden by package extensions of the Model object.
  */
 int 
-SBasePlugin::appendFrom(const Model* model)
+SBasePlugin::appendFrom(const Model* )
 {
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -503,7 +503,7 @@ SBasePlugin::appendFrom(const Model* model)
  * XMLInputStream or NULL if the token was not recognized.
  */
 SBase*
-SBasePlugin::createObject(XMLInputStream& stream)
+SBasePlugin::createObject(XMLInputStream& )
 {
   return NULL;
 }
@@ -518,7 +518,7 @@ SBasePlugin::createObject(XMLInputStream& stream)
  * @return true if the subclass read from the stream, false otherwise.
  */
 bool
-SBasePlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
+SBasePlugin::readOtherXML (SBase* , XMLInputStream& )
 {
   return false;
 }
@@ -534,7 +534,7 @@ SBasePlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
  * and writeElements methods.
  */
 void 
-SBasePlugin::syncAnnotation(SBase* parentObject, XMLNode *annotation)
+SBasePlugin::syncAnnotation(SBase* , XMLNode *)
 {
 
 }
@@ -544,7 +544,7 @@ SBasePlugin::syncAnnotation(SBase* parentObject, XMLNode *annotation)
  *
  */
 void 
-SBasePlugin::parseAnnotation(SBase *parentObject, XMLNode *annotation)
+SBasePlugin::parseAnnotation(SBase *, XMLNode *)
 {
 
 }
@@ -566,7 +566,7 @@ SBasePlugin::hasRequiredElements() const
  * SBML objects as XML elements.  
  */
 void
-SBasePlugin::writeElements (XMLOutputStream& stream) const
+SBasePlugin::writeElements (XMLOutputStream& ) const
 {
   // do nothing.  
 }
@@ -581,7 +581,7 @@ SBasePlugin::writeElements (XMLOutputStream& stream) const
  * function.
  */
 void
-SBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes)
+SBasePlugin::addExpectedAttributes(ExpectedAttributes& )
 {
   // do nothing.
 }
@@ -644,7 +644,7 @@ SBasePlugin::readAttributes (const XMLAttributes& attributes,
  * to the XMLOutputStream. 
  */
 void
-SBasePlugin::writeAttributes (XMLOutputStream& stream) const
+SBasePlugin::writeAttributes (XMLOutputStream& ) const
 {
   // do nothing.  
 }
@@ -670,7 +670,7 @@ SBasePlugin::hasRequiredAttributes() const
  * added to Model element if this plugin object connected to the element.
  */
 void
-SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
+SBasePlugin::writeXMLNS (XMLOutputStream& ) const
 {
   // do nothing.  
 }
@@ -679,7 +679,7 @@ SBasePlugin::writeXMLNS (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 bool 
-SBasePlugin::isValidTypeForList(SBase* item) const
+SBasePlugin::isValidTypeForList(SBase* ) const
 { 
   return false; 
 }
@@ -763,7 +763,7 @@ SBasePlugin::logUnknownAttribute(const std::string &attribute,
 
 /** @cond doxygenLibsbmlInternal */
 bool 
-SBasePlugin::accept (SBMLVisitor& v) const
+SBasePlugin::accept (SBMLVisitor&) const
 {
   return false;
 }

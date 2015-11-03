@@ -515,11 +515,11 @@ ListOfSpeciesTypes::get(unsigned int n) const
  */
 struct IdEqST : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqST (const string& id) : id(id) { }
+  IdEqST (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <SpeciesType *> (sb)->getId() == id; }
+       { return static_cast <SpeciesType *> (sb)->getId() == mId; }
 };
 
 

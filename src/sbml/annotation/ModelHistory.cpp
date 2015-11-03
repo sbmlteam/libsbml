@@ -396,7 +396,7 @@ ModelHistory::hasRequiredAttributes()
   {
     return valid;
   }
-  for (unsigned int i = 0; i < getNumModifiedDates(); i++)
+  for (i = 0; i < getNumModifiedDates(); ++i)
   {
     valid = getModifiedDate(i)->representsValidDate();
   }

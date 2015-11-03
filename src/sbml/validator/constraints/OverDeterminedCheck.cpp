@@ -82,7 +82,7 @@ OverDeterminedCheck::~OverDeterminedCheck ()
  * Checks that a model is not over determined
  */
 void
-OverDeterminedCheck::check_ (const Model& m, const Model& object)
+OverDeterminedCheck::check_ (const Model& m, const Model&)
 {
   unsigned int n;
   unsigned int NumAlgRules = 0;
@@ -336,7 +336,7 @@ OverDeterminedCheck::createGraph(const Model& m)
         }
         if (joined.size() > 0)
         {
-          mGraph[mEquations.at(eqnCount)] = joined;
+          mGraph[mEquations.at((int)eqnCount)] = joined;
           joined.clear();
           eqnCount++;
         }
@@ -356,7 +356,7 @@ OverDeterminedCheck::createGraph(const Model& m)
         }
         if (joined.size() > 0)
         {
-          mGraph[mEquations.at(eqnCount)] = joined;
+          mGraph[mEquations.at((int)eqnCount)] = joined;
           joined.clear();
           eqnCount++;
         }
@@ -410,7 +410,7 @@ OverDeterminedCheck::createGraph(const Model& m)
 
     }
 
-    mGraph[mEquations.at(eqnCount)] = joined;
+    mGraph[mEquations.at((int)eqnCount)] = joined;
     joined.clear();
     eqnCount++;
   }
@@ -460,7 +460,7 @@ OverDeterminedCheck::createGraph(const Model& m)
 	delete names;
 	
       }
-      mGraph[mEquations.at(eqnCount)] = joined;
+      mGraph[mEquations.at((int)eqnCount)] = joined;
       joined.clear();
       eqnCount++;
     }
@@ -494,12 +494,12 @@ OverDeterminedCheck::findMatching()
   /* create greedy mMatching */
   for (n = 0; n < mEquations.size(); n++)
   {
-    for (p = 0; p < mGraph[mEquations.at(n)].size(); p++)
+    for (p = 0; p < mGraph[mEquations.at((int)n)].size(); p++)
     {
-      if (mMatching.count(mGraph[mEquations.at(n)].at(p)) == 0)
+      if (mMatching.count(mGraph[mEquations.at((int)n)].at((int)p)) == 0)
       {
-        temp.append(mEquations.at(n));
-        mMatching[mGraph[mEquations.at(n)].at(p)] = temp;
+        temp.append(mEquations.at((int)n));
+        mMatching[mGraph[mEquations.at((int)n)].at((int)p)] = temp;
         temp.clear();
         break;
       }
@@ -524,10 +524,10 @@ OverDeterminedCheck::findMatching()
 
     for (n = 0; n < mEquations.size(); n++)
     {
-      if (!tempVarsInMatching.contains(mEquations.at(n)))
+      if (!tempVarsInMatching.contains(mEquations.at((int)n)))
       {
-        mEqnNeighInPrev[mEquations.at(n)] = unmatchFlag;
-        layer.append(mEquations.at(n));
+        mEqnNeighInPrev[mEquations.at((int)n)] = unmatchFlag;
+        layer.append(mEquations.at((int)n));
       }
     }
 
@@ -546,11 +546,11 @@ OverDeterminedCheck::findMatching()
       }
       for (n = 0; n < layer.size(); n++)
       {
-        for (p = 0; p < mGraph[layer.at(n)].size(); p++)
+        for (p = 0; p < mGraph[layer.at((int)n)].size(); p++)
         {
-          if (!temp.contains(mGraph[layer.at(n)].at(p)))
+          if (!temp.contains(mGraph[layer.at((int)n)].at((int)p)))
           {
-            newLayer[mGraph[layer.at(n)].at(p)].append(layer.at(n));
+            newLayer[mGraph[layer.at((int)n)].at((int)p)].append(layer.at((int)n));
           }
         }
       }
@@ -587,9 +587,9 @@ OverDeterminedCheck::findMatching()
 
       for (n = 0; n < mEquations.size(); n++)
       {
-        if (!temp.contains(mEquations.at(n)))
+        if (!temp.contains(mEquations.at((int)n)))
         {
-          unmatchedEquations.append(mEquations.at(n));
+          unmatchedEquations.append(mEquations.at((int)n));
         }
       }
       maximal = 0;
@@ -598,7 +598,7 @@ OverDeterminedCheck::findMatching()
     {
       for (n = 0; n < unmatch.size(); n++)
       {
-        maximal = Recurse(unmatch.at(n));
+        maximal = Recurse(unmatch.at((int)n));
         if (maximal == 2) break;
       }
     }
@@ -607,7 +607,7 @@ OverDeterminedCheck::findMatching()
   if (maximal == 2)
   {
     // we have a flip flopping set of matches
-    unmatchedEquations.append(mMatching[unmatch.at(n)].at(0));
+    unmatchedEquations.append(mMatching[unmatch.at((int)n)].at(0));
   }
   return unmatchedEquations;
 
@@ -654,10 +654,10 @@ OverDeterminedCheck::Recurse(std::string v)
 
     for (n = 0; n < L.size(); n++)
     {
-      if (tempEqnNeigh.contains(L.at(n)))
+      if (tempEqnNeigh.contains(L.at((int)n)))
       {
-        pu = mEqnNeighInPrev[L.at(n)];
-        mEqnNeighInPrev.erase(L.at(n));
+        pu = mEqnNeighInPrev[L.at((int)n)];
+        mEqnNeighInPrev.erase(L.at((int)n));
 
         if (pu.size() == 0)
           break;
@@ -680,13 +680,13 @@ OverDeterminedCheck::Recurse(std::string v)
             unsigned int i;
             for (i = 0; i < L.size(); i++)
             {
-              if (prev.contains(L.at(i)))
+              if (prev.contains(L.at((int)i)))
               {
                 repeat = true;
               }
               else
               {
-                prev.append(L.at(i));
+                prev.append(L.at((int)i));
               }
               if (repeat) break;
             }
@@ -720,7 +720,7 @@ OverDeterminedCheck::Recurse(std::string v)
  * any additional information
  */
 void
-OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
+OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& )
 {
   //msg =
   //  "The system of equations created from an SBML model must not be "

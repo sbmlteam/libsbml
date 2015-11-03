@@ -4309,7 +4309,7 @@ ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefi
 
 bool 
 ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken& currentElement)
+                        const XMLToken& )
 {
   bool read = false;
 
@@ -4383,7 +4383,7 @@ ASTFunction::readCiFunction(XMLInputStream& stream, const std::string& reqd_pref
 
 bool 
 ASTFunction::readCSymbol(XMLInputStream& stream, const std::string& reqd_prefix,
-                        const XMLToken& currentElement)
+                        const XMLToken& )
 {
   bool read = false;
   
@@ -4682,7 +4682,7 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
 
 
 void
-ASTFunction::syncPackageMembersAndTypeFrom(ASTFunction* rhs, int type)
+ASTFunction::syncPackageMembersAndTypeFrom(ASTFunction* rhs, int )
 {
   bool copyChildren = true;
   if (mIsOther == true)

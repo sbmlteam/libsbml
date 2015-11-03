@@ -161,7 +161,7 @@ protected:
   /**
    * The check method delegates to this virtual method.
    */
-  virtual void check_ (const Model& m, const T& object) { };
+  virtual void check_ (const Model&, const T&) { };
 
   /** @endcond */
 };

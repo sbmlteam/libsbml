@@ -206,7 +206,7 @@ FbcSpeciesPlugin::~FbcSpeciesPlugin()
  * create object
  */
 SBase*
-FbcSpeciesPlugin::createObject (XMLInputStream& stream)
+FbcSpeciesPlugin::createObject (XMLInputStream&)
 {
   return NULL; 
 }
@@ -218,7 +218,7 @@ FbcSpeciesPlugin::createObject (XMLInputStream& stream)
  * write elements
  */
 void
-FbcSpeciesPlugin::writeElements (XMLOutputStream& stream) const
+FbcSpeciesPlugin::writeElements (XMLOutputStream&) const
 {
 }
 /** @endcond */
@@ -342,7 +342,7 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 //---------------------------------------------------------------
 
 List*
-FbcSpeciesPlugin::getAllElements(ElementFilter* filter)
+FbcSpeciesPlugin::getAllElements(ElementFilter*)
 {
   List* ret = new List();
 
@@ -488,8 +488,8 @@ FbcSpeciesPlugin::connectToParent(SBase* sbase)
  * Enables the given package.
  */
 void
-FbcSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix, bool flag)
+FbcSpeciesPlugin::enablePackageInternal(const std::string& ,
+                                   const std::string& , bool )
 {
 }
 /** @endcond */
@@ -500,7 +500,7 @@ FbcSpeciesPlugin::enablePackageInternal(const std::string& pkgURI,
  * Accept the SBMLVisitor.
  */
 bool
-FbcSpeciesPlugin::accept(SBMLVisitor& v) const
+FbcSpeciesPlugin::accept(SBMLVisitor&) const
 {
 
   return true;

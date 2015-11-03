@@ -188,11 +188,11 @@ safe_strcat (const char *str1, const char *str2)
   
   len1    = (int)strlen(str1);
   len2    = (int)strlen(str2);
-  concat = (char *) safe_malloc( len1 + len2 + 1 );
+  concat = (char *) safe_malloc( (size_t) len1 + (size_t)len2 + 1 );
 
 
-  strncpy(concat, str1, len1 + 1);
-  strncat(concat, str2, len2);
+  strncpy(concat, str1, (size_t)len1 + 1);
+  strncat(concat, str2, (size_t)len2);
 
   return concat;
 }
@@ -349,9 +349,9 @@ util_trim (const char *s)
    */
   else
   {
-    trimmed = (char *) safe_malloc(len + 1);
+    trimmed = (char *) safe_malloc((size_t)len + 1);
 
-    strncpy(trimmed, start, len);
+    strncpy(trimmed, start, (size_t)len);
     trimmed[len] = '\0';
   }
 

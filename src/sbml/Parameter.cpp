@@ -113,7 +113,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
 
 
 /** @cond doxygenLibsbmlInternal */
-Parameter::Parameter (SBMLNamespaces * sbmlns, bool isLocal) :
+Parameter::Parameter (SBMLNamespaces * sbmlns, bool) :
    SBase      ( sbmlns   )
  , mId        ( ""       )
  , mName      ( ""       )
@@ -1412,7 +1412,7 @@ Parameter::inferUnitsFromKineticLaw(KineticLaw* kl,
     {
       if (rnId == m->getReaction(i)->getId())
       {
-        index = i;
+        index = (int)i;
         break;
       }
     }
@@ -1508,11 +1508,11 @@ ListOfParameters::get(unsigned int n) const
  */
 struct IdEqP : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqP (const string& id) : id(id) { }
+  IdEqP (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <Parameter *> (sb)->getId() == id; }
+       { return static_cast <Parameter *> (sb)->getId() == mId; }
 };
 /* return item by id */
 Parameter*

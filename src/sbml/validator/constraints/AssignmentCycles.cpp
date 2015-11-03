@@ -321,7 +321,7 @@ AssignmentCycles::determineCycles(const Model& m)
    
   for (unsigned int n = 0; n < variables.size(); n++)
   {
-    id = variables.at(n);
+    id = variables.at((int)n);
     range = mIdMap.equal_range(id);
     for (it = range.first; it != range.second; it++)
     {
@@ -394,15 +394,15 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
 
   for (i = 0; i < m.getNumCompartments(); i++)
   {
-    std::string id = m.getCompartment(i)->getId();
-    range = mIdMap.equal_range(id);
+    std::string id1 = m.getCompartment(i)->getId();
+    range = mIdMap.equal_range(id1);
     for (it = range.first; it != range.second; it++)
     {
       const Species *s = m.getSpecies((*it).second);
-      if (s && s->getCompartment() == id
+      if (s && s->getCompartment() == id1
         && s->getHasOnlySubstanceUnits() == false)
       {
-        logImplicitReference(m, id, s);
+        logImplicitReference(m, id1, s);
       }
     }
   }

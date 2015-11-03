@@ -207,7 +207,7 @@ LayoutModelPlugin::createObject(XMLInputStream& stream)
 
 /** @cond doxygenLibsbmlInternal */
 bool 
-LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
+LayoutModelPlugin::readOtherXML (SBase* , XMLInputStream& )
 {
   // L2 layout parsed by the annotation API 
   // @see parseAnnotation / syncAnnotation
@@ -218,7 +218,7 @@ LayoutModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 
 /** @cond doxygenLibsbmlInternal */
 void 
-LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
+LayoutModelPlugin::writeAttributes (XMLOutputStream& ) const
 {
   //
   // This function is used only for SBML Level 2.
@@ -420,7 +420,7 @@ LayoutModelPlugin::getLayout (const std::string& sid)
 int 
 LayoutModelPlugin::getNumLayouts() const
 {
-  return mLayouts.size();
+  return (int)mLayouts.size();
 }
 
 
@@ -569,7 +569,7 @@ LayoutModelPlugin::accept(SBMLVisitor& v) const
 
   for(int i = 0; i < getNumLayouts(); i++)
   {
-    getLayout(i)->accept(v);
+    getLayout((unsigned int)i)->accept(v);
   }
 
   return true;

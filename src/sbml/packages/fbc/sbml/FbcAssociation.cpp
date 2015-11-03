@@ -452,20 +452,20 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
       static_cast<ListOfFbcAssociations*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-              getErrorLog()->getError(n)->getMessage();
+              getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                   getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-                   getErrorLog()->getError(n)->getMessage();
+                   getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                   getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
@@ -489,20 +489,20 @@ FbcAssociation::readAttributes (const XMLAttributes& attributes,
     {
       coreErr = FbcOrAllowedCoreAttributes;
     }
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", pkgErr,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", coreErr,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());

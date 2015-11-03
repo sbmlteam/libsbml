@@ -219,7 +219,7 @@ const GeneAssociation* getGeneAssociationForReaction(const FbcModelPlugin* plugi
 
   for (int i = 0; i < plugin->getNumGeneAssociations(); ++i)
   {
-    const GeneAssociation* association = plugin->getGeneAssociation(i);
+    const GeneAssociation* association = plugin->getGeneAssociation((unsigned int)i);
     if (association == NULL) continue;
 
     if (association->isSetReaction() && association->getReaction() == id)

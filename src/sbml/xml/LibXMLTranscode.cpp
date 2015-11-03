@@ -75,7 +75,7 @@ LibXMLTranscode::operator string ()
   }
   else
   {
-    string str =  (mLen == -1) ? string(mBuffer) : string(mBuffer, mLen);
+    string str =  (mLen == -1) ? string(mBuffer) : string(mBuffer, (size_t)mLen);
 
     if ( mReplaceNCR )
     {

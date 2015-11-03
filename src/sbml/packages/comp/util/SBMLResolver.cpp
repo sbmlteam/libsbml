@@ -45,7 +45,7 @@ SBMLResolver::SBMLResolver ()
 /*
  * Copy constructor.
  */
-SBMLResolver::SBMLResolver(const SBMLResolver& orig)
+SBMLResolver::SBMLResolver(const SBMLResolver& )
 {
   //  
 }
@@ -83,13 +83,13 @@ SBMLResolver::clone () const
 
 
 SBMLDocument*
-SBMLResolver::resolve(const std::string &uri, const std::string& baseUri/*=""*/) const
+SBMLResolver::resolve(const std::string &, const std::string& /*=""*/) const
 {
   return NULL;
 }
 
 SBMLUri* 
-SBMLResolver::resolveUri(const std::string &uri, const std::string& baseUri/*=""*/) const
+SBMLResolver::resolveUri(const std::string &, const std::string& /*=""*/) const
 {
   return NULL;
 }

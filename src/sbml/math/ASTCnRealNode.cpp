@@ -59,19 +59,6 @@ ASTCnRealNode::ASTCnRealNode (int type) :
     ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
-  
-
-ASTCnRealNode::ASTCnRealNode (const XMLNode *xml) :
-  ASTCnBase(AST_REAL)
-    , mReal  (0)
-    , mIsSetReal  (false)
-{
-  setType(AST_REAL);
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-}
 
   
   /**

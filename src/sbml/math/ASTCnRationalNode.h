@@ -51,9 +51,6 @@ public:
 
   ASTCnRationalNode (int type = AST_RATIONAL);
 
-
-  ASTCnRationalNode (const XMLNode *xml);
-
   
   /**
    * Copy constructor

@@ -66,7 +66,7 @@ Stack_create (int capacity)
 
 
   s           = (Stack_t *) safe_calloc( 1       , sizeof(Stack_t) );
-  s->stack    = (void   **) safe_calloc( capacity, sizeof(void *)  );
+  s->stack    = (void   **) safe_calloc( (size_t)capacity, sizeof(void *)  );
   s->sp       = -1;
   s->capacity = capacity;
 
@@ -113,7 +113,7 @@ Stack_push (Stack_t *s, void *item)
   {
     s->capacity *= 2;
     s->stack     = (void **)
-                   safe_realloc(s->stack, s->capacity * sizeof(void *));
+                   safe_realloc(s->stack, (size_t)s->capacity * sizeof(void *));
                    
   }
 

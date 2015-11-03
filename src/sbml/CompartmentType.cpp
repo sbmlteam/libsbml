@@ -515,11 +515,11 @@ ListOfCompartmentTypes::get(unsigned int n) const
  */
 struct IdEqCT : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqCT (const string& id) : id(id) { }
+  IdEqCT (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <CompartmentType *> (sb)->getId() == id; }
+       { return static_cast <CompartmentType *> (sb)->getId() == mId; }
 };
 
 

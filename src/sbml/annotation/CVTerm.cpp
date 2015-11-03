@@ -406,14 +406,14 @@ CVTerm::getResources() const
 unsigned int 
 CVTerm::getNumResources()
 {
-  return mResources->getLength();
+  return (unsigned int)mResources->getLength();
 }
 
   
 unsigned int 
 CVTerm::getNumResources() const
 {
-  return mResources->getLength();
+  return (unsigned int)mResources->getLength();
 }
 
   
@@ -423,7 +423,7 @@ CVTerm::getNumResources() const
 std::string
 CVTerm::getResourceURI(unsigned int n)
 {
-  return mResources->getValue(n);
+  return mResources->getValue((int)n);
 }
 
   
@@ -433,7 +433,7 @@ CVTerm::getResourceURI(unsigned int n)
 std::string
 CVTerm::getResourceURI(unsigned int n) const
 {
-  return mResources->getValue(n);
+  return mResources->getValue((int)n);
 }
 
   

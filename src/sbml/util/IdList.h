@@ -109,7 +109,7 @@ public:
 
   void clear() { mIds.clear(); }
 
-  std::string at(int n) { return mIds.at(n); }
+  std::string at(int n) { return mIds.at((std::string::size_type)n); }
 
 private:
 

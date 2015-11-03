@@ -200,7 +200,7 @@ SBase::getElementFromPluginsByMetaId(std::string metaid)
 
 
 /** @cond doxygenLibsbmlInternal */
-bool SBase::hasNonstandardIdentifierBeginningWith(const std::string& prefix)
+bool SBase::hasNonstandardIdentifierBeginningWith(const std::string&)
 {
   return false;
 }
@@ -822,7 +822,7 @@ SBase::getURI() const
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
 void
-SBase::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+SBase::replaceSIDWithFunction(const std::string&, const ASTNode*)
 {
 }
 /** @endcond */
@@ -832,14 +832,14 @@ SBase::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
 void
-SBase::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+SBase::divideAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
 }
 /** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 void
-SBase::multiplyAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+SBase::multiplyAssignmentsToSIdByFunction(const std::string&, const ASTNode*)
 {
 }
 /** @endcond */
@@ -1211,7 +1211,7 @@ SBase::setMetaId (const std::string& metaid)
  * Sets the id of this SBML object to a copy of sid.
  */
 int
-SBase::setId (const std::string& sid)
+SBase::setId (const std::string&)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
@@ -1222,7 +1222,7 @@ SBase::setId (const std::string& sid)
  * Sets the name of this SBML object to a copy of name.
  */
 int
-SBase::setName (const std::string& name)
+SBase::setName (const std::string&)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
@@ -1564,7 +1564,7 @@ SBase::removeTopLevelAnnotationElement(const std::string elementName,
     // check uri matches
     if (elementURI.empty() == false)
     {
-      XMLNode child = mAnnotation->getChild(index);
+      XMLNode child = mAnnotation->getChild((unsigned int)index);
       std::string prefix = child.getPrefix();
 
       if (prefix.empty() == false
@@ -1596,7 +1596,7 @@ SBase::removeTopLevelAnnotationElement(const std::string elementName,
     }
 
     // remove the annotation at the index corresponding to the name
-    delete mAnnotation->removeChild(index);
+    delete mAnnotation->removeChild((unsigned int)index);
     if (removeEmpty && mAnnotation->getNumChildren() == 0)
     {
       delete mAnnotation;
@@ -2558,7 +2558,7 @@ int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type )
 
   CVTerm* nthTerm = NULL;
 
-  if (length == 0) return added;
+  if (length == 0) return (int)added;
 
   if (type == BIOLOGICAL_QUALIFIER)
   {
@@ -2566,7 +2566,7 @@ int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type )
 
     for (int n = (int)length -1; n >= 0  && added == 0; n--)
     {
-      nthTerm = static_cast <CVTerm *>(mCVTerms->get(n));
+      nthTerm = static_cast <CVTerm *>(mCVTerms->get((unsigned int)n));
 
       if (nthTerm != NULL && biol == nthTerm->getBiologicalQualifierType())
       {
@@ -2598,7 +2598,7 @@ int SBase::addTermToExistingBag(CVTerm *term, QualifierType_t type )
       }
     }
   }
-  return added;
+  return (int)added;
 }
 /** @endcond */
 
@@ -2649,7 +2649,7 @@ SBase::addCVTerm(CVTerm * term, bool newBag)
      */
     if (newBag == false)
     {
-      added = addTermToExistingBag(copyTerm, type);
+      added = (unsigned int)addTermToExistingBag(copyTerm, type);
     }
 
     if (added == 0 && copyTerm->getResources()->getLength() > 0)
@@ -3056,13 +3056,13 @@ SBase::getDisabledPlugin(unsigned int n) const
 unsigned int
 SBase::getNumPlugins() const
 {
-  return (int)mPlugins.size();
+  return (unsigned int)mPlugins.size();
 }
 
 unsigned int
 SBase::getNumDisabledPlugins() const
 {
-  return (int)mDisabledPlugins.size();
+  return (unsigned int)mDisabledPlugins.size();
 }
 
 void 
@@ -3217,7 +3217,7 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
     int numDisabledPlugins = (int)mDisabledPlugins.size();
     for (int i = numDisabledPlugins - 1; i >= 0; --i)
     {
-      SBasePlugin *current = mDisabledPlugins[i];
+      SBasePlugin *current = mDisabledPlugins[(size_t)i];
       std::string uri = current->getURI();
       if (pkgURI == uri)
       {
@@ -3288,7 +3288,7 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
     int numPlugins = (int)mPlugins.size();
     for (int i=numPlugins-1; i >= 0; --i)
     {
-      SBasePlugin *current = mPlugins[i];
+      SBasePlugin *current = mPlugins[(size_t)i];
       std::string uri = current->getURI();
       if (pkgURI == uri)
       {        
@@ -4094,7 +4094,7 @@ SBase::read (XMLInputStream& stream)
 
 
 void
-SBase::setElementText(const std::string &text)
+SBase::setElementText(const std::string &)
 {
 }
 
@@ -4193,7 +4193,7 @@ SBase::writeExtensionElements (XMLOutputStream& stream) const
  * XMLInputStream or @c NULL if the token was not recognized.
  */
 SBase*
-SBase::createObject (XMLInputStream& stream)
+SBase::createObject (XMLInputStream&)
 {
   return NULL;
 }
@@ -4903,7 +4903,6 @@ SBase::logUnknownElement( const string& element,
   {
     // put in a package message
     // for now - want to log error from package but needs further work
-    ostringstream msg;
 
     msg << "Element '" << element << "' is not part of the definition of '"
         << this->getElementName() << "' in "
@@ -4915,13 +4914,12 @@ SBase::logUnknownElement( const string& element,
     {
       getErrorLog()->logError(UnrecognizedElement,
           level, version, msg.str(), getLine(), getColumn());
+      logged = true;
     }
   }
 
   if (logged == false)
   {
-
-    ostringstream msg;
 
     msg << "Element '" << element << "' is not part of the definition of "
         << "SBML Level " << level << " Version " << version << ".";
@@ -4982,7 +4980,7 @@ SBase::logError (  unsigned int       id
   // no SBMLDocument attached.
   //
   if ( SBase::getErrorLog() != NULL && mSBML != NULL)
-    getErrorLog()->logError(id, getLevel(), getVersion(), details, getLine(), getColumn());
+    getErrorLog()->logError(id, level, version, details, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -5061,7 +5059,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
     }
     else if (!prefix.empty() && (prefix != getPrefix()) && (uri != mURI) )
     {
-      storeUnknownExtAttribute(getElementName(), attributes, i);
+      storeUnknownExtAttribute(getElementName(), attributes, (unsigned int)i);
     }
     else if (!expectedAttributes.hasAttribute(name))
     {
@@ -5159,10 +5157,10 @@ SBase::storeUnknownExtAttribute(const std::string& element,
 {
   if (!mSBML) return;
 
-  if (element == "sbml" && xattr.getName(index) == "required")
+  if (element == "sbml" && xattr.getName((int)index) == "required")
     return;
 
-  std::string uri = xattr.getURI(index);
+  std::string uri = xattr.getURI((int)index);
 
   //
   // Checks if the extension package is enabled.
@@ -5175,9 +5173,9 @@ SBase::storeUnknownExtAttribute(const std::string& element,
     //
     if (mSBML->isIgnoredPackage(uri))
     {
-      std::string name   = xattr.getName(index);
-      std::string prefix = xattr.getPrefix(index);
-      std::string value  = xattr.getValue(index);
+      std::string name   = xattr.getName((int)index);
+      std::string prefix = xattr.getPrefix((int)index);
+      std::string value  = xattr.getValue((int)index);
 
       mAttributesOfUnknownPkg.add(name,value,uri,prefix);
 
@@ -5190,8 +5188,8 @@ SBase::storeUnknownExtAttribute(const std::string& element,
     }
     else
     {
-      std::string name   = xattr.getName(index);
-      std::string prefix = xattr.getPrefix(index);
+      std::string name   = xattr.getName((int)index);
+      std::string prefix = xattr.getPrefix((int)index);
       logUnknownAttribute(prefix + ":" + name, getLevel(), getVersion(), element);
     }
   }
@@ -5370,7 +5368,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
  *
  */
 void
-SBase::writeXMLNS (XMLOutputStream& stream) const
+SBase::writeXMLNS (XMLOutputStream&) const
 {
   // do nothing.
 }
@@ -7163,7 +7161,7 @@ LIBSBML_EXTERN
 int
 SBase_getNumPlugins(SBase_t *sb)
 {
-  return (sb != NULL) ? sb->getNumPlugins() : 0;
+  return (sb != NULL) ? (int)sb->getNumPlugins() : 0;
 }
 
 

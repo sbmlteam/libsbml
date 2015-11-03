@@ -639,10 +639,10 @@ SBaseRef::createObject (XMLInputStream& stream)
   SBase*        object = NULL;
 
   const std::string&   name   = stream.peek().getName();
-  const XMLNamespaces& xmlns  = stream.peek().getNamespaces();
+  const XMLNamespaces& xmlns1  = stream.peek().getNamespaces();
   const std::string&   prefix = stream.peek().getPrefix();
 
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : getPrefix();
+  const std::string& targetPrefix = (xmlns1.hasURI(mURI)) ? xmlns1.getPrefix(mURI) : getPrefix();
   
   if (prefix == targetPrefix)
   {
@@ -774,7 +774,7 @@ SBaseRef::getReferencedElementFrom(Model* model)
         error += "with ID '" + getId() + "' ";
       }
       error += "as it does not have the required attributes.";
-      int en = CompSBaseRefMustReferenceObject;
+      unsigned int en = CompSBaseRefMustReferenceObject;
       switch(getTypeCode()) {
       case SBML_COMP_REPLACEDBY:
         en = CompReplacedByAllowedAttributes;

@@ -392,12 +392,10 @@ Priority::readAttributes (const XMLAttributes& attributes,
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Priority is not a valid component for this level/version.");
     return;
-    break;
   case 2:
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Priority is not a valid component for this level/version.");
     return;
-    break;
   case 3:
   default:
     readL3Attributes(attributes);
@@ -414,7 +412,7 @@ Priority::readAttributes (const XMLAttributes& attributes,
  * parents implementation of this method as well.
  */
 void
-Priority::readL3Attributes (const XMLAttributes& attributes)
+Priority::readL3Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */

@@ -846,11 +846,11 @@ ListOfEventAssignments::get(unsigned int n) const
  */
 struct IdEqEA : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqEA (const string& id) : id(id) { }
+  IdEqEA (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <EventAssignment *> (sb)->getVariable() == id; }
+       { return static_cast <EventAssignment *> (sb)->getVariable() == mId; }
 };
 
 

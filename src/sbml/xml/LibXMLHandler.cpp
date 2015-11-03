@@ -71,8 +71,8 @@ x_start_element (  void*           user_data
                  , const xmlChar** attributes )
 {
   const LibXMLAttributes attrs(attributes, localname,
-			       num_attributes + num_defaulted);
-  const LibXMLNamespaces xmlns(namespaces, num_namespaces);
+			       (unsigned int)(num_attributes + num_defaulted));
+  const LibXMLNamespaces xmlns(namespaces, (unsigned int)num_namespaces);
 
   static_cast<LibXMLHandler*>(user_data)->
     startElement(localname, prefix, uri, attrs, xmlns);
@@ -104,7 +104,7 @@ x_characters (void* user_data, const xmlChar* chars, int length)
 
 
 static xmlEntityPtr
-x_get_entity (void* user_data, const xmlChar* name)
+x_get_entity (void* , const xmlChar* name)
 {
   return xmlGetPredefinedEntity(name);
 }

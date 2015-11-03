@@ -368,7 +368,7 @@ SBMLExtension::isEnabled() const
  * This method should be overridden by all extensions that want to serialize
  * to an L2 annotation.
  */
-void SBMLExtension::removeL2Namespaces(XMLNamespaces* xmlns)  const
+void SBMLExtension::removeL2Namespaces(XMLNamespaces*)  const
 {
 
 }
@@ -379,7 +379,7 @@ void SBMLExtension::removeL2Namespaces(XMLNamespaces* xmlns)  const
  * This method should be overridden by all extensions that want to serialize
  * to an L2 annotation.
  */
-void SBMLExtension::addL2Namespaces(XMLNamespaces* xmlns)  const
+void SBMLExtension::addL2Namespaces(XMLNamespaces*)  const
 {
 
 }
@@ -390,21 +390,21 @@ void SBMLExtension::addL2Namespaces(XMLNamespaces* xmlns)  const
  * If the extension supports serialization to SBML L2 Annotations, this 
  * method should be overrridden, so it will be activated.
  */
-void SBMLExtension::enableL2NamespaceForDocument(SBMLDocument* doc)  const
+void SBMLExtension::enableL2NamespaceForDocument(SBMLDocument*)  const
 {
 
 }
 
 
 bool 
-SBMLExtension::isInUse(SBMLDocument *doc) const
+SBMLExtension::isInUse(SBMLDocument *) const
 {
   return true;
 }
 
 /** @cond doxygenLibsbmlInternal */
 packageErrorTableEntry 
-SBMLExtension::getErrorTable(unsigned int index) const
+SBMLExtension::getErrorTable(unsigned int) const
 {
   return defaultErrorTable[0];
 }
@@ -414,7 +414,7 @@ SBMLExtension::getErrorTable(unsigned int index) const
 /** @cond doxygenLibsbmlInternal */
 
 packageErrorTableEntryV2 
-SBMLExtension::getErrorTableV2(unsigned int index) const
+SBMLExtension::getErrorTableV2(unsigned int) const
 {
   return defaultErrorTableV2[0];
 }
@@ -423,7 +423,7 @@ SBMLExtension::getErrorTableV2(unsigned int index) const
 
 /** @cond doxygenLibsbmlInternal */
 unsigned int 
-SBMLExtension::getErrorTableIndex(unsigned int errorId) const
+SBMLExtension::getErrorTableIndex(unsigned int) const
 {
   return 0;
 }
@@ -461,7 +461,6 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
       case 1:
       default:
         return pkgErr.l3v1v1_severity;
-        break;
     }
   }
   else
@@ -474,7 +473,6 @@ SBMLExtension::getSeverity(unsigned int index, unsigned int pkgVersion) const
       case 2:
       default:
         return pkgErr.l3v1v2_severity;
-        break;
     }
   }
 }
@@ -638,7 +636,7 @@ int
 SBMLExtension_getNumOfSupportedPackageURI(SBMLExtension_t* ext)
 {
   if (ext == NULL) return LIBSBML_INVALID_OBJECT;
-  return ext->getNumOfSupportedPackageURI();
+  return (int)ext->getNumOfSupportedPackageURI();
 }
 
 LIBSBML_EXTERN
@@ -647,7 +645,7 @@ SBMLExtension_isSupported(SBMLExtension_t* ext, const char* uri)
 {
   if (ext == NULL || uri == NULL) return (int)false;
   string sUri(uri);
-  return ext->isSupported(sUri);
+  return (int)ext->isSupported(sUri);
 }
 
 LIBSBML_EXTERN

@@ -84,7 +84,7 @@ CompIdBase::getPreamble ()
  * Constraint.  Override the doCheck() method to define your own subset.
  */
 void
-CompIdBase::check_ (const Model& m, const Model& object)
+CompIdBase::check_ (const Model& m, const Model&)
 {
   doCheck(m);
 }

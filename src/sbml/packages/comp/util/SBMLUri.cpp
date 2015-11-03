@@ -142,7 +142,7 @@ SBMLUri::parse(const std::string& uri)
     }    
   }
   
-  mScheme.reserve(distance(constUri.begin(), prot_i));
+  mScheme.reserve((size_t)distance(constUri.begin(), prot_i));
 #ifdef __BORLANDC__
   transform(constUri.begin(), prot_i,
     back_inserter(mScheme),
@@ -158,14 +158,14 @@ SBMLUri::parse(const std::string& uri)
     return;
   }
 
-  advance(prot_i, prot_end.length());
+  advance(prot_i, (string::const_iterator::difference_type) prot_end.length());
 
   if ((prot_i + 1) != constUri.end() && *(prot_i + 1) == ':')
   {
     // turns out there are invalid urls being used internally, of the form 
     // file:drive:/ ... this is just plain wrong but needs to be parsed correctly
     // 
-    mPath.reserve(distance(prot_i, constUri.end()));
+    mPath.reserve((size_t)distance(prot_i, constUri.end()));
 #ifdef __BORLANDC__
     mPath = std::string(prot_i, constUri.end());
 #else
@@ -180,7 +180,7 @@ SBMLUri::parse(const std::string& uri)
   if (mScheme != "file" && mScheme != "urn")
   {
     // file won't have a host (or could assume localhost)
-    mHost.reserve(distance(prot_i, path_i));
+    mHost.reserve((size_t)distance(prot_i, path_i));
 #ifdef __BORLANDC__
     transform(prot_i, path_i,
      back_inserter(mHost),

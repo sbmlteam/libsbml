@@ -637,7 +637,7 @@ Association::clone() const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-Association::accept (SBMLVisitor& v) const
+Association::accept (SBMLVisitor&) const
 {
   return false;
 }

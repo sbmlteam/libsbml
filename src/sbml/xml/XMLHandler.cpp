@@ -50,7 +50,7 @@ XMLHandler::XMLHandler ()
 /**
  * Copy Constructor
  */
-XMLHandler::XMLHandler (const XMLHandler& other)
+XMLHandler::XMLHandler (const XMLHandler&)
 {
 }
 
@@ -83,7 +83,7 @@ XMLHandler::startDocument ()
  * a subclass to take specific actions at the declaration.
  */
 void
-XMLHandler::XML (const string& version, const string& encoding)
+XMLHandler::XML (const string& , const string& )
 {
 }
 
@@ -95,7 +95,7 @@ XMLHandler::XML (const string& version, const string& encoding)
  * in a subclass to take specific actions at the start of each element.
  */
 void
-XMLHandler::startElement (const XMLToken& element)
+XMLHandler::startElement (const XMLToken& )
 {
 }
 
@@ -119,7 +119,7 @@ XMLHandler::endDocument ()
  * in a subclass to take specific actions at the end of each element.
  */
 void
-XMLHandler::endElement (const XMLToken& element)
+XMLHandler::endElement (const XMLToken& )
 {
 }
 
@@ -131,7 +131,7 @@ XMLHandler::endElement (const XMLToken& element)
  * to take specific actions for each chunk of character data.
  */
 void
-XMLHandler::characters (const XMLToken& data)
+XMLHandler::characters (const XMLToken& )
 {
 }
 

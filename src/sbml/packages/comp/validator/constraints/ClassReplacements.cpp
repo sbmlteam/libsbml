@@ -127,7 +127,7 @@ ClassReplacements::~ClassReplacements ()
  * Reactions, and Events.
  */
 void
-ClassReplacements::check_ (const Model& m, const Model& object)
+ClassReplacements::check_ (const Model& m, const Model&)
 {
   unsigned int n, size;
   const CompSBasePlugin * plug;

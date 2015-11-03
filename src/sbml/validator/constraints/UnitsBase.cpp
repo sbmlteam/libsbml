@@ -102,7 +102,7 @@ UnitsBase::getPreamble ()
   * @return true if units are consistent, false otherwise.
   */
 void
-UnitsBase::check_ (const Model& m, const Model& object)
+UnitsBase::check_ (const Model& m, const Model& )
 {
   unsigned int n, ea, sr;
   
@@ -123,7 +123,7 @@ UnitsBase::check_ (const Model& m, const Model& object)
       if (m.getReaction(n)->getKineticLaw()->isSetMath())
       {
         checkUnits(m, *m.getReaction(n)->getKineticLaw()->getMath(), 
-          *m.getReaction(n)->getKineticLaw(), 1, n);
+          *m.getReaction(n)->getKineticLaw(), 1, (int)n);
       }
     }
     for (sr = 0; sr < m.getReaction(n)->getNumProducts(); sr++)

@@ -127,7 +127,7 @@ UnitReplacementCheck::~UnitReplacementCheck ()
  * Reactions, and Events.
  */
 void
-UnitReplacementCheck::check_ (const Model& m, const Model& object)
+UnitReplacementCheck::check_ (const Model& m, const Model&)
 {
   unsigned int n, size;
   const CompSBasePlugin * plug;

@@ -183,10 +183,10 @@ FbcModelPlugin::createObject (XMLInputStream& stream)
   SBase* object = NULL; 
 
   const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const XMLNamespaces&    xmlns1  = stream.peek().getNamespaces();
   const std::string&      prefix = stream.peek().getPrefix(); 
 
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+  const std::string& targetPrefix = (xmlns1.hasURI(mURI)) ? xmlns1.getPrefix(mURI) : mPrefix;
 
   if (prefix == targetPrefix) 
   { 
@@ -565,20 +565,20 @@ FbcModelPlugin::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcUnknown,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details, getLine(), getColumn());
@@ -1563,7 +1563,7 @@ GeneAssociation*
 int 
   FbcModelPlugin::getNumGeneAssociations() const
 {
-  return mAssociations.size();
+  return (int)mAssociations.size();
 }
 
 

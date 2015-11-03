@@ -173,7 +173,7 @@ ValidCnUnitsValue::checkValidUnits (const Model& m, const ASTNode& node,
  * in  conflict with an object previously defined.
  */
 const string
-ValidCnUnitsValue::getMessage (const ASTNode& node, const SBase& object)
+ValidCnUnitsValue::getMessage (const ASTNode& , const SBase& )
 {
 
   ostringstream msg;

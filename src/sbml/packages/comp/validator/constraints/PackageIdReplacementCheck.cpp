@@ -127,7 +127,7 @@ PackageIdReplacementCheck::~PackageIdReplacementCheck ()
  * Reactions, and Events.
  */
 void
-PackageIdReplacementCheck::check_ (const Model& m, const Model& object)
+PackageIdReplacementCheck::check_ (const Model& m, const Model&)
 {
   unsigned int n, size;
   const CompSBasePlugin * plug;
@@ -255,7 +255,7 @@ PackageIdReplacementCheck::logMissingIdAttribute (ReplacedBy& repBy,
 
 void 
 PackageIdReplacementCheck::logMissingIdAttribute (ReplacedElement& repE, 
-                                           SBase* refElem, SBase* parent)
+                                           SBase* refElem, SBase*)
 {
   std::string id = refElem->getId();
   msg = "A ReplacedElement object on the ";

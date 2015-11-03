@@ -1495,7 +1495,7 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
  * parents implementation of this method as well.
  */
 void
-KineticLaw::readL3Attributes (const XMLAttributes& attributes)
+KineticLaw::readL3Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */

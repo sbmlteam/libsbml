@@ -74,7 +74,7 @@ SBMLResolverRegistry::removeResolver(int index)
   if (index < 0 || index >= getNumResolvers())
      return LIBSBML_INVALID_OBJECT;
   
-  SBMLResolver *current = const_cast<SBMLResolver *>(mResolvers.at(index));
+  SBMLResolver *current = const_cast<SBMLResolver *>(mResolvers.at((size_t)index));
   if (current != NULL)
     delete current;
   
@@ -95,7 +95,7 @@ SBMLResolverRegistry::getResolverByIndex(int index) const
 {
   if (index < 0 || index >= getNumResolvers())
     return NULL;
-  return mResolvers.at(index)->clone();
+  return mResolvers.at((size_t)index)->clone();
 }
 
 

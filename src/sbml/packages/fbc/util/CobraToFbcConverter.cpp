@@ -166,8 +166,8 @@ CobraToFbcConverter::convert()
           string formula = originalNotes.substr(pos + 9, end - (pos + 9));
           if (formula[0] != '<' &&  formula[0] != '/')
           {
-            size_t pos = formula.find_first_not_of(" \n\t\r");
-            if (pos != std::string::npos)
+            size_t pos1 = formula.find_first_not_of(" \n\t\r");
+            if (pos1 != std::string::npos)
               formulaMap[current->getId()] = formula;
           }
         }
@@ -182,8 +182,8 @@ CobraToFbcConverter::convert()
           string formula = originalNotes.substr(pos + 8, end - (pos + 8));
           if (formula[0] != '<' &&  formula[0] != '/')
           {
-            size_t pos = formula.find_first_not_of(" \n\t\r");
-            if (pos != std::string::npos)
+            size_t pos1 = formula.find_first_not_of(" \n\t\r");
+            if (pos1 != std::string::npos)
             {
               int charge;
               stringstream str;

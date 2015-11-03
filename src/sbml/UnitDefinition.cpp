@@ -875,7 +875,7 @@ UnitDefinition::reorder(UnitDefinition *ud)
 
   for (n = 0; n < numUnits; n++)
   {
-    Unit * unit = (Unit *)(units->get(n));
+    unit = (Unit *)(units->get(n));
     int value = unit->getKind();
     indexArray[n] = value;
     initialIndexArray[n] = value;
@@ -1761,11 +1761,11 @@ ListOfUnitDefinitions::get(unsigned int n) const
  */
 struct IdEqUD : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqUD (const string& id) : id(id) { }
+  IdEqUD (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <UnitDefinition *> (sb)->getId() == id; }
+       { return static_cast <UnitDefinition *> (sb)->getId() == mId; }
 };
 
 

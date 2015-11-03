@@ -1351,9 +1351,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
           read = mTime->read(stream, reqd_prefix);
           if (read == true && mTime != NULL)
           {
-            std::string name = mTime->getName();
+            std::string name1 = mTime->getName();
             mTime->setType(AST_NAME);
-            mTime->setName(name);
+            mTime->setName(name1);
             this->ASTBase::syncMembersAndResetParentsFrom(mTime);
           }
         }
@@ -1364,9 +1364,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
           read = mDelay->read(stream, reqd_prefix);
           if (read == true && mDelay != NULL)
           {
-            std::string name = mDelay->getName();
+            std::string name1 = mDelay->getName();
             mDelay->setType(AST_FUNCTION);
-            mDelay->setName(name);
+            mDelay->setName(name1);
             this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
           }
         }
@@ -1396,9 +1396,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
         read = mTime->read(stream, reqd_prefix);
         if (read == true && mTime != NULL)
         {
-          std::string name = mTime->getName();
+          std::string name1 = mTime->getName();
           mTime->setType(AST_NAME);
-          mTime->setName(name);
+          mTime->setName(name1);
           this->ASTBase::syncMembersAndResetParentsFrom(mTime);
         }
       }
@@ -1409,9 +1409,9 @@ ASTCSymbol::read(XMLInputStream& stream, const std::string& reqd_prefix)
         read = mDelay->read(stream, reqd_prefix);
         if (read == true && mDelay != NULL)
         {
-          std::string name = mDelay->getName();
+          std::string name1 = mDelay->getName();
           mDelay->setType(AST_FUNCTION);
-          mDelay->setName(name);
+          mDelay->setName(name1);
           this->ASTBase::syncMembersAndResetParentsFrom(mDelay);
         }
       }

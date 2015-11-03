@@ -51,9 +51,6 @@ public:
 
   ASTCnRealNode (int type = AST_REAL);
 
-
-  ASTCnRealNode (const XMLNode *xml);
-
   
   /**
    * Copy constructor

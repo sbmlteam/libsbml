@@ -60,20 +60,6 @@ ASTCnIntegerNode::ASTCnIntegerNode (int type) :
     ASTBase::getPlugin(i)->connectToParent(this);
   }
 }
-  
-
-ASTCnIntegerNode::ASTCnIntegerNode (const XMLNode *xml) :
-  ASTCnBase(AST_INTEGER)
-    , mInteger  (0)
-    , mIsSetInteger  (false)
-{
-  setType(AST_INTEGER);
-  
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-}
 
   
   /**

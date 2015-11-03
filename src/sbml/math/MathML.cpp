@@ -278,7 +278,6 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
   else
   {
     std::ostringstream oss;
-    const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
     oss << dummy_xml;
     oss << xml;

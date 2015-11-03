@@ -57,7 +57,7 @@ UniqueModelWideIds::~UniqueModelWideIds ()
  * Constraint.  Override the doCheck() method to define your own subset.
  */
 void
-UniqueModelWideIds::check_ (const Model& m, const Model& object)
+UniqueModelWideIds::check_ (const Model& m, const Model& )
 {
   doCheck(m);
 }

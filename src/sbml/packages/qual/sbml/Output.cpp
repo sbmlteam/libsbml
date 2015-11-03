@@ -532,20 +532,20 @@ Output::readAttributes (const XMLAttributes& attributes,
     static_cast<ListOfOutputs*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)      
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOOutputAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionLOOutputAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
@@ -559,20 +559,20 @@ Output::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualOutputAllowedAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualOutputAllowedCoreAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details);
@@ -837,11 +837,11 @@ ListOfOutputs::getBySpecies(const std::string& sid)
  */
 struct IdEqQS : public std::unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqQS (const string& id) : id(id) { }
+  IdEqQS (const string& id) : mId(id) { }
   bool operator() (SBase* sb)
-       { return (static_cast <Output *> (sb)->getQualitativeSpecies()  == id); } 
+       { return (static_cast <Output *> (sb)->getQualitativeSpecies()  == mId); } 
 };
 
 

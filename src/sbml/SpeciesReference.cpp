@@ -429,7 +429,7 @@ SpeciesReference::unsetStoichiometryMath ()
 int
 SpeciesReference::unsetStoichiometry ()
 {
-  const int level = getLevel();
+  const unsigned int level = getLevel();
 
   if ( level > 2 )
   {
@@ -1225,12 +1225,12 @@ ListOfSpeciesReferences::getElementName () const
  */
 struct IdEqSSR : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqSSR (const string& id) : id(id) { }
+  IdEqSSR (const string& id) : mId(id) { }
   bool operator() (SBase* sb)
-       { return (static_cast <SimpleSpeciesReference *> (sb)->getId()  == id) 
-         || (static_cast <SimpleSpeciesReference *> (sb)->getSpecies() == id); } 
+       { return (static_cast <SimpleSpeciesReference *> (sb)->getId()  == mId)
+         || (static_cast <SimpleSpeciesReference *> (sb)->getSpecies() == mId); } 
 };
 
 

@@ -1638,8 +1638,8 @@ protected:
   virtual void writeXMLNS (XMLOutputStream& stream) const;
 
 
-  int mLevel;
-  int mVersion;
+  unsigned int mLevel;
+  unsigned int mVersion;
 
   Model* mModel;
   std::string mLocationURI;

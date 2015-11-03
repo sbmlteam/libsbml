@@ -150,18 +150,18 @@ SBMLIdConverter::convert()
 
     for (unsigned int j = 0; j < currentIds.size(); ++j)
     {
-      if (current->getId() != currentIds.at(j))
+      if (current->getId() != currentIds.at((int)j))
         continue;
 
       // return error code in case new id is invalid		
-      if (!SyntaxChecker::isValidSBMLSId(newIds.at(j)))
+      if (!SyntaxChecker::isValidSBMLSId(newIds.at((int)j)))
       {
         delete allElements;
         return LIBSBML_INVALID_ATTRIBUTE_VALUE;
       }
 
-      current->setId(newIds.at(j));
-      renamed[currentIds.at(j)] = newIds.at(j);
+      current->setId(newIds.at((int)j));
+      renamed[currentIds.at((int)j)] = newIds.at((int)j);
       break;
     }	
   }

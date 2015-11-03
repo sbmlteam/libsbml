@@ -416,7 +416,7 @@ class ValidatingVisitor: public SBMLVisitor
 {
 public:
 
-  ValidatingVisitor (Validator& v, const Model& m) : v(v), m(m) { }
+  ValidatingVisitor (Validator& validator, const Model& model) : v(validator), m(model) { }
 
 
   void visit (const SBMLDocument& x)
@@ -718,29 +718,29 @@ Validator::logFailure (const SBMLError& msg)
 class MatchId
 {
 public:
-  MatchId(unsigned int id) : id(id) {};
+  MatchId(unsigned int id) : mId(id) {};
 
   bool operator() (XMLError e) const
   {
-    return e.getErrorId() == id;
+    return e.getErrorId() == mId;
   };
 
 private:
-  unsigned int id;
+  unsigned int mId;
 };
 
 class DontMatchId
 {
 public:
-  DontMatchId(unsigned int id) : id(id) {};
+  DontMatchId(unsigned int id) : mId(id) {};
 
   bool operator() (XMLError e) const
   {
-    return e.getErrorId() != id;
+    return e.getErrorId() != mId;
   };
 
 private:
-  unsigned int id;
+  unsigned int mId;
 };
 
 /*

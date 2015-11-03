@@ -92,7 +92,7 @@ UniqueMetaId::getPreamble ()
  * Constraint.  Override the doCheck() method to define your own subset.
  */
 void
-UniqueMetaId::check_ (const Model& m, const Model& object)
+UniqueMetaId::check_ (const Model& m, const Model&)
 {
   doCheck(m);
 }

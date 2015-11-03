@@ -134,10 +134,10 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
   SBase* object = NULL; 
 
   const std::string&      name   = stream.peek().getName(); 
-  const XMLNamespaces&    xmlns  = stream.peek().getNamespaces(); 
+  const XMLNamespaces&    xmlns1  = stream.peek().getNamespaces();
   const std::string&      prefix = stream.peek().getPrefix(); 
 
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ? xmlns.getPrefix(mURI) : mPrefix;
+  const std::string& targetPrefix = (xmlns1.hasURI(mURI)) ? xmlns1.getPrefix(mURI) : mPrefix;
 
   if (prefix == targetPrefix) 
   { 

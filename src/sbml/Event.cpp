@@ -1737,11 +1737,11 @@ ListOfEvents::get(unsigned int n) const
  */
 struct IdEqE : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqE (const string& id) : id(id) { }
+  IdEqE (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <Event *> (sb)->getId() == id; }
+       { return static_cast <Event *> (sb)->getId() == mId; }
 };
 
 

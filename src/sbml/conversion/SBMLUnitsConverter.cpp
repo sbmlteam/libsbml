@@ -1457,12 +1457,12 @@ void
 SBMLUnitsConverter::removeUnusedUnitDefinitions(Model& m)
 {
   unsigned int num = m.getNumUnitDefinitions()-1;
-  for (int i = num; i >= 0; i--)
+  for (int i = (int)num; i >= 0; i--)
   {
-    if (Unit::isBuiltIn(m.getUnitDefinition(i)->getId(), m.getLevel()) == false
-      && (isUsed(m, m.getUnitDefinition(i)->getId()) == false))
+    if (Unit::isBuiltIn(m.getUnitDefinition((unsigned int)i)->getId(), m.getLevel()) == false
+      && (isUsed(m, m.getUnitDefinition((unsigned int)i)->getId()) == false))
     {
-      delete m.removeUnitDefinition(i);
+      delete m.removeUnitDefinition((unsigned int)i);
     }
   }
 

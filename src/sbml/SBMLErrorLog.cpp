@@ -314,13 +314,13 @@ private:
 unsigned int 
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity) const
 {
-  int n = 0;
+  unsigned int n = 0;
 
 #if defined(__SUNPRO_CC)
   // Workaround for Sun cc which is missing:
   count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity), n);
 #else
-  n = (int)count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
+  n = (unsigned int)count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
 #endif
 
   return n;
@@ -332,13 +332,13 @@ SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity) const
 unsigned int
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
-  int n = 0;
+  unsigned int n = 0;
 
 #if defined(__SUNPRO_CC)
   // Workaround for Sun cc which is missing:
   count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity), n);
 #else
-  n = (int)count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
+  n = (unsigned int)count_if(mErrors.begin(), mErrors.end(), MatchSeverity(severity));
 #endif
 
   return n;

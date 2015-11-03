@@ -148,8 +148,8 @@ XMLAttributes::add (const std::string& name,
   }
   else
   {
-    mValues[index] = value;
-    mNames[index]  = XMLTriple(name, namespaceURI, prefix);
+    mValues[(size_t)index] = value;
+    mNames[(size_t)index]  = XMLTriple(name, namespaceURI, prefix);
   }
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -297,7 +297,7 @@ XMLAttributes::getIndex (const XMLTriple& triple) const
 
   for (int index = 0; index < getLength(); ++index)
   {
-    if (mNames[index] == triple) return index;
+    if (mNames[(size_t)index] == triple) return index;
   }
   
   return -1;
@@ -332,7 +332,7 @@ XMLAttributes::getNumAttributes () const
 std::string
 XMLAttributes::getName (int index) const
 {
-  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getName();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[(size_t)index].getName();
 }
 
 
@@ -344,7 +344,7 @@ XMLAttributes::getName (int index) const
 std::string
 XMLAttributes::getPrefix (int index) const
 {
-  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getPrefix();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[(size_t)index].getPrefix();
 }
 
 
@@ -357,7 +357,7 @@ XMLAttributes::getPrefix (int index) const
 std::string
 XMLAttributes::getPrefixedName (int index) const
 {
-  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getPrefixedName();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[(size_t)index].getPrefixedName();
 }
 
 
@@ -369,7 +369,7 @@ XMLAttributes::getPrefixedName (int index) const
 std::string
 XMLAttributes::getURI (int index) const
 {
-  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getURI();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[(size_t)index].getURI();
 }
 
 
@@ -381,7 +381,7 @@ XMLAttributes::getURI (int index) const
 std::string
 XMLAttributes::getValue (int index) const
 {
-  return (index < 0 || index >= getLength()) ? std::string() : mValues[index];
+  return (index < 0 || index >= getLength()) ? std::string() : mValues[(size_t)index];
 }
 
 
@@ -975,7 +975,7 @@ XMLAttributes::readInto (  int           index
   long  temp;
   bool  assigned = readInto(index, name, temp, log, required, line, column);
 
-  if (assigned && temp >= 0) value = (int)temp;
+  if (assigned && temp >= 0) value = (unsigned int)temp;
   else assigned = false;
 
   return assigned;
@@ -1136,7 +1136,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
     }
     else
     {
-      stream.writeAttribute( mNames[n], getValue(n) );
+      stream.writeAttribute( mNames[(size_t)n], getValue(n) );
     }
   }
 }

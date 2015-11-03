@@ -75,14 +75,14 @@ SBMLVisitor::visit (const Priority& x)
 
 
 void
-SBMLVisitor::visit (const ListOf& x, int type)
+SBMLVisitor::visit (const ListOf& x, int)
 {
   visit( static_cast<const SBase&>(x) );
 }
 
 
 bool
-SBMLVisitor::visit (const SBase& sb)
+SBMLVisitor::visit (const SBase&)
 {
   return false;
 }
@@ -243,43 +243,43 @@ SBMLVisitor::visit (const Delay& x)
 
 
 void
-SBMLVisitor::leave (const SBMLDocument& x)
+SBMLVisitor::leave (const SBMLDocument&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const Model& x)
+SBMLVisitor::leave (const Model&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const KineticLaw& x)
+SBMLVisitor::leave (const KineticLaw&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const Priority& x)
+SBMLVisitor::leave (const Priority&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const Reaction& x)
+SBMLVisitor::leave (const Reaction&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const SBase& x)
+SBMLVisitor::leave (const SBase&)
 {
 }
 
 
 void
-SBMLVisitor::leave (const ListOf& x, int type)
+SBMLVisitor::leave (const ListOf&, int)
 {
 }
 

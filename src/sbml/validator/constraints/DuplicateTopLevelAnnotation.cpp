@@ -68,7 +68,7 @@ DuplicateTopLevelAnnotation::~DuplicateTopLevelAnnotation ()
  * Checks whether all annotations have duplicate top level namespaces
  */
 void
-DuplicateTopLevelAnnotation::check_ (const Model& m, const Model& object)
+DuplicateTopLevelAnnotation::check_ (const Model&, const Model& object)
 {
   /* check the annotations on each object */
 

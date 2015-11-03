@@ -139,7 +139,7 @@ StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
   len = c_locale_vsnprintf(sb->buffer + sb->length, size, format, ap);
   va_end(ap);
 
-  sb->length += (len < 0 || len > size) ? size : len;
+  sb->length += (len < 0 || len > size) ? size : (size_t)len;
   sb->buffer[sb->length] = '\0';
 }
 

@@ -317,7 +317,7 @@ Model::dealWithDefaultValues()
       double exp = u->getExponentAsDouble();
       bool replaceExp = (u->isSetExponent() == true &&
         util_isEqual(exp, 1.0) == false);
-      unsigned int scale = u->getScale();
+      int scale = u->getScale();
       bool replaceScale = (u->isSetScale() == true && scale != 0);
       double mult = u->getMultiplier();
       bool replaceMult = (u->isSetMultiplier() == true &&

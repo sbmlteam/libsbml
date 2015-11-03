@@ -95,7 +95,7 @@ QualSBMLDocumentPlugin::~QualSBMLDocumentPlugin ()
 /** @cond doxygenLibsbmlInternal */
 void 
 QualSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
-                            const ExpectedAttributes& expectedAttributes)
+                            const ExpectedAttributes&)
 {
   // for now don't read the required flag for L2 models 
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3) return;

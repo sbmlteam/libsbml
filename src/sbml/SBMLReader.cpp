@@ -255,10 +255,10 @@ SBMLReader::readInternal (const char* content, bool isFile)
           // If we find even one critical error, all other errors are
           // suspect and may be bogus.  Remove them.
 
-          for (int n = d->getNumErrors()-1; n >= 0; n--)      
-            if (!isCriticalError(d->getError(n)->getErrorId()))
+          for (int n = (int)d->getNumErrors()-1; n >= 0; --n)
+            if (!isCriticalError(d->getError((unsigned int)n)->getErrorId()))
             {
-              d->getErrorLog()->remove(d->getError(n)->getErrorId());
+              d->getErrorLog()->remove(d->getError((unsigned int)n)->getErrorId());
             }
 
           break;

@@ -158,7 +158,7 @@ ASTBase::ASTBase (const ASTBase& orig):
              mPlugins.begin(), CloneASTPluginEntity() );
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    getPlugin(i)->connectToParent(this);
+    getPlugin((unsigned int)i)->connectToParent(this);
   }
 }
 
@@ -472,7 +472,7 @@ ASTBase::isPackageInfixFunction() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin(i)->isPackageInfixFunction()) return true;
+    if (getPlugin((unsigned int)i)->isPackageInfixFunction()) return true;
   }
   return false;
 }
@@ -483,7 +483,7 @@ ASTBase::hasPackageOnlyInfixSyntax() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin(i)->hasPackageOnlyInfixSyntax()) return true;
+    if (getPlugin((unsigned int)i)->hasPackageOnlyInfixSyntax()) return true;
   }
   return false;
 }
@@ -494,7 +494,7 @@ ASTBase::getL3PackageInfixPrecedence() const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return 8;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    int ret = getPlugin(i)->getL3PackageInfixPrecedence();
+    int ret = getPlugin((unsigned int)i)->getL3PackageInfixPrecedence();
     if (ret != -1) return ret;
   }
   return 8;
@@ -506,7 +506,7 @@ ASTBase::hasUnambiguousPackageInfixGrammar(const ASTNode *child) const
   if (getType() != AST_ORIGINATES_IN_PACKAGE) return false;
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    if (getPlugin(i)->hasUnambiguousPackageInfixGrammar(child)) return true;
+    if (getPlugin((unsigned int)i)->hasUnambiguousPackageInfixGrammar(child)) return true;
   }
   return false;
 }
@@ -1274,12 +1274,12 @@ ASTBase::setIsBvar(bool isbvar)
 
 
 void 
-ASTBase::write(XMLOutputStream& stream) const
+ASTBase::write(XMLOutputStream& ) const
 {
 }
 
 bool 
-ASTBase::read(XMLInputStream& stream, const std::string& reqd_prefix)
+ASTBase::read(XMLInputStream& stream, const std::string& )
 {
   ExpectedAttributes expectedAttributes;
   addExpectedAttributes(expectedAttributes, stream);
@@ -1429,7 +1429,7 @@ ASTBase::isChild() const
 #endif
 
 void 
-ASTBase::setIsChildFlag(bool flag)
+ASTBase::setIsChildFlag(bool )
 {
   // no op
   // left for backwards compatibility reasons
@@ -1531,7 +1531,7 @@ ASTBase::getPlugin(unsigned int n) const
 unsigned int 
 ASTBase::getNumPlugins() const
 {
-  return (int)mPlugins.size();
+  return (unsigned int)mPlugins.size();
 }
 
 
@@ -1638,8 +1638,8 @@ ASTBase::writeAttributes (XMLOutputStream& stream) const
 
 
 void 
-ASTBase::writeNodeOfType(XMLOutputStream& stream, int type, 
-    bool inChildNode) const
+ASTBase::writeNodeOfType(XMLOutputStream& , int ,
+    bool ) const
 {
 }
 
@@ -1695,7 +1695,7 @@ ASTBase::loadASTPlugins(const SBMLNamespaces * sbmlns)
   if (sbmlns == NULL)
   {
     const std::vector<std::string>& names = SBMLExtensionRegistry::getAllRegisteredPackageNames();
-    unsigned int numPkgs = names.size();
+    unsigned int numPkgs = (unsigned int)names.size();
     
     for (unsigned int i=0; i < numPkgs; i++)
     {

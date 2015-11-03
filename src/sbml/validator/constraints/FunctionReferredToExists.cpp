@@ -70,7 +70,7 @@ FunctionReferredToExists::~FunctionReferredToExists ()
  * event assignments and assignment rules.
  */
 void
-FunctionReferredToExists::check_ (const Model& m, const Model& object)
+FunctionReferredToExists::check_ (const Model& m, const Model&)
 {
   // does not apply in l2v4 and beyond
   if (m.getLevel() == 2 && m.getVersion() < 4)

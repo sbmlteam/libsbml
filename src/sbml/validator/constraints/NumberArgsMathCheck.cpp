@@ -275,7 +275,7 @@ void NumberArgsMathCheck::checkAtLeast2Args(const Model& m,
 }
 
   
-void NumberArgsMathCheck::checkPiecewise(const Model& m, 
+void NumberArgsMathCheck::checkPiecewise(const Model&, 
                                     const ASTNode& node, const SBase & sb)
 {
   if (node.getNumChildren() == 0)

@@ -439,7 +439,7 @@ FluxBound::getElementName () const
 
 /** @cond doxygenLibsbmlInternal */
 SBase*
-FluxBound::createObject (XMLInputStream& stream)
+FluxBound::createObject (XMLInputStream&)
 {
   return NULL;
 }
@@ -475,20 +475,20 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
     static_cast<ListOfFluxBounds*>(getParentSBMLObject())->size() < 2)
   {
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)      
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOFluxBoundsAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcLOFluxBoundsAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
@@ -502,20 +502,20 @@ FluxBound::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
     unsigned int numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)      
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxBoundRequiredAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("fbc", FbcFluxBoundAllowedL3Attributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);

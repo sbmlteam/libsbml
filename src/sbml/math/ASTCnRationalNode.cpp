@@ -62,21 +62,6 @@ ASTCnRationalNode::ASTCnRationalNode (int type) :
   }
 }
   
-
-ASTCnRationalNode::ASTCnRationalNode (const XMLNode *xml) :
-  ASTCnBase(AST_RATIONAL)
-    , mNumerator         ( 0 )
-    , mDenominator       ( 1 )
-    , mIsSetDenominator  ( false )
-    , mIsSetNumerator    ( false )
-{
-    setType(AST_RATIONAL);
-  for (unsigned int i = 0; i < getNumPlugins(); i++)
-  {
-    ASTBase::getPlugin(i)->connectToParent(this);
-  }
-}
-
   
   /**
    * Copy constructor

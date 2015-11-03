@@ -321,7 +321,7 @@ XMLError::XMLError (  const int errorId
                     , const unsigned int column
                     , const unsigned int severity
                     , const unsigned int category ) :
-    mErrorId( errorId )
+    mErrorId( (unsigned int)errorId )
   , mLine   ( line    )
   , mColumn ( column  )
   , mValidError ( true )
@@ -817,7 +817,7 @@ XMLError_t*
 XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
 {
   if (message == NULL) return NULL;
-  return new(nothrow) XMLError(errorId, message);
+  return new(nothrow) XMLError((int)errorId, message);
 }
 
 //LIBLAX_EXTERN

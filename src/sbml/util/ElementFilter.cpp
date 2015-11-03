@@ -50,7 +50,7 @@ ElementFilter::~ElementFilter()
 }
 
 bool 
-ElementFilter::filter(const SBase* element)
+ElementFilter::filter(const SBase*)
 {
   return false;
 }

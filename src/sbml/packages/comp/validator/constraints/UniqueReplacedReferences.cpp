@@ -93,7 +93,7 @@ UniqueReplacedReferences::~UniqueReplacedReferences ()
  * Reactions, and Events.
  */
 void
-UniqueReplacedReferences::check_ (const Model& m, const Model& object)
+UniqueReplacedReferences::check_ (const Model& m, const Model&)
 {
   unsigned int n, size;
   const CompSBasePlugin * plug;

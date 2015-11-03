@@ -51,9 +51,6 @@ public:
 
   ASTCnIntegerNode (int type = AST_INTEGER);
 
-
-  ASTCnIntegerNode (const XMLNode *xml);
-
   
   /**
    * Copy constructor

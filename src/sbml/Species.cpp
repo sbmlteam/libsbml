@@ -1970,11 +1970,11 @@ ListOfSpecies::get(unsigned int n) const
  */
 struct IdEqS : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqS (const string& id) : id(id) { }
+  IdEqS (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <Species *> (sb)->getId() == id; }
+       { return static_cast <Species *> (sb)->getId() == mId; }
 };
 /* return item by id */
 Species*

@@ -995,11 +995,11 @@ RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
 
     for (unsigned int n = 1; n < history->getNumModifiedDates(); n++)
     {
-      XMLNode empty(empty_token);
+      XMLNode empty1(empty_token);
       W3CDTF2.removeChildren();
       modified.removeChildren();
-      empty.append(history->getModifiedDate(n)->getDateAsString());
-      W3CDTF2.addChild(empty);
+      empty1.append(history->getModifiedDate(n)->getDateAsString());
+      W3CDTF2.addChild(empty1);
       modified.addChild(W3CDTF2);
       description->addChild(modified);
     }
@@ -1094,7 +1094,7 @@ RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
     // remove and keep the first description element
     // assume that the annotation is proper sbml-miriam
     XMLNode* descr = rdfAnnotation.removeChild(
-                      rdfAnnotation.getIndex("Description"));
+                      (unsigned int)rdfAnnotation.getIndex("Description"));
     if (hasCVTermRDF == false)
     {
       //we have a history, no cvterms and possibly other rdf
@@ -1208,7 +1208,7 @@ RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
     // remove the first description element keeping a copy
     // assume that the annotation is proper sbml-miriam
     XMLNode* descr = rdfAnnotation.removeChild(
-                      rdfAnnotation.getIndex("Description"));
+                      (unsigned int)rdfAnnotation.getIndex("Description"));
     if (hasHistoryRDF == false)
     {
       //we have cvterms no history and possibly other rdf

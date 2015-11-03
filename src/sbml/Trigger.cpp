@@ -565,7 +565,7 @@ Trigger::readAttributes (const XMLAttributes& attributes,
  * parents implementation of this method as well.
  */
 void
-Trigger::readL2Attributes (const XMLAttributes& attributes)
+Trigger::readL2Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */

@@ -128,7 +128,7 @@ LogicalArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBas
   * If not, an error message is logged.
   */
 void 
-LogicalArgsMathCheck::checkMathFromLogical (const Model& m, const ASTNode& node, 
+LogicalArgsMathCheck::checkMathFromLogical (const Model&, const ASTNode& node, 
                                                 const SBase & sb)
 {
   unsigned int n;

@@ -71,7 +71,7 @@ SpeciesReactionOrRule::~SpeciesReactionOrRule ()
   * is not set by reaction and rules
   */
 void
-SpeciesReactionOrRule::check_ (const Model& m, const Model& object)
+SpeciesReactionOrRule::check_ (const Model& m, const Model&)
 {
   unsigned int n, nr, nsr;
   const Species * s;

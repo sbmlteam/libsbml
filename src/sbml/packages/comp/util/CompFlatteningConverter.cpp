@@ -357,7 +357,7 @@ CompFlatteningConverter::performConversion()
 
   if (getPerformValidation() == true)
   {
-    int result = validateOriginalDocument();
+    result = validateOriginalDocument();
     if (result != LIBSBML_OPERATION_SUCCESS) 
     {
       return result;
@@ -401,7 +401,7 @@ CompFlatteningConverter::performConversion()
 
   if (getPerformValidation() == true)
   {
-    int result = validateFlatDocument(flatmodel, 
+    result = validateFlatDocument(flatmodel,
                     modelPlugin->getPackageVersion(), modelPlugin->getLevel(), 
                     modelPlugin->getVersion());
     if (result != LIBSBML_OPERATION_SUCCESS)
@@ -470,13 +470,13 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
                               (mDocument->getPlugin("comp"));
       }
 
-      for (i = docPlug->getNumModelDefinitions() - 1; i >= 0; i--)
+      for (i = (int)docPlug->getNumModelDefinitions() - 1; i >= 0; i--)
       {
-        delete docPlug->removeModelDefinition(i);
+        delete docPlug->removeModelDefinition((unsigned int)i);
       }
-      for (i = docPlug->getNumExternalModelDefinitions() - 1; i >= 0; i--)
+      for (i = (int)docPlug->getNumExternalModelDefinitions() - 1; i >= 0; i--)
       {
-        delete docPlug->removeExternalModelDefinition(i);
+        delete docPlug->removeExternalModelDefinition((unsigned int)i);
       }
 
     }
@@ -1126,7 +1126,7 @@ CompFlatteningConverter::stripPackages()
   unsigned int count = 0;
   for (unsigned int i = 0; i < num; i++)
   {
-    if (mDocument->isPackageEnabled(mPkgsToStrip->at(i)) == false)
+    if (mDocument->isPackageEnabled(mPkgsToStrip->at((int)i)) == false)
     {
       count++;
     }

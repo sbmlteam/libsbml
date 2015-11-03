@@ -843,11 +843,11 @@ ListOfInitialAssignments::get(unsigned int n) const
  */
 struct IdEqIA : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqIA (const string& id) : id(id) { }
+  IdEqIA (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <InitialAssignment *> (sb)->getId() == id; }
+       { return static_cast <InitialAssignment *> (sb)->getId() == mId; }
 };
 
 

@@ -108,14 +108,14 @@ START_CONSTRAINT(99701, Model, m1)
   pre(m1.isSetSBOTerm());
   msg = "Unknown SBO term '" + m1.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (m1.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (m1.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (m1.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (m1.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (m1.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (m1.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (m1.getSBOTerm()));
-  inv_or(SBO::isObselete                     (m1.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)m1.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)m1.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -129,14 +129,14 @@ START_CONSTRAINT(99701, FunctionDefinition, fd)
   pre(fd.isSetSBOTerm());
   msg = "Unknown SBO term '" + fd.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (fd.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (fd.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (fd.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (fd.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (fd.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (fd.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (fd.getSBOTerm()));
-  inv_or(SBO::isObselete                     (fd.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)fd.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)fd.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -151,14 +151,14 @@ START_CONSTRAINT(99701, Parameter, p)
   pre(p.isSetSBOTerm());
   msg = "Unknown SBO term '" + p.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (p.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (p.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (p.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (p.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (p.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (p.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (p.getSBOTerm()));
-  inv_or(SBO::isObselete                     (p.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)p.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)p.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -172,14 +172,14 @@ START_CONSTRAINT(99701, InitialAssignment, ia)
   pre(ia.isSetSBOTerm());
   msg = "Unknown SBO term '" + ia.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (ia.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (ia.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (ia.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (ia.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (ia.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (ia.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (ia.getSBOTerm()));
-  inv_or(SBO::isObselete                     (ia.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)ia.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)ia.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -193,14 +193,14 @@ START_CONSTRAINT(99701, AssignmentRule, ar)
   pre(ar.isSetSBOTerm());
   msg = "Unknown SBO term '" + ar.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (ar.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (ar.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (ar.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (ar.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (ar.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (ar.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (ar.getSBOTerm()));
-  inv_or(SBO::isObselete                     (ar.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)ar.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -214,14 +214,14 @@ START_CONSTRAINT(99701, RateRule, rr)
   pre(rr.isSetSBOTerm());
   msg = "Unknown SBO term '" + rr.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (rr.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (rr.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (rr.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (rr.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (rr.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (rr.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (rr.getSBOTerm()));
-  inv_or(SBO::isObselete                     (rr.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)rr.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)rr.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -235,14 +235,14 @@ START_CONSTRAINT(99701, AlgebraicRule, ar)
   pre(ar.isSetSBOTerm());
   msg = "Unknown SBO term '" + ar.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (ar.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (ar.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (ar.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (ar.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (ar.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (ar.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (ar.getSBOTerm()));
-  inv_or(SBO::isObselete                     (ar.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)ar.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)ar.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -256,14 +256,14 @@ START_CONSTRAINT(99701, Constraint, c)
   pre(c.isSetSBOTerm());
   msg = "Unknown SBO term '" + c.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (c.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (c.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (c.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (c.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (c.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (c.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (c.getSBOTerm()));
-  inv_or(SBO::isObselete                     (c.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -277,14 +277,14 @@ START_CONSTRAINT(99701, Reaction, r)
   pre(r.isSetSBOTerm());
   msg = "Unknown SBO term '" + r.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (r.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (r.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (r.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (r.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (r.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (r.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (r.getSBOTerm()));
-  inv_or(SBO::isObselete                     (r.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)r.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -298,14 +298,14 @@ START_CONSTRAINT(99701, SpeciesReference, sr)
   pre(sr.isSetSBOTerm());
   msg = "Unknown SBO term '" + sr.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (sr.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (sr.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (sr.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (sr.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (sr.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (sr.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (sr.getSBOTerm()));
-  inv_or(SBO::isObselete                     (sr.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)sr.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)sr.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -319,14 +319,14 @@ START_CONSTRAINT(99701, KineticLaw, kl)
   pre(kl.isSetSBOTerm());
   msg = "Unknown SBO term '" + kl.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (kl.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (kl.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (kl.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (kl.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (kl.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (kl.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (kl.getSBOTerm()));
-  inv_or(SBO::isObselete                     (kl.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)kl.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)kl.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -340,14 +340,14 @@ START_CONSTRAINT(99701, Event, e)
   pre(e.isSetSBOTerm());
   msg = "Unknown SBO term '" + e.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (e.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (e.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (e.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (e.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (e.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (e.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (e.getSBOTerm()));
-  inv_or(SBO::isObselete                     (e.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)e.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)e.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -361,14 +361,14 @@ START_CONSTRAINT(99701, EventAssignment, ea)
   pre(ea.isSetSBOTerm());
   msg = "Unknown SBO term '" + ea.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (ea.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (ea.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (ea.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (ea.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (ea.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (ea.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (ea.getSBOTerm()));
-  inv_or(SBO::isObselete                     (ea.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)ea.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)ea.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -382,14 +382,14 @@ START_CONSTRAINT(99701, Compartment, c)
   pre(c.isSetSBOTerm());
   msg = "Unknown SBO term '" + c.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (c.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (c.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (c.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (c.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (c.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (c.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (c.getSBOTerm()));
-  inv_or(SBO::isObselete                     (c.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)c.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -403,14 +403,14 @@ START_CONSTRAINT(99701, Species, s)
   pre(s.isSetSBOTerm());
   msg = "Unknown SBO term '" + s.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (s.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (s.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (s.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (s.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (s.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (s.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (s.getSBOTerm()));
-  inv_or(SBO::isObselete                     (s.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)s.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)s.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -424,14 +424,14 @@ START_CONSTRAINT(99701, CompartmentType, ct)
   pre(ct.isSetSBOTerm());
   msg = "Unknown SBO term '" + ct.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (ct.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (ct.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (ct.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (ct.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (ct.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (ct.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (ct.getSBOTerm()));
-  inv_or(SBO::isObselete                     (ct.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)ct.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)ct.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -445,14 +445,14 @@ START_CONSTRAINT(99701, SpeciesType, st)
   pre(st.isSetSBOTerm());
   msg = "Unknown SBO term '" + st.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (st.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (st.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (st.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (st.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (st.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (st.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (st.getSBOTerm()));
-  inv_or(SBO::isObselete                     (st.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)st.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)st.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -466,14 +466,14 @@ START_CONSTRAINT(99701, Trigger, t)
   pre(t.isSetSBOTerm());
   msg = "Unknown SBO term '" + t.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (t.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (t.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (t.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (t.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (t.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (t.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (t.getSBOTerm()));
-  inv_or(SBO::isObselete                     (t.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)t.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)t.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -487,14 +487,14 @@ START_CONSTRAINT(99701, Delay, d)
   pre(d.isSetSBOTerm());
   msg = "Unknown SBO term '" + d.getSBOTermID() + "'.";
 
-  inv_or(SBO::isModellingFramework           (d.getSBOTerm()));
-  inv_or(SBO::isMathematicalExpression       (d.getSBOTerm()));
-  inv_or(SBO::isParticipantRole              (d.getSBOTerm()));
-  inv_or(SBO::isMetadataRepresentation       (d.getSBOTerm()));
-  inv_or(SBO::isSystemsDescriptionParameter  (d.getSBOTerm()));
-  inv_or(SBO::isOccurringEntityRepresentation (d.getSBOTerm()));
-  inv_or(SBO::isPhysicalEntityRepresentation (d.getSBOTerm()));
-  inv_or(SBO::isObselete                     (d.getSBOTerm()));
+  inv_or(SBO::isModellingFramework           ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isMathematicalExpression       ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isParticipantRole              ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isMetadataRepresentation       ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isSystemsDescriptionParameter  ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isOccurringEntityRepresentation ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isPhysicalEntityRepresentation ((unsigned int)d.getSBOTerm()));
+  inv_or(SBO::isObselete                     ((unsigned int)d.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -518,11 +518,11 @@ START_CONSTRAINT(10701, Model, m1)
 
   if (m1.getLevel() == 2 && m1.getVersion() < 4)
   {
-    inv(SBO::isModellingFramework(m1.getSBOTerm()));
+    inv(SBO::isModellingFramework((unsigned int)m1.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isOccurringEntityRepresentation(m1.getSBOTerm()));
+    inv(SBO::isOccurringEntityRepresentation((unsigned int)m1.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -545,7 +545,7 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
   //  "\"mathematical expression\"). "
   //  "(References: L2V2 Section 4.3.3; L2V3 Section 4.3.3.)";
 
-  inv(SBO::isMathematicalExpression(fd.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)fd.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -568,7 +568,7 @@ START_CONSTRAINT(10703, Parameter, p)
   //  "SBO:0000002, \"quantitative parameter\"). "
   //  "(References: L2V2 Section 4.9.5; L2V3 Section 4.9.5.)";
 
-  inv(SBO::isQuantitativeSystemsDescriptionParameter(p.getSBOTerm()));
+  inv(SBO::isQuantitativeSystemsDescriptionParameter((unsigned int)p.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -590,7 +590,7 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
   //  "\"mathematical expression\"). "
   //  "(References: L2V2 Section 4.10.3; L2V3 Section 4.10.3.)";
 
-  inv(SBO::isMathematicalExpression(ia.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)ia.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -612,7 +612,7 @@ START_CONSTRAINT(10705, AssignmentRule, r)
   //  "Note: This applies to Algebraic Rules in addition to Rate and Assignment "
   //  "Rules. (References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
-  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -634,7 +634,7 @@ START_CONSTRAINT(10705, RateRule, r)
     //"This applies to Algebraic Rules in addition to Rate and Assignment Rules. "
     //"(References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
-  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -656,7 +656,7 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
   //  "This applies to Algebraic Rules in addition to Rate and Assignment Rules. "
   //  "(References: L2V2 Section 4.11.1; L2V3 Section 4.11.1.)";
 
-  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -678,7 +678,7 @@ START_CONSTRAINT(10706, Constraint, c)
   //  "expression\"). "
   //  "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3.)";
 
-  inv(SBO::isMathematicalExpression(c.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -701,11 +701,11 @@ START_CONSTRAINT(10707, Reaction, r)
 
   if (r.getLevel() == 2 && r.getVersion() < 4)
   {
-    inv(SBO::isEvent(r.getSBOTerm()));
+    inv(SBO::isEvent((unsigned int)r.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isOccurringEntityRepresentation(r.getSBOTerm()));
+    inv(SBO::isOccurringEntityRepresentation((unsigned int)r.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -734,12 +734,12 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
 
   if (!sr.isModifier())
   {
-    inv_or(SBO::isProduct(sr.getSBOTerm()));
-    inv_or(SBO::isReactant(sr.getSBOTerm()));
+    inv_or(SBO::isProduct((unsigned int)sr.getSBOTerm()));
+    inv_or(SBO::isReactant((unsigned int)sr.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isModifier(sr.getSBOTerm()));
+    inv(SBO::isModifier((unsigned int)sr.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -761,7 +761,7 @@ START_CONSTRAINT(10709, KineticLaw, kl)
   //  "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). "
   //  "(References: L2V2 Section 4.13.5.)";
 
-  inv(SBO::isRateLaw(kl.getSBOTerm()));
+  inv(SBO::isRateLaw((unsigned int)kl.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -784,11 +784,11 @@ START_CONSTRAINT(10710, Event, e)
  
   if (e.getLevel() == 2 && e.getVersion() < 4)
   {
-    inv(SBO::isEvent(e.getSBOTerm()));
+    inv(SBO::isEvent((unsigned int)e.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isOccurringEntityRepresentation(e.getSBOTerm()));
+    inv(SBO::isOccurringEntityRepresentation((unsigned int)e.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -811,7 +811,7 @@ START_CONSTRAINT(10711, EventAssignment, ea)
   //  "\"mathematical expression\"). "
   //  "(References: L2V2 Section 4.14.2; L2V3 Section 4.14.1.)";
 
-  inv(SBO::isMathematicalExpression(ea.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)ea.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -834,11 +834,11 @@ START_CONSTRAINT(10712, Compartment, c)
 
   if (c.getLevel() == 2 && c.getVersion() == 3)
   {
-    inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+    inv(SBO::isPhysicalParticipant((unsigned int)c.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isMaterialEntity(c.getSBOTerm()));
+    inv(SBO::isMaterialEntity((unsigned int)c.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -862,11 +862,11 @@ START_CONSTRAINT(10713, Species, s)
 
   if (s.getLevel() == 2 && s.getVersion() == 3)
   {
-    inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+    inv(SBO::isPhysicalParticipant((unsigned int)s.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isMaterialEntity(s.getSBOTerm()));
+    inv(SBO::isMaterialEntity((unsigned int)s.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -890,11 +890,11 @@ START_CONSTRAINT(10714, CompartmentType, c)
 
   if (c.getLevel() == 2 && c.getVersion() == 3)
   {
-    inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
+    inv(SBO::isPhysicalParticipant((unsigned int)c.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isMaterialEntity(c.getSBOTerm()));
+    inv(SBO::isMaterialEntity((unsigned int)c.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -918,11 +918,11 @@ START_CONSTRAINT(10715, SpeciesType, s)
 
   if (s.getLevel() == 2 && s.getVersion() == 3)
   {
-    inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
+    inv(SBO::isPhysicalParticipant((unsigned int)s.getSBOTerm()));
   }
   else
   {
-    inv(SBO::isMaterialEntity(s.getSBOTerm()));
+    inv(SBO::isMaterialEntity((unsigned int)s.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -944,7 +944,7 @@ START_CONSTRAINT(10716, Trigger, t)
   //  "expression (i.e., terms derived from SBO:0000064, \"mathematical "
   //  "expression\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isMathematicalExpression(t.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)t.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -965,7 +965,7 @@ START_CONSTRAINT(10717, Delay, d)
   //  "expression (i.e., terms derived from SBO:0000064, \"mathematical "
   //  "expression\"). (References: L2V3 Section 5.2.2.)";
 
-  inv(SBO::isMathematicalExpression(d.getSBOTerm()));
+  inv(SBO::isMathematicalExpression((unsigned int)d.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -979,7 +979,7 @@ START_CONSTRAINT(99702, Model, m1)
   pre(m1.isSetSBOTerm());
   msg = "Obsolete SBO term '" + m1.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (m1.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)m1.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -993,7 +993,7 @@ START_CONSTRAINT(99702, FunctionDefinition, fd)
   pre(fd.isSetSBOTerm());
   msg = "Obsolete SBO term '" + fd.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (fd.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)fd.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1008,7 +1008,7 @@ START_CONSTRAINT(99702, Parameter, p)
   pre(p.isSetSBOTerm());
   msg = "Obsolete SBO term '" + p.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (p.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)p.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1023,7 +1023,7 @@ START_CONSTRAINT(99702, InitialAssignment, ia)
   pre(ia.isSetSBOTerm());
   msg = "Obsolete SBO term '" + ia.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (ia.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)ia.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1038,7 +1038,7 @@ START_CONSTRAINT(99702, AssignmentRule, ar)
   pre(ar.isSetSBOTerm());
   msg = "Obsolete SBO term '" + ar.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (ar.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)ar.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1053,7 +1053,7 @@ START_CONSTRAINT(99702, RateRule, rr)
   pre(rr.isSetSBOTerm());
   msg = "Obsolete SBO term '" + rr.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (rr.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)rr.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1068,7 +1068,7 @@ START_CONSTRAINT(99702, AlgebraicRule, ar)
   pre(ar.isSetSBOTerm());
   msg = "Obsolete SBO term '" + ar.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (ar.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)ar.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1083,7 +1083,7 @@ START_CONSTRAINT(99702, Constraint, c)
   pre(c.isSetSBOTerm());
   msg = "Obsolete SBO term '" + c.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (c.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)c.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1098,7 +1098,7 @@ START_CONSTRAINT(99702, Reaction, r)
   pre(r.isSetSBOTerm());
   msg = "Obsolete SBO term '" + r.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (r.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)r.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1113,7 +1113,7 @@ START_CONSTRAINT(99702, SpeciesReference, sr)
   pre(sr.isSetSBOTerm());
   msg = "Obsolete SBO term '" + sr.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (sr.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)sr.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1128,7 +1128,7 @@ START_CONSTRAINT(99702, KineticLaw, kl)
   pre(kl.isSetSBOTerm());
   msg = "Obsolete SBO term '" + kl.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (kl.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)kl.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1143,7 +1143,7 @@ START_CONSTRAINT(99702, Event, e)
   pre(e.isSetSBOTerm());
   msg = "Obsolete SBO term '" + e.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (e.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)e.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1158,7 +1158,7 @@ START_CONSTRAINT(99702, EventAssignment, ea)
   pre(ea.isSetSBOTerm());
   msg = "Obsolete SBO term '" + ea.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (ea.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)ea.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1173,7 +1173,7 @@ START_CONSTRAINT(99702, Compartment, c)
   pre(c.isSetSBOTerm());
   msg = "Obsolete SBO term '" + c.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (c.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)c.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1188,7 +1188,7 @@ START_CONSTRAINT(99702, Species, s)
   pre(s.isSetSBOTerm());
   msg = "Obsolete SBO term '" + s.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (s.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)s.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1203,7 +1203,7 @@ START_CONSTRAINT(99702, CompartmentType, ct)
   pre(ct.isSetSBOTerm());
   msg = "Obsolete SBO term '" + ct.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (ct.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)ct.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1218,7 +1218,7 @@ START_CONSTRAINT(99702, SpeciesType, st)
   pre(st.isSetSBOTerm());
   msg = "Obsolete SBO term '" + st.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (st.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)st.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1233,7 +1233,7 @@ START_CONSTRAINT(99702, Trigger, t)
   pre(t.isSetSBOTerm());
   msg = "Obsolete SBO term '" + t.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (t.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)t.getSBOTerm()));
 
 }
 END_CONSTRAINT
@@ -1248,7 +1248,7 @@ START_CONSTRAINT(99702, Delay, d)
   pre(d.isSetSBOTerm());
   msg = "Obsolete SBO term '" + d.getSBOTermID() + "'.";
 
-  inv(! SBO::isObselete               (d.getSBOTerm()));
+  inv(! SBO::isObselete               ((unsigned int)d.getSBOTerm()));
 
 }
 END_CONSTRAINT

@@ -89,7 +89,7 @@ IdBase::getPreamble ()
  * Constraint.  Override the doCheck() method to define your own subset.
  */
 void
-IdBase::check_ (const Model& m, const Model& object)
+IdBase::check_ (const Model& m, const Model&)
 {
   doCheck(m);
 }

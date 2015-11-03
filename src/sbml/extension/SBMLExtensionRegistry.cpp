@@ -190,7 +190,7 @@ SBMLExtensionRegistry::addExtension (const SBMLExtension* sbmlExt)
   //
   // Register (SBMLTypeCode_t, SBasePluginCreatorBase) pair
   //
-  for (int i=0; i < sbmlExtClone->getNumOfSBasePlugins(); i++)
+  for (unsigned int i=0; i < (unsigned int)sbmlExtClone->getNumOfSBasePlugins(); i++)
   {
     const SBasePluginCreatorBase *sbPluginCreator = sbmlExtClone->getSBasePluginCreator(i);
 #if 0
@@ -614,7 +614,7 @@ SBMLExtensionRegistry_getSBasePluginCreators(const SBaseExtensionPoint_t* extPoi
     SBMLExtensionRegistry::getInstance().getSBasePluginCreators(*extPoint);
 
   *length = (int)list.size();
-  SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*(*length));
+  SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)*length));
   
   std::list<const SBasePluginCreatorBase*>::iterator it;
   int count = 0;
@@ -636,7 +636,7 @@ SBMLExtensionRegistry_getSBasePluginCreatorsByURI(const char* uri, int* length)
      SBMLExtensionRegistry::getInstance().getSBasePluginCreators(sUri);
  
    *length = (int)list.size();
-   SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*(*length));
+   SBasePluginCreatorBase_t** result = (SBasePluginCreatorBase_t**)malloc(sizeof(SBasePluginCreatorBase_t*)*((unsigned long)*length));
    
    std::list<const SBasePluginCreatorBase*>::iterator it;
    int count = 0;
@@ -681,7 +681,7 @@ int
 SBMLExtensionRegistry_getNumExtensions(const SBaseExtensionPoint_t* extPoint)
 {
   if (extPoint == NULL) return 0;
-  return SBMLExtensionRegistry::getInstance().getNumExtension(*extPoint);
+  return (int)SBMLExtensionRegistry::getInstance().getNumExtension(*extPoint);
 }
 
 
@@ -717,7 +717,7 @@ LIBSBML_EXTERN
 char*
 SBMLExtensionRegistry_getRegisteredPackageName(int index)
 {
-  return safe_strdup(SBMLExtensionRegistry::getRegisteredPackageName(index).c_str());
+  return safe_strdup(SBMLExtensionRegistry::getRegisteredPackageName((unsigned int)index).c_str());
 }
 /** @endcond */
 

@@ -650,7 +650,7 @@ Constraint::readL2Attributes (const XMLAttributes& attributes)
  * parents implementation of this method as well.
  */
 void
-Constraint::readL3Attributes (const XMLAttributes& attributes)
+Constraint::readL3Attributes (const XMLAttributes&)
 {
 }
 /** @endcond */

@@ -973,11 +973,11 @@ ListOfFunctionDefinitions::get(unsigned int n) const
  */
 struct IdEqFD : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqFD (const string& id) : id(id) { }
+  IdEqFD (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <FunctionDefinition *> (sb)->getId() == id; }
+       { return static_cast <FunctionDefinition *> (sb)->getId() == mId; }
 };
 
 

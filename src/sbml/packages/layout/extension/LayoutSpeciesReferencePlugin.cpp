@@ -179,7 +179,7 @@ LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream&
 
 /** @cond doxygenLibsbmlInternal */
 void 
-LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) const
+LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream&) const
 {
   SimpleSpeciesReference *parent;
   parent = static_cast<SimpleSpeciesReference*>(const_cast<SBase*>(getParentSBMLObject()));
@@ -216,7 +216,7 @@ LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-LayoutSpeciesReferencePlugin::accept (SBMLVisitor& v) const
+LayoutSpeciesReferencePlugin::accept (SBMLVisitor&) const
 {
   return true;
 }

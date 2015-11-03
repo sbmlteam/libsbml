@@ -332,9 +332,9 @@ SBMLLevelVersionConverter::convert()
 
   if (currentModel != NULL)
   {
-    unsigned int origLevel;
-    unsigned int origVersion;
-    Model *origModel;
+    unsigned int origLevel = 0;
+    unsigned int origVersion = 0;
+    Model *origModel = NULL;
     if (strict)
     {
       /* here we are strict and only want to do
@@ -355,7 +355,7 @@ SBMLLevelVersionConverter::convert()
 
       if (strict)
       {
-        delete origModel;
+        if (origModel != NULL) delete origModel;
         mDocument->setApplicableValidators(origValidators);
         mDocument->updateSBMLNamespace("core", origLevel, origVersion);
       }

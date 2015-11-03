@@ -175,7 +175,7 @@ LocalParameter::isSetConstant () const
  * Sets the constant field of this Parameter to value.
  */
 int
-LocalParameter::setConstant (bool flag)
+LocalParameter::setConstant (bool)
 {
   return LIBSBML_UNEXPECTED_ATTRIBUTE;
 }
@@ -373,11 +373,11 @@ ListOfLocalParameters::get(unsigned int n) const
  */
 struct IdEqP : public unary_function<SBase*, bool>
 {
-  const string& id;
+  const string& mId;
 
-  IdEqP (const string& id) : id(id) { }
+  IdEqP (const string& id) : mId(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <LocalParameter *> (sb)->getId() == id; }
+       { return static_cast <LocalParameter *> (sb)->getId() == mId; }
 };
 
 
@@ -549,7 +549,7 @@ LocalParameter_clone (const LocalParameter_t *p)
 
 LIBSBML_EXTERN
 void
-LocalParameter_initDefaults (LocalParameter_t *p)
+LocalParameter_initDefaults (LocalParameter_t *)
 {
   return;
 }

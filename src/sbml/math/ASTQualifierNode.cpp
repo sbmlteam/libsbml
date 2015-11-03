@@ -103,7 +103,7 @@ ASTQualifierNode::deepCopy () const
 
   
 int
-ASTQualifierNode::addChild(ASTBase* child, bool inRead)
+ASTQualifierNode::addChild(ASTBase* child, bool )
 {
   return ASTFunctionBase::addChild(child);
 }

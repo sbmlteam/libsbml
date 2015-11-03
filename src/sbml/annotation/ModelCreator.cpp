@@ -73,7 +73,7 @@ ModelCreator::ModelCreator(const XMLNode creator):
     int ORGpos = -1;
     for (n = 0; n < numChildren; n++)
     {
-      const string& name = creator.getChild(n).getName();
+      const string& name = creator.getChild((unsigned int)n).getName();
       if (name == "N" && Npos < 0)
         Npos = n;
       else if (name == "EMAIL" && EMAILpos < 0 && n > Npos)
@@ -85,20 +85,20 @@ ModelCreator::ModelCreator(const XMLNode creator):
     //get Names
     if (Npos >= 0)
     {
-      setFamilyName(creator.getChild(Npos).getChild("Family").getChild(0).getCharacters());
-      setGivenName(creator.getChild(Npos).getChild("Given").getChild(0).getCharacters());
+      setFamilyName(creator.getChild((unsigned int)Npos).getChild("Family").getChild(0).getCharacters());
+      setGivenName(creator.getChild((unsigned int)Npos).getChild("Given").getChild(0).getCharacters());
     }
 
     // get EMAIL
     if (EMAILpos >= 0)
     {
-      setEmail(creator.getChild(EMAILpos).getChild(0).getCharacters());
+      setEmail(creator.getChild((unsigned int)EMAILpos).getChild(0).getCharacters());
     }
 
     // get ORG
     if (ORGpos >= 0)
     {
-      setOrganization(creator.getChild(ORGpos).getChild("Orgname")
+      setOrganization(creator.getChild((unsigned int)ORGpos).getChild("Orgname")
                              .getChild(0).getCharacters());
     }
     // loop thru and save any other elements
@@ -111,7 +111,7 @@ ModelCreator::ModelCreator(const XMLNode creator):
         {
           mAdditionalRDF = new XMLNode();
         }
-        mAdditionalRDF->addChild(creator.getChild(n));
+        mAdditionalRDF->addChild(creator.getChild((unsigned int)n));
       }
     }
   }

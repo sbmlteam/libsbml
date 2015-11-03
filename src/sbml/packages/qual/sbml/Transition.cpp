@@ -446,12 +446,12 @@ Transition::getNumInputs() const
 Input* 
 Transition::createInput()
 {
-  Input* i = NULL;
+  Input* input = NULL;
 
   try
   {
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-    i = new Input(qualns);
+    input = new Input(qualns);
     delete qualns;
   }
   catch (...)
@@ -463,9 +463,9 @@ Transition::createInput()
      */
   }
   
-  if (i != NULL) mInputs.appendAndOwn(i);
+  if (input != NULL) mInputs.appendAndOwn(input);
 
-  return i;
+  return input;
 
 }
 
@@ -1106,20 +1106,20 @@ Transition::readAttributes (const XMLAttributes& attributes,
     static_cast<ListOfTransitions*>(getParentSBMLObject())->size() < 2)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)      
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualLOTransitionsAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
       } 
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details = 
-          getErrorLog()->getError(n)->getMessage();
+          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualLOTransitionsAllowedAttributes,
           getPackageVersion(), sbmlLevel, sbmlVersion, details);
@@ -1133,20 +1133,20 @@ Transition::readAttributes (const XMLAttributes& attributes,
   if (getErrorLog() != NULL)
   {
     numErrs = getErrorLog()->getNumErrors();
-    for (int n = numErrs-1; n >= 0; n--)
+    for (int n = (int)numErrs-1; n >= 0; n--)
     {
-      if (getErrorLog()->getError(n)->getErrorId() == UnknownPackageAttribute)
+      if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownPackageAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownPackageAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionAllowedAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details);
       }
-      else if (getErrorLog()->getError(n)->getErrorId() == UnknownCoreAttribute)
+      else if (getErrorLog()->getError((unsigned int)n)->getErrorId() == UnknownCoreAttribute)
       {
         const std::string details =
-                          getErrorLog()->getError(n)->getMessage();
+                          getErrorLog()->getError((unsigned int)n)->getMessage();
         getErrorLog()->remove(UnknownCoreAttribute);
         getErrorLog()->logPackageError("qual", QualTransitionAllowedCoreAttributes,
                        getPackageVersion(), sbmlLevel, sbmlVersion, details);
@@ -1564,7 +1564,7 @@ LIBSBML_EXTERN
 int
 Transition_addOutput(Transition_t * t, Output_t * o)
 {
-  return (t != NULL) ? t->addOutput(0) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->addOutput(o) : LIBSBML_INVALID_OBJECT;
 }
 
 

@@ -57,7 +57,7 @@ UniqueGeneProductLabels::~UniqueGeneProductLabels ()
  * Constraint.  Override the doCheck() method to define your own subset.
  */
 void
-UniqueGeneProductLabels::check_ (const Model& m, const Model& object)
+UniqueGeneProductLabels::check_ (const Model& m, const Model& )
 {
   doCheck(m);
 }

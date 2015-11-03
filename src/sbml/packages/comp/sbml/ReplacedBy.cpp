@@ -107,7 +107,7 @@ ReplacedBy::removeFromParentAndDelete()
   return comp_parent->unsetReplacedBy();
 }
 
-int ReplacedBy::performReplacementAndCollect(set<SBase*>* removed, set<SBase*>* toremove)
+int ReplacedBy::performReplacementAndCollect(set<SBase*>* , set<SBase*>* toremove)
 {
   SBMLDocument* doc = getSBMLDocument();
   //Find the various objects and plugin objects we need for this to work.

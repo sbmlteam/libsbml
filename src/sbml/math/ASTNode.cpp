@@ -879,10 +879,8 @@ ASTNode::getReal () const
     case AST_CONSTANT_TRUE:
     case AST_CONSTANT_FALSE:
       return 0;
-      break;
     default:
       return mNumber->getValue();
-      break;
     }
   }
   else
@@ -1312,7 +1310,7 @@ ASTNode::setType (int type)
     {
       if (found == false)
       {
-        const char * name = ASTBase::getPlugin(i)->getNameFromType(type);
+        const char * name1 = ASTBase::getPlugin(i)->getNameFromType(type);
         if (representsFunction(type, ASTBase::getPlugin(i)) == true)
         {
           mFunction = new ASTFunction (type);
@@ -1329,7 +1327,7 @@ ASTNode::setType (int type)
           found = true;
         }
         else if (ASTBase::getPlugin(i)
-                          ->isTopLevelMathMLFunctionNodeTag(name) == true)
+                          ->isTopLevelMathMLFunctionNodeTag(name1) == true)
         {
           mFunction = new ASTFunction (type);
           if (copyNumber != NULL)
@@ -3228,7 +3226,7 @@ ASTNode::getNumVariablesWithUndeclaredUnits(Model * m) const
     // loop thru the list and check the unit status of each variable
     for (unsigned int v = 0; v < variables->size(); v++)
     {
-      string id = variables->at(v);
+      string id = variables->at((int)v);
       
 
       if (m->getParameter(id) != NULL)
@@ -4642,7 +4640,7 @@ ASTNode_setDefinitionURLString(ASTNode_t* node, const char * defnURL)
  */
 LIBSBML_EXTERN
 int
-ASTNode_true(const ASTNode *node)
+ASTNode_true(const ASTNode *)
 {
   return 1;
 }

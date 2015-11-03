@@ -248,7 +248,7 @@ void convertReactionsToV2(Model* model, FbcModelPlugin* mplug)
 
   for (int i = 0; i < mplug->getNumGeneAssociations(); ++i)
   {
-    GeneAssociation* ga = mplug->getGeneAssociation(i);
+    GeneAssociation* ga = mplug->getGeneAssociation((unsigned int)i);
     if (ga == NULL || !ga->isSetReaction() || !ga->isSetAssociation())
       continue;
 

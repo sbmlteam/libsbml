@@ -60,7 +60,7 @@ FluxBoundsConsistent::~FluxBoundsConsistent ()
  * Checks whether all annotations have duplicate top level namespaces
  */
 void
-FluxBoundsConsistent::check_ (const Model& m, const Model& object)
+FluxBoundsConsistent::check_ (const Model& m, const Model&)
 {
   for (unsigned int n = 0; n < m.getNumReactions(); n++)
   {

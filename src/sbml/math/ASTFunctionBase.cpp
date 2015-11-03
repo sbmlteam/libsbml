@@ -328,11 +328,12 @@ ASTFunctionBase::swapChildren(ASTFunctionBase* that)
 
 
 void 
-ASTFunctionBase::write(XMLOutputStream& stream) const
+ASTFunctionBase::write(XMLOutputStream& ) const
 {
 }
+
 bool
-ASTFunctionBase::read(XMLInputStream& stream, const std::string& reqd_prefix)
+ASTFunctionBase::read(XMLInputStream& , const std::string& )
 {
   return false;
 }

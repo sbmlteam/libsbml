@@ -338,7 +338,7 @@ ASTLambdaFunctionNode::insertChild(unsigned int n, ASTBase* newChild)
       removeChild(i-1);
     }
 
-    unsigned int success = addChild(newChild);
+    int success = addChild(newChild);
 
     i = 0;
     while (success == LIBSBML_OPERATION_SUCCESS && i < copyChildren.size())

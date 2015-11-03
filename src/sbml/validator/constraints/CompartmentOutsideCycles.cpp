@@ -69,7 +69,7 @@ CompartmentOutsideCycles::~CompartmentOutsideCycles ()
  * Sets mHolds to true if no cycles are found, false otherwise.
  */
 void
-CompartmentOutsideCycles::check_ (const Model& m, const Model& object)
+CompartmentOutsideCycles::check_ (const Model& m, const Model&)
 {
   for (unsigned int n = 0; n < m.getNumCompartments(); n++)
   {

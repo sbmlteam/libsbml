@@ -191,7 +191,7 @@ Replacing::saveReferencedElement()
         error += " '" + getId() + "'";
       }
       error += " in Replacing::saveReferencedElement: the submodelRef '" + getSubmodelRef() + "' could not be found in the model.";
-      int errnumber = CompReplacedElementSubModelRef;
+      unsigned int errnumber = CompReplacedElementSubModelRef;
       if (getTypeCode() == SBML_COMP_REPLACEDBY) {
         errnumber = CompReplacedBySubModelRef;
       }
@@ -304,7 +304,7 @@ Replacing::writeElements (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 bool
-Replacing::accept (SBMLVisitor& v) const
+Replacing::accept (SBMLVisitor&) const
 {
   return false;
 }

@@ -185,7 +185,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
       vector<string>::iterator it = ::find(allSymbols[(int)index].begin(), allSymbols[(int)index].end(), id);
       if (it != allSymbols[(int)index].end())
       {
-        map[(assignmentRules[(int)index])->getVariable()].push_back(id);
+        map[(assignmentRules[index])->getVariable()].push_back(id);
       }
     }
   }
@@ -204,8 +204,8 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
       {
         int second = order[j];
 
-        string secondVar = assignmentRules[second]->getVariable();
-        string firstVar = assignmentRules[first]->getVariable();
+        string secondVar = assignmentRules[(size_t)second]->getVariable();
+        string firstVar = assignmentRules[(size_t)first]->getVariable();
 
 
         vector<string>::iterator it = ::find(map[firstVar].begin(), map[firstVar].end(), secondVar);
@@ -230,7 +230,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
 
   // create new order
   for (size_t i = 0; i < order.size(); i++)
-    result.push_back(assignmentRules[order[i]]);
+    result.push_back(assignmentRules[(size_t)order[i]]);
 
 
   return result;
@@ -275,7 +275,7 @@ static vector<InitialAssignment*> reorderInitialAssignments(vector<InitialAssign
       vector<string>::iterator it = ::find(allSymbols[(int)index].begin(), allSymbols[(int)index].end(), id);
       if (it != allSymbols[(int)index].end())
       {
-        map[(intialAssignments[(int)index])->getSymbol()].push_back(id);
+        map[(intialAssignments[index])->getSymbol()].push_back(id);
       }
     }
   }
@@ -294,8 +294,8 @@ static vector<InitialAssignment*> reorderInitialAssignments(vector<InitialAssign
       {
         int second = order[j];
 
-        string secondVar = intialAssignments[second]->getSymbol();
-        string firstVar = intialAssignments[first]->getSymbol();
+        string secondVar = intialAssignments[(size_t)second]->getSymbol();
+        string firstVar = intialAssignments[(size_t)first]->getSymbol();
 
 
         vector<string>::iterator it = ::find(map[firstVar].begin(), map[firstVar].end(), secondVar);
@@ -320,7 +320,7 @@ static vector<InitialAssignment*> reorderInitialAssignments(vector<InitialAssign
 
   // create new order
   for (size_t i = 0; i < order.size(); i++)
-    result.push_back(intialAssignments[order[i]]);
+    result.push_back(intialAssignments[(size_t)order[i]]);
 
   return result;
 }
@@ -376,7 +376,7 @@ SBMLRuleConverter::convert()
   assignmentRules = reorderRules(assignmentRules);
 
   for (unsigned int i = 0; i < assignmentRules.size();i++)
-    mModel->getListOfRules()->insertAndOwn(i,assignmentRules[i]);
+    mModel->getListOfRules()->insertAndOwn((int)i,assignmentRules[i]);
 
 
   vector<InitialAssignment*> initialAssignments;

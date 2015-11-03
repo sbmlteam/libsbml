@@ -504,7 +504,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 
 /** @cond doxygenLibsbmlInternal */
 void 
-SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level, 
+SBMLDocument::updateSBMLNamespace(const std::string&, unsigned int level,
                             unsigned int version)
 {
   // is there a prefix on the sbml namespace
@@ -1437,14 +1437,12 @@ std::string
 SBMLDocument::getUnknownPackageURI(int index) const
 {
   std::string result;
-  int count = 0;
   for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); ++i)
   {
     if (mRequiredAttrOfUnknownPkg.getName(i) != "required")
       continue;
-    if (i == count)
+    if (i == index)
       return mRequiredAttrOfUnknownPkg.getURI(i);
-    ++count;
   }
   return result;
 }
@@ -1453,14 +1451,12 @@ std::string
 SBMLDocument::getUnknownPackagePrefix(int index) const
 {
   std::string result;
-  int count = 0;
   for (int i = 0; i < mRequiredAttrOfUnknownPkg.getLength(); ++i)
   {
     if (mRequiredAttrOfUnknownPkg.getName(i) != "required")
       continue;
-    if (i == count)
+    if (index == i)
       return mRequiredAttrOfUnknownPkg.getPrefix(i);
-    ++count;
   }
   return result;
 }
@@ -2196,9 +2192,9 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 
 LIBSBML_EXTERN
 void 
-SBMLDocument_setLocationURI (SBMLDocument_t *d, const std::string& location)
+SBMLDocument_setLocationURI (SBMLDocument_t *d, const char* location)
 {
-  if (d != NULL) d->setLocationURI(location);
+  if (d != NULL && location != NULL) d->setLocationURI(location);
 }
 
 LIBSBML_EXTERN

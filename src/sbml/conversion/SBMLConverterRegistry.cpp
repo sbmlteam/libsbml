@@ -94,7 +94,7 @@ SBMLConverterRegistry::getConverterByIndex(int index) const
 {
   if (index < 0 || index >= getNumConverters())
     return NULL;
-  return mConverters.at(index)->clone();
+  return mConverters.at((size_t)index)->clone();
 }
 
 

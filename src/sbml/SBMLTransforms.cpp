@@ -497,7 +497,7 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const std::map<std::string
 double
 SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, const Model * m)
 {
-  double result;
+  double result = 0;
   int i;
 
   switch (node->getType())
@@ -597,9 +597,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else
     {
       result = evaluateASTNode(node->getChild(0), values, m);
-      for (unsigned int i = 1; i < node->getNumChildren(); i++)
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
       {
-        result = result + evaluateASTNode(node->getChild(i), values, m) ;
+        result = result + evaluateASTNode(node->getChild(j), values, m) ;
       }
     }
     break;
@@ -624,9 +624,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else
     {
       result = evaluateASTNode(node->getChild(0), values, m);
-      for (unsigned int i = 1; i < node->getNumChildren(); i++)
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
       {
-        result = result * evaluateASTNode(node->getChild(i), values, m) ;
+        result = result * evaluateASTNode(node->getChild(j), values, m) ;
       }
     }
     break;
@@ -779,11 +779,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
       if ( numChildren % 2 == 0)
       {
         bool assigned = false;
-        for (unsigned int i = 0; i < numChildren; i+=2)
+        for (unsigned int j = 0; j < numChildren; j+=2)
         {
           // compute piece
-          double value = evaluateASTNode(node->getChild(i), values, m);
-          double boolean = evaluateASTNode(node->getChild(i + 1), values, m);
+          double value = evaluateASTNode(node->getChild(j), values, m);
+          double boolean = evaluateASTNode(node->getChild(j + 1), values, m);
           if (boolean == 1.0)
           {
             // we might have two true piece statements
@@ -815,11 +815,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
       else
       {
         bool assigned = false;
-        for (unsigned int i = 0; i < numChildren-1; i+=2)
+        for (unsigned int j = 0; j < numChildren-1; j+=2)
         {
           // compute piece
-          double value = evaluateASTNode(node->getChild(i), values, m);
-          double boolean = evaluateASTNode(node->getChild(i + 1), values, m);
+          double value = evaluateASTNode(node->getChild(j), values, m);
+          double boolean = evaluateASTNode(node->getChild(j + 1), values, m);
           if (boolean == 1.0)
           {
             // we might have two true piece statements
@@ -930,9 +930,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-        == (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+        result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+        == (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 
@@ -941,9 +941,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-        >= (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+        result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+        >= (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 
@@ -952,9 +952,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-        > (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+        result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+        > (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 
@@ -963,9 +963,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-         result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-         <= (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+         result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+         <= (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 
@@ -974,9 +974,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-        < (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+        result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+        < (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 
@@ -985,9 +985,9 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
     else 
     {      
       result = 1.0;
-      for (unsigned int i = 1; i < node->getNumChildren(); ++i)
-        result *= (double)((evaluateASTNode(node->getChild(i-1), values, m))
-        != (evaluateASTNode(node->getChild(i), values, m)));
+      for (unsigned int j = 1; j < node->getNumChildren(); ++j)
+        result *= (double)((evaluateASTNode(node->getChild(j-1), values, m))
+        != (evaluateASTNode(node->getChild(j), values, m)));
     }
     break;
 

@@ -202,7 +202,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
   {
     populateSBOTree();
   }
-  ParentRange range  = mParent.equal_range(term);
+  ParentRange range  = mParent.equal_range((int)term);
   deque<unsigned int>  nodes;
 
 
@@ -223,7 +223,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
     }
 
     // Copy parents of p to nodes and continue search.
-    range = mParent.equal_range(p);
+    range = mParent.equal_range((int)p);
     transform(range.first, range.second, back_inserter(nodes), GetSecond());
   }
 

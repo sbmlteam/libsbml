@@ -123,16 +123,12 @@ std::string SBMLError::stringForSeverity(unsigned int code) const
     {
       case LIBSBML_SEV_SCHEMA_ERROR:
         return "Schema error";
-        break;
       case LIBSBML_SEV_GENERAL_WARNING:
         return "General warning";
-        break;
       case LIBSBML_SEV_NOT_APPLICABLE:
         return "Not applicable";
-        break;
       default:
         return "";
-        break;
     }
   }
 }
@@ -196,7 +192,7 @@ SBMLError::SBMLError (  const unsigned int errorId
                       , const unsigned int category 
                       , const std::string& package
                       , const unsigned int pkgVersion) :
-    XMLError(errorId, details, line, column, severity, category)
+    XMLError((int)errorId, details, line, column, severity, category)
 {
   // Check if the given @p id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -458,7 +454,7 @@ SBMLError::print(ostream& s) const
 
 /** @cond doxygenLibsbmlInternal */
 void
-SBMLError::adjustErrorId(unsigned int offset)
+SBMLError::adjustErrorId(unsigned int)
 {
   // actually dont do this since it means a user cannot 
   // look for the specific error

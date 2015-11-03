@@ -45,7 +45,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-ConversionProperties::ConversionProperties(SBMLNamespaces* targetNS) 
+ConversionProperties::ConversionProperties(SBMLNamespaces* targetNS)
   : mTargetNamespaces(NULL)
   , mOptions()
 {
@@ -398,7 +398,8 @@ LIBSBML_EXTERN
 ConversionProperties_t*
 ConversionProperties_clone(const ConversionProperties_t* cp)
 {
-  return new ConversionProperties();
+  if (cp == NULL) return NULL;
+  return new ConversionProperties(*cp);
 }
 
 LIBSBML_EXTERN

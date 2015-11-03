@@ -295,7 +295,7 @@ public:
 
   using SBMLVisitor::visit;
   
-  FbcValidatingVisitor (FbcValidator& v, const Model& m) : v(v), m(m) { }
+  FbcValidatingVisitor (FbcValidator& validator, const Model& model) : v(validator), m(model) { }
 
   bool visit (const FluxBound &x)
   {
@@ -497,12 +497,12 @@ FbcValidator::validate (const SBMLDocument& d)
 
     for (unsigned int i = 0; i < m->getNumReactions(); i++)
     {
-      const FbcReactionPlugin* plugin = static_cast<const FbcReactionPlugin*>
+      const FbcReactionPlugin* plugin1 = static_cast<const FbcReactionPlugin*>
         (m->getReaction(i)->getPlugin("fbc"));
 
-      if (plugin != NULL)
+      if (plugin1 != NULL)
       {
-        plugin->accept(vv);
+        plugin1->accept(vv);
       }
 
     }

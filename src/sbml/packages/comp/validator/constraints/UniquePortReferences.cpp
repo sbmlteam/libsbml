@@ -58,7 +58,7 @@ UniquePortReferences::~UniquePortReferences ()
  * Reactions, and Events.
  */
 void
-UniquePortReferences::check_ (const Model& m, const Model& object)
+UniquePortReferences::check_ (const Model& m, const Model&)
 {
   unsigned int n, size;
 

@@ -73,7 +73,7 @@ AssignmentRuleOrdering::~AssignmentRuleOrdering ()
  * event assignments and assignment rules.
  */
 void
-AssignmentRuleOrdering::check_ (const Model& m, const Model& object)
+AssignmentRuleOrdering::check_ (const Model& m, const Model&)
 {
   //// this rule ony applies in l2v1 and l1
   //if (!(object.getLevel() == 1 
@@ -108,7 +108,7 @@ AssignmentRuleOrdering::check_ (const Model& m, const Model& object)
 }
  
 void 
-AssignmentRuleOrdering::checkRuleForVariable(const Model& m, const Rule& object)
+AssignmentRuleOrdering::checkRuleForVariable(const Model& , const Rule& object)
 {
   /* list the <ci> elements */
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
@@ -132,7 +132,7 @@ AssignmentRuleOrdering::checkRuleForVariable(const Model& m, const Rule& object)
 
 
 void 
-AssignmentRuleOrdering::checkRuleForLaterVariables(const Model& m, 
+AssignmentRuleOrdering::checkRuleForLaterVariables(const Model&, 
                                                    const Rule& object,
                                                    unsigned int n)
 {
@@ -154,7 +154,7 @@ AssignmentRuleOrdering::checkRuleForLaterVariables(const Model& m,
         index = 0; 
         while(index < mVariableList.size())
         {
-          if (!strcmp(name, mVariableList.at(index).c_str()))
+          if (!strcmp(name, mVariableList.at((int)index).c_str()))
             break;
           index++;
         }

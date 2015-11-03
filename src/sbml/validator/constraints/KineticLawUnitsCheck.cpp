@@ -102,7 +102,7 @@ KineticLawUnitsCheck::getPreamble ()
   * @return true if units are consistent, false otherwise.
   */
 void
-KineticLawUnitsCheck::check_ (const Model& m, const Model& object)
+KineticLawUnitsCheck::check_ (const Model& m, const Model&)
 {
   unsigned int n, p;
   IdList matched;
@@ -161,8 +161,8 @@ KineticLawUnitsCheck::check_ (const Model& m, const Model& object)
   for (n = 0; n < unmatched.size(); n++)
   {
 
-    logKLConflict(*(m.getReaction(unmatched.at(n))->getKineticLaw()->getMath()),
-                  *(static_cast<const SBase *>(m.getReaction(unmatched.at(n)))));
+    logKLConflict(*(m.getReaction(unmatched.at((int)n))->getKineticLaw()->getMath()),
+                  *(static_cast<const SBase *>(m.getReaction(unmatched.at((int)n)))));
   }
 
 }

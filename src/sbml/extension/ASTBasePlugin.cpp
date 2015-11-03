@@ -227,21 +227,21 @@ ASTBasePlugin::getMath() const
 
 
 void
-ASTBasePlugin::createMath(int type)
+ASTBasePlugin::createMath(int )
 {
   // do nothing
 }
 
 
 int 
-ASTBasePlugin::addChild(ASTBase * child)
+ASTBasePlugin::addChild(ASTBase *)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
 
 
 ASTBase* 
-ASTBasePlugin::getChild (unsigned int n) const
+ASTBasePlugin::getChild (unsigned int) const
 { 
   return NULL; 
 }
@@ -255,34 +255,34 @@ ASTBasePlugin::getNumChildren() const
 
 
 int 
-ASTBasePlugin::insertChild(unsigned int n, ASTBase* newChild)
+ASTBasePlugin::insertChild(unsigned int, ASTBase*)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
 
 
 int 
-ASTBasePlugin::prependChild(ASTBase* newChild)
+ASTBasePlugin::prependChild(ASTBase*)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
 
 
 int 
-ASTBasePlugin::removeChild(unsigned int n)
+ASTBasePlugin::removeChild(unsigned int)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
 
 
 int 
-ASTBasePlugin::replaceChild(unsigned int n, ASTBase* newChild, bool delreplaced)
+ASTBasePlugin::replaceChild(unsigned int, ASTBase*, bool)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
 
 int 
-ASTBasePlugin::swapChildren(ASTFunction* that)
+ASTBasePlugin::swapChildren(ASTFunction*)
 { 
   return LIBSBML_INVALID_OBJECT; 
 }
@@ -292,15 +292,15 @@ ASTBasePlugin::swapChildren(ASTFunction* that)
  * object (if any).
  */
 void 
-ASTBasePlugin::enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix, bool flag)
+ASTBasePlugin::enablePackageInternal(const std::string&,
+                                   const std::string&, bool)
 {
  // do nothing.
 }
 
 
 bool 
-ASTBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
+ASTBasePlugin::stripPackage(const std::string&, bool)
 {
   return true;
 }
@@ -416,198 +416,198 @@ ASTBasePlugin::getPackageName() const
 
 
 bool
-ASTBasePlugin::read(XMLInputStream& stream, const std::string& reqd_prefix,
-                    const XMLToken& currentElement)
+ASTBasePlugin::read(XMLInputStream&, const std::string&,
+                    const XMLToken&)
 {
   return false;
 }
 
 void
-ASTBasePlugin::addExpectedAttributes(ExpectedAttributes& attributes, 
-                                     XMLInputStream& stream, int type)
+ASTBasePlugin::addExpectedAttributes(ExpectedAttributes&,
+                                     XMLInputStream&, int)
 {
 }
 
 bool 
-ASTBasePlugin::readAttributes(const XMLAttributes& attributes,
-                       const ExpectedAttributes& expectedAttributes,
-                               XMLInputStream& stream, const XMLToken& element,
-                               int type)
+ASTBasePlugin::readAttributes(const XMLAttributes&,
+                       const ExpectedAttributes&,
+                               XMLInputStream&, const XMLToken&,
+                               int)
 {
   return true;
 }
 
 
 void
-ASTBasePlugin::writeAttributes(XMLOutputStream& stream, int type) const
+ASTBasePlugin::writeAttributes(XMLOutputStream&, int) const
 {
 }
 
 void
-ASTBasePlugin::writeXMLNS(XMLOutputStream& stream) const
+ASTBasePlugin::writeXMLNS(XMLOutputStream&) const
 {
 }
 
 bool 
-ASTBasePlugin::isNumberNode(int type) const
-{
-  return false;
-}
-
-
-bool 
-ASTBasePlugin::isFunctionNode(int type) const
+ASTBasePlugin::isNumberNode(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::representsUnaryFunction(int type) const
+ASTBasePlugin::isFunctionNode(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::representsBinaryFunction(int type) const
+ASTBasePlugin::representsUnaryFunction(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::representsNaryFunction(int type) const
+ASTBasePlugin::representsBinaryFunction(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isLogical(int type) const
+ASTBasePlugin::representsNaryFunction(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isConstantNumber(int type) const
+ASTBasePlugin::isLogical(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isCSymbolFunction(int type) const
+ASTBasePlugin::isConstantNumber(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isCSymbolNumber(int type) const
+ASTBasePlugin::isCSymbolFunction(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isName(int type) const
+ASTBasePlugin::isCSymbolNumber(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isNumber(int type) const
+ASTBasePlugin::isName(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isOperator(int type) const
+ASTBasePlugin::isNumber(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isRelational(int type) const
+ASTBasePlugin::isOperator(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::representsQualifier(int type) const
+ASTBasePlugin::isRelational(int) const
+{
+  return false;
+}
+
+
+bool 
+ASTBasePlugin::representsQualifier(int) const
 {
   return false;
 }
 
 
 bool
-ASTBasePlugin::hasCorrectNumberArguments(int type) const
+ASTBasePlugin::hasCorrectNumberArguments(int) const
 {
   return true;
 }
 
 
 bool
-ASTBasePlugin::isWellFormedNode(int type) const
+ASTBasePlugin::isWellFormedNode(int) const
 {
   return true;
 }
 
 
 bool 
-ASTBasePlugin::isFunction(int type) const
+ASTBasePlugin::isFunction(int) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isTopLevelMathMLFunctionNodeTag(const std::string& name) const
+ASTBasePlugin::isTopLevelMathMLFunctionNodeTag(const std::string&) const
 {
   return false;
 }
 
 
 bool 
-ASTBasePlugin::isTopLevelMathMLNumberNodeTag(const std::string& name) const
+ASTBasePlugin::isTopLevelMathMLNumberNodeTag(const std::string&) const
 {
   return false;
 }
 
 
 int 
-ASTBasePlugin::getTypeFromName(const std::string& name) const
+ASTBasePlugin::getTypeFromName(const std::string&) const
 {
   return AST_UNKNOWN;
 }
 
 
 const char * 
-ASTBasePlugin::getNameFromType(int type) const
+ASTBasePlugin::getNameFromType(int) const
 {
   return "AST_unknown";
 }
 
 void 
-ASTBasePlugin::renameSIdRefs(const std::string& oldid, const std::string& newid)
+ASTBasePlugin::renameSIdRefs(const std::string&, const std::string&)
 {
 }
 
 
 void 
-ASTBasePlugin::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
+ASTBasePlugin::renameUnitSIdRefs(const std::string&, const std::string&)
 {
 }
 
 
 void 
-ASTBasePlugin::replaceIDWithFunction(const std::string& id, const ASTNode* function)
+ASTBasePlugin::replaceIDWithFunction(const std::string&, const ASTNode*)
 {
 }
 
@@ -632,36 +632,36 @@ int ASTBasePlugin::getL3PackageInfixPrecedence() const
   return -1;
 }
 
-bool ASTBasePlugin::hasUnambiguousPackageInfixGrammar(const ASTNode *child) const
+bool ASTBasePlugin::hasUnambiguousPackageInfixGrammar(const ASTNode *) const
 {
   return false;
 }
 
-void ASTBasePlugin::visitPackageInfixSyntax ( const ASTNode *parent,
-                                         const ASTNode *node,
-                                         StringBuffer_t  *sb,
-                                         const L3ParserSettings* settings) const
+void ASTBasePlugin::visitPackageInfixSyntax ( const ASTNode *,
+                                         const ASTNode *,
+                                         StringBuffer_t  *,
+                                         const L3ParserSettings*) const
 {
   //Any plugin that has its own infix syntax for anything will need to override this.
 }
 
-int ASTBasePlugin::checkNumArguments(const ASTNode* function, std::stringstream& error) const
+int ASTBasePlugin::checkNumArguments(const ASTNode*, std::stringstream&) const
 {
   //Default:  nothing is known about the function.  Return '1' for the correct number of arguments, '-1' for the incorrect number of arguments (and set 'error').
   return 0;
 }
 
 ASTNode*
-ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t type, 
-    vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
-    vector<double> *doubleList) const
+ASTBasePlugin::parsePackageInfix(L3ParserGrammarLineType_t,
+    vector<ASTNode*> *, vector<std::string*> *,
+    vector<double> *) const
 {
   return NULL;
 }
 
 
 int 
-ASTBasePlugin::getPackageFunctionFor(const std::string& name) const
+ASTBasePlugin::getPackageFunctionFor(const std::string&) const
 {
   return AST_UNKNOWN;
 }

@@ -164,7 +164,7 @@ SyntaxChecker::isValidXMLID(std::string id)
   if (it == id.end()) return false;
  
   // first character must be a letter or '_' or ':'
-  unsigned char c = *it;
+  unsigned char c = (unsigned char)*it;
   bool okay;
 
   if (c < 0x80)
@@ -196,7 +196,7 @@ SyntaxChecker::isValidXMLID(std::string id)
   // letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
   while (okay && it < id.end())
   {
-    c = *it;
+    c = (unsigned char)*it;
     
     // need to find multibyte sequences
     if (c < 0x80)
@@ -252,7 +252,7 @@ SyntaxChecker::isValidXMLanyURI(std::string uri)
   string::iterator it = uri.begin();
  
   // keep a record of the first character 
-  unsigned char c = *it;
+  unsigned char c = (unsigned char)*it;
   
   bool okay = true;
   
@@ -641,7 +641,7 @@ SyntaxChecker::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
   bool letter = false;
 
 
-  unsigned char c1 = *it;
+  unsigned char c1 = (unsigned char)*it;
   unsigned char c2 ;/* = *(it+1); */
   unsigned char c3 ;/* = *(it+2); */
   
@@ -658,7 +658,7 @@ SyntaxChecker::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
     }
   break;
   case 2:
-    c2 = *(it+1);
+    c2 = (unsigned char)*(it+1);
     switch (c1)
     {
       case 224:
@@ -836,8 +836,8 @@ SyntaxChecker::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
     }
     break;
 case 3:
-  c2 = *(it+1);
-  c3 = *(it+2);
+  c2 = (unsigned char)*(it+1);
+  c3 = (unsigned char)*(it+2);
   switch (c1)
   {
     case 224:
@@ -1334,7 +1334,7 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
   bool digit = false;
 
 
-  unsigned char c1 = *it;
+  unsigned char c1 = (unsigned char)*it;
   unsigned char c2 ;/* = *(it+1); */
   unsigned char c3 ;/* = *(it+2); */
   
@@ -1347,7 +1347,7 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 2:
-    c2 = *(it+1);
+    c2 = (unsigned char)*(it+1);
     switch (c1)
     {
       case 217:
@@ -1365,8 +1365,8 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
-  c2 = *(it+1);
-  c3 = *(it+2);
+  c2 = (unsigned char)*(it+1);
+  c3 = (unsigned char)*(it+2);
   switch (c1)
   {
     case 224:
@@ -1575,14 +1575,14 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
 
   */
 
-  unsigned char c1 = *it;
+  unsigned char c1 = (unsigned char)*it;
   unsigned char c2 ;/* = *(it+1); */
   unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
   case 2:
-   c2 = *(it+1);
+   c2 = (unsigned char)*(it+1);
    if (c1 == 204)
     {
       if (c2 >= 128 && c2 <= 191)
@@ -1670,8 +1670,8 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
-    c2 = *(it+1);
-    c3 = *(it+2);
+    c2 = (unsigned char)*(it+1);
+    c3 = (unsigned char)*(it+2);
     if (c1 == 226)
     { 
       if (c2 == 131)
@@ -1977,14 +1977,14 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
 
   */
 
-  unsigned char c1 = *it;
+  unsigned char c1 = (unsigned char)*it;
   unsigned char c2 ;/* = *(it+1); */
   unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
   case 2:
-    c2 = *(it+1);
+    c2 = (unsigned char)*(it+1);
     if (c1 == 194 && c2 == 183)
     {
       extender = true;
@@ -2006,8 +2006,8 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
-    c2 = *(it+1);
-    c3 = *(it+2);
+    c2 = (unsigned char)*(it+1);
+    c3 = (unsigned char)*(it+2);
     if (c1 == 224)
     {
       if (c2 == 185 || c2 == 187)
