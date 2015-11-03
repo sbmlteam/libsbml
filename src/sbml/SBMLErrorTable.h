@@ -5707,7 +5707,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    ""
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
   //20906
@@ -6380,7 +6388,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    ""
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
   //21113
@@ -7616,7 +7632,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "should be set to a value rather than be left undefined. Doing so "
     "improves the portability of models between different simulation and "
     "analysis systems, and helps make it easier to detect potential errors "
-    "in models."
+    "in models.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
 
@@ -7638,7 +7662,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "should set an initial value (amount or concentration) rather than be left undefined. Doing so "
     "improves the portability of models between different simulation and "
     "analysis systems, and helps make it easier to detect potential errors "
-    "in models."
+    "in models.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
 
@@ -7659,7 +7691,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "As a principle of best modeling practice, the units of a <parameter> "
     "should be declared rather than be left undefined. Doing so "
     "improves the ability of software to check the consistency of units "
-    "and helps make it easier to detect potential errors in models."
+    "and helps make it easier to detect potential errors in models.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
 
@@ -7681,7 +7721,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "should set an initial value rather than be left undefined. Doing so "
     "improves the portability of models between different simulation and "
     "analysis systems, and helps make it easier to detect potential errors "
-    "in models."
+    "in models.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
 
@@ -7704,7 +7752,15 @@ static const sbmlErrorTableEntry errorTable[] =
     "formula, the value of a local parameter having the same identifier as "
     "a species or compartment or other global model entity will override "
     "the global value. Modelers may wish to take precautions to avoid this "
-    "happening accidentally."
+    "happening accidentally.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
 
