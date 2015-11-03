@@ -74,10 +74,7 @@ public:
 
   void writeMathML(XMLOutputStream& stream, const ASTNode* node);
 
-  friend class ASTNode;
-  friend class ASTBasePlugin;
-
-
+ 
 protected:
 
   bool  hasSeriousErrors(XMLErrorLog* log, unsigned int index);
