@@ -44,6 +44,8 @@ foreach(example
 
 	convertCobraToFbc
 	convertFbcToCobra
+  convertFbcV1ToV2
+  convertFbcV2ToV1
 	fbc_example1
 	
 )
