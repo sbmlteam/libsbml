@@ -284,7 +284,7 @@ FbcV1ToV2Converter::convert()
   }
 
   FbcModelPlugin *plugin =
-    static_cast<FbcModelPlugin*>(mDocument->getModel()->getPlugin("fbc"));
+    static_cast<FbcModelPlugin*>(mModel->getPlugin("fbc"));
 
   // if we have don't have a fbc model we cannot do the conversion
   if (plugin == NULL || mDocument->getLevel() != 3)
@@ -298,20 +298,20 @@ FbcV1ToV2Converter::convert()
 
   // collect information
 
-  Model* model = mDocument->getModel();
-  if (model == NULL)
-    return LIBSBML_OPERATION_FAILED;
-
   // update namespace
   plugin->setElementNamespace(FbcExtension::getXmlnsL3V1V2());
 
-  FbcModelPlugin* mplug = dynamic_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
+/*  FbcModelPlugin* mplug = dynamic_cast<FbcModelPlugin*>(mModel->getPlugin("fbc"));
+  if (mplug == NULL)
+  {
+	  return LIBSBML_OPERATION_FAILED;
+  }
   mplug->setElementNamespace(FbcExtension::getXmlnsL3V1V2());
-
+*/
   // the model will be strict, as in v1 nothing else was allowed
-  mplug->setStrict(getStrict());
+  plugin->setStrict(getStrict());
 
-  convertReactionsToV2(model, mplug);
+  convertReactionsToV2(mModel, plugin);
 
   mDocument->getSBMLNamespaces()->removeNamespace(FbcExtension::getXmlnsL3V1V1());
   mDocument->getSBMLNamespaces()->addPackageNamespace("fbc", 2);

@@ -178,25 +178,16 @@ FbcV2ToV1Converter::convert()
     return LIBSBML_OPERATION_SUCCESS;
 
   // collect information
-  Model* model = mDocument->getModel();
-  if (model == NULL)
-    return LIBSBML_OPERATION_FAILED;
-
-  FbcModelPlugin* mplug = dynamic_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
-  if (mplug == NULL)
-    return LIBSBML_OPERATION_FAILED;
-
   plugin->setElementNamespace(FbcExtension::getXmlnsL3V1V1());
-  mplug->setElementNamespace(FbcExtension::getXmlnsL3V1V1());
 
   // delete exisiting v1 fluxbounds / gene association
-  mplug->getListOfGeneAssociations()->clear();
-  mplug->getListOfFluxBounds()->clear();
+  plugin->getListOfGeneAssociations()->clear();
+  plugin->getListOfFluxBounds()->clear();
 
   // unset strict flag
-  mplug->unsetStrict();
+  plugin->unsetStrict();
 
-  convertReactionsToV1(model, mplug);
+  convertReactionsToV1(mModel, plugin);
 
   mDocument->getSBMLNamespaces()->removeNamespace(FbcExtension::getXmlnsL3V1V2());
   mDocument->getSBMLNamespaces()->addPackageNamespace("fbc", 1);
