@@ -1210,8 +1210,9 @@ START_TEST (test_ASTNode_getReal)
   ASTNode_setType(n, AST_REAL_E);
   ASTNode_setRealWithExponent(n, 12.3, 3);
 
-  double val = fabs(ASTNode_getReal(n) - 12300.0);
-  fail_unless(val < util_epsilon());
+  fail_unless(util_isEqual(ASTNode_getReal(n), 12300.0));
+  //double val = fabs(ASTNode_getReal(n) - 12300.0);
+  //fail_unless(val < util_epsilon());
 
   /** 1/2 **/
   ASTNode_setType(n, AST_RATIONAL);
