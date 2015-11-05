@@ -513,7 +513,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
     
       isNumeric = returnsNumeric(m, fdMath);
       delete fdMath;
-      mNumericFunctionsChecked.insert(std::pair<const std::string&, 
+      mNumericFunctionsChecked.insert(std::pair<const std::string, 
                                                 bool>(name, isNumeric));
 
       if (isNumeric)
