@@ -342,7 +342,7 @@ START_TEST (test_Reaction_addProductBySpecies)
 {
   Species_t *s = Species_create(2, 4);
   Species_setId(s, "s");
-  Reaction_addProductBySpecies(R, s, 2.0, "sr", false);
+  Reaction_addProductBySpecies(R, s, 2.0, "sr", 0);
 
   fail_unless( Reaction_getNumReactants(R) == 0 );
   fail_unless( Reaction_getNumProducts (R) == 1 );
