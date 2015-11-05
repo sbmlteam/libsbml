@@ -159,10 +159,10 @@ START_TEST (test_RDFAnnotationNestedCVTerm_parseCVTerms)
   fail_unless(XMLNode_getNumChildren(Bag1) == 1);
 
   const XMLNode_t * li4 = XMLNode_getChild(Bag1, 0);
-  fail_unless(!strcmp(XMLNode_getName(li1), "li"));
-  fail_unless(!strcmp(XMLNode_getPrefix(li1), "rdf"));
-  fail_unless(!strcmp(XMLNode_getURI(li1), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-  fail_unless(XMLNode_getNumChildren(li1) == 0);
+  fail_unless(!strcmp(XMLNode_getName(li4), "li"));
+  fail_unless(!strcmp(XMLNode_getPrefix(li4), "rdf"));
+  fail_unless(!strcmp(XMLNode_getURI(li4), "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+  fail_unless(XMLNode_getNumChildren(li4) == 0);
 
   delete node;
 }

@@ -455,7 +455,7 @@ bool
 MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 {
   //unsigned int i, nodeCount;
-  unsigned int noBvars;
+  //unsigned int noBvars;
   bool isNumeric = true;
 
   ASTNode * fdMath;
@@ -501,7 +501,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 
     if (fd != NULL && fd->isSetMath() == true && fd->isSetBody() == true)
     {
-      noBvars = fd->getNumArguments();
+      //noBvars = fd->getNumArguments();
       fdMath = fd->getBody()->deepCopy();
 
       //for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
