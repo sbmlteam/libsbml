@@ -158,8 +158,11 @@ SBMLUri::parse(const std::string& uri)
     return;
   }
 
+#ifdef __BORLANDC__
+  advance(prot_i, prot_end.length());
+#else
   advance(prot_i, (string::const_iterator::difference_type) prot_end.length());
-
+#endif
   if ((prot_i + 1) != constUri.end() && *(prot_i + 1) == ':')
   {
     // turns out there are invalid urls being used internally, of the form 
