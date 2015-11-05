@@ -926,7 +926,7 @@ ArraysASTPlugin::getNameFromType(int type) const
 {
 
   static const int size = sizeof(ARRAYS_MATHML_ELEMENTS) / sizeof(ARRAYS_MATHML_ELEMENTS[0]);
-  if (type >= AST_QUALIFIER_CONDITION && type < AST_ARRAYS_UNKNOWN)
+  if (type >= AST_LINEAR_ALGEBRA_SELECTOR && type < AST_ARRAYS_UNKNOWN)
   {
     bool found = false;
     unsigned int i;
@@ -1104,6 +1104,9 @@ ArraysASTPlugin::isPackageInfixFunction() const
   switch(aap->getASTType()) {
   case AST_LINEAR_ALGEBRA_SELECTOR:
   case AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR:
+    return false;
+  case AST_ARRAYS_UNKNOWN:
+  default:
     return false;
 #if (0)
   case AST_LINEAR_ALGEBRA_MATRIX_CONSTRUCTOR:

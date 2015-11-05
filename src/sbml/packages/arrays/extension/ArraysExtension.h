@@ -326,6 +326,7 @@ typedef enum
 } ArraysASTNodeType_t;
 #endif
 
+#if (0)
 typedef enum
 {
     AST_QUALIFIER_CONDITION = 1000
@@ -346,8 +347,14 @@ typedef enum
   , AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR
   , AST_ARRAYS_UNKNOWN
 } ArraysASTNodeType_t;
+#endif
 
-
+typedef enum
+{
+    AST_LINEAR_ALGEBRA_SELECTOR = 1000
+  , AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR
+  , AST_ARRAYS_UNKNOWN
+} ArraysASTNodeType_t;
 
 LIBSBML_CPP_NAMESPACE_END
 
