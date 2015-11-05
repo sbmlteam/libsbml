@@ -300,7 +300,7 @@ readMathMLFromStringWithNamespaces (const char *xml, XMLNamespaces_t * xmlns)
 
   ASTNode * ast = readMathML(stream);
 
-  if (needDelete) free(static_cast<char*>(xmlstr_c));
+  if (needDelete) free(const_cast<char*>(xmlstr_c));
   
   return ast;
 }
