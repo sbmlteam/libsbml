@@ -51,12 +51,14 @@ sources =					\
 	FbcConsistencyConstraints.cpp		\
 	FbcIdentifierConsistencyConstraints.cpp \
 	FluxBoundsConsistent.cpp		\
+        UniqueGeneProductLabels.cpp             \
 	UniqueModelWideIds.cpp
 
 header_inst_prefix = packages/fbc/validator/constraints
 
 headers =			    \
 	FluxBoundsConsistent.h \
+        UniqueGeneProductLabels.h \
 	UniqueModelWideIds.h
 
 constraints_files = $(wildcard ./*.cxx) 

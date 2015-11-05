@@ -50,18 +50,30 @@ thisdir   = src/sbml/packages/fbc/sbml
 
 headers =		  \
 	Association.h	  \
+        FbcAnd.h          \
+        FbcAssociation.h  \
+        FbcOr.h           \
 	FluxBound.h	  \
 	FluxObjective.h	  \
 	GeneAssociation.h \
+        GeneProduct.h     \
+        GeneProductAssociation.h \
+        GeneProductRef.h  \
 	Objective.h
 
 header_inst_prefix = packages/fbc/sbml
 
 sources =		    \
 	Association.cpp	    \
+        FbcAnd.cpp          \
+        FbcAssociation.cpp  \
+        FbcOr.cpp           \
 	FluxBound.cpp	    \
 	FluxObjective.cpp   \
 	GeneAssociation.cpp \
+        GeneProduct.cpp     \
+        GeneProductAssociation.cpp \
+        GeneProductRef.cpp  \
 	Objective.cpp
 
 extra_CPPFLAGS = -I../../../ -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\"

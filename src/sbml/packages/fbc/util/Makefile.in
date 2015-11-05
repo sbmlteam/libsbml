@@ -31,14 +31,17 @@ subdirs =
 
 headers   =			  \
 	CobraToFbcConverter.h \
-	FbcToCobraConverter.h
-
+	FbcToCobraConverter.h \
+        FbcV1ToV2Converter.h  \
+        FbcV2ToV1Converter.h  
 
 header_inst_prefix = packages/fbc/util
 
 sources   =			    \
 	CobraToFbcConverter.cpp \
-	FbcToCobraConverter.cpp
+	FbcToCobraConverter.cpp \
+        FbcV1ToV2Converter.cpp  \
+        FbcV2ToV1Converter.cpp  
 
 extra_CPPFLAGS = -I../../..
 

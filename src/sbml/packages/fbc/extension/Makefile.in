@@ -41,7 +41,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
+srcd/Users/skeating/libsbml/src/sbml/packages/fbc/common/Makefile.inir  = @srcdir@
 thisdir = src/sbml/packages/fbc/extension
 
 subdirs = test
@@ -54,6 +54,7 @@ headers = \
         FbcExtension.h \
         FbcModelPlugin.h \
         FbcSBMLDocumentPlugin.h \
+        FbcReactionPlugin.h \
 	FbcSpeciesPlugin.h
 
 header_inst_prefix = packages/fbc/extension
@@ -62,6 +63,7 @@ sources = \
         FbcExtension.cpp \
         FbcModelPlugin.cpp \
         FbcSBMLDocumentPlugin.cpp \
+        FbcReactionPlugin.cpp \
 	FbcSpeciesPlugin.cpp
 
 extra_CPPFLAGS = -I../../..
