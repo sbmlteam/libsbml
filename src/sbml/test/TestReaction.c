@@ -302,7 +302,7 @@ START_TEST (test_Reaction_addReactantBySpecies)
 {
   Species_t *s = Species_create(2, 4);
   Species_setId(s, "s");
-  Reaction_addReactantBySpecies(R, s, 2.0, "sr", false);
+  Reaction_addReactantBySpecies(R, s, 2.0, "sr", 0);
 
   fail_unless( Reaction_getNumReactants(R) == 1 );
   fail_unless( Reaction_getNumProducts (R) == 0 );
@@ -315,7 +315,7 @@ START_TEST (test_Reaction_addReactantBySpecies)
   fail_unless(!strcmp(SpeciesReference_getId(sr), "sr"));
   fail_unless(SpeciesReference_getConstant(sr) == 0);
 
-  fail_unless(Reaction_addReactantBySpecies(R, s, 1.0, "sr", false) == LIBSBML_DUPLICATE_OBJECT_ID);
+  fail_unless(Reaction_addReactantBySpecies(R, s, 1.0, "sr", 0) == LIBSBML_DUPLICATE_OBJECT_ID);
 
   Species_free(s);
 }
@@ -355,7 +355,7 @@ START_TEST (test_Reaction_addProductBySpecies)
   fail_unless(!strcmp(SpeciesReference_getId(sr), "sr"));
   fail_unless(SpeciesReference_getConstant(sr) == 0);
 
-  fail_unless(Reaction_addProductBySpecies(R, s, 1.0, "sr", false) == LIBSBML_DUPLICATE_OBJECT_ID);
+  fail_unless(Reaction_addProductBySpecies(R, s, 1.0, "sr", 0) == LIBSBML_DUPLICATE_OBJECT_ID);
   fail_unless( Reaction_getNumProducts (R) == 1 );
 
   Species_free(s);
