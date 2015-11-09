@@ -5,7 +5,7 @@ This directory contains binary versions of libSBML compiled with plug-ins
 supporting draft SBML Level 3 package specifications for Linux systems.
 
 ####R Source package
-The R source package for experimental code is available [here](../../source/R%20interface).
+The R Source package for experimental code is available [here](../../source/R%20interface).
 
 ####Python installers
 Python installers for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml-experimental "Open Build Service").

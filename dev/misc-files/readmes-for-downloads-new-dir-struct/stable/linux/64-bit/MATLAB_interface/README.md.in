@@ -1,6 +1,6 @@
 ## **libSBML @PACKAGE_VERSION@ MATLAB binaries for 64-bit Linux**
 
-This archive contains standalone binaries for the libSBML MATLAB interface for 32-bit Linux systems.  The interface files are ready to run; they require no compilation or additional steps beyond informing MATLAB about the path to the folder where you unpacked the archive.  Instructions for doing this are given below.
+This archive contains standalone binaries for the libSBML MATLAB interface for 64-bit Linux systems.  The interface files are ready to run; they require no compilation or additional steps beyond informing MATLAB about the path to the folder where you unpacked the archive.  Instructions for doing this are given below.
 
 *Note*: It would be very useful for us to learn of people's experiences, both for situations where the binaries do not work as well as situations where they do work.  Please let us know by contacting us at <libsbml-team@caltech.edu>.
 
