@@ -1,10 +1,14 @@
 ## **libSBML @PACKAGE_VERSION@**
 
-This directory contains the stable release of **libSBML @PACKAGE_VERSION@**. Here you will find the following:
+This directory contains the stable release of **libSBML @PACKAGE_VERSION@**.
+
+Here you will find the following:
 
 *  [Mac OS X](Mac%20OS%20X) -- folder of binary installers for Mac OS X systems
 *  [Windows](Windows)  -- folder of binary installers for Microsoft Windows systems
 *  [Linux](Linux)    -- folder of binary installers for Linux systems
+*  [MATLAB interface](MATLAB%20interface)   -- folder for archives of standalone MATLAB binaries
+*  [R interface](R%20interface) -- folder for R source package for Linux/Mac OS X
 
 Source code for core libSBML only:
 

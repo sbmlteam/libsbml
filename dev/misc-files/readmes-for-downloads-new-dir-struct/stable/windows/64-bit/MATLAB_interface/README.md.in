@@ -1,0 +1,26 @@
+## **libSBML @PACKAGE_VERSION@ MATLAB interface installers for 64-bit Microsoft Windows operating systems**
+
+**Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
+
+
+### **_MATLAB installers_**
+
+This directory contains the MATLAB-only installers for libSBML.  Each file contains **only** the precompiled MATLAB interface.  Download this if you only need to use libSBML from MATLAB and do not need to use other programming languages with libSBML.
+
+
+### Help and support
+
+For more information about the libSBML MATLAB interface, please see the [libSBML MATLAB API Documentation][1].
+
+Please report any problems you encounter using libSBML either to the
+developers directly (using the email address <libsbml-team@caltech.edu>) or using the [issue tracker][2].
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+[![SBML Logo](http://sbml.org/images/8/82/Official-sbml-supported-70.jpg)](http://sbml.org)
+
+[1]: http://sbml.org/Software/libSBML/docs/matlab-api/libsbml-matlab-reading-files.html
+[2]: https://sourceforge.net/tracker/?group_id=71971&atid=942737

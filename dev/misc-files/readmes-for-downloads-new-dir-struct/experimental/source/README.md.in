@@ -1,6 +1,11 @@
 ##libSBML @PACKAGE_VERSION@
 ###Experimental source code
 
+###**_R source package_**
+
+The folder [R interface](R%20interface) contains the R source package for libSBML experimental code.
+
+
 This directory contains source code to libSBML plug-ins supporting draft
 SBML Level 3 package specifications.
 
