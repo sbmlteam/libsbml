@@ -1,7 +1,7 @@
 /**
- * @file:   FbcReactionPlugin.h
- * @brief:  Implementation of the FbcReactionPlugin class
- * @author: SBMLTeam
+ * @file   FbcReactionPlugin.h
+ * @brief  Implementation of the FbcReactionPlugin class
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,14 +33,15 @@
  * @class FbcReactionPlugin
  * @sbmlbrief{fbc} Extension of Reaction by the &ldquo;fbc&rdquo; package.
  *
- * The FbcReactionPlugin class inherits from the SBasePlugin class, 
- * and codifies the extentions to the Reaction class defined in the
- * @ref comp @if java "Flux Balance Constraints"@endif@~ 
+ * The FbcReactionPlugin class inherits from the SBasePlugin class, and
+ * codifies the extentions to the Reaction class defined in the @ref fbc
  * package (&ldquo;fbc&rdquo;).  This extention allows the modeler to define
- * (in version 2 of the package) an upper and lower flux bound, as well as a way
- * to reference any GeneProduct associated with this Reaction.  
- * 
- * Note that in version 1, the FluxBound element is used instead.
+ * (in Version&nbsp;2 of the &ldquo;fbc&rdquo; package) an upper and lower
+ * flux bound, as well as a way to reference any GeneProduct associated with
+ * this Reaction.
+ *
+ * @note In Version&nbsp;1 of &ldquo;fbc&rdquo;, the FluxBound element is
+ * used instead of this object.
  */
 
 
