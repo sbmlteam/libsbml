@@ -27,12 +27,11 @@
  * @sbmlbrief{comp} Base class for references to objects.
  *
  * The SBaseRef class was introduced by the SBML Level&nbsp;3 @ref comp
- * @if java "Hierarchical %Model Composition"@endif@~ package
- * (&ldquo;comp&rdquo;) as the principle way by which submodel elements may
- * be referenced.  The SBaseRef class is usually found as the base class of a
- * Port, Deletion, ReplacedElement, or ReplacedBy class, but may appear as an
- * child of one of the above classes if the parent object references a
- * Submodel.
+ * (&ldquo;comp&rdquo;) package as the principle way by which submodel
+ * elements may be referenced.  The SBaseRef class is usually found as the
+ * base class of a Port, Deletion, ReplacedElement, or ReplacedBy class, but
+ * may appear as an child of one of the above classes if the parent object
+ * references a Submodel.
  *
  * An SBaseRef object must reference an element using exactly one of the
  * optional attributes of the class.  Subclasses of SBaseRef may define
@@ -47,28 +46,28 @@
  * there are four optional attributes defined in the SBaseRef class that
  * are each methods of referencing an element:
  *
- * @li "portRef" (type PortSIdRef):  As its name implies, this attribute is used to
+ * @li "portRef" (type <code>PortSIdRef</code>):  As its name implies, this attribute is used to
  * refer to a port identifier, in the case when the reference being
  * constructed with the SBaseRef is intended to refer to a port on a
- * submodel.  The namespace of the PortSIdRef value is the set
- * of identifiers of type PortSId defined in the submodel, not
+ * submodel.  The namespace of the <code>PortSIdRef</code> value is the set
+ * of identifiers of type <code>PortSId</code> defined in the submodel, not
  * the parent model.
- * @li "idRef" (type SIdRef): As its name implies, this attribute is used to
+ * @li "idRef" (type <code>SIdRef</code>): As its name implies, this attribute is used to
  * refer to a regular identifier (i.e., the value of an "id"
  * attribute on some other object), in the case when the reference being
  * constructed with the SBaseRef is intended to refer to an object that
- * does not have a port identifier.  The namespace of the SIdRef
+ * does not have a port identifier.  The namespace of the <code>SIdRef</code>
  * value is the set of identifiers of type SId defined in the
  * submodel, not the parent model.
- * @li "unitRef" (type UnitSIdRef): This attribute is used to refer to the identifier
- * of a UnitDefinition object.  The namespace of the UnitSIdRef
+ * @li "unitRef" (type <code>UnitSIdRef</code>): This attribute is used to refer to the identifier
+ * of a UnitDefinition object.  The namespace of the <code>UnitSIdRef</code>
  * value is the set of unit identifiers defined in the submodel, not the
- * parent model. (Note that even though this attribute is of type UnitSIdRef,
+ * parent model. (Note that even though this attribute is of type <code>UnitSIdRef</code>,
  * the reserved unit identifiers that are defined by SBML Level 3 (see
  * Section 3.1.10 of the core specification) are
  * *not* permitted as values of "unitRef".  Reserved unit
  * identifiers may not be replaced or deleted.)
- * @li "metaIdRef" (type IDREF): This attribute is used to refer to a "metaid"
+ * @li "metaIdRef" (type <code>IDREF</code>): This attribute is used to refer to a "metaid"
  * attribute value on some other object, in the case when the reference
  * being constructed with the SBaseRef is intended to refer to an object
  * that does not have a port identifier.  The namespace of the "metaIdRef"
@@ -224,7 +223,7 @@ public:
   /**
    * Sets the value of the "metaIdRef" attribute of this SBaseRef.
    *
-   * This method fails if the id is not a valid syntax for an IDREF (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
+   * This method fails if the id is not a valid syntax for an <code>IDREF</code> (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}).  An sBaseRef must use exactly one
    * method to point to a submodel element.
    *
@@ -266,7 +265,7 @@ public:
   
   /**
    * Sets the value of the "portRef" attribute of this SBaseRef.  Fails if
-   * the id is not a valid syntax for a PortSIdRef (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
+   * the id is not a valid syntax for a <code>PortSIdRef</code> (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}).  An SBaseRef must use exactly one
    * method to point to a submodel element.
    *
@@ -309,7 +308,7 @@ public:
   /**
    * Sets the value of the "idRef" attribute of this SBaseRef.
    *
-   * This method fails if the id is not a valid syntax for an SIdRef (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
+   * This method fails if the id is not a valid syntax for an <code>SIdRef</code> (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}).  A sBaseRef must use exactly one
    * method to point to a submodel element.
    *
@@ -352,7 +351,7 @@ public:
   /**
    * Sets the value of the "unitRef" attribute of this SBaseRef.
    *
-   * This method fails if the id is not a valid syntax for a UnitSIdRef (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
+   * This method fails if the id is not a valid syntax for a <code>UnitSIdRef</code> (@sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}), or if the SBaseRef already
    * points to an element of the submodel using a different interface (@sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}).  A sBaseRef must use exactly one
    * method to point to a submodel element.
    *

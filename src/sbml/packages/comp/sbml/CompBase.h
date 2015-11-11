@@ -29,10 +29,9 @@
  * @class CompBase
  * @sbmlbrief{comp} Convenience class for SBase-derived classes.
  *
- * The CompBase class derives from SBase, and defines a few functions
- * and features common to all SBase-derived classes in the SBML Level&nbsp;3
- * @ref comp @if java "Hierarchical %Model Composition"@endif@~ package
- * (&ldquo;comp&rdquo;).
+ * The CompBase class derives from SBase, and defines a few functions and
+ * features common to all SBase-derived classes in the SBML Level&nbsp;3
+ * @ref comp (&ldquo;comp&rdquo;) package.
  */
 
 #ifndef CompBase_h
