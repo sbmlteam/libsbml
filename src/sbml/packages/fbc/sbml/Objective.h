@@ -29,19 +29,21 @@
  * An integral component in a complete description of a steady-state model is
  * the so-called <em>objective function</em>, which generally consists of a
  * linear combination of model variables (fluxes) and a sense (direction). In
- * the SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
- * package, this concept is succinctly captured in the Objective class.
+ * the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;) package, this concept
+ * is succinctly captured in the Objective class.
  *
  * The Objective class is derived from the normal SBML SBase class and
  * inherits the "metaid" and "sboTerm" attributes, as well as the
  * subcomponents for Annotation and Notes.  To these, the Objective class
  * adds an optional attribute named "type".  The type attribute can take one
- * of two literal values: @c "maximize" or @c "minimize.  The values
+ * of two literal values: @c "maximize" or @c "minimize".  The values
  * represent the sense of the optimality constraint for the FBC model.
  *
  * The &ldquo;fbc&rdquo; package allows for the definition of multiple model
- * objectives, with one being designated as active.  Here is an example of
- * the XML encoding of a model with a list of objective functions:
+ * objectives, with one being designated as active.  The active objective is
+ * indicated using the attribute "activeObjective" on the ListOfObjectives
+ * object. Here is an example of the XML encoding of a model with a list of
+ * objective functions:
  * @verbatim
 <fbc:listOfObjectives fbc:activeObjective="obj1">
  <fbc:objective fbc:id="obj1" fbc:type="maximize">
@@ -59,6 +61,7 @@
 @endverbatim
  *
  * @see FluxObjective
+ * @see ListOfObjectives
  */
 
 #ifndef Objective_H__
@@ -640,14 +643,14 @@ protected:
  * The ListOfObjectives is a container for the SBML extended Model
  * that lists all the possible Objective elements in the model.
  *
- * Unlike most other ListOf subclasses in SBML, SBML Level&nbsp;3 Flux
- * Balance Constraints Version&nbsp;2 defines an additional required
- * attribute on ListOfObjectives: the "activeObjective" attribute.  This
- * attribute is of type <code>SIdRef</code> and can only refer to the id of
- * an existing Objective. This required attribute exists so that when
- * multiple Objective's are included in a single model, the model will always
- * be well described; i.e., there will be a single, primary objective
- * function which defines a single optimum and its associated solution space.
+ * Unlike most other ListOf subclasses in SBML, SBML Level&nbsp;3 @ref fbc
+ * Version&nbsp;2 defines an additional required attribute on
+ * ListOfObjectives: the "activeObjective" attribute.  This attribute is of
+ * type <code>SIdRef</code> and can only refer to the id of an existing
+ * Objective. This required attribute exists so that when multiple
+ * Objective's are included in a single model, the model will always be well
+ * described; i.e., there will be a single, primary objective function which
+ * defines a single optimum and its associated solution space.
  *
  * @copydetails doc_what_is_listof
  *

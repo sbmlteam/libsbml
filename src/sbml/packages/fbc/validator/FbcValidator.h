@@ -32,8 +32,8 @@
  *
  * The FbcValidator class extends the Validator class from core libSBML to
  * apply validation to the constructs introduced by the SBML Level&nbsp;3
- * Flux Balance Constraints package. This class then acts as a base class for
- * any validators that apply rules to the &ldquo;fbc&rdquo; package
+ * @ref fbc (&ldquo;fbc&rdquo;) package.  This class then acts as a base
+ * class for any validators that apply rules to the &ldquo;fbc&rdquo; package
  * specification constructs or to entire models that use the
  * &ldquo;fbc&rdquo; package, and may therefore be subject to other global
  * restrictions introduced.
