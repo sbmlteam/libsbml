@@ -207,10 +207,7 @@ Doxygen if the file they are in is also documented.
 @li Here is a template header file suitable for use when creating a new
 <code>.h</code> file for libSBML (and in fact, it's the same for
 <code>.cpp</code> files, too).  Of course, you should substitute appropriate
-content for the text in square brackets (@c [ and @c ]) below.  Note also that
-the Doxygen keywords <code>@@file</code>, <code>@@brief</code> and
-<code>@@author</code> are @em not followed by colon ('<code>:</code>') 
-characters.
+content for the text in square brackets (@c [ and @c ]) below:
 @verbatim
 /**
  * @file    [filename]

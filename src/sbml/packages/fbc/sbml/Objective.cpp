@@ -1,7 +1,7 @@
 /**
- * @file   Objective.cpp
- * @brief  Implementation of the Objective class
- * @author SBMLTeam
+ * @file:   Objective.cpp
+ * @brief:  Implementation of the Objective class
+ * @author: SBMLTeam
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

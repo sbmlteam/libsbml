@@ -1,7 +1,7 @@
 /**
- * @file   FbcSBMLDocumentPlugin.h
- * @brief  Implementation of the FbcSBMLDocumentPlugin class
- * @author SBMLTeam
+ * @file:   FbcSBMLDocumentPlugin.h
+ * @brief:  Implementation of the FbcSBMLDocumentPlugin class
+ * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -35,12 +35,13 @@
  *
  * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;) package.  This
- * extention defines a required flag named "required", which indicates
- * whether &ldquo;fbc&rdquo; constructs can be used to change the core
- * mathematical interpretation of the Model defined in the SBML input.  Since
- * &ldquo;fbc&rdquo; constructs cannot, this attribute must be set to the
- * value @c "false".
+ * the SBML Level&nbsp;3 @ref comp
+ * @if java "Flux Balance Constraints"@endif@~ 
+ * package (&ldquo;comp&rdquo;).  This extention defines a
+ * required flag named <code>required</code>, which indicates whether 
+ * &ldquo;fbc&rdquo; constructs can be used to change the core mathematics of the
+ * <code>&lt;model&gt;</code> child of the <code>&lt;sbml&gt;</code> element.
+ * Since they cannot, this attribute must be set @c false.
  */
 
 

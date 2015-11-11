@@ -1,6 +1,6 @@
 /**
- * @file   QualSBMLDocumentPlugin.h
- * @brief  Implementation of the QualSBMLDocumentPlugin class
+ * @file:   QualSBMLDocumentPlugin.h
+ * @brief:  Implementation of the QualSBMLDocumentPlugin class
  * @author  Sarah Keating
  *
  * <!--------------------------------------------------------------------------
@@ -35,7 +35,7 @@
  *
  * The QualSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
  * class, and codifies the extentions to the SBMLDocument class defined in
- * the SBML Level&nbsp;3 @ref qual (&ldquo;qual&rdquo;) package.
+ * the SBML Level&nbsp;3 @ref qual "Qualitative Models" package ('qual').
  *
  * The QualSBMLDocumentPlugin defines a
  * required flag named <code>required</code>, which indicates whether the

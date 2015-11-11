@@ -1,7 +1,7 @@
 /**
- * @file   FbcOr.h
- * @brief  Implementation of the FbcOr class
- * @author SBMLTeam
+ * @file:   FbcOr.h
+ * @brief:  Implementation of the FbcOr class
+ * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,19 +33,15 @@
  * @class FbcOr
  * @sbmlbrief{fbc} An &ldquo;or&rdquo; relationship for gene products
  *
- * FbcOr class is used in Version 2 of the SBML Level&nbsp;3 @ref fbc
- * (&ldquo;fbc&rdquo;) package to represent an "or" relationship between two
- * or more child FbcAssociation objects.  In other words, it indicates that
- * only one of the child objects are included.  Note that since the
- * FbcAssociation class is the parent class of GeneProductRef, FbcAnd and
+ * FbcOr class is used in Version 2 of the SBML Level&nbsp;3 Flux Balance
+ * Constraints (&ldquo;fbc&rdquo;) package to represent an "or" relationship
+ * between two or more child FbcAssociation objects.  In other words, it
+ * indicates that all of the child objects are included.  Note that since the
+ * FbcAssociation class is the parent class of GeneProducRef, FbcOr and
  * FbcOr, a given FbcOr can potentially include nested "and"/"or"
  * combinations of gene products.
  *
  * @copydetails doc_note_fbcv2_annotation_replacement
- *
- * @see FbcAssociation
- * @see FbcAnd
- * @see GeneProductRef
  */
 
 

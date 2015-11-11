@@ -1,7 +1,7 @@
 /**
- * @file   fbcfwd.h
- * @brief  Implementation of the fbcfwd class
- * @author SBMLTeam
+ * @file:   fbcfwd.h
+ * @brief:  Implementation of the fbcfwd class
+ * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

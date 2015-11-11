@@ -1,7 +1,7 @@
 /**
- * @file   GeneProductAssociation.h
- * @brief  Implementation of the GeneProductAssociation class
- * @author SBMLTeam
+ * @file:   GeneProductAssociation.h
+ * @brief:  Implementation of the GeneProductAssociation class
+ * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,16 +33,16 @@
  * @class GeneProductAssociation
  * @sbmlbrief{fbc} Association between gene products and reactions
  *
- * In Version&nbsp;2 of the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;)
- * package specification, GeneProductAssociation is a class derived from
- * SBase used to associate one more genes or gene products with reactions.
- * GeneProductAssociation objects are essentially containers, with one such
- * container optionally attached as a subelement to a Reaction object in a
- * model.  The container can contain one of three kinds of objects, all of
- * which are subclasses of the libSBML parent class FbcAssociation.  (Note
- * that this class is named <em>%Association</em> in the &ldquo;fbc&rdquo;
- * Version&nbsp;2 specification, but in libSBML is named FbcAssociation to
- * avoid a name conflict with an existing class.)
+ * In Version&nbsp;2 of the SBML Level&nbsp;3 Flux Balance Constraints
+ * (&ldquo;fbc&rdquo;) package specification, GeneProductAssociation is a
+ * class derived from SBase used to associate one more genes or gene products
+ * with reactions.  GeneProductAssociation objects are essentially
+ * containers, with one such container optionally attached as a subelement to
+ * a Reaction object in a model.  The container can contain one of three
+ * kinds of objects, all of which are subclasses of the libSBML parent class
+ * FbcAssociation.  (Note that this class is named <em>%Association</em> in
+ * the &ldquo;fbc&rdquo; Version&nbsp;2 specification, but in libSBML is
+ * named FbcAssociation to avoid a name conflict with an existing class.)
  *
  * One of the kinds of FbcAssociation subclasses that can appear in a
  * GeneProductAssociation is GeneProductRef.  This class of objects

@@ -27,8 +27,9 @@
  * @sbmlbrief{comp} %Deletion of an object from a submodel.
  *
  * The Deletion class was introduced by the SBML Level&nbsp;3 @ref comp
- * (&ldquo;comp&rdquo;) package to allow elements of submodels to be removed
- * before instantiation.
+ * @if java "Hierarchical %Model Composition"@endif@~ package
+ * (&ldquo;comp&rdquo;) to allow elements of submodels to be removed before
+ * instantiation.
 
  * The Deletion object class is used to define a deletion operation
  * to be applied when a submodel instantiates a model definition.

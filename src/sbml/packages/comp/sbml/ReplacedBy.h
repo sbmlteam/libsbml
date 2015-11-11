@@ -27,7 +27,8 @@
  * @sbmlbrief{comp} Indicates an object replaced by another.
  *
  * The ReplacedBy class was introduced by the SBML Level&nbsp;3 @ref comp
- * (&ldquo;comp&rdquo;) package to allow submodel elements to be 'canonical'
+ * @if java "Hierarchical %Model Composition"@endif@~ 
+ * package (&ldquo;comp&rdquo;) to allow submodel elements to be 'canonical'
  * versions of the element while still allowing the parent model to reference
  * those elements.  Whereas a ReplacedElement object indicates that the
  * containing object replaces another, a ReplacedBy object indicates the

@@ -28,18 +28,11 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * GeneAssociation is a helper class for creating annotations to store gene
- * association information.  It is part of a proposed approach to annotating
- * models in Version&nbsp;1 of the SBML Level&nbsp;3 @ref fbc
- * (&ldquo;fbc&rdquo;) package.  It is not part of the official
- * &ldquo;fbc&rdquo; specification, and not defined in Version&nbsp;2 of the
- * &ldquo;fbc&rdquo; package specification.  In &ldquo;fbc&rdquo;
- * Version&nbsp;2, the equivalent capability is handled by the
- * GeneProductAssociation class and this class (GeneAssociation) is not used.
- *
- * @see ListOfGeneAssociations
- * @see GeneProductAssociation
- * @see ListOfGeneProducts
+ * The GeneAssociation class is a helper class for creating annotations to
+ * store gene association information in Version&nbsp;1 of the SBML
+ * Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;) package.  In
+ * &ldquo;fbc&rdquo; Version&nbsp;2, the equivalent capability is handled by
+ * the GeneProductAssociation class and this class (GeneAssociation) is not used.
  */
 
 #ifndef GeneAssociation_H__
@@ -364,16 +357,9 @@ protected:
 /**
  * @class ListOfGeneAssociations
  * @sbmlbrief{fbc} A list of GeneAssociation objects.
- *
- * @htmlinclude not-sbml-warning.html
- *
- * The ListOfGeneAssociations is a container for GeneAssociation elements;
- * both constructs are part of a proposed approach to annotating models in
- * Version&nbsp;1 of the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;)
- * package.  They are not part of the official &ldquo;fbc&rdquo;
- * specification, and are not defined in Version&nbsp;2 of the
- * &ldquo;fbc&rdquo; package specification.
- *
+ * 
+ * The ListOfGeneAssociations is a container for the GeneAssociation elements of the proposed Model annotation, and is not part of the official FBC specification.
+ * 
  * @copydetails doc_what_is_listof
  *
  * @see GeneAssociation

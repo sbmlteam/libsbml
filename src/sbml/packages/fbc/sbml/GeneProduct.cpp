@@ -1,7 +1,7 @@
 /**
- * @file   GeneProduct.cpp
- * @brief  Implementation of the GeneProduct class
- * @author SBMLTeam
+ * @file:   GeneProduct.cpp
+ * @brief:  Implementation of the GeneProduct class
+ * @author: SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
