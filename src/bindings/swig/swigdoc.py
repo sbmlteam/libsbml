@@ -149,6 +149,27 @@ preprocessor_defines = ['SWIG', '__cplusplus']
 
 
 #
+# Global list of known package nicknames.
+# This is used in making sense of @ref's.
+#
+
+l3_packages = { 'annot'   : 'Annotations',
+                'arrays'  : 'Arrays',
+                'comp'    : 'Hierarchical Model Composition',
+                'distrib' : 'Distributions',
+                'dyn'     : 'Dynamic Processes',
+                'fbc'     : 'Flux Balance Constraints',
+                'groups'  : 'Groups',
+                'layout'  : 'Layout',
+                'multi'   : 'Multistate and Multicomponent Species',
+                'qual'    : 'Qualitative Models',
+                'render'  : 'Rendering',
+                'req'     : 'Required Elements',
+                'spatial' : 'Spatial Processes'
+              }
+
+
+#
 # Classes and methods.
 #
 
@@ -740,6 +761,15 @@ def translateCopydetails (match):
 
 
 
+def translateRef (match):
+  name = match.group(1)
+  # Only try to do something if we recognize a package nickname.
+  if name in l3_packages:
+    return '<a href="../../../extensions-summary.html#{0}">{1}</a>'.format(
+      name, l3_packages[name])
+
+
+
 def translateIfElse (match):
   # Our possible conditional elements and their meanings are:
   #
@@ -968,10 +998,6 @@ def sanitizeForHTML (docstring):
   p = re.compile('^\s*\*\s+@par(\s)', re.MULTILINE)
   docstring = p.sub(r'\1', docstring)
 
-  # Remove @ref's, since we currently have no way to deal with them.
-
-  docstring = re.sub('@ref\s+\w+', '', docstring)
-
   # First do conditional section inclusion based on the current language.
 
   p = re.compile('(@if|@ifnot)[\s*]+(\w+)[\s*]+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
@@ -1098,6 +1124,11 @@ def sanitizeForHTML (docstring):
   docstring = p.sub(r'*/', docstring)
   p = re.compile(r'(<p>\s*)+\Z', re.MULTILINE)
   docstring = p.sub(r'', docstring)
+
+  # Translate @ref's.
+
+  p = re.compile('@ref\s+\*?\s*(\w+)', re.DOTALL)
+  docstring = p.sub(translateRef, docstring)
 
   # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
   # the %foo quoting mechanism.
