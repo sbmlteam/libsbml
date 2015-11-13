@@ -100,6 +100,14 @@ pkg_style_template = '''.pkg-color-{0}
 '''
 
 
+group_page_ref_template = '''{
+    font-family: "Noto Sans", Verdana, Helvetica, Arial, Sans, sans-serif !important;
+    font-weight: normal;
+    font-size: 12px;
+}
+'''
+
+
 safari_bugfix_template = '''{
     display: inline-block;
     margin-left: 0px;
@@ -122,7 +130,7 @@ after_template = '''{{
     font-size: 80%;
     font-style: italic;
     font-weight: normal;
-    line-height: 130%;
+    line-height: 100%;
     text-align: center;
     color: #333 !important;
     background-color: rgba({1}, {2}, {3}, 0.35);
@@ -131,7 +139,7 @@ after_template = '''{{
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-left: 1em;
-    padding: 0px 3px;
+    padding: 1px 3px;
     min-width: 40px;
     width: 40px;
 }}
@@ -151,6 +159,12 @@ def main(args):
     # Next, write out the .pkg-color-x CSS classes:
     for entry in color_table:
         print (pkg_style_template.format(entry[0], entry[1], entry[2], entry[3]))
+
+    # Next, write rules for general references to the summary pages for packages.
+    print ('/* Styles for references to the package summary pages. */\n')
+    for entry in color_table:
+        print ('p a.el[href="group__{}.html"]'.format(entry[0]))
+        print (group_page_ref_template)
 
     # Next, read the source dir to find out the L3 packages available, and
     # extract the names of the libSBML object classes in each package.
@@ -177,18 +191,27 @@ def main(args):
         # http://stackoverflow.com/a/8988418/743730
         for c in classes:
             comma = (',' if c != last else '')
+            # This next format works for Javadoc version 1.6:
             print ('.FrameItemFont a[href$="{}.html"]{}'.format(c, comma))
+            # This next format works for Javadoc versions after version 1.6:
+            print ('.indexContainer a[href$="{}.html"]{}'.format(c, comma))
         print (safari_bugfix_template)
 
         # With that out of the way, we can write the real CSS.
         for c in classes:
             comma = (',' if c != last else '')
+            # This next format works for Javadoc version 1.6:
             print ('.FrameItemFont a[href$="{}.html"]:before{}'.format(c, comma))
+            # This next format works for Javadoc versions after version 1.6:
+            print ('.indexContainer a[href$="{}.html"]:before{}'.format(c, comma))
         print (before_template.format(pkg, color[1], color[2], color[3]))
 
         for c in classes:
             comma = (',' if c != last else '')
+            # This next format works for Javadoc version 1.6:
             print ('.FrameItemFont a[href$="{}.html"]:after{}'.format(c, comma))
+            # This next format works for Javadoc versions after version 1.6:
+            print ('.indexContainer a[href$="{}.html"]:after{}'.format(c, comma))
         print (after_template.format(pkg, color[1], color[2], color[3]))
 
     # A final bit of styling for Doxygen output.
