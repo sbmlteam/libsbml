@@ -26,8 +26,7 @@
  * @class ModelDefinition
  * @sbmlbrief{comp} A model used in model composition.
  *
- * The @ref comp @if java "Hierarchical %Model Composition"@endif@~ 
- * package (&ldquo;comp&rdquo;) allows multiple Model objects
+ * The @ref comp (&ldquo;comp&rdquo;) package allows multiple Model objects
  * to be defined in a single SBMLDocument.  While these new Model objects are
  * not new SBML classes, they are given a new name,
  * <code>&lt;modelDefinition&gt;</code>, and reside in ListOfModelDefinition
