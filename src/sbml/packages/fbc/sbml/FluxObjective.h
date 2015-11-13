@@ -29,10 +29,10 @@
  * An integral component in a complete description of a steady-state model is
  * the so-called <em>objective function</em>, which generally consists of a
  * linear combination of model variables (fluxes) and a sense (direction). In
- * the SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
- * package, this concept is succinctly captured in the Objective class.  An
- * Objective object includes a list of flux objectives, each in the form of a
- * FluxObjective object.
+ * the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;) package, this concept
+ * is succinctly captured in the Objective class.  An Objective object
+ * includes a list of flux objectives, each in the form of a FluxObjective
+ * object.
 
  * The FluxObjective class is a relatively simple container for a model
  * variable weighted by a signed linear coefficient.  In addition to the

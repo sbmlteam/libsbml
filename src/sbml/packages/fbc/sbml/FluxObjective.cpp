@@ -1,7 +1,7 @@
 /**
- * @file:   FluxObjective.cpp
- * @brief:  Implementation of the FluxObjective class
- * @author: SBMLTeam
+ * @file   FluxObjective.cpp
+ * @brief  Implementation of the FluxObjective class
+ * @author SBMLTeam
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

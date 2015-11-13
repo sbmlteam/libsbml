@@ -24,7 +24,7 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class CobraToFbcConverter
- * @sbmlbrief{fbc} COBRA to SBML Level 3 'fbc' converter.
+ * @sbmlbrief{fbc} COBRA to SBML Level 3 &ldquo;fbc&rdquo; converter.
  *
  * @htmlinclude libsbml-facility-only-warning.html
  *

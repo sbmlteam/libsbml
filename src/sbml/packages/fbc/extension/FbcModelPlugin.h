@@ -26,6 +26,101 @@
  *
  * @class FbcModelPlugin
  * @sbmlbrief{fbc} Extension of Model.
+ *
+ * The FbcModelPlugin object is used to extend the standard SBML Model object
+ * with features used in the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;)
+ * package.  In Version&nbsp;1 of the &ldquo;fbc&rdquo; specification, the
+ * extended Model class has two optional subobjects: ListOfObjectives and
+ * ListOfFluxBounds.  In Version&nbsp;2 of the specification, the extended
+ * Model object is defined differently: it is extended with a new required
+ * attribute named "strict", and the two optional subobjects ListOfObjectives
+ * and ListOfGeneProducts.  (ListOfFluxBounds is not used in Version&nbsp;2.)
+ *
+ * @section model-strict The "strict" attribute on the (extended) Model class
+ *
+ * The mandatory attribute "strict", of type <code>boolean</code>, is used to
+ * apply an additional set of restrictions to the model.  The "strict"
+ * attribute helps ensure that the Flux Balance Constraints package can be
+ * used to encode legacy flux-balance analysis models expressible as Linear
+ * Programs (LP's) for software that is unable to analyze arbitrary
+ * mathematical expressions that may appear in an SBML model.  In addition, a
+ * "strict" model is fully described and mathematically consistent, for
+ * example, by ensuring that all fluxes have a valid upper or lower bound.
+ *
+ * The following restrictions are in effect if an &ldquo;fbc&rdquo; model
+ * object has a value of <code>"true"</code> for the attribute "strict" on
+ * Model:
+ *
+ * @li Each Reaction in a Model must define values for the attributes
+ * "lowerFluxBound" and "upperFluxBound", with each attribute pointing to a
+ * valid Parameter object defined in the current Model.
+ *
+ * @li Each Parameter object referred to by the Reaction attributes
+ * "lowerFluxBound" and "upperFluxBound" must have its "constant" attribute
+ * set to the value <code>"true"</code> and its "value" attribute set to a
+ * value of type <code>double</code>.  This value may not be
+ * <code>"NaN"</code>.
+ *
+ * @li SpeciesReference objects in Reaction objects must have their
+ * "stoichiometry" attribute set to a <code>double</code> value that is not
+ * <code>"NaN"</code>, nor <code>"-INF"</code>, nor <code>"INF"</code>. In
+ * addition, the value of their "constant" attribute must be set to
+ * <code>"true"</code>.
+ *
+ * @li InitialAssignment objects may not target the Parameter objects
+ * referenced by the Reaction attributes "lowerFluxBound" and
+ * "upperFluxBound", nor any SpeciesReference objects.
+ *
+ * @li All defined FluxObjective objects must have their coefficient
+ * attribute set to a <code>double</code> value that is not
+ * <code>"NaN"</code>, nor <code>"-INF"</code>, nor <code>"INF"</code>.
+ *
+ * @li A Reaction "lowerFluxBound" attribute may not point to a Parameter
+ * object that has a value of <code>"INF"</code>.
+ *
+ * @li A Reaction "upperFluxBound" attribute may not point to a Parameter
+ * object that has a value of <code>"-INF"</code>.
+ *
+ * @li For all Reaction objects, the value of a "lowerFluxBound" attribute
+ * must be less than or equal to the value of the "upperFluxBound" attribute.
+ *
+ * While it is not compulsory for a "strict" Flux Balance Constraints model
+ * to define an Objective, doing so does does allow the model to be
+ * formulated as a Linear Program and optimized.  However, this decision is
+ * left to the modeler.  Note that all other properties of the objects
+ * referred to in the list above are to be set as specified in the relevant
+ * SBML Level&nbsp;3 Version&nbsp;1 Core and @ref fbc (&ldquo;fbc&rdquo;)
+ * specifications.
+ *
+ * Alternatively, if the value of the strict attribute is
+ * <code>"false"</code>, then none of these restrictions apply and the model
+ * creator can choose to define &ldquo;fbc&rdquo; models that are not
+ * necessarily encodable as an LP.  For example, if strict is
+ * <code>"false"</code>, the InitialAssignment construct may be used to set
+ * any valid numerical entity, including Parameter values and stoichiometric
+ * coefficients, with any value of type <code>double</code>.  In addition,
+ * Parameter elements are no longer required to be flagged as constant, thus
+ * allowing for a Flux Balance Constraints model's use in alternative, hybrid
+ * modeling strategies.
+ *
+ *
+ * @section model-subobjects Lists of subobjects on the (extended) Model class
+ *
+ * The ListOfObjectives is used to define the objectives of a given
+ * &ldquo;fbc&rdquo; model.  Objectives generally consist of linear
+ * combinations of model variables (fluxes) and a direction for the
+ * optimality constraint (either maximization or minimization).  Each
+ * Objective has a ListOfFluxObjectives subobjects.
+ *
+ * In Version&nbsp;2 of &ldquo;fbc&rdquo;, the ListOfGeneProducts is used to
+ * define the gene products represented by the &ldquo;fbc&rdquo; model.
+ *
+ * In Version&nbsp;1 of &ldquo;fbc&rdquo;, there is no ListOfGeneProducts,
+ * and instead, Model can have an optional ListOfFluxBounds.
+ *
+ * @see Objective
+ * @see FluxObjective
+ * @see FluxBound
  */
 
 #ifndef FbcModelPlugin_H__
