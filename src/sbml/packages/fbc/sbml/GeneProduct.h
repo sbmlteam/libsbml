@@ -1,7 +1,7 @@
 /**
- * @file:   GeneProduct.h
- * @brief:  Implementation of the GeneProduct class
- * @author: SBMLTeam
+ * @file   GeneProduct.h
+ * @brief  Implementation of the GeneProduct class
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,7 +33,7 @@
  * @class GeneProduct
  * @sbmlbrief{fbc} Association of a gene product with a Reaction
  *
- * In the SBML Level&nbsp;3 Flux Balance Constraints (&ldquo;fbc&rdquo;)
+ * In the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;) package
  * representation format, a GeneProduct object represents a single gene or
  * implied gene product.  The gene or gene product is identified using the
  * required attribute "label", which is a text string.  (This attribute is
@@ -463,12 +463,12 @@ protected:
  * GeneProduct elements are referenced in the GeneProductAssociation child
  * of an extended Reaction.
  *
- * @copydetails doc_note_fbcv2_annotation_replacement
- *
  * @copydetails doc_what_is_listof
  *
  * @see GeneProduct
  * @see FbcModelPlugin
+ *
+ * @copydetails doc_note_fbcv2_annotation_replacement
  */
 class LIBSBML_EXTERN ListOfGeneProducts : public ListOf
 {
