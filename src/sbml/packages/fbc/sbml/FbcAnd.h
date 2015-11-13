@@ -1,7 +1,7 @@
 /**
- * @file:   FbcAnd.h
- * @brief:  Implementation of the FbcAnd class
- * @author: SBMLTeam
+ * @file   FbcAnd.h
+ * @brief  Implementation of the FbcAnd class
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -33,15 +33,19 @@
  * @class FbcAnd
  * @sbmlbrief{fbc} An &ldquo;and&rdquo; relationship for gene products
  *
- * FbcAnd class is used in Version 2 of the SBML Level&nbsp;3 Flux Balance
- * Constraints (&ldquo;fbc&rdquo;) package to represent an "and" relationship
- * between two or more child FbcAssociation objects.  In other words, it
- * indicates that all of the child objects are included.  Note that since the
- * FbcAssociation class is the parent class of GeneProducRef, FbcAnd and
- * FbcOr, a given FbcAnd can potentially include nested "and"/"or"
- * combinations of gene products.
+ * FbcAnd class is used in Version 2 of the SBML Level&nbsp;3 @ref fbc
+ * (&ldquo;fbc&rdquo;) package to represent an "and" relationship between two
+ * or more child FbcAssociation objects.  In other words, it indicates that
+ * all of the child objects are included.  Note that since the FbcAssociation
+ * class is the parent class of GeneProductRef, FbcAnd and FbcOr, a given
+ * FbcAnd can potentially include nested "and"/"or" combinations of gene
+ * products.
  *
  * @copydetails doc_note_fbcv2_annotation_replacement
+ *
+ * @see FbcAssociation
+ * @see FbcOr
+ * @see GeneProductRef
  */
 
 
