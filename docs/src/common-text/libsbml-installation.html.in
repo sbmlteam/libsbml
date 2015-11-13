@@ -721,6 +721,14 @@ documentation.
 <!-- ---------------------------------------------------------------------- -->
 <h4><a class="anchor" name="compiling-gnumake">1.3.b Using GNU make</a></h4>
 
+<p> <strong>Important</strong>: parallel GNU make builds of libSBML are not
+supported at this time.  Attempting to use the
+<nobr><code>-j</code></nobr> option
+with <code>make</code> will not work properly and will not complete, but will
+also not produce diagnostics that indicate the cause of the failure (thus
+making it difficult to understand what went wrong).  Do not use the
+<nobr><code>-j</code></nobr> option with GNU make.
+
 <p> If you are using GNU make and <i>not</i> using CMake, in a terminal/shell
 window, <code>cd</code> to the top level of the libSBML source directory.  
 In the following example, let
