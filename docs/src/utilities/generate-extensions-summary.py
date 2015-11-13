@@ -78,7 +78,7 @@ section_start_template = '''
 <table style="margin-top: 1.5em" border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
 <tr bgcolor="#ccccff" class="TableHeadingColor">
 <th align="left" colspan="2"><font size="+2">
-<b>Extension for SBML Level&nbsp;3 package '{}'</b></font></th>
+<b><a name='{0}'></a>Extension for SBML Level&nbsp;3 package '{0}'</b></font></th>
 </tr>
 '''
 
