@@ -27,7 +27,44 @@
  * @class FbcSpeciesPlugin
  * @sbmlbrief{fbc} Extension of Species.
  *
- * The Flux Balance Constraints package extends the SBML Level 3 Version 1 Core Species class with the addition of two attributes: 'charge' and 'chemicalFormula'.
+ * The FbcSpeciesPlugin class codifies an extension of the core SBML Species
+ * class defined in the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;)
+ * package.  The &ldquo;fbc&rdquo; package adds two attributes named "charge"
+ * and "chemicalFormula" to Species.
+ *
+ * The optional attribute "charge" can contain a signed integer that refers
+ * to the Species object's electrical charge (in terms of electrons, not the
+ * SI unit of coulombs).  Note that this attribute is therefore defined as it
+ * is in the SBML Level&nbsp;2 Version&nbsp;1 specification.  (The charge
+ * attribute was removed in higher Versions and Levels of SBML, and is not an
+ * attribute of SBML Species in core SBML Level&nbsp;3.  However, it is
+ * useful for flux balance constraints models, and thus, the Level&nbsp;3
+ * &ldquo;fbc&rdquo; package adds it.)
+ *
+ * The optional attribute "chemicalFormula" can contain a text string that
+ * represents the elemental composition of the substance represented by the
+ * Species object.  The purpose of the "chemicalFormula" attribute is to
+ * allow balancing and validating reactions.  This is particularly important
+ * in constraint-based models.  The format of "chemicalFormula" must consist
+ * only of atomic names (as given in the Periodic Table of elements) or
+ * user-defined compounds, either of which take the form of a single capital
+ * letter followed by zero or more lowercase letters.  Where there is more
+ * than a single atom present, this is indicated with an integer.  With
+ * regards to order (and to enhance interoperability of models), users are
+ * advised to employ the <a href="https://en.wikipedia.org/wiki/Hill_system">Hill system order</a>.
+ * Using this notation, the number of carbon atoms in a molecule is indicated
+ * first, followed by the number of hydrogen atoms, and then the number of
+ * all other chemical elements in alphabetical order.  When the formula
+ * contains no carbon, all elements including hydrogen are listed
+ * alphabetically.
+ *
+ * Here is an example of the XML form of an extended Species definition with
+ * these attributes:
+ * @verbatim
+<species metaid="meta_M_atp_c" id="M_atp_c" name="ATP" compartment="Cytosol"
+boundaryCondition="false" initialConcentration="0" hasOnlySubstanceUnits="false"
+fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3"/>
+@endverbatim
  */
 
 
