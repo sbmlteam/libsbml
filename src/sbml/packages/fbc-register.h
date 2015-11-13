@@ -1,7 +1,7 @@
 /**
- * @file:   fbc-register.h
- * @brief:  Implementation of the fbc class
- * @author: SBMLTeam
+ * @file   fbc-register.h
+ * @brief  Implementation of the fbc class
+ * @author SBMLTeam
  *
  * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
