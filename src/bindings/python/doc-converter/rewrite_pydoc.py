@@ -596,7 +596,11 @@ def rewrite_htmlinclude(match, include_dir, quietly):
         file = open(file_path, 'r')
 
         writer = RewritePydocStringWriter()
-        parser = RewritePydocHTMLParser(AbstractFormatter(writer))
+        parser = None
+        try: 
+          parser = RewritePydocHTMLParser(AbstractFormatter(writer))
+        except: 
+          parser = RewritePydocHTMLParser()
         parser.feed(file.read())
         parser.close()
         file.close()
