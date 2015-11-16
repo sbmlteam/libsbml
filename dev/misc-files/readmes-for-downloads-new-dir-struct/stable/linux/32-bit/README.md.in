@@ -3,9 +3,9 @@
 **Important**: Before you install libSBML using these installers, please **uninstall any existing copy of libSBML** located in the same destination on your computer, or you may end up with mixed versions of different libSBML components on your system.
 
 
-### **_C, C++, C#, Java, Javascript, MATLAB, Perl and Ruby installers_**
+### **_C, C++, C#, Java, Javascript, Perl and Ruby installers_**
 
-This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 32-bit Linux systems.  They were built with the libxml2 parser library, and include accepted SBML Level 3 packages plus interfaces for the following programming languages:
+This directory contains installers for precompiled versions of libSBML @PACKAGE_VERSION@ for 32-bit Linux systems.  They were built with the [http://www.xmlsoft.org](libxml2) parser library, and include accepted SBML Level&nbsp;3 packages plus interfaces for the following programming languages:
 
 * C
 * C++
@@ -15,7 +15,7 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 * Perl
 * Ruby
 	
-[The directory named "MATLAB interface"](MATLAB%20interface) contains the standalone binaries for the MATLAB libSBML interface, without the other languages.  For the remaining languages listed above, download one of the following installer files and run it:
+Files include:
 
 * [libSBML-@PACKAGE_VERSION@-Linux-x86.rpm](libSBML-@PACKAGE_VERSION@-Linux-x86.rpm) -- for RPM-based Linux distributions (Fedora, Red Hat, CentOS)
 * [libSBML-@PACKAGE_VERSION@-Linux-x86.deb](libSBML-@PACKAGE_VERSION@-Linux-x86.deb) -- for Debian-based Linux distributions (Ubuntu & variants, Debian)
@@ -24,14 +24,17 @@ This directory contains installers for precompiled versions of libSBML @PACKAGE_
 
 By default, the installer will put libSBML into `/usr`.  Detailed information about how to make libSBML accessible to your software [is available on a separate web page](http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html).
 
-### **_R Source package_**
+### **_MATLAB interface_**
 
-A source package for the libSBML R interface is available [here](../../R%20interface).
+[The directory named "MATLAB interface"](MATLAB%20interface) contains the standalone binaries for the MATLAB libSBML interface **only**.  This is **not** included in the main installers.
 
+### **_R source package_**
+
+A source package for the libSBML R interface is available [here](../../R%20interface).  This is **not** included in the main installers.
 
 ### **_Python installers_**
 
-If you are primarily interested in Python, we provide two better options for installing libSBML for Python:
+If you are primarily interested in Python, we provide two options for installing libSBML for Python:
 
 * **_Using PiPI_**: First, make sure you have the following prerequisite software packages installed on your operating system: `python-dev`, `libxml2-dev`, `libz-dev`, and `libbz2-dev`.  Then, you can use the following command to install libSBML for Python: `sudo pip install python-libsbml`
 

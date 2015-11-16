@@ -15,12 +15,12 @@ Source code for core libSBML only:
 *  [libSBML-@PACKAGE_VERSION@-core-src.zip](libSBML-@PACKAGE_VERSION@-core-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-core-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-src.tar.gz)  -- source code (only), gzip'ed tar archive
   
-Source code for full libSBML (core SBML Levels 1-3 plus accepted SBML Level 3 packages):
+Source code for full libSBML (core SBML Levels 1-3 plus accepted SBML Level&nbsp;3 packages):
 
 *  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz](libSBML-@PACKAGE_VERSION@-core-plus-packages-src.tar.gz)  -- source code (only), gzip'ed tar archive
   
-Source code for individual, accepted SBML Level 3 packages *only*:
+Source code for individual, accepted SBML Level&nbsp;3 packages *only*:
 
 *  [libSBML-@PACKAGE_VERSION@-comp-src.zip](libSBML-@PACKAGE_VERSION@-comp-src.zip)     -- source code (only), zip archive
 *  [libSBML-@PACKAGE_VERSION@-fbc-src.zip](libSBML-@PACKAGE_VERSION@-fbc-src.zip)      -- source code (only), zip archive

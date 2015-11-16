@@ -1,6 +1,8 @@
 ## **libSBML @PACKAGE_VERSION@ installers for R for 32-bit Microsoft Windows operating systems**
 
-This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3 on a 32-bit Microsoft Windows operating system.  
+This directory contains the libSBML @PACKAGE_VERSION@ installer for R, generated for R version 3.1.1 on a 32-bit Microsoft Windows operating system.  
+
+It has been tested and seems to work with R 2.15.3; R 3.0.0; R 3.1.2 and R 3.2.2. Please let us know if you find this is not the case.
 
 ### **_How to install libSBML for R_**
 

@@ -8,6 +8,8 @@
 This directory contains the MATLAB-only installers for libSBML.  Each file contains **only** the precompiled MATLAB interface.  Download this if you only need to use libSBML from MATLAB and do not need to use other programming languages with libSBML.
 
 
+**Note:** The installer in the current directory and that in the Windows/32-bit directory are identical and duplicated purely to preserve continuity with the download URL and consistency with other OS directories.
+
 ### Help and support
 
 For more information about the libSBML MATLAB interface, please see the [libSBML MATLAB API Documentation][1].

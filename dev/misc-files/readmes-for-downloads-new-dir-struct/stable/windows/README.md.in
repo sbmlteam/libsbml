@@ -1,6 +1,6 @@
 ## **libSBML @PACKAGE_VERSION@ installers for Microsoft Windows operating systems**
 
-Please navigate to either the [32-bit](32-bit) or [64-bit](64-bit) folders, to match the version of the operating system you are using.  There you will find installers built using the libxml2 XML parser library and containing code for core libSBML plus accepted SBML Level 3 packages.
+Please navigate to either the [32-bit](32-bit) or [64-bit](64-bit) folders, to match the version of the operating system you are using.  There you will find installers built using the [http://www.xmlsoft.org](libxml2) XML parser library and containing code for core libSBML plus accepted SBML Level&nbsp;3 packages.
 
 For additional information about this version of libSBML, please see the documentation or [visit the libSBML website](http://sbml.org/Software/libSBML).
 
