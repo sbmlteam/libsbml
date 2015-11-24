@@ -248,6 +248,9 @@ public:
             const SBMLResolverRegistry& registry = 
                                  SBMLResolverRegistry::getInstance();
             mReferencedDocument = registry.resolve(uri, locationURI);
+
+            pre(mReferencedDocument != NULL);
+
             if (mReferencedDocument != NULL)
             {
               if (emd->isSetModelRef() == false)
