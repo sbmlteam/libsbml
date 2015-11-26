@@ -43,13 +43,7 @@ using namespace std;
 
 /* end doxygen comment */
 
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-#  define isnan(d)  _isnan(d)
-#endif
-
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-
 
 ASTNumber::ASTNumber (int type) :
    ASTBase   (type)
@@ -1729,7 +1723,7 @@ ASTNumber::setValue(double value, long value1)
 int 
 ASTNumber::setValue(double value)
 {
-  if (mExponential == NULL && mReal == NULL && !(isnan(value) > 0 || util_isInf(value) != 0))
+  if (mExponential == NULL && mReal == NULL && !(util_isNaN(value) > 0 || util_isInf(value) != 0))
   {
     std::string units = ASTNumber::getUnits();
     reset();
@@ -1738,7 +1732,7 @@ ASTNumber::setValue(double value)
     setType(AST_REAL);
     mReal->ASTBase::syncMembersFrom(this);
   }
-  else if ((isnan(value) > 0 || util_isInf(value) != 0) && mConstant == NULL) 
+  else if ((util_isNaN(value) > 0 || util_isInf(value) != 0) && mConstant == NULL) 
   {
     reset();
     mConstant = new ASTConstantNumberNode(AST_REAL);
