@@ -16,6 +16,7 @@ possible pitfalls in using libSBML:
 <li><a href="#mac-libcheck-build">Difficulty configuring libSBML with MacPorts version of libcheck under Mac OS X 10.6</a></li>
 <li><a href="#matlab-win-unicode">MATLAB on Windows has issues with unicode filenames</a></li>
 <li><a href="#parallel-gnumake">Parallel builds with GNU <code>make</code> are not supported</a></li>
+<li><a href="#gcc5-python">Bug in GCC 5.1 and 5.2 causes <code>free()</code> errors in Python interface</a></li>
 </ul>
 
 
@@ -230,3 +231,24 @@ LDFLAGS="-arch ppc -arch i386 -arch x86_64"  \
 <h2><a class="anchor" name="parallel-gnumake"></a>Parallel builds with GNU <code>make</code> are not supported</h2>
 
 Parallel GNU make builds of libSBML are not supported at this time.  Attempting to use the <nobr><code>-j</code></nobr> option with <code>make</code> will not work properly and will not complete, but will also not produce diagnostics that indicate the cause of the failure (thus making it difficult to understand what went wrong).  Do not use the <nobr><code>-j</code></nobr> option with GNU make.
+
+<h2><a class="anchor" name="gcc5-python">Bug in GCC 5.1 and 5.2 causes <code>free()</code> errors in Python interface</a></h2>
+
+There is a <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=67557">known bug in GCC versions 5.1 and 5.2</a> which results in the problem that calling the copy constructor of a base class in the constructor of derived classes produces crashing code.  The problem manifests itself in libSBML when using a language binding such as the Python interface, and leads to the following error:
+
+<pre class="fragment">
+>>> from libsbml import *
+>>> reader = SBMLReader()
+>>> doc = reader.readSBML('MODEL1504280000_URNs.xml')
+*** Error in `python': free(): invalid pointer: 0x00007ffda7deb2a8 ***
+Aborted (core dumped)
+</pre>
+
+There are four work-arounds for this problem:
+
+<ol>
+<li> Do not use <code>gcc</code> versions 5.1 or 5.2 (use a different version).
+<li> Use the <code>clang</code> compiler instead of <code>gcc</code>.
+<li> Use <code>gcc</code> with the option <code>-D_GLIBCXX_USE_CXX11_ABI=0</code>.
+<li> Use <code>gcc</code> with the option <code>-fno-elide-constructors</code>.
+</ol>
