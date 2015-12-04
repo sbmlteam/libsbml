@@ -14,6 +14,7 @@ yourself. For that, please follow the instructions below:
 @htmlinclude doxygen-regular-text-start.html
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
+- @subpage libsbml-issues
 @htmlinclude doxygen-regular-text-end.html
 
 */
