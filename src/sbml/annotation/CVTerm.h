@@ -1276,6 +1276,91 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
+
+
+/**
+ * This method takes a model qualifier type code and returns a string 
+ * representing the code.
+ *
+ * This method takes a model qualifier type as argument 
+ * and returns a string name corresponding to that code.  For example, 
+ * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return 
+ * the string "<code>isDescribedBy</code>". 
+ *
+ * @return a human readable qualifier name for the given type.
+ *
+ * @note The caller does not own the returned string and is therefore not
+ * allowed to modify it.
+ *
+ * @param type The ModelQualifierType_t to translate
+ *
+ * @memberof CVTerm_t
+ */
+LIBSBML_EXTERN
+const char*
+ModelQualifierType_toString(ModelQualifierType_t type);
+
+/**
+ * This method takes a biol qualifier type code and returns a string 
+ * representing the code.
+ *
+ * This method takes a biol qualifier type as argument 
+ * and returns a string name corresponding to that code.  For example, 
+ * passing it the qualifier <code>BQB_HAS_VERSION</code> will return 
+ * the string "<code>hasVersion</code>". 
+ *
+ * @return a human readable qualifier name for the given type.
+ *
+ * @note The caller does not own the returned string and is therefore not
+ * allowed to modify it.
+ *
+ * @param type The BiolQualifierType_t to translate
+ *
+ * @memberof CVTerm_t
+ */
+LIBSBML_EXTERN
+const char*
+BiolQualifierType_toString(BiolQualifierType_t type);
+
+/**
+ * This method takes a a string and returns a model qualifier
+ * representing the string.
+ *
+ * This method takes a string as argument and returns a model qualifier type 
+ * corresponding to that string.  For example, passing it the string 
+ * "<code>isDescribedBy</code>" will return the qualifier 
+ * <code>BQM_IS_DESCRIBED_BY</code>. 
+ *
+ * @return a qualifier for the given human readable qualifier name.
+ *
+ * @param s The string to translate to a ModelQualifierType_t
+ *
+ * @memberof CVTerm_t
+ */
+LIBSBML_EXTERN
+ModelQualifierType_t 
+ModelQualifierType_fromString(const char* s);
+
+/**
+ * This method takes a a string and returns a biol qualifier
+ * representing the string.
+ *
+ * This method takes a string as argument and returns a biol qualifier type 
+ * corresponding to that string.  For example, passing it the string 
+ * "<code>hasVersion</code>" will return the qualifier 
+ * <code>BQB_HAS_VERSION</code>. 
+ *
+ * @return a qualifier for the given human readable qualifier name.
+ *
+ * @param s The string to translate to a BiolQualifierType_t
+ *
+ * @memberof CVTerm_t
+ */
+LIBSBML_EXTERN
+BiolQualifierType_t 
+BiolQualifierType_fromString(const char* s);
+
+
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -1598,88 +1683,6 @@ LIBSBML_EXTERN
 int
 CVTerm_hasRequiredAttributes(CVTerm_t *term);
 
-
-/**
- * This method takes a model qualifier type code and returns a string 
- * representing the code.
- *
- * This method takes a model qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return 
- * the string "<code>isDescribedBy</code>". 
- *
- * @return a human readable qualifier name for the given type.
- *
- * @note The caller does not own the returned string and is therefore not
- * allowed to modify it.
- *
- * @param type The ModelQualifierType_t to translate
- *
- * @memberof CVTerm_t
- */
-LIBSBML_EXTERN
-const char*
-ModelQualifierType_toString(ModelQualifierType_t type);
-
-/**
- * This method takes a biol qualifier type code and returns a string 
- * representing the code.
- *
- * This method takes a biol qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQB_HAS_VERSION</code> will return 
- * the string "<code>hasVersion</code>". 
- *
- * @return a human readable qualifier name for the given type.
- *
- * @note The caller does not own the returned string and is therefore not
- * allowed to modify it.
- *
- * @param type The BiolQualifierType_t to translate
- *
- * @memberof CVTerm_t
- */
-LIBSBML_EXTERN
-const char*
-BiolQualifierType_toString(BiolQualifierType_t type);
-
-/**
- * This method takes a a string and returns a model qualifier
- * representing the string.
- *
- * This method takes a string as argument and returns a model qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>isDescribedBy</code>" will return the qualifier 
- * <code>BQM_IS_DESCRIBED_BY</code>. 
- *
- * @return a qualifier for the given human readable qualifier name.
- *
- * @param s The string to translate to a ModelQualifierType_t
- *
- * @memberof CVTerm_t
- */
-LIBSBML_EXTERN
-ModelQualifierType_t 
-ModelQualifierType_fromString(const char* s);
-
-/**
- * This method takes a a string and returns a biol qualifier
- * representing the string.
- *
- * This method takes a string as argument and returns a biol qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>hasVersion</code>" will return the qualifier 
- * <code>BQB_HAS_VERSION</code>. 
- *
- * @return a qualifier for the given human readable qualifier name.
- *
- * @param s The string to translate to a BiolQualifierType_t
- *
- * @memberof CVTerm_t
- */
-LIBSBML_EXTERN
-BiolQualifierType_t 
-BiolQualifierType_fromString(const char* s);
 
 
 /**
