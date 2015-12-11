@@ -1077,6 +1077,32 @@ START_TEST (test_ASTNode_deepCopy_4)
 END_TEST
 
 
+START_TEST (test_ASTNode_deepCopy_5)
+{
+  ASTNode_t *node = SBML_parseFormula("a + b");
+  ASTNode_t *copy;
+
+	const char* xmlstr = "<annotation encoding=\"infix\">\n"
+	"test\n"
+	"</annotation>";
+  XMLNode_t *ann = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+  ASTNode_addSemanticsAnnotation(node, ann);
+
+  fail_unless( ASTNode_getNumSemanticsAnnotations(node) == 1 );
+
+  /** deepCopy() **/
+  copy = ASTNode_deepCopy(node);
+
+  fail_unless( copy != node );
+  fail_unless( ASTNode_getNumSemanticsAnnotations(copy) == 1 );
+
+
+  ASTNode_free(node);
+  ASTNode_free(copy);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_getName)
 {
   ASTNode_t *n = ASTNode_create();
@@ -5125,10 +5151,12 @@ START_TEST (test_ASTNode_reduceToBinary)
   ASTNode_setInteger(c1, 2);
   ASTNode_t *c2 = ASTNode_create();
   ASTNode_setInteger(c2, 2);
+  ASTNode_t *c3 = ASTNode_create();
+  ASTNode_setInteger(c3, 2);
 
   ASTNode_addChild(n, c1);
   ASTNode_addChild(n, c2);
-  ASTNode_addChild(n, c2->deepCopy());
+  ASTNode_addChild(n, c3);
 
   fail_unless( ASTNode_getNumChildren(n) == 3);
 
@@ -5197,6 +5225,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_deepCopy_2              );
   tcase_add_test( tcase, test_ASTNode_deepCopy_3              );
   tcase_add_test( tcase, test_ASTNode_deepCopy_4              );
+  tcase_add_test( tcase, test_ASTNode_deepCopy_5              );
   tcase_add_test( tcase, test_ASTNode_getName                 );
   tcase_add_test( tcase, test_ASTNode_getReal                 );
   tcase_add_test( tcase, test_ASTNode_getPrecedence           );

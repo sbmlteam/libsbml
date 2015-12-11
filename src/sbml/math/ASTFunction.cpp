@@ -4629,6 +4629,10 @@ ASTFunction::syncMembersAndTypeFrom(ASTFunction* rhs, int type)
       mSemantics->setDefinitionURL(rhs->getDefinitionURL());
     }
     this->ASTBase::syncMembersFrom(mSemantics);
+    for (unsigned int n = 0; n < rhs->getNumSemanticsAnnotations(); n++)
+    {
+      mSemantics->addSemanticsAnnotation(rhs->getSemanticsAnnotation(n)->clone());
+    }
   }
   else if (mIsOther == true)
   {
