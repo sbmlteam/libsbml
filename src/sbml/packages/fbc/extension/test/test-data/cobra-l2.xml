@@ -14,9 +14,14 @@
       <compartment sboTerm="SBO:0000290" id="c" name="Cytosol" spatialDimensions="3" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species metaid="meta_M_gamma_radiation_c" sboTerm="SBO:0000170" id="M_gamma_radiation_c" name="gamma radiation (1.2 MeV)" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="meta_M_gamma_radiation_c" sboTerm="SBO:0000170" id="M_gamma_radiation_c" name="gamma radiation (1.2 MeV)" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" charge="0"/>
       <species metaid="meta_M_A23CMP_c" sboTerm="SBO:0000247" id="M_A23CMP_c" name="2&apos;,3&apos;-Cyclic AMP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
+      <notes>
+        <body xmlns:html="http://www.w3.org/1999/xhtml">
+          <html:p>CHARGE: 1</html:p>
+        </body>
+      </notes>
+      <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
             <rdf:Description rdf:about="#meta_M_A23CMP_c">
               <bqbiol:is>
@@ -34,7 +39,7 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="meta_M_A3MP_c" sboTerm="SBO:0000247" id="M_A3MP_c" name="3&apos;-AMP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+      <species metaid="meta_M_A3MP_c" sboTerm="SBO:0000247" id="M_A3MP_c" name="3&apos;-AMP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" charge="1">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
             <rdf:Description rdf:about="#meta_M_A3MP_c">
@@ -56,7 +61,12 @@
         </annotation>
       </species>
       <species metaid="meta_M_AC_c" sboTerm="SBO:0000247" id="M_AC_c" name="acetate" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
+      <notes>
+        <body xmlns:html="http://www.w3.org/1999/xhtml">
+          <html:p>CHARGE: 0</html:p>
+        </body>
+      </notes>
+      <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
             <rdf:Description rdf:about="#meta_M_AC_c">
               <bqbiol:is>

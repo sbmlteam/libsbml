@@ -138,6 +138,7 @@ CobraToFbcConverter::convert()
   }
 
   std::map<const string, int> chargeMap;
+  std::map<const string, bool> haveChargeMap;
   std::map<const string, string> formulaMap;
   Model* model = mDocument->getModel();
 
@@ -145,9 +146,11 @@ CobraToFbcConverter::convert()
   {
     Species* current = model->getSpecies(i);
     bool haveCharge = current->isSetCharge();
+    haveChargeMap[current->getId()] = false;
     if (haveCharge)
     {
       chargeMap[current->getId()] = current->getCharge();
+      haveChargeMap[current->getId()] = true;
       // need to unset the charge here, as it the call will 
       // not work once this is an L3 model
       current->unsetCharge();
@@ -189,8 +192,11 @@ CobraToFbcConverter::convert()
               stringstream str;
               str << formula;
               str >> charge;
-              if (charge != 0)
+              if (charge != 0 || formula.find("0") != std::string::npos)
+              {
                 chargeMap[current->getId()] = charge;
+                haveChargeMap[current->getId()] = true;
+              }
             }
           }
         }
@@ -330,7 +336,7 @@ CobraToFbcConverter::convert()
     if (removeUnits) current->unsetUnits();
     FbcSpeciesPlugin* splugin = static_cast<FbcSpeciesPlugin*>(current->getPlugin("fbc"));
     int charge = chargeMap[current->getId()];
-    if (charge != 0)
+    if (haveChargeMap[current->getId()])
       splugin->setCharge(charge);
     splugin->setChemicalFormula(formulaMap[current->getId()]);
 

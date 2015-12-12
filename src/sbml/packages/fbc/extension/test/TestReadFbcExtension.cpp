@@ -407,6 +407,44 @@ START_TEST(test_FbcExtension_read_and_convert)
   UnitDefinition* substance = model->getUnitDefinition("substance");
   fail_unless(substance != NULL);
 
+  Species* species = model->getSpecies("M_gamma_radiation_c");
+  fail_unless(species != NULL);
+  
+  FbcSpeciesPlugin* splug = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  fail_unless(splug != NULL);
+  
+  fail_unless(splug->isSetCharge());
+  fail_unless(splug->getCharge() == 0);
+
+  species = model->getSpecies("M_A3MP_c");
+  fail_unless(species != NULL);
+  
+  splug = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  fail_unless(splug != NULL);
+  
+  fail_unless(splug->isSetCharge());
+  fail_unless(splug->getCharge() == 1);
+  
+  species = model->getSpecies("M_AC_c");
+  fail_unless(species != NULL);
+  
+  splug = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  fail_unless(splug != NULL);
+  
+  fail_unless(splug->isSetCharge());
+  fail_unless(splug->getCharge() == 0);
+  
+  species = model->getSpecies("M_A23CMP_c");
+  fail_unless(species != NULL);
+  
+  splug = dynamic_cast<FbcSpeciesPlugin*>(species->getPlugin("fbc"));
+  fail_unless(splug != NULL);
+  
+  fail_unless(splug->isSetCharge());
+  fail_unless(splug->getCharge() == 1);
+  
+  
+  
   std::string finalModel = writeSBMLToStdString(document);
 
   delete document;
