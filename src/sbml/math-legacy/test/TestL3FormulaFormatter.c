@@ -35,6 +35,8 @@
 #include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/L3ParserSettings.h>
+#include <sbml/xml/XMLNode.h>
+
 //extern int isTranslatedModulo (const ASTNode_t* node);
 //extern int getL3Precedence(const ASTNode_t* node);
 
@@ -985,6 +987,34 @@ START_TEST (test_L3FormulaFormatter_accessWithNULL)
 END_TEST
 
 
+START_TEST (test_L3FormulaFormatter_semantics)
+{
+  char           *s;
+  ASTNode_t      *n  = ASTNode_create();
+  ASTNode_t      *c  = ASTNode_create();
+
+  ASTNode_setType(n, AST_LOGICAL_OR);
+  ASTNode_setName(c, "x");
+  ASTNode_addChild(n, c);
+  c = ASTNode_create();
+  ASTNode_setName(c, "y");
+  ASTNode_addChild(n, c);
+  s = SBML_formulaToL3String(n);
+  fail_unless( !strcmp(s, "x || y"), NULL );
+  safe_free(s);
+
+  XMLNode_t* xml = 
+    XMLNode_convertStringToXMLNode("<annotation> a </annotation>", NULL);
+  ASTNode_addSemanticsAnnotation(n, xml);
+
+  s = SBML_formulaToL3String(n);
+  fail_unless( !strcmp(s, "x || y"), NULL );
+  safe_free(s);
+
+  ASTNode_free(n);
+}
+END_TEST
+
 Suite *
 create_suite_L3FormulaFormatter (void) 
 { 
@@ -1008,7 +1038,7 @@ create_suite_L3FormulaFormatter (void)
   tcase_add_test( tcase, test_L3FormulaFormatter_multiDivide    );
   tcase_add_test( tcase, test_L3FormulaFormatter_multiAnd       );
   tcase_add_test( tcase, test_L3FormulaFormatter_multiOr        );
-
+  tcase_add_test( tcase, test_L3FormulaFormatter_semantics      );
   // SBML_deleteL3Parser();
 
   suite_add_tcase(suite, tcase);

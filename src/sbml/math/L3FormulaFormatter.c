@@ -299,6 +299,10 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
   if (parent != NULL)
   {
+    if (ASTNode_getType(parent) == AST_SEMANTICS)
+    {
+      return group;
+    }
     parentmodulo = isTranslatedModulo(parent);
     if (parentmodulo || !L3FormulaFormatter_hasUnambiguousGrammar(parent, child, settings))
     {
