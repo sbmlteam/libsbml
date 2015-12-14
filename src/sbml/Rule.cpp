@@ -1055,7 +1055,10 @@ Rule::addExpectedAttributes(ExpectedAttributes& attributes)
   }
   else
   {
-    attributes.add("variable");
+    if (isAssignment() || isRate())
+    {
+      attributes.add("variable");
+    }
     if (level == 2 && version == 2)
     {
       attributes.add("sboTerm");
