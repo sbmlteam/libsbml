@@ -2058,6 +2058,32 @@ START_TEST (test_element_semantics_annotation)
 END_TEST
 
 
+START_TEST (test_element_semantics_annotation_1)
+{
+  const char* s = wrapMathML
+  (
+    "<semantics>"
+    "<exponentiale/>"
+    "<annotation encoding='Mathematica'> N[23] </annotation>"
+    "</semantics>"
+  );
+
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  fail_unless( N->getType() == AST_SEMANTICS );
+  fail_unless( N->getNumSemanticsAnnotations() == 1);
+
+  std::string ann1 = XMLNode::convertXMLNodeToString(N->getSemanticsAnnotation(0));
+  std::string annotation = "<annotation encoding=\"Mathematica\"> N[23] </annotation>";
+  fail_unless( ann1 == annotation );
+}
+END_TEST
+
+
 START_TEST (test_element_semantics_annxml)
 {
   const char* s = wrapMathML
@@ -2963,6 +2989,7 @@ create_suite_NewReadMathML ()
   tcase_add_test( tcase, test_element_semantics                 );
   tcase_add_test( tcase, test_element_semantics_URL             );
   tcase_add_test( tcase, test_element_semantics_annotation      );
+  tcase_add_test( tcase, test_element_semantics_annotation_1    );
   tcase_add_test( tcase, test_element_semantics_annxml          );
   tcase_add_test( tcase, test_element_semantics_lambda          );
   tcase_add_test( tcase, test_element_semantics_URL_lambda      );

@@ -451,7 +451,8 @@ XMLTokenizer::determineNumSpecificChildren(bool & valid,
   
   XMLToken next = mTokens.at(index);
   name = next.getName();
-  if (next.isStart() == true && next.isEnd() == true && index < size)
+  if (next.isStart() == true && next.isEnd() == true && 
+    name == qualifier && index < size)
   {
     numQualifiers++;
     index++;
