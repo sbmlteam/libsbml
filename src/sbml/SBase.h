@@ -2545,7 +2545,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * "model", CompartmentType defines it as returning @c "compartmentType",
    * and so on.
    */
-  virtual const std::string& getElementName () const = 0;
+  virtual const std::string& getElementName () const;
 
 
   /**

@@ -595,7 +595,7 @@ SBase::loadPlugins(SBMLNamespaces *sbmlns)
   if (xmlns)
   {
     int numxmlns= xmlns->getLength();
-    SBaseExtensionPoint extPoint(getPackageName(), getTypeCode());
+    SBaseExtensionPoint extPoint(getPackageName(), getTypeCode(), getElementName());
     SBaseExtensionPoint genericPoint("all", SBML_GENERIC_SBASE);
 
     for (int i=0; i < numxmlns; i++)
@@ -2951,6 +2951,13 @@ SBase::getTypeCode () const
   return SBML_UNKNOWN;
 }
 
+
+const std::string& 
+SBase::getElementName () const
+{
+  static const std::string name = "unknown";
+  return name;
+}
 
 //
 //
