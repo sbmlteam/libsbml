@@ -1634,7 +1634,7 @@ Layout::writeAttributes (XMLOutputStream& stream) const
 
   if (isSetName())
   {
-    stream.writeAttribute("name", getPrefix(), mId);
+    stream.writeAttribute("name", getPrefix(), mName);
   }
 
   //
