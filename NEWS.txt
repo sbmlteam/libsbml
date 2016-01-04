@@ -1,6 +1,101 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
+5.12.1 (Current svn)
+====================================================================
+
+STABLE RELEASE
+
+* New features
+	
+  - 'comp' package-specific updates:
+  - 'fbc' package-specific updates:
+  - 'layout' package-specific updates:
+  - 'qual' package-specific updates:
+
+* Bug fixes
+
+  - Validation was failing to report that a 'variable' attribute is
+    not permitted on an AlgebraicRule.  This has been corrected.
+
+  - Sourceforge libSBML Tracker #418: Using the isnan() function can
+    cause issues with some compilers. LibSBML has a util_isNaN() function
+    which should be used when necessary.  Thanks to Alan Garny for
+    reporting this issue.
+
+  - The functions that convert an enumeration value to a string were
+    not been ported to language bindings.  This has now been sorted.
+    Thanks to Matthias König for letting us know.
+
+  - The new ASTNode class instances was failing to deal correctly with 
+    semantic annotations.  This has been fixed.
+
+  - 'comp' package-specific bug fixes:
+
+    - Failing to access an external model could cause an endless
+      loop whilst attemting validation.  This has been corrected.
+      Thanks to Chris Myers for the report.
+
+  - 'fbc' package-specific bug fixes:
+
+    - Sourceforge libSBML Tracker #419: The converters provided for
+      converting from COBRA style SBML models to SBML+fbc style models
+      was losing a charge of '0' if explicilty set. This has been
+      corrected. Thanks to Ali Ebrahim for reporting the problem. 
+
+  - 'layout' package-specific bug fixes:
+
+    - In some cases the value of the 'id' attribute was being written out
+      as the 'name'.  This has been fixed.
+
+  - 'qual' package-specific bug fixes:
+
+* Configuration/build system changes
+
+
+* Miscellaneous
+
+  - There is a known bug in GCC versions 5.1 and 5.2 which results in the 
+    problem that calling the copy constructor of a base class in the 
+    constructor of derived classes produces crashing code.  The problem 
+    manifests itself in libSBML when using a language binding such as the 
+    Python interface. Workarounds have been added to teh libSBML 
+    'Known Issues' documentation.
+
+  - Sourceforge libSBML Tracker #417: Documentation was failing to write
+    using Python 3.5.  This has been fixed.  Thanks to  Antonio Trande for
+    reporting this.
+
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+  - 'arrays' package-specific updates:
+  - 'distrib' package-specific updates:
+  - 'dyn' package-specific updates:
+  - 'groups' package-specific updates:
+
+    - The code has been updated to reflect v0.7 of the Groups specification.
+
+  - 'multi' package-specific updates:
+  - 'render' package-specific updates:
+  - 'req' package-specific updates:
+  - 'spatial' package-specific updates:
+
+ * Bug fixes
+ 
+  - 'arrays' package-specific bug fixes:
+  - 'distrib' package-specific bug fixes:
+  - 'dyn' package-specific bug fixes:
+  - 'groups' package-specific bug fixes:
+  - 'multi' package-specific bug fixes:
+  - 'render' package-specific bug fixes:
+  - 'req' package-specific bug fixes:
+  - 'spatial' package-specific bug fixes:
+
+
+====================================================================
 5.12.0 (2015-11-12)
 ====================================================================
 
