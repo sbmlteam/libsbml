@@ -294,57 +294,58 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
   int pp, cp;
   int pt, ct;
   int group = 0;
-  int parentmodulo = 0;
-
 
   if (parent != NULL)
   {
-    if (ASTNode_getType(parent) == AST_SEMANTICS)
-    {
-      return group;
+    if (isTranslatedModulo(parent)) {
+      if (!L3FormulaFormatter_hasUnambiguousGrammar(NULL, child, settings)) {
+        //Always group potentially-ambiguous children of 'modulo', since '%' precedence is unfamiliar to most users.
+        group = 1;
+      }
     }
-    parentmodulo = isTranslatedModulo(parent);
-    if (parentmodulo || !L3FormulaFormatter_hasUnambiguousGrammar(parent, child, settings))
+    else if (!L3FormulaFormatter_hasUnambiguousGrammar(parent, child, settings))
     {
-      group = 1;
-      pp = getL3Precedence(parent);
-      cp = getL3Precedence(child);
+      if (isTranslatedModulo(child)) {
+        //Always group child 'modulo', since '%' precedence is unfamiliar to most users.
+        group = 1;
+      }
+      else {
+        group = 1;
+        pp = getL3Precedence(parent);
+        cp = getL3Precedence(child);
 
-      if (pp < cp)
-      {
-        group = 0;
-      }
-      else if (pp == cp)
-      {
-        if (parentmodulo) {
-          //Always group:  x * y % z -> (x * y) % z
-          group = 1;
-        }
-        /**
-         * Don't group only if i) child is the first on the list and ii) both parent and
-         * child are the same type, or if they
-         * should be associative operators (i.e. not AST_MINUS or
-         * AST_DIVIDE).  That is, do not group a parent and left child
-         * that are either both AST_PLUS or both AST_TIMES operators, nor the logical operators
-         * that have the same precedence.
-         */
-        if (ASTNode_getLeftChild(parent) == child)
+        if (pp < cp)
         {
-          pt = ASTNode_getType(parent);
-          ct = ASTNode_getType(child);
-          if (ASTNode_isLogical(parent) || ASTNode_isRelational(parent)) {
-            group = !(pt == ct);
-          }
-          else {
-            group = !((pt == ct) || (pt == AST_PLUS || pt == AST_TIMES));
+          group = 0;
+        }
+        else if (pp == cp)
+        {
+          /**
+          * Don't group only if i) child is the first on the list and ii) both parent and
+          * child are the same type, or if they
+          * should be associative operators (i.e. not AST_MINUS or
+          * AST_DIVIDE).  That is, do not group a parent and left child
+          * that are either both AST_PLUS or both AST_TIMES operators, nor the logical operators
+          * that have the same precedence.
+          */
+          if (ASTNode_getLeftChild(parent) == child)
+          {
+            pt = ASTNode_getType(parent);
+            ct = ASTNode_getType(child);
+            if (ASTNode_isLogical(parent) || ASTNode_isRelational(parent)) {
+              group = !(pt == ct);
+            }
+            else {
+              group = !((pt == ct) || (pt == AST_DIVIDE || pt == AST_MINUS));
+            }
           }
         }
-      }
-      else if (pp==7 && cp==6) {
-        //If the parent is 'power' and the child is 'unary not' or 'unary minus', we only need
-        // to group if the child is the *left* child:  '(-x)^y', but 'x^-y'.
-        if (!(ASTNode_getLeftChild(parent) == child)) { 
-          group = 0;
+        else if (pp==7 && cp==6) {
+          //If the parent is 'power' and the child is 'unary not' or 'unary minus', we only need
+          // to group if the child is the *left* child:  '(-x)^y', but 'x^-y'.
+          if (!(ASTNode_getLeftChild(parent) == child)) { 
+            group = 0;
+          }
         }
       }
     }
@@ -787,7 +788,7 @@ L3FormulaFormatter_visitModulo ( const ASTNode_t *parent,
   //Get x and y from the first child of the piecewise function, 
   // then the first child of that (times), and the first child
   // of that (minus).
-  L3FormulaFormatter_visit ( subnode, ASTNode_getLeftChild(subnode), sb, settings);
+  L3FormulaFormatter_visit ( node, ASTNode_getLeftChild(subnode), sb, settings);
   StringBuffer_appendChar(sb, ' ');
   StringBuffer_appendChar(sb, '%');
   StringBuffer_appendChar(sb, ' ');
@@ -872,6 +873,10 @@ L3FormulaFormatter_hasUnambiguousGrammar(const ASTNode_t *node,
   //'8', the highest precedence, is only ever given to functions and other top-level 
   // unambiguous objects.
   if (getL3Precedence(child) == 8) return 1;
+
+  //If the parent node is 'semantics' this never gets printed at all.
+  if (ASTNode_getType(node) == AST_SEMANTICS) return 1;
+
   return 0;
 }
 
