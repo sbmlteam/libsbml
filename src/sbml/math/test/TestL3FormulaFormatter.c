@@ -177,11 +177,14 @@ START_TEST (test_L3FormulaFormatter_isGrouped)
    *
    * In this case, explicit grouping is not needed due to associativity
    * rules.
+   *
+   * Note: changed in 2016 as a review of infix roundtripping
    */
   p = SBML_parseL3Formula("(a / b) * c");
 
   c = ASTNode_getLeftChild(p);
-  fail_unless( L3FormulaFormatter_isGrouped(p, c, NULL) == 0, NULL );
+  //fail_unless( L3FormulaFormatter_isGrouped(p, c, NULL) == 0, NULL );
+  fail_unless( L3FormulaFormatter_isGrouped(p, c, NULL) == 1, NULL );
 
   c = ASTNode_getRightChild(p);
   fail_unless( L3FormulaFormatter_isGrouped(p, c, NULL) == 0, NULL );
@@ -340,7 +343,7 @@ START_TEST (test_SBML_formulaToL3String)
     "foo(1)",
     "foo(1, bar)",
     "foo(1, bar, 2^-3)",
-    "a / b * c",
+    "(a / b) * c",
     "a / (b * c)",
     "1 + 2 + 3",
     "a * (b * c)",
@@ -349,8 +352,8 @@ START_TEST (test_SBML_formulaToL3String)
     "a + b + c",
     "x % y",
     "(1 + x) % (3 / y)",
-    "x^2 % -y",
-    "x && y == z",
+    "(x^2) % -y",
+    "x && (y == z)",
     "(x && y) == z",
     "(a && b) || c",
     "a && (b || c)",
@@ -359,7 +362,7 @@ START_TEST (test_SBML_formulaToL3String)
     "-x^y",
     "(-x)^y",
     "x^-y",
-    "!x^2",
+    "!(x^2)",
     "(!x)^2",
     "x^!2",
     "1 ml",
@@ -372,7 +375,7 @@ START_TEST (test_SBML_formulaToL3String)
     "true",
     "false",
     "(x > y) + (p == q)",
-    "gt(x, y, z) + eq(p, d, q)",
+    "(x > y > z) + (p == d == q)",
     "(x || y) > (p && q)",
     "or(x) > and(p)",
     "or() > and()",
@@ -752,7 +755,7 @@ START_TEST (test_L3FormulaFormatter_multiEq)
   ASTNode_setName(c, "z");
   ASTNode_addChild(n, c);
   s = SBML_formulaToL3String(n);
-  fail_unless( !strcmp(s, "eq(x, y, z)"), NULL );
+  fail_unless( !strcmp(s, "x == y == z"), NULL );
   safe_free(s);
 
   ASTNode_free(n);
@@ -822,7 +825,7 @@ START_TEST (test_L3FormulaFormatter_multiGT)
   ASTNode_setName(c, "z");
   ASTNode_addChild(n, c);
   s = SBML_formulaToL3String(n);
-  fail_unless( !strcmp(s, "gt(x, y, z)"), NULL );
+  fail_unless( !strcmp(s, "x > y > z"), NULL );
   safe_free(s);
 
   ASTNode_free(n);
