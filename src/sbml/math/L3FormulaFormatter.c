@@ -45,6 +45,24 @@
 #include <sbml/util/util.h>
 
 int
+isUnaryMinus (const ASTNode_t *node)
+{
+  if (node==NULL) return 0;
+  if (ASTNode_getType(node) != AST_MINUS) return 0;
+  if (ASTNode_getNumChildren(node) != 1) return 0;
+  return 1;
+}
+
+int
+isUnaryNot (const ASTNode_t *node)
+{
+  if (node==NULL) return 0;
+  if (ASTNode_getType(node) != AST_LOGICAL_NOT) return 0;
+  if (ASTNode_getNumChildren(node) != 1) return 0;
+  return 1;
+}
+
+int
 L3FormulaFormatter_hasUnambiguousGrammar(const ASTNode_t *node, 
                                const ASTNode_t *child, 
                                const L3ParserSettings_t *settings);
@@ -175,6 +193,17 @@ int isTranslatedModulo (const ASTNode_t* node)
   return 1;
 }
 
+const ASTNode_t* L3FormulaFormatter_getRightChild(const ASTNode_t* parent)
+{
+  if (isTranslatedModulo(parent)==1) {
+    return ASTNode_getChild(ASTNode_getChild(ASTNode_getChild(parent, 0), 1), 0);
+  }
+  if (isUnaryMinus(parent) || isUnaryNot(parent)) {
+    return ASTNode_getChild(parent, 0);
+  }
+  return ASTNode_getRightChild(parent);
+}
+
 
 /*
  * @return the precedence of this ASTNode as defined in the L3 parser documentation.
@@ -242,8 +271,8 @@ int getL3Precedence(const ASTNode_t* node)
       case AST_RELATIONAL_LEQ:
       case AST_RELATIONAL_LT:
       case AST_RELATIONAL_NEQ:
-        //The relational symbols (==, >=, etc.) are only used when there are two children.
-        if (numchildren == 2) {
+        //The relational symbols (==, >=, etc.) are only used when there are two or more children.
+        if (numchildren >= 2) {
           precedence = 3;
         }
         else {
@@ -294,19 +323,28 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
   int pp, cp;
   int pt, ct;
   int group = 0;
+  const ASTNode_t* rchild = NULL;
 
   if (parent != NULL)
   {
-    if (isTranslatedModulo(parent)) {
+    if (ASTNode_isLogical(parent) || ASTNode_isRelational(parent) || isTranslatedModulo(parent)) {
       if (!L3FormulaFormatter_hasUnambiguousGrammar(NULL, child, settings)) {
-        //Always group potentially-ambiguous children of 'modulo', since '%' precedence is unfamiliar to most users.
+        //Always group potentially-ambiguous children of logical, relational, and modulo operators, since their precedence is unfamiliar to most users.
         group = 1;
+        rchild = L3FormulaFormatter_getRightChild(parent);
+        if (child == rchild) {
+          if (isUnaryMinus(child) || isUnaryNot(child)) {
+          //Don't need to group right-side unary minus nor unary not: they are not actually ambiguous
+          group = 0;
+          }
+        }
       }
     }
     else if (!L3FormulaFormatter_hasUnambiguousGrammar(parent, child, settings))
     {
-      if (isTranslatedModulo(child)) {
-        //Always group child 'modulo', since '%' precedence is unfamiliar to most users.
+      if ((ASTNode_isLogical(child) || ASTNode_isRelational(child) || isTranslatedModulo(child)) &&
+          !isUnaryMinus(child) && !isUnaryNot(child)){
+        //Always group child  logical, relational, and modulo, since their precedence is unfamiliar to most users.
         group = 1;
       }
       else {
@@ -906,7 +944,7 @@ L3FormulaFormatter_isFunction (const ASTNode_t *node,
   case AST_RELATIONAL_GT:
   case AST_RELATIONAL_LEQ:
   case AST_RELATIONAL_LT:
-    if (ASTNode_getNumChildren(node) == 2) {
+    if (ASTNode_getNumChildren(node) >= 2) {
       return 0;
     }
     return 1;
