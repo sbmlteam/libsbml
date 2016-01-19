@@ -425,6 +425,14 @@ L3FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node, const L3Pa
   {
     L3FormulaFormatter_formatReal(sb, node, settings);
   }
+  else if (ASTNode_isAvogadro(node))
+  {
+    StringBuffer_append(sb, "avogadro");
+  }
+  else if (ASTNode_getType(node) == AST_NAME_TIME)
+  {
+    StringBuffer_append(sb, "time");
+  }
   else if ( !ASTNode_isUnknown(node) )
   {
     StringBuffer_append(sb, ASTNode_getName(node));
@@ -459,6 +467,9 @@ L3FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node, co
     break;
   case AST_FUNCTION_LN:
     StringBuffer_append(sb, "ln");
+    break;
+  case AST_FUNCTION_DELAY:
+    StringBuffer_append(sb, "delay");
     break;
 
   default:
