@@ -187,8 +187,9 @@ endif
 distfiles =							  \
             Makefile.in						  \
             CMakeLists.txt					  \
+            add_version.cmake					  \
             test.py						  \
-	    local-doc-extras.i					  \
+            local-doc-extras.i					  \
             local-packages.i.in					  \
             local-layout.i					  \
             setup.cfg						  \

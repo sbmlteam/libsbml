@@ -50,6 +50,7 @@ file(GLOB SWIG_DEPENDENCIES
   ${CMAKE_CURRENT_SOURCE_DIR}/*.i 
   ${CMAKE_CURRENT_SOURCE_DIR}/*.h 
   ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/*.cmake
   ${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
   ${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
   )
@@ -216,6 +217,11 @@ add_custom_command(
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E rename pydoc.i pydoc-normal.i 
 
+  COMMAND "${CMAKE_COMMAND}"
+  ARGS  -DCUR_BIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+        -DVERSION=\"${LIBSBML_DOTTED_VERSION}\"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/add_version.cmake"
+
   MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
           ${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py
@@ -323,8 +329,7 @@ add_custom_command(
 )
 
 add_custom_target(binding_python_source_config ALL DEPENDS ${PYTHON_SOURCE_OUT_DIR}/setup.py)
-add_dependencies(binding_python_source_config binding_python_swig)
-
+add_dependencies(binding_python_source_config binding_python_swig binding_python_lib)
 add_custom_command(
   OUTPUT ${PYTHON_SOURCE_OUT_DIR}/MANIFEST
 
