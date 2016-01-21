@@ -272,7 +272,7 @@ endif()
 
 if(APPLE)
   option (PYTHON_USE_DYNAMIC_LOOKUP
-  "Do not actually link against the python library, instead use the undefined lookup mechanism, that ." OFF)
+  "Do not actually link against the python library, instead use the undefined lookup mechanism." OFF)
   mark_as_advanced(PYTHON_USE_DYNAMIC_LOOKUP)
 endif(APPLE)
 
@@ -296,13 +296,44 @@ else()
   set(PYTHON_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/python)
 endif()
 
-INSTALL(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
+####################################################################
+#
+# install using the configured install prefix
+#
 
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth" "libsbml\n")
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
+option (PYTHON_INSTALL_IN_PREFIX
+        "Install python binaries using the specified install prefix." ON)
+if (PYTHON_INSTALL_IN_PREFIX)
+  install(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
+  
+  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth" "libsbml\n")
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
+endif(PYTHON_INSTALL_IN_PREFIX)
 
+####################################################################
+#
+# install using setup.py
+#
 
+option (PYTHON_INSTALL_WITH_SETUP
+        "Use setup.py to install the compiled python binaries (be sure to install with the apropriate priviledges)." OFF)
+if (PYTHON_INSTALL_WITH_SETUP)
+
+  # adjust the setup.py script 
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/setup.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/setup.py)
+    
+  # execute the python interpreter
+   INSTALL(TARGETS binding_python_lib DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbml)
+   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/libsbml RENAME __init__.py )
+   INSTALL(CODE "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E chdir ${CMAKE_CURRENT_BINARY_DIR} ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/setup.py install)")
+
+endif(PYTHON_INSTALL_WITH_SETUP)
+
+####################################################################
+#
+# generate source package
+#
 option(WITH_CREATE_PYTHON_SOURCE   "Generate Python Source Package." OFF)
 if (WITH_CREATE_PYTHON_SOURCE AND EXISTS "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/")
 
