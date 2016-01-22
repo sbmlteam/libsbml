@@ -317,7 +317,7 @@ endif(PYTHON_INSTALL_IN_PREFIX)
 #
 
 option (PYTHON_INSTALL_WITH_SETUP
-        "Use setup.py to install the compiled python binaries (be sure to install with the apropriate priviledges)." OFF)
+        "Use setup.py to install the compiled python binaries (be sure to install with the appropriate privileges)." OFF)
 if (PYTHON_INSTALL_WITH_SETUP)
 
   # adjust the setup.py script 
