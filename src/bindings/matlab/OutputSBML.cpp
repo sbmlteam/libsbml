@@ -280,20 +280,19 @@ char * ReadString(mxArray* mxParent, const char * name,
                   size_t total)
 {
   mxArray * mxField;
-  char * value;
-  size_t nBuflen = 0;
-  int nStatus;
+  char * value = NULL;
+  int nStatus = 1;
 
   /* get field */
   mxField = mxGetField(mxParent, index, name);
   if (mxField != NULL)
   {
-    nBuflen = (mxGetM(mxField)*mxGetN(mxField)+1);
-    value = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxField, value, (mwSize)(nBuflen));
+    value = mxArrayToString(mxField);
+    if (value != NULL)
+    {
+      nStatus = 0;
+    }
   }
-  else
-    nStatus = 1;
 
   if (nStatus != 0)
   {
@@ -573,16 +572,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   SBase_setNotesString((SBase_t *)(sbmlModel), pacNotes); 
 
   /* get name */
-  mxName = mxGetField(mxModel[0], 0, "name");
-  nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
-  pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    reportError("OutputSBML:Model", "Cannot copy name");
-  }
-
+  pacName = ReadString(mxModel[0], "name", "Model", 0, 0);
   Model_setName(sbmlModel, pacName);
 
   mxUnitDefinitions = mxGetField(mxModel[0], 0, "unitDefinition");
@@ -620,16 +610,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     Model_setId(sbmlModel, pacId);
 
     /* get metaid */
-    mxMetaid = mxGetField(mxModel[0], 0, "metaid");
-    nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
-    pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
-
-    if (nStatus != 0)
-    {
-      reportError("OutputSBML:Model", "Cannot copy metaid");
-    }
-
+    pacMetaid = ReadString(mxModel[0], "metaid", "Model", 0, 0);
     SBase_setMetaId((SBase_t *) (sbmlModel), pacMetaid);
 
     mxFunctionDefinitions = mxGetField(mxModel[0], 0, "functionDefinition");
@@ -774,17 +755,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 
   /* get annotations  */
-  mxAnnotations = mxGetField(mxModel[0], 0, "annotation");
-  nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
-  pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
-
-  if (nStatus != 0)
-  {
-    reportError("OutputSBML:Model", "Cannot copy annotations");
-  }
-
+  pacAnnotations = ReadString(mxModel[0], "annotation", "Model", 0, 0);
   SBase_setAnnotationString((SBase_t *) (sbmlModel), pacAnnotations); 
 
   if (fbcPresent == 1)
