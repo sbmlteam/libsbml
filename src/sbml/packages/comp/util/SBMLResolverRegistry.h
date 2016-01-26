@@ -170,6 +170,10 @@ public:
    */
   virtual SBMLUri* resolveUri(const std::string &uri, const std::string& baseUri="") const;
 
+  /**
+   * deletes the static resolver registry instance
+   */
+  static void deleteResolerRegistryInstance();
 
 protected:
 
@@ -185,6 +189,7 @@ protected:
   /** @cond doxygenLibsbmlInternal */
   std::vector<const SBMLResolver*>  mResolvers;
   std::set<const SBMLDocument*>  mOwnedDocuments;
+  static SBMLResolverRegistry* mInstance;
   /** @endcond */
 };
 

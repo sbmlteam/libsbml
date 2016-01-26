@@ -30,6 +30,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 #include <sbml/SBMLDocument.h>
 #include <sbml/packages/comp/util/SBMLResolverRegistry.h>
@@ -41,11 +42,24 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+SBMLResolverRegistry* SBMLResolverRegistry::mInstance = NULL;
+
+void 
+SBMLResolverRegistry::deleteResolerRegistryInstance()
+{
+  delete SBMLResolverRegistry::mInstance;
+  SBMLResolverRegistry::mInstance = NULL;
+}
+
 SBMLResolverRegistry&
 SBMLResolverRegistry::getInstance()
 {
-  static SBMLResolverRegistry singletonObj; 
-  return singletonObj;
+  if (SBMLResolverRegistry::mInstance == NULL) 
+  {
+    mInstance = new SBMLResolverRegistry();
+    std::atexit(&SBMLResolverRegistry::deleteResolerRegistryInstance);
+  }
+  return *mInstance;
 }
 
 int

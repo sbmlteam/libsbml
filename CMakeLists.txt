@@ -59,11 +59,13 @@ set(LIBSBML_VERSION_MAJOR)
 set(LIBSBML_VERSION_MINOR)
 set(LIBSBML_VERSION_PATCH)
 set(LIBSBML_VERSION_RELEASE)
+set(LIBSBML_DOTTED_VERSION)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
 
     file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME)
     string(STRIP "${VersionString}" VersionString)
+    set(LIBSBML_DOTTED_VERSION ${VersionString})
     string(REPLACE "." ";" VersionString "${VersionString}" )
     string(REPLACE "-" ";" VersionString "${VersionString}" )
     list(LENGTH VersionString versionLength)

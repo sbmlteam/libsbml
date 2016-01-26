@@ -81,7 +81,9 @@
 %define SWIGCSHARP_IMTYPE_WSTRING(TYPENAME)
 %typemap(imtype, 
          inattributes="[MarshalAs(UnmanagedType.LPWStr)]", 
-         outattributes="[return: MarshalAs(UnmanagedType.LPWStr)]" 
+         outattributes="[return: MarshalAs(UnmanagedType.LPWStr)]",
+         directorinattributes="[MarshalAs(UnmanagedType.LPWStr)]", 
+         directoroutattributes="[return: MarshalAs(UnmanagedType.LPWStr)]"
         ) TYPENAME "string"
 %enddef
 
@@ -1253,7 +1255,6 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 %typemap(ctype) char*              "wchar_t*"
 %typemap(ctype) const char*        "wchar_t*"
 
-
 //
 // Unicode -> UTF8 (std::string&, const std::string&)
 // (argument variable)
@@ -1354,6 +1355,11 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
     arg_str.assign(mbstr);
     $1 = &arg_str;
     delete[] mbstr;
+}
+
+%typemap("directorin") std::string const &uri, const std::string& baseUri{
+  $input = convertUTF8ToUnicode( $1.c_str());
+  if (!$input) return $null;
 }
 
 

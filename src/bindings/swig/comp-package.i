@@ -32,6 +32,7 @@
 
 #ifdef USE_COMP
 
+%feature("director") SBMLResolver;  
 
 %ignore Submodel::getAllInstantiatedElements;
 
