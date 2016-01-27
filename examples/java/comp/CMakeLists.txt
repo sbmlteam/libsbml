@@ -33,6 +33,7 @@ find_package(Java COMPONENTS Development REQUIRED)
 
 foreach(file 
 		flattenModel
+		customResolver
 		)
 	
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} CURRENT_BIN)
