@@ -3,7 +3,7 @@
  * @brief   ModelCreator I/O
  * @author  Sarah Keating
  * 
- * Copyright (C) 2013-2015 jointly by the following organizations:
+ * Copyright (C) 2013-2016 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
  *     3. University of Heidelberg, Heidelberg, Germany

@@ -6,7 +6,7 @@ dnl ---------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more
 dnl information about SBML, and the latest version of libSBML.
 dnl
-dnl Copyright (C) 2013-2014 jointly by the following organizations:
+dnl Copyright (C) 2013-2016 jointly by the following organizations:
 dnl     1. California Institute of Technology, Pasadena, CA, USA
 dnl     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
 dnl     3. University of Heidelberg, Heidelberg, Germany
