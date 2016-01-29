@@ -4,10 +4,7 @@
     <notes>
       <body xmlns="http://www.w3.org/1999/xhtml">
         <p>Simple branch system.</p>
-        <p>The reaction looks like this:</p>
-        <p>reaction-1:   X0 -&gt; S1; k1*X0;</p>
-        <p>reaction-2:   S1 -&gt; X1; k2*S1;</p>
-        <p>reaction-3:   S1 -&gt; X2; k3*S1;</p>
+        <p>ɱ - some € symbolsβ śԈ</p>
       </body>
     </notes>
     <listOfCompartments>
