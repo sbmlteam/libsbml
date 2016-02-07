@@ -7,13 +7,22 @@
 STABLE RELEASE
 
 * New features
+
+  - The Python binding now includes a __version__ field.
 	
   - 'comp' package-specific updates:
+
+    - The SBMLResolver interface has been exposed within language bindings.
+
   - 'fbc' package-specific updates:
   - 'layout' package-specific updates:
   - 'qual' package-specific updates:
 
 * Bug fixes
+
+  - Sourceforge libSBML Tracker #421: The MATLAB binding was failing 
+    to round trip multi-byte characters used in strings. This has
+    been fixed. Thanks to Will Matern for the report.
 
   - Validation was failing to report that a 'variable' attribute is
     not permitted on an AlgebraicRule.  This has been corrected.
@@ -52,6 +61,11 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
+  - The Python version of libSBML available via PyPi now includes all
+    dependencies. 
+
+  - The Python bindings can now be configures to install using setup.py.
+
 
 * Miscellaneous
 
@@ -76,7 +90,13 @@ EXPERIMENTAL RELEASE
   - 'dyn' package-specific updates:
   - 'groups' package-specific updates:
 
-    - The code has been updated to reflect v0.7 of the Groups specification.
+    - The code has been updated to reflect Release Candidate 2
+      of the Groups specification. Some, but not all, validation has 
+      been added.
+
+    - A function currently named 'copyInformationToNestedLists' has been
+      added to facilitate keeping infomation consistent when multiple 
+      <group> objects refer to the same thing.
 
   - 'multi' package-specific updates:
   - 'render' package-specific updates:
