@@ -327,6 +327,20 @@ L3FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child, c
 
   if (parent != NULL)
   {
+    if (isUnaryMinus(parent)) {
+      child = L3FormulaFormatter_getRightChild(parent);
+      if (isUnaryNot(child)) {
+        //Always group: -(!a) because reasons.
+        return 1;
+      }
+    }
+    else if (isUnaryNot(parent)) {
+      child = L3FormulaFormatter_getRightChild(parent);
+      if (isUnaryMinus(child)) {
+        //Always group: !(-a) because reasons.
+        return 1;
+      }
+    }
     if (ASTNode_isLogical(parent) || ASTNode_isRelational(parent) || isTranslatedModulo(parent)) {
       if (!L3FormulaFormatter_hasUnambiguousGrammar(NULL, child, settings)) {
         //Always group potentially-ambiguous children of logical, relational, and modulo operators, since their precedence is unfamiliar to most users.
