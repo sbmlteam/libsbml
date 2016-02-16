@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.8.1 on 2016-02-16 12:04 with libSBML version 5.12.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+    <model id="__main" name="__main" substanceUnits="substance" timeUnits="time_unit" volumeUnits="volume" areaUnits="area" lengthUnits="length" extentUnits="extent">
+        <listOfUnitDefinitions>
+            <unitDefinition id="mmol">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="mM">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+                    <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="mmol_per_s">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+                    <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="test">
+                <listOfUnits>
+                    <unit kind="litre" exponent="1" scale="3" multiplier="1"/>
+                    <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="substance">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="volume">
+                <listOfUnits>
+                    <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="area">
+                <listOfUnits>
+                    <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="length">
+                <listOfUnits>
+                    <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="extent">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+            <unitDefinition id="time_unit">
+                <listOfUnits>
+                    <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+                </listOfUnits>
+            </unitDefinition>
+        </listOfUnitDefinitions>
+        <listOfCompartments>
+            <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species id="S1" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        </listOfSpecies>
+        <listOfParameters>
+            <parameter id="v0" value="1" units="mmol_per_s" constant="true"/>
+            <parameter id="k1" value="1" units="test" constant="true"/>
+        </listOfParameters>
+        <listOfReactions>
+            <reaction id="J0" reversible="true" fast="false">
+                <listOfReactants>
+                    <speciesReference species="S1" stoichiometry="1" constant="true"/>
+                </listOfReactants>
+                <kineticLaw>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <apply>
+                            <times/>
+                            <ci> v0 </ci>
+                            <ci> k1 </ci>
+                        </apply>
+                    </math>
+                </kineticLaw>
+            </reaction>
+        </listOfReactions>
+    </model>
+</sbml>

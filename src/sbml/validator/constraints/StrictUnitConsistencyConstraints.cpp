@@ -756,7 +756,7 @@ START_CONSTRAINT( 9910511, AssignmentRule, ar)
     msg += ".";
   }
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
 }
@@ -833,13 +833,13 @@ START_CONSTRAINT( 9910512, AssignmentRule, ar)
   //   * for speciesConcetration although species only had substance units
   //   */
 
-  //  inv (areIdentical(formulaUnits->getUnitDefinition(), 
+  //  inv (areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
   //                      variableUnits->getL1SpeciesConcUnitDefinition()) == 1);
 
   //}
   //else
   //{
-    inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+    inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                             variableUnits->getUnitDefinition()) == 1);
   //}
 }
@@ -908,7 +908,7 @@ START_CONSTRAINT( 9910513, AssignmentRule, ar)
     msg += ".";
   }
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -990,7 +990,7 @@ START_CONSTRAINT( 9910521, InitialAssignment, ia)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1035,7 +1035,7 @@ START_CONSTRAINT( 9910522, InitialAssignment, ia)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1078,7 +1078,7 @@ START_CONSTRAINT( 9910523, InitialAssignment, ia)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1199,7 +1199,7 @@ START_CONSTRAINT( 9910531, RateRule, rr)
     msg += ".";
   }
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                                variableUnits->getPerTimeUnitDefinition()) == 1);
 
 }
@@ -1283,13 +1283,13 @@ START_CONSTRAINT( 9910532, RateRule, rr)
   //   * for speciesConcetration although species only had substance units
   //   */
 
-  //  inv (areIdentical(formulaUnits->getUnitDefinition(), 
+  //  inv (areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
   //              variableUnits->getL1SpeciesConcPerTimeUnitDefinition()) == 1);
 
   //}
   //else
   //{
-    inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+    inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                             variableUnits->getPerTimeUnitDefinition()) == 1);
   //}
 }
@@ -1366,7 +1366,7 @@ START_CONSTRAINT( 9910533, RateRule, rr)
     msg += ".";
   }
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                               variableUnits->getPerTimeUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1409,7 +1409,7 @@ START_CONSTRAINT( 9910534, RateRule, rr)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
   
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                               variableUnits->getPerTimeUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1466,7 +1466,7 @@ START_CONSTRAINT( 9910541, KineticLaw, kl)
   msg += ".";
 
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                                       variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1512,7 +1512,7 @@ START_CONSTRAINT( 9910542, Species, s)
   msg += ".";
 
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getSpeciesSubstanceUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getSpeciesSubstanceUnitDefinition(), 
                                       variableUnits->getSpeciesExtentUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1549,7 +1549,7 @@ START_CONSTRAINT( 9910551, Event, e)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                               formulaUnits->getEventTimeUnitDefinition()) == 1);
 
 }
@@ -1602,7 +1602,7 @@ START_CONSTRAINT( 9910561, EventAssignment, ea)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 
 }
@@ -1650,7 +1650,7 @@ START_CONSTRAINT( 9910562, EventAssignment, ea)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
@@ -1696,7 +1696,7 @@ START_CONSTRAINT( 9910563, EventAssignment, ea)
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
   msg += ".";
 
-  inv (UnitDefinition::areIdentical(formulaUnits->getUnitDefinition(), 
+  inv (UnitDefinition::areIdenticalSIUnits(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
