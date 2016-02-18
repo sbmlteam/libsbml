@@ -1131,7 +1131,7 @@ Unit::areEquivalent(Unit * unit1, Unit * unit2)
       if (unit1->isUnitChecking() || unit2->isUnitChecking())
       {
         if ( (unit1->getOffset()    == unit2->getOffset())
-          && (unit1->getExponentUnitChecking()  == unit2->getExponentUnitChecking()))
+          && (util_isEqual(unit1->getExponentUnitChecking(), unit2->getExponentUnitChecking())))
         {
           equivalent = true;
         }      

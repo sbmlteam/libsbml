@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.8.1 on 2016-02-16 12:04 with libSBML version 5.12.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+        <model id="__main" name="__main" substanceUnits="substance" timeUnits="time_unit" volumeUnits="volume" areaUnits="area" lengthUnits="length" extentUnits="extent">
+            <listOfUnitDefinitions>
+                <unitDefinition id="substance">
+                    <listOfUnits>
+                        <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="volume">
+                    <listOfUnits>
+                        <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="m3">
+                    <listOfUnits>
+                        <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="area">
+                    <listOfUnits>
+                        <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="length">
+                    <listOfUnits>
+                        <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="extent">
+                    <listOfUnits>
+                        <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="time_unit">
+                    <listOfUnits>
+                        <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="mM">
+                    <listOfUnits>
+                        <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+                        <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+                <unitDefinition id="mol_per_s">
+                    <listOfUnits>
+                        <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+                        <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+                    </listOfUnits>
+                </unitDefinition>
+            </listOfUnitDefinitions>
+            <listOfParameters>
+                <parameter id="fru6p" value="0.1" units="mM" constant="true"/>
+                <parameter id="atp" value="2.8" units="mM" constant="true"/>
+                <parameter id="PFK2_n_native" value="1.3" units="dimensionless" constant="true"/>
+                <parameter id="PFK2_n_phospho" value="2.1" units="dimensionless" constant="true"/>
+                <parameter id="PFK2_k_fru6p_native" value="0.016" units="mM" constant="true"/>
+                <parameter id="PFK2_k_fru6p_phospho" value="0.05" units="mM" constant="true"/>
+                <parameter id="PFK2_k_atp_native" value="0.28" units="mM" constant="true"/>
+                <parameter id="PFK2_k_atp_phospho" value="0.65" units="mM" constant="true"/>
+                <parameter id="PFK2_Vmax" value="0.0042" units="mol_per_s" constant="true"/>
+                <parameter id="PFK2_native" units="mol_per_s" constant="false"/>
+            </listOfParameters>
+            <listOfRules>
+                <assignmentRule variable="PFK2_native">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <times/>
+                                        <ci> PFK2_Vmax </ci>
+                                        <apply>
+                                            <power/>
+                                            <ci> fru6p </ci>
+                                            <ci> PFK2_n_native </ci>
+                                        </apply>
+                                    </apply>
+                                    <apply>
+                                        <plus/>
+                                        <apply>
+                                            <power/>
+                                            <ci> fru6p </ci>
+                                            <ci> PFK2_n_native </ci>
+                                        </apply>
+                                        <apply>
+                                            <power/>
+                                            <ci> PFK2_k_fru6p_native </ci>
+                                            <ci> PFK2_n_native </ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                                <ci> atp </ci>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci> atp </ci>
+                                <ci> PFK2_k_atp_native </ci>
+                            </apply>
+                        </apply>
+                    </math>
+                </assignmentRule>
+            </listOfRules>
+        </model>
+        </sbml>  
