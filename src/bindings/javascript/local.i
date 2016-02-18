@@ -382,17 +382,25 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
                                SWIG_POINTER_OWN |  0 );
 }
 
-%typemap(out) List* SBase::getCVTerms
+%define LIST_WRAPPER(_FNAME_,_TYPENAME_)
+%typemap(out) List* _FNAME_
 {
-  ListWrapper<CVTerm> *listw = ($1 != 0)? new ListWrapper<CVTerm>($1) : 0;
+  ListWrapper<_TYPENAME_> *listw = ($1 != 0)? new ListWrapper<_TYPENAME_>($1) : 0;
   $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
 #if SWIG_VERSION > 0x010333
-                               SWIGTYPE_p_ListWrapperT_CVTerm_t, 
+                               SWIGTYPE_p_ListWrapperT_ ## _TYPENAME_ ## _t, 
 #else
-                               SWIGTYPE_p_ListWrapperTCVTerm_t, 
+                               SWIGTYPE_p_ListWrapperT ## _TYPENAME_ ## _t, 
 #endif
                                SWIG_POINTER_OWN |  0 );
 }
+
+%enddef
+
+LIST_WRAPPER(SBase::getCVTerms,CVTerm)
+LIST_WRAPPER(SBase::getListOfAllElements,SBase)
+LIST_WRAPPER(SBasePlugin::getListOfAllElements,SBase)
+LIST_WRAPPER(SBase::getListOfAllElementsFromPlugins,SBase)
 
 %include "local-packages.i"
 

@@ -351,11 +351,6 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_Date_t, SWIG_POINTER_OWN |  0 );
 }
 
-%typemap(out) List* SBase::getCVTerms
-{
-  ListWrapper<CVTerm> *listw = ($1 != 0)? new ListWrapper<CVTerm>($1) : 0;
-  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_CVTerm_t, SWIG_POINTER_OWN |  0 );
-}
  
 
 %include "local-packages.i"
@@ -392,13 +387,26 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
     $result <- new("_p_ListWrapperT_Date_t", ref=$result) ;
  %}
  
- 
-%typemap(scoerceout) List* SBase::getCVTerms
+%define LIST_WRAPPER(_FNAME_,_TYPENAME_)
+%typemap(out) List* _FNAME_
+{
+  ListWrapper<_TYPENAME_> *listw = ($1 != 0)? new ListWrapper<_TYPENAME_>($1) : 0;
+  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), SWIGTYPE_p_ListWrapperT_ ## _TYPENAME_ ## _t, SWIG_POINTER_OWN |  0 );
+}
+
+%typemap(scoerceout) List* _FNAME_
 %{ 
    if (length(grep("0x0>",capture.output($result))) > 0 ||
       length(grep("nil",capture.output($result))) > 0)
     {
       return(NULL);
     }
-    $result <- new("_p_ListWrapperT_CVTerm_t", ref=$result) ;
+    $result <- new("_p_ListWrapperT_##_TYPENAME_##_t", ref=$result) ;
  %}
+%enddef
+
+LIST_WRAPPER(SBase::getCVTerms,CVTerm)
+LIST_WRAPPER(SBase::getListOfAllElements,SBase)
+LIST_WRAPPER(SBasePlugin::getListOfAllElements,SBase)
+LIST_WRAPPER(SBase::getListOfAllElementsFromPlugins,SBase)
+
