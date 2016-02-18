@@ -354,7 +354,11 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
     }
     else if (isInteger == 0)
     {
-      logNonIntegerPowerConflict(node, sb);
+      // in level 3 this would be allowed
+      if (m.getLevel() < 3)
+      {
+        logNonIntegerPowerConflict(node, sb);
+      }
     }
 
   }
