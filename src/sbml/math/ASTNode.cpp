@@ -2897,10 +2897,18 @@ ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
       else if (arg->isReal())
       {
         this->setValue(arg->getReal());
+        if (arg->isSetUnits())
+        {
+          this->setUnits(arg->getUnits());
+        }
       }
       else if (arg->isInteger())
       {
         this->setValue(arg->getInteger());
+        if (arg->isSetUnits())
+        {
+          this->setUnits(arg->getUnits());
+        }
       }
       else if (arg->isConstant())
       {
@@ -2933,10 +2941,18 @@ ASTNode::replaceArgument(const std::string& bvar, ASTNode *arg)
         else if (arg->isReal())
         {
           child->setValue(arg->getReal());
+          if (arg->isSetUnits())
+          {
+            child->setUnits(arg->getUnits());
+          }
         }
         else if (arg->isInteger())
         {
           child->setValue(arg->getInteger());
+          if (arg->isSetUnits())
+          {
+            child->setUnits(arg->getUnits());
+          }
         }
         else if (arg->isConstant())
         {

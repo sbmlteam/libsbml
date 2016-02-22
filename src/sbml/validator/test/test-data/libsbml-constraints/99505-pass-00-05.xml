@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+        <model  timeUnits="second">
+            <listOfFunctionDefinitions>
+                <functionDefinition id="max">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <lambda>
+                            <bvar>
+                                <ci> x </ci>
+                            </bvar>
+                                <ci> x </ci>
+                        </lambda>
+                    </math>
+                </functionDefinition>
+            </listOfFunctionDefinitions>
+            <listOfParameters>
+                <parameter id="t1" units="mole" constant="false"/>
+            </listOfParameters>
+            <listOfRules>
+                <assignmentRule variable="t1">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+                        <apply>
+                            <ci> max </ci>
+                            <cn sbml:units="mole"> 0 </cn>
+                        </apply>
+                    </math>
+                </assignmentRule>
+            </listOfRules>
+        </model>
+    </sbml>  
