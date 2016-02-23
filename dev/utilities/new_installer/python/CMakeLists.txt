@@ -1,35 +1,15 @@
-## @file    CMakeLists.txt
-## @brief   CMake build script for compiling and linking the python bindings.
-## @author  Frank T. Bergmann
-##
-## This file is supposed to be called by buildPython32.bat / buildPython64.bat
-##
-## <!--------------------------------------------------------------------------
-## This file is part of libSBML.  Please visit http://sbml.org for more
-## information about SBML, and the latest version of libSBML.
-##
-## Copyright (C) 2013-2016 jointly by the following organizations:
-##     1. California Institute of Technology, Pasadena, CA, USA
-##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-##     3. University of Heidelberg, Heidelberg, Germany
-##
-## Copyright (C) 2009-2013 jointly by the following organizations: 
-##     1. California Institute of Technology, Pasadena, CA, USA
-##     2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
-##  
-## Copyright (C) 2006-2008 by the California Institute of Technology,
-##     Pasadena, CA, USA 
-##  
-## Copyright (C) 2002-2005 jointly by the following organizations: 
-##     1. California Institute of Technology, Pasadena, CA, USA
-##     2. Japan Science and Technology Agency, Japan
-## 
-## This library is free software; you can redistribute it and/or modify it
-## under the terms of the GNU Lesser General Public License as published by
-## the Free Software Foundation.  A copy of the license agreement is provided
-## in the file named "LICENSE.txt" included with this software distribution
-## and also available online as http://sbml.org/software/libsbml/license.html
-## ------------------------------------------------------------------------ -->
+###############################################################################
+#
+# 
+#
+# Description       : CMake build script for compiling and linking the 
+#                     python bindings
+# Original author(s): Frank Bergmann <fbergman@caltech.edu>
+# Organization      : California Institute of Technology
+#
+# This file is supposed to be called by buildPython32.bat / buildPython64.bat
+#
+###############################################################################
 
 cmake_minimum_required(VERSION 2.8)
 project(_libsbml)
@@ -59,14 +39,20 @@ find_package(PythonLibs REQUIRED)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-include_directories(${LIBSBML_ROOT_SOURCE_DIR}/../../../win32/include)
+include_directories(${CMAKE_SOURCE_DIR}/../../../win32/include)
 else()
-include_directories(${LIBSBML_ROOT_SOURCE_DIR}/../../../win64/include)
+include_directories(${CMAKE_SOURCE_DIR}/../../../win64/include)
 endif()
 include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(${DEP_DIR}/include)
 
-add_definitions(-DUSE_LAYOUT)
+add_definitions(-DUSE_COMP 
+				-DUSE_FBC 
+				-DUSE_QUAL 
+				-DUSE_LAYOUT 
+				-DLIBSBML_USE_LEGACY_MATH
+)
+
 
 # set build type default
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel" FORCE )
@@ -132,7 +118,7 @@ else(UNIX)
 		add_definitions( -D_MT)
 		endif(NOT WITHOUT_STATIC_RUNTIME)
 	
-		file(GLOB WIN32_BINARIES ${LIBSBML_ROOT_SOURCE_DIR}/dependencies/bin/*.dll)
+		file(GLOB WIN32_BINARIES ${CMAKE_SOURCE_DIR}/dependencies/bin/*.dll)
 		INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
 		
 	elseif(CYGWIN)
@@ -150,9 +136,9 @@ endif(UNIX)
 
 set(LIB_PATH)
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-	set(LIB_PATH "${LIBSBML_ROOT_SOURCE_DIR}/../../../win32/lib")
+	set(LIB_PATH "${CMAKE_SOURCE_DIR}/../../../win32/lib")
 else()
-	set(LIB_PATH "${LIBSBML_ROOT_SOURCE_DIR}/../../../win64/lib")
+	set(LIB_PATH "${CMAKE_SOURCE_DIR}/../../../win64/lib")
 endif()
 
 find_library(SBML_LIBRARY 
@@ -182,10 +168,6 @@ set(LIBS
 	${XML_LIBRARY} ${ICONV_LIBRARY}
 	${BZ2_LIBRARY} ${ZLIB_LIBRARY}
 )
-
-#add_definitions(-DUSE_LAYOUT)
-#add_definitions(-DUSE_GROUPS)
-#add_definitions(-DUSE_REQUIREDELEMENTS)
 
 add_library(binding_python_lib SHARED libsbml_wrap.cpp)
 

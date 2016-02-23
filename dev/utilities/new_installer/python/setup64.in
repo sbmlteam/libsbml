@@ -30,7 +30,10 @@ import platform
 # figure out whether this is a 64bit or 32 bit installation
 basepath = '../../../win64/'
 
-from distutils.core import setup, Extension
+try:
+  from setuptools import setup, Extension, Command
+except ImportError:
+  from distutils.core import setup, Extension
 
 setup(name             = "libsbml", 
       version          = "@PACKAGE_VERSION@",
