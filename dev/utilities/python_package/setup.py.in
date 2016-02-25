@@ -73,7 +73,7 @@ elif platform.system() == 'Windows':
   package_name = '\\"libsbml\\"'
   definitions = [
     ('LIBSBML_EXPORTS', None),
-	('LIBLAX_STATIC', None)
+  ('LIBLAX_STATIC', None)
   ]
   dependency_dir = 'D:\Development\libsbml_dependencies\install_vs9_release_x86'
   inc_dirs= [ dependency_dir + '/include']
@@ -86,7 +86,11 @@ for root, dirs, files in os.walk(basepath + 'sbml'):
     if file.endswith('.c') or file.endswith('.cpp'):
       cfiles.append(os.path.join(root, file))
 
-from distutils.core import setup, Extension
+try:
+  from setuptools import setup, Extension, Command
+except ImportError:
+  from distutils.core import setup, Extension
+ 
 
 setup(name             = "python-libsbml", 
       version          = "${LIBSBML_VERSION}",
@@ -108,23 +112,23 @@ setup(name             = "python-libsbml",
       ext_modules      = [Extension("_libsbml", 
                             sources = cfiles,
                             define_macros =  definitions 
-							  +  [(current_os, None), 
-                              ('USE_LIBXML', None),
-                              ('USE_ZLIB', None),
-                              ('USE_BZ2', None)
-                              ] 
-							  + packages,
+                                          +  [(current_os, None), 
+                                              ('USE_LIBXML', None),
+                                              ('USE_ZLIB', None),
+                                              ('USE_BZ2', None)
+                                              ] 
+                                          + packages,
                             include_dirs = inc_dirs +
-							  [                              
-                              basepath + "/", 
-                              basepath + "/sbml", 
-                              basepath + "/sbml/compress", 
-                              basepath + "/sbml/validator/constraints", 
-                              basepath + "/sbml/packages/comp/validator", 
-                              basepath + "/sbml/packages/comp/validator/constraints", 
-                              "."],
-                            libraries = libs,
-                            library_dirs = lib_dirs
-                            )
-                         ]
+                            [                              
+                                basepath + "/", 
+                                basepath + "/sbml", 
+                                basepath + "/sbml/compress", 
+                                basepath + "/sbml/validator/constraints", 
+                                basepath + "/sbml/packages/comp/validator", 
+                                basepath + "/sbml/packages/comp/validator/constraints", 
+                                "."],
+                              libraries = libs,
+                              library_dirs = lib_dirs
+                              )
+                            ]
 )

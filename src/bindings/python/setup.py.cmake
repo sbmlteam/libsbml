@@ -45,7 +45,11 @@ if not os.path.isfile('libsbml.py'):
       print("Please run the build first before calling this script.")
       sys.exit(1)
 
-from distutils.core import setup, Extension
+try:
+  from setuptools import setup, Extension, Command
+except ImportError:
+  from distutils.core import setup, Extension
+
 
 setup(name             = "libsbml", 
       version          = "${LIBSBML_DOTTED_VERSION}",
