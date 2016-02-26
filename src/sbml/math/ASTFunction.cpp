@@ -4257,6 +4257,19 @@ ASTFunction::readQualifier(XMLInputStream& stream, const std::string& reqd_prefi
   {
     numChildren = determineNumArgs(stream, currentName);
   }
+
+  // Jason Zwolak reported that a piece with only one child was not
+  // being flagged as an error
+  if (currentName == "piece" && numChildren != 2)
+  {
+    std::string message = "The <piece> element should have two child elements.";
+    logError(stream, currentElement, OpsNeedCorrectNumberOfArgs, message);
+  }
+  else if (currentName == "otherwise" && numChildren != 1)
+  {
+    std::string message = "The <otherwise> element should have one child elements.";
+    logError(stream, currentElement, OpsNeedCorrectNumberOfArgs, message);
+  }
     
   // this is a nasty one as we have already consumed currentName
   // so we need to set the type NOW

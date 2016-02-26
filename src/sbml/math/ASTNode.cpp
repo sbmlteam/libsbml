@@ -3432,6 +3432,21 @@ const ASTBasePlugin*
 {
   return const_cast<ASTNode*>(this)->getPlugin(n);
 }
+
+unsigned int
+ASTNode::getNumPiece() const
+{
+  if (getType() == AST_FUNCTION_PIECEWISE)
+  {
+    return static_cast<ASTPiecewiseFunctionNode*>
+      (getFunction()->getPiecewise())->getNumPiece();
+  }
+  else
+  {
+    return 0;
+  }
+}
+
 /** @endcond */
 
 bool

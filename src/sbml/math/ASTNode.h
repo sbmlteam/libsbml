@@ -1926,6 +1926,12 @@ setValue(value, 0);
 
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  unsigned int getNumPiece () const;
+
+  /** @endcond */
+
+
 protected:
 
   /** @cond doxygenLibsbmlInternal */

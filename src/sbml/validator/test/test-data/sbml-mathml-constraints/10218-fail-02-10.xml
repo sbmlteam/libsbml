@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model name="Simple Model">
+    <listOfCompartments>
+      <compartment id="sbml_comp" name="sbml compartment" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="sbml_species_a" name="sbml species a" compartment="sbml_comp" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="sbml_species_b" name="sbml species b" compartment="sbml_comp" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="sbml_piecewise_process" name="sbml piecewise process" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="sbml_species_a" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="sbml_species_b" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <piecewise>
+              <piece>
+                <cn> 0 </cn>
+              </piece>
+              <piece>
+                <true/>
+              </piece>
+              <otherwise>
+                <cn> 2 </cn>
+              </otherwise>
+            </piecewise>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

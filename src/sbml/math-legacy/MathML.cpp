@@ -934,6 +934,32 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
         node.addChild(child, true);
       }
 
+      // Jason Zwolak reports that we do not correctly catch a piece with only
+      // one argument; which will be difficult in legacy math as it throws 
+      // the information away when reading ie here
+      // so we have to look here 
+      if (nextName == "piece")
+      {
+        // we should have added two children to the piecewise node
+        if (node.getNumChildren() % 2 != 0)
+        {
+          logError(stream, elem, OpsNeedCorrectNumberOfArgs, 
+            "The <piece> element should have two child elements.");
+        }
+      }
+      // does not get caught here - have to be even trickier as we 
+      // only ever read one child for the otherwise and throw
+      // everything else away
+      // catch at end of function
+      else if (nextName == "otherwise")
+      {
+        // we should have added one child to the piecewise node
+        if (node.getNumChildren() % 2 != 1)
+        {
+          logError(stream, elem, OpsNeedCorrectNumberOfArgs, 
+            "The <otherwise> element should have one child element.");
+        }
+      }
       if (nextName == "piece" && stream.isGood()) 
         stream.next();
     }
@@ -984,6 +1010,23 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix,
   }
 
   checkFunctionArgs(node);
+
+  // Jason Zwolak reports that we do not correctly catch a piece with only
+  // one argument; which will be difficult in legacy math as it throws 
+  // the information away when reading
+  // and here is where we can catch an otherwise with too many children
+  if (name == "otherwise")
+  {
+    while (stream.peek().isText())
+    {
+      stream.next();
+    }
+    if (!stream.peek().isEndFor(elem))
+    {
+      logError(stream, elem, OpsNeedCorrectNumberOfArgs, 
+       "The <otherwise> element should have one child element.");
+    }
+  }
 
   stream.skipPastEnd(elem);
 }
@@ -1795,10 +1838,19 @@ readMathMLFromString (const char *xml)
   {
     safe_free((void *)(xmlstr_c));
   }
+
+  // we only used to log really invalid math errors
+  // but now we might log errors about number of 
+  // children of piece and otherwise (since this the read
+  // is the only place
+  // but dont need to bail for these
   if (log.getNumErrors() > 0)
   {
-    delete ast;
-    return NULL;
+    if (!log.contains(10218))
+    {
+      delete ast;
+      return NULL;
+    }
   }
 
   return ast;

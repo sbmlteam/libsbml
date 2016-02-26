@@ -222,7 +222,17 @@ MathMLBase::checkChildren (const Model& m,
 
   for(n = 0; n < node.getNumChildren(); n++)
   {
-    checkMath(m, *node.getChild(n), sb);
+    // if we have a mangled node for some reason
+    // usually we have read an incorrect node 
+    // need to be sure there is a child
+    // NOTE: piecewise hits this issue because old behaviour
+    // meant it lost the piece and otherwise qualifiers
+    ASTNode * child = node.getChild(n);
+    
+    if (child != NULL)
+    {
+      checkMath(m, *child, sb);
+    }
   }
 }
 

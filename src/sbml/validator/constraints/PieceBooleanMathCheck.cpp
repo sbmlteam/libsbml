@@ -131,13 +131,32 @@ PieceBooleanMathCheck::checkPiece (const Model&, const ASTNode& node,
   unsigned int numChildren = node.getNumChildren();
   unsigned int numPieces = numChildren;
 
+#ifdef LIBSBML_USE_LEGACY_MATH
   if ((numChildren % 2) != 0) numPieces--;
-  
+#else
+  numPieces = 2 * node.getNumPiece();
+  if (numPieces > numChildren)
+  {
+    // the piecewise is not correct
+    return;
+  }
+#endif
+
   for (unsigned int n = 1; n < numPieces; n += 2)
   {
-    if (!node.getChild(n)->returnsBoolean())
+    // if we have a mangled node for some reason
+    // usually we have read an incorrect node 
+    // need to be sure there is a child
+    // NOTE: piecewise hits this issue because old behaviour
+    // meant it lost the piece and otherwise qualifiers
+    ASTNode * child = node.getChild(n);
+    
+    if (child != NULL)
     {
-      logMathConflict(node, sb);
+      if (!child->returnsBoolean())
+      {
+        logMathConflict(node, sb);
+      }
     }
   }
     

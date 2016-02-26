@@ -283,6 +283,12 @@ void NumberArgsMathCheck::checkPiecewise(const Model&,
     logMathConflict(node, sb);
   }
 
+  // Jason Zwolak reports that we do not correctly catch a piece with only
+  // one argument; which will be difficult in legacy math as it throws 
+  // the information away when reading
+
+
+
 }
 /*
  * @return the error message to use when logging constraint violations.
