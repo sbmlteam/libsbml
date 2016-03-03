@@ -84,8 +84,6 @@ execute_process(
 		 -nowarn:105,108,109,114,1570,1572,1573,1574,1591
 		 -out:libsbmlcsP.dll
 		 -doc:libsbmlcsP.xml
-     /debug
-     /pdb:libsbmlcsP.pdb
 		 ${CSHARP_EXTRA_ARGS}
 		 ${NATIVE_FILES}
 	
