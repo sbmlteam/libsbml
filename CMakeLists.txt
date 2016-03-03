@@ -1300,6 +1300,14 @@ CONFIGURE_FILE(
 ADD_CUSTOM_TARGET(uninstall
   "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake") 
 
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/dev/utilities/sboTree/updateSBO.cmake")
+# add update_sbo target
+ADD_CUSTOM_TARGET(update_sbo
+  "${CMAKE_COMMAND}"
+      -DSRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+      -DPYTHON_EXECUTABLE="${PYTHON_EXECUTABLE}"
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/dev/utilities/sboTree/updateSBO.cmake") 
+endif()
 ## To compile a test program simply comment out the lines below ...
 #
 #OPTION(WITH_TEST_PROGRAM " COMPILE SMALL TEST PROGRAM " ON)

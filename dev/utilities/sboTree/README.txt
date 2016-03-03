@@ -9,3 +9,9 @@ To update the hardcoded SBO tree in libsbml.
 4) Replace the body of function SBO::populateSBOTree() 
 in the file libsbml/src/sbml/SBO.cpp
 with the code from output.txt.
+
+
+Alternatively this has been integrated into cmake, where you simply execute the update_sbo target for example using gnumake this would be done using: 
+
+make update_sbo
+
