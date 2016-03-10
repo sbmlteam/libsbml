@@ -706,6 +706,7 @@ int
 FbcAssociation_hasRequiredAttributes(const FbcAssociation_t * fa);
 
 
+
 LIBSBML_EXTERN
 FbcAssociation_t *
 ListOfFbcAssociations_getById(ListOf_t * lo, const char * sid);
@@ -715,6 +716,10 @@ LIBSBML_EXTERN
 FbcAssociation_t *
 ListOfFbcAssociations_removeById(ListOf_t * lo, const char * sid);
 
+
+LIBSBML_EXTERN
+const char *
+FbcAssociation_toInfix(const FbcAssociation_t * fa);
 
 
 

@@ -664,9 +664,117 @@ FbcReactionPlugin::accept(SBMLVisitor& v) const
 
 
 
-LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* __cplusplus */
 
+
+LIBSBML_EXTERN
+char *
+FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc)
+{
+  if (fbc == NULL) return NULL;
+
+  return static_cast<FbcReactionPlugin*>(fbc)->getUpperFluxBound().empty() 
+    ? safe_strdup("")
+    : safe_strdup(static_cast<FbcReactionPlugin*>(fbc)->getUpperFluxBound().c_str());
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) 
+    ? static_cast<int>
+             (static_cast<FbcReactionPlugin*>(fbc)->isSetUpperFluxBound()) 
+    : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * chemform)
+{
+  return (fbc != NULL) 
+    ? static_cast<FbcReactionPlugin*>(fbc)->setUpperFluxBound(chemform)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) 
+    ? static_cast<FbcReactionPlugin*>(fbc)->unsetUpperFluxBound()
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+char *
+FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc)
+{
+  if (fbc == NULL) return NULL;
+
+  return static_cast<FbcReactionPlugin*>(fbc)->getLowerFluxBound().empty() 
+    ? safe_strdup("")
+    : safe_strdup(static_cast<FbcReactionPlugin*>(fbc)->getLowerFluxBound().c_str());
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) 
+    ? static_cast<int>
+             (static_cast<FbcReactionPlugin*>(fbc)->isSetLowerFluxBound()) 
+    : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * chemform)
+{
+  return (fbc != NULL) 
+    ? static_cast<FbcReactionPlugin*>(fbc)->setLowerFluxBound(chemform)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_unsetLowerFluxBound(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) 
+    ? static_cast<FbcReactionPlugin*>(fbc)->unsetLowerFluxBound()
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) 
+    ? static_cast<int>
+             (static_cast<FbcReactionPlugin*>(fbc)->isSetGeneProductAssociation()) 
+    : 0;
+}
+
+
+LIBSBML_EXTERN
+GeneProductAssociation_t*
+FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc)
+{
+  return  (fbc != NULL) ? static_cast<FbcReactionPlugin*>(fbc)->getGeneProductAssociation() : NULL;
+
+}
+
+
+
+LIBSBML_CPP_NAMESPACE_END
 

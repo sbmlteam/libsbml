@@ -405,8 +405,183 @@ protected:
 
 };
 
+LIBSBML_CPP_NAMESPACE_END
 
 
+#endif  /* __cplusplus */
+#ifndef SWIG
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+BEGIN_C_DECLS
+
+
+
+/**
+ * Takes a FbcReactionPlugin_t structure and returns its UpperFluxBound.
+ *
+ * @param fbc the FbcReactionPlugin_t whose UpperFluxBound is sought.
+ *
+ * @return the UpperFluxBound of the given FbcReactionPlugin_t, as a pointer to a string.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+char *
+FbcReactionPlugin_getUpperFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FbcReactionPlugin_t structure's UpperFluxBound is set.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "UpperFluxBound" attribute of the given
+ * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetUpperFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Sets the UpperFluxBound of the given FbcReactionPlugin_t to a copy of @p UpperFluxBound.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to set
+ * @param UpperFluxBound the UpperFluxBound to assign to the given FbcReactionPlugin_t's "UpperFluxBound" attribute.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "UpperFluxBound" attribute.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setUpperFluxBound(SBasePlugin_t * fbc, const char * UpperFluxBound);
+
+
+/**
+ * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to unset
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Takes a FbcReactionPlugin_t structure and returns its LowerFluxBound.
+ *
+ * @param fbc the FbcReactionPlugin_t whose LowerFluxBound is sought.
+ *
+ * @return the LowerFluxBound of the given FbcReactionPlugin_t, as a pointer to a string.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+char *
+FbcReactionPlugin_getLowerFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FbcReactionPlugin_t structure's LowerFluxBound is set.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "LowerFluxBound" attribute of the given
+ * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetLowerFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Sets the LowerFluxBound of the given FbcReactionPlugin_t to a copy of @p LowerFluxBound.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to set
+ * @param LowerFluxBound the LowerFluxBound to assign to the given FbcReactionPlugin_t's "LowerFluxBound" attribute.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @note Using this function with the name set to NULL is equivalent to
+ * unsetting the "LowerFluxBound" attribute.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setLowerFluxBound(SBasePlugin_t * fbc, const char * LowerFluxBound);
+
+
+/**
+ * Unsets the "UpperFluxBound" attribute of the given FbcReactionPlugin_t structure.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to unset
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_unsetUpperFluxBound(SBasePlugin_t * fbc);
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FbcReactionPlugin_t structure's GeneProductAssociation is set.
+ *
+ * @param fbc the FbcReactionPlugin_t structure to query
+ * 
+ * @return @c non-zero (true) if the "geneProductAssopciation" elemen of the given
+ * FbcReactionPlugin_t structure is set, zero (false) otherwise.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_isSetGeneProductAssociation(SBasePlugin_t * fbc);
+
+
+/**
+ * Takes a FbcReactionPlugin_t structure and returns its GeneProductAssociation_t.
+ *
+ * @param fbc the FbcReactionPlugin_t whose GeneProductAssociation_t is sought.
+ *
+ * @return the a pointer to the GeneProductAssociation_t of the given FbcReactionPlugin_t.
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+GeneProductAssociation_t*
+FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc);
+
+
+
+
+
+END_C_DECLS
 
 LIBSBML_CPP_NAMESPACE_END
 

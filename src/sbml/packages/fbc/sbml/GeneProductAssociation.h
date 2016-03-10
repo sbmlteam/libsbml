@@ -817,6 +817,7 @@ GeneProductAssociation_hasRequiredElements(const GeneProductAssociation_t * gpa)
 
 
 
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 

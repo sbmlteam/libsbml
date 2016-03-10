@@ -989,6 +989,15 @@ ListOfFbcAssociations_removeById(ListOf_t * lo, const char * sid)
 }
 
 
+LIBSBML_EXTERN
+const char *
+FbcAssociation_toInfix(const FbcAssociation_t * fa)
+{
+  return (fa != NULL) ? safe_strdup(fa->toInfix().c_str()) : NULL;
+}
+
+
+
 
 
 LIBSBML_CPP_NAMESPACE_END

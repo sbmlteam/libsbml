@@ -1028,12 +1028,12 @@ FbcModelPlugin_getFluxBound(SBasePlugin_t * fmp, unsigned int n);
 
 
 /**
- * Returns the number of EventAssignment_t structures attached to the given
+ * Returns the number of FluxBound_t structures attached to the given
  * FbcModelPlugin_t.
  *
  * @param fmp the FbcModelPlugin_t structure to use
  * 
- * @return the number of EventAssignment_t structures in the given FbcModelPlugin_t.
+ * @return the number of FluxBound_t structures in the given FbcModelPlugin_t.
  *
  * @memberof FbcModelPlugin_t
  */
@@ -1129,6 +1129,63 @@ FbcModelPlugin_getActiveObjectiveId(SBasePlugin_t * fmp);
 LIBSBML_EXTERN
 int
 FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fmp, const char * activeObjective);
+
+
+/**
+ * Appends a copy of the given GeneProduct_t structure to the given FbcModelPlugin_t
+ * structure.
+ *
+ * @param fmp the FbcModelPlugin_t structure to which the GeneProduct_t should be
+ * added
+ *
+ * @param fb a GeneProduct_t structure to add
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcModelPlugin_addGeneProduct(SBasePlugin_t * fmp, GeneProduct_t * fb);
+
+
+/**
+ * Return a specific GeneProduct_t structure of the given FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to use
+ *
+ * @param n an integer, the index of the GeneProduct_t structure to return
+ * 
+ * @return the nth GeneProduct_t of the given FbcModelPlugin_t, or @c NULL if no such GeneProduct_t exists.
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+GeneProduct_t *
+FbcModelPlugin_getGeneProduct(SBasePlugin_t * fmp, unsigned int n);
+
+
+/**
+ * Returns the number of GeneProduct_t structures attached to the given
+ * FbcModelPlugin_t.
+ *
+ * @param fmp the GeneProduct_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in the given FbcModelPlugin_t.
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+unsigned int
+FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fmp);
+
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

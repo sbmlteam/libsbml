@@ -1776,6 +1776,35 @@ FbcModelPlugin_setActiveObjectiveId(SBasePlugin_t * fbc, const char * activeId)
     ? static_cast<FbcModelPlugin *>(fbc)->setActiveObjectiveId(activeId) 
     : LIBSBML_INVALID_OBJECT;
 }
+
+
+LIBSBML_EXTERN
+int
+FbcModelPlugin_addGeneProduct(SBasePlugin_t * fbc, GeneProduct_t * fb)
+{
+  return (fbc != NULL) ? static_cast<FbcModelPlugin*>(fbc)->addGeneProduct(fb)
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+GeneProduct_t *
+FbcModelPlugin_getGeneProduct(SBasePlugin_t * fbc, unsigned int n)
+{
+  return (fbc != NULL) ? static_cast<FbcModelPlugin*>(fbc)->getGeneProduct(n)
+    : NULL;
+}
+
+
+LIBSBML_EXTERN
+unsigned int
+FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fbc)
+{
+  return (fbc != NULL) ? static_cast<FbcModelPlugin*>(fbc)->getNumGeneProducts()
+    : SBML_INT_MAX;
+}
+
+
 /** @endcond */
 
 
