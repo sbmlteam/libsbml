@@ -265,7 +265,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  XMLOutputStream (  std::ostream&       stream
+  XMLOutputStream (std::ostream&       stream
                    , const std::string&  encoding       = "UTF-8"
                    , bool                writeXMLDecl   = true
                    , const std::string&  programName    = ""
@@ -630,9 +630,13 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    *
    * @param programVersion an optional version identification string to write
    * as a comment in the output stream.
+   *
+   * @param writeTimestamp an optional flag indicating that a timestamp should
+   * be written
    */
   void writeComment (const std::string& programName,
-                     const std::string& programVersion);
+                     const std::string& programVersion,
+                     bool writeTimestamp = true);
 
 
   /**
@@ -707,6 +711,58 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    */
   void setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
+
+  /**
+   * @return a boolean, whether the output stream will write an XML
+   * comment at the top of the file. (Enabled by default)
+   */
+  static bool getWriteComment();
+  /**
+   * sets a flag, whether the output stream will write an XML
+   * comment at the top of the file. (Enabled by default)
+   *
+   * @param writeComment the flag
+   */
+  static void setWriteComment(bool writeComment);
+
+  /**
+   * @return a boolean, whether the output stream will write an XML
+   * comment with a timestamp at the top of the file. (Enabled by default)
+   */
+  static bool getWriteTimestamp();
+  /**
+   * sets a flag, whether the output stream will write an XML
+   * comment with a timestamp at the top of the file. (Enabled by default)
+   *
+   * @param writeComment the flag
+   */
+  static void setTimestamp(bool writeTimestamp);
+
+
+  /**
+   * @return the name of the library to be used in comments ('libSBML' by default)
+   */
+  static std::string getLibraryName();
+
+  /**
+   * sets the name of the library writing the XML
+
+   * @param libraryName the name of the library to be used in comments
+   */
+  static void setLibraryName(const std::string& libraryName);
+
+  /**
+   * @return a string representing the version of the library writing the output.
+   *         This is the value of getLibSBMLDottedVersion() by default.
+   */
+  static std::string getLibraryVersion();
+
+  /**
+   * sets the name of the library writing the output
+   *
+   * @param libraryVersion the version information as string
+   */
+  static void setLibraryVersion(const std::string& libraryVersion);
 
 private:
   /** @cond doxygenLibsbmlInternal */
@@ -815,6 +871,20 @@ protected:
 
   SBMLNamespaces* mSBMLns;
 
+  // boolean indicating whether the comment on the top of the file is
+  // written (enabled by default)
+  static bool mWriteComment;
+
+  // boolean indicating whether a timestamp will be generated at the time
+  // of writing (enabled by default)
+  static bool mWriteTimestamp;
+
+  // the name of the library writing the file (i.e: libSBML)
+  static std::string mLibraryName;
+
+  // the version of the library writing the file
+  static std::string mLibraryVersion;
+
   /* this is needed for the derived classes used to create the C wrapper */
   bool mStringStream;
   void setStringStream();
@@ -899,7 +969,7 @@ public:
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
-  XMLOwningOutputFileStream (  const std::string&  filename
+  XMLOwningOutputFileStream (const std::string&  filename
                              , const std::string&  encoding     = "UTF-8"
                              , bool                writeXMLDecl = true
                              , const std::string&  programName  = ""

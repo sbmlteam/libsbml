@@ -173,6 +173,21 @@ bool hasPredefinedEntity(const std::string &chars, size_t index)
 }   
 
 
+// boolean indicating whether the comment on the top of the file is
+// written (enabled by default)
+bool XMLOutputStream::mWriteComment = true;
+
+// boolean indicating whether a timestamp will be generated at the time
+// of writing (enabled by default)
+bool XMLOutputStream::mWriteTimestamp = true;
+
+// the name of the library writing the file (i.e: libSBML)
+std::string XMLOutputStream::mLibraryName = "libSBML";
+
+// the version of the library writing the file
+std::string XMLOutputStream::mLibraryVersion = getLibSBMLDottedVersion();
+
+
 /**
  * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
  */
@@ -221,7 +236,7 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
   unsetStringStream();
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();
-  this->writeComment(programName, programVersion);
+  if (mWriteComment) this->writeComment(programName, programVersion, mWriteTimestamp);
 }
 
 
@@ -911,13 +926,13 @@ XMLOutputStream::writeValue (const unsigned int& value)
 void
 XMLOutputStream::setStringStream()
 {
-  mStringStream = true;
+    mStringStream = true;
 }
 
 void
 XMLOutputStream::unsetStringStream()
 {
-  mStringStream = false;
+    mStringStream = false;
 }
 
 
@@ -944,28 +959,48 @@ XMLOutputStream::writeXMLDecl ()
  */
 void
 XMLOutputStream::writeComment (const std::string& programName, 
-                               const std::string& programVersion)
+                               const std::string& programVersion,
+                               bool writeTimestamp)
 {
-  char formattedDateAndTime[17];
-  time_t tim=time(NULL);
-  tm *now=localtime(&tim);
+  // don't write without program name
+  if (programName.empty())
+    return;
 
-  sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
-    now->tm_year+1900, now->tm_mon+1, now->tm_mday, 
-    now->tm_hour, now->tm_min);
+  mStream << "<!-- Created by " << programName;
 
-  if (programName != "")
+  // only write program version if we have it
+  if (!programVersion.empty())
   {
-    mStream << "<!-- Created by " << programName;
-    if (programVersion != "")
-    {
-      mStream << " version " << programVersion;
-    }
-    mStream << " on " << formattedDateAndTime;
-    mStream << " with libSBML version " << getLibSBMLDottedVersion();
-    mStream << ". -->";
-    mStream << endl;
+    mStream << " version " << programVersion;
   }
+
+  // only compute timestamp if we need to
+  if (writeTimestamp)
+  {
+    char formattedDateAndTime[17];
+    time_t tim=time(NULL);
+    tm *now=localtime(&tim);
+
+    sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
+            now->tm_year+1900, now->tm_mon+1, now->tm_mday,
+            now->tm_hour, now->tm_min);
+    mStream << " on " << formattedDateAndTime;
+  }
+
+  // write library information
+  if (!mLibraryName.empty())
+  {
+    mStream << " with " << mLibraryName;
+
+    if (!mLibraryVersion.empty())
+    {
+      mStream << " version " << mLibraryVersion;
+    }
+  }
+
+  mStream << ". -->";
+  mStream << endl;
+
 }
 
 
@@ -1072,6 +1107,46 @@ XMLOutputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
     mSBMLns = NULL;
 }
 
+bool XMLOutputStream::getWriteComment()
+{
+  return mWriteComment;
+}
+
+void XMLOutputStream::setWriteComment(bool writeComment)
+{
+  mWriteComment = writeComment;
+}
+
+bool XMLOutputStream::getWriteTimestamp()
+{
+  return mWriteTimestamp;
+}
+
+void XMLOutputStream::setTimestamp(bool writeTimestamp)
+{
+  mWriteTimestamp = writeTimestamp;
+}
+
+string XMLOutputStream::getLibraryName()
+{
+  return mLibraryName;
+}
+
+void XMLOutputStream::setLibraryName(const string& libraryName)
+{
+  mLibraryName = libraryName;
+}
+
+string XMLOutputStream::getLibraryVersion()
+{
+  return mLibraryVersion;
+}
+
+void XMLOutputStream::setLibraryVersion(const string& libraryVersion)
+{
+  mLibraryVersion = libraryVersion;
+}
+
 XMLOutputStream::~XMLOutputStream()
 {
   if (mSBMLns != NULL) 
@@ -1099,7 +1174,7 @@ XMLOutputStringStream::getString()
   return mString;
 }
 
-XMLOwningOutputStringStream::XMLOwningOutputStringStream (  const std::string&  encoding
+XMLOwningOutputStringStream::XMLOwningOutputStringStream (const std::string&  encoding
                                , bool                writeXMLDecl
                                , const std::string&  programName
                                , const std::string&  programVersion)
@@ -1114,7 +1189,7 @@ XMLOwningOutputStringStream::~XMLOwningOutputStringStream()
 }
 
 
-XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
+XMLOutputFileStream::XMLOutputFileStream (std::ofstream& stream
                    , const std::string&  encoding
                    , bool                writeXMLDecl
                    , const std::string&  programName
