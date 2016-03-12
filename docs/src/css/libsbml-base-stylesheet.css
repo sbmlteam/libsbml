@@ -488,6 +488,11 @@ object.centered
     line-height: 140%;
 }
 
+.align-bottom td
+{
+    vertical-align: bottom;
+}
+
 .width80
 {
     width: 80%;
