@@ -435,6 +435,8 @@ FbcReactionPlugin::setGeneProductAssociation(const GeneProductAssociation* geneP
   {
     delete mGeneProductAssociation;
     mGeneProductAssociation = static_cast<GeneProductAssociation*>(geneProductAssociation->clone());
+    if (mGeneProductAssociation != NULL) mGeneProductAssociation->connectToParent(this->getParentSBMLObject());
+
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -773,6 +775,17 @@ FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc)
   return  (fbc != NULL) ? static_cast<FbcReactionPlugin*>(fbc)->getGeneProductAssociation() : NULL;
 
 }
+
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setGeneProductAssociation(SBasePlugin_t * fbc, 
+                                            GeneProductAssociation_t* gpa)
+{
+  return (fbc != NULL) 
+    ? static_cast<FbcReactionPlugin*>(fbc)->setGeneProductAssociation(gpa)
+    : LIBSBML_INVALID_OBJECT;
+}
+
 
 
 

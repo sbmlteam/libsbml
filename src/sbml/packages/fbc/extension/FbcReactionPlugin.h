@@ -578,6 +578,24 @@ GeneProductAssociation_t*
 FbcReactionPlugin_getGeneProductAssociation(SBasePlugin_t * fbc);
 
 
+/**
+ * Takes a FbcReactionPlugin_t structure and sets its GeneProductAssociation_t.
+ *
+ * @param fbc the FbcReactionPlugin_t whose GeneProductAssociation_t is sought.
+ * @param gpa a pointer to the GeneProductAssociation_t to be set.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+ *
+ * @memberof FbcReactionPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcReactionPlugin_setGeneProductAssociation(SBasePlugin_t * fbc, 
+                                            GeneProductAssociation_t* gpa);
+
+
 
 
 

@@ -1186,6 +1186,36 @@ unsigned int
 FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fmp);
 
 
+/**
+ * Takes a FbcModelPlugin_t structure and returns the value of the strict attribute.
+ *
+ * @param fmp the FbcModelPlugin_t whose 'strict' attribute is sought.
+ *
+ * @return the id of the current activeObjective of the given FbcModelPlugin_t, as a pointer to a string.
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcModelPlugin_getStrict(SBasePlugin_t * fmp);
+
+
+/**
+ * Sets the strict attribute of the given FbcModelPlugin_t.
+ *
+ * @param fmp the FbcModelPlugin_t structure to set
+ * @param activeObjective the activeObjective to assign to the given FbcModelPlugin_t's "activeObjective" attribute.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ *
+ * @memberof FbcModelPlugin_t
+ */
+LIBSBML_EXTERN
+int
+FbcModelPlugin_setStrict(SBasePlugin_t * fmp, int strict);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

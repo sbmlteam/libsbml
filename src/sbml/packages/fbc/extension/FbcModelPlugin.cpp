@@ -1804,6 +1804,20 @@ FbcModelPlugin_getNumGeneProducts(SBasePlugin_t * fbc)
     : SBML_INT_MAX;
 }
 
+LIBSBML_EXTERN
+int
+FbcModelPlugin_getStrict(SBasePlugin_t * fmp)
+{
+  return (int)(((FbcModelPlugin*)(fmp))->getStrict());
+}
+
+
+LIBSBML_EXTERN
+int
+FbcModelPlugin_setStrict(SBasePlugin_t * fmp, int strict)
+{
+  return ((FbcModelPlugin*)(fmp))->setStrict((bool)(strict));
+}
 
 /** @endcond */
 

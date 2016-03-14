@@ -718,10 +718,12 @@ ListOfFbcAssociations_removeById(ListOf_t * lo, const char * sid);
 
 
 LIBSBML_EXTERN
-const char *
+char *
 FbcAssociation_toInfix(const FbcAssociation_t * fa);
 
-
+LIBSBML_EXTERN
+FbcAssociation_t*
+FbcAssociation_parseFbcInfixAssociation(const char * infix, SBasePlugin_t* plugin);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
