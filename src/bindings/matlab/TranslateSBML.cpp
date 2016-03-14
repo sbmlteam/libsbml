@@ -161,11 +161,17 @@ int fbcStrict = 0;
 
 typedef enum
 {
-  SBML_FBC_ASSOCIATION      = 800
-  ,SBML_FBC_FLUXBOUND        = 801
-  ,SBML_FBC_FLUXOBJECTIVE    = 802
-  ,SBML_FBC_GENEASSOCIATION  = 803
-  ,SBML_FBC_OBJECTIVE        = 804
+    SBML_FBC_V1ASSOCIATION          = 800 /*!< Association (only used in Version&nbsp;1; replaced in Version&nbsp;2 with FbcAssociation) */
+	, SBML_FBC_FLUXBOUND              = 801 /*!< FluxBound */
+	, SBML_FBC_FLUXOBJECTIVE          = 802 /*!< FluxObjective */
+	, SBML_FBC_GENEASSOCIATION        = 803 /*!< GeneAssociation (only used in Version&nbsp;1; replaced in Version&nbsp;2 with GeneProductAssociation)*/
+	, SBML_FBC_OBJECTIVE              = 804 /*!< Objective */
+	, SBML_FBC_ASSOCIATION            = 805 /*!< FbcAssociation */
+	, SBML_FBC_GENEPRODUCTASSOCIATION = 806 /*!< GeneProductAssociation */
+	, SBML_FBC_GENEPRODUCT            = 807 /*!< GeneProduct */
+	, SBML_FBC_GENEPRODUCTREF         = 808 /*!< GeneProductRef */
+	, SBML_FBC_AND                    = 809 /*!< FbcAnd */
+	, SBML_FBC_OR                     = 810 /*!< FbcOr */
 } SBMLFbcTypeCode_t;
 
 #endif
