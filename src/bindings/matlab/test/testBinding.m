@@ -55,6 +55,7 @@ try
   Totalfail = Totalfail + testReadFromFile16(install);
   if (FbcEnabled == 1)
     Totalfail = Totalfail + testReadFromFileFbc1(install);
+    Totalfail = Totalfail + testReadFromFileFbc2(install);
   end;
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);

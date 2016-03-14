@@ -282,7 +282,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 5);
   
   
 if (silent == 0)
-disp('Testing readFromFile12:');
+disp('Testing readFromFile16:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));

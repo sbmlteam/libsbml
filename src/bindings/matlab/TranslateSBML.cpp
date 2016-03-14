@@ -51,6 +51,7 @@
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
+#include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 
 #include <sbml/conversion/ConversionProperties.h>
@@ -58,6 +59,7 @@
 #include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
+#include <sbml/packages/fbc/common/FbcExtensionTypes.h>
 
 #endif
 
@@ -138,14 +140,22 @@ int fbcPresent = 0;
 void GetFluxBound          (Model_t *, unsigned int, unsigned int);
 void GetObjective          (Model_t *, unsigned int, unsigned int);
 void GetFluxObjective   (Objective_t *, unsigned int, unsigned int, unsigned int);
-
+void GetGeneProduct          (Model_t *, unsigned int, unsigned int);
+void GetGeneProductAssociation (Reaction_t *, unsigned int, unsigned int);
+void GetGeneAssociation (GeneProductAssociation_t *, unsigned int, unsigned int, 
+                         unsigned int);
 #endif
 
 static mxArray * mxFluxBoundReturn           = NULL;
 static mxArray * mxObjectiveReturn           = NULL;
 static mxArray * mxFluxObjectiveReturn       = NULL;
+static mxArray * mxGeneProductReturn         = NULL;
+static mxArray * mxGeneProductAssociationReturn = NULL;
+static mxArray * mxGeneAssociationReturn = NULL;
+
 
 const char *    pacActiveObj              = NULL;
+int fbcStrict = 0;
 
 #ifndef USE_FBC
 
@@ -404,6 +414,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nNoFields_l2v4 = 24;
   int nNoFields_l3v1 = 30;
   int nNoFields_l3v1_fbc = 34;
+  int nNoFields_l3v1_fbc_v2 = 35;
 
   const char *error_struct[] =
   {
@@ -603,6 +614,45 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "fbc_fluxBound",
     "fbc_objective",
     "fbc_activeObjective",
+    "time_symbol",
+    "delay_symbol",
+    "avogadro_symbol",
+    "namespaces"
+  };
+
+  const char *field_names_l3v1_fbcv2[] =
+  {
+    "typecode",
+    "metaid",
+    "notes",
+    "annotation",
+    "SBML_level",
+    "SBML_version",
+    "fbc_version",
+    "name",
+    "id",
+    "timeUnits",
+    "substanceUnits",
+    "volumeUnits",
+    "areaUnits",
+    "lengthUnits",
+    "extentUnits",
+    "conversionFactor",
+    "sboTerm",
+    "functionDefinition",
+    "unitDefinition",
+    "compartment",
+    "species",
+    "parameter",
+    "initialAssignment",
+    "rule",
+    "constraint",
+    "reaction",
+    "event",
+    "fbc_geneProduct",
+    "fbc_objective",
+    "fbc_activeObjective",
+    "fbc_strict",
     "time_symbol",
     "delay_symbol",
     "avogadro_symbol",
@@ -897,32 +947,32 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   sbmlDocument = readSBML(pacFilename); 
 #endif
 
-#ifdef USE_FBC
+//#ifdef USE_FBC
   
-  const FbcSBMLDocumentPlugin* plug = 
-    dynamic_cast<const FbcSBMLDocumentPlugin*>(sbmlDocument->getPlugin("fbc"));
-  if (plug != NULL)
-  {
-  
-    if (plug->getPackageVersion() == 2)
-    {
-      ConversionProperties props;
+  //const FbcSBMLDocumentPlugin* plug = 
+  //  dynamic_cast<const FbcSBMLDocumentPlugin*>(sbmlDocument->getPlugin("fbc"));
+  //if (plug != NULL)
+  //{
+  //
+  //  if (plug->getPackageVersion() == 2)
+  //  {
+  //    ConversionProperties props;
 
-      /* add an option that we want to strip a given package */
-      props.addOption("convert fbc v2 to fbc v1", true,
-                      "convert fbc v2 to fbc v1");
+  //    /* add an option that we want to strip a given package */
+  //    props.addOption("convert fbc v2 to fbc v1", true,
+  //                    "convert fbc v2 to fbc v1");
 
-      /* perform the conversion */
-      int result = sbmlDocument->convert(props);
-      if (result != LIBSBML_OPERATION_SUCCESS)
-      {
-        reportError("TranslateSBML:Fbc:read", 
-          "Fbc Version is as yet unsupported. The attempt to convert to fbc V1 failed.");
-      }
-    }
-  }
+  //    /* perform the conversion */
+  //    int result = sbmlDocument->convert(props);
+  //    if (result != LIBSBML_OPERATION_SUCCESS)
+  //    {
+  //      reportError("TranslateSBML:Fbc:read", 
+  //        "Fbc Version is as yet unsupported. The attempt to convert to fbc V1 failed.");
+  //    }
+  //  }
+  //}
 
-#endif
+//#endif
   
   /*mxFree(pacFilename);*/
 
@@ -1284,7 +1334,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       if (fbcPresent == 1)
       {
 #ifdef USE_FBC
-        GetFluxBound (sbmlModel, unSBMLLevel, unSBMLVersion);
+        if (unFBCVersion == 1)
+        {
+          GetFluxBound (sbmlModel, unSBMLLevel, unSBMLVersion);
+        }
+        else
+        {
+          GetGeneProduct(sbmlModel, unSBMLLevel, unSBMLVersion);
+          fbcStrict = FbcModelPlugin_getStrict(sbmlModel->getPlugin("fbc"));
+        }
         GetObjective (sbmlModel, unSBMLLevel, unSBMLVersion);
 #endif
       }
@@ -1354,9 +1412,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       {
         plhs[0] = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
       }
-      else
+      else if (unFBCVersion == 1)
       {
         plhs[0] = mxCreateStructArray(2, dims, nNoFields_l3v1_fbc, field_names_l3v1_fbc);
+      }
+      else
+      {
+        plhs[0] = mxCreateStructArray(2, dims, nNoFields_l3v1_fbc_v2, field_names_l3v1_fbcv2);
       }
     }
 
@@ -1446,7 +1508,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
     if (unSBMLLevel > 2 && fbcPresent == 1)
     {
-      mxSetField(plhs[0], 0, "fbc_fluxBound", mxFluxBoundReturn);
+      if (unFBCVersion == 1)
+      {
+        mxSetField(plhs[0], 0, "fbc_fluxBound", mxFluxBoundReturn);
+      }
+      else
+      {
+        mxSetField(plhs[0], 0, "fbc_geneProduct", mxGeneProductReturn);
+        mxSetField(plhs[0], 0, "fbc_strict", CreateIntScalar(fbcStrict));
+      }
       mxSetField(plhs[0], 0, "fbc_objective", mxObjectiveReturn);
       mxSetField(plhs[0], 0, "fbc_activeObjective", mxCreateString(pacActiveObj));
     }
@@ -1693,6 +1763,26 @@ GetNamespaces(SBMLDocument_t * document)
 
   case SBML_FBC_OBJECTIVE:
     pacTypecode = "SBML_FBC_OBJECTIVE";
+    break;
+
+  case SBML_FBC_GENEPRODUCTASSOCIATION:
+    pacTypecode = "SBML_FBC_GENE_PRODUCT_ASSOCIATION";
+    break;
+
+  case SBML_FBC_GENEPRODUCT:
+    pacTypecode = "SBML_FBC_GENE_PRODUCT";
+    break;
+  
+  case SBML_FBC_GENEPRODUCTREF:
+    pacTypecode = "SBML_FBC_GENE_PRODUCT_REF";
+    break;
+  
+  case SBML_FBC_AND:
+    pacTypecode = "SBML_FBC_AND";
+    break;
+  
+  case SBML_FBC_OR:
+    pacTypecode = "SBML_FBC_OR";
     break;
 
   default:
@@ -3195,6 +3285,31 @@ GetReaction ( Model_t      *pModel,
     "level",
     "version"
   };
+  const int nNoFields_l3v1_fbc = 21;
+  const char *field_names_l3v1_fbc[] = {	
+    "typecode", 
+    "metaid",
+    "notes", 
+    "annotation",
+    "sboTerm",
+    "name", 
+    "id", 
+    "reactant",
+    "product", 
+    "modifier", 
+    "kineticLaw",
+    "reversible", 
+    "fast",
+    "compartment",
+    "isSetFast",
+    "fbc_lowerFluxBound",
+    "fbc_upperFluxBound",
+    "fbc_geneProductAssociation",
+    "level",
+    "version",
+    "fbc_version"
+  };
+
 
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3203,12 +3318,23 @@ GetReaction ( Model_t      *pModel,
   const char * pacName;
   const char * pacId = NULL;
   const char * pacCompartment = NULL;
+  const char * pacLowerFluxBound = NULL;
+  const char * pacUpperFluxBound = NULL;
   int nSBO = -1;
 
   int nReversible;
   int nFast;
 
   unsigned int unIsSetFast = 1;
+  unsigned int unFBCVersion = 0;
+
+#ifdef USE_FBC
+  unFBCVersion = SBasePlugin_getPackageVersion(SBase_getPlugin((SBase_t *)(pModel), "fbc"));
+#else
+  unFBCVersion = 0;
+#endif
+
+
   Reaction_t *pReaction;
 
   int i;
@@ -3237,7 +3363,18 @@ GetReaction ( Model_t      *pModel,
   {
     if (unSBMLVersion == 1)
     {
-      mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+      if (fbcPresent == 0)
+      {
+        mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+      }
+      else if (unFBCVersion < 2)
+      {
+        mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+      }
+      else
+      {
+        mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l3v1_fbc, field_names_l3v1_fbc);
+      }
     }
   }
 
@@ -3318,6 +3455,14 @@ GetReaction ( Model_t      *pModel,
       {
         nSBO = -1;
       }
+#ifdef USE_FBC
+      if (fbcPresent && unFBCVersion > 1)
+      {
+        pacUpperFluxBound = FbcReactionPlugin_getUpperFluxBound(SBase_getPlugin((SBase_t *)(pReaction), "fbc"));
+        pacLowerFluxBound = FbcReactionPlugin_getLowerFluxBound(SBase_getPlugin((SBase_t *)(pReaction), "fbc"));
+        GetGeneProductAssociation(pReaction, unSBMLLevel, unSBMLVersion);
+      }
+#endif
     }
 
     /* record any unset values as not specified */
@@ -3348,6 +3493,12 @@ GetReaction ( Model_t      *pModel,
     }
     if (pacCompartment == NULL) {
       pacCompartment = "";
+    }
+    if (pacUpperFluxBound == NULL) {
+      pacUpperFluxBound = "";
+    }
+    if (pacLowerFluxBound == NULL) {
+      pacLowerFluxBound = "";
     }
 
     /* put into structure */
@@ -3397,12 +3548,20 @@ GetReaction ( Model_t      *pModel,
     {
       mxSetField(mxReactionReturn,i,"compartment",mxCreateString(pacCompartment)); 
       mxSetField(mxReactionReturn,i,"isSetFast",CreateIntScalar(unIsSetFast)); 
+      if (fbcPresent == 1 && unFBCVersion > 1)
+      {
+        mxSetField(mxReactionReturn,i,"fbc_upperFluxBound",mxCreateString(pacUpperFluxBound)); 
+        mxSetField(mxReactionReturn,i,"fbc_lowerFluxBound",mxCreateString(pacLowerFluxBound)); 
+        mxSetField(mxReactionReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
+        mxSetField(mxReactionReturn, i, "fbc_geneProductAssociation", mxGeneProductAssociationReturn);
+      }
     }
 
     mxReactantReturn   = NULL;
     mxProductReturn    = NULL;
     mxKineticLawReturn = NULL;
     mxModifierReturn   = NULL;
+    mxGeneProductAssociationReturn = NULL;
   }
 }
 
@@ -7697,6 +7856,10 @@ GetFluxBound ( Model_t      *pModel,
     unIsSetValue    = FluxBound_isSetValue(pFluxBound);
 
     unFBCVersion = SBasePlugin_getPackageVersion(plugin);
+    if (SBase_isSetSBOTerm((SBase_t*) pFluxBound)) 
+    {
+      nSBO = SBase_getSBOTerm((SBase_t*) pFluxBound);
+    }
 
 
 
@@ -7848,6 +8011,10 @@ GetObjective ( Model_t      *pModel,
     pacType         = Objective_getType(pObjective);
 
     unFBCVersion = SBasePlugin_getPackageVersion(plugin);
+    if (SBase_isSetSBOTerm((SBase_t*) pObjective)) 
+    {
+      nSBO = SBase_getSBOTerm((SBase_t*) pObjective);
+    }
 
     GetFluxObjective(pObjective, unSBMLLevel, unSBMLVersion, unFBCVersion);
 
@@ -7985,6 +8152,10 @@ GetFluxObjective ( Objective_t      *pObjective,
     pacReaction        = FluxObjective_getReaction(pFluxObjective);
     dCoefficient       = FluxObjective_getCoefficient(pFluxObjective);
     unIsSetCoefficient = FluxObjective_isSetCoefficient(pFluxObjective);
+    if (SBase_isSetSBOTerm((SBase_t*) pFluxObjective)) 
+    {
+      nSBO = SBase_getSBOTerm((SBase_t*) pFluxObjective);
+    }
 
 
     /**        
@@ -8037,5 +8208,421 @@ GetFluxObjective ( Objective_t      *pObjective,
 
   }
 }
+
+/**
+ * NAME:    GetGeneProduct
+ *
+ * PARAMETERS:  Pointer to a Model
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the GeneProduct mxArray structure
+ *            populates the structure with all the GeneProduct in the Model
+ */
+void
+GetGeneProduct ( Model_t      *pModel,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion )
+{
+  SBasePlugin_t *plugin =  SBase_getPlugin((SBase_t *)(pModel), "fbc");
+  int n = FbcModelPlugin_getNumGeneProducts(plugin);
+  mwSize dims[2] = {1, n};
+
+  /* fields within a FluxBound structure */
+  const int nNoFields_l3v1_fbc = 12;
+  const char * field_names_l3v1_fbc[] = {	
+    "typecode", 
+    "metaid",
+    "notes", 
+    "annotation",
+    "sboTerm",
+    "fbc_id",
+    "fbc_name",
+    "fbc_label",
+    "fbc_associatedSpecies",
+    "level",
+    "version",
+    "fbc_version"
+  };
+
+  /* determine the values */
+  const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacId = NULL;
+  int nSBO = -1;
+  const char * pacName = NULL;
+  const char * pacLabel = NULL;
+  const char * pacAssociatedSpecies = NULL;
+
+  unsigned int unFBCVersion;
+
+  GeneProduct_t *pGeneProduct;
+  int i;
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxGeneProductReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    mxGeneProductReturn = NULL;
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxGeneProductReturn = 
+        mxCreateStructArray(2, dims, nNoFields_l3v1_fbc, field_names_l3v1_fbc);
+    }
+  }
+
+  for (i = 0; i < n; i++) {
+    pGeneProduct = FbcModelPlugin_getGeneProduct(plugin, i);
+
+    /* determine the values */
+    pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pGeneProduct));
+
+    pacNotes        = SBase_getNotesString((SBase_t *) pGeneProduct);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pGeneProduct);
+    pacMetaid = SBase_getMetaId((SBase_t*)pGeneProduct);
+
+    pacId           = GeneProduct_getId(pGeneProduct);
+    pacName         = GeneProduct_getName(pGeneProduct);
+    pacLabel        = GeneProduct_getLabel(pGeneProduct);
+    pacAssociatedSpecies = GeneProduct_getAssociatedSpecies(pGeneProduct);
+
+    if (SBase_isSetSBOTerm((SBase_t*) pGeneProduct)) 
+    {
+      nSBO = SBase_getSBOTerm((SBase_t*) pGeneProduct);
+    }
+    unFBCVersion = SBasePlugin_getPackageVersion(plugin);
+
+
+
+    /**        
+    * check for NULL strings - Matlab doesnt like creating 
+    * a string that is NULL
+    */
+    if (pacNotes == NULL) {
+      pacNotes = "";
+    }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+    if (pacAnnotations == NULL) {
+      pacAnnotations = "";
+    }
+    if (pacId == NULL) {
+      pacId = "";
+    }
+    if (pacName == NULL) {
+      pacName = "";
+    }
+    if (pacLabel == NULL) {
+      pacLabel = "";
+    }
+    if (pacAssociatedSpecies == NULL) {
+      pacAssociatedSpecies = "";
+    }
+    /* put into structure */
+    mxSetField( mxGeneProductReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxGeneProductReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+    mxSetField( mxGeneProductReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
+
+    mxSetField(mxGeneProductReturn,i,"typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxGeneProductReturn, i, "metaid", mxCreateString(pacMetaid));
+    mxSetField(mxGeneProductReturn, i, "notes",mxCreateString(pacNotes));
+    mxSetField(mxGeneProductReturn, i, "annotation",mxCreateString(pacAnnotations));
+
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      util_free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      util_free((char*)pacNotes);
+    }
+
+    mxSetField(mxGeneProductReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
+    mxSetField(mxGeneProductReturn,i,"fbc_id",mxCreateString(pacId)); 
+    mxSetField(mxGeneProductReturn,i,"fbc_name",mxCreateString(pacName)); 
+    mxSetField(mxGeneProductReturn,i,"fbc_label",mxCreateString(pacLabel)); 
+    mxSetField(mxGeneProductReturn,i,"fbc_associatedSpecies",mxCreateString(pacAssociatedSpecies)); 
+  }
+}
+
+/**
+ * NAME:    GetGeneProductAssociation
+ *
+ * PARAMETERS:  Pointer to a Model
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the GeneProduct mxArray structure
+ *            populates the structure with all the GeneProduct in the Model
+ */
+void
+GetGeneProductAssociation ( Reaction_t * pReaction,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion )
+{
+  SBasePlugin_t *plugin =  SBase_getPlugin((SBase_t *)(pReaction), "fbc");
+  int n = FbcReactionPlugin_isSetGeneProductAssociation(plugin) ? 1 : 0;
+  mwSize dims[2] = {1, n};
+
+  /* fields within a GeneProductAssociation structure */
+  const int nNoFields_l3v1_fbc = 11;
+  const char * field_names_l3v1_fbc[] = {	
+    "typecode", 
+    "metaid",
+    "notes", 
+    "annotation",
+    "sboTerm",
+    "fbc_id",
+    "fbc_name",
+    "fbc_association",
+    "level",
+    "version",
+    "fbc_version"
+  };
+
+  /* determine the values */
+  const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacId = NULL;
+  int nSBO = -1;
+  const char * pacName = NULL;
+
+  unsigned int unFBCVersion = SBasePlugin_getPackageVersion(plugin);
+
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxGeneProductAssociationReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    mxGeneProductAssociationReturn = NULL;
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1 && unFBCVersion == 2)
+    {
+      mxGeneProductAssociationReturn = 
+        mxCreateStructArray(2, dims, nNoFields_l3v1_fbc, field_names_l3v1_fbc);
+    }
+    else
+    {
+      mxGeneProductAssociationReturn = NULL;
+    }
+  }
+
+  if (n == 1) 
+  {
+    GeneProductAssociation_t *pGeneProductAssociation = FbcReactionPlugin_getGeneProductAssociation(plugin);
+
+    /* determine the values */
+    pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pGeneProductAssociation));
+
+    pacNotes        = SBase_getNotesString((SBase_t *) pGeneProductAssociation);
+    pacAnnotations  = SBase_getAnnotationString((SBase_t *) pGeneProductAssociation);
+    pacMetaid = SBase_getMetaId((SBase_t*)pGeneProductAssociation);
+
+    pacId           = GeneProductAssociation_getId(pGeneProductAssociation);
+    pacName         = GeneProductAssociation_getName(pGeneProductAssociation);
+
+    if (SBase_isSetSBOTerm((SBase_t*) pGeneProductAssociation)) 
+    {
+      nSBO = SBase_getSBOTerm((SBase_t*) pGeneProductAssociation);
+    }
+    GetGeneAssociation(pGeneProductAssociation, unSBMLLevel, unSBMLVersion, unFBCVersion);
+
+    /**        
+    * check for NULL strings - Matlab doesnt like creating 
+    * a string that is NULL
+    */
+    if (pacNotes == NULL) {
+      pacNotes = "";
+    }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+    if (pacAnnotations == NULL) {
+      pacAnnotations = "";
+    }
+    if (pacId == NULL) {
+      pacId = "";
+    }
+    if (pacName == NULL) {
+      pacName = "";
+    }
+    /* put into structure */
+    mxSetField( mxGeneProductAssociationReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxGeneProductAssociationReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+    mxSetField( mxGeneProductAssociationReturn, 0, "fbc_version"    , CreateIntScalar(unFBCVersion) );
+
+    mxSetField(mxGeneProductAssociationReturn, 0, "typecode",mxCreateString(pacTypecode)); 
+    mxSetField(mxGeneProductAssociationReturn, 0, "metaid", mxCreateString(pacMetaid));
+    mxSetField(mxGeneProductAssociationReturn, 0, "notes",mxCreateString(pacNotes));
+    mxSetField(mxGeneProductAssociationReturn, 0, "annotation",mxCreateString(pacAnnotations));
+
+
+    if (strcmp(pacAnnotations, "") != 0)
+    {
+      util_free((char*)pacAnnotations);
+    }
+    if (strcmp(pacNotes, "") != 0)
+    {
+      util_free((char*)pacNotes);
+    }
+
+    mxSetField(mxGeneProductAssociationReturn, 0, "sboTerm", CreateIntScalar(nSBO)); 
+    mxSetField(mxGeneProductAssociationReturn, 0, "fbc_id", mxCreateString(pacId)); 
+    mxSetField(mxGeneProductAssociationReturn, 0, "fbc_name", mxCreateString(pacName)); 
+    mxSetField(mxGeneProductAssociationReturn, 0, "fbc_association", mxGeneAssociationReturn); 
+    mxGeneAssociationReturn = NULL;
+
+  }
+}
+
+/**
+ * NAME:    GetGeneAssociation
+ *
+ * PARAMETERS:  Pointer to a Model
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the GeneProduct mxArray structure
+ *            populates the structure with all the GeneProduct in the Model
+ */
+void 
+GetGeneAssociation ( GeneProductAssociation_t * pGeneProductAssociation,
+               unsigned int unSBMLLevel,
+               unsigned int unSBMLVersion,
+               unsigned int unFBCVersion)
+{
+  //if (!GeneProductAssociation_isSetAssociation(pGeneProductAssociation))
+  //{
+  //  mxGeneAssociationReturn = NULL;
+  //  return;
+  //}
+  FbcAssociation_t * pAssociation = GeneProductAssociation_getAssociation(pGeneProductAssociation);
+  mwSize dims[2] = {1, 1};
+  const int nNoFields_l3v1_fbc = 9;
+  const char * field_names_l3v1_fbc[] = {	
+    "typecode", 
+    "metaid",
+    "notes", 
+    "annotation",
+    "sboTerm",
+    "fbc_association",
+    "level",
+    "version",
+    "fbc_version"
+  };
+
+  const char * pacTypecode = NULL;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacAssociation = NULL;
+  int nSBO = -1;
+
+  /* create the structure array */
+  if (unSBMLLevel == 1) 
+  {
+    mxGeneAssociationReturn = NULL;
+  }
+  else if (unSBMLLevel == 2) 
+  {
+    mxGeneAssociationReturn = NULL;
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1 && unFBCVersion == 2)
+    {
+      mxGeneAssociationReturn = mxCreateStructArray(2, dims, nNoFields_l3v1_fbc, field_names_l3v1_fbc);
+    /* determine the values */
+      pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pAssociation));
+
+      pacNotes        = SBase_getNotesString((SBase_t *) pAssociation);
+      pacAnnotations  = SBase_getAnnotationString((SBase_t *) pAssociation);
+      pacMetaid = SBase_getMetaId((SBase_t*)pAssociation);
+
+      if (SBase_isSetSBOTerm((SBase_t*) pAssociation)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pAssociation);
+      }
+      pacAssociation = FbcAssociation_toInfix(pAssociation);
+
+      /**        
+      * check for NULL strings - Matlab doesnt like creating 
+      * a string that is NULL
+      */
+      if (pacNotes == NULL) {
+        pacNotes = "";
+      }
+      if (pacMetaid == NULL)
+      {
+        pacMetaid = "";
+      }
+      if (pacAnnotations == NULL) {
+        pacAnnotations = "";
+      }
+      if (pacAssociation == NULL) {
+        pacAssociation = "";
+      }
+
+      ///* put into structure */
+      mxSetField( mxGeneAssociationReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+      mxSetField( mxGeneAssociationReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+      mxSetField( mxGeneAssociationReturn, 0, "fbc_version"    , CreateIntScalar(unFBCVersion) );
+
+      mxSetField(mxGeneAssociationReturn, 0, "typecode",mxCreateString(pacTypecode)); 
+      mxSetField(mxGeneAssociationReturn, 0, "metaid", mxCreateString(pacMetaid));
+      mxSetField(mxGeneAssociationReturn, 0, "notes",mxCreateString(pacNotes));
+      mxSetField(mxGeneAssociationReturn, 0, "annotation",mxCreateString(pacAnnotations));
+
+
+      if (strcmp(pacAnnotations, "") != 0)
+      {
+        util_free((char*)pacAnnotations);
+      }
+      if (strcmp(pacNotes, "") != 0)
+      {
+        util_free((char*)pacNotes);
+      }
+
+      mxSetField(mxGeneAssociationReturn, 0, "sboTerm", CreateIntScalar(nSBO)); 
+      mxSetField(mxGeneAssociationReturn, 0, "fbc_association", mxCreateString(pacAssociation)); 
+
+      if (strcmp(pacAssociation, "") != 0)
+      {
+        util_free((char*)pacAssociation);
+      }
+    }
+    else
+    {
+      mxGeneAssociationReturn = NULL;
+    }
+  }
+
+  
+}
+
+
 
 #endif 

@@ -101,6 +101,14 @@ else
   version = 1;
 end;
 
+pkgVersion = 1;
+if (in_fbc == 1)
+  if isfield(SBMLStructure, 'fbc_version')
+    pkgVersion = SBMLStructure.fbc_version;
+  end;
+end;
+    
+
 isValidLevelVersionCombination(level, version);
 
 message = '';
@@ -254,7 +262,14 @@ if (valid == 1 && (level > 2 || (level == 2 && version > 1)))
 end;
 
 % reaction
-if (valid == 1)
+% dont validate if fbc v2 
+fbcv2 = 0;
+if (level == 3 && version == 1)
+    if (pkgVersion == 2)
+        fbcv2 = 1;
+    end;
+end;
+if (valid == 1 && fbcv2 == 0)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.reaction))
     [valid, message] = isSBML_Struct('SBML_REACTION', ...
@@ -647,7 +662,12 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 if (valid == 1 && ~isempty(SBMLStructure))
   if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      if (strcmp(typecode, 'SBML_FBC_GENE_PRODUCT_REF') == 1)
+          possible_tc = {'SBML_FBC_GENE_PRODUCT_REF', 'SBML_FBC_OR', 'SBML_FBC_AND'};
+      else 
+          possible_tc = {typecode};
+      end;
+    if (sum(ismember(possible_tc, SBMLStructure.typecode)) ~= 1)
       valid = 0;
       message = 'typecode mismatch';
       return;
@@ -814,7 +834,7 @@ if (valid == 1)
 
 
   % fluxBound
-  if (valid == 1)
+  if (valid == 1 && pkgVersion == 1)
     index = 1;
     while (valid == 1 && index <= length(SBMLStructure.fbc_fluxBound))
       [valid, message] = isSBML_FBCStruct('SBML_FBC_FLUXBOUND', ...
@@ -834,7 +854,18 @@ if (valid == 1)
       index = index + 1;
     end;
   end;
-  
+
+  % geneProduct
+  if (valid == 1 && pkgVersion == 2)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.fbc_geneProduct))
+      [valid, message] = isSBML_FBCStruct('SBML_FBC_GENE_PRODUCT', ...
+                                    SBMLStructure.fbc_geneProduct(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+
   %species
   if (valid == 1)
     index = 1;
@@ -846,6 +877,16 @@ if (valid == 1)
     end;
   end;
   
+  %reaction
+  if (valid == 1 && pkgVersion == 2)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.reaction))
+      [valid, message] = isSBML_FBC_Reaction('SBML_FBC_REACTION', ...
+                                    SBMLStructure.reaction(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
 
 end;
 
@@ -948,6 +989,127 @@ end;
 % report failure
 if (valid == 0)
 	message = sprintf('Invalid FBC Species\n%s\n', message);
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [valid, message] = isSBML_FBC_Reaction(typecode, SBMLStructure, ...
+                                    level, version, pkgVersion, extensions_allowed)
+
+if (length(SBMLStructure) > 1)
+	message = 'cannot deal with arrays of structures';
+  valid = 0;
+  return;
+end;
+
+isValidLevelVersionCombination(level, version);
+
+message = '';
+
+% check that argument is a structure
+valid = isstruct(SBMLStructure);
+
+% check the typecode
+typecode = 'SBML_REACTION';
+if (valid == 1 && ~isempty(SBMLStructure))
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'typecode field missing';
+    return;
+  end;
+end;
+
+% if the level and version fields exist they must match
+if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
+	if ~isequal(level, SBMLStructure.level)
+		valid = 0;
+		message = 'level mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
+	if ~isequal(version, SBMLStructure.version)
+		valid = 0;
+		message = 'version mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'fbc_version') && ~isempty(SBMLStructure))
+	if ~isequal(pkgVersion, SBMLStructure.fbc_version)
+		valid = 0;
+		message = 'FBC version mismatch';
+	end;
+end;
+
+if (valid == 1)
+  [valid, message] = isSBML_Struct('SBML_REACTION', SBMLStructure, level, ...
+                                             version, 1);
+end;
+
+% check that structure contains all the fbc fields
+if (valid == 1)
+  [SBMLfieldnames, numFields] = getFieldnames('SBML_FBC_REACTION', level, ...
+                                                version, pkgVersion);
+
+  if (numFields ==0)
+    valid = 0;
+    message = 'invalid level/version';
+  end;
+
+  index = 1;
+  while (valid == 1 && index <= numFields)
+    valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+    if (valid == 0);
+      message = sprintf('%s field missing', char(SBMLfieldnames(index)));
+    end;
+    index = index + 1;
+  end;
+
+  if (extensions_allowed == 0)
+    % check that the structure contains ONLY the expected fields
+    if (valid == 1)
+      if (numFields ~= length(fieldnames(SBMLStructure))-17)
+        valid = 0;
+        message = sprintf('Unexpected field detected');
+      end;
+    end;
+  end;
+
+
+end;
+
+  %check that any nested structures are appropriate
+
+
+  % geneProductAssociation
+  if (valid == 1 && pkgVersion == 2)
+    index = 1;
+    while (valid == 1 && index <= length(SBMLStructure.fbc_geneProductAssociation))
+      [valid, message] = isSBML_FBCStruct('SBML_FBC_GENE_PRODUCT_ASSOCIATION', ...
+                                    SBMLStructure.fbc_geneProductAssociation(index), ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+
+  % geneAssociation
+  if (valid == 1 && pkgVersion == 2)
+    index = length(SBMLStructure.fbc_geneProductAssociation);
+    while (valid == 1 && index == 1)
+      [valid, message] = isSBML_FBCStruct('SBML_FBC_GENE_PRODUCT_REF', ...
+                                    SBMLStructure.fbc_geneProductAssociation.fbc_association, ...
+                                    level, version, pkgVersion, extensions_allowed);
+      index = index + 1;
+    end;
+  end;
+
+% report failure
+if (valid == 0)
+	message = sprintf('Invalid FBC Reaction\n%s\n', message);
 end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1845,6 +2007,16 @@ if done == 0
      [SBMLfieldnames, nNumberFields] = getFBCModelFieldnames(level, version, pkgVersion);
     case {'SBML_FBC_SPECIES', 'FBCSpecies'}
      [SBMLfieldnames, nNumberFields] = getFBCSpeciesFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_REACTION', 'FBCReaction'}
+     [SBMLfieldnames, nNumberFields] = getFBCReactionFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_GENE_PRODUCT', 'GeneProduct', 'geneProduct'}
+     [SBMLfieldnames, nNumberFields] = getGeneProductFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_GENE_PRODUCT_ASSOCIATION', 'GeneProductAssociation', 'geneProductAssociation'}
+     [SBMLfieldnames, nNumberFields] = getGeneProductAssociationFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_GENE_PRODUCT_REF', 'GeneProductRef', 'geneProductRef'}
+     [SBMLfieldnames, nNumberFields] = getGeneAssociationFieldnames(level, version, pkgVersion);
+    case {'SBML_FBC_OR', 'FBCOr', 'fbcOr', 'SBML_FBC_AND', 'FBCAnd', 'fbcAnd', }
+     [SBMLfieldnames, nNumberFields] = getGeneAssociationFieldnames(level, version, pkgVersion);
     otherwise
       error('%s\n%s', ...
         'getFieldnames(typecode, level, version', ...
@@ -3555,12 +3727,20 @@ elseif (level == 2)
 elseif (level == 3)
 	if (version == 1)
     if (pkgVersion == 1)
-      SBMLfieldnames = { 'fbc_version', ...
-                         'fbc_fluxBound', ...
-                         'fbc_objective', ...
-                         'fbc_activeObjective', ...
-                       };
-      nNumberFields = 4;
+          SBMLfieldnames = { 'fbc_version', ...
+                             'fbc_fluxBound', ...
+                             'fbc_objective', ...
+                             'fbc_activeObjective', ...
+                           };
+          nNumberFields = 4;
+    elseif(pkgVersion ==2)
+          SBMLfieldnames = { 'fbc_version', ...
+                             'fbc_geneProduct', ...
+                             'fbc_objective', ...
+                             'fbc_activeObjective', ...
+                             'fbc_strict'
+                           };
+          nNumberFields = 5;
     end;
 	end;
 end;
@@ -3584,7 +3764,7 @@ elseif (level == 2)
 	nNumberFields = 0;
 elseif (level == 3)
 	if (version == 1)
-    if (pkgVersion == 1)
+    if (pkgVersion < 3)
       SBMLfieldnames = { 'fbc_charge', ...
                          'isSetfbc_charge', ...
                          'fbc_chemicalFormula', ...
@@ -3630,6 +3810,9 @@ elseif (level == 3)
                          'fbc_version', ...
                        };
       nNumberFields = 13;
+    else
+        SBMLfieldnames = [];
+        nNumberFields = 0;
     end;
 	end;
 end;
@@ -3653,7 +3836,7 @@ elseif (level == 2)
 	nNumberFields = 0;
 elseif (level == 3)
 	if (version == 1)
-    if (pkgVersion == 1)
+    if (pkgVersion < 3)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
                          'notes', ...
@@ -3690,7 +3873,7 @@ elseif (level == 2)
 	nNumberFields = 0;
 elseif (level == 3)
 	if (version == 1)
-    if (pkgVersion == 1)
+    if (pkgVersion < 3)
       SBMLfieldnames = { 'typecode', ...
                          'metaid', ...
                          'notes', ...
@@ -3707,3 +3890,161 @@ elseif (level == 3)
     end;
 	end;
 end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getGeneProductFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion  == 2)
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_id', ...
+                         'fbc_name', ...
+                         'fbc_label', ...
+                         'fbc_associatedSpecies', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 12;
+    else
+        SBMLfieldnames = [];
+        nNumberFields = 0;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getFBCReactionFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 2)
+      SBMLfieldnames = { 'fbc_lowerFluxBound', ...
+                         'fbc_upperFluxBound', ...
+                         'fbc_geneProductAssociation', ...
+                         'fbc_version', ...
+                       };
+      nNumberFields = 4;
+    else
+       SBMLfieldnames = [];
+	   nNumberFields = 0;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getGeneProductAssociationFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 2)
+
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_id', ...
+                         'fbc_name', ...
+                         'fbc_association', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+                   nNumberFields = 11;
+    else
+       SBMLfieldnames = [];
+	   nNumberFields = 0;
+    end;
+	end;
+end;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [SBMLfieldnames, nNumberFields] = getGeneAssociationFieldnames(level, ...
+                                                         version, pkgVersion)
+
+if (~isValidLevelVersionCombination(level, version))
+  error ('invalid level/version combination');
+end;
+
+% need a check on package version
+
+if (level == 1)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 2)
+	SBMLfieldnames = [];
+	nNumberFields = 0;
+elseif (level == 3)
+	if (version == 1)
+    if (pkgVersion == 2)
+
+      SBMLfieldnames = { 'typecode', ...
+                         'metaid', ...
+                         'notes', ...
+                         'annotation', ...
+                         'sboTerm', ...
+                         'fbc_association', ...
+                         'level', ...
+                         'version', ...
+                         'fbc_version', ...
+                       };
+                   nNumberFields = 9;
+    else
+       SBMLfieldnames = [];
+	   nNumberFields = 0;
+    end;
+	end;
+end;
+
+
+
+
