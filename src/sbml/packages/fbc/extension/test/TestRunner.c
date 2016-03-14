@@ -27,6 +27,7 @@ CK_CPPSTART
 Suite *create_suite_FbcExtension (void);
 Suite *create_suite_WriteFbcExtension (void);
 Suite *create_suite_ReadFbcExtension (void);
+Suite *create_suite_FbcAssociation (void);
 
 
 /**
@@ -72,6 +73,7 @@ main (int argc, char* argv[])
   SRunner *runner = srunner_create(create_suite_FbcExtension());
   srunner_add_suite(runner, create_suite_WriteFbcExtension());
   srunner_add_suite(runner, create_suite_ReadFbcExtension());
+  srunner_add_suite(runner, create_suite_FbcAssociation());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {
