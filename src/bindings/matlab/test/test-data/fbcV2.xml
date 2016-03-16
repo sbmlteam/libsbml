@@ -73,7 +73,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction id="R2" reversible="false" fast="false" fbc:lowerFluxBound="low" fbc:upperFluxBound="up">
+      <reaction id="R3" reversible="false" fast="false" fbc:lowerFluxBound="low" fbc:upperFluxBound="up">
         <listOfReactants>
           <speciesReference species="S1" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -112,7 +112,8 @@
       </fbc:objective>
     </fbc:listOfObjectives>
     <fbc:listOfGeneProducts>
-      <fbc:geneProduct fbc:id="g_1" fbc:label="b1"/>
+      <fbc:geneProduct fbc:id="g_1" fbc:label="g_1"/>
+      <fbc:geneProduct fbc:id="g_2" fbc:label="g_2"/>
     </fbc:listOfGeneProducts>
   </model>
 </sbml>
