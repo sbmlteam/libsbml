@@ -1276,6 +1276,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /**
@@ -1360,6 +1361,7 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 BiolQualifierType_fromString(const char* s);
 
+LIBSBML_CPP_NAMESPACE_END
 
 #ifndef SWIG
 
