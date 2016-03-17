@@ -447,6 +447,7 @@ START_TEST(test_FbcExtension_read_and_convert)
   
   std::string finalModel = writeSBMLToStdString(document);
 
+  safe_free((void*)(filename));
   delete document;
 }
 END_TEST
@@ -523,6 +524,8 @@ START_TEST(test_FbcExtension_read_and_convert_V1ToV2)
   }
 
   //std::string l3v1v1 = writeSBMLToStdString(document);
+  safe_free((void*)(filename));
+  delete document;
 
 }
 END_TEST
