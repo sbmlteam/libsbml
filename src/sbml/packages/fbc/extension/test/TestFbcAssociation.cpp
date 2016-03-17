@@ -156,7 +156,13 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref)
 
   fail_unless(gpref->getGeneProduct() == gp->getId());
 
-  fail_unless(equals(expected, writeSBMLToString(doc)));
+  char * char_doc = writeSBMLToString(doc);
+  fail_unless(equals(expected, char_doc));
+
+  safe_free((void*)(char_doc));
+
+  delete fa;
+  delete doc;
 }
 END_TEST
 
@@ -246,7 +252,13 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref_existing)
 
   fail_unless(gpref->getGeneProduct() == gp->getId());
 
-  fail_unless(equals(expected, writeSBMLToString(doc)));
+  char * char_doc = writeSBMLToString(doc);
+  fail_unless(equals(expected, char_doc));
+
+  safe_free((void*)(char_doc));
+
+  delete fa;
+  delete doc;
 }
 END_TEST
 
@@ -352,7 +364,12 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref_both_existin
 
   fail_unless(gpref->getGeneProduct() == gp->getId());
 
-  fail_unless(equals(expected, writeSBMLToString(doc)));
+  char * char_doc = writeSBMLToString(doc);
+  fail_unless(equals(expected, char_doc));
+
+  safe_free((void*)(char_doc));
+
+  delete doc;
 }
 END_TEST
 
@@ -455,7 +472,12 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref_id_label_sam
 
   fail_unless(gpref->getGeneProduct() == gp->getId());
 
-  fail_unless(equals(expected, writeSBMLToString(doc)));
+  char * char_doc = writeSBMLToString(doc);
+  fail_unless(equals(expected, char_doc));
+
+  safe_free((void*)(char_doc));
+
+  delete doc;
 }
 END_TEST
 
