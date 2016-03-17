@@ -157,6 +157,11 @@ typedef enum
     /*!< The requested action cannot be performed as the target object does not have 
      * the metaid attribute set. */
      
+     , LIBSBML_DEPRECATED_ATTRIBUTE   = -15
+    /*!< The attribute that is the subject of this operation has been deprecated
+     * for the combination of SBML Level and Version for the underlying
+     * object. */
+     
    /* ---------------------------------------------------------------------------
     *   
     *              Return codes for package extension
