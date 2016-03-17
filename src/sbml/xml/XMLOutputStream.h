@@ -736,7 +736,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    *
    * @param writeComment the flag
    */
-  static void setTimestamp(bool writeTimestamp);
+  static void setWriteTimestamp(bool writeTimestamp);
 
 
   /**

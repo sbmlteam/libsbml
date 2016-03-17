@@ -1122,7 +1122,7 @@ bool XMLOutputStream::getWriteTimestamp()
   return mWriteTimestamp;
 }
 
-void XMLOutputStream::setTimestamp(bool writeTimestamp)
+void XMLOutputStream::setWriteTimestamp(bool writeTimestamp)
 {
   mWriteTimestamp = writeTimestamp;
 }
