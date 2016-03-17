@@ -341,9 +341,10 @@ int GeneProductAssociation::setAssociation(const std::string& association)
   if (newAssociation == NULL)
     return LIBSBML_OPERATION_FAILED;
 
+  /* this clones the association so we need to free the memory */
   int result = setAssociation(newAssociation);
 
-  if (result != LIBSBML_OPERATION_SUCCESS)
+  if (result == LIBSBML_OPERATION_SUCCESS)
     delete newAssociation;
 
   return result;
