@@ -20,6 +20,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLReader.h>
+#include <sbml/SBMLWriter.h>
 #include <string>
 
 /** @cond doxygenIgnored */
