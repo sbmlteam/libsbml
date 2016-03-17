@@ -149,6 +149,8 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
         getErrorLog()->logPackageError("fbc", FbcReactionOnlyOneGeneProdAss, 
           getPackageVersion(), getLevel(), getVersion());
       }
+
+      delete mGeneProductAssociation;
       
       mGeneProductAssociation = new GeneProductAssociation(fbcns);
 

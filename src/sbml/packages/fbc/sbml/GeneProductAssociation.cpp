@@ -588,6 +588,7 @@ GeneProductAssociation::createObject(XMLInputStream& stream)
                     details, getLine(), getColumn());
 
   }
+  delete mAssociation;
 
   if (name == "and")
   {
