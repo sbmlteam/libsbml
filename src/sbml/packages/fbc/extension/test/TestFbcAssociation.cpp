@@ -150,7 +150,7 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref)
 
   // if it goes back to infix surely it should be the same infix that it started as
   // FIXME
-//  fail_unless(fa_retrieved->toInfix() == infix);
+  fail_unless(fa_retrieved->toInfix() == infix);
   
   GeneProductRef * gpref = dynamic_cast<GeneProductRef *>(gpa->getAssociation());
   fail_unless(gpref->isSetGeneProduct() == true);
@@ -343,7 +343,7 @@ START_TEST(test_FbcAssociation_parseFbcInfixAssociation_product_ref_both_existin
 
   // FIXME this fails
   // I would expect it to be this
-//  fail_unless(fa->toInfix() == infix);
+  fail_unless(fa->toInfix() == infix);
   // so if I do this
   // gpa->setAssociation(fa->toInfix()) OR gpa->setAssociation(fa)
   //I dont get the same model back

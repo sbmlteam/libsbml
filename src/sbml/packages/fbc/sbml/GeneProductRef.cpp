@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  */
 
-
+#include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/sbml/GeneProductRef.h>
 #include <sbml/packages/fbc/validator/FbcSBMLError.h>
 #include <sbml/util/ElementFilter.h>
@@ -144,7 +144,18 @@ GeneProductRef::getGeneProduct() const
 std::string 
 GeneProductRef::toInfix() const
 {
-  return mGeneProduct;
+  const SBMLDocument* doc = getSBMLDocument(); 
+  if (doc == NULL) return mGeneProduct;
+  
+  const Model* model = doc->getModel();
+  if (model == NULL) return mGeneProduct;
+    
+  const FbcModelPlugin* plug = dynamic_cast<const FbcModelPlugin*>(model->getPlugin("fbc"));
+  if (plug == NULL) return mGeneProduct;
+  const GeneProduct* product = plug->getGeneProduct(mGeneProduct);
+  if (product == NULL) return mGeneProduct;
+      
+  return product->getLabel();
 }
 
 
