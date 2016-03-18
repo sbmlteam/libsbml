@@ -11,6 +11,11 @@
 #include <check.h>
 #include <stdlib.h>
 #include <sbml/util/memory.h>
+
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 #if defined(__cplusplus)
 LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART

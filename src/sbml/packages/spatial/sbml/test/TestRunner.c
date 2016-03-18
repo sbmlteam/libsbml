@@ -42,6 +42,10 @@
 
 #include <check.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
+
 LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
