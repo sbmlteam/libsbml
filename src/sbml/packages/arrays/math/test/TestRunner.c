@@ -37,6 +37,9 @@
 #include <sbml/util/memory.h>
 #include <sbml/common/extern.h>
 
+#ifdef LIBSBML_USE_VLD
+  #include <vld.h>
+#endif
 /**
  * Test suite creation function prototypes.
  *
