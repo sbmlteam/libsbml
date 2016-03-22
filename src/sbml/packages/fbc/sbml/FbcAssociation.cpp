@@ -301,7 +301,9 @@ FbcAssociation* toAssociation(const ASTNode* node, FbcModelPlugin* plugin)
     replaceAllSubStrings(name, "__NINE__", "9");
     replaceAllSubStrings(name, "__ZERO__", "0");
 
-    GeneProduct* prod = plugin->getGeneProductByLabel(name);
+    GeneProduct* prod = plugin->getGeneProductByLabel(node->getName());
+    if (prod == NULL)
+        prod = plugin->getGeneProductByLabel(name);
     string id;
     if (prod == NULL)
     {

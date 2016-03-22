@@ -88,11 +88,11 @@ Totalfail = Totalfail + fail_unless(m.fbc_strict == 1);
   %     <fbc:geneProduct fbc:id="g_1" fbc:label="b1"/>
   %   </fbc:listOfGeneProducts>
 
-  Totalfail = Totalfail + fail_unless( length(m.fbc_geneProduct) == 1);
+  Totalfail = Totalfail + fail_unless( length(m.fbc_geneProduct) == 2);
 
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_geneProduct(1).typecode, 'SBML_FBC_GENE_PRODUCT'));
   Totalfail = Totalfail + fail_unless( strcmp(m.fbc_geneProduct(1).fbc_id, 'g_1'));
-  Totalfail = Totalfail + fail_unless( strcmp(m.fbc_geneProduct(1).fbc_label, 'b1'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.fbc_geneProduct(1).fbc_label, 'g_1'));
 
 %         <fbc:geneProductAssociation fbc:id="gg1">
 %             <fbc:geneProductRef fbc:geneProduct="g_1"/>

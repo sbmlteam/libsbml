@@ -598,8 +598,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxRules = mxGetField(mxModel[0], 0, "rule");
   GetRule(mxRules, nLevel, nVersion, sbmlModel);
 
-  mxReactions = mxGetField(mxModel[0], 0, "reaction");
-  GetReaction(mxReactions, nLevel, nVersion, sbmlModel);
+  //mxReactions = mxGetField(mxModel[0], 0, "reaction");
+  //GetReaction(mxReactions, nLevel, nVersion, sbmlModel);
 
   /* level 2 and 3 only */
   if (nLevel > 1)
@@ -805,6 +805,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       pacActiveObjective);
 #endif
   }
+
+  mxReactions = mxGetField(mxModel[0], 0, "reaction");
+  GetReaction(mxReactions, nLevel, nVersion, sbmlModel);
 
 
   /************************************************************************************************************
