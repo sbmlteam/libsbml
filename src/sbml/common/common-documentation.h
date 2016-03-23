@@ -3248,6 +3248,53 @@ if (lmp != null)
  * @see SBMLDocument::checkConsistency()
  * @see SBMLDocument::checkInternalConsistency()
  * @see SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_group_semantics
+ *
+ * @par
+ * If a Member references a Group, it is the Group itself that is considered to 
+ * be a member of the parent Group, not the corresponding referenced element (or 
+ * elements). This is also true for elements from other packages that point to 
+ * other elements, such as SBaseRef elements from the SBML Level 3 Hierarchical 
+ * %Model Composition package. However, if a Member references a ListOfMembers 
+ * object, it is the elements referenced in that list that are considered to be 
+ * part of the parent Group. 
+ *
+ * The implication of this is that any rule that applies to members of a group 
+ * (such as how the "kind" attribute functions, and the application of sboterm 
+ * attributes on a ListOfMembers restrictions) applies to the child group when 
+ * referenced by the Group id, but to the members of the child group when 
+ * referenced by the ListOfMembers id. In an example situation where a parent 
+ * group includes two Species plus a Group which itself contains three other 
+ * Species, if the parent group's ListOfMembers is given an sboterm, that term 
+ * applies to the two species and the group, not to the three child species 
+ * members of the second group. Note that the parent group's kind would also 
+ * almost certainly be "collection" or "partonomy", and not "classification", 
+ * as two species and a group are very unlikely to be classified as the same 
+ * thing. In contrast, in the situation where a parent group includes two Species 
+ * plus a ListOfMembers which contains three other Species, the parent group's 
+ * ListOfMembers sboterm would apply to the five Species, and could be more 
+ * reasonably marked as a "classification". 
+ *
+ * In a future version of this specification, it may be possible to perform 
+ * set operations on groups, but for now, this type of union is the only set 
+ * operation that is possible. 
+ *
+ * Groups are not permitted to be circular: no Member may reference itself, 
+ * its parent ListOfMembers, nor its parent Group. If a Member references a 
+ * Group, the same restrictions apply to that subgroup's children: they may 
+ * not reference the Member, its parent ListOfMembers, nor its parent Group, 
+ * and if any of those children reference a Group, the same restrictions apply 
+ * to them, etc.
+ *
+ * If a Member has a idRef or metaIdRef attribute which references an object 
+ * from a namespace that is not understood by the interpreter of the SBML 
+ * model, that Member must be ignored—the referenced object will not be 
+ * understood by the interpreter, and therefore has no need to become a member 
+ * of the group. If an interpreter cannot tell whether a referenced object 
+ * does not exist or if exists in an unparsed namespace, it may choose to 
+ * produce a warning.
  */
 
 /* <!-- -------------------------------------------------------------------
