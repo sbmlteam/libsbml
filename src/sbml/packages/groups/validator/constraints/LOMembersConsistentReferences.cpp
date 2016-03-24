@@ -208,7 +208,7 @@ LOMembersConsistentReferences::logInconsistentReference (const Group& g,
   msg =
     "The <group> with whose <listOfMembers> has sboTerm = '";
   msg += SBO::intToString(g.getListOfMembers()->getSBOTerm());
-  msg += "' includes the same member as the <group> whose ";
+  msg += "' includes the same member as the <group> whose";
   msg += " <listOfMembers> has sboTerm = '";
   msg += SBO::intToString(object.getListOfMembers()->getSBOTerm());
   msg += "' which are not consistent.";

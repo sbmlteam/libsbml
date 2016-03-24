@@ -241,7 +241,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'groups:kind' of a <group> object must conform "
     "to the syntax of SBML data type 'groupKind' and may only take on the "
-    "allowed values of 'groupKind' defined in SBML; that is the value must be "
+    "allowed values of 'groupKind' defined in SBML; that is, the value must be "
     "one of the following: 'classification', 'partonomy' or 'collection'.",
     { "L3V1 Groups V1 Section 3.3"
     }

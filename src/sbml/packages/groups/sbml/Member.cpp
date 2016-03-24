@@ -545,8 +545,10 @@ Member::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mId) == false)
     {
-      logError(GroupsIdSyntaxRule, level, version, "The id '" + mId + "' does "
-        "not conform to the syntax.");
+      log->logPackageError("groups", GroupsIdSyntaxRule,
+        pkgVersion, level, version, "The id on the <" 
+        + getElementName() + "> is '" + mId + "', which does not conform to the syntax.", 
+        getLine(), getColumn());
     }
   }
 
@@ -578,8 +580,13 @@ Member::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidSBMLSId(mIdRef) == false)
     {
-      logError(GroupsMemberIdRefMustBeSId, level, version, "The attribute "
-        "idRef='" + mIdRef + "' does not conform to the syntax.");
+      std::string msg = "The idRef on the <" + this->getElementName() + "> ";
+      if (this->isSetId()) {
+        msg += "with id '" + this->getId() +"' ";
+      }
+      msg += "is '" + mIdRef + "', which does not conform to the syntax.";
+      log->logPackageError("groups", GroupsMemberIdRefMustBeSId, 
+        pkgVersion, level, version, msg, getLine(), getColumn());
     }
   }
 
@@ -597,8 +604,13 @@ Member::readAttributes(const XMLAttributes& attributes,
     }
     else if (SyntaxChecker::isValidXMLID(mMetaIdRef) == false)
     {
-      logError(GroupsMemberMetaIdRefMustBeID, level, version, "The attribute "
-        "metaIdRef='" + mMetaIdRef + "' does not conform to the syntax.");
+      std::string msg = "The metaIdRef on the <" + this->getElementName() + "> ";
+      if (this->isSetId()) {
+        msg += "with id '" + this->getId() +"' ";
+      }
+      msg += "is '" + mMetaIdRef + "', which does not conform to the syntax.";
+      log->logPackageError("groups", GroupsMemberMetaIdRefMustBeID, 
+        pkgVersion, level, version, msg, getLine(), getColumn());
     }
   }
 }
