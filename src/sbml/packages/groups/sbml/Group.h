@@ -40,7 +40,7 @@
  * and ontologies.
  * 
  * If an SBML element is referenced by a Group's child Member (directly or 
- * indirectly—see below), it is considered to be a member of that Group. If 
+ * indirectly-see below), it is considered to be a member of that Group. If 
  * the same element is referenced by multiple Member objects, this is equivalent 
  * to including it just once. It is considered best practice to avoid this, but 
  * does not make for an invalid SBML document. Children of referenced elements 

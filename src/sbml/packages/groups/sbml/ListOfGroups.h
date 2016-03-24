@@ -35,7 +35,7 @@
  * the Groups defined in that Model.  The ListOfGroups is optional, but, 
  * if present, must contain at least one Group object. In common with other 
  * ListOf classes in SBML, ListOfGroups is derived from SBase. It inherits 
- * SBase’s attributes metaid and sboTerm, as well as the subcomponents for 
+ * SBase's attributes metaid and sboTerm, as well as the subcomponents for 
  * Annotation and Notes, but does not add any new attributes of its own. 
  *
  * @copydetails doc_what_is_listof
