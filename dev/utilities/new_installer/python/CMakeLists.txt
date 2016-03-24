@@ -50,6 +50,7 @@ add_definitions(-DUSE_COMP
 				-DUSE_FBC 
 				-DUSE_QUAL 
 				-DUSE_LAYOUT 
+        -DUSE_GROUPS
 				-DLIBSBML_USE_LEGACY_MATH
 )
 
