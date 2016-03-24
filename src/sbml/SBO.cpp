@@ -670,6 +670,27 @@ SBO::isObselete  (unsigned int sboTerm)
 }
 
 
+unsigned int
+SBO::getParentBranch(unsigned int term)
+{
+  if (isMathematicalExpression(term))
+    return 64;
+  else if (isMetadataRepresentation(term))
+    return 544;
+  else if (isModellingFramework(term))
+    return 4;
+  else if (isOccurringEntityRepresentation(term))
+    return 231;
+  else if (isParticipantRole(term))
+    return 3;
+  else if (isPhysicalEntityRepresentation(term))
+    return 236;
+  else if (isSystemsDescriptionParameter(term))
+    return 545;
+  else
+    return 1000;
+}
+
 /** @cond doxygenLibsbmlInternal */
 /**
   * functions for checking the SBO term is from correct part of SBO

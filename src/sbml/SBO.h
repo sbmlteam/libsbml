@@ -574,6 +574,14 @@ public:
    */
   static bool checkTerm (int sboTerm);
 
+  /** @cond doxygenLibsbmlInternal */
+ /**
+   * Returns the parent branch of the term
+   */
+  static unsigned int getParentBranch(unsigned int term);
+
+    /** @endcond */
+
 
 protected:  
   /** @cond doxygenLibsbmlInternal */
