@@ -62,6 +62,7 @@ package_name = '"libsbml"'
 definitions = []
 packages = [
   ('USE_COMP', None),
+  ('USE_GROUPS', None),
   ('USE_QUAL', None),
   ('USE_FBC', None),
   ('USE_LAYOUT', None)
