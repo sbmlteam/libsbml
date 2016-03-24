@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml groups:required="false" level="3" version="1" xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1">
+    <model>
+        <groups:listOfGroups>
+            <groups:group groups:id="id_1" groups:kind="classification" groups:name="someString">
+                <groups:listOfMembers groups:id="id_2" groups:name="someString">
+                    <groups:member groups:id="id_1" groups:idRef="p" groups:name="someString"/>
+                </groups:listOfMembers>
+            </groups:group>
+        </groups:listOfGroups>
+        <listOfParameters>
+            <parameter id="p" constant="true"/>
+        </listOfParameters>
+    </model>
+</sbml>
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" groups:required="false" xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" version="1" level="3" >
+  <model>
+    <listOfCompartments>
+      <compartment id="c1" constant="true"/>
+      <compartment id="c2" constant="true"/>
+    </listOfCompartments>
+    <groups:listOfGroups>
+      <groups:group groups:id="g1" groups:kind="classification">
+        <groups:listOfMembers metaid="g1_list">
+          <groups:member groups:idRef="c1"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g2" groups:kind="classification">
+        <groups:listOfMembers metaid="g2_list">
+          <groups:member groups:idRef="c2"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g3" groups:kind="classification">
+        <groups:listOfMembers metaid="g3_list">
+          <groups:member groups:metaIdRef="g2_list"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g4" groups:kind="classification">
+        <groups:listOfMembers sboTerm="SBO:0000252" metaid="g4_list">
+          <groups:member groups:metaIdRef="g3_list"/>
+        </groups:listOfMembers>
+      </groups:group>
+    </groups:listOfGroups>
+  </model>
+</sbml>

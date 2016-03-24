@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" level="3" version="1" groups:required="false">
+  <model>
+    <listOfParameters>
+      <parameter metaid="__p" id="p" constant="true"/>
+    </listOfParameters>
+    <groups:listOfGroups>
+      <groups:group groups:id="g_1" groups:kind="collection">
+        <groups:listOfMembers sboTerm="SBO:0000003" groups:id="lom_1">
+          <groups:member groups:id="m_1_1" groups:metaIdRef="__p"/>
+        </groups:listOfMembers>
+      </groups:group>
+      <groups:group groups:id="g_2" groups:kind="collection">
+        <groups:listOfMembers sboTerm="SBO:0000002" groups:id="lom_2">
+          <groups:member groups:id="m_2_1" groups:metaIdRef="__p"/>
+        </groups:listOfMembers>
+      </groups:group>
+    </groups:listOfGroups>
+  </model>
+</sbml>
