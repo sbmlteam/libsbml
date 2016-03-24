@@ -972,7 +972,7 @@ XMLAttributes::readInto (  int           index
                          , const unsigned int line     
                          , const unsigned int column   ) const
 {
-  long  temp;
+  long  temp = 0;
   bool  assigned = readInto(index, name, temp, log, required, line, column);
 
   if (assigned && temp >= 0) value = (unsigned int)temp;
