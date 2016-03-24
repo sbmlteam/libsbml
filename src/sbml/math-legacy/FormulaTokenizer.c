@@ -49,9 +49,7 @@
 /* Forward references */
 
 /** @cond doxygenLibsbmlInternal */
-
 void Token_convertNaNInf (Token_t *t);
-
 /** @endcond */
 
 
@@ -108,7 +106,7 @@ FormulaTokenizer_getName (FormulaTokenizer_t *ft, Token_t *t)
   start = ft->pos;
   c     = ft->formula[ ++ft->pos ];
 
-  while (isalpha(c) || isdigit(c) || c == '_')
+  while (isalpha((int)c) || isdigit((int)c) || c == '_')
   {
     c = ft->formula[ ++ft->pos ];
   }
@@ -232,7 +230,6 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
    */
   ft->formula[ endpos ] = endchar;
 }
-
 /** @endcond */
 
 
@@ -257,7 +254,7 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft)
   /**
    * Skip whitespace
    */
-  while (isspace(c))
+  while (isspace((int)c))
   {
     c = ft->formula[ ++ft->pos ];
   }
@@ -275,11 +272,11 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft)
     t->value.ch = c;
     ft->pos++;
   }
-  else if (isalpha(c) || c == '_')
+  else if (isalpha((int)c) || c == '_')
   {
     FormulaTokenizer_getName(ft, t);
   }
-  else if (c == '.' || isdigit(c))
+  else if (c == '.' || isdigit((int)c))
   {
     FormulaTokenizer_getNumber(ft, t);
   }
