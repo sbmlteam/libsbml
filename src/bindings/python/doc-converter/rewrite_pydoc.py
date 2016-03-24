@@ -272,7 +272,13 @@ def rewrite(contents, include_dir, graphics_dir, quietly=False):
     Print messages about errors unless parameter 'quietly' is True."""
 
     p = re.compile('(%feature\("docstring"\) \S+ "\n)(.*?)(^";\n\s*)', re.DOTALL|re.MULTILINE)
-    return p.sub(lambda match: rewrite_each(match, include_dir, graphics_dir, quietly), contents)
+    try:
+      return p.sub(lambda match: rewrite_each(match, include_dir, graphics_dir, quietly), contents)
+    except:
+      print("Warning: the content contains non-ascii characters, the character will be replaced. Please be sure to check the generated file.")
+      contents = contents.decode('ascii', 'ignore')
+      return p.sub(lambda match: rewrite_each(match, include_dir, graphics_dir, quietly), contents)
+
 
 
 def rewrite_each(match, include_dir, graphics_dir, quietly):
