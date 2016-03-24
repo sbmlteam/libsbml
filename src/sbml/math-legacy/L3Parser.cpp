@@ -104,6 +104,7 @@
 #include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
 #include <sbml/math/L3ParserSettings.h>
+#include <sbml/util/util.h>
 
 #include <sstream>
 
@@ -150,6 +151,7 @@ public:
   bool collapseminus;
   bool parseunits;
   bool avocsymbol;
+  const L3ParserSettings* currentSettings;
   bool strCmpIsCaseSensitive;
 
   L3Parser();
@@ -264,6 +266,15 @@ public:
   bool checkNumArguments(const ASTNode* function);
 
   /**
+   * This function checks the provided ASTNode function to see if it is a 
+   * known function with the wrong number of arguments.  If so, an error is set
+   * (using the 'setError' function) and 'true' is returned.  If the
+   * correct number of arguments is provided, 'false' is returned.  It is used
+   * for ASTNodes created from packages.
+   */
+  bool checkNumArgumentsForPackage(const ASTNode* function);
+
+  /**
    * This function takes the given left and right ASTNodes, and combines them
    * with the given relational type, returning the combined node.
    */
@@ -274,12 +285,22 @@ public:
    */
   L3ParserSettings getDefaultL3ParserSettings();
 
-  /*
+  /**
    * Change the default settings for this parser to the settings provided.  All subsequent
    * calls to parseL3Formula with no 'settings' argument will use these settings
    * instead of the defaults.
    */
   void setDefaultSettings(L3ParserSettings settings);
+
+  /**
+   * The generic parsing function for grammar lines that packages recognize, but not core.
+   * When a package recognizes the 'type', it will parse and return the correct ASTNode.
+   * If it does not recognize the 'type', or if the arguments are incorrect, NULL is returend.
+   */
+  virtual ASTNode* parsePackageInfix(L3ParserGrammarLineType_t type, 
+    std::vector<ASTNode*> *nodeList = NULL, std::vector<std::string*> *stringList = NULL,
+    std::vector<double> *doubleList = NULL) const;
+
 
   /**
    * If the either versions of the function @see SBML_parseL3Formula() returns NULL, an error 
@@ -322,7 +343,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 /* Line 371 of yacc.c  */
-#line 326 "L3Parser.cpp"
+#line 347 "L3Parser.cpp"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -372,7 +393,7 @@ extern int sbml_yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 305 "L3Parser.ypp"
+#line 325 "L3Parser.ypp"
 
   ASTNode* astnode;
   char character;
@@ -384,7 +405,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 388 "L3Parser.cpp"
+#line 409 "L3Parser.cpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -412,7 +433,7 @@ int sbml_yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 416 "L3Parser.cpp"
+#line 437 "L3Parser.cpp"
 
 #ifdef short
 # undef short
@@ -639,18 +660,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  19
+#define YYFINAL  24
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   172
+#define YYLAST   254
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  26
+#define YYNTOKENS  31
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  36
+#define YYNRULES  43
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  65
+#define YYNSTATES  79
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -666,15 +687,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     8,     2,     2,     2,    13,     3,     2,
-      23,    24,    11,    10,    25,     9,     2,    12,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      24,    25,    11,    10,    29,     9,     2,    12,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    30,
        5,     7,     6,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    17,     2,     2,     2,     2,     2,
+       2,    18,     2,    26,    17,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     4,     2,     2,     2,     2,     2,
+       2,     2,     2,    27,     4,    28,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -688,7 +709,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,    14,    15,
-      16,    18,    19,    20,    21,    22
+      16,    19,    20,    21,    22,    23
 };
 
 #if YYDEBUG
@@ -699,34 +720,39 @@ static const yytype_uint8 yyprhs[] =
        0,     0,     3,     4,     6,     8,    11,    13,    15,    19,
       23,    27,    31,    35,    39,    43,    46,    49,    53,    57,
       62,    67,    72,    77,    82,    87,    92,    97,   100,   104,
-     109,   111,   113,   115,   117,   120,   122
+     109,   114,   118,   122,   126,   129,   131,   133,   135,   137,
+     140,   142,   146,   150
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      27,     0,    -1,    -1,    28,    -1,     1,    -1,    28,     1,
-      -1,    29,    -1,    22,    -1,    23,    28,    24,    -1,    28,
-      17,    28,    -1,    28,    11,    28,    -1,    28,    10,    28,
-      -1,    28,    12,    28,    -1,    28,     9,    28,    -1,    28,
-      13,    28,    -1,    10,    28,    -1,     9,    28,    -1,    28,
-       6,    28,    -1,    28,     5,    28,    -1,    28,     6,     7,
-      28,    -1,    28,     5,     7,    28,    -1,    28,     7,     7,
-      28,    -1,    28,     8,     7,    28,    -1,    28,     5,     6,
-      28,    -1,    28,     6,     5,    28,    -1,    28,     3,     3,
-      28,    -1,    28,     4,     4,    28,    -1,     8,    28,    -1,
-      22,    23,    24,    -1,    22,    23,    30,    24,    -1,    18,
-      -1,    20,    -1,    19,    -1,    21,    -1,    29,    22,    -1,
-      28,    -1,    30,    25,    28,    -1
+      32,     0,    -1,    -1,    33,    -1,     1,    -1,    33,     1,
+      -1,    34,    -1,    23,    -1,    24,    33,    25,    -1,    33,
+      17,    33,    -1,    33,    11,    33,    -1,    33,    10,    33,
+      -1,    33,    12,    33,    -1,    33,     9,    33,    -1,    33,
+      13,    33,    -1,    10,    33,    -1,     9,    33,    -1,    33,
+       6,    33,    -1,    33,     5,    33,    -1,    33,     6,     7,
+      33,    -1,    33,     5,     7,    33,    -1,    33,     7,     7,
+      33,    -1,    33,     8,     7,    33,    -1,    33,     5,     6,
+      33,    -1,    33,     6,     5,    33,    -1,    33,     3,     3,
+      33,    -1,    33,     4,     4,    33,    -1,     8,    33,    -1,
+      23,    24,    25,    -1,    23,    24,    35,    25,    -1,    33,
+      18,    35,    26,    -1,    33,    18,    26,    -1,    27,    35,
+      28,    -1,    27,    36,    28,    -1,    27,    28,    -1,    19,
+      -1,    21,    -1,    20,    -1,    22,    -1,    34,    23,    -1,
+      33,    -1,    35,    29,    33,    -1,    35,    30,    35,    -1,
+      36,    30,    35,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   336,   336,   337,   338,   339,   342,   343,   369,   370,
-     371,   382,   393,   394,   395,   396,   397,   430,   431,   432,
-     433,   434,   435,   436,   437,   438,   449,   460,   461,   472,
-     530,   531,   532,   533,   534,   550,   551
+       0,   358,   358,   359,   360,   361,   364,   365,   391,   392,
+     393,   404,   415,   416,   417,   418,   419,   452,   453,   454,
+     455,   456,   457,   458,   459,   460,   471,   482,   483,   494,
+     550,   563,   574,   585,   596,   606,   613,   620,   627,   634,
+     650,   651,   654,   655
 };
 #endif
 
@@ -737,9 +763,10 @@ static const char *const yytname[] =
 {
   "\"end of string\"", "error", "$undefined", "'&'", "'|'", "'<'", "'>'",
   "'='", "'!'", "'-'", "'+'", "'*'", "'/'", "'%'", "UPLUS", "NEG", "NOT",
-  "'^'", "\"number\"", "\"integer\"", "\"number in e-notation form\"",
-  "\"number in rational notation\"", "\"element name\"", "'('", "')'",
-  "','", "$accept", "input", "node", "number", "nodelist", YY_NULL
+  "'^'", "'['", "\"number\"", "\"integer\"",
+  "\"number in e-notation form\"", "\"number in rational notation\"",
+  "\"element name\"", "'('", "')'", "']'", "'{'", "'}'", "','", "';'",
+  "$accept", "input", "node", "number", "nodelist", "nodesemicolonlist", YY_NULL
 };
 #endif
 
@@ -749,18 +776,20 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,    38,   124,    60,    62,    61,    33,    45,
-      43,    42,    47,    37,   258,   259,   260,    94,   261,   262,
-     263,   264,   265,    40,    41,    44
+      43,    42,    47,    37,   258,   259,   260,    94,    91,   261,
+     262,   263,   264,   265,    40,    41,    93,   123,   125,    44,
+      59
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    26,    27,    27,    27,    27,    28,    28,    28,    28,
-      28,    28,    28,    28,    28,    28,    28,    28,    28,    28,
-      28,    28,    28,    28,    28,    28,    28,    28,    28,    28,
-      29,    29,    29,    29,    29,    30,    30
+       0,    31,    32,    32,    32,    32,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    33,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    33,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    34,    34,    34,    34,    34,
+      35,    35,    36,    36
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -769,7 +798,8 @@ static const yytype_uint8 yyr2[] =
        0,     2,     0,     1,     1,     2,     1,     1,     3,     3,
        3,     3,     3,     3,     3,     2,     2,     3,     3,     4,
        4,     4,     4,     4,     4,     4,     4,     2,     3,     4,
-       1,     1,     1,     1,     2,     1,     3
+       4,     3,     3,     3,     2,     1,     1,     1,     1,     2,
+       1,     3,     3,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -777,39 +807,41 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     4,     0,     0,     0,    30,    32,    31,    33,     7,
-       0,     0,     0,     6,    27,    16,    15,     0,     0,     1,
-       5,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    34,    28,    35,     0,     8,     0,     0,
+       0,     4,     0,     0,     0,    35,    37,    36,    38,     7,
+       0,     0,     0,     0,     6,    27,    16,    15,     0,     0,
+      34,    40,     0,     0,     1,     5,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    39,
+      28,     0,     8,    32,     0,     0,    33,     0,     0,     0,
        0,     0,    18,     0,     0,    17,     0,     0,    13,    11,
-      10,    12,    14,     9,    29,     0,    25,    26,    23,    20,
-      24,    19,    21,    22,    36
+      10,    12,    14,     9,    31,     0,    29,    41,    42,    43,
+      25,    26,    23,    20,    24,    19,    21,    22,    30
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    11,    12,    13,    36
+      -1,    12,    21,    14,    22,    23
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -16
+#define YYPACT_NINF -24
 static const yytype_int16 yypact[] =
 {
-      46,   -16,    40,    40,    40,   -16,   -16,   -16,   -16,    -7,
-      40,    17,   102,    -3,     3,     3,     3,   120,    67,   -16,
-     -16,    20,    27,   114,    78,    25,    26,    40,    40,    40,
-      40,    40,    40,   -16,   -16,   142,   -15,   -16,    40,    40,
-      40,    40,    -6,    40,    40,    -6,    40,    40,     1,     1,
-       3,     3,     3,     3,   -16,    40,   155,   155,    -6,    -6,
-      -6,    -6,    -6,    -6,   142
+      58,   -24,   178,   178,   178,   -24,   -24,   -24,   -24,   -23,
+     178,   117,    27,   203,    16,     7,     7,     7,   138,    83,
+     -24,   219,    13,   -15,   -24,   -24,    42,    26,    -1,    97,
+      39,    40,   178,   178,   178,   178,   178,   178,   158,   -24,
+     -24,   -13,   -24,   -24,   178,   178,   -24,   178,   178,   178,
+     178,   178,    52,   178,   178,    52,   178,   178,   236,   236,
+       7,     7,     7,     7,   -24,   -12,   -24,   219,    23,    23,
+     233,   233,    52,    52,    52,    52,    52,    52,   -24
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -16,   -16,    -2,   -16,   -16
+     -24,   -24,     0,   -24,    -7,   -24
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -818,65 +850,82 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -4
 static const yytype_int8 yytable[] =
 {
-      14,    15,    16,    27,    28,    29,    30,    31,    18,    54,
-      55,    32,    29,    30,    31,    35,    17,    19,    32,    33,
-      32,    42,    45,    38,     0,    48,    49,    50,    51,    52,
-      53,    39,    46,    47,     0,     0,    56,    57,    58,    59,
-       0,    60,    61,     0,    62,    63,    -2,     1,     2,     3,
-       4,     0,     0,    64,     2,     3,     4,     0,     5,     6,
-       7,     8,     9,    10,     5,     6,     7,     8,     9,    10,
-      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
-      31,     0,     0,    43,    32,    44,     2,     3,     4,     0,
-       0,    37,     0,     0,     0,     0,     5,     6,     7,     8,
-       9,    10,    -3,    20,     0,    21,    22,    23,    24,    25,
-      26,    27,    28,    29,    30,    31,     0,     0,     0,    32,
-      40,    41,     2,     3,     4,     0,     0,     0,     2,     3,
-       4,     0,     5,     6,     7,     8,     9,    10,     5,     6,
-       7,     8,     9,    10,    34,    21,    22,    23,    24,    25,
-      26,    27,    28,    29,    30,    31,     0,     0,     0,    32,
-      23,    24,    25,    26,    27,    28,    29,    30,    31,     0,
-       0,     0,    32
+      13,    18,    15,    16,    17,    50,    51,     2,     3,     4,
+      19,    41,    66,    46,    78,    47,    44,    44,     5,     6,
+       7,     8,     9,    10,    37,    38,    11,    24,    52,    55,
+      49,    65,    58,    59,    60,    61,    62,    63,    68,    39,
+      69,    43,    44,    45,    67,    48,    56,    57,    70,    71,
+      72,    73,    44,    74,    75,     0,    76,    77,    -2,     1,
+       0,    32,    33,    34,    35,    36,     2,     3,     4,    37,
+      38,     0,     0,     0,     0,     0,     0,     5,     6,     7,
+       8,     9,    10,     0,     0,    11,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,     0,     0,     0,
+      37,    38,    53,     0,    54,     2,     3,     4,    42,     0,
+       0,     0,     0,     0,     0,     0,     5,     6,     7,     8,
+       9,    10,     0,     0,    11,     2,     3,     4,     0,     0,
+       0,     0,     0,     0,     0,     0,     5,     6,     7,     8,
+       9,    10,     0,     0,    11,    20,     2,     3,     4,     0,
+       0,     0,     0,     0,     0,     0,     0,     5,     6,     7,
+       8,     9,    10,    40,     0,    11,     2,     3,     4,     0,
+       0,     0,     0,     0,     0,     0,     0,     5,     6,     7,
+       8,     9,    10,     0,    64,    11,     2,     3,     4,     0,
+       0,     0,     0,     0,     0,     0,     0,     5,     6,     7,
+       8,     9,    10,    -3,    25,    11,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,     0,     0,     0,
+      37,    38,    26,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    36,     0,     0,     0,    37,    38,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,    34,    35,    36,
+      37,    38,     0,    37,    38
 };
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-16)))
+  (!!((Yystate) == (-24)))
 
 #define yytable_value_is_error(Yytable_value) \
   YYID (0)
 
 static const yytype_int8 yycheck[] =
 {
-       2,     3,     4,     9,    10,    11,    12,    13,    10,    24,
-      25,    17,    11,    12,    13,    17,    23,     0,    17,    22,
-      17,    23,    24,     3,    -1,    27,    28,    29,    30,    31,
-      32,     4,     7,     7,    -1,    -1,    38,    39,    40,    41,
-      -1,    43,    44,    -1,    46,    47,     0,     1,     8,     9,
-      10,    -1,    -1,    55,     8,     9,    10,    -1,    18,    19,
-      20,    21,    22,    23,    18,    19,    20,    21,    22,    23,
-       3,     4,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    -1,    -1,     5,    17,     7,     8,     9,    10,    -1,
-      -1,    24,    -1,    -1,    -1,    -1,    18,    19,    20,    21,
-      22,    23,     0,     1,    -1,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    -1,    -1,    -1,    17,
-       6,     7,     8,     9,    10,    -1,    -1,    -1,     8,     9,
-      10,    -1,    18,    19,    20,    21,    22,    23,    18,    19,
-      20,    21,    22,    23,    24,     3,     4,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    -1,    -1,    -1,    17,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    -1,
-      -1,    -1,    17
+       0,    24,     2,     3,     4,     6,     7,     8,     9,    10,
+      10,    18,    25,    28,    26,    30,    29,    29,    19,    20,
+      21,    22,    23,    24,    17,    18,    27,     0,    28,    29,
+       4,    38,    32,    33,    34,    35,    36,    37,    45,    23,
+      47,    28,    29,    30,    44,     3,     7,     7,    48,    49,
+      50,    51,    29,    53,    54,    -1,    56,    57,     0,     1,
+      -1,     9,    10,    11,    12,    13,     8,     9,    10,    17,
+      18,    -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,
+      22,    23,    24,    -1,    -1,    27,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    -1,    -1,    -1,
+      17,    18,     5,    -1,     7,     8,     9,    10,    25,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,    22,
+      23,    24,    -1,    -1,    27,     8,     9,    10,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,    22,
+      23,    24,    -1,    -1,    27,    28,     8,     9,    10,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,
+      22,    23,    24,    25,    -1,    27,     8,     9,    10,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,
+      22,    23,    24,    -1,    26,    27,     8,     9,    10,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    19,    20,    21,
+      22,    23,    24,     0,     1,    27,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    -1,    -1,    -1,
+      17,    18,     3,     4,     5,     6,     7,     8,     9,    10,
+      11,    12,    13,    -1,    -1,    -1,    17,    18,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    11,    12,    13,
+      17,    18,    -1,    17,    18
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     1,     8,     9,    10,    18,    19,    20,    21,    22,
-      23,    27,    28,    29,    28,    28,    28,    23,    28,     0,
-       1,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    17,    22,    24,    28,    30,    24,     3,     4,
-       6,     7,    28,     5,     7,    28,     7,     7,    28,    28,
-      28,    28,    28,    28,    24,    25,    28,    28,    28,    28,
-      28,    28,    28,    28,    28
+       0,     1,     8,     9,    10,    19,    20,    21,    22,    23,
+      24,    27,    32,    33,    34,    33,    33,    33,    24,    33,
+      28,    33,    35,    36,     0,     1,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    17,    18,    23,
+      25,    35,    25,    28,    29,    30,    28,    30,     3,     4,
+       6,     7,    33,     5,     7,    33,     7,     7,    33,    33,
+      33,    33,    33,    33,    26,    35,    25,    33,    35,    35,
+      33,    33,    33,    33,    33,    33,    33,    33,    26
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1669,31 +1718,31 @@ yyreduce:
     {
         case 3:
 /* Line 1787 of yacc.c  */
-#line 337 "L3Parser.ypp"
+#line 359 "L3Parser.ypp"
     {l3p->outputNode = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 4:
 /* Line 1787 of yacc.c  */
-#line 338 "L3Parser.ypp"
+#line 360 "L3Parser.ypp"
     {}
     break;
 
   case 5:
 /* Line 1787 of yacc.c  */
-#line 339 "L3Parser.ypp"
+#line 361 "L3Parser.ypp"
     {delete (yyvsp[(1) - (2)].astnode);}
     break;
 
   case 6:
 /* Line 1787 of yacc.c  */
-#line 342 "L3Parser.ypp"
+#line 364 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (1)].astnode);}
     break;
 
   case 7:
 /* Line 1787 of yacc.c  */
-#line 343 "L3Parser.ypp"
+#line 365 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode();
                    string name(*(yyvsp[(1) - (1)].word));
@@ -1724,19 +1773,19 @@ yyreduce:
 
   case 8:
 /* Line 1787 of yacc.c  */
-#line 369 "L3Parser.ypp"
+#line 391 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (3)].astnode);}
     break;
 
   case 9:
 /* Line 1787 of yacc.c  */
-#line 370 "L3Parser.ypp"
+#line 392 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_POWER); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 10:
 /* Line 1787 of yacc.c  */
-#line 371 "L3Parser.ypp"
+#line 393 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_TIMES) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1752,7 +1801,7 @@ yyreduce:
 
   case 11:
 /* Line 1787 of yacc.c  */
-#line 382 "L3Parser.ypp"
+#line 404 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (3)].astnode)->getType()==AST_PLUS) {
                     (yyval.astnode) = (yyvsp[(1) - (3)].astnode);
@@ -1768,31 +1817,31 @@ yyreduce:
 
   case 12:
 /* Line 1787 of yacc.c  */
-#line 393 "L3Parser.ypp"
+#line 415 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_DIVIDE); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 13:
 /* Line 1787 of yacc.c  */
-#line 394 "L3Parser.ypp"
+#line 416 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_MINUS); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
   case 14:
 /* Line 1787 of yacc.c  */
-#line 395 "L3Parser.ypp"
+#line 417 "L3Parser.ypp"
     {(yyval.astnode) = l3p->createModuloTree((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode));}
     break;
 
   case 15:
 /* Line 1787 of yacc.c  */
-#line 396 "L3Parser.ypp"
+#line 418 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(2) - (2)].astnode);}
     break;
 
   case 16:
 /* Line 1787 of yacc.c  */
-#line 397 "L3Parser.ypp"
+#line 419 "L3Parser.ypp"
     {
                   if (l3p->collapseminus) {
                     if ((yyvsp[(2) - (2)].astnode)->getType()==AST_REAL) {
@@ -1830,55 +1879,55 @@ yyreduce:
 
   case 17:
 /* Line 1787 of yacc.c  */
-#line 430 "L3Parser.ypp"
+#line 452 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode), AST_RELATIONAL_GT);}
     break;
 
   case 18:
 /* Line 1787 of yacc.c  */
-#line 431 "L3Parser.ypp"
+#line 453 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (3)].astnode), (yyvsp[(3) - (3)].astnode), AST_RELATIONAL_LT);}
     break;
 
   case 19:
 /* Line 1787 of yacc.c  */
-#line 432 "L3Parser.ypp"
+#line 454 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_GEQ);}
     break;
 
   case 20:
 /* Line 1787 of yacc.c  */
-#line 433 "L3Parser.ypp"
+#line 455 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_LEQ);}
     break;
 
   case 21:
 /* Line 1787 of yacc.c  */
-#line 434 "L3Parser.ypp"
+#line 456 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_EQ);}
     break;
 
   case 22:
 /* Line 1787 of yacc.c  */
-#line 435 "L3Parser.ypp"
+#line 457 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 23:
 /* Line 1787 of yacc.c  */
-#line 436 "L3Parser.ypp"
+#line 458 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 24:
 /* Line 1787 of yacc.c  */
-#line 437 "L3Parser.ypp"
+#line 459 "L3Parser.ypp"
     {(yyval.astnode) = l3p->combineRelationalElements((yyvsp[(1) - (4)].astnode), (yyvsp[(4) - (4)].astnode), AST_RELATIONAL_NEQ);}
     break;
 
   case 25:
 /* Line 1787 of yacc.c  */
-#line 438 "L3Parser.ypp"
+#line 460 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_AND) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1894,7 +1943,7 @@ yyreduce:
 
   case 26:
 /* Line 1787 of yacc.c  */
-#line 449 "L3Parser.ypp"
+#line 471 "L3Parser.ypp"
     {
                   if ((yyvsp[(1) - (4)].astnode)->getType()==AST_LOGICAL_OR) {
                     (yyval.astnode) = (yyvsp[(1) - (4)].astnode);
@@ -1910,13 +1959,13 @@ yyreduce:
 
   case 27:
 /* Line 1787 of yacc.c  */
-#line 460 "L3Parser.ypp"
+#line 482 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_LOGICAL_NOT); (yyval.astnode)->addChild((yyvsp[(2) - (2)].astnode));}
     break;
 
   case 28:
 /* Line 1787 of yacc.c  */
-#line 461 "L3Parser.ypp"
+#line 483 "L3Parser.ypp"
     {
                    (yyval.astnode) = new ASTNode(AST_FUNCTION);
                    string name(*(yyvsp[(1) - (3)].word));
@@ -1932,7 +1981,7 @@ yyreduce:
 
   case 29:
 /* Line 1787 of yacc.c  */
-#line 472 "L3Parser.ypp"
+#line 494 "L3Parser.ypp"
     {
                    (yyval.astnode) = (yyvsp[(3) - (4)].astnode);
                    string name(*(yyvsp[(1) - (4)].word));
@@ -1993,31 +2042,134 @@ yyreduce:
 
   case 30:
 /* Line 1787 of yacc.c  */
-#line 530 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble));}
+#line 550 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(1) - (4)].astnode));
+                  allnodes.push_back((yyvsp[(3) - (4)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed.");
+                    delete((yyvsp[(1) - (4)].astnode));
+                    delete((yyvsp[(3) - (4)].astnode));
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 31:
 /* Line 1787 of yacc.c  */
-#line 531 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent);}
+#line 563 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(1) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed.");
+                    delete ((yyvsp[(1) - (3)].astnode));
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 32:
 /* Line 1787 of yacc.c  */
-#line 532 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong));}
+#line 574 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(2) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed.");
+                    delete((yyvsp[(2) - (3)].astnode));
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 33:
 /* Line 1787 of yacc.c  */
-#line 533 "L3Parser.ypp"
-    {(yyval.astnode) = new ASTNode(); (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);}
+#line 585 "L3Parser.ypp"
+    {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back((yyvsp[(2) - (3)].astnode));
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES_SEMICOLON, &allnodes);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed.");
+                    delete((yyvsp[(2) - (3)].astnode));
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
     break;
 
   case 34:
 /* Line 1787 of yacc.c  */
-#line 534 "L3Parser.ypp"
+#line 596 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES);
+                  if ((yyval.astnode) == NULL) {
+                    l3p->setError("No package is enabled that can interpret empty curly braces, so formulas of the form '{}' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage((yyval.astnode))) YYABORT;
+                }
+    break;
+
+  case 35:
+/* Line 1787 of yacc.c  */
+#line 606 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = new ASTNode(); 
+                  (yyval.astnode)->setValue((yyvsp[(1) - (1)].numdouble)); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+    break;
+
+  case 36:
+/* Line 1787 of yacc.c  */
+#line 613 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = new ASTNode();
+                  (yyval.astnode)->setValue((yyvsp[(1) - (1)].mantissa), l3p->exponent); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+    break;
+
+  case 37:
+/* Line 1787 of yacc.c  */
+#line 620 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = new ASTNode(); 
+                  (yyval.astnode)->setValue((yyvsp[(1) - (1)].numlong)); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+    break;
+
+  case 38:
+/* Line 1787 of yacc.c  */
+#line 627 "L3Parser.ypp"
+    {
+                  (yyval.astnode) = new ASTNode(); 
+                  (yyval.astnode)->setValue((yyvsp[(1) - (1)].rational), l3p->denominator);
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+    break;
+
+  case 39:
+/* Line 1787 of yacc.c  */
+#line 634 "L3Parser.ypp"
     {
                   (yyval.astnode) = (yyvsp[(1) - (2)].astnode);
                   if ((yyval.astnode)->getUnits() != "") {
@@ -2034,21 +2186,33 @@ yyreduce:
                }
     break;
 
-  case 35:
+  case 40:
 /* Line 1787 of yacc.c  */
-#line 550 "L3Parser.ypp"
+#line 650 "L3Parser.ypp"
     {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (1)].astnode));}
     break;
 
-  case 36:
+  case 41:
 /* Line 1787 of yacc.c  */
-#line 551 "L3Parser.ypp"
+#line 651 "L3Parser.ypp"
+    {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
+    break;
+
+  case 42:
+/* Line 1787 of yacc.c  */
+#line 654 "L3Parser.ypp"
+    {(yyval.astnode) = new ASTNode(AST_FUNCTION); (yyval.astnode)->addChild((yyvsp[(1) - (3)].astnode)); (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
+    break;
+
+  case 43:
+/* Line 1787 of yacc.c  */
+#line 655 "L3Parser.ypp"
     {(yyval.astnode) = (yyvsp[(1) - (3)].astnode);  (yyval.astnode)->addChild((yyvsp[(3) - (3)].astnode));}
     break;
 
 
 /* Line 1787 of yacc.c  */
-#line 2052 "L3Parser.cpp"
+#line 2216 "L3Parser.cpp"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2280,7 +2444,7 @@ yyreturn:
 
 
 /* Line 2050 of yacc.c  */
-#line 554 "L3Parser.ypp"
+#line 658 "L3Parser.ypp"
 
 
 
@@ -2520,6 +2684,8 @@ ASTNodeType_t L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
   if (l3StrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
   if (l3StrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
+  if (l3StrCmp(name, "asinh"))    return AST_FUNCTION_ARCSINH;
+  if (l3StrCmp(name, "arcsinh"))  return AST_FUNCTION_ARCSINH;
   if (l3StrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
   if (l3StrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
   if (l3StrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
@@ -2847,6 +3013,17 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   }
 }
 
+bool L3Parser::checkNumArgumentsForPackage(const ASTNode* function)
+{
+  stringstream error;
+  bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
+  if (ret) {
+    l3p->setError(error.str());
+    delete function;
+  }
+  return ret;
+}
+
 ASTNode* L3Parser::combineRelationalElements(ASTNode* left, ASTNode* right, ASTNodeType_t type)
 {
   //If 'left' is the same as 'type', add 'right' as a new argument.  (cf x < y < z -> lt(x, y, z))
@@ -2905,6 +3082,14 @@ ASTNode* L3Parser::combineRelationalElements(ASTNode* left, ASTNode* right, ASTN
   return ret;
 }
 
+
+ASTNode* L3Parser::parsePackageInfix(L3ParserGrammarLineType_t type, 
+    vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
+    vector<double> *doubleList) const
+{
+  if (currentSettings == NULL) return NULL;
+  return currentSettings->parsePackageInfix(type, nodeList, stringList, doubleList);
+}
 
 L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 {
@@ -2970,6 +3155,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->collapseminus = settings->getParseCollapseMinus();
   l3p->parseunits = settings->getParseUnits();
   l3p->avocsymbol = settings->getParseAvogadroCsymbol();
+  l3p->currentSettings = settings;
   l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   sbml_yyparse();
   return l3p->outputNode;

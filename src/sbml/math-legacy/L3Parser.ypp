@@ -1,6 +1,6 @@
 /**
  * @file    L3Parser.ypp
- * @brief   Definition of the SBML Level 3 infix-to-mathml parser.
+ * @brief   Definition of the SBML Level 3 infix-to-ASTNode parser.
  * @author  Lucian Smith
  * 
  * <!--------------------------------------------------------------------------
@@ -82,6 +82,7 @@
 #include <sbml/math/L3Parser.h>
 #include <sbml/Model.h>
 #include <sbml/math/L3ParserSettings.h>
+#include <sbml/util/util.h>
 
 #include <sstream>
 
@@ -128,6 +129,7 @@ public:
   bool collapseminus;
   bool parseunits;
   bool avocsymbol;
+  const L3ParserSettings* currentSettings;
   bool strCmpIsCaseSensitive;
 
   L3Parser();
@@ -242,6 +244,15 @@ public:
   bool checkNumArguments(const ASTNode* function);
 
   /**
+   * This function checks the provided ASTNode function to see if it is a 
+   * known function with the wrong number of arguments.  If so, an error is set
+   * (using the 'setError' function) and 'true' is returned.  If the
+   * correct number of arguments is provided, 'false' is returned.  It is used
+   * for ASTNodes created from packages.
+   */
+  bool checkNumArgumentsForPackage(const ASTNode* function);
+
+  /**
    * This function takes the given left and right ASTNodes, and combines them
    * with the given relational type, returning the combined node.
    */
@@ -252,12 +263,22 @@ public:
    */
   L3ParserSettings getDefaultL3ParserSettings();
 
-  /*
+  /**
    * Change the default settings for this parser to the settings provided.  All subsequent
    * calls to parseL3Formula with no 'settings' argument will use these settings
    * instead of the defaults.
    */
   void setDefaultSettings(L3ParserSettings settings);
+
+  /**
+   * The generic parsing function for grammar lines that packages recognize, but not core.
+   * When a package recognizes the 'type', it will parse and return the correct ASTNode.
+   * If it does not recognize the 'type', or if the arguments are incorrect, NULL is returend.
+   */
+  virtual ASTNode* parsePackageInfix(L3ParserGrammarLineType_t type, 
+    std::vector<ASTNode*> *nodeList = NULL, std::vector<std::string*> *stringList = NULL,
+    std::vector<double> *doubleList = NULL) const;
+
 
   /**
    * If the either versions of the function @see SBML_parseL3Formula() returns NULL, an error 
@@ -312,14 +333,16 @@ LIBSBML_CPP_NAMESPACE_END
   long   rational;
 }
 
-%type <astnode> node nodelist number
+
+%type <astnode> node nodelist nodesemicolonlist number
 
 %left '&' '|'         /* Boolean functions and, or */
 %left '<' '>' '=' '!' /* Boolean comparison functions (gt, lt, eq, etc.) */
 %left '-' '+'
 %left '*' '/' '%'
-%left NOT NEG UPLUS   /* Boolean negation (unary not), regular negation (unary minus), and unary plus (currently a no-op) */
+%left NOT NEG UPLUS   /* Boolean negation (unary not), regular negation (unary minus), and unary plus (a no-op) */
 %right '^'            /* exponentiation        */
+%left '['
 
 %token YYEOF 0 "end of string"
 %token  <numdouble> DOUBLE "number"
@@ -525,12 +548,90 @@ node:           number {$$ = $1;}
                    }
                    if (l3p->checkNumArguments($$)) YYABORT;
         }
+        |       node '[' nodelist ']' {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back($1);
+                  allnodes.push_back($3);
+                  $$ = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ($$ == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[y]' are disallowed.");
+                    delete($1);
+                    delete($3);
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
+                }
+        |       node '[' ']' {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back($1);
+                  $$ = l3p->parsePackageInfix(INFIX_SYNTAX_NAMED_SQUARE_BRACKETS, &allnodes);
+                  if ($$ == NULL) {
+                    l3p->setError("No package is enabled that can interpret vectors, so formulas of the form 'x[]' are disallowed.");
+                    delete ($1);
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
+                }
+        |       '{' nodelist '}'  {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back($2);
+                  $$ = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES, &allnodes);
+                  if ($$ == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces, so formulas of the form '{x, y}' are disallowed.");
+                    delete($2);
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
+                }
+        |       '{' nodesemicolonlist '}'  {
+                  vector<ASTNode*> allnodes;
+                  allnodes.push_back($2);
+                  $$ = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES_SEMICOLON, &allnodes);
+                  if ($$ == NULL) {
+                    l3p->setError("No package is enabled that can interpret curly braces with semicolon-delimited lists, so formulas of the form '{x, y; p, q}' are disallowed.");
+                    delete($2);
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
+                }
+        |       '{' '}'  {
+                  $$ = l3p->parsePackageInfix(INFIX_SYNTAX_CURLY_BRACES);
+                  if ($$ == NULL) {
+                    l3p->setError("No package is enabled that can interpret empty curly braces, so formulas of the form '{}' are disallowed.");
+                    YYERROR;
+                  }
+                  if (l3p->checkNumArgumentsForPackage($$)) YYABORT;
+                }
         ;
 
-number:         DOUBLE {$$ = new ASTNode(); $$->setValue($1);} 
-        |       E_NOTATION {$$ = new ASTNode(); $$->setValue($1, l3p->exponent);}
-        |       INTEGER {$$ = new ASTNode(); $$->setValue($1);}
-        |       RATIONAL {$$ = new ASTNode(); $$->setValue($1, l3p->denominator);}
+number:         DOUBLE {
+                  $$ = new ASTNode(); 
+                  $$->setValue($1); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                } 
+        |       E_NOTATION {
+                  $$ = new ASTNode();
+                  $$->setValue($1, l3p->exponent); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+        |       INTEGER {
+                  $$ = new ASTNode(); 
+                  $$->setValue($1); 
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
+        |       RATIONAL {
+                  $$ = new ASTNode(); 
+                  $$->setValue($1, l3p->denominator);
+//                  if(l3p->useDimensionless) {
+//                    $$->setUnits("dimensionless");
+//                  }
+                }
         |       number SYMBOL {
                   $$ = $1;
                   if ($$->getUnits() != "") {
@@ -549,6 +650,10 @@ number:         DOUBLE {$$ = new ASTNode(); $$->setValue($1);}
 
 nodelist:       node {$$ = new ASTNode(AST_FUNCTION); $$->addChild($1);}
         |       nodelist ',' node {$$ = $1;  $$->addChild($3);}
+        ;
+
+nodesemicolonlist: nodelist ';' nodelist {$$ = new ASTNode(AST_FUNCTION); $$->addChild($1); $$->addChild($3);}
+        |       nodesemicolonlist ';' nodelist {$$ = $1;  $$->addChild($3);}
         ;
 
 %%
@@ -790,6 +895,8 @@ ASTNodeType_t L3Parser::getFunctionFor(string name) const
   if (l3StrCmp(name, "arcsech"))  return AST_FUNCTION_ARCSECH;
   if (l3StrCmp(name, "asin"))     return AST_FUNCTION_ARCSIN;
   if (l3StrCmp(name, "arcsin"))   return AST_FUNCTION_ARCSIN;
+  if (l3StrCmp(name, "asinh"))    return AST_FUNCTION_ARCSINH;
+  if (l3StrCmp(name, "arcsinh"))  return AST_FUNCTION_ARCSINH;
   if (l3StrCmp(name, "atan"))     return AST_FUNCTION_ARCTAN;
   if (l3StrCmp(name, "arctan"))   return AST_FUNCTION_ARCTAN;
   if (l3StrCmp(name, "atanh"))    return AST_FUNCTION_ARCTANH;
@@ -1117,6 +1224,17 @@ bool L3Parser::checkNumArguments(const ASTNode* function)
   }
 }
 
+bool L3Parser::checkNumArgumentsForPackage(const ASTNode* function)
+{
+  stringstream error;
+  bool ret = currentSettings->checkNumArgumentsForPackage(function, error);
+  if (ret) {
+    l3p->setError(error.str());
+    delete function;
+  }
+  return ret;
+}
+
 ASTNode* L3Parser::combineRelationalElements(ASTNode* left, ASTNode* right, ASTNodeType_t type)
 {
   //If 'left' is the same as 'type', add 'right' as a new argument.  (cf x < y < z -> lt(x, y, z))
@@ -1175,6 +1293,14 @@ ASTNode* L3Parser::combineRelationalElements(ASTNode* left, ASTNode* right, ASTN
   return ret;
 }
 
+
+ASTNode* L3Parser::parsePackageInfix(L3ParserGrammarLineType_t type, 
+    vector<ASTNode*> *nodeList, vector<std::string*> *stringList,
+    vector<double> *doubleList) const
+{
+  if (currentSettings == NULL) return NULL;
+  return currentSettings->parsePackageInfix(type, nodeList, stringList, doubleList);
+}
 
 L3ParserSettings L3Parser::getDefaultL3ParserSettings()
 {
@@ -1240,6 +1366,7 @@ SBML_parseL3FormulaWithSettings (const char *formula, const L3ParserSettings_t *
   l3p->collapseminus = settings->getParseCollapseMinus();
   l3p->parseunits = settings->getParseUnits();
   l3p->avocsymbol = settings->getParseAvogadroCsymbol();
+  l3p->currentSettings = settings;
   l3p->strCmpIsCaseSensitive = settings->getComparisonCaseSensitivity();
   sbml_yyparse();
   return l3p->outputNode;

@@ -178,10 +178,10 @@ SBML_getDefaultL3ParserSettings ();
  * Returns the last error reported by the "L3" mathematical formula parser.
  *
  * If the functions @sbmlfunction{parseL3Formula, String},
- * @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}, or
- * @sbmlfunction{parseL3FormulaWithModel, String\, Model} return @c NULL, an
- * error is set internally.  This function allows callers to retrieve
- * information about the error.
+ * @sbmlfunction{parseL3FormulaWithSettings, String\,
+ * L3ParserSettings}, or @sbmlfunction{parseL3FormulaWithModel,
+ * String\, Model} return @c NULL, an error is set internally.
+ * This function allows callers to retrieve information about the error.
  *
  * @return a string describing the error that occurred.  This will contain
  * the input string the parser was trying to parse, the character it had
@@ -190,7 +190,7 @@ SBML_getDefaultL3ParserSettings ();
  * @see @sbmlfunction{parseL3Formula, String}
  * @see @sbmlfunction{parseL3FormulaWithSettings, String\, L3ParserSettings}
  * @see @sbmlfunction{parseL3FormulaWithModel, String\, Model}
- * @see s@sbmlfunction{getDefaultL3ParserSettings,}
+ * @see @sbmlfunction{getDefaultL3ParserSettings,}
  *
  * @if conly
  * @memberof ASTNode_t
