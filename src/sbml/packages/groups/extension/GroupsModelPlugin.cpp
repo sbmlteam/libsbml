@@ -512,11 +512,6 @@ GroupsModelPlugin::createObject(XMLInputStream& stream)
   SBase* obj = NULL;
 
   const std::string& name = stream.peek().getName();
-  const XMLNamespaces& xmlns = stream.peek().getNamespaces();
-  const std::string& prefix = stream.peek().getPrefix();
-
-  const std::string& targetPrefix = (xmlns.hasURI(mURI)) ?
-    xmlns.getPrefix(mURI) : mPrefix;
 
   if (name == "listOfGroups")
   {

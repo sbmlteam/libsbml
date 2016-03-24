@@ -389,8 +389,7 @@ GroupsExtension::init()
   groupsExtension.addSBasePluginCreator(&sbmldocPluginCreator);
   groupsExtension.addSBasePluginCreator(&modelPluginCreator);
 
-  int result =
-    SBMLExtensionRegistry::getInstance().addExtension(&groupsExtension);
+  SBMLExtensionRegistry::getInstance().addExtension(&groupsExtension);
 }
 
 /** @endcond */
