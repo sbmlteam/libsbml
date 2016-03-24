@@ -726,7 +726,7 @@ ParametricObject::createObject(XMLInputStream& stream)
 {
   SBase* object = NULL;
 
-  const string& name = stream.peek().getName();
+  //const string& name = stream.peek().getName();
 
   connectToChild();
 
