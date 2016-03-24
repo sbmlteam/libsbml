@@ -11,7 +11,7 @@
         <groups:listOfGroups>
             <groups:group groups:id="id_4" groups:kind="classification" groups:name="someString">
                 <groups:listOfMembers groups:id="id_5" groups:name="someString">
-                    <groups:member groups:id="id_3" groups:idRef="p" groups:name="someString"/>
+                    <groups:member groups:id="id_6" groups:idRef="p" groups:name="someString"/>
                 </groups:listOfMembers>
             </groups:group>
         </groups:listOfGroups>
