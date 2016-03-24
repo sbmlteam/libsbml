@@ -31,7 +31,14 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGroups
- * @sbmlbrief{groups} TODO:Definition of the ListOfGroups class.
+ * @sbmlbrief{groups}  A ListOfGroups is a child of a Model that contains 
+ * the Groups defined in that Model.  The ListOfGroups is optional, but, 
+ * if present, must contain at least one Group object. In common with other 
+ * ListOf classes in SBML, ListOfGroups is derived from SBase. It inherits 
+ * SBase’s attributes metaid and sboTerm, as well as the subcomponents for 
+ * Annotation and Notes, but does not add any new attributes of its own. 
+ *
+ * @copydetails doc_what_is_listof
  */
 
 
@@ -68,13 +75,13 @@ public:
    * &ldquo;groups&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ListOfGroups
+   * ListOfGroups.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ListOfGroups
+   * ListOfGroups.
    *
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
-   * this ListOfGroups
+   * this ListOfGroups.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -91,7 +98,7 @@ public:
   /**
    * Creates a new ListOfGroups using the given GroupsPkgNamespaces object.
    *
-   * @param groupsns the GroupsPkgNamespaces object
+   * @param groupsns the GroupsPkgNamespaces object.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -114,7 +121,7 @@ public:
    * Assignment operator for ListOfGroups.
    *
    * @param rhs; the ListOfGroups object whose values are to be used as the
-   * basis of the assignment
+   * basis of the assignment.
    */
   ListOfGroups& operator=(const ListOfGroups& rhs);
 

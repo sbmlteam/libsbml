@@ -31,7 +31,36 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfMembers
- * @sbmlbrief{groups} TODO:Definition of the ListOfMembers class.
+ * @sbmlbrief{groups} The ListOfMembers class is a child of the 
+ * Group object, and contains Member children that define the Group.  
+ * A ListOfMembers must have one or more Member children. Since 
+ * ListOfMembers is derived from SBase, it inherits the sboTerm and 
+ * metaid attributes, as well as the optional children Notes and 
+ * Annotation. Unlike most lists of objects in SBML, however, the 
+ * sboTerm attribute and the Notes and Annotation children are taken 
+ * here to apply directly to every SBML element referenced by each 
+ * child Member of this ListOfMembers, if that referenced element has 
+ * no such definition. Thus, if a referenced element has no defined 
+ * sboTerm, child Notes, or child Annotation, that element should be 
+ * considered to now have the sboTerm, child Notes, or child Annotation 
+ * of the ListOfMembers.
+ *
+ * If multiple ListOfMembers have child Member elements that reference 
+ * the same SBML element, and more than one ListOfMembers or Member has 
+ * a value for an sboTerm attribute, Notes, or Annotation element, those 
+ * Member elements should be consistent with each other: the sboTerm 
+ * attributes should either be identical, or one should inherit from 
+ * the other; Notes should say the same or similar things; and Annotation 
+ * elements should not conflict. Interpreters may choose to resolve any 
+ * such conflicts arbitrarily.
+ *
+ * The other unique thing about a ListOfMembers is that if it is 
+ * referenced by a Member of a different Group, the children of the 
+ * referenced ListOfMembers are also considered to be members of the 
+ * referencing group.  In this way, groups may be nested semantically 
+ * to create larger groups out of subgroups.  This nesting may not be 
+ * circular: a nested ListOfMembers may not be referenced by its own
+ * child, directly or indirectly.
  */
 
 
@@ -76,13 +105,13 @@ public:
    * &ldquo;groups&rdquo; package version.
    *
    * @param level an unsigned int, the SBML Level to assign to this
-   * ListOfMembers
+   * ListOfMembers.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * ListOfMembers
+   * ListOfMembers.
    *
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
-   * this ListOfMembers
+   * this ListOfMembers.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -99,7 +128,7 @@ public:
   /**
    * Creates a new ListOfMembers using the given GroupsPkgNamespaces object.
    *
-   * @param groupsns the GroupsPkgNamespaces object
+   * @param groupsns the GroupsPkgNamespaces object.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -122,7 +151,7 @@ public:
    * Assignment operator for ListOfMembers.
    *
    * @param rhs; the ListOfMembers object whose values are to be used as the
-   * basis of the assignment
+   * basis of the assignment.
    */
   ListOfMembers& operator=(const ListOfMembers& rhs);
 

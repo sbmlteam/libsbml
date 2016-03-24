@@ -31,7 +31,23 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Member
- * @sbmlbrief{groups} TODO:Definition of the Member class.
+ * @sbmlbrief{groups} Member class objects are the children of a Group that 
+ * allow it to reference specific SBML elements. A Member has four optional 
+ * attributes: "id" and "name", which identify the element, and "idRef" and 
+ * "metaIdRef" which reference the identifiers of other elements. There must 
+ * be exactly one (and only one) method used to reference another element: 
+ * either idRef or metaIdRef may be defined, but not both. (Multiple attributes 
+ * are needed to account for the different types of identifiers that a given 
+ * object may have.) The referenced object (including, potentially, another 
+ * Group object) is thus made a member of the Group in which the Member object 
+ * is contained. 
+ *
+ * Since Member is derived from SBase, which provides both the ability to 
+ * attach SBO terms as well as MIRIAM annotations, the semantics of a given 
+ * member in a model can be made more precise by reference to external 
+ * controlled vocabularies and ontologies.
+ *
+ * @copydetails doc_group_semantics
  */
 
 
@@ -76,12 +92,12 @@ public:
    * Creates a new Member using the given SBML Level, Version and
    * &ldquo;groups&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Member
+   * @param level an unsigned int, the SBML Level to assign to this Member.
    *
-   * @param version an unsigned int, the SBML Version to assign to this Member
+   * @param version an unsigned int, the SBML Version to assign to this Member.
    *
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
-   * this Member
+   * this Member.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -98,7 +114,7 @@ public:
   /**
    * Creates a new Member using the given GroupsPkgNamespaces object.
    *
-   * @param groupsns the GroupsPkgNamespaces object
+   * @param groupsns the GroupsPkgNamespaces object.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -121,7 +137,7 @@ public:
    * Assignment operator for Member.
    *
    * @param rhs; the Member object whose values are to be used as the basis of
-   * the assignment
+   * the assignment.
    */
   Member& operator=(const Member& rhs);
 
@@ -471,12 +487,12 @@ BEGIN_C_DECLS
  * Creates a new Member_t using the given SBML Level, Version and
  * &ldquo;groups&rdquo; package version.
  *
- * @param level an unsigned int, the SBML Level to assign to this Member_t
+ * @param level an unsigned int, the SBML Level to assign to this Member_t.
  *
- * @param version an unsigned int, the SBML Version to assign to this Member_t
+ * @param version an unsigned int, the SBML Version to assign to this Member_t.
  *
  * @param pkgVersion an unsigned int, the SBML Groups Version to assign to this
- * Member_t
+ * Member_t.
  *
  * @throws SBMLConstructorException
  * Thrown if the given @p level and @p version combination, or this kind of
@@ -497,7 +513,7 @@ Member_create(unsigned int level = GroupsExtension::getDefaultLevel(),
 /**
  * Creates and returns a deep copy of this Member_t object.
  *
- * @param m; the Member_t structure
+ * @param m; the Member_t structure.
  *
  * @return a (deep) copy of this Member_t object.
  *
@@ -511,7 +527,7 @@ Member_clone(const Member_t* m);
 /**
  * Frees this Member_t object.
  *
- * @param m; the Member_t structure
+ * @param m; the Member_t structure.
  *
  * @memberof Member_t
  */

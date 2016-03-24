@@ -31,7 +31,26 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Group
- * @sbmlbrief{groups} TODO:Definition of the Group class.
+ * @sbmlbrief{groups} The first and most central class in the Groups package
+ *  is the Group class. The Group class provides an optional "id" and "name", 
+ * one required attribute ("kind"), and one ListOfMembers child. Since Group 
+ * is derived from SBase, and SBase provides the ability to attach SBO terms 
+ * as well as MIRIAM annotations, the semantics of a given group in a model 
+ * can be made more precise by reference to external controlled vocabularies 
+ * and ontologies.
+ * 
+ * If an SBML element is referenced by a Group's child Member (directly or 
+ * indirectly—see below), it is considered to be a member of that Group. If 
+ * the same element is referenced by multiple Member objects, this is equivalent 
+ * to including it just once. It is considered best practice to avoid this, but 
+ * does not make for an invalid SBML document. Children of referenced elements 
+ * are not considered to be members of the Group: a KineticLaw of a referenced 
+ * Reaction is not itself a Group member. Even the membership of SBML 'container' 
+ * classes (ListOfSpecies, ListOfCompartments, etc.) do not imply inclusion of 
+ * their children as members of the Group. The sole exception to this rule is 
+ * the ListOfMembers class, described below.
+ *
+ * @copydetails doc_group_semantics
  */
 
 
@@ -77,12 +96,12 @@ public:
    * Creates a new Group using the given SBML Level, Version and
    * &ldquo;groups&rdquo; package version.
    *
-   * @param level an unsigned int, the SBML Level to assign to this Group
+   * @param level an unsigned int, the SBML Level to assign to this Group.
    *
-   * @param version an unsigned int, the SBML Version to assign to this Group
+   * @param version an unsigned int, the SBML Version to assign to this Group.
    *
    * @param pkgVersion an unsigned int, the SBML Groups Version to assign to
-   * this Group
+   * this Group.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -98,7 +117,7 @@ public:
   /**
    * Creates a new Group using the given GroupsPkgNamespaces object.
    *
-   * @param groupsns the GroupsPkgNamespaces object
+   * @param groupsns the GroupsPkgNamespaces object.
    *
    * @throws SBMLConstructorException
    * Thrown if the given @p level and @p version combination, or this kind of
@@ -121,7 +140,7 @@ public:
    * Assignment operator for Group.
    *
    * @param rhs; the Group object whose values are to be used as the basis of
-   * the assignment
+   * the assignment.
    */
   Group& operator=(const Group& rhs);
 
@@ -666,12 +685,12 @@ BEGIN_C_DECLS
  * Creates a new Group_t using the given SBML Level, Version and
  * &ldquo;groups&rdquo; package version.
  *
- * @param level an unsigned int, the SBML Level to assign to this Group_t
+ * @param level an unsigned int, the SBML Level to assign to this Group_t.
  *
- * @param version an unsigned int, the SBML Version to assign to this Group_t
+ * @param version an unsigned int, the SBML Version to assign to this Group_t.
  *
  * @param pkgVersion an unsigned int, the SBML Groups Version to assign to this
- * Group_t
+ * Group_t.
  *
  * @throws SBMLConstructorException
  * Thrown if the given @p level and @p version combination, or this kind of
@@ -692,7 +711,7 @@ Group_create(unsigned int level = GroupsExtension::getDefaultLevel(),
 /**
  * Creates and returns a deep copy of this Group_t object.
  *
- * @param g; the Group_t structure
+ * @param g; the Group_t structure.
  *
  * @return a (deep) copy of this Group_t object.
  *
@@ -706,7 +725,7 @@ Group_clone(const Group_t* g);
 /**
  * Frees this Group_t object.
  *
- * @param g; the Group_t structure
+ * @param g; the Group_t structure.
  *
  * @memberof Group_t
  */

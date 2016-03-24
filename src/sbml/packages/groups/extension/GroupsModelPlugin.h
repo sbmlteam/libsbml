@@ -69,11 +69,11 @@ public:
    * Creates a new GroupsModelPlugin using the given uri, prefix and package
    * namespace.
    *
-   * @param uri a string, representing the uri of the package
+   * @param uri a string, representing the uri of the package.
    *
-   * @param prefix a string, the prefix to be used
+   * @param prefix a string, the prefix to be used.
    *
-   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used
+   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used.
    */
   GroupsModelPlugin(const std::string& uri,
                     const std::string& prefix,
@@ -92,7 +92,7 @@ public:
    * Assignment operator for GroupsModelPlugin.
    *
    * @param rhs; the GroupsModelPlugin object whose values are to be used as
-   * the basis of the assignment
+   * the basis of the assignment.
    */
   GroupsModelPlugin& operator=(const GroupsModelPlugin& rhs);
 
@@ -369,7 +369,7 @@ public:
   /**
    * Append items from model (used in comp flattening)
    *
-   * @param model a pointer to a model object
+   * @param model a pointer to a model object.
    *
    */
   int appendFrom(const Model* model);

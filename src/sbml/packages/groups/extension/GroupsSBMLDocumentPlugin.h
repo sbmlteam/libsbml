@@ -61,11 +61,11 @@ public:
    * Creates a new GroupsSBMLDocumentPlugin using the given uri, prefix and
    * package namespace.
    *
-   * @param uri a string, representing the uri of the package
+   * @param uri a string, representing the uri of the package.
    *
-   * @param prefix a string, the prefix to be used
+   * @param prefix a string, the prefix to be used.
    *
-   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used
+   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used.
    */
   GroupsSBMLDocumentPlugin(const std::string& uri,
                            const std::string& prefix,
@@ -84,7 +84,7 @@ public:
    * Assignment operator for GroupsSBMLDocumentPlugin.
    *
    * @param rhs; the GroupsSBMLDocumentPlugin object whose values are to be
-   * used as the basis of the assignment
+   * used as the basis of the assignment.
    */
   GroupsSBMLDocumentPlugin& operator=(const GroupsSBMLDocumentPlugin& rhs);
 

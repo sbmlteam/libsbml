@@ -86,7 +86,7 @@ public:
    * Creates a new GroupsValidator object for the given category of validation.
    *
    * @param category code indicating the type of validation that this validator
-   * will perform
+   * will perform.
    */
   GroupsValidator(SBMLErrorCategory_t category = LIBSBML_CAT_SBML);
 
@@ -128,7 +128,7 @@ public:
   /**
    * Validates the SBMLDocument located at the given filename
    *
-   * @param filename, the path to the file to be read and validated
+   * @param filename, the path to the file to be read and validated.
    *
    * @return the number of validation failures that occurred. The objects
    * describing the actual failures can be retrieved using getFailures().
