@@ -62,7 +62,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "The Groups namespace is not correctly declared.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "To conform to the Groups Package specification for SBML Level~3 Version~1, "
+    "To conform to the Groups Package specification for SBML Level 3 Version 1, "
     "an SBML document must declare "
     "'http://www.sbml.org/sbml/level3/version1/groups/version1' as the "
     "XMLNamespaceto use for elements of this package.",
@@ -178,7 +178,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core attributes allowed on <model>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <listOfGroups> object may have the optional SBML Level~3 Core attributes "
+    "A <listOfGroups> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespaces are permitted on a <listOfGroups> object.",
     { "L3V1 Groups V1 Section 3.6"
@@ -190,7 +190,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core attributes allowed on <group>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <group> object may have the optional SBML Level~3 Core attributes "
+    "A <group> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespaces are permitted on a <group>.",
     { "L3V1 Core Section 3.2"
@@ -202,7 +202,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core elements allowed on <group>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <group> object may have the optional SBML Level~3 Core subobjects for "
+    "A <group> object may have the optional SBML Level 3 Core subobjects for "
     "notes and annotations. No other elements from the SBML Level 3 Core "
     "namespaces are permitted on a <group>.",
     { "L3V1 Core Section 3.2"
@@ -286,7 +286,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core attributes allowed on <listOfMembers>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <listOfMembers> object may have the optional SBML Level~3 Core "
+    "A <listOfMembers> object may have the optional SBML Level 3 Core "
     "attributes 'metaid' and 'sboTerm'. No other attributes from the SBML Level "
     "3 Core namespaces are permitted on a <listOfMembers> object.",
     { "L3V1 Core Section 3.2"
@@ -351,7 +351,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core attributes allowed on <member>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <member> object may have the optional SBML Level~3 Core attributes "
+    "A <member> object may have the optional SBML Level 3 Core attributes "
     "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespaces are permitted on a <member>.",
     { "L3V1 Core Section 3.2"
@@ -363,7 +363,7 @@ static const packageErrorTableEntry groupsErrorTable[] =
     "Core elements allowed on <member>.",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
-    "A <member> object may have the optional SBML Level~3 Core subobjects for "
+    "A <member> object may have the optional SBML Level 3 Core subobjects for "
     "notes and annotations. No other elements from the SBML Level 3 Core "
     "namespaces are permitted on a <member>.",
     { "L3V1 Core Section 3.2"

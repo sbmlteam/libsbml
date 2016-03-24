@@ -1005,7 +1005,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     LIBSBML_SEV_ERROR,
     "A <GeneProductAssociation> object may have the "
     "optional attributes 'fbc:id' and 'fbc:name'. No other attributes from the SBML "
-    "Level~3 Flux Balance Constraints namespace are permitted on a <GeneProductAssociation> "
+    "Level 3 Flux Balance Constraints namespace are permitted on a <GeneProductAssociation> "
     "object. ",
     { "",
       "L3V1 Fbc V2 Section 3.9"
@@ -1090,7 +1090,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     "A <GeneProductRef> object must have the required "
     "attribute 'fbc:geneProduct' and may have the "
     "optional attribute 'fbc:id'. No other "
-    "attributes from the SBML Level~3 Flux Balance Constraints namespace are "
+    "attributes from the SBML Level 3 Flux Balance Constraints namespace are "
     "permitted on a <> object. "
     "",
     { "",
@@ -1163,7 +1163,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     LIBSBML_SEV_ERROR,
     "An <And> object must have two or more concrete "
     "<Association> objects: <GeneProductRef>, <And>, or <Or>. No other "
-    "elements from the SBML Level~3 Flux Balance Constraints namespace are "
+    "elements from the SBML Level 3 Flux Balance Constraints namespace are "
     "permitted on an <And> object. "
     "",
     { "",
@@ -1209,7 +1209,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     LIBSBML_SEV_ERROR,
     "An <Or> object must have two or more concrete "
     "<Association> objects: <GeneProductRef>, <And>, or <Or>. No other "
-    "elements from the SBML Level~3 Flux Balance Constraints namespace are "
+    "elements from the SBML Level 3 Flux Balance Constraints namespace are "
     "permitted on an <Or> object. "
     "",
     { "",
@@ -1255,7 +1255,7 @@ static const packageErrorTableEntryV2 fbcErrorTableV2[] =
     "A <GeneProduct> object must have the required "
     "attributes 'fbc:id' and 'fbc:label' may have the "
     "optional attributes 'fbc:name' and 'fbc:associatedSpecies'. No other "
-    "attributes from the SBML Level~3 Flux Balance Constraints namespace are "
+    "attributes from the SBML Level 3 Flux Balance Constraints namespace are "
     "permitted on a <GeneProduct> object. "
     "",
     { "",
