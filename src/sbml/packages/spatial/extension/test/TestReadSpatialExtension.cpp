@@ -810,7 +810,7 @@ END_TEST
 }
 END_TEST
 
-
+/*
 START_TEST (test_SpatialExtension_readwrite_meshonly)
 {
 
@@ -887,7 +887,7 @@ START_TEST (test_SpatialExtension_readwrite_csgonly)
   delete document;
 }
 END_TEST
-
+*/
 
 Suite *
   create_suite_ReadSpatialExtension (void)
