@@ -130,7 +130,7 @@ EXCLUDE +=  \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
   ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
 
-EXAMPLE_PATH           = common-text . ../.. ../../examples/csharp \
-                         ../../examples/csharp/comp ../../examples/csharp/layout \
-                         ../../examples/csharp/fbc ../../examples/csharp/qual 
-
+EXAMPLE_PATH           = common-text . ../.. ../../examples/c++ \
+                         ../../examples/c++/comp ../../examples/c++/layout \
+                         ../../examples/c++/fbc ../../examples/c++/groups \
+                         ../../examples/c++/qual 

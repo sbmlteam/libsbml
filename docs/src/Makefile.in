@@ -206,6 +206,7 @@ distfiles =                                                  \
         common-text/libsbml-group-comp-intro.html.in         \
         common-text/libsbml-group-core-intro.html            \
         common-text/libsbml-group-fbc-intro.html.in          \
+        common-text/libsbml-group-groups-intro.html.in        \
         common-text/libsbml-group-layout-intro.html.in       \
         common-text/libsbml-group-qual-intro.html.in         \
         common-text/libsbml-import-for-c-cpp.html	     \
@@ -235,6 +236,8 @@ distfiles =                                                  \
         common-text/pkg-marker-core.txt                      \
         common-text/pkg-marker-fbc.html                      \
         common-text/pkg-marker-fbc.txt                       \
+        common-text/pkg-marker-group.html                    \
+        common-text/pkg-marker-group.txt                     \
         common-text/pkg-marker-layout.html                   \
         common-text/pkg-marker-layout.txt                    \
         common-text/pkg-marker-qual.html                     \
@@ -292,6 +295,7 @@ distfiles =                                                  \
         java-substitutions/CVTermList.java                   \
         java-substitutions/DateList.java                     \
         java-substitutions/FbcPkgNamespaces.java             \
+        java-substitutions/GroupsPkgNamespaces.java          \
         java-substitutions/LayoutPkgNamespaces.java          \
         java-substitutions/ModelCreatorList.java             \
         java-substitutions/QualPkgNamespaces.java            \
@@ -357,6 +361,7 @@ distfiles =                                                  \
         python-substitutions/CompPkgNamespaces.py            \
         python-substitutions/DateList.py                     \
         python-substitutions/FbcPkgNamespaces.py             \
+        python-substitutions/GroupsPkgNamespaces.py          \
         python-substitutions/LayoutPkgNamespaces.py          \
         python-substitutions/ModelCreatorList.py             \
         python-substitutions/QualPkgNamespaces.py            \
@@ -474,6 +479,7 @@ expanded-html-files = \
   common-text/libsbml-downloading.html        \
   common-text/libsbml-group-comp-intro.html   \
   common-text/libsbml-group-fbc-intro.html    \
+  common-text/libsbml-group-groups-intro.html  \
   common-text/libsbml-group-layout-intro.html \
   common-text/libsbml-group-qual-intro.html   \
   common-text/libsbml-installation.html

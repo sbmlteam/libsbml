@@ -77,4 +77,5 @@ ENABLED_SECTIONS       = cpp clike doxygenCppOnly hasDefaultArgs
 
 EXAMPLE_PATH           = common-text . ../.. ../../examples/c++ \
                          ../../examples/c++/comp ../../examples/c++/layout \
-                         ../../examples/c++/fbc ../../examples/c++/qual 
+                         ../../examples/c++/fbc ../../examples/c++/groups \
+                         ../../examples/c++/qual

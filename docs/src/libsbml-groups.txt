@@ -16,6 +16,12 @@
 
 */
 
+/** @defgroup groups Groups
+
+@htmlinclude libsbml-group-groups-intro.html
+
+*/
+
 /** @defgroup layout Layout
 
 @htmlinclude libsbml-group-layout-intro.html

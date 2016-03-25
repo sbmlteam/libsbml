@@ -131,6 +131,10 @@ INPUT =                                    \
   ../../src/sbml/packages/fbc/sbml         \
   ../../src/sbml/packages/fbc/util         \ 
   ../../src/sbml/packages/fbc/validator    \
+  ../../src/sbml/packages/groups/common    \
+  ../../src/sbml/packages/groups/extension \
+  ../../src/sbml/packages/groups/sbml      \
+  ../../src/sbml/packages/groups/validator \
   ../../src/sbml/packages/layout/common    \
   ../../src/sbml/packages/layout/extension \
   ../../src/sbml/packages/layout/sbml      \

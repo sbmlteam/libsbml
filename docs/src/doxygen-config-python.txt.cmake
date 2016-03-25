@@ -168,6 +168,7 @@ EXCLUDE_SYMBOLS =                      \
   accept                               \
   string
 
-EXAMPLE_PATH           = common-text examples . ../.. ../../examples/python \
-                         ../../examples/python/comp ../../examples/python/layout \
-                         ../../examples/python/fbc ../../examples/python/qual 
+EXAMPLE_PATH           = common-text . ../.. ../../examples/c++ \
+                         ../../examples/c++/comp ../../examples/c++/layout \
+                         ../../examples/c++/fbc ../../examples/c++/groups \
+                         ../../examples/c++/qual 

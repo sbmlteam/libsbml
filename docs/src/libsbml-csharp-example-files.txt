@@ -127,6 +127,13 @@ Example of converting an SBML Level&nbsp;3 model using the Flux
 Balance Constraints package to a COBRA-style SBML Level 2 model.
 
 
+@subsection package-groups-examples Package: Flux Balance Constraints
+
+@li @ref groups_example1.cs "groups_example1.cs":
+Simple example of writing a model that uses the SBML Level&nbsp;3 Groups
+package.
+
+
 @subsection package-comp-examples Package: Hierarchical Model Composition
 
 The <a href="group__comp.html">Hierarchical Model Composition</a>
