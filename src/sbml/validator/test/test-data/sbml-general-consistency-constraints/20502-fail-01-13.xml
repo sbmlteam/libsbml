@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
   <model>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="0" units="ml"/>
+      <compartment id="c" spatialDimensions="0" units="metre"/>
     </listOfCompartments>
   </model>
 </sbml>
