@@ -572,7 +572,7 @@ public:
   /**
    * Add the given string to all identifiers in the object.  If the string is
    * added to anything other than an id or a metaid, this code is responsible
-   * for tracking down and renaming all *idRefs in the package extention that
+   * for tracking down and renaming all *idRefs in the package extension that
    * identifier comes from.
    */
   virtual int prependStringToAllIdentifiers(const std::string& prefix);

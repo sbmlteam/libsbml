@@ -34,7 +34,7 @@
  * @sbmlbrief{layout} Extension of SBMLDocument.
  *
  * The LayoutSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
- * class, and codifies the extentions to the SBMLDocument class defined in
+ * class, and codifies the extensions to the SBMLDocument class defined in
  * the SBML Level&nbsp;3 @ref layout (&ldquo;layout&rdquo;) package.
  *
  * The LayoutSBMLDocumentPlugin defines a

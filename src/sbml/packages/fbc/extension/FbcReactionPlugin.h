@@ -34,8 +34,8 @@
  * @sbmlbrief{fbc} Extension of Reaction by the &ldquo;fbc&rdquo; package.
  *
  * The FbcReactionPlugin class inherits from the SBasePlugin class, and
- * codifies the extentions to the Reaction class defined in the @ref fbc
- * package (&ldquo;fbc&rdquo;).  This extention allows the modeler to define
+ * codifies the extensions to the Reaction class defined in the @ref fbc
+ * package (&ldquo;fbc&rdquo;).  This extension allows the modeler to define
  * (in Version&nbsp;2 of the &ldquo;fbc&rdquo; package) an upper and lower
  * flux bound, as well as a way to reference any GeneProduct associated with
  * this Reaction.

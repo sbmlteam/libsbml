@@ -34,7 +34,7 @@
  * @sbmlbrief{qual} Extension of SBMLDocument.
  *
  * The QualSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
- * class, and codifies the extentions to the SBMLDocument class defined in
+ * class, and codifies the extensions to the SBMLDocument class defined in
  * the SBML Level&nbsp;3 @ref qual (&ldquo;qual&rdquo;) package.
  *
  * The QualSBMLDocumentPlugin defines a

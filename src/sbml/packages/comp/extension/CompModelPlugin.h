@@ -28,8 +28,8 @@
  * @sbmlbrief{comp} Extension of Model.
  *
  * The CompModelPlugin class inherits from the SBMLSBasePlugin class, and
- * codifies the extentions to the Model class defined in the SBML
- * Level&nbsp;3 @ref comp (&ldquo;comp&rdquo;) package.  This extention
+ * codifies the extensions to the Model class defined in the SBML
+ * Level&nbsp;3 @ref comp (&ldquo;comp&rdquo;) package.  This extension
  * allows a Model to define Submodels (other Models that are instantiated as
  * new parts of the parent Model), and Ports, a defined interface for
  * including the given Model as a Submodel of a different Model.

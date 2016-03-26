@@ -28,8 +28,8 @@
  * @sbmlbrief{comp} Extension of SBase.
  *
  * The CompSBasePlugin class inherits from the SBasePlugin class, and
- * codifies the extentions to the SBase class defined in the @ref comp
- * (&ldquo;comp&rdquo;) package.  This extention allows the modeler to define
+ * codifies the extensions to the SBase class defined in the @ref comp
+ * (&ldquo;comp&rdquo;) package.  This extension allows the modeler to define
  * one or more submodel elements which the parent SBase object replaces,
  * and/or a single submodel element which replaces the parent SBase object.
 

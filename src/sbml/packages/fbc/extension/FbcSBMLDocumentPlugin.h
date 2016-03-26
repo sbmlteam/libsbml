@@ -34,9 +34,9 @@
  * @sbmlbrief{fbc} Extension of SBMLDocument for the &ldquo;fbc&rdquo; package.
  *
  * The FbcSBMLDocumentPlugin class inherits from the SBMLDocumentPlugin
- * class, and codifies the extentions to the SBMLDocument class defined in
+ * class, and codifies the extensions to the SBMLDocument class defined in
  * the SBML Level&nbsp;3 @ref fbc (&ldquo;fbc&rdquo;) package.  This
- * extention defines a required flag named "required", which indicates
+ * extension defines a required flag named "required", which indicates
  * whether &ldquo;fbc&rdquo; constructs can be used to change the core
  * mathematical interpretation of the Model defined in the SBML input.  Since
  * &ldquo;fbc&rdquo; constructs cannot, this attribute must be set to the
