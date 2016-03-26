@@ -16,8 +16,8 @@ endif(EXTRA_INCLUDE_DIRS)
 
 foreach(example 
 
-	example1
-	example2
+	groups_example1
+	groups_example2
 	
 )
 	add_executable(example_groups_cpp_${example} ${example}.cpp ../util.c)

@@ -1,5 +1,5 @@
 // 
-// @file    example1.java
+// @file    groups_example1.java
 // @brief   SBML Groups example
 // @author  Akiya Jouraku
 // @author  Frank Bergmann (java port)
@@ -13,7 +13,7 @@
 
 import org.sbml.libsbml.*;
 
-public class example1
+public class groups_example1
 {
 
 public static void main(String[] args)
