@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file CustomResolver.cs
  * @brief Demonstrates implementation of a custom resolver for comp models
  * @author Frank Bergmann
