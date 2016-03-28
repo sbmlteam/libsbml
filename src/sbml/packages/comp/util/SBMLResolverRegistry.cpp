@@ -42,7 +42,9 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
+/** @cond doxygenLibsbmlInternal */
 SBMLResolverRegistry* SBMLResolverRegistry::mInstance = NULL;
+/** @endcond */
 
 void 
 SBMLResolverRegistry::deleteResolerRegistryInstance()

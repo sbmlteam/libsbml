@@ -73,7 +73,7 @@ public:
    *
    * @param prefix a string, the prefix to be used.
    *
-   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used.
+   * @param groupsns a pointer to the GroupsPkgNamespaces object to be used.
    */
   GroupsModelPlugin(const std::string& uri,
                     const std::string& prefix,
@@ -130,7 +130,7 @@ public:
   /**
    * Get a Group from the GroupsModelPlugin.
    *
-   * @param n, an unsigned int representing the index of the Group to retrieve.
+   * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
    *
@@ -142,7 +142,7 @@ public:
   /**
    * Get a Group from the GroupsModelPlugin.
    *
-   * @param n, an unsigned int representing the index of the Group to retrieve.
+   * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
    *
@@ -182,7 +182,7 @@ public:
   /**
    * Adds a copy of the given Group to this GroupsModelPlugin.
    *
-   * @param g, the Group object to add.
+   * @param g the Group object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -218,7 +218,7 @@ public:
    * Removes the nth Group from this GroupsModelPlugin and returns a pointer to
    * it.
    *
-   * @param n, an unsigned int representing the index of the Group to remove.
+   * @param n an unsigned int representing the index of the Group to remove.
    *
    * @return a pointer to the nth Group in this GroupsModelPlugin.
    *
@@ -234,7 +234,7 @@ public:
    * Removes the Group from this GroupsModelPlugin based on its identifier and
    * returns a pointer to it.
    *
-   * @param sid, a string representing the identifier of the Group to remove.
+   * @param sid a string representing the identifier of the Group to remove.
    *
    * @return the Group in this GroupsModelPlugin based on the identifier or
    * NULL if no such Group exists.

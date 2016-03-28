@@ -670,6 +670,7 @@ SBO::isObselete  (unsigned int sboTerm)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 unsigned int
 SBO::getParentBranch(unsigned int term)
 {
@@ -690,6 +691,7 @@ SBO::getParentBranch(unsigned int term)
   else
     return 1000;
 }
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
 /**

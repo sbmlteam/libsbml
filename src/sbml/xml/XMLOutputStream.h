@@ -734,7 +734,7 @@ on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
    * sets a flag, whether the output stream will write an XML
    * comment with a timestamp at the top of the file. (Enabled by default)
    *
-   * @param writeComment the flag
+   * @param writeTimestamp the flag
    */
   static void setWriteTimestamp(bool writeTimestamp);
 

@@ -143,7 +143,7 @@ public:
   /**
    * Get a Group from the ListOfGroups.
    *
-   * @param n, an unsigned int representing the index of the Group to retrieve.
+   * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in this ListOfGroups.
    *
@@ -155,7 +155,7 @@ public:
   /**
    * Get a Group from the ListOfGroups.
    *
-   * @param n, an unsigned int representing the index of the Group to retrieve.
+   * @param n an unsigned int representing the index of the Group to retrieve.
    *
    * @return the nth Group in this ListOfGroups.
    *
@@ -193,7 +193,7 @@ public:
   /**
    * Removes the nth Group from this ListOfGroups and returns a pointer to it.
    *
-   * @param n, an unsigned int representing the index of the Group to remove.
+   * @param n an unsigned int representing the index of the Group to remove.
    *
    * @return a pointer to the nth Group in this ListOfGroups.
    *
@@ -209,7 +209,7 @@ public:
    * Removes the Group from this ListOfGroups based on its identifier and
    * returns a pointer to it.
    *
-   * @param sid, a string representing the identifier of the Group to remove.
+   * @param sid a string representing the identifier of the Group to remove.
    *
    * @return the Group in this ListOfGroups based on the identifier or NULL if
    * no such Group exists.
@@ -223,7 +223,7 @@ public:
   /**
    * Adds a copy of the given Group to this ListOfGroups.
    *
-   * @param g, the Group object to add.
+   * @param g the Group object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -351,9 +351,9 @@ BEGIN_C_DECLS
 /**
  * Get a Group_t from the ListOf_t.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Group_t to retrieve.
+ * @param n an unsigned int representing the index of the Group_t to retrieve.
  *
  * @return the nth Group_t in this ListOf_t.
  *
@@ -367,7 +367,7 @@ ListOfGroups_getGroup(ListOf_t* lo, unsigned int n);
 /**
  * Get a Group_t from the ListOf_t based on its identifier.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
  * @param sid a string representing the identifier of the Group_t to retrieve.
  *
@@ -384,9 +384,9 @@ ListOfGroups_getById(ListOf_t* lo, const char *sid);
 /**
  * Removes the nth Group_t from this ListOf_t and returns a pointer to it.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Group_t to remove.
+ * @param n an unsigned int representing the index of the Group_t to remove.
  *
  * @return a pointer to the nth Group_t in this ListOf_t.
  *
@@ -401,9 +401,9 @@ ListOfGroups_remove(ListOf_t* lo, unsigned int n);
  * Removes the Group_t from this ListOf_t based on its identifier and returns a
  * pointer to it.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param sid, a string representing the identifier of the Group_t to remove.
+ * @param sid a string representing the identifier of the Group_t to remove.
  *
  * @return the Group_t in this ListOf_t based on the identifier or NULL if no
  * such Group_t exists.

@@ -30,7 +30,7 @@
  * available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
  *
- * @class 
+ * @class GroupsValidator
  * @sbmlbrief{groups} Entry point for &ldquo;groups&rdquo package validation.
  *
  * @htmlinclude not-sbml-warning.html
@@ -128,7 +128,7 @@ public:
   /**
    * Validates the SBMLDocument located at the given filename
    *
-   * @param filename, the path to the file to be read and validated.
+   * @param filename the path to the file to be read and validated.
    *
    * @return the number of validation failures that occurred. The objects
    * describing the actual failures can be retrieved using getFailures().

@@ -225,7 +225,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setId(const std::string& id);
@@ -238,7 +238,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setName(const std::string& name);
@@ -251,7 +251,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setKind(const GroupKind_t kind);
@@ -264,7 +264,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setKind(const std::string& kind);
@@ -319,7 +319,7 @@ public:
   /**
    * Get a Member from the Group.
    *
-   * @param n, an unsigned int representing the index of the Member to
+   * @param n an unsigned int representing the index of the Member to
    * retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
@@ -332,7 +332,7 @@ public:
   /**
    * Get a Member from the Group.
    *
-   * @param n, an unsigned int representing the index of the Member to
+   * @param n an unsigned int representing the index of the Member to
    * retrieve.
    *
    * @return the nth Member in the ListOfMembers within this Group.
@@ -397,7 +397,7 @@ public:
   /**
    * Adds a copy of the given Member to this Group.
    *
-   * @param m, the Member object to add.
+   * @param m the Member object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -432,7 +432,7 @@ public:
   /**
    * Removes the nth Member from this Group and returns a pointer to it.
    *
-   * @param n, an unsigned int representing the index of the Member to remove.
+   * @param n an unsigned int representing the index of the Member to remove.
    *
    * @return a pointer to the nth Member in this Group.
    *
@@ -448,7 +448,7 @@ public:
    * Removes the Member from this Group based on its identifier and returns a
    * pointer to it.
    *
-   * @param sid, a string representing the identifier of the Member to remove.
+   * @param sid a string representing the identifier of the Member to remove.
    *
    * @return the Member in this Group based on the identifier or NULL if no
    * such Member exists.
@@ -846,7 +846,7 @@ Group_isSetKind(const Group_t * g);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -864,7 +864,7 @@ Group_setId(Group_t * g, const char * id);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -882,7 +882,7 @@ Group_setName(Group_t * g, const char * name);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -900,7 +900,7 @@ Group_setKind(Group_t * g, GroupKind_t kind);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Group_t
  */
@@ -974,9 +974,9 @@ Group_getListOfMembers(Group_t* g);
 /**
  * Get a Member_t from the Group_t.
  *
- * @param g, the Group_t structure to search.
+ * @param g the Group_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Member_t to
+ * @param n an unsigned int representing the index of the Member_t to
  * retrieve.
  *
  * @return the nth Member_t in the ListOfMembers within this Group.
@@ -991,7 +991,7 @@ Group_getMember(Group_t* g, unsigned int n);
 /**
  * Get a Member_t from the Group_t based on its identifier.
  *
- * @param g, the Group_t structure to search.
+ * @param g the Group_t structure to search.
  *
  * @param sid a string representing the identifier of the Member_t to retrieve.
  *
@@ -1008,7 +1008,7 @@ Group_getMemberById(Group_t* g, const char *sid);
 /**
  * Get a Member_t from the Group_t based on the IdRef to which it refers.
  *
- * @param g, the Group_t structure to search.
+ * @param g the Group_t structure to search.
  *
  * @param sid a string representing the idRef attribute of the Member_t object
  * to retrieve.
@@ -1026,9 +1026,9 @@ Group_getMemberByIdRef(Group_t* g, const char *sid);
 /**
  * Adds a copy of the given Member_t to this Group_t.
  *
- * @param g, the Group_t structure to which the Member_t should be added.
+ * @param g the Group_t structure to which the Member_t should be added.
  *
- * @param m, the Member_t object to add.
+ * @param m the Member_t object to add.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1044,7 +1044,7 @@ Group_addMember(Group_t* g, const Member_t* m);
 /**
  * Get the number of Member_t objects in this Group_t.
  *
- * @param g, the Group_t structure to query.
+ * @param g the Group_t structure to query.
  *
  * @return the number of Member_t objects in this Group_t.
  *
@@ -1059,7 +1059,7 @@ Group_getNumMembers(Group_t* g);
  * Creates a new Member_t object, adds it to this Group_t object and returns
  * the Member_t object created.
  *
- * @param g, the Group_t structure to which the Member_t should be added.
+ * @param g the Group_t structure to which the Member_t should be added.
  *
  * @return a new Member_t object instance.
  *
@@ -1073,9 +1073,9 @@ Group_createMember(Group_t* g);
 /**
  * Removes the nth Member_t from this Group_t and returns a pointer to it.
  *
- * @param g, the Group_t structure to search.
+ * @param g the Group_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Member_t to remove.
+ * @param n an unsigned int representing the index of the Member_t to remove.
  *
  * @return a pointer to the nth Member_t in this Group_t.
  *
@@ -1090,9 +1090,9 @@ Group_removeMember(Group_t* g, unsigned int n);
  * Removes the Member_t from this Group_t based on its identifier and returns a
  * pointer to it.
  *
- * @param g, the Group_t structure to search.
+ * @param g the Group_t structure to search.
  *
- * @param sid, a string representing the identifier of the Member_t to remove.
+ * @param sid a string representing the identifier of the Member_t to remove.
  *
  * @return the Member_t in this Group_t based on the identifier or NULL if no
  * such Member_t exists.

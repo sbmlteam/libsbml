@@ -65,7 +65,7 @@ public:
    *
    * @param prefix a string, the prefix to be used.
    *
-   * @param groupsns, a pointer to the GroupsPkgNamespaces object to be used.
+   * @param groupsns a pointer to the GroupsPkgNamespaces object to be used.
    */
   GroupsSBMLDocumentPlugin(const std::string& uri,
                            const std::string& prefix,

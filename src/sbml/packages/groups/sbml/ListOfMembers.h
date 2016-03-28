@@ -213,7 +213,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setId(const std::string& id);
@@ -226,7 +226,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setName(const std::string& name);
@@ -255,7 +255,7 @@ public:
   /**
    * Get a Member from the ListOfMembers.
    *
-   * @param n, an unsigned int representing the index of the Member to
+   * @param n an unsigned int representing the index of the Member to
    * retrieve.
    *
    * @return the nth Member in this ListOfMembers.
@@ -268,7 +268,7 @@ public:
   /**
    * Get a Member from the ListOfMembers.
    *
-   * @param n, an unsigned int representing the index of the Member to
+   * @param n an unsigned int representing the index of the Member to
    * retrieve.
    *
    * @return the nth Member in this ListOfMembers.
@@ -308,7 +308,7 @@ public:
    * Removes the nth Member from this ListOfMembers and returns a pointer to
    * it.
    *
-   * @param n, an unsigned int representing the index of the Member to remove.
+   * @param n an unsigned int representing the index of the Member to remove.
    *
    * @return a pointer to the nth Member in this ListOfMembers.
    *
@@ -324,7 +324,7 @@ public:
    * Removes the Member from this ListOfMembers based on its identifier and
    * returns a pointer to it.
    *
-   * @param sid, a string representing the identifier of the Member to remove.
+   * @param sid a string representing the identifier of the Member to remove.
    *
    * @return the Member in this ListOfMembers based on the identifier or NULL
    * if no such Member exists.
@@ -338,7 +338,7 @@ public:
   /**
    * Adds a copy of the given Member to this ListOfMembers.
    *
-   * @param m, the Member object to add.
+   * @param m the Member object to add.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -603,7 +603,7 @@ ListOfMembers_isSetName(const ListOf_t * lo);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -621,7 +621,7 @@ ListOfMembers_setId(ListOf_t * lo, const char * id);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -665,9 +665,9 @@ ListOfMembers_unsetName(ListOf_t * lo);
 /**
  * Get a Member_t from the ListOf_t.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Member_t to
+ * @param n an unsigned int representing the index of the Member_t to
  * retrieve.
  *
  * @return the nth Member_t in this ListOf_t.
@@ -682,7 +682,7 @@ ListOfMembers_getMember(ListOf_t* lo, unsigned int n);
 /**
  * Get a Member_t from the ListOf_t based on its identifier.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
  * @param sid a string representing the identifier of the Member_t to retrieve.
  *
@@ -699,9 +699,9 @@ ListOfMembers_getById(ListOf_t* lo, const char *sid);
 /**
  * Removes the nth Member_t from this ListOf_t and returns a pointer to it.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param n, an unsigned int representing the index of the Member_t to remove.
+ * @param n an unsigned int representing the index of the Member_t to remove.
  *
  * @return a pointer to the nth Member_t in this ListOf_t.
  *
@@ -716,9 +716,9 @@ ListOfMembers_remove(ListOf_t* lo, unsigned int n);
  * Removes the Member_t from this ListOf_t based on its identifier and returns
  * a pointer to it.
  *
- * @param lo, the ListOf_t structure to search.
+ * @param lo the ListOf_t structure to search.
  *
- * @param sid, a string representing the identifier of the Member_t to remove.
+ * @param sid a string representing the identifier of the Member_t to remove.
  *
  * @return the Member_t in this ListOf_t based on the identifier or NULL if no
  * such Member_t exists.

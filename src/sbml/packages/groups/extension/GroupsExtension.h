@@ -171,7 +171,7 @@ public:
    * Returns a string representing the SBML XML namespace of this SBML
    * Level&nbsp;3 package.
    *
-   * @param sbmlLevel, the level of SBML.
+   * @param sbmlLevel the level of SBML.
    *
    * @param sbmlVersion the version of SBML.
    *
