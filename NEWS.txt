@@ -1,12 +1,33 @@
            libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.12.1 (Current svn)
+5.13.0 (2016-04-14)
 ====================================================================
 
 STABLE RELEASE
 
+* Groups
+
+  - The first official version of the specification of Groups 
+    is now available and thus the libSBML code for
+    'groups' is now included in the stable release of libSBML.  This
+    means that all prebuilt binaries for the stable release will
+    include the 'groups' package code. The src archive containing
+    libSBML core code will continue to be available but there will be
+    additional src archives available in the stable branch: one
+    containing libSBML core plus all stable packages and additional
+    archives of the individual package code.
+    
+    NOTE: The libSBML GNU make-based build system has not been updated
+          for packages. Thus, to build from src, it is necessary to
+          use the CMake build system.
+
+
 * New features
+
+
+  - New functions have been added to the XMLOutputStream to allow the 
+    optional XML comment to be further customized. 
 
   - The Python binding now includes a __version__ field.
 	
@@ -15,10 +36,39 @@ STABLE RELEASE
     - The SBMLResolver interface has been exposed within language bindings.
 
   - 'fbc' package-specific updates:
-  - 'layout' package-specific updates:
-  - 'qual' package-specific updates:
+
+    - The MATLAB interface has been expanded to include a dedicated 
+      FBC V2 structure.
+      
+    - There was an issue with round tripping geneProductAssociations
+      between the expression and the infix representation.  This has
+      been sorted.
+       
+  - 'groups' package-specific updates:
+
+    - A function named 'copyInformationToNestedLists' has been
+      added to facilitate keeping infomation consistent when multiple 
+      <group> objects refer to the same thing.
 
 * Bug fixes
+
+  - Validation was failing to catch when the <piece> element of a
+    <piecewise> had an incorrect number of children.  This has been
+    fixed. Thanks to Jason Zwolak for the report.
+
+  - Unit consistency checking was failing to interpret the units of 
+    <cn> elements when passed to a <functionDefinition>. This has been fixed.
+
+  - The getListOfElements code was not being correctly ported to 
+    language bibndings. This has been corrected.
+
+  - Unit consistency checking was failing to correctly handle non-integer
+    power expressions. This has been corrected. Thanks to Matthias König
+    for reporting this.
+
+  - The StrictUnitConsistencyValidator has been corrected to identify
+    matching base SI units. Thus, 1000 litre will be correctly equated
+    with 1 metre cubed. 
 
   - Sourceforge libSBML Tracker #421: The MATLAB binding was failing 
     to round trip multi-byte characters used in strings. This has
@@ -57,9 +107,10 @@ STABLE RELEASE
     - In some cases the value of the 'id' attribute was being written out
       as the 'name'.  This has been fixed.
 
-  - 'qual' package-specific bug fixes:
-
 * Configuration/build system changes
+
+  - The Python version of libSBML available via PyPi now includes binary
+    wheels for Windows and Mac OSX operating systems. 
 
   - The Python version of libSBML available via PyPi now includes all
     dependencies. 
@@ -68,6 +119,10 @@ STABLE RELEASE
 
 
 * Miscellaneous
+
+  - We conducted a review of the mathml-infix parsing code and compared
+    inputs and outputs with those of JSBML. This has produced a more 
+    synchronized approach between the two APIs.
 
   - There is a known bug in GCC versions 5.1 and 5.2 which results in the 
     problem that calling the copy constructor of a base class in the 
@@ -85,34 +140,10 @@ EXPERIMENTAL RELEASE
 
 * New features
 
-  - 'arrays' package-specific updates:
-  - 'distrib' package-specific updates:
-  - 'dyn' package-specific updates:
-  - 'groups' package-specific updates:
-
-    - The code has been updated to reflect Release Candidate 2
-      of the Groups specification. Some, but not all, validation has 
-      been added.
-
-    - A function currently named 'copyInformationToNestedLists' has been
-      added to facilitate keeping infomation consistent when multiple 
-      <group> objects refer to the same thing.
-
   - 'multi' package-specific updates:
-  - 'render' package-specific updates:
-  - 'req' package-specific updates:
-  - 'spatial' package-specific updates:
 
- * Bug fixes
- 
-  - 'arrays' package-specific bug fixes:
-  - 'distrib' package-specific bug fixes:
-  - 'dyn' package-specific bug fixes:
-  - 'groups' package-specific bug fixes:
-  - 'multi' package-specific bug fixes:
-  - 'render' package-specific bug fixes:
-  - 'req' package-specific bug fixes:
-  - 'spatial' package-specific bug fixes:
+    - Potentially:
+    - The code has been updated to reflect v 1.0.6 of the specification.
 
 
 ====================================================================
