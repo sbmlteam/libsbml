@@ -47,7 +47,7 @@ STABLE RELEASE
   - 'groups' package-specific updates:
 
     - A function named 'copyInformationToNestedLists' has been
-      added to facilitate keeping infomation consistent when multiple 
+      added to facilitate keeping information consistent when multiple 
       <group> objects refer to the same thing.
 
 * Bug fixes
@@ -60,7 +60,7 @@ STABLE RELEASE
     <cn> elements when passed to a <functionDefinition>. This has been fixed.
 
   - The getListOfElements code was not being correctly ported to 
-    language bibndings. This has been corrected.
+    language bindings. This has been corrected.
 
   - Unit consistency checking was failing to correctly handle non-integer
     power expressions. This has been corrected. Thanks to Matthias König
@@ -92,14 +92,14 @@ STABLE RELEASE
   - 'comp' package-specific bug fixes:
 
     - Failing to access an external model could cause an endless
-      loop whilst attemting validation.  This has been corrected.
+      loop whilst attempting validation.  This has been corrected.
       Thanks to Chris Myers for the report.
 
   - 'fbc' package-specific bug fixes:
 
     - Sourceforge libSBML Tracker #419: The converters provided for
       converting from COBRA style SBML models to SBML+fbc style models
-      was losing a charge of '0' if explicilty set. This has been
+      was losing a charge of '0' if explicitly set. This has been
       corrected. Thanks to Ali Ebrahim for reporting the problem. 
 
   - 'layout' package-specific bug fixes:
@@ -128,7 +128,7 @@ STABLE RELEASE
     problem that calling the copy constructor of a base class in the 
     constructor of derived classes produces crashing code.  The problem 
     manifests itself in libSBML when using a language binding such as the 
-    Python interface. Workarounds have been added to teh libSBML 
+    Python interface. Workarounds have been added to the libSBML 
     'Known Issues' documentation.
 
   - Sourceforge libSBML Tracker #417: Documentation was failing to write
