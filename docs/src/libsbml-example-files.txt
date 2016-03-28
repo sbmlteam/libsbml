@@ -151,8 +151,12 @@ Balance Constraints package to a COBRA-style SBML Level 2 model.
 @subsection package-groups-examples Package: Flux Balance Constraints
 
 @li @ref groups_example1.cpp "groups_example1.cpp":
-Simple example of writing a model that uses the SBML Level&nbsp;3 Groups
-package.
+Simple example of writing a model that uses the SBML Level&nbsp;3
+Groups package.
+
+@li @ref groups_example1.cpp "groups_example1.cpp":
+Simple example of writing a model that uses the SBML Level&nbsp;3
+Groups package and also the SBML Level&nbsp;3 Layout package.
 
 
 @subsection package-comp-examples Package: Hierarchical Model Composition
@@ -348,6 +352,14 @@ Level&nbsp;3 using the Flux Balance Constraints package.
 @example convertFbcToCobra.cpp
 Example of converting an SBML Level&nbsp;3 model using the Flux
 Balance Constraints package to a COBRA-style SBML Level 2 model.
+
+@example groups_example1.cpp
+Simple example of writing a model that uses the SBML Level&nbsp;3
+Groups package.
+
+@example groups_example2.cpp
+Simple example of writing a model that uses the SBML Level&nbsp;3
+Groups package and also the SBML Level&nbsp;3 Layout package.
 
 @example SBMLHttpResolverExample.cpp
 Example of the definition and use of an SBMLHttpResolver for working
