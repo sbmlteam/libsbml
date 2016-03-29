@@ -32,6 +32,22 @@
  *
  * @class GroupsModelPlugin
  * @sbmlbrief{groups} Extension of Model.
+ *
+ * The GroupsModelPlugin class inherits from the SBMLSBasePlugin class, and
+ * codifies the extensions to the Model class defined in the SBML
+ * Level&nbsp;3 @ref groups (&ldquo;groups&rdquo;) package.  This extension
+ * allows a Model to contain an optional ListOfGroups object inside a new
+ * element called <code>&lt;listOfGroups&gt;</code>.  This list holds the
+ * definition of optional groups defined in the model.
+ *
+ * The list of Group objects comprises the group definitions for a given
+ * Model object.  A "group" in SBML Level&nbsp;3 provides a mechanism for
+ * indicating that components of an SBML model are related in some way.
+ * Groups may contain either the same or different types of SBML objects, and
+ * groups may be nested if desired. There are no predefined behavioral
+ * semantics associated with groups.  All groups in a given model have to be
+ * defined as Group objects and included in the ListOfGroups object attached
+ * to the Model object containing them.
  */
 
 
@@ -66,10 +82,10 @@ protected:
 public:
 
   /**
-   * Creates a new GroupsModelPlugin using the given uri, prefix and package
+   * Creates a new GroupsModelPlugin using the given URI, prefix and package
    * namespace.
    *
-   * @param uri a string, representing the uri of the package.
+   * @param uri a string, representing the URI of the package.
    *
    * @param prefix a string, the prefix to be used.
    *
@@ -83,7 +99,7 @@ public:
   /**
    * Copy constructor for GroupsModelPlugin.
    *
-   * @param orig; the GroupsModelPlugin instance to copy.
+   * @param orig the GroupsModelPlugin instance to copy.
    */
   GroupsModelPlugin(const GroupsModelPlugin& orig);
 
@@ -91,7 +107,7 @@ public:
   /**
    * Assignment operator for GroupsModelPlugin.
    *
-   * @param rhs; the GroupsModelPlugin object whose values are to be used as
+   * @param rhs the GroupsModelPlugin object whose values are to be used as
    * the basis of the assignment.
    */
   GroupsModelPlugin& operator=(const GroupsModelPlugin& rhs);
@@ -128,7 +144,7 @@ public:
 
 
   /**
-   * Get a Group from the GroupsModelPlugin.
+   * Returns the nth Group.
    *
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
@@ -144,7 +160,8 @@ public:
    *
    * @param n an unsigned int representing the index of the Group to retrieve.
    *
-   * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
+   * @return the nth Group in the ListOfGroups within this GroupsModelPlugin
+   * object.
    *
    * @see getNumGroups()
    */
@@ -204,8 +221,10 @@ public:
 
 
   /**
-   * Creates a new Group object, adds it to this GroupsModelPlugin object and
-   * returns the Group object created.
+   * Creates a new Group object
+   *
+   * This method creates a new Group object, adds it to this
+   * GroupsModelPlugin object, and returns the Group object created.
    *
    * @return a new Group object instance.
    *
@@ -215,8 +234,10 @@ public:
 
 
   /**
-   * Removes the nth Group from this GroupsModelPlugin and returns a pointer to
-   * it.
+   * Removes the nth Group.
+   *
+   * This removes the nth Group from this GroupsModelPlugin object and
+   * returns a pointer to it.
    *
    * @param n an unsigned int representing the index of the Group to remove.
    *
@@ -224,20 +245,22 @@ public:
    *
    * @see getNumGroups
    *
-   * @note the caller owns the returned object and is responsible for deleting
+   * @note The caller owns the returned object and is responsible for deleting
    * it.
    */
   Group* removeGroup(unsigned int n);
 
 
   /**
-   * Removes the Group from this GroupsModelPlugin based on its identifier and
-   * returns a pointer to it.
+   * Removes the Group from this GroupsModelPlugin based on its identifier.
+   *
+   * This method removes the Group from this GroupsModelPlugin based on its
+   * identifier, and returns a pointer to it.
    *
    * @param sid a string representing the identifier of the Group to remove.
    *
-   * @return the Group in this GroupsModelPlugin based on the identifier or
-   * NULL if no such Group exists.
+   * @return the Group in this GroupsModelPlugin based on the identifier, or
+   * @c NULL if no such Group exists.
    *
    * @note the caller owns the returned object and is responsible for deleting
    * it.
@@ -251,7 +274,6 @@ public:
    *
    * @return @c true to indicate that all the required elements of this
    * GroupsModelPlugin have been set, otherwise @c false is returned.
-   *
    *
    * @note The required elements for the GroupsModelPlugin object are:
    */
@@ -327,25 +349,27 @@ public:
 
 
   /**
-   * Returns the first child element that has the given @p id in the model-wide
-   * SId namespace, or @c NULL if no such object is found.
+   * Returns the first child element that has the given @p id
+   *
+   * This method searches the model-wide SId namespace for the @p id.
    *
    * @param id a string representing the id attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p id.
+   * @return a pointer to the SBase element with the given @p id.  If no such
+   * object is found, this method returns @c NULL.
    */
   virtual SBase* getElementBySId(const std::string& id);
 
 
   /**
-   * Returns the first child element that has the given @p metaid, or @c NULL
-   * if no such object is found.
+   * Returns the first child element that has the given @p metaid.
    *
    * @param metaid a string representing the metaid attribute of the object to
    * retrieve.
    *
-   * @return a pointer to the SBase element with the given @p metaid.
+   * @return a pointer to the SBase element with the given @p metaid.  If
+   * no such object is found, this method returns @c NULL.
    */
   virtual SBase* getElementByMetaId(const std::string& metaid);
 
@@ -354,8 +378,8 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
-   * filter, an ElementFilter that may impose restrictions on the objects to be
-   * retrieved.
+   * @param filter an ElementFilter that may impose restrictions on the
+   * objects to be retrieved.
    *
    * @return a List* pointer of pointers to all SBase child objects with any
    * restriction imposed.
