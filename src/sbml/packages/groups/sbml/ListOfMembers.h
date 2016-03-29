@@ -142,7 +142,7 @@ public:
   /**
    * Copy constructor for ListOfMembers.
    *
-   * @param orig; the ListOfMembers instance to copy.
+   * @param orig the ListOfMembers instance to copy.
    */
   ListOfMembers(const ListOfMembers& orig);
 
@@ -150,7 +150,7 @@ public:
   /**
    * Assignment operator for ListOfMembers.
    *
-   * @param rhs; the ListOfMembers object whose values are to be used as the
+   * @param rhs the ListOfMembers object whose values are to be used as the
    * basis of the assignment.
    */
   ListOfMembers& operator=(const ListOfMembers& rhs);
@@ -213,7 +213,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setId(const std::string& id);
@@ -226,7 +226,7 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
+   * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE,
    * OperationReturnValues_t}
    */
   int setName(const std::string& name);
@@ -603,7 +603,7 @@ ListOfMembers_isSetName(const ListOf_t * lo);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -621,7 +621,7 @@ ListOfMembers_setId(ListOf_t * lo, const char * id);
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
- * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
+ * @li @sbmlconstant {LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
  *
  * @memberof Member_t
  */
@@ -748,5 +748,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* !ListOfMembers_H__ */
-
-
