@@ -71,7 +71,7 @@ XMLInputStream::XMLInputStream (  const char*   content
  /**
  * Copy Constructor, made private so as to notify users, that copying an input stream is not supported. 
  */
- XMLInputStream::XMLInputStream (const XMLInputStream& other)
+ XMLInputStream::XMLInputStream (const XMLInputStream& /*other*/)
    : mIsError(true)   
    , mParser(NULL)
    , mSBMLns(NULL)

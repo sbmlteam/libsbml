@@ -421,12 +421,16 @@ FbcModelPlugin::parseAnnotation(SBase *parentObject, XMLNode *pAnnotation)
 
 
 /** @cond doxygenLibsbmlInternal */
+#ifndef ANNOATION
+bool
+FbcModelPlugin::readOtherXML (SBase* /*parentObject*/, XMLInputStream& /*stream*/)
+{
+  return false;
+}
+#else
 bool
 FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 {
-#ifndef ANNOATION
-  return false;
-#else
   bool readAnnotationFromStream = false;
   const string& name = stream.peek().getName();
   
@@ -522,8 +526,8 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
   }
   
   return readAnnotationFromStream;
-#endif
 }
+#endif
 /** @endcond */
 
 

@@ -207,7 +207,7 @@ GroupsSBMLDocumentPlugin::checkConsistency()
 void
 GroupsSBMLDocumentPlugin::readAttributes(const XMLAttributes& attributes,
                                          const ExpectedAttributes&
-                                           expectedAttributes)
+                                           /*expectedAttributes*/)
 {
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3)
   {

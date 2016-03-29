@@ -98,9 +98,9 @@ characters (void* userData, const XML_Char* chars, int length)
 
 
 static int
-unknownEncodingHandler(void* encodingHandlerData,
-		       const XML_Char* name,
-		       XML_Encoding* info)
+unknownEncodingHandler(void* /*encodingHandlerData*/,
+           XML_Encoding* /*info*/)
+           const XML_Char* /*name*/,
 {
   return XML_STATUS_ERROR;
 }

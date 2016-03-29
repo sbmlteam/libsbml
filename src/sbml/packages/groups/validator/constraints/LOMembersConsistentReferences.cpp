@@ -69,7 +69,7 @@ LOMembersConsistentReferences::~LOMembersConsistentReferences ()
  * event assignments and assignment rules.
  */
 void
-LOMembersConsistentReferences::check_ (const Model& m, const Model& object)
+LOMembersConsistentReferences::check_ (const Model& m, const Model& /*object*/)
 {
   const GroupsModelPlugin * plug = 
                  static_cast<const GroupsModelPlugin*>(m.getPlugin("groups"));

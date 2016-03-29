@@ -67,7 +67,7 @@ ResultBecomesNegative::~ResultBecomesNegative ()
  * event assignments and assignment rules.
  */
 void
-ResultBecomesNegative::check_ (const Model& m, const Model& object)
+ResultBecomesNegative::check_ (const Model& m, const Model& /*object*/)
 {
 
   const QualModelPlugin * plug = 

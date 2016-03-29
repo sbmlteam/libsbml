@@ -68,7 +68,7 @@ GroupCircularReferences::~GroupCircularReferences ()
  * event assignments and assignment rules.
  */
 void
-GroupCircularReferences::check_ (const Model& m, const Model& object)
+GroupCircularReferences::check_ (const Model& m, const Model& /*object*/)
 {
   mIdMap.clear();
 
@@ -96,7 +96,7 @@ GroupCircularReferences::check_ (const Model& m, const Model& object)
 }
 
 void
-GroupCircularReferences::addReferenced(const Model& model, const Group * group)
+GroupCircularReferences::addReferenced(const Model& /*model*/, const Group * group)
 {
   for (unsigned int i = 0; i < group->getNumMembers(); i++)
   {

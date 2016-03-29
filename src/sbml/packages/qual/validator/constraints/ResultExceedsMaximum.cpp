@@ -67,7 +67,7 @@ ResultExceedsMaximum::~ResultExceedsMaximum ()
  * event assignments and assignment rules.
  */
 void
-ResultExceedsMaximum::check_ (const Model& m, const Model& object)
+ResultExceedsMaximum::check_ (const Model& m, const Model& /*object*/)
 {
   const QualModelPlugin * plug = 
                  static_cast<const QualModelPlugin*>(m.getPlugin("qual"));

@@ -306,7 +306,7 @@ endif()
 #
 set(LIBSBML_USE_CPP_NAMESPACE OFF)
 if(WITH_CPP_NAMESPACE)
-    add_definitions(-DLIBSBML_USE_CPP_NAMESPACE)
+    add_definitions(-DLIBSBML_USE_CPP_NAMESPACE=1)
     set(LIBSBML_USE_CPP_NAMESPACE ON)	
 endif()
 

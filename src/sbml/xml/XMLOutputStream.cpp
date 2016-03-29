@@ -208,7 +208,7 @@ XMLOutputStream::XMLOutputStream (const XMLOutputStream& other)
 /**
  * Assignment operator, made private so as to notify users, that copying an input stream is not supported. 
  */
-XMLOutputStream& XMLOutputStream::operator=(const XMLOutputStream& other)
+XMLOutputStream& XMLOutputStream::operator=(const XMLOutputStream& /*other*/)
 {
   return *this;
 }
