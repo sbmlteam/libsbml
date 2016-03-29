@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # 
-#  @file    example1.py
+#  @file    groups_example1.py
 #  @brief   SBML Groups example
 #  @author  Akiya Jouraku
 #  @author  Frank Bergmann (python port)
