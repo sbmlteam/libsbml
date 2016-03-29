@@ -58,7 +58,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     AC_LANG_PUSH(C)
 
-    LIBCHECK_LIBS="-lcheck"
+    LIBCHECK_LIBS="-lcheck -pthread"
 
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
