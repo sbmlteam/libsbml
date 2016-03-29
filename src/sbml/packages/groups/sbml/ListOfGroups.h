@@ -112,7 +112,7 @@ public:
   /**
    * Copy constructor for ListOfGroups.
    *
-   * @param orig; the ListOfGroups instance to copy.
+   * @param orig the ListOfGroups instance to copy.
    */
   ListOfGroups(const ListOfGroups& orig);
 
@@ -120,7 +120,7 @@ public:
   /**
    * Assignment operator for ListOfGroups.
    *
-   * @param rhs; the ListOfGroups object whose values are to be used as the
+   * @param rhs the ListOfGroups object whose values are to be used as the
    * basis of the assignment.
    */
   ListOfGroups& operator=(const ListOfGroups& rhs);
@@ -433,5 +433,3 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif /* !ListOfGroups_H__ */
-
-
