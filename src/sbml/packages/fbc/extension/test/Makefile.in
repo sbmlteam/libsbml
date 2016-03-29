@@ -47,11 +47,12 @@ thisdir   = src/sbml/packages/fbc/extension/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =			  \
-	TestFbcExtension.cpp	  \
-	TestReadFbcExtension.cpp  \
-	TestWriteFbcExtension.cpp \
-	TestRunner.c
+test_sources =              \
+  TestFbcExtension.cpp      \
+  TestReadFbcExtension.cpp  \
+  TestWriteFbcExtension.cpp \
+  TestFbcAssociation.cpp    \
+  TestRunner.c
 
 test_headers =
 
