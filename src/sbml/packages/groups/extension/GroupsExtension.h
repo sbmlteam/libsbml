@@ -31,10 +31,10 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GroupsExtension
- * @sbmlbrief{groups} Base extension class.
+ * @sbmlbrief{groups} Base extension class for the package.
  *
  * @class GroupsPkgNamespaces
- * @sbmlbrief{groups} SBMLNamespaces extension.
+ * @sbmlbrief{groups} SBMLNamespaces extension for the package.
  */
 
 
@@ -131,7 +131,7 @@ public:
   /**
    * Copy constructor for GroupsExtension.
    *
-   * @param orig; the GroupsExtension instance to copy.
+   * @param orig the GroupsExtension instance to copy.
    */
   GroupsExtension(const GroupsExtension& orig);
 
@@ -139,7 +139,7 @@ public:
   /**
    * Assignment operator for GroupsExtension.
    *
-   * @param rhs; the GroupsExtension object whose values are to be used as the
+   * @param rhs the GroupsExtension object whose values are to be used as the
    * basis of the assignment.
    */
   GroupsExtension& operator=(const GroupsExtension& rhs);
@@ -171,6 +171,12 @@ public:
    * Returns a string representing the SBML XML namespace of this SBML
    * Level&nbsp;3 package.
    *
+   * The namespace URI constructed by this method corresponds to the
+   * combination of the Level and Version of SBML, and the Version of the SBML
+   * Level&nbsp;3 package. (At the time of this writing, the only SBML Level
+   * that supports packages is Level&nbsp;3, so the value of @p sbmlLevel is
+   * necessarily always <code>3</code>.)
+   *
    * @param sbmlLevel the level of SBML.
    *
    * @param sbmlVersion the version of SBML.
@@ -178,12 +184,6 @@ public:
    * @param pkgVersion the version of this package.
    *
    * @return a string representing the name of this package ("groups").
-   *
-   * The namespace URI constructed by this method corresponds to the
-   * combination of the Level and Version of SBML, and the Version of the SBML
-   * Level&nbsp;3 package. (At the time of this writing, the only SBML Level
-   * that supports packages is Level&nbsp;3, so the value of @p sbmlLevel is
-   * necessarily always <code>3</code>.)
    */
   virtual const std::string& getURI(unsigned int sbmlLevel,
                                     unsigned int sbmlVersion,
@@ -243,8 +243,8 @@ public:
 
 
   /**
-   * Takes a type code of the &ldquo;groups&rdquo; package and returns a string
-   * describing the code.
+   * Returns a string describing the type code of the &ldquo;groups&rdquo;
+   * package.
    *
    * @param typeCode a libSBML type code defined by the libSBML extension
    * implementing support for the SBML Level&nbsp;3 &ldquo;groups&rdquo;
