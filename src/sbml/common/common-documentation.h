@@ -3290,7 +3290,7 @@ if (lmp != null)
  *
  * If a Member has a idRef or metaIdRef attribute which references an object 
  * from a namespace that is not understood by the interpreter of the SBML 
- * model, that Member must be ignored—the referenced object will not be 
+ * model, that Member must be ignored. The referenced object will not be 
  * understood by the interpreter, and therefore has no need to become a member 
  * of the group. If an interpreter cannot tell whether a referenced object 
  * does not exist or if exists in an unparsed namespace, it may choose to 
