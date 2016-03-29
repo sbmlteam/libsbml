@@ -162,6 +162,19 @@ if test "$enable_qual" != no; then
   AC_SUBST(LIBSBML_HAS_PACKAGE_QUAL, 1)
 fi
 
+AC_ARG_ENABLE([groups],
+  AS_HELP_STRING([--enable-groups@<:@=ARG@:>@],
+                 [build support for SBML 'groups' @<:@default=no@:>@]),
+  [enable_groups=$enableval],
+  [enable_groups=no])
+
+if test "$enable_groups" != no; then
+  AC_DEFINE([USE_GROUPS], 1, [Define to 1 to build support for SBML 'groups'.])
+  AC_DEFINE([LIBSBML_HAS_PACKAGE_GROUPS], 1, [Define to 1 to build support for SBML 'groups'.])
+  AC_SUBST(USE_GROUPS, 1)
+  AC_SUBST(LIBSBML_HAS_PACKAGE_GROUPS, 1)
+fi
+
 dnl -------------------------------------------------------
 dnl Other SBML L3 package variables
 dnl -------------------------------------------------------
@@ -802,6 +815,9 @@ if test "$enable_comp" != "no" ; then
 fi
 if test "$enable_fbc" != "no" ; then
   echo "  SBML 'fbc'                    = $enable_fbc"
+fi
+if test "$enable_groups" != "no" ; then
+  echo "  SBML 'groups'                 = $enable_groups"
 fi
 if test "$enable_layout" != "no" ; then
   echo "  SBML 'layout'                 = $enable_layout"

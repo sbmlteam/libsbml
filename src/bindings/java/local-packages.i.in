@@ -6,6 +6,9 @@
 #ifdef USE_FBC
 %include "local-packages-fbc.i"
 #endif
+#ifdef USE_GROUPS
+%include "local-packages-groups.i"
+#endif
 #ifdef USE_LAYOUT
 %include "local-packages-layout.i"
 #endif

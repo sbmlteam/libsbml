@@ -68,6 +68,7 @@ overriders = \
 'Event'                     : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'setId', 'setName', 'unsetId', 'unsetName', 'connectToChild', 'enablePackageInternal' ],
 'EventAssignment'           : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'getId' ],
 'FbcExtension'              : [ 'clone', 'getErrorIdOffset' ],
+'GroupsExtension'           : [ 'clone', 'getErrorIdOffset' ],
 'FunctionDefinition'        : [ 'clone', 'getId', 'getName', 'isSetId', 'isSetName', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'setId', 'setName', 'unsetId', 'unsetName' ],
 'InitialAssignment'         : [ 'clone', 'getTypeCode', 'getElementName', 'hasRequiredAttributes', 'hasRequiredElements', 'getId' ],
 'ISBMLExtensionNamespaces'  : [ 'getURI', 'getPackageName' ],

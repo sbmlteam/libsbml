@@ -119,6 +119,11 @@ ifdef USE_FBC
   SWIGDOCDEFINES += --define USE_FBC
 endif # USE_FBC  
 
+ifdef USE_GROUPS
+  SWIGFLAGS      += -DUSE_GROUPS
+  SWIGDOCDEFINES += --define USE_GROUPS
+endif # USE_GROUPS  
+
 ifdef USE_LAYOUT
   SWIGFLAGS      += -DUSE_LAYOUT
   SWIGDOCDEFINES += --define USE_LAYOUT
@@ -189,6 +194,13 @@ ifdef USE_FBC
                ../../sbml/packages/fbc/util \
                ../../sbml/packages/fbc/validator \
                ../../sbml/packages/fbc/validator/constraints 
+endif
+ifdef USE_GROUPS
+  otherdirs += ../../sbml/packages/groups/common \
+               ../../sbml/packages/groups/extension \
+               ../../sbml/packages/groups/sbml \
+               ../../sbml/packages/groups/validator \
+               ../../sbml/packages/groups/validator/constraints 
 endif
 ifdef USE_LAYOUT
   otherdirs += ../../sbml/packages/layout/common \
@@ -344,6 +356,18 @@ else
   endef
 endif
 
+ifdef USE_GROUPS
+  define check_groups
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep ListOfGroups libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_groups
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep ListOfGroups libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
+
 ifdef USE_LAYOUT
   define check_layout
     if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
@@ -385,7 +409,8 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
     $(shell $(call check_comp)) $(shell $(call check_fbc)) \
-    $(shell $(call check_layout)) $(shell $(call check_qual))
+    $(shell $(call check_layout)) $(shell $(call check_qual)) \
+    $(shell $(call check_groups))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) clean-swigfiles
@@ -456,7 +481,7 @@ endif
 
 check: $(check_classes) $(shell $(call check_layout)) \
   $(shell $(call check_comp))  $(shell $(call check_fbc)) \
-  $(shell $(call check_qual))
+  $(shell $(call check_qual)) $(shell $(call check_groups))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -491,7 +516,7 @@ JAR_INSTPATH=$(DESTDIR)$(DATADIR)/java/$(jarfile)
 
 install: $(libraries) $(shell $(call check_layout)) \
   $(shell $(call check_comp)) $(shell $(call check_fbc)) \
-  $(shell $(call check_qual))
+  $(shell $(call check_qual)) $(shell $(call check_groups))
 	$(INSTALL_SH) $(jnifile) $(JNI_INSTPATH)
 	$(INSTALL_SH) $(jarfile) $(JAR_INSTPATH)
 

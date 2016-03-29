@@ -7,6 +7,9 @@
 #ifdef USE_FBC
 #include "fbc-package.h"
 #endif
+#ifdef USE_GROUPS
+#include "groups-package.h"
+#endif
 #ifdef USE_LAYOUT
 #include "layout-package.h"
 #endif
