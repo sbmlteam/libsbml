@@ -236,8 +236,8 @@ distfiles =                                                  \
         common-text/pkg-marker-core.txt                      \
         common-text/pkg-marker-fbc.html                      \
         common-text/pkg-marker-fbc.txt                       \
-        common-text/pkg-marker-group.html                    \
-        common-text/pkg-marker-group.txt                     \
+        common-text/pkg-marker-groups.html                    \
+        common-text/pkg-marker-groups.txt                     \
         common-text/pkg-marker-layout.html                   \
         common-text/pkg-marker-layout.txt                    \
         common-text/pkg-marker-qual.html                     \
