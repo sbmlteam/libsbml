@@ -75,7 +75,7 @@ public:
   /**
    * Copy constructor for GroupsSBMLDocumentPlugin.
    *
-   * @param orig; the GroupsSBMLDocumentPlugin instance to copy.
+   * @param orig the GroupsSBMLDocumentPlugin instance to copy.
    */
   GroupsSBMLDocumentPlugin(const GroupsSBMLDocumentPlugin& orig);
 
@@ -83,7 +83,7 @@ public:
   /**
    * Assignment operator for GroupsSBMLDocumentPlugin.
    *
-   * @param rhs; the GroupsSBMLDocumentPlugin object whose values are to be
+   * @param rhs the GroupsSBMLDocumentPlugin object whose values are to be
    * used as the basis of the assignment.
    */
   GroupsSBMLDocumentPlugin& operator=(const GroupsSBMLDocumentPlugin& rhs);

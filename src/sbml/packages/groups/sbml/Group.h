@@ -131,7 +131,7 @@ public:
   /**
    * Copy constructor for Group.
    *
-   * @param orig; the Group instance to copy.
+   * @param orig the Group instance to copy.
    */
   Group(const Group& orig);
 
@@ -139,7 +139,7 @@ public:
   /**
    * Assignment operator for Group.
    *
-   * @param rhs; the Group object whose values are to be used as the basis of
+   * @param rhs the Group object whose values are to be used as the basis of
    * the assignment.
    */
   Group& operator=(const Group& rhs);
@@ -711,7 +711,7 @@ Group_create(unsigned int level = GroupsExtension::getDefaultLevel(),
 /**
  * Creates and returns a deep copy of this Group_t object.
  *
- * @param g; the Group_t structure.
+ * @param g the Group_t structure.
  *
  * @return a (deep) copy of this Group_t object.
  *
@@ -725,7 +725,7 @@ Group_clone(const Group_t* g);
 /**
  * Frees this Group_t object.
  *
- * @param g; the Group_t structure.
+ * @param g the Group_t structure.
  *
  * @memberof Group_t
  */

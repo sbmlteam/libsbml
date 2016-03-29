@@ -128,7 +128,7 @@ public:
   /**
    * Copy constructor for Member.
    *
-   * @param orig; the Member instance to copy.
+   * @param orig the Member instance to copy.
    */
   Member(const Member& orig);
 
@@ -136,7 +136,7 @@ public:
   /**
    * Assignment operator for Member.
    *
-   * @param rhs; the Member object whose values are to be used as the basis of
+   * @param rhs the Member object whose values are to be used as the basis of
    * the assignment.
    */
   Member& operator=(const Member& rhs);
@@ -513,7 +513,7 @@ Member_create(unsigned int level = GroupsExtension::getDefaultLevel(),
 /**
  * Creates and returns a deep copy of this Member_t object.
  *
- * @param m; the Member_t structure.
+ * @param m the Member_t structure.
  *
  * @return a (deep) copy of this Member_t object.
  *
@@ -527,7 +527,7 @@ Member_clone(const Member_t* m);
 /**
  * Frees this Member_t object.
  *
- * @param m; the Member_t structure.
+ * @param m the Member_t structure.
  *
  * @memberof Member_t
  */
