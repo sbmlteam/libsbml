@@ -1277,7 +1277,7 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
+BEGIN_C_DECLS
 
 /**
  * This method takes a model qualifier type code and returns a string 
@@ -1361,6 +1361,7 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 BiolQualifierType_fromString(const char* s);
 
+END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #ifndef SWIG
