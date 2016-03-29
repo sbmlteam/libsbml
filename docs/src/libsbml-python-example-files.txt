@@ -132,7 +132,12 @@ Example of converting an SBML Level&nbsp;3 model using the Flux
 Balance Constraints package to a COBRA-style SBML Level 2 model.
 
 
-@subsection package-groups-examples Package: Flux Balance Constraints
+@subsection package-groups-examples Package: Groups
+
+The <a href="group__groups.html">Groups</a>
+package has the nickname &ldquo;groups&rdquo;.  The libSBML classes that
+implement this package are marked with the symbol @htmlinclude
+pkg-marker-groups.html@~ in the libSBML documentation.
 
 @li @ref groups_example1.py "groups_example1.py":
 Simple example of writing a model that uses the SBML Level&nbsp;3 Groups
