@@ -39,6 +39,7 @@
 #include <sbml/packages/groups/sbml/Member.h>
 #include <sbml/packages/groups/sbml/ListOfGroups.h>
 #include <sbml/packages/groups/sbml/ListOfMembers.h>
+#include <sbml/packages/groups/validator/GroupsSBMLError.h>
 
 #endif // USE_GROUPS 
 
