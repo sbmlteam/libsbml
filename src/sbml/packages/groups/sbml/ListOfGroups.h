@@ -31,12 +31,19 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGroups
- * @sbmlbrief{groups}  A ListOfGroups is a child of a Model that contains 
- * the Groups defined in that Model.  The ListOfGroups is optional, but, 
- * if present, must contain at least one Group object. In common with other 
- * ListOf classes in SBML, ListOfGroups is derived from SBase. It inherits 
- * SBase's attributes metaid and sboTerm, as well as the subcomponents for 
- * Annotation and Notes, but does not add any new attributes of its own. 
+ * @sbmlbrief{groups} A list of Group objectds.
+ *
+ * The SBML Level&nbsp;3 Groups package provides a means of defining a
+ * <em>group of entities</em>: a simple mechanism for indicating that
+ * particular components of an SBML model are related in some way.  A group
+ * is defined using a Group class object, and all the Group objects in a
+ * model are stored in the parent Model object within a ListOfGroups object.
+ *
+ * A ListOfGroups is optional, but, if present, must contain at least one
+ * Group object.  In common with other ListOf___ classes in SBML,
+ * ListOfGroups is derived from SBase. It inherits SBase's attributes
+ * "metaid" and "sboTerm", as well as the subcomponents for Annotation and
+ * Notes, but does not add any new attributes of its own.
  *
  * @copydetails doc_what_is_listof
  */

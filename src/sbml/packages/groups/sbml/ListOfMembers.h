@@ -31,24 +31,25 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfMembers
- * @sbmlbrief{groups} The ListOfMembers class is a child of the 
- * Group object, and contains Member children that define the Group.  
- * A ListOfMembers must have one or more Member children. Since 
- * ListOfMembers is derived from SBase, it inherits the sboTerm and 
- * metaid attributes, as well as the optional children Notes and 
- * Annotation. Unlike most lists of objects in SBML, however, the 
- * sboTerm attribute and the Notes and Annotation children are taken 
- * here to apply directly to every SBML element referenced by each 
- * child Member of this ListOfMembers, if that referenced element has 
- * no such definition. Thus, if a referenced element has no defined 
- * sboTerm, child Notes, or child Annotation, that element should be 
- * considered to now have the sboTerm, child Notes, or child Annotation 
- * of the ListOfMembers.
+ * @sbmlbrief{groups} A list of Member objects.
+ *
+ * The ListOfMembers class is a child of the Group object, and contains
+ * Member children that define the Group.  A ListOfMembers must have one or
+ * more Member children. Since ListOfMembers is derived from SBase, it
+ * inherits the "sboTerm" and "metaid" attributes, as well as the optional
+ * children Notes and Annotation. Unlike most lists of objects in SBML,
+ * however, the "sboTerm" attribute and the Notes and Annotation children are
+ * taken here to apply directly to every SBML element referenced by each
+ * child Member of this ListOfMembers, if that referenced element has no such
+ * definition. Thus, if a referenced element has no defined "sboTerm"
+ * attribute or child Notes or Annotation objects, that element should be
+ * considered to now have the "sboTerm", child Notes, or child Annotation of
+ * the ListOfMembers.
  *
  * If multiple ListOfMembers have child Member elements that reference 
  * the same SBML element, and more than one ListOfMembers or Member has 
  * a value for an sboTerm attribute, Notes, or Annotation element, those 
- * Member elements should be consistent with each other: the sboTerm 
+ * Member elements should be consistent with each other: the "sboTerm" 
  * attributes should either be identical, or one should inherit from 
  * the other; Notes should say the same or similar things; and Annotation 
  * elements should not conflict. Interpreters may choose to resolve any 
