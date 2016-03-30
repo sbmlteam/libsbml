@@ -31,24 +31,43 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class Group
- * @sbmlbrief{groups} The first and most central class in the Groups package
- *  is the Group class. The Group class provides an optional "id" and "name", 
- * one required attribute ("kind"), and one ListOfMembers child. Since Group 
- * is derived from SBase, and SBase provides the ability to attach SBO terms 
- * as well as MIRIAM annotations, the semantics of a given group in a model 
- * can be made more precise by reference to external controlled vocabularies 
- * and ontologies.
- * 
- * If an SBML element is referenced by a Group's child Member (directly or 
- * indirectly-see below), it is considered to be a member of that Group. If 
- * the same element is referenced by multiple Member objects, this is equivalent 
- * to including it just once. It is considered best practice to avoid this, but 
- * does not make for an invalid SBML document. Children of referenced elements 
- * are not considered to be members of the Group: a KineticLaw of a referenced 
- * Reaction is not itself a Group member. Even the membership of SBML 'container' 
- * classes (ListOfSpecies, ListOfCompartments, etc.) do not imply inclusion of 
- * their children as members of the Group. The sole exception to this rule is 
- * the ListOfMembers class, described below.
+ * @sbmlbrief{groups} Representation of a group of SBML components.
+ *
+ * The Group class is the first and most central class in the SBML
+ * Level&nbsp;3 Groups package.  This class represents a <em>group of
+ * entities</em>: a simple mechanism for indicating that particular
+ * components of an SBML model are related in some way.  The nature of the
+ * relationship is left up to the modeler, and can be clarified by means of
+ * annotations on model components.  Groups may contain either the same or
+ * different types of SBML objects, and groups may be nested if desired.
+ * There are no predefined modeling or mathematical semantics associated with
+ * groups.
+ *
+ * The Groups class has one required attribute, "kind"; two optional
+ * attributes, "id" and "name"; and a single child element, ListOfMembers.
+ * The membership of a group is determined by the contents of the list of
+ * members stored in Member objects within the ListOfMembers child of a Group
+ * object.  Since the Group class of objects is derived from SBase, and SBase
+ * provides the ability to attach SBO terms as well as MIRIAM annotations,
+ * the semantics of a given group in a model can be made more precise using
+ * references to external controlled vocabularies and ontologies.
+ *
+ * @section group-membership-rules Groups and their members
+ *
+ * If an SBML element is referenced by a Group's child Member (directly or
+ * indirectly&mdash;see next section), it is considered to be a member of
+ * that Group.  If the same element is referenced by multiple Member objects,
+ * this is equivalent to including it just once.  (It is considered best
+ * practice to avoid this, but does not make for an invalid SBML document.)
+ *
+ * Children of referenced elements are not considered to be members of the
+ * Group: a KineticLaw of a referenced Reaction is not itself a Group
+ * member. Even the membership of so-called SBML container classes (e.g.,
+ * ListOfSpecies, ListOfCompartments, etc.) does not imply inclusion of
+ * children as members of the Group. The sole exception to this rule is the
+ * handling of ListOfMembers class, described below.
+ *
+ * @section groups-semantics Semantics of group memberships
  *
  * @copydetails doc_group_semantics
  */
@@ -178,7 +197,15 @@ public:
   /**
    * Returns the value of the "kind" attribute of this Group.
    *
-   * @return the value of the "kind" attribute of this Group as a GroupKind_t.
+   * @return the value of the "kind" attribute of this Group.
+   * @if clike The value is drawn from the enumeration
+   * @ref GroupKind_t@endif.@endif@~
+   * The possible values returned by this method are:
+   * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
+   * @endif
    */
   GroupKind_t getKind() const;
 
@@ -187,6 +214,11 @@ public:
    * Returns the value of the "kind" attribute of this Group.
    *
    * @return the value of the "kind" attribute of this Group as a string.
+   * The possible values returned by this method are:
+   * @li @c "classification"
+   * @li @c "partonomy"
+   * @li @c "collection"
+   * @li @c "unknown"
    */
   const std::string& getKindAsString() const;
 
@@ -475,7 +507,6 @@ public:
    * @copydetails doc_what_are_typecodes
    *
    * @return the SBML type code for this object:
-   *
    * @sbmlconstant{SBML_GROUPS_GROUP, SBMLGroupsTypeCode_t}
    *
    * @copydetails doc_warning_typecodes_not_unique
