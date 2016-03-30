@@ -366,12 +366,20 @@ typedef enum
 } SBMLGroupsTypeCode_t;
 
 
+/**
+ * @enum GroupKind_t
+ * @brief Enumeration of values permitted as the value of the "kind"
+ * attribute on Group objects.
+ *
+ * @see Group::getKind()
+ * @see Group::setKind(@if java long kind@endif)
+ */
 typedef enum
 {
-  GROUP_KIND_CLASSIFICATION       /*!<classification */
-, GROUP_KIND_PARTONOMY            /*!<partonomy */
-, GROUP_KIND_COLLECTION           /*!<collection */
-, GROUP_KIND_UNKNOWN              /*!<invalid GroupKind */
+  GROUP_KIND_CLASSIFICATION       /*!< The group kind is @c "classification". */
+, GROUP_KIND_PARTONOMY            /*!< The group kind is @c "partonomy". */
+, GROUP_KIND_COLLECTION           /*!< The group kind is @c "collection". */
+, GROUP_KIND_UNKNOWN              /*!< Invalid GroupKind value. */
 } GroupKind_t;
 
 
