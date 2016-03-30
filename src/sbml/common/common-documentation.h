@@ -308,9 +308,9 @@
  * @class doc_warning_typecodes_not_unique
  *
  * @warning <span class="warning">The specific integer values of the possible
- * type codes may be reused by different Level&nbsp;3 package plug-ins.
- * Thus, to identifiy the correct code, <strong>it is necessary to invoke
- * both getTypeCode() and getPackageName()</strong>.</span>
+ * type codes may be reused by different libSBML plug-ins for SBML Level&nbsp;3.
+ * packages,  To fully identify the correct code, <strong>it is necessary to
+ * invoke both getTypeCode() and getPackageName()</strong>.</span>
  *
  * <!-- ------------------------------------------------------------------- -->
  * @class doc_what_are_plugins
