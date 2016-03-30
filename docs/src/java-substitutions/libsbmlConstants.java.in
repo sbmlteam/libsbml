@@ -205,6 +205,19 @@ public interface libsbmlConstants
     /**
      * One of the possible libSBML operation return codes.
      * <p>
+     * This code has the following meaning: The existing annotation does
+     * not have a top-level element with the given namespace. This error is
+     * typically returned in situations where one of the annotation
+     * replacement functions is being used to remove an annotation with a
+     * namespace that does not match the namespace of any top-level element
+     * that is already present in the existing annotation.
+     */
+    public final static int LIBSBML_ANNOTATION_NS_NOT_FOUND = -13;
+
+
+    /**
+     * One of the possible libSBML operation return codes.
+     * <p>
      * This code has the following meaning: the requested action cannot be
      * performed because the target object does not have its "metaid"
      * attribute set.
@@ -215,14 +228,11 @@ public interface libsbmlConstants
     /**
      * One of the possible libSBML operation return codes.
      * <p>
-     * This code has the following meaning: The existing annotation does
-     * not have a top-level element with the given namespace. This error is
-     * typically returned in situations where one of the annotation
-     * replacement functinos is being used to remove an annotation with a
-     * namespace that does not match the namespace of any top-level element
-     * that is already present in the existing annotation.
+     * This code has the following meaning: The attribute that is the subject
+     * of this operation has been deprecated for the combination of SBML Level
+     * and Version for the underlying object.
      */
-    public final static int LIBSBML_ANNOTATION_NS_NOT_FOUND = -13;
+    public final static int LIBSBML_DEPRECATED_ATTRIBUTE = -15;
 
 
     /**
@@ -7009,6 +7019,376 @@ public interface libsbmlConstants
      */
     public final static int OBJECTIVE_TYPE_UNKNOWN = OBJECTIVE_TYPE_MINIMIZE + 1;
 
+
+  // SBMLGroupsTypeCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Groups
+     * (&ldquo;groups&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_GROUPS_MEMBER = 500;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible SBML component type codes.
+     * <p>
+     * LibSBML attaches an identifying code to every kind of SBML object.
+     * These are known as <em>SBML type codes</em>.  In other languages,
+     * the set of type codes is stored in an enumeration; in the Java
+     * language interface for libSBML, the type codes are defined as static
+     * integer constants in the interface class {@link libsbmlConstants}.
+     * The names of the type codes all begin with the characters
+     * <code>SBML_</code>.
+     * <p>
+     * Each libSBML extension for SBML Level&nbsp;3 packages adds its own
+     * type codes to objects.  The present type code belongs to libSBML's
+     * extension to support the SBML Level&nbsp;3 Groups
+     * (&ldquo;groups&rdquo;) package.  It is used to identify the type of
+     * SBML component to which a given object corresponds.
+     */
+    public final static int SBML_GROUPS_GROUP = 501;
+
+
+  // GroupKind_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible Group kinds.
+     */
+    public final static int GROUP_KIND_CLASSIFICATION = 0;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible Group kinds.
+     */
+    public final static int GROUP_KIND_PARTONOMY = GROUP_KIND_CLASSIFICATION + 1;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible Group kinds.
+     */
+    public final static int GROUP_KIND_COLLECTION = GROUP_KIND_PARTONOMY + 1;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> One of the
+     * possible Group kinds.
+     */
+    public final static int GROUP_KIND_UNKNOWN = GROUP_KIND_COLLECTION + 1;
+
+
+  // GroupsSBMLErrorCode_t 
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsUnknown = 4010100;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsNSUndeclared = 4010101;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsElementNotInNs = 4010102;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsDuplicateComponentId = 4010301;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsIdSyntaxRule = 4010302;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsAttributeRequiredMissing = 4020101;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsAttributeRequiredMustBeBoolean = 4020102;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsAttributeRequiredMustHaveValue = 4020103;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsModelAllowedElements = 4020201;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsModelEmptyLOElements = 4020202;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsModelLOGroupsAllowedCoreElements = 4020203;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsModelLOGroupsAllowedCoreAttributes = 4020204;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupAllowedCoreAttributes = 4020301;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupAllowedCoreElements = 4020302;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupAllowedAttributes = 4020303;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupAllowedElements = 4020304;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupKindMustBeGroupKindEnum = 4020305;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupNameMustBeString = 4020306;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupEmptyLOElements = 4020307;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupLOMembersAllowedCoreElements = 4020308;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupLOMembersAllowedCoreAttributes = 4020309;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsGroupLOMembersAllowedAttributes = 4020310;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsLOMembersNameMustBeString = 4020311;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsLOMembersConsistentReferences = 4020312;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsNotCircularReferences = 4020313;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberAllowedCoreAttributes = 4020401;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberAllowedCoreElements = 4020402;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberAllowedAttributes = 4020403;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberNameMustBeString = 4020404;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberIdRefMustBeSBase = 4020405;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberMetaIdRefMustBeSBase = 4020406;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberIdRefMustBeSId = 4020407;
+
+    /**
+     * <span class="pkg-marker pkg-color-groups">groups</span> A value in the
+     * enumeration of all the error and warning codes generated by the
+     * libSBML &ldquo;groups&rdquo; extension for objects of class {@link
+     * SBMLError}.  Please consult the documentation for {@link SBMLError}
+     * for an explanation of the meaning of this particular error code.
+     */
+    public final static int GroupsMemberMetaIdRefMustBeID = 4020408;
+  
 
     // SBMLLayoutTypeCode_t
 
