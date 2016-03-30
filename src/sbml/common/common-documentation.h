@@ -3253,33 +3253,43 @@ if (lmp != null)
  * @class doc_group_semantics
  *
  * @par
- * If a Member references a Group, it is the Group itself that is considered to
- * be a member of the parent Group, not the corresponding referenced element (or
- * elements). This is also true for elements from other packages that point to
- * other elements, such as SBaseRef elements from the SBML Level 3 Hierarchical
- * %Model Composition package. However, if a Member references a ListOfMembers
- * object, it is the elements referenced in that list that are considered to be
- * part of the parent Group.
+ * If a Member object within a Group object's ListOfMembers references
+ * another Group object, it is the <em>referenced Group itself</em> that is
+ * considered to be a member of the parent Group, @em not the corresponding
+ * referenced model component(s).  This is true regardless of whether those
+ * components themselves happen to point to other components using some
+ * mechanism defined by another SBML Level&nbsp;3 package (as happens, for
+ * example, in the SBML Level&nbsp;3 Hierarchical %Model Composition package
+ * and its use of SBaseRef).  However, if instead a Member object references
+ * a ListOfMembers object (using the "id" attribute permitted on
+ * ListOfMembers objects), it is the components of that ListOfMembers that
+ * are considered to be part of the parent Group.  In other words: if in some
+ * Group @em G, a Member @em M references another Group, that Group is the
+ * member of @em G; if @em M references a ListOfMembers, it is the entities
+ * referenced by the Member objects within the ListOfMembers that are
+ * the members of @em G and not the ListOfMembers object itself.
  *
- * The implication of this is that any rule that applies to members of a group
- * (such as how the "kind" attribute functions, and the application of sboterm
- * attributes on a ListOfMembers restrictions) applies to the child group when
- * referenced by the Group id, but to the members of the child group when
- * referenced by the ListOfMembers id. In an example situation where a parent
- * group includes two Species plus a Group which itself contains three other
- * Species, if the parent group's ListOfMembers is given an sboterm, that term
- * applies to the two species and the group, not to the three child species
- * members of the second group. Note that the parent group's kind would also
- * almost certainly be "collection" or "partonomy", and not "classification",
- * as two species and a group are very unlikely to be classified as the same
- * thing. In contrast, in the situation where a parent group includes two Species
- * plus a ListOfMembers which contains three other Species, the parent group's
- * ListOfMembers sboterm would apply to the five Species, and could be more
- * reasonably marked as a "classification".
+ * The implication of this is that any rule that applies to members of a
+ * group (such the meaning of the "kind" attribute, or the restrictions on
+ * the application of "sboTerm" attributes on a ListOfMembers) applies to the
+ * child group when referenced by the Group "id", and to the members of the
+ * child group when referenced by the ListOfMembers "id". In an example
+ * situation where a parent group includes two Species plus a Group which
+ * itself contains three other Species, if the parent group's ListOfMembers
+ * is given an "sboTerm" attribute value, that SBO term applies to the two
+ * species and the group, not to the three child species members of the
+ * second group.  (Note also that in such a case, the parent group's "kind"
+ * attribute value would almost certainly be @c "collection" or @c
+ * "partonomy", and not @c "classification", as two species and a group are
+ * very unlikely to be classified as the same thing.)  In contrast, in the
+ * situation where a parent group includes two Species plus a ListOfMembers
+ * which contains three other Species, the parent group's ListOfMembers
+ * "sboTerm" would apply to the five Species, and could be more reasonably
+ * marked as a @c "classification".
  *
- * In a future version of this specification, it may be possible to perform
- * set operations on groups, but for now, this type of union is the only set
- * operation that is possible.
+ * In a future version of this SBML Level&nbsp;3 Groups specification, it may
+ * be possible to perform set operations on groups, but for now, this type of
+ * union is the only set operation that is possible.
  *
  * Groups are not permitted to be circular: no Member may reference itself,
  * its parent ListOfMembers, nor its parent Group. If a Member references a
@@ -3288,13 +3298,13 @@ if (lmp != null)
  * and if any of those children reference a Group, the same restrictions apply
  * to them, etc.
  *
- * If a Member has a idRef or metaIdRef attribute which references an object
- * from a namespace that is not understood by the interpreter of the SBML
- * model, that Member must be ignored. The referenced object will not be
- * understood by the interpreter, and therefore has no need to become a member
- * of the group. If an interpreter cannot tell whether a referenced object
- * does not exist or if exists in an unparsed namespace, it may choose to
- * produce a warning.
+ * If a Member has a "idRef" or "metaIdRef" attribute which references an
+ * object from a namespace that is not understood by the interpreter of the
+ * SBML model, that Member must be ignored. The referenced object will not be
+ * understood by the interpreter, and therefore has no need to become a
+ * member of the group. If an interpreter cannot tell whether a referenced
+ * object does not exist or if exists in an unparsed namespace, it may choose
+ * to produce a warning.
  */
 
 /* <!-- -------------------------------------------------------------------
