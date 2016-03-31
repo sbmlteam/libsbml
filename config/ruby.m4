@@ -115,8 +115,17 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     fi
     AC_MSG_RESULT(yes)
 
-    RUBY_LIBDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['libdir']"]` 
+    RUBY_LIBDIR=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['libdir']"]`
+    if test -z "$RUBY_LIBDIR"; 
+    then
+      RUBY_LIBDIR=`$RUBY -rrbconfig -e ["include RbConfig; puts CONFIG['libdir']"]`
+    fi  
     RUBY_NAME=`$RUBY -rrbconfig -e ["include Config; puts CONFIG['RUBY_SO_NAME']"]`
+    if test -z "$RUBY_NAME"; 
+    then
+      RUBY_NAME=`$RUBY -rrbconfig -e ["include RbConfig; puts CONFIG['RUBY_SO_NAME']"]`
+    fi  
+    
 
 
     dnl
