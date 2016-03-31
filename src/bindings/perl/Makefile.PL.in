@@ -101,6 +101,11 @@ ifeq ("@USE_FBC@", "1")
 	SWIGDOCDEFINES += --define USE_FBC
 endif
 
+ifeq ("@USE_GROUPS@", "1")
+	PACKAGE_ARGS += -DUSE_GROUPS
+	SWIGDOCDEFINES += --define USE_GROUPS
+endif
+
 ifeq ("@USE_LAYOUT@", "1")
 	PACKAGE_ARGS += -DUSE_LAYOUT
 	SWIGDOCDEFINES += --define USE_LAYOUT
