@@ -109,16 +109,16 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
+  - The Python bindings can now be configures to install using setup.py.
+
+
+* Miscellaneous
+
   - The Python version of libSBML available via PyPi now includes binary
     wheels for Windows and Mac OSX operating systems. 
 
   - The Python version of libSBML available via PyPi now includes all
     dependencies. 
-
-  - The Python bindings can now be configures to install using setup.py.
-
-
-* Miscellaneous
 
   - We conducted a review of the mathml-infix parsing code and compared
     inputs and outputs with those of JSBML. This has produced a more 
