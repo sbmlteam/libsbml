@@ -378,6 +378,7 @@ add_custom_command(
 
 add_custom_target(binding_python_source_package ALL DEPENDS ${PYTHON_SOURCE_OUT_DIR}/MANIFEST)
 add_dependencies(binding_python_source_package binding_python_source_config)
+add_dependencies( binding_python_source_package binding_python_swig) 
  
 
 endif(WITH_CREATE_PYTHON_SOURCE AND EXISTS "${LIBSBML_ROOT_SOURCE_DIR}/dev/utilities/python_package/")
