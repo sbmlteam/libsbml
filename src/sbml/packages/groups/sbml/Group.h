@@ -52,6 +52,42 @@
  * the semantics of a given group in a model can be made more precise using
  * references to external controlled vocabularies and ontologies.
  *
+ * @section group-kinds Group kinds
+ *
+ * The attribute "kind" on Group is used to indicate the nature of the group
+ * defined by a Group instance.  The "kind" attribute must always have
+ * one of the following three possible values:
+ *
+ * @li @c "classification": The group represents a class, and its members
+ * have an <em>is-a</em> relationship to the group.  For example, the group
+ * could represent a type of molecule such as ATP, and the members could be
+ * species located in different compartments, thereby establishing that the
+ * species are pools of the same molecule in different locations.
+ *
+ * @li @c "partonomy": The group represents a collection of parts, and its
+ * members have a <em>part-of</em> relationship to the group.  For example, the
+ * group could represent a cellular structure, and individual compartments
+ * could be made members of the group to indicate they represent subparts of
+ * that cellular structure.
+ *
+ * @li @c "collection": The grouping is merely a collection for convenience,
+ * without an implied relationship between the members.  For example, the
+ * group could be used to collect together multiple disparate components of a
+ * model&mdash;species, reactions, events&mdash;involved in a particular
+ * phenotype, and apply a common annotation rather than having to copy the
+ * same annotation to each component individually.
+ *
+ * In the libSBML API for Groups, these possible values for the "kind"
+ * attribute are programmatically represented as constants so that callers
+ * will not normally need to deal with text string values.  The following
+ * are the constants defined for the three values of "kind" (plus an
+ * additional constant to represent unrecognized values):
+ *
+ * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
+ * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
+ * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
+ * @li @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
+ *
  * @section group-membership-rules Groups and their members
  *
  * If an SBML element is referenced by a Group's child Member (directly or
@@ -72,6 +108,27 @@
  * @copydetails doc_group_semantics
  */
 
+/**
+ * <!-- ~ ~ ~ ~ ~ Start of common documentation strings ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ * The following text is used as common documentation blocks copied multiple
+ * times elsewhere in this file.  The use of @class is a hack needed because
+ * Doxygen's @copydetails command has limited functionality.  Symbols
+ * beginning with "doc_" are marked as ignored in our Doxygen configuration.
+ * ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  -->
+ *
+ * @class doc_group_kind
+ *
+ * The attribute "kind" on a Group object is used to indicate the nature of
+ * the group defined by a particular Group instance.  In the SBML
+ * Level&nbsp;3 Version&nbsp;1 Group specification, there are only three
+ * allowable values for "kind":
+ * @li @c "classification", to indicate that the group represents a class,
+ * and its members have an <em>is-a</em> relationship to the group.
+ * @li @c "partonomy", to indicate that the group represents a collection of
+ * parts, and its members have a <em>part-of</em> relationship to the group.
+ * @li @c "collection", to indicate that the grouping is merely a collection
+ * for convenience, without an implied relationship between the members.
+ */
 
 #ifndef Group_H__
 #define Group_H__
@@ -126,6 +183,7 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind of
    * SBML object, are either invalid or mismatched with respect to the parent
    * SBMLDocument object.
+   *
    * @copydetails doc_note_setting_lv
    */
   Group(unsigned int level = GroupsExtension::getDefaultLevel(),
@@ -142,6 +200,7 @@ public:
    * Thrown if the given @p level and @p version combination, or this kind of
    * SBML object, are either invalid or mismatched with respect to the parent
    * SBMLDocument object.
+   *
    * @copydetails doc_note_setting_lv
    */
   Group(GroupsPkgNamespaces *groupsns);
@@ -197,6 +256,8 @@ public:
   /**
    * Returns the value of the "kind" attribute of this Group.
    *
+   * @copydetails doc_group_kind
+   *
    * @return the value of the "kind" attribute of this Group.
    * @if clike The value is drawn from the enumeration
    * @ref GroupKind_t@endif.@endif@~
@@ -212,6 +273,8 @@ public:
 
   /**
    * Returns the value of the "kind" attribute of this Group.
+   *
+   * @copydetails doc_group_kind
    *
    * @return the value of the "kind" attribute of this Group as a string.
    * The possible values returned by this method are:
@@ -244,6 +307,8 @@ public:
   /**
    * Predicate returning @c true if this Group's "kind" attribute is set.
    *
+   * @copydetails doc_group_kind
+   *
    * @return @c true if this Group's "kind" attribute has been set, otherwise
    * @c false is returned.
    */
@@ -270,8 +335,6 @@ public:
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
    */
   int setName(const std::string& name);
 
@@ -279,12 +342,19 @@ public:
   /**
    * Sets the value of the "kind" attribute of this Group.
    *
+   * @copydetails doc_group_kind
+   *
    * @param kind GroupKind_t value of the "kind" attribute to be set.
+   * The value must be one of the predefined constants that represent
+   * valid SBML Level&nbsp;3 Version&nbsp;1 Group "kind" names, which
+   * means it must be one of the following values:
+   * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
+   * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int setKind(const GroupKind_t kind);
 
@@ -292,12 +362,17 @@ public:
   /**
    * Sets the value of the "kind" attribute of this Group.
    *
-   * @param kind std::string& of the "kind" attribute to be set.
+   * @copydetails doc_group_kind
+   *
+   * @param kind std::string& of the "kind" attribute to be set.  The value
+   * must be one of the following possible strings:
+   * @li "classification"
+   * @li "partonomy"
+   * @li "collection"
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
-   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE,
-   * OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    */
   int setKind(const std::string& kind);
 
@@ -335,6 +410,10 @@ public:
   /**
    * Returns the ListOfMembers from this Group.
    *
+   * Using the SBML Level&nbsp;3 Groups package, the membership of a group
+   * is determined by the contents of the list of members stored in Member
+   * objects within the ListOfMembers child of a Group object.
+   *
    * @return the ListOfMembers from this Group.
    */
   const ListOfMembers* getListOfMembers() const;
@@ -342,6 +421,10 @@ public:
 
   /**
    * Returns the ListOfMembers from this Group.
+   *
+   * Using the SBML Level&nbsp;3 Groups package, the membership of a group
+   * is determined by the contents of the list of members stored in Member
+   * objects within the ListOfMembers child of a Group object.
    *
    * @return the ListOfMembers from this Group.
    */
@@ -356,7 +439,12 @@ public:
    *
    * @return the nth Member in the ListOfMembers within this Group.
    *
+   * @see addMember(const Member* m)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
    * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   Member* getMember(unsigned int n);
 
@@ -369,7 +457,12 @@ public:
    *
    * @return the nth Member in the ListOfMembers within this Group.
    *
+   * @see addMember(const Member* m)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
    * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   const Member* getMember(unsigned int n) const;
 
@@ -382,8 +475,12 @@ public:
    * @return the Member in the ListOfMembers within this Group with the given
    * id or NULL if no such Member exists.
    *
+   * @see addMember(const Member* m)
+   * @see createMember()
    * @see getMember(unsigned int n)
    * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   Member* getMember(const std::string& sid);
 
@@ -396,8 +493,12 @@ public:
    * @return the Member in the ListOfMembers within this Group with the given
    * id or NULL if no such Member exists.
    *
+   * @see addMember(const Member* m)
+   * @see createMember()
    * @see getMember(unsigned int n)
    * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   const Member* getMember(const std::string& sid) const;
 
@@ -434,10 +535,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_NAMESPACES_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   int addMember(const Member* m);
 
@@ -446,6 +557,13 @@ public:
    * Get the number of Member objects in this Group.
    *
    * @return the number of Member objects in this Group.
+   *
+   * @see addMember(const Member* m)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   unsigned int getNumMembers() const;
 
@@ -457,6 +575,11 @@ public:
    * @return a new Member object instance.
    *
    * @see addMember(const Member* m)
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
+   * @see removeMember(unsigned int n)
    */
   Member* createMember();
 
@@ -468,10 +591,15 @@ public:
    *
    * @return a pointer to the nth Member in this Group.
    *
-   * @see getNumMembers
-   *
    * @note the caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addMember(const Member* m)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(const std::string& sid)
    */
   Member* removeMember(unsigned int n);
 
@@ -487,6 +615,13 @@ public:
    *
    * @note the caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addMember(const Member* m)
+   * @see createMember()
+   * @see getMember(const std::string& sid)
+   * @see getMember(unsigned int n)
+   * @see getNumMembers()
+   * @see removeMember(unsigned int n)
    */
   Member* removeMember(const std::string& sid);
 

@@ -40,8 +40,7 @@
  * element called <code>&lt;listOfGroups&gt;</code>.  This list holds the
  * definition of optional groups defined in the model.
  *
- * The list of Group objects comprises the group definitions for a given
- * Model object.  A "group" in SBML Level&nbsp;3 provides a mechanism for
+ * A "group" in SBML Level&nbsp;3 provides a mechanism for
  * indicating that components of an SBML model are related in some way.
  * Groups may contain either the same or different types of SBML objects, and
  * groups may be nested if desired. There are no predefined behavioral
@@ -131,6 +130,14 @@ public:
    * Returns the ListOfGroups from this GroupsModelPlugin.
    *
    * @return the ListOfGroups from this GroupsModelPlugin.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   const ListOfGroups* getListOfGroups() const;
 
@@ -139,6 +146,14 @@ public:
    * Returns the ListOfGroups from this GroupsModelPlugin.
    *
    * @return the ListOfGroups from this GroupsModelPlugin.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   ListOfGroups* getListOfGroups();
 
@@ -150,7 +165,13 @@ public:
    *
    * @return the nth Group in the ListOfGroups within this GroupsModelPlugin.
    *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
    * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   Group* getGroup(unsigned int n);
 
@@ -163,7 +184,13 @@ public:
    * @return the nth Group in the ListOfGroups within this GroupsModelPlugin
    * object.
    *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
    * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   const Group* getGroup(unsigned int n) const;
 
@@ -174,10 +201,15 @@ public:
    * @param sid a string representing the identifier of the Group to retrieve.
    *
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
-   * the given id or NULL if no such Group exists.
+   * the given identifier @p sid, or @c NULL if no such Group exists.
    *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   Group* getGroup(const std::string& sid);
 
@@ -188,10 +220,14 @@ public:
    * @param sid a string representing the identifier of the Group to retrieve.
    *
    * @return the Group in the ListOfGroups within this GroupsModelPlugin with
-   * the given id or NULL if no such Group exists.
+   * the given identifier @p sid, or @c NULL if no such Group exists.
    *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   const Group* getGroup(const std::string& sid) const;
 
@@ -204,10 +240,20 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_PKG_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_DUPLICATE_OBJECT_ID, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see getNumGroups()
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   int addGroup(const Group* g);
 
@@ -216,6 +262,12 @@ public:
    * Get the number of Group objects in this GroupsModelPlugin.
    *
    * @return the number of Group objects in this GroupsModelPlugin.
+   *
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   unsigned int getNumGroups() const;
 
@@ -229,6 +281,10 @@ public:
    * @return a new Group object instance.
    *
    * @see addGroup(const Group* g)
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see removeGroup(unsigned int n)
+   * @see removeGroup(const std::string& sid);
    */
   Group* createGroup();
 
@@ -243,10 +299,15 @@ public:
    *
    * @return a pointer to the nth Group in this GroupsModelPlugin.
    *
-   * @see getNumGroups
-   *
    * @note The caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see getNumGroups()
+   * @see removeGroup(const std::string& sid);
    */
   Group* removeGroup(unsigned int n);
 
@@ -260,10 +321,16 @@ public:
    * @param sid a string representing the identifier of the Group to remove.
    *
    * @return the Group in this GroupsModelPlugin based on the identifier, or
-   * @c NULL if no such Group exists.
+   * @c @c NULL if no such Group exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
+   * @note The caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see getGroup(const std::string& sid)
+   * @see getGroup(unsigned int n)
+   * @see getNumGroups()
    */
   Group* removeGroup(const std::string& sid);
 
@@ -381,7 +448,7 @@ public:
    * @param filter an ElementFilter that may impose restrictions on the
    * objects to be retrieved.
    *
-   * @return a List* pointer of pointers to all SBase child objects with any
+   * @return a List pointer of pointers to all SBase child objects with any
    * restriction imposed.
    */
   virtual List* getAllElements(ElementFilter * filter = NULL);
