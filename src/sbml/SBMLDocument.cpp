@@ -892,8 +892,7 @@ SBMLDocument::checkInternalConsistency()
 unsigned int
 getLevelVersionSeverity(unsigned int errorId, unsigned int level, unsigned int version)
 {
-  SBMLError err = SBMLError(errorId, level, version);
-  return err.getSeverity();
+  return SBMLError(errorId, level, version).getSeverity();
 }
 
 /*
