@@ -122,16 +122,21 @@
  *
  * @class doc_group_kind
  *
+ * @par
  * The attribute "kind" on a Group object is used to indicate the nature of
  * the group defined by a particular Group instance.  In the SBML
  * Level&nbsp;3 Version&nbsp;1 Group specification, there are only three
  * allowable values for "kind":
- * @li @c "classification", to indicate that the group represents a class,
+ * <ul>
+ * <li> @c "classification", to indicate that the group represents a class,
  * and its members have an <em>is-a</em> relationship to the group.
- * @li @c "partonomy", to indicate that the group represents a collection of
+ *
+ * <li> @c "partonomy", to indicate that the group represents a collection of
  * parts, and its members have a <em>part-of</em> relationship to the group.
- * @li @c "collection", to indicate that the grouping is merely a collection
+ *
+ * <li> @c "collection", to indicate that the grouping is merely a collection
  * for convenience, without an implied relationship between the members.
+ * </ul>
  */
 
 #ifndef Group_H__
@@ -264,13 +269,12 @@ public:
    *
    * @return the value of the "kind" attribute of this Group.
    * @if clike The value is drawn from the enumeration
-   * @ref GroupKind_t@endif.@endif@~
+   * @ref GroupKind_t@endif.
    * The possible values returned by this method are:
    * @li @sbmlconstant{GROUP_KIND_CLASSIFICATION, GroupKind_t}
    * @li @sbmlconstant{GROUP_KIND_PARTONOMY, GroupKind_t}
    * @li @sbmlconstant{GROUP_KIND_COLLECTION, GroupKind_t}
    * @li @sbmlconstant{GROUP_KIND_UNKNOWN, GroupKind_t}
-   * @endif
    */
   GroupKind_t getKind() const;
 
