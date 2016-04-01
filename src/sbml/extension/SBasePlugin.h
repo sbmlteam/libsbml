@@ -454,7 +454,6 @@ public:
    *
    * @see getPackageName()
    * @see getElementNamespace()
-   * @see SBMLDocument::getSBMLNamespaces()
    * @see getSBMLDocument()
    */
   std::string getURI() const;
