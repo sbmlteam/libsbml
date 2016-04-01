@@ -32,6 +32,11 @@
  *
  * @class GroupsSBMLDocumentPlugin
  * @sbmlbrief{groups} Extension of SBMLDocument.
+ *
+ * This class extends SBMLDocumentPlugin, a class that is used by libSBML
+ * plugins as part of their implementation of SBML Level&nbsp;3 packages.
+ *
+ * @copydetails doc_what_is_sbmldocumentplugin
  */
 
 

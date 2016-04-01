@@ -33,35 +33,47 @@
  * @class ListOfMembers
  * @sbmlbrief{groups} A list of Member objects.
  *
- * The ListOfMembers class is a child of the Group object, and contains
- * Member children that define the Group.  A ListOfMembers must have one or
- * more Member children. Since ListOfMembers is derived from SBase, it
- * inherits the "sboTerm" and "metaid" attributes, as well as the optional
- * children Notes and Annotation. Unlike most lists of objects in SBML,
- * however, the "sboTerm" attribute and the Notes and Annotation children are
- * taken here to apply directly to every SBML element referenced by each
- * child Member of this ListOfMembers, if that referenced element has no such
- * definition. Thus, if a referenced element has no defined "sboTerm"
- * attribute or child Notes or Annotation objects, that element should be
- * considered to now have the "sboTerm", child Notes, or child Annotation of
- * the ListOfMembers.
+ * In the SBML Level&nbsp;3 Groups package, the membership of a group is
+ * defined by placing Member objects within a ListOfMembers object contained
+ * within a Group object.  A ListOfMembers object is optional, but, if
+ * present, it must contain at least one Member object.  In common with other
+ * ListOf___ classes in SBML, ListOfMembers is derived from SBase.  However,
+ * an uncommon feature of ListOfMembers is that it has optional "id" and
+ * "name" attributes that can be used in a manner discussed below.
  *
- * If multiple ListOfMembers have child Member elements that reference 
- * the same SBML element, and more than one ListOfMembers or Member has 
- * a value for an sboTerm attribute, Notes, or Annotation element, those 
- * Member elements should be consistent with each other: the "sboTerm" 
- * attributes should either be identical, or one should inherit from 
- * the other; Notes should say the same or similar things; and Annotation 
- * elements should not conflict. Interpreters may choose to resolve any 
+ * A ListOfMembers must have one or more Member children. Since ListOfMembers
+ * is derived from SBase, it inherits the "sboTerm" and "metaid" attributes,
+ * as well as the optional children Notes and Annotation. Unlike most lists
+ * of objects in SBML, however, the "sboTerm" attribute and the Notes and
+ * Annotation children are taken here to apply directly to every SBML element
+ * referenced by each child Member of this ListOfMembers, if that referenced
+ * element has no such definition. Thus, if a referenced element has no
+ * defined "sboTerm" attribute or child Notes or Annotation objects, that
+ * element should be considered to now have the "sboTerm", child Notes, or
+ * child Annotation of the ListOfMembers.
+ *
+ * If multiple ListOfMembers have child Member elements that reference
+ * the same SBML element, and more than one ListOfMembers or Member has
+ * a value for an sboTerm attribute, Notes, or Annotation element, those
+ * Member elements should be consistent with each other: the "sboTerm"
+ * attributes should either be identical, or one should inherit from
+ * the other; Notes should say the same or similar things; and Annotation
+ * elements should not conflict. Interpreters may choose to resolve any
  * such conflicts arbitrarily.
  *
- * The other unique thing about a ListOfMembers is that if it is 
- * referenced by a Member of a different Group, the children of the 
- * referenced ListOfMembers are also considered to be members of the 
- * referencing group.  In this way, groups may be nested semantically 
- * to create larger groups out of subgroups.  This nesting may not be 
- * circular: a nested ListOfMembers may not be referenced by its own
- * child, directly or indirectly.
+ * An uncommon feature about ListOfMembers is that, if it is referenced by a
+ * Member of a different Group, the @em children of the referenced
+ * ListOfMembers are also considered to be members of the referencing group.
+ * In this way, groups may be nested semantically to create larger groups out
+ * of subgroups.
+ *
+ * @section listofmembers-groups-semantics Semantics of group memberships
+ *
+ * @copydetails doc_group_semantics
+ *
+ * @see Group
+ * @see Member
+ * @see ListOfGroups
  */
 
 

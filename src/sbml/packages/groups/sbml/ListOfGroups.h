@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class ListOfGroups
- * @sbmlbrief{groups} A list of Group objectds.
+ * @sbmlbrief{groups} A list of Group objects.
  *
  * The SBML Level&nbsp;3 Groups package provides a means of defining a
  * <em>group of entities</em>: a simple mechanism for indicating that
@@ -154,7 +154,12 @@ public:
    *
    * @return the nth Group in this ListOfGroups.
    *
-   * @see size()
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual Group* get(unsigned int n);
 
@@ -166,7 +171,12 @@ public:
    *
    * @return the nth Group in this ListOfGroups.
    *
-   * @see size()
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual const Group* get(unsigned int n) const;
 
@@ -179,7 +189,12 @@ public:
    * @return the Group in this ListOfGroups with the given id or NULL if no
    * such Group exists.
    *
-   * @see size()
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   virtual Group* get(const std::string& sid);
 
@@ -192,7 +207,13 @@ public:
    * @return the Group in this ListOfGroups with the given id or NULL if no
    * such Group exists.
    *
-   * @see size()
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
+   * @see getNumGroups()
    */
   virtual const Group* get(const std::string& sid) const;
 
@@ -204,10 +225,15 @@ public:
    *
    * @return a pointer to the nth Group in this ListOfGroups.
    *
-   * @see size()
-   *
-   * @note the caller owns the returned object and is responsible for deleting
+   * @note The caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
    */
   virtual Group* remove(unsigned int n);
 
@@ -221,8 +247,15 @@ public:
    * @return the Group in this ListOfGroups based on the identifier or NULL if
    * no such Group exists.
    *
-   * @note the caller owns the returned object and is responsible for deleting
+   * @note The caller owns the returned object and is responsible for deleting
    * it.
+   *
+   * @see addGroup(const Group* g)
+   * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(unsigned int n)
    */
   virtual Group* remove(const std::string& sid);
 
@@ -235,10 +268,19 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_LEVEL_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_VERSION_MISMATCH, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_NAMESPACES_MISMATCH, OperationReturnValues_t}
    *
    * @copydetails doc_note_object_is_copied
    *
    * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   int addGroup(const Group* g);
 
@@ -247,6 +289,12 @@ public:
    * Get the number of Group objects in this ListOfGroups.
    *
    * @return the number of Group objects in this ListOfGroups.
+   *
+   * @see createGroup()
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   unsigned int getNumGroups() const;
 
@@ -257,7 +305,11 @@ public:
    *
    * @return a new Group object instance.
    *
-   * @see addGroup(const Group* g)
+   * @see get(const std::string& sid)
+   * @see get(unsigned int n)
+   * @see getNumGroups()
+   * @see remove(const std::string& sid)
+   * @see remove(unsigned int n)
    */
   Group* createGroup();
 

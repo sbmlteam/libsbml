@@ -91,10 +91,10 @@
  * @section group-membership-rules Groups and their members
  *
  * If an SBML element is referenced by a Group's child Member (directly or
- * indirectly&mdash;see next section), it is considered to be a member of
- * that Group.  If the same element is referenced by multiple Member objects,
- * this is equivalent to including it just once.  (It is considered best
- * practice to avoid this, but does not make for an invalid SBML document.)
+ * indirectly), it is considered to be a member of that Group.  If the same
+ * element is referenced by multiple Member objects, this is equivalent to
+ * including it just once.  (It is considered best practice to avoid this,
+ * but does not make for an invalid SBML document.)
  *
  * Children of referenced elements are not considered to be members of the
  * Group: a KineticLaw of a referenced Reaction is not itself a Group
@@ -106,6 +106,10 @@
  * @section groups-semantics Semantics of group memberships
  *
  * @copydetails doc_group_semantics
+ *
+ * @see Member
+ * @see ListOfMembers
+ * @see ListOfGroups
  */
 
 /**
