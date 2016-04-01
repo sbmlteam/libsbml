@@ -294,6 +294,9 @@ public:
    * Returns a List of all child SBase objects, including those nested to an
    * arbitrary depth.
    *
+   * @param filter an ElementFilter that may impose restrictions on the
+   * objects to be retrieved.
+   *
    * @return a List* of pointers to all child objects.
    */
    virtual List* getAllElements(ElementFilter * filter = NULL);
