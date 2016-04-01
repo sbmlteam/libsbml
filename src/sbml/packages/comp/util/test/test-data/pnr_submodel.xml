@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model metaid="meta_bb0a0ef3127d41708ae97b4f4c26f2d1" sboTerm="SBO:0000062" id="toy_ode_model" name="ODE/SSA submodel">
+<listOfUnitDefinitions>
+  <unitDefinition id="m3">
+    <listOfUnits>
+      <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+    </listOfUnits>
+  </unitDefinition>
+</listOfUnitDefinitions><listOfCompartments>
+  <compartment id="extern" name="external compartment" spatialDimensions="3" size="1" units="m3" constant="true"/>
+</listOfCompartments>
+<comp:listOfPorts>
+  <comp:port sboTerm="SBO:0000599" comp:idRef="extern" comp:id="extern_port"/>
+</comp:listOfPorts>
+</model>
+</sbml>

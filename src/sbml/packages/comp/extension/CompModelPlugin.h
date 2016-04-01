@@ -664,7 +664,7 @@ virtual int collectDeletionsAndDeleteSome(std::set<SBase*>* removed,
 
   /** @cond doxygenLibsbmlInternal */
   protected:
-  virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs, std::set<SBase*> replacedBys);
+  virtual int saveAllReferencedElements(std::set<SBase*> uniqueRefs, std::set<SBase*> replacedBys, SBMLDocument* doc);
   /** @endcond */
 
 };

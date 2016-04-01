@@ -780,12 +780,11 @@ CompModelPlugin::instantiateSubmodels()
 int CompModelPlugin::saveAllReferencedElements()
 {
   set<SBase*> norefs;
-  return saveAllReferencedElements(norefs, norefs);
+  return saveAllReferencedElements(norefs, norefs, getSBMLDocument());
 }
 
-int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase*> replacedBys)
+int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase*> replacedBys, SBMLDocument* doc)
 {
-  SBMLDocument* doc = getSBMLDocument();
   Model* model = static_cast<Model*>(getParentSBMLObject());
   if (model==NULL) {
     if (doc) {
@@ -937,7 +936,7 @@ int CompModelPlugin::saveAllReferencedElements(set<SBase*> uniqueRefs, set<SBase
     if (subplug==NULL) {
       return LIBSBML_OPERATION_FAILED;
     }
-    ret = subplug->saveAllReferencedElements(uniqueRefs, replacedBys);
+    ret = subplug->saveAllReferencedElements(uniqueRefs, replacedBys, doc);
     if (ret != LIBSBML_OPERATION_SUCCESS) {
       return ret;
     }

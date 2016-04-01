@@ -2113,8 +2113,6 @@ create_suite_TestFlatteningConverter (void)
   
                                                                            tcase_add_test(tcase, test_invalid_layout_disabled);
   
-  tcase_add_test(tcase, test_submodel_callbacks);
-  
   tcase_add_test(tcase, test_comp_flatten_double_ext2);
   tcase_add_test(tcase, test_comp_get_flattening_converter);
   tcase_add_test(tcase, test_comp_flatten_aggregate);
@@ -2244,6 +2242,7 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_qual10);
 
   tcase_add_test(tcase, test_comp_validator_44781839);
+  tcase_add_test(tcase, test_submodel_callbacks);
  
   suite_add_tcase(suite, tcase);
 

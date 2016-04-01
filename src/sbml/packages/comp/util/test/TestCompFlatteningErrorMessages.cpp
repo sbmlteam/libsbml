@@ -3706,13 +3706,52 @@ START_TEST(test_comp_flatten_invalid_read_only)
 }
 END_TEST
 
+START_TEST(test_comp_flatten_port_and_direct_ref)
+{
+  ConversionProperties props;
+  
+  props.addOption("flatten comp");
+  props.addOption("performValidation", true);
+
+  SBMLConverter* converter = 
+    SBMLConverterRegistry::getInstance().getConverterFor(props);
+  
+  // load document
+  string dir(TestDataDirectory);
+  string fileName = dir + "port_and_replace.xml";  
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+
+  // fail if there is no model 
+  //(readSBMLFromFile always returns a valid document)
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless( result == LIBSBML_OPERATION_FAILED);
+
+  SBMLErrorLog* errors = doc->getErrorLog();
+
+  fail_unless(errors->getNumErrors() == 2);
+  fail_unless(errors->contains(CompModelFlatteningFailed) == true);
+  fail_unless(errors->contains(CompNoMultipleReferences) == true);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
 
 Suite *
 create_suite_TestFlatteningErrorMessages (void)
 { 
   TCase *tcase = tcase_create("SBMLCompFlatteningErrorMessages");
   Suite *suite = suite_create("SBMLCompFlatteningErrorMessages");
-  
+
+  tcase_add_test(tcase, test_comp_flatten_port_and_direct_ref);
+
+
   tcase_add_test(tcase, test_comp_flatten_invalid);
   tcase_add_test(tcase, test_comp_flatten_invalid2);
   tcase_add_test(tcase, test_comp_flatten_invalid3);
