@@ -156,6 +156,9 @@ Suite *create_suite_GetMultipleObjects            (void);
 Suite *create_suite_RemoveFromParent              (void);
 Suite *create_suite_RenameIDs                     (void);
 Suite *create_suite_SBMLTransforms                (void);
+
+Suite *create_suite_LevelCompatibility                (void);
+
 /**
  * Global.
  *
@@ -292,6 +295,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBMLConstructorException      () );
   srunner_add_suite( runner, create_suite_SBMLTransforms                () );
   srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
+  srunner_add_suite( runner, create_suite_LevelCompatibility            () );
 
 
 #ifdef TRACE_MEMORY

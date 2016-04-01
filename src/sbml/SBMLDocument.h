@@ -1026,7 +1026,7 @@ public:
    *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkL1Compatibility ();
+  unsigned int checkL1Compatibility (bool inConversion = false);
 
 
   /**
@@ -1039,7 +1039,7 @@ public:
    *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkL2v1Compatibility ();
+  unsigned int checkL2v1Compatibility (bool inConversion = false);
 
 
   /**

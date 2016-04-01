@@ -446,7 +446,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       switch (targetVersion)
       {
       case 1:
-        if (!conversion_errors(mDocument->checkL2v1Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v1Compatibility(true)))
         {
           doConversion = true;
         }
@@ -526,7 +526,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         mDocument->getErrorLog()->logError(CannotConvertToL1V1);
         break;
       case 2:
-        if (!conversion_errors(mDocument->checkL1Compatibility()))
+        if (!conversion_errors(mDocument->checkL1Compatibility(true)))
         {
           doConversion = true;
           /* if existing model is L2V4 need to mDocument->check that
@@ -570,7 +570,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       switch (targetVersion)
       {
       case 1:
-        if (!conversion_errors(mDocument->checkL2v1Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v1Compatibility(true)))
         {
           doConversion = true;
           /* if existing model is L2V4 need to mDocument->check that
@@ -790,7 +790,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         mDocument->getErrorLog()->logError(CannotConvertToL1V1);
         break;
       case 2:
-        if (!conversion_errors(mDocument->checkL1Compatibility(), strictUnits))
+        if (!conversion_errors(mDocument->checkL1Compatibility(true), strictUnits))
         {
           doConversion = true;
           if (strictUnits == true && !hasStrictUnits())
@@ -827,7 +827,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
       switch (targetVersion)
       {
       case 1:
-        if (!conversion_errors(mDocument->checkL2v1Compatibility(), strictUnits))
+        if (!conversion_errors(mDocument->checkL2v1Compatibility(true), strictUnits))
         {
           doConversion = true;
            if (strictUnits == true && !hasStrictUnits())

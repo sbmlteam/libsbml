@@ -92,6 +92,7 @@ test_sources =                   \
   TestL3SpeciesReference.c         \
   TestL3Trigger.c                \
   TestL3Unit.c                     \
+  TestLevelCompatibility         \
   TestListOf.c                   \
   TestModel.c                    \
   TestModel_newSetters.c         \

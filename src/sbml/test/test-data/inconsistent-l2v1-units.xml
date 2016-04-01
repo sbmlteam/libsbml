@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+    <model id="__main" name="__main">
+        <listOfParameters>
+            <parameter id="a" value="3" units="second" constant="true"/>
+            <parameter id="b" units="second" constant="false"/>
+        </listOfParameters>
+        <listOfRules>
+            <assignmentRule variable="b">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                    <power/>
+                    <ci> a </ci>
+                    <cn type="integer"> 2 </cn>
+                </apply>
+                </math>
+            </assignmentRule>
+        </listOfRules>
+    </model>
+</sbml>
