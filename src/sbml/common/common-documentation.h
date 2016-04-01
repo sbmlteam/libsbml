@@ -1934,6 +1934,29 @@ if (config != None) {
  * returned by this function are:
  *
  * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_is_sbmlextension
+ *
+ * @par
+ * The SBMLExtension class provides methods for managing common attributes of
+ * package extensions (e.g., the SBML package name, the package version, and
+ * more), registration of instantiated plug-in creators to hook into the rest
+ * of libSBML, and initialization/registration of package extensions when the
+ * library code for the package is loaded by libSBML.  SBMLExtension is an
+ * abstract class that must be extended by each package extension
+ * implementation.
+ *
+ * <!-- ------------------------------------------------------------------- -->
+ * @class doc_what_is_sbmldocumentplugin
+ *
+ * @par
+ * Every SBML Level&nbsp;3 package needs to add, at minimum, an attribute
+ * called "required" to the top-level SBML <code>&lt;sbml&gt;</code> element.
+ * Some packages need to go beyond that and add additional subcomponents.
+ * The SBMLDocumentPlugin class is part of libSBML's machinery to support
+ * the implementation of classes that manipulate <code>&lt;sbml&gt;</code>
+ * and do other necessary operations.
+ *
+ * <!-- ------------------------------------------------------------------- -->
  * @class doc_extension_sbmlextension
  *
  * @par
@@ -3305,6 +3328,7 @@ if (lmp != null)
  * member of the group. If an interpreter cannot tell whether a referenced
  * object does not exist or if exists in an unparsed namespace, it may choose
  * to produce a warning.
+ *
  */
 
 /* <!-- -------------------------------------------------------------------
