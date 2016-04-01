@@ -344,7 +344,8 @@ public:
    *
    * @copydetails doc_group_kind
    *
-   * @param kind GroupKind_t value of the "kind" attribute to be set.
+   * @param kind @if clike GroupKind_t@else int@endif value of the 
+   * "kind" attribute to be set.
    * The value must be one of the predefined constants that represent
    * valid SBML Level&nbsp;3 Version&nbsp;1 Group "kind" names, which
    * means it must be one of the following values:
