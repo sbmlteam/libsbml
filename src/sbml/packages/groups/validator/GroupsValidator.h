@@ -31,7 +31,7 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class GroupsValidator
- * @sbmlbrief{groups} Entry point for &ldquo;groups&rdquo package validation.
+ * @sbmlbrief{groups} Entry point for &ldquo;groups&rdquo; package validation.
  *
  * @htmlinclude not-sbml-warning.html
  *
