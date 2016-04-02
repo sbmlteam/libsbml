@@ -53,11 +53,6 @@
  * defined by the SBML specification, such as "metaid" attributes and
  * annotations.
  *
- * The relationship between the lists and the rest of an SBML model is
- * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
- *
- * @htmlinclude listof-illustration.html
- *
  * Readers may wonder about the motivations for using the ListOf___
  * containers in SBML.  A simpler approach in XML might be to place the
  * components all directly at the top level of the model definition.  The
