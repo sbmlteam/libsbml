@@ -137,7 +137,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   const ListOfGroups* getListOfGroups() const;
 
@@ -153,7 +153,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   ListOfGroups* getListOfGroups();
 
@@ -171,7 +171,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   Group* getGroup(unsigned int n);
 
@@ -190,7 +190,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   const Group* getGroup(unsigned int n) const;
 
@@ -209,7 +209,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   Group* getGroup(const std::string& sid);
 
@@ -227,7 +227,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   const Group* getGroup(const std::string& sid) const;
 
@@ -253,7 +253,7 @@ public:
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   int addGroup(const Group* g);
 
@@ -267,7 +267,7 @@ public:
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   unsigned int getNumGroups() const;
 
@@ -284,7 +284,7 @@ public:
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see removeGroup(unsigned int n)
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   Group* createGroup();
 
@@ -307,7 +307,7 @@ public:
    * @see getGroup(const std::string& sid)
    * @see getGroup(unsigned int n)
    * @see getNumGroups()
-   * @see removeGroup(const std::string& sid);
+   * @see removeGroup(const std::string& sid)
    */
   Group* removeGroup(unsigned int n);
 
