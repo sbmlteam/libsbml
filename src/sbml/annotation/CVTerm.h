@@ -1297,6 +1297,10 @@ BEGIN_C_DECLS
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
+ *
+ * @if conly
+ * @memberof CVTerm_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -1320,6 +1324,10 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
+ *
+ * @if conly
+ * @memberof CVTerm_t
+ * @endif
  */
 LIBSBML_EXTERN
 const char*
@@ -1339,6 +1347,10 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  *
  * @return a libSBML qualifier enumeration value for the given human readable
  * qualifier name.
+ *
+ * @if conly
+ * @memberof CVTerm_t
+ * @endif
  */
 LIBSBML_EXTERN
 ModelQualifierType_t
@@ -1358,6 +1370,10 @@ ModelQualifierType_fromString(const char* s);
  *
  * @return a libSBML qualifier enumeration value for the given human readable
  * qualifier name.
+ *
+ * @if conly
+ * @memberof CVTerm_t
+ * @endif
  */
 LIBSBML_EXTERN
 BiolQualifierType_t
