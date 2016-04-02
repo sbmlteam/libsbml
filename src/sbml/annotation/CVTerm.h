@@ -1288,12 +1288,12 @@ BEGIN_C_DECLS
  * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return 
  * the string "<code>isDescribedBy</code>". 
  *
+ * @param type The ModelQualifierType_t to translate
+ *
  * @return a human readable qualifier name for the given type.
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
- *
- * @param type The ModelQualifierType_t to translate
  */
 LIBSBML_EXTERN
 const char*
@@ -1308,12 +1308,12 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  * passing it the qualifier <code>BQB_HAS_VERSION</code> will return 
  * the string "<code>hasVersion</code>". 
  *
+ * @param type The BiolQualifierType_t to translate
+ *
  * @return a human readable qualifier name for the given type.
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
- *
- * @param type The BiolQualifierType_t to translate
  */
 LIBSBML_EXTERN
 const char*
@@ -1328,9 +1328,9 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  * "<code>isDescribedBy</code>" will return the qualifier 
  * <code>BQM_IS_DESCRIBED_BY</code>. 
  *
- * @return a qualifier for the given human readable qualifier name.
- *
  * @param s The string to translate to a ModelQualifierType_t
+ *
+ * @return a qualifier for the given human readable qualifier name.
  */
 LIBSBML_EXTERN
 ModelQualifierType_t 
@@ -1345,9 +1345,9 @@ ModelQualifierType_fromString(const char* s);
  * "<code>hasVersion</code>" will return the qualifier 
  * <code>BQB_HAS_VERSION</code>. 
  *
- * @return a qualifier for the given human readable qualifier name.
- *
  * @param s The string to translate to a BiolQualifierType_t
+ *
+ * @return a qualifier for the given human readable qualifier name.
  */
 LIBSBML_EXTERN
 BiolQualifierType_t 
