@@ -1280,17 +1280,20 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * This method takes a model qualifier type code and returns a string 
+ * This method takes a model qualifier type code and returns a string
  * representing the code.
  *
- * This method takes a model qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return 
- * the string "<code>isDescribedBy</code>". 
+ * This method takes a model qualifier type as argument
+ * and returns a string name corresponding to that code.  For example,
+ * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return
+ * the string "<code>isDescribedBy</code>".
  *
- * @param type The ModelQualifierType_t to translate
+ * @param type The @if clike ModelQualifierType_t@endif@~ value to
+ * translate. @ifnot clike The value should be a libSBML constant whose
+ * name begins with @c BQM_, such as (for example)
+ * @sbmlconstant{BQM_IS, BiolQualifierType_t}.@endif@~
  *
- * @return a human readable qualifier name for the given type.
+ * @return a human readable qualifier name for the given qualifier type.
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.
@@ -1300,15 +1303,18 @@ const char*
 ModelQualifierType_toString(ModelQualifierType_t type);
 
 /**
- * This method takes a biol qualifier type code and returns a string 
+ * This method takes a biol qualifier type code and returns a string
  * representing the code.
  *
- * This method takes a biol qualifier type as argument 
- * and returns a string name corresponding to that code.  For example, 
- * passing it the qualifier <code>BQB_HAS_VERSION</code> will return 
- * the string "<code>hasVersion</code>". 
+ * This method takes a biol qualifier type as argument
+ * and returns a string name corresponding to that code.  For example,
+ * passing it the qualifier <code>BQB_HAS_VERSION</code> will return
+ * the string "<code>hasVersion</code>".
  *
- * @param type The BiolQualifierType_t to translate
+ * @param type The @if clike BiolQualifierType_t@endif@~ value to
+ * translate. @ifnot clike The value should be a constant whose name
+ * begins with @c BQB_, such as (for example)
+ * @sbmlconstant{BQB_IS, BiolQualifierType_t}.@endif@~
  *
  * @return a human readable qualifier name for the given type.
  *
@@ -1323,34 +1329,38 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  * This method takes a a string and returns a model qualifier
  * representing the string.
  *
- * This method takes a string as argument and returns a model qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>isDescribedBy</code>" will return the qualifier 
- * <code>BQM_IS_DESCRIBED_BY</code>. 
+ * This method takes a string as argument and returns a model qualifier type
+ * corresponding to that string.  For example, passing it the string
+ * "<code>isDescribedBy</code>" will return the qualifier
+ * <code>BQM_IS_DESCRIBED_BY</code>.
  *
- * @param s The string to translate to a ModelQualifierType_t
+ * @param s The string to translate to a @if clike ModelQualifierType_t
+ * value@else libSBML constant value representing a model qualifier@endif.
  *
- * @return a qualifier for the given human readable qualifier name.
+ * @return a libSBML qualifier enumeration value for the given human readable
+ * qualifier name.
  */
 LIBSBML_EXTERN
-ModelQualifierType_t 
+ModelQualifierType_t
 ModelQualifierType_fromString(const char* s);
 
 /**
  * This method takes a a string and returns a biol qualifier
  * representing the string.
  *
- * This method takes a string as argument and returns a biol qualifier type 
- * corresponding to that string.  For example, passing it the string 
- * "<code>hasVersion</code>" will return the qualifier 
- * <code>BQB_HAS_VERSION</code>. 
+ * This method takes a string as argument and returns a biol qualifier type
+ * corresponding to that string.  For example, passing it the string
+ * "<code>hasVersion</code>" will return the qualifier
+ * <code>BQB_HAS_VERSION</code>.
  *
- * @param s The string to translate to a BiolQualifierType_t
+ * @param s The string to translate to a @if clike BiolQualifierType_t
+ * value@else libSBML constant value representing a biological qualifier@endif.
  *
- * @return a qualifier for the given human readable qualifier name.
+ * @return a libSBML qualifier enumeration value for the given human readable
+ * qualifier name.
  */
 LIBSBML_EXTERN
-BiolQualifierType_t 
+BiolQualifierType_t
 BiolQualifierType_fromString(const char* s);
 
 END_C_DECLS
@@ -1365,7 +1375,7 @@ BEGIN_C_DECLS
  * Creates a new CVTerm_t with the given #QualifierType_t value @p type and
  * returns a pointer to it.
  *
- * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
+ * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.
  *
  * @param type a #QualifierType_t
  *
@@ -1379,11 +1389,11 @@ CVTerm_createWithQualifierType(QualifierType_t type);
 
 
 /**
- * Create a new CVTerm_t from the given XMLNode_t and returns a 
+ * Create a new CVTerm_t from the given XMLNode_t and returns a
  * pointer to it.
  *
  * RDFAnnotations within a model are stored as a List_t of CVTerm_t's.  This allows
- * the user to interact with the CVTerm_t's directly.  When LibSBML reads in a 
+ * the user to interact with the CVTerm_t's directly.  When LibSBML reads in a
  * model containing RDFAnnotations it parses them into a %List of CVTerm_t's and
  * when writing a model it parses the CVTerm_t's into the appropriate annotation
  * structure.  This function creates a CVTerm_t from the XMLNode_t supplied.
@@ -1438,7 +1448,7 @@ CVTerm_clone (const CVTerm_t* term);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-QualifierType_t 
+QualifierType_t
 CVTerm_getQualifierType(CVTerm_t* term);
 
 
@@ -1453,7 +1463,7 @@ CVTerm_getQualifierType(CVTerm_t* term);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-ModelQualifierType_t 
+ModelQualifierType_t
 CVTerm_getModelQualifierType(CVTerm_t* term);
 
 
@@ -1469,7 +1479,7 @@ CVTerm_getModelQualifierType(CVTerm_t* term);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-BiolQualifierType_t 
+BiolQualifierType_t
 CVTerm_getBiologicalQualifierType(CVTerm_t* term);
 
 
@@ -1484,7 +1494,7 @@ CVTerm_getBiologicalQualifierType(CVTerm_t* term);
  */
 LIBSBML_EXTERN
 XMLAttributes_t *
-CVTerm_getResources(CVTerm_t* term); 
+CVTerm_getResources(CVTerm_t* term);
 
 
 /**
@@ -1526,7 +1536,7 @@ CVTerm_getResourceURI(CVTerm_t * term, unsigned int n);
  * Sets the "QualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the QualifierType_t 
+ * @param type the QualifierType_t
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1535,7 +1545,7 @@ CVTerm_getResourceURI(CVTerm_t * term, unsigned int n);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
 
 
@@ -1556,7 +1566,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
 
 
@@ -1577,7 +1587,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
 
 
@@ -1598,7 +1608,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
 
 
@@ -1619,14 +1629,14 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier);
 
 /**
  * Adds a resource to the CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param resource string representing the resource 
+ * @param resource string representing the resource
  * e.g. http://www.geneontology.org/#GO:0005892
  *
  * @copydetails doc_returns_success_code
@@ -1639,7 +1649,7 @@ CVTerm_setBiologicalQualifierTypeByString(CVTerm_t * term, const char* qualifier
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_addResource(CVTerm_t * term, const char * resource);
 
 
@@ -1647,7 +1657,7 @@ CVTerm_addResource(CVTerm_t * term, const char * resource);
  * Removes a resource from the CVTerm_t.
  *
  * @param term the CVTerm_t structure.
- * @param resource string representing the resource 
+ * @param resource string representing the resource
  * e.g. http://www.geneontology.org/#GO:0005892
  *
  * @copydetails doc_returns_success_code
@@ -1659,7 +1669,7 @@ CVTerm_addResource(CVTerm_t * term, const char * resource);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_removeResource(CVTerm_t * term, const char * resource);
 
 
@@ -1669,7 +1679,7 @@ CVTerm_removeResource(CVTerm_t * term, const char * resource);
  * @param term the CVTerm_t structure
  *
  * @return true (1) if this CVTerm_t has all the required elements,
- * otherwise false (0) will be returned. If an invalid CVTerm_t 
+ * otherwise false (0) will be returned. If an invalid CVTerm_t
  * was provided LIBSBML_INVALID_OBJECT is returned.
  *
  * @memberof CVTerm_t
@@ -1695,7 +1705,7 @@ CVTerm_hasRequiredAttributes(CVTerm_t *term);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-unsigned int 
+unsigned int
 CVTerm_getNumNestedCVTerms(const CVTerm_t* cvt);
 
 
@@ -1731,7 +1741,7 @@ CVTerm_getNestedCVTerm(const CVTerm_t* cvt, unsigned int n);
  * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
-int 
+int
 CVTerm_addNestedCVTerm(CVTerm_t* cvt, const CVTerm_t* term);
 
 
@@ -1742,7 +1752,7 @@ CVTerm_addNestedCVTerm(CVTerm_t* cvt, const CVTerm_t* term);
  * @param cvt the structure to get CVTerm_t's from
  * @param n unsigned int the index of the CVTerm_t to retrieve
  *
- * @return a pointer to the nth CVTerm_t in the list of CVTerm_t's for this 
+ * @return a pointer to the nth CVTerm_t in the list of CVTerm_t's for this
  * CVTerm_t structure.
  *
  * @memberof CVTerm_t
