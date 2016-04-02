@@ -223,6 +223,7 @@ extra_distclean =		      \
 	$(installed_files_list)	      \
 	libsbml.py		      \
 	libsbml.pyc		      \
+	libsbml-doxygen.py	      \
 	local-downcast-extension.i    \
 	local-downcast-extension.cpp  \
 	local-downcast-namespaces.i   \
