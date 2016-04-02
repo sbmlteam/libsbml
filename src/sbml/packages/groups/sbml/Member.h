@@ -251,7 +251,7 @@ public:
   /**
    * Returns the value of the "idRef" attribute of this Member.
    *
-   * @copydetails doc_group_member_idref
+   * @copydetails doc_group_member_sidref
    *
    * @return the value of the "idRef" attribute of this Member as a string.
    */
@@ -289,7 +289,7 @@ public:
   /**
    * Predicate returning @c true if this Member's "idRef" attribute is set.
    *
-   * @copydetails doc_group_member_idref
+   * @copydetails doc_group_member_sidref
    *
    * @return @c true if this Member's "idRef" attribute has been set, otherwise
    * @c false is returned.
@@ -334,7 +334,7 @@ public:
   /**
    * Sets the value of the "idRef" attribute of this Member.
    *
-   * @copydetails doc_group_member_idref
+   * @copydetails doc_group_member_sidref
    *
    * @param idRef std::string& value of the "idRef" attribute to be set.
    *
@@ -382,7 +382,7 @@ public:
   /**
    * Unsets the value of the "idRef" attribute of this Member.
    *
-   * @copydetails doc_group_member_idref
+   * @copydetails doc_group_member_sidref
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
