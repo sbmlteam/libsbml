@@ -1294,8 +1294,6 @@ BEGIN_C_DECLS
  * allowed to modify it.
  *
  * @param type The ModelQualifierType_t to translate
- *
- * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
 const char*
@@ -1316,8 +1314,6 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  * allowed to modify it.
  *
  * @param type The BiolQualifierType_t to translate
- *
- * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
 const char*
@@ -1335,8 +1331,6 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  * @return a qualifier for the given human readable qualifier name.
  *
  * @param s The string to translate to a ModelQualifierType_t
- *
- * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
 ModelQualifierType_t 
@@ -1354,8 +1348,6 @@ ModelQualifierType_fromString(const char* s);
  * @return a qualifier for the given human readable qualifier name.
  *
  * @param s The string to translate to a BiolQualifierType_t
- *
- * @memberof CVTerm_t
  */
 LIBSBML_EXTERN
 BiolQualifierType_t 
