@@ -117,7 +117,7 @@ def reformatDocString (match):
 
   # Now we do some final transformations.
 
-  start  = '<pre class=["\']signature["\']>'
+  start  = '<pre class=["\']signature["\']>'      #" This comment is for Emacs.
   middle = '.*?'
   end    = '</pre>'
 
@@ -149,7 +149,7 @@ def clean_up_spaces(match):
   return normalized
 
 
-def filterDocStrings (contents):
+def filterDocStrings(contents):
   global libsbml_enums
 
   # Make the docstrings more readable.
