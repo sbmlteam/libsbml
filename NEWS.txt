@@ -142,7 +142,6 @@ EXPERIMENTAL RELEASE
 
   - 'multi' package-specific updates:
 
-    - Potentially:
     - The code has been updated to reflect v 1.0.6 of the specification.
 
 
