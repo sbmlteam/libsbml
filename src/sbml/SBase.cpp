@@ -5887,6 +5887,13 @@ SBase::checkListOfPopulated(SBase* object)
         // will need to check for defaultTerm but will
         // have to pass that to the qual extension
       }
+      else if (object->getPackageName() == "multi" &&
+	object->getElementName() == "listOfSpeciesFeatures")
+      {
+	// do nothing
+	// will need to check for defaultTerm but will
+	// have to pass that to the multi extension
+      }
       else
       {
         ostringstream errMsg;
