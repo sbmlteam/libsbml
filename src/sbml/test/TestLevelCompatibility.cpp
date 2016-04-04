@@ -133,7 +133,7 @@ START_TEST (test_LevelCompatibility_unit_fails_l1)
 
   fail_unless( n == 1 );
 
-  fail_unless (d->getError(0)->getErrorId() == StrictUnitsRequiredInL2v1);
+  fail_unless (d->getError(0)->getErrorId() == StrictUnitsRequiredInL1);
 
   d->getErrorLog()->clearLog();
 
@@ -178,6 +178,74 @@ START_TEST (test_LevelCompatibility_unit_warnings_l1)
 END_TEST
 
 
+START_TEST (test_LevelCompatibility_unit_fails_l2v2)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "inconsistent-l2v1-units.xml";
+
+
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"inconsistent-l2v1-units.xml\") returned a NULL pointer.");
+  }
+
+  unsigned int n = d->checkL2v2Compatibility();
+
+  fail_unless( n == 1 );
+
+  fail_unless (d->getError(0)->getErrorId() == StrictUnitsRequiredInL2v2);
+
+  d->getErrorLog()->clearLog();
+
+  n = d->checkL1Compatibility(true);
+
+  fail_unless( n == 0 );
+
+  delete d;
+}
+END_TEST
+
+
+
+START_TEST (test_LevelCompatibility_unit_fails_l2v3)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "inconsistent-l2v1-units.xml";
+
+
+  d = reader.readSBML(filename);
+
+  if (d == NULL)
+  {
+    fail("readSBML(\"inconsistent-l2v1-units.xml\") returned a NULL pointer.");
+  }
+
+  unsigned int n = d->checkL2v3Compatibility();
+
+  fail_unless( n == 1 );
+
+  fail_unless (d->getError(0)->getErrorId() == StrictUnitsRequiredInL2v3);
+
+  d->getErrorLog()->clearLog();
+
+  n = d->checkL1Compatibility(true);
+
+  fail_unless( n == 0 );
+
+  delete d;
+}
+END_TEST
+
+
+
 
 Suite *
 create_suite_LevelCompatibility (void)
@@ -190,6 +258,8 @@ create_suite_LevelCompatibility (void)
   tcase_add_test(tcase, test_LevelCompatibility_unit_warnings);
   tcase_add_test(tcase, test_LevelCompatibility_unit_fails_l1);
   tcase_add_test(tcase, test_LevelCompatibility_unit_warnings_l1);
+  tcase_add_test(tcase, test_LevelCompatibility_unit_fails_l2v2);
+  tcase_add_test(tcase, test_LevelCompatibility_unit_fails_l2v3);
 
 
   suite_add_tcase(suite, tcase);
