@@ -496,7 +496,7 @@ public:
    * qualifiers web page</a> for an explanation of the meaning of these
    * different qualifiers.
    *
-   * @param type a @if clike #QualifierType_t value@else qualifier type@endif@~
+   * @param type a @if clike #QualifierType_t value@else qualifier type@endif@~.
    *
    * @ifnot hasDefaultArgs @htmlinclude warn-default-args-in-docs.html @endif@~
    */
@@ -588,9 +588,9 @@ public:
    * of this object or @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}
    * (the default).
    *
-   * @see CVTerm::getResources()
-   * @see CVTerm::getModelQualifierType()
-   * @see CVTerm::getBiologicalQualifierType()
+   * @see getResources()
+   * @see getModelQualifierType()
+   * @see getBiologicalQualifierType()
    */
   QualifierType_t getQualifierType();
 
@@ -626,9 +626,9 @@ public:
    * of this object or @sbmlconstant{UNKNOWN_QUALIFIER, QualifierType_t}
    * (the default).
    *
-   * @see CVTerm::getResources()
-   * @see CVTerm::getModelQualifierType()
-   * @see CVTerm::getBiologicalQualifierType()
+   * @see getResources()
+   * @see getModelQualifierType()
+   * @see getBiologicalQualifierType()
    */
   QualifierType_t getQualifierType() const;
 
@@ -839,9 +839,9 @@ public:
    *
    * @return the XMLAttributes that store the resources of this CVTerm.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::addResource(const std::string& resource)
-   * @see CVTerm::getResourceURI(unsigned int n)
+   * @see getQualifierType()
+   * @see addResource(const std::string& resource)
+   * @see getResourceURI(unsigned int n)
    */
   XMLAttributes * getResources();
 
@@ -864,9 +864,9 @@ public:
    *
    * @return the XMLAttributes that store the resources of this CVTerm.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::addResource(const std::string& resource)
-   * @see CVTerm::getResourceURI(unsigned int n)
+   * @see getQualifierType()
+   * @see addResource(const std::string& resource)
+   * @see getResourceURI(unsigned int n)
    */
   const XMLAttributes * getResources() const;
 
@@ -886,8 +886,8 @@ public:
    * @return the number of resources in the set of XMLAttributes
    * of this CVTerm.
    *
-   * @see CVTerm::getResources()
-   * @see CVTerm::getResourceURI(unsigned int n)
+   * @see getResources()
+   * @see getResourceURI(unsigned int n)
    */
   unsigned int getNumResources();
 
@@ -907,8 +907,8 @@ public:
    * @return the number of resources in the set of XMLAttributes
    * of this CVTerm.
    *
-   * @see CVTerm::getResources()
-   * @see CVTerm::getResourceURI(unsigned int n)
+   * @see getResources()
+   * @see getResourceURI(unsigned int n)
    */
   unsigned int getNumResources() const;
 
@@ -928,13 +928,13 @@ public:
    * are stored in this CVTerm object, then call this method to retrieve the
    * <em>n</em>th resource URI.
    *
-   * @param n the index of the resource to query
+   * @param n the index of the resource to query.
    *
    * @return string representing the value of the nth resource
    * in the set of XMLAttributes of this CVTerm.
    *
-   * @see CVTerm::getNumResources()
-   * @see CVTerm::getQualifierType()
+   * @see getNumResources()
+   * @see getQualifierType()
    */
   std::string getResourceURI(unsigned int n);
 
@@ -954,13 +954,13 @@ public:
    * are stored in this CVTerm object, then call this method to retrieve the
    * <em>n</em>th resource URI.
    *
-   * @param n the index of the resource to query
+   * @param n the index of the resource to query.
    *
    * @return string representing the value of the nth resource
    * in the set of XMLAttributes of this CVTerm.
    *
-   * @see CVTerm::getNumResources()
-   * @see CVTerm::getQualifierType()
+   * @see getNumResources()
+   * @see getQualifierType()
    */
   std::string getResourceURI(unsigned int n) const;
 
@@ -974,7 +974,7 @@ public:
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
-   * @see CVTerm::getQualifierType()
+   * @see getQualifierType()
    */
   int setQualifierType(QualifierType_t type);
 
@@ -983,7 +983,7 @@ public:
    * Sets the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * of this CVTerm object.
    *
-   * @param type the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
+   * @param type the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -994,8 +994,8 @@ public:
    * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::setQualifierType(@if java int@endif)
+   * @see getQualifierType()
+   * @see setQualifierType(@if java int@endif)
    */
   int setModelQualifierType(ModelQualifierType_t type);
 
@@ -1016,8 +1016,8 @@ public:
    * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif@~
    * will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::setQualifierType(@if java int@endif)
+   * @see getQualifierType()
+   * @see setQualifierType(@if java int@endif)
    */
   int setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -1026,7 +1026,7 @@ public:
    * Sets the @if clike #ModelQualifierType_t@else model qualifier
    * type@endif@~ value of this CVTerm object.
    *
-   * @param qualifier the string representing a model qualifier
+   * @param qualifier the string representing a model qualifier.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1037,8 +1037,8 @@ public:
    * then the @if clike #ModelQualifierType_t value@else model qualifier type@endif@~
    * will default to @sbmlconstant{BQM_UNKNOWN, QualifierType_t}.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::setQualifierType(@if java int@endif)
+   * @see getQualifierType()
+   * @see setQualifierType(@if java int@endif)
    */
   int setModelQualifierType(const std::string& qualifier);
 
@@ -1047,7 +1047,7 @@ public:
    * Sets the @if clike #BiolQualifierType_t@else biology qualifier
    * type code@endif@~ of this CVTerm object.
    *
-   * @param qualifier the string representing a biology qualifier
+   * @param qualifier the string representing a biology qualifier.
    *
    * @copydetails doc_returns_success_code
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1058,8 +1058,8 @@ public:
    * then the @if clike #BiolQualifierType_t@else biology qualifier type code@endif@~
    * will default to @sbmlconstant{BQB_UNKNOWN, BiolQualifierType_t}.
    *
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::setQualifierType(@if java int@endif)
+   * @see getQualifierType()
+   * @see setQualifierType(@if java int@endif)
    */
   int setBiologicalQualifierType(const std::string& qualifier);
 
@@ -1127,11 +1127,11 @@ public:
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
-   * @see CVTerm::getResources()
-   * @see CVTerm::removeResource(std::string resource)
-   * @see CVTerm::getQualifierType()
-   * @see CVTerm::getModelQualifierType()
-   * @see CVTerm::getBiologicalQualifierType()
+   * @see getResources()
+   * @see removeResource(std::string resource)
+   * @see getQualifierType()
+   * @see getModelQualifierType()
+   * @see getBiologicalQualifierType()
    */
   int addResource(const std::string& resource);
 
@@ -1148,7 +1148,7 @@ public:
    * @li @sbmlconstant{LIBSBML_INDEX_EXCEEDS_SIZE, OperationReturnValues_t}
    * @li @sbmlconstant{LIBSBML_INVALID_ATTRIBUTE_VALUE, OperationReturnValues_t}
    *
-   * @see CVTerm::addResource(const std::string& resource)
+   * @see addResource(const std::string& resource)
    */
   int removeResource(std::string resource);
 
@@ -1192,7 +1192,7 @@ public:
    * Returns the nth CVTerm in the list of CVTerms of this CVTerm
    * object.
    *
-   * @param n unsigned int the index of the CVTerm to retrieve
+   * @param n unsigned int the index of the CVTerm to retrieve.
    *
    * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
    */
@@ -1203,7 +1203,7 @@ public:
    * Returns the nth CVTerm in the list of CVTerms of this CVTerm
    * object.
    *
-   * @param n unsigned int the index of the CVTerm to retrieve
+   * @param n unsigned int the index of the CVTerm to retrieve.
    *
    * @return the nth CVTerm in the list of CVTerms for this CVTerm object.
    */
@@ -1246,7 +1246,7 @@ public:
    * Removes the nth CVTerm in the list of CVTerms of this CVTerm
    * object and returns a pointer to it.
    *
-   * @param n unsigned int the index of the CVTerm to retrieve
+   * @param n unsigned int the index of the CVTerm to retrieve.
    *
    * @return a pointer to the nth CVTerm in the list of CVTerms for this 
    * CVTerm object.
@@ -1286,7 +1286,7 @@ BEGIN_C_DECLS
  * This method takes a model qualifier type as argument
  * and returns a string name corresponding to that code.  For example,
  * passing it the qualifier <code>BQM_IS_DESCRIBED_BY</code> will return
- * the string "<code>isDescribedBy</code>".
+ * the string <code>"isDescribedBy"</code>.
  *
  * @param type The @if clike ModelQualifierType_t@endif@~ value to
  * translate. @ifnot clike The value should be a libSBML constant whose
@@ -1313,7 +1313,7 @@ ModelQualifierType_toString(ModelQualifierType_t type);
  * This method takes a biol qualifier type as argument
  * and returns a string name corresponding to that code.  For example,
  * passing it the qualifier <code>BQB_HAS_VERSION</code> will return
- * the string "<code>hasVersion</code>".
+ * the string <code>"hasVersion"</code>.
  *
  * @param type The @if clike BiolQualifierType_t@endif@~ value to
  * translate. @ifnot clike The value should be a constant whose name
@@ -1339,7 +1339,7 @@ BiolQualifierType_toString(BiolQualifierType_t type);
  *
  * This method takes a string as argument and returns a model qualifier type
  * corresponding to that string.  For example, passing it the string
- * "<code>isDescribedBy</code>" will return the qualifier
+ * <code>"isDescribedBy"</code> will return the qualifier
  * <code>BQM_IS_DESCRIBED_BY</code>.
  *
  * @param s The string to translate to a @if clike ModelQualifierType_t
@@ -1362,7 +1362,7 @@ ModelQualifierType_fromString(const char* s);
  *
  * This method takes a string as argument and returns a biol qualifier type
  * corresponding to that string.  For example, passing it the string
- * "<code>hasVersion</code>" will return the qualifier
+ * <code>"hasVersion"</code> will return the qualifier
  * <code>BQB_HAS_VERSION</code>.
  *
  * @param s The string to translate to a @if clike BiolQualifierType_t
@@ -1393,7 +1393,7 @@ BEGIN_C_DECLS
  *
  * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.
  *
- * @param type a #QualifierType_t
+ * @param type a QualifierType_t.
  *
  * @return a pointer to the newly created CVTerm_t structure.
  *
@@ -1442,7 +1442,7 @@ CVTerm_free(CVTerm_t * c);
 /**
  * Creates a deep copy of the given CVTerm_t structure
  *
- * @param term the CVTerm_t structure to be copied
+ * @param term the CVTerm_t structure to be copied.
  *
  * @return a (deep) copy of the given CVTerm_t structure.
  *
@@ -1456,7 +1456,7 @@ CVTerm_clone (const CVTerm_t* term);
 /**
  * Takes a CVTerm_t structure and returns its #QualifierType_t type.
  *
- * @param term the CVTerm_t structure whose #QualifierType_t value is sought
+ * @param term the CVTerm_t structure whose #QualifierType_t value is sought.
  *
  * @return the #QualifierType_t value of this CVTerm_t or UNKNOWN_QUALIFIER
  * (default).
@@ -1531,8 +1531,8 @@ CVTerm_getNumResources(CVTerm_t* term);
 /**
  * Returns the value of the nth resource for this %CVTerm_t.
  *
- * @param term the CVTerm_t structure
- * @param n the index of the resource to query
+ * @param term the CVTerm_t structure.
+ * @param n the index of the resource to query.
  *
  * @return string representing the value of the nth resource
  * in the set of XMLAttributes of this %CVTerm_t.
@@ -1552,7 +1552,7 @@ CVTerm_getResourceURI(CVTerm_t * term, unsigned int n);
  * Sets the "QualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the QualifierType_t
+ * @param type the QualifierType_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1569,7 +1569,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type);
  * Sets the "ModelQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the ModelQualifierType_t
+ * @param type the ModelQualifierType_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1590,7 +1590,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type);
  * Sets the "BiolQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param type the BiolQualifierType_t
+ * @param type the BiolQualifierType_t.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1611,7 +1611,7 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type);
  * Sets the "ModelQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param qualifier the string representing a model qualifier
+ * @param qualifier the string representing a model qualifier.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1632,7 +1632,7 @@ CVTerm_setModelQualifierTypeByString(CVTerm_t * term, const char* qualifier);
  * Sets the "BiolQualifierType_t" of this %CVTerm_t.
  *
  * @param term the CVTerm_t structure to set.
- * @param qualifier the string representing a biol qualifier
+ * @param qualifier the string representing a biol qualifier.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1692,7 +1692,7 @@ CVTerm_removeResource(CVTerm_t * term, const char * resource);
 /**
  * Checks if the CVTerm_t has all the required attributes.
  *
- * @param term the CVTerm_t structure
+ * @param term the CVTerm_t structure.
  *
  * @return true (1) if this CVTerm_t has all the required elements,
  * otherwise false (0) will be returned. If an invalid CVTerm_t
@@ -1710,7 +1710,7 @@ CVTerm_hasRequiredAttributes(CVTerm_t *term);
  * Returns the number of CVTerm_t structures nested within this CVTerm_t
  * structure.
  *
- * @param cvt the structure to getNumNestedCVTerms from
+ * @param cvt the structure to getNumNestedCVTerms from.
  *
  * @return the number of CVTerm_t structures nested within this CVTerm_t structure.
  *
@@ -1730,8 +1730,8 @@ CVTerm_getNumNestedCVTerms(const CVTerm_t* cvt);
  * Returns the nth CVTerm_t in the list of CVTerm_t's of this CVTerm_t
  * structure.
  *
- * @param cvt the structure to get CVTerm_t's from
- * @param n unsigned int the index of the CVTerm_t to retrieve
+ * @param cvt the structure to get CVTerm_t's from.
+ * @param n unsigned int the index of the CVTerm_t to retrieve.
  *
  * @return the nth CVTerm_t in the list of CVTerm_t's for this CVTerm_t structure.
  *
@@ -1746,8 +1746,8 @@ CVTerm_getNestedCVTerm(const CVTerm_t* cvt, unsigned int n);
  * Adds a copy of the given CVTerm_t to the list of nested CVTerm_t's
  * within this CVTerm_t structure.
  *
- * @param cvt the structure to add the CVTerm_t to
- * @param term the CVTerm_t to assign
+ * @param cvt the structure to add the CVTerm_t to.
+ * @param term the CVTerm_t to assign.
  *
  * @copydetails doc_returns_success_code
  * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
@@ -1765,8 +1765,8 @@ CVTerm_addNestedCVTerm(CVTerm_t* cvt, const CVTerm_t* term);
  * Removes the nth CVTerm_t in the list of CVTerm_t's of this CVTerm_t
  * structure and returns a pointer to it.
  *
- * @param cvt the structure to get CVTerm_t's from
- * @param n unsigned int the index of the CVTerm_t to retrieve
+ * @param cvt the structure to get CVTerm_t's from.
+ * @param n unsigned int the index of the CVTerm_t to retrieve.
  *
  * @return a pointer to the nth CVTerm_t in the list of CVTerm_t's for this
  * CVTerm_t structure.
@@ -1782,7 +1782,7 @@ CVTerm_removeNestedCVTerm(CVTerm_t* cvt, unsigned int n);
  * Returns a list of CVTerm_t structures contained within this CVTerm_t
  * structure.
  *
- * @param cvt the structure to getListNestedCVTerms from
+ * @param cvt the structure to getListNestedCVTerms from.
  *
  * @return the list of CVTerm_t's for this CVTerm_t structure.
  *
