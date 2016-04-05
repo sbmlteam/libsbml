@@ -9,11 +9,11 @@ STABLE RELEASE
 * Groups
 
   - The first official version of the specification of Groups 
-    is now available and thus the libSBML code for
+    is now available, and thus the libSBML code for
     'groups' is now included in the stable release of libSBML.  This
     means that all prebuilt binaries for the stable release will
     include the 'groups' package code. The src archive containing
-    libSBML core code will continue to be available but there will be
+    libSBML core code will continue to be available, but there will be
     additional src archives available in the stable branch: one
     containing libSBML core plus all stable packages and additional
     archives of the individual package code.
@@ -40,7 +40,7 @@ STABLE RELEASE
     - The MATLAB interface has been expanded to include a dedicated 
       FBC V2 structure.
       
-    - There was an issue with round tripping geneProductAssociations
+    - There was an issue with round-tripping geneProductAssociations
       between the expression and the infix representation.  This has
       been sorted.
        
@@ -71,7 +71,7 @@ STABLE RELEASE
     with 1 metre cubed. 
 
   - Sourceforge libSBML Tracker #421: The MATLAB binding was failing 
-    to round trip multi-byte characters used in strings. This has
+    to round-trip multi-byte characters used in strings. This has
     been fixed. Thanks to Will Matern for the report.
 
   - Validation was failing to report that a 'variable' attribute is
@@ -82,24 +82,24 @@ STABLE RELEASE
     which should be used when necessary.  Thanks to Alan Garny for
     reporting this issue.
 
-  - The functions that convert an enumeration value to a string were
+  - The functions that convert an enumeration value to a string had
     not been ported to language bindings.  This has now been sorted.
     Thanks to Matthias König for letting us know.
 
-  - The new ASTNode class instances was failing to deal correctly with 
+  - The new ASTNode class instances were failing to deal correctly with 
     semantic annotations.  This has been fixed.
 
   - 'comp' package-specific bug fixes:
 
     - Failing to access an external model could cause an endless
-      loop whilst attempting validation.  This has been corrected.
+      loop while attempting validation.  This has been corrected.
       Thanks to Chris Myers for the report.
 
   - 'fbc' package-specific bug fixes:
 
     - Sourceforge libSBML Tracker #419: The converters provided for
       converting from COBRA style SBML models to SBML+fbc style models
-      was losing a charge of '0' if explicitly set. This has been
+      were losing a charge of '0' if explicitly set. This has been
       corrected. Thanks to Ali Ebrahim for reporting the problem. 
 
   - 'layout' package-specific bug fixes:
@@ -109,7 +109,7 @@ STABLE RELEASE
 
 * Configuration/build system changes
 
-  - The Python bindings can now be configures to install using setup.py.
+  - The Python bindings can now be configured to install using setup.py.
 
 
 * Miscellaneous
