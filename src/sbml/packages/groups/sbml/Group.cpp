@@ -530,20 +530,6 @@ Group::hasRequiredAttributes() const
 }
 
 
-/*
- * Predicate returning @c true if all the required elements for this Group
- * object have been set.
- */
-bool
-Group::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*

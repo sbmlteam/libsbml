@@ -181,22 +181,7 @@ FbcReactionPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/*
- * Checks if this plugin object has all the required elements.
- */
-bool
-FbcReactionPlugin::hasRequiredElements () const
-{
-  bool allPresent = true; 
-
-  // TO DO 
-
-  return allPresent; 
-}
-
-
-  /** @cond doxygenLibsbmlInternal */
-
+/** @cond doxygenLibsbmlInternal */
 /*
  * Get the list of expected attributes for this element.
  */

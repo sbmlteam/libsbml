@@ -730,19 +730,6 @@ FluxBound::enablePackageInternal(const std::string& pkgURI,
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* default for components that have no required elements */
-bool
-FluxBound::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-    
-  return allPresent;
-}
-/** @endcond */
-
-
 /*
  * Ctor.
  */

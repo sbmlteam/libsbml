@@ -266,20 +266,6 @@ GroupsModelPlugin::removeGroup(const std::string& sid)
 }
 
 
-/*
- * Predicate returning @c true if all the required elements for this
- * GroupsModelPlugin object have been set.
- */
-bool
-GroupsModelPlugin::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
-
 /** @cond doxygenLibsbmlInternal */
 
 /*

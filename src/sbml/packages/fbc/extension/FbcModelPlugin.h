@@ -229,7 +229,7 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
-  /**
+  /*
    * Checks if this plugin object has all the required elements.
    *
    * Subclasses must override this method 
@@ -238,7 +238,8 @@ public:
    * @return true if this plugin object has all the required elements
    * otherwise false will be returned.
    */
-  virtual bool hasRequiredElements () const;
+  //virtual bool hasRequiredElements () const;
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Parses Gene Annotation Extension 

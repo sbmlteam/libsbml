@@ -554,9 +554,7 @@ Objective::hasRequiredAttributes () const
 bool
 Objective::hasRequiredElements () const
 {
-  bool allPresent = true;
-
-  return allPresent;
+  return getNumFluxObjectives() > 0;
 }
 
 

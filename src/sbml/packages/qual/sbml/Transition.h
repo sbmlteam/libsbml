@@ -813,21 +813,8 @@ public:
    * Predicate returning @c true if all the required attributes
    * for this Transition object have been set.
    *
-   * @note The required attributes for a Transition object are:
-   * @li "output"
-   *
-   * @return a boolean value indicating whether all the required
-   * attributes for this object have been defined.
-   */
-  virtual bool hasRequiredAttributes() const;
-
-
-  /**
-   * Predicate returning @c true if all the required attributes
-   * for this Transition object have been set.
-   *
    * @note The required elements for a Transition object are:
-   * @li "output"
+   * @li a "defaultTerm" child of the child ListOfFunctionTerms.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

@@ -915,21 +915,12 @@ Transition::getTypeCode () const
  * check if all the required attributes are set
  */
 bool
-Transition::hasRequiredAttributes () const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-
-
-/*
- * check if all the required attributes are set
- */
-bool
 Transition::hasRequiredElements () const
 {
   bool allPresent = true;
+  if (!isSetDefaultTerm()) {
+    allPresent = false;
+  }
 
   return allPresent;
 }

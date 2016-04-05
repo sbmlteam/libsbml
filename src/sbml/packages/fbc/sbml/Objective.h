@@ -527,6 +527,7 @@ public:
    * Objective object have been set.
    *
    * @note The required elements for a Objective object are:
+   * @li at least one FluxObjective child of the ListOfFluxObjectives.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

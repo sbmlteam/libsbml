@@ -475,15 +475,6 @@ public:
   /** @endcond */
 
 
-  /** @cond doxygenLibsbmlInternal */
-  /* function returns true if component has all the required
-   * elements
-   * needs to be overloaded for each component
-   */
-  virtual bool hasRequiredElements() const ;
-  /** @endcond */
-
-
 protected:
   /** @cond doxygenLibsbmlInternal */
   /**

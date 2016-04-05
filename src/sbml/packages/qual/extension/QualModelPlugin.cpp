@@ -215,19 +215,6 @@ QualModelPlugin::writeElements (XMLOutputStream& stream) const
 /** @endcond */
 
 
-/** @cond doxygenLibsbmlInternal */
-/* default for components that have no required elements */
-bool
-QualModelPlugin::hasRequiredElements() const
-{
-  bool allPresent = true;
-
-  return allPresent;
-}
-/** @endcond */
-
-
-
 /*
  *
  *  (EXTENSION) Additional public functions

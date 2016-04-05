@@ -120,18 +120,6 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
 
-  /**
-   * Checks if this plugin object has all the required elements.
-   *
-   * Subclasses should override this function if they have their specific
-   * elements.
-   *
-   * @return true if this plugin object has all the required elements,
-   * otherwise false will be returned.
-   */
-  virtual bool hasRequiredElements() const ;
-
-
   /** ------------------------------------------------------------------
    *
    *  Additional public functions

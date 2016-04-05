@@ -534,6 +534,9 @@ FbcModelPlugin::readOtherXML (SBase* parentObject, XMLInputStream& stream)
 /*
  * Checks if this plugin object has all the required elements.
  */
+  //According to the specs for both FBC v1 and v2, the model plugin has no 
+  // required children!
+/*
 bool
 FbcModelPlugin::hasRequiredElements () const
 {
@@ -544,10 +547,9 @@ FbcModelPlugin::hasRequiredElements () const
     allPresent = false;    
   }
 
-
   return allPresent; 
 }
-
+*/
 
   /** @cond doxygenLibsbmlInternal */
 

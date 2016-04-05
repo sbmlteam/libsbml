@@ -137,18 +137,6 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
-  /**
-   * Checks if this plugin object has all the required elements.
-   *
-   * Subclasses must override this method 
-   * if they have their specific elements.
-   *
-   * @return true if this plugin object has all the required elements
-   * otherwise false will be returned.
-   */
-  virtual bool hasRequiredElements () const;
-
-
   //---------------------------------------------------------------
 
 

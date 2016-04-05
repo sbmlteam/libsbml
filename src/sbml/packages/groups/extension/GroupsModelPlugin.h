@@ -335,19 +335,6 @@ public:
   Group* removeGroup(const std::string& sid);
 
 
-  /**
-   * Predicate returning @c true if all the required elements for this
-   * GroupsModelPlugin object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this
-   * GroupsModelPlugin have been set, otherwise @c false is returned.
-   *
-   * @note The required elements for the GroupsModelPlugin object are:
-   */
-  virtual bool hasRequiredElements() const;
-
-
-
   /** @cond doxygenLibsbmlInternal */
 
   /**

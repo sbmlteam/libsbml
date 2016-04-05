@@ -675,20 +675,6 @@ public:
   virtual bool hasRequiredAttributes() const;
 
 
-  /**
-   * Predicate returning @c true if all the required elements for this Group
-   * object have been set.
-   *
-   * @return @c true to indicate that all the required elements of this Group
-   * have been set, otherwise @c false is returned.
-   *
-   *
-   * @note The required elements for the Group object are:
-   */
-  virtual bool hasRequiredElements() const;
-
-
-
   /** @cond doxygenLibsbmlInternal */
 
   /**
