@@ -50,7 +50,7 @@
 /**
  * Convert SBase, SimpleSpeciesReference, and Rule objects into the most specific type possible.
  */
-%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*
+%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*, Reaction*
 {
   SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);
 }

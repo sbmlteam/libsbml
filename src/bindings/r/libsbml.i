@@ -1,6 +1,6 @@
 /**
  * @file    libsbml.i
- * @brief   Ruby-specific SWIG directives for wrapping libSBML API
+ * @brief   R-specific SWIG directives for wrapping libSBML API
  * @author  Alex Gutteridge
  * @author  Ben Bornstein
  * @author  Akiya Jouraku

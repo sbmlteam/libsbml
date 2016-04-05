@@ -630,6 +630,15 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 }
 
 /**
+ * Convert SBase objects into the most specific object possible.
+ */
+%typemap("csout", excode=SWIGEXCODE) Reaction*
+{
+	Reaction ret = (Reaction) libsbml.DowncastSBase($imcall, $owner);$excode
+	return ret;
+}
+
+/**
  * Convert Rule objects into the most specific object possible.
  */
 %typemap("csout", excode=SWIGEXCODE) Rule*

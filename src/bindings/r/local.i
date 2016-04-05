@@ -1,6 +1,6 @@
 /**
  * @file    local.i
- * @brief   Ruby-specific SWIG directives for wrapping libSBML API
+ * @brief   R-specific SWIG directives for wrapping libSBML API
  * @author  Alex Gutteridge
  * @author  Ben Bornstein
  * @author  Akiya Jouraku
@@ -172,7 +172,7 @@ namespace std
 /**
  * Convert SBase, SimpleSpeciesReference, and Rule objects into the most specific type possible.
  */
-%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*
+%typemap(out) SBase*, SimpleSpeciesReference*, Rule*, SBasePlugin*, SBMLExtension*, SBMLNamespaces*, SBMLConverter*, Reaction*
 {
   $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), $owner | %newpointer_flags);
 }

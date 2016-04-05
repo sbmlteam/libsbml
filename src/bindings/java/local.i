@@ -853,6 +853,14 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 }
 
 /**
+ * Convert SBase objects into the most specific object possible.
+ */
+%typemap("javaout") Reaction*
+{
+  return (Reaction) libsbml.DowncastSBase($jnicall, $owner);
+}
+
+/**
  * Convert Rule objects into the most specific object possible.
  */
 %typemap("javaout") Rule*
