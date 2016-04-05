@@ -1052,7 +1052,7 @@ public:
    *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkL2v2Compatibility ();
+  unsigned int checkL2v2Compatibility (bool inConversion = false);
 
 
   /**
@@ -1065,7 +1065,7 @@ public:
    *
    * @return the number of failed checks (errors) encountered.
    */
-  unsigned int checkL2v3Compatibility ();
+  unsigned int checkL2v3Compatibility (bool inConversion = false);
 
 
   /**

@@ -452,13 +452,13 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         break;
       case 2:
-        if (!conversion_errors(mDocument->checkL2v2Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v2Compatibility(true)))
         {
           doConversion = true;
         }
         break;
       case 3:
-        if (!conversion_errors(mDocument->checkL2v3Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v3Compatibility(true)))
         {
           doConversion = true;
         }
@@ -598,7 +598,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
         }
         break;
       case 2:
-        if (!conversion_errors(mDocument->checkL2v2Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v2Compatibility(true)))
         {
           doConversion = true;
           /* if existing model is L2V4 need to mDocument->check that
@@ -645,7 +645,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
          }
         break;
       case 3:
-        if (!conversion_errors(mDocument->checkL2v3Compatibility()))
+        if (!conversion_errors(mDocument->checkL2v3Compatibility(true)))
         {
           doConversion = true;
           /* if existing model is L2V4 need to mDocument->check that
@@ -848,7 +848,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
        }
         break;
       case 2:
-        if (!conversion_errors(mDocument->checkL2v2Compatibility(), strictUnits))
+        if (!conversion_errors(mDocument->checkL2v2Compatibility(true), strictUnits))
         {
           doConversion = true;
           if (strictUnits == true && !hasStrictUnits())
@@ -884,7 +884,7 @@ SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits,
        }
         break;
       case 3:
-        if (!conversion_errors(mDocument->checkL2v3Compatibility(), strictUnits))
+        if (!conversion_errors(mDocument->checkL2v3Compatibility(true), strictUnits))
         {
           doConversion = true;
           if (strictUnits == true && !hasStrictUnits())

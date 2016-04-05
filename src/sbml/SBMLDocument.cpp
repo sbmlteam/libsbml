@@ -933,7 +933,7 @@ SBMLDocument::checkL1Compatibility (bool inConversion)
       }
       if (logUnitError)
       {
-        getErrorLog()->logError(StrictUnitsRequiredInL2v1, getLevel(), getVersion());
+        getErrorLog()->logError(StrictUnitsRequiredInL1, getLevel(), getVersion());
         unit_errors = 1;
       }
       else
@@ -1007,9 +1007,47 @@ SBMLDocument::checkL2v1Compatibility (bool inConversion)
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkL2v2Compatibility ()
+SBMLDocument::checkL2v2Compatibility (bool inConversion)
 {
-  return mInternalValidator->checkL2v2Compatibility();
+  unsigned int nerrors =  mInternalValidator->checkL2v2Compatibility();
+  unsigned int unit_errors = 0;
+
+  if (inConversion == false)
+  {
+    UnitConsistencyValidator unit_validator;
+    unit_validator.init();
+    unit_errors = unit_validator.validate(*this);
+    if (unit_errors > 0)
+    {
+      // need to check whether these are what would be warnings
+      // and only log the error if there would be a units error
+      bool logUnitError = false;
+      std::list<SBMLError> errors = unit_validator.getFailures();
+      std::list<SBMLError>::iterator it = errors.begin();
+
+      while(!logUnitError && it != errors.end())
+      {
+        SBMLError err = (SBMLError)(*it);
+        unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 1, 2);
+        if (l2v1_sev == LIBSBML_SEV_ERROR)
+        {
+          logUnitError = true;
+        }
+        it++;
+      }
+      if (logUnitError)
+      {
+        getErrorLog()->logError(StrictUnitsRequiredInL2v2, getLevel(), getVersion());
+        unit_errors = 1;
+      }
+      else
+      {
+        unit_errors = 0;
+      }
+    }
+  }
+
+  return nerrors + unit_errors;
 }
 
 
@@ -1021,9 +1059,47 @@ SBMLDocument::checkL2v2Compatibility ()
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkL2v3Compatibility ()
+SBMLDocument::checkL2v3Compatibility (bool inConversion)
 {
-  return mInternalValidator->checkL2v3Compatibility();
+  unsigned int nerrors =  mInternalValidator->checkL2v3Compatibility();
+  unsigned int unit_errors = 0;
+
+  if (inConversion == false)
+  {
+    UnitConsistencyValidator unit_validator;
+    unit_validator.init();
+    unit_errors = unit_validator.validate(*this);
+    if (unit_errors > 0)
+    {
+      // need to check whether these are what would be warnings
+      // and only log the error if there would be a units error
+      bool logUnitError = false;
+      std::list<SBMLError> errors = unit_validator.getFailures();
+      std::list<SBMLError>::iterator it = errors.begin();
+
+      while(!logUnitError && it != errors.end())
+      {
+        SBMLError err = (SBMLError)(*it);
+        unsigned int l2v1_sev = getLevelVersionSeverity(err.getErrorId(), 1, 2);
+        if (l2v1_sev == LIBSBML_SEV_ERROR)
+        {
+          logUnitError = true;
+        }
+        it++;
+      }
+      if (logUnitError)
+      {
+        getErrorLog()->logError(StrictUnitsRequiredInL2v3, getLevel(), getVersion());
+        unit_errors = 1;
+      }
+      else
+      {
+        unit_errors = 0;
+      }
+    }
+  }
+
+  return nerrors + unit_errors;
 }
 
 
