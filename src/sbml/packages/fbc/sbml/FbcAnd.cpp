@@ -447,9 +447,7 @@ FbcAnd::hasRequiredAttributes () const
 bool
 FbcAnd::hasRequiredElements () const
 {
-  bool allPresent = FbcAssociation::hasRequiredElements();
-
-  return allPresent;
+  return getNumAssociations() >= 2;
 }
 
 

@@ -366,6 +366,7 @@ public:
    * for this FbcAnd object have been set.
    *
    * @note The required elements for a FbcAnd object are:
+   * @li two or more FbcAssociation children.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
