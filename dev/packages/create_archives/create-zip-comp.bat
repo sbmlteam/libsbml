@@ -1,11 +1,11 @@
-@ echo off
+@echo off
 REM 
 REM This script creates a source archive for the COMP package
 REM 
 
 SET THIS_DIR=%~dp0
 SET PACKAGE_NAME=comp
-set VERSION=libSBML-5.12.0-%PACKAGE_NAME%-src
+set VERSION=libSBML-5.13.0-%PACKAGE_NAME%-src
 SET DIST_DIR=%~dp0\%VERSION%
 SET PACKAGE_DIR=%~dp0\..\..\..\
 
