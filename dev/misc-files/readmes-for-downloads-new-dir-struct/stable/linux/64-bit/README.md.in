@@ -36,7 +36,7 @@ A source package for the libSBML R interface is available [here](../../R%20inter
 
 If you are primarily interested in Python, we provide two options for installing libSBML for Python:
 
-* **_Using PiPI_**: First, make sure you have the following prerequisite software packages installed on your operating system: `python-dev`, `libxml2-dev`, `libz-dev`, and `libbz2-dev`.  Then, you can use the following command to install libSBML for Python: `sudo pip install python-libsbml`
+* **_Using PiPI_**: You can use the following command to install libSBML for Python: `sudo pip install python-libsbml`
 
 * **_Using `apt-get` or `yum`_**: Python installers for use with `apt-get` or `yum` for various Linux distributions can be obtained from the [Open Build Service](http://software.opensuse.org/download.html?project=home%3Afbergman%3Alibsbml&package=python-libsbml "Open Build Service").
 
