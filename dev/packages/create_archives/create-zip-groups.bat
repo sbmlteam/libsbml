@@ -33,6 +33,10 @@ mkdir src\sbml\packages\%PACKAGE_NAME%\extension\test\test-data
 mkdir src\sbml\packages\%PACKAGE_NAME%\sbml
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator
 mkdir src\sbml\packages\%PACKAGE_NAME%\validator\constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints
+mkdir src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints
 
 copy /y %PACKAGE_DIR%\%PACKAGE_NAME%-package.cmake .
 copy /y %PACKAGE_DIR%\src\%PACKAGE_NAME%-package.cmake src
@@ -48,6 +52,12 @@ copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.h        src\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\*.cpp      src\sbml\packages\%PACKAGE_NAME%\validator\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.h        src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\constraints\*.cpp      src\sbml\packages\%PACKAGE_NAME%\validator\constraints\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.h             src\sbml\packages\%PACKAGE_NAME%\validator\test\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.c             src\sbml\packages\%PACKAGE_NAME%\validator\test\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.cpp           src\sbml\packages\%PACKAGE_NAME%\validator\test\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\*.txt           src\sbml\packages\%PACKAGE_NAME%\validator\test\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\*.xml           src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\general-constraints\
+copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\*.xml           src\sbml\packages\%PACKAGE_NAME%\validator\test\test-data\identifier-constraints\
 
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.h             src\sbml\packages\%PACKAGE_NAME%\extension\test\
 copy /y %PACKAGE_DIR%\src\sbml\packages\%PACKAGE_NAME%\extension\test\*.c             src\sbml\packages\%PACKAGE_NAME%\extension\test\
