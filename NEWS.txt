@@ -38,7 +38,8 @@ STABLE RELEASE
   - 'fbc' package-specific updates:
 
     - The MATLAB interface has been expanded to include a dedicated 
-      FBC V2 structure.
+      FBC V2 structure.  Thanks to the COBRA Toolbox team for their
+      feedback and testing. 
       
     - There was an issue with round-tripping geneProductAssociations
       between the expression and the infix representation.  This has
