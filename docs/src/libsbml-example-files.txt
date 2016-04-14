@@ -150,6 +150,11 @@ Balance Constraints package to a COBRA-style SBML Level 2 model.
 
 @subsection package-groups-examples Package: Groups
 
+The <a href="group__groups.html">Groups</a>
+package has the nickname &ldquo;groups&rdquo;.  The libSBML classes that
+implement this package are marked with the symbol @htmlinclude
+pkg-marker-groups.html@~ in the libSBML documentation.
+
 @li @ref groups_example1.cpp "groups_example1.cpp":
 Simple example of writing a model that uses the SBML Level&nbsp;3
 Groups package.
