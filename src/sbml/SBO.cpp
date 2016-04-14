@@ -701,7 +701,7 @@ SBO::getParentBranch(unsigned int term)
 void
 SBO::populateSBOTree()
 {
-  // generated from SBO on 03/03/2016
+  // generated from SBO on 04/14/2016
   mParent.insert( pair<const int, int>(  1,  64) );
   mParent.insert( pair<const int, int>(  2, 545) );
   mParent.insert( pair<const int, int>(  3,   0) );
@@ -1384,6 +1384,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(630, 395) );
   mParent.insert( pair<const int, int>(631, 375) );
   mParent.insert( pair<const int, int>(632, 631) );
+  mParent.insert( pair<const int, int>(633, 473) );
 
 }
 /** @endcond */
