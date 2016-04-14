@@ -493,6 +493,11 @@ object.centered
     vertical-align: bottom;
 }
 
+.align-text-bottom
+{
+    vertical-align: text-bottom;
+}
+
 .width80
 {
     width: 80%;
