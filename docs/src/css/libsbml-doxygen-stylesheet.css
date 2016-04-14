@@ -1419,3 +1419,50 @@ uses it is introduced by swigdoc.py. */
     padding-bottom: 2px;
     border-bottom: 1px dotted #888;
 }
+
+/* Search results using doxyindexer. */
+
+#searchresults .searchpages {
+    font-size: 14px;
+}
+
+#searchresults .searchpages .pages:last-child a:before {
+    content: "next"
+}
+
+#searchresults .searchpages .pages:first-child a:after {
+    content: "prev"
+}
+
+.searchresult {
+    line-height: 150%;
+}
+
+/* Body of search results */
+#searchresults table tr {
+    background-color: white;
+}
+
+/* Context text, *not* the function name or link. */
+#searchresults table tr:not(.searchresult) td {
+    color: #888;
+}
+
+#searchresults .searchresult td {
+    color: #444;
+}
+
+/* The number of the result, shown in the leftmost column. */
+#searchresults .searchresult td[align="right"] {
+    padding-right: 6pt;
+    color: #aaa;
+}
+
+/* The function name in the result. */
+#searchresults .searchresult a {
+    font-family: 'Anonymous Pro', 'Courier New', Courier, monospace, fixed;
+    font-weight: 700;
+    font-size: 10pt;
+    white-space: nowrap;
+    padding-left: 4pt;
+}
