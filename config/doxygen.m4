@@ -117,6 +117,17 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
     AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
     AC_SUBST(USE_DOXYGEN, 1)
 
+    dnl Look for doxyindexer in the same directory where we were told to find
+    dnl doxygen.
+
+    doxydir="`dirname $DOXYGEN`"
+    AC_PATH_PROG([DOXYINDEXER], [doxyindexer], [no], [$doxydir])
+    if test -z "$DOXYINDEXER" -o "$DOXYINDEXER" = "no"; then
+       AC_MSG_RESULT(yes ($DOXYINDEXER))
+    else
+       AC_MSG_RESULT(no)
+    fi
+
     dnl Check the existence of a jar file for javadoc if --with-java enabled.
     dnl The jar file is classes.jar (MacOSX) or tools.jar (other OSes).
 
