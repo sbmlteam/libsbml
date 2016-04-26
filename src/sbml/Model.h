@@ -457,6 +457,7 @@ sp.setId("MySpecies");
 #include <sbml/Event.h>
 
 #include <sbml/units/FormulaUnitsData.h>
+#include <sbml/util/IdList.h>
 
 #include <sbml/annotation/ModelHistory.h>
 
@@ -3153,6 +3154,7 @@ public:
   bool isPopulatedListFormulaUnitsData();
 
 
+
   /** @cond doxygenLibsbmlInternal */
   /**
    * Adds a copy of the given FormulaUnitsData object to this Model.
@@ -3279,6 +3281,46 @@ public:
 
   
   /** @endcond */
+
+
+  /**
+   * Populates the internal list of the identifiers of all elements within this Model object.
+   *
+   * This method tells libSBML to retrieve the identifiers of all elements
+   * of the enclosing Model object.  The result is stored in an internal list
+   * of ids.  Users can access the resulting data by calling the method
+   * getAllElementIdList().
+   *
+   * @warning Retrieving all elements within a model is a time-consuming operation.
+   * Callers may want to call isPopulatedAllElementIdList() to determine
+   * whether the id list may already have been populated.
+   *
+   * @see isPopulatedAllElementIdList()
+   */
+  void populateAllElementIdList();
+
+
+  /**
+   * Predicate returning @c true if libSBML has a list of the ids of all 
+   * components of this model.
+   *
+   * @return @c true if the id list has already been populated, @c false
+   * otherwise.
+   */
+  bool isPopulatedAllElementIdList() const;
+
+
+  /**
+   * Returns the internal list of the identifiers of all elements within this Model object.
+   *
+   * @return an IdList of all the identifiers in the model.
+   *
+   * @see populateAllElementIdList()
+   * @see isPopulatedAllElementIdList()
+   */
+  IdList getAllElementIdList() const;
+
+
 
 
   /**
@@ -3759,6 +3801,8 @@ protected:
   ListOfEvents               mEvents;
 
   List *                     mFormulaUnitsData;
+  IdList                     mIdList;
+  IdList                     mMetaidList;
 
 
   /* the validator classes need to be friends to access the 

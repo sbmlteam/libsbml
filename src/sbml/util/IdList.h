@@ -64,7 +64,7 @@ public:
   /**
    * Appends id to the list of ids.
    */
-  void append (const std::string& id) { mIds.push_back(id); }
+  void append (const std::string& id);
 
   /**
    * Returns true if id is already in this IdList, false otherwise.
@@ -83,7 +83,7 @@ public:
    *
    * @return the number of ids in this IdList.
    */
-  unsigned int size () const { return (unsigned int)mIds.size(); }
+  unsigned int size () const;
 
 #ifndef SWIG
   /**
@@ -91,25 +91,19 @@ public:
    *
    * @return an iterator to the beginning of this IdList.
    */
-  std::vector<std::string>::const_iterator begin () const
-  {
-    return mIds.begin();
-  }
+  std::vector<std::string>::const_iterator begin () const;
 
   /**
    * Returns an iterator to the end of this IdList.
    *
    * @return an iterator to the end of this IdList.
    */
-  std::vector<std::string>::const_iterator end () const
-  {
-    return mIds.end();
-  }
+  std::vector<std::string>::const_iterator end () const;
 #endif
 
-  void clear() { mIds.clear(); }
+  void clear();
 
-  std::string at(int n) { return mIds.at((std::string::size_type)n); }
+  std::string at(int n);
 
 private:
 

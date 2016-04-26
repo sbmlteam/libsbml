@@ -1182,10 +1182,10 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
   msg += p.getIdRef();
   msg += "' which is not an element within the <model>.";
 
-  IdList mIds;
+  IdList  mIds;
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
   ReferencedModel ref(m, p);
   const Model* mod = ref.getReferencedModel();
@@ -1203,15 +1203,19 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Port, p)
     unknownPackagePresent = true;
   }
   pre ( unknownPackagePresent == false);
-  
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(mod)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
 
   if (mIds.contains(p.getIdRef()) == false)
   {
@@ -1284,19 +1288,24 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, Deletion, d)
 
   IdList mIds;
 
-  // create the filter we want to use
-  IdFilter filter;
-
-  //  get a list of all elements with an id
-  List* allElements = const_cast<Model*>
-                                (referencedModel)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(referencedModel)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(referencedModel)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(referencedModel)->getAllElementIdList();
+  //// create the filter we want to use
+  //IdFilter filter;
 
-  delete allElements;
+  ////  get a list of all elements with an id
+  //List* allElements = const_cast<Model*>
+  //                              (referencedModel)->getAllElements(&filter);
+
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   if (mIds.contains(d.getIdRef()) == false)
   {
@@ -1367,20 +1376,25 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedElement, repE)
 
 
   IdList mIds;
+  if (!const_cast<Model*>(referencedModel)->isPopulatedAllElementIdList())
+  {
+    const_cast<Model*>(referencedModel)-> populateAllElementIdList();
+  }
+  mIds = const_cast<Model*>(referencedModel)->getAllElementIdList();
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
-  //  get a list of all elements with an id
-  List* allElements = const_cast<Model*>
-                               (referencedModel)->getAllElements(&filter);
+  ////  get a list of all elements with an id
+  //List* allElements = const_cast<Model*>
+  //                             (referencedModel)->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
-  {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
-  }
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
 
-  delete allElements;
+  //delete allElements;
 
   if (mIds.contains(repE.getIdRef()) == false)
   {
@@ -1439,20 +1453,25 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, ReplacedBy, repBy)
   pre ( unknownPackagePresent == false);
 
   IdList mIds;
-
-  // create the filter we want to use
-  IdFilter filter;
-
-  //  get a list of all elements with an id
-  List* allElements = const_cast<Model*>
-                               (referencedModel)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(referencedModel)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(referencedModel)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(referencedModel)->getAllElementIdList();
 
-  delete allElements;
+  //// create the filter we want to use
+  //IdFilter filter;
+
+  ////  get a list of all elements with an id
+  //List* allElements = const_cast<Model*>
+  //                             (referencedModel)->getAllElements(&filter);
+
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   if (mIds.contains(repBy.getIdRef()) == false)
   {
@@ -1559,19 +1578,25 @@ START_CONSTRAINT (CompIdRefMustReferenceObject, SBaseRef, sbRef)
 
   IdList mIds;
 
-  // create the filter we want to use
-  IdFilter filter;
-
-  //  get a list of all elements with an id
-  List* allElements = const_cast<Model*>
-                                (referencedModel)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(referencedModel)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(referencedModel)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(referencedModel)->getAllElementIdList();
 
-  delete allElements;
+  //// create the filter we want to use
+  //IdFilter filter;
+
+  ////  get a list of all elements with an id
+  //List* allElements = const_cast<Model*>
+  //                              (referencedModel)->getAllElements(&filter);
+
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
 
   if (mIds.contains(sbRef.getIdRef()) == false)
@@ -3949,21 +3974,27 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Port, p)
   IdList mIds;
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
   ReferencedModel ref(m, p);
   const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(mod)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementIdList();
 
-  delete allElements;
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
+
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(p.getIdRef()))
 }
@@ -4001,21 +4032,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, Deletion, d)
   IdList mIds;
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
   ReferencedModel ref(m, d);
   const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
-  
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+   if (!const_cast<Model*>(mod)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(mod)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementIdList();
+ 
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(d.getIdRef()))
 }
@@ -4051,21 +4087,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, ReplacedElement, repE)
   IdList mIds;
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
   ReferencedModel ref(m, repE);
   const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
-  
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(mod)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(repE.getIdRef()))
 }
@@ -4138,21 +4179,26 @@ START_CONSTRAINT (CompIdRefMayReferenceUnknownPackage, SBaseRef, sbRef)
   IdList mIds;
 
   // create the filter we want to use
-  IdFilter filter;
+  //IdFilter filter;
 
   ReferencedModel ref(m, sbRef);
   const Model* mod = ref.getReferencedModel();
   
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+    const_cast<Model*>(mod)-> populateAllElementIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementIdList();
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(sbRef.getIdRef()))
 }

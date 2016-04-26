@@ -81,6 +81,48 @@ IdList::IdList(const std::string& commaSeparated)
 }
 
 
+void 
+IdList::append (const std::string& id) 
+{ 
+  mIds.push_back(id); 
+}
+
+
+unsigned int 
+IdList::size () const 
+{ 
+  return (unsigned int)mIds.size(); 
+}
+
+
+void 
+IdList::clear() 
+{ 
+  mIds.clear(); 
+
+}
+
+
+std::string
+IdList::at(int n) 
+{ 
+  return mIds.at((std::string::size_type)n); 
+}
+
+
+#ifndef SWIG
+std::vector<std::string>::const_iterator 
+IdList::begin () const
+{
+  return mIds.begin();
+}
+
+std::vector<std::string>::const_iterator 
+IdList::end () const
+{
+  return mIds.end();
+}
+#endif
 /**
  * @return true if id is already in this IdList, false otherwise.
  */

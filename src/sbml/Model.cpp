@@ -55,6 +55,7 @@
 
 #include <sbml/util/IdentifierTransformer.h>
 #include <sbml/util/ElementFilter.h>
+#include <sbml/util/IdFilter.h>
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>
@@ -92,6 +93,8 @@ Model::Model (unsigned int level, unsigned int version) :
  , mReactions           (level,version)
  , mEvents              (level,version)
  , mFormulaUnitsData ( NULL  )
+ , mIdList (  )
+ , mMetaidList ( )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -124,6 +127,8 @@ Model::Model (SBMLNamespaces * sbmlns) :
  , mReactions           (sbmlns)
  , mEvents              (sbmlns)
  , mFormulaUnitsData ( NULL  )
+ , mIdList (  )
+ , mMetaidList ( )
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
@@ -181,6 +186,8 @@ Model::Model(const Model& orig)
   , mReactions           (orig.mReactions)
   , mEvents              (orig.mEvents)
   , mFormulaUnitsData    (NULL)
+  , mIdList              (orig.mIdList)
+  , mMetaidList          (orig.mMetaidList)
 {
 
   if(orig.mFormulaUnitsData != NULL)
@@ -255,6 +262,9 @@ Model& Model::operator=(const Model& rhs)
       this->mFormulaUnitsData = NULL;
     }
   }
+
+  mIdList     = rhs.mIdList;
+  mMetaidList = rhs.mMetaidList;
 
   connectToChild();
 
@@ -6180,6 +6190,45 @@ Model::isPopulatedListFormulaUnitsData()
 }
 /** @endcond */
 
+
+/**
+ * Populates the internal list of the identifiers of all elements within this Model object.
+ */
+void 
+Model::populateAllElementIdList()
+{
+  mIdList.clear();
+  IdFilter filter;
+  List* allElements = this->getAllElements(&filter);
+
+  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  {
+    mIdList.append(static_cast<SBase*>(allElements->get(i))->getId());
+  }
+
+  delete allElements;
+}
+
+
+/**
+  * @return @c true if the id list has already been populated, @c false
+  * otherwise.
+  */
+bool 
+Model::isPopulatedAllElementIdList() const
+{
+  return (mIdList.size() != 0);
+}
+
+
+/**
+  * Returns the internal list of the identifiers of all elements within this Model object.
+  */
+IdList
+Model::getAllElementIdList() const
+{
+  return mIdList;
+}
 
 
 #endif /* __cplusplus */
