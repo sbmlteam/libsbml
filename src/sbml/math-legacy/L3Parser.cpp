@@ -230,7 +230,7 @@ public:
    * Sets the error string so that it can be retrieved by the function 
    * 'SBML_getLastParseL3Error'.
    */
-  void setError(std::string c);
+  void setError(const std::string& c);
   /**
    * Resets the L3Parser object, removing any error or input strings,
    * setting the output ASTNode to NULL, and resetting all parser settings
@@ -2849,16 +2849,18 @@ bool L3Parser::l3StrCmp(const string& lhs, const string& rhs) const
 void L3Parser::setInput(const char* c)
 {
   input.clear();
+  if (c == NULL) return;
   input.str(c);
 }
 
 void L3Parser::setError(const char* c)
 {
+  if (c == NULL) return;
   string err = c;
   setError(err);
 }
 
-void L3Parser::setError(string c)
+void L3Parser::setError(const string& c)
 {
   stringstream err;
   streampos position = input.tellg();
