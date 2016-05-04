@@ -2851,7 +2851,7 @@ void L3Parser::setInput(const char* c)
   input.clear();
   if (c == NULL) 
   {
-    setError("NULL input.")
+    setError("NULL input.");
     return;
   }
   input.str(c);
