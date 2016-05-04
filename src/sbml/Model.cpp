@@ -6201,9 +6201,14 @@ Model::populateAllElementIdList()
   IdFilter filter;
   List* allElements = this->getAllElements(&filter);
 
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIdList.append(static_cast<SBase*>(allElements->get(i))->getId());
+  //}
+
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
   {
-    mIdList.append(static_cast<SBase*>(allElements->get(i))->getId());
+    mIdList.append(static_cast<SBase*>(*iter)->getId());
   }
 
   delete allElements;

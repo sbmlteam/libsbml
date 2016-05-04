@@ -360,6 +360,21 @@ List::transferFrom(List* list)
   list->size = 0;
 }
 
+
+ListIterator 
+List::begin() 
+{ 
+  return ListIterator(head); 
+}
+
+
+ListIterator 
+List::end() 
+{ 
+  return ListIterator(0); 
+}
+
+
 /** @cond doxygenLibsbmlInternal */
 void 
 List::deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc)

@@ -102,7 +102,13 @@ typedef void (*ListDeleteItemFunc) (void *item);
 
 #ifdef __cplusplus
 
+class List;
+class ListNode;
+class ListIterator;
+
 #ifndef SWIG
+
+
 
 /**
  * @cond doxygenLibsbmlInternal
@@ -123,10 +129,41 @@ public:
 
   void*      item;
   ListNode*  next;
+
+
+  friend class List;
+  friend class ListIterator;
+
+  void * getItem() { return item;} ;
+};
+
+class ListIterator
+{
+	/* Helper class to provide pointer like facilities around a node */
+	friend class List;
+
+  ListNode* position; //The node oriented with this instance of ListIterator.
+	
+	ListIterator(ListNode* _pNode) : position(_pNode) {}
+
+public:
+	
+  void operator++(){ position = position->next; }
+	
+  void operator++(int){ position = position->next; }
+
+	bool operator!=(ListIterator rval){ return !(position == rval.position); }
+	
+  bool operator==(ListIterator rval){ return (position == rval.position); }
+
+	void * operator*(){	return position->getItem(); }
+
 };
 /** @endcond */
 
+
 #endif  /* !SWIG */
+
 
 class LIBSBML_EXTERN List
 {
@@ -284,7 +321,16 @@ public:
   */
   static void deleteListAndChildrenWith(List* list, ListDeleteItemFunc delteFunc);
 
+  /** @endcond */
+
+
   /** @cond doxygenLibsbmlInternal */
+
+  ListIterator begin();
+  ListIterator end();
+
+  /** @endcond */
+
 protected:
   /** @cond doxygenLibsbmlInternal */
   unsigned int size;
