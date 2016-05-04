@@ -1503,22 +1503,6 @@ Submodel_hasRequiredAttributes(Submodel_t * s);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required elements for the given Submodel_t structure
-  * have been set.
-  *
-  * @note The required elements for an Submodel_t structure are:
-  * @li trigger
-  * @li listOfEventAssignments (requirement removed in L3)
-  *
- * @memberof Submodel_t
- */
-LIBSBML_EXTERN
-int
-Submodel_hasRequiredElements(Submodel_t * s);
-
-
-/**
  * Return the Submodel_t indicated by the given @p sid.
  *
  * @param lo the ListOf_t structure to use
