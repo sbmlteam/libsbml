@@ -2849,7 +2849,11 @@ bool L3Parser::l3StrCmp(const string& lhs, const string& rhs) const
 void L3Parser::setInput(const char* c)
 {
   input.clear();
-  if (c == NULL) return;
+  if (c == NULL) 
+  {
+    setError("NULL input.")
+    return;
+  }
   input.str(c);
 }
 
