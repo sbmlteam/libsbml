@@ -286,10 +286,11 @@ public:
   /** @endcond doxygenLibsbmlInternal */
 
 
-  virtual void setElementName(const std::string& name);
 
 
 protected:
+
+    virtual void setElementName(const std::string& name);
 
   /** @cond doxygenLibsbmlInternal */
 
@@ -321,7 +322,7 @@ protected:
 
   /** @endcond doxygenLibsbmlInternal */
 
-
+  friend class GeneProductAssociation;
 
 };
 
