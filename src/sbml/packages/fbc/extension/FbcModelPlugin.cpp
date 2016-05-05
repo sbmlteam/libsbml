@@ -1079,6 +1079,10 @@ FbcModelPlugin::addObjective(const Objective* o)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (getPackageVersion() != o->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
   else
   {
     mObjectives.append(o);
@@ -1258,6 +1262,10 @@ FbcModelPlugin::addGeneProduct(const GeneProduct* gp)
   else if (getVersion() != gp->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != gp->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
   }
   else
   {
