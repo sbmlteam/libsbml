@@ -551,7 +551,7 @@ void Dimensions::writeAttributes (XMLOutputStream& stream) const
   //
   // (TODO) default value should be allowd in package of Level 3?
   //
-  if(this->mD!=0.0)
+  if(this->mD!=0.0 || (getLevel() > 2 && mDExplicitlySet))
   {
     stream.writeAttribute("depth", getPrefix(), mD);
   }

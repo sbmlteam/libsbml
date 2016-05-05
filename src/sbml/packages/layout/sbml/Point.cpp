@@ -606,7 +606,7 @@ void Point::writeAttributes (XMLOutputStream& stream) const
   //
   // (TODO) default value should be allowd in package of Level 3?
   //
-  if(this->mZOffset!=0.0)
+  if(this->mZOffset!=0.0 || (getLevel() > 2 && mZOffsetExplicitlySet))
   {
     stream.writeAttribute("z", getPrefix(), mZOffset);
   }
