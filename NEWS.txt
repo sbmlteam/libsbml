@@ -17,6 +17,10 @@ STABLE RELEASE
 
 * Bug fixes
 
+  - The functions for parsing a string to an ASTNode would cause a
+    crash if passed a NULL pointer.  This has been fixed.  Thanks to
+    Matthias König for reporting it.
+
   - 'comp' package-specific bug fixes:
   - 'fbc' package-specific bug fixes:
   - 'groups' package-specific bug fixes:
