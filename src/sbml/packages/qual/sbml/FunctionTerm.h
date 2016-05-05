@@ -780,22 +780,6 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required elements for the given FunctionTerm_t structure
-  * have been set.
-  *
-  * @note The required elements for an FunctionTerm_t structure are:
-  * @li trigger
-  * @li listOfEventAssignments (requirement removed in L3)
-  *
- * @memberof FunctionTerm_t
- */
-LIBSBML_EXTERN
-int
-FunctionTerm_hasRequiredElements(FunctionTerm_t * ft);
-
-
-/**
  * Return the FunctionTerm_t indicated by the given @p sid.
  *
  * @param lo the ListOf_t structure to use

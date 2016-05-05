@@ -1738,22 +1738,6 @@ Transition_hasRequiredAttributes(Transition_t * t);
 
 
 /**
-  * Predicate returning @c true or @c false depending on whether
-  * all the required elements for the given Transition_t structure
-  * have been set.
-  *
-  * @note The required elements for an Transition_t structure are:
-  * @li trigger
-  * @li listOfEventAssignments (requirement removed in L3)
-  *
- * @memberof Transition_t
- */
-LIBSBML_EXTERN
-int
-Transition_hasRequiredElements(Transition_t * t);
-
-
-/**
  * Return the Transition_t indicated by the given @p sid.
  *
  * @param lo the ListOf_t structure to use
