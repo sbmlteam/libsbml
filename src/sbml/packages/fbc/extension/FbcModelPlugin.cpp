@@ -829,10 +829,8 @@ int
   }
   else
   {
-    mBounds.append(bound);
+    return mBounds.append(bound);
   }
-
-  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1085,8 +1083,7 @@ FbcModelPlugin::addObjective(const Objective* o)
   }
   else
   {
-    mObjectives.append(o);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mObjectives.append(o);
   }
 }
 
@@ -1269,8 +1266,7 @@ FbcModelPlugin::addGeneProduct(const GeneProduct* gp)
   }
   else
   {
-    mGeneProducts.append(gp);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mGeneProducts.append(gp);
   }
 }
 
@@ -1492,10 +1488,8 @@ int
   }
   else
   {
-    mAssociations.append(association);
+    return mAssociations.append(association);
   }
-
-  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*

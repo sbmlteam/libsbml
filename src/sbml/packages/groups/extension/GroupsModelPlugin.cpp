@@ -200,8 +200,7 @@ GroupsModelPlugin::addGroup(const Group* g)
   }
   else
   {
-    mGroups.append(g);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mGroups.append(g);
   }
 }
 

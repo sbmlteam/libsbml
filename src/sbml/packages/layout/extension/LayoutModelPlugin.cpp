@@ -461,10 +461,8 @@ LayoutModelPlugin::addLayout (const Layout* layout)
   }
   else
   {
-    mLayouts.append(layout);
+    return mLayouts.append(layout);
   }
-
-  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
