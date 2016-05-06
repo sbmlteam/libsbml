@@ -545,8 +545,7 @@ KineticLaw::addParameter (const Parameter* p)
       }
       else
       {
-        mLocalParameters.append(&lp);
-        return LIBSBML_OPERATION_SUCCESS;
+        return mLocalParameters.append(&lp);
       }
     }
   }
@@ -569,9 +568,7 @@ KineticLaw::addParameter (const Parameter* p)
   }
   else
   {
-    mParameters.append(p);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mParameters.append(p);
   }
 }
 
@@ -594,9 +591,7 @@ KineticLaw::addLocalParameter (const LocalParameter* p)
   }
   else
   {
-    mLocalParameters.append(p);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mLocalParameters.append(p);
   }
 }
 

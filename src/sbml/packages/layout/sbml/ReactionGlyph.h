@@ -352,7 +352,7 @@ public:
    * Adds a new species reference glyph to the list.
    */
    
-  void addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph);
+  int addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph);
        
   /**
    * Returns the number of species reference glyph objects.

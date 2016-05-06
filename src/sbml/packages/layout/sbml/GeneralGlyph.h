@@ -387,14 +387,14 @@ public:
    * Adds a new reference glyph to the list.
    */
    
-  void addReferenceGlyph (const ReferenceGlyph* glyph);
+  int addReferenceGlyph (const ReferenceGlyph* glyph);
        
 
   /**
    * Adds a new subglyph to the list.
    */
    
-  void addSubGlyph (const GraphicalObject* glyph);
+  int addSubGlyph (const GraphicalObject* glyph);
 
   /**
    * Returns the number of reference glyph objects.

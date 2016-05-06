@@ -647,8 +647,7 @@ ListOfFbcAssociations::addFbcAssociation(const FbcAssociation* fa)
   }
   else
   {
-  append(fa);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(fa);
   }
 }
 

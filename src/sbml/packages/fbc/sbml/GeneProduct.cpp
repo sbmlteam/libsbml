@@ -773,8 +773,7 @@ ListOfGeneProducts::addGeneProduct(const GeneProduct* gp)
   }
   else
   {
-	append(gp);
-    return LIBSBML_OPERATION_SUCCESS;
+	return append(gp);
   }
 }
 

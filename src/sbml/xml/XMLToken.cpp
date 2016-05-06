@@ -333,9 +333,9 @@ XMLToken::setAttributes(const XMLAttributes& attributes)
  */
 int 
 XMLToken::addAttr (  const std::string& name
-	           , const std::string& value
-    	           , const std::string& namespaceURI
-	           , const std::string& prefix      )
+                   , const std::string& value
+                   , const std::string& namespaceURI
+                   , const std::string& prefix      )
 {
   if (mIsStart) 
   {

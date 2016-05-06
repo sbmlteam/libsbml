@@ -1114,36 +1114,36 @@ public:
    * Adds a new compartment glyph.
    */
   
-  void addCompartmentGlyph (const CompartmentGlyph* glyph);
+  int addCompartmentGlyph (const CompartmentGlyph* glyph);
 
   /**
    * Adds a new species glyph.
    */
   
-  void addSpeciesGlyph (const SpeciesGlyph* glyph);
+  int addSpeciesGlyph (const SpeciesGlyph* glyph);
 
   /**
    * Adds a new reaction glyph.
    */
   
-  void addReactionGlyph (const ReactionGlyph* glyph);
+  int addReactionGlyph (const ReactionGlyph* glyph);
 
   /**
    * Adds a new text glyph.
    */
   
-  void addTextGlyph (const TextGlyph* glyph);
+  int addTextGlyph (const TextGlyph* glyph);
 
   /**
    * Adds a new additional graphical object glyph.
    */
   
-  void addAdditionalGraphicalObject (const GraphicalObject* glyph);
+  int addAdditionalGraphicalObject (const GraphicalObject* glyph);
 
   /**
    * Adds a new general glyph.
    */
-  void addGeneralGlyph (const GeneralGlyph* glyph);
+  int addGeneralGlyph (const GeneralGlyph* glyph);
 
 
   /**

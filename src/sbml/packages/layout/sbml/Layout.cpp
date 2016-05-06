@@ -1130,59 +1130,174 @@ Layout::getAdditionalGraphicalObject (const std::string& id)
 /*
  * Adds a new compartment glyph.
  */
-void
+int
 Layout::addCompartmentGlyph (const CompartmentGlyph* glyph)
 {
-  this->mCompartmentGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!(glyph->hasRequiredElements() && glyph->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mCompartmentGlyphs.append(glyph);
+  }
 }
 
 
 /*
  * Adds a new species glyph.
  */
-void
+int
 Layout::addSpeciesGlyph (const SpeciesGlyph* glyph)
 {
-  this->mSpeciesGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!(glyph->hasRequiredElements() && glyph->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mSpeciesGlyphs.append(glyph);
+  }
 }
 
 
 /*
  * Adds a new reaction glyph.
  */
-void
+int
 Layout::addReactionGlyph (const ReactionGlyph* glyph)
 {
-  this->mReactionGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!(glyph->hasRequiredElements() && glyph->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mReactionGlyphs.append(glyph);
+  }
 }
 
 
 /*
  * Adds a new text glyph.
  */
-void
+int
 Layout::addTextGlyph (const TextGlyph* glyph)
 {
-  this->mTextGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!(glyph->hasRequiredElements() && glyph->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mTextGlyphs.append(glyph);
+  }
 }
 
 
 /*
  * Adds a new additional graphical object glyph.
  */
-void
+int
 Layout::addAdditionalGraphicalObject (const GraphicalObject* glyph)
 {
-  this->mAdditionalGraphicalObjects.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!(glyph->hasRequiredElements() && glyph->hasRequiredAttributes()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mAdditionalGraphicalObjects.append(glyph);
+  }
 }
 
 /*
  * Adds a new general glyph.
  */
-void
+int
 Layout::addGeneralGlyph (const GeneralGlyph* glyph)
 {
-  addAdditionalGraphicalObject(glyph);
+  return addAdditionalGraphicalObject(glyph);
 }
 
 

@@ -499,19 +499,65 @@ GeneralGlyph::getSubGlyph (unsigned int index) const
 /*
  * Adds a new reference glyph to the list.
  */
-void
+int
 GeneralGlyph::addReferenceGlyph (const ReferenceGlyph* glyph)
 {
-  this->mReferenceGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!glyph->hasRequiredElements())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mReferenceGlyphs.append(glyph);
+  }
 }
 
 /*
  * Adds a new subglyph to the list.
  */
-void
-  GeneralGlyph::addSubGlyph (const GraphicalObject* glyph)
+int
+GeneralGlyph::addSubGlyph (const GraphicalObject* glyph)
 {
-  this->mSubGlyphs.append(glyph);
+  if (!glyph)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }    
+  else if (!glyph->hasRequiredElements())
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (getPackageVersion() != glyph->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
+  else
+  {
+    return mSubGlyphs.append(glyph);
+  }
 }
 
 

@@ -304,10 +304,34 @@ Curve::getCurveSegment (unsigned int index)
 /*
  * Adds a new CurveSegment to the end of the list.
  */ 
-void
+int
 Curve::addCurveSegment (const LineSegment* segment)
 {
-  this->mCurveSegments.append(segment);
+  if (segment == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (segment->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != segment->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != segment->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(segment)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
+  else
+  {
+    return mCurveSegments.append(segment);
+  }
 }
 
 

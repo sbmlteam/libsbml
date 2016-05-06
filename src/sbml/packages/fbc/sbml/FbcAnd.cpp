@@ -247,8 +247,7 @@ FbcAnd::addAssociation(const FbcAssociation* fa)
   }
   else
   {
-    mAssociations.append(fa);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mAssociations.append(fa);
   }
 }
 

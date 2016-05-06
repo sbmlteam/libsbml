@@ -1156,9 +1156,7 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
   }
   else
   {
-    mFunctionDefinitions.append(fd);
-   
-    return LIBSBML_OPERATION_SUCCESS;
+    return mFunctionDefinitions.append(fd);
   }
 }
 
@@ -1181,9 +1179,7 @@ Model::addUnitDefinition (const UnitDefinition* ud)
   }
   else
   {
-    mUnitDefinitions.append(ud);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mUnitDefinitions.append(ud);
   }
 }
 
@@ -1206,9 +1202,7 @@ Model::addCompartmentType (const CompartmentType* ct)
   }
   else
   {
-    mCompartmentTypes.append(ct);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mCompartmentTypes.append(ct);
   }
 }
 
@@ -1231,9 +1225,7 @@ Model::addSpeciesType (const SpeciesType* st)
   }
   else
   {
-    mSpeciesTypes.append(st);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mSpeciesTypes.append(st);
   }
 }
 
@@ -1256,9 +1248,7 @@ Model::addCompartment (const Compartment* c)
   }
   else
   {
-    mCompartments.append(c);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mCompartments.append(c);
   }
 }
 
@@ -1281,9 +1271,7 @@ Model::addSpecies (const Species* s)
   }
   else
   {
-    mSpecies.append(s);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mSpecies.append(s);
   }
 }
 
@@ -1309,15 +1297,13 @@ Model::addParameter (const Parameter* p)
     /* hack so that this will accept a local parameter !! */
     if (p->getTypeCode() == SBML_LOCAL_PARAMETER)
     {
-      Parameter *p1 = new Parameter(*p);
-      mParameters.append(p1);
+      Parameter p1(*p);
+      return mParameters.append(&p1);
     }
     else
     {
-      mParameters.append(p);
+      return mParameters.append(p);
     }
-
-    return LIBSBML_OPERATION_SUCCESS;
   }
 }
 
@@ -1340,9 +1326,7 @@ Model::addInitialAssignment (const InitialAssignment* ia)
   }
   else
   {
-    mInitialAssignments.append(ia);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mInitialAssignments.append(ia);
   }
 }
 
@@ -1366,9 +1350,7 @@ Model::addRule (const Rule* r)
   }
   else
   {
-    mRules.append(r);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mRules.append(r);
   }
 }
 
@@ -1386,9 +1368,7 @@ Model::addConstraint (const Constraint* c)
   }
   else
   {
-    mConstraints.append(c);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mConstraints.append(c);
   }
 }
 
@@ -1411,9 +1391,7 @@ Model::addReaction (const Reaction* r)
   }
   else
   {
-    mReactions.append(r);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mReactions.append(r);
   }
 }
 
@@ -1436,9 +1414,7 @@ Model::addEvent (const Event* e)
   }
   else
   {
-    mEvents.append(e);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mEvents.append(e);
   }
 }
 

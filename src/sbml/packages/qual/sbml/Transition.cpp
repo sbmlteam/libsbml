@@ -420,9 +420,7 @@ Transition::addInput(const Input* i)
   }
   else
   {
-    mInputs.append(i);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mInputs.append(i);
   }
 }
 
@@ -606,9 +604,7 @@ Transition::addOutput(const Output* i)
   }
   else
   {
-    mOutputs.append(i);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mOutputs.append(i);
   }
 }
 
@@ -766,9 +762,7 @@ Transition::addFunctionTerm(const FunctionTerm* i)
   }
   else
   {
-    mFunctionTerms.append(i);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mFunctionTerms.append(i);
   }
 }
 

@@ -768,8 +768,7 @@ ListOfFluxObjectives::addFluxObjective(const FluxObjective* fo)
   }
   else
   {
-  append(fo);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(fo);
   }
 }
 

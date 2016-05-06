@@ -322,8 +322,7 @@ ListOfMembers::addMember(const Member* m)
   }
   else
   {
-    append(m);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(m);
   }
 }
 

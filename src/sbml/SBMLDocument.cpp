@@ -1451,9 +1451,7 @@ SBMLDocument::addUnknownPackageRequired(const std::string& pkgURI,
 {
   std::string value = (flag) ? "true" : "false";
 
-  mRequiredAttrOfUnknownPkg.add("required", value, pkgURI, prefix);
-
-  return LIBSBML_OPERATION_SUCCESS;
+  return mRequiredAttrOfUnknownPkg.add("required", value, pkgURI, prefix);
 }
 /** @endcond */
 

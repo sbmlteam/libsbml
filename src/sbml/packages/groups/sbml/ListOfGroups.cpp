@@ -214,8 +214,7 @@ ListOfGroups::addGroup(const Group* g)
   }
   else
   {
-    append(g);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(g);
   }
 }
 

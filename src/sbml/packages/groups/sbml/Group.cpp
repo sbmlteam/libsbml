@@ -426,8 +426,7 @@ Group::addMember(const Member* m)
   }
   else
   {
-    mMembers.append(m);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mMembers.append(m);
   }
 }
 

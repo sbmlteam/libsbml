@@ -793,9 +793,7 @@ Reaction::addReactant (const SpeciesReference* sr)
   }
   else
   {
-    mReactants.append(sr);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mReactants.append(sr);
   }
 }
 
@@ -850,9 +848,7 @@ Reaction::addProduct (const SpeciesReference* sr)
   }
   else
   {
-    mProducts.append(sr);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mProducts.append(sr);
   }
 }
 
@@ -909,9 +905,7 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
   }
   else
   {
-    mModifiers.append(msr);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mModifiers.append(msr);
   }
 }
 

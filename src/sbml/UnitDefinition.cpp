@@ -536,11 +536,30 @@ UnitDefinition::addUnit (const Unit* u)
   {
     return returnValue;
   }
+  else if (u == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (u->hasRequiredAttributes() == false)
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != u->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != u->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+    SBase*>(u)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else
   {
-    mUnits.append(u);
-
-    return LIBSBML_OPERATION_SUCCESS;
+    return mUnits.append(u);
   }
 }
 

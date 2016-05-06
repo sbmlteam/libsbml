@@ -440,8 +440,7 @@ Objective::addFluxObjective(const FluxObjective* fo)
   }
   else
   {
-    mFluxObjectives.append(fo);
-    return LIBSBML_OPERATION_SUCCESS;
+    return mFluxObjectives.append(fo);
   }
 }
 
@@ -1015,8 +1014,7 @@ ListOfObjectives::addObjective(const Objective* o)
   }
   else
   {
-  append(o);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(o);
   }
 }
 

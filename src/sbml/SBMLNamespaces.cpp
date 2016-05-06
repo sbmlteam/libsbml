@@ -390,7 +390,7 @@ SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkg
     const std::string prefix = (pkgPrefix.empty()) ? pkgName : pkgPrefix;
     if (!uri.empty() && mNamespaces != NULL)
     {
-      mNamespaces->add(uri,prefix);
+      return mNamespaces->add(uri,prefix);
     }
     else
     {

@@ -279,7 +279,7 @@ public:
    * Adds a new CurveSegment to the end of the list.
    */ 
   
-  void addCurveSegment (const LineSegment* segment);
+  int addCurveSegment (const LineSegment* segment);
   
   /**
    * Returns the number of curve segments.
