@@ -490,8 +490,8 @@ other-generated-files = \
 core-sources =					  \
   $(wildcard ../../src/sbml/*.[cpp,h])		  \
   $(wildcard ../../src/sbml/*/*.[cpp,h])	  \
-  $(wildcard ../../src/sbml/packages/*/*.[cpp,h]) \
-  $(wildcard ../../src/sbml/bindings/*/*.[cpp,h])
+  $(wildcard ../../src/sbml/packages/*/*/*.[cpp,h]) \
+  $(wildcard ../../src/bindings/*/*.[cpp,h])
 
 all-sources =		     \
   $(wildcard libsbml-*.txt)  \
