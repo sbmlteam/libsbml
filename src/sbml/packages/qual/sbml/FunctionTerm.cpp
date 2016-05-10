@@ -1056,6 +1056,14 @@ FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft)
 
 
 LIBSBML_EXTERN
+int
+FunctionTerm_hasRequiredElements(FunctionTerm_t * ft)
+{
+  return (ft != NULL) ? static_cast<int>(ft->hasRequiredElements()) : 0;
+}
+
+
+LIBSBML_EXTERN
 FunctionTerm_t *
 ListOfFunctionTerms_getById(ListOf_t * lo, const char * sid)
 {

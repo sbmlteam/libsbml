@@ -770,13 +770,27 @@ FunctionTerm_unsetResultLevel(FunctionTerm_t * ft);
   * have been set.
   *
   * @note The required attributes for a FunctionTerm_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
   *
  * @memberof FunctionTerm_t
  */
 LIBSBML_EXTERN
 int
 FunctionTerm_hasRequiredAttributes(FunctionTerm_t * ft);
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given FunctionTerm_t structure
+  * have been set.
+  *
+   * @note The required elements for a FunctionTerm object are:
+   * @li "math"
+  *
+ * @memberof FunctionTerm_t
+ */
+LIBSBML_EXTERN
+int
+FunctionTerm_hasRequiredElements(FunctionTerm_t * ft);
 
 
 /**

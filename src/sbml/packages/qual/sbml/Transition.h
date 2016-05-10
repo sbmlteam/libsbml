@@ -1728,13 +1728,27 @@ Transition_removeFunctionTermById(Transition_t * t, const char * sid);
   * have been set.
   *
   * @note The required attributes for a Transition_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
   *
  * @memberof Transition_t
  */
 LIBSBML_EXTERN
 int
 Transition_hasRequiredAttributes(Transition_t * t);
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given Transition_t structure
+  * have been set.
+  *
+  * @note The required elements for an Transition_t structure are:
+  * @li a "defaultTerm" child of the child ListOfFunctionTerms.
+  *
+ * @memberof Transition_t
+ */
+LIBSBML_EXTERN
+int
+Transition_hasRequiredElements(Transition_t * t);
 
 
 /**

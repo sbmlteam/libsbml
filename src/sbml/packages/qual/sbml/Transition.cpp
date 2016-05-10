@@ -1683,6 +1683,14 @@ Transition_hasRequiredAttributes(Transition_t * t)
 
 
 LIBSBML_EXTERN
+int
+Transition_hasRequiredElements(Transition_t * t)
+{
+  return (t != NULL) ? static_cast<int>(t->hasRequiredElements()) : 0;
+}
+
+
+LIBSBML_EXTERN
 Transition_t *
 ListOfTransitions_getById(ListOf_t * lo, const char * sid)
 {

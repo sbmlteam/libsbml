@@ -1736,6 +1736,14 @@ Submodel_hasRequiredAttributes(Submodel_t * s)
 
 
 LIBSBML_EXTERN
+int
+Submodel_hasRequiredElements(Submodel_t * s)
+{
+  return (s != NULL) ? static_cast<int>(s->hasRequiredElements()) : 0;
+}
+
+
+LIBSBML_EXTERN
 Submodel_t *
 ListOfSubmodels_getById(ListOf_t * lo, const char * sid)
 {

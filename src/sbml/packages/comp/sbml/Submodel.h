@@ -1493,13 +1493,26 @@ Submodel_removeDeletionById(Submodel_t * s, const char * sid);
   * have been set.
   *
   * @note The required attributes for a Submodel_t structure are:
-  * @li useValuesfromTriggerTime ( L3 onwards )
   *
  * @memberof Submodel_t
  */
 LIBSBML_EXTERN
 int
 Submodel_hasRequiredAttributes(Submodel_t * s);
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for the given Submodel_t structure
+  * have been set.
+  *
+  * @note The required elements for an Submodel_t structure are:
+  *
+ * @memberof Submodel_t
+ */
+LIBSBML_EXTERN
+int
+Submodel_hasRequiredElements(Submodel_t * s);
 
 
 /**
