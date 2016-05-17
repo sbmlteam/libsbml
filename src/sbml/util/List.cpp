@@ -361,18 +361,22 @@ List::transferFrom(List* list)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
 ListIterator 
 List::begin() 
 { 
   return ListIterator(head); 
 }
+/** @endcond */
 
 
+/** @cond doxygenLibsbmlInternal */
 ListIterator 
 List::end() 
 { 
   return ListIterator(0); 
 }
+/** @endcond */
 
 
 /** @cond doxygenLibsbmlInternal */
