@@ -241,6 +241,10 @@ FbcOr::addAssociation(const FbcAssociation* fa)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (getPackageVersion() != fa->getPackageVersion())
+  {
+    return LIBSBML_PKG_VERSION_MISMATCH;
+  }
   else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const SBase *>(fa)) == false)
   {
     return LIBSBML_NAMESPACES_MISMATCH;
