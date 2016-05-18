@@ -210,15 +210,6 @@ public:
   //---------------------------------------------------------------
 
   /**
-   * Returns a List of all child SBase objects, including those nested to an
-   * arbitrary depth.
-   *
-   * @return a List* of pointers to all child objects.
-   */
-   virtual List* getAllElements(ElementFilter * filter = NULL);
-
-
-  /**
    * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
    *
    * @return the value of the "charge" attribute of this FbcSpeciesPlugin as a integer.

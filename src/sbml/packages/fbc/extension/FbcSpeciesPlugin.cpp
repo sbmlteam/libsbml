@@ -327,15 +327,6 @@ FbcSpeciesPlugin::writeAttributes (XMLOutputStream& stream) const
 //
 //---------------------------------------------------------------
 
-List*
-FbcSpeciesPlugin::getAllElements(ElementFilter*)
-{
-  List* ret = new List();
-
-  return ret;
-}
-
-
 /*
  * Returns the value of the "charge" attribute of this FbcSpeciesPlugin.
  */
