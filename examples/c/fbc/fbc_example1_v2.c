@@ -1,5 +1,5 @@
 /**
- * @file    fbc_example1.c
+ * @file    fbc_example1_v2.c
  * @brief   FBC example
  * @author  Sarah Keating
  *
@@ -50,7 +50,7 @@
 #include <sbml/packages/fbc/common/fbcfwd.h>
 #include <sbml/packages/fbc/extension/FbcSBMLDocumentPlugin.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
-#include <sbml/packages/fbc/sbml/FluxBound.h>
+#include <sbml/packages/fbc/extension/FbcReactionPlugin.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 
@@ -69,9 +69,11 @@ int main(int argc,char** argv)
   SpeciesReference_t *reactant;
   SpeciesReference_t *product;
   Model_t * model;
+  Parameter_t * min_param;
+  Parameter_t * max_param;
   SBMLDocumentPlugin_t * docPlug;
   SBasePlugin_t * modelPlug;
-  FluxBound_t * fluxBound;
+  SBasePlugin_t *reactionPlug;
   Objective_t * objective;
   FluxObjective_t * fluxObjective;
 
@@ -80,7 +82,7 @@ int main(int argc,char** argv)
 
   /* create the sbml namespaces object with fbc */
   fbc = XMLNamespaces_create();
-  XMLNamespaces_add(fbc, SBMLExtension_getURI(sbmlext, 3, 1, 1), "fbc");
+  XMLNamespaces_add(fbc, SBMLExtension_getURI(sbmlext, 3, 1, 2), "fbc");
   
   sbmlns = SBMLNamespaces_create(3, 1);
   SBMLNamespaces_addNamespaces(sbmlns, fbc);
@@ -95,6 +97,14 @@ int main(int argc,char** argv)
   // create the Model
 
   model = SBMLDocument_createModel(doc);
+  Model_setId(model, "model1");
+
+  // Get a SBasePlugin_t object plugged in the model object.
+
+  modelPlug = SBase_getPlugin((SBase_t *)(model), "fbc");
+
+  // set the fbc strict attribute
+  FbcModelPlugin_setStrict(modelPlug, 0);
 
   // create the Compartment
 
@@ -102,6 +112,18 @@ int main(int argc,char** argv)
   Compartment_setId(compartment, "compartment");
   Compartment_setConstant(compartment, 1);
   Compartment_setSize(compartment, 1);
+
+  // create the Parameters
+
+  min_param = Model_createParameter(model);
+  Parameter_setId(min_param, "min_param");
+  Parameter_setConstant(min_param, 1);
+  Parameter_setValue(min_param, 0);
+
+  max_param = Model_createParameter(model);
+  Parameter_setId(max_param, "max_param");
+  Parameter_setConstant(max_param, 1);
+  Parameter_setValue(max_param, 0);
 
   // create the Species
 
@@ -189,6 +211,15 @@ int main(int argc,char** argv)
   SpeciesReference_setSpecies(product, "Node1");
   SpeciesReference_setStoichiometry(product, 1);
   SpeciesReference_setConstant(product, 1);
+
+  // Get a SBasePlugin_t object plugged in the reaction object.
+
+  reactionPlug = SBase_getPlugin((SBase_t *)(reaction), "fbc");
+
+  // set the flux bounds for this reaction
+
+  FbcReactionPlugin_setLowerFluxBound(reactionPlug, "min_param");
+  FbcReactionPlugin_setUpperFluxBound(reactionPlug, "max_param");
 
   reaction = Model_createReaction(model);
   Reaction_setId(reaction, "J1");
@@ -320,23 +351,9 @@ int main(int argc,char** argv)
   SpeciesReference_setStoichiometry(product, 1);
   SpeciesReference_setConstant(product, 1);
 
-  // Get a SBasePlugin_t object plugged in the model object.
-
-  modelPlug = SBase_getPlugin((SBase_t *)(model), "fbc");
-
-  // create the fluxBound object and add it to model plugin
-
-  fluxBound = FluxBound_create(3, 1, 1);
-  FluxBound_setId(fluxBound, "bound1");
-  FluxBound_setReaction(fluxBound, "J0");
-  FluxBound_setOperation(fluxBound, "equal");
-  FluxBound_setValue(fluxBound, 10);
-
-  FbcModelPlugin_addFluxBound(modelPlug, fluxBound);
-
   // create the objective object and add it to model plugin
 
-  objective = Objective_create(3, 1, 1);
+  objective = Objective_create(3, 1, 2);
   Objective_setId(objective, "obj1");
   Objective_setType(objective, "maximize");
 
@@ -350,7 +367,7 @@ int main(int argc,char** argv)
   FbcModelPlugin_setActiveObjectiveId(modelPlug, "obj1");
 
   /* write the file */
-  writeSBMLToFile(doc, "fbc_example1.xml");
+  writeSBMLToFile(doc, "fbc_example1_v2.xml");
 
   return retval;
 }

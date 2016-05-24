@@ -41,6 +41,7 @@ endif(EXTRA_INCLUDE_DIRS)
 foreach(example 
 
 	fbc_example1
+        fbc_example1_v2
 
 )
 	add_executable(example_fbc_c_${example} ${example}.c ../util.c)
