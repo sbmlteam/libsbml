@@ -207,9 +207,39 @@ isCriticalError(const unsigned int errorId)
   }
 }
 /** @endcond */
+/** @cond doxygenLibsbmlInternal */
+void sortReportedErrors(SBMLDocument* d)
+{
+  // If we encountered an error, some parsers will report it sooner
+  // than others.  Unfortunately, those that fail sooner do it in an
+  // opaque call, so we can't change the behavior.  Since we don't want
+  // different parsers to report different validation errors, we bring
+  // all parsers back to the same point.
 
+  d->setModel(NULL);
+
+  for (unsigned int i = 0; i < d->getNumErrors(); ++i)      
+  {
+    if (isCriticalError(d->getError(i)->getErrorId()))
+    {
+      // If we find even one critical error, all other errors are
+      // suspect and may be bogus.  Remove them.
+
+      for (int n = (int)d->getNumErrors()-1; n >= 0; --n)
+        if (!isCriticalError(d->getError((unsigned int)n)->getErrorId()))
+        {
+          d->getErrorLog()->remove(d->getError((unsigned int)n)->getErrorId());
+        }
+
+      break;
+    }
+  }
+}
+
+/** @endcond */
 
 /** @cond doxygenLibsbmlInternal */
+
 /*
  * Used by readSBML() and readSBMLFromString().
  */
@@ -229,11 +259,27 @@ SBMLReader::readInternal (const char* content, bool isFile)
   {
     XMLInputStream stream(content, isFile, "", d->getErrorLog());
 
-    if (stream.peek().isStart() && stream.peek().getName() != "sbml")
+    if (stream.peek().isStart())
     {
-      // the root element ought to be an sbml element. 
+      // so we have got an xml based document
+      //check that it is an sbml element
+      if (stream.peek().getName() != "sbml")
+      {
+        // the root element ought to be an sbml element. 
+        d->getErrorLog()->logError(NotSchemaConformant);
+	      return d;
+      }
+    }
+    else
+    {
+      // here we do not have an xml document at all
       d->getErrorLog()->logError(NotSchemaConformant);
-	  return d;
+
+      if (stream.isError())
+      {
+        sortReportedErrors(d);    
+      }
+      return d;
     }
 	
     d->read(stream);
@@ -246,24 +292,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
       // different parsers to report different validation errors, we bring
       // all parsers back to the same point.
 
-      d->setModel(NULL);
-
-      for (unsigned int i = 0; i < d->getNumErrors(); ++i)      
-      {
-        if (isCriticalError(d->getError(i)->getErrorId()))
-        {
-          // If we find even one critical error, all other errors are
-          // suspect and may be bogus.  Remove them.
-
-          for (int n = (int)d->getNumErrors()-1; n >= 0; --n)
-            if (!isCriticalError(d->getError((unsigned int)n)->getErrorId()))
-            {
-              d->getErrorLog()->remove(d->getError((unsigned int)n)->getErrorId());
-            }
-
-          break;
-        }
-      }
+      sortReportedErrors(d);    
     }
     else
     {

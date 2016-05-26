@@ -725,7 +725,7 @@ START_TEST(test_comp_flatten_invalid14)
 
   fail_unless(errors->getNumErrors() == 3);
   fail_unless(errors->contains(CompModelFlatteningFailed) == true);
-  fail_unless(errors->contains(CompNoModelInReference) == true);
+  fail_unless(errors->contains(CompReferenceMustBeL3) == true);
   fail_unless(errors->contains(CompSubmodelMustReferenceModel) == true);
   
   delete document;

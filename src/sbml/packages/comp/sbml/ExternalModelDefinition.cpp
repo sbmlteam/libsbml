@@ -644,11 +644,33 @@ ExternalModelDefinition::getReferencedModel(SBMLDocument* errordoc, set<pair<str
   {
     // comp v1 ONLY allows L3v1 models. All other levels and versions are not supported. 
     // 
+    // BUT we might have the case where the doc was not xml at all
+    // and will have been created as an empty L3V1 doc
     if (errordoc) {
       string error = "In ExternalModelDefinition::getReferencedModel, unable to resolve the external model definition '" + getId() + "': the SBML document found at source '" + getSource() + "' was not SBML Level 3 Version 1.";
       errordoc->getErrorLog()->logPackageError("comp", CompReferenceMustBeL3, getPackageVersion(), getLevel(), getVersion(), error, getLine(), getColumn());
     }
     return NULL;
+  }
+  else
+  {
+    // BUT we might have the case where the doc was not xml at all
+    // and will have been created as an empty L3V1 doc
+    if (doc->getModel() == NULL 
+      && doc->getErrorLog()->contains(NotSchemaConformant))
+    {
+      if (errordoc) 
+      {
+        string error = "In ExternalModelDefinition::getReferencedModel, "
+          "unable to resolve the external model definition '" + getId() 
+          + "': the SBML document found at source '" + getSource() 
+          + "' was not SBML Level 3 Version 1.";
+        errordoc->getErrorLog()->logPackageError("comp", 
+          CompReferenceMustBeL3, getPackageVersion(), getLevel(), getVersion(), 
+          error, getLine(), getColumn());
+      }
+      return NULL;
+    }
   }
 
   Model* model = doc->getModel();
