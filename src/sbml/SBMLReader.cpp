@@ -267,6 +267,9 @@ SBMLReader::readInternal (const char* content, bool isFile)
       {
         // the root element ought to be an sbml element. 
         d->getErrorLog()->logError(NotSchemaConformant);
+
+        d->setInvalidLevel();
+
 	      return d;
       }
     }
@@ -279,6 +282,8 @@ SBMLReader::readInternal (const char* content, bool isFile)
       {
         sortReportedErrors(d);    
       }
+      d->setInvalidLevel();
+      
       return d;
     }
 	

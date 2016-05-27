@@ -1637,6 +1637,16 @@ protected:
    */
   virtual void writeXMLNS (XMLOutputStream& stream) const;
 
+  /* 
+  * function to set level to 0 on a doc that was just been created to read in to
+  * the SBMLReader will only do this if the file is found to be invalid
+  * this will allow for testing for an SBMLDocument without
+  * relying on it having a model to be valid 
+  * (in L3V2 a missing model will be valid) 
+  */
+  void setInvalidLevel();
+
+
 
   unsigned int mLevel;
   unsigned int mVersion;
