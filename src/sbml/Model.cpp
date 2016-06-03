@@ -56,6 +56,7 @@
 #include <sbml/util/IdentifierTransformer.h>
 #include <sbml/util/ElementFilter.h>
 #include <sbml/util/IdFilter.h>
+#include <sbml/util/MetaIdFilter.h>
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>
@@ -6209,6 +6210,66 @@ IdList
 Model::getAllElementIdList() const
 {
   return mIdList;
+}
+
+
+/**
+  * Clears the internal list of the identifiers of all elements within this Model object.
+  */
+void
+Model::clearAllElementIdList()
+{
+  mIdList.clear();
+}
+
+
+/**
+ * Populates the internal list of the metaids of all elements within this Model object.
+ */
+void 
+Model::populateAllElementMetaIdList()
+{
+  mMetaidList.clear();
+  MetaIdFilter filter;
+  List* allElements = this->getAllElements(&filter);
+
+  for (ListIterator iter = allElements->begin(); iter != allElements->end(); ++iter)
+  {
+    mMetaidList.append(static_cast<SBase*>(*iter)->getMetaId());
+  }
+
+  delete allElements;
+}
+
+
+/**
+  * @return @c true if the metaid list has already been populated, @c false
+  * otherwise.
+  */
+bool 
+Model::isPopulatedAllElementMetaIdList() const
+{
+  return (mMetaidList.size() != 0);
+}
+
+
+/**
+  * Returns the internal list of the metaids of all elements within this Model object.
+  */
+IdList
+Model::getAllElementMetaIdList() const
+{
+  return mMetaidList;
+}
+
+
+/**
+  * Clears the internal list of the metaids of all elements within this Model object.
+  */
+void
+Model::clearAllElementMetaIdList()
+{
+  mMetaidList.clear();
 }
 
 

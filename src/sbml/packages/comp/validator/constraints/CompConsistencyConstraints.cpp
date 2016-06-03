@@ -4232,7 +4232,7 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Port, p)
   IdList mIds;
 
   // create the filter we want to use
-  MetaIdFilter filter;
+  //MetaIdFilter filter;
 
   //  get a list of all elements with an id
   ReferencedModel ref(m, p);
@@ -4240,14 +4240,20 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Port, p)
 
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementMetaIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    const_cast<Model*>(mod)-> populateAllElementMetaIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementMetaIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(p.getMetaIdRef()))
 }
@@ -4286,7 +4292,7 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Deletion, d)
   IdList mIds;
 
   // create the filter we want to use
-  MetaIdFilter filter;
+  //MetaIdFilter filter;
 
   //  get a list of all elements with an id
   ReferencedModel ref(m, d);
@@ -4294,14 +4300,20 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, Deletion, d)
 
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementMetaIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    const_cast<Model*>(mod)-> populateAllElementMetaIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementMetaIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(d.getMetaIdRef()))
 }
@@ -4337,7 +4349,7 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, ReplacedElement, repE)
   IdList mIds;
 
   // create the filter we want to use
-  MetaIdFilter filter;
+  //MetaIdFilter filter;
 
   //  get a list of all elements with an id
   ReferencedModel ref(m, repE);
@@ -4345,14 +4357,20 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, ReplacedElement, repE)
 
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementMetaIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    const_cast<Model*>(mod)-> populateAllElementMetaIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementMetaIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(repE.getMetaIdRef()))
 }
@@ -4424,7 +4442,7 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
   IdList mIds;
 
   // create the filter we want to use
-  MetaIdFilter filter;
+  //MetaIdFilter filter;
 
   //  get a list of all elements with an id
   ReferencedModel ref(m, sbRef);
@@ -4432,14 +4450,20 @@ START_CONSTRAINT (CompMetaIdRefMayReferenceUnknownPkg, SBaseRef, sbRef)
 
   pre (mod != NULL);
   
-  List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
-
-  for (unsigned int i = 0; i < allElements->getSize(); i++)
+  if (!const_cast<Model*>(mod)->isPopulatedAllElementMetaIdList())
   {
-    mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+    const_cast<Model*>(mod)-> populateAllElementMetaIdList();
   }
+  mIds = const_cast<Model*>(mod)->getAllElementMetaIdList();
+  
+  //List* allElements = const_cast<Model*>(mod)->getAllElements(&filter);
 
-  delete allElements;
+  //for (unsigned int i = 0; i < allElements->getSize(); i++)
+  //{
+  //  mIds.append(static_cast<SBase*>(allElements->get(i))->getMetaId());
+  //}
+
+  //delete allElements;
 
   inv(mIds.contains(sbRef.getMetaIdRef()))
 }

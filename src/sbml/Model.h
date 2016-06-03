@@ -3321,6 +3321,60 @@ public:
   IdList getAllElementIdList() const;
 
 
+  /**
+   * Clears the internal list of the identifiers of all elements within this Model object.
+   *
+   * @see populateAllElementIdList()
+   * @see isPopulatedAllElementIdList()
+   */
+  void clearAllElementIdList();
+
+
+  /**
+   * Populates the internal list of the metaids of all elements within this Model object.
+   *
+   * This method tells libSBML to retrieve the identifiers of all elements
+   * of the enclosing Model object.  The result is stored in an internal list
+   * of metaids.  Users can access the resulting data by calling the method
+   * getAllElementMetaIdList().
+   *
+   * @warning Retrieving all elements within a model is a time-consuming operation.
+   * Callers may want to call isPopulatedAllElementMetaIdList() to determine
+   * whether the metaid list may already have been populated.
+   *
+   * @see isPopulatedAllElementMetaIdList()
+   */
+  void populateAllElementMetaIdList();
+
+
+  /**
+   * Predicate returning @c true if libSBML has a list of the metaids of all 
+   * components of this model.
+   *
+   * @return @c true if the metaid list has already been populated, @c false
+   * otherwise.
+   */
+  bool isPopulatedAllElementMetaIdList() const;
+
+
+  /**
+   * Returns the internal list of the metaids of all elements within this Model object.
+   *
+   * @return an IdList of all the metaids in the model.
+   *
+   * @see populateAllElementMetaIdList()
+   * @see isPopulatedAllElementMetaIdList()
+   */
+  IdList getAllElementMetaIdList() const;
+
+
+  /**
+   * Clears the internal list of the metaids of all elements within this Model object.
+   *
+   * @see populateAllElementMetaIdList()
+   * @see isPopulatedAllElementMetaIdList()
+   */
+  void clearAllElementMetaIdList();
 
 
   /**
