@@ -1838,5 +1838,18 @@ START_CONSTRAINT( 9920702, Parameter, p)
   inv( p.isSetUnits() );
 }
 END_CONSTRAINT
+
+START_CONSTRAINT( 9920702, LocalParameter, p)
+{
+  pre( p.getLevel() > 2 );
+
+  msg = "The <parameter> ";
+  if (p.isSetId()) {
+    msg += "with id '" + p.getId() + "' ";
+  }
+  msg += "does not have a 'units' attribute.";
+  inv( p.isSetUnits() );
+}
+END_CONSTRAINT
 /** @endcond */
 

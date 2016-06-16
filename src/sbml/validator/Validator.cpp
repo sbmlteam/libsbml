@@ -177,6 +177,7 @@ struct ValidatorConstraints
   ConstraintSet<CompartmentType>          mCompartmentType;
   ConstraintSet<SpeciesType>              mSpeciesType;
   ConstraintSet<Priority>                 mPriority;
+  ConstraintSet<LocalParameter>           mLocalParameter;
 
   map<VConstraint*,bool> ptrMap;
 
@@ -393,6 +394,12 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
+  if (dynamic_cast< TConstraint<LocalParameter>* >(c) != NULL)
+  {
+    mLocalParameter.add( static_cast< TConstraint<LocalParameter>* >(c) );
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -498,8 +505,16 @@ public:
 
   bool visit (const Parameter& x)
   {
-    v.mConstraints->mParameter.applyTo(m, x);
-    return !v.mConstraints->mParameter.empty();
+    if (x.getTypeCode() == SBML_LOCAL_PARAMETER)
+    {
+      return visit(dynamic_cast<const LocalParameter&>(x));
+    }
+    else
+    {
+      v.mConstraints->mParameter.applyTo(m, x);
+      return !v.mConstraints->mParameter.empty();
+    }
+
   }
 
 
@@ -623,6 +638,12 @@ public:
   {
     v.mConstraints->mSpeciesType.applyTo(m, x);
     return !v.mConstraints->mSpeciesType.empty();
+  }
+
+  bool visit (const LocalParameter& x)
+  {
+    v.mConstraints->mLocalParameter.applyTo(m, x);
+    return !v.mConstraints->mLocalParameter.empty();
   }
 
 

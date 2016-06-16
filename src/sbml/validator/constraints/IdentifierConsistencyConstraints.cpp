@@ -166,6 +166,32 @@ START_CONSTRAINT (99303, Parameter, p)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (99303, LocalParameter, p)
+{
+  // do not report for l2v5
+  bool report = true;
+  if (p.getLevel() == 2 && p.getVersion() == 5)
+    report = false;
+  pre (report);
+
+  pre( p.isSetUnits() );
+
+  const string& units = p.getUnits();
+
+  msg = "The units '";
+  msg += units;
+  msg+= "' of the <localParameter> with id '";
+  msg += p.getId() ;
+  msg += "' do not refer to a valid unit kind/built-in unit ";
+  msg += "or the identifier of an existing <unitDefinition>. ";
+ 
+  inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
+  inv_or( Unit::isBuiltIn(units, p.getLevel())     );
+  inv_or( m.getUnitDefinition(units) );
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (99303, Species, s)
 {
   // do not report for l2v5

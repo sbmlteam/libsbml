@@ -171,6 +171,17 @@ START_CONSTRAINT (80701, Parameter, p)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (80701, LocalParameter, p)
+{
+  if(p.isSetId())
+  {
+    msg = "The <localParameter> with the id '" + p.getId() + "' does not have a 'units' attribute.";
+  }
+  inv(p.isSetUnits() == true);
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (80702, Parameter, p)
 {
   bool fail = true;
@@ -219,5 +230,17 @@ START_CONSTRAINT (80702, Parameter, p)
   inv (fail == false);
 }
 END_CONSTRAINT
-/** @endcond */
+
+
+START_CONSTRAINT (80702, LocalParameter, p)
+{
+  if(p.isSetId())
+  {
+    msg = "The <localParameter> with the id '" + p.getId() + "' does not have a 'value' attribute.";
+  }
+  inv(p.isSetValue() == true);
+}
+END_CONSTRAINT
+
+  /** @endcond */
 

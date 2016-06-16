@@ -135,5 +135,7 @@ addConstraint(new VConstraintCompartment9920518(*this));
 addConstraint(new VConstraintSpecies9920616(*this));
 
 addConstraint(new VConstraintParameter9920702(*this));
+
+addConstraint(new VConstraintLocalParameter9920702(*this));
 /** @endcond */
 

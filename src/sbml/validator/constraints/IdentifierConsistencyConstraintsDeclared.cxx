@@ -54,6 +54,8 @@ addConstraint(new VConstraintCompartment10313(*this));
 
 addConstraint(new VConstraintParameter99303(*this));
 
+addConstraint(new VConstraintLocalParameter99303(*this));
+
 addConstraint(new VConstraintSpecies99303(*this));
 
 addConstraint(new VConstraintCompartment99303(*this));
