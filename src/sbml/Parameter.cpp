@@ -956,7 +956,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax, level, version, "The " + elplusid + 
-      " has a substanceUnits with a value of '" + mUnits 
+      " has a unit with a value of '" + mUnits 
       + "' which does not conform .");
   }
 
