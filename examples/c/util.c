@@ -122,8 +122,8 @@ getFileSize (const char *filename)
 char *
 trim_whitespace (char *s)
 {
-  char *end;
-  int   len;
+  char   *end;
+  size_t  len;
 
   if (s == NULL) return NULL;
 
