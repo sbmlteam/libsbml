@@ -92,7 +92,7 @@ Dimensions::Dimensions (LayoutPkgNamespaces* layoutns, double width, double heig
   , mW(width)
   , mH(height)
   , mD(depth)
-  , mDExplicitlySet (true)
+  , mDExplicitlySet (depth != 0.0)
 {
   //
   // set the element namespace of this object

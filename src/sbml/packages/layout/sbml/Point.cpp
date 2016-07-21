@@ -123,7 +123,7 @@ Point::Point(LayoutPkgNamespaces* layoutns, double x, double y, double z)
   , mXOffset(x)
   , mYOffset(y)
   , mZOffset(z)
-  , mZOffsetExplicitlySet (true)
+  , mZOffsetExplicitlySet (z != 0.0)
   , mElementName("point")  
 {
   //
