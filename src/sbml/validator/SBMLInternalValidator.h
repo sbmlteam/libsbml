@@ -391,6 +391,19 @@ public:
 
   /**
    * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;5 and can
+   * be converted to Level&nbsp;2 Version&nbsp;5.
+   *
+   * Callers should query the results of the consistency check by calling
+   * SBMLDocument::getError(@if java long@endif).
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v5Compatibility ();
+
+
+  /**
+   * Performs a set of consistency checks on the document to establish
    * whether it is compatible with SBML Level&nbsp;3 Version&nbsp;1 and can
    * be converted to Level&nbsp;3 Version&nbsp;1.
    *

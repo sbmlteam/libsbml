@@ -205,7 +205,8 @@
  * @li SBMLDocument::checkL2v1Compatibility(),
  * @li SBMLDocument::checkL2v2Compatibility(),
  * @li SBMLDocument::checkL2v3Compatibility(), 
- * @li SBMLDocument::checkL2v4Compatibility(), and
+ * @li SBMLDocument::checkL2v4Compatibility(),
+ * @li SBMLDocument::checkL2v5Compatibility(), and
  * @li SBMLDocument::checkL3v1Compatibility().
  * 
  * Some changes between Versions of SBML Level&nbsp;2 may lead to
@@ -596,7 +597,8 @@ public:
    * SBMLDocument::checkL2v1Compatibility(),
    * SBMLDocument::checkL2v2Compatibility(),
    * SBMLDocument::checkL2v3Compatibility(),
-   * SBMLDocument::checkL2v4Compatibility(), and
+   * SBMLDocument::checkL2v4Compatibility(),
+   * SBMLDocument::checkL2v5Compatibility(), and
    * SBMLDocument::checkL3v1Compatibility().
    * 
    * The valid combinations of SBML Level and Version as of this release
@@ -607,6 +609,7 @@ public:
    * <li> Level&nbsp;2 Version&nbsp;2
    * <li> Level&nbsp;2 Version&nbsp;3
    * <li> Level&nbsp;2 Version&nbsp;4
+   * <li> Level&nbsp;2 Version&nbsp;5
    * <li> Level&nbsp;3 Version&nbsp;1
    * </ul>
    * 
@@ -652,7 +655,7 @@ public:
    * @see checkL2v2Compatibility()
    * @see checkL2v3Compatibility()
    * @see checkL2v4Compatibility()
-   * @see checkL3v1Compatibility()
+   * @see checkL2v5Compatibility()
    * @see checkL3v1Compatibility()
    */
   bool setLevelAndVersion (unsigned int level, unsigned int version,
@@ -1079,6 +1082,19 @@ public:
    * @return the number of failed checks (errors) encountered.
    */
   unsigned int checkL2v4Compatibility ();
+
+
+  /**
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level&nbsp;2 Version&nbsp;5 and can
+   * be converted to Level&nbsp;2 Version&nbsp;5.
+   *
+   * Callers should query the results of the consistency check by calling
+   * SBMLDocument::getError(@if java long@endif).
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v5Compatibility ();
 
 
   /**
@@ -1905,6 +1921,8 @@ SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
  * @li Level 2 Version 2
  * @li Level 2 Version 3
  * @li Level 2 Version 4
+ * @li Level 2 Version 5
+ * @li Level 3 Version 1
  *
  * @param d the SBMLDocument_t structure
  *
@@ -1954,6 +1972,8 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
  * @li Level 2 Version 2
  * @li Level 2 Version 3
  * @li Level 2 Version 4
+ * @li Level 2 Version 5
+ * @li Level 3 Version 1
  *
  * @param d the SBMLDocument_t structure
  *
@@ -2014,6 +2034,8 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
  * @li Level 2 Version 2
  * @li Level 2 Version 3
  * @li Level 2 Version 4
+ * @li Level 2 Version 5
+ * @li Level 3 Version 1
  *
  * @param d the SBMLDocument_t structure
  *
@@ -2382,6 +2404,25 @@ SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d);
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d);
+
+
+/**
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 2 Version 5 and can be
+ * converted to Level 2 Version 5.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of failed checks (errors) encountered.
+ *
+ * @memberof SBMLDocument_t
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v5Compatibility (SBMLDocument_t *d);
 
 
 /**

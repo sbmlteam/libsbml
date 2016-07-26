@@ -1135,6 +1135,20 @@ SBMLDocument::checkL2v4Compatibility ()
 
 /*
  * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v4 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkL2v5Compatibility ()
+{
+  return mInternalValidator->checkL2v5Compatibility();
+}
+
+
+/*
+ * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L2v1 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
  *
@@ -2455,6 +2469,14 @@ unsigned int
 SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d)
 {
   return (d != NULL) ? d->checkL2v4Compatibility() : SBML_INT_MAX;
+}
+
+
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v5Compatibility (SBMLDocument_t *d)
+{
+  return (d != NULL) ? d->checkL2v5Compatibility() : SBML_INT_MAX;
 }
 
 

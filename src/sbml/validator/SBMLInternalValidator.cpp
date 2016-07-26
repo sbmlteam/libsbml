@@ -707,6 +707,30 @@ SBMLInternalValidator::checkL2v4Compatibility ()
 
 /*
  * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v4 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLInternalValidator::checkL2v5Compatibility ()
+{
+  if (getModel() == NULL) return 0;
+
+  // use the L2V4 validator as it is identical
+  L2v4CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*getDocument());
+  if (nerrors > 0) getErrorLog()->add( validator.getFailures() );
+
+  return nerrors;
+}
+
+
+
+/*
+ * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L2v1 and can be converted.  Query
  * the results by calling getNumErrors() and getError().
  *
