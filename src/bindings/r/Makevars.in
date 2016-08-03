@@ -9,7 +9,7 @@ ifeq "$(PLATFORM)" "Darwin"
   ifeq ($(shell sw_vers -productVersion | grep -c 10.6),0)
   ifeq ($(shell sw_vers -productVersion | grep -c 10.7),0)
     PKG_CXXFLAGS = -std=c++11 -stdlib=libstdc++
-    PKG_LIBS = -undefined dynamic_lookup -stdlib=libstdc++
+    PKG_LIBS += -stdlib=libstdc++
     CXX_STD = CXX11
   endif
   endif
