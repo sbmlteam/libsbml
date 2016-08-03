@@ -235,6 +235,12 @@ add_custom_command(
      -DSWIG_EXECUTABLE=\"${SWIG_EXECUTABLE}\"
      -DLIBSBML_REMOVE_WRAPPERS=${LIBSBML_REMOVE_WRAPPERS}
      -P "${CMAKE_CURRENT_SOURCE_DIR}/swig-binding.cmake"
+    COMMAND "${CMAKE_COMMAND}"
+     -DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
+     -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"  
+    COMMAND "${CMAKE_COMMAND}"
+     -DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp\"
+     -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"  
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
   DEPENDS ${SWIG_DEPENDENCIES} ${LIBSBML_HEADER_FILES}
     COMMENT "Swig: R Bindings") 
@@ -331,10 +337,7 @@ file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION}/i386)
 file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION}/x86_64)
 
 add_custom_command(  
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
-  COMMAND "${CMAKE_COMMAND}"
-      -DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
-      -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
      ${LIBSBML_R_NATIVELIB}
@@ -350,14 +353,14 @@ add_custom_command(
     COMMAND "${R_INTERPRETER}"
     ARGS  CMD INSTALL --build 
         --no-libs 
-      --no-test-load 
-      --no-clean-on-error 
-      --no-multiarch 
-      libSBML
-      -l temp      
+        --no-test-load 
+        --no-clean-on-error 
+        --no-multiarch 
+        libSBML
+        -l temp      
   MAIN_DEPENDENCY ${CMAKE_CURRENT_BINARY_DIR}/libSBML.R
   DEPENDS ${SWIG_DEPENDENCIES}
-    COMMENT "Create R Package") 
+  COMMENT "Create R Package") 
 
 else(APPLE AND ENABLE_UNIVERSAL)
 
@@ -381,10 +384,7 @@ endif(APPLE)
 file(MAKE_DIRECTORY ${R_LIBRARY_DESTINATION})
 
 add_custom_command(  
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
-  COMMAND "${CMAKE_COMMAND}"
-      -DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
-      -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libSBML_${PACKAGE_VERSION}.zip
   COMMAND "${CMAKE_COMMAND}"
   ARGS  -E copy_if_different 
      ${LIBSBML_R_NATIVELIB}
@@ -448,7 +448,7 @@ add_custom_command(
   DEPENDS ${LIBSBML_ROOT_SOURCE_DIR}/VERSION.txt
                 ${CMAKE_CURRENT_SOURCE_DIR}/create_package.cmake
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    COMMENT "Configure R source package"
+  COMMENT "Configure R source package"
   )
 
 add_custom_target(binding_r_source_config ALL DEPENDS ${R_SOURCE_OUT_DIR}/configure)
@@ -465,9 +465,6 @@ add_dependencies(binding_r_source_config binding_r_swig)
 
 add_custom_command(
   OUTPUT ${R_SOURCE_OUT_DIR}/libSBML_${PACKAGE_VERSION}.tar.gz
-  COMMAND "${CMAKE_COMMAND}"
-      -DFILENAME=\"${CMAKE_CURRENT_BINARY_DIR}/libSBML.R\"
-      -P "${CMAKE_CURRENT_SOURCE_DIR}/patch-swig-file.cmake"
   COMMAND "${R_INTERPRETER}"
   ARGS CMD 
        build
