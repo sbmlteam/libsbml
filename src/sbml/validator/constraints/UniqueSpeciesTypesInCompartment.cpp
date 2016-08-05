@@ -75,8 +75,11 @@ UniqueSpeciesTypesInCompartment::check_ (const Model& m, const Model& object)
 {
   unsigned int n, ns;
 
-  /* speciesType only occurs in l2v2 and higher */
-  if (m.getLevel() == 1 || (m.getLevel()== 2 && m.getVersion() == 1))  return;
+  /* speciesType only occurs in l2v2 and higher 
+  and was removed in L3*/
+  if ((m.getLevel() == 1) || (m.getLevel()== 2 && m.getVersion() == 1)
+    || (m.getLevel() == 3))
+    return;
   
   for (n = 0; n < m.getNumCompartments(); n++)
   {
