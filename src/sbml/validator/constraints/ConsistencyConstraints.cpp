@@ -2034,58 +2034,59 @@ START_CONSTRAINT (21130, KineticLaw, kl)
 END_CONSTRAINT
 
 
+// moved to units validator
 
-START_CONSTRAINT (99127, KineticLaw, kl)
-{
-  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
-  pre( kl.isSetSubstanceUnits() );
-  
-  //msg =
-  //  "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
-  //  "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
-  //  "(L2v1 Section 4.9.7).";
-
-
-  const string&         units = kl.getSubstanceUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
-    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
-  msg = "The substanceUnits of the <kineticLaw> in the <reaction> '" + rnId;
-  msg += "' are '" + units + "', which are not a variant of 'item' or 'mole'.";
-
-  inv_or( units == "substance" );
-  inv_or( units == "item"      );
-  inv_or( units == "mole"      );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (99128, KineticLaw, kl)
-{
-  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
-  pre( kl.isSetTimeUnits() );
-
-  //msg =
-  //  "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
-  //  "UnitDefnition that defines a variant of 'second' with exponent='1' "
-  //  "(L2v1 Section 4.9.7).";
-
-
-  const string&         units = kl.getTimeUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
-    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
-  msg = "The timeUnits of the <kineticLaw> in the <reaction> '" + rnId;
-  msg += "' are '" + units + "', which are not a variant of 'second'.";
-
-  inv_or( units == "time"   );
-  inv_or( units == "second" );
-  inv_or( defn  != NULL && defn->isVariantOfTime() );
-}
-END_CONSTRAINT
+//START_CONSTRAINT (99127, KineticLaw, kl)
+//{
+//  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
+//  pre( kl.isSetSubstanceUnits() );
+//  
+//  //msg =
+//  //  "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
+//  //  "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
+//  //  "(L2v1 Section 4.9.7).";
+//
+//
+//  const string&         units = kl.getSubstanceUnits();
+//  const UnitDefinition* defn  = m.getUnitDefinition(units);
+//
+//  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
+//    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
+//  msg = "The substanceUnits of the <kineticLaw> in the <reaction> '" + rnId;
+//  msg += "' are '" + units + "', which are not a variant of 'item' or 'mole'.";
+//
+//  inv_or( units == "substance" );
+//  inv_or( units == "item"      );
+//  inv_or( units == "mole"      );
+//  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+//}
+//END_CONSTRAINT
+//
+//
+//START_CONSTRAINT (99128, KineticLaw, kl)
+//{
+//  pre( kl.getLevel() == 1 || (kl.getLevel() == 2 && kl.getVersion() == 1));
+//  pre( kl.isSetTimeUnits() );
+//
+//  //msg =
+//  //  "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
+//  //  "UnitDefnition that defines a variant of 'second' with exponent='1' "
+//  //  "(L2v1 Section 4.9.7).";
+//
+//
+//  const string&         units = kl.getTimeUnits();
+//  const UnitDefinition* defn  = m.getUnitDefinition(units);
+//
+//  std::string rnId = (kl.getAncestorOfType(SBML_REACTION) != NULL) ?
+//    kl.getAncestorOfType(SBML_REACTION)->getId() : std::string("");
+//  msg = "The timeUnits of the <kineticLaw> in the <reaction> '" + rnId;
+//  msg += "' are '" + units + "', which are not a variant of 'second'.";
+//
+//  inv_or( units == "time"   );
+//  inv_or( units == "second" );
+//  inv_or( defn  != NULL && defn->isVariantOfTime() );
+//}
+//END_CONSTRAINT
 
 START_CONSTRAINT (99129, KineticLaw, kl)
 {

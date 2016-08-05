@@ -135,5 +135,11 @@ addConstraint(new VConstraintCompartment20518(*this));
 addConstraint(new VConstraintSpecies20616(*this));
 
 addConstraint(new VConstraintParameter20702(*this));
+
+addConstraint(new VConstraintKineticLaw99127(*this));
+
+addConstraint(new VConstraintKineticLaw99128(*this));
+
+
 /** @endcond */
 

@@ -183,10 +183,6 @@ addConstraint(new VConstraintKineticLaw21126(*this));
 
 addConstraint(new VConstraintKineticLaw21130(*this));
 
-addConstraint(new VConstraintKineticLaw99127(*this));
-
-addConstraint(new VConstraintKineticLaw99128(*this));
-
 addConstraint(new VConstraintKineticLaw99129(*this));
 
 addConstraint(new VConstraintAssignmentRule99129(*this));

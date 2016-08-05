@@ -19,12 +19,15 @@ of 'item' or 'mole'.
     <listOfSpecies>
       <specie name="s" compartment="c" initialAmount="0"/>
     </listOfSpecies>
+    <listOfParameters>
+      <parameter name="t" value="0" units="second"/>
+    </listOfParameters>
     <listOfReactions>
       <reaction name="r">
         <listOfReactants>
           <specieReference specie="s"/>
         </listOfReactants>
-        <kineticLaw substanceUnits="mm" formula="1"/>
+        <kineticLaw substanceUnits="mm" formula="s*c/t"/>
       </reaction>
     </listOfReactions>
   </model>

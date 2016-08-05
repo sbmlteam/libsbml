@@ -12,12 +12,15 @@ exponent='1'.
     <listOfSpecies>
       <specie name="s" compartment="c" initialAmount="0"/>
     </listOfSpecies>
+    <listOfParameters>
+      <parameter name="t" value="0" units="second"/>
+    </listOfParameters>
     <listOfReactions>
       <reaction name="r">
         <listOfReactants>
           <specieReference specie="s"/>
         </listOfReactants>
-        <kineticLaw timeUnits="second" formula="2"/>
+        <kineticLaw timeUnits="second" formula="s*c/t"/>
       </reaction>
     </listOfReactions>
   </model>

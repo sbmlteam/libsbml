@@ -17,15 +17,28 @@ exponent='1'.
       <compartment id="c"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="c"/>
+      <species id="s" compartment="c" initialAmount="0"/>
     </listOfSpecies>
+    <listOfParameters>
+      <parameter id="t" value="0" units="second"/>
+    </listOfParameters>
     <listOfReactions>
       <reaction id="r">
         <listOfReactants>
           <speciesReference species="s"/>
         </listOfReactants>
         <kineticLaw timeUnits="ms">
-          <math xmlns="http://www.w3.org/1998/Math/MathML"/>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> s </ci>
+                <ci> c </ci>
+              </apply>
+              <ci> t </ci>
+            </apply>
+          </math>          
         </kineticLaw>
       </reaction>
     </listOfReactions>

@@ -480,8 +480,11 @@ main (int argc, char* argv[])
 		      testDataConversionDir, 96000, 96999, runL3v1Test, library);
 
   testThisDataDir = testDataDir + "/" + "libsbml-constraints";
-  failed += runTests("Testing Additional SBML Constraints (99100 - 99199)",
-		     testThisDataDir, 99100, 99199, runAdditionalSBMLTest, library);
+  failed += runTests("Testing Additional SBML Constraints (99100 - 99108)",
+		     testThisDataDir, 99100, 99108, runAdditionalSBMLTest, library);
+
+  failed += runTests("Testing Additional SBML Constraints (99129 - 99199)",
+		     testThisDataDir, 99129, 99199, runAdditionalSBMLTest, library);
 
   failed += runTests("Testing Additional Math Constraints (99200 - 99299)",
 		     testThisDataDir, 99200, 99299, runAdditionalMathTest, library);
@@ -491,6 +494,9 @@ main (int argc, char* argv[])
 
   failed += runTests("Testing Additional Annotation Constraints (99400 - 99499)",
 		     testThisDataDir, 99400, 99499, runAdditionalSBMLTest, library);
+
+  failed += runTests("Testing Additional Unit Constraints (99127 - 99128)",
+		     testThisDataDir, 99127, 99128, runAdditionalUnitTest, library);
 
   failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
 		     testThisDataDir, 99500, 99599, runAdditionalUnitTest, library);
