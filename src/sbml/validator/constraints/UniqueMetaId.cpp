@@ -319,6 +319,11 @@ UniqueMetaId::doCheck (const Model& m)
       doCheckMetaId( *e->getDelay());
     }
 
+    if (e->isSetPriority())
+    {
+      doCheckMetaId( *e->getPriority());
+    }
+
     num = e->getNumEventAssignments();
     if (num > 0) doCheckMetaId(*e->getListOfEventAssignments());
     for (j = 0; j < num; j++)
