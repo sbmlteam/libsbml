@@ -1805,6 +1805,41 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath9)
 }
 END_TEST
 
+START_TEST (test_SBMLConvertStrict_convertFromL1_L3_localParameters)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 1);
+  KineticLaw_t * kl = Reaction_createKineticLaw(r);
+  KineticLaw_setFormula(kl, "1*2");
+  Parameter_t *p = KineticLaw_createParameter(kl);
+  Parameter_setName(p, "p1");
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  r = Model_getReaction(m, 0);
+  kl = Reaction_getKineticLaw(r);
+
+  LocalParameter_t *lp = KineticLaw_getLocalParameter(kl, 0);
+
+  fail_unless(Parameter_isSetId(lp) == 1); 
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 
 Suite *
 create_suite_SBMLConvertStrict (void) 
@@ -1858,6 +1893,9 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath7 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath8 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath9 );
+
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L3_localParameters );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

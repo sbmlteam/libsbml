@@ -1027,14 +1027,14 @@ KineticLaw::setSBMLDocument (SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 
-  if (getLevel() < 3)
-  {
+  //if (getLevel() < 3)
+  //{
   mParameters.setSBMLDocument(d);
-  }
-  else
-  {
+  //}
+  //else
+  //{
   mLocalParameters.setSBMLDocument(d);
-  }
+  //}
 }
 
 
@@ -1230,10 +1230,14 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
 
   if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream, getSBMLNamespaces());
-  if ( getLevel() < 3 && getNumParameters() > 0 ) mParameters.write(stream);
-  if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
+  if ( getLevel() < 3 && getNumParameters() > 0 ) 
+  {
+    mParameters.write(stream);
+  }
+  else if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
+  {
     mLocalParameters.write(stream);
-
+  }
   //
   // (EXTENSION)
   //
