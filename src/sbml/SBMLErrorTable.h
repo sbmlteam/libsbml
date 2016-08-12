@@ -9762,6 +9762,32 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
+  //98001
+  {
+    DoubleExponentNotSupported,
+    "Exponent of type double not supported in Levels 2 and 1.",
+    LIBSBML_CAT_SBML_COMPATIBILITY,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "Conversion of a non-integer exponent is not supported.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
+
+
   /* --------------------------------------------------------------------------
    * These are errors checked by libSBML that were never published in a spec.
    * ----------------------------------------------------------------------- */

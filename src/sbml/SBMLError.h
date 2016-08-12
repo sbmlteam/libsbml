@@ -821,6 +821,7 @@ typedef enum
 , DuplicateAnnotationInvalidInL3v1      = 96009 /*!< Duplicate top-level annotations are invalid in SBML Level 3 Version 1. */
 , NoCompartmentOutsideInL3v1            = 96010 /*!< This Level+Version of SBML does not support the 'outside' attribute on Compartment objects. */
 , NoStoichiometryMathInL3v1             = 96011 /*!< This Level+Version of SBML does not support the StoichiometryMath object. */
+, DoubleExponentNotSupported            = 98001
 , InvalidSBMLLevelVersion               = 99101 /*!< Unknown Level+Version combination of SBML. */
 , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation objects on the SBML container element are not permitted in SBML Level 1. */
 , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules. */
@@ -998,6 +999,10 @@ typedef enum
      * translation from one Level/Version of SBML to another.  This
      * particular category applies to errors encountered while trying to
      * convert a model to SBML Level&nbsp;3 Version&nbsp;1. */
+
+  , LIBSBML_CAT_SBML_COMPATIBILITY
+    /*!< Category of errors that can only occur during attempted
+     * translation from one Level/Version of SBML to another. */
 
 } SBMLErrorCategory_t;
 

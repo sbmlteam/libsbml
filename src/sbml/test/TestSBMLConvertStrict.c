@@ -1841,6 +1841,25 @@ START_TEST (test_SBMLConvertStrict_convertFromL1_L3_localParameters)
 END_TEST
 
 
+START_TEST (test_SBMLConvertStrict_convertFromL3_doubleExponent)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  UnitDefinition_t  *c = Model_createUnitDefinition(m);
+  UnitDefinition_setId(c, "ud");
+  Unit_t *u = UnitDefinition_createUnit(c);
+  Unit_setKind(u, UnitKind_forName("mole"));
+  Unit_setExponentAsDouble(u, 1.5);
+  Unit_setScale(u, 0);
+  Unit_setMultiplier(u, 1.0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -1895,6 +1914,8 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath9 );
 
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L3_localParameters );
+
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_doubleExponent );
 
   suite_add_tcase(suite, tcase);
 

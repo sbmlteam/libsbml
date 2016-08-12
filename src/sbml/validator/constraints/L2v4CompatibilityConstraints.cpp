@@ -41,6 +41,7 @@
 #include <math.h>
 #include <sbml/util/List.h>
 #include "DuplicateTopLevelAnnotation.h"
+#include "CompatibilityConstraints.cxx"
 #endif
 
 

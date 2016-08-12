@@ -103,5 +103,7 @@ addConstraint(new VConstraintRateRule91020(*this));
 addConstraint(new VConstraintAlgebraicRule91020(*this));
 
 addConstraint(new VConstraintInitialAssignment91020(*this));
+
+addConstraint(new VConstraintUnit98001(*this));
 /** @endcond */
 

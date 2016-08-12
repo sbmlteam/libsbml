@@ -99,5 +99,8 @@ addConstraint(new VConstraintDelay91020(*this));
 addConstraint(new VConstraintInitialAssignment91020(*this));
 
 addConstraint(new VConstraintConstraint91020(*this));
+
+addConstraint(new VConstraintUnit98001(*this));
+
 /** @endcond */
 

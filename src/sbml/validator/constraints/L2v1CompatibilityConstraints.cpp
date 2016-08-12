@@ -39,6 +39,7 @@
 #include <sbml/AlgebraicRule.h>
 #include <sbml/validator/VConstraint.h>
 #include <math.h>
+#include "CompatibilityConstraints.cxx"
 #endif
 
 

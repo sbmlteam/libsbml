@@ -39,10 +39,12 @@
 #include <sbml/AlgebraicRule.h>
 #include <sbml/validator/VConstraint.h>
 #include <math.h>
+#include "CompatibilityConstraints.cxx"
 #endif
 
 
 #include <sbml/validator/ConstraintMacros.h>
+
 
 /** @cond doxygenIgnored */
 using namespace std;
