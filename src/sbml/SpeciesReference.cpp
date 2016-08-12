@@ -686,11 +686,14 @@ SpeciesReference::sortMath()
     mStoichiometryMath->isSetMath() &&
     mStoichiometryMath->getMath()->isRational())
   {
-    mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
-    mDenominator   = (int)mStoichiometryMath->getMath()->getDenominator();
+    double stoichiometry = mStoichiometryMath->getMath()->getNumerator();
+    int denominator = (int)mStoichiometryMath->getMath()->getDenominator();
 
     delete mStoichiometryMath;
     mStoichiometryMath = NULL;
+
+    setStoichiometry(stoichiometry/denominator);
+
   }
 }
 /** @endcond */
