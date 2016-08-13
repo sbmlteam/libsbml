@@ -161,9 +161,10 @@ Model::convertL2ToL3 (bool strict, bool addDefaultUnits /*= true*/)
   if (addDefaultUnits)
     addDefinitionsForDefaultUnits();
 
-  setSpeciesReferenceConstantValueAndStoichiometry();
 
   convertStoichiometryMath();
+
+  setSpeciesReferenceConstantValueAndStoichiometry();
 
   assignRequiredValues();
 
@@ -1073,6 +1074,15 @@ Model::convertStoichiometryMath()
           ar->setMath(sr->getStoichiometryMath()->getMath());
         }
       }
+      else
+      {
+          // we may have converted a stoichiometryMath rational element
+        if (sr->getDenominator() != 1)
+        {
+          double stoich = sr->getStoichiometry()/sr->getDenominator();
+          sr->setStoichiometry(stoich);
+        }
+      }
     }
     for (j = 0; j < r->getNumProducts(); j++)
     {
@@ -1097,6 +1107,15 @@ Model::convertStoichiometryMath()
         if (sr->getStoichiometryMath()->isSetMath())
         {
           ar->setMath(sr->getStoichiometryMath()->getMath());
+        }
+      }
+      else
+      {
+          // we may have converted a stoichiometryMath rational element
+        if (sr->getDenominator() != 1)
+        {
+          double stoich = sr->getStoichiometry()/sr->getDenominator();
+          sr->setStoichiometry(stoich);
         }
       }
     }

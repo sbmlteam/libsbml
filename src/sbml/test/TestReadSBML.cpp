@@ -1336,13 +1336,8 @@ START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_2)
 
   fail_unless( !SpeciesReference_isSetStoichiometryMath(sr) );
 
-  // this was a BAD test
-  // in l2v1 denominator did not exist
-  // fail_unless( SpeciesReference_getStoichiometry(sr) == 3 );
-  // fail_unless( SpeciesReference_getDenominator  (sr) == 2 );
-  // should be
-    fail_unless( SpeciesReference_getStoichiometry(sr) == 1.5 );
-
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 3 );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 2 );
 }
 END_TEST
 
