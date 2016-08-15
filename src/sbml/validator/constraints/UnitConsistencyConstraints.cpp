@@ -495,7 +495,7 @@ START_CONSTRAINT (99505, Event, e)
   pre ( e.isSetDelay() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                                  m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+                                  m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);
 
   pre ( formulaUnits != 0 );
  
@@ -546,7 +546,7 @@ START_CONSTRAINT (99505, EventAssignment, ea)
 {
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
-    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getInternalId();
   const string& variable = ea.getVariable() + eId;
 
   pre ( ea.isSetMath() == 1 );
@@ -1529,7 +1529,7 @@ START_CONSTRAINT (10551, Event, e)
   pre ( e.isSetDelay() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                                  m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+                                  m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);
 
   pre ( formulaUnits != NULL );
 
@@ -1566,7 +1566,7 @@ START_CONSTRAINT (10561, EventAssignment, ea)
 
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
-    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getInternalId();
   const string& variable = ea.getVariable();
   const Compartment* c = m.getCompartment(variable);
 
@@ -1619,7 +1619,7 @@ START_CONSTRAINT (10562, EventAssignment, ea)
    
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
-    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getInternalId();
   const string& variable = ea.getVariable();
   const Species * s = m.getSpecies(variable);
 
@@ -1666,7 +1666,7 @@ START_CONSTRAINT (10563, EventAssignment, ea)
    
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
-    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getInternalId();
   const string& variable = ea.getVariable();
   const Parameter* p = m.getParameter(variable);
 
@@ -1713,7 +1713,7 @@ START_CONSTRAINT (10564, EventAssignment, ea)
 
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
-    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
+    static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getInternalId();
 
   pre ( ea.getLevel() > 2);
   pre ( sr != NULL);

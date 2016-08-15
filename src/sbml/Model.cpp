@@ -5847,24 +5847,11 @@ Model::createEventUnitsData(UnitFormulaFormatter * unitFormatter)
   {
     Event* e = getEvent(n);
 
-    // sort out the id of this event - it may or may not be set
-    if (e->isSetId())
-    {
-      newID = e->getId();//sprintf(newId, "%s", e->getId());
-    }
-    else
-    {
-      sprintf(newId, "event_%u", countEvents);
-      newID.assign(newId);
-      countEvents++;
-    }
+    sprintf(newId, "event_%u", countEvents);
+    newID.assign(newId);
+    e->setInternalId(newID);
+    countEvents++;
     
-    if (!e->isSetId())
-    {
-      e->setId(newID);
-      e->setInternalIdOnly();
-    }
-
     /* dont need units returned by trigger formula - 
      * should be boolean
      */

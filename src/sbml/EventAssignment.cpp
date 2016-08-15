@@ -294,8 +294,12 @@ EventAssignment::getDerivedUnitDefinition()
     {
       m->populateListFormulaUnitsData();
     }
+
+    Event * e = (Event*)(getAncestorOfType(SBML_EVENT));
+    std::string eid = "";
+    if (e != NULL) eid = e->getInternalId();
     
-    std::string id = getVariable() + getAncestorOfType(SBML_EVENT)->getId();
+    std::string id = getVariable() + eid;
     if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(id, getTypeCode())
@@ -366,7 +370,11 @@ EventAssignment::containsUndeclaredUnits()
       m->populateListFormulaUnitsData();
     }
 
-    std::string id = getVariable() + getAncestorOfType(SBML_EVENT)->getId();
+    Event * e = (Event*)(getAncestorOfType(SBML_EVENT));
+    std::string eid = "";
+    if (e != NULL) eid = e->getInternalId();
+
+    std::string id = getVariable() + eid;
     if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(id, getTypeCode())

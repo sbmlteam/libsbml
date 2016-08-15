@@ -67,8 +67,8 @@ Event::Event (unsigned int level, unsigned int version) :
  , mIsSetUseValuesFromTriggerTime ( false )
  , mExplicitlySetUVFTT (false )
  , mEventAssignments(level, version)
+ , mInternalId      ("")
 {
-  mInternalIdOnly = false;
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
   // before level 3 useValuesFromTriggerTime was set by default
@@ -91,9 +91,8 @@ Event::Event (SBMLNamespaces * sbmlns) :
  , mIsSetUseValuesFromTriggerTime (false )
  , mExplicitlySetUVFTT (false )
  , mEventAssignments(sbmlns)
+ , mInternalId      ("")
 {
-  mInternalIdOnly = false;
-
   if (!hasValidLevelVersionNamespaceCombination())
   {
     throw SBMLConstructorException(getElementName(), sbmlns);
@@ -132,7 +131,7 @@ Event::Event (const Event& orig) :
  , mTimeUnits                ( orig.mTimeUnits )
  , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
  , mIsSetUseValuesFromTriggerTime ( orig.mIsSetUseValuesFromTriggerTime )
- , mInternalIdOnly           ( orig.mInternalIdOnly     )
+ , mInternalId      ( orig.mInternalId      )
  , mExplicitlySetUVFTT       ( orig.mExplicitlySetUVFTT )
  , mEventAssignments         ( orig.mEventAssignments   )
 {
@@ -172,7 +171,7 @@ Event& Event::operator=(const Event& rhs)
     mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
     mIsSetUseValuesFromTriggerTime = rhs.mIsSetUseValuesFromTriggerTime;
     mExplicitlySetUVFTT = rhs.mExplicitlySetUVFTT;
-    mInternalIdOnly   = rhs.mInternalIdOnly   ;
+    mInternalId     = rhs.mInternalId     ;
     mEventAssignments = rhs.mEventAssignments ;
 
     delete mTrigger;
@@ -527,7 +526,6 @@ Event::setId (const std::string& sid)
   else
   {
     mId = sid;
-    mInternalIdOnly = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -1237,15 +1235,6 @@ Event::hasRequiredElements() const
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * sets the mInternalIdOnly flag
- */
-void 
-Event::setInternalIdOnly()
-{
-  mInternalIdOnly = true;
-}
-
-/*
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
  */
@@ -1586,8 +1575,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   // id: SId  { use="optional" }  (L2v1 ->)
   //
-  if (!mInternalIdOnly)
-    stream.writeAttribute("id", mId);
+  stream.writeAttribute("id", mId);
 
   //
   // name: string  { use="optional" }  (L2v1->)

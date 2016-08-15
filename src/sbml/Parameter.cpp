@@ -1244,7 +1244,7 @@ Parameter::inferUnitsFromAssignments(UnitFormulaFormatter *uff, Model *m)
     EventAssignment * ea = e->getEventAssignment(id);
     if (ea != NULL)
     {
-      const string& variable = id + e->getId();
+      const string& variable = id + e->getInternalId();
       fud = m->getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
       if (uff->possibleToUseUnitsData(fud) == true)
       {
@@ -1342,7 +1342,7 @@ Parameter::inferUnitsFromEvent(Event * e, UnitFormulaFormatter *uff, Model *m)
     if (uff->variableCanBeDeterminedFromMath(math, id) == true)
     {
       /* the units of the LHS will be the time units of the model */
-      FormulaUnitsData *fud = m->getFormulaUnitsData(e->getId(), SBML_EVENT);
+      FormulaUnitsData *fud = m->getFormulaUnitsData(e->getInternalId(), SBML_EVENT);
 
       // usually at this point we check the fud which should represent the
       // LHS

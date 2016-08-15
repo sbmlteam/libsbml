@@ -495,7 +495,7 @@ START_CONSTRAINT( 9999505, Event, e)
   pre ( e.isSetDelay() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                                  m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+                                  m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);
 
   pre ( formulaUnits != 0 );
  
@@ -1529,7 +1529,7 @@ START_CONSTRAINT( 9910551, Event, e)
   pre ( e.isSetDelay() == 1 );
 
   const FormulaUnitsData * formulaUnits = 
-                                  m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+                                  m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);
 
   pre ( formulaUnits != NULL );
 
