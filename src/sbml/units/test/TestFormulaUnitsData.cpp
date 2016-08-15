@@ -639,7 +639,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 {
   FormulaUnitsData *fud = m->getFormulaUnitsData(26);
 
-  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "e1"), NULL);
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "event_0"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Event"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
@@ -650,7 +650,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fud = m->getFormulaUnitsData(27);
 
-  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2e1"), NULL);
+  fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2event_0"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "EventAssignment"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 1);
   fail_unless(fud->getCanIgnoreUndeclaredUnits() == 0);
