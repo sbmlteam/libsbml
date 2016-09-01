@@ -55,6 +55,14 @@
   SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);
 }
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+%typemap(out) ASTBasePlugin*
+{
+  SWIG_SetPointerZval(return_value, SWIG_as_voidptr($1),GetDowncastSwigType($1), $owner);
+}
+#endif
+
+
 
 /*
  * SWIG-generated wrapper code for Ruby binding wrongly invokes

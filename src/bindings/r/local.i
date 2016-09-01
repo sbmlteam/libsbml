@@ -177,6 +177,12 @@ namespace std
   $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), $owner | %newpointer_flags);
 }
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+%typemap(out) ASTBasePlugin*
+{
+  $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), GetDowncastSwigType($1), $owner | %newpointer_flags);
+}
+#endif
 
 /*
  * SWIG-generated wrapper code for Ruby binding wrongly invokes

@@ -104,6 +104,14 @@ update_cfile(
    "${DOWNCAST_EXTENSION}"
 )
 
+# - local-downcast-plugins.cpp
+file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-astplugins-*.cpp")
+update_cfile(
+   "local-downcast-astplugins.cpp" 
+   ${CMAKE_CURRENT_BINARY_DIR} 
+   "${DOWNCAST_EXTENSION}"
+)
+
 # - local-downcast-converters.cpp
 file(GLOB DOWNCAST_EXTENSION RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/local-downcast-converters-*.cpp")
 update_cfile(

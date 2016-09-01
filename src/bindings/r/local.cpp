@@ -1,6 +1,6 @@
 /**
  * @file    local.cpp
- * @brief   Python-specific SWIG support code for wrapping libSBML API
+ * @brief   R-specific SWIG support code for wrapping libSBML API
  * @author  Ben Bornstein
  * @author  Ben Kovitz
  *
@@ -35,6 +35,7 @@
 #include <sstream>
 #include <R.h>
 using namespace std;
+
 /**
  * @return the most specific Swig type for the given SBMLExtension object.
  */
@@ -306,5 +307,23 @@ int fixNegativeIndex(int i, ListOf *l){
     return i;
   }
 }
-  
 
+#ifndef LIBSBML_USE_LEGACY_MATH
+
+/**
+ * @return the most specific Swig type for the given ASTBasePlugin object.
+ */
+struct swig_type_info*
+GetDowncastSwigType (ASTBasePlugin* sbp)
+{
+  if (sbp == 0) return SWIGTYPE_p_ASTBasePlugin;
+
+  const std::string pkgName = sbp->getPackageName();
+	
+#include "local-downcast-astplugins.cpp"
+
+  return SWIGTYPE_p_ASTBasePlugin;
+}
+
+
+#endif // #ifndef LIBSBML_USE_LEGACY_MATH

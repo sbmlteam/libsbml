@@ -559,6 +559,35 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 %}
 
 
+// convert astbaseplugins
+%pragma(csharp) modulecode =
+%{
+
+	public static ASTBasePlugin DowncastASTBasePlugin(IntPtr cPtr, bool owner)
+	{		
+		if (cPtr.Equals(IntPtr.Zero)) return null;
+		
+		ASTBasePlugin ext = new ASTBasePlugin(cPtr, false);
+		string pkgName = ext.getPackageName();
+%}
+%include "local-downcast-astplugins.i"
+%pragma(csharp) modulecode =
+%{				
+		return new ASTBasePlugin(cPtr,owner);
+	}
+%}
+
+
+/**
+ * Convert ASTBasePlugin objects into the most specific object possible.
+ */
+%typemap("csout", excode=SWIGEXCODE) ASTBasePlugin*
+{
+        ASTBasePlugin ret = (ASTBasePlugin) libsbml.DowncastASTBasePlugin($imcall, $owner);$excode
+        return ret;
+}
+
+
 /**
  * Convert ASTBase objects into the most specific object possible.
  */
@@ -654,6 +683,17 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 {
 	SimpleSpeciesReference ret
 	    = (SimpleSpeciesReference) libsbml.DowncastSBase($imcall, $owner);$excode
+	return ret;
+}
+
+
+/**
+ * Convert SimpleSpeciesReference objects into the most specific object possible.
+ */
+%typemap("csout", excode=SWIGEXCODE) SpeciesReference*
+{
+	SpeciesReference ret
+	    = (SpeciesReference) libsbml.DowncastSBase($imcall, $owner);$excode
 	return ret;
 }
 

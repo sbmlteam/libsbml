@@ -35,7 +35,7 @@
 if ("${OUT_DIR}" STREQUAL ""  OR 
     "${SRC_DIR}" STREQUAL ""  OR
     "${BIN_DIR}" STREQUAL "" )
-	
+  
 message ( FATAL_ERROR 
 "
 Need three arguments: 
@@ -45,7 +45,7 @@ Need three arguments:
 " 
 
 )
-	
+  
 endif()
 
 
@@ -130,9 +130,9 @@ foreach( directory ${DIRECTORIES} )
   file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/${directory}/*.cpp 
         ${SRC_DIR}/${directory}/*.c 
-		${SRC_DIR}/${directory}/*.h 
-		${SRC_DIR}/${directory}/*.in 
-		${SRC_DIR}/${directory}/*.cxx)
+        ${SRC_DIR}/${directory}/*.h 
+        ${SRC_DIR}/${directory}/*.in 
+        ${SRC_DIR}/${directory}/*.cxx)
 
   file(
     COPY ${SOURCE_FILES} 
@@ -151,11 +151,11 @@ file(REMOVE ${SOURCE_FILES})
 # copy swigable files 
 file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/bindings/r/*.cpp 
-    	${SRC_DIR}/bindings/r/*.h 
-    	${SRC_DIR}/bindings/r/*.cxx
+        ${SRC_DIR}/bindings/r/*.h 
+        ${SRC_DIR}/bindings/r/*.cxx
         ${SRC_DIR}/bindings/swig/*.cpp 
-    	${SRC_DIR}/bindings/swig/*.h 
-    	${SRC_DIR}/bindings/swig/*.cxx
+        ${SRC_DIR}/bindings/swig/*.h 
+        ${SRC_DIR}/bindings/swig/*.cxx
 )
 
 
@@ -166,7 +166,7 @@ file(
 
 file (GLOB HEADER_FILES
         ${BIN_DIR}/src/sbml/common/*.h
-)		
+)    
 
 file(
     COPY ${HEADER_FILES} 
@@ -181,7 +181,7 @@ file (GLOB BIN_BASE_FILES
 
 # copy swigged files 
 file(
-    COPY ${BIN_BASE_FILES}	
+    COPY ${BIN_BASE_FILES}  
     ${CMAKE_CURRENT_SOURCE_DIR}/Makevars.in
     ${CMAKE_CURRENT_SOURCE_DIR}/Makevars.win
     DESTINATION ${OUT_DIR}/src/
@@ -198,8 +198,8 @@ file (MAKE_DIRECTORY ${OUT_DIR}/src/swig)
 # copy swig directory (needed as it is referenced directly)
 file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}  
         ${SRC_DIR}/bindings/swig/*.cpp 
-    	${SRC_DIR}/bindings/swig/*.h 
-    	${SRC_DIR}/bindings/swig/*.cxx
+        ${SRC_DIR}/bindings/swig/*.h 
+        ${SRC_DIR}/bindings/swig/*.cxx
 )
 file(
     COPY ${SOURCE_FILES} 
@@ -244,7 +244,7 @@ file (MAKE_DIRECTORY ${OUT_DIR}/libsbml)
 # copy new python script
 file(
     COPY 
-	  ${BIN_DIR}/src/bindings/r/libSBML.R
+    ${BIN_DIR}/src/bindings/r/libSBML.R
     DESTINATION ${OUT_DIR}/R
 ) 
 
@@ -266,7 +266,7 @@ if(EXISTS "${SRC_DIR}/../VERSION.txt")
     if(${versionLength} GREATER 3)
         list(GET VersionString 3 LIBSBML_VERSION_RELEASE )
     endif()
-	set(LIBSBML_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}")
+  set(LIBSBML_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}")
 
 endif()
 

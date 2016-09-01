@@ -305,4 +305,22 @@ int fixNegativeIndex(int i, ListOf *l){
   }
 }
   
+#ifndef LIBSBML_USE_LEGACY_MATH
 
+/**
+ * @return the most specific Swig type for the given ASTBasePlugin object.
+ */
+struct swig_type_info*
+GetDowncastSwigType (ASTBasePlugin* sbp)
+{
+  if (sbp == 0) return SWIGTYPE_p_ASTBasePlugin;
+
+  const std::string pkgName = sbp->getPackageName();
+	
+#include "local-downcast-astplugins.cpp"
+
+  return SWIGTYPE_p_ASTBasePlugin;
+}
+
+
+#endif // #ifndef LIBSBML_USE_LEGACY_MATH

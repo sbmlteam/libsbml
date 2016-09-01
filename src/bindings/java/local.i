@@ -806,6 +806,34 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   
 %}
 
+
+// convert astbaseplugins
+%pragma(java) modulecode =
+%{
+
+	public static ASTBasePlugin DowncastASTBasePlugin(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+    
+		ASTBasePlugin ext = new ASTBasePlugin(cPtr, false);
+		String pkgName = ext.getPackageName();
+%}
+%include "local-downcast-astplugins.i"
+%pragma(java) modulecode =
+%{				
+		return new ASTBasePlugin(cPtr,owner);
+	}
+%}
+
+
+/**
+ * Convert ASTBasePlugin objects into the most specific object possible.
+ */
+%typemap("javaout") ASTBasePlugin*
+{
+  return libsbml.DowncastASTBasePlugin($jnicall, $owner);
+}
+
 /**
  * Convert ASTBase objects into the most specific object possible.
  */
