@@ -45,6 +45,7 @@
 
 #include <sbml/extension/SBasePlugin.h>
 
+LIBSBML_CPP_NAMESPACE_USE
 
 #ifdef USE_FBC
 

@@ -41,6 +41,8 @@
 #include <sbml/xml/XMLNode.h>
 #include <sbml/math/ASTNode.h>
 
+LIBSBML_CPP_NAMESPACE_USE
+
 /*#define USE_FBC 1 */
 #ifdef USE_FBC
 
