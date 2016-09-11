@@ -1,5 +1,5 @@
 <p> The libSBML &ldquo;fbc&rdquo; extension implements support for the SBML
-Level&nbsp;3 <em>Flux Balance Constraints</em> package.
+Level&nbsp;3 <em>Flux Balance Constraints</em> package.  It can be used in SBML Level&nbsp;3 Version&nbsp;1 and Version&nbsp;2 documents.
 
 <h2>Introduction</h2>
 

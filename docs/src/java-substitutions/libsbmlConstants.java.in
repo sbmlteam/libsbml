@@ -1534,49 +1534,91 @@ public interface libsbmlConstants
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_CONSTRUCTOR_OTHERWISE = AST_RELATIONAL_NEQ + 1;
+    public final static int AST_QUALIFIER_BVAR = AST_RELATIONAL_NEQ + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_CONSTRUCTOR_PIECE = AST_CONSTRUCTOR_OTHERWISE + 1;
+    public final static int AST_QUALIFIER_LOGBASE = AST_QUALIFIER_BVAR + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_QUALIFIER_BVAR = AST_CONSTRUCTOR_PIECE + 1;
+    public final static int AST_QUALIFIER_DEGREE = AST_QUALIFIER_LOGBASE + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_QUALIFIER_DEGREE = AST_QUALIFIER_BVAR + 1;
+    public final static int AST_SEMANTICS = AST_QUALIFIER_DEGREE + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_QUALIFIER_LOGBASE = AST_QUALIFIER_DEGREE + 1;
+    public final static int AST_CONSTRUCTOR_PIECE = AST_SEMANTICS + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_SEMANTICS = AST_QUALIFIER_LOGBASE + 1;
+    public final static int AST_CONSTRUCTOR_OTHERWISE = AST_CONSTRUCTOR_PIECE + 1;
 
 
     /**
      * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
      * a type whose value is one of the elements of this enumeration.
      */
-    public final static int AST_UNKNOWN = AST_RELATIONAL_NEQ + 1;
+    public final static int AST_FUNCTION_MAX = AST_CONSTRUCTOR_OTHERWISE + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_FUNCTION_MIN = AST_FUNCTION_MAX + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_FUNCTION_QUOTIENT = AST_FUNCTION_MIN + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_FUNCTION_RATE_OF = AST_FUNCTION_QUOTIENT + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_FUNCTION_REM = AST_FUNCTION_RATE_OF + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_LOGICAL_IMPLIES = AST_FUNCTION_REM + 1;
+
+
+    /**
+     * One of the possible {@link ASTNode} types.  Each {@link ASTNode} has
+     * a type whose value is one of the elements of this enumeration.
+     */
+    public final static int AST_UNKNOWN = AST_LOGICAL_IMPLIES + 1;
 
 
     /**
@@ -2444,6 +2486,33 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int CiCannotReference0DCompartment = 10222;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RateOfTargetMustBeCi = 10223;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RateOfTargetCannotBeAssigned = 10224;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int RateOfSpeciesTargetCompartmentNot = 10225;
 
 
     /**
