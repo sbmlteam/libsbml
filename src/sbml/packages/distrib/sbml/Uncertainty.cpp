@@ -49,8 +49,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 Uncertainty::Uncertainty (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-   ,mId ("")
-   ,mName ("")
+////   ,mId ("")
+////   ,mName ("")
    ,mUncertML (NULL)
 {
   // set an SBMLNamespaces derived object of this package
@@ -66,8 +66,8 @@ Uncertainty::Uncertainty (unsigned int level, unsigned int version, unsigned int
  */
 Uncertainty::Uncertainty (DistribPkgNamespaces* distribns)
   : SBase(distribns)
-   ,mId ("")
-   ,mName ("")
+////   ,mId ("")
+////   ,mName ("")
    ,mUncertML (NULL)
 {
   // set the element namespace of this object
@@ -86,8 +86,8 @@ Uncertainty::Uncertainty (DistribPkgNamespaces* distribns)
  */
 Uncertainty::Uncertainty (const Uncertainty& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
-  , mName  ( orig.mName)
+//  , mId  ( orig.mId)
+//  , mName  ( orig.mName)
   , mUncertML ( NULL)
 {
   if (orig.mUncertML != NULL)

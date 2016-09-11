@@ -49,8 +49,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 DistribInput::DistribInput (unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
-   ,mId ("")
-   ,mName ("")
+////   ,mId ("")
+////   ,mName ("")
    ,mIndex (SBML_INT_MAX)
    ,mIsSetIndex (false)
 {
@@ -67,8 +67,8 @@ DistribInput::DistribInput (unsigned int level, unsigned int version, unsigned i
  */
 DistribInput::DistribInput (DistribPkgNamespaces* distribns)
   : SBase(distribns)
-   ,mId ("")
-   ,mName ("")
+////   ,mId ("")
+////   ,mName ("")
    ,mIndex (SBML_INT_MAX)
    ,mIsSetIndex (false)
 {
@@ -88,8 +88,8 @@ DistribInput::DistribInput (DistribPkgNamespaces* distribns)
  */
 DistribInput::DistribInput (const DistribInput& orig)
   : SBase(orig)
-  , mId  ( orig.mId)
-  , mName  ( orig.mName)
+//  , mId  ( orig.mId)
+//  , mName  ( orig.mName)
   , mIndex  ( orig.mIndex)
   , mIsSetIndex  ( orig.mIsSetIndex)
 {

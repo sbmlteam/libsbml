@@ -61,8 +61,8 @@ class LIBSBML_EXTERN Uncertainty : public SBase
 
 protected:
 
-  std::string   mId;
-  std::string   mName;
+////  std::string   mId;
+////  std::string   mName;
   UncertMLNode* mUncertML;
 
 

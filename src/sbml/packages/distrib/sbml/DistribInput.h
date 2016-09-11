@@ -60,8 +60,8 @@ class LIBSBML_EXTERN DistribInput : public SBase
 
 protected:
 
-  std::string   mId;
-  std::string   mName;
+////  std::string   mId;
+////  std::string   mName;
   unsigned int  mIndex;
   bool          mIsSetIndex;
 
