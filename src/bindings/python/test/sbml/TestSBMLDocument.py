@@ -43,7 +43,7 @@ class TestSBMLDocument(unittest.TestCase):
     self.assert_( d.getNotes() == None )
     self.assert_( d.getAnnotation() == None )
     self.assert_( d.getLevel() == 3 )
-    self.assert_( d.getVersion() == 1 )
+    self.assert_( d.getVersion() == 2 )
     self.assert_( d.getNumErrors() == 0 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  

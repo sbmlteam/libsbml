@@ -71,7 +71,7 @@ def MATHML_HEADER_UNITS():
   pass
 
 def MATHML_HEADER_UNITS2():
-  return " xmlns:sbml='http://www.sbml.org/sbml/level3/version1/core'>\n"
+  return " xmlns:sbml='http://www.sbml.org/sbml/level3/version2/core'>\n"
   pass
 
 def XML_HEADER():

@@ -125,7 +125,7 @@ public class TestSBMLDocument {
     assertTrue( d.getNotes() == null );
     assertTrue( d.getAnnotation() == null );
     assertTrue( d.getLevel() == 3 );
-    assertTrue( d.getVersion() == 1 );
+    assertTrue( d.getVersion() == 2 );
     assertTrue( d.getNumErrors() == 0 );
     d = null;
   }

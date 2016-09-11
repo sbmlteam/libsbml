@@ -137,7 +137,7 @@ public class TestWriteMathML {
 
   public String MATHML_HEADER_UNITS2()
   {
-    return " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n";
+    return " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version2/core\">\n";
   }
 
   public String XML_HEADER()

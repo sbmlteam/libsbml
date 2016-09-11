@@ -8,7 +8,7 @@ use vars qw/$formula $f/;
 #########################
 
 my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $version = 1;
 
 $formula = 'X^n/(1+X^n)';
 $f = '';
