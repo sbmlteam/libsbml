@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="case01292" name="case01292">
+  <listOfUnitDefinitions>
+    <unitDefinition id="s">
+      <listOfUnits>
+        <unit kind="mole" exponent="1.5" multiplier="1" scale="0"/>
+      </listOfUnits>
+    </unitDefinition>
+  </listOfUnitDefinitions>
+  </model>
+</sbml>

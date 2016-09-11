@@ -38,6 +38,7 @@
 #include <sbml/validator/VConstraint.h>
 #include <math.h>
 #include "DuplicateTopLevelAnnotation.h"
+#include "CompatibilityConstraints.cxx"
 #endif
 
 

@@ -113,8 +113,8 @@ START_CONSTRAINT (20217, Model, x)
 
   inv_or( units == "second" );
   inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfTime() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfTime(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
@@ -133,8 +133,8 @@ START_CONSTRAINT (20218, Model, x)
 
   inv_or( units == "litre" );
   inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfVolume() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfVolume(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
@@ -152,8 +152,8 @@ START_CONSTRAINT (20219, Model, x)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfArea() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfArea(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
@@ -172,8 +172,8 @@ START_CONSTRAINT (20220, Model, x)
 
   inv_or( units == "metre" );
   inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfLength() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfLength(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
@@ -196,11 +196,163 @@ START_CONSTRAINT (20221, Model, x)
   inv_or( units == "avogadro" );
   inv_or( units == "kilogram" );
   inv_or( units == "gram" );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfSubstance(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (20233, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetSubstanceUnits());
+
+  const string&         units = m.getSubstanceUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "mole" );
+  inv_or( units == "item" );
+  inv_or( units == "dimensionless"  );
+  inv_or( units == "avogadro" );
+  inv_or( units == "kilogram" );
+  inv_or( units == "gram" );
+  inv_or( defn  != NULL && defn->isVariantOfSubstance(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20507, Compartment, c)
+{
+  pre (c.getLevel() > 1);
+  pre( c.getSpatialDimensions() == 1 );
+  pre( c.isSetUnits()                );
+
+  if (c.getLevel() == 2)
+  {
+    if (c.getVersion() == 1)
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '1' must be either 'length' or 'metre', "
+        "or the identifier of a <unitDefinition> based on "
+        "either 'metre' (with 'exponent' equal to '1').";
+    }
+    else
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '1' must be either 'length', 'metre', "
+        "'dimensionless', or the identifier of a <unitDefinition> based on "
+        "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'.";
+    }
+  }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '1' must be either 'metre', "
+      "'dimensionless', or the identifier of a <unitDefinition> based on "
+      "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'.";
+  }
+
+  msg += " The <compartment> with id '" + c.getId() + "' does not comply.";
+
+  const string&         units = c.getUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  /* dimensionless is allowable in L2V2 */
+  if (c.getLevel() == 2)
+  {
+    if (c.getVersion() == 1)
+    {
+      inv_or( units == "length" );
+      inv_or( units == "metre"  );
+      inv_or( defn  != NULL && defn->isVariantOfLength() );
+    }
+    else
+    {
+      inv_or( units == "length" );
+      inv_or( units == "metre"  );
+      inv_or( units == "dimensionless"  );
+      inv_or( defn  != NULL && defn->isVariantOfLength() );
+      inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    }
+  }
+  else
+  {
+    inv_or( units == "metre"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength(true) );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20508, Compartment, c)
+{
+  pre (c.getLevel() > 1);
+  pre( c.getSpatialDimensions() == 2 );
+  pre( c.isSetUnits()                );
+
+  if (c.getLevel() == 2)
+  {
+    if (c.getVersion() == 1)
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '2' must be either 'area' or "
+        "the identifier of a <unitDefinition> based on 'metre' (with "
+        "'exponent' equal to '2').";
+    }
+    else
+    {
+      msg =
+        "The value of the 'units' attribute on a <compartment> having "
+        "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
+        "the identifier of a <unitDefinition> based on either 'metre' (with "
+        "'exponent' equal to '2') or 'dimensionless'.";
+    }
+  }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '2' must be either 'dimensionless', or "
+      "the identifier of a <unitDefinition> based on either 'metre' (with "
+      "'exponent' equal to '2') or 'dimensionless'.";
+  }
+
+  msg += " The <compartment> with id '" + c.getId() + "' does not comply.";
+
+  const string&         units = c.getUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  /* dimensionless is allowable in L2V2 */
+  if (c.getLevel() == 2)
+  {
+    if (c.getVersion() == 1)
+    {
+      inv_or( units == "area" );
+      inv_or( defn  != NULL && defn->isVariantOfArea() );
+    }
+    else
+    {
+      inv_or( units == "area" );
+      inv_or( units == "dimensionless"  );
+      inv_or( defn  != NULL && defn->isVariantOfArea() );
+      inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    }
+  }
+  else
+  {
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfArea(true) );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
+  }
+}
+END_CONSTRAINT
 
 
 START_CONSTRAINT (20509, Compartment, c)
@@ -258,8 +410,8 @@ START_CONSTRAINT (20509, Compartment, c)
   {
     inv_or( units == "litre"  );
     inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfVolume() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    inv_or( defn  != NULL && defn->isVariantOfVolume(true) );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
   }
 }
 END_CONSTRAINT
@@ -348,9 +500,9 @@ START_CONSTRAINT (20608, Species, s)
     inv_or( units == "gram"           );
     inv_or( units == "kilogram"       );
     inv_or( units == "avogadro"       );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-    inv_or( defn  != NULL && defn->isVariantOfMass()          );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance(true)     );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
+    inv_or( defn  != NULL && defn->isVariantOfMass(true)          );
   }
 }
 END_CONSTRAINT
@@ -395,8 +547,8 @@ START_CONSTRAINT (99130, Model, x)
   inv_or( units == "avogadro" );
   inv_or( units == "kilogram" );
   inv_or( units == "gram" );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  inv_or( defn  != NULL && defn->isVariantOfSubstance(true) );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless(true) );
 }
 END_CONSTRAINT
 
@@ -493,6 +645,8 @@ END_CONSTRAINT
 START_CONSTRAINT (99505, Event, e)
 {
   pre ( e.isSetDelay() == 1 );
+  // in L3v2 we may not have a math element and so cannot apply this check
+  pre (e.getDelay()->isSetMath());
 
   const FormulaUnitsData * formulaUnits = 
                                   m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);
@@ -675,6 +829,195 @@ START_CONSTRAINT (99507, Model, x)
   inv(m.isSetExtentUnits() == true);
 }
 END_CONSTRAINT
+
+START_CONSTRAINT (99509, InitialAssignment, ia)
+{
+  const string& variable = ia.getSymbol();
+
+  pre (ia.getLevel() == 3 && ia.getVersion() > 1);
+
+  msg = "The <initialAssignment> with symbol '";
+  msg += variable;
+  msg += "' does not have a <math> element.";
+
+  inv( ia.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, AlgebraicRule, r)
+{
+  pre (r.getLevel() == 3 && r.getVersion() > 1);
+
+  msg = "The <algebraicRule> ";
+  msg += " does not have a <math> element.";
+
+  inv( r.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, AssignmentRule, r)
+{
+  const string& variable = r.getVariable();
+
+  pre (r.getLevel() == 3 && r.getVersion() > 1);
+
+  msg = "The <assignmentRule> with symbol '";
+  msg += variable;
+  msg += "' does not have a <math> element.";
+
+  inv( r.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, RateRule, r)
+{
+  const string& variable = r.getVariable();
+
+  pre (r.getLevel() == 3 && r.getVersion() > 1);
+
+  msg = "The <rateRule> with symbol '";
+  msg += variable;
+  msg += "' does not have a <math> element.";
+
+  inv( r.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, KineticLaw, kl)
+{
+  pre (kl.getLevel() == 3 && kl.getVersion() > 1);
+
+  const SBase * r = kl.getAncestorOfType(SBML_REACTION);
+
+  if (r != NULL && r->isSetIdAttribute())
+  {
+    msg = "The <kineticLaw> in <reaction> with id '";
+    msg += r->getIdAttribute();
+    msg += "' does not have a <math> element.";
+
+  }
+  else
+  {
+    msg = "The <kineticLaw> does not have a <math> element.";
+  }
+
+  inv( kl.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99509, Constraint, c)
+{
+  pre (c.getLevel() == 3 && c.getVersion() > 1);
+
+  msg = "The <constraint> does not have a <math> element.";
+
+  inv( c.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99509, Trigger, obj)
+{
+  pre (obj.getLevel() == 3 && obj.getVersion() > 1);
+
+  const SBase * r = obj.getAncestorOfType(SBML_EVENT);
+
+  if (r != NULL && r->isSetIdAttribute())
+  {
+    msg = "The <trigger> in <event> with id '";
+    msg += r->getIdAttribute();
+    msg += "' does not have a <math> element.";
+
+  }
+  else
+  {
+    msg = "The <trigger> does not have a <math> element.";
+  }
+
+  inv( obj.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, Priority, obj)
+{
+  pre (obj.getLevel() == 3 && obj.getVersion() > 1);
+
+  const SBase * r = obj.getAncestorOfType(SBML_EVENT);
+
+  if (r != NULL && r->isSetIdAttribute())
+  {
+    msg = "The <priority> in <event> with id '";
+    msg += r->getIdAttribute();
+    msg += "' does not have a <math> element.";
+
+  }
+  else
+  {
+    msg = "The <priority> does not have a <math> element.";
+  }
+
+  inv( obj.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, Delay, obj)
+{
+  pre (obj.getLevel() == 3 && obj.getVersion() > 1);
+
+  const SBase * r = obj.getAncestorOfType(SBML_EVENT);
+
+  if (r != NULL && r->isSetIdAttribute())
+  {
+    msg = "The <delay> in <event> with id '";
+    msg += r->getIdAttribute();
+    msg += "' does not have a <math> element.";
+
+  }
+  else
+  {
+    msg = "The <delay> does not have a <math> element.";
+  }
+
+  inv( obj.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, EventAssignment, ea)
+{
+  const string& variable = ea.getVariable();
+
+  pre (ea.getLevel() == 3 && ea.getVersion() > 1);
+
+  msg = "The <eventAssignment> with variable '";
+  msg += variable;
+  msg += "' does not have a <math> element.";
+
+  inv( ea.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99509, FunctionDefinition, obj)
+{
+  const string& variable = obj.getIdAttribute();
+
+  pre (obj.getLevel() == 3 && obj.getVersion() > 1);
+
+  msg = "The <functionDefinition> with id '";
+  msg += variable;
+  msg += "' does not have a <math> element.";
+
+  inv( obj.isSetMath() == 1);
+}
+END_CONSTRAINT
+
+
 
 // General Unit validation
 
@@ -1527,6 +1870,8 @@ START_CONSTRAINT (10551, Event, e)
   //  "of time. (References: L2V2 Section 4.14; L2V3 Section 4.14.3.)";
 
   pre ( e.isSetDelay() == 1 );
+
+  pre (e.getDelay()->isSetMath());
 
   const FormulaUnitsData * formulaUnits = 
                                   m.getFormulaUnitsData(e.getInternalId(), SBML_EVENT);

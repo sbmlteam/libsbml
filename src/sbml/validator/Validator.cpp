@@ -98,7 +98,7 @@ public:
   ~ConstraintSet () { }
 
 
-  /**
+  /*
    * Adds a Constraint to this ConstraintSet.
    */
   void add (TConstraint<T>* c)
@@ -106,7 +106,7 @@ public:
     constraints.push_back(c);
   }
 
-  /**
+  /*
    * Applies all Constraints in this ConstraintSet to the given SBML object
    * of type T.  Constraint violations are logged to Validator.
    */
@@ -115,10 +115,10 @@ public:
     for_each(constraints.begin(), constraints.end(), Apply<T>(model, object));
   }
 
-  /**
-   * Returns true if this ConstraintSet is empty, false otherwise.
+  /*
+   * Returns @c true if this ConstraintSet is empty, @c false otherwise.
    *
-   * @return true if this ConstraintSet is empty, false otherwise.
+   * @return @c true if this ConstraintSet is empty, @c false otherwise.
    */
   bool empty () const
   {
@@ -425,6 +425,7 @@ public:
 
   ValidatingVisitor (Validator& validator, const Model& model) : v(validator), m(model) { }
 
+  using SBMLVisitor::visit;
 
   void visit (const SBMLDocument& x)
   {
@@ -646,7 +647,6 @@ public:
     return !v.mConstraints->mLocalParameter.empty();
   }
 
-
 protected:
 
   /** @cond doxygenLibsbmlInternal */
@@ -670,6 +670,42 @@ Validator::Validator (const SBMLErrorCategory_t category)
 {
   mCategory = category;
   mConstraints = new ValidatorConstraints();
+
+  switch(category)
+  {
+  case LIBSBML_CAT_SBML_L2V4_COMPAT:
+    mConsistencyLevel = 2;
+    mConsistencyVersion = 4;
+    break;
+  case LIBSBML_CAT_SBML_L2V3_COMPAT:
+    mConsistencyLevel = 2;
+    mConsistencyVersion = 3;
+    break;
+  case LIBSBML_CAT_SBML_L2V2_COMPAT:
+    mConsistencyLevel = 2;
+    mConsistencyVersion = 2;
+    break;
+  case LIBSBML_CAT_SBML_L2V1_COMPAT:
+    mConsistencyLevel = 2;
+    mConsistencyVersion = 1;
+    break;
+  case LIBSBML_CAT_SBML_L1_COMPAT:
+    mConsistencyLevel = 1;
+    mConsistencyVersion = 2;
+    break;
+  case LIBSBML_CAT_SBML_L3V1_COMPAT:
+    mConsistencyLevel = 3;
+    mConsistencyVersion = 1;
+    break;
+  case LIBSBML_CAT_SBML_L3V2_COMPAT:
+    mConsistencyLevel = 3;
+    mConsistencyVersion = 1;
+    break;
+  default:
+    mConsistencyLevel = 0;
+    mConsistencyVersion = 0;
+    break;
+  }
 }
 
 
@@ -721,6 +757,30 @@ Validator::getFailures () const
 {
   return mFailures;
 }
+
+
+/** @cond doxygenLibsbmlInternal */
+
+unsigned int 
+Validator::getConsistencyLevel()
+{
+  return mConsistencyLevel;
+}
+
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+
+unsigned int 
+Validator::getConsistencyVersion()
+{
+  return mConsistencyVersion;
+}
+
+/** @endcond */
+
+
 
 
 /*

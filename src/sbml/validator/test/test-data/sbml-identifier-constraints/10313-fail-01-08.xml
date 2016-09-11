@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="mmls"/>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+    		<compartment id="c" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+    		<species id="s" compartment="c" substanceUnits="mm" constant="true" hasOnlySubstanceUnits="false" boundaryCondition="false"/>
+    </listOfSpecies>
+  </model>
+</sbml>

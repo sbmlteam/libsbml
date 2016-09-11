@@ -51,6 +51,9 @@
 #include "FunctionNoArgsMathCheck.h"
 #include "ValidCnUnitsValue.h"
 #include "CiElementNot0DComp.h"
+#include "RateOfCiTargetMathCheck.h"
+#include "RateOfAssignmentMathCheck.h"
+#include "RateOfCompartmentMathCheck.h"
 
 
 #endif
@@ -95,4 +98,8 @@ EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 
 EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
 EXTERN_CONSTRAINT( 10222, CiElementNot0DComp    )
+
+EXTERN_CONSTRAINT( 10223, RateOfCiTargetMathCheck )
+EXTERN_CONSTRAINT( 10224, RateOfAssignmentMathCheck )
+EXTERN_CONSTRAINT( 10225, RateOfCompartmentMathCheck )
 /** @endcond */

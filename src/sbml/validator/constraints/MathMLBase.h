@@ -46,6 +46,8 @@
 #include <sbml/util/memory.h>
 #include <sbml/util/IdList.h>
 
+#include "OverDeterminedCheck.h"
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class ASTNode;
@@ -174,6 +176,12 @@ protected:
   */
   bool isNumericFunction(const Model & m, const ASTNode* node);
 
+  unsigned int getNumAlgebraicRules(const Model & m);
+
+  void matchEquations(const Model & m);
+
+  bool matchExists(const std::string& var, const std::string& eqn);
+
  /* occasionally a mathML constraint will need to know which reaction
    * the kineticLaw it is testing comes from
    * or whether the math from an event is a trigger or a delay
@@ -189,6 +197,9 @@ protected:
   NumericFDMap mNumericFunctionsChecked;
 
   IdList mFunctionsChecked;
+
+  EquationMatching * mEqnMatch;
+  bool mEqnMatchingRun;
 
 };
 

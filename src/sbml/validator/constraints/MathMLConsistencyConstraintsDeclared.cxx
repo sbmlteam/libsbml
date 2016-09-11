@@ -59,5 +59,12 @@ addConstraint(new FunctionNoArgsMathCheck(10219, *this));
 addConstraint(new ValidCnUnitsValue(10221, *this));
 
 addConstraint(new CiElementNot0DComp(10222, *this));
+
+addConstraint(new RateOfCiTargetMathCheck(10223, *this));
+
+addConstraint(new RateOfAssignmentMathCheck(10224, *this));
+
+addConstraint(new RateOfCompartmentMathCheck(10225, *this));
+
 /** @endcond */
 

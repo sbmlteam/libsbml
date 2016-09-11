@@ -114,7 +114,7 @@ protected:
    * Returns the preamble to use when logging constraint violations.
    * Is a constant character reference to a static empty string.
    *
-   * @return an empty string
+   * @return an empty string.
    */
   virtual const char* getPreamble ();
 

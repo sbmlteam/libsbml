@@ -112,6 +112,8 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
     case AST_RELATIONAL_LEQ:
     case AST_RELATIONAL_LT:
     case AST_RELATIONAL_NEQ:
+    case AST_FUNCTION_MAX:
+    case AST_FUNCTION_MIN:
   
       checkSameUnitsAsArgs(m, node, sb, inKL, reactNo);
       break;

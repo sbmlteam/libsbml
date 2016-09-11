@@ -108,6 +108,8 @@ addConstraint(new VConstraintTrigger10716(*this));
 
 addConstraint(new VConstraintDelay10717(*this));
 
+addConstraint(new VConstraintLocalParameter10718(*this));
+
 addConstraint(new VConstraintModel99702(*this));
 
 addConstraint(new VConstraintFunctionDefinition99702(*this));

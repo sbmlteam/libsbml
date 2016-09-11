@@ -9,7 +9,7 @@
       boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction id="r" fast="false" reversible="true">
+      <reaction id="r" reversible="true" fast="false">
         <listOfReactants>
           <speciesReference species="s" constant="true"/>
         </listOfReactants>
@@ -28,7 +28,7 @@
           </listOfLocalParameters>
         </kineticLaw>
       </reaction>
-      <reaction id="r2" fast="false" reversible="true">
+      <reaction id="r2" reversible="true" fast="false">
         <listOfReactants>
           <speciesReference species="s" constant="true"/>
         </listOfReactants>

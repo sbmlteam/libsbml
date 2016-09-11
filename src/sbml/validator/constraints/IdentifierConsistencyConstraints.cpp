@@ -43,6 +43,7 @@
 #include "UniqueVarsInRules.h"
 #include "UniqueVarsInEventsAndRules.h"
 #include "UniqueMetaId.h"
+#include "ModelUnitsDangling.h"
 
 
 #endif
@@ -70,9 +71,11 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 // 10311: syntax of UnitSId - caught at read
 // 10313: dangling unit reference
 
+EXTERN_CONSTRAINT( 10313, ModelUnitsDangling                 )
+
 START_CONSTRAINT (10313, Parameter, p)
 {
-  pre( p.getLevel() == 2 && p.getVersion() == 5);
+//  pre( p.getLevel() == 2 && p.getVersion() == 5);
   pre( p.isSetUnits() );
 
   const string& units = p.getUnits();
@@ -92,7 +95,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10313, Species, s)
 {
-  pre( s.getLevel() == 2 && s.getVersion() == 5);
+//  pre( s.getLevel() == 2 && s.getVersion() == 5);
   pre(s.isSetSubstanceUnits() );
 
   bool failed = false;
@@ -120,7 +123,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (10313, Compartment, c)
 {
-  pre( c.getLevel() == 2 && c.getVersion() == 5);
+//  pre( c.getLevel() == 2 && c.getVersion() == 5);
   pre( c.isSetUnits() );
 
   const string& units = c.getUnits();
@@ -140,9 +143,29 @@ END_CONSTRAINT
 
 
 
+START_CONSTRAINT (10313, LocalParameter, p)
+{
+  pre( p.isSetUnits() );
+
+  const string& units = p.getUnits();
+
+  msg = "The units '";
+  msg += units;
+  msg+= "' of the <localParameter> with id '";
+  msg += p.getId() ;
+  msg += "' do not refer to a valid unit kind/built-in unit ";
+  msg += "or the identifier of an existing <unitDefinition>. ";
+ 
+  inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
+  inv_or( Unit::isBuiltIn(units, p.getLevel())     );
+  inv_or( m.getUnitDefinition(units) );
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (99303, Parameter, p)
 {
-  // do not report for l2v5
+  // do not report for l2v5 or level 3
   bool report = true;
   if (p.getLevel() == 2 && p.getVersion() == 5)
     report = false;

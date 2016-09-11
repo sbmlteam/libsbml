@@ -48,7 +48,7 @@ class L3v1CompatibilityValidator: public Validator
 public:
 
   L3v1CompatibilityValidator () :
-    Validator( LIBSBML_CAT_SBML_L2V1_COMPAT ) { }
+    Validator( LIBSBML_CAT_SBML_L3V1_COMPAT ) { }
 
   virtual ~L3v1CompatibilityValidator () { }
 

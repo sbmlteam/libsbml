@@ -260,7 +260,39 @@ runL2v4Test (const TestFile& file)
  * TestFile, false otherwise.
  */
 bool
+runL2v5Test (const TestFile& file)
+{
+  L2v4CompatibilityValidator validator;
+  TestValidator            tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
 runL3v1Test (const TestFile& file)
+{
+  L3v1CompatibilityValidator validator;
+  TestValidator            tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runL3v2Test (const TestFile& file)
 {
   L3v1CompatibilityValidator validator;
   TestValidator            tester(validator);
@@ -478,6 +510,24 @@ main (int argc, char* argv[])
 
   failed += runTests( "Testing L3v1 Compatibility Constraints (96000 - 96999)",
 		      testDataConversionDir, 96000, 96999, runL3v1Test, library);
+
+  failed += runTests( "Testing L1 for New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL1Test, library);
+
+  failed += runTests( "Testing L2v1 for New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL2v1Test, library);
+
+  failed += runTests( "Testing L2v2 for New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL2v2Test, library);
+
+  failed += runTests( "Testing L2v3 for New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL2v3Test, library);
+
+  failed += runTests( "Testing L3v1 for New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL3v1Test, library);
+
+  failed += runTests( "Testing New Compatibility Constraints (98000 - 98999)",
+		      testDataConversionDir, 98000, 98999, runL3v2Test, library);
 
   testThisDataDir = testDataDir + "/" + "libsbml-constraints";
   failed += runTests("Testing Additional SBML Constraints (99100 - 99108)",

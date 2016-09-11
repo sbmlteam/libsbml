@@ -33,6 +33,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
+#include <sbml/ModifierSpeciesReference.h>
 #include "UniqueIdsInModel.h"
 
 /** @cond doxygenIgnored */
@@ -86,57 +87,190 @@ UniqueIdsInModel::getPreamble ()
 void
 UniqueIdsInModel::doCheck (const Model& m)
 {
-  unsigned int n, size, sr, sr_size;
-
-  checkId( m );
-
-  size = m.getNumFunctionDefinitions();
-  for (n = 0; n < size; ++n) checkId( *m.getFunctionDefinition(n) );
-
-  size = m.getNumCompartments();
-  for (n = 0; n < size; ++n) checkId( *m.getCompartment(n) );
-
-  size = m.getNumSpecies();
-  for (n = 0; n < size; ++n) checkId( *m.getSpecies(n) );
-
-  size = m.getNumParameters();
-  for (n = 0; n < size; ++n) checkId( *m.getParameter(n) );
-
-  size = m.getNumReactions();
-  for (n = 0; n < size; ++n) 
+  // from l3v2 all sbase objects may have an id
+  if (m.getLevel() == 3 && m.getVersion() > 1)
   {
-    checkId( *m.getReaction(n) );
+    doAllIdCheck(m);
+  }
+  else
+  {
+    unsigned int n, size, sr, sr_size;
 
-    sr_size = m.getReaction(n)->getNumReactants();
-    for (sr = 0; sr < sr_size; sr++)
+    checkId( m );
+
+    size = m.getNumFunctionDefinitions();
+    for (n = 0; n < size; ++n) checkId( *m.getFunctionDefinition(n) );
+
+    size = m.getNumCompartments();
+    for (n = 0; n < size; ++n) checkId( *m.getCompartment(n) );
+
+    size = m.getNumSpecies();
+    for (n = 0; n < size; ++n) checkId( *m.getSpecies(n) );
+
+    size = m.getNumParameters();
+    for (n = 0; n < size; ++n) checkId( *m.getParameter(n) );
+
+    size = m.getNumReactions();
+    for (n = 0; n < size; ++n) 
     {
-      checkId(*m.getReaction(n)->getReactant(sr));
+      checkId( *m.getReaction(n) );
+
+      sr_size = m.getReaction(n)->getNumReactants();
+      for (sr = 0; sr < sr_size; sr++)
+      {
+        checkId(*m.getReaction(n)->getReactant(sr));
+      }
+
+      sr_size = m.getReaction(n)->getNumProducts();
+      for (sr = 0; sr < sr_size; sr++)
+      {
+        checkId(*m.getReaction(n)->getProduct(sr));
+      }
+
+      sr_size = m.getReaction(n)->getNumModifiers();
+      for (sr = 0; sr < sr_size; sr++)
+      {
+        checkId(*m.getReaction(n)->getModifier(sr));
+      }
+
     }
 
-    sr_size = m.getReaction(n)->getNumProducts();
-    for (sr = 0; sr < sr_size; sr++)
-    {
-      checkId(*m.getReaction(n)->getProduct(sr));
-    }
+    size = m.getNumEvents();
+    for (n = 0; n < size; ++n) checkId( *m.getEvent(n) );
 
-    sr_size = m.getReaction(n)->getNumModifiers();
-    for (sr = 0; sr < sr_size; sr++)
-    {
-      checkId(*m.getReaction(n)->getModifier(sr));
-    }
+    size = m.getNumCompartmentTypes();
+    for (n = 0; n < size; ++n) checkId( *m.getCompartmentType(n) );
+
+    size = m.getNumSpeciesTypes();
+    for (n = 0; n < size; ++n) checkId( *m.getSpeciesType(n) );
 
   }
-
-  size = m.getNumEvents();
-  for (n = 0; n < size; ++n) checkId( *m.getEvent(n) );
-
-  size = m.getNumCompartmentTypes();
-  for (n = 0; n < size; ++n) checkId( *m.getCompartmentType(n) );
-
-  size = m.getNumSpeciesTypes();
-  for (n = 0; n < size; ++n) checkId( *m.getSpeciesType(n) );
-
   reset();
+}
+
+void
+UniqueIdsInModel::doAllIdCheck (const Model& m)
+{
+  unsigned int n, size, j, num;
+
+  /* check any id on the sbml container */
+  doCheckId((SBase&)(*m.getSBMLDocument()));
+
+  doCheckId( m );
+
+  size = m.getNumFunctionDefinitions();
+  doCheckId(*m.getListOfFunctionDefinitions());
+  for (n = 0; n < size; ++n) doCheckId( *m.getFunctionDefinition(n) );
+
+  size = m.getNumUnitDefinitions();
+  doCheckId(*m.getListOfUnitDefinitions());
+  for (n = 0; n < size; ++n) 
+  {
+    // unitDefinitions have their own rule
+    const UnitDefinition *ud = m.getUnitDefinition(n);
+    //doCheckId( *ud );
+    num = ud->getNumUnits();
+    doCheckId(*ud->getListOfUnits());
+    for (j = 0; j < num; j++)
+    {
+      doCheckId(*ud->getUnit(j));
+    }
+  }
+
+  size = m.getNumCompartments();
+  doCheckId(*m.getListOfCompartments());
+  for (n = 0; n < size; ++n) doCheckId( *m.getCompartment(n) );
+
+  size = m.getNumSpecies();
+  doCheckId(*m.getListOfSpecies());
+  for (n = 0; n < size; ++n) doCheckId( *m.getSpecies(n) );
+
+  size = m.getNumParameters();
+  doCheckId(*m.getListOfParameters()); 
+  for (n = 0; n < size; ++n) doCheckId( *m.getParameter(n) );
+
+  size = m.getNumInitialAssignments();
+  doCheckId(*m.getListOfInitialAssignments()); 
+  for (n = 0; n < size; ++n) doCheckId( *m.getInitialAssignment(n) );
+
+  size = m.getNumRules();
+  doCheckId(*m.getListOfRules()); 
+  for (n = 0; n < size; ++n) doCheckId( *m.getRule(n) );
+
+  size = m.getNumConstraints();
+  doCheckId(*m.getListOfConstraints()); 
+  for (n = 0; n < size; ++n) doCheckId( *m.getConstraint(n) );
+
+  size = m.getNumReactions();
+  doCheckId(*m.getListOfReactions()); 
+  for (n = 0; n < size; ++n) 
+  {
+    const Reaction *r = m.getReaction(n);
+    doCheckId( *r );
+
+    if (r->isSetKineticLaw())
+    {
+      doCheckId(*r->getKineticLaw());
+      // local parameters do not apply
+      num = r->getKineticLaw()->getNumParameters();
+      doCheckId(*r->getKineticLaw()->getListOfParameters());
+      //for (j = 0; j < num; j++)
+      //{
+      //  doCheckId(*r->getKineticLaw()->getParameter(j));
+      //}
+    }
+
+    num = r->getNumReactants();
+    doCheckId(*r->getListOfReactants());
+    for (j = 0; j < num; j++)
+    {
+      doCheckId(*r->getReactant(j));
+    }
+
+    num = r->getNumProducts();
+    doCheckId(*r->getListOfProducts());
+    for (j = 0; j < num; j++)
+    {
+      doCheckId(*r->getProduct(j));
+    }
+
+    num = r->getNumModifiers();
+    doCheckId(*r->getListOfModifiers());
+    for (j = 0; j < num; j++)
+    {
+      doCheckId(*r->getModifier(j));
+    }
+  }
+  size = m.getNumEvents();
+  doCheckId(*m.getListOfEvents()); 
+  for (n = 0; n < size; ++n) 
+  {
+    const Event *e = m.getEvent(n);
+    doCheckId( *e );
+ 
+    if (e->isSetTrigger())
+    {
+      doCheckId( *e->getTrigger());
+    }
+
+    if (e->isSetDelay())
+    {
+      doCheckId( *e->getDelay());
+    }
+
+    if (e->isSetPriority())
+    {
+      doCheckId( *e->getPriority());
+    }
+
+    num = e->getNumEventAssignments();
+    doCheckId(*e->getListOfEventAssignments());
+    for (j = 0; j < num; j++)
+    {
+      doCheckId(*e->getEventAssignment(j));
+    }
+  }
+
 }
 
 LIBSBML_CPP_NAMESPACE_END

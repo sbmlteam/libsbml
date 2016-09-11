@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="mmls"/>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s" compartment="c" substanceUnits="mole" constant="true" hasOnlySubstanceUnits="false" boundaryCondition="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="p" units="volt" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+        <reaction id="r" fast="false" reversible="false">
+          <listOfReactants>
+            <speciesReference species="s" constant="true"/>
+          </listOfReactants>
+          <kineticLaw>
+				<math xmlns="http://www.w3.org/1998/Math/MathML">
+					<apply>
+						<times/>
+						<cn> 5 </cn>
+						<cn> 5 </cn>
+					</apply>
+				</math>
+				<listOfLocalParameters>
+				  <localParameter id="p" units="mm"/>
+				</listOfLocalParameters>
+          </kineticLaw>
+        </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

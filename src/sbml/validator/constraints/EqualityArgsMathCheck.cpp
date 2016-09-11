@@ -95,6 +95,8 @@ EqualityArgsMathCheck::getPreamble ()
 void
 EqualityArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
+  // does not apply in L3V2
+  if (m.getLevel() == 3 && m.getVersion() > 1) return;
 
   ASTNodeType_t type = node.getType();
 

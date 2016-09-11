@@ -92,10 +92,6 @@ addConstraint(new CompartmentOutsideCycles(20505, *this));
 
 addConstraint(new VConstraintCompartment20506(*this));
 
-addConstraint(new VConstraintCompartment20507(*this));
-
-addConstraint(new VConstraintCompartment20508(*this));
-
 addConstraint(new VConstraintCompartment20510(*this));
 
 addConstraint(new VConstraintSpecies20601(*this));
@@ -139,6 +135,7 @@ addConstraint(new UniqueVarsInInitialAssignmentsAndRules(20803, *this));
 addConstraint(new VConstraintInitialAssignment20804(*this));
 
 addConstraint(new VConstraintInitialAssignment20806(*this));
+
 addConstraint(new VConstraintAssignmentRule20901(*this));
 
 addConstraint(new VConstraintRateRule20902(*this));
@@ -160,6 +157,8 @@ addConstraint(new VConstraintAlgebraicRule20907(*this));
 addConstraint(new VConstraintAssignmentRule20911(*this));
 
 addConstraint(new VConstraintRateRule20911(*this));
+
+addConstraint(new RateOfCycles(20912, *this));
 
 addConstraint(new VConstraintConstraint21001(*this));
 
@@ -190,6 +189,10 @@ addConstraint(new VConstraintAssignmentRule99129(*this));
 addConstraint(new VConstraintRateRule99129(*this));
 
 addConstraint(new StoichiometryMathVars(21131, *this));
+
+addConstraint(new VConstraintReaction21152(*this));
+
+addConstraint(new VConstraintLocalParameter21173(*this));
 
 addConstraint(new VConstraintEvent21201(*this));
 

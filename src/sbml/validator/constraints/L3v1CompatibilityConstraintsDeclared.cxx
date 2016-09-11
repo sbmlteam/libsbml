@@ -51,5 +51,63 @@ addConstraint(new VConstraintModel96008(*this));
 addConstraint(new DuplicateTopLevelAnnotation(96009, *this));
 
 addConstraint(new VConstraintCompartment96010(*this));
+
+addConstraint(new VConstraintFunctionDefinition98002(*this));
+
+addConstraint(new VConstraintInitialAssignment98002(*this));
+
+addConstraint(new VConstraintAssignmentRule98002(*this));
+
+addConstraint(new VConstraintRateRule98002(*this));
+
+addConstraint(new VConstraintAlgebraicRule98002(*this));
+
+addConstraint(new VConstraintConstraint98002(*this));
+
+addConstraint(new VConstraintKineticLaw98002(*this));
+
+addConstraint(new VConstraintTrigger98002(*this));
+
+addConstraint(new VConstraintDelay98002(*this));
+
+addConstraint(new VConstraintPriority98002(*this));
+
+addConstraint(new VConstraintEventAssignment98002(*this));
+
+addConstraint(new ReportEmptyListOf(98003, *this));
+
+addConstraint(new VConstraintFunctionDefinition98004(*this));
+
+addConstraint(new VConstraintInitialAssignment98004(*this));
+
+addConstraint(new VConstraintAssignmentRule98004(*this));
+
+addConstraint(new VConstraintRateRule98004(*this));
+
+addConstraint(new VConstraintAlgebraicRule98004(*this));
+
+addConstraint(new VConstraintConstraint98004(*this));
+
+addConstraint(new VConstraintKineticLaw98004(*this));
+
+addConstraint(new VConstraintTrigger98004(*this));
+
+addConstraint(new VConstraintDelay98004(*this));
+
+addConstraint(new VConstraintPriority98004(*this));
+
+addConstraint(new VConstraintEventAssignment98004(*this));
+
+addConstraint(new VConstraintEvent98005(*this));
+
+addConstraint(new NumericArgsMathCheck(98006, *this));
+
+addConstraint(new IdNameNewOnSBase(98007, *this));
+
+addConstraint(new VConstraintReaction98008(*this));
+
+addConstraint(new VConstraintInitialAssignment98009(*this));
+
+
 /** @endcond */
 

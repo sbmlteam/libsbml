@@ -63,17 +63,17 @@ OverDeterminedCheck::OverDeterminedCheck ( unsigned int id,
  */
 OverDeterminedCheck::~OverDeterminedCheck ()
 {
-  mEquations.clear(); // list of equation vertexes
-  mVariables.clear(); // list of variable vertexes
-  mGraph.clear();
+  //mEquations.clear(); // list of equation vertexes
+  //mVariables.clear(); // list of variable vertexes
+  //mGraph.clear();
 
-  /* these are to enable the bipartite matching without passing variables */
-  mMatching.clear();
-  mVarNeighInPrev.clear();
-  mEqnNeighInPrev.clear();
+  ///* these are to enable the bipartite matching without passing variables */
+  //mMatching.clear();
+  //mVarNeighInPrev.clear();
+  //mEqnNeighInPrev.clear();
 
-  revisited.clear();
-  visited.clear();
+  //revisited.clear();
+  //visited.clear();
 
 }
 
@@ -90,7 +90,7 @@ OverDeterminedCheck::check_ (const Model& m, const Model&)
 
   for (n = 0; n < m.getNumRules(); n++)
   {
-    if (m.getRule(n)->isAlgebraic())
+    if (m.getRule(n)->isAlgebraic() && m.getRule(n)->isSetMath())
     {
       NumAlgRules++;
     }
@@ -98,26 +98,66 @@ OverDeterminedCheck::check_ (const Model& m, const Model&)
 
   if (NumAlgRules > 0)
   {
-    createGraph(m);
+    EquationMatching* eqn = new EquationMatching();
+
+    eqn->createGraph(m);
 
     /* short check - if number equations exceeds number of variables
      * then maximal matching MUST leave one or more equations unconnected
      */
-    if (mEquations.size() > mVariables.size())
+    if (eqn->getNumEquations() > eqn->getNumVariables())
     {
-       logOverDetermined(m, unmatchedEqns);
+       logOverDetermined(m);
     }
     else
     {
-      unmatchedEqns = findMatching();
+      unmatchedEqns = eqn->findMatching();
 
       if (unmatchedEqns.size() > 0)
       {
-        logOverDetermined(m, unmatchedEqns);
+        logOverDetermined(m);
       }
     }
+
+    delete eqn;
   }
 }
+
+/*
+ * Logs a message about overdetermined model.
+ * As yet this only reports the problem - it doesnt really give
+ * any additional information
+ */
+void
+OverDeterminedCheck::logOverDetermined (const Model& m)
+{
+  //msg =
+  //  "The system of equations created from an SBML model must not be "
+  //  "overdetermined. (References: L2V2 Section 4.11.5.)";
+
+  logFailure(m);
+}
+
+EquationMatching::EquationMatching()
+{
+}
+
+EquationMatching::~EquationMatching ()
+{
+  mEquations.clear(); // list of equation vertexes
+  mVariables.clear(); // list of variable vertexes
+  mGraph.clear();
+
+  /* these are to enable the bipartite matching without passing variables */
+  mMatching.clear();
+  mVarNeighInPrev.clear();
+  mEqnNeighInPrev.clear();
+
+  revisited.clear();
+  visited.clear();
+
+}
+
 
 
 /* 
@@ -129,7 +169,7 @@ OverDeterminedCheck::check_ (const Model& m, const Model&)
  * 3. a KineticLaw 
  */
 void
-OverDeterminedCheck::writeEquationVertexes(const Model& m)
+EquationMatching::writeEquationVertexes(const Model& m)
 {
   const Reaction *r;
   const Species* s;
@@ -197,7 +237,7 @@ OverDeterminedCheck::writeEquationVertexes(const Model& m)
  * (b) for every Reaction structure.
  */
 void
-OverDeterminedCheck::writeVariableVertexes(const Model& m)
+EquationMatching::writeVariableVertexes(const Model& m)
 {
   unsigned int n, k;
 
@@ -267,7 +307,16 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
   }
 }
 
-
+unsigned int 
+EquationMatching::getNumEquations()
+{
+  return mEquations.size();
+}
+unsigned int 
+EquationMatching::getNumVariables()
+{
+  return mVariables.size();
+}
 /*
  * creates a bipartite graph according to the L2V2 spec 4.11.5 
  * creates edges between the equation vertexes and the variable vertexes
@@ -275,7 +324,7 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
  * listing the edges the equation vertex is connected to
 */
 void
-OverDeterminedCheck::createGraph(const Model& m)
+EquationMatching::createGraph(const Model& m)
 {
   IdList joined;
   IdList speciesAdded;
@@ -477,7 +526,7 @@ OverDeterminedCheck::createGraph(const Model& m)
  * in the maximal matching
  */ 
 IdList 
-OverDeterminedCheck::findMatching()
+EquationMatching::findMatching()
 {
   IdList unmatchedEquations;
 
@@ -619,7 +668,7 @@ OverDeterminedCheck::findMatching()
  * where necessary
  */
 unsigned int
-OverDeterminedCheck::Recurse(std::string v)
+EquationMatching::Recurse(std::string v)
 {
   //static graph revisited;
   //static IdList visited;
@@ -714,20 +763,19 @@ OverDeterminedCheck::Recurse(std::string v)
 }
 
 
-/*
- * Logs a message about overdetermined model.
- * As yet this only reports the problem - it doesnt really give
- * any additional information
- */
-void
-OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& )
+/* return true if the pair are matched
+*/
+bool
+EquationMatching::match_dependency(const std::string& var, const std::string& eq)
 {
-  //msg =
-  //  "The system of equations created from an SBML model must not be "
-  //  "overdetermined. (References: L2V2 Section 4.11.5.)";
+  bool match = false;
+  IdList matches = mMatching[var];
 
-  logFailure(m);
+  if (matches.size() == 1 && matches.at(0) == eq)
+    match = true;
+
+  
+  return match;
 }
-
 LIBSBML_CPP_NAMESPACE_END
 /** @endcond */

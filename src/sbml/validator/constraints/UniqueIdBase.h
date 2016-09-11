@@ -86,6 +86,14 @@ protected:
   void doCheckId (const std::string& id, const SBase& object);
 
 
+
+  /**
+   * Checks that the id associated with the given object is unique.  If it
+   * is not, logFailure is called.
+   */
+  void doCheckId (const SBase& object);
+
+
   /**
    * Returns the error message to use when logging constraint violations.
    * This method is called by logFailure.

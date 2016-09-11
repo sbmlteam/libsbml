@@ -130,6 +130,7 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
   case AST_FUNCTION_TAN:
   case AST_FUNCTION_TANH:
   case AST_LOGICAL_NOT:
+  case AST_FUNCTION_RATE_OF:
 
     checkUnary(m, node, sb);
       break;
@@ -140,6 +141,9 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     case AST_FUNCTION_DELAY:
     case AST_FUNCTION_POWER:
     case AST_FUNCTION_LOG:       // a log ASTNode has a child for base
+    case AST_FUNCTION_REM:
+    case AST_FUNCTION_QUOTIENT:
+    case AST_LOGICAL_IMPLIES:
 
     checkBinary(m, node, sb);
       break;
@@ -150,6 +154,8 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     case AST_LOGICAL_AND:
     case AST_LOGICAL_OR:
     case AST_LOGICAL_XOR:
+    case AST_FUNCTION_MIN:
+    case AST_FUNCTION_MAX:
       checkChildren(m, node, sb);
       break;
 

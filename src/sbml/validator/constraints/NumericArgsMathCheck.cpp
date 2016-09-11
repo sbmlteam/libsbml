@@ -99,6 +99,17 @@ NumericArgsMathCheck::getPreamble ()
 void
 NumericArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
+  // does not apply in L3V2 for general consistency checking
+  // BUT we want to use it for telling a converter that this occurs in L3V2
+  if (this->mValidator.getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY)
+  {
+    if (m.getLevel() == 3 && m.getVersion() > 1) return;
+  }
+  else
+  {
+    if (m.getLevel() != 3) return;
+    else if (m.getVersion() == 1) return;
+  }
 
   ASTNodeType_t type = node.getType();
 

@@ -183,12 +183,21 @@ public:
    */
   virtual unsigned int validate (const std::string& filename);
 
+    /** @cond doxygenLibsbmlInternal */
+
+    unsigned int getConsistencyLevel();
+
+    unsigned int getConsistencyVersion();
+
+  /** @endcond */
 
 protected:
   /** @cond doxygenLibsbmlInternal */
   ValidatorConstraints* mConstraints;
   std::list<SBMLError>  mFailures;
   unsigned int          mCategory;
+  unsigned int          mConsistencyLevel;
+  unsigned int          mConsistencyVersion;
 
 
   friend class ValidatingVisitor;

@@ -53,6 +53,7 @@
 #include <sbml/validator/L2v3CompatibilityValidator.h>
 #include <sbml/validator/L2v4CompatibilityValidator.h>
 #include <sbml/validator/L3v1CompatibilityValidator.h>
+#include <sbml/validator/L3v2CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
@@ -746,6 +747,28 @@ SBMLInternalValidator::checkL3v1Compatibility ()
 
   unsigned int nerrors = validator.validate(*getDocument());
   if (nerrors > 0) getErrorLog()->add( validator.getFailures() );
+
+  return nerrors;
+}
+
+
+/*
+* Performs a set of semantic consistency checks on the document to establish
+* whether it is compatible with L3v2 and can be converted.  Query
+* the results by calling getNumErrors() and getError().
+*
+* @return the number of failed checks (errors) encountered.
+*/
+unsigned int
+SBMLInternalValidator::checkL3v2Compatibility()
+{
+  if (getModel() == NULL) return 0;
+
+  L3v2CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*getDocument());
+  if (nerrors > 0) getErrorLog()->add(validator.getFailures());
 
   return nerrors;
 }

@@ -72,7 +72,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99902, Compartment, c)
 {
-  // level 1 and L2V1 compartment shouldnt have compartmentType
+  // level 1 and L2V1 and L3 compartment shouldnt have compartmentType
   pre( c.getLevel() == 1 || (c.getLevel() == 2 && c.getVersion() == 1) 
      || c.getLevel() == 3 );
   
@@ -374,7 +374,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99908, Model, x)
 {
-  // compartmentType not valid in L1 or L2v1
+  // compartmentType not valid in L1 or L2v1 or L3
   pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1)
     || x.getLevel() == 3 );
   
@@ -626,7 +626,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99918, Species, s)
 {
-  // level 1 and L2V1 species shouldnt have speciesType
+  // level 1 and L2V1 or L3 species shouldnt have speciesType
   pre( s.getLevel() == 1 || (s.getLevel() == 2 && s.getVersion() == 1)
     || s.getLevel() == 3);
   
@@ -667,7 +667,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99922, Model, x)
 {
-  // speciesType not valid in L1 or L2v1
+  // speciesType not valid in L1 or L2v1 or L3
   pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1)
     || x.getLevel() == 3);
   
@@ -758,6 +758,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21101, Reaction, r)
 {
+  // does not apply to l3v2
+  if (r.getLevel() == 3)
+  {
+    pre(r.getVersion() < 2);
+  }
+
   inv( r.getNumReactants() > 0 || r.getNumProducts() > 0 );
 }
 END_CONSTRAINT
@@ -772,6 +778,11 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21201, Event, e)
 {
+  // does not apply to l3v2
+  if (e.getLevel() == 3)
+  {
+    pre(e.getVersion() < 2);
+  }
   inv( e.isSetTrigger() == true );
 }
 END_CONSTRAINT

@@ -350,14 +350,6 @@ START_CONSTRAINT (91018, Model, x)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (92011, Event, e)
-{
-  pre (e.getLevel() > 2);
-  inv( !e.isSetPriority() );
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (92012, Event, e)
 {
   pre (e.getLevel() > 2);

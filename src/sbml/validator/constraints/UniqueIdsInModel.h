@@ -74,6 +74,9 @@ protected:
    * Reactions, and Events.
    */
   virtual void doCheck (const Model& m);
+
+  void doAllIdCheck (const Model& m);
+
 };
 
 LIBSBML_CPP_NAMESPACE_END

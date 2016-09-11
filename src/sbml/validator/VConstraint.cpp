@@ -133,7 +133,21 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
     }
   }
 
-  SBMLError error = SBMLError( mId, object.getLevel(), object.getVersion(),
+  // if we are usinga  consistency validator we want the level and version
+  // of the target sbml - which we have conveniently saved in the validator
+  // but for now only with 98000 numbers
+  unsigned int level = object.getLevel();
+  unsigned int version = object.getVersion();
+  if ((98000 < mId) && (mId < 98999))
+  {
+    if (mValidator.getConsistencyLevel() != 0)
+    {
+      level = mValidator.getConsistencyLevel();
+      version = mValidator.getConsistencyVersion();
+    }
+  }
+
+  SBMLError error = SBMLError( mId, level, version,
 			       message, object.getLine(), object.getColumn(),
              LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML, pkg, pkgVersion);
 

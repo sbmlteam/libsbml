@@ -46,11 +46,15 @@ addConstraint(new UniqueVarsInEventsAndRules(10306, *this));
 
 addConstraint(new UniqueMetaId(10307, *this));
 
+addConstraint(new ModelUnitsDangling(10313, *this));
+
 addConstraint(new VConstraintParameter10313(*this));
 
 addConstraint(new VConstraintSpecies10313(*this));
 
 addConstraint(new VConstraintCompartment10313(*this));
+
+addConstraint(new VConstraintLocalParameter10313(*this));
 
 addConstraint(new VConstraintParameter99303(*this));
 

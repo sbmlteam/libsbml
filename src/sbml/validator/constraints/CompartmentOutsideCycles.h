@@ -77,7 +77,7 @@ protected:
    * Checks that no Compartments in Model have a cycle via their 'outside'
    * attribute.
    *
-   * Sets mHolds to true if no cycles are found, false otherwise.
+   * Sets mHolds to @c true if no cycles are found, @c false otherwise.
    */
   virtual void check_ (const Model& m, const Model& object);
 
@@ -88,11 +88,11 @@ protected:
   void checkForCycle (const Model& m, const Compartment* c);
 
   /**
-   * Returns true if Compartment @p c is contained in one of the already found
-   * cycles, false otherwise.
+   * Returns @c true if Compartment @p c is contained in one of the already found
+   * cycles, @c false otherwise.
    *
-   * @return true if Compartment c is contained in one of the already found
-   * cycles, false otherwise.
+   * @return @c true if Compartment c is contained in one of the already found
+   * cycles, @c false otherwise.
    */
   bool isInCycle (const Compartment* c);
 

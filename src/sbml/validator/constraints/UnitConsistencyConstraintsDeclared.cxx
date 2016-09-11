@@ -42,6 +42,12 @@ addConstraint(new VConstraintModel20220(*this));
 
 addConstraint(new VConstraintModel20221(*this));
 
+addConstraint(new VConstraintModel20233(*this));
+
+addConstraint(new VConstraintCompartment20507(*this));
+
+addConstraint(new VConstraintCompartment20508(*this));
+
 addConstraint(new VConstraintCompartment20509(*this));
 
 addConstraint(new VConstraintSpecies20608(*this));
@@ -73,6 +79,28 @@ addConstraint(new VConstraintParameter99508(*this));
 addConstraint(new VConstraintModel99506(*this));
 
 addConstraint(new VConstraintModel99507(*this));
+
+addConstraint(new VConstraintInitialAssignment99509(*this));
+
+addConstraint(new VConstraintAlgebraicRule99509(*this));
+
+addConstraint(new VConstraintAssignmentRule99509(*this));
+
+addConstraint(new VConstraintRateRule99509(*this));
+
+addConstraint(new VConstraintKineticLaw99509(*this));
+
+addConstraint(new VConstraintConstraint99509(*this));
+
+addConstraint(new VConstraintTrigger99509(*this));
+
+addConstraint(new VConstraintPriority99509(*this));
+
+addConstraint(new VConstraintDelay99509(*this));
+
+addConstraint(new VConstraintFunctionDefinition99509(*this));
+
+addConstraint(new VConstraintEventAssignment99509(*this));
 
 addConstraint(new ArgumentsUnitsCheck(10501, *this));
 

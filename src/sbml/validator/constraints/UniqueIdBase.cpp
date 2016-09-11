@@ -84,6 +84,21 @@ UniqueIdBase::doCheckId (const string& id, const SBase& object)
 
 
 /*
+ * Checks that the id associated with the given object is unique.  If it
+ * is not, logIdConflict is called.
+ */
+void
+UniqueIdBase::doCheckId (const SBase& object)
+{
+  if (object.isSetIdAttribute())
+  {
+    doCheckId(object.getIdAttribute(), object);
+  }
+}
+
+
+
+/*
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.
  *

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model id="case01292" name="case01292">
+    <listOfUnitDefinitions>
+      <unitDefinition id="a">
+        <listOfUnits/>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="ss" constant="false"/>
+    </listOfParameters>
+  </model>
+</sbml>

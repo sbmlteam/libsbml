@@ -64,8 +64,8 @@ public:
    *
    * The severity of the constraint is set to 2 by default.
    *
-   * @param id an integer, the id of the new VConstraint
-   * @param v a Validator for the new VContraint
+   * @param id an integer, the id of the new VConstraint.
+   * @param v a Validator for the new VContraint.
    */
   VConstraint (unsigned int id, Validator& v);
 

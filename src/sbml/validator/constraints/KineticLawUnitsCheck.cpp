@@ -99,7 +99,7 @@ KineticLawUnitsCheck::getPreamble ()
   * Checks that the units of the result of the assignment rule
   * are consistent with variable being assigned
   *
-  * @return true if units are consistent, false otherwise.
+  * @return @c true if units are consistent, false otherwise.
   */
 void
 KineticLawUnitsCheck::check_ (const Model& m, const Model&)

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model timeUnits="second">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="rem">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar> <ci> x </ci> </bvar>
+            <bvar> <ci> y </ci> </bvar>
+            <apply>
+              <rem/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+        
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="c" constant="false" units="litre"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="p" value="1" constant="false" units="dimensionless"/>
+      <parameter id="p1" value="1" units="metre" constant="false"/>
+      <parameter id="delta_t" value="1" units="second" constant="false"/>
+    </listOfParameters>
+    <listOfConstraints>
+      <constraint>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> rem </ci>
+            <ci> p </ci>
+            <apply>
+            <times/>
+          <apply>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/rateOf"> r </csymbol>
+            <ci> p </ci>
+          </apply>
+            <ci> delta_t </ci>
+            </apply>
+            </apply>
+        </math>
+      </constraint>
+    </listOfConstraints>
+  </model>
+</sbml>

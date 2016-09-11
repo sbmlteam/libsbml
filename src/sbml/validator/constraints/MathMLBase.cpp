@@ -50,6 +50,8 @@ MathMLBase::MathMLBase (unsigned int id, Validator& v) :
 {
   mNumericFunctionsChecked.clear();
   mFunctionsChecked.clear();
+  mEqnMatchingRun = false;
+  mEqnMatch = NULL;
 }
 
 
@@ -58,6 +60,10 @@ MathMLBase::MathMLBase (unsigned int id, Validator& v) :
  */
 MathMLBase::~MathMLBase ()
 {
+  if (mEqnMatch != NULL)
+  {
+    delete mEqnMatch;
+  }
 }
 
 
@@ -358,7 +364,7 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
   unsigned int n, count;
   ASTNodeType_t type = node->getType();
   unsigned int numChildren = node->getNumChildren();
-  bool numeric;
+  bool numeric = false;
   bool temp;
 
 
@@ -389,10 +395,14 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
     {
       numeric = true;
     }
-    else
-    {
-      numeric = false;
-    }
+    // in l3v2 a boolean/numbers are interchangeable
+    //else if (m.getLevel() == 3 && m.getVersion() > 1)
+    //{
+    //  if (node->isBoolean())
+    //  {
+    //    numeric = true;
+    //  }
+    //}
   }
   else
   {
@@ -442,10 +452,15 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
       }
 
     }
-    else /* not a function that returns a number */
-    {
-      numeric = false;
-    }
+    // in l3v2 a boolean/numbers are interchangeable
+    //else if (m.getLevel() == 3 && m.getVersion() > 1)
+    //{
+    //  // should only get here is we are not an operator/function
+    //  if (node->isBoolean())
+    //  {
+    //    numeric = true;
+    //  }
+    //}
   }
   
   return numeric;
@@ -555,6 +570,43 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
       return true;
     }
   }
+}
+
+unsigned int
+MathMLBase::getNumAlgebraicRules(const Model & m)
+{
+  unsigned int numAlgRules = 0;
+
+  for (unsigned int n = 0; n < m.getNumRules(); n++)
+  {
+    if (m.getRule(n)->isAlgebraic())
+    {
+      numAlgRules++;
+    }
+  }
+
+  return numAlgRules;
+}
+
+void
+MathMLBase::matchEquations(const Model& m)
+{
+  if (!mEqnMatchingRun)
+  {
+    mEqnMatch = new EquationMatching();
+
+    mEqnMatch->createGraph(m);
+
+    mEqnMatch->findMatching();
+
+    mEqnMatchingRun = true;
+  }
+}
+
+bool
+MathMLBase::matchExists(const std::string& var, const std::string& eqn)
+{
+  return mEqnMatch->match_dependency(var, eqn);
 }
 
 LIBSBML_CPP_NAMESPACE_END

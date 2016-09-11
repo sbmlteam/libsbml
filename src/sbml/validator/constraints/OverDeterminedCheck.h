@@ -58,6 +58,75 @@ typedef std::map< std::string, IdList> graph;
 class Model;
 class Validator;
 
+class EquationMatching
+{
+public:
+  EquationMatching();
+
+  ~EquationMatching();
+
+  /** 
+   * creates equation vertexes according to the L2V2 spec 4.11.5 for every
+   * 1. a Species object that has the boundaryCondition field set to false 
+   * and constant field set to false and which is referenced by one or more 
+   * reactant or product lists of a Reaction object containing a KineticLaw object
+   * 2. a Rule object
+   * 3. a KineticLaw object
+   */
+  void writeEquationVertexes(const Model &);
+
+  unsigned int getNumEquations();
+
+  /**
+   * creates variable vertexes according to the L2V2 spec 4.11.5 for
+   * (a) every Species, Compartment and Parameter object which has the
+   * Constant field set to false; and 
+   * (b) for every Reaction object.
+   */
+  void writeVariableVertexes(const Model &);
+
+  unsigned int getNumVariables();
+
+  /**
+   * creates a bipartite graph according to the L2V2 spec 4.11.5 
+   * creates edges between the equation vertexes and the variable vertexes
+   * graph produced is an id representimg the equation and an IdList
+   * listing the edges the equation vertex is connected to
+   */
+  void createGraph(const Model &);
+
+  /**
+   * finds a maximal matching of the bipartite graph
+   * adapted from the only implementation I could find:
+   * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
+   * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
+   *
+   * returns an IdList of any equation vertexes that are unconnected 
+   * in the maximal matching
+   */
+  IdList findMatching();
+
+  /**
+  * function that looks for alternative paths and adds these to the matching
+  * where necessary
+  */
+  unsigned int Recurse(std::string);
+
+  bool match_dependency(const std::string& var, const std::string& eq); 
+
+
+  IdList mEquations; // list of equation vertexes
+  IdList mVariables; // list of variable vertexes
+  graph mGraph;
+
+  /* these are to enable the bipartite matching without passing variables */
+  graph mMatching;
+  graph mVarNeighInPrev;
+  graph mEqnNeighInPrev;
+
+  graph revisited;
+  IdList visited;
+};
 
 class OverDeterminedCheck: public TConstraint<Model>
 {
@@ -81,68 +150,68 @@ protected:
    */
   virtual void check_ (const Model& m, const Model& object);
 
-  /** 
-   * creates equation vertexes according to the L2V2 spec 4.11.5 for every
-   * 1. a Species object that has the boundaryCondition field set to false 
-   * and constant field set to false and which is referenced by one or more 
-   * reactant or product lists of a Reaction object containing a KineticLaw object
-   * 2. a Rule object
-   * 3. a KineticLaw object
-   */
-  void writeEquationVertexes(const Model &);
+  ///** 
+  // * creates equation vertexes according to the L2V2 spec 4.11.5 for every
+  // * 1. a Species object that has the boundaryCondition field set to false 
+  // * and constant field set to false and which is referenced by one or more 
+  // * reactant or product lists of a Reaction object containing a KineticLaw object
+  // * 2. a Rule object
+  // * 3. a KineticLaw object
+  // */
+  //void writeEquationVertexes(const Model &);
 
-  /**
-   * creates variable vertexes according to the L2V2 spec 4.11.5 for
-   * (a) every Species, Compartment and Parameter object which has the
-   * Constant field set to false; and 
-   * (b) for every Reaction object.
-   */
-  void writeVariableVertexes(const Model &);
+  ///**
+  // * creates variable vertexes according to the L2V2 spec 4.11.5 for
+  // * (a) every Species, Compartment and Parameter object which has the
+  // * Constant field set to false; and 
+  // * (b) for every Reaction object.
+  // */
+  //void writeVariableVertexes(const Model &);
 
-  /**
-   * creates a bipartite graph according to the L2V2 spec 4.11.5 
-   * creates edges between the equation vertexes and the variable vertexes
-   * graph produced is an id representimg the equation and an IdList
-   * listing the edges the equation vertex is connected to
-   */
-  void createGraph(const Model &);
+  ///**
+  // * creates a bipartite graph according to the L2V2 spec 4.11.5 
+  // * creates edges between the equation vertexes and the variable vertexes
+  // * graph produced is an id representimg the equation and an IdList
+  // * listing the edges the equation vertex is connected to
+  // */
+  //void createGraph(const Model &);
 
-  /**
-   * finds a maximal matching of the bipartite graph
-   * adapted from the only implementation I could find:
-   * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
-   * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
-   *
-   * returns an IdList of any equation vertexes that are unconnected 
-   * in the maximal matching
-   */ 
-  IdList findMatching();
+  ///**
+  // * finds a maximal matching of the bipartite graph
+  // * adapted from the only implementation I could find:
+  // * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
+  // * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
+  // *
+  // * returns an IdList of any equation vertexes that are unconnected 
+  // * in the maximal matching
+  // */
+  //IdList findMatching();
 
-  /**
-  * function that looks for alternative paths and adds these to the matching
-  * where necessary
-  */
-  unsigned int Recurse(std::string);
+  ///**
+  //* function that looks for alternative paths and adds these to the matching
+  //* where necessary
+  //*/
+  //unsigned int Recurse(std::string);
 
   /**
    * Logs a message about overdetermined model.
    * As yet this only reports the problem - it doesnt really give
    * any additional information
    */
-  void logOverDetermined (const Model &, const IdList& unmatched);
+  void logOverDetermined (const Model &);
 
 
-  IdList mEquations; // list of equation vertexes
-  IdList mVariables; // list of variable vertexes
-  graph mGraph;
+  //IdList mEquations; // list of equation vertexes
+  //IdList mVariables; // list of variable vertexes
+  //graph mGraph;
 
-  /* these are to enable the bipartite matching without passing variables */
-  graph mMatching;
-  graph mVarNeighInPrev;
-  graph mEqnNeighInPrev;
+  ///* these are to enable the bipartite matching without passing variables */
+  //graph mMatching;
+  //graph mVarNeighInPrev;
+  //graph mEqnNeighInPrev;
 
-  graph revisited;
-  IdList visited;
+  //graph revisited;
+  //IdList visited;
 
 };
 

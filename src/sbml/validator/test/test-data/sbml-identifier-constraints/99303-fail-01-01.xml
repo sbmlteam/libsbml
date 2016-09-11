@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
     <model>
          <listOfParameters>
             <parameter id="Keq" value="2.5" units="sarah" constant="true"/>

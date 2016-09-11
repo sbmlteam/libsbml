@@ -78,13 +78,14 @@ sources =                                     \
   ConsistencyConstraints.cpp                  \
   DuplicateTopLevelAnnotation.cpp             \
   EqualityArgsMathCheck.cpp                   \
-  ExponentUnitsCheck.cpp		          			  \
+  ExponentUnitsCheck.cpp                      \
   FunctionApplyMathCheck.cpp                  \
   FunctionDefinitionVars.cpp                  \
   FunctionDefinitionRecursion.cpp             \
   FunctionNoArgsMathCheck.cpp                 \
   FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
+  IdNameNewOnSBase.cpp                        \
   IdentifierConsistencyConstraints.cpp        \
   InternalConsistencyConstraints.cpp          \
   KineticLawVars.cpp                          \
@@ -95,6 +96,7 @@ sources =                                     \
   L2v3CompatibilityConstraints.cpp            \
   L2v4CompatibilityConstraints.cpp            \
   L3v1CompatibilityConstraints.cpp            \
+  L3v2CompatibilityConstraints.cpp            \
   LambdaMathCheck.cpp                         \
   LocalParameterMathCheck.cpp                 \
   LocalParameterShadowsIdInModel.cpp          \
@@ -102,17 +104,24 @@ sources =                                     \
   MathMLBase.cpp                              \
   MathMLConsistencyConstraints.cpp            \
   ModelingPracticeConstraints.cpp             \
+  ModelUnitsDangling.cpp                      \
   NumberArgsMathCheck.cpp                     \
   NumericArgsMathCheck.cpp                    \
   NumericReturnMathCheck.cpp                  \
   OverDeterminedCheck.cpp                     \
-  OverdeterminedConstraints.cpp				  \
+  OverdeterminedConstraints.cpp               \
   PieceBooleanMathCheck.cpp                   \
   PiecewiseValueMathCheck.cpp                 \
-  PowerUnitsCheck.cpp						  \
+  PowerUnitsCheck.cpp                         \
+  RateOfAssignmentMathCheck.cpp               \
+  RateOfCiTargetMathCheck.cpp                 \
+  RateOfCompartmentMathCheck.cpp              \
+  RateOfCycles.cpp                            \
+  ReportEmptyListOf.cpp                       \
   SBOConsistencyConstraints.cpp               \
   SpeciesReactionOrRule.cpp                   \
   StoichiometryMathVars.cpp                   \
+  StrictUnitConsistencyConstraints.cpp        \
   UniqueIdBase.cpp                            \
   UniqueIdsForUnitDefinitions.cpp             \
   UniqueIdsInKineticLaw.cpp                   \
@@ -133,6 +142,7 @@ header_inst_prefix = validator/constraints
 
 headers =               \
   IdBase.h              \
+  IdNameNewOnSBase.h    \
   MathMLBase.h          \
   OverDeterminedCheck.h \
   UniqueIdBase.h        \
@@ -162,12 +172,18 @@ other_headers = \
   LocalParameterShadowsIdInModel.h         \
   LogicalArgsMathCheck.h                   \
   Makefile.in                              \
+  ModelUnitsDangling.h                     \
   NumberArgsMathCheck.h                    \
   NumericArgsMathCheck.h                   \
   NumericReturnMathCheck.h                 \
   PieceBooleanMathCheck.h                  \
   PiecewiseValueMathCheck.h                \
   PowerUnitsCheck.h                        \
+  RateOfAssignmentMathCheck.h              \
+  RateOfCiTargetMathCheck.h                \
+  RateOfCompartmentMathCheck.h             \
+  RateOfCycles.h                           \
+  ReportEmptyListOf.h                      \
   SpeciesReactionOrRule.h                  \
   StoichiometryMathVars.h                  \
   UniqueIdsForUnitDefinitions.h            \

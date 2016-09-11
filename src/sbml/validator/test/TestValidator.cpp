@@ -118,6 +118,102 @@ TestValidator::test (const TestFile& file)
     others = 99303;
   }
 
+  /* for my new compatibility constraints some will only apply to certain levels
+   * so adjust these here
+   */
+  if (id == 98001)
+  {
+    if (mValidator.getConsistencyLevel() == 3) expected = 0;
+  }
+
+  if (id == 98003)
+  {
+    if (mValidator.getConsistencyLevel() == 1)
+    {
+      if (num == 12) 
+      {
+        others = 91001;
+        expected = 2;
+      }
+    }
+  }
+  if (id == 98004)
+  {
+    if (mValidator.getConsistencyLevel() == 1) 
+    {
+      if (num < 12 && num > 7)
+      {
+        others = 91001;
+        expected = 2;
+      }
+      else if (num == 6)
+      {
+        others = 91003;
+        expected = 2;
+      }
+      else if (num == 2)
+      {
+        others = 91004;
+        expected = 2;
+      }
+      else if (num == 1)
+      {
+        others = 91002;
+        expected = 2;
+      }
+    }
+ /*   if (num == 10 && mValidator.getConsistencyLevel() == 2) 
+    {
+      others = 92011;
+      expected = 2;
+    }*/
+    if (num == 6 && ((mValidator.getConsistencyLevel() == 2 
+                   && mValidator.getConsistencyVersion() == 1)))
+    {
+      others = 92001;
+      expected = 2;
+    }
+    if (num == 2 && ((mValidator.getConsistencyLevel() == 2 
+                   && mValidator.getConsistencyVersion() == 1)))
+    {
+      others = 92002;
+      expected = 2;
+    }
+  }
+  if (id == 98005)
+  {
+    if (mValidator.getConsistencyLevel() == 1) 
+    {
+        expected = 1;
+        id = 91001;
+    }
+  }
+  if (id == 98007)
+  {
+    if (num < 3 && ((mValidator.getConsistencyLevel() == 2 
+                   && mValidator.getConsistencyVersion() == 1)
+                   || (mValidator.getConsistencyLevel() == 1)))
+    {
+      others = 92001;
+      if (mValidator.getConsistencyLevel() == 1)
+        others = 91003;
+      expected = 2;
+    }
+  }
+  if (id == 98009)
+  {
+    if (mValidator.getConsistencyLevel() == 1)
+    {
+      others = 91004;
+      expected = 2;
+    }
+    else if (mValidator.getConsistencyLevel() == 2 && mValidator.getConsistencyVersion() == 1)
+    {
+      others = 92002;
+      expected = 2;
+    }
+  }
+//  cout << file.getFilename() << endl;
 /* NOTE: the error 10218 relating to number of child elements to a 
  * piece/otherwise element is very difficult to synchronise 
  *
